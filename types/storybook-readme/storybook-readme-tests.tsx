@@ -1,9 +1,9 @@
-import * as React from "react";
 import { storiesOf, addDecorator } from "@storybook/react";
+import React, { Fragment } from "react";
 import { withDocs, withReadme, doc, addReadme, configureReadme, addFooter, addHeader } from "storybook-readme";
 import Marked from "storybook-readme/components/Marked";
-import registerWithPanelTitle from "storybook-readme/registerWithPanelTitle";
 import { addReadme as addHtmlReadme } from "storybook-readme/html";
+import registerWithPanelTitle from "storybook-readme/registerWithPanelTitle";
 
 // Possibly any .md files or strings
 const DocExample1 = `
@@ -87,7 +87,7 @@ storiesOf("Doc", module).add("StoryName Here", doc(DocExample1));
 // Marked usage.
 storiesOf("Custom Layout", module).add("StoryName Here", () => {
   return (
-    <React.Fragment>
+    <Fragment>
       <div>
         <div>your react component</div>
       </div>
@@ -100,6 +100,6 @@ storiesOf("Custom Layout", module).add("StoryName Here", () => {
         <div>your react component</div>
       </div>
       <Marked md={"### OUTRO "} />
-    </React.Fragment>
+    </Fragment>
   );
 });

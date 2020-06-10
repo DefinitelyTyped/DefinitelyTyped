@@ -4,6 +4,7 @@
 //                 Mahdi Abedi <https://github.com/abedi-ir>
 //                 Nikolai Ommundsen <https://github.com/niikoo>
 //                 Nitecube <https://github.com/Nitecube>
+//                 Hossein Hosni <https://github.com/hosni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -132,7 +133,7 @@ declare namespace Fancytree {
         getNodesByRef(refKey: string, rootNode?: FancytreeNode): FancytreeNode[];
 
         /** [ext-persist] Return persistence information from cookies Called like $("#tree").fancytree("getTree").getPersistData(); */
-        getPersistData(): void;
+        getPersistData(): PersistData;
 
         /** Return the invisible system root node.  */
         getRootNode(): FancytreeNode;
@@ -824,7 +825,7 @@ declare namespace Fancytree {
         /** navigate to next node by typing the first letters (default: false) */
         quicksearch?: boolean;
         /** Right to left mode (default: false) */
-        rtl?: false;
+        rtl?: boolean;
         /** optional margins for node.scrollIntoView() (default: {top: 0, bottom: 0}) */
         scrollOfs?: { top: number, bottom: number };
         /** scrollable container for node.scrollIntoView() (default: $container) */
@@ -879,6 +880,13 @@ declare namespace Fancytree {
          * "No data."
          */
         noData?: string;
+    }
+
+    interface PersistData {
+        active: string | null;
+        expanded: string[];
+        focus: string | null;
+        selected: string[];
     }
 
     namespace Extensions {

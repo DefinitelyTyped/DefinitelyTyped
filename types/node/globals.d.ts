@@ -87,13 +87,6 @@ interface Console {
     // --- Inspector mode only ---
     /**
      * This method does not display anything unless used in the inspector.
-     *  The console.markTimeline() method is the deprecated form of console.timeStamp().
-     *
-     * @deprecated Use console.timeStamp() instead.
-     */
-    markTimeline(label?: string): void;
-    /**
-     * This method does not display anything unless used in the inspector.
      *  Starts a JavaScript CPU profile with an optional label.
      */
     profile(label?: string): void;
@@ -107,30 +100,12 @@ interface Console {
      *  Adds an event with the label `label` to the Timeline panel of the inspector.
      */
     timeStamp(label?: string): void;
-    /**
-     * This method does not display anything unless used in the inspector.
-     *  The console.timeline() method is the deprecated form of console.time().
-     *
-     * @deprecated Use console.time() instead.
-     */
-    timeline(label?: string): void;
-    /**
-     * This method does not display anything unless used in the inspector.
-     *  The console.timelineEnd() method is the deprecated form of console.timeEnd().
-     *
-     * @deprecated Use console.timeEnd() instead.
-     */
-    timelineEnd(label?: string): void;
-}
-
-interface Error {
-    stack?: string;
 }
 
 // Declare "static" methods in Error
 interface ErrorConstructor {
     /** Create .stack property on a target object */
-    captureStackTrace(targetObject: Object, constructorOpt?: Function): void;
+    captureStackTrace(targetObject: object, constructorOpt?: Function): void;
 
     /**
      * Optional override for formatting stack traces
@@ -140,10 +115,6 @@ interface ErrorConstructor {
     prepareStackTrace?: (err: Error, stackTraces: NodeJS.CallSite[]) => any;
 
     stackTraceLimit: number;
-}
-
-interface SymbolConstructor {
-    readonly observable: symbol;
 }
 
 // Node.js ESNEXT support
@@ -163,8 +134,13 @@ interface ImportMeta {
  *                   GLOBAL                      *
  *                                               *
  ------------------------------------------------*/
+
+// For backwards compability
+interface NodeRequire extends NodeJS.Require {}
+interface RequireResolve extends NodeJS.RequireResolve {}
+interface NodeModule extends NodeJS.Module {}
+
 declare var process: NodeJS.Process;
-declare var global: NodeJS.Global;
 declare var console: Console;
 
 declare var __filename: string;
@@ -187,47 +163,7 @@ declare function clearImmediate(immediateId: NodeJS.Immediate): void;
 
 declare function queueMicrotask(callback: () => void): void;
 
-// TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
-interface NodeRequireFunction {
-    /* tslint:disable-next-line:callable-types */
-    (id: string): any;
-}
-
-interface NodeRequire extends NodeRequireFunction {
-    resolve: RequireResolve;
-    cache: any;
-    /**
-     * @deprecated
-     */
-    extensions: NodeExtensions;
-    main: NodeModule | undefined;
-}
-
-interface RequireResolve {
-    (id: string, options?: { paths?: string[]; }): string;
-    paths(request: string): string[] | null;
-}
-
-interface NodeExtensions {
-    '.js': (m: NodeModule, filename: string) => any;
-    '.json': (m: NodeModule, filename: string) => any;
-    '.node': (m: NodeModule, filename: string) => any;
-    [ext: string]: (m: NodeModule, filename: string) => any;
-}
-
 declare var require: NodeRequire;
-
-interface NodeModule {
-    exports: any;
-    require: NodeRequireFunction;
-    id: string;
-    filename: string;
-    loaded: boolean;
-    parent: NodeModule | null;
-    children: NodeModule[];
-    paths: string[];
-}
-
 declare var module: NodeModule;
 
 // Same as module.exports
@@ -235,10 +171,6 @@ declare var exports: any;
 
 // Buffer class
 type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "latin1" | "binary" | "hex";
-
-interface Buffer {
-    constructor: typeof Buffer;
-}
 
 /**
  * Raw data is stored in instances of the Buffer class.
@@ -306,6 +238,12 @@ declare class Buffer extends Uint8Array {
      */
     static from(data: number[]): Buffer;
     static from(data: Uint8Array): Buffer;
+    /**
+     * Creates a new buffer containing the coerced value of an object
+     * A `TypeError` will be thrown if {obj} has not mentioned methods or is not of other type appropriate for `Buffer.from()` variants.
+     * @param obj An object supporting `Symbol.toPrimitive` or `valueOf()`.
+     */
+    static from(obj: { valueOf(): string | object } | { [Symbol.toPrimitive](hint: 'string'): string }, byteOffset?: number, length?: number): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
@@ -388,7 +326,7 @@ declare class Buffer extends Uint8Array {
     write(string: string, encoding?: BufferEncoding): number;
     write(string: string, offset: number, encoding?: BufferEncoding): number;
     write(string: string, offset: number, length: number, encoding?: BufferEncoding): number;
-    toString(encoding?: string, start?: number, end?: number): string;
+    toString(encoding?: BufferEncoding, start?: number, end?: number): string;
     toJSON(): { type: 'Buffer'; data: number[] };
     equals(otherBuffer: Uint8Array): boolean;
     compare(
@@ -425,38 +363,38 @@ declare class Buffer extends Uint8Array {
     readUIntBE(offset: number, byteLength: number): number;
     readIntLE(offset: number, byteLength: number): number;
     readIntBE(offset: number, byteLength: number): number;
-    readUInt8(offset: number): number;
-    readUInt16LE(offset: number): number;
-    readUInt16BE(offset: number): number;
-    readUInt32LE(offset: number): number;
-    readUInt32BE(offset: number): number;
-    readInt8(offset: number): number;
-    readInt16LE(offset: number): number;
-    readInt16BE(offset: number): number;
-    readInt32LE(offset: number): number;
-    readInt32BE(offset: number): number;
-    readFloatLE(offset: number): number;
-    readFloatBE(offset: number): number;
-    readDoubleLE(offset: number): number;
-    readDoubleBE(offset: number): number;
+    readUInt8(offset?: number): number;
+    readUInt16LE(offset?: number): number;
+    readUInt16BE(offset?: number): number;
+    readUInt32LE(offset?: number): number;
+    readUInt32BE(offset?: number): number;
+    readInt8(offset?: number): number;
+    readInt16LE(offset?: number): number;
+    readInt16BE(offset?: number): number;
+    readInt32LE(offset?: number): number;
+    readInt32BE(offset?: number): number;
+    readFloatLE(offset?: number): number;
+    readFloatBE(offset?: number): number;
+    readDoubleLE(offset?: number): number;
+    readDoubleBE(offset?: number): number;
     reverse(): this;
     swap16(): Buffer;
     swap32(): Buffer;
     swap64(): Buffer;
-    writeUInt8(value: number, offset: number): number;
-    writeUInt16LE(value: number, offset: number): number;
-    writeUInt16BE(value: number, offset: number): number;
-    writeUInt32LE(value: number, offset: number): number;
-    writeUInt32BE(value: number, offset: number): number;
-    writeInt8(value: number, offset: number): number;
-    writeInt16LE(value: number, offset: number): number;
-    writeInt16BE(value: number, offset: number): number;
-    writeInt32LE(value: number, offset: number): number;
-    writeInt32BE(value: number, offset: number): number;
-    writeFloatLE(value: number, offset: number): number;
-    writeFloatBE(value: number, offset: number): number;
-    writeDoubleLE(value: number, offset: number): number;
-    writeDoubleBE(value: number, offset: number): number;
+    writeUInt8(value: number, offset?: number): number;
+    writeUInt16LE(value: number, offset?: number): number;
+    writeUInt16BE(value: number, offset?: number): number;
+    writeUInt32LE(value: number, offset?: number): number;
+    writeUInt32BE(value: number, offset?: number): number;
+    writeInt8(value: number, offset?: number): number;
+    writeInt16LE(value: number, offset?: number): number;
+    writeInt16BE(value: number, offset?: number): number;
+    writeInt32LE(value: number, offset?: number): number;
+    writeInt32BE(value: number, offset?: number): number;
+    writeFloatLE(value: number, offset?: number): number;
+    writeFloatBE(value: number, offset?: number): number;
+    writeDoubleLE(value: number, offset?: number): number;
+    writeDoubleBE(value: number, offset?: number): number;
 
     fill(value: string | Uint8Array | number, offset?: number, end?: number, encoding?: BufferEncoding): this;
 
@@ -493,6 +431,13 @@ declare namespace NodeJS {
         customInspect?: boolean;
         showProxy?: boolean;
         maxArrayLength?: number | null;
+        /**
+         * Specifies the maximum number of characters to
+         * include when formatting. Set to `null` or `Infinity` to show all elements.
+         * Set to `0` or negative to show no characters.
+         * @default Infinity
+         */
+        maxStringLength?: number | null;
         breakLength?: number;
         /**
          * Setting this to `false` causes each object key
@@ -604,7 +549,7 @@ declare namespace NodeJS {
         stack?: string;
     }
 
-    class EventEmitter {
+    interface EventEmitter {
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -626,7 +571,7 @@ declare namespace NodeJS {
     interface ReadableStream extends EventEmitter {
         readable: boolean;
         read(size?: number): string | Buffer;
-        setEncoding(encoding: string): this;
+        setEncoding(encoding: BufferEncoding): this;
         pause(): this;
         resume(): this;
         isPaused(): boolean;
@@ -640,10 +585,10 @@ declare namespace NodeJS {
     interface WritableStream extends EventEmitter {
         writable: boolean;
         write(buffer: Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
-        write(str: string, encoding?: string, cb?: (err?: Error | null) => void): boolean;
+        write(str: string, encoding?: BufferEncoding, cb?: (err?: Error | null) => void): boolean;
         end(cb?: () => void): void;
         end(data: string | Uint8Array, cb?: () => void): void;
-        end(str: string, encoding?: string, cb?: () => void): void;
+        end(str: string, encoding?: BufferEncoding, cb?: () => void): void;
     }
 
     interface ReadWriteStream extends ReadableStream, WritableStream { }
@@ -667,6 +612,7 @@ declare namespace NodeJS {
         heapTotal: number;
         heapUsed: number;
         external: number;
+        arrayBuffers: number;
     }
 
     interface CpuUsage {
@@ -729,9 +675,8 @@ declare namespace NodeJS {
         isTTY?: true;
     }
 
-    interface ProcessEnv {
-        [key: string]: string | undefined;
-    }
+    // Alias for compatibility
+    interface ProcessEnv extends Dict<string> {}
 
     interface HRTime {
         (time?: [number, number]): [number, number];
@@ -884,13 +829,12 @@ declare namespace NodeJS {
                 visibility: string;
             };
         };
-        kill(pid: number, signal?: string | number): void;
+        kill(pid: number, signal?: string | number): true;
         pid: number;
         ppid: number;
         title: string;
         arch: string;
         platform: Platform;
-        mainModule?: NodeModule;
         memoryUsage(): MemoryUsage;
         cpuUsage(previousValue?: CpuUsage): CpuUsage;
         nextTick(callback: Function, ...args: any[]): void;
@@ -908,7 +852,7 @@ declare namespace NodeJS {
         /**
          * Can only be set if not in worker thread.
          */
-        umask(mask?: number): number;
+        umask(mask: number): number;
         uptime(): number;
         hrtime: HRTime;
         domain: Domain;
@@ -932,25 +876,13 @@ declare namespace NodeJS {
 
         resourceUsage(): ResourceUsage;
 
-        /**
-         * EventEmitter
-         *   1. beforeExit
-         *   2. disconnect
-         *   3. exit
-         *   4. message
-         *   5. rejectionHandled
-         *   6. uncaughtException
-         *   7. unhandledRejection
-         *   8. warning
-         *   9. message
-         *  10. <All OS Signals>
-         *  11. newListener/removeListener inherited from EventEmitter
-         */
+        /* EventEmitter */
         addListener(event: "beforeExit", listener: BeforeExitListener): this;
         addListener(event: "disconnect", listener: DisconnectListener): this;
         addListener(event: "exit", listener: ExitListener): this;
         addListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
         addListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        addListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
         addListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         addListener(event: "warning", listener: WarningListener): this;
         addListener(event: "message", listener: MessageListener): this;
@@ -964,6 +896,7 @@ declare namespace NodeJS {
         emit(event: "exit", code: number): boolean;
         emit(event: "rejectionHandled", promise: Promise<any>): boolean;
         emit(event: "uncaughtException", error: Error): boolean;
+        emit(event: "uncaughtExceptionMonitor", error: Error): boolean;
         emit(event: "unhandledRejection", reason: any, promise: Promise<any>): boolean;
         emit(event: "warning", warning: Error): boolean;
         emit(event: "message", message: any, sendHandle: any): this;
@@ -977,6 +910,7 @@ declare namespace NodeJS {
         on(event: "exit", listener: ExitListener): this;
         on(event: "rejectionHandled", listener: RejectionHandledListener): this;
         on(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        on(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
         on(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         on(event: "warning", listener: WarningListener): this;
         on(event: "message", listener: MessageListener): this;
@@ -984,12 +918,14 @@ declare namespace NodeJS {
         on(event: "newListener", listener: NewListenerListener): this;
         on(event: "removeListener", listener: RemoveListenerListener): this;
         on(event: "multipleResolves", listener: MultipleResolveListener): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
         once(event: "beforeExit", listener: BeforeExitListener): this;
         once(event: "disconnect", listener: DisconnectListener): this;
         once(event: "exit", listener: ExitListener): this;
         once(event: "rejectionHandled", listener: RejectionHandledListener): this;
         once(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        once(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
         once(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         once(event: "warning", listener: WarningListener): this;
         once(event: "message", listener: MessageListener): this;
@@ -1003,6 +939,7 @@ declare namespace NodeJS {
         prependListener(event: "exit", listener: ExitListener): this;
         prependListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
         prependListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        prependListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
         prependListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         prependListener(event: "warning", listener: WarningListener): this;
         prependListener(event: "message", listener: MessageListener): this;
@@ -1016,6 +953,7 @@ declare namespace NodeJS {
         prependOnceListener(event: "exit", listener: ExitListener): this;
         prependOnceListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
         prependOnceListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        prependOnceListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
         prependOnceListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         prependOnceListener(event: "warning", listener: WarningListener): this;
         prependOnceListener(event: "message", listener: MessageListener): this;
@@ -1029,6 +967,7 @@ declare namespace NodeJS {
         listeners(event: "exit"): ExitListener[];
         listeners(event: "rejectionHandled"): RejectionHandledListener[];
         listeners(event: "uncaughtException"): UncaughtExceptionListener[];
+        listeners(event: "uncaughtExceptionMonitor"): UncaughtExceptionListener[];
         listeners(event: "unhandledRejection"): UnhandledRejectionListener[];
         listeners(event: "warning"): WarningListener[];
         listeners(event: "message"): MessageListener[];
@@ -1050,7 +989,6 @@ declare namespace NodeJS {
         Float32Array: typeof Float32Array;
         Float64Array: typeof Float64Array;
         Function: typeof Function;
-        GLOBAL: Global;
         Infinity: typeof Infinity;
         Int16Array: typeof Int16Array;
         Int32Array: typeof Int32Array;
@@ -1062,7 +1000,7 @@ declare namespace NodeJS {
         NaN: typeof NaN;
         Number: typeof Number;
         Object: typeof Object;
-        Promise: Function;
+        Promise: typeof Promise;
         RangeError: typeof RangeError;
         ReferenceError: typeof ReferenceError;
         RegExp: typeof RegExp;
@@ -1075,7 +1013,7 @@ declare namespace NodeJS {
         Uint16Array: typeof Uint16Array;
         Uint32Array: typeof Uint32Array;
         Uint8Array: typeof Uint8Array;
-        Uint8ClampedArray: Function;
+        Uint8ClampedArray: typeof Uint8ClampedArray;
         WeakMap: WeakMapConstructor;
         WeakSet: WeakSetConstructor;
         clearImmediate: (immediateId: Immediate) => void;
@@ -1094,7 +1032,6 @@ declare namespace NodeJS {
         parseFloat: typeof parseFloat;
         parseInt: typeof parseInt;
         process: Process;
-        root: Global;
         setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => Immediate;
         setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
         setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
@@ -1105,57 +1042,68 @@ declare namespace NodeJS {
         v8debug?: any;
     }
 
-    // compatibility with older typings
-    interface Timer {
-        hasRef(): boolean;
+    interface RefCounted {
         ref(): this;
-        refresh(): this;
         unref(): this;
     }
 
-    class Immediate {
+    // compatibility with older typings
+    interface Timer extends RefCounted {
         hasRef(): boolean;
-        ref(): this;
-        unref(): this;
+        refresh(): this;
+    }
+
+    interface Immediate extends RefCounted {
+        hasRef(): boolean;
         _onImmediate: Function; // to distinguish it from the Timeout class
     }
 
-    class Timeout implements Timer {
+    interface Timeout extends Timer {
         hasRef(): boolean;
-        ref(): this;
         refresh(): this;
-        unref(): this;
     }
 
-    class Module {
-        static runMain(): void;
-        static wrap(code: string): string;
+    type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
+    type ArrayBufferView = TypedArray | DataView;
 
+    interface Require {
+        /* tslint:disable-next-line:callable-types */
+        (id: string): any;
+        resolve: RequireResolve;
+        cache: Dict<NodeModule>;
         /**
-         * @deprecated Deprecated since: v12.2.0. Please use createRequire() instead.
+         * @deprecated
          */
-        static createRequireFromPath(path: string): NodeRequireFunction;
-        static createRequire(path: string): NodeRequireFunction;
-        static builtinModules: string[];
+        extensions: RequireExtensions;
+        main: Module | undefined;
+    }
 
-        static Module: typeof Module;
+    interface RequireResolve {
+        (id: string, options?: { paths?: string[]; }): string;
+        paths(request: string): string[] | null;
+    }
 
+    interface RequireExtensions extends Dict<(m: Module, filename: string) => any> {
+        '.js': (m: Module, filename: string) => any;
+        '.json': (m: Module, filename: string) => any;
+        '.node': (m: Module, filename: string) => any;
+    }
+    interface Module {
         exports: any;
-        require: NodeRequireFunction;
+        require: Require;
         id: string;
         filename: string;
         loaded: boolean;
         parent: Module | null;
         children: Module[];
         paths: string[];
-
-        constructor(id: string, parent?: Module);
     }
 
-    type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
-    type ArrayBufferView = TypedArray | DataView;
+    interface Dict<T> {
+        [key: string]: T | undefined;
+    }
 
-    // The value type here is a "poor man's `unknown`". When these types support TypeScript
-    // 3.0+, we can replace this with `unknown`.
-    type PoorMansUnknown = {} | null | undefined;
+    interface ReadOnlyDict<T> {
+        readonly [key: string]: T | undefined;
+    }
 }

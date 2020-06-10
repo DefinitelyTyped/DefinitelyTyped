@@ -1,17 +1,18 @@
-// Type definitions for react-cropper 0.10
+// Type definitions for react-cropper 1.3
 // Project: https://github.com/roadmanfong/react-cropper, http://roadmanfong.github.io/react-cropper
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
 //                 Walter Barbagallo <https://github.com/bwlt>
+//                 Harald Friessnegger <https://github.com/frisi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.7
 
 import Cropper from 'cropperjs';
 import * as React from 'react';
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
-export interface ReactCropperProps extends Cropper.Options, Omit<React.HTMLProps<HTMLImageElement>, 'data' | 'ref'> {
-    ref?: string | ((cropper: null | ReactCropper) => any);
+interface ReactCropperProps extends Cropper.Options, Omit<React.HTMLProps<HTMLImageElement>, 'data' | 'ref'> {
+    ref?: React.LegacyRef<ReactCropper>;
 }
 
 interface ReactCropper extends Cropper {} // tslint:disable-line no-empty-interface

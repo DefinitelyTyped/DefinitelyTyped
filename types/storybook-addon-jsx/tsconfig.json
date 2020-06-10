@@ -2,8 +2,8 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "dom",
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -11,9 +11,7 @@
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

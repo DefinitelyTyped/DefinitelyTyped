@@ -1,1 +1,2 @@
-export { rtrim as default } from '../';
+import validator from '../';
+export default validator.rtrim;

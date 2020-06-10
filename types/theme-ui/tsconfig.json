@@ -14,7 +14,8 @@
             "../"
         ],
         "paths": {
-            "@styled-system/css": ["styled-system__css"]
+            "@styled-system/css": ["styled-system__css"],
+            "@theme-ui/components": ["theme-ui__components"]
         },
         "types": [],
         "noEmit": true,

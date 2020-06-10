@@ -170,7 +170,7 @@ declare namespace yargs {
         count(key: string): Argv;
         count(keys: string[]): Argv;
 
-        fail(func: (msg: string, err: Error) => any): Argv;
+        fail(func: (msg: string, err: Error, yargs: Argv) => any): Argv;
 
         coerce<T, U>(key: string | string[], func: (arg: T) => U): Argv;
         coerce<T, U>(opts: { [key: string]: (arg: T) => U; }): Argv;

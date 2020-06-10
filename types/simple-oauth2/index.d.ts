@@ -72,6 +72,8 @@ export interface AccessToken {
 
 export type AuthorizationCode = string;
 export interface AuthorizationTokenConfig {
+    [key: string]: any;
+
     /** Authorization code (from previous step) */
     code: AuthorizationCode;
     /** A string that represents the callback uri */
@@ -81,6 +83,8 @@ export interface AuthorizationTokenConfig {
 }
 
 export interface PasswordTokenConfig {
+    [key: string]: any;
+
     /** A string that represents the registered username */
     username: string;
     /** A string that represents the registered password. */
@@ -90,29 +94,31 @@ export interface PasswordTokenConfig {
 }
 
 export interface ClientCredentialTokenConfig {
+    [key: string]: any;
+
     /** A string that represents the application privileges */
     scope?: string | string[];
 }
 
 export interface WreckHttpOptions {
-	baseUrl?: string;
-	socketPath?: string;
-	payload?: any;
-	headers?: { [key: string]: any };
-	redirects?: number;
-	redirect303?: boolean;
-	beforeRedirect?: (redirectMethod: string, statusCode: number, location: string, resHeaders: { [key: string]: any }, redirectOptions: any, next: () => {}) => void;
-	redirected?: (statusCode: number, location: string, req: any) => void;
-	timeout?: number;
-	maxBytes?: number;
-	rejectUnauthorized?: boolean;
-	downstreamRes?: any;
-	agent?: any;
-	secureProtocol?: string;
-	ciphers?: string;
-	events?: boolean;
-	json?: true | "strict" | "force";
-	gunzip?: boolean | "force";
+    baseUrl?: string;
+    socketPath?: string;
+    payload?: any;
+    headers?: { [key: string]: any };
+    redirects?: number;
+    redirect303?: boolean;
+    beforeRedirect?: (redirectMethod: string, statusCode: number, location: string, resHeaders: { [key: string]: any }, redirectOptions: any, next: () => {}) => void;
+    redirected?: (statusCode: number, location: string, req: any) => void;
+    timeout?: number;
+    maxBytes?: number;
+    rejectUnauthorized?: boolean;
+    downstreamRes?: any;
+    agent?: any;
+    secureProtocol?: string;
+    ciphers?: string;
+    events?: boolean;
+    json?: true | "strict" | "force";
+    gunzip?: boolean | "force";
 }
 
 export interface OAuthClient<ClientIdName extends string = 'client_id'> {

@@ -2,19 +2,19 @@
 // Project: https://github.com/tuchk4/storybook-readme
 // Definitions by: Taeheon Kim  <https://github.com/lonyele>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
+
+import { DecoratorFunction, StoryFn } from '@storybook/addons';
+import { StoryFnReactReturnType } from '@storybook/react/dist/client/preview/types';
+import { ReactNode } from 'react';
 
 // Shared Types
-export type Renderable = React.ComponentType | JSX.Element;
-export type RenderFunction = () => Renderable | Renderable[];
+export type RenderFunction = StoryFn<StoryFnReactReturnType>;
 export type Readme = string | string[];
 
-export type DecoratorPattern = (
-  story: RenderFunction,
-  context: { kind: string; story: string }
-) => Renderable | null;
+export type DecoratorPattern = DecoratorFunction<StoryFnReactReturnType>;
 
-export type HOCPattern = (story: RenderFunction) => Renderable | null;
+export type HOCPattern = DecoratorFunction<StoryFnReactReturnType>;
 
 export type MakeDecoratorResult = (...args: any[]) => any;
 
@@ -23,12 +23,12 @@ export const addReadme: MakeDecoratorResult;
 export function addFooter(md: string): void;
 export function addHeader(md: string): void;
 export interface ConfigureReadmeConfig {
-  header?: string;
-  footer?: string;
-  StoryPreview?: (props: { children: React.ReactNode }) => React.ReactNode;
-  DocPreview?: (props: { children: React.ReactNode }) => React.ReactNode;
-  HeaderPreview?: (props: { children: React.ReactNode }) => React.ReactNode;
-  FooterPreview?: (props: { children: React.ReactNode }) => React.ReactNode;
+    header?: string;
+    footer?: string;
+    StoryPreview?: (props: { children: ReactNode }) => ReactNode;
+    DocPreview?: (props: { children: ReactNode }) => ReactNode;
+    HeaderPreview?: (props: { children: ReactNode }) => ReactNode;
+    FooterPreview?: (props: { children: ReactNode }) => ReactNode;
 }
 
 export function configureReadme(config: ConfigureReadmeConfig): void;

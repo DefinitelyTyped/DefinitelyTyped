@@ -13,7 +13,7 @@ export type WindowScrollerChildProps = {
     scrollTop: number;
     scrollLeft: number;
     onChildScroll: (params: { scrollTop: number }) => void;
-    registerChild: (element?: React.ReactElement) => void;
+    registerChild: (element?: React.ReactNode) => void;
 };
 
 export type WindowScrollerProps = {

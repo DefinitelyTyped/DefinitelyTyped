@@ -1,28 +1,21 @@
 import * as React from "react";
+import { IconGlyph } from "../Icon/Icon";
 
 export type TabProps = {
     className?: string;
-    disabled?: boolean;
-    /* Icon to display on the tab. */
-    glyph?: string;
+    disableStyles?: boolean;
+    glyph?: IconGlyph;
     id?: string;
-    /* _INTERNAL USE ONLY._ */
     index?: number;
-    /* Additional props to be spread to the tab\'s <a> element. */
-    linkProps?: { [x: string]: any };
-    /* _INTERNAL USE ONLY._ */
+    linkProps?: any;
     selected?: boolean;
-    /* Additional props to be spread to the tab content's <div> element. */
-    tabContentProps?: { [x: string]: any };
-    /* Localized text to display on the tab. */
+    tabContentProps?: any;
     title?: string;
-    /* _INTERNAL USE ONLY._ */
-    onClick?: (
-        event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-        index: number
-    ) => void;
+    onClick?: (...args: any[]) => any;
 } & { [x: string]: any };
 
-declare const Tab: React.FunctionComponent<TabProps>;
+declare const Tab: React.FunctionComponent<TabProps> & {
+    displayName: "Tab";
+};
 
 export default Tab;

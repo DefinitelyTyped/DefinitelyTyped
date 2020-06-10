@@ -10,6 +10,7 @@ const newJestWithOptions: JestAxe = configureAxe({
     rules: {},
     runOnly: {
         type: 'rules',
+        values: [],
     },
     selectors: false,
 });

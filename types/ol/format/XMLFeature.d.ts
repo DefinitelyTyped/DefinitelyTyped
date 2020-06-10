@@ -1,25 +1,28 @@
-import Feature, { FeatureLike } from '../Feature';
+import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
 import Projection from '../proj/Projection';
 import FeatureFormat, { ReadOptions, WriteOptions } from './Feature';
+import FormatType from './FormatType';
 
-export default class XMLFeature extends FeatureFormat {
+export default abstract class XMLFeature extends FeatureFormat {
     constructor();
-    protected readFeaturesFromDocument(doc: Document, opt_options?: ReadOptions): Feature[];
-    protected readFeaturesFromNode(node: Node, opt_options?: ReadOptions): Feature[];
+    protected readFeaturesFromDocument(doc: Document, opt_options?: ReadOptions): Feature<Geometry>[];
+    protected abstract readFeaturesFromNode(node: Node, opt_options?: ReadOptions): Feature<Geometry>[];
     protected readGeometryFromDocument(doc: Document, opt_options?: ReadOptions): Geometry;
     protected readGeometryFromNode(node: Node, opt_options?: ReadOptions): Geometry;
     protected readProjectionFromDocument(doc: Document): Projection;
     protected readProjectionFromNode(node: Node): Projection;
-    protected writeFeatureNode(feature: Feature, opt_options?: WriteOptions): Node;
-    readFeature(source: Document | Node | object | string, opt_options?: ReadOptions): Feature;
-    readFeature(source: Document | Node | object | string, opt_options?: ReadOptions): FeatureLike;
-    readFeatureFromDocument(doc: Document, opt_options?: ReadOptions): Feature;
-    readFeatureFromNode(node: Node, opt_options?: ReadOptions): Feature;
-    readFeatures(source: Document | Node | object | string, opt_options?: ReadOptions): Feature[];
-    readFeatures(source: Document | Node | ArrayBuffer | object | string, opt_options?: ReadOptions): FeatureLike[];
+    protected writeFeatureNode(feature: Feature<Geometry>, opt_options?: WriteOptions): Node;
+    getType(): FormatType;
+    readFeature(source: Document | Node | object | string, opt_options?: ReadOptions): Feature<Geometry>;
+    readFeatureFromDocument(doc: Document, opt_options?: ReadOptions): Feature<Geometry>;
+    readFeatureFromNode(node: Node, opt_options?: ReadOptions): Feature<Geometry>;
+    readFeatures(source: Document | Node | object | string, opt_options?: ReadOptions): Feature<Geometry>[];
+    readGeometry(source: Document | Node | object | string, opt_options?: ReadOptions): Geometry;
     readProjection(source: Document | Node | object | string): Projection;
-    writeFeatures(features: Feature[], opt_options?: WriteOptions): string;
-    writeFeaturesNode(features: Feature[], opt_options?: WriteOptions): Node;
+    writeFeature(feature: Feature<Geometry>, opt_options?: WriteOptions): string;
+    writeFeatures(features: Feature<Geometry>[], opt_options?: WriteOptions): string;
+    writeFeaturesNode(features: Feature<Geometry>[], opt_options?: WriteOptions): Node;
+    writeGeometry(geometry: Geometry, opt_options?: WriteOptions): string;
     writeGeometryNode(geometry: Geometry, opt_options?: WriteOptions): Node;
 }

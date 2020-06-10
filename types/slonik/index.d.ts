@@ -1,4 +1,4 @@
-// Type definitions for slonik 19.0
+// Type definitions for slonik 22.1
 // Project: https://github.com/gajus/slonik#readme
 // Definitions by: Sebastian Sebald <https://github.com/sebald>
 //                 Misha Kaletsky <https://github.com/mmkal>
@@ -35,7 +35,8 @@ export type TypeNameIdentifierType =
   'int4' |
   'json' |
   'text' |
-  'timestamptz';
+  'timestamptz' |
+  'uuid';
 
 export type SerializableValueType =
     | string
@@ -53,14 +54,12 @@ export interface SerializableValueObject {
 export interface SerializableValueArray
   extends ReadonlyArray<SerializableValueType> {}
 
-export type PositionalParameterValuesType = ReadonlyArray<ValueExpressionType>;
-
 export type NamedParameterValuesType = Record<string, ValueExpressionType>;
 
 export interface ArraySqlTokenType {
     memberType: TypeNameIdentifierType | SqlTokenType;
     type: typeof SlonikSymbol.ArrayTokenSymbol;
-    values: PositionalParameterValuesType;
+    values: ReadonlyArray<ValueExpressionType>;
 }
 
 export interface BinarySqlTokenType {
@@ -88,7 +87,7 @@ export type SqlSqlTokenType<T> = TaggedTemplateLiteralInvocationType<T>;
 
 export interface UnnestSqlTokenType {
     columnTypes: ReadonlyArray<string>;
-    tuples: ReadonlyArray<PositionalParameterValuesType>;
+    tuples: ReadonlyArray<ReadonlyArray<ValueExpressionType>>;
     type: typeof SlonikSymbol.UnnestTokenSymbol;
 }
 
@@ -115,13 +114,8 @@ export type NamedAssignmentType = Record<string, ValueExpressionType>;
 // DATABASE
 // ----------------------------------------------------------------------
 export interface FieldType {
-    columnID: number;
-    dataTypeID: number;
-    dataTypeModifier: number;
-    dataTypeSize: number;
-    format: string;
+    dataTypeId: number;
     name: string;
-    tableID: number;
 }
 
 export type DatabaseTransactionConnectionType = CommonQueryMethodsType & {
@@ -135,8 +129,17 @@ export type DatabasePoolConnectionType = CommonQueryMethodsType & {
 
 export type ConnectionRoutineType<T> = (connection: DatabasePoolConnectionType) => Promise<T>;
 
+export interface PoolStateType {
+    activeConnectionCount: number;
+    ended: boolean;
+    idleConnectionCount: number;
+    waitingClientCount: number;
+}
+
 export type DatabasePoolType = CommonQueryMethodsType & {
     connect: <T>(connectionRoutine: ConnectionRoutineType<T>) => Promise<T>;
+    end: () => Promise<void>;
+    getPoolState: () => PoolStateType;
     stream: (sql: TaggedTemplateLiteralInvocationType, streamHandler: StreamHandlerType) => Promise<null>,
     transaction: <T>(handler: TransactionFunctionType<T>) => Promise<T>;
 };
@@ -265,11 +268,17 @@ export interface QueryContextType {
      * Unique query ID
      */
     queryId: QueryIdType;
-    stackTrace: CallSiteType[] | null;
+
     /**
      * `process.hrtime.bigint()` for when query was received.
      */
     queryInputTime: number;
+
+    /** Object used by interceptors to assign interceptor-specific, query-specific context. */
+    sandbox: Record<string, any>;
+
+    stackTrace: ReadonlyArray<CallSiteType> | null;
+
     /**
      * Unique transaction ID
      */
@@ -300,7 +309,7 @@ export interface SqlTaggedTemplateType {
     <T = QueryResultRowType>(template: TemplateStringsArray, ...vals: ValueExpressionType[]): SqlSqlTokenType<T>;
     array: (
         values: PrimitiveValueExpressionType[],
-        memberType: string
+        memberType: TypeNameIdentifierType | SqlTokenType
     ) => ArraySqlTokenType;
     identifier: (
         names: string[]
@@ -312,10 +321,6 @@ export interface SqlTaggedTemplateType {
       members: ReadonlyArray<ValueExpressionType>,
       glue: SqlTokenType,
     ) => ListSqlTokenType;
-    raw: (
-        rawSql: string,
-        values?: ReadonlyArray<PrimitiveValueExpressionType>
-    ) => SqlTokenType;
     unnest: (
         // Value might be ReadonlyArray<ReadonlyArray<PrimitiveValueExpressionType>>,
         // or it can be infinitely nested array, e.g.
@@ -350,7 +355,7 @@ export interface PoolContextType {
 
 export function createPool(
     connectionConfiguration: DatabaseConfigurationType,
-    clientUserConfiguration?: ClientUserConfigurationType
+    clientUserConfiguration?: ClientConfigurationInputType
 ): DatabasePoolType;
 
 //
@@ -367,28 +372,37 @@ export interface InterceptorType {
     afterPoolConnection?: (
         connectionContext: ConnectionContextType,
         connection: DatabasePoolConnectionType
-    ) => MaybePromiseType<void>;
+    ) => MaybePromiseType<null>;
     afterQueryExecution?: (
         queryContext: QueryContextType,
         query: QueryType,
         result: QueryResultType<QueryResultRowType>
-    ) => MaybePromiseType<QueryResultType<QueryResultRowType>>;
+    ) => MaybePromiseType<null>;
     beforePoolConnection?: (
         connectionContext: PoolContextType
     ) => MaybePromiseType<DatabasePoolType | null | undefined>;
     beforePoolConnectionRelease?: (
         connectionContext: ConnectionContextType,
         connection: DatabasePoolConnectionType
-    ) => MaybePromiseType<void>;
+    ) => MaybePromiseType<null>;
     beforeQueryExecution?: (
         queryContext: QueryContextType,
         query: QueryType
-    ) => MaybePromiseType<QueryResultType<QueryResultRowType> | undefined>;
+    ) => MaybePromiseType<QueryResultType<QueryResultRowType> | null>;
+    beforeQueryResult?: (
+        queryContext: QueryContextType,
+        query: QueryType,
+        result: QueryResultType<QueryResultRowType>
+      ) => MaybePromiseType<null>;
+    beforeTransformQuery?: (
+        queryContext: QueryContextType,
+        query: QueryType
+    ) => MaybePromiseType<null>;
     queryExecutionError?: (
         queryContext: QueryContextType,
         query: QueryType,
         error: SlonikError
-    ) => MaybePromiseType<void>;
+    ) => MaybePromiseType<null>;
     transformQuery?: (
         queryContext: QueryContextType,
         query: QueryType
@@ -451,8 +465,14 @@ export interface ClientConfigurationType {
     /** Dictates whether to capture stack trace before executing query. Middlewares access stack trace through query execution context. (Default: true) */
     captureStackTrace?: boolean;
 
-    /** Timeout (in milliseconds) after which an error is raised if cannot cannot be established. (Default: 5000) */
-    connectionTimeout?: number;
+    /** Number of times to retry establishing a new connection. (Default: 3) */
+    connectionRetryLimit?: number;
+
+    /** connectionTimeout Timeout (in milliseconds) after which an error is raised if connection cannot cannot be established. (Default: 5000) */
+    connectionTimeout?: number | 'DISABLE_TIMEOUT';
+
+    /** idleInTransactionSessionTimeout Timeout (in milliseconds) after which idle clients are closed. Use 'DISABLE_TIMEOUT' constant to disable the timeout. (Default: 60000) */
+    idleInTransactionSessionTimeout?: number | 'DISABLE_TIMEOUT';
 
     /** Timeout (in milliseconds) after which idle clients are closed. (Default: 5000) */
     idleTimeout?: number;
@@ -460,8 +480,11 @@ export interface ClientConfigurationType {
     /** Do not allow more than this many connections. (Default: 10) */
     maximumPoolSize?: number;
 
-    /** Add more server connections to pool if below this number. (Default: 1) */
-    minimumPoolSize?: number;
+    /** Uses libpq bindings when `pg-native` module is installed. (Default: true) */
+    preferNativeBindings?: boolean;
+
+    /** Timeout (in milliseconds) after which database is instructed to abort the query. Use 'DISABLE_TIMEOUT' constant to disable the timeout. (Default: 60000) */
+    statementTimeout?: number | 'DISABLE_TIMEOUT';
 
     /**
      * An array of [Slonik interceptors](https://github.com/gajus/slonik#slonik-interceptors)
@@ -474,7 +497,7 @@ export interface ClientConfigurationType {
 }
 
 // tslint:disable-next-line no-empty-interface
-export interface ClientUserConfigurationType extends ClientConfigurationType {}
+export interface ClientConfigurationInputType extends ClientConfigurationType {}
 
 //
 // ERRORS

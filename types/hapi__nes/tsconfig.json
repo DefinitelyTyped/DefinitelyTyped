@@ -53,7 +53,6 @@
     },
     "files": [
         "index.d.ts",
-        "lib/client.d.ts",
         "test/client-require.ts",
         "test/hapi__nes-tests.ts",
         "test/broadcast-client.ts",

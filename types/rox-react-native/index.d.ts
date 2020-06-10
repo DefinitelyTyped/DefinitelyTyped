@@ -46,6 +46,12 @@ export interface RoxSetupOptions {
     freeze?: FreezeOptions;
     disableNetworkFetch?: boolean;
     devModeSecret?: string;
+    /**
+     * Set Roxy's URL for automated tests or local development.
+     *
+     * https://support.rollout.io/docs/microservices-automated-testing-and-local-development
+     */
+    roxy?: string;
     // https://support.rollout.io/docs/reactnative#section--asyncstorage-
     AsyncStorage?: any; // AsyncStorage from 'react-native' package
 }

@@ -30,7 +30,7 @@ declare namespace bonjour {
         on(event: 'up' | 'down', listener: (service: Service) => void): this;
         once(event: 'up' | 'down', listener: (service: Service) => void): this;
         removeListener(event: 'up' | 'down', listener: (service: Service) => void): this;
-        removeAllListeners(event: 'up' | 'down'): this;
+        removeAllListeners(event?: 'up' | 'down'): this;
     }
     interface BrowserOptions {
         type?: string;
@@ -47,6 +47,7 @@ declare namespace bonjour {
         subtypes?: string[];
         protocol?: 'udp'|'tcp';
         txt?: Object;
+        probe?: boolean;
     }
 
     interface Service extends NodeJS.EventEmitter {
@@ -64,6 +65,7 @@ declare namespace bonjour {
         start(): void;
     }
     interface BonjourOptions {
+        type?: 'udp4' | 'udp6';
         multicast?: boolean;
         interface?: string;
         port?: number;

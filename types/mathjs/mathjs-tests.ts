@@ -16,6 +16,7 @@ Basic usage examples
 
     // functions and constants
     math.round(math.e, 3);
+    math.round(100.123, 3);
     math.atan2(3, -3) / math.pi;
     math.log(10000, 10);
     math.sqrt(-4);
@@ -150,6 +151,12 @@ Expressions examples
     // evaluate multiple expressions at once
     {
         math.evaluate(['f = 3', 'g = 4', 'f * g']);
+    }
+
+    // get content of a parenthesis node
+    {
+        const node = math.parse('(1)');
+        const innerNode = node.content;
     }
 
     // scope can contain both variables and functions

@@ -1,1 +1,3 @@
-export { isCurrency as default } from '../';
+import validator from '../';
+export type IsCurrencyOptions = validator.IsCurrencyOptions;
+export default validator.isCurrency;

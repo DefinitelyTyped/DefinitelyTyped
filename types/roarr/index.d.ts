@@ -18,7 +18,13 @@ export interface RoarrGlobalStateType extends WriterType {
 
 export type SprintfArgumentType = string | number | boolean | null;
 
-export type MessageContextType = object;
+export interface MessageContextType {
+    application?: string;
+    logLevel?: number;
+    namespace?: string;
+    package?: string;
+    [k: string]: any;
+}
 
 export interface MessageType {
     context: MessageContextType;

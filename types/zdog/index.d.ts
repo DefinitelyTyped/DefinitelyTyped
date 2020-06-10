@@ -147,12 +147,7 @@ export interface PathBezierCommand {
  * Similar to drawing a path in {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#Drawing_paths 2D <canvas>}, {@link https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths SVG paths}, or {@link https://en.wikipedia.org/wiki/Logo_(programming_language) Logo’s turtle graphics}.
  * @see {@link https://zzz.dog/shapes#shape-path-commands Zdog Shape API}
  */
-export type PathCommand =
-    VectorOptions
-    | PathLineCommand
-    | PathMoveCommand
-    | PathArcCommand
-    | PathBezierCommand;
+export type PathCommand = VectorOptions | PathLineCommand | PathMoveCommand | PathArcCommand | PathBezierCommand;
 
 /* tslint:enable:max-line-length */
 

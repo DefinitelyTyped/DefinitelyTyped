@@ -6,7 +6,18 @@ function testConfig(): void {
     flushAt: 20,
     flushInterval: 10000,
     host: "http://example.com",
-    enable: true
+    enable: true,
+    timeout: 1000,
+  });
+}
+
+function testConfigWithStringTimeout(): void {
+  analytics = new Analytics('YOUR_WRITE_KEY', {
+    flushAt: 20,
+    flushInterval: 10000,
+    host: "http://example.com",
+    enable: true,
+    timeout: '1000',
   });
 }
 
@@ -41,6 +52,24 @@ function testIdentify(): void {
 function testTrack(): void {
   analytics.track({
     userId: '019mr8mf4r',
+    event: 'Purchased an Item',
+    properties: {
+      revenue: 39.95,
+      shippingMethod: '2-day'
+    }
+  });
+
+  analytics.track({
+    anonymousId: '019mr8mf4r',
+    event: 'Purchased an Item',
+    properties: {
+      revenue: 39.95,
+      shippingMethod: '2-day'
+    }
+  });
+
+  // $ExpectError
+  analytics.track({
     event: 'Purchased an Item',
     properties: {
       revenue: 39.95,

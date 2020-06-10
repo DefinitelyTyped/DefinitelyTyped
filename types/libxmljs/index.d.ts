@@ -49,6 +49,7 @@ interface ParserOptions {
     oldsax?: boolean;
     ignore_enc?: boolean;
     big_lines?: boolean;
+    baseUrl?: string;
 }
 
 export function parseXml(source: string, options?: ParserOptions): Document;
@@ -76,7 +77,8 @@ export class Document {
     childNodes(): Element[];
     encoding(): string;
     encoding(enc: string): this;
-    find(xpath: string): Element[];
+    find(xpath: string, ns_uri?: string): Element[];
+    find(xpath: string, namespaces: StringMap): Element[];
     get(xpath: string, namespaces?: StringMap): Element|null;
     node(name: string, content?: string): Element;
     root(): Element|null;

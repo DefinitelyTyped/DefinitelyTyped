@@ -349,6 +349,8 @@ declare namespace jwplayer {
         once<TEvent extends keyof EventParams>(event: TEvent, callback: EventCallback<EventParams[TEvent]>): void;
         once(event: NoParamEvent, callback: () => void): void;
         off(event: keyof EventParams | NoParamEvent): void;
+        off(event: NoParamEvent, callback: () => void): void;
+        off<TEvent extends keyof EventParams>(event: TEvent, callback: EventCallback<EventParams[TEvent]>): void;
         trigger<TEvent extends keyof EventParams>(event: TEvent, args: EventParams[TEvent]): void;
         trigger(event: NoParamEvent): void;
         pause(state?: boolean): void;

@@ -18,11 +18,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "element.d.ts",
-        "html.d.ts",
         "index.d.ts",
-        "linkifyjs-tests.ts",
-        "react.d.ts",
-        "string.d.ts"
+        "linkifyjs-tests.ts"
     ]
 }

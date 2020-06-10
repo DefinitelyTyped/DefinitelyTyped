@@ -1,15 +1,17 @@
-// Type definitions for node-email-templates 6.0
+// Type definitions for node-email-templates 7.0
 // Project: https://github.com/niftylettuce/email-templates
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Matus Gura <https://github.com/gurisko>
 //                 Jacob Copeland <https://github.com/blankstar85>
 //                 Vesa Poikajärvi <https://github.com/vesse>
+//                 Philipp Katz <https://github.com/qqilihq>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
 /// <reference types="nodemailer"/>
-/// <reference types="html-to-text"/>
 
+import { HtmlToTextOptions } from 'html-to-text';
 import JSONTransport = require('nodemailer/lib/json-transport');
 import Mail = require('nodemailer/lib/mailer');
 import SendmailTransport = require('nodemailer/lib/sendmail-transport');
@@ -22,14 +24,20 @@ import StreamTransport = require('nodemailer/lib/stream-transport');
 // too and calls createTransport if given a non-function, thus a lot
 // of different types accepted for transport
 type NodeMailerTransportOptions =
-    Mail |
-    SMTPPool | SMTPPool.Options |
-    SendmailTransport | SendmailTransport.Options |
-    StreamTransport | StreamTransport.Options |
-    JSONTransport | JSONTransport.Options |
-    SESTransport | SESTransport.Options |
-    SMTPTransport | SMTPTransport.Options |
-    string;
+    | Mail
+    | SMTPPool
+    | SMTPPool.Options
+    | SendmailTransport
+    | SendmailTransport.Options
+    | StreamTransport
+    | StreamTransport.Options
+    | JSONTransport
+    | JSONTransport.Options
+    | SESTransport
+    | SESTransport.Options
+    | SMTPTransport
+    | SMTPTransport.Options
+    | string;
 
 // No typedef for https://github.com/niftylettuce/preview-email
 interface PreviewEmailOpts {
@@ -76,7 +84,7 @@ interface View {
     /**
      * View root. Defaults to the current working directory's "emails" folder via path.resolve('emails')
      */
-    root: string;
+    root?: string;
 
     options?: ViewOptions;
 }
@@ -101,15 +109,21 @@ interface EmailConfig<T = any> {
     /**
      * Preview the email
      */
-    preview?: boolean|PreviewEmailOpts;
+    preview?: boolean | PreviewEmailOpts;
     /**
      * Set to object to configure and Enable <https://github.com/ladjs/il8n>
      */
     i18n?: any;
     /**
+     * defaults to false, unless you pass your own render function,
+     * and in that case it will be automatically set to true.
+     * @default false
+     */
+    customRender?: boolean;
+    /**
      * Pass a custom render function if necessary
      */
-    render?: (view: string, locals: T) => Promise<any>;
+    render?: (view: string, locals?: T) => Promise<any>;
     /**
      * force text-only rendering of template (disregards template folder)
      */
@@ -119,12 +133,12 @@ interface EmailConfig<T = any> {
      *
      * configuration object for html-to-text
      */
-    htmlToText?: HtmlToTextOptions|false;
+    htmlToText?: HtmlToTextOptions | false;
     /**
      * You can pass an option to prefix subject lines with a string
      * env === 'production' ? false : `[${env.toUpperCase()}] `; // <--- HERE
      */
-    subjectPrefix?: string|false;
+    subjectPrefix?: string | false;
     /**
      * <https://github.com/Automattic/juice>
      */
@@ -133,6 +147,11 @@ interface EmailConfig<T = any> {
      * <https://github.com/Automattic/juice>
      */
     juiceResources?: any;
+    /**
+     * a function that returns the path to a template file
+     * @default (path: string, template: string) => string
+     */
+    getPath?: (path: string, template: string, locals: any) => string;
 }
 
 interface EmailOptions<T = any> {
@@ -149,7 +168,13 @@ interface EmailOptions<T = any> {
     /**
      * The Template Variables
      */
-    locals: T;
+    locals?: T;
+}
+
+interface EmailMessage {
+    subject: string;
+    html: string;
+    text: string;
 }
 
 declare class EmailTemplate<T = any> {
@@ -158,17 +183,25 @@ declare class EmailTemplate<T = any> {
      *   shorthand use of `juiceResources` with the config
      *   mainly for custom renders like from a database).
      */
-    juiceResources(html: string): Promise<string> ;
+    juiceResources(html: string): Promise<string>;
     /**
      *
      * @param view The Html pug to render
      * @param locals The template Variables
      */
-    render(view: string, locals: T): Promise<string>;
+    render(view: string, locals?: T): Promise<string>;
+    /**
+     * Render all available template files for a given email
+     * template (e.g. `html.pug`, `text.pug`, and `subject.pug`)
+     *
+     * @param view Name of the template
+     * @param locals The template variables
+     */
+    renderAll(view: string, locals?: T): Promise<Partial<EmailMessage>>;
     /**
      * Send the Email
      */
-    send(options: EmailOptions<T>): any;
+    send(options: EmailOptions<T>): Promise<any>;
 }
 
 declare namespace EmailTemplate {
@@ -176,18 +209,27 @@ declare namespace EmailTemplate {
      *   shorthand use of `juiceResources` with the config
      *   mainly for custom renders like from a database).
      */
-    function juiceResources(html: string): Promise<string> ;
+    function juiceResources(html: string): Promise<string>;
 
     /**
      *
      * @param view The Html pug to render
      * @param locals The template Variables
      */
-    function render(view: string, locals: any): Promise<string>;
+    function render(view: string, locals?: any): Promise<string>;
+
+    /**
+     * Render all available template files for a given email
+     * template (e.g. `html.pug`, `text.pug`, and `subject.pug`)
+     *
+     * @param view Name of the template
+     * @param locals The template variables
+     */
+    function renderAll(view: string, locals?: any): Promise<Partial<EmailMessage>>;
 
     /**
      * Send the Email
      */
-    function send(options: EmailOptions): any;
+    function send(options: EmailOptions): Promise<any>;
 }
 export = EmailTemplate;

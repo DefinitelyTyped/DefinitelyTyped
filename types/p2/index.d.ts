@@ -760,15 +760,12 @@ declare namespace p2 {
 
     }
 
-    export class Box extends Shape {
+    export class Box extends Convex {
 
         constructor(options?: BoxOptions);
 
         width: number;
         height: number;
-
-        computeMomentOfInertia(mass: number): number;
-        updateArea(): void;
 
     }
 

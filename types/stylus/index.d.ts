@@ -6,6 +6,8 @@
 
 /// <reference types="node" />
 
+import { EventEmitter } from 'events';
+
 declare var stylus: Stylus.Static;
 export = stylus;
 
@@ -603,7 +605,7 @@ declare namespace Stylus {
     }
 
     export interface UrlFunction {
-        (options: UrlOptions): LiteralFunction;
+        (options?: UrlOptions): LiteralFunction;
 
         mimes: {
             ".gif": string;
@@ -635,7 +637,7 @@ declare namespace Stylus {
     export class Compiler {
     }
 
-    export class Renderer extends NodeJS.EventEmitter {
+    export class Renderer extends EventEmitter {
         options: RenderOptions;
         str: string;
         events: any;
@@ -1419,8 +1421,8 @@ declare namespace Stylus {
     export type RenderCallback = (err: Error, css: string, js: string) => void;
 
     export interface UrlOptions {
-        limit?: string;
-        path: string;
+        limit?: number | false | null;
+        paths?: string[];
     }
 
     export interface LiteralFunction {

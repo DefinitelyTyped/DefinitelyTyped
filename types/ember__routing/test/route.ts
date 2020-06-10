@@ -16,7 +16,7 @@ Route.extend({
 
 Route.extend({
     afterModel(posts: Posts, transition: Transition) {
-        if (posts.length === 1) {
+        if (posts.firstObject) {
             this.transitionTo('post.show', posts.firstObject);
         }
     },
@@ -101,6 +101,49 @@ class InvalidRedirect extends Route {
         if (!model) {
             this.transitionTo('there');
         }
+    }
+}
+
+class TransitionToExamples extends Route {
+    // NOTE: this one won't check that `queryParams` has the right shape,
+    // because the overload for the version where `models` are passed
+    // necessarily includes all objects.
+    transitionToModelAndQP() {
+        // $ExpectType Transition
+        this.transitionTo('somewhere', { queryParams: { neat: true } });
+    }
+
+    transitionToJustQP() {
+        // $ExpectType Transition
+        this.transitionTo({ queryParams: { neat: 'true' } });
+    }
+
+    transitionToNonsense() {
+        this.transitionTo({ cannotDoModelHere: true }); // $ExpectError
+    }
+
+    transitionToBadQP() {
+        this.transitionTo({ queryParams: 12 }); // $ExpectError
+    }
+
+    transitionToId() {
+        // $ExpectType Transition
+        this.transitionTo('blog-post', 1);
+    }
+
+    transitionToIdWithQP() {
+        // $ExpectType Transition
+        this.transitionTo('blog-post', 1, { queryParams: { includeComments: true } });
+    }
+
+    transitionToIds() {
+        // $ExpectType Transition
+        this.transitionTo('blog-comment', 1, '13');
+    }
+
+    transitionToIdsWithQP() {
+        // $ExpectType Transition
+        this.transitionTo('blog-comment', 1, '13', { queryParams: { includePost: true } });
     }
 }
 

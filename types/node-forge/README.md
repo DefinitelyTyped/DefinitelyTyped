@@ -1,4 +1,4 @@
-# DefinitelyTyped for node-forge
+# Definitely Typed for node-forge
 
 ## Current node-forge Version
 `v0.9.1`

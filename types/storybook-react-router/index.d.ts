@@ -2,18 +2,22 @@
 // Project: https://github.com/gvaldambrini/storybook-router
 // Definitions by: Alex Lomia <https://github.com/alexlomm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
 
-import * as React from 'react';
+import { DecoratorFunction, StoryApi } from '@storybook/addons';
+import { StoryFnReactReturnType } from '@storybook/react/dist/client/preview/types';
+import { ComponentType } from 'react';
 import { MemoryRouterProps } from 'react-router';
-import { Story, StoryDecorator } from '@storybook/react';
 
-export const StoryRouter: React.ComponentType<{
-  story: Story;
+export const StoryRouter: ComponentType<{
+  story: StoryApi;
   links: object;
   routerProps: MemoryRouterProps;
 }>;
 
-declare function storyRouterDecorator(links?: object, routerProps?: MemoryRouterProps): StoryDecorator;
+declare function storyRouterDecorator(
+    links?: object,
+    routerProps?: MemoryRouterProps
+): DecoratorFunction<StoryFnReactReturnType>;
 
 export default storyRouterDecorator;

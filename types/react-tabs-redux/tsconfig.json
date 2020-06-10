@@ -20,9 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "Tabs.d.ts",
-        "TabLink.d.ts",
-        "TabContent.d.ts",
         "react-tabs-redux-tests.tsx"
     ]
 }

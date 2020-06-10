@@ -210,6 +210,24 @@ function centeredSlidesAndAutoSlidesPerView() {
 }
 
 /**
+ * CSS Scroll Snap (CSS Mode)
+ */
+function cssScrollSnap() {
+    const swiper = new Swiper(containerSelector, {
+        cssMode: true,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+          el: '.swiper-pagination'
+        },
+        mousewheel: true,
+        keyboard: true,
+    });
+}
+
+/**
  * Free Mode / No Fixed Positions
  */
 function freeModeAndNoFixedPositions() {
@@ -776,4 +794,20 @@ function staticUseModules() {
     SwiperESM.use([Navigation, History]);
 
     const swiper = new Swiper(containerSelector);
+}
+
+/**
+ * Update On Window Resize
+ */
+function updateOnWindowResize() {
+    const swiper = new Swiper(containerSelector, {
+        updateOnWindowResize: false,
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
 }

@@ -56,6 +56,7 @@ minio.putObject('testBucket', 'hello.txt', 'hello.txt content', 100, metaData, (
 minio.putObject('testBucket', 'hello.jpg', new Stream());
 minio.putObject('testBucket', 'hello.jpg', new Buffer('string'), 100);
 minio.putObject('testBucket', 'hello.txt', 'hello.txt content', 100, metaData);
+minio.putObject('testBucket', 'hello.txt', 'hello.txt content', metaData);
 
 minio.fPutObject('testBucket', 'hello.jpg', 'file/path', metaData, (error: Error|null, etag: string) => { console.log(error, etag); });
 minio.fPutObject('testBucket', 'hello.jpg', 'file/path', metaData);

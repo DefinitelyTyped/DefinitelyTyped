@@ -1,4 +1,5 @@
 import noUiSlider = require("nouislider");
+import wNumb from 'wnumb';
 
 var testHtmlElement = document.getElementById('test');
 
@@ -158,6 +159,22 @@ noUiSlider.create(testHtmlElement, {
     range: {
         'min': 0,
         'max': 80
+    }
+});
+noUiSlider.create(testHtmlElement, {
+    start: 40,
+    connect: 'lower',
+    range: {
+        'min': 0,
+        'max': 100
+    }
+});
+noUiSlider.create(testHtmlElement, {
+    start: 40,
+    connect: 'upper',
+    range: {
+        'min': 0,
+        'max': 100
     }
 });
 
@@ -474,6 +491,66 @@ noUiSlider.create(testHtmlElement, {
         stepped: true
     }
 });
+
+/**
+ * Updates tests
+ */
+const slider = noUiSlider.create(testHtmlElement, {
+    range: range_all_sliders,
+    start: 0,
+    pips: {
+        mode: 'values',
+        values: [50, 552, 2251, 3200, 5000, 7080, 9000],
+        density: 4,
+    },
+});
+
+// noUiSlider has an update method that can change the 'margin',
+// 'padding', 'limit', 'step', 'range', 'pips', 'tooltips', 'animate' and 'snap' options.
+slider.updateOptions({
+    margin: 1,
+    padding: 2,
+    limit: 3,
+    step: 4,
+    range: range_all_sliders,
+    pips: {
+        mode: 'values',
+        values: [50, 552, 2251, 3200, 5000, 7080, 9000],
+        density: 4,
+    },
+    tooltips: [false, wNumb({ decimals: 1 }), true],
+    animate: true,
+});
+// Options that can not be updated will be ignored without errors.
+slider.updateOptions({
+    animationDuration: 1,
+    behaviour: 'drag',
+    direction: 'ltr',
+    format: wNumb({
+        decimals: 2,
+        prefix: '$',
+    }),
+});
+// The value null can be used to unset a previously set value.
+slider.updateOptions({
+    margin: null,
+    padding: null,
+    limit: null,
+    step: null,
+    range: null,
+    pips: null,
+    tooltips: null,
+    animate: null,
+});
+
+// The `set` event fires when the slider values are restored.
+// If this is unwanted, you can pass `false` as the second parameter, `fireSetEvent`.
+slider.updateOptions(
+    {
+        animate: true,
+    },
+    false,
+);
 
 /**
  * Functions

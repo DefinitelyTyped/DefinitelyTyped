@@ -1,6 +1,9 @@
 // Type definitions for non-npm package @ember/utils 3.0
 // Project: http://emberjs.com/
 // Definitions by: Mike North <https://github.com/mike-north>
+//                 Chris Krycho <https://github.com/chriskrycho>
+//                 Dan Freeman <https://github.com/dfreeman>
+//                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

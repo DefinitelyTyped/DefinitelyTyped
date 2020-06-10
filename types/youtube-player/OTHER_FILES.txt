@@ -1,0 +1,4 @@
+dist/FunctionStateMap.d.ts
+dist/YouTubePlayer.d.ts
+dist/functionNames.d.ts
+dist/loadYouTubeIframeApi.d.ts

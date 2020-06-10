@@ -1,9 +1,9 @@
 /***************************************************************************
  *                                                                         *
  *   This file was automatically generated with idlc.js                    *
- *	 build info: 								   						   *
- *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 12 2018 07:22:40                                     *
+ *     build info:                                                               *
+ *       - fibjs    : 0.25.0                                                   *
+ *       - date    : Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -196,20 +196,20 @@
 
 /** module Or Internal Object */
 /**
-	* @brief 常用常量定义模块
-	* @detail 引用方法：,```JavaScript,var constants = require('constants');,```
-	*/
+    * @brief 常用常量定义模块
+    * @detail 引用方法：,```JavaScript,var constants = require('constants');,```
+    */
 declare module "constants" {
-	
+    
 
-	module constants {
-		
-		
-		
-		
-		
-	} /** end of `module constants` */
-	export = constants
+    module constants {
+        
+        
+        
+        
+        
+    } /** end of `module constants` */
+    export = constants
 }
 
 /** endof `module Or Internal Object` */

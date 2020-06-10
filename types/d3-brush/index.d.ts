@@ -1,10 +1,10 @@
-// Type definitions for D3JS d3-brush module 1.0
+// Type definitions for D3JS d3-brush module 1.1
 // Project: https://github.com/d3/d3-brush/, https://d3js.org/d3-brush
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.0.3
+// Last module patch version validated against: 1.1.5
 
 import { ArrayLike, Selection, TransitionLike, ValueFn } from 'd3-selection';
 
@@ -139,6 +139,20 @@ export interface BrushBehavior<Datum> {
     filter(filterFn: ValueFn<SVGGElement, Datum, boolean>): this;
 
     /**
+     * Returns the current key modifiers flag.
+     */
+    keyModifiers(): boolean;
+    /**
+     * Sets the key modifiers flag and returns the brush.
+     *
+     * The key modifiers flag determines whether the brush listens to key events during brushing.
+     * The default value is true.
+     *
+     * @param keyModifiers New value for key modifiers flag.
+     */
+    keyModifiers(modifiers: boolean): this;
+
+    /**
      * Returns the current handle size, which defaults to six.
      */
     handleSize(): number;
@@ -239,8 +253,9 @@ export interface D3BrushEvent<Datum> {
     type: 'start' | 'brush' | 'end' | string; // Leave failsafe string type for cases like 'brush.foo'
     /**
      * The current brush selection associated with the event.
+     * This is null when the selection is empty.
      */
-    selection: BrushSelection;
+    selection: BrushSelection | null;
     /**
      * The underlying input event, such as mousemove or touchmove.
      */

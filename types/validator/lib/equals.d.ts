@@ -1,1 +1,2 @@
-export { equals as default } from '../';
+import validator from '../';
+export default validator.equals;

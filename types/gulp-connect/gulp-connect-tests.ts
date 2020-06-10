@@ -1,5 +1,5 @@
 // Copying examples from Readme which currently depend on gulp v3
-import * as gulp from 'gulp/v3';
+import * as gulp from 'gulp';
 import * as connect from 'gulp-connect';
 
 // Simple example
@@ -7,7 +7,7 @@ gulp.task('connect', () => {
   connect.server();
 });
 
-gulp.task('default', ['connect']);
+gulp.task('default', gulp.series(['connect']));
 
 // LiveReload
 gulp.task('connect', () => {
@@ -23,10 +23,10 @@ gulp.task('html', () => {
 });
 
 gulp.task('watch', () => {
-  gulp.watch(['./app/*.html'], ['html']);
+  gulp.watch(['./app/*.html'], gulp.series(['html']));
 });
 
-gulp.task('default', ['connect', 'watch']);
+gulp.task('default', gulp.series(['connect', 'watch']));
 
 // Start and stop server
 gulp.task('jenkins-tests', () => {
@@ -70,11 +70,11 @@ gulp.task('stylus', () => {
 });
 
 gulp.task('watch', () => {
-  gulp.watch(['./app/*.html'], ['html']);
-  gulp.watch(['./app/stylus/*.styl'], ['stylus']);
+  gulp.watch(['./app/*.html'], gulp.series(['html']));
+  gulp.watch(['./app/stylus/*.styl'], gulp.series(['stylus']));
 });
 
-gulp.task('default', ['connectDist', 'connectDev', 'watch']);
+gulp.task('default', gulp.series(['connectDist', 'connectDev', 'watch']));
 
 // Barebones middleware example from Readme
 gulp.task('connect', () => {

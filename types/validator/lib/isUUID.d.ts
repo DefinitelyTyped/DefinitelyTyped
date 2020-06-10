@@ -1,1 +1,3 @@
-export { isUUID as default } from '../';
+import validator from '../';
+export type UUIDVersion = validator.UUIDVersion;
+export default validator.isUUID;

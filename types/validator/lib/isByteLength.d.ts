@@ -1,1 +1,3 @@
-export { isByteLength as default } from '../';
+import validator from '../';
+export type IsByteLengthOptions = validator.IsByteLengthOptions;
+export default validator.isByteLength;

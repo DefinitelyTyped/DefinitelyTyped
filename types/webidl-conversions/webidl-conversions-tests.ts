@@ -4,8 +4,27 @@ const any: any = void 0;
 const unknown: unknown = void 0;
 // $ExpectType Options
 const options: conversions.Options = ((): conversions.Options => {
-	return {};
+    return {};
 })();
+
+options.context; // $ExpectType string | undefined
+
+const {
+    globals, // $ExpectType Globals | undefined
+} = options;
+
+if (globals) {
+    globals; // $ExpectType Globals
+    globals.Number; // $ExpectType (value?: any) => number
+    globals.String; // $ExpectType (value?: any) => string
+    globals.TypeError; // $ExpectType new (message?: string | undefined) => TypeError
+}
+
+/**
+ * The `expectType` function from https://www.npmjs.com/package/tsd,
+ * except instead of returning `void`, it returns `T`.
+ */
+declare function expectType<T>(value: T): T;
 
 conversions.any(any); // $ExpectType any
 conversions.any(unknown); // $ExpectType unknown
@@ -38,8 +57,12 @@ conversions.DOMString(any, options); // $ExpectType string
 conversions.ByteString(any, options); // $ExpectType string
 conversions.USVString(any, options); // $ExpectType string
 
-conversions.object(any, options); // $ExpectType object
-conversions.Error(any, options); // $ExpectType Error
+conversions.object(any, options); // $ExpectType any
+conversions.object(unknown, options); // $ExpectType object
+expectType<null & object>(conversions.object(null, options));
+expectType<string & object>(conversions.object('string', options));
+expectType<number & object>(conversions.object(123, options));
+conversions.object({}, options); // $ExpectType {}
 
 conversions.ArrayBuffer(any, options); // $ExpectType ArrayBuffer
 conversions.DataView(any, options); // $ExpectType DataView

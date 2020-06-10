@@ -9,6 +9,12 @@ app.listen(3000, (err: any) => {
 app.get('/:foo', req => {
     req.params.foo; // $ExpectType string
     req.params[0]; // $ExpectType string
+    // $ExpectType string | false | null
+    req.is(['application/json', 'application/xml']);
+    // $ExpectType string | false | null
+    req.is('audio/wav');
+    // $ExpectError
+    req.is(1);
 });
 
 // Params can used as an array
@@ -25,6 +31,27 @@ app.get<{ foo: string }>('/:foo', req => {
 
 // Params cannot be a custom type that does not conform to constraint
 app.get<{ foo: number }>('/:foo', () => {}); // $ExpectError
+
+// Query can be a custom type
+app.get<{}, any, any, {q: string}>('/:foo', req => {
+    req.query.q; // $ExpectType string
+    req.query.a; // $ExpectError
+});
+
+// Query will be defaulted to Query type
+app.get('/:foo', req => {
+    req.query; // $ExpectType ParsedQs
+});
+
+// Next can receive a Error parameter to delegate to Error handler
+app.get('/nexterr', (req, res, next) => {
+    next(new Error("dummy")); // $ExpectType void
+});
+
+// Next can receive a 'router' parameter to fall back to next router
+app.get('/nextrouter', (req, res, next) => {
+    next('router'); // $ExpectType void
+});
 
 // Default types
 app.post("/", (req, res) => {

@@ -7,7 +7,8 @@ const {
     RTCIceCandidate,
     RTCSessionDescription,
     MediaStream,
-    RTCView
+    RTCView,
+    registerGlobals,
 } = WebRTC;
 
 mediaDevices.getUserMedia({
@@ -58,6 +59,8 @@ MediaStreamInit.getVideoTracks();
 MediaStreamInit.toURL();
 
 peer.addStream(MediaStreamInit);
+
+registerGlobals();
 
 export const VideoCall = () => (
     <RTCView objectFit={"cover"} zOrder={0} style={{}} streamURL={""} />

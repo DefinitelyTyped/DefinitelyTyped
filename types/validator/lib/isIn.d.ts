@@ -1,1 +1,2 @@
-export { isIn as default } from '../';
+import validator from '../';
+export default validator.isIn;

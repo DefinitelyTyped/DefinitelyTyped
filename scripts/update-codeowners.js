@@ -90,7 +90,7 @@ function padNum(number) {
 const header =
 `# This file is generated.
 # Add yourself to the "Definitions by:" list instead.
-# See https://github.com/DefinitelyTyped/DefinitelyTyped#edit-an-existing-package`;
+# See https://github.com/DefinitelyTyped/DefinitelyTyped#definition-owners`;
 
 /**
  * @param { { contributors: ReadonlyArray<{githubUsername?: string }>, subDirectoryPath: string} } pkg

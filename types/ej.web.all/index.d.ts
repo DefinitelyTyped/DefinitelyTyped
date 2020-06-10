@@ -1,4 +1,4 @@
-// Type definitions for non-npm package ej.web.all 17.3
+// Type definitions for non-npm package ej.web.all 18.1
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,8 +8,8 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 17.3.0.26
-*  Copyright Syncfusion Inc. 2001 - 2019. All rights reserved.
+*  version : 18.1.0.52
+*  Copyright Syncfusion Inc. 2001 - 2020. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
 *  licensing@syncfusion.com. Any infringement will be prosecuted under
@@ -924,7 +924,7 @@ declare namespace ej {
     function parseFloat(value: string, radix?: any, culture?: string): number;
     function parseDate(value: string, format: string, culture?: string): Date;
     function getLocalizedConstants(controlName: string, culture?: string): any;
-	function findCulture(culture?: string): culture;
+    function findCulture(culture?: string): culture;
 
     interface globalize {
         addCulture(name: string, culture?: any): void;
@@ -934,7 +934,7 @@ declare namespace ej {
         parseFloat(value: string, radix?: any, culture?: string): number;
         parseDate(value: string, format: string, culture?: string): Date;
         getLocalizedConstants(controlName: string, culture?: string): any;
-		findCulture(culture?: string): culture;
+        findCulture(culture?: string): culture;
     }
     interface culture {
         name?: string;
@@ -16931,7 +16931,7 @@ declare namespace ej {
             autoHeight?: boolean;
 
             /** This API holds configuration setting for paste cleanup behavior.
-             * @Default {{ listConversion: false, cleanCSS: false,	removeStyles: false, cleanElements: false }}
+             * @Default {{ listConversion: false, cleanCSS: false,    removeStyles: false, cleanElements: false }}
              */
             pasteCleanupSettings?: PasteCleanupSettings;
 
@@ -37825,7 +37825,7 @@ declare namespace ej {
              */
             ajaxError?(e: AjaxErrorEventArgs): void;
 
-            /** Fires when the dependent parameter value is changing in the parameter block. You can add custom user interface, loading indicator and modify the default progress text, using the
+            /** Fires when the dependent parameter value is the parameter block. You can add custom user interface, loading indicator and modify the default progress text, using the
              * ParameterUpdateStateChange event.
              */
             parameterUpdateStateChange?(e: ParameterUpdateStateChangeEventArgs): void;
@@ -73653,7 +73653,7 @@ declare namespace ej.datavisualization {
             //Used to specify node type as Image
             Image,
             //Used to specify node type as HTML
-            HTML,
+            Html,
             //Used to specify node type as Native
             Native,
             //Used to specify node type as Basic

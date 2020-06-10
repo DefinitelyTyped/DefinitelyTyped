@@ -1,1 +1,3 @@
-export { isNumeric as default } from '../';
+import validator from '../';
+export type IsNumericOptions = validator.IsNumericOptions;
+export default validator.isNumeric;

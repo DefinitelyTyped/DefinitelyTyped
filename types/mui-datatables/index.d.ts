@@ -1,9 +1,10 @@
-// Type definitions for mui-datatables 2.12
+// Type definitions for mui-datatables 2.14
 // Project: https://github.com/gregnb/mui-datatables
 // Definitions by: Jeroen "Favna" Claassens <https://github.com/favna>
 //                 Ankith Konda <https://github.com/ankithkonda>
 //                 Herman "Von" Waters IV <https://github.com/hwatersiv>
 //                 souppower <https://github.com/souppower>
+//                 Byron "Byrekt" Mitchell <https://github.com/byrekt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -15,12 +16,12 @@ export type FilterType = 'dropdown' | 'checkbox' | 'multiselect' | 'textField' |
 export type Responsive = 'stacked' | 'scrollMaxHeight' | 'scrollFullHeight';
 export type SelectableRows = 'multiple' | 'single' | 'none';
 
-interface MUIDataTableData {
+export interface MUIDataTableData {
     data: Array<object | number[] | string[]>;
     index: number;
 }
 
-interface MUIDataTableStateRows {
+export interface MUIDataTableStateRows {
     data: string[];
     lookup: any;
 }
@@ -28,7 +29,12 @@ interface MUIDataTableStateRows {
 export interface MUIDataTableState {
     activeColumn: string | null;
     announceText: string | null;
+    columns: MUIDataTableColumnState[];
+    count: number;
+    data: any[];
+    displayData: Array<{dataIndex: number; data: any[]}>;
     expandedRows: MUIDataTableStateRows;
+    filterData: any[];
     filterList: string[][];
     page: number;
     rowsPerPage: number;
@@ -39,7 +45,7 @@ export interface MUIDataTableState {
 }
 
 export interface MUIDataTableMeta {
-    columnData: MUIDataTableColumnOptions[];
+    columnData: MUIDataTableColumnState;
     columnIndex: number;
     rowData: any[];
     rowIndex: number;
@@ -47,23 +53,23 @@ export interface MUIDataTableMeta {
     tableState: MUIDataTableState;
 }
 
-interface MUIDataTableCustomHeadRenderer extends MUIDataTableColumn {
+export interface MUIDataTableCustomHeadRenderer extends MUIDataTableColumn {
     index: number;
 }
 
-interface MUIDataTableTextLabelsBody {
+export interface MUIDataTableTextLabelsBody {
     noMatch: string;
     toolTip: string;
 }
 
-interface MUIDataTableTextLabelsPagination {
+export interface MUIDataTableTextLabelsPagination {
     displayRows: string;
     next: string;
     previous: string;
     rowsPerPage: string;
 }
 
-interface MUIDataTableTextLabelsToolbar {
+export interface MUIDataTableTextLabelsToolbar {
     downloadCsv: string;
     filterTable: string;
     print: string;
@@ -71,18 +77,18 @@ interface MUIDataTableTextLabelsToolbar {
     viewColumns: string;
 }
 
-interface MUIDataTableTextLabelsFilter {
+export interface MUIDataTableTextLabelsFilter {
     all: string;
     reset: string;
     title: string;
 }
 
-interface MUIDataTableTextLabelsViewColumns {
+export interface MUIDataTableTextLabelsViewColumns {
     title: string;
     titleAria: string;
 }
 
-interface MUIDataTableTextLabelsSelectedRows {
+export interface MUIDataTableTextLabelsSelectedRows {
     delete: string;
     deleteAria: string;
     text: string;
@@ -95,12 +101,12 @@ export interface MUIDataTableColumn {
 }
 
 export interface MUIDataTableTextLabels {
-    body: MUIDataTableTextLabelsBody;
-    filter: MUIDataTableTextLabelsFilter;
-    pagination: MUIDataTableTextLabelsPagination;
-    selectedRows: MUIDataTableTextLabelsSelectedRows;
-    toolbar: MUIDataTableTextLabelsToolbar;
-    viewColumns: MUIDataTableTextLabelsViewColumns;
+    body: Partial<MUIDataTableTextLabelsBody>;
+    filter: Partial<MUIDataTableTextLabelsFilter>;
+    pagination: Partial<MUIDataTableTextLabelsPagination>;
+    selectedRows: Partial<MUIDataTableTextLabelsSelectedRows>;
+    toolbar: Partial<MUIDataTableTextLabelsToolbar>;
+    viewColumns: Partial<MUIDataTableTextLabelsViewColumns>;
 }
 
 export interface MUIDataTableFilterOptions {
@@ -109,23 +115,35 @@ export interface MUIDataTableFilterOptions {
     logic?: (prop: string, filterValue: any[]) => boolean;
 }
 
+export interface MUIDataTableCustomFilterListOptions {
+    render?: (value: any) => React.ReactNode;
+    update?: (...args: any[]) => string[];
+}
+
+export interface MUIDataTableColumnState extends MUIDataTableColumnOptions {
+    name: string;
+    label?: string;
+}
+
 export interface MUIDataTableColumnOptions {
-    customBodyRender?: (value: any, tableMeta: MUIDataTableMeta, updateValue: (s: any, c: any, p: any) => any) => string | React.ReactNode;
+    customBodyRender?: (value: any, tableMeta: MUIDataTableMeta, updateValue: (value: string) => void) => string | React.ReactNode;
     customHeadRender?: (columnMeta: MUIDataTableCustomHeadRenderer, updateDirection: (params: any) => any) => string | React.ReactNode;
     customFilterListRender?: (value: any) => string;
+    customFilterListOptions?: MUIDataTableCustomFilterListOptions;
     display?: 'true' | 'false' | 'excluded';
     download?: boolean;
     empty?: boolean;
     filter?: boolean;
-    filterList?: string[];
     filterType?: FilterType;
+    filterList?: string[];
     filterOptions?: MUIDataTableFilterOptions;
     hint?: string;
     print?: boolean;
     searchable?: boolean;
+    setCellHeaderProps?: (columnMeta: MUIDataTableCustomHeadRenderer) => object;
     setCellProps?: (cellValue: string, rowIndex: number, columnIndex: number) => object;
     sort?: boolean;
-    sortDirection?: 'asc' | 'desc';
+    sortDirection?: 'asc' | 'desc' | 'none';
     viewColumns?: boolean;
 }
 
@@ -149,8 +167,8 @@ export interface MUIDataTableOptions {
         rowCount: number,
         page: number,
         rowsPerPage: number,
-        changeRowsPerPage: () => any,
-        changePage: number
+        changeRowsPerPage: (page: string | number) => void,
+        changePage: (newPage: number) => void
     ) => React.ReactNode;
     customRowRender?: (data: any[], dataIndex: number, rowIndex: number) => React.ReactNode;
     customSearch?: (searchQuery: string, currentRow: any[], columns: any[]) => boolean;
@@ -170,18 +188,23 @@ export interface MUIDataTableOptions {
         displayData: Array<{ data: any[]; dataIndex: number }>,
         setSelectedRows: (rows: number[]) => void
     ) => React.ReactNode;
+    disableToolbarSelect?: boolean;
     download?: boolean;
-    downloadOptions?: {
+    downloadOptions?: Partial<{
         filename: string;
         separator: string;
-        filterOptions?: { useDisplayedColumnsOnly: boolean; useDisplayedRowsOnly: boolean };
-    };
+        filterOptions: Partial<{ useDisplayedColumnsOnly: boolean; useDisplayedRowsOnly: boolean }>;
+    }>;
     elevation?: number;
     expandableRows?: boolean;
     expandableRowsOnClick?: boolean;
     filter?: boolean;
     filterType?: FilterType;
     fixedHeader?: boolean;
+    fixedHeaderOptions?: {
+        xAxis: boolean;
+        yAxis: boolean;
+    };
     isRowExpandable?: (dataIndex: number, expandedRows?: MUIDataTableIsRowCheck) => boolean;
     isRowSelectable?: (dataIndex: number, selectedRows?: MUIDataTableIsRowCheck) => boolean;
     onCellClick?: (
@@ -192,17 +215,25 @@ export interface MUIDataTableOptions {
     onChangeRowsPerPage?: (numberOfRows: number) => void;
     onColumnSortChange?: (changedColumn: string, direction: string) => void;
     onColumnViewChange?: (changedColumn: string, action: string) => void;
+    /**
+     * A callback function that triggers when the user downloads the CSV file.
+     * In the callback, you can control what is written to the CSV file.
+     * Return false to cancel download of file.
+     */
     onDownload?: (
         buildHead: (columns: any) => string,
         buildBody: (data: any) => string,
         columns: any,
-        data: any
-    ) => BlobPart;
+        data: any,
+    ) => string | boolean;
     onFilterChange?: (changedColumn: string, filterList: any[], type: FilterType | 'chip' | 'reset') => void;
     onFilterDialogOpen?: () => void;
     onFilterDialogClose?: () => void;
     onRowClick?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void;
-    onRowsDelete?: (rowsDeleted: any[]) => void;
+    onRowsDelete?: (rowsDeleted: {
+        lookup: { [dataIndex: number]: boolean };
+        data: Array<{ index: number; dataIndex: number }>;
+    }) => void;
     onRowsExpand?: (currentRowsExpanded: any[], allRowsExpanded: any[]) => void;
     onRowsSelect?: (currentRowsSelected: any[], rowsSelected: any[]) => void;
     onSearchChange?: (searchText: string) => void;
@@ -228,12 +259,13 @@ export interface MUIDataTableOptions {
     selectableRows?: SelectableRows;
     selectableRowsHeader?: boolean;
     selectableRowsOnClick?: boolean;
+    setTableProps?: () => object;
     serverSide?: boolean;
     serverSideFilterList?: any[];
     setRowProps?: (row: any[], rowIndex: number) => object;
     sort?: boolean;
     sortFilterList?: boolean;
-    textLabels?: MUIDataTableTextLabels;
+    textLabels?: Partial<MUIDataTableTextLabels>;
     viewColumns?: boolean;
 }
 
@@ -410,7 +442,7 @@ export interface MUIDataTableViewCol {
     onColumnUpdate: (...args: any) => any;
 }
 
-declare const MUIDataTable: React.ComponentType<MUIDataTableProps>;
+export const MUIDataTable: React.ComponentType<MUIDataTableProps>;
 
 export const Popover: React.Component<MUIDataTablePopover>;
 export const TableBody: React.Component<MUIDataTableBody>;

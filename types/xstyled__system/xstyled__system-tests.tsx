@@ -58,6 +58,7 @@ import {
     SystemProps,
     TypographyProps,
     XGridProps,
+    rpxTransformers,
 } from '@xstyled/system';
 
 // Getters
@@ -298,6 +299,9 @@ const typographyTest = () => (
         <Typography fontWeight="sm" />
         <Typography fontWeight="bold" />
         <Typography fontWeight={{ sm: 1, md: 'sm', lg: 'bold' }} />
+        <Typography fontStyle="normal" />
+        <Typography fontStyle="italic" />
+        <Typography fontStyle="oblique" />
         <Typography textAlign="start" />
         <Typography textAlign={{ sm: 'start', md: 'end' }} />
         <Typography letterSpacing={2} />
@@ -399,6 +403,9 @@ const backgroundsTest = () => (
     <div>
         <Backgrounds background="green" />
         <Backgrounds background={{ sm: 'content-box red', md: 'green' }} />
+        <Backgrounds bg={2} />
+        <Backgrounds bg="sm" />
+        <Backgrounds bg={{ sm: 2, md: 'sm' }} />
         <Backgrounds backgroundColor={2} />
         <Backgrounds backgroundColor="sm" />
         <Backgrounds backgroundColor={{ sm: 2, md: 'sm' }} />
@@ -662,3 +669,10 @@ up('md', 'color: red')({});
 down('md', 'color: red')({});
 
 between('md', 'lg', 'color: red')({});
+
+// RPX Transformers
+
+rpxTransformers.px(16).toString();
+rpxTransformers.px('16rpx').toString();
+rpxTransformers.border(10).toString();
+rpxTransformers.border('10px solid').toString();

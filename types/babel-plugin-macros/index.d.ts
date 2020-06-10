@@ -1,36 +1,35 @@
-// Type definitions for babel-plugin-macros 2.6
+// Type definitions for babel-plugin-macros 2.8
 // Project: https://github.com/kentcdodds/babel-plugin-macros
 // Definitions by: Billy Kwok <https://github.com/billykwok>
+//                 Jake Runzer <https://github.com/coffee-cup>
+//                 Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// Minimum TypeScript Version: 3.4
+
 import * as Babel from '@babel/core';
 
-type References = Babel.NodePath[];
+export = babelPluginMacros;
 
-interface Options {
-    configName?: string;
-}
+declare namespace babelPluginMacros {
+    interface References {
+        [key: string]: Babel.NodePath[];
+    }
 
-interface MacroParams {
-    references: { default: References } & References;
-    state: any;
-    babel: typeof Babel;
-}
+    interface Options {
+        configName?: string;
+    }
 
-type MacroHandler = (params: MacroParams) => void;
+    interface MacroParams {
+        references: { default: Babel.NodePath[] } & References;
+        state: Babel.PluginPass;
+        babel: typeof Babel;
+    }
 
-declare function babel_plugin_macros(
-    babel: typeof Babel,
-    ref: {
-        require: (path: string) => any;
-        resolvePath: (src: string, baseDir: string) => any;
-    },
-): Babel.PluginObj;
+    type MacroHandler = (params: MacroParams) => void;
 
-declare namespace babel_plugin_macros {
     class MacroError extends Error {}
 
     function createMacro(handler: MacroHandler, options?: Options): any;
 }
 
-export = babel_plugin_macros;
+declare function babelPluginMacros(babel: typeof Babel, options: any): Babel.PluginObj;

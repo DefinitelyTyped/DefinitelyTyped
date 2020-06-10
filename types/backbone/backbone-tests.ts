@@ -96,6 +96,42 @@ class SettingDefaults extends Backbone.Model {
     // same patterns could be used for setting 'Router.routes' and 'View.events'
 }
 
+class FullyTyped extends Backbone.Model<{iLikeBacon: boolean, iLikeToast: boolean}> {
+    public getILikeBacon(): boolean {
+        return this.get('iLikeBacon')
+    }
+
+    public setILikeBacon(value: boolean) {
+        return this.set('iLikeBacon', value);
+    }
+
+    public setAll(values: {iLikeBacon: boolean, iLikeToast?: boolean}) {
+        return this.set(values);
+    }
+
+    public setValue(key:keyof {iLikeBacon: boolean, iLikeToast: boolean}, value: any) {
+        return this.set(key, value);
+    }
+}
+
+class FullyTypedDefault extends Backbone.Model {
+    public getILikeBacon(): boolean {
+        return this.get('iLikeBacon')
+    }
+
+    public setILikeBacon(value: boolean) {
+        return this.set('iLikeBacon', value);
+    }
+
+    public setAll(values: {iLikeBacon: boolean, iLikeToast?: boolean}) {
+        return this.set(values);
+    }
+
+    public setValue(key: string, value: any) {
+        return this.set(key, value);
+    }
+}
+
 class Sidebar extends Backbone.Model {
 
     promptColor() {

@@ -1,4 +1,4 @@
-import * as validator from 'validator';
+import validator from 'validator';
 
 /************************************************
  *                                               *
@@ -15,10 +15,14 @@ import isAlphanumericFunc from 'validator/lib/isAlphanumeric';
 import isAsciiFunc from 'validator/lib/isAscii';
 import isBase64Func from 'validator/lib/isBase64';
 import isBeforeFunc from 'validator/lib/isBefore';
+import isIBANFunc from 'validator/lib/isIBAN';
+import isBICFunc from 'validator/lib/isBIC';
 import isBooleanFunc from 'validator/lib/isBoolean';
 import isByteLengthFunc from 'validator/lib/isByteLength';
 import isCreditCardFunc from 'validator/lib/isCreditCard';
 import isCurrencyFunc from 'validator/lib/isCurrency';
+import isEthereumAddressFunc from 'validator/lib/isEthereumAddress';
+import isBtcAddressFunc from 'validator/lib/isBtcAddress';
 import isDataURIFunc from 'validator/lib/isDataURI';
 import isDecimalFunc from 'validator/lib/isDecimal';
 import isDivisibleByFunc from 'validator/lib/isDivisibleBy';
@@ -30,9 +34,12 @@ import isFullWidthFunc from 'validator/lib/isFullWidth';
 import isHalfWidthFunc from 'validator/lib/isHalfWidth';
 import isHashFunc from 'validator/lib/isHash';
 import isHexColorFunc from 'validator/lib/isHexColor';
+import isHSLFunc from 'validator/lib/isHSL';
+import isRgbColorFunc from 'validator/lib/isRgbColor';
 import isHexadecimalFunc from 'validator/lib/isHexadecimal';
 import isIPFunc from 'validator/lib/isIP';
 import isISBNFunc from 'validator/lib/isISBN';
+import isEANFunc from 'validator/lib/isEAN';
 import isISSNFunc from 'validator/lib/isISSN';
 import isISINFunc from 'validator/lib/isISIN';
 import isISO8601Func from 'validator/lib/isISO8601';
@@ -45,6 +52,7 @@ import isJSONFunc from 'validator/lib/isJSON';
 import isJWTFunc from 'validator/lib/isJWT';
 import isLatLongFunc from 'validator/lib/isLatLong';
 import isLengthFunc from 'validator/lib/isLength';
+import isLocaleFunc from 'validator/lib/isLocale';
 import isLowercaseFunc from 'validator/lib/isLowercase';
 import isMACAddressFunc from 'validator/lib/isMACAddress';
 import isMD5Func from 'validator/lib/isMD5';
@@ -53,8 +61,11 @@ import isMobilePhoneFunc from 'validator/lib/isMobilePhone';
 import isMongoIdFunc from 'validator/lib/isMongoId';
 import isMultibyteFunc from 'validator/lib/isMultibyte';
 import isNumericFunc from 'validator/lib/isNumeric';
+import isOctalFunc from 'validator/lib/isOctal';
+import isPassportNumberFunc from 'validator/lib/isPassportNumber';
 import isPortFunc from 'validator/lib/isPort';
 import isPostalCodeFunc from 'validator/lib/isPostalCode';
+import isSemVerFunc from 'validator/lib/isSemVer';
 import isSurrogatePairFunc from 'validator/lib/isSurrogatePair';
 import isURLFunc from 'validator/lib/isURL';
 import isUUIDFunc from 'validator/lib/isUUID';
@@ -73,6 +84,7 @@ import toIntFunc from 'validator/lib/toInt';
 import trimFunc from 'validator/lib/trim';
 import unescapeFunc from 'validator/lib/unescape';
 import whitelistFunc from 'validator/lib/whitelist';
+import isSlugFunc from 'validator/lib/isSlug';
 
 {
     let _blacklist = validator.blacklist;
@@ -105,6 +117,12 @@ import whitelistFunc from 'validator/lib/whitelist';
     let _isBefore = validator.isBefore;
     _isBefore = isBeforeFunc;
 
+    let _isIBANFunc = validator.isIBAN;
+    _isIBANFunc = isIBANFunc;
+
+    let _isBIC = validator.isBIC;
+    _isBIC = isBICFunc;
+
     let _isBoolean = validator.isBoolean;
     _isBoolean = isBooleanFunc;
 
@@ -116,6 +134,12 @@ import whitelistFunc from 'validator/lib/whitelist';
 
     let _isCurrency = validator.isCurrency;
     _isCurrency = isCurrencyFunc;
+
+    let _isEthereumAddress = validator.isEthereumAddress;
+    _isEthereumAddress = isEthereumAddressFunc;
+
+    let _isBtcAddress = validator.isBtcAddress;
+    _isBtcAddress = isBtcAddressFunc;
 
     let _isDataURI = validator.isDataURI;
     _isDataURI = isDataURIFunc;
@@ -150,6 +174,12 @@ import whitelistFunc from 'validator/lib/whitelist';
     let _isHexColor = validator.isHexColor;
     _isHexColor = isHexColorFunc;
 
+    let _isHSL = validator.isHSL;
+    _isHSL = isHSLFunc;
+
+    let _isRgbColor = validator.isRgbColor;
+    _isRgbColor = isRgbColorFunc;
+
     let _isHexadecimal = validator.isHexadecimal;
     _isHexadecimal = isHexadecimalFunc;
 
@@ -158,6 +188,9 @@ import whitelistFunc from 'validator/lib/whitelist';
 
     let _isISBN = validator.isISBN;
     _isISBN = isISBNFunc;
+
+    let _isEAN = validator.isEAN;
+    _isEAN = isEANFunc;
 
     let _isISSN = validator.isISSN;
     _isISSN = isISSNFunc;
@@ -195,6 +228,9 @@ import whitelistFunc from 'validator/lib/whitelist';
     let _isLength = validator.isLength;
     _isLength = isLengthFunc;
 
+    let _isLocale = validator.isLocale;
+    _isLocale = isLocaleFunc;
+
     let _isLowercase = validator.isLowercase;
     _isLowercase = isLowercaseFunc;
 
@@ -219,11 +255,20 @@ import whitelistFunc from 'validator/lib/whitelist';
     let _isNumeric = validator.isNumeric;
     _isNumeric = isNumericFunc;
 
+    let _isOctal = validator.isOctal;
+    _isOctal = isOctalFunc;
+
+    let _isPassportNumber = validator.isPassportNumber;
+    _isPassportNumber = isPassportNumberFunc;
+
     let _isPort = validator.isPort;
     _isPort = isPortFunc;
 
     let _isPostalCode = validator.isPostalCode;
     _isPostalCode = isPostalCodeFunc;
+
+    let _isSemVer = validator.isSemVer;
+    _isSemVer = isSemVerFunc;
 
     let _isSurrogatePair = validator.isSurrogatePair;
     _isSurrogatePair = isSurrogatePairFunc;
@@ -278,6 +323,9 @@ import whitelistFunc from 'validator/lib/whitelist';
 
     let _whitelist = validator.whitelist;
     _whitelist = whitelistFunc;
+
+    let _isSlug = validator.isSlug;
+    _isSlug = isSlugFunc;
 }
 
 /************************************************
@@ -408,6 +456,10 @@ const any: any = null;
     result = validator.isBefore('sample');
     result = validator.isBefore('sample', new Date().toString());
 
+    result = validator.isIBAN('sample');
+
+    result = validator.isBIC('SBICKEN1345');
+
     result = validator.isBoolean('sample');
 
     const isByteLengthOptions: validator.IsByteLengthOptions = {};
@@ -418,6 +470,10 @@ const any: any = null;
     const isCurrencyOptions: validator.IsCurrencyOptions = {};
     result = validator.isCurrency('sample');
     result = validator.isCurrency('sample', isCurrencyOptions);
+
+    result = validator.isEthereumAddress('sample');
+
+    result = validator.isBtcAddress('sample');
 
     result = validator.isDataURI('sample');
 
@@ -463,6 +519,11 @@ const any: any = null;
 
     result = validator.isHexColor('sample');
 
+    result = validator.isHSL('sample');
+
+    result = validator.isRgbColor('sample');
+    result = validator.isRgbColor('sample', true);
+
     result = validator.isHexadecimal('sample');
 
     result = validator.isIP('sample');
@@ -471,13 +532,20 @@ const any: any = null;
     result = validator.isISBN('sample');
     result = validator.isISBN('sample', '13');
 
-    const isISSNOptions: validator.IsISSNOptions = {};
+    result = validator.isEAN('sample');
+
+    const isISSNOptions: validator.IsISSNOptions = {
+        case_sensitive: true,
+        require_hyphen: true,
+    };
     result = validator.isISSN('sample');
     result = validator.isISSN('sample', isISSNOptions);
 
     result = validator.isISIN('sample');
 
-    const isISO8601Options: validator.IsISO8601Options = {};
+    const isISO8601Options: validator.IsISO8601Options = {
+        strict: true,
+    };
     result = validator.isISO8601('sample');
     result = validator.isISO8601('sample', isISO8601Options);
 
@@ -498,16 +566,25 @@ const any: any = null;
 
     const isLengthOptions: validator.IsLengthOptions = {};
     result = validator.isLength('sample', isLengthOptions);
+    result = validator.isLength('sample');
+
+    result = validator.isLocale('sample');
 
     result = validator.isLowercase('sample');
 
+    const isMACAddressOptions: validator.IsMACAddressOptions = {
+        no_colons: true,
+    };
+    result = validator.isMACAddress('sample', isMACAddressOptions);
     result = validator.isMACAddress('sample');
 
     result = validator.isMD5('sample');
 
     result = validator.isMimeType('sample');
 
-    const isMobilePhoneOptions: validator.IsMobilePhoneOptions = {};
+    const isMobilePhoneOptions: validator.IsMobilePhoneOptions = {
+        strictMode: true,
+    };
     result = validator.isMobilePhone('sample', 'any', isMobilePhoneOptions);
     result = validator.isMobilePhone('sample', 'ar-AE');
     result = validator.isMobilePhone('sample', 'ar-DZ');
@@ -578,6 +655,10 @@ const any: any = null;
     result = validator.isNumeric('sample');
     result = validator.isNumeric('+358', { no_symbols: true });
 
+    result = validator.isOctal('076543210');
+
+    result = validator.isPassportNumber('sample', 'US');
+
     result = validator.isPort('sample');
 
     result = validator.isPostalCode('sample', 'AT');
@@ -617,6 +698,8 @@ const any: any = null;
     result = validator.isPostalCode('sample', 'ZM');
     result = validator.isPostalCode('sample', 'any');
 
+    result = validator.isSemVer('sample');
+
     result = validator.isSurrogatePair('sample');
 
     const isURLOptions: validator.IsURLOptions = {};
@@ -636,6 +719,8 @@ const any: any = null;
 
     result = validator.matches('foobar', 'foo/i');
     result = validator.matches('foobar', 'foo', 'i');
+
+    result = validator.isSlug('cs_67CZ');
 }
 
 // **************

@@ -232,6 +232,7 @@ declare namespace Flexmonster {
             row?: Array<{ type: string; tuple: string[]; measure: MeasureObject; }>;
         };
         drillThrough?: string[];
+        flatOrder?: string[];
     }
 
     interface Options {
@@ -265,6 +266,7 @@ declare namespace Flexmonster {
             showHierarchyCaptions?: boolean;
             showReportFiltersArea?: boolean;
             showTotals?: boolean;
+            showEmptyValues?: boolean;
             title?: string;
             type?: string;
             showAutoCalculationBar?: boolean;

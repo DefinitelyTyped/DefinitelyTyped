@@ -1,4 +1,4 @@
-// Type definitions for blip-sdk 7.x
+// Type definitions for blip-sdk 7.3
 // Project: https://github.com/takenet/blip-sdk-js#readme
 // Definitions by: Henrique Torquato <https://github.com/henriquetorquato>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,9 +8,28 @@ export namespace BlipSdk.Extensions {
     interface ArtificialIntelligence {
         // Analysis
 
-        getAnalysis(skip?: number, take?: number, ascending?: boolean, filter?: string): Promise<object[]>;
+        getAnalysis(
+            skip?: number,
+            take?: number,
+            ascending?: boolean,
+            filter?: string,
+            intents?: string[],
+            feedbacks?: string[],
+            source?: string,
+            beginDate?: string,
+            endDate?: string,
+            minScore?: string,
+            maxScore?: string): Promise<object>;
         analyse(analysis: object): Promise<object>;
-        setAnalysisByEmail(analysis: object): Promise<object>;
+        setAnalysisByEmail(
+            emailAndFilter: object,
+            intents?: string[],
+            feedbacks?: string[],
+            source?: string,
+            beginDate?: string,
+            endDate?: string,
+            minScore?: string,
+            maxScore?: string): Promise<object>;
         setAnalysisFeedback(id: string, analysisFeedback: object): Promise<object>;
         setAnalysesFeedback(analyses: object[]): Promise<object>;
 
@@ -67,5 +86,17 @@ export namespace BlipSdk.Extensions {
         setWordSet(wordSet: object): Promise<object>;
         deleteWordSet(id: string): Promise<object>;
         analyseWordSet(analysis: object): Promise<object>;
+
+        // Content Assistant
+
+        analyseContent(analysis: object): Promise<object>;
+        matchContent(combination: object): Promise<object>;
+        getContents(skip?: number, take?: number, ascending?: boolean, intents?: string[], entities?: string[], text?: string, beginDate?: string, endDate?: string): Promise<object[]>;
+        getContent(id: string): Promise<object>;
+        setContent(content: object): Promise<object>;
+        setContentResult(id: string, content: object): Promise<object>;
+        setContentCombination(id: string, combination: object): Promise<object>;
+        setContentCombinations(id: string, combinations: object[]): Promise<object>;
+        deleteContent(id: string): Promise<object>;
     }
 }

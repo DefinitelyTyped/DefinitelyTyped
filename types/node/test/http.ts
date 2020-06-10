@@ -26,6 +26,7 @@ import * as net from 'net';
     server = http.createServer(reqListener);
     server = http.createServer({ IncomingMessage: MyIncomingMessage });
     server = http.createServer({ ServerResponse: MyServerResponse }, reqListener);
+    server = http.createServer({ insecureHTTPParser: true }, reqListener);
 
     // test public props
     const maxHeadersCount: number | null = server.maxHeadersCount;
@@ -70,6 +71,9 @@ import * as net from 'net';
     res.writeHead(200, 'OK\r\nContent-Type: text/html\r\n').end();
     res.writeHead(200, { 'Transfer-Encoding': 'chunked' });
     res.writeHead(200);
+
+    // writeProcessing
+    res.writeProcessing();
 
     // write string
     res.write('Part of my res.');
@@ -117,6 +121,10 @@ import * as net from 'net';
 
     // path
     const path: string = req.path;
+    req.path = '/';
+
+    // method
+    const method: string = req.method;
 }
 
 {
@@ -135,6 +143,9 @@ import * as net from 'net';
     });
 
     agent = http.globalAgent;
+
+    let sockets: NodeJS.ReadOnlyDict<net.Socket[]> = agent.sockets;
+    sockets = agent.freeSockets;
 
     http.request({ agent: false });
     http.request({ agent });
@@ -195,6 +206,10 @@ import * as net from 'net';
         'content-type': 'application/json',
         'set-cookie': [ 'type=ninja', 'language=javascript' ]
     };
+
+    headers["access-control-request-headers"] = "content-type, x-custom-header";
+    headers["access-control-request-method"] = "PUT";
+    headers.origin = "https://example.com";
 }
 
 // statics

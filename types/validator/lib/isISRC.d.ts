@@ -1,1 +1,2 @@
-export { isISRC as default } from '../';
+import validator from '../';
+export default validator.isISRC;

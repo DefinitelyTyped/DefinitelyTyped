@@ -31,7 +31,7 @@ class Component extends React.Component<{}, ComponentState> {
 
     private renderCustomizedElement(props: any) {
         console.log('Customized props', props);
-        return (<Text x={0} y={0} width={100} height={20}>Customized element</Text>);
+        return (<Text x={0} y={0} width={100} height={20} className="customized-text">Customized element</Text>);
     }
     render() {
         const data = [
@@ -138,6 +138,7 @@ class Component extends React.Component<{}, ComponentState> {
                         <Brush dataKey="name" />
                         <ReferenceLine />
                         <ReferenceArea
+                            label="Reference Area"
                             stroke="red"
                             fill="red"
                             y2={1}
@@ -213,7 +214,7 @@ class Component extends React.Component<{}, ComponentState> {
                             <LabelList dataKey="name" position="insideTop" angle={45} />
                         </Bar>
                         <Bar dataKey="uv" fill="#82ca9d" radius={[10, 10, 0, 0]}>
-                            <LabelList dataKey="uv" position="top" />
+                            <LabelList valueAccessor={(entry: any) => entry["uv"]} position="top" />
                         </Bar>
                     </BarChart>
                 </ResponsiveContainer>

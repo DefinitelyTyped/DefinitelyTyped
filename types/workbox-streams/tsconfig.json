@@ -19,11 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "concatenate.d.ts",
-        "concatenateToResponse.d.ts",
-        "isSupported.d.ts",
-        "strategy.d.ts",
-        "types/StreamSource.d.ts",
         "workbox-streams-tests.ts"
     ]
 }

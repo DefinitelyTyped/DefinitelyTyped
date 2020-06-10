@@ -1,5 +1,4 @@
-import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
+import { ReactAttr, ReactAnchorAttr, FCReturn, FCProps, ForwardRefRefType } from "../../../typings/shared";
 import { LinkProps } from "./Link";
 
 interface InheritedProps {
@@ -11,8 +10,10 @@ export interface SideNavMenuItemPropsBase extends InheritedProps {
     isActive?: boolean,
 }
 
-export type SideNavMenuItemProps<E extends object = {}> = LinkProps<E> & SideNavMenuItemPropsBase;
+export type SideNavMenuItemProps<E extends object = ReactAnchorAttr> = LinkProps<E> & SideNavMenuItemPropsBase;
 
-declare function SideNavMenuItem<E extends object = {}>(props: React.PropsWithChildren<SideNavMenuItemProps<E>>, ref: React.Ref<HTMLElement>): React.ReactElement | null;
+declare function SideNavMenuItem<E extends object = ReactAnchorAttr, R extends HTMLElement = HTMLElement>(
+    props: FCProps<SideNavMenuItemProps<E>>, ref: ForwardRefRefType<R>
+): FCReturn;
 
 export default SideNavMenuItem;

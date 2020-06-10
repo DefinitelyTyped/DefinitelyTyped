@@ -1,8 +1,8 @@
 // Type definitions for non-npm package css-typed-object-model-level-1 20180410.0
 // Project: https://www.w3.org/TR/css-typed-om-1/
-// Definitions by: Dmitry Guketlev <https://github.com/yavanosta>
+// Definitions by: Nathan Shively-Sanders <https://github.com/sandersn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.9
 
 declare class CSSStyleValue {
     static parse(property: string, cssText: string): CSSStyleValue;
@@ -238,52 +238,53 @@ interface ElementCSSInlineStyle {
     readonly attributeStyleMap: StylePropertyMap;
 }
 
-interface CSS {
-    number(value: number): CSSUnitValue;
-    percent(value: number): CSSUnitValue;
+declare namespace CSS {
+    export function number(value: number): CSSUnitValue;
+    export function percent(value: number): CSSUnitValue;
 
     // <length>
-    em(value: number): CSSUnitValue;
-    ex(value: number): CSSUnitValue;
-    ch(value: number): CSSUnitValue;
-    ic(value: number): CSSUnitValue;
-    rem(value: number): CSSUnitValue;
-    lh(value: number): CSSUnitValue;
-    rlh(value: number): CSSUnitValue;
-    vw(value: number): CSSUnitValue;
-    vh(value: number): CSSUnitValue;
-    vi(value: number): CSSUnitValue;
-    vb(value: number): CSSUnitValue;
-    vmin(value: number): CSSUnitValue;
-    vmax(value: number): CSSUnitValue;
-    cm(value: number): CSSUnitValue;
-    mm(value: number): CSSUnitValue;
-    Q(value: number): CSSUnitValue;
-    in(value: number): CSSUnitValue;
-    pt(value: number): CSSUnitValue;
-    pc(value: number): CSSUnitValue;
-    px(value: number): CSSUnitValue;
+    export function em(value: number): CSSUnitValue;
+    export function ex(value: number): CSSUnitValue;
+    export function ch(value: number): CSSUnitValue;
+    export function ic(value: number): CSSUnitValue;
+    export function rem(value: number): CSSUnitValue;
+    export function lh(value: number): CSSUnitValue;
+    export function rlh(value: number): CSSUnitValue;
+    export function vw(value: number): CSSUnitValue;
+    export function vh(value: number): CSSUnitValue;
+    export function vi(value: number): CSSUnitValue;
+    export function vb(value: number): CSSUnitValue;
+    export function vmin(value: number): CSSUnitValue;
+    export function vmax(value: number): CSSUnitValue;
+    export function cm(value: number): CSSUnitValue;
+    export function mm(value: number): CSSUnitValue;
+    export function Q(value: number): CSSUnitValue;
+
+    function _in(value: number): CSSUnitValue;
+    export { _in as in };
+    export function pt(value: number): CSSUnitValue;
+    export function pc(value: number): CSSUnitValue;
+    export function px(value: number): CSSUnitValue;
 
     // <angle>
-    deg(value: number): CSSUnitValue;
-    grad(value: number): CSSUnitValue;
-    rad(value: number): CSSUnitValue;
-    turn(value: number): CSSUnitValue;
+    export function deg(value: number): CSSUnitValue;
+    export function grad(value: number): CSSUnitValue;
+    export function rad(value: number): CSSUnitValue;
+    export function turn(value: number): CSSUnitValue;
 
     // <time>
-    s(value: number): CSSUnitValue;
-    ms(value: number): CSSUnitValue;
+    export function s(value: number): CSSUnitValue;
+    export function ms(value: number): CSSUnitValue;
 
     // <frequency>
-    Hz(value: number): CSSUnitValue;
-    kHz(value: number): CSSUnitValue;
+    export function Hz(value: number): CSSUnitValue;
+    export function kHz(value: number): CSSUnitValue;
 
     // <resolution>
-    dpi(value: number): CSSUnitValue;
-    dpcm(value: number): CSSUnitValue;
-    dppx(value: number): CSSUnitValue;
+    export function dpi(value: number): CSSUnitValue;
+    export function dpcm(value: number): CSSUnitValue;
+    export function dppx(value: number): CSSUnitValue;
 
     // <flex>
-    fr(value: number): CSSUnitValue;
+    export function fr(value: number): CSSUnitValue;
 }
-declare var CSS: CSS;

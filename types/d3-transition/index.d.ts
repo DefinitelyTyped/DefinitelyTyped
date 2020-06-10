@@ -1,6 +1,9 @@
 // Type definitions for D3JS d3-transition module 1.1
 // Project: https://github.com/d3/d3-transition/, https://d3js.org/d3-transition
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 Robert Moura <https://github.com/robertmoura>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -31,7 +34,7 @@ declare module 'd3-selection' {
          *
          * @param name Name of the transition.
          */
-        interrupt(name?: string): Transition<GElement, Datum, PElement, PDatum>;
+        interrupt(name?: string): this;
         /**
          * Returns a new transition on the given selection with the specified name. If a name is not specified, null is used.
          * The new transition is only exclusive with other transitions of the same name.

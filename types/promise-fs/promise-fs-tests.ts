@@ -57,7 +57,7 @@ write(9, "hello", null, "utf-8")
 rename("old", "new");
 
 // $ExpectType Promise<void>
-rmdir("trash/unwanted", { maxBusyTries: 5 });
+rmdir("trash/unwanted", { maxRetries: 5 });
 
 // $ExpectType Promise<void>
 mkdir("new/goodies");

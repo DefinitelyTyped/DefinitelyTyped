@@ -1,8 +1,8 @@
 import {
     ConcreteRequest,
     ConnectionHandler,
-    DefaultMissingFieldHandlers,
     Environment,
+    getDefaultMissingFieldHandlers,
     Network,
     QueryResponseCache,
     ROOT_ID,
@@ -10,14 +10,26 @@ import {
     RecordProxy,
     RecordSource,
     RecordSourceSelectorProxy,
-    RelayNetworkLoggerTransaction,
     Store,
     commitLocalUpdate,
-    createRelayNetworkLogger,
+    ReaderFragment,
 } from 'relay-runtime';
 
 const source = new RecordSource();
 const store = new Store(source);
+const storeWithNullOptions = new Store(source, {
+    gcScheduler: null,
+    operationLoader: null,
+    gcReleaseBufferSize: null,
+});
+const storeWithOptions = new Store(source, {
+    gcScheduler: () => undefined,
+    operationLoader: {
+        get: () => null,
+        load: () => Promise.resolve(null),
+    },
+    gcReleaseBufferSize: 10,
+});
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Network Layer
@@ -36,10 +48,8 @@ function fetchQuery(operation: any, variables: { [key: string]: string }, cacheC
     });
 }
 
-const RelayNetworkLogger = createRelayNetworkLogger(RelayNetworkLoggerTransaction);
-
 // Create a network layer from the fetch function
-const network = Network.create(RelayNetworkLogger.wrapFetch(fetchQuery));
+const network = Network.create(fetchQuery);
 
 // Create a cache for storing query responses
 const cache = new QueryResponseCache({ size: 250, ttl: 60000 });
@@ -52,7 +62,7 @@ const environment = new Environment({
     network,
     store,
     missingFieldHandlers: [
-        ...DefaultMissingFieldHandlers,
+        ...getDefaultMissingFieldHandlers(),
         // Example from https://relay.dev/docs/en/experimental/a-guided-tour-of-relay
         {
             handle(field, record, argValues) {
@@ -81,6 +91,19 @@ const environment = new Environment({
             kind: 'linked',
         },
     ],
+    log: logEvent => {
+        switch (logEvent.name) {
+            case 'execute.start':
+            case 'execute.next':
+            case 'execute.error':
+            case 'execute.info':
+            case 'execute.complete':
+            case 'execute.unsubscribe':
+            case 'queryresource.fetch':
+            default:
+                break;
+        }
+    },
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -184,7 +207,7 @@ query FooQuery {
 */
 
 /* tslint:disable:only-arrow-functions no-var-keyword prefer-const */
-const node: ConcreteRequest = (function() {
+const node: ConcreteRequest = (function () {
     var v0 = [
         {
             kind: 'ScalarField',
@@ -232,3 +255,119 @@ const node: ConcreteRequest = (function() {
     };
 })();
 /* tslint:enable:only-arrow-functions no-var-keyword prefer-const */
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// ReaderFragment
+// ~~~~~~~~~~~~~~~~~~~~~
+
+/*
+graphql`
+  query TestQueryWithLiteral($latArg: String, $lonArg: String) {
+    route(
+      waypoints: [
+        {lat: $latArg, lon: $lonArg}
+        {lat: null, lon: $latArg}
+        {lat: $lonArg, lon: "1234"}
+      ]
+    ) {
+      __typename
+    }
+  }
+`,
+ */
+const nodeFragment: ReaderFragment = {
+    argumentDefinitions: [
+        {
+            defaultValue: null,
+            kind: 'LocalArgument',
+            name: 'latArg',
+            type: 'String',
+        },
+        {
+            defaultValue: null,
+            kind: 'LocalArgument',
+            name: 'lonArg',
+            type: 'String',
+        },
+    ],
+    kind: 'Fragment',
+    metadata: null,
+    name: 'TestQueryWithLiteral',
+    selections: [
+        {
+            alias: null,
+            args: [
+                {
+                    items: [
+                        {
+                            fields: [
+                                {
+                                    kind: 'Variable',
+                                    name: 'lat',
+                                    variableName: 'latArg',
+                                },
+                                {
+                                    kind: 'Variable',
+                                    name: 'lon',
+                                    variableName: 'lonArg',
+                                },
+                            ],
+                            kind: 'ObjectValue',
+                            name: 'waypoints.0',
+                        },
+                        {
+                            fields: [
+                                {
+                                    kind: 'Literal',
+                                    name: 'lat',
+                                    value: null,
+                                },
+                                {
+                                    kind: 'Variable',
+                                    name: 'lon',
+                                    variableName: 'latArg',
+                                },
+                            ],
+                            kind: 'ObjectValue',
+                            name: 'waypoints.1',
+                        },
+                        {
+                            fields: [
+                                {
+                                    kind: 'Variable',
+                                    name: 'lat',
+                                    variableName: 'lonArg',
+                                },
+                                {
+                                    kind: 'Literal',
+                                    name: 'lon',
+                                    value: '1234',
+                                },
+                            ],
+                            kind: 'ObjectValue',
+                            name: 'waypoints.2',
+                        },
+                    ],
+                    kind: 'ListValue',
+                    name: 'waypoints',
+                },
+            ],
+            concreteType: 'Route',
+            kind: 'LinkedField',
+            name: 'route',
+            plural: false,
+            selections: [
+                {
+                    alias: null,
+                    args: null,
+                    kind: 'ScalarField',
+                    name: '__typename',
+                    storageKey: null,
+                },
+            ],
+            storageKey: null,
+        },
+    ],
+    type: 'Query',
+    abstractKey: null,
+};

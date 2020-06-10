@@ -71,6 +71,25 @@ declare namespace Mark {
         log?: object;
     }
 
+    interface MarkRangesOptions {
+        element?: string;
+        className?: string;
+        exclude?: string[];
+        iframes?: boolean;
+        iframesTimeout?: number;
+        each?(element: Element, range: Range): void;
+        filter?(
+            textNode: Element,
+            term: string,
+            marksSoFar: number,
+            marksTotal: number
+        ): boolean;
+        noMatch?(term: string): void;
+        done?(marksTotal: number): void;
+        debug?: boolean;
+        log?: object;
+    }
+
     interface UnmarkOptions {
         element?: string;
         className?: string;
@@ -124,7 +143,7 @@ declare class Mark {
      */
     markRanges(
         ranges: ReadonlyArray<Mark.Range>,
-        options?: Mark.MarkOptions
+        options?: Mark.MarkRangesOptions
     ): void;
 
     /**

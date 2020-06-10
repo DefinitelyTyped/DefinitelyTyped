@@ -18,10 +18,6 @@
     },
     "files": [
         "array.prototype.flatmap-tests.ts",
-        "auto.d.ts",
-        "implementation.d.ts",
-        "index.d.ts",
-        "polyfill.d.ts",
-        "shim.d.ts"
+        "index.d.ts"
     ]
 }

@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-with-styles-tests.ts",
-        "lib/ThemedStyleSheet.d.ts"
+        "react-with-styles-tests.ts"
     ]
 }

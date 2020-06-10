@@ -2,6 +2,7 @@
 // Project: https://github.com/alexgibson/notify.js
 // Definitions by: soundTricker <https://github.com/soundTricker>
 //                 NateScarlet <https://github.com/NateScarlet>
+//                 eikendev <https://github.com/eikendev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Notify {
@@ -77,6 +78,11 @@ interface INotifyOption {
     * number of seconds to close the notification automatically
     */
     timeout?: number;
+
+    /**
+    * whether this notification should be silent or not
+    */
+    silent?: boolean;
 
     /**
      * callback when notification is shown
