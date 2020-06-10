@@ -6,8 +6,8 @@
 
 import type { EventEmitter } from 'events';
 
-type ChangeVersion = string;
-type EntityId = string;
+export type ChangeVersion = string;
+export type EntityId = string;
 
 interface FailedAuthDetails {
     msg: string;
