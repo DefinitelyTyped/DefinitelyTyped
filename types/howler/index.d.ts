@@ -244,6 +244,7 @@ export class Howl {
         callback?: HowlCallback,
         id?: number,
     ): this;
+    off(event?: string, callback?: HowlCallback | HowlErrorCallback, id?: number): this;
 
     stereo(pan: number, id?: number): this | void;
     pos(x: number, y: number, z: number, id?: number): this | void;
