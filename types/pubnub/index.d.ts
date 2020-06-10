@@ -344,25 +344,35 @@ declare namespace Pubnub {
         currentTimetoken: number | string;
     }
 
-    interface PresenceEvent {
-        action: 'join' | 'leave' | 'state-change' | 'timeout';
-        channel: string;
-        occupancy: number;
-        state?: any;
-        subscription: string;
-        timestamp: number;
-        timetoken: string;
-        uuid: string;
+    interface PresenceEventBase {
+		action: string;
+		channel: string;
+		timestamp: number;
+		timetoken: string;
+		occupancy: number;
 
-        /**
-         * @deprecated
-         */
-        actualChannel: string;
-        /**
-         * @deprecated
-         */
-        subscribedChannel: string;
-    }
+		/**
+		 * @deprecated
+		 */
+		actualChannel: string;
+		/**
+		 * @deprecated
+		 */
+		subscribedChannel: string;
+	}
+	interface PresenceEventAnnounce extends PresenceEventBase {
+		action: 'join' | 'leave' | 'state-change' | 'timeout';
+		state?: any;
+		uuid: string;
+	}
+	interface PresenveEventInterval extends PresenceEventBase {
+		action: 'interval';
+		join?: string[];
+		leave?: string[];
+		timeout?: string[];
+		here_now_refresh?: boolean;
+	}
+	type PresenceEvent = PresenceEventAnnounce | PresenveEventInterval
 
     interface SignalEvent {
         channel: string;
