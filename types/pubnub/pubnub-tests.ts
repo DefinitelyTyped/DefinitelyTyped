@@ -56,24 +56,24 @@ pubnub.addListener({
         if (action === 'interval') {
             console.log({
                 action,
-                presenceEvent.channel,
-                presenceEvent.timestamp,
-                presenceEvent.timetoken,
-                presenceEvent.occupancy,
-                presenceEvent?.join,
-                presenceEvent?.leave,
-                presenceEvent?.timeout,
-                presenceEvent?.here_now_refresh
+                channel: presenceEvent.channel,
+                timestamp: presenceEvent.timestamp,
+                timetoken: presenceEvent.timetoken,
+                occupancy: presenceEvent.occupancy,
+                join: presenceEvent?.join,
+                leave: presenceEvent?.leave,
+                timeout: presenceEvent?.timeout,
+                here_now_refresh: presenceEvent?.here_now_refresh
             })
         } else {
             console.log({
                 action,
-                presenceEvent.channel,
-                presenceEvent.timestamp,
-                presenceEvent.timetoken,
-                presenceEvent.occupancy,
-                presenceEvent.uuid,
-                presenceEvent?.state
+                channel: presenceEvent.channel,
+                timestamp: presenceEvent.timestamp,
+                timetoken: presenceEvent.timetoken,
+                occupancy: presenceEvent.occupancy,
+                uuid: presenceEvent.uuid,
+                state: presenceEvent?.state
             })   
         }
     },
