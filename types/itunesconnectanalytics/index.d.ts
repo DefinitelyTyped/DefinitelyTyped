@@ -46,6 +46,7 @@ export interface AnalyticsResult {
 export interface AnalyticsDataPoint {
     date: Date;
     installs?: number;
+    uninstalls?: number;
     sessions?: number;
     pageViewCount?: number;
     activeDevices?: number;
@@ -114,6 +115,7 @@ export enum frequency {
 
 export enum measures {
     installs = 'installs',
+    uninstalls = 'uninstalls',
     sessions = 'sessions',
     pageViews = 'pageViewCount',
     activeDevices = 'activeDevices',
