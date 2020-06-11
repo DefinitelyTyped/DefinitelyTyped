@@ -470,11 +470,12 @@ export namespace Linter {
         ruleId: string | null;
         message: string;
         messageId?: string;
-        nodeType: string;
+        nodeType?: string;
         fatal?: true;
         severity: Severity;
         fix?: Rule.Fix;
-        source: string | null;
+        /** @deprecated Use `linter.getSourceCode()` */
+        source?: string | null;
         suggestions?: LintSuggestion[];
     }
 
