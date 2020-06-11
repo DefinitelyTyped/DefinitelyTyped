@@ -251,7 +251,7 @@ export interface ArraySchemaConstructor {
     new (): NotRequiredArraySchema<{}>;
 }
 
-interface BasicArraySchema<E, T extends E[] | null | undefined> extends Schema<T> {
+export interface BasicArraySchema<E, T extends E[] | null | undefined> extends Schema<T> {
     min(limit: number | Ref, message?: ArrayLocale['min']): this;
     max(limit: number | Ref, message?: ArrayLocale['max']): this;
     ensure(): this;
