@@ -128,9 +128,9 @@ export enum measures {
     impressions = 'impressionsTotal',
     impressionsUnique = 'impressionsTotalUnique',
     pageViewUnique = 'pageViewUnique'
-    }
+}
 
-    export enum dimension {
+export enum dimension {
     appVersion = 'appVersion',
     campaigns = 'campaignId',
     device = 'platform',
@@ -140,9 +140,9 @@ export enum measures {
     websites = 'domainReferrer',
     apps = 'appReferrer',
     sourceType = 'source'
-    }
+}
 
-    export enum dimensionFilterKey {
+export enum dimensionFilterKey {
     appPurchaseWeek = 'apppurchaseWeek',
     apppurchaseDay = 'apppurchaseDay',
     apppurchaseMonth = 'apppurchaseMonth',
@@ -153,16 +153,16 @@ export enum measures {
     territory = 'storefront',
     region = 'region',
     websites = 'domainReferrer'
-    }
+}
 
-    export enum platform {
+export enum platform {
     iPhone = 'iPhone',
     iPad = 'iPad',
     iPod = 'iPod',
     appleTV = 'AppleTV'
-    }
+}
 
-    export enum queryType {
+export enum queryType {
     sources = 'sources',
     metrics = 'metrics'
-    }
+}
