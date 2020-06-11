@@ -12,7 +12,11 @@ import http = require('http');
 type Handler<Request extends http.IncomingMessage, Response extends http.ServerResponse> = (req: Request, res: Response, callback: (err?: Error) => void) => void;
 
 declare namespace morgan {
-    type FormatFn<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse> = (tokens: TokenIndexer<Request, Response>, req: Request, res: Response) => string | undefined | null;
+    type FormatFn<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse> = (
+        tokens: TokenIndexer<Request, Response>,
+        req: Request,
+        res: Response,
+    ) => string | undefined | null;
 
     type TokenCallbackFn<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse> = (
         req: Request,
@@ -110,7 +114,10 @@ declare namespace morgan {
     /**
      * Define a custom token which can be used in custom morgan logging formats.
      */
-    function token<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(name: string, callback: TokenCallbackFn<Request, Response>): Morgan<Request, Response>;
+    function token<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+        name: string,
+        callback: TokenCallbackFn<Request, Response>,
+    ): Morgan<Request, Response>;
 
     /**
      * Define a named custom format by specifying a format string in token
@@ -121,7 +128,10 @@ declare namespace morgan {
     /**
      * Define a named custom format by specifying a format function.
      */
-    function format<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(name: string, fmt: FormatFn<Request, Response>): Morgan<Request, Response>;
+    function format<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+        name: string,
+        fmt: FormatFn<Request, Response>,
+    ): Morgan<Request, Response>;
 
     /**
      * Compile a format string in token notation into a format function.
@@ -174,7 +184,10 @@ declare namespace morgan {
  * @param format
  * @param options
  */
-declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(format: string, options?: morgan.Options<Request, Response>): Handler<Request, Response>;
+declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+    format: string,
+    options?: morgan.Options<Request, Response>,
+): Handler<Request, Response>;
 
 /***
  * Standard Apache combined log output.
@@ -182,7 +195,10 @@ declare function morgan<Request extends http.IncomingMessage = http.IncomingMess
  * @param format
  * @param options
  */
-declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(format: 'combined', options?: morgan.Options<Request, Response>): Handler<Request, Response>;
+declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+    format: 'combined',
+    options?: morgan.Options<Request, Response>,
+): Handler<Request, Response>;
 
 /***
  * Standard Apache common log output.
@@ -190,7 +206,10 @@ declare function morgan<Request extends http.IncomingMessage = http.IncomingMess
  * @param format
  * @param options
  */
-declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(format: 'common', options?: morgan.Options<Request, Response>): Handler<Request, Response>;
+declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+    format: 'common',
+    options?: morgan.Options<Request, Response>,
+): Handler<Request, Response>;
 
 /***
  * Concise output colored by response status for development use. The :status
@@ -200,7 +219,10 @@ declare function morgan<Request extends http.IncomingMessage = http.IncomingMess
  * @param format
  * @param options
  */
-declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(format: 'dev', options?: morgan.Options<Request, Response>): Handler<Request, Response>;
+declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+    format: 'dev',
+    options?: morgan.Options<Request, Response>,
+): Handler<Request, Response>;
 
 /***
  * Shorter than default, also including response time.
@@ -208,7 +230,10 @@ declare function morgan<Request extends http.IncomingMessage = http.IncomingMess
  * @param format
  * @param options
  */
-declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(format: 'short', options?: morgan.Options<Request, Response>): Handler<Request, Response>;
+declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+    format: 'short',
+    options?: morgan.Options<Request, Response>,
+): Handler<Request, Response>;
 
 /***
  * The minimal output.
@@ -216,7 +241,10 @@ declare function morgan<Request extends http.IncomingMessage = http.IncomingMess
  * @param format
  * @param options
  */
-declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(format: 'tiny', options?: morgan.Options<Request, Response>): Handler<Request, Response>;
+declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+    format: 'tiny',
+    options?: morgan.Options<Request, Response>,
+): Handler<Request, Response>;
 
 /***
  * Create a new morgan logger middleware function using the given format and
@@ -225,6 +253,9 @@ declare function morgan<Request extends http.IncomingMessage = http.IncomingMess
  * @param format
  * @param options
  */
-declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(format: morgan.FormatFn<Request, Response>, options?: morgan.Options<Request, Response>): Handler<Request, Response>;
+declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+    format: morgan.FormatFn<Request, Response>,
+    options?: morgan.Options<Request, Response>,
+): Handler<Request, Response>;
 
 export = morgan;
