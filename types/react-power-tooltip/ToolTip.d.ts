@@ -15,7 +15,7 @@ export type AnimationType = "fade" | "bounce";
 
 export interface TooltipProps {
     lineSeparated?: boolean | string;
-    position?:  PositionType;
+    position?: PositionType;
     hoverBackground?: string;
     backgroundColor?: string;
     arrowAlign?: ArrowAlignType;
