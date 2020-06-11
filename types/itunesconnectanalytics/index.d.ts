@@ -85,8 +85,8 @@ export interface QueryGroup {
 }
 
 export interface DimensionFilters {
-    dimensionKey: string;
-    optionsKeys: string[];
+    dimensionKey: dimensionFilterKey;
+    optionKeys: string[];
 }
 
 export interface QueryConfig {
@@ -95,7 +95,7 @@ export interface QueryConfig {
     end?: QueryDateTypes;
     frequency?: frequency;
     group?: QueryGroup;
-    dimensionFilters?: string[];
+    dimensionFilters?: DimensionFilters[];
 }
 
 export class AnalyticsQuery {
