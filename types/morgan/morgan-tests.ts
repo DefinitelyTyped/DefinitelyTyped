@@ -4,6 +4,7 @@
 
 import http = require('http');
 import morgan = require('morgan');
+import express = require('express');
 
 // a pre-defined name
 morgan('combined');
@@ -102,6 +103,8 @@ morgan.format('dev-extended', developmentExtendedFormatLine);
 morgan.token('status', (req, res) => {
     return res.headersSent ? String(res.statusCode) : undefined;
 });
+
+express().use(morgan('combined'));
 
 http.createServer(function (req, res) {
     morgan('combined')(req, res, (err) => {
