@@ -32,8 +32,19 @@ let options: sanitize.IOptions = {
     'a': ['http', 'https']
   },
   allowProtocolRelative: false,
-  disallowedTagsMode: 'escape'
+  disallowedTagsMode: 'escape',
+  enforceHtmlBoundary: true,
 };
+
+sanitize.defaults.allowedAttributes; // $ExpectType { [index: string]: AllowedAttribute[]; }
+sanitize.defaults.allowedSchemes; // $ExpectType string[]
+sanitize.defaults.allowedSchemesAppliedToAttributes; // $ExpectType string[]
+sanitize.defaults.allowedSchemesByTag; // $ExpectType { [index: string]: string[]; }
+sanitize.defaults.allowedTags; // $ExpectType string[]
+sanitize.defaults.allowProtocolRelative; // $ExpectType boolean
+sanitize.defaults.disallowedTagsMode; // $ExpectType string
+sanitize.defaults.enforceHtmlBoundary; // $ExpectType boolean
+sanitize.defaults.selfClosing; // $ExpectType string[]
 
 let unsafe = '<div><script>alert("hello");</script></div>';
 

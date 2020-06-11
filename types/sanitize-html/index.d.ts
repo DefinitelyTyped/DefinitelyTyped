@@ -11,6 +11,7 @@
 //                 GP <https://github.com/paambaati>
 //                 tomotetra <https://github.com/tomotetra>
 //                 Dariusz Syncerek <https://github.com/dsyncerek>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -37,10 +38,13 @@ declare namespace sanitize {
     allowedAttributes: { [index: string]: AllowedAttribute[] };
     allowedSchemes: string[];
     allowedSchemesByTag: { [index: string]: string[] };
+    allowedSchemesAppliedToAttributes: string[];
     allowedTags: string[];
+    allowProtocolRelative: boolean;
+    disallowedTagsMode: string;
+    enforceHtmlBoundary: boolean;
     selfClosing: string[];
   }
-
 
   interface IFrame {
     tag: string;
@@ -68,6 +72,13 @@ declare namespace sanitize {
     transformTags?: { [tagName: string]: string | Transformer };
     parser?: ParserOptions;
     disallowedTagsMode?: DisallowedTagsModes;
+    /**
+     * Setting this option to true will instruct sanitize-html to discard all characters outside of html tag boundaries
+     * -- before `<html>` and after `</html>` tags
+     * @see {@link https://github.com/apostrophecms/sanitize-html/#discarding-text-outside-of-htmlhtml-tags}
+     * @default true
+     */
+    enforceHtmlBoundary?: boolean;
   }
 
 
