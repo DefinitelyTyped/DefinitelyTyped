@@ -22,5 +22,6 @@ export interface TooltipProps {
     animation?: string;
     zIndex?: string;
     show: boolean;
+    static?: boolean;
     flat?: boolean;
 }
