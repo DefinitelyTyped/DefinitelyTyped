@@ -332,5 +332,3 @@ export enum territory {
     turkmenistan = '143604',
     zimbabwe = '143605'
 }
-
-    

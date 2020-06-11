@@ -4,7 +4,7 @@ interface AppStoreConnectQueryDesc {
     measures: itc.measures;
     frequency: itc.frequency;
     group: itc.QueryGroup;
-    dimensionFilters: string[];
+    dimensionFilters: itc.DimensionFilters[];
     start: string;
     end: string;
     appId: string;
@@ -133,6 +133,11 @@ export class AppStoreConnect {
             case itc.measures.sessions: {
                 if (dataPoint.sessions) {
                     value = dataPoint.sessions;
+                }
+            }
+            case itc.measures.uninstalls: {
+                if (dataPoint.uninstalls) {
+                    value = dataPoint.uninstalls;
                 }
             }
             case itc.measures.units: {
