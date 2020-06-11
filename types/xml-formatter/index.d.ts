@@ -1,4 +1,4 @@
-// Type definitions for xml-formatter 1.1
+// Type definitions for xml-formatter 1.2
 // Project: https://github.com/chrisbottin/xml-formatter/
 // Definitions by: Joachim Holwech <https://github.com/holwech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
