@@ -10,74 +10,74 @@ declare namespace ESTraverse {
     const Syntax: Syntax;
 
     const VisitorKeys: VisitorKeys;
-    
+
     enum VisitorOption {
         Break,
         Skip,
         Remove,
     }
-    
+
     class Controller {
         /**
          * Traverse the AST.
          */
         traverse(root: ESTree.Node, visitor: Visitor): void;
-    
+
         /**
          * Traverse and replace the AST.
          */
         replace(root: ESTree.Node, visitor: Visitor): ESTree.Node;
-    
+
         /**
          * The current node.
          */
         current(): ESTree.Node;
-    
+
         /**
          * The type of current node.
          */
         type(): string;
-    
+
         /**
          * Obtain the property paths array from root to the current node.
          */
         path(): Array<string | number> | null;
-    
+
         /**
          * An array of parent elements.
          */
-        parents(): Array<ESTree.Node>;
-    
+        parents(): ESTree.Node[];
+
         /**
          * Notify the controller to break the traversals, skip the child nodes of current node or remove the
          * current node.
          */
         notify(flag: VisitorOption): void;
-    
+
         /**
          * Break the traversals.
          */
         break(): void;
-    
+
         /**
          * Skip the child nodes of current node.
          */
         skip(): void;
-    
+
         /**
          * Remove the current node.
          */
         remove(): void;
     }
-    
-    function traverse(ast: ESTree.Node, visitor: Visitor): void;
-    
-    function replace(ast: ESTree.Node, visitor: Visitor): ESTree.Node;
 
-    function attachComments(tree: ESTree.Node, providedComments: Array<ESTree.Comment>, tokens: Array<ESTree.Node>): ESTree.Node;
-    
+    function traverse(root: ESTree.Node, visitor: Visitor): void;
+
+    function replace(root: ESTree.Node, visitor: Visitor): ESTree.Node;
+
+    function attachComments(tree: ESTree.Node, providedComments: ESTree.Comment[], tokens: ESTree.Node[]): ESTree.Node;
+
     function cloneEnvironment(): typeof ESTraverse;
-    
+
     type NodeType =
         | "AssignmentExpression"
         | "AssignmentPattern"
@@ -151,20 +151,21 @@ declare namespace ESTraverse {
         | "WhileStatement"
         | "WithStatement"
         | "YieldExpression";
-    
+
     interface Syntax extends Record<NodeType, NodeType> {}
-    
+
     interface VisitorKeys extends Record<NodeType, string[]> {}
-    
+
     interface Visitor {
         enter?: (this: Controller, node: ESTree.Node, parent: ESTree.Node | null) => VisitorOption | ESTree.Node | void;
-    
+
         leave?: (this: Controller, node: ESTree.Node, parent: ESTree.Node | null) => VisitorOption | ESTree.Node | void;
-    
+
         fallback?: 'iteration' | ((this: Controller, node: ESTree.Node) => string[]);
-    
-        keys?: {[nodeType: string]: string[];};
+
+        keys?: Record<string, string[]>;
     }
 }
 
+// tslint:disable-next-line export-just-namespace
 export = ESTraverse;

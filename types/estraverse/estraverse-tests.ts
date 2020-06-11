@@ -56,3 +56,18 @@ estraverse.replace(ast, {
         return node;
     }
 });
+
+{
+    const visitor: estraverse.Visitor = {
+        enter(node, parent) {
+            this.break(); // $ExpectType void
+            this.current(); // $ExpectType Node
+            this.notify(estraverse.VisitorOption.Break); // $ExpectType void
+            this.parents(); // $ExpectType Node[]
+            this.path(); // $ExpectType (string | number)[] | null
+            this.remove(); // $ExpectType void
+            this.skip(); // $ExpectType void
+            this.type(); // $ExpectType string
+        },
+    };
+}
