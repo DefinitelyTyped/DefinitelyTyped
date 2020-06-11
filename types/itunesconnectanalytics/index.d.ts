@@ -3,7 +3,7 @@
 // Definitions by: David Trotz <https://github.com/dctrotz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
-import * as moment from "moment";
+import * as moment from 'moment';
 
 export class Itunes {
     constructor(username: string, password: string, options: ItunesOptions);
