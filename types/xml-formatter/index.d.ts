@@ -13,5 +13,6 @@ declare namespace Format {
         indentation?: string;
         stripComments?: boolean;
         collapseContent?: boolean;
+        lineSeparator?: string;
     }
 }
