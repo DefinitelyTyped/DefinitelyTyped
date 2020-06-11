@@ -33,9 +33,6 @@
             "@wordpress/data": [
                 "wordpress__data"
             ],
-            "@wordpress/element": [
-                "wordpress__element"
-            ],
             "@wordpress/keycodes": [
                 "wordpress__keycodes"
             ],

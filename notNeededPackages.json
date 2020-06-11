@@ -5557,6 +5557,12 @@
             "asOfVersion": "2.9.0"
         },
         {
+            "libraryName": "@wordpress/element",
+            "typingsPackageName": "wordpress__element",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.14.0"
+        },
+        {
             "libraryName": "@wordpress/escape-html",
             "typingsPackageName": "wordpress__escape-html",
             "sourceRepoURL": "https://github.com/WordPress/gutenberg",

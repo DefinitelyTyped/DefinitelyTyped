@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "csstype": "^2.2.0"
+        "@wordpress/element": "^2.14.0"
     }
 }
