@@ -572,7 +572,7 @@ export interface FormatErrorParams {
 
 export type LocaleValue = string | ((params: FormatErrorParams) => string);
 
-interface MixedLocale {
+export interface MixedLocale {
     default?: TestOptionsMessage;
     required?: TestOptionsMessage;
     oneOf?: TestOptionsMessage<{ values: any }>;
@@ -580,7 +580,7 @@ interface MixedLocale {
     notType?: LocaleValue;
 }
 
-interface StringLocale {
+export interface StringLocale {
     length?: TestOptionsMessage<{ length: number }>;
     min?: TestOptionsMessage<{ min: number }>;
     max?: TestOptionsMessage<{ max: number }>;
@@ -592,7 +592,7 @@ interface StringLocale {
     uppercase?: TestOptionsMessage;
 }
 
-interface NumberLocale {
+export interface NumberLocale {
     min?: TestOptionsMessage<{ min: number }>;
     max?: TestOptionsMessage<{ max: number }>;
     lessThan?: TestOptionsMessage<{ less: number }>;
@@ -602,16 +602,16 @@ interface NumberLocale {
     integer?: TestOptionsMessage;
 }
 
-interface DateLocale {
+export interface DateLocale {
     min?: TestOptionsMessage<{ min: Date | string }>;
     max?: TestOptionsMessage<{ max: Date | string }>;
 }
 
-interface ObjectLocale {
+export interface ObjectLocale {
     noUnknown?: TestOptionsMessage;
 }
 
-interface ArrayLocale {
+export interface ArrayLocale {
     min?: TestOptionsMessage<{ min: number }>;
     max?: TestOptionsMessage<{ max: number }>;
 }
