@@ -2,6 +2,7 @@
  * Created by staticfunction on 8/3/14.
  */
 
+import http = require('http');
 import morgan = require('morgan');
 
 // a pre-defined name
@@ -100,4 +101,12 @@ morgan.format('dev-extended', developmentExtendedFormatLine);
 
 morgan.token('status', (req, res) => {
     return res.headersSent ? String(res.statusCode) : undefined;
+});
+
+http.createServer(function (req, res) {
+    morgan('combined')(req, res, (err) => {
+        // respond to request
+        res.setHeader('content-type', 'text/plain');
+        res.end('hello, world!');
+    });
 });
