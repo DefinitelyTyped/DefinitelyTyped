@@ -27,5 +27,3 @@ class ToolTipTest extends React.Component {
         );
     }
 }
-
-
