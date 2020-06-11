@@ -1,4 +1,4 @@
-// Type definitions for @testing-library/vue 2.0
+// Type definitions for @testing-library/vue 5.0
 // Project: https://github.com/testing-library/vue-testing-library
 // Definitions by: Tim Yates <https://github.com/cimbul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,6 +21,8 @@ export interface RenderOptions<V extends Vue, S = {}> extends
   props?: object;
   store?: StoreOptions<S>;
   routes?: RouteConfig[];
+  container?: HTMLElement;
+  baseElement?: HTMLElement;
 }
 
 export type ConfigurationCallback<V extends Vue> =
@@ -28,8 +30,8 @@ export type ConfigurationCallback<V extends Vue> =
 
 export interface ComponentHarness extends BoundFunctions<typeof queries> {
   container: HTMLElement;
-  baseElement: HTMLBodyElement;
-  debug(el?: HTMLElement): void;
+  baseElement: HTMLElement;
+  debug(el?: HTMLElement | ReadonlyArray<HTMLElement>): void;
   unmount(): void;
   isUnmounted(): boolean;
   html(): string;
