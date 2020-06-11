@@ -1,3 +1,4 @@
+import React from 'react';
 import ToolTip from 'react-power-tooltip';
 
 // Tooltip test
