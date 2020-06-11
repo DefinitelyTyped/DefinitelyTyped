@@ -14,13 +14,13 @@ type Handler<Request extends http.IncomingMessage, Response extends http.ServerR
 declare namespace morgan {
     type FormatFn<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse> = (tokens: TokenIndexer<Request, Response>, req: Request, res: Response) => string | undefined | null;
 
-    type TokenCallbackFn<Request extends http.IncomingMessage, Response extends http.ServerResponse> = (
+    type TokenCallbackFn<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse> = (
         req: Request,
         res: Response,
         arg?: string | number | boolean,
     ) => string | undefined;
 
-    interface TokenIndexer<Request extends http.IncomingMessage, Response extends http.ServerResponse> {
+    interface TokenIndexer<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse> {
         [tokenName: string]: TokenCallbackFn<Request, Response>;
     }
 
