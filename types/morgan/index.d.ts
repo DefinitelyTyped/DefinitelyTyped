@@ -8,7 +8,8 @@
 /// <reference types="node" />
 
 import http = require('http');
-import connect = require('connect');
+
+type Handler = (req: http.IncomingMessage, res: http.ServerResponse, callback: (err?: Error) => void) => void;
 
 declare namespace morgan {
     type FormatFn = (tokens: TokenIndexer, req: http.IncomingMessage, res: http.ServerResponse) => string | undefined | null;
@@ -35,21 +36,21 @@ declare namespace morgan {
          * @param format
          * @param options
          */
-        (format: string, options?: Options): connect.NextHandleFunction;
+        (format: string, options?: Options): Handler;
         /***
          * Standard Apache combined log output.
          * :remote-addr - :remote-user [:date] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"
          * @param format
          * @param options
          */
-        (format: 'combined', options?: Options): connect.NextHandleFunction;
+        (format: 'combined', options?: Options): Handler;
         /***
          * Standard Apache common log output.
          * :remote-addr - :remote-user [:date] ":method :url HTTP/:http-version" :status :res[content-length]
          * @param format
          * @param options
          */
-        (format: 'common', options?: Options): connect.NextHandleFunction;
+        (format: 'common', options?: Options): Handler;
         /**
          * Concise output colored by response status for development use. The
          * :status token will be colored red for server error codes, yellow for
@@ -57,7 +58,7 @@ declare namespace morgan {
          * all other codes.
          * :method :url :status :response-time ms - :res[content-length]
          */
-        (format: 'dev', options?: Options): connect.NextHandleFunction;
+        (format: 'dev', options?: Options): Handler;
 
         /***
          * Shorter than default, also including response time.
@@ -65,7 +66,7 @@ declare namespace morgan {
          * @param format
          * @param options
          */
-        (format: 'short', options?: Options): connect.NextHandleFunction;
+        (format: 'short', options?: Options): Handler;
 
         /***
          * The minimal output.
@@ -73,7 +74,7 @@ declare namespace morgan {
          * @param format
          * @param options
          */
-        (format: 'tiny', options?: Options): connect.NextHandleFunction;
+        (format: 'tiny', options?: Options): Handler;
 
         /***
          * Create a new morgan logger middleware function using the given format
@@ -82,7 +83,7 @@ declare namespace morgan {
          * @param format
          * @param options
          */
-        (format: FormatFn, options?: Options): connect.NextHandleFunction;
+        (format: FormatFn, options?: Options): Handler;
 
         /**
          * Define a custom token which can be used in custom morgan logging
@@ -173,7 +174,7 @@ declare namespace morgan {
  * @param format
  * @param options
  */
-declare function morgan(format: string, options?: morgan.Options): connect.NextHandleFunction;
+declare function morgan(format: string, options?: morgan.Options): Handler;
 
 /***
  * Standard Apache combined log output.
@@ -181,7 +182,7 @@ declare function morgan(format: string, options?: morgan.Options): connect.NextH
  * @param format
  * @param options
  */
-declare function morgan(format: 'combined', options?: morgan.Options): connect.NextHandleFunction;
+declare function morgan(format: 'combined', options?: morgan.Options): Handler;
 
 /***
  * Standard Apache common log output.
@@ -189,7 +190,7 @@ declare function morgan(format: 'combined', options?: morgan.Options): connect.N
  * @param format
  * @param options
  */
-declare function morgan(format: 'common', options?: morgan.Options): connect.NextHandleFunction;
+declare function morgan(format: 'common', options?: morgan.Options): Handler;
 
 /***
  * Concise output colored by response status for development use. The :status
@@ -199,7 +200,7 @@ declare function morgan(format: 'common', options?: morgan.Options): connect.Nex
  * @param format
  * @param options
  */
-declare function morgan(format: 'dev', options?: morgan.Options): connect.NextHandleFunction;
+declare function morgan(format: 'dev', options?: morgan.Options): Handler;
 
 /***
  * Shorter than default, also including response time.
@@ -207,7 +208,7 @@ declare function morgan(format: 'dev', options?: morgan.Options): connect.NextHa
  * @param format
  * @param options
  */
-declare function morgan(format: 'short', options?: morgan.Options): connect.NextHandleFunction;
+declare function morgan(format: 'short', options?: morgan.Options): Handler;
 
 /***
  * The minimal output.
@@ -215,7 +216,7 @@ declare function morgan(format: 'short', options?: morgan.Options): connect.Next
  * @param format
  * @param options
  */
-declare function morgan(format: 'tiny', options?: morgan.Options): connect.NextHandleFunction;
+declare function morgan(format: 'tiny', options?: morgan.Options): Handler;
 
 /***
  * Create a new morgan logger middleware function using the given format and
@@ -224,6 +225,6 @@ declare function morgan(format: 'tiny', options?: morgan.Options): connect.NextH
  * @param format
  * @param options
  */
-declare function morgan(format: morgan.FormatFn, options?: morgan.Options): connect.NextHandleFunction;
+declare function morgan(format: morgan.FormatFn, options?: morgan.Options): Handler;
 
 export = morgan;
