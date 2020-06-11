@@ -3,7 +3,6 @@
  */
 
 import morgan = require('morgan');
-import express = require('express');
 
 // a pre-defined name
 morgan('combined');
