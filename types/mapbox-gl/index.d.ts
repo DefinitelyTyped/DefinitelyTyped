@@ -1454,6 +1454,14 @@ declare namespace mapboxgl {
         setDraggable(shouldBeDraggable: boolean): this;
 
         isDraggable(): boolean;
+
+        getRotationAlignment(): Alignment;
+
+        setRotationAlignment(alignment: Alignment): this;
+
+        getPitchAlignment(): Alignment;
+
+        setPitchAlignment(alignment: Alignment): this;
     }
 
     type Alignment = 'map' | 'viewport' | 'auto';
