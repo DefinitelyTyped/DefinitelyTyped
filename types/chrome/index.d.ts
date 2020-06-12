@@ -4000,6 +4000,18 @@ declare namespace chrome.input.ime {
         engineId: string;
     }
 
+    /** Type of the assistive window. */
+    export type AssistiveWindowType = 'undo';
+
+    /** ID of a button in an assistive window. */
+    export type AssistiveWindowButton = 'undo'|'addToDictionary';
+
+    /** Properties of an assistive window. */
+    export interface AssistiveWindowProperties {
+      type: AssistiveWindowType;
+      visible: boolean;
+    }
+
     export interface CandidateWindowParameterProperties {
         /**
          * Optional.
@@ -4084,7 +4096,16 @@ declare namespace chrome.input.ime {
         anchor: number;
     }
 
+    export interface AssistiveWindowButtonClickedDetails {
+        /** The ID of the button clicked. */
+        buttonID: AssistiveWindowButton;
+        /** The type of the assistive window. */
+        windowType: AssistiveWindowType;
+    }
+
     export interface BlurEvent extends chrome.events.Event<(contextID: number) => void> { }
+
+    export interface AssistiveWindowButtonClickedEvent extends chrome.events.Event<(details: AssistiveWindowButtonClickedDetails) => void> { }
 
     export interface CandidateClickedEvent extends chrome.events.Event<(engineID: string, candidateID: number, button: string) => void> { }
 
@@ -4139,6 +4160,17 @@ declare namespace chrome.input.ime {
      */
     export function updateMenuItems(parameters: MenuItemParameters, callback?: () => void): void;
     /**
+     * Shows/Hides an assistive window with the given properties.
+     * @param {{
+     *   contextID: number,
+     *   properties: !chrome.input.ime.AssistiveWindowProperties
+     * }} parameters
+     * @param callback Called when the operation completes.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function(boolean success) {...};
+     */
+    export function setAssistiveWindowProperties(parameters: object, callback?: (success: boolean) => void): void;
+    /**
      * Sets the properties of the candidate window. This fails if the extension doesn't own the active IME
      * @param callback Called when the operation completes.
      * If you specify the callback parameter, it should be a function that looks like this:
@@ -4187,6 +4219,8 @@ declare namespace chrome.input.ime {
 
     /** This event is sent when focus leaves a text box. It is sent to all extensions that are listening to this event, and enabled by the user. */
     export var onBlur: BlurEvent;
+    /** This event is sent when a button in an assistive window is clicked. */
+    export var onAssistiveWindowButtonClicked: AssistiveWindowButtonClickedEvent;
     /** This event is sent if this extension owns the active IME. */
     export var onCandidateClicked: CandidateClickedEvent;
     /** This event is sent if this extension owns the active IME. */
