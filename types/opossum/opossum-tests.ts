@@ -1,25 +1,27 @@
-import * as fs from "fs";
-import * as CircuitBreaker from "opossum";
-import { promisify } from "util";
+import * as fs from 'fs';
+import * as CircuitBreaker from 'opossum';
+import { promisify } from 'util';
 
 let breaker: CircuitBreaker;
-const callbackNoArgs = async () => console.log("foo");
+const callbackNoArgs = async () => console.log('foo');
+
+CircuitBreaker.isOurError(new Error()); // $ExpectType boolean
 
 breaker = new CircuitBreaker(async () => true, {
-  timeout: 1000,
-  maxFailures: 50,
-  resetTimeout: 10,
-  rollingCountTimeout: 500,
-  rollingCountBuckets: 20,
-  name: "test",
-  group: "group",
-  rollingPercentilesEnabled: true,
-  capacity: 1,
-  errorThresholdPercentage: 1,
-  enabled: true,
-  allowWarmUp: true,
-  volumeThreshold: 1,
-  cache: true
+    timeout: 1000,
+    maxFailures: 50,
+    resetTimeout: 10,
+    rollingCountTimeout: 500,
+    rollingCountBuckets: 20,
+    name: 'test',
+    group: 'group',
+    rollingPercentilesEnabled: true,
+    capacity: 1,
+    errorThresholdPercentage: 1,
+    enabled: true,
+    allowWarmUp: true,
+    volumeThreshold: 1,
+    cache: true,
 });
 
 breaker.name; // $ExpectType string
@@ -47,13 +49,13 @@ const action = async (foo: string, bar: number) => {
     return foo ? bar : bar * 2;
 };
 const typedBreaker = new CircuitBreaker(action);
-typedBreaker.fire(5, "hello"); // $ExpectError
-typedBreaker.fire("hello world", 42); // $ExpectType Promise<number>
-typedBreaker.on("success", (result, latencyMs) => {
+typedBreaker.fire(5, 'hello'); // $ExpectError
+typedBreaker.fire('hello world', 42); // $ExpectType Promise<number>
+typedBreaker.on('success', (result, latencyMs) => {
     result; // $ExpectType number
     latencyMs; // $ExpectType number
 });
-typedBreaker.on("fire", ([foo, bar]) => {
+typedBreaker.on('fire', ([foo, bar]) => {
     foo; // $ExpectType string
     bar; // $ExpectType number
 });
@@ -69,40 +71,40 @@ function asyncFunctionThatCouldFail(x: any, y: any) {
 }
 
 const options: CircuitBreaker.Options = {
-  timeout: 3000, // If our function takes longer than 3 seconds, trigger a failure
-  errorThresholdPercentage: 50, // When 50% of requests fail, trip the circuit
-  resetTimeout: 30000 // After 30 seconds, try again.
+    timeout: 3000, // If our function takes longer than 3 seconds, trigger a failure
+    errorThresholdPercentage: 50, // When 50% of requests fail, trip the circuit
+    resetTimeout: 30000, // After 30 seconds, try again.
 };
 breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
 
 breaker
-    .fire("foo")
+    .fire('foo')
     .then(console.log)
     .catch(console.error);
 
 breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
 // if asyncFunctionThatCouldFail starts to fail, firing the breaker
 // will trigger our fallback function
-breaker.fallback(() => "Sorry, out of service right now");
-breaker.on("fallback", result => console.log(result));
+breaker.fallback(() => 'Sorry, out of service right now');
+breaker.on('fallback', result => console.log(result));
 
 breaker = new CircuitBreaker(callbackNoArgs, options);
 
 breaker.fallback(callbackNoArgs);
 
-breaker.on("success", result => console.log(result));
-breaker.on("timeout", callbackNoArgs);
-breaker.on("reject", callbackNoArgs);
-breaker.on("open", callbackNoArgs);
-breaker.on("halfOpen", callbackNoArgs);
-breaker.on("close", callbackNoArgs);
-breaker.on("fallback", data => console.log(data));
+breaker.on('success', result => console.log(result));
+breaker.on('timeout', callbackNoArgs);
+breaker.on('reject', callbackNoArgs);
+breaker.on('open', callbackNoArgs);
+breaker.on('halfOpen', callbackNoArgs);
+breaker.on('close', callbackNoArgs);
+breaker.on('fallback', data => console.log(data));
 
 const readFile = promisify(fs.readFile);
 breaker = new CircuitBreaker(readFile, options);
 
 breaker
-    .fire("./package.json", "utf-8")
+    .fire('./package.json', 'utf-8')
     .then(console.log)
     .catch(console.error);
 
@@ -111,8 +113,8 @@ breaker = new CircuitBreaker(readFile, {});
 // Creates a 1 second window consisting of ten time slices,
 // each 100ms long.
 const circuit = new CircuitBreaker(readFile, {
-  rollingCountBuckets: 10,
-  rollingCountTimeout: 1000
+    rollingCountBuckets: 10,
+    rollingCountTimeout: 1000,
 });
 
 // get the cumulative statistics for the last second

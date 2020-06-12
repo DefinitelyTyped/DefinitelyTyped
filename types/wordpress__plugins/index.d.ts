@@ -5,7 +5,7 @@
 // TypeScript Version: 3.6
 
 import { Dashicon } from '@wordpress/components';
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 export interface PluginSettings {
     /**

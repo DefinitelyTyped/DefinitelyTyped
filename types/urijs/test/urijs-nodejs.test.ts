@@ -1,3 +1,5 @@
+import URI = require('urijs');
+import * as URITemplate from 'urijs/src/URITemplate';
 declare var $: (arg?: any) => JQuery;
 
 // Scope it so doesn't name conflict with other tests.
@@ -28,6 +30,8 @@ declare var $: (arg?: any) => JQuery;
         fragment: 'frag',
     });
 
+    URI.preventInvalidHostname = false;
+
     URI('').setQuery('foo', 'bar');
     URI('').setQuery({ foo: 'bar' });
     URI('').setSearch('foo', 'bar');
@@ -39,7 +43,7 @@ declare var $: (arg?: any) => JQuery;
     URI('http://example.org/foo/hello.html').addSearch('foo', 'bar');
     URI('http://example.org/foo/hello.html').addSearch({ foo: 'bar' });
 
-    let uri: uri.URI = $('a').uri();
+    let uri: URI = $('a').uri();
 
     URI('http://example.org/foo/hello.html').segment('bar');
     URI('http://example.org/foo/hello.html').segment(0, 'bar');
@@ -66,13 +70,13 @@ declare var $: (arg?: any) => JQuery;
     ```
     */
     URI(
-      'http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag',
+        'http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag'
     ).equals(
-      URI.expand!('http://user:pass@example.org:80{/p*}{?q*}{#h}', {
-        p: ['foo', 'bar.html'],
-        q: { foo: 'bar', bar: 'baz' },
-        h: 'frag',
-      }),
+        URI.expand!('http://user:pass@example.org:80{/p*}{?q*}{#h}', {
+            p: ['foo', 'bar.html'],
+            q: { foo: 'bar', bar: 'baz' },
+            h: 'frag',
+        }),
     );
 
     // Basic URITemplate type usage
@@ -213,4 +217,12 @@ declare var $: (arg?: any) => JQuery;
     parts.preventInvalidHostname = false;
     parts.protocol === 'mailto';
     parts.urn === true;
+
+    /*
+    Tests for URI.search(), URI.query()
+    From: https://medialize.github.io/URI.js/docs.html#accessors-search
+    */
+    const u = new URI('mailto:mail@example.org');
+    u.query(qs => qs);
+    u.search(qs => qs);
 }

@@ -1,6 +1,7 @@
-// Type definitions for tail 1.2
+// Type definitions for tail 2.0
 // Project: https://github.com/lucagrulla/node-tail, https://www.lucagrulla.com/node-tail
 // Definitions by: Mike Linkovich <https://github.com/spacejack>
+//                 Devin Davies <https://github.com/devindavies>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -13,6 +14,7 @@ declare namespace Tail {
         logger?: any;
         encoding?: string;
         useWatchFile?: boolean;
+        flushAtEOF?: boolean;
     }
 
     interface Tail {
@@ -28,7 +30,7 @@ declare namespace Tail {
 
     interface TailConstructor {
         /** Creates a new Tail object that starts watching the specified file immediately. */
-        new(filename: string, options?: TailOptions): Tail;
+        new (filename: string, options?: TailOptions): Tail;
     }
 
     interface Static {

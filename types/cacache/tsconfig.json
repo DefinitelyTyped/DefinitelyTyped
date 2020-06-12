@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "en.d.ts",
         "cacache-tests.ts"
     ]
 }

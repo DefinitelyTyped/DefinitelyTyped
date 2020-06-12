@@ -20,11 +20,21 @@ import {
 export * from './utils/tree-data-utils';
 export * from './utils/default-handlers';
 
+export interface GetTreeItemChildren {
+    done: (children: TreeItem[]) => void;
+    node: TreeItem;
+    path: NumberOrStringArray;
+    lowerSiblingCounts: number[];
+    treeIndex: number;
+}
+
+export type GetTreeItemChildrenFn = (data: GetTreeItemChildren) => void;
+
 export interface TreeItem {
     title?: React.ReactNode;
     subtitle?: React.ReactNode;
     expanded?: boolean;
-    children?: TreeItem[];
+    children?: TreeItem[] | GetTreeItemChildrenFn;
     [x: string]: any;
 }
 

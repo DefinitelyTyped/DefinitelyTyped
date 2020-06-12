@@ -52,6 +52,14 @@ export enum SystemState {
     STOPPING_IN_BACKGROUND = 'stoppinginbackground',
 }
 
+// Types of custom messages.
+export enum MessageType {
+  // Messages are free-form strings. The application is responsible for encoding/decoding the information transmitted.
+  STRING = 'string',
+  // Messages are JSON-encoded. The underlying transport will use a JSON encoded string.
+  JSON = 'json',
+}
+
 // Represents the current standby state reported by the platform. It may be UNKNOWN
 // if the cast platform was unable to determine the state yet.
 export enum StandbyState {

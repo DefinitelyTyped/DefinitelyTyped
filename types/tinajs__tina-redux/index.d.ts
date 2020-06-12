@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tinajs__tina-redux
 // TypeScript Version: 2.8
 
-import { Store, Dispatch } from "redux";
+import { Store, Dispatch, Action } from "redux";
 
 type MapStateToProps = (state: any) => any;
 type mapDispatchToProps = (dispatch: Dispatch) => any;
@@ -15,8 +15,8 @@ interface HOC {
     methods: object;
 }
 
-declare class TinaRedux {
-    constructor(reduxStore: Store);
+declare class TinaRedux<S, A extends Action> {
+    constructor(reduxStore: Store<S, A>);
     connect(mapState?: MapStateToProps, mapDispatch?: mapDispatchToProps): HOC;
 }
 

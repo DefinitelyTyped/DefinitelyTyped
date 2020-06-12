@@ -1302,7 +1302,7 @@ declare namespace gapi.client {
             /**
              * Default number of tokens that can be consumed during the specified
              * duration. This is the number of tokens assigned when a client
-             * application developer activates the service for his/her project.
+             * application developer activates the service for their project.
              *
              * Specifying a value of 0 will block all requests. This can be used if you
              * are provisioning quota to selected consumers and blocking others.

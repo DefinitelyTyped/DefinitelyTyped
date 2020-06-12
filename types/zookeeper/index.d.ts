@@ -2,7 +2,6 @@
 // Project: https://github.com/yfinkelstein/node-zookeeper#readme
 // Definitions by: xialeistudio <https://github.com/xialeistudio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 /// <reference types="node" />
 
 type ACL = number | { perms: number, scheme: string, auth: string };
@@ -98,7 +97,8 @@ declare namespace Zookeeper {
     const ZOO_PERM_DELETE = 8;
     const ZOO_PERM_ADMIN = 16;
     const ZOO_PERM_ALL = 31;
-    // Dunno
+    /** node is automatically removed when client session goes away */
     const ZOO_EPHEMERAL = 1;
+    /** unique monotonically increasing sequence number is appended to the path name */
     const ZOO_SEQUENCE = 2;
 }

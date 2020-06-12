@@ -10,9 +10,9 @@
 import * as angular from 'angular';
 
 declare module 'angular' {
-	export namespace flow {
-		interface IFlowFactory {
-			create(options?: flowjs.IFlowOptions): flowjs.IFlow;
-		}
-	}
+    export namespace flow {
+        interface IFlowFactory {
+            create(options?: flowjs.IFlowOptions): flowjs.IFlow;
+        }
+    }
 }

@@ -4,10 +4,10 @@ import assert = require('assert');
 
 var app = express();
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
-app.set('view engine', 'handlebars');
-
 const hbs = exphbs.create({defaultLayout: 'main'});
+
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
 
 hbs.renderView('test', (err: any) => {});
 hbs.renderView('test', (err: any, content: string) => {});

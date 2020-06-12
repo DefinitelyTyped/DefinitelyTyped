@@ -709,6 +709,12 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
         b; // $ExpectType AbcObject
         return true;
     });
+    // $ExpectType AbcObject[]
+    _.intersectionWith(...[list, list], (a, b) => {
+        a; // $ExpectType AbcObject
+        b; // $ExpectType never
+        return true;
+    });
 
     _(list).intersectionWith(list); // $ExpectType Collection<AbcObject>
     _(list).intersectionWith(list, list); // $ExpectType Collection<AbcObject>
@@ -4254,14 +4260,20 @@ fp.now(); // $ExpectType number
 
 // _.isMatchWith
 {
-    const testIsMatchCustiomizerFn = (value: any, other: any, indexOrKey: number|string|symbol, object: object, source: object) => true;
+    const testIsMatchCustiomizerFnBoolean = (value: any, other: any, indexOrKey: number|string|symbol, object: object, source: object) => true;
+    const testIsMatchCustiomizerFnUndefined = (value: any, other: any, indexOrKey: number|string|symbol, object: object, source: object) => undefined;
 
-    _.isMatchWith({}, {}, testIsMatchCustiomizerFn); // $ExpectType boolean
-    _({}).isMatchWith({}, testIsMatchCustiomizerFn); // $ExpectType boolean
-    _.chain({}).isMatchWith({}, testIsMatchCustiomizerFn); // $ExpectType PrimitiveChain<boolean>
+    _.isMatchWith({}, {}, testIsMatchCustiomizerFnBoolean); // $ExpectType boolean
+    _.isMatchWith({}, {}, testIsMatchCustiomizerFnUndefined); // $ExpectType boolean
+    _({}).isMatchWith({}, testIsMatchCustiomizerFnBoolean); // $ExpectType boolean
+    _({}).isMatchWith({}, testIsMatchCustiomizerFnUndefined); // $ExpectType boolean
+    _.chain({}).isMatchWith({}, testIsMatchCustiomizerFnBoolean); // $ExpectType PrimitiveChain<boolean>
+    _.chain({}).isMatchWith({}, testIsMatchCustiomizerFnUndefined); // $ExpectType PrimitiveChain<boolean>
 
-    fp.isMatchWith(testIsMatchCustiomizerFn, {}, {}); // $ExpectType boolean
-    fp.isMatchWith(testIsMatchCustiomizerFn)({})({}); // $ExpectType boolean
+    fp.isMatchWith(testIsMatchCustiomizerFnBoolean, {}, {}); // $ExpectType boolean
+    fp.isMatchWith(testIsMatchCustiomizerFnUndefined, {}, {}); // $ExpectType boolean
+    fp.isMatchWith(testIsMatchCustiomizerFnBoolean)({})({}); // $ExpectType boolean
+    fp.isMatchWith(testIsMatchCustiomizerFnUndefined)({})({}); // $ExpectType boolean
 }
 
 // _.isNaN
@@ -5606,8 +5618,7 @@ fp.now(); // $ExpectType number
     _.omit(obj, "a"); // $ExpectType Pick<AbcObject, "b" | "c">
     _.omit(obj, ["b", 1], 0, "a"); // $ExpectType Partial<AbcObject>
     _.omit(dictionary, "a"); // $ExpectType Pick<Dictionary<AbcObject>, string | number>
-    _.omit(numericDictionary, "a");  // $ExpectType Partial<NumericDictionary<AbcObject>>
-
+    _.omit(numericDictionary, "a"); // $ExpectType Pick<NumericDictionary<AbcObject>, number>
     _(obj).omit("a"); // $ExpectType Object<Pick<AbcObject, "b" | "c">>
     _(obj).omit(["b", 1], 0, "a"); // $ExpectType Object<Partial<AbcObject>>
     _(dictionary).omit("a"); // $ExpectType Object<Pick<Dictionary<AbcObject>, string | number>>
@@ -6967,14 +6978,6 @@ fp.now(); // $ExpectType number
     fp.stubArray(); // $ExpectType any[]
 }
 
-// _.stubFalse
-{
-    _.stubFalse(); // $ExpectType false
-    _(anything).stubFalse(); // $ExpectType false
-    _.chain(anything).stubFalse(); // $ExpectType PrimitiveChain<false>
-    fp.stubFalse(); // $ExpectType false
-}
-
 // _.stubObject
 {
     _.stubObject(); // $ExpectType any
@@ -6989,14 +6992,6 @@ fp.now(); // $ExpectType number
     _(anything).stubString(); // $ExpectType string
     _.chain(anything).stubString(); // $ExpectType StringChain
     fp.stubString(); // $ExpectType string
-}
-
-// _.stubTrue
-{
-    _.stubTrue(); // $ExpectType true
-    _(anything).stubTrue(); // $ExpectType true
-    _.chain(anything).stubTrue(); // $ExpectType PrimitiveChain<true>
-    fp.stubTrue(); // $ExpectType true
 }
 
 // _.times
@@ -7092,4 +7087,20 @@ _.templateSettings; // $ExpectType TemplateSettings
     fp.partialRight(func1, [42]); // $ExpectType Function0<number>
     fp.partialRight(func1)([42]); // $ExpectType Function0<number>
     fp.partialRight(func2)([42, fp.partialRight.placeholder]); // $ExpectType Function1<string, number>
+}
+
+// _.stubTrue
+{
+    _.stubTrue(); // $ExpectType true
+    _("").stubTrue(); // $ExpectType true
+    _.chain("").stubTrue(); // $ExpectType LoDashExplicitWrapper<true>
+    fp.stubTrue(); // $ExpectType true
+}
+
+// _.stubFalse
+{
+    _.stubFalse(); // $ExpectType false
+    _("").stubFalse(); // $ExpectType false
+    _.chain("").stubFalse(); // $ExpectType LoDashExplicitWrapper<false>
+    fp.stubFalse(); // $ExpectType false
 }

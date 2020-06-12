@@ -28,7 +28,7 @@ declare module "meteor/meteor" {
             verified: boolean;
         }
         interface User {
-            _id?: string;
+            _id: string;
             username?: string;
             emails?: UserEmail[];
             createdAt?: Date;
@@ -226,7 +226,7 @@ declare module "meteor/meteor" {
         function onConnection(callback: Function): void;
         /** Connection **/
 
-        function publish(name: string, func: (this: Subscription, ...args: any[]) => void): void;
+        function publish(name: string | null, func: (this: Subscription, ...args: any[]) => void, options?: {is_auto: boolean}): void;
 
         function _debug(...args: any[]): void;
     }

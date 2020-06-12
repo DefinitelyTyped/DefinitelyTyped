@@ -20,7 +20,6 @@ export type AllByAttribute = (
 
 export const queryByAttribute: QueryByAttribute;
 export const queryAllByAttribute: AllByAttribute;
-export function logDom(htmlElement: HTMLElement): void;
 export function getElementError(message: string, container: HTMLElement): Error;
 
 /**

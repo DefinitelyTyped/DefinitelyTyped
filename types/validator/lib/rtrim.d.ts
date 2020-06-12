@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const rtrim: typeof validator.rtrim;
-export = rtrim;
+import validator from '../';
+export default validator.rtrim;

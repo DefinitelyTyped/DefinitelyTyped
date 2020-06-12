@@ -1,9 +1,10 @@
-// Type definitions for shopify-buy 1.4.0
+// Type definitions for shopify-buy 1.11
 // Project: http://shopify.github.io/js-buy-sdk/api/
 // Definitions by: Martin Köhn <https://github.com/openminder>
 //                 Stephen Traiforos <https://github.com/straiforos>
 //                 Rosana Ruiz <https://github.com/totemika>
 //                 Juan Manuel Incaurgarat <https://github.com/kilinkis>
+//                 Chris Worman <https://github.com/chrisworman-pela>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -88,6 +89,13 @@ declare namespace ShopifyBuy {
         removeLineItems(
             checkoutId: string | number,
             lineItemIds: string[]
+        ): Promise<Cart>;
+
+        /**
+         * Remove discounts from cart
+         */
+        removeDiscount(
+            checkoutId: string | number
         ): Promise<Cart>;
 
         /**
@@ -323,7 +331,7 @@ declare namespace ShopifyBuy {
          * previously before the product went on sale.
          * If no compareAtPrice is set then this value will be null. An example value: "5.00".
          */
-        compare_at_price: string;
+        compare_at_price: string | null;
 
         /**
          * Variant's weight in grams. If no weight is set then 0 is returned.

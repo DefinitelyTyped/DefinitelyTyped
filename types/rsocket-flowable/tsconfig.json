@@ -18,13 +18,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "Flowable.d.ts",
-        "FlowableMapOperator.d.ts",
-        "FlowableProcessor.d.ts",
-        "FlowableRequestOperator.d.ts",
-        "FlowableTakeOperator.d.ts",
-        "FlowableTimer.d.ts",
-        "Single.d.ts"
+        "index.d.ts"
     ]
 }

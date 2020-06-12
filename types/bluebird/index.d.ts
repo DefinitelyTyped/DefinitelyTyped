@@ -341,7 +341,6 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * the promise as snapshotted at the time of calling `.reflect()`.
    */
   reflect(): Bluebird<Bluebird.Inspection<R>>;
-  reflect(): Bluebird<Bluebird.Inspection<any>>;
 
   /**
    * This is a convenience method for doing:
@@ -567,7 +566,12 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  all(this: Bluebird<Iterable<{}>>): Bluebird<R>;
+  all<T1, T2, T3, T4, T5>(this: Bluebird<[Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>, Resolvable<T5>]>): Bluebird<[T1, T2, T3, T4, T5]>;
+  all<T1, T2, T3, T4>(this: Bluebird<[Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>]>): Bluebird<[T1, T2, T3, T4]>;
+  all<T1, T2, T3>(this: Bluebird<[Resolvable<T1>, Resolvable<T2>, Resolvable<T3>]>): Bluebird<[T1, T2, T3]>;
+  all<T1, T2>(this: Bluebird<[Resolvable<T1>, Resolvable<T2>]>): Bluebird<[T1, T2]>;
+  all<T1>(this: Bluebird<[Resolvable<T1>]>): Bluebird<[T1]>;
+  all<R>(this: Bluebird<Iterable<Resolvable<R>>>): Bluebird<R[]>;
 
   /**
    * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -594,7 +598,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Same as calling `Promise.some(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    * Same as calling `Promise.some(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  some(this: Bluebird<Iterable<{}>>, count: number): Bluebird<R>;
+  some<Q>(this: Bluebird<R & Iterable<Q>>, count: number): Bluebird<R>;
 
   /**
    * Same as calling `Promise.some(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -855,6 +859,15 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   static all<T1>(values: [Resolvable<T1>]): Bluebird<[T1]>;
   // array with values
   static all<R>(values: Resolvable<Iterable<Resolvable<R>>>): Bluebird<R[]>;
+
+  static allSettled<T1, T2, T3, T4, T5>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>, Resolvable<T5>]): Bluebird<[Bluebird.Inspection<T1>, Bluebird.Inspection<T2>,
+    Bluebird.Inspection<T3>, Bluebird.Inspection<T4>, Bluebird.Inspection<T5>]>;
+  static allSettled<T1, T2, T3, T4>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>]): Bluebird<[Bluebird.Inspection<T1>, Bluebird.Inspection<T2>,
+    Bluebird.Inspection<T3>, Bluebird.Inspection<T4>]>;
+  static allSettled<T1, T2, T3>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>]): Bluebird<[Bluebird.Inspection<T1>, Bluebird.Inspection<T2>, Bluebird.Inspection<T3>]>;
+  static allSettled<T1, T2>(values: [Resolvable<T1>, Resolvable<T2>]): Bluebird<[Bluebird.Inspection<T1>, Bluebird.Inspection<T2>]>;
+  static allSettled<T1>(values: [Resolvable<T1>]): Bluebird<[Bluebird.Inspection<T1>]>;
+  static allSettled<R>(values: Resolvable<Iterable<Resolvable<R>>>): Bluebird<Array<Bluebird.Inspection<R>>>;
 
   /**
    * Like ``Promise.all`` but for object properties instead of array items. Returns a promise that is fulfilled when all the properties of the object are fulfilled.

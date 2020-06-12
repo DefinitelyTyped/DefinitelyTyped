@@ -1,7 +1,16 @@
 import * as React from "react";
-import { EmbeddedIconProps, InternationalProps, ReactInputAttr, RequiresIdProps, ThemeProps, ValidityProps } from "../../../typings/shared";
+import {
+    EmbeddedIconProps,
+    InternationalProps,
+    ReactInputAttr,
+    RequiresIdProps,
+    ThemeProps,
+    ValidityProps,
+    RefForwardingProps,
+    CarbonInputSize
+} from "../../../typings/shared";
 
-type ExcludedAttributes = "aria-label" | "id" | "ref";
+type ExcludedAttributes = "aria-label" | "id" | "ref" | "size";
 export type NumberInputTranslationKey = "decrement.number" | "increment.number";
 interface InheritedProps extends
     Omit<ReactInputAttr, ExcludedAttributes>,
@@ -9,19 +18,21 @@ interface InheritedProps extends
     InternationalProps<NumberInputTranslationKey>,
     RequiresIdProps,
     ThemeProps,
-    ValidityProps
+    ValidityProps,
+    RefForwardingProps<HTMLInputElement>
 {
     value: number,
 }
 
 export interface NumberInputProps extends InheritedProps {
     allowEmpty?: boolean,
-    helperText?: string,
+    helperText?: React.ReactNode,
     hideLabel?: boolean,
     label?: React.ReactNode,
     isMobile?: boolean,
+    size?: Extract<CarbonInputSize, "sm" | "xl">,
 }
 
-declare const NumberInput: React.RefForwardingComponent<HTMLInputElement, NumberInputProps>;
+declare class NumberInput extends React.Component<NumberInputProps> { }
 
 export default NumberInput;

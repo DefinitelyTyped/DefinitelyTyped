@@ -18,8 +18,8 @@ export interface MutationConfig<TOperation extends MutationParameters> {
         | ((response: TOperation['response'], errors: ReadonlyArray<PayloadError> | null | undefined) => void)
         | null;
     optimisticResponse?: TOperation['response'];
-    optimisticUpdater?: SelectorStoreUpdater | null;
-    updater?: SelectorStoreUpdater | null;
+    optimisticUpdater?: SelectorStoreUpdater<TOperation['response']> | null;
+    updater?: SelectorStoreUpdater<TOperation['response']> | null;
     uploadables?: UploadableMap | null;
     variables: TOperation['variables'];
 }

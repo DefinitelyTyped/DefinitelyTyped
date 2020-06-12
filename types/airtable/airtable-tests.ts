@@ -74,4 +74,27 @@ async () => {
             }
         }
     }
+
+    {
+        const newRowData: Row = {
+            field1: 'string',
+            attachments: [],
+            booleanField: false,
+            numberField: 0,
+            singleCollaborator: { email: '', id: '', name: '' },
+            multiCollaborators: [],
+        };
+
+        const newRecord = await table.create(newRowData);
+
+        newRecord.id;
+        newRecord.fields;
+
+        const newRecords = await table.create([newRowData, newRowData]);
+
+        newRecords.forEach(r => {
+            r.id;
+            r.fields;
+        });
+    }
 };

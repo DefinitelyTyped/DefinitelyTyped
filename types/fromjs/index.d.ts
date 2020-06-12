@@ -37,7 +37,6 @@ declare namespace FromJS {
         toArray(): Array<T>;
         concat(second: Array<T>): IQueryable<T>;
         sum(): T;
-        distinct(): IQueryable<T>;
         any(): boolean;
         any(predicate: (item: T) => boolean): boolean;
         all(predicate: (item: T) => boolean): boolean;

@@ -49,9 +49,9 @@ declare namespace CookieSessionInterfaces {
         domain?: string;
 
         /**
-         * a boolean or string indicating whether the cookie is a "same site" cookie (false by default). This can be set to 'strict', 'lax', or true (which maps to 'strict').
+         * a boolean or string indicating whether the cookie is a "same site" cookie (false by default). This can be set to 'strict', 'lax', 'none', or true (which maps to 'strict').
          */
-        sameSite?: "strict" | "lax" | boolean;
+        sameSite?: "strict" | "lax" | "none" | boolean;
 
         /**
          * a boolean indicating whether the cookie is only to be sent over HTTPS (false by default for HTTP, true by default for HTTPS).
@@ -84,17 +84,17 @@ declare namespace CookieSessionInterfaces {
         /**
          * Is true if the session has been changed during the request.
          */
-        isChanged?: boolean;
+        isChanged: boolean;
 
         /**
          * Is true if the session is new.
          */
-        isNew?: boolean;
+        isNew: boolean;
 
         /**
          * Determine if the session has been populated with data or is empty.
          */
-        isPopulated?: boolean;
+        isPopulated: boolean;
 
         [propertyName: string]: any;
     }
@@ -103,7 +103,7 @@ declare namespace CookieSessionInterfaces {
         /**
          * Represents the session for the given request.
          */
-        session?: CookieSessionObject;
+        session: CookieSessionObject | null;
 
         /**
          * Represents the session options for the current request. These options are a shallow clone of what was provided at middleware construction and can be altered to change cookie setting behavior on a per-request basis.

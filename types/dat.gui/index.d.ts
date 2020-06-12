@@ -108,14 +108,24 @@ export class GUI {
 }
 
 export class GUIController {
-    destroy(): void;
+    domElement: HTMLElement;
+    object: Object;
+    property: string;
 
-    // Controller
-    onChange: (value?: any) => GUIController;
-    onFinishChange: (value?: any) => GUIController;
+    constructor(object: Object, property: string);
+
+    options(option: any): GUIController;
+    name(name: string): GUIController;
+
+    listen(): GUIController;
+    remove(): GUIController;
+
+    onChange(fnc: (value?: any) => void): GUIController;
+    onFinishChange(fnc: (value?: any) => void): GUIController;
 
     setValue(value: any): GUIController;
     getValue(): any;
+
     updateDisplay(): GUIController;
     isModified(): boolean;
 
@@ -126,10 +136,4 @@ export class GUIController {
 
     // FunctionController
     fire(): GUIController;
-
-    // augmentController in dat/gui/GUI.js
-    options(option:any):GUIController;
-    name(s: string): GUIController;
-    listen(): GUIController;
-    remove(): GUIController;
 }

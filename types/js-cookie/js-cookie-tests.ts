@@ -1,5 +1,6 @@
 import Cookies = require("js-cookie");
 
+// $ExpectType string | undefined
 Cookies.set('name', 'value');
 Cookies.set('name', 'value', { expires: 7 });
 Cookies.set('name', 'value', { expires: new Date() });
@@ -9,7 +10,7 @@ Cookies.set('name', 'value', { expires: 7, path: '', domain: '', secure: true })
 Cookies.set('name', 'value', { secure: true });
 Cookies.set('name', 'value', { domain: '' });
 Cookies.set('name', 'value', { path: '' });
-Cookies.set('name', 'value', { sameSite: 'Strict' });
+Cookies.set('name', 'value', { sameSite: 'strict' });
 Cookies.set('name', 'value', { custom: 'property' });
 
 // $ExpectType string | undefined

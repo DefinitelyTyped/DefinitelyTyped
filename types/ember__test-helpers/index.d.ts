@@ -1,10 +1,11 @@
-// Type definitions for @ember/test-helpers 0.7
+// Type definitions for @ember/test-helpers 1.7
 // Project: https://github.com/emberjs/ember-test-helpers
 // Definitions by: Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
 //                 Mike North <https://github.com/mike-north>
+//                 Chris Krycho <https://github.com/chriskrycho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 /// <reference types="ember" />
 /// <reference types="ember__error" />
@@ -64,19 +65,19 @@ declare module '@ember/test-helpers' {
 declare module '@ember/test-helpers/dom/click' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target): Promise<void>;
+    export default function(target: Target, options?: MouseEventInit): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/double-click' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target): Promise<void>;
+    export default function(target: Target, options?: MouseEventInit): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/tap' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target): Promise<void>;
+    export default function(target: Target, options?: object): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/focus' {
@@ -176,6 +177,7 @@ declare module '@ember/test-helpers/settled' {
         hasPendingTimers: boolean;
         hasPendingWaiters: boolean;
         hasPendingRequests: boolean;
+        hasPendingTransitions: boolean | null;
         pendingRequestCount: number;
     }
 

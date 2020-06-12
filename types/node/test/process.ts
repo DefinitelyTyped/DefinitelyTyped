@@ -13,16 +13,13 @@ import { EventEmitter } from "events";
     ok(process.argv[0] === process.argv0);
 }
 {
-    let module: NodeModule | undefined;
-    module = process.mainModule;
-}
-{
     process.on("message", (req: any) => { });
     process.addListener("beforeExit", (code: number) => { });
     process.once("disconnect", () => { });
     process.prependListener("exit", (code: number) => { });
     process.prependOnceListener("rejectionHandled", (promise: Promise<any>) => { });
     process.on("uncaughtException", (error: Error) => { });
+    process.once("uncaughtExceptionMonitor", (error: Error) => { });
     process.addListener("unhandledRejection", (reason: {} | null | undefined, promise: Promise<any>) => { });
     process.once("warning", (warning: Error) => { });
     process.prependListener("message", (message: any, sendHandle: any) => { });
@@ -30,6 +27,7 @@ import { EventEmitter } from "events";
     process.on("newListener", (event: string | symbol, listener: Function) => { });
     process.once("removeListener", (event: string | symbol, listener: Function) => { });
     process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
+    process.on("customEvent", () => { });
 
     const listeners = process.listeners('uncaughtException');
     const oldHandler = listeners[listeners.length - 1];
@@ -67,4 +65,13 @@ import { EventEmitter } from "events";
 
 {
     const usage: NodeJS.ResourceUsage = process.resourceUsage();
+}
+
+{
+    const usage: NodeJS.MemoryUsage = process.memoryUsage();
+    const rss: number = usage.rss;
+    const heapTotal: number = usage.heapTotal;
+    const heapUsed: number = usage.heapUsed;
+    const external: number = usage.external;
+    const arrayBuffers: number = usage.arrayBuffers;
 }

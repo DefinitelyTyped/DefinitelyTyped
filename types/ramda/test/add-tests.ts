@@ -1,12 +1,17 @@
 import * as R from 'ramda';
 
-(() => {
-  const plus3 = R.add(3);
-})();
+() => {
+  // $ExpectType number
+  R.add(2, 3); // =>  5
+  // $ExpectType number
+  R.add(7)(10); // => 17
+};
 
 () => {
-  R.add(2, 3); // =>  5
-  R.add(7)(10); // => 17
-  R.add('Hello', ' World'); // =>  "Hello World"
-  R.add('Hello')(' World'); // =>  "Hello World"
+  // cannot add anything other than two numbers
+
+  // $ExpectError
+  R.add('foo', 'bar');
+  // $ExpectError
+  R.add('foo')('bar');
 };

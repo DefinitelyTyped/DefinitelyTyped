@@ -20,7 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "styled-components.d.ts",
         "reflexbox-tests.tsx"
     ]
 }

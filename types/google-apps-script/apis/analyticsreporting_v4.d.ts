@@ -1,23 +1,22 @@
 // Type definitions for Google Apps Script 2019-03-25
 // Project: https://developers.google.com/apps-script/
 // Generator: https://github.com/grant/google-apps-script-dts
-// Definitions by: grant <https://github.com/grant/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
   namespace Analyticsreporting {
     namespace Collection {
-      export interface ReportsCollection {
+      interface ReportsCollection {
         // Returns the Analytics data.
         batchGet(resource: Schema.GetReportsRequest): Analyticsreporting.Schema.GetReportsResponse;
       }
-      export interface UserActivityCollection {
+      interface UserActivityCollection {
         // Returns User Activity data.
         search(resource: Schema.SearchUserActivityRequest): Analyticsreporting.Schema.SearchUserActivityResponse;
       }
     }
     namespace Schema {
-      export interface Activity {
+      interface Activity {
         activityTime?: string;
         activityType?: string;
         appview?: Analyticsreporting.Schema.ScreenviewData;
@@ -34,74 +33,74 @@ declare namespace GoogleAppsScript {
         pageview?: Analyticsreporting.Schema.PageviewData;
         source?: string;
       }
-      export interface Cohort {
+      interface Cohort {
         dateRange?: Analyticsreporting.Schema.DateRange;
         name?: string;
         type?: string;
       }
-      export interface CohortGroup {
+      interface CohortGroup {
         cohorts?: Analyticsreporting.Schema.Cohort[];
         lifetimeValue?: boolean;
       }
-      export interface ColumnHeader {
+      interface ColumnHeader {
         dimensions?: string[];
         metricHeader?: Analyticsreporting.Schema.MetricHeader;
       }
-      export interface CustomDimension {
+      interface CustomDimension {
         index?: number;
         value?: string;
       }
-      export interface DateRange {
+      interface DateRange {
         endDate?: string;
         startDate?: string;
       }
-      export interface DateRangeValues {
+      interface DateRangeValues {
         pivotValueRegions?: Analyticsreporting.Schema.PivotValueRegion[];
         values?: string[];
       }
-      export interface Dimension {
+      interface Dimension {
         histogramBuckets?: string[];
         name?: string;
       }
-      export interface DimensionFilter {
+      interface DimensionFilter {
         caseSensitive?: boolean;
         dimensionName?: string;
         expressions?: string[];
         not?: boolean;
         operator?: string;
       }
-      export interface DimensionFilterClause {
+      interface DimensionFilterClause {
         filters?: Analyticsreporting.Schema.DimensionFilter[];
         operator?: string;
       }
-      export interface DynamicSegment {
+      interface DynamicSegment {
         name?: string;
         sessionSegment?: Analyticsreporting.Schema.SegmentDefinition;
         userSegment?: Analyticsreporting.Schema.SegmentDefinition;
       }
-      export interface EcommerceData {
+      interface EcommerceData {
         actionType?: string;
         ecommerceType?: string;
         products?: Analyticsreporting.Schema.ProductData[];
         transaction?: Analyticsreporting.Schema.TransactionData;
       }
-      export interface EventData {
+      interface EventData {
         eventAction?: string;
         eventCategory?: string;
         eventCount?: string;
         eventLabel?: string;
         eventValue?: string;
       }
-      export interface GetReportsRequest {
+      interface GetReportsRequest {
         reportRequests?: Analyticsreporting.Schema.ReportRequest[];
         useResourceQuotas?: boolean;
       }
-      export interface GetReportsResponse {
+      interface GetReportsResponse {
         queryCost?: number;
         reports?: Analyticsreporting.Schema.Report[];
         resourceQuotasRemaining?: Analyticsreporting.Schema.ResourceQuotasRemaining;
       }
-      export interface GoalData {
+      interface GoalData {
         goalCompletionLocation?: string;
         goalCompletions?: string;
         goalIndex?: number;
@@ -111,75 +110,75 @@ declare namespace GoogleAppsScript {
         goalPreviousStep3?: string;
         goalValue?: number;
       }
-      export interface GoalSetData {
+      interface GoalSetData {
         goals?: Analyticsreporting.Schema.GoalData[];
       }
-      export interface Metric {
+      interface Metric {
         alias?: string;
         expression?: string;
         formattingType?: string;
       }
-      export interface MetricFilter {
+      interface MetricFilter {
         comparisonValue?: string;
         metricName?: string;
         not?: boolean;
         operator?: string;
       }
-      export interface MetricFilterClause {
+      interface MetricFilterClause {
         filters?: Analyticsreporting.Schema.MetricFilter[];
         operator?: string;
       }
-      export interface MetricHeader {
+      interface MetricHeader {
         metricHeaderEntries?: Analyticsreporting.Schema.MetricHeaderEntry[];
         pivotHeaders?: Analyticsreporting.Schema.PivotHeader[];
       }
-      export interface MetricHeaderEntry {
+      interface MetricHeaderEntry {
         name?: string;
         type?: string;
       }
-      export interface OrFiltersForSegment {
+      interface OrFiltersForSegment {
         segmentFilterClauses?: Analyticsreporting.Schema.SegmentFilterClause[];
       }
-      export interface OrderBy {
+      interface OrderBy {
         fieldName?: string;
         orderType?: string;
         sortOrder?: string;
       }
-      export interface PageviewData {
+      interface PageviewData {
         pagePath?: string;
         pageTitle?: string;
       }
-      export interface Pivot {
+      interface Pivot {
         dimensionFilterClauses?: Analyticsreporting.Schema.DimensionFilterClause[];
         dimensions?: Analyticsreporting.Schema.Dimension[];
         maxGroupCount?: number;
         metrics?: Analyticsreporting.Schema.Metric[];
         startGroup?: number;
       }
-      export interface PivotHeader {
+      interface PivotHeader {
         pivotHeaderEntries?: Analyticsreporting.Schema.PivotHeaderEntry[];
         totalPivotGroupsCount?: number;
       }
-      export interface PivotHeaderEntry {
+      interface PivotHeaderEntry {
         dimensionNames?: string[];
         dimensionValues?: string[];
         metric?: Analyticsreporting.Schema.MetricHeaderEntry;
       }
-      export interface PivotValueRegion {
+      interface PivotValueRegion {
         values?: string[];
       }
-      export interface ProductData {
+      interface ProductData {
         itemRevenue?: number;
         productName?: string;
         productQuantity?: string;
         productSku?: string;
       }
-      export interface Report {
+      interface Report {
         columnHeader?: Analyticsreporting.Schema.ColumnHeader;
         data?: Analyticsreporting.Schema.ReportData;
         nextPageToken?: string;
       }
-      export interface ReportData {
+      interface ReportData {
         dataLastRefreshed?: string;
         isDataGolden?: boolean;
         maximums?: Analyticsreporting.Schema.DateRangeValues[];
@@ -190,7 +189,7 @@ declare namespace GoogleAppsScript {
         samplingSpaceSizes?: string[];
         totals?: Analyticsreporting.Schema.DateRangeValues[];
       }
-      export interface ReportRequest {
+      interface ReportRequest {
         cohortGroup?: Analyticsreporting.Schema.CohortGroup;
         dateRanges?: Analyticsreporting.Schema.DateRange[];
         dimensionFilterClauses?: Analyticsreporting.Schema.DimensionFilterClause[];
@@ -209,21 +208,21 @@ declare namespace GoogleAppsScript {
         segments?: Analyticsreporting.Schema.Segment[];
         viewId?: string;
       }
-      export interface ReportRow {
+      interface ReportRow {
         dimensions?: string[];
         metrics?: Analyticsreporting.Schema.DateRangeValues[];
       }
-      export interface ResourceQuotasRemaining {
+      interface ResourceQuotasRemaining {
         dailyQuotaTokensRemaining?: number;
         hourlyQuotaTokensRemaining?: number;
       }
-      export interface ScreenviewData {
+      interface ScreenviewData {
         appName?: string;
         mobileDeviceBranding?: string;
         mobileDeviceModel?: string;
         screenName?: string;
       }
-      export interface SearchUserActivityRequest {
+      interface SearchUserActivityRequest {
         activityTypes?: string[];
         dateRange?: Analyticsreporting.Schema.DateRange;
         pageSize?: number;
@@ -231,20 +230,20 @@ declare namespace GoogleAppsScript {
         user?: Analyticsreporting.Schema.User;
         viewId?: string;
       }
-      export interface SearchUserActivityResponse {
+      interface SearchUserActivityResponse {
         nextPageToken?: string;
         sampleRate?: number;
         sessions?: Analyticsreporting.Schema.UserActivitySession[];
         totalRows?: number;
       }
-      export interface Segment {
+      interface Segment {
         dynamicSegment?: Analyticsreporting.Schema.DynamicSegment;
         segmentId?: string;
       }
-      export interface SegmentDefinition {
+      interface SegmentDefinition {
         segmentFilters?: Analyticsreporting.Schema.SegmentFilter[];
       }
-      export interface SegmentDimensionFilter {
+      interface SegmentDimensionFilter {
         caseSensitive?: boolean;
         dimensionName?: string;
         expressions?: string[];
@@ -252,45 +251,45 @@ declare namespace GoogleAppsScript {
         minComparisonValue?: string;
         operator?: string;
       }
-      export interface SegmentFilter {
+      interface SegmentFilter {
         not?: boolean;
         sequenceSegment?: Analyticsreporting.Schema.SequenceSegment;
         simpleSegment?: Analyticsreporting.Schema.SimpleSegment;
       }
-      export interface SegmentFilterClause {
+      interface SegmentFilterClause {
         dimensionFilter?: Analyticsreporting.Schema.SegmentDimensionFilter;
         metricFilter?: Analyticsreporting.Schema.SegmentMetricFilter;
         not?: boolean;
       }
-      export interface SegmentMetricFilter {
+      interface SegmentMetricFilter {
         comparisonValue?: string;
         maxComparisonValue?: string;
         metricName?: string;
         operator?: string;
         scope?: string;
       }
-      export interface SegmentSequenceStep {
+      interface SegmentSequenceStep {
         matchType?: string;
         orFiltersForSegment?: Analyticsreporting.Schema.OrFiltersForSegment[];
       }
-      export interface SequenceSegment {
+      interface SequenceSegment {
         firstStepShouldMatchFirstHit?: boolean;
         segmentSequenceSteps?: Analyticsreporting.Schema.SegmentSequenceStep[];
       }
-      export interface SimpleSegment {
+      interface SimpleSegment {
         orFiltersForSegment?: Analyticsreporting.Schema.OrFiltersForSegment[];
       }
-      export interface TransactionData {
+      interface TransactionData {
         transactionId?: string;
         transactionRevenue?: number;
         transactionShipping?: number;
         transactionTax?: number;
       }
-      export interface User {
+      interface User {
         type?: string;
         userId?: string;
       }
-      export interface UserActivitySession {
+      interface UserActivitySession {
         activities?: Analyticsreporting.Schema.Activity[];
         dataSource?: string;
         deviceCategory?: string;
@@ -300,7 +299,7 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface Analyticsreporting {
+  interface Analyticsreporting {
     Reports?: Analyticsreporting.Collection.ReportsCollection;
     UserActivity?: Analyticsreporting.Collection.UserActivityCollection;
     // Create a new instance of Cohort

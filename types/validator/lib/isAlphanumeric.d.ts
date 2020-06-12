@@ -1,3 +1,3 @@
-import * as validator from "validator";
-declare const isAlphanumeric: typeof validator.isAlphanumeric;
-export = isAlphanumeric;
+import validator from '../';
+export type AlphanumericLocale = validator.AlphanumericLocale;
+export default validator.isAlphanumeric;

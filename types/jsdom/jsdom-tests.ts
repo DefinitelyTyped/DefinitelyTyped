@@ -1,4 +1,14 @@
-import { JSDOM, VirtualConsole, CookieJar, FromUrlOptions, FromFileOptions, DOMWindow, ResourceLoader, FetchOptions, ConstructorOptions } from 'jsdom';
+import {
+    JSDOM,
+    VirtualConsole,
+    CookieJar,
+    BaseOptions,
+    FileOptions,
+    DOMWindow,
+    ResourceLoader,
+    FetchOptions,
+    ConstructorOptions,
+} from 'jsdom';
 import { CookieJar as ToughCookieJar, MemoryCookieStore } from 'tough-cookie';
 import { Script } from 'vm';
 
@@ -8,7 +18,7 @@ function test_basic_usage() {
 
     const { window } = new JSDOM(`...`);
     // or even
-    const { document } = (new JSDOM(`...`)).window;
+    const { document } = new JSDOM(`...`).window;
 }
 
 function test_executing_scripts1() {
@@ -21,16 +31,19 @@ function test_executing_scripts1() {
 }
 
 function test_executing_scripts2() {
-    const dom = new JSDOM(`<body>
+    const dom = new JSDOM(
+        `<body>
   <script>document.body.appendChild(document.createElement("hr"));</script>
-</body>`, { runScripts: 'dangerously' });
+</body>`,
+        { runScripts: 'dangerously' },
+    );
 
     // The script will be executed and modify the DOM:
     dom.window.document.body.children.length === 2;
 }
 
 function test_executing_scripts3() {
-    const window = (new JSDOM(``, { runScripts: 'outside-only' })).window;
+    const window = new JSDOM(``, { runScripts: 'outside-only' }).window;
 
     window.eval(`document.body.innerHTML = "<p>Hello, world!</p>";`);
     window.document.body.children.length === 1;
@@ -40,10 +53,10 @@ function test_virtualConsole() {
     const virtualConsole = new VirtualConsole();
     const dom = new JSDOM(``, { virtualConsole });
 
-    virtualConsole.on('error', () => { });
-    virtualConsole.on('warn', () => { });
-    virtualConsole.on('info', () => { });
-    virtualConsole.on('dir', () => { });
+    virtualConsole.on('error', () => {});
+    virtualConsole.on('warn', () => {});
+    virtualConsole.on('info', () => {});
+    virtualConsole.on('dir', () => {});
     // ... etc. See https://console.spec.whatwg.org/#logging
 
     virtualConsole.sendTo(console);
@@ -52,10 +65,7 @@ function test_virtualConsole() {
     virtualConsole.sendTo(c, { omitJSDOMErrors: true });
 }
 
-function test_cookieJar() {
-    const store = {} as MemoryCookieStore;
-    const options = {} as ToughCookieJar.Options;
-
+function test_cookieJar(store: MemoryCookieStore, options: ToughCookieJar.Options) {
     const cookieJar: CookieJar = new CookieJar(store, options);
     const constructorOptions: ConstructorOptions = { cookieJar };
     const dom = new JSDOM(``, constructorOptions);
@@ -65,7 +75,7 @@ function test_beforeParse() {
     const dom = new JSDOM(`<p>Hello</p>`, {
         beforeParse(window) {
             window.document.childNodes.length === 0;
-        }
+        },
     });
 }
 
@@ -92,7 +102,7 @@ function test_nodeLocation() {
         `<p>Hello
     <img src="foo.jpg">
   </p>`,
-        { includeNodeLocations: true }
+        { includeNodeLocations: true },
     );
 
     const document = dom.window.document;
@@ -101,32 +111,32 @@ function test_nodeLocation() {
     const textNode = pEl.firstChild!;
     const imgEl = document.querySelector('img')!;
 
-    console.log(dom.nodeLocation(bodyEl));   // null; it's not in the source
-    console.log(dom.nodeLocation(pEl));      // { startOffset: 0, endOffset: 39, startTag: ..., endTag: ... }
+    console.log(dom.nodeLocation(bodyEl)); // null; it's not in the source
+    console.log(dom.nodeLocation(pEl)); // { startOffset: 0, endOffset: 39, startTag: ..., endTag: ... }
     console.log(dom.nodeLocation(textNode)); // { startOffset: 3, endOffset: 13 }
-    console.log(dom.nodeLocation(imgEl));    // { startOffset: 13, endOffset: 32 }
+    console.log(dom.nodeLocation(imgEl)); // { startOffset: 13, endOffset: 32 }
 }
 
 function test_runVMScript() {
     const dom = new JSDOM(``, { runScripts: 'outside-only' });
-    const s = new Script(`
-  if (!this.ran) {
-    this.ran = 0;
-  }
+    const script = new Script(`
+    if (!this.ran) {
+        this.ran = 0;
+    }
 
-  ++this.ran;
+    ++this.ran;
 `);
 
-    dom.runVMScript(s);
-    dom.runVMScript(s);
-    dom.runVMScript(s);
+    const vmContext = dom.getInternalVMContext();
 
-    (dom.window as any).ran === 3;
+    script.runInContext(vmContext);
+    script.runInContext(vmContext);
+    script.runInContext(vmContext);
+
+    dom.window.ran === 3;
 }
 
-function test_reconfigure() {
-    const myFakeTopForTesting = {} as DOMWindow;
-
+function test_reconfigure(myFakeTopForTesting: DOMWindow) {
     const dom = new JSDOM();
 
     dom.window.top === dom.window;
@@ -139,22 +149,20 @@ function test_reconfigure() {
 }
 
 function test_fromURL() {
-    const options = {} as FromUrlOptions;
+    const options: BaseOptions = {};
 
     JSDOM.fromURL('https://example.com/', options).then(dom => {
         console.log(dom.serialize());
     });
 
     function pretendToBeVisual() {
-        JSDOM.fromURL("https://github.com", {
-            pretendToBeVisual: true
+        JSDOM.fromURL('https://github.com', {
+            pretendToBeVisual: true,
         });
     }
 }
 
-function test_fromFile() {
-    const options = {} as FromFileOptions;
-
+function test_fromFile(options: FileOptions) {
     JSDOM.fromFile('stuff.html', options).then(dom => {
         console.log(dom.serialize());
     });
@@ -180,11 +188,16 @@ function test_fragment_serialization() {
 function test_custom_resource_loader() {
     class CustomResourceLoader extends ResourceLoader {
         fetch(url: string, options: FetchOptions) {
-          if (options.element) {
-            console.log(`Element ${options.element.localName} is requesting the url ${url}`);
-          }
+            if (options.element) {
+                console.log(`Element ${options.element.localName} is requesting the url ${url}`);
 
-          return super.fetch(url, options);
+                if (options.element.localName === "iframe") {
+                    console.log("Ignoring resource requested by iframe element");
+                    return null;
+                }
+            }
+
+            return super.fetch(url, options);
         }
     }
     new JSDOM('', { resources: new CustomResourceLoader() });

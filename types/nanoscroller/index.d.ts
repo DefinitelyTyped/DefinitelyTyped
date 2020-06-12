@@ -35,7 +35,7 @@ declare namespace JQueryNanoScroller {
         destroy?: boolean;
         /**
          * To flash the scrollbar gadget for an amount of time defined in plugin settings (defaults to 1,5s).
-         * Useful if you want to show the user that there is more content waiting for him.
+         * Useful if you want to show the user that there is more content waiting for them.
          */
         flash?: boolean;
         /**

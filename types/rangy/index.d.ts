@@ -2,6 +2,7 @@
 // Project: https://github.com/timdown/rangy
 // Definitions by: Rudolph Gottesheim <http://www.midnight-design.at/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.2
 
 interface RangyRange extends Range {
     setStartAndEnd(startNode:Node, startOffset:number, endNode?:Node, endOffset?:number):any;

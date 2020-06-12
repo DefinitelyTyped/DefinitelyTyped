@@ -8,10 +8,12 @@ export interface HeadingClickData {
     isOpen: boolean;
 }
 
-export interface AccordionItemProps extends InheritedProps {
+export interface AccordionItemProps extends Omit<InheritedProps, "title"> {
     onHeadingClick?(data: HeadingClickData): void,
     open?: boolean,
     renderExpando?: React.ReactNode,
+    /** The accordion title. */
+    title?: React.ReactNode;
 }
 
 declare class AccordionItem extends React.Component<AccordionItemProps> { }

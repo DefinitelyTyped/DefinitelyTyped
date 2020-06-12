@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const blacklist: typeof validator.blacklist;
-export = blacklist;
+import validator from '../';
+export default validator.blacklist;

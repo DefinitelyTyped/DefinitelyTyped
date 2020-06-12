@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.0
+// Type definitions for non-npm package Forge Viewer 7.5
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Alan Smith <https://github.com/alansmithnbs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -325,6 +325,7 @@ declare namespace Autodesk {
           findParentGeom2Dor3D(): BubbleNode;
           findPropertyDbPath(): string;
           findViewableParent(): BubbleNode;
+          getDefaultGeometry(): any;
           getLodNode(): boolean;
           getNamedViews(): string[];
           getPlacementTransform(): object;
@@ -350,6 +351,13 @@ declare namespace Autodesk {
           useAsDefault(): boolean;
         }
 
+        interface Endpoint {
+            getApiEndpoint(): string;
+            getEndpointAndApi(): string;
+            setEndpointAndApi(endpoint: string, api: string): void;
+        }
+
+        let endpoint: Endpoint;
         let theExtensionManager: ExtensionManager;
 
         interface InitializerOptions {
@@ -377,6 +385,8 @@ declare namespace Autodesk {
             acmSessionId: string;
             myData: any;
 
+            downloadAecModelData(onFinished?: (data: any) => void): Promise<any>;
+            getAecModelData(node: BubbleNode): any;
             getFullPath(urn: string): string;
             getItemById(id: string): object;
             getMessages(itemId: string, excludeGlobal: boolean): object;
@@ -412,7 +422,7 @@ declare namespace Autodesk {
             options: any;
             constructor(viewer: GuiViewer3D, options: any);
 
-            load(): boolean;
+            load(): boolean | Promise<boolean>;
             unload(): boolean;
             onToolbarCreated(toolbar?: UI.ToolBar): void;
         }
@@ -469,6 +479,7 @@ declare namespace Autodesk {
         }
 
         class Model {
+            id: number;
             visibilityManager: Private.VisibilityManager;
 
             clearThemingColors(): void;
@@ -483,7 +494,7 @@ declare namespace Autodesk {
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
-            getDocumentNode(): object;
+            getDocumentNode(): any;
             getExternalIdMapping(onSuccessCallback: (idMapping: { [key: string]: number; }) => void, onErrorCallback: () => void): any;
             getFastLoadList(): any;
             getFragmentMap(): any;
@@ -558,8 +569,13 @@ declare namespace Autodesk {
             getScreenViewport(): ClientRect;
             setScreenViewport(viewport: ClientRect): void;
             setView(position: THREE.Vector3, target: THREE.Vector3): void;
+            setVerticalFov(fov: number, adjustPosition: boolean): void;
             setUseLeftHandedInput(value: boolean): any;
             setZoomTowardsPivot(value: boolean): any;
+            getWorldPoint(x: number, y: number): THREE.Vector3;
+            screenToViewport(x: number, y: number): THREE.Vector3;
+            toOrthographic(): void;
+            toPerspective(): void;
         }
 
         interface Properties {
@@ -572,8 +588,10 @@ declare namespace Autodesk {
             deactivateTool(name: string): boolean;
             registerTool(tool: any): boolean;
             deregisterTool(tool: any): boolean;
-            getToolNames(): string[];
+            getActiveTool(): ToolInterface;
             getActiveToolName(): string;
+            getDefaultTool(): ToolInterface;
+            getToolNames(): string[];
         }
 
         interface ToolInterface {
@@ -584,7 +602,7 @@ declare namespace Autodesk {
             deregister(): void;
             activate(name: string, viewerApi?: GuiViewer3D): void;
             deactivate(name: string): void;
-            update(): boolean;
+            update(highResTimestamp?: number): boolean;
             handleSingleClick?(event: MouseEvent, button: number): boolean;
             handleDoubleClick?(event: MouseEvent, button: number): boolean;
             handleSingleTap?(event: Event): boolean;
@@ -601,7 +619,45 @@ declare namespace Autodesk {
         }
 
         class UnifiedCamera extends THREE.Camera {
+            aspect: number;
+            bottom: number;
+            castShadow: boolean;
+            clientHeight: number;
+            clientWidth: number;
+            dirty: boolean;
+            far: number;
+            fov: number;
+            frustumCulled: boolean;
+            id: number;
             isPerspective: boolean;
+            left: number;
+            matrix: THREE.Matrix4;
+            matrixAutoUpdate: boolean;
+            matrixWorld: THREE.Matrix4;
+            matrixWorldNeedsUpdate: boolean;
+            name: string;
+            near: number;
+            orthographicCamera: THREE.OrthographicCamera;
+            orthoScale: number;
+            perspectiveCamera: THREE.PerspectiveCamera;
+            pivot: THREE.Vector3;
+            quaternion: THREE.Quaternion;
+            receiveShadow: boolean;
+            renderOrder: number;
+            right: number;
+            rotation: THREE.Euler;
+            rotationAutoUpdate: boolean;
+            saveFov: number;
+            scale: THREE.Vector3;
+            target: THREE.Vector3;
+            top: number;
+            uuid: string;
+            up: THREE.Vector3;
+            userData: any;
+            visible: true;
+            worldup: THREE.Vector3;
+            worldUpTransform: THREE.Matrix4;
+            zoom: number;
         }
 
         interface ContextMenuCallbackStatus {
@@ -647,10 +703,13 @@ declare namespace Autodesk {
             canvas: HTMLCanvasElement;
             container: Element;
             navigation: Navigation;
+            id: number;
             impl: Private.Viewer3DImpl;
             model: Model;
+            started: boolean;
+            toolbar: UI.ToolBar;
 
-            start(urn: string, onSuccesfullCallback?: () => void, onErrorCallback?: (errorCode: number, errorMessage: string, statusCode: number, statusText: string) => void): any;
+            start(urn?: string, onSuccesfullCallback?: () => void, onErrorCallback?: (errorCode: number, errorMessage: string, statusCode: number, statusText: string) => void): any;
             startWithDocumentNode(avDocument: Document, manifestNode: any, options: object): Promise<void>;
             registerUniversalHotkeys(): void;
             createControls(): void;
@@ -669,7 +728,7 @@ declare namespace Autodesk {
             onModelAdded(model: Model, preserveTools: boolean): void;
             loadModel(url: string, options: object, onSuccessCallback?: (model: Model) => void, onErrorCallback?: (errorCode: number, errorMessage: string, errorArgs: any) => void): any;
             unloadModel(model: Model): void;
-            loadDocumentNode(avDocument: Document, manifestNode: any/*BubbleNode*/, options: object): Promise<Model>;
+            loadDocumentNode(avDocument: Document, manifestNode: any/*BubbleNode*/, options?: object): Promise<Model>;
             unloadDocumentNode(manifestNode: any/*BubbleNode*/): boolean;
             getDimensions(): Private.Dimensions;
             resize(): void;
@@ -691,7 +750,7 @@ declare namespace Autodesk {
             search(text: string, onSuccess: any, onError: any, attributeNames: string[]): void;
             getHiddenNodes(): number[];
             getIsolatedNodes(): number[];
-            isolate(node: number[]|number, model?: Model): void;
+            isolate(node?: number[]|number, model?: Model): void;
             setBackgroundColor(red: number, green: number, blue: number, red2: number, green2: number, blue2: number): void;
             toggleSelect(dbId: number, model: Model, selectionType: number): void;
             select(dbIds: number[]|number, model?: Model, selectionType?: number): void;
@@ -779,9 +838,7 @@ declare namespace Autodesk {
             leaveLiveReview(): void;
             setModelUnits(modelUnits: any): void;
             worldToClient(pt: THREE.Vector3): THREE.Vector3;
-            clientToWorld(clientX: number, clientY: number, ignoreTransparent: boolean):
-                | null
-                | (Partial<Private.HitTestResult> & { point: THREE.Vector3, model: Model });
+            clientToWorld(clientX: number, clientY: number, ignoreTransparent?: boolean): any;
             modelHasTopology(): boolean;
             setSelectionColor(col: THREE.Color, selectionType: number): void;
             set2dSelectionColor(col: THREE.Color, opacity: number): void;
@@ -919,6 +976,14 @@ declare namespace Autodesk {
               untag(tag: string, names?: string[]|string): void;
             }
 
+            class VertexBufferReader {
+              constructor(geometry: any, use2dInstancing?: boolean);
+
+              enumGeoms(filter: any, callback: any): void;
+              enumGeomsForObject(dbId: number, callback: any): void;
+              enumGeomsForVisibleLayer(layerIdsVisible: number[], callback: any): void;
+            }
+
             class ViewerState {
               constructor(viewer: Viewer3D);
 
@@ -957,20 +1022,25 @@ declare namespace Autodesk {
             class Viewer3DImpl {
                 constructor(thecanvas: any, theapi: any);
 
+                camera: THREE.Camera;
+                canvas: HTMLCanvasElement;
+                model: any;
+                scene: THREE.Scene;
+                sceneAfter: THREE.Scene;
+                selector: any;
+                use2dInstancing: boolean;
                 visibilityManager: VisibilityManager;
 
                 addOverlay(overlayName: string, mesh: any): void;
                 clientToViewport(clientX: number, clientY: number): THREE.Vector3;
+                clientToWorld(clientX: number, clientY: number, ignoreTransparent?: boolean): any;
                 createOverlayScene(name: string, materialPre?: THREE.Material, materialPost?: THREE.Material, camera?: any): void;
                 hitTest(clientX: number, clientY: number, ignoreTransparent: boolean): HitTestResult;
                 hitTestViewport(vpVec: THREE.Vector3, ignoreTransparent: boolean): HitTestResult;
                 initialize(needsClear: boolean, needsRender: boolean, overlayDirty: boolean): void;
+                intersectGround(clientX: number, clientY: number): THREE.Vector3;
                 invalidate(needsClear: boolean, needsRender?: boolean, overlayDirty?: boolean): void;
                 setLightPreset(index: number, force?: boolean): void;
-                selector: any;
-                model: any;
-                scene: THREE.Scene;
-                sceneAfter: THREE.Scene;
                 viewportToClient(viewportX: number, viewportY: number): THREE.Vector3;
                 modelqueue(): any;
                 matman(): any;
@@ -980,10 +1050,11 @@ declare namespace Autodesk {
                 removeOverlay(name: string, mesh: any): any;
                 getFitBounds(p: boolean): THREE.Box3;
                 rayIntersect(ray: THREE.Ray): HitTestResult;
-
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
                 setViewFromCamera(camera: THREE.Camera, skipTransition?: boolean, useExactCamera?: boolean): void;
+                syncCamera(syncWorldUp?: boolean): void;
+                viewportToRay(vpVec: THREE.Vector3, ray: THREE.Ray): THREE.Ray;
             }
 
             class VisibilityManager {
@@ -1075,6 +1146,7 @@ declare namespace Autodesk {
             addEventListener(target: object, eventId: string, callback: () => void): void;
             addVisibilityListener(callback: (state: boolean) => void): void;
             createCloseButton(): HTMLElement;
+            createFooter(): HTMLElement;
             createScrollContainer(options: ScrollContainerOptions): void;
             createTitleBar(title: string): HTMLElement;
             getContainerBoundingRect(): ClientRect;

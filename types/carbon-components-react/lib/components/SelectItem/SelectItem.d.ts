@@ -1,7 +1,7 @@
 import * as React from "react";
 
 interface InheritedProps extends Omit<React.OptionHTMLAttributes<HTMLOptionElement>, "value"> {
-    value: any,
+    value: unknown,
 }
 
 export interface SelectItemProps extends InheritedProps {

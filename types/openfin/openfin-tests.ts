@@ -19,7 +19,7 @@ function test_application() {
     }, (error) => {
         console.log("Error creating application:", error);
     });
-	// createFromManifest
+    // createFromManifest
     fin.desktop.Application.createFromManifest("http://stuf.com/app.json", (app) => {
         console.log(app.uuid);
     }, err => console.log(err));
@@ -94,8 +94,8 @@ function test_application() {
     application.registerUser("a", "b", () => console.log("done"), err => console.log(err));
     // removeEventListener
     application.removeEventListener("closed", (event: any) => {
-		console.log(event);
-	}, () => {
+        console.log(event);
+    }, () => {
         console.log("The unregistration was successful");
     }, err => {
         console.log("failure:", err);
@@ -578,8 +578,8 @@ function test_system() {
     });
     // removeEventListener
     fin.desktop.System.removeEventListener("monitor-info-changed", (event) => {
-		console.log(event);
-	}, () => {
+        console.log(event);
+    }, () => {
         console.log("successful");
     }, (err: any) => {
         console.log("failure: " + err);
@@ -866,8 +866,8 @@ function test_window() {
     finWindow.reload();
     // removeEventListener
     finWindow.removeEventListener("bounds-changed", event => {
-		console.log(event);
-	});
+        console.log(event);
+    });
     // resizeBy
     finWindow.resizeBy(10, 10, "top-right");
     // resizeTo
@@ -931,4 +931,128 @@ function test_frame() {
     frame.getParentWindow(parent => {
         console.log(parent.uuid, parent.name, parent.entityType, parent.parent.uuid, parent.parent.name);
     }, err => console.error(err));
+}
+
+async function testPlatform() {
+    // ** Class Methods ** //
+    // wrap
+    const platform = await fin.desktop.Platform.wrap({uuid: 'uuid',name: 'name'});
+    // getCurrent
+    const currentPlatform = await fin.desktop.Platform.getCurrent();
+    // getCurrentSync
+    const anotherCurrentPlatform = fin.desktop.Platform.getCurrentSync();
+    // start
+    fin.desktop.Platform.start({uuid: 'uuid', name: 'name'});
+    // start from manifest
+    fin.desktop.Platform.startFromManifest('some manifest url');
+
+    // ** Instance Methods ** //
+    // getSnapshot & applySnapshot
+    const snapshop = await platform.getSnapshot();
+    platform.applySnapshot(snapshop);
+    // create, reparent & close Views
+    const {identity: newViewIdentity} = await platform.createView({url: 'some url', name: 'some name', target: {uuid: 'uuid', name: 'window name'}});
+    platform.reparentView({uuid: 'uuid', name: 'view_name'}, {uuid: 'uuid', name: 'target_name'});
+    platform.closeView(newViewIdentity);
+    // createWindow
+    platform.createWindow({uuid: 'uuid', name: 'name'});
+    // get and set context
+    const context = await platform.getContext();
+    platform.setContext(context);
+    // launchLegacyManifest
+    platform.launchLegacyManifest('some_manifest_url.html');
+    // onWindowContextUpdate
+    platform.onWindowContextUpdate((newContext, oldContext) => ({...oldContext, ...newContext}));
+    // quit
+    platform.quit();
+}
+
+async function testView() {
+    // ** Class Methods ** //
+    // wrap
+    const view = await fin.desktop.View.wrap({uuid: 'uuid',name: 'name'});
+    // getCurrent
+    const currentView = await fin.desktop.View.getCurrent();
+    // getCurrentSync
+    const anotherCurrentView = fin.desktop.View.getCurrentSync();
+    // create
+    fin.desktop.View.create({name: 'name', url: 'some_url.html', target: {uuid: 'uuid', name: 'window name'}});
+    // start from manifest
+    fin.desktop.Platform.startFromManifest('some manifest url');
+
+    // ** Instance Methods ** //
+    // attach
+    view.attach({uuid: 'uuid', name: 'target window name'});
+    // show and hide
+    view.show().then(() => view.hide());
+    // setBounds
+    view.setBounds({height: 320, width: 320, top: 20, left: 20});
+    // getInfo
+    const info = await view.getInfo();
+    // get and update options
+    view.getOptions().then(() => view.updateOptions({autoResize: {width: true}}));
+    // getCurrentWindow
+    const currentWin = await view.getCurrentWindow();
+    // setCustomWindowHandler
+    view.setCustomWindowHandler(['url1.html, url2.html'], () => null);
+    // destroy
+    view.destroy();
+}
+
+async function testLayout() {
+    // ** Class Methods ** //
+
+    const layout = fin.desktop.Platform.Layout.getCurrentSync();
+    const sameLayout = await fin.desktop.Platform.Layout.getCurrent();
+
+    const config = await layout.getConfig();
+
+    fin.desktop.Platform.Layout.init({layout: config});
+
+    const wrappedLayout = await fin.desktop.Platform.Layout.wrap(layout.identity);
+    const anotherWrappedLayout = fin.desktop.Platform.Layout.wrapSync(layout.identity);
+
+    // ** Instance Methods ** //
+    layout.replace(config);
+    layout.applyPreset({presetType: "columns"});
+    layout.getConfig().then(config => config.settings && config.settings.hasHeaders);
+    layout.identity.uuid;
+}
+
+async function testFDC3() {
+    const contextListener: fdc3.ContextListener = fdc3.addContextListener((context: fdc3.Context) => {});
+    contextListener.unsubscribe();
+
+    fdc3.addEventListener('channel-changed', (event: fdc3.ChannelChangedEvent) => {});
+
+    const intentListener: fdc3.IntentListener = fdc3.addIntentListener('test-intent', (context: fdc3.Context) => {});
+    intentListener.unsubscribe();
+
+    await fdc3.broadcast({type: 'test-context'});
+
+    const appIntent: fdc3.AppIntent = await fdc3.findIntent('test-intent');
+
+    const appIntents: fdc3.AppIntent[] = await fdc3.findIntentsByContext({type: 'test-context'});
+
+    const channelById: fdc3.Channel = await fdc3.getChannelById('test-channel-id');
+    await channelById.join();
+
+    const currentChannel: fdc3.Channel = await fdc3.getCurrentChannel();
+    await currentChannel.join();
+
+    const appChannel: fdc3.Channel = await fdc3.getOrCreateAppChannel('test-app-channel-name');
+    await appChannel.join();
+
+    const systemChannels: fdc3.Channel[] = await fdc3.getSystemChannels();
+
+    await fdc3.open('test-app');
+    await fdc3.open('test-app', {type: 'test-context'});
+
+    await fdc3.raiseIntent('test-intent', {type: 'test-context'});
+    await fdc3.raiseIntent('test-intent', {type: 'test-context'}, 'test-target');
+
+    fdc3.removeEventListener('channel-changed', (event: fdc3.ChannelChangedEvent) => {});
+
+    await fdc3.defaultChannel.join();
+    await fdc3.defaultChannel.broadcast({type: 'test-context'});
 }

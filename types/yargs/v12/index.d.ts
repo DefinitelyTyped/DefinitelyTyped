@@ -145,7 +145,7 @@ declare namespace yargs {
 
         exitProcess(enabled: boolean): Argv<T>;
 
-        fail(func: (msg: string, err: Error) => any): Argv<T>;
+        fail(func: (msg: string, err: Error, yargs: Argv<T>) => any): Argv<T>;
 
         getCompletion(args: ReadonlyArray<string>, done: (completions: ReadonlyArray<string>) => void): Argv<T>;
 
@@ -359,10 +359,12 @@ declare namespace yargs {
 
     interface PositionalOptions {
         alias?: string | ReadonlyArray<string>;
+        array?: boolean;
         choices?: Choices;
         coerce?: (arg: any) => any;
         conflicts?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> };
         default?: any;
+        demandOption?: boolean | string;
         desc?: string;
         describe?: string;
         description?: string;

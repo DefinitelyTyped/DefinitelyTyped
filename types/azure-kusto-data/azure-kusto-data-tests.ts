@@ -16,8 +16,8 @@ KustoConnectionStringBuilder.withAadManagedIdentities(connectionString, 'msi_end
 KustoConnectionStringBuilder.withAadUserPasswordAuthentication(connectionString, 'username', 'password');
 KustoConnectionStringBuilder.withAadUserPasswordAuthentication(connectionString, 'username', 'password', 'authorityId');
 KustoConnectionStringBuilder.withAadDeviceAuthentication(connectionString, 'authId');
-KustoConnectionStringBuilder.withAadDeviceAuthentication(connectionString, 'authId', (tokenResponse: any) => {
-    console.log(`Open ${tokenResponse.verificationUrl} and use ${tokenResponse.userCode } code to authorize.`);
+KustoConnectionStringBuilder.withAadDeviceAuthentication(connectionString, 'authId', tokenResponse => {
+    console.log(`Open ${tokenResponse.verificationUrl} and use ${tokenResponse.userCode} code to authorize.`);
 });
 
 const client2 = new Client("http://cluster.region.kusto.windows.net");

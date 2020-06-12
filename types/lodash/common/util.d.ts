@@ -968,6 +968,10 @@ declare module "../index" {
          * @param predicates The predicates to check.
          * @return Returns the new function.
          */
+        overEvery<T, Result1 extends T, Result2 extends T>(
+            a: (arg: T) => arg is Result1,
+            b: (arg: T) => arg is Result2
+        ): (arg: T) => arg is Result1 & Result2;
         overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
 
@@ -995,6 +999,10 @@ declare module "../index" {
          * @param predicates The predicates to check.
          * @return Returns the new function.
          */
+        overSome<T, Result1 extends T, Result2 extends T>(
+            a: (arg: T) => arg is Result1,
+            b: (arg: T) => arg is Result2
+        ): (arg: T) => arg is Result1 | Result2;
         overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
 
@@ -1484,5 +1492,30 @@ declare module "../index" {
          * @see _.stubTrue
          */
         stubTrue(): LoDashExplicitWrapper<true>;
+    }
+
+    // stubFalse
+
+    interface LoDashStatic {
+        /**
+         * This method returns false.
+         *
+         * @return Returns false.
+         */
+        stubFalse(): false;
+    }
+
+    interface LoDashImplicitWrapper<TValue> {
+        /**
+         * @see _.stubFalse
+         */
+        stubFalse(): false;
+    }
+
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.stubFalse
+         */
+        stubFalse(): LoDashExplicitWrapper<false>;
     }
 }

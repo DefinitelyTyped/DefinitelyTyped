@@ -1,6 +1,7 @@
-// Type definitions for protractor-http-mock
+// Type definitions for protractor-http-mock 0.10
 // Project: https://github.com/atecarlos/protractor-http-mock
 // Definitions by: Crevil <https://github.com/Crevil>
+//                 Adam Kwiatek <https://github.com/akwiatek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -11,38 +12,11 @@ declare namespace mock {
         /**
          * Instantiate mock module. This must be done before the browser connects.
          *
-         * @param mocks An array of mock modules to load into the application.
-         * @param plugins An array of Plugin objects.
+         * @param mocks An array of either mock modules or module names relative to the rootDirectory configuration to load into the application.
+         * @param plugins An array of either Plugin objects or NPM modules as strings.
          * @param skipDefaults Set true to skip loading of default mocks.
          */
-        <TResponse, TPayload>(mocks?: Array<requests.AllRequests<TResponse, TPayload>>, plugins?: Array<Plugin>, skipDefaults?: boolean): ProtractorHttpMock;
-
-        /**
-         * Instantiate mock module. This must be done before the browser connects.
-         *
-         * @param mocks An array of mock modules to load into the application.
-         * @param plugins An array of NPM modules as strings.
-         * @param skipDefaults Set true to skip loading of default mocks.
-         */
-        <TResponse, TPayload>(mocks?: Array<requests.AllRequests<TResponse, TPayload>>, plugins?: Array<string>, skipDefaults?: boolean): ProtractorHttpMock;
-
-        /**
-         * Instantiate mock modules from files. This must be done before the browser connects.
-         *
-         * @param mocks An array of mock module names relative to the rootDirectory configuration.
-         * @param plugins An array of Plugin objects.
-         * @param skipDefaults Set true to skip loading of default mocks.
-         */
-        (mocks: Array<string>, plugins?: Array<Plugin>, skipDefaults?: boolean): ProtractorHttpMock;
-
-        /**
-         * Instantiate mock modules from files. This must be done before the browser connects.
-         *
-         * @param mocks An array of mock module names relative to the rootDirectory configuration.
-         * @param plugins An array of NPM modules as strings.
-         * @param skipDefaults Set true to skip loading of default mocks.
-         */
-        (mocks: Array<string>, plugins?: Array<string>, skipDefaults?: boolean): ProtractorHttpMock;
+        (mocks?: ReadonlyArray<requests.AllRequests | string>, plugins?: ReadonlyArray<Plugin1<any> | Plugin2<any, any> | string>, skipDefaults?: boolean): ProtractorHttpMock;
 
         /**
          * Clean up.
@@ -75,9 +49,31 @@ declare namespace mock {
 
             /**
              * Path to protractor configuration file.
-             * Default: protractor.conf
+             * Default: protractor-conf.js
              */
             protractorConfig?: string;
+
+            mocks?: {
+                /**
+                 * Name of the folder where mocks will reside.
+                 * Default: 'mocks'
+                 */
+                dir?: string,
+
+                /**
+                 * Collection of default mocks to load for every test.
+                 * Default: []
+                 */
+                default?: ReadonlyArray<string>
+            },
+
+            plugins?: {
+                /**
+                 * Collection of default plugins to load for every test.
+                 * Default: []
+                 */
+                default?: ReadonlyArray<string>
+            }
         };
 
         /**
@@ -87,7 +83,7 @@ declare namespace mock {
          *
          * @param mocks An array of mock modules to load into the application.
          */
-        add<T1, T2>(mocks: Array<requests.AllRequests<T1, T2>>): webdriver.promise.Promise<boolean>;
+        add(mocks: ReadonlyArray<requests.AllRequests>): webdriver.promise.Promise<boolean>;
 
         /**
          * Remove mocks during test execution.
@@ -96,7 +92,7 @@ declare namespace mock {
          *
          * @param mocks An array of mock modules to remove from the application.
          */
-        remove<T1, T2>(mocks: Array<requests.AllRequests<T1, T2>>): webdriver.promise.Promise<boolean>;
+        remove(mocks: ReadonlyArray<requests.AllRequests>): webdriver.promise.Promise<boolean>;
     }
 
     /**
@@ -108,9 +104,9 @@ declare namespace mock {
     }
 
     /**
-     * Plugin for custom matching logic.
+     * Plugin for custom matching logic with 1 generic type.
      */
-    interface Plugin {
+    interface Plugin1<T1> {
         /**
          * Match function.
          * Return a truthy value to indicate successfull match.
@@ -118,13 +114,19 @@ declare namespace mock {
          * @param mockRequest The mock to compare request with.
          * @param requestConfig The request object to compare mock with.
          */
-        match<T1, T2>(mockRequest: requests.AllRequests<T1, T2>, requestConfig: requests.AllRequests<T1, T2>): boolean;
+        match<O extends requests.Get<T1>>(mockRequest: O, requestConfig: O): boolean;
+        match<O extends requests.Post<T1>>(mockRequest: O, requestConfig: O): boolean;
+        match<O extends requests.Head<T1>>(mockRequest: O, requestConfig: O): boolean;
+        match<O extends requests.Delete<T1>>(mockRequest: O, requestConfig: O): boolean;
+        match<O extends requests.Put<T1>>(mockRequest: O, requestConfig: O): boolean;
+        match<O extends requests.Patch<T1>>(mockRequest: O, requestConfig: O): boolean;
+        match<O extends requests.Jsonp<T1>>(mockRequest: O, requestConfig: O): boolean;
     }
 
     /**
-     * Plugin for custom matching logic.
+     * Plugin for custom matching logic with 2 generic types.
      */
-    interface Plugin {
+    interface Plugin2<T1, T2> {
         /**
          * Match function.
          * Return a truthy value to indicate successfull match.
@@ -132,7 +134,7 @@ declare namespace mock {
          * @param mockRequest The mock to compare request with.
          * @param requestConfig The request object to compare mock with.
          */
-        match<T1, T2>(mockRequest: requests.AllRequests<T1, T2>, requestConfig: requests.AllRequests<T1, T2>): boolean;
+        match<O extends requests.PostData<T1, T2>>(mockRequest: O, requestConfig: O): boolean;
     }
 
     namespace requests {
@@ -144,31 +146,30 @@ declare namespace mock {
         /**
          * All available request types.
          */
-        type AllRequests<T1, T2> = Get<T1> |
-            PostData<T1, T2> |
-            Post<T1> |
-            Head<T1> |
-            Delete<T1> |
-            Put<T1> |
-            Patch<T1> |
-            Jsonp<T1>;
+        type AllRequests = Get<any> |
+            PostData<any, any> |
+            Post<any> |
+            Head<any> |
+            Delete<any> |
+            Put<any> |
+            Patch<any> |
+            Jsonp<any>;
 
         /**
          * GET request mock.
          */
         interface Get<TResponse> {
             request: {
-                method: Method;
+                method: "GET";
                 path: string;
                 regex?: boolean;
                 params?: Object;
                 queryString?: Object;
                 headers?: Object;
-                interceptedRequest?: boolean;
-                interceptedAnonymousRequest?: boolean;
             };
             response: {
                 status?: number;
+                delay?: number;
                 data: TResponse;
             };
         }
@@ -178,13 +179,14 @@ declare namespace mock {
          */
         interface PostData<TResponse, TPayload> {
             request: {
-                method: Method;
+                method: "POST";
                 path: string;
                 regex?: boolean;
                 data: TPayload;
             };
             response: {
                 status?: number;
+                delay?: number;
                 data: TResponse;
             };
         }
@@ -194,12 +196,13 @@ declare namespace mock {
          */
         interface Post<TResponse> {
             request: {
-                method: Method;
+                method: "POST";
                 path: string;
                 regex?: boolean;
             };
             response: {
                 status?: number;
+                delay?: number;
                 data: TResponse;
             };
         }
@@ -209,12 +212,13 @@ declare namespace mock {
          */
         interface Head<TResponse> {
             request: {
-                method: Method;
+                method: "HEAD";
                 path: string;
                 regex?: boolean;
             };
             response: {
                 status?: number;
+                delay?: number;
                 data: TResponse;
             };
         }
@@ -224,12 +228,13 @@ declare namespace mock {
          */
         interface Delete<TResponse> {
             request: {
-                method: Method;
+                method: "DELETE";
                 path: string;
                 regex?: boolean;
             };
             response: {
                 status?: number;
+                delay?: number;
                 data: TResponse;
             };
         }
@@ -239,12 +244,13 @@ declare namespace mock {
          */
         interface Put<TResponse> {
             request: {
-                method: Method;
+                method: "PUT";
                 path: string;
                 regex?: boolean;
             };
             response: {
                 status?: number;
+                delay?: number;
                 data: TResponse;
             };
         }
@@ -254,12 +260,13 @@ declare namespace mock {
          */
         interface Patch<TResponse> {
             request: {
-                method: Method;
+                method: "PATCH";
                 path: string;
                 regex?: boolean;
             };
             response: {
                 status?: number;
+                delay?: number;
                 data: TResponse;
             };
         }
@@ -269,12 +276,13 @@ declare namespace mock {
          */
         interface Jsonp<TResponse> {
             request: {
-                method: Method;
+                method: "JSONP";
                 path: string;
                 regex?: boolean;
             };
             response: {
                 status?: number;
+                delay?: number;
                 data: TResponse;
             };
         }

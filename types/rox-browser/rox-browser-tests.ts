@@ -22,6 +22,8 @@ Rox.setup('ROLLOUT_IO_KEY', {
   configurationFetchedHandler,
 }).then(linkTargetGroupAttributes);
 
+Rox.fetch();
+
 Rox.showOverrides(Rox.RoxOverridesPosition.BottomLeft);
 
 Rox.dynamicApi.isEnabled('system.repotAnalytics', false);

@@ -4,10 +4,11 @@ import { CSSModule } from '../index';
 
 export interface UncontrolledTooltipProps extends React.HTMLAttributes<HTMLElement> {
   [key: string]: any;
-  target: string | HTMLElement;
-  container?: string | HTMLElement;
+  target: string | HTMLElement | React.RefObject<HTMLElement>;
+  container?: string | HTMLElement | React.RefObject<HTMLElement>;
   delay?: number | {show: number, hide: number};
   className?: string;
+  popperClassName?: string;
   innerClassName?: string;
   autohide?: boolean;
   placement?: Popper.Placement;

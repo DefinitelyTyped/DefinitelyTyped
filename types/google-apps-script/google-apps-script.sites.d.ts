@@ -1,13 +1,14 @@
-// Type definitions for Google Apps Script 2019-09-11
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Sites {
+  namespace Sites {
     /**
      * A Sites Attachment such as a file attached to a page.
      *
@@ -24,15 +25,15 @@ declare namespace GoogleAppsScript {
      *     // just pass it directly to that method
      *     var file = DocsList.createFile(attachments[0]);
      */
-    export interface Attachment {
+    interface Attachment {
       deleteAttachment(): void;
       getAs(contentType: string): Base.Blob;
       getAttachmentType(): AttachmentType;
       getBlob(): Base.Blob;
       getContentType(): string;
-      getDatePublished(): Date;
+      getDatePublished(): Base.Date;
       getDescription(): string;
-      getLastUpdated(): Date;
+      getLastUpdated(): Base.Date;
       getParent(): Page;
       getTitle(): string;
       getUrl(): string;
@@ -43,7 +44,6 @@ declare namespace GoogleAppsScript {
       setTitle(title: string): Attachment;
       setUrl(url: string): Attachment;
     }
-
     /**
      * A typesafe enum for sites attachment type.
      * A rebuilt
@@ -51,8 +51,7 @@ declare namespace GoogleAppsScript {
      * modify Sites made with this version, but script can still access
      * classic Sites.
      */
-    export enum AttachmentType { WEB, HOSTED }
-
+    enum AttachmentType { WEB, HOSTED }
     /**
      * A Sites Column - a column from a Sites List page.
      * A rebuilt
@@ -60,13 +59,12 @@ declare namespace GoogleAppsScript {
      * modify Sites made with this version, but script can still access
      * classic Sites.
      */
-    export interface Column {
+    interface Column {
       deleteColumn(): void;
       getName(): string;
       getParent(): Page;
       setName(name: string): Column;
     }
-
     /**
      * A Comment attached to any Sites page.
      * A rebuilt
@@ -74,18 +72,17 @@ declare namespace GoogleAppsScript {
      * modify Sites made with this version, but script can still access
      * classic Sites.
      */
-    export interface Comment {
+    interface Comment {
       deleteComment(): void;
       getAuthorEmail(): string;
       getAuthorName(): string;
       getContent(): string;
-      getDatePublished(): Date;
-      getLastUpdated(): Date;
+      getDatePublished(): Base.Date;
+      getLastUpdated(): Base.Date;
       getParent(): Page;
       setContent(content: string): Comment;
       setParent(parent: Page): Comment;
     }
-
     /**
      * A Sites ListItem - a list element from a Sites List page.
      * A rebuilt
@@ -93,10 +90,10 @@ declare namespace GoogleAppsScript {
      * modify Sites made with this version, but script can still access
      * classic Sites.
      */
-    export interface ListItem {
+    interface ListItem {
       deleteListItem(): void;
-      getDatePublished(): Date;
-      getLastUpdated(): Date;
+      getDatePublished(): Base.Date;
+      getLastUpdated(): Base.Date;
       getParent(): Page;
       getValueByIndex(index: Integer): string;
       getValueByName(name: string): string;
@@ -104,20 +101,19 @@ declare namespace GoogleAppsScript {
       setValueByIndex(index: Integer, value: string): ListItem;
       setValueByName(name: string, value: string): ListItem;
     }
-
-    export type PageAdvancedParameters = {
+    interface PageAdvancedParameters {
       /** only get pages of this type */
-      type?: PageType[]
+      type?: PageType[];
       /** start the results here */
-      start?: Integer
+      start?: Integer;
       /** the max number of results (default 200) */
-      max?: Integer
+      max?: Integer;
       /** whether to include draft pages (default false) */
-      includeDrafts?: boolean
+      includeDrafts?: boolean;
       /** whether to include deleted pages (default false) */
-      includeDeleted?: boolean
+      includeDeleted?: boolean;
       /** only return pages matching this query */
-      search?: string
+      search?: string;
     }
     /**
      * A Page on a Google Site.
@@ -126,7 +122,7 @@ declare namespace GoogleAppsScript {
      * modify Sites made with this version, but script can still access
      * classic Sites.
      */
-    export interface Page {
+    interface Page {
       addColumn(name: string): Column;
       addHostedAttachment(blob: Base.BlobSource): Attachment;
       addHostedAttachment(blob: Base.BlobSource, description: string): Attachment;
@@ -151,11 +147,11 @@ declare namespace GoogleAppsScript {
       getChildren(): Page[];
       getChildren(options: PageAdvancedParameters): Page[];
       getColumns(): Column[];
-      getDatePublished(): Date;
+      getDatePublished(): Base.Date;
       getHtmlContent(): string;
       getIsDraft(): boolean;
-      getLastEdited(): Date;
-      getLastUpdated(): Date;
+      getLastEdited(): Base.Date;
+      getLastUpdated(): Base.Date;
       getListItems(): ListItem[];
       getListItems(optOptions: { start?: Integer; max?: Integer}): ListItem[];
       getName(): string;
@@ -174,18 +170,12 @@ declare namespace GoogleAppsScript {
       setName(name: string): Page;
       setParent(parent: Page): Page;
       setTitle(title: string): Page;
-      /** @deprecated DO NOT USE */
-      addComment(content: string): Comment;
-      /** @deprecated DO NOT USE */
-      getComments(): Comment[];
-      /** @deprecated DO NOT USE */
-      getComments(optOptions: { start?: Integer; max?: Integer}): Comment[];
-      /** @deprecated DO NOT USE */
-      getPageName(): string;
-      /** @deprecated DO NOT USE */
-      getSelfLink(): string;
+      /** @deprecated DO NOT USE */ addComment(content: string): Comment;
+      /** @deprecated DO NOT USE */ getComments(): Comment[];
+      /** @deprecated DO NOT USE */ getComments(optOptions: { start?: Integer; max?: Integer}): Comment[];
+      /** @deprecated DO NOT USE */ getPageName(): string;
+      /** @deprecated DO NOT USE */ getSelfLink(): string;
     }
-
     /**
      * A typesafe enum for sites page type.
      * A rebuilt
@@ -193,8 +183,7 @@ declare namespace GoogleAppsScript {
      * modify Sites made with this version, but script can still access
      * classic Sites.
      */
-    export enum PageType { WEB_PAGE, LIST_PAGE, ANNOUNCEMENT, ANNOUNCEMENTS_PAGE, FILE_CABINET_PAGE }
-
+    enum PageType { WEB_PAGE, LIST_PAGE, ANNOUNCEMENT, ANNOUNCEMENTS_PAGE, FILE_CABINET_PAGE }
     /**
      * An object representing a Google Site.
      * A rebuilt
@@ -202,7 +191,7 @@ declare namespace GoogleAppsScript {
      * modify Sites made with this version, but script can still access
      * classic Sites.
      */
-    export interface Site {
+    interface Site {
       addEditor(emailAddress: string): Site;
       addEditor(user: Base.User): Site;
       addEditors(emailAddresses: string[]): Site;
@@ -241,50 +230,28 @@ declare namespace GoogleAppsScript {
       setSummary(summary: string): Site;
       setTheme(theme: string): Site;
       setTitle(title: string): Site;
-      /** @deprecated DO NOT USE */
-      addCollaborator(email: string): Site;
-      /** @deprecated DO NOT USE */
-      addCollaborator(user: Base.User): Site;
-      /** @deprecated DO NOT USE */
-      createAnnouncement(title: string, html: string, parent: Page): Page;
-      /** @deprecated DO NOT USE */
-      createComment(inReplyTo: string, html: string, parent: Page): Comment;
-      /** @deprecated DO NOT USE */
-      createListItem(html: string, columnNames: string[], values: string[], parent: Page): ListItem;
-      /** @deprecated DO NOT USE */
-      createWebAttachment(title: string, url: string, parent: Page): Attachment;
-      /** @deprecated DO NOT USE */
-      deleteSite(): void;
-      /** @deprecated DO NOT USE */
-      getAnnouncements(): Page[];
-      /** @deprecated DO NOT USE */
-      getAnnouncementsPages(): Page[];
-      /** @deprecated DO NOT USE */
-      getAttachments(): Attachment[];
-      /** @deprecated DO NOT USE */
-      getCollaborators(): Base.User[];
-      /** @deprecated DO NOT USE */
-      getComments(): Comment[];
-      /** @deprecated DO NOT USE */
-      getFileCabinetPages(): Page[];
-      /** @deprecated DO NOT USE */
-      getListItems(): ListItem[];
-      /** @deprecated DO NOT USE */
-      getListPages(): Page[];
-      /** @deprecated DO NOT USE */
-      getSelfLink(): string;
-      /** @deprecated DO NOT USE */
-      getSiteName(): string;
-      /** @deprecated DO NOT USE */
-      getWebAttachments(): Attachment[];
-      /** @deprecated DO NOT USE */
-      getWebPages(): Page[];
-      /** @deprecated DO NOT USE */
-      removeCollaborator(email: string): Site;
-      /** @deprecated DO NOT USE */
-      removeCollaborator(user: Base.User): Site;
+      /** @deprecated DO NOT USE */ addCollaborator(email: string): Site;
+      /** @deprecated DO NOT USE */ addCollaborator(user: Base.User): Site;
+      /** @deprecated DO NOT USE */ createAnnouncement(title: string, html: string, parent: Page): Page;
+      /** @deprecated DO NOT USE */ createComment(inReplyTo: string, html: string, parent: Page): Comment;
+      /** @deprecated DO NOT USE */ createListItem(html: string, columnNames: string[], values: string[], parent: Page): ListItem;
+      /** @deprecated DO NOT USE */ createWebAttachment(title: string, url: string, parent: Page): Attachment;
+      /** @deprecated DO NOT USE */ deleteSite(): void;
+      /** @deprecated DO NOT USE */ getAnnouncements(): Page[];
+      /** @deprecated DO NOT USE */ getAnnouncementsPages(): Page[];
+      /** @deprecated DO NOT USE */ getAttachments(): Attachment[];
+      /** @deprecated DO NOT USE */ getCollaborators(): Base.User[];
+      /** @deprecated DO NOT USE */ getComments(): Comment[];
+      /** @deprecated DO NOT USE */ getFileCabinetPages(): Page[];
+      /** @deprecated DO NOT USE */ getListItems(): ListItem[];
+      /** @deprecated DO NOT USE */ getListPages(): Page[];
+      /** @deprecated DO NOT USE */ getSelfLink(): string;
+      /** @deprecated DO NOT USE */ getSiteName(): string;
+      /** @deprecated DO NOT USE */ getWebAttachments(): Attachment[];
+      /** @deprecated DO NOT USE */ getWebPages(): Page[];
+      /** @deprecated DO NOT USE */ removeCollaborator(email: string): Site;
+      /** @deprecated DO NOT USE */ removeCollaborator(user: Base.User): Site;
     }
-
     /**
      * Create and access Google Sites.
      * A rebuilt
@@ -292,7 +259,7 @@ declare namespace GoogleAppsScript {
      * modify Sites made with this version, but script can still access
      * classic Sites.
      */
-    export interface SitesApp {
+    interface SitesApp {
       AttachmentType: typeof AttachmentType;
       PageType: typeof PageType;
       copySite(domain: string, name: string, title: string, summary: string, site: Site): Site;
@@ -310,7 +277,6 @@ declare namespace GoogleAppsScript {
       getSites(domain: string): Site[];
       getSites(domain: string, start: Integer, max: Integer): Site[];
     }
-
   }
 }
 

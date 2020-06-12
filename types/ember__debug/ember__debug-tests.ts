@@ -27,11 +27,22 @@ debug('Too many tomsters!'); // $ExpectType void
 debug('Too many tomsters!', 'foo'); // $ExpectError
 
 // Test for truthiness
-const str = 'hello';
+const str: unknown = 'hello';
 assert('Must pass a string', typeof str === 'string'); // $ExpectType void
+str; // $ExpectType string
+
+const anObject = {};
+assert('Must pass an object', anObject); // $ExpectType void
+
+// Test with null and undefined
+assert('Can handle falsiness', null); // $ExpectType void
+assert('Can handle falsiness', undefined); // $ExpectType void
 
 // Fail unconditionally
-assert('This code path should never be run'); // $ExpectType void
+assert('This code path should never be run'); // $ExpectType never
+
+// Require first argument
+assert(); // $ExpectError
 
 // next is not called, so no warnings get the default behavior
 registerWarnHandler(); // $ExpectError

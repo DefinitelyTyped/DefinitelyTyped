@@ -2,7 +2,7 @@
 // Project: https://github.com/strophe/strophejs-plugin-roster#readme
 // Definitions by: LeartS <https://github.com/LeartS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 3.2
 
 import { Strophe } from 'strophe.js';
 

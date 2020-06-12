@@ -1,13 +1,17 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
@@ -16,13 +20,9 @@
     "files": [
         "index.d.ts",
         "wix-style-react-tests.ts",
-        "Text.d.ts",
         "test/Text-tests.tsx",
-        "Button.d.ts",
         "test/Button-tests.tsx",
-        "Loader.d.ts",
         "test/Loader-tests.tsx",
-        "BaseComponents.d.ts",
         "test/BaseComponents-tests.tsx"
     ]
 }

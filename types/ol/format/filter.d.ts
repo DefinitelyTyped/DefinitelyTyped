@@ -31,7 +31,14 @@ export function intersects(geometryName: string, geometry: Geometry, opt_srsName
 export function isNull(propertyName: string): IsNull;
 export function lessThan(propertyName: string, expression: number): LessThan;
 export function lessThanOrEqualTo(propertyName: string, expression: number): LessThanOrEqualTo;
-export function like(propertyName: string, pattern: string, opt_wildCard?: string, opt_singleChar?: string, opt_escapeChar?: string, opt_matchCase?: boolean): IsLike;
+export function like(
+    propertyName: string,
+    pattern: string,
+    opt_wildCard?: string,
+    opt_singleChar?: string,
+    opt_escapeChar?: string,
+    opt_matchCase?: boolean,
+): IsLike;
 export function not(condition: Filter): Not;
 export function notEqualTo(propertyName: string, expression: string | number, opt_matchCase?: boolean): NotEqualTo;
 export function or(...conditions: Filter[]): Or;

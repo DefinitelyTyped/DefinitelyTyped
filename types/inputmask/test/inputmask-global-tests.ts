@@ -70,6 +70,12 @@ Inputmask({
     unmaskAsNumber: false,
     inputType: "text",
     inputmode: "numeric",
+    definitions: {
+        X: {
+            validator: "[xX]",
+            casing: "upper"
+        }
+    }
 }).mask("selector");
 
 Inputmask("9-a{1,3}9{1,3}").mask("selector");
@@ -89,50 +95,50 @@ function testMask() {
 }
 
 Inputmask.extendDefaults({
-	autoUnmask: true
+    autoUnmask: true
 });
 Inputmask.extendDefinitions({
-	A: {
-		validator: "[A-Za-z\u0410-\u044F\u0401\u0451\u00C0-\u00FF\u00B5]",
-		casing: "upper"
-	},
-	'+': {
-		validator: "[0-9A-Za-z\u0410-\u044F\u0401\u0451\u00C0-\u00FF\u00B5]",
-		casing: "upper"
-	}
+    A: {
+        validator: "[A-Za-z\u0410-\u044F\u0401\u0451\u00C0-\u00FF\u00B5]",
+        casing: "upper"
+    },
+    '+': {
+        validator: "[0-9A-Za-z\u0410-\u044F\u0401\u0451\u00C0-\u00FF\u00B5]",
+        casing: "upper"
+    }
 });
 Inputmask.extendAliases({
-	numeric: {
-		mask: "r",
-		greedy: false
-	}
+    numeric: {
+        mask: "r",
+        greedy: false
+    }
 });
 
 Inputmask.extendDefinitions({
-	f: {
-	  	validator: "[0-9\(\)\.\+/ ]"
-	},
-	j: {
-	  	validator: "(19|20)\\d{2}"
-	},
-	x: {
-		validator: "[0-2]",
-		definitionSymbol: "i"
-	},
-	y: {
-		validator: (chrs: string, buffer: string[], pos: number) => {
-			const valExp2 = new RegExp("2[0-5]|[01][0-9]");
-			return valExp2.test(buffer[pos - 1] + chrs);
-		},
-		definitionSymbol: "i"
-	},
-	z: {
-		validator: (chrs: string, buffer: string[], pos: number) => {
-			const valExp3 = new RegExp("25[0-5]|2[0-4][0-9]|[01][0-9][0-9]");
-			return valExp3.test(buffer[pos - 2] + buffer[pos - 1] + chrs);
-		},
-		definitionSymbol: "i"
-	}
+    f: {
+        validator: "[0-9\(\)\.\+/ ]"
+    },
+    j: {
+        validator: "(19|20)\\d{2}"
+    },
+    x: {
+        validator: "[0-2]",
+        definitionSymbol: "i"
+    },
+    y: {
+        validator: (chrs: string, buffer: string[], pos: number) => {
+            const valExp2 = new RegExp("2[0-5]|[01][0-9]");
+            return valExp2.test(buffer[pos - 1] + chrs);
+        },
+        definitionSymbol: "i"
+    },
+    z: {
+        validator: (chrs: string, buffer: string[], pos: number) => {
+            const valExp3 = new RegExp("25[0-5]|2[0-4][0-9]|[01][0-9][0-9]");
+            return valExp3.test(buffer[pos - 2] + buffer[pos - 1] + chrs);
+        },
+        definitionSymbol: "i"
+    }
 });
 
 function testElement(el: HTMLElement) {

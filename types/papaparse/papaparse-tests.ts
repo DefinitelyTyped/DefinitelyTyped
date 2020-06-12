@@ -41,6 +41,18 @@ Papa.parse('3,3,3', {
     dynamicTyping: { 5: true },
 });
 
+Papa.parse('4,4,4', {
+    delimitersToGuess: [';', ','],
+});
+
+Papa.parse('4,4,4', {
+    delimitersToGuess: [Papa.RECORD_SEP, '|', ',', ';'],
+});
+
+Papa.parse('4;4;4', {
+    delimitersToGuess: ['\t', Papa.UNIT_SEP],
+});
+
 var file = new File(null, null, null);
 
 Papa.parse(file, {
@@ -71,6 +83,28 @@ rows.forEach(r => {
 const papaStream: NodeJS.ReadWriteStream = Papa.parse(Papa.NODE_STREAM_INPUT);
 
 readable.pipe(papaStream);
+
+// generic
+Papa.parse<string>("a,b,c", {
+    step: function(a) {
+        a.data[0]
+    }
+})
+
+Papa.parse<string>("a,b,c", {
+    chunk: function(a) {
+        a.data[0]
+    }
+})
+
+Papa.parse<[string, string, string]>("a,b,c", {
+    complete: function(a) {
+        a.data[0][0]
+        a.data[0][1]
+        a.data[0][2]
+    }
+})
+
 
 /**
  * Unparsing

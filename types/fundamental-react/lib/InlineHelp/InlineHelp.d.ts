@@ -8,11 +8,10 @@ export type InlineHelpPlacement =
     | "bottom-center";
 
 export type InlineHelpProps = {
-    /* Location to display the inline help pop-up relative to the image. */
+    className?: string,
+    contentClassName?: string,
+    disableStyles?: boolean,
     placement: InlineHelpPlacement;
-    /* Localized text to display in the inline help pop-up. */
-    text: string;
-    className?: string;
 } & { [x: string]: any };
 
 declare const InlineHelp: React.FunctionComponent<InlineHelpProps>;

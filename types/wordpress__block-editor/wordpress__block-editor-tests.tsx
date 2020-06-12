@@ -65,6 +65,13 @@ const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }',
 <be.BlockControls.Slot />;
 
 //
+// BlockEditorProvider
+//
+<be.BlockEditorProvider value={[]} settings={{ templateLock: 'all' }}>
+    <div />
+</be.BlockEditorProvider>;
+
+//
 // block-format-controls
 //
 <be.BlockFormatControls>Hello World</be.BlockFormatControls>;
@@ -75,6 +82,11 @@ const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }',
 //
 <be.BlockIcon icon="carrot" />;
 <be.BlockIcon icon={<i>foo</i>} showColors />;
+
+//
+// block-list
+//
+<be.BlockList className="my-custom-class" />;
 
 //
 // block-mover

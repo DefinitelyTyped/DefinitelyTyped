@@ -72,5 +72,20 @@ const any: any = 1;
 }
 
 {
-    new events();
+    events.once({
+        addEventListener(name: string, listener: (res: number) => void, opts: { once: boolean }) {
+            setTimeout(() => listener(123), 100);
+        }
+    }, 'name');
+}
+
+async function test() {
+    for await (const e of events.on(new events.EventEmitter(), 'test')) {
+        console.log(e);
+    }
+}
+
+{
+    emitter.on(events.errorMonitor, listener);
+    emitter.on(events.EventEmitter.errorMonitor, listener);
 }

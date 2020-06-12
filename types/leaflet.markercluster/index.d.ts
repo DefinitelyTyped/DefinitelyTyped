@@ -21,7 +21,7 @@ declare module 'leaflet' {
         /*
         * Zoom to the minimum of showing all of the child markers, or the extents of this cluster.
         */
-        zoomToBounds(): void;
+        zoomToBounds(options?: FitBoundsOptions): void;
 
         /*
         * Returns the cluster bounds.
@@ -121,6 +121,12 @@ declare module 'leaflet' {
         * In particular, this prevents the page from freezing while adding a lot of markers. Defaults to 200ms.
         */
         chunkInterval?: number;
+
+        /*
+        * Callback function that is called at the end of each chunkInterval.
+        * Typically used to implement a progress indicator. Defaults to null.
+        */
+        chunkProgress?: (processedMarkers: number, totalMarkers: number, elapsedTime: number) => void;
     }
 
     class MarkerClusterGroup extends FeatureGroup {

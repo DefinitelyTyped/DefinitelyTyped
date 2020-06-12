@@ -1,4 +1,4 @@
-// Type definitions for @hapi/hapi 18.2
+// Type definitions for @hapi/hapi 19.0
 // Project: https://github.com/hapijs/hapi, https://hapijs.com
 // Definitions by: Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
 //                 Justin Simms <https://github.com/jhsimms>
@@ -20,7 +20,7 @@
 
 /// <reference types='node' />
 
-import * as Boom from '@hapi/boom';
+import { Boom } from '@hapi/boom';
 import * as http from 'http';
 import * as https from 'https';
 import * as Shot from '@hapi/shot';
@@ -30,7 +30,7 @@ import * as zlib from 'zlib';
 
 import { MimosOptions } from '@hapi/mimos';
 import { SealOptions, SealOptionsSub } from '@hapi/iron';
-import { ValidationOptions, SchemaMap, Schema } from '@hapi/joi';
+import { ValidationOptions, SchemaMap, Schema, Root } from '@hapi/joi';
 import Podium = require('@hapi/podium');
 import { PolicyOptionVariants, EnginePrototypeOrObject, PolicyOptions, EnginePrototype, Policy, ClientApi, ClientOptions } from '@hapi/catbox';
 
@@ -667,7 +667,7 @@ export interface ResponseObjectHeaderOptions {
  */
 export interface ResponseObject extends Podium {
     /**
-     * Default value: {}.
+     * @default {}.
      * Application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name].
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseapp)
      */
@@ -683,7 +683,7 @@ export interface ResponseObject extends Podium {
     readonly events: ResponseEvents;
 
     /**
-     * Default value: {}.
+     * @default {}.
      * An object containing the response headers where each key is a header field name and the value is the string header value or array of string.
      * Note that this is an incomplete list of headers to be included with the response. Additional headers will be added once the response is prepared for transmission.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseheaders)
@@ -691,7 +691,7 @@ export interface ResponseObject extends Podium {
     readonly headers: Util.Dictionary<string | string[]>;
 
     /**
-     * Default value: {}.
+     * @default {}.
      * Plugin-specific state. Provides a place to store and pass request-level plugin data. plugins is an object where each key is a plugin name and the value is the state.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseplugins)
      */
@@ -710,7 +710,7 @@ export interface ResponseObject extends Podium {
     readonly source: Lifecycle.ReturnValue;
 
     /**
-     * Default value: 200.
+     * @default 200.
      * The HTTP response status code.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsestatuscode)
      */
@@ -942,19 +942,19 @@ export interface ResponseSettings {
     readonly passThrough: boolean;
 
     /**
-     * Default value: null (use route defaults).
+     * @default null (use route defaults).
      * Override the route json options used when source value requires stringification.
      */
     readonly stringify: Json.StringifyArguments;
 
     /**
-     * Default value: null (use route defaults).
+     * @default null (use route defaults).
      * If set, overrides the route cache with an expiration value in milliseconds.
      */
     readonly ttl: number;
 
     /**
-     * Default value: false.
+     * @default false.
      * If true, a suffix will be automatically added to the 'ETag' header at transmission time (separated by a '-' character) when the HTTP 'Vary' header is present.
      */
     varyEtag: boolean;
@@ -1134,7 +1134,7 @@ export type RouteOptionsAccessObject =
  */
 export interface RouteOptionsAccess {
     /**
-     * Default value: none.
+     * @default none.
      * An object or array of objects specifying the route access rules. Each rule is evaluated against an incoming request and access is granted if at least one of the rules matches. Each rule object
      * must include at least one of scope or entity.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthaccess)
@@ -1142,7 +1142,7 @@ export interface RouteOptionsAccess {
     access?: RouteOptionsAccessObject | RouteOptionsAccessObject[];
 
     /**
-     * Default value: false (no scope requirements).
+     * @default false (no scope requirements).
      * The application scope required to access the route. Value can be a scope string or an array of scope strings. When authenticated, the credentials object scope property must contain at least
      * one of the scopes defined to access the route. If a scope string begins with a + character, that scope is required. If a scope string begins with a ! character, that scope is forbidden. For
      * example, the scope ['!a', '+b', 'c', 'd'] means the incoming request credentials' scope must not include 'a', must include 'b', and must include one of 'c' or 'd'. You may also access
@@ -1152,7 +1152,7 @@ export interface RouteOptionsAccess {
     scope?: RouteOptionsAccessScope;
 
     /**
-     * Default value: 'any'.
+     * @default 'any'.
      * The required authenticated entity type. If set, must match the entity value of the request authenticated credentials. Available values:
      * * 'any' - the authentication can be on behalf of a user or application.
      * * 'user' - the authentication must be on behalf of a user which is identified by the presence of a 'user' attribute in the credentials object returned by the authentication strategy.
@@ -1163,7 +1163,7 @@ export interface RouteOptionsAccess {
     entity?: AccessEntity;
 
     /**
-     * Default value: 'required'.
+     * @default 'required'.
      * The authentication mode. Available values:
      * * 'required' - authentication is required.
      * * 'optional' - authentication is optional - the request must include valid credentials or no credentials at all.
@@ -1173,7 +1173,7 @@ export interface RouteOptionsAccess {
     mode?: AuthMode;
 
     /**
-     * Default value: false, unless the scheme requires payload authentication.
+     * @default false, unless the scheme requires payload authentication.
      * If set, the incoming request payload is authenticated after it is processed. Requires a strategy with payload authentication support (e.g. Hawk). Cannot be set to a value other than 'required'
      * when the scheme sets the authentication options.payload to true. Available values:
      * * false - no payload authentication.
@@ -1184,14 +1184,14 @@ export interface RouteOptionsAccess {
     payload?: false | 'required' | 'optional';
 
     /**
-     * Default value: the default strategy set via server.auth.default().
+     * @default the default strategy set via server.auth.default().
      * An array of string strategy names in the order they should be attempted. Cannot be used together with strategy.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthstrategies)
      */
     strategies?: string[];
 
     /**
-     * Default value: the default strategy set via server.auth.default().
+     * @default the default strategy set via server.auth.default().
      * A string strategy names. Cannot be used together with strategies.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthstrategy)
      */
@@ -1227,7 +1227,7 @@ export type RouteOptionsCache = {
     );
 
 /**
- * Default value: false (no CORS headers).
+ * @default false (no CORS headers).
  * The Cross-Origin Resource Sharing protocol allows browsers to make cross-origin API calls. CORS is required by web applications running inside a browser which are loaded from a different domain
  * than the API server. To enable, set cors to true, or to an object with the following options:
  * * origin - an array of allowed origin servers strings ('Access-Control-Allow-Origin'). The array can contain any combination of fully qualified origins along with origin strings containing a
@@ -1302,7 +1302,7 @@ export type PayloadCompressionDecoderSettings = object;
  */
 export interface RouteOptionsPayload {
     /**
-     * Default value: allows parsing of the following mime types:
+     * @default allows parsing of the following mime types:
      * * application/json
      * * application/*+json
      * * application/octet-stream
@@ -1316,35 +1316,35 @@ export interface RouteOptionsPayload {
     allow?: string | string[];
 
     /**
-     * Default value: none.
+     * @default none.
      * An object where each key is a content-encoding name and each value is an object with the desired decoder settings. Note that encoder settings are set in compression.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspayloadcompression)
      */
     compression?: Util.Dictionary<PayloadCompressionDecoderSettings>;
 
     /**
-     * Default value: 'application/json'.
+     * @default 'application/json'.
      * The default content type if the 'Content-Type' request header is missing.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspayloaddefaultcontenttype)
      */
     defaultContentType?: string;
 
     /**
-     * Default value: 'error' (return a Bad Request (400) error response).
+     * @default 'error' (return a Bad Request (400) error response).
      * A failAction value which determines how to handle payload parsing errors.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspayloadfailaction)
      */
     failAction?: Lifecycle.FailAction;
 
     /**
-     * Default value: 1048576 (1MB).
+     * @default 1048576 (1MB).
      * Limits the size of incoming payloads to the specified byte count. Allowing very large payloads may cause the server to run out of memory.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspayloadmaxbytes)
      */
     maxBytes?: number;
 
     /**
-     * Default value: none.
+     * @default none.
      * Overrides payload processing for multipart requests. Value can be one of:
      * * false - disable multipart processing.
      * an object with the following required options:
@@ -1360,7 +1360,7 @@ export interface RouteOptionsPayload {
     };
 
     /**
-     * Default value: 'data'.
+     * @default 'data'.
      * The processed payload format. The value must be one of:
      * * 'data' - the incoming payload is read fully into memory. If parse is true, the payload is parsed (JSON, form-decoded, multipart) based on the 'Content-Type' header. If parse is false, a raw
      * Buffer is returned.
@@ -1376,14 +1376,14 @@ export interface RouteOptionsPayload {
     output?: PayloadOutput;
 
     /**
-     * Default value: none.
+     * @default none.
      * A mime type string overriding the 'Content-Type' header value received.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspayloadoverride)
      */
     override?: string;
 
     /**
-     * Default value: true.
+     * @default true.
      * Determines if the incoming payload is processed or presented raw. Available values:
      * * true - if the request 'Content-Type' matches the allowed mime types set by allow (for the whole payload as well as parts), the payload is converted into an object when possible. If the
      * format is unknown, a Bad Request (400) error response is sent. Any known content encoding is decoded.
@@ -1394,7 +1394,7 @@ export interface RouteOptionsPayload {
     parse?: boolean | 'gunzip';
 
     /**
-     * Default value: to 10000 (10 seconds).
+     * @default to 10000 (10 seconds).
      * Payload reception timeout in milliseconds. Sets the maximum time allowed for the client to transmit the request payload (body) before giving up and responding with a Request Timeout (408)
      * error response. Set to false to disable.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspayloadtimeout)
@@ -1402,7 +1402,7 @@ export interface RouteOptionsPayload {
     timeout?: false | number;
 
     /**
-     * Default value: os.tmpdir().
+     * @default os.tmpdir().
      * The directory used for writing file uploads.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspayloaduploads)
      */
@@ -1462,7 +1462,7 @@ export type RouteOptionsResponseSchema =
  */
 export interface RouteOptionsResponse {
     /**
-     * Default value: 200.
+     * @default 204.
      * The default HTTP status code when the payload is considered empty. Value can be 200 or 204. Note that a 200 status code is converted to a 204 only at the time of response transmission (the
      * response status code will remain 200 throughout the request lifecycle unless manually set).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsresponseemptystatuscode)
@@ -1470,21 +1470,21 @@ export interface RouteOptionsResponse {
     emptyStatusCode?: 200 | 204;
 
     /**
-     * Default value: 'error' (return an Internal Server Error (500) error response).
+     * @default 'error' (return an Internal Server Error (500) error response).
      * A failAction value which defines what to do when a response fails payload validation.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsresponsefailaction)
      */
     failAction?: Lifecycle.FailAction;
 
     /**
-     * Default value: false.
+     * @default false.
      * If true, applies the validation rule changes to the response payload.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsresponsemodify)
      */
     modify?: boolean;
 
     /**
-     * Default value: none.
+     * @default none.
      * [joi](http://github.com/hapijs/joi) options object pass to the validation function. Useful to set global options such as stripUnknown or abortEarly (the complete list is available here). If a
      * custom validation function is defined via schema or status then options can an arbitrary object that will be passed to this function as the second argument.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsresponseoptions)
@@ -1492,21 +1492,21 @@ export interface RouteOptionsResponse {
     options?: ValidationOptions; // TODO needs validation
 
     /**
-     * Default value: true.
+     * @default true.
      * If false, payload range support is disabled.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsresponseranges)
      */
     ranges?: boolean;
 
     /**
-     * Default value: 100 (all responses).
+     * @default 100 (all responses).
      * The percent of response payloads validated (0 - 100). Set to 0 to disable all validation.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsresponsesample)
      */
     sample?: number;
 
     /**
-     * Default value: true (no validation).
+     * @default true (no validation).
      * The default response payload validation rules (for all non-error responses) expressed as one of:
      * * true - any payload allowed (no validation).
      * * false - no payload allowed.
@@ -1521,7 +1521,7 @@ export interface RouteOptionsResponse {
     schema?: RouteOptionsResponseSchema;
 
     /**
-     * Default value: none.
+     * @default none.
      * Validation schemas for specific HTTP status codes. Responses (excluding errors) not matching the listed status codes are validated using the default schema.
      * status is set to an object where each key is a 3 digit HTTP status code and the value has the same definition as schema.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsresponsestatus)
@@ -1546,7 +1546,7 @@ export type ReferrerPolicy = '' | 'no-referrer' | 'no-referrer-when-downgrade' |
     'same-origin' | 'origin' |  'strict-origin' | 'origin-when-cross-origin' | 'strict-origin-when-cross-origin';
 
 /**
- * Default value: false (security headers disabled).
+ * @default false (security headers disabled).
  * Sets common security headers. To enable, set security to true or to an object with the following options:
  * * hsts - controls the 'Strict-Transport-Security' header, where:
  * * * true - the header will be set to max-age=15768000. This is the default value.
@@ -1630,20 +1630,20 @@ export interface RouteOptionsSecureObject {
 export type RouteOptionsSecure = boolean | RouteOptionsSecureObject;
 
 /**
- * Default value: { headers: true, params: true, query: true, payload: true, failAction: 'error' }.
+ * @default { headers: true, params: true, query: true, payload: true, failAction: 'error' }.
  * Request input validation rules for various request components.
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsvalidate)
  */
 export interface RouteOptionsValidate {
     /**
-     * Default value: none.
+     * @default none.
      * An optional object with error fields copied into every validation error response.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsvalidateerrorfields)
      */
     errorFields?: object;
 
     /**
-     * Default value: 'error' (return a Bad Request (400) error response).
+     * @default 'error' (return a Bad Request (400) error response).
      * A failAction value which determines how to handle failed validations. When set to a function, the err argument includes the type of validation error under err.output.payload.validation.source.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsvalidatefailaction)
      */
@@ -1729,14 +1729,20 @@ export interface RouteOptionsApp {
 
 export interface CommonRouteProperties {
     /**
-     * Default value: null.
+     * Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
+     */
+    app?: RouteOptionsApp;
+
+    /**
+     * @default null.
      * An object passed back to the provided handler (via this) when called. Ignored if the method is an arrow function.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsbind)
      */
     bind?: object | null;
 
     /**
-     * Default value: { privacy: 'default', statuses: [200], otherwise: 'no-cache' }.
+     * @default { privacy: 'default', statuses: [200], otherwise: 'no-cache' }.
      * If the route method is 'GET', the route can be configured to include HTTP caching directives in the response. Caching can be customized using an object with the following options:
      * privacy - determines the privacy flag included in client-side caching using the 'Cache-Control' header. Values are:
      * * * 'default' - no privacy flag.
@@ -1758,7 +1764,7 @@ export interface CommonRouteProperties {
     compression?: Util.Dictionary<RouteCompressionEncoderSettings>;
 
     /**
-     * Default value: false (no CORS headers).
+     * @default false (no CORS headers).
      * The Cross-Origin Resource Sharing protocol allows browsers to make cross-origin API calls. CORS is required by web applications running inside a browser which are loaded from a different
      * domain than the API server. To enable, set cors to true, or to an object with the following options:
      * * origin - an array of allowed origin servers strings ('Access-Control-Allow-Origin'). The array can contain any combination of fully qualified origins along with origin strings containing a
@@ -1776,7 +1782,7 @@ export interface CommonRouteProperties {
     cors?: boolean | RouteOptionsCors;
 
     /**
-     * Default value: none.
+     * @default none.
      * Route description used for generating documentation (string).
      * This setting is not available when setting server route defaults using server.options.routes.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsdescription)
@@ -1784,7 +1790,7 @@ export interface CommonRouteProperties {
     description?: string;
 
     /**
-     * Default value: none.
+     * @default none.
      * Route-level request extension points by setting the option to an object with a key for each of the desired extension points ('onRequest' is not allowed), and the value is the same as the
      * server.ext(events) event argument.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsext)
@@ -1795,7 +1801,7 @@ export interface CommonRouteProperties {
     };
 
     /**
-     * Default value: { relativeTo: '.' }.
+     * @default { relativeTo: '.' }.
      * Defines the behavior for accessing files:
      * * relativeTo - determines the folder relative paths are resolved against.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsfiles)
@@ -1805,7 +1811,7 @@ export interface CommonRouteProperties {
     };
 
     /**
-     * Default value: none.
+     * @default none.
      * The route handler function performs the main business logic of the route and sets the response. handler can be assigned:
      * * a lifecycle method.
      * * an object with a single property using the name of a handler type registred with the server.handler() method. The matching property value is passed as options to the registered handler
@@ -1815,14 +1821,14 @@ export interface CommonRouteProperties {
     handler?: Lifecycle.Method | object;
 
     /**
-     * Default value: none.
+     * @default none.
      * An optional unique identifier used to look up the route using server.lookup(). Cannot be assigned to routes added with an array of methods.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsid)
      */
     id?: string;
 
     /**
-     * Default value: false.
+     * @default false.
      * If true, the route cannot be accessed through the HTTP listener but only through the server.inject() interface with the allowInternals option set to true. Used for internal routes that should
      * not be accessible to the outside world.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsisinternal)
@@ -1830,7 +1836,7 @@ export interface CommonRouteProperties {
     isInternal?: boolean;
 
     /**
-     * Default value: none.
+     * @default none.
      * Optional arguments passed to JSON.stringify() when converting an object or error response to a string payload or escaping it after stringification. Supports the following:
      * * replacer - the replacer function or array. Defaults to no action.
      * * space - number of spaces to indent nested object keys. Defaults to no indentation.
@@ -1841,7 +1847,7 @@ export interface CommonRouteProperties {
     json?: Json.StringifyArguments;
 
     /**
-     * Default value: none.
+     * @default none.
      * Enables JSONP support by setting the value to the query parameter name containing the function name used to wrap the response payload.
      * For example, if the value is 'callback', a request comes in with 'callback=me', and the JSON response is '{ "a":"b" }', the payload will be 'me({ "a":"b" });'. Cannot be used with stream
      * responses. The 'Content-Type' response header is set to 'text/javascript' and the 'X-Content-Type-Options' response header is set to 'nosniff', and will override those headers even if
@@ -1851,7 +1857,7 @@ export interface CommonRouteProperties {
     jsonp?: string;
 
     /**
-     * Default value: { collect: false }.
+     * @default { collect: false }.
      * Request logging options:
      * collect - if true, request-level logs (both internal and application) are collected and accessible via request.logs.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionslog)
@@ -1861,7 +1867,7 @@ export interface CommonRouteProperties {
     };
 
     /**
-     * Default value: none.
+     * @default none.
      * Route notes used for generating documentation (string or array of strings).
      * This setting is not available when setting server route defaults using server.options.routes.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsnotes)
@@ -1875,14 +1881,14 @@ export interface CommonRouteProperties {
     payload?: RouteOptionsPayload;
 
     /**
-     * Default value: {}.
+     * @default {}.
      * Plugin-specific configuration. plugins is an object where each key is a plugin name and the value is the plugin configuration.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsplugins)
      */
     plugins?: PluginSpecificConfiguration;
 
     /**
-     * Default value: none.
+     * @default none.
      * The pre option allows defining methods for performing actions before the handler is called. These methods allow breaking the handler logic into smaller, reusable components that can be shared
      * ascross routes, as well as provide a cleaner error handling of prerequisite operations (e.g. load required reference data from a database). pre is assigned an ordered array of methods which
      * are called serially in order. If the pre array contains another array of methods as one of its elements, those methods are called in parallel. Note that during parallel execution, if any of
@@ -1908,13 +1914,13 @@ export interface CommonRouteProperties {
     response?: RouteOptionsResponse;
 
     /**
-     * Default value: false (security headers disabled).
+     * @default false (security headers disabled).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionssecurity)
      */
     security?: RouteOptionsSecure;
 
     /**
-     * Default value: { parse: true, failAction: 'error' }.
+     * @default { parse: true, failAction: 'error' }.
      * HTTP state management (cookies) allows the server to store information on the client which is sent back to the server with every request (as defined in RFC 6265). state supports the following
      * options: parse - determines if incoming 'Cookie' headers are parsed and stored in the request.state object. failAction - A failAction value which determines how to handle cookie parsing
      * errors. Defaults to 'error' (return a Bad Request (400) error response).
@@ -1926,7 +1932,7 @@ export interface CommonRouteProperties {
     };
 
     /**
-     * Default value: none.
+     * @default none.
      * Route tags used for generating documentation (array of strings).
      * This setting is not available when setting server route defaults using server.options.routes.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionstags)
@@ -1934,7 +1940,7 @@ export interface CommonRouteProperties {
     tags?: string[];
 
     /**
-     * Default value: { server: false }.
+     * @default { server: false }.
      * Timeouts for processing durations.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionstimeout)
      */
@@ -1946,14 +1952,14 @@ export interface CommonRouteProperties {
         server?: boolean | number;
 
         /**
-         * Default value: none (use node default of 2 minutes).
+         * @default none (use node default of 2 minutes).
          * By default, node sockets automatically timeout after 2 minutes. Use this option to override this behavior. Set to false to disable socket timeouts.
          */
         socket?: boolean | number;
     };
 
     /**
-     * Default value: { headers: true, params: true, query: true, payload: true, failAction: 'error' }.
+     * @default { headers: true, params: true, query: true, payload: true, failAction: 'error' }.
      * Request input validation rules for various request components.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsvalidate)
      */
@@ -1986,12 +1992,6 @@ export interface RouteSettings extends CommonRouteProperties {
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#route-options)
  */
 export interface RouteOptions extends CommonRouteProperties {
-    /**
-     * Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
-     */
-    app?: RouteOptionsApp;
-
     /**
      * Route authentication configuration. Value can be:
      * false to disable authentication if a default strategy is set.
@@ -2856,6 +2856,8 @@ export interface ServerOptionsCompression {
 export interface ServerOptionsApp {
 }
 
+export type SameSitePolicy = false | 'None' | 'Lax' | 'Strict';
+
 /**
  * The server options control the behavior of the server object. Note that the options object is deeply cloned
  * (with the exception of listener which is shallowly copied) and should not contain any values that are unsafe to perform deep copy on.
@@ -2864,7 +2866,7 @@ export interface ServerOptionsApp {
  */
 export interface ServerOptions {
     /**
-     * Default value: '0.0.0.0' (all available network interfaces).
+     * @default '0.0.0.0' (all available network interfaces).
      * Sets the hostname or IP address the server will listen on. If not configured, defaults to host if present, otherwise to all available network interfaces. Set to '127.0.0.1' or 'localhost' to
      * restrict the server to only those coming from the same host.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serveroptionsaddress)
@@ -2872,7 +2874,7 @@ export interface ServerOptions {
     address?: string;
 
     /**
-     * Default value: {}.
+     * @default {}.
      * Provides application-specific configuration which can later be accessed via server.settings.app. The framework does not interact with this object. It is simply a reference made available
      * anywhere a server reference is provided. Note the difference between server.settings.app which is used to store static configuration values and server.app which is meant for storing run-time
      * state.
@@ -2881,7 +2883,7 @@ export interface ServerOptions {
     app?: ServerOptionsApp;
 
     /**
-     * Default value: true.
+     * @default true.
      * Used to disable the automatic initialization of the listener. When false, indicates that the listener will be started manually outside the framework.
      * Cannot be set to true along with a port value.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serveroptionsautolisten)
@@ -2889,7 +2891,7 @@ export interface ServerOptions {
     autoListen?: boolean;
 
     /**
-     * Default value: { engine: require('@hapi/catbox-memory' }.
+     * @default { engine: require('@hapi/catbox-memory' }.
      * Sets up server-side caching providers. Every server includes a default cache for storing application state. By default, a simple memory-based cache is created which has limited capacity and
      * capabilities. hapi uses catbox for its cache implementation which includes support for common storage solutions (e.g. Redis, MongoDB, Memcached, Riak, among others). Caching is only utilized
      * if methods and plugins explicitly store their state in the cache. The server cache configuration only defines the storage container itself. The configuration can be assigned one or more
@@ -2908,13 +2910,13 @@ export interface ServerOptions {
     cache?: CacheProvider | ServerOptionsCache | ServerOptionsCache[];
 
     /**
-     * Default value: { minBytes: 1024 }.
+     * @default { minBytes: 1024 }.
      * Defines server handling of content encoding requests. If false, response content encoding is disabled and no compression is performed by the server.
      */
     compression?: boolean | ServerOptionsCompression;
 
     /**
-     * Default value: { request: ['implementation'] }.
+     * @default { request: ['implementation'] }.
      * Determines which logged events are sent to the console. This should only be used for development and does not affect which events are actually logged internally and recorded. Set to false to
      * disable all console logging, or to an object with:
      * * log - a string array of server log tags to be displayed via console.error() when the events are logged via server.log() as well as internally generated server logs. Defaults to no output.
@@ -2930,13 +2932,13 @@ export interface ServerOptions {
     };
 
     /**
-     * Default value: the operating system hostname and if not available, to 'localhost'.
+     * @default the operating system hostname and if not available, to 'localhost'.
      * The public hostname or IP address. Used to set server.info.host and server.info.uri and as address is none provided.
      */
     host?: string;
 
     /**
-     * Default value: none.
+     * @default none.
      * An optional node HTTP (or HTTPS) http.Server object (or an object with a compatible interface).
      * If the listener needs to be manually started, set autoListen to false.
      * If the listener uses TLS, set tls to true.
@@ -2944,7 +2946,7 @@ export interface ServerOptions {
     listener?: http.Server;
 
     /**
-     * Default value: { sampleInterval: 0 }.
+     * @default { sampleInterval: 0 }.
      * Server excessive load handling limits where:
      * * sampleInterval - the frequency of sampling in milliseconds. When set to 0, the other load options are ignored. Defaults to 0 (no sampling).
      * * maxHeapUsedBytes - maximum V8 heap size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).
@@ -2954,11 +2956,6 @@ export interface ServerOptions {
     load?: {
         /** the frequency of sampling in milliseconds. When set to 0, the other load options are ignored. Defaults to 0 (no sampling). */
         sampleInterval?: number;
-
-        /**
-         * Max concurrent requests.
-         */
-        concurrent?: number;
 
         /** maximum V8 heap size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit). */
         maxHeapUsedBytes?: number;
@@ -2974,7 +2971,7 @@ export interface ServerOptions {
     };
 
     /**
-     * Default value: none.
+     * @default none.
      * Options passed to the mimos module when generating the mime database used by the server (and accessed via server.mime):
      * * override - an object hash that is merged into the built in mime information specified here. Each key value pair represents a single mime object. Each override value must contain:
      * * key - the lower-cased mime-type string (e.g. 'application/javascript').
@@ -2986,21 +2983,21 @@ export interface ServerOptions {
     mime?: MimosOptions;
 
     /**
-     * Default value: {}.
+     * @default {}.
      * Plugin-specific configuration which can later be accessed via server.settings.plugins. plugins is an object where each key is a plugin name and the value is the configuration. Note the
      * difference between server.settings.plugins which is used to store static configuration values and server.plugins which is meant for storing run-time state.
      */
     plugins?: PluginSpecificConfiguration;
 
     /**
-     * Default value: 0 (an ephemeral port).
+     * @default 0 (an ephemeral port).
      * The TCP port the server will listen to. Defaults the next available port when the server is started (and assigned to server.info.port).
      * If port is a string containing a '/' character, it is used as a UNIX domain socket path. If it starts with '\.\pipe', it is used as a Windows named pipe.
      */
     port?: number | string;
 
     /**
-     * Default value: { isCaseSensitive: true, stripTrailingSlash: false }.
+     * @default { isCaseSensitive: true, stripTrailingSlash: false }.
      * Controls how incoming request URIs are matched against the routing table:
      * * isCaseSensitive - determines whether the paths '/example' and '/EXAMPLE' are considered different resources. Defaults to true.
      * * stripTrailingSlash - removes trailing slashes on incoming paths. Defaults to false.
@@ -3011,7 +3008,7 @@ export interface ServerOptions {
     };
 
     /**
-     * Default value: none.
+     * @default none.
      * A route options object used as the default configuration for every route.
      */
     routes?: RouteOptions;
@@ -3035,18 +3032,18 @@ export interface ServerOptions {
         ignoreErrors?: boolean,
         isSecure?: boolean,
         isHttpOnly?: boolean,
-        isSameSite?: false | 'Strict' | 'Lax',
+        isSameSite?: SameSitePolicy,
         encoding?: 'none' | 'base64' | 'base64json' | 'form' | 'iron'
     };
 
     /**
-     * Default value: none.
+     * @default none.
      * Used to create an HTTPS connection. The tls object is passed unchanged to the node HTTPS server as described in the node HTTPS documentation.
      */
     tls?: boolean | https.ServerOptions;
 
     /**
-     * Default value: constructed from runtime server information.
+     * @default constructed from runtime server information.
      * The full public URI without the path (e.g. 'http://example.com:8080'). If present, used as the server server.info.uri, otherwise constructed from the server settings.
      */
     uri?: string;
@@ -3249,7 +3246,7 @@ export interface ServerStateCookieOptions {
      *  * 'Strict' - sets the value to 'Strict' (this is the default value).
      *  * 'Lax' - sets the value to 'Lax'.
      */
-    isSameSite?: false | 'Strict' | 'Lax';
+    isSameSite?: SameSitePolicy;
     /** the path scope. Defaults to null (no path). */
     path?: string | null;
     /** the domain scope. Defaults to null (no domain). */
@@ -3368,7 +3365,7 @@ export interface ServerState {
  * If the property is set to a function, the function uses the signature function(method) and returns the route default configuration.
  */
 export interface HandlerDecorationMethod {
-    (route: RouteOptions, options: any): Lifecycle.Method;
+    (route: RequestRoute, options: any): Lifecycle.Method;
     defaults?: RouteOptions | ((method: any) => RouteOptions);
 }
 
@@ -3382,6 +3379,13 @@ export type DecorationMethod<T> = (this: T, ...args: any[]) => any;
  */
 /* tslint:disable-next-line:no-empty-interface */
 export interface PluginProperties {
+}
+
+/**
+ * An empty interface to allow typings of custom server.methods.
+ */
+/* tslint:disable-next-line:no-empty-interface */
+export interface ServerMethods extends Util.Dictionary<ServerMethod> {
 }
 
 export type DecorateName = string | symbol;
@@ -3513,10 +3517,6 @@ export class Server {
         eventLoopDelay: number;
 
         /**
-         * Max concurrent requests.
-         */
-        concurrent: number
-        /**
          * V8 heap usage.
          */
         heapUsed: number;
@@ -3534,7 +3534,7 @@ export class Server {
      * server method name is an object property.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethods
      */
-    readonly methods: Util.Dictionary<ServerMethod>;
+    readonly methods: ServerMethods;
 
     /**
      * Provides access to the server MIME database used for setting content-type information. The object must not be
@@ -3956,7 +3956,18 @@ export class Server {
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servertablehost)
      */
     table(host?: string): RequestRoute[];
+
+    /**
+     * Registers a server validation module used to compile raw validation rules into validation schemas for all routes.
+     * The validator is only used when validation rules are not pre-compiled schemas. When a validation rules is a function or schema object, the rule is used as-is and the validator is not used.
+     */
+    validator(joi: Root): void;
 }
+
+/**
+ * Factory function to create a new server object (introduced in v17).
+ */
+export function server(opts?: ServerOptions): Server;
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
