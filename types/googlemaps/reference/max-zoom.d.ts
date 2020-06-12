@@ -14,15 +14,29 @@ declare namespace google.maps {
     }
 
     /**
-     * A MaxZoom result in JSON format retrieved from the {@link MaxZoomService}.
-     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/max-zoom#MaxZoomResult Maps JavaScript API}
+     * @see {@link MaxZoomResult}
+     * @see {@link MaxZoomResultOk}
      */
-    interface MaxZoomResult {
+    interface MaxZoomResultError {
         /**
          * Status of the request.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/max-zoom#MaxZoomResult.status Maps JavaScript API}
+         * @see {@link MaxZoomResultOk#status}
          */
-        status: MaxZoomStatus;
+        status: MaxZoomStatus.ERROR;
+    }
+
+    /**
+     * @see {@link MaxZoomResult}
+     * @see {@link MaxZoomResultError}
+     */
+    interface MaxZoomResultOk {
+        /**
+         * Status of the request.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/max-zoom#MaxZoomResult.status Maps JavaScript API}
+         * @see {@link MaxZoomResultError#status}
+         */
+        status: MaxZoomStatus.OK;
 
         /**
          * The maximum zoom level found at the given {@link LatLng}.
@@ -30,6 +44,12 @@ declare namespace google.maps {
          */
         zoom: number;
     }
+
+    /**
+     * A MaxZoom result in JSON format retrieved from the {@link MaxZoomService}.
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/max-zoom#MaxZoomResult Maps JavaScript API}
+     */
+    type MaxZoomResult = MaxZoomResultError | MaxZoomResultOk;
 
     /**
      * The status returned by the {@link MaxZoomService} on the completion of a call to
