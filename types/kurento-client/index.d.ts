@@ -1,6 +1,6 @@
 // Type definitions for kurento-client 6.12
 // Project: https://github.com/Kurento/kurento-client-js, https://www.kurento.org
-// Definitions by: James Hill <https://github.com/jhdevuk>, Michel Albers <https://github.com/michelalbers>
+// Definitions by: James Hill <https://github.com/jhukdev>, Michel Albers <https://github.com/michelalbers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 declare namespace kurento {

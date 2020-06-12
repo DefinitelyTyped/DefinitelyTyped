@@ -1,12 +1,17 @@
-import kurento from 'kurento-client';
+import kurento, { WebRtcEndpoint} from 'kurento-client';
 
 async () => {
-    const sdpOffer = 'offer';
+    const sdpOffer = 'sdpOffer';
     const candidate = new RTCIceCandidate();
 
     const client = await kurento('//server', { failAfter: 500, useImplicitTransactions: true });
     const pipeline = await client.create('MediaPipeline');
     const endpoint = await pipeline.create('WebRtcEndpoint');
+
+    await Promise.all([
+        pipeline.addTag('roomId', 'abc123'),
+        pipeline.addTag('userId', '012345')
+    ]);
 
     endpoint.addIceCandidate(candidate);
 
@@ -28,5 +33,16 @@ async () => {
 async () => {
     const client = await kurento('//server', { failAfter: 500, useImplicitTransactions: true });
     const pipeline = await client.create('MediaPipeline');
+
     await pipeline.release();
 };
+
+async () => {
+    const endpointId = 'endpointId';
+    const candidate = new RTCIceCandidate();
+
+    const client = await kurento('//server', { failAfter: 500, useImplicitTransactions: true });
+    const endpoint = await client.getMediaobjectById(endpointId) as unknown as WebRtcEndpoint;
+
+    endpoint.addIceCandidate(candidate);
+}
