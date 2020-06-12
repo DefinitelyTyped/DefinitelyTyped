@@ -17,6 +17,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
+    "include": ["test"],
     "files": [
         "index.d.ts",
         "googlemaps-tests.ts"
