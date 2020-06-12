@@ -191,11 +191,11 @@ interface IToSVGOptions {
     /**
      * desired width of svg with or without units
      */
-    width?: number;
+    width?: number | string;
     /**
      * desired height of svg with or without units
      */
-    height?: number;
+    height?: number | string;
 }
 
 interface IViewBox {
