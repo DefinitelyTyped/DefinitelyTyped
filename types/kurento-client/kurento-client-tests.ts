@@ -45,4 +45,4 @@ async () => {
     const endpoint = await client.getMediaobjectById(endpointId) as unknown as WebRtcEndpoint;
 
     endpoint.addIceCandidate(candidate);
-}
+};

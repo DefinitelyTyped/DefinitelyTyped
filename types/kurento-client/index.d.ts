@@ -3,6 +3,7 @@
 // Definitions by: James Hill <https://github.com/jhukdev>, Michel Albers <https://github.com/michelalbers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
+// TypeScript Version: 3.0
 declare namespace kurento {
     interface Constructor {
         (ws_uri: string, options?: Options): Promise<ClientInstance>;
