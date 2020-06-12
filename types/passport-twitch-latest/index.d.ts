@@ -9,16 +9,22 @@ import * as passport from 'passport';
 import * as e from 'express';
 
 export class Strategy extends PassportOauth2 {
-    constructor(options: StrategyOptions, verify: VerifyFunction);
+    // Disabling this tslint rule as unifying the signatures makes the callback function default to inferring the
+    // longest callback which breaks the example config. See: https://github.com/Microsoft/TypeScript/issues/16867
     constructor(options: StrategyOptionsWithRequest, verify: VerifyFunctionWithRequest);
+    // tslint:disable-next-line unified-signatures
+    constructor(options: StrategyOptionsWithRequest, verify: VerifyFunctionWithRequestResults);
+    constructor(options: StrategyOptions, verify: VerifyFunction);
+    // tslint:disable-next-line unified-signatures
+    constructor(options: StrategyOptions, verify: VerifyFunctionWithResults);
 
     userProfile(accessToken: string, done: (err?: Error | null, profile?: TwitchProfile) => void): void;
-    authorize(strategy: string | string[], callback?: (...args: any[]) => any): AuthenticateRet;
     authorize(
         strategy: string | string[],
         options: AuthenticateOptions,
         callback?: (...args: any[]) => any,
     ): AuthenticateRet;
+    authorize(strategy: string | string[], callback?: (...args: any[]) => any): AuthenticateRet;
     authenticate(req: e.Request, options?: AuthenticateOptions): void;
 }
 
@@ -32,36 +38,34 @@ export type StrategyOptionsWithRequest = Optional<
     'authorizationURL' | 'tokenURL'
 >;
 
-export type VerifyFunction =
-    | ((
-          accessToken: string,
-          refreshToken: string,
-          profile: TwitchProfile,
-          verified: PassportOauth2.VerifyCallback,
-      ) => void)
-    | ((
-          accessToken: string,
-          refreshToken: string,
-          results: any,
-          profile: TwitchProfile,
-          verified: PassportOauth2.VerifyCallback,
-      ) => void);
-export type VerifyFunctionWithRequest =
-    | ((
-          req: e.Request,
-          accessToken: string,
-          refreshToken: string,
-          profile: TwitchProfile,
-          verified: PassportOauth2.VerifyCallback,
-      ) => void)
-    | ((
-          req: e.Request,
-          accessToken: string,
-          refreshToken: string,
-          results: any,
-          profile: TwitchProfile,
-          verified: PassportOauth2.VerifyCallback,
-      ) => void);
+export type VerifyFunction = (
+    accessToken: string,
+    refreshToken: string,
+    profile: TwitchProfile,
+    verified: PassportOauth2.VerifyCallback,
+) => void;
+export type VerifyFunctionWithResults = (
+    accessToken: string,
+    refreshToken: string,
+    results: any,
+    profile: TwitchProfile,
+    verified: PassportOauth2.VerifyCallback,
+) => void;
+export type VerifyFunctionWithRequest = (
+    req: e.Request,
+    accessToken: string,
+    refreshToken: string,
+    profile: TwitchProfile,
+    verified: PassportOauth2.VerifyCallback,
+) => void;
+export type VerifyFunctionWithRequestResults = (
+    req: e.Request,
+    accessToken: string,
+    refreshToken: string,
+    results: any,
+    profile: TwitchProfile,
+    verified: PassportOauth2.VerifyCallback,
+) => void;
 
 export interface TwitchProfile {
     id: string;

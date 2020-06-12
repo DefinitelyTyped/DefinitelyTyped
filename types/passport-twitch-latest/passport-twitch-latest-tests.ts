@@ -4,9 +4,61 @@ import {
     StrategyOptions,
     StrategyOptionsWithRequest,
     TwitchProfile,
+    VerifyFunctionWithResults,
+    VerifyFunctionWithRequestResults,
 } from 'passport-twitch-latest';
 import { VerifyCallback } from 'passport-oauth2';
 import { Request } from 'express';
+
+const exampleStrategy = new TwitchStrategy(
+    {
+        clientID: '',
+        clientSecret: '',
+        callbackURL: '',
+        scope: '',
+    },
+    (accessToken, refreshToken, profile, done) => {
+        done(new Error(), {});
+    },
+);
+
+const exampleStrategyResults = new TwitchStrategy(
+    {
+        clientID: '',
+        clientSecret: '',
+        callbackURL: '',
+        scope: '',
+    },
+    ((accessToken, refreshToken, results, profile, done) => {
+        done(new Error(), {});
+    }) as VerifyFunctionWithResults, // We must cast this due to type inference: https://github.com/Microsoft/TypeScript/issues/16867
+);
+
+const exampleStrategyRequest = new TwitchStrategy(
+    {
+        clientID: '',
+        clientSecret: '',
+        callbackURL: '',
+        scope: '',
+        passReqToCallback: true,
+    },
+    (req, accessToken, refreshToken, profile, done) => {
+        done(new Error(), {});
+    },
+);
+
+const exampleStrategyRequestResults = new TwitchStrategy(
+    {
+        clientID: '',
+        clientSecret: '',
+        callbackURL: '',
+        scope: '',
+        passReqToCallback: true,
+    },
+    ((req, accessToken, refreshToken, results, profile, done) => {
+        done(new Error(), {});
+    }) as VerifyFunctionWithRequestResults, // We must cast this due to type inference: https://github.com/Microsoft/TypeScript/issues/16867
+);
 
 const strategyOptions1: StrategyOptions = {
     callbackURL: 'http://www.example.com/callback',
