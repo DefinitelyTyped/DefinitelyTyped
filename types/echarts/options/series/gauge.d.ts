@@ -532,6 +532,16 @@ declare namespace echarts {
                 show?: boolean;
 
                 /**
+                 * text color.
+                 *
+                 *
+                 * @default
+                 * ""#fff""
+                 * @see https://echarts.apache.org/en/option.html#series-gauge.axisLabel.distance
+                 */
+                distance?: number;
+
+                /**
                  * The content formatter of scale label, which supports both
                  * string template and callback function. Example:
                  *
