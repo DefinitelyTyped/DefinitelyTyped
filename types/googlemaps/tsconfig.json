@@ -17,9 +17,9 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": ["test"],
     "files": [
         "index.d.ts",
+        "test/reference/max-zoom-tests.ts",
         "googlemaps-tests.ts"
     ]
 }
