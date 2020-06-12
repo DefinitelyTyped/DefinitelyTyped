@@ -4,3 +4,5 @@ linter/config.d.ts
 linter/index.d.ts
 status-bar/config.d.ts
 status-bar/index.d.ts
+tool-bar/config.d.ts
+tool-bar/index.d.ts

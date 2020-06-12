@@ -37,6 +37,12 @@ async function streamingClient() {
     const minimalOptions: StreamClient = new StreamClient({
         endpointUrl,
     });
+    const storeOnly: StreamClient = new StreamClient({
+        storeUrl: endpointUrl,
+    });
+    const updateOnly: StreamClient = new StreamClient({
+        updateUrl: endpointUrl,
+    });
     const fullOptions: StreamClient<TestQuad> = new StreamClient({
         endpointUrl,
         factory,
@@ -93,6 +99,12 @@ async function parsingClient() {
     // construct
     const minimalOptions: ParsingClient = new ParsingClient({
         endpointUrl,
+    });
+    const storeOnly: ParsingClient = new ParsingClient({
+        storeUrl: endpointUrl,
+    });
+    const updateOnly: ParsingClient = new ParsingClient({
+        updateUrl: endpointUrl,
     });
     const fullOptions: ParsingClient<TestQuad> = new ParsingClient({
         endpointUrl,

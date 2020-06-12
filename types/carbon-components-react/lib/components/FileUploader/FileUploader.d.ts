@@ -1,18 +1,18 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactDivAttr, ReactInputAttr, ReactLabelAttr } from "../../../typings/shared";
+import { EmbeddedIconProps, ReactInputAttr, ReactLabelAttr, ReactAttr } from "../../../typings/shared";
 import { ButtonKind } from "../Button";
 
 interface SharedProps {
-    accept?: string[],
+    accept?: readonly string[],
     buttonKind?: ButtonKind,
     disabled?: ReactInputAttr["disabled"],
     disableLabelChanges?: boolean,
-    labelText?: React.ReactNode,
     listFiles?: boolean,
     multiple?: boolean,
 }
 
 export type FileStatus = "complete" | "edit" | "uploading";
+export type FileUploaderSize = "default" | "field" | "small";
 
 // FileUploaderButton
 
@@ -23,37 +23,28 @@ interface FileUploaderButtonInheritedProps extends
     onChange?(event: React.ChangeEvent<HTMLInputElement>): void,
 }
 
-export interface FileUploaderButtonProps extends FileUploaderButtonInheritedProps { }
+export interface FileUploaderButtonProps extends FileUploaderButtonInheritedProps {
+    labelText?: React.ReactNode,
+    size?: FileUploaderSize,
+}
 
 export declare class FileUploaderButton extends React.Component<FileUploaderButtonProps> { }
 
 // Filename
 
-interface FilenameDivInheritedProps extends ReactDivAttr { }
-interface FilenameIconInheritedProps extends
-    React.SVGAttributes<SVGSVGElement>,
-    EmbeddedIconProps
-{ }
-
-export interface FilenameDivProps extends FilenameDivInheritedProps {
-    status: Extract<FileStatus, "uploading">,
-}
+interface FilenameIconInheritedProps extends React.SVGAttributes<SVGSVGElement>, EmbeddedIconProps { }
 
 export interface FilenameIconProps extends FilenameIconInheritedProps {
-    status: Extract<FileStatus, "complete" | "edit">,
+    invalid?: boolean,
+    status?: FileStatus,
 }
 
-export interface FilenameEmptyProps extends FilenameDivInheritedProps {
-    status?: null;
-}
-
-export type AllFilenameProps = FilenameDivProps | FilenameIconProps | FilenameEmptyProps;
-export declare class Filename extends React.Component<AllFilenameProps> { }
+export declare const Filename: React.FC<FilenameIconProps>;
 
 // FileUploader
 
 interface FileUploaderInheritedProps extends
-    Omit<ReactLabelAttr, "onChange">,
+    Omit<ReactAttr, "onChange">,
     EmbeddedIconProps,
     SharedProps
 {
@@ -64,6 +55,8 @@ export interface FileUploaderProps extends FileUploaderInheritedProps {
     buttonLabel?: string,
     filenameStatus?: FileStatus, // required but has default value
     labelDescription?: string,
+    labelTitle?: string,
+    size?: FileUploaderSize,
 }
 
 export declare class FileUploader extends React.Component<FileUploaderProps> { }

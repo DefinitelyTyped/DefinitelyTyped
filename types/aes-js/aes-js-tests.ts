@@ -8,3 +8,6 @@ const ecb = new aesjs.ModeOfOperation.ecb(key);
 ecb.decrypt(ecb.encrypt(data));
 
 const hex: string = aesjs.utils.hex.fromBytes(data);
+
+const ctr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter([]));
+ctr.encrypt(data);

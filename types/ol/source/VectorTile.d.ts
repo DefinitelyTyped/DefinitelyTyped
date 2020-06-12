@@ -1,4 +1,4 @@
-import { EventsKey } from '../events';
+import { EventsKey, ListenerFunction } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import { FeatureLike } from '../Feature';
@@ -29,6 +29,7 @@ export interface Options {
     maxZoom?: number;
     minZoom?: number;
     tileSize?: number | Size;
+    maxResolution?: number;
     tileGrid?: TileGrid;
     tileLoadFunction?: LoadFunction;
     tileUrlFunction?: UrlFunction;
@@ -42,13 +43,14 @@ export default class VectorTile extends UrlTile {
     constructor(options: Options);
     protected tileClass: VectorTile_1;
     clear(): void;
+    expireCache(projection: Projection, usedTiles: { [key: string]: boolean }): void;
     getFeaturesInExtent(extent: Extent): FeatureLike[];
     getOverlaps(): boolean;
     getSourceTiles(pixelRatio: number, projection: Projection, tile: VectorRenderTile): VectorTile_1[];
     getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'change', listener: (evt: BaseEvent) => void): void;

@@ -170,7 +170,7 @@ declare namespace EW {
         readonly query: string;
 
         /**
-         * The Relative URL of the incoming request. This includes the path as well
+         * The relative URL of the incoming request. This includes the path as well
          * as the query string.
          */
         readonly url: string;
@@ -183,19 +183,19 @@ declare namespace EW {
         readonly userLocation: UserLocation | undefined;
 
         /**
-         * Object containing properties specifying the device characteristics. This
+         * Object containing properties specifying the device characteristics. The
          * value of this property will be null if the contract associated with the
          * request does not have entitlements for EDC.
          */
         readonly device: Device | undefined;
 
         /**
-         * The cpcode used for reporting.
+         * The CP code used for reporting.
          */
         readonly cpCode: number;
     }
 
-    // Legacy interfaces for backwards compatability
+    // Legacy interfaces for backwards compatibility
     interface MutableRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request {
     }
     interface ImmutableRequest extends ReadsHeaders, ReadsVariables, Request {

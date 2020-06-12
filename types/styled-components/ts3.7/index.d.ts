@@ -127,6 +127,12 @@ type ForwardRefExoticBase<P> = Pick<
     keyof React.ForwardRefExoticComponent<any>
 >;
 
+// Config to be used with withConfig
+export interface StyledConfig<O extends object = {}> {
+    // TODO: Add all types from the original StyledComponentWrapperProperties
+    shouldForwardProp?: (prop: keyof O, defaultValidatorFn: ((prop: keyof O) => boolean)) => boolean;
+}
+
 // extracts React defaultProps
 type ReactDefaultProps<C> = C extends { defaultProps: infer D; } ? D : never;
 
@@ -224,6 +230,8 @@ export interface ThemedStyledFunction<
     >(
         attrs: Attrs<StyledComponentPropsWithRef<C> & U, NewA, T>
     ): ThemedStyledFunction<C, T, O & NewA, A | keyof NewA>;
+
+    withConfig: <Props extends O = O>(config: StyledConfig<StyledComponentPropsWithRef<C> & Props>) => ThemedStyledFunction<C, T, Props, A>;
 }
 
 export type StyledFunction<

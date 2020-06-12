@@ -54,6 +54,7 @@ export interface TextState {
     padding?: number[];
 }
 export const labelCache: any;
+export function createTransformString(transform: Transform): string;
 export function drawImageOrLabel(
     context: CanvasRenderingContext2D,
     transform: Transform | null,

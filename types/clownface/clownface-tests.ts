@@ -62,7 +62,9 @@ function testConstructor() {
 
     let contructedWithValueHasTermContext: Clownface<Term, Dataset> = new Clownface({ dataset, value: 'foo' });
     contructedWithValueHasTermContext = new Clownface({ dataset, value: ['foo', 'bar'] });
-    const anyTerms: clownface.Clownface = new Clownface({ dataset, term: [term, term], value: ['foo', 'bar'] });
+    const anyTerms: clownface.SafeClownface = new Clownface({ dataset, term: [term, term], value: ['foo', 'bar'] });
+
+    const constructedWithSingleTerm: clownface.SingleContextClownface<NamedNode> = new Clownface({ dataset, term: node });
 }
 
 function testAddIn() {
@@ -78,6 +80,10 @@ function testAddIn() {
         const childNode: clownface.Clownface<BlankNode> = child;
     });
     cf = cf.addIn(cf.node(node), cf.node(node));
+
+    const manyPredicates: clownface.Clownface<NamedNode[]> = <any> {};
+    const manyObjects: clownface.Clownface<Literal[]> = <any> {};
+    cf = cf.addIn(manyPredicates, manyObjects);
 }
 
 function testAddList() {
@@ -99,6 +105,10 @@ function testAddOut() {
         const childNode: clownface.Clownface<BlankNode> = child;
     });
     cf = cf.addOut(cf.node(node), cf.node(node));
+
+    const manyPredicates: clownface.Clownface<NamedNode[]> = <any> {};
+    const manyObjects: clownface.Clownface<Literal[]> = <any> {};
+    cf = cf.addOut(manyPredicates, manyObjects);
 }
 
 function testBlankNode() {
@@ -207,19 +217,23 @@ function testForEach() {
 }
 
 function testHas() {
-    const cf: clownface.Clownface<NamedNode, Dataset> = <any> {};
-    let has: clownface.Clownface<Term[], Dataset> = cf.has(predicate, 'Stuart');
+    const cf: clownface.Clownface<Term, Dataset> = <any> {};
+    let has: clownface.Clownface<Array<NamedNode | BlankNode>, Dataset> = cf.has(predicate, 'Stuart');
     has = cf.has([predicate, predicate], 'Stuart');
     has = cf.has(predicate, [literal, literal]);
 }
 
 function testIn() {
-    const cf: clownface.Clownface<NamedNode, Dataset> = <any> {};
-    let cfIn: clownface.Clownface<Term[], Dataset> = cf.in();
+    const cf: clownface.Clownface<Literal, Dataset> = <any> {};
+    let cfIn: clownface.SafeClownface<NamedNode | BlankNode, Dataset> = cf.in();
     cfIn = cf.in(node);
     cfIn = cf.in([node, node]);
     cfIn = cf.in(cf.node(node));
     cfIn = cf.in(cf.node([node, node]));
+
+    const singleContext: clownface.Clownface<NamedNode, Dataset> = <any> {};
+    let inContext = cfIn.out(node);
+    inContext = singleContext;
 }
 
 function testList() {
@@ -270,6 +284,10 @@ function testOut() {
     cfTerm = cf.out(node);
     cfTerm = cf.out([node, node]);
     cfTerm = cf.out(cf.node([node, node]));
+
+    const singleContext: clownface.Clownface<NamedNode, Dataset> = <any> {};
+    let inContext = cfTerm.out(node);
+    inContext = singleContext;
 }
 
 function testToArray() {

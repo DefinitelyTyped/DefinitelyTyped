@@ -8,7 +8,7 @@
 //                 Justin Hall <https://github.com/wKovacs64>
 //                 Wesley Tsai <https://github.com/wezleytsai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.1
 
 import { getQueriesForElement } from './get-queries-for-element';
 import * as queries from './queries';

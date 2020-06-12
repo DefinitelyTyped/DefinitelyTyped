@@ -258,12 +258,12 @@ interface Assert {
      * @param expectedMatcher Rejection value matcher
      * @param message A short description of the assertion
      */
-    rejects(promise: Promise<any>, message?: string): void;
+    rejects(promise: Promise<any>, message?: string): Promise<void>;
     rejects(
         promise: Promise<any>,
         expectedMatcher?: any,
         message?: string,
-    ): void;
+    ): Promise<void>;
 
     /**
      * A marker for progress in a given test.
@@ -326,22 +326,22 @@ interface Hooks {
      * Runs after the last test. If additional tests are defined after the
      * module's queue has emptied, it will not run this hook again.
      */
-    after?: (assert: Assert) => void;
+    after?: (assert: Assert) => void | Promise<void>;
 
     /**
      * Runs after each test.
      */
-    afterEach?: (assert: Assert) => void;
+    afterEach?: (assert: Assert) => void | Promise<void>;
 
     /**
      * Runs before the first test.
      */
-    before?: (assert: Assert) => void;
+    before?: (assert: Assert) => void | Promise<void>;
 
     /**
      * Runs before each test.
      */
-    beforeEach?: (assert: Assert) => void;
+    beforeEach?: (assert: Assert) => void | Promise<void>;
 
 }
 
@@ -556,7 +556,7 @@ interface QUnit {
      * @param {string} name Title of unit being tested
      * @param callback Function to close over assertions
      */
-    only(name: string, callback: (assert: Assert) => void): void;
+    only(name: string, callback: (assert: Assert) => void | Promise<any>): void;
 
     /**
      * DEPRECATED: Report the result of a custom assertion.
@@ -587,7 +587,7 @@ interface QUnit {
      *
      * @param {string} Title of unit being tested
      */
-    skip(name: string, callback?: (assert: Assert) => void): void;
+    skip(name: string, callback?: (assert: Assert) => void | Promise<any>): void;
 
     /**
      * Returns a single line string representing the stacktrace (call stack).
@@ -633,7 +633,7 @@ interface QUnit {
      * @param {string} Title of unit being tested
      * @param callback Function to close over assertions
      */
-    test(name: string, callback: (assert: Assert) => void): void;
+    test(name: string, callback: (assert: Assert) => void | Promise<any>): void;
 
     /**
      * Register a callback to fire whenever a test ends.

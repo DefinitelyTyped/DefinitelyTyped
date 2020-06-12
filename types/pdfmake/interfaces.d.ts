@@ -79,8 +79,8 @@ export interface CustomTableLayout {
     hLineStyle?: DynamicLayout<LineStyle>;
     vLineStyle?: DynamicLayout<LineStyle>;
     fillColor?: string | DynamicLayout<string>;
-    paddingLeft?: number | DynamicLayout<number>;
-    paddingRight?: number | DynamicLayout<number>;
+    paddingLeft?: DynamicLayout<number>;
+    paddingRight?: DynamicLayout<number>;
     paddingTop?: DynamicLayout<number>;
     paddingBottom?: DynamicLayout<number>;
     fillOpacity?: number | DynamicLayout<number>;
@@ -108,7 +108,7 @@ export type TableCell =
 
 export interface Table {
     body: TableCell[][];
-    widths?: Size[];
+    widths?: '*' | 'auto' | Size[];
     heights?: number | number[] | DynamicRowSize;
     headerRows?: number;
     dontBreakRows?: boolean;
@@ -117,7 +117,7 @@ export interface Table {
 }
 
 export type PredefinedTableLayout = 'noBorders' | 'headerLineOnly' | 'lightHorizontalLines';
-export type TableLayout = PredefinedTableLayout | CustomTableLayout;
+export type TableLayout = string | PredefinedTableLayout | CustomTableLayout;
 
 export interface Style {
     /** name of the font */
@@ -453,7 +453,7 @@ export interface ContextPageSize {
 export interface BufferOptions {
     fontLayoutCache?: boolean;
     bufferPages?: boolean;
-    tableLayouts?: TableLayout;
+    tableLayouts?: { [key: string]: CustomTableLayout };
     autoPrint?: boolean;
     progressCallback?: (progress: number) => void;
 }

@@ -4,8 +4,48 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { RawDraftContentState } from 'draft-js';
+import { RawDraftContentState, Entity } from 'draft-js';
 
-export function markdownToDraft(markdown: string): RawDraftContentState;
+export interface BlockEntitiesParam {
+    [key: string]: (item?: { [key: string]: any }) => Entity;
+}
 
-export function draftToMarkdown(RawDraft: RawDraftContentState): string;
+export interface BlockTypesParam {
+    [key: string]: (item?: {
+        [key: string]: any;
+    }) => {
+        [key: string]: any;
+    };
+}
+
+export interface MarkdownToDraftOptions {
+    blockEntities?: BlockEntitiesParam;
+    blockStyles?: {
+        [key: string]: string;
+    };
+    blockTypes?: BlockTypesParam;
+    remarkableOptions?: {
+        [key: string]: boolean | {};
+    };
+    remarkablePlugins?: any[];
+    remarkablePreset?: string;
+}
+
+export interface DraftToMarkdownOptions {
+    entityItems?: {
+        [key: string]: {
+            open: (entity?: Entity) => string;
+            close: (entity?: Entity) => string;
+        };
+    };
+    styleItems?: {
+        [key: string]: {
+            open: () => string;
+            close: () => string;
+        };
+    };
+}
+
+export function markdownToDraft(markdown: string, options?: MarkdownToDraftOptions): RawDraftContentState;
+
+export function draftToMarkdown(RawDraft: RawDraftContentState, options?: DraftToMarkdownOptions): string;

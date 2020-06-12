@@ -26,7 +26,7 @@ store.registerURL('foo', 'foo');
 
 const map = new CoverageMap({});
 const transformed = store.transformCoverage(map);
-transformed.data;
+transformed.then(obj => obj.data);
 
 store.dispose();
 

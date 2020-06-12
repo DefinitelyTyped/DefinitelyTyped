@@ -2,10 +2,17 @@ import { Coordinate } from './coordinate';
 import Corner from './extent/Corner';
 import Relationship from './extent/Relationship';
 import { TransformFunction } from './proj';
+import Projection from './proj/Projection';
 import { Size } from './size';
 
 export type Extent = [number, number, number, number];
-export function applyTransform(extent: Extent, transformFn: TransformFunction, opt_extent?: Extent): Extent;
+export function applyTransform(
+    extent: Extent,
+    transformFn: TransformFunction,
+    opt_extent?: Extent,
+    opt_stops?: number,
+): Extent;
+export function approximatelyEquals(extent1: Extent, extent2: Extent, tolerance: number): boolean;
 export function boundingExtent(coordinates: Coordinate[]): Extent;
 export function buffer(extent: Extent, value: number, opt_extent?: Extent): Extent;
 export function clone(extent: Extent, opt_extent?: Extent): Extent;
@@ -67,3 +74,4 @@ export function intersectsSegment(extent: Extent, start: Coordinate, end: Coordi
 export function isEmpty(extent: Extent): boolean;
 export function returnOrUpdate(extent: Extent, opt_extent?: Extent): Extent;
 export function scaleFromCenter(extent: Extent, value: number): void;
+export function wrapX(extent: Extent, projection: Projection): Extent;

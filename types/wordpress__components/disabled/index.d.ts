@@ -1,4 +1,4 @@
-import { ComponentType, Consumer, ReactNode } from '@wordpress/element';
+import { ComponentType, Consumer, ReactNode } from 'react';
 
 declare namespace Disabled {
     interface Props {

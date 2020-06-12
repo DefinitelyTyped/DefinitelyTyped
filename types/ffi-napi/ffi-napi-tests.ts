@@ -104,3 +104,10 @@ import TArray = require('ref-array-di');
 {
     const refCharArr = TArray('char')([1, 3, 5], 2).ref();
 }
+{
+    // You can also access just functions in the current process by passing a null
+    const current = ffi.Library(null, {
+      atoi: [ 'int', [ 'string' ] ]
+    });
+    current.atoi('1234');
+}

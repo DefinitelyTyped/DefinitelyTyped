@@ -523,7 +523,7 @@ export interface ConnectOptions {
     networkQuality?: boolean | NetworkQualityConfiguration;
     region?: 'au1' | 'br1' | 'ie1' | 'de1' | 'jp1' | 'sg1' | 'us1' | 'us2' | 'gll';
     preferredAudioCodecs?: AudioCodec[];
-    preferredVideoCodecs?: VideoCodec[] | VideoCodecSettings[];
+    preferredVideoCodecs?: Array<VideoCodec | VideoCodecSettings | VP8CodecSettings>;
     logLevel?: LogLevel | LogLevels;
     tracks?: LocalTrack[] | MediaStreamTrack[];
     video?: boolean | CreateLocalTrackOptions;
@@ -595,7 +595,7 @@ export interface VideoCodecSettings {
     codec: VideoCodec;
 }
 export type VideoTrackPublication = LocalVideoTrackPublication | RemoteVideoTrackPublication;
-export interface VP8CodecSettings {
-    name: VideoCodec;
+export interface VP8CodecSettings extends VideoCodecSettings {
+    codec: 'VP8';
     simulcast?: boolean;
 }

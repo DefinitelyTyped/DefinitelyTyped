@@ -10,10 +10,10 @@
  */
 declare function capitalize(input: string): string;
 declare namespace capitalize {
-	/**
-	 * Capitalize each word in a string
-	 * @param input the string to capitalize
-	 */
-	function words(input: string): string;
+    /**
+     * Capitalize each word in a string
+     * @param input the string to capitalize
+     */
+    function words(input: string): string;
 }
 export = capitalize;

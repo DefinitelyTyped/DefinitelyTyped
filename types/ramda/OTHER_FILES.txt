@@ -159,6 +159,7 @@ es/partition.d.ts
 es/path.d.ts
 es/pathEq.d.ts
 es/pathOr.d.ts
+es/paths.d.ts
 es/pathSatisfies.d.ts
 es/pickAll.d.ts
 es/pickBy.d.ts
@@ -412,6 +413,7 @@ src/partition.d.ts
 src/path.d.ts
 src/pathEq.d.ts
 src/pathOr.d.ts
+src/paths.d.ts
 src/pathSatisfies.d.ts
 src/pickAll.d.ts
 src/pickBy.d.ts

@@ -51,6 +51,8 @@ import Pulsar = require('pulsar-client');
 
     consumer.acknowledge(msg);
     consumer.acknowledgeId(msg.getMessageId());
+    consumer.negativeAcknowledge(msg);
+    consumer.negativeAcknowledgeId(msg.getMessageId());
     consumer.acknowledgeCumulative(msg);
     consumer.acknowledgeCumulativeId(msg.getMessageId());
 

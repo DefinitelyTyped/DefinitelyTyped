@@ -161,6 +161,7 @@ declare namespace Terminal {
 
     fullscreen: (options: boolean | { noAlternate: boolean }) => void;
     processExit: (code: number) => void;
+    asyncCleanup: () => Promise<void>;
     grabInput(
       options:
         | boolean

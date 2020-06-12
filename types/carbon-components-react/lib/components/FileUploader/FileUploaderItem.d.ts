@@ -9,7 +9,7 @@ import { FileStatus } from "./FileUploader";
 interface FileUploaderItemInheritedProps extends
     ReactAttr<HTMLSpanElement>,
     EmbeddedIconProps,
-    Omit<ValidityProps, "invalidText"> {
+    Pick<ValidityProps, "invalid"> {
 }
 
 export interface FileUploaderItemProps extends FileUploaderItemInheritedProps {
@@ -46,4 +46,6 @@ export interface FileUploaderItemProps extends FileUploaderItemInheritedProps {
     errorBody?: NonNullable<React.ReactNode>;
 }
 
-export default class FileUploaderItem extends React.Component<FileUploaderItemProps> { }
+declare const FileUploaderItem: React.FC<FileUploaderItemProps>;
+
+export default FileUploaderItem;

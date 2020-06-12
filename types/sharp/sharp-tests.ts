@@ -253,3 +253,22 @@ sharp('input.gif')
     .modulate({ hue: 180 })
     .modulate({ brightness: 0.5, saturation: 0.5, hue: 90 })
 ;
+
+// From https://sharp.pixelplumbing.com/api-output#examples-9
+// Extract raw RGB pixel data from JPEG input
+sharp('input.jpg')
+  .raw()
+  .toBuffer({ resolveWithObject: true })
+  .then(({data, info}) => {
+    console.log(data);
+    console.log(info);
+  });
+
+// From https://sharp.pixelplumbing.com/api-output#examples-9
+// Extract alpha channel as raw pixel data from PNG input
+sharp('input.png')
+.ensureAlpha()
+.extractChannel(3)
+.toColourspace('b-w')
+.raw()
+.toBuffer();

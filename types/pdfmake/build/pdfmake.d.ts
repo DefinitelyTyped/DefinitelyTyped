@@ -1,15 +1,15 @@
 /// <reference lib="dom" />
-import { BufferOptions, TableLayout, TDocumentDefinitions, TFontDictionary } from '../interfaces';
+import { BufferOptions, CustomTableLayout, TDocumentDefinitions, TFontDictionary } from '../interfaces';
 
-export let vfs: TFontDictionary;
+export let vfs: { [file: string]: string };
 export let fonts: TFontDictionary;
-export let tableLayouts: TableLayout;
+export let tableLayouts: { [name: string]: CustomTableLayout };
 
 export function createPdf(
     documentDefinitions: TDocumentDefinitions,
-    tableLayouts?: TableLayout,
+    tableLayouts?: { [name: string]: CustomTableLayout },
     fonts?: TFontDictionary,
-    vfs?: TFontDictionary,
+    vfs?: { [file: string]: string },
 ): TCreatedPdf;
 
 export interface TCreatedPdf {

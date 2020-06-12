@@ -47,6 +47,14 @@ const docker9 = new Docker({
     Promise,
 });
 
+const docker10 = new Docker({
+    protocol: 'ssh', // SSH support is possible
+    host: '192.168.1.10',
+    port: 22,
+    username: 'test',
+    sshAuthAgent: '/tmp/ssh-abcde/agent.12345',
+});
+
 async function foo() {
     const containers = await docker7.listContainers();
     for (const container of containers) {
@@ -125,6 +133,18 @@ docker.buildImage({ context: '.', src: ['Dockerfile', 'test.sh'] }, { t: 'imageN
 
 docker.createContainer({ Tty: true }, (err, container) => {
     container.start((err, data) => {
+        // NOOP
+    });
+});
+
+docker.createNetwork({Name: 'networkName'},  (err, network) => {
+    network.remove((err, data) => {
+        // NOOP
+    });
+});
+
+docker.createNetwork({Name: 'networkName'}).then((network) => {
+    network.remove().then((response) => {
         // NOOP
     });
 });

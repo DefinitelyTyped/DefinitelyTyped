@@ -7,6 +7,9 @@
 //                 Peter <https://github.com/pwrnrd>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
 //                 Johannes Schneider <https://github.com/neshanjo>
+//                 Meng Bernie Sung <https://github.com/MengRS>
+//                 Léo Haddad Carneiro <https://github.com/Scoup>
+//                 Isabela Morais <https://github.com/isabela-morais>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -182,6 +185,15 @@ export interface PermissionData {
     permission_name: string;
 }
 
+export interface GetRolePermissionsData extends ObjectWithId {
+    per_page?: number;
+    page?: number;
+}
+
+export interface GetRolePermissionsDataPaged extends GetRolePermissionsData {
+    include_totals: boolean;
+}
+
 export interface GetRoleUsersData extends ObjectWithId {
     per_page?: number;
     page?: number;
@@ -291,6 +303,7 @@ export interface Client {
   token_endpoint_auth_method?: string;
   client_metadata?: any;
   mobile?: any;
+  initiate_login_uri?: string;
 }
 
 export interface ResourceServer {
@@ -368,6 +381,33 @@ export type ClientGrant = Partial<CreateClientGrant> & {
    */
   id?: string;
 };
+
+export interface GetClientGrantsOptions {
+  /** @default 10 */
+  per_page?: number;
+  /** @default 0 */
+  page?: number;
+  /**
+   * The audience.
+   */
+  audience?: string;
+  /**
+   * The id of the client (application).
+   */
+  client_id?: string;
+}
+
+export interface GetClientGrantsOptionsPaged extends GetClientGrantsOptions {
+  /**
+   * true if a query summary must be included in the result, false otherwise
+   * @default false
+   */
+  include_totals?: boolean;
+}
+
+export interface ClientGrantPage extends Page {
+  client_grants: ClientGrant[]
+}
 
 export interface CreateClientGrant {
   /**
@@ -564,6 +604,7 @@ export interface ResetPasswordEmailOptions {
 
 export interface ClientCredentialsGrantOptions {
   audience: string;
+  scope?: string;
 }
 
 export interface PasswordGrantOptions {
@@ -576,6 +617,14 @@ export interface PasswordGrantOptions {
 export interface AuthorizationCodeGrantOptions {
   code: string;
   redirect_uri: string;
+}
+
+export interface TokenResponse {
+    access_token: string;
+    token_type: string;
+    expires_in: number;
+    scope?: string;
+    id_token?: string;
 }
 
 export interface ObjectWithId {
@@ -859,11 +908,11 @@ export class AuthenticationClient {
   getProfile(accessToken: string): Promise<any>;
   getProfile(accessToken: string, cb: (err: Error, message: string) => void): void;
 
-  clientCredentialsGrant(options: ClientCredentialsGrantOptions): Promise<any>;
-  clientCredentialsGrant(options: ClientCredentialsGrantOptions, cb: (err: Error, response: any) => void): void;
+  clientCredentialsGrant(options: ClientCredentialsGrantOptions): Promise<TokenResponse>;
+  clientCredentialsGrant(options: ClientCredentialsGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
 
-  passwordGrant(options: PasswordGrantOptions): Promise<any>;
-  passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: any) => void): void;
+  passwordGrant(options: PasswordGrantOptions): Promise<TokenResponse>;
+  passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
 
 }
 
@@ -911,6 +960,10 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   // Client Grants
   getClientGrants(): Promise<ClientGrant[]>;
   getClientGrants(cb: (err: Error, data: ClientGrant[]) => void): void;
+  getClientGrants(params: GetClientGrantsOptions): Promise<ClientGrant[]>;
+  getClientGrants(params: GetClientGrantsOptions, cb: (err: Error, data: ClientGrant[]) => void): void;
+  getClientGrants(params: GetClientGrantsOptionsPaged): Promise<ClientGrantPage>;
+  getClientGrants(params: GetClientGrantsOptionsPaged, cb: (err: Error, data: ClientGrantPage) => void): void;
 
   createClientGrant(data: CreateClientGrant): Promise<ClientGrant>;
   createClientGrant(data: CreateClientGrant, cb: (err: Error, data: ClientGrant) => void): void;
@@ -954,6 +1007,10 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
 
   getPermissionsInRole(params: ObjectWithId): Promise<Permission[]>;
   getPermissionsInRole(params: ObjectWithId, cb: (err: Error, permissions: Permission[]) => void): void;
+  getPermissionsInRole(params: GetRolePermissionsData): Promise<Permission[]>;
+  getPermissionsInRole(params: GetRolePermissionsData, cb: (err: Error, permissions: Permission[]) => void): void;
+  getPermissionsInRole(params: GetRolePermissionsDataPaged): Promise<PermissionPage>;
+  getPermissionsInRole(params: GetRolePermissionsDataPaged, cb: (err: Error, permissionPage: PermissionPage) => void): void;
 
   removePermissionsFromRole(params: ObjectWithId, data: PermissionsData): Promise<void>;
   removePermissionsFromRole(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;

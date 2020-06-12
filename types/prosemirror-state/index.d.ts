@@ -151,7 +151,7 @@ export class PluginKey<T = any, S extends Schema = any> {
   /**
    * Get the plugin's state from an editor state.
    */
-  getState(state: EditorState<S>): any | null | undefined;
+  getState(state: EditorState<S>): T | null | undefined;
 }
 /**
  * Superclass for editor selections. Every selection type should

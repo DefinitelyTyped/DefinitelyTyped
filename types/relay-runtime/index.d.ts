@@ -6,6 +6,7 @@
 //                 Renan Machado <https://github.com/renanmav>
 //                 Stephen Pittman <https://github.com/Stephen2>
 //                 Martin Zlámal <https://github.com/mrtnzlml>
+//                 Christian Ivicevic <https://github.com/ChristianIvicevic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -29,6 +30,9 @@ export {
     ExecuteFunction,
     FetchFunction,
     GraphQLResponse,
+    GraphQLResponseWithData,
+    GraphQLResponseWithoutData,
+    GraphQLSingularResponse,
     LogRequestInfoFunction,
     Network as INetwork,
     PayloadData,
@@ -47,11 +51,7 @@ export {
     getRefetchableFragment,
     getRequest,
 } from './lib/query/RelayModernGraphQLTag';
-export {
-    isClientID,
-    generateClientID,
-    generateUniqueClientID,
-} from './lib/store/ClientID';
+export { isClientID, generateClientID, generateUniqueClientID } from './lib/store/ClientID';
 export {
     ConnectionEvent,
     ConnectionID,

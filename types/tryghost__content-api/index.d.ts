@@ -2,6 +2,8 @@
 // Project: https://github.com/TryGhost/Ghost-SDK/tree/master/packages/content-api
 // Definitions by: Kevin Nguyen <https://github.com/knguyen0125>
 //                 Anton Van Eechaute <https://github.com/antonve>
+//                 Yashar Moradi <https://github.com/maveric1977>
+//                 Oliver Emery <https://github.com/thrymgjol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type ArrayOrValue<T> = T | T[];
@@ -49,9 +51,10 @@ export interface Twitter {
     twitter_description?: Nullable<string>;
 }
 
-export interface SocialMedia extends Facebook, Twitter {}
+export interface SocialMedia extends Facebook, Twitter {
+}
 
-export interface Setting extends Metadata, CodeInjection, SocialMedia {
+export interface Settings extends Metadata, CodeInjection, SocialMedia {
     title?: string;
     description?: string;
     logo?: string;
@@ -85,7 +88,7 @@ export interface Author extends Identification, Metadata {
     };
 }
 
-export type TagVisibility = 'public' | 'draft' | 'scheduled';
+export type TagVisibility = 'public' | 'internal';
 
 export interface Tag extends Identification, Metadata {
     name?: string;
@@ -105,11 +108,11 @@ export interface PostOrPage extends Identification, Excerpt, CodeInjection, Meta
 
     // Post or Page
     title?: string;
-    html?: string | null;
+    html?: Nullable<string>;
     plaintext?: Nullable<string>;
 
     // Image
-    feature_image?: string | null;
+    feature_image?: Nullable<string>;
     featured?: boolean;
 
     // Dates
@@ -118,10 +121,13 @@ export interface PostOrPage extends Identification, Excerpt, CodeInjection, Meta
     published_at?: Nullable<string>;
 
     // Custom Template for posts and pages
-    custom_template?: string | null;
+    custom_template?: Nullable<string>;
 
     // Post or Page
     page?: boolean;
+
+    // Reading time
+    reading_time?: number;
 
     // Tags - Only shown when using Include param
     tags?: Tag[];
@@ -135,7 +141,7 @@ export interface PostOrPage extends Identification, Excerpt, CodeInjection, Meta
     canonical_url?: Nullable<string>;
 }
 
-export type GhostData = PostOrPage | Author | Tag | Setting;
+export type GhostData = PostOrPage | Author | Tag | Settings;
 
 export type IncludeParam = 'authors' | 'tags' | 'count.posts';
 
@@ -166,32 +172,24 @@ export interface BrowseFunction<T> {
 }
 
 export interface ReadFunction<T> {
-    (data: GhostData, options?: Params, memberToken?: Nullable<string>): Promise<T>;
+    (data: { id: Nullable<string> } | { slug: Nullable<string> }, options?: Params, memberToken?: Nullable<string>): Promise<T>;
 }
 
-export interface PostObject {
-    posts: PostOrPage[];
+interface BrowseResults<T> extends Array<T> {
     meta: { pagination: Pagination };
 }
 
-export interface AuthorsObject {
-    authors: Author[];
-    meta: { pagination: Pagination };
+export interface PostsOrPages extends BrowseResults<PostOrPage> {
 }
 
-export interface TagsObject {
-    tags: Tag[];
-    meta: { pagination: Pagination };
+export interface Authors extends BrowseResults<Author> {
 }
 
-export interface PagesObject {
-    pages: PostOrPage[];
-    meta: { pagination: Pagination };
+export interface Tags extends BrowseResults<Tag> {
 }
 
-export interface SettingsObject {
-    settings: Setting;
-    meta: {};
+export interface SettingsResponse extends Settings {
+    meta: any;
 }
 
 export interface GhostError {
@@ -218,24 +216,29 @@ export interface GhostContentAPIOptions {
 
 export interface GhostAPI {
     posts: {
-        browse: BrowseFunction<PostObject>;
+        browse: BrowseFunction<PostsOrPages>;
         read: ReadFunction<PostOrPage>;
     };
     authors: {
-        browse: BrowseFunction<AuthorsObject>;
+        browse: BrowseFunction<Authors>;
         read: ReadFunction<Author>;
     };
     tags: {
-        browse: BrowseFunction<TagsObject>;
+        browse: BrowseFunction<Tags>;
         read: ReadFunction<Tag>;
     };
     pages: {
-        browse: BrowseFunction<PagesObject>;
+        browse: BrowseFunction<PostsOrPages>;
         read: ReadFunction<PostOrPage>;
     };
     settings: {
-        browse: BrowseFunction<SettingsObject>;
+        browse: BrowseFunction<SettingsResponse>;
     };
 }
 
-export default function GhostContentAPI(options: GhostContentAPIOptions): GhostAPI;
+declare var GhostContentAPI: {
+    (options: GhostContentAPIOptions): GhostAPI;
+    new(options: GhostContentAPIOptions): GhostAPI;
+};
+
+export default GhostContentAPI;

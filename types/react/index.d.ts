@@ -23,6 +23,8 @@
 //                 Kyle Scully <https://github.com/zieka>
 //                 Cong Zhang <https://github.com/dancerphil>
 //                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
+//                 JongChan Choi <https://github.com/disjukr>
+//                 Victor Magalhães <https://github.com/vhfmag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -111,19 +113,16 @@ declare namespace React {
             | { new (props: any): Component<any> }
             | ((props: any, context?: any) => ReactElement | null)
             | keyof JSX.IntrinsicElements
-    > = C extends ForwardRefExoticComponent<infer FP>
-        ? FP extends RefAttributes<infer FC>
-            ? FC
-            : never
-        : C extends { new (props: any): Component<any> }
-        ? InstanceType<C>
-        : C extends ((props: any, context?: any) => ReactElement | null)
-        ? undefined
-        : C extends keyof JSX.IntrinsicElements
-        ? JSX.IntrinsicElements[C] extends DOMAttributes<infer E>
-            ? E
-            : never
-        : never;
+    > =
+        // need to check first if `ref` is a valid prop for ts@3.0
+        // otherwise it will infer `{}` instead of `never`
+        "ref" extends keyof ComponentPropsWithRef<C>
+            ? NonNullable<ComponentPropsWithRef<C>["ref"]> extends Ref<
+                infer Instance
+            >
+                ? Instance
+                : never
+            : never;
 
     type ComponentState = any;
 
@@ -1179,8 +1178,10 @@ declare namespace React {
     interface PointerEvent<T = Element> extends MouseEvent<T, NativePointerEvent> {
         pointerId: number;
         pressure: number;
+        tangentialPressure: number;
         tiltX: number;
         tiltY: number;
+        twist: number;
         width: number;
         height: number;
         pointerType: 'mouse' | 'pen' | 'touch';
@@ -2126,6 +2127,7 @@ declare namespace React {
         rel?: string;
         sizes?: string;
         type?: string;
+        charSet?: string;
     }
 
     interface MapHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2144,7 +2146,7 @@ declare namespace React {
         loop?: boolean;
         mediaGroup?: string;
         muted?: boolean;
-        playsinline?: boolean;
+        playsInline?: boolean;
         preload?: string;
         src?: string;
     }

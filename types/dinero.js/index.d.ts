@@ -21,6 +21,8 @@ declare namespace DineroFactory {
     let globalFormatRoundingMode: string;
     let globalExchangeRatesApi: ExchangeRatesApiOptions;
     function normalizePrecision(objects: ReadonlyArray<Dinero>): Dinero[];
+    function minimum(objects: ReadonlyArray<Dinero>): Dinero;
+    function maximum(objects: ReadonlyArray<Dinero>): Dinero;
 
     interface Options {
         amount?: number;
@@ -61,7 +63,7 @@ declare namespace DineroFactory {
         toUnit(): number;
         toRoundedUnit(digits: number, roundingMode?: RoundingMode): number;
         toObject(): DineroObject;
-        toJson(): DineroObject;
+        toJSON(): DineroObject;
     }
 
     type RoundingMode =

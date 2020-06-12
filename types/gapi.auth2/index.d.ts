@@ -85,9 +85,9 @@ declare namespace gapi.auth2 {
      */
     app_package_name?: string;
     /**
-     * 	Fetch users' basic profile information when they sign in.
-     * 	Adds 'profile', 'email' and 'openid' to the requested scopes.
-     * 	True if unspecified.
+     *     Fetch users' basic profile information when they sign in.
+     *     Adds 'profile', 'email' and 'openid' to the requested scopes.
+     *     True if unspecified.
      */
     fetch_basic_profile?: boolean;
     /**

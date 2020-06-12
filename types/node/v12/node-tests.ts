@@ -7,7 +7,6 @@ import * as https from "https";
 import * as console2 from "console";
 import * as timers from "timers";
 import * as dns from "dns";
-import * as async_hooks from "async_hooks";
 import * as inspector from "inspector";
 import * as trace_events from "trace_events";
 import * as dgram from "dgram";
@@ -685,57 +684,6 @@ import * as constants from 'constants';
     num = constants.POINT_CONVERSION_HYBRID;
     str = constants.defaultCoreCipherList;
     str = constants.defaultCipherList;
-}
-
-////////////////////////////////////////////////////
-/// AsyncHooks tests : https://nodejs.org/api/async_hooks.html
-////////////////////////////////////////////////////
-{
-    const hooks: async_hooks.HookCallbacks = {
-        init() {},
-        before() {},
-        after() {},
-        destroy() {},
-        promiseResolve() {},
-    };
-
-    const asyncHook = async_hooks.createHook(hooks);
-
-    asyncHook.enable().disable().enable();
-
-    const tId: number = async_hooks.triggerAsyncId();
-    const eId: number = async_hooks.executionAsyncId();
-
-    class TestResource extends async_hooks.AsyncResource {
-        constructor() {
-            super('TEST_RESOURCE');
-        }
-    }
-
-    class AnotherTestResource extends async_hooks.AsyncResource {
-        constructor() {
-            super('TEST_RESOURCE', 42);
-            const aId: number = this.asyncId();
-            const tId: number = this.triggerAsyncId();
-        }
-        run() {
-            this.runInAsyncScope(() => {});
-            this.runInAsyncScope(Array.prototype.find, [], () => true);
-        }
-        destroy() {
-            this.emitDestroy();
-        }
-    }
-
-    // check AsyncResource constructor options.
-    new async_hooks.AsyncResource('');
-    new async_hooks.AsyncResource('', 0);
-    new async_hooks.AsyncResource('', {});
-    new async_hooks.AsyncResource('', { triggerAsyncId: 0 });
-    new async_hooks.AsyncResource('', {
-      triggerAsyncId: 0,
-      requireManualDestroy: true
-    });
 }
 
 ///////////////////////////////////////////////////////////

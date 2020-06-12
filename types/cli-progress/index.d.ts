@@ -1,4 +1,4 @@
-// Type definitions for cli-progress 3.4
+// Type definitions for cli-progress 3.7
 // Project: https://github.com/AndiDittrich/Node.CLI-Progress
 // Definitions by:  Mohamed Hegazy <https://github.com/mhegazy>
 //                  Álvaro Martínez <https://github.com/alvaromartmart>
@@ -6,6 +6,15 @@
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
+
+export interface Params {
+    progress: number;
+    eta: number;
+    startTime: Date;
+    total: number;
+    value: number;
+    maxWidth: number;
+}
 
 export interface Options {
     /**
@@ -25,7 +34,16 @@ export interface Options {
      *    is rendered as
      *      progress [========================================] 100% | ETA: 0s | 200/200
      */
-    format?: string;
+    format?: string | ((options: Options, params: Params, payload: any) => string);
+
+    /** a custom bar formatter function which renders the bar-element (default: format-bar.js) */
+    formatBar?: (progress: number, options: Options) => string;
+
+    /** a custom timer formatter function which renders the formatted time elements like eta_formatted and duration-formatted (default: format-time.js) */
+    formatTime?: (t: number, options: Options, roundToMultipleOf: number) => string;
+
+    /** a custom value formatter function which renders all other values (default: format-value.js) */
+    formatValue?: (v: number, options: Options, type: string) => string;
 
     /** the maximum update rate (default: 10) */
     fps?: number;
@@ -41,6 +59,7 @@ export interface Options {
 
     /** the length of the progress bar in chars (default: 40) */
     barsize?: number;
+
     /**  position of the progress bar - 'left' (default), 'right' or 'center  */
     align?: 'left' | 'right' | 'center';
 
@@ -82,6 +101,12 @@ export interface Options {
 
     /** trigger redraw on every frame even if progress remains the same; can be useful if progress bar gets overwritten by other concurrent writes to the terminal (default: false) */
     forceRedraw?: boolean;
+
+    /** add padding chars to formatted time and percentage to force fixed width (default: false) */
+    autopadding?: boolean;
+
+    /** the character sequence used for autopadding (default: " ") */
+    autopaddingChar?: string;
 }
 
 export interface Preset {
@@ -144,7 +169,7 @@ export class SingleBar {
 export class MultiBar {
     constructor(opt: Options, preset?: Preset);
 
-    create(total: number, startValue: number, payload: any): SingleBar;
+    create(total: number, startValue: number, payload?: any): SingleBar;
 
     remove(bar: SingleBar): boolean;
 

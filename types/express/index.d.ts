@@ -95,7 +95,8 @@ declare namespace e {
     interface Application extends core.Application { }
     interface CookieOptions extends core.CookieOptions { }
     interface Errback extends core.Errback { }
-    interface ErrorRequestHandler<P extends core.Params = core.ParamsDictionary> extends core.ErrorRequestHandler<P> { }
+    interface ErrorRequestHandler<P extends core.Params = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query>
+        extends core.ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery> { }
     interface Express extends core.Express { }
     interface Handler extends core.Handler { }
     interface IRoute extends core.IRoute { }
@@ -104,8 +105,8 @@ declare namespace e {
     interface IRouterMatcher<T> extends core.IRouterMatcher<T> { }
     interface MediaType extends core.MediaType { }
     interface NextFunction extends core.NextFunction { }
-    interface Request<P extends core.Params = core.ParamsDictionary> extends core.Request<P> { }
-    interface RequestHandler<P extends core.Params = core.ParamsDictionary> extends core.RequestHandler<P> { }
+    interface Request<P extends core.Params = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query> extends core.Request<P, ResBody, ReqBody, ReqQuery> { }
+    interface RequestHandler<P extends core.Params = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query> extends core.RequestHandler<P, ResBody, ReqBody, ReqQuery> { }
     interface RequestParamHandler extends core.RequestParamHandler { }
     export interface Response<ResBody = any> extends core.Response<ResBody> { }
     interface Router extends core.Router { }

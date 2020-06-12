@@ -49,6 +49,7 @@ const handler: CognitoUserPoolTriggerHandler = async (event, context, callback) 
     event.request.session![0].challengeName === 'DEVICE_SRP_AUTH';
     event.request.session![0].challengeName === 'DEVICE_PASSWORD_VERIFIER';
     event.request.session![0].challengeName === 'ADMIN_NO_SRP_AUTH';
+    event.request.session![0].challengeName === 'SRP_A';
     bool = event.request.session![0].challengeResult;
     strOrUndefined = event.request.session![0].challengeMetadata;
     strOrUndefined = event.request.challengeName;
@@ -56,6 +57,7 @@ const handler: CognitoUserPoolTriggerHandler = async (event, context, callback) 
     str = event.request.challengeAnswer!;
     strOrUndefined = event.request.password;
     str = event.request.clientMetadata!['action'];
+    boolOrUndefined = event.request.userNotFound;
     boolOrUndefined = event.response.answerCorrect;
     strOrUndefined = event.response.smsMessage;
     strOrUndefined = event.response.emailMessage;

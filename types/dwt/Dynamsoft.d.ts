@@ -22,6 +22,10 @@ interface dwtEnv {
     Containers: Container[];
     IfUseActiveXForIE10Plus: boolean;
     ResourcesPath: string;
+    /**
+     * Whether or not the scanned images show up in the built-in image viewer
+     */
+    ScanDirectly: boolean;
 
     RegisterEvent(event: string, fn: (...args: any[]) => void): void;
     GetWebTwain(cid: string): WebTwain;
@@ -1382,7 +1386,7 @@ declare enum EnumDWT_UploadDataFormat {
     Base64 = 1
 }
 
-/** 
+/**
  * interface for a DWT container which basically defines a DIV on the page
  */
 interface Container {
@@ -1391,7 +1395,7 @@ interface Container {
     Height: string | number;
 }
 
-/** 
+/**
  * interface for a base64 result
  */
 interface Base64Result {
@@ -2304,7 +2308,7 @@ interface WebTwain {
      */
     Zoom: number;
 
-    /* ignored 
+    /* ignored
     style
     _AutoCropMethod
     */
@@ -2500,7 +2504,7 @@ interface WebTwain {
      * @param {Array} indices indices specifies which images are to be converted to base64.
      * @param {EnumDWT_ImageType} enumImageType the image format in which the images are to be converted to base64.
      * @return {Base64Result}
- 
+
     ConvertToBase64(indices: number[], enumImageType: EnumDWT_ImageType): Base64Result;
     */
 
@@ -2842,7 +2846,7 @@ interface WebTwain {
      * @param {number} iHeight the height of the image.
      * @return {string}
      */
-    GetImageURL(index: number, iWidth: number, iHeight: number): string;
+    GetImageURL(index: number, iWidth?: number, iHeight?: number): string;
 
     /**
      * Returns the width (pixels) of the selected image. This is a read-only property.
@@ -2998,6 +3002,19 @@ interface WebTwain {
      * @return {boolean}
      */
     HTTPUpload(url: string, indices: number[], enumImageType: EnumDWT_ImageType, dataFormat: EnumDWT_UploadDataFormat, asyncSuccessFunc: (httppostresponsestring: string) => void, asyncFailureFunc: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
+
+    /**
+     * Uploads the images specified by the indices to the HTTP server.
+     * @method WebTwain#HTTPUpload
+     * @param {string} url the url where the images are sent in a POST request.
+     * @param {Array} indices indices specifies which images are to be uploaded.
+     * @param {EnumDWT_ImageType} enumImageType the image format in which the images are to be uploaded.
+     * @param {EnumDWT_UploadDataFormat} dataFormat whether to upload the images as binary or a base64-based string.
+     * @param {string} fileName the name of the image to be uploaded.
+     * @param {function} asyncSuccessFunc the function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
+     * @param {function} asyncFailureFunc the function to call when the upload fails. Please refer to the function prototype OnFailure.
+     */
+    HTTPUpload(url: string, indices: number[], enumImageType: EnumDWT_ImageType, dataFormat: EnumDWT_UploadDataFormat, fileName: string, asyncSuccessFunc: (httpPostResponseString: string) => void, asyncFailureFunc: (errorCode: number, errorString: string, httpPostResponseString: string) => void): boolean;
 
     /**
      * Uploads all images in the buffer to the HTTP server through the HTTP Post method as a Multi-Page TIFF.
@@ -3285,7 +3302,7 @@ interface WebTwain {
      */
     MoveImage(sSourceImageIndex: number, sTargetImageIndex: number): boolean;
 
-    /*ignored 
+    /*ignored
     OnRefreshUI
     */
 
@@ -3734,7 +3751,7 @@ interface WebTwain {
      * @param {string} elEditorDIV Specifies a DIV by its ID to put the editor in
      * @param {number} width Specifies the width of the DIV
      * @param {number} height Specifies the height of the DIV
-     * @param {boolean} bHideToolBar Specifies whether to show the toolbar or not 
+     * @param {boolean} bHideToolBar Specifies whether to show the toolbar or not
      * @return {boolean}
      */
     ShowImageEditor(elEditorDIV?: string, width?: number, height?: number, bHideToolBar?: boolean): boolean;
@@ -3751,7 +3768,7 @@ interface WebTwain {
      */
     ShowImageEditorEx(x: number, y: number, cx: number, cy: number, nCmdShow: number): boolean;
 
-    /*ingored    
+    /*ingored
     SourceNameItems
     */
 
@@ -3781,18 +3798,59 @@ interface WebTwain {
      */
     UnregisterEvent(name: string, evt: object): boolean;
 
+    /**
+     * Tag specified images
+     * @method WebTwain#TagImages
+     * @param {number[]} aryImageIndices The indices of the images to tag
+     * @param {string} tagName specifies a tag
+     * @return {boolean}
+     */
     TagImages(aryImageIndices: number[], tagName: string): boolean;
 
+    /**
+     * Sets a default tag that's applied to newly acquired images
+     * @method WebTwain#SetDefaultTag
+     * @param {string} tagName specifies a tag
+     * @return {boolean}
+     */
     SetDefaultTag(tagName: string): boolean;
 
+    /**
+     * Clear the tags from the specified image
+     * @method WebTwain#ClearImageTags
+     * @param {number} sImageIndex specified a image
+     */
     ClearImageTags(sImageIndex: number): boolean;
 
+    /**
+     * Specifies a tag and use it to filter images
+     * @method WebTwain#FilterImagesByTag
+     * @param {string} tagName specifies a tag
+     * @return {boolean}
+     */
     FilterImagesByTag(tagName: string): boolean;
 
+    /**
+     * Selects all images
+     * @method WebTwain#SelectAllImages
+     * @return {boolean}
+     */
     SelectAllImages(): boolean;
-	
+
+    /**
+     * Inverts the color of the pixels of the specified image
+     * @method WebTwain#Invert
+     * @param {number} sImageIndex specifies an image
+     * @return {boolean}
+     */
     Invert(sImageIndex: number): boolean;
-	
+
+    /**
+     * Converts the specified image to black & white
+     * @method WebTwain#ConvertToBW
+     * @param {number} sImageIndex specifies an image
+     * @return {boolean}
+     */
     ConvertToBW(sImageIndex: number): boolean;
 
     /*ignored

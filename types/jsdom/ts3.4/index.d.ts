@@ -3,7 +3,7 @@
 
 // tslint:disable-next-line: no-declare-current-package no-single-declare-module
 declare module 'jsdom' {
-	interface DOMWindow {
-		ShadowRoot: typeof ShadowRoot;
-	}
+    interface DOMWindow {
+        ShadowRoot: typeof ShadowRoot;
+    }
 }

@@ -1,4 +1,4 @@
-// Type definitions for bull 3.12
+// Type definitions for bull 3.14
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
@@ -18,6 +18,7 @@
 //                 Borys Kupar <https://github.com/borys-kupar>
 //                 Remko Klein <https://github.com/remko79>
 //                 Levi Bostian <https://github.com/levibostian>
+//                 Todd Dukart <https://github.com/tdukart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -171,6 +172,8 @@ declare namespace Bull {
 
     returnvalue: any;
 
+    failedReason?: string;
+
     /**
      * Get progress on a job
      */
@@ -312,8 +315,8 @@ declare namespace Bull {
     };
   }
 
-  type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';
-  type JobStatusClean = 'completed' | 'wait' | 'active' | 'delayed' | 'failed';
+    type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed' | 'paused';
+    type JobStatusClean = 'completed' | 'wait' | 'active' | 'delayed' | 'failed' | 'paused';
 
   interface BackoffOptions {
     /**
@@ -429,6 +432,11 @@ declare namespace Bull {
      * Limits the amount of stack trace lines that will be recorded in the stacktrace.
      */
     stackTraceLimit?: number;
+
+    /**
+     * Prevents JSON data from being parsed.
+     */
+    preventParsingData?: boolean;
   }
 
   interface JobCounts {
@@ -577,6 +585,13 @@ declare namespace Bull {
     add(name: string, data: T, opts?: JobOptions): Promise<Job<T>>;
 
     /**
+     * Adds an array of jobs to the queue.
+     * If the queue is empty the jobs will be executed directly,
+     * otherwise they will be placed in the queue and executed as soon as possible.
+     */
+    addBulk(jobs: Array<{name?: string, data: T, opts?: JobOptions}>): Promise<Array<Job<T>>>;
+
+    /**
      * Returns a promise that resolves when the queue is paused.
      *
      * A paused queue will not process new jobs until resumed, but current jobs being processed will continue until
@@ -584,9 +599,12 @@ declare namespace Bull {
      * for a given queue will be paused. If local, just this worker will stop processing new jobs after the current
      * lock expires. This can be useful to stop a worker from taking new jobs prior to shutting down.
      *
+     * If doNotWaitActive is true, pause will not wait for any active jobs to finish before resolving. Otherwise, pause
+     * will wait for active jobs to finish. See Queue#whenCurrentJobsFinished for more information.
+     *
      * Pausing a queue that is already paused does nothing.
      */
-    pause(isLocal?: boolean): Promise<void>;
+    pause(isLocal?: boolean, doNotWaitActive?: boolean): Promise<void>;
 
     /**
      * Returns a promise that resolves when the queue is resumed after being paused.
@@ -681,10 +699,10 @@ declare namespace Bull {
     removeRepeatableByKey(key: string): Promise<void>;
 
     /**
-     * Returns a promise that will return an array of job instances of the given types.
+     * Returns a promise that will return an array of job instances of the given job statuses.
      * Optional parameters for range and ordering are provided.
      */
-    getJobs(types: string[], start?: number, end?: number, asc?: boolean): Promise<Array<Job<T>>>;
+    getJobs(types: JobStatus[], start?: number, end?: number, asc?: boolean): Promise<Array<Job<T>>>;
 
     /**
      * Returns a object with the logs according to the start and end arguments. The returned count
@@ -698,9 +716,9 @@ declare namespace Bull {
     getJobCounts(): Promise<JobCounts>;
 
     /**
-     * Returns a promise that resolves with the job counts for the given queue of the given types.
+     * Returns a promise that resolves with the job counts for the given queue of the given job statuses.
      */
-    getJobCountByTypes(types: string[] | string): Promise<JobCounts>;
+    getJobCountByTypes(types: JobStatus[] | JobStatus): Promise<JobCounts>;
 
     /**
      * Returns a promise that resolves with the quantity of completed jobs.
@@ -862,6 +880,12 @@ declare namespace Bull {
      * Returns a promise that resolves when active jobs are finished
      */
     whenCurrentJobsFinished(): Promise<void>;
+
+    /**
+     * Removes all the jobs which jobId matches the given pattern. The pattern must follow redis glob-style pattern
+     * (syntax)[redis.io/commands/keys]
+     */
+    removeJobs(pattern: string): Promise<void>;
   }
 
   type EventCallback = () => void;

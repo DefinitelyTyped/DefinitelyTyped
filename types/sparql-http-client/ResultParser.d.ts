@@ -9,7 +9,7 @@ declare namespace ResultParser {
     }
 }
 
-declare class ResultParser<Q extends BaseQuad = Quad>  extends Duplex {
+declare class ResultParser<Q extends BaseQuad = Quad> extends Duplex {
     constructor(options?: ResultParser.ResultParserInit<Q>)
 }
 

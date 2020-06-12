@@ -71,7 +71,7 @@ declare module Blaze {
     interface TemplateInstance {
         $(selector: string): any;
         autorun(runFunc: (computation: Tracker.Computation) => void): Tracker.Computation;
-        data: Object;
+        data: Record<string, any>;
         find(selector: string): HTMLElement;
         findAll(selector: string): HTMLElement[];
         firstNode: Object;

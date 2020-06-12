@@ -17,19 +17,17 @@ declare global {
 
     /**
      * Opens a file, reading all its contents into memory.
-     * https://docs.k6.io/docs/open-filepath-mode
+     * https://k6.io/docs/javascript-api/init-context/open-filepath-mode
      * @param filePath - Path to file.
      * @returns File contents decoded as UTF-8.
-     * @public
      */
     function open(filePath: string): string;
 
     /**
      * Opens a file, reading all its contents into memory.
-     * https://docs.k6.io/docs/open-filepath-mode
+     * https://k6.io/docs/javascript-api/init-context/open-filepath-mode
      * @param filePath - Path to file.
      * @returns Binary file contents.
-     * @public
      */
     function open(filePath: string, mode: 'b'): bytes;
 
@@ -38,8 +36,7 @@ declare global {
 
     /**
      * Environment variables.
-     * https://docs.k6.io/docs/environment-variables
-     * @public
+     * https://k6.io/docs/using-k6/environment-variables
      */
     const __ENV: { [name: string]: string };
 
@@ -48,26 +45,22 @@ declare global {
 
     /**
      * Interface to system console.
-     * @public
      */
     let console: Console;
 
     /**
      * Current VU number.
-     * https://docs.k6.io/docs/execution-context-variables
-     * @public
+     * https://k6.io/docs/using-k6/execution-context-variables
      */
     const __VU: number;
 
     /**
      * Current iteration number.
-     * https://docs.k6.io/docs/execution-context-variables
-     * @public
+     * https://k6.io/docs/using-k6/execution-context-variables
      */
     const __ITER: number;
 }
 
-/** @public */
 interface Console {
     /** Log debug message. */
     debug: Logger;
@@ -87,7 +80,6 @@ interface Console {
 
 /**
  * Log message procedure.
- * @public
  */
 interface Logger {
     /**

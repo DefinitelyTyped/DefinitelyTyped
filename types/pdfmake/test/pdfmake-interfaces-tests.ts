@@ -5,6 +5,8 @@ import {
     ContentSvg,
     ContentUnorderedList,
     TDocumentDefinitions,
+    BufferOptions,
+    CustomTableLayout,
 } from 'pdfmake/interfaces';
 
 const createContent: () => Content = () => 'allo';
@@ -236,3 +238,32 @@ const image2: ContentImage = {
     image: 'test',
     fit: [50, 50],
 };
+
+const bufferOptions: BufferOptions = {
+    fontLayoutCache: true,
+    bufferPages: true,
+    tableLayouts: { foo: { fillColor: '#ff0000' } },
+    autoPrint: true,
+    progressCallback: (progress: number) => {}
+};
+
+const customTableLayouts: CustomTableLayout[] = [
+    {},
+    { hLineWidth: () => 50 },
+    { vLineWidth: () => 50 },
+    { hLineColor: () => '#ff0000' },
+    { hLineColor: '#ff0000' },
+    { vLineColor: () => '#ff0000' },
+    { vLineColor: '#ff0000' },
+    { hLineStyle: () => ({ dash: { length: 10, space: 5 }}) },
+    { vLineStyle: () => ({ dash: { length: 10, space: 5 }}) },
+    { fillColor: () => '#ff0000' },
+    { fillColor: '#ff0000' },
+    { paddingLeft: () => 50 },
+    { paddingRight: () => 50 },
+    { paddingTop: () => 50 },
+    { paddingBottom: () => 50 },
+    { fillOpacity: () => 50 },
+    { fillOpacity: 50 },
+    { defaultBorder: true }
+];

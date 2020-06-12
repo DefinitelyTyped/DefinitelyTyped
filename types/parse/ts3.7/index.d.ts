@@ -266,10 +266,19 @@ namespace Parse {
          * @returns Promise that is resolved with base64 data
          */
         getData(): Promise<string>;
+        url(options?: { forceSecure?: boolean }): string;
+        metadata(): Record<string, any>;
+        tags(): Record<string, any>;
         name(): string;
         save(options?: SuccessFailureOptions): Promise<File>;
+        cancel(): void;
+        destroy(): Promise<File>;
         toJSON(): { __type: string, name: string, url: string };
-        url(options?: { forceSecure: boolean }): string;
+        equals(other: File): boolean;
+        setMetadata(metadata: Record<string, any>): void;
+        addMetadata(key: string, value: any): void;
+        setTags(tags: Record<string, any>): void;
+        addTag(key: string, value: any): void;
     }
 
     /**
@@ -395,6 +404,7 @@ namespace Parse {
         getACL(): ACL | undefined;
         has(attr: Extract<keyof T, string>): boolean;
         increment(attr: Extract<keyof T, string>, amount?: number): this | false;
+        decrement(attr: Extract<keyof T, string>, amount?: number): this | false;
         initialize(): void;
         isDataAvailable(): boolean;
         isNew(): boolean;
@@ -630,15 +640,24 @@ namespace Parse {
             X extends Extract<keyof U['attributes'], string>>(key: K, queryKey: X, query: Query<U>): this;
         doesNotMatchQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
         distinct<K extends keyof T['attributes'], V = T['attributes'][K]>(key: K): Promise<V>;
-        each(callback: (obj: T) => PromiseLike<void> | void, options?: Query.EachOptions): Promise<void>;
+        eachBatch(callback: (objs: T[]) => PromiseLike<void> | void, options?: Query.BatchOptions): Promise<void>;
+        each(callback: (obj: T) => PromiseLike<void> | void, options?: Query.BatchOptions): Promise<void>;
+        hint(value: string | object): this;
+        explain(explain: boolean): this;
+        map<U>(callback: (currentObject: T, index: number, query: Query) => PromiseLike<U> | U, options?: Query.BatchOptions): Promise<U[]>;
+        reduce(callback: (accumulator: T, currentObject: T, index: number) => PromiseLike<T> | T, initialValue?: undefined, options?: Query.BatchOptions): Promise<T>;
+        reduce<U>(callback: (accumulator: U, currentObject: T, index: number) => PromiseLike<U> | U, initialValue: U, options?: Query.BatchOptions): Promise<U>;
+        filter(callback: (currentObject: T, index: number, query: Query) => PromiseLike<boolean> | boolean, options?: Query.BatchOptions): Promise<T[]>;
         endsWith<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, suffix: string): this;
         equalTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K] | (T['attributes'][K] extends Object ? Pointer : never)): this;
         exists<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K): this;
         find(options?: Query.FindOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
-        fromLocalDatastore(): void;
-        fromPin(): void;
-        fromPinWithName(name: string): void;
+        fromNetwork(): this;
+        fromLocalDatastore(): this;
+        fromPin(): this;
+        fromPinWithName(name: string): this;
+        cancel(): this;
         fullText<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: string, options?: Query.FullTextOptions): this;
         get(objectId: string, options?: Query.GetOptions): Promise<T>;
         greaterThan<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K]): this;
@@ -692,6 +711,10 @@ namespace Parse {
             language?: string;
             caseSensitive?: boolean;
             diacriticSensitive?: boolean;
+        }
+
+        interface BatchOptions extends FullOptions {
+            batchSize?: number;
         }
     }
 
@@ -866,7 +889,7 @@ namespace Parse {
         extend(protoProps?: any, classProps?: any): any;
         hydrate<T extends User>(userJSON: any): Promise<T>;
         enableUnsafeCurrentUser(): void;
-        logInWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<User>;
+        logInWith<T extends User>(provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions): Promise<T>;
         _registerAuthenticationProvider: (provider: AuthProvider) => void;
     }
     const User: UserConstructor;
@@ -1081,6 +1104,12 @@ namespace Parse {
             context: object;
         }
 
+        interface FileTriggerRequest extends TriggerRequest {
+            file: File;
+            fileSize: number;
+            contentLength: number;
+        }
+
         // Read preference describes how MongoDB driver route read operations to the members of a replica set.
         enum ReadPreferenceOption {
             Primary = 'PRIMARY',
@@ -1110,7 +1139,16 @@ namespace Parse {
             func?: (request: BeforeFindRequest) => Promise<Query> | Promise<void> | Query | void
         ): void;
         function afterFind(arg1: any, func?: (request: AfterFindRequest) => any): void;
-        function beforeLogin(func?: (request: TriggerRequest) => any): void;
+
+        function beforeLogin(func?: (request: TriggerRequest) => PromiseLike<void> | void): void;
+        function afterLogin(func?: (request: TriggerRequest) => PromiseLike<void> | void): void;
+        function afterLogout(func?: (request: TriggerRequest) => PromiseLike<void> | void): void;
+
+        function beforeSaveFile(func?: (request: FileTriggerRequest) => PromiseLike<File> | void): void;
+        function afterSaveFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void): void;
+        function beforeDeleteFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void): void;
+        function afterDeleteFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void): void;
+
         function define(name: string, func: (request: FunctionRequest) => any): void;
         function define<T extends () => any>(
             name: string,

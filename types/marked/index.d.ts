@@ -137,8 +137,8 @@ declare namespace marked {
         codespan(code: string): string;
         br(): string;
         del(text: string): string;
-        link(href: string, title: string, text: string): string;
-        image(href: string, title: string, text: string): string;
+        link(href: string | null, title: string | null, text: string): string;
+        image(href: string | null, title: string | null, text: string): string;
         text(text: string): string;
     }
 
@@ -148,8 +148,8 @@ declare namespace marked {
         codespan(text: string): string;
         del(text: string): string;
         text(text: string): string;
-        link(href: string, title: string, text: string): string;
-        image(href: string, title: string, text: string): string;
+        link(href: string | null, title: string | null, text: string): string;
+        image(href: string | null, title: string | null, text: string): string;
         br(): string;
     }
 
@@ -190,7 +190,7 @@ declare namespace marked {
 
     type TokensList = Token[] & {
         links: {
-            [key: string]: { href: string; title: string; }
+            [key: string]: { href: string | null; title: string | null; }
         }
     };
 

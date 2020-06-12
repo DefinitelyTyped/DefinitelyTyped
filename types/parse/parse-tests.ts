@@ -99,6 +99,10 @@ function test_query() {
     query.notEqualTo('playerName', 'Michael Yabuti');
     query.fullText('playerName', 'dan', { language: 'en', caseSensitive: false, diacriticSensitive: true });
     query.greaterThan('playerAge', 18);
+    query.eachBatch((objs) => Promise.resolve(), {batchSize: 10});
+    query.each((score) => Promise.resolve());
+    query.hint('_id_');
+    query.explain(true);
     query.limit(10);
     query.skip(10);
 
@@ -181,6 +185,12 @@ async function test_query_promise() {
     } catch (error) {
         // noop
     }
+
+    await getQuery.map((score, index) => score.increment("score", index));
+    await getQuery.reduce((accum, score, index) => accum + score.get("score"), 0);
+    await getQuery.reduce((accum, score, index) => accum + score.get("score"), 0, { batchSize: 200 });
+    await getQuery.filter((scores) => scores.get('score') > 0);
+    await getQuery.filter((scores) => scores.get('score') > 0, { batchSize: 10 });
 }
 
 async function test_live_query() {
@@ -242,6 +252,7 @@ function test_file() {
     file = new Parse.File('myfile.zzz', new Blob(), 'image/png');
 
     const src = file.url();
+    const secure = file.url({forceSecure: true});
 
     file.save().then(
         () => {
@@ -255,8 +266,25 @@ function test_file() {
     Parse.Cloud.httpRequest({ url: file.url() }).then((response: Parse.Cloud.HttpResponse) => {
         // result
     });
-
     // TODO: Check
+
+    file.cancel();
+    file.destroy();
+}
+
+function test_file_tags_and_metadata() {
+    const base64 = 'V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=';
+    const file = new Parse.File('myfile.txt', { base64 });
+    file.setTags({ownerId: 42, status: "okay"});
+    file.addTag('labes', ['one', 'two', 'three']);
+    file.setMetadata({contentType: 'plain/text', contentLength: 579});
+    file.addMetadata('author', 'John Doe');
+
+    const tags = file.tags();
+    const ownerId = tags['ownerId'];
+
+    const metadata = file.metadata();
+    const contentType = metadata['contentType'];
 }
 
 function test_analytics() {
@@ -562,7 +590,28 @@ async function test_cloud_functions() {
     });
 
     Parse.Cloud.beforeLogin((request: Parse.Cloud.TriggerRequest) => {
-        return 'Some result';
+        return Promise.resolve();
+    });
+
+    Parse.Cloud.afterLogin((request: Parse.Cloud.TriggerRequest) => {
+        return Promise.resolve();
+    });
+
+    Parse.Cloud.afterLogout((request: Parse.Cloud.TriggerRequest) => {
+        return Promise.resolve();
+    });
+
+    Parse.Cloud.beforeSaveFile((request: Parse.Cloud.FileTriggerRequest) => {
+        return Promise.resolve(new Parse.File("myFile.txt", {base64: ''}));
+    });
+
+    Parse.Cloud.beforeSaveFile((request: Parse.Cloud.FileTriggerRequest) => {
+    });
+
+    Parse.Cloud.beforeDeleteFile((request: Parse.Cloud.FileTriggerRequest) => {
+    });
+
+    Parse.Cloud.afterDeleteFile((request: Parse.Cloud.FileTriggerRequest) => {
     });
 
     Parse.Cloud.define('AFunc', (request: Parse.Cloud.FunctionRequest) => {
@@ -762,6 +811,23 @@ async function test_local_datastore() {
     query.fromLocalDatastore();
 
     Parse.setLocalDatastoreController({});
+}
+
+async function test_from_network() {
+    const obj = new Parse.Object('TestObject');
+    await obj.save();
+
+    const query = new Parse.Query('TestObject');
+    query.fromNetwork();
+}
+
+async function test_cancel_query() {
+    const obj = new Parse.Object('TestObject');
+    await obj.save();
+
+    const query = new Parse.Query('TestObject');
+    query.fromNetwork().find();
+    query.cancel();
 }
 
 type FieldType = string | number | boolean | Date | Parse.File | Parse.GeoPoint | any[] | object | Parse.Pointer | Parse.Polygon | Parse.Relation;
@@ -1091,6 +1157,26 @@ function testObject() {
 
         // $ExpectError
         objTyped.increment('other');
+    }
+
+    function testDecrement(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: number }>) {
+        // $ExpectType false | Object<Attributes>
+        objUntyped.decrement('whatever');
+
+        // $ExpectType false | Object<Attributes>
+        objUntyped.decrement('whatever', 10);
+
+        // $ExpectType false | Object<{ example: number; }>
+        objTyped.decrement('example');
+
+        // $ExpectType false | Object<{ example: number; }>
+        objTyped.decrement('example', 20);
+
+        // $ExpectError
+        objTyped.decrement('example', true);
+
+        // $ExpectError
+        objTyped.decrement('other');
     }
 
     function testNewInstance(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: number }>) {

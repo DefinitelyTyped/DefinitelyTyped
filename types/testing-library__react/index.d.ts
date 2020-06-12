@@ -8,7 +8,7 @@
 //                 Daniel Afonso <https://github.com/danieljcafonso>
 //                 Tim Swalling <https://github.com/timswalling>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.1
 
 import { OptionsReceived as PrettyFormatOptions } from 'pretty-format';
 import { queries, Queries, BoundFunction } from '@testing-library/dom';

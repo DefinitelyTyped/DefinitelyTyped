@@ -1,4 +1,4 @@
-import { EventsKey } from './events';
+import { EventsKey, ListenerFunction } from './events';
 import BaseEvent from './events/Event';
 import BaseObject, { ObjectEvent } from './Object';
 
@@ -19,9 +19,9 @@ export default class Collection<T> extends BaseObject {
     remove(elem: T): T;
     removeAt(index: number): T;
     setAt(index: number, elem: T): void;
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'add', listener: (evt: CollectionEvent<T>) => void): EventsKey;
     once(type: 'add', listener: (evt: CollectionEvent<T>) => void): EventsKey;
     un(type: 'add', listener: (evt: CollectionEvent<T>) => void): void;

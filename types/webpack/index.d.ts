@@ -7,8 +7,6 @@
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Jonathan Creamer <https://github.com/jcreamer898>
 //                 Alan Agius <https://github.com/alan-agius4>
-//                 Spencer Elliott <https://github.com/elliottsj>
-//                 Jason Cheatham <https://github.com/jason0x43>
 //                 Dennis George <https://github.com/dennispg>
 //                 Christophe Hurpeau <https://github.com/christophehurpeau>
 //                 ZSkycat <https://github.com/ZSkycat>
@@ -22,11 +20,13 @@
 //                 Daniel Chin <https://github.com/danielthank>
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Dion Shi <https://github.com/dionshihk>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
 
+import { Hash as CryptoHash } from 'crypto';
 import {
   Tapable,
   HookMap,
@@ -407,7 +407,21 @@ declare namespace webpack {
         [key: string]: boolean | string | string[] | Record<string, string | string[]>;
     }
 
-    type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;
+    interface ExternalsFunctionCallback {
+        /**
+         * Invoke with no arguments to not externalize
+         */
+        (): void;
+        /**
+         * Callback with an Error
+         */
+        (error: {}): void; /* tslint:disable-line */
+        /**
+         * Externalize the dependency
+         */
+        (error: null, result: string | string[] | ExternalsObjectElement, type?: string): void;
+    }
+    type ExternalsFunctionElement = (context: any, request: any, callback: ExternalsFunctionCallback) => any;
 
     interface Node {
         console?: boolean | 'mock';
@@ -923,11 +937,43 @@ declare namespace webpack {
             toString(): string;
         }
 
+        type GroupOptions = string | { name?: string; };
+
         class ChunkGroup {
+            chunks: Chunk[];
+            childrenIterable: SortableSet<ChunkGroup>;
+            parentsIterable: SortableSet<ChunkGroup>;
+            insertChunk(chunk: Chunk, before: Chunk): boolean;
+            getNumberOfChildren(): number;
+            setModuleIndex(module: Module, index: number): void;
+            getModuleIndex(module: Module): number | undefined;
+            setModuleIndex2(module: Module, index: number): void;
+            getModuleIndex2(module: Module): number | undefined;
+            addChild(chunk: ChunkGroup): boolean;
+            removeChild(chunk: ChunkGroup): boolean;
+            setParents(newParents: Iterable<ChunkGroup>): void;
         }
 
         class ChunkHash {
         }
+
+        interface SourcePosition {
+            line: number;
+            column?: number;
+        }
+
+        interface RealDependencyLocation {
+            start: SourcePosition;
+            end?: SourcePosition;
+            index?: number;
+        }
+
+        interface SynteticDependencyLocation {
+            name: string;
+            index?: number;
+        }
+
+        type DependencyLocation = SynteticDependencyLocation | RealDependencyLocation;
 
         class Dependency {
             constructor();
@@ -1120,9 +1166,13 @@ declare namespace webpack {
         class MainTemplate extends Tapable {
           hooks: {
             jsonpScript?: SyncWaterfallHook<string, Chunk, string>;
+            require: SyncWaterfallHook<string, Chunk, string>;
             requireExtensions: SyncWaterfallHook<string, Chunk, string>;
             requireEnsure: SyncWaterfallHook<string, Chunk, string>;
             localVars: SyncWaterfallHook<string, Chunk, string>;
+            afterStartup: SyncWaterfallHook<string, Chunk, string>;
+            hash: SyncHook<CryptoHash>;
+            hashForChunk: SyncHook<CryptoHash, Chunk>;
           };
           outputOptions: Output;
           requireFn: string;
@@ -1201,10 +1251,22 @@ declare namespace webpack {
             missingDependencies: SortableSet<string>;
             hash?: string;
             getStats(): Stats;
+            addChunkInGroup(groupOptions: GroupOptions): ChunkGroup;
+            addChunkInGroup(groupOptions: GroupOptions, module: Module, loc: DependencyLocation, request: string): ChunkGroup;
             addModule(module: CompilationModule, cacheGroup: any): any;
             // tslint:disable-next-line:ban-types
             addEntry(context: any, entry: any, name: any, callback: Function): void;
-            getPath(filename: string, data: {hash?: any, chunk?: any, filename?: string, basename?: string, query?: any}): string;
+
+            getPath(filename: string, data: {
+                hash?: any,
+                chunk?: any,
+                filename?: string,
+                basename?: string,
+                query?: any,
+                contentHashType?: string,
+                contentHash?: string,
+            }): string;
+
             /**
              * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
              */
@@ -1372,20 +1434,33 @@ declare namespace webpack {
         apply(resolver: any /* EnhancedResolve.Resolver */): void;
     }
 
-    abstract class Stats {
+    class Stats {
         compilation: compilation.Compilation;
         hash?: string;
         startTime?: number;
         endTime?: number;
+
+        static filterWarnings(
+          warnings: string[],
+          warningsFilter?: Array<string | RegExp | ((warning: string) => boolean)>
+        ): string[];
         /**
          * Returns the default json options from the stats preset.
          * @param preset The preset to be transformed into json options.
          */
         static presetToOptions(preset?: Stats.Preset): Stats.ToJsonOptionsObject;
+
+        constructor(compilation: compilation.Compilation);
+
+        formatFilePath(filePath: string): string;
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
         /** Returns true if there were warnings while compiling. */
         hasWarnings(): boolean;
+        /** Remove a prefixed "!" that can be specified to reverse sort order */
+        normalizeFieldKey(field: string): string;
+        /** if a field is prefixed by a "!" reverse sort order */
+        sortOrderRegular(field: string): boolean;
         /** Returns compilation information as a JSON object. */
         toJson(options?: Stats.ToJsonOptions, forToString?: boolean): Stats.ToJsonOutput;
         /** Returns a formatted string of the compilation information (similar to CLI output). */
@@ -1787,6 +1862,10 @@ declare namespace webpack {
 
     class ExtendedAPIPlugin extends Plugin {
         constructor();
+    }
+
+    class ExternalsPlugin extends Plugin {
+        constructor(type: string, externals: ExternalsElement);
     }
 
     class HashedModuleIdsPlugin extends Plugin {

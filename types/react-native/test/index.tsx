@@ -96,6 +96,9 @@ import {
     HostComponent,
     Appearance,
     useColorScheme,
+    DevSettings,
+    VirtualizedList,
+    ListRenderItemInfo,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -408,6 +411,9 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
             </View>
         );
     };
+    _cellRenderer = ({ children }: any) => {
+        return <View>{children}</View>;
+    };
 
     _renderSeparator = () => <View style={{ height: 1, width: '100%', backgroundColor: 'gray' }} />;
 
@@ -422,6 +428,7 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
                 ListFooterComponentStyle={{ padding: 8 }}
                 ListHeaderComponent={null}
                 ListHeaderComponentStyle={{ padding: 8 }}
+                CellRendererComponent={this._cellRenderer}
                 fadingEdgeLength={200}
             />
         );
@@ -457,6 +464,10 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
             },
         ];
 
+        const cellRenderer = ({ children }: any) => {
+            return <View>{children}</View>;
+        };
+
         return (
             <React.Fragment>
                 <Button title="Press" onPress={this.scrollMe} />
@@ -474,6 +485,7 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                             <Text>{`${info.section.title} - ${info.item}`}</Text>
                         </View>
                     )}
+                    CellRendererComponent={cellRenderer}
                     maxToRenderPerBatch={5}
                 />
             </React.Fragment>
@@ -863,7 +875,6 @@ class AccessibilityTest extends React.Component {
                 accessibilityTraits={'none'}
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
-                accessibilityStates={['selected']}
                 accessibilityState={{ checked: true }}
                 accessibilityHint="Very importent header"
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
@@ -882,6 +893,47 @@ class AccessibilityTest extends React.Component {
 const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then(isEnabled => {
     console.log(isEnabled);
 });
+
+AccessibilityInfo.isBoldTextEnabled().then(isEnabled =>
+    console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
+);
+AccessibilityInfo.isGrayscaleEnabled().then(isEnabled =>
+    console.log(`AccessibilityInfo.isGrayscaleEnabled => ${isEnabled}`),
+);
+AccessibilityInfo.isInvertColorsEnabled().then(isEnabled =>
+    console.log(`AccessibilityInfo.isInvertColorsEnabled => ${isEnabled}`),
+);
+AccessibilityInfo.isReduceMotionEnabled().then(isEnabled =>
+    console.log(`AccessibilityInfo.isReduceMotionEnabled => ${isEnabled}`),
+);
+AccessibilityInfo.isReduceTransparencyEnabled().then(isEnabled =>
+    console.log(`AccessibilityInfo.isReduceTransparencyEnabled => ${isEnabled}`),
+);
+AccessibilityInfo.isScreenReaderEnabled().then(isEnabled =>
+    console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
+);
+
+AccessibilityInfo.addEventListener('announcementFinished', ({ announcement, success }) =>
+    console.log(`A11y Event: announcementFinished: ${announcement}, ${success}`),
+);
+AccessibilityInfo.addEventListener('boldTextChanged', isEnabled =>
+    console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
+);
+AccessibilityInfo.addEventListener('grayscaleChanged', isEnabled =>
+    console.log(`AccessibilityInfo.isGrayscaleEnabled => ${isEnabled}`),
+);
+AccessibilityInfo.addEventListener('invertColorsChanged', isEnabled =>
+    console.log(`AccessibilityInfo.isInvertColorsEnabled => ${isEnabled}`),
+);
+AccessibilityInfo.addEventListener('reduceMotionChanged', isEnabled =>
+    console.log(`AccessibilityInfo.isReduceMotionEnabled => ${isEnabled}`),
+);
+AccessibilityInfo.addEventListener('reduceTransparencyChanged', isEnabled =>
+    console.log(`AccessibilityInfo.isReduceTransparencyEnabled => ${isEnabled}`),
+);
+AccessibilityInfo.addEventListener('screenReaderChanged', isEnabled =>
+    console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
+);
 
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
@@ -1085,3 +1137,34 @@ const DarkMode = () => {
 
     return <Text>Is dark mode enabled? {isDarkMode}</Text>;
 };
+
+// VirtualizedList
+// Test inspired by: https://reactnative.dev/docs/virtualizedlist
+const VirtualizedListTest = () => {
+    const DATA = [1, 2, 3];
+
+    const getItem = (data: number[], index: number) => {
+        return {
+            title: `Item ${data[index]}`,
+        };
+    };
+
+    const getItemCount = (data: number[]) => data.length;
+
+    return (
+        <VirtualizedList
+            data={DATA}
+            initialNumToRender={4}
+            renderItem={({ item }: ListRenderItemInfo<ReturnType<typeof getItem>>) => <Text>{item.title}</Text>}
+            getItemCount={getItemCount}
+            getItem={getItem}
+        />
+    );
+};
+
+// DevSettings
+DevSettings.addMenuItem('alert', () => {
+    Alert.alert('alert');
+});
+DevSettings.reload();
+DevSettings.reload('reload with reason');
