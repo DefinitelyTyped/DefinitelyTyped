@@ -603,8 +603,12 @@ let marker = new mapboxgl.Marker(undefined, {
     .setRotationAlignment("viewport")
     .addTo(map);
 
-expectType<mapboxgl.Alignment>(marker.getPitchAlignment());
-expectType<mapboxgl.Alignment>(marker.getRotationAlignment());
+// $ExpectType Alignment
+marker.getPitchAlignment();
+
+// $ExpectType Alignment
+marker.getRotationAlignment();
+
 marker.remove();
 
 /*
