@@ -62,3 +62,5 @@ infoWindow.setPosition({ lat: 0, lng: 0 });
 infoWindow.setPosition(new LatLng(0, 0));
 
 infoWindow.setZIndex(0);
+
+export {};
