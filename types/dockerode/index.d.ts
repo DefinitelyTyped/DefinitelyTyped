@@ -431,8 +431,8 @@ declare namespace Dockerode {
     /* tslint:disable:interface-name */
     interface IPAM {
         Driver: string;
-        Config?: { [key: string]: string };
-        Options?: Array<{ [key: string]: string }>;
+        Config?: Array<{[key: string]: string }>;
+        Options?: { [key: string]: string };
     }
     /* tslint:enable:interface-name */
 
