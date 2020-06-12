@@ -26,6 +26,13 @@ export abstract class Metric {
 /**
  * Cumulative counter.
  * https://k6.io/docs/javascript-api/k6-metrics/counter-k6-metrics
+ *
+ * @example
+ * // Create instance on init context
+ * const myCounter = new Counter('metricName');
+ * export default function() {
+ *   myCounter.add(1);
+ * }
  */
 export class Counter extends Metric {
     protected __brand: never;
