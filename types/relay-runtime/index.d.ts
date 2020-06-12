@@ -1,4 +1,4 @@
-// Type definitions for relay-runtime 8.0
+// Type definitions for relay-runtime 9.1
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
