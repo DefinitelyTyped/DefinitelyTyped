@@ -194,9 +194,13 @@ fz.filter(['Maybe', 'Me'], 'me', { allowErrors: 'not a boolean' })
 // $ExpectError
 fz.filter(['Maybe', 'Me'], 'me', { key: true })
 // $ExpectError
+fz.filter(['Maybe', 'Me'], 'me', { key: 'should not be here' })
+// $ExpectError
 fz.filter(['Maybe', 'Me'], 'me', { preparedQuery: {} })
 // $ExpectError
 fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', { key: 1 })
+// $ExpectError
+fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', { key: 'invalid key' })
 // $ExpectError
 fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', { allowErrors: 'not a boolean', key: 1 })
 // $ExpectError
