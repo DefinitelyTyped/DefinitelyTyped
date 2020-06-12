@@ -197,13 +197,21 @@ declare namespace mapboxgl {
 
         setMaxBounds(lnglatbounds?: LngLatBoundsLike): this;
 
-        setMinZoom(minZoom?: number): this;
+        setMinZoom(minZoom?: number | null): this;
 
         getMinZoom(): number;
 
-        setMaxZoom(maxZoom?: number): this;
+        setMaxZoom(maxZoom?: number | null): this;
 
         getMaxZoom(): number;
+
+        setMinPitch(minPitch?: number | null): this;
+
+        getMinPitch(): number;
+
+        setMaxPitch(maxPitch?: number | null): this;
+
+        getMaxPitch(): number;
 
         getRenderWorldCopies(): boolean;
 
@@ -606,16 +614,16 @@ declare namespace mapboxgl {
         /** If set, the map is constrained to the given bounds. */
         maxBounds?: LngLatBoundsLike;
 
-        /** Maximum pitch of the map */
+        /** Maximum pitch of the map. */
         maxPitch?: number;
 
-        /** Maximum zoom of the map */
+        /** Maximum zoom of the map. */
         maxZoom?: number;
 
-        /** Minimum pitch of the map */
+        /** Minimum pitch of the map. */
         minPitch?: number;
 
-        /** Minimum zoom of the map */
+        /** Minimum zoom of the map. */
         minZoom?: number;
 
         /** If true, The maps canvas can be exported to a PNG using map.getCanvas().toDataURL();. This is false by default as a performance optimization. */
@@ -844,17 +852,17 @@ declare namespace mapboxgl {
         enableRotation(): void;
     }
 
-     export class TouchPitchHandler {
-         constructor(map: mapboxgl.Map);
+    export class TouchPitchHandler {
+        constructor(map: mapboxgl.Map);
 
-         enable(): void;
+        enable(): void;
 
-         isActive(): boolean;
+        isActive(): boolean;
 
-         isEnabled(): boolean;
+        isEnabled(): boolean;
 
-         disable(): void;
-     }
+        disable(): void;
+    }
 
     export interface IControl {
         onAdd(map: Map): HTMLElement;
