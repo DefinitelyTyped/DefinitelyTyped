@@ -11,8 +11,8 @@ declare module "prlimit" {
 	function prlimit (
 		pid: number,
 		resource: number | ResourceLimit,
-		new_limit: Limit
+		new_limit?: Limit
 	) : Limit;
 
-	export = prlimit;
+	export default prlimit;
 }
