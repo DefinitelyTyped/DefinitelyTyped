@@ -2,8 +2,10 @@ declare module 'guacamole-client' {
   export class Object {
     static readonly ROOT_STREAM: string;
     static readonly STREAM_INDEX_MIMETYPE: string;
-    constructor(public client: Client, public index: number);
-    requestInputStream(name: string, bodyCallback?: (stream: InputStream, mimetype: string) => void);
+    constructor(client: Client, index: number);
+    readonly client: Client;
+    readonly index: number;
+    requestInputStream(name: string, bodyCallback?: (stream: InputStream, mimetype: string) => void): void;
     onbody: null | ((stream: InputStream, mimetype: string) => void);
   }
 
@@ -28,12 +30,12 @@ declare module 'guacamole-client' {
     UNSTABLE: 3;
   }>;
 
-  declare namespace Tunnel {
+  export namespace Tunnel {
     export type State = TunnelState[keyof TunnelState];
   }
 
   export class Tunnel {
-    static readonly State: typeof TunnelState;
+    static readonly State: TunnelState;
     receiveTimeout: number;
     state: Tunnel.State;
     uuid: string;
@@ -41,7 +43,7 @@ declare module 'guacamole-client' {
     connect(data: string): void;
     disconnect(): void;
     isConnected(): boolean;
-    sendMessage(message: any, ...messages: any[]);
+    sendMessage(message: any, ...messages: any[]): void;
 
     oninstruction: null | ((opcode: string, args: any[]) => void);
     onstatechange: null | ((state: Tunnel.State) => void);
@@ -50,6 +52,7 @@ declare module 'guacamole-client' {
 
   export class WebSocketTunnel extends Tunnel {
     constructor(url: string);
+    readonly url: string;
   }
 
   export class Layer {
@@ -59,7 +62,9 @@ declare module 'guacamole-client' {
   type LineCap = 'round' | 'square' | 'butt';
   type LineJoin = 'round' | 'bevel' | 'mitter';
   export class VisibleLayer {
-    constructor(public width: number, public height: number);
+    constructor(width: number, height: number);
+    width: number;
+    height: number;
 
     getCanvas(): HTMLCanvasElement;
     distort(a: number, b: number, c: number, d: number, e: number, f: number): void;
@@ -86,7 +91,9 @@ declare module 'guacamole-client' {
   }
 
   export class InputStream {
-    constructor(public client: Client, public index: number);
+    constructor(client: Client, index: number);
+    readonly client: Client;
+    readonly index: number;
 
     sendAck(message: string, code: Status.Code): void;
 
@@ -95,7 +102,8 @@ declare module 'guacamole-client' {
   }
 
   export class JSONReader {
-    constructor(public stream: InputStream);
+    constructor(stream: InputStream);
+    readonly stream: InputStream;
 
     onprogress: null | ((length: number) => void);
     onend: null | (() => void);
@@ -199,16 +207,18 @@ declare module 'guacamole-client' {
     CLIENT_TOO_MANY: 0x031d;
   }>;
 
-  declare namespace Status {
+  export namespace Status {
     export type Code = StatusCode[keyof StatusCode];
   }
 
   export class Status {
-    static readonly Code: typeof StatusCode;
-    constructor(public code: Status.Code, public message?: string);
+    static readonly Code: StatusCode;
+    constructor(code: Status.Code, message?: string);
+    readonly code: Status.Code;
+    readonly message?: string;
   }
 
-  declare namespace Display {
+  export namespace Display {
     export type VisibleLayer = typeof VisibleLayer;
   }
 
@@ -231,24 +241,34 @@ declare module 'guacamole-client' {
 
   class MouseState {
     constructor(
-      public x: number,
-      public y: number,
-      public left: boolean,
-      public middle: boolean,
-      public right: boolean,
-      public up: boolean,
-      public down: boolean
+      x: number,
+      y: number,
+      left: boolean,
+      middle: boolean,
+      right: boolean,
+      up: boolean,
+      down: boolean
     );
+
+    readonly x: number;
+    readonly y: number;
+    readonly left: boolean;
+    readonly middle: boolean;
+    readonly right: boolean;
+    readonly up: boolean;
+    readonly down: boolean;
   }
 
   export class OutputStream {
-    constructor(public client: Client, public index: number);
+    constructor(client: Client, index: number);
+    readonly client: Client;
+    readonly index: number;
     sendBlob(data64: string): void;
     sendEnd(): void;
     onack: null | (() => void);
   }
 
-  declare namespace Client {
+  export namespace Client {
     export type State =
       | 0 // IDLE
       | 1 // CONNECTING
@@ -261,15 +281,17 @@ declare module 'guacamole-client' {
   export class Client {
     constructor(tunnel: WebSocketTunnel);
 
+    readonly tunnel: WebSocketTunnel;
+
     disconnect(): void;
-    connect(data?: any);
+    connect(data?: any): void;
     createFileStream(mimetype: string, filename: string): OutputStream;
     endStream(index: number): void;
     // 1.0.0
     // sendKeyEvent(pressed: boolean, keysym: number): void;
     // 0.9.13
     sendKeyEvent(state: number, keysym: number): void;
-    sendMouseState(state: State): void;
+    sendMouseState(state: Client.State): void;
     getDisplay(): Display;
 
     onclipboard: null | ((e: InputStream) => void);
@@ -278,7 +300,7 @@ declare module 'guacamole-client' {
     onfilesystem: null | ((object: Object, name: string) => void);
   }
 
-  declare namespace Keyboard {
+  export namespace Keyboard {
     export class ModifierState {
       static fromKeyboardEvent(event: KeyboardEvent): ModifierState;
       ctrl: boolean;
@@ -295,17 +317,17 @@ declare module 'guacamole-client' {
     onkeydown: null | ((keysym: number) => boolean | void);
     onkeyup: null | ((keysym: number) => void);
     pressed: { [keysym: number]: true };
-    modifiers: ModifierState;
+    modifiers: Keyboard.ModifierState;
     release(keysym: number): void;
     reset(): void;
   }
 
-  declare namespace Mouse {
+  export namespace Mouse {
     export type State = MouseState;
   }
 
   export class Mouse {
-    static readonly State: typeof State;
+    static readonly State: typeof MouseState;
     constructor(element: HTMLDocument | HTMLElement);
 
     currentState: MouseState;

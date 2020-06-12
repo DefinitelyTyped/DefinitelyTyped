@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "target": "es5",                          
+    "module": "ESNext",                    
+    "isolatedModules": true,
+    "strict": true,                         
+    "esModuleInterop": true
+  },
+  "files": ["./guacamole-client.d.ts", "./guacamole-client.spec.ts"],
+  "types": ["typePatches"]
+}
