@@ -4,6 +4,7 @@
 //                 Book Moons <https://github.com/bookmoons>
 //                 na-- <https://github.com/na-->
 //                 Pepe Cano <https://github.com/ppcano>
+//                 Simon Aronsson <https://github.com/simskij>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
