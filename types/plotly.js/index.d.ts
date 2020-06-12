@@ -674,7 +674,8 @@ export type ErrorBar = Partial<ErrorOptions> & ({
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 export type PlotType = 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'indicator' | 'mesh3d' |
     'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
-    'scatterpolar' | 'scatterternary' | 'sunburst' | 'surface' | 'treemap' | 'waterfall' | 'funnel' | 'funnelarea' | 'scattermapbox';
+    'scatterpolar' | 'scatterternary' | 'sunburst' | 'surface' | 'treemap' | 'waterfall' | 'funnel' | 'funnelarea' | 'scattermapbox' |
+    'histogram2d' | 'histogram2dcontour';
 
 export type Data = Partial<PlotData>;
 export type Color = string | number | Array<string | number | undefined | null> | Array<Array<string | number | undefined | null>>;
@@ -725,6 +726,7 @@ export interface PlotData {
     'marker.pad.r': number;
     mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none'
     | 'gauge' | 'number' | 'delta' | 'number+delta' | 'gauge+number' | 'gauge+number+delta' | 'gauge+delta';
+    histnorm: '' | 'percent' | 'probability' | 'density' | 'probability density';
     hoveron: 'points' | 'fills';
     hoverinfo: 'all' | 'name' | 'none' | 'skip' | 'text' |
     'x' | 'x+text' | 'x+name' |
@@ -770,10 +772,17 @@ export interface PlotData {
     transpose: boolean;
     autobinx: boolean;
     xbins: {
-        start: number | string;
-        end: number | string;
-        size: number | string;
+        start?: number | string;
+        end?: number | string;
+        size?: number | string;
     };
+    nbinsx: number;
+    ybins: {
+        start?: number | string;
+        end?: number | string;
+        size?: number | string;
+    };
+    nbinsy: number;
     value: number;
     values: Datum[];
     labels: Datum[];
