@@ -1,4 +1,4 @@
-import kurento, { WebRtcEndpoint} from 'kurento-client';
+import kurento, { WebRtcEndpoint } from 'kurento-client';
 
 async () => {
     const sdpOffer = 'sdpOffer';
@@ -42,7 +42,7 @@ async () => {
     const candidate = new RTCIceCandidate();
 
     const client = await kurento('//server', { failAfter: 500, useImplicitTransactions: true });
-    const endpoint = await client.getMediaobjectById(endpointId) as unknown as WebRtcEndpoint;
+    const endpoint = await client.getMediaobjectById(endpointId) as any as WebRtcEndpoint;
 
     endpoint.addIceCandidate(candidate);
 };
