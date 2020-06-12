@@ -1,25 +1,24 @@
-// Type definitions for koa-graphql 0.10
+// Type definitions for koa-graphql 0.8
 // Project: https://github.com/chentsulin/koa-graphql
 // Definitions by: Matheus Gonçalves da Silva <https://github.com/PlayMa256>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 /// <reference types="node" />
 
-import { Options } from 'koa-graphql';
 import { Context, Request, Response, Middleware } from 'koa';
 import { GraphQLError, GraphQLSchema, GraphQLFieldResolver, ValidationContext, ASTVisitor } from 'graphql';
 import { RequestInfo } from 'express-graphql';
 
 export = graphqlHTTP;
 
-declare function graphqlHTTP(options: Options): Middleware;
+declare function graphqlHTTP(options: graphqlHTTP.Options): Middleware;
 
 declare namespace graphqlHTTP {
-    export type Options = ((request: Request, response: Response, ctx: Context) => OptionsResult) | OptionsResult;
+    type Options = ((request: Request, response: Response, ctx: Context) => OptionsResult) | OptionsResult;
 
-    export type OptionsResult = OptionsData | Promise<OptionsData>;
+    type OptionsResult = OptionsData | Promise<OptionsData>;
 
-    export interface OptionsData {
+    interface OptionsData {
         /**
          * A GraphQL schema from graphql-js.
          */
