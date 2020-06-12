@@ -4,7 +4,7 @@
 //                  Jason Killian <https://github.com/jkillian>
 //                  Ronald Rey <https://github.com/reyronald>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 export as namespace fuzzaldrin
 
