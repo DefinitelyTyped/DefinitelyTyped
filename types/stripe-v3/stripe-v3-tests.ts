@@ -11,6 +11,9 @@ const style = {
         fontWeight: 'bold',
         '::placeholder': {
             color: '#aab7c4'
+        },
+        '::selection': {
+            backgroundColor: '#aaccdd'
         }
     },
     invalid: {

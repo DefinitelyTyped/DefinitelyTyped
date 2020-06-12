@@ -542,6 +542,12 @@ declare module "mongoose" {
     getIndexes(): any;
   }
 
+  interface ConnectionUseDbOptions {
+    /**
+     * If true, cache results so calling `useDb()` multiple times with the same name only creates 1 connection object.
+     */
+    useCache?: boolean;
+  }
   /*
    * section drivers/node-mongodb-native/connection.js
    * http://mongoosejs.com/docs/api.html#drivers-node-mongodb-native-connection-js
@@ -550,9 +556,10 @@ declare module "mongoose" {
     /**
      * Switches to a different database using the same connection pool.
      * @param name The database name
+     * @param options Additional options
      * @returns New Connection Object
      */
-    useDb(name: string): Connection;
+    useDb(name: string, options?: ConnectionUseDbOptions): Connection;
 
     startSession(options?: mongodb.SessionOptions, cb?: (err: any, session: mongodb.ClientSession) => void): Promise<mongodb.ClientSession>;
 
@@ -1197,6 +1204,7 @@ declare module "mongoose" {
   interface SchemaTimestampsConfig {
     createdAt?: boolean | string;
     updatedAt?: boolean | string;
+    currentTime?: () => (Date | number);
   }
 
   /*
