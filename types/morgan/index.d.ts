@@ -123,6 +123,7 @@ declare namespace morgan {
      * Define a named custom format by specifying a format string in token
      * notation.
      */
+    // tslint:disable-next-line
     function format<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(name: string, fmt: string): Morgan<Request, Response>;
 
     /**
@@ -136,6 +137,7 @@ declare namespace morgan {
     /**
      * Compile a format string in token notation into a format function.
      */
+    // tslint:disable-next-line
     function compile<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(format: string): FormatFn<Request, Response>;
 
     interface StreamOptions {
