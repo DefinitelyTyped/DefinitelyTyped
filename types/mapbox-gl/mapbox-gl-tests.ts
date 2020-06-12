@@ -1,4 +1,5 @@
 import mapboxgl = require('mapbox-gl');
+import { Alignment } from './index';
 
 // These examples adapted from Mapbox's examples (https://www.mapbox.com/mapbox-gl-js/examples)
 
@@ -599,8 +600,12 @@ let marker = new mapboxgl.Marker(undefined, {
     pitchAlignment: 'viewport',
 })
     .setLngLat([-50, 50])
+    .setPitchAlignment("map")
+    .setRotationAlignment("viewport")
     .addTo(map);
 
+expectType<Alignment>(marker.getPitchAlignment());
+expectType<Alignment>(marker.getRotationAlignment());
 marker.remove();
 
 /*
