@@ -7,6 +7,7 @@ declare namespace kurento {
     interface Constructor {
         (ws_uri: string, options?: Options): Promise<ClientInstance>;
         getComplexType: (complex: 'IceCandidate') => (value: any) => any;
+        getSingleton(ws_uri: string, options?: Options): Promise<ClientInstance>;
     }
 
     interface RecorderEndpointOptions {
@@ -34,7 +35,17 @@ declare namespace kurento {
         on(event: 'Error', callback: (error: Error) => void): void;
         on(event: 'Recording' | 'Paused' | 'Stopped', callback: () => void): void;
         getMediaobjectById(objectId: string): Promise<MediaPipeline | WebRtcEndpoint | RecorderEndpoint>;
+        getServerManager: (callback?: Callback<MediaServer>) => Promise<MediaServer>;
         close(): void;
+    }
+
+    interface MediaServer {
+        getCpuCount: (callback?: Callback<number[]>) => Promise<number[]>;
+        getKmd: (moduleName: string, callback?: Callback<string>) => Promise<string>;
+        getUsedCpu: (interval: number, callback?: Callback<number>) => Promise<number>;
+        getUsedMemory: (callback?: Callback<number>) => Promise<number>;
+        getChildren: (callback?: Callback<MediaObject>) => Promise<MediaObject>;
+        getName: (callback?: Callback<string>) => Promise<string>;
     }
 
     interface MediaObject {

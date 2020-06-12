@@ -41,8 +41,11 @@ async () => {
     const endpointId = 'endpointId';
     const candidate = new RTCIceCandidate();
 
-    const client = await kurento('//server', { failAfter: 500, useImplicitTransactions: true });
+    const client = await kurento.getSingleton('//server', {});
     const endpoint = await client.getMediaobjectById(endpointId) as any as WebRtcEndpoint;
+    const server = await client.getServerManager();
 
     endpoint.addIceCandidate(candidate);
+
+    return { cpuUsage: server.getUsedCpu(5) };
 };
