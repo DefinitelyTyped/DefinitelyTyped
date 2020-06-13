@@ -3,15 +3,15 @@
 // Definitions by: danpintara <https://github.com/danpintara>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin } from "webpack";
+import { Plugin } from 'webpack';
 
 export interface Configuration {
-    targets?: string[]
-    output: string
-    assets?: string | string[]
-    scripts?: string | string[]
+    targets?: string[];
+    output: string;
+    assets?: string | string[];
+    scripts?: string | string[];
 }
 
 export class WebpackPkgPlugin extends Plugin {
-    constructor(config: Configuration)
+    constructor(config: Configuration);
 }
