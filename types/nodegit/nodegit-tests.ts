@@ -81,3 +81,6 @@ repo.getHeadCommit().then(async commit => {
         const filesChanged: Number = stats.filesChanged();
     }
 });
+
+Git.version; // $ExpectType string
+Git.Promise; // $ExpectType PromiseConstructor
