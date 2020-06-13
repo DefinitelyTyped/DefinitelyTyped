@@ -11,18 +11,7 @@ acceptWebpackPlugin(
 
 acceptWebpackPlugin(
     new WebpackPkgPlugin({
-        assets: 'assets/**/*',
         output: 'pkg',
-        scripts: 'build/**/*.js',
-        targets: ['host'],
-    }),
-);
-
-acceptWebpackPlugin(
-    new WebpackPkgPlugin({
-        assets: ['assets/**/*', 'images/**/*'],
-        output: 'pkg',
-        scripts: ['build/**/*.js'],
         targets: ['host'],
     }),
 );

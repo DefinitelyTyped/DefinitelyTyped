@@ -8,8 +8,6 @@ import { Plugin } from 'webpack';
 export interface Configuration {
     targets?: string[];
     output: string;
-    assets?: string | string[];
-    scripts?: string | string[];
 }
 
 export class WebpackPkgPlugin extends Plugin {
