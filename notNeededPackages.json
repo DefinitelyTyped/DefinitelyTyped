@@ -1687,6 +1687,12 @@
             "asOfVersion": "0.2.0"
         },
         {
+            "libraryName": "graphql-type-json",
+            "typingsPackageName": "graphql-type-json",
+            "sourceRepoURL": "https://github.com/taion/graphql-type-json",
+            "asOfVersion": "0.3.3"
+        },
+        {
             "libraryName": "gravatar-url",
             "typingsPackageName": "gravatar-url",
             "sourceRepoURL": "https://github.com/sindresorhus/gravatar-url",
