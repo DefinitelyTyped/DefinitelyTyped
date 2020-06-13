@@ -2651,12 +2651,12 @@
 /types/jbinary/                                         @tbureck
 /types/jcanvas/                                         @rogierschouten
 /types/jdataview/                                       @RReverser
-/types/jest/                                            @NoHomey @jwbay @asvetliakov @alexjoverm @epicallan @ikatyang @wsmd @JamieMason @douglasduteil @ahnpnl @joshuakgoldberg @UselessPickles @r3nya @hotell @sebald @andys8 @antoinebrault @favna @gstamac @ExE-Boss @quassnoi @Belco90 @tonyhallett @ycmjason @devanshj @pawfa @regevbr
+/types/jest/                                            @NoHomey @jwbay @asvetliakov @alexjoverm @epicallan @ikatyang @wsmd @JamieMason @douglasduteil @ahnpnl @joshuakgoldberg @UselessPickles @r3nya @hotell @sebald @andys8 @antoinebrault @gstamac @ExE-Boss @quassnoi @Belco90 @tonyhallett @ycmjason @devanshj @pawfa @regevbr
 /types/jest/v16/                                        @NoHomey @jwbay @ExE-Boss
 /types/jest-axe/                                        @JoshuaKGoldberg @erbridge
 /types/jest-cucumber-fusion/                            @pjoe
 /types/jest-dev-server/                                 @ifiokjr
-/types/jest-environment-puppeteer/                      @joshuakgoldberg @ifiokjr @favna
+/types/jest-environment-puppeteer/                      @joshuakgoldberg @ifiokjr
 /types/jest-expect-message/                             @mike-d-davydov @saitonakamura
 /types/jest-image-snapshot/                             @dawnmist @erbridge @peterblazejewicz
 /types/jest-image-snapshot/v2/                          @dawnmist @erbridge
@@ -3173,7 +3173,7 @@
 /types/leaflet-areaselect/                              @awallat
 /types/leaflet-curve/                                   @onikiienko @AndreaCimini
 /types/leaflet-deepzoom/                                @hlovdal
-/types/leaflet-draw/                                    @matt-guest @reblace @YunS-Stacy @beschoenen @favna
+/types/leaflet-draw/                                    @matt-guest @reblace @YunS-Stacy @beschoenen
 /types/leaflet-editable/                                @dalie
 /types/leaflet-fullscreen/                              @DenisCarriere
 /types/leaflet-geocoder-mapzen/                         @leezu
@@ -5042,7 +5042,7 @@
 /types/react-lazy-load-image-component/                 @danvk @diegochavez @revskill10
 /types/react-lazyload/                                  @m0a @svobik7
 /types/react-lazylog/                                   @benjaminRomano @abemedia
-/types/react-leaflet/                                   @danzel @davschne @yuit @favna @fenech
+/types/react-leaflet/                                   @danzel @davschne @yuit @fenech
 /types/react-leaflet/v1/                                @danzel @davschne @yuit
 /types/react-leaflet-markercluster/                     @Kimahriman
 /types/react-leaflet-sidebarv2/                         @vikram-gsu
