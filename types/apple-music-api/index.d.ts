@@ -20,6 +20,11 @@ declare namespace AppleMusicApi {
         data: Playlist[];
     }
 
+    // https://developer.apple.com/documentation/applemusicapi/artistresponse
+    interface ArtistResponse {
+        data: Artist[];
+    }
+
     // https://developer.apple.com/documentation/applemusicapi/relationship
     interface Relationship<ResourceType> {
         data: ResourceType[];
