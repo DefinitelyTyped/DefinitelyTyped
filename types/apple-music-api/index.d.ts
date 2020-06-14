@@ -135,7 +135,7 @@ declare namespace AppleMusicApi {
     // https://developer.apple.com/documentation/applemusicapi/artist/relationships
     interface ArtistRelationships {
         albums: Relationship<Album>;
-        genres: Relationship<Genre>;
+        genres?: Relationship<Genre>;
     }
 
     // https://developer.apple.com/documentation/applemusicapi/album
