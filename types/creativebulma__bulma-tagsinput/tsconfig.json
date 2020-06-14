@@ -16,7 +16,7 @@
         "paths": {
             "@creativebulma/bulma-tagsinput": [
                 "creativebulma__bulma-tagsinput"
-            ],
+            ]
         },
         "types": [],
         "noEmit": true,
