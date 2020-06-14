@@ -150,6 +150,20 @@ const themeWithInvalidVariants: Theme = { layouts: { // $ExpectError
     },
 };
 
+const themeWithValidOptions: Theme = {
+    useCustomProperties: true,
+    useBodyStyles: true,
+    initialColorModeName: 'default',
+    useColorSchemeMediaQuery: false,
+    useBorderBox: true,
+    useLocalStorage: true,
+    colors: {
+        text: '#000',
+        background: '#fff',
+        primary: '#07c',
+    },
+};
+
 function SpreadingAndMergingInSxProp() {
     const buttonStyles: SxStyleProp = {
         font: 'inherit',
