@@ -7,6 +7,8 @@ export interface PlotConfig {
     offset?: number;
     padding?: string;
     height?: number;
+    min?: number;
+    max?: number;
     format?: (x: number, i: number) => string;
 }
 
