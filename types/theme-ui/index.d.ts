@@ -80,14 +80,52 @@ export interface Theme extends Omit<StyledSystemTheme, 'colors' | 'buttons'> {
      * Enable/disable custom CSS properties/variables if lower browser
      * support is required (for eg. IE 11).
      *
-     * References: https://theme-ui.com/color-modes/#turn-off-custom-properties
+     * @defaultValue true
+     * @see https://theme-ui.com/color-modes/#turn-off-custom-properties
      */
     useCustomProperties?: boolean;
 
     /**
-     * Provide a value here to enable color modes
+     * Adds styles defined in `theme.styles.roo`t to the `<body>` element along
+     * with `color` and `background-color`.
+     *
+     * @defaultValue true
+     * @see https://theme-ui.com/color-modes#applying-colors
+     */
+    useBodyStyles?: boolean;
+
+    /**
+     * The key used for the top-level color palette in `theme.colors`.
+     *
+     * @defaultValue 'default'
+     * @see https://theme-ui.com/theming#configuration-flags
      */
     initialColorModeName?: string;
+
+    /**
+     * Initializes the color mode based on the `prefers-color-scheme` media
+     * query.
+     *
+     * @defaultValue false
+     * @see https://theme-ui.com/color-modes#initialize-mode-with-prefers-color-scheme-media-query
+     */
+    useColorSchemeMediaQuery?: boolean;
+
+    /**
+     * Adds a global `box-sizing: border-box` style.
+     *
+     * @defaultValue true
+     * @see https://theme-ui.com/theming#configuration-flags
+     */
+    useBorderBox?: boolean;
+
+    /**
+     * Persists the color mode in `localStorage`.
+     *
+     * @defaultValue true
+     * @see https://theme-ui.com/color-modes#disable-persisting-color-mode-on-localstorage
+     */
+    useLocalStorage?: boolean;
 
     /**
      * Define the colors that are available through this theme
