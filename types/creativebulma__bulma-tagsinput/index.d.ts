@@ -374,12 +374,34 @@ export default class BulmaTagsInput {
     value: string | string[];
 
     // EventEmitter functions
+    /**
+     * Destroys EventEmitter
+     */
+    destroy(): void;
+
+    /**
+     * Count listeners registered for the provided eventName
+     */
+    listenerCount(eventName: string): number;
+
+    /**
+     * Subscribes on event eventName specified function
+     *
+     * @param eventName
+     * @param listener
+     */
     on<T extends keyof BulmaTagsInputEventMap>(eventName: T, listener: (item: BulmaTagsInputEventMap[T]) => any): void;
 
+    /**
+     * Subscribes on event name specified function to fire only once
+     */
     once<T extends keyof BulmaTagsInputEventMap>(
         eventName: T,
         listener: (item: BulmaTagsInputEventMap[T]) => any,
     ): void;
 
+    /**
+     * Removes event with specified eventName.
+     */
     off(eventName: string): void;
 }
