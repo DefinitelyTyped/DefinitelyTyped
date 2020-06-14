@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Apple Music API 0.3
+// Type definitions for non-npm package Apple Music API 0.4
 // Project: https://developer.apple.com/documentation/applemusicapi/
 // Definitions by: Noah Chase <https://github.com/nchase>
 //                 Useff Chase <https://github.com/useffc>
