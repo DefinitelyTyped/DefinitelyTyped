@@ -1,4 +1,4 @@
-import BulmaTagsInput, { BulmaTagsInputItem } from 'creativebulma__bulma-tagsinput';
+import BulmaTagsInput, { BulmaTagsInputItem } from '@creativebulma/bulma-tagsinput';
 
 let input: BulmaTagsInput;
 input = new BulmaTagsInput('#id');
