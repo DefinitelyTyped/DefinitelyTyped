@@ -13,5 +13,5 @@ const data: Data = {
 };
 
 if (isSecret.key('password') || isSecret.value(data.password)) {
-    data.username = '********';
+    data.password = '********';
 }
