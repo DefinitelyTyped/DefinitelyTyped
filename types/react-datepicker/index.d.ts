@@ -167,7 +167,6 @@ export interface ReactDatePickerProps {
     yearDropdownItemNumber?: number;
     excludeScrollbar?: boolean;
     enableTabLoop?: boolean;
-
 }
 
 declare class ReactDatePicker extends React.Component<ReactDatePickerProps> {
