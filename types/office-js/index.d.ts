@@ -65042,12 +65042,6 @@ declare namespace Word {
         */
         toJSON(): Word.Interfaces.ContentControlData;
     }
-    class ContentControlCustom {
-        private getDocument();
-        private getReferenceId();
-    }
-    interface ContentControl extends OfficeExtension.ClientObject, ContentControlCustom {
-    }
     /**
      *
      * Contains a collection of {@link Word.ContentControl} objects. Content controls are bounded and potentially labeled regions in a document that serve as containers for specific types of content. Individual content controls may contain contents such as images, tables, or paragraphs of formatted text. Currently, only rich text content controls are supported.
@@ -65420,10 +65414,6 @@ declare namespace Word {
         * Whereas the original Word.Document object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.DocumentData`) that contains shallow copies of any loaded child properties from the original object.
         */
         toJSON(): Word.Interfaces.DocumentData;
-    }
-    class DocumentCustom {
-    }
-    interface Document extends OfficeExtension.ClientObject, DocumentCustom {
     }
     /**
      *
@@ -69426,8 +69416,6 @@ declare namespace Word {
      * ContentControl appearance
      *
      * [Api set: WordApi]
-     * @remarks
-     * Either bounding box, or tags, or hidden
      */
     enum ContentControlAppearance {
         /**
@@ -69448,11 +69436,9 @@ declare namespace Word {
     }
     /**
      *
-     * Underline types
+     * The supported styles for underline format.
      *
      * [Api set: WordApi]
-     * @remarks
-     * The supported styles for underline format.
      */
     enum UnderlineType {
         mixed = "Mixed",
@@ -69567,14 +69553,9 @@ declare namespace Word {
     }
     /**
      *
-     * The insertion location types
+     * The insertion location types.
      *
      * [Api set: WordApi]
-     * @remarks
-     * For an API call
-     * obj.insertSomething(newStuff, location);
-     * If the location is Before or After, 'newStuff' will be outside of the modified 'obj'.
-     * If the location is Start or End, 'newStuff' will be included as part of the modified 'obj'.
      */
     enum InsertLocation {
         /**
