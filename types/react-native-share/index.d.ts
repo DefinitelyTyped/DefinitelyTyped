@@ -97,6 +97,7 @@ export interface Options {
     subject?: string;
     activityItemSources?: ActivityItemSource[];
     filename?: string;
+    saveToFiles?: boolean;
     excludedActivityTypes?: string;
     failOnCancel?: boolean;
     showAppsToView?: boolean;
