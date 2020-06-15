@@ -540,7 +540,7 @@ export interface AuthOptions {
     overrides?: {
       __tenant: string;
       __token_issuer: string;
-    },
+    };
     plugins?: any;
     popupOrigin?: string;
     protocol?: string;
