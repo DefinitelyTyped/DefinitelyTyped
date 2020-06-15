@@ -26,7 +26,7 @@ export interface FirehoseTransformationEventRecord {
 export interface FirehoseRecordMetadata {
     shardId: string;
     partitionKey: string;
-    approximateArrivalTimestamp: string;
+    approximateArrivalTimestamp: number;
     sequenceNumber: string;
     subsequenceNumber: string;
 }

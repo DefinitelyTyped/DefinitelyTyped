@@ -2,6 +2,7 @@ import {
     CoverageMapData,
     CoverageSummaryData,
     FileCoverageData,
+    FileCoverage,
     createCoverageSummary,
     createCoverageMap,
     createFileCoverage
@@ -70,3 +71,10 @@ fileCoverage1.resetHits();
 fileCoverage1.computeBranchTotals().skipped;
 fileCoverage1.computeSimpleTotals().skipped;
 isNaN(fileCoverage1.toSummary().branches.total);
+
+// CoverageMapData can contain FileCoverageData
+const coverageMapData2: CoverageMapData = {
+    abc: fileCoverageData
+  };
+const map3 = createCoverageMap(coverageMapData2);
+const fileCoverage4: FileCoverage = map3.fileCoverageFor('abc');

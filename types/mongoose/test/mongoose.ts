@@ -174,6 +174,9 @@ conn1.name.toLowerCase()
 conn1.host.toLowerCase()
 conn1.port.toFixed()
 conn1.useDb('myDb').useDb('');
+conn1.useDb('myDb').useDb('', {});
+conn1.useDb('myDb').useDb('', {useCache: false});
+conn1.useDb('myDb').useDb('', {useCache: true});
 mongoose.Connection.STATES.hasOwnProperty('');
 mongoose.Connection.STATES.disconnected === 0;
 mongoose.Connection.STATES.connected === 1;
@@ -1567,3 +1570,19 @@ var foobarSchema = new mongoose.Schema({
 });
 var Foobar = mongoose.model<Foobar, mongoose.Model<Foobar>>('AnimFoobarl', foobarSchema);
 Foobar.find({ _id: 123 });
+                                                     
+new mongoose.Schema({
+  createdAt: Number,
+  updatedAt: Number,
+  name: String
+}, {
+  timestamps: { currentTime: () => Math.floor(Date.now() / 1000) }
+});
+
+new mongoose.Schema({
+  createdAt: Number,
+  updatedAt: Number,
+  name: String
+}, {
+  timestamps: { currentTime: () => new Date() }
+});

@@ -108,6 +108,10 @@ export interface ColumnDescription<T extends object = any, E = any> {
      * Column header field
      */
     text: string;
+    classes?: string | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => string);
+    style?:
+        | React.CSSProperties
+        | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => React.CSSProperties);
     sort?: boolean;
     sortFunc?: ColumnSortFunc<T>;
     searchable?: boolean;
@@ -510,17 +514,17 @@ export interface ExpandHeaderColumnRenderer {
 
 export interface ExpandRowProps<T> {
     renderer: (row: T, rowIndex: number) => JSX.Element;
-    expanded?: number[];
+    expanded?: any[];
     onExpand?: (row: T, isExpand: boolean, rowIndex: number, e: SyntheticEvent) => void;
-    onExpandAll: (isExpandAll: boolean, results: number[], e: SyntheticEvent) => void;
-    nonExpandable: number[];
+    onExpandAll?: (isExpandAll: boolean, results: number[], e: SyntheticEvent) => void;
+    nonExpandable?: number[];
     showExpandColumn?: boolean;
     onlyOneExpanding?: boolean;
     expandByColumnOnly?: boolean;
-    expandColumnRenderer: ReactElement<ExpandColumnRendererProps>;
-    expandHeaderColumnRenderer: ReactElement<ExpandHeaderColumnRenderer>;
-    expandColumnPosition: 'left' | 'right';
-    className: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
+    expandColumnRenderer?: ReactElement<ExpandColumnRendererProps>;
+    expandHeaderColumnRenderer?: ReactElement<ExpandHeaderColumnRenderer>;
+    expandColumnPosition?: 'left' | 'right';
+    className?: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
 }
 
 export type TableColumnFilterProps<FT = any, T extends object = any> = Partial<{

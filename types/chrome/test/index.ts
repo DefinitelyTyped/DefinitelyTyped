@@ -480,3 +480,18 @@ chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
     harLog; // $ExpectType HARLog
     console.log('harLog: ', harLog)
 });
+
+function testAssistiveWindow() {
+    chrome.input.ime.setAssistiveWindowProperties({
+      contextId: 0,
+      properties: {
+          type: 'undo',
+          visible: true
+        }
+    });
+    chrome.input.ime.onAssistiveWindowButtonClicked.addListener((details: chrome.input.ime.AssistiveWindowButtonClickedDetails) => {
+          details;
+          console.log(
+            `${details.buttonID} button in ${details.windowType} window clicked`);
+        });
+}

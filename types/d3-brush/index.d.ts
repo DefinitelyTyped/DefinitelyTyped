@@ -253,8 +253,9 @@ export interface D3BrushEvent<Datum> {
     type: 'start' | 'brush' | 'end' | string; // Leave failsafe string type for cases like 'brush.foo'
     /**
      * The current brush selection associated with the event.
+     * This is null when the selection is empty.
      */
-    selection: BrushSelection;
+    selection: BrushSelection | null;
     /**
      * The underlying input event, such as mousemove or touchmove.
      */
