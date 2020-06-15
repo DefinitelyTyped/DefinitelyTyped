@@ -536,12 +536,28 @@ export interface AuthOptions {
      */
     maxAge?: number;
     leeway?: number;
-    plugins?: any[];
+    jwksURI?: string;
+    overrides?: {
+      __tenant: string;
+      __token_issuer: string;
+    },
+    plugins?: any;
+    popupOrigin?: string;
+    protocol?: string;
+    response_type?: string;
+    rootUrl?: string;
+    state?: string;
+    tenant?: string;
+    token_issuer?: string;
+    universalLoginPage?: boolean;
+    _csrf?: string;
+    _intstate?: string;
+    _timesToRetryFailedRequests?: number;
     _disableDeprecationWarnings?: boolean;
     _sendTelemetry?: boolean;
     _telemetryInfo?: any;
     __tryLocalStorageFirst?: boolean;
-}
+  }
 
 export interface PasswordlessAuthOptions {
     connection: string;
