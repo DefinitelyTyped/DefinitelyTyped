@@ -557,7 +557,7 @@ export interface AuthOptions {
     _sendTelemetry?: boolean;
     _telemetryInfo?: any;
     __tryLocalStorageFirst?: boolean;
-  }
+}
 
 export interface PasswordlessAuthOptions {
     connection: string;
