@@ -68126,7 +68126,6 @@ declare namespace Word {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
         context: RequestContext;
         /**
-         *
          * Creates a new document by using an optional base64 encoded .docx file.
          *
          * [Api set: WordApi 1.3]
@@ -68282,28 +68281,24 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.Body): void;
         /**
-         *
          * Clears the contents of the body object. The user can perform the undo operation on the cleared content.
          *
          * [Api set: WordApi 1.1]
          */
         clear(): void;
         /**
-         *
          * Gets an HTML representation of the body object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word for the web, etc.). If you need exact fidelity, or consistency across platforms, use `Body.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
         getHtml(): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Gets the OOXML (Office Open XML) representation of the body object.
          *
          * [Api set: WordApi 1.1]
          */
         getOoxml(): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Gets the whole body, or the starting or ending point of the body, as a range.
          *
          * [Api set: WordApi 1.3]
@@ -68312,7 +68307,6 @@ declare namespace Word {
          */
         getRange(rangeLocation?: Word.RangeLocation): Word.Range;
         /**
-         *
          * Gets the whole body, or the starting or ending point of the body, as a range.
          *
          * [Api set: WordApi 1.3]
@@ -68321,7 +68315,6 @@ declare namespace Word {
          */
         getRange(rangeLocation?: "Whole" | "Start" | "End" | "Before" | "After" | "Content"): Word.Range;
         /**
-         *
          * Inserts a break at the specified location in the main document.
          *
          * [Api set: WordApi 1.1]
@@ -68331,7 +68324,6 @@ declare namespace Word {
          */
         insertBreak(breakType: Word.BreakType, insertLocation: Word.InsertLocation): void;
         /**
-         *
          * Inserts a break at the specified location in the main document.
          *
          * [Api set: WordApi 1.1]
@@ -68341,14 +68333,12 @@ declare namespace Word {
          */
         insertBreak(breakType: "Page" | "Next" | "SectionNext" | "SectionContinuous" | "SectionEven" | "SectionOdd" | "Line", insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): void;
         /**
-         *
          * Wraps the body object with a Rich Text content control.
          *
          * [Api set: WordApi 1.1]
          */
         insertContentControl(): Word.ContentControl;
         /**
-         *
          * Inserts a document into the body at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68358,7 +68348,6 @@ declare namespace Word {
          */
         insertFileFromBase64(base64File: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts a document into the body at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68368,7 +68357,6 @@ declare namespace Word {
          */
         insertFileFromBase64(base64File: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Inserts HTML at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68378,7 +68366,6 @@ declare namespace Word {
          */
         insertHtml(html: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts HTML at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68388,7 +68375,6 @@ declare namespace Word {
          */
         insertHtml(html: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Inserts a picture into the body at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -68398,7 +68384,6 @@ declare namespace Word {
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: Word.InsertLocation): Word.InlinePicture;
         /**
-         *
          * Inserts a picture into the body at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -68408,7 +68393,6 @@ declare namespace Word {
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.InlinePicture;
         /**
-         *
          * Inserts OOXML at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68418,7 +68402,6 @@ declare namespace Word {
          */
         insertOoxml(ooxml: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts OOXML at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68428,7 +68411,6 @@ declare namespace Word {
          */
         insertOoxml(ooxml: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Inserts a paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68438,7 +68420,6 @@ declare namespace Word {
          */
         insertParagraph(paragraphText: string, insertLocation: Word.InsertLocation): Word.Paragraph;
         /**
-         *
          * Inserts a paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68448,7 +68429,6 @@ declare namespace Word {
          */
         insertParagraph(paragraphText: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Paragraph;
         /**
-         *
          * Inserts a table with the specified number of rows and columns.
          *
          * [Api set: WordApi 1.3]
@@ -68460,7 +68440,6 @@ declare namespace Word {
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: Word.InsertLocation, values?: string[][]): Word.Table;
         /**
-         *
          * Inserts a table with the specified number of rows and columns.
          *
          * [Api set: WordApi 1.3]
@@ -68472,7 +68451,6 @@ declare namespace Word {
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: "Before" | "After" | "Start" | "End" | "Replace", values?: string[][]): Word.Table;
         /**
-         *
          * Inserts text into the body at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68482,7 +68460,6 @@ declare namespace Word {
          */
         insertText(text: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts text into the body at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68492,7 +68469,6 @@ declare namespace Word {
          */
         insertText(text: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Performs a search with the specified SearchOptions on the scope of the body object. The search results are a collection of range objects.
          *
          * [Api set: WordApi 1.1]
@@ -68510,7 +68486,6 @@ declare namespace Word {
             matchWildcards?: boolean;
         }): Word.RangeCollection;
         /**
-         *
          * Selects the body and navigates the Word UI to it.
          *
          * [Api set: WordApi 1.1]
@@ -68519,7 +68494,6 @@ declare namespace Word {
          */
         select(selectionMode?: Word.SelectionMode): void;
         /**
-         *
          * Selects the body and navigates the Word UI to it.
          *
          * [Api set: WordApi 1.1]
@@ -68528,32 +68502,32 @@ declare namespace Word {
          */
         select(selectionMode?: "Select" | "Start" | "End"): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.Body` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.Body` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.Body` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.BodyLoadOptions): Word.Body;
-        load(option?: string | string[]): Word.Body;
-        load(option?: {
+        load(options?: Word.Interfaces.BodyLoadOptions): Word.Body;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.Body;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.Body;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.Body;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.Body;
         /**
@@ -68775,14 +68749,12 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.ContentControl): void;
         /**
-         *
          * Clears the contents of the content control. The user can perform the undo operation on the cleared content.
          *
          * [Api set: WordApi 1.1]
          */
         clear(): void;
         /**
-         *
          * Deletes the content control and its content. If keepContent is set to true, the content is not deleted.
          *
          * [Api set: WordApi 1.1]
@@ -68791,21 +68763,18 @@ declare namespace Word {
          */
         delete(keepContent: boolean): void;
         /**
-         *
          * Gets an HTML representation of the content control object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word for the web, etc.). If you need exact fidelity, or consistency across platforms, use `ContentControl.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
         getHtml(): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Gets the Office Open XML (OOXML) representation of the content control object.
          *
          * [Api set: WordApi 1.1]
          */
         getOoxml(): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Gets the whole content control, or the starting or ending point of the content control, as a range.
          *
          * [Api set: WordApi 1.3]
@@ -68814,7 +68783,6 @@ declare namespace Word {
          */
         getRange(rangeLocation?: Word.RangeLocation): Word.Range;
         /**
-         *
          * Gets the whole content control, or the starting or ending point of the content control, as a range.
          *
          * [Api set: WordApi 1.3]
@@ -68823,7 +68791,6 @@ declare namespace Word {
          */
         getRange(rangeLocation?: "Whole" | "Start" | "End" | "Before" | "After" | "Content"): Word.Range;
         /**
-         *
          * Gets the text ranges in the content control by using punctuation marks and/or other ending marks.
          *
          * [Api set: WordApi 1.3]
@@ -68833,7 +68800,6 @@ declare namespace Word {
          */
         getTextRanges(endingMarks: string[], trimSpacing?: boolean): Word.RangeCollection;
         /**
-         *
          * Inserts a break at the specified location in the main document. This method cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
          *
          * [Api set: WordApi 1.1]
@@ -68843,7 +68809,6 @@ declare namespace Word {
          */
         insertBreak(breakType: Word.BreakType, insertLocation: Word.InsertLocation): void;
         /**
-         *
          * Inserts a break at the specified location in the main document. This method cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
          *
          * [Api set: WordApi 1.1]
@@ -68853,7 +68818,6 @@ declare namespace Word {
          */
         insertBreak(breakType: "Page" | "Next" | "SectionNext" | "SectionContinuous" | "SectionEven" | "SectionOdd" | "Line", insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): void;
         /**
-         *
          * Inserts a document into the content control at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68863,7 +68827,6 @@ declare namespace Word {
          */
         insertFileFromBase64(base64File: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts a document into the content control at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68873,7 +68836,6 @@ declare namespace Word {
          */
         insertFileFromBase64(base64File: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Inserts HTML into the content control at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68883,7 +68845,6 @@ declare namespace Word {
          */
         insertHtml(html: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts HTML into the content control at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68893,7 +68854,6 @@ declare namespace Word {
          */
         insertHtml(html: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Inserts an inline picture into the content control at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -68903,7 +68863,6 @@ declare namespace Word {
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: Word.InsertLocation): Word.InlinePicture;
         /**
-         *
          * Inserts an inline picture into the content control at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -68913,7 +68872,6 @@ declare namespace Word {
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.InlinePicture;
         /**
-         *
          * Inserts OOXML into the content control at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68923,7 +68881,6 @@ declare namespace Word {
          */
         insertOoxml(ooxml: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts OOXML into the content control at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68933,7 +68890,6 @@ declare namespace Word {
          */
         insertOoxml(ooxml: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Inserts a paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68943,7 +68899,6 @@ declare namespace Word {
          */
         insertParagraph(paragraphText: string, insertLocation: Word.InsertLocation): Word.Paragraph;
         /**
-         *
          * Inserts a paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68953,7 +68908,6 @@ declare namespace Word {
          */
         insertParagraph(paragraphText: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Paragraph;
         /**
-         *
          * Inserts a table with the specified number of rows and columns into, or next to, a content control.
          *
          * [Api set: WordApi 1.3]
@@ -68965,7 +68919,6 @@ declare namespace Word {
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: Word.InsertLocation, values?: string[][]): Word.Table;
         /**
-         *
          * Inserts a table with the specified number of rows and columns into, or next to, a content control.
          *
          * [Api set: WordApi 1.3]
@@ -68977,7 +68930,6 @@ declare namespace Word {
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: "Before" | "After" | "Start" | "End" | "Replace", values?: string[][]): Word.Table;
         /**
-         *
          * Inserts text into the content control at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68987,7 +68939,6 @@ declare namespace Word {
          */
         insertText(text: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts text into the content control at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -68997,7 +68948,6 @@ declare namespace Word {
          */
         insertText(text: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Performs a search with the specified SearchOptions on the scope of the content control object. The search results are a collection of range objects.
          *
          * [Api set: WordApi 1.1]
@@ -69015,7 +68965,6 @@ declare namespace Word {
             matchWildcards?: boolean;
         }): Word.RangeCollection;
         /**
-         *
          * Selects the content control. This causes Word to scroll to the selection.
          *
          * [Api set: WordApi 1.1]
@@ -69024,7 +68973,6 @@ declare namespace Word {
          */
         select(selectionMode?: Word.SelectionMode): void;
         /**
-         *
          * Selects the content control. This causes Word to scroll to the selection.
          *
          * [Api set: WordApi 1.1]
@@ -69033,7 +68981,6 @@ declare namespace Word {
          */
         select(selectionMode?: "Select" | "Start" | "End"): void;
         /**
-         *
          * Splits the content control into child ranges by using delimiters.
          *
          * [Api set: WordApi 1.3]
@@ -69045,23 +68992,23 @@ declare namespace Word {
          */
         split(delimiters: string[], multiParagraphs?: boolean, trimDelimiters?: boolean, trimSpacing?: boolean): Word.RangeCollection;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.ContentControl` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.ContentControl` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.ContentControl` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.ContentControlLoadOptions): Word.ContentControl;
-        load(option?: string | string[]): Word.ContentControl;
-        load(option?: {
+        load(options?: Word.Interfaces.ContentControlLoadOptions): Word.ContentControl;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.ContentControl;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.ContentControl;
@@ -69096,11 +69043,11 @@ declare namespace Word {
          */
         readonly onSelectionChanged: OfficeExtension.EventHandlers<Word.ContentControlEventArgs>;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.ContentControl;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.ContentControl;
         /**
@@ -69108,6 +69055,12 @@ declare namespace Word {
         * Whereas the original Word.ContentControl object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ContentControlData`) that contains shallow copies of any loaded child properties from the original object.
         */
         toJSON(): Word.Interfaces.ContentControlData;
+    }
+    class ContentControlCustom {
+        private getDocument();
+        private getReferenceId();
+    }
+    interface ContentControl extends OfficeExtension.ClientObject, ContentControlCustom {
     }
     /**
      *
@@ -69121,7 +69074,6 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         readonly items: Word.ContentControl[];
         /**
-         *
          * Gets a content control by its identifier. Throws an error if there isn't a content control with the identifier in this collection.
          *
          * [Api set: WordApi 1.1]
@@ -69130,7 +69082,6 @@ declare namespace Word {
          */
         getById(id: number): Word.ContentControl;
         /**
-         *
          * Gets a content control by its identifier. Returns a null object if there isn't a content control with the identifier in this collection.
          *
          * [Api set: WordApi 1.3]
@@ -69139,7 +69090,6 @@ declare namespace Word {
          */
         getByIdOrNullObject(id: number): Word.ContentControl;
         /**
-         *
          * Gets the content controls that have the specified tag.
          *
          * [Api set: WordApi 1.1]
@@ -69148,7 +69098,6 @@ declare namespace Word {
          */
         getByTag(tag: string): Word.ContentControlCollection;
         /**
-         *
          * Gets the content controls that have the specified title.
          *
          * [Api set: WordApi 1.1]
@@ -69157,7 +69106,6 @@ declare namespace Word {
          */
         getByTitle(title: string): Word.ContentControlCollection;
         /**
-         *
          * Gets the content controls that have the specified types and/or subtypes.
          *
          * [Api set: WordApi 1.3]
@@ -69166,21 +69114,18 @@ declare namespace Word {
          */
         getByTypes(types: Word.ContentControlType[]): Word.ContentControlCollection;
         /**
-         *
          * Gets the first content control in this collection. Throws an error if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.ContentControl;
         /**
-         *
          * Gets the first content control in this collection. Returns a null object if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirstOrNullObject(): Word.ContentControl;
         /**
-         *
          * Gets a content control by its index in the collection.
          *
          * [Api set: WordApi 1.1]
@@ -69189,29 +69134,29 @@ declare namespace Word {
          */
         getItem(index: number): Word.ContentControl;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.ContentControlCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.ContentControlCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.ContentControlCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.ContentControlCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.ContentControlCollection;
-        load(option?: string | string[]): Word.ContentControlCollection;
-        load(option?: OfficeExtension.LoadOption): Word.ContentControlCollection;
+        load(options?: Word.Interfaces.ContentControlCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.ContentControlCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.ContentControlCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Word.ContentControlCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.ContentControlCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.ContentControlCollection;
         /**
@@ -69265,39 +69210,38 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.CustomProperty): void;
         /**
-         *
          * Deletes the custom property.
          *
          * [Api set: WordApi 1.3]
          */
         delete(): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.CustomProperty` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.CustomProperty` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.CustomProperty` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.CustomPropertyLoadOptions): Word.CustomProperty;
-        load(option?: string | string[]): Word.CustomProperty;
-        load(option?: {
+        load(options?: Word.Interfaces.CustomPropertyLoadOptions): Word.CustomProperty;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.CustomProperty;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.CustomProperty;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.CustomProperty;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.CustomProperty;
         /**
@@ -69318,7 +69262,6 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         readonly items: Word.CustomProperty[];
         /**
-         *
          * Creates a new or sets an existing custom property.
          *
          * [Api set: WordApi 1.3]
@@ -69328,21 +69271,18 @@ declare namespace Word {
          */
         add(key: string, value: any): Word.CustomProperty;
         /**
-         *
          * Deletes all custom properties in this collection.
          *
          * [Api set: WordApi 1.3]
          */
         deleteAll(): void;
         /**
-         *
          * Gets the count of custom properties.
          *
          * [Api set: WordApi 1.3]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a custom property object by its key, which is case-insensitive. Throws an error if the custom property does not exist.
          *
          * [Api set: WordApi 1.3]
@@ -69351,7 +69291,6 @@ declare namespace Word {
          */
         getItem(key: string): Word.CustomProperty;
         /**
-         *
          * Gets a custom property object by its key, which is case-insensitive. Returns a null object if the custom property does not exist.
          *
          * [Api set: WordApi 1.3]
@@ -69360,29 +69299,29 @@ declare namespace Word {
          */
         getItemOrNullObject(key: string): Word.CustomProperty;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.CustomPropertyCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.CustomPropertyCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.CustomPropertyCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.CustomPropertyCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.CustomPropertyCollection;
-        load(option?: string | string[]): Word.CustomPropertyCollection;
-        load(option?: OfficeExtension.LoadOption): Word.CustomPropertyCollection;
+        load(options?: Word.Interfaces.CustomPropertyCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.CustomPropertyCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.CustomPropertyCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Word.CustomPropertyCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.CustomPropertyCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.CustomPropertyCollection;
         /**
@@ -69418,7 +69357,6 @@ declare namespace Word {
          */
         readonly namespaceUri: string;
         /**
-         *
          * Deletes the custom XML part.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69426,7 +69364,6 @@ declare namespace Word {
          */
         delete(): void;
         /**
-         *
          * Deletes an attribute with the given name from the element identified by xpath.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69438,7 +69375,6 @@ declare namespace Word {
          */
         deleteAttribute(xpath: string, namespaceMappings: any, name: string): void;
         /**
-         *
          * Deletes the element identified by xpath.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69449,7 +69385,6 @@ declare namespace Word {
          */
         deleteElement(xpath: string, namespaceMappings: any): void;
         /**
-         *
          * Gets the full XML content of the custom XML part.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69457,7 +69392,6 @@ declare namespace Word {
          */
         getXml(): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Inserts an attribute with the given name and value to the element identified by xpath.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69470,7 +69404,6 @@ declare namespace Word {
          */
         insertAttribute(xpath: string, namespaceMappings: any, name: string, value: string): void;
         /**
-         *
          * Inserts the given XML under the parent element identified by xpath at child position index.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69483,7 +69416,6 @@ declare namespace Word {
          */
         insertElement(xpath: string, xml: string, namespaceMappings: any, index?: number): void;
         /**
-         *
          * Queries the XML content of the custom XML part.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69495,7 +69427,6 @@ declare namespace Word {
          */
         query(xpath: string, namespaceMappings: any): OfficeExtension.ClientResult<string[]>;
         /**
-         *
          * Sets the full XML content of the custom XML part.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69505,7 +69436,6 @@ declare namespace Word {
          */
         setXml(xml: string): void;
         /**
-         *
          * Updates the value of an attribute with the given name of the element identified by xpath.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69518,7 +69448,6 @@ declare namespace Word {
          */
         updateAttribute(xpath: string, namespaceMappings: any, name: string, value: string): void;
         /**
-         *
          * Updates the XML of the element identified by xpath.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69530,32 +69459,32 @@ declare namespace Word {
          */
         updateElement(xpath: string, xml: string, namespaceMappings: any): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.CustomXmlPart` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.CustomXmlPart` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.CustomXmlPart` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.CustomXmlPartLoadOptions): Word.CustomXmlPart;
-        load(option?: string | string[]): Word.CustomXmlPart;
-        load(option?: {
+        load(options?: Word.Interfaces.CustomXmlPartLoadOptions): Word.CustomXmlPart;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.CustomXmlPart;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.CustomXmlPart;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.CustomXmlPart;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.CustomXmlPart;
         /**
@@ -69577,7 +69506,6 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         readonly items: Word.CustomXmlPart[];
         /**
-         *
          * Adds a new custom XML part to the document.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69587,7 +69515,6 @@ declare namespace Word {
          */
         add(xml: string): Word.CustomXmlPart;
         /**
-         *
          * Gets a new scoped collection of custom XML parts whose namespaces match the given namespace.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69597,7 +69524,6 @@ declare namespace Word {
          */
         getByNamespace(namespaceUri: string): Word.CustomXmlPartScopedCollection;
         /**
-         *
          * Gets the number of items in the collection.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69605,7 +69531,6 @@ declare namespace Word {
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a custom XML part based on its ID. Read only.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69615,7 +69540,6 @@ declare namespace Word {
          */
         getItem(id: string): Word.CustomXmlPart;
         /**
-         *
          * Gets a custom XML part based on its ID. Returns a null object if the CustomXmlPart does not exist.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69625,29 +69549,29 @@ declare namespace Word {
          */
         getItemOrNullObject(id: string): Word.CustomXmlPart;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.CustomXmlPartCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.CustomXmlPartCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.CustomXmlPartCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.CustomXmlPartCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.CustomXmlPartCollection;
-        load(option?: string | string[]): Word.CustomXmlPartCollection;
-        load(option?: OfficeExtension.LoadOption): Word.CustomXmlPartCollection;
+        load(options?: Word.Interfaces.CustomXmlPartCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.CustomXmlPartCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.CustomXmlPartCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Word.CustomXmlPartCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.CustomXmlPartCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.CustomXmlPartCollection;
         /**
@@ -69669,7 +69593,6 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         readonly items: Word.CustomXmlPart[];
         /**
-         *
          * Gets the number of items in the collection.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69677,7 +69600,6 @@ declare namespace Word {
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a custom XML part based on its ID. Read only.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69687,7 +69609,6 @@ declare namespace Word {
          */
         getItem(id: string): Word.CustomXmlPart;
         /**
-         *
          * Gets a custom XML part based on its ID. Returns a null object if the CustomXmlPart does not exist in the collection.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69697,7 +69618,6 @@ declare namespace Word {
          */
         getItemOrNullObject(id: string): Word.CustomXmlPart;
         /**
-         *
          * If the collection contains exactly one item, this method returns it. Otherwise, this method produces an error.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69705,7 +69625,6 @@ declare namespace Word {
          */
         getOnlyItem(): Word.CustomXmlPart;
         /**
-         *
          * If the collection contains exactly one item, this method returns it. Otherwise, this method returns a null object.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69713,29 +69632,29 @@ declare namespace Word {
          */
         getOnlyItemOrNullObject(): Word.CustomXmlPart;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.CustomXmlPartScopedCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.CustomXmlPartScopedCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.CustomXmlPartScopedCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.CustomXmlPartScopedCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.CustomXmlPartScopedCollection;
-        load(option?: string | string[]): Word.CustomXmlPartScopedCollection;
-        load(option?: OfficeExtension.LoadOption): Word.CustomXmlPartScopedCollection;
+        load(options?: Word.Interfaces.CustomXmlPartScopedCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.CustomXmlPartScopedCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.CustomXmlPartScopedCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Word.CustomXmlPartScopedCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.CustomXmlPartScopedCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.CustomXmlPartScopedCollection;
         /**
@@ -69819,7 +69738,6 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.Document): void;
         /**
-         *
          * Deletes a bookmark, if it exists, from the document.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69829,7 +69747,6 @@ declare namespace Word {
          */
         deleteBookmark(name: string): void;
         /**
-         *
          * Gets a bookmark's range. Throws an error if the bookmark does not exist.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69839,7 +69756,6 @@ declare namespace Word {
          */
         getBookmarkRange(name: string): Word.Range;
         /**
-         *
          * Gets a bookmark's range. Returns a null object if the bookmark does not exist.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -69849,37 +69765,35 @@ declare namespace Word {
          */
         getBookmarkRangeOrNullObject(name: string): Word.Range;
         /**
-         *
          * Gets the current selection of the document. Multiple selections are not supported.
          *
          * [Api set: WordApi 1.1]
          */
         getSelection(): Word.Range;
         /**
-         *
          * Saves the document. This uses the Word default file naming convention if the document has not been saved before.
          *
          * [Api set: WordApi 1.1]
          */
         save(): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.Document` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.Document` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.Document` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.DocumentLoadOptions): Word.Document;
-        load(option?: string | string[]): Word.Document;
-        load(option?: {
+        load(options?: Word.Interfaces.DocumentLoadOptions): Word.Document;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.Document;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.Document;
@@ -69894,11 +69808,11 @@ declare namespace Word {
          */
         readonly onContentControlAdded: OfficeExtension.EventHandlers<Word.ContentControlEventArgs>;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.Document;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.Document;
         /**
@@ -69906,6 +69820,10 @@ declare namespace Word {
         * Whereas the original Word.Document object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.DocumentData`) that contains shallow copies of any loaded child properties from the original object.
         */
         toJSON(): Word.Interfaces.DocumentData;
+    }
+    class DocumentCustom {
+    }
+    interface Document extends OfficeExtension.ClientObject, DocumentCustom {
     }
     /**
      *
@@ -69921,7 +69839,6 @@ declare namespace Word {
          * Gets the body object of the document. The body is the text that excludes headers, footers, footnotes, textboxes, etc.. Read-only.
          *
          * [Api set: WordApiHiddenDocument 1.3]
-         * @beta
          */
         readonly body: Word.Body;
         /**
@@ -69929,7 +69846,6 @@ declare namespace Word {
          * Gets the collection of content control objects in the document. This includes content controls in the body of the document, headers, footers, textboxes, etc.. Read-only.
          *
          * [Api set: WordApiHiddenDocument 1.3]
-         * @beta
          */
         readonly contentControls: Word.ContentControlCollection;
         /**
@@ -69945,7 +69861,6 @@ declare namespace Word {
          * Gets the properties of the document. Read-only.
          *
          * [Api set: WordApiHiddenDocument 1.3]
-         * @beta
          */
         readonly properties: Word.DocumentProperties;
         /**
@@ -69953,7 +69868,6 @@ declare namespace Word {
          * Gets the collection of section objects in the document. Read-only.
          *
          * [Api set: WordApiHiddenDocument 1.3]
-         * @beta
          */
         readonly sections: Word.SectionCollection;
         /**
@@ -69969,7 +69883,6 @@ declare namespace Word {
          * Indicates whether the changes in the document have been saved. A value of true indicates that the document hasn't changed since it was saved. Read-only.
          *
          * [Api set: WordApiHiddenDocument 1.3]
-         * @beta
          */
         readonly saved: boolean;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
@@ -69987,7 +69900,6 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.DocumentCreated): void;
         /**
-         *
          * Deletes a bookmark, if it exists, from the document.
          *
          * [Api set: WordApiHiddenDocument 1.4]
@@ -69997,7 +69909,6 @@ declare namespace Word {
          */
         deleteBookmark(name: string): void;
         /**
-         *
          * Gets a bookmark's range. Throws an error if the bookmark does not exist.
          *
          * [Api set: WordApiHiddenDocument 1.4]
@@ -70007,7 +69918,6 @@ declare namespace Word {
          */
         getBookmarkRange(name: string): Word.Range;
         /**
-         *
          * Gets a bookmark's range. Returns a null object if the bookmark does not exist.
          *
          * [Api set: WordApiHiddenDocument 1.4]
@@ -70017,47 +69927,44 @@ declare namespace Word {
          */
         getBookmarkRangeOrNullObject(name: string): Word.Range;
         /**
-         *
          * Opens the document.
          *
          * [Api set: WordApi 1.3]
          */
         open(): void;
         /**
-         *
          * Saves the document. This uses the Word default file naming convention if the document has not been saved before.
          *
          * [Api set: WordApiHiddenDocument 1.3]
-         * @beta
          */
         save(): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.DocumentCreated` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.DocumentCreated` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.DocumentCreated` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.DocumentCreatedLoadOptions): Word.DocumentCreated;
-        load(option?: string | string[]): Word.DocumentCreated;
-        load(option?: {
+        load(options?: Word.Interfaces.DocumentCreatedLoadOptions): Word.DocumentCreated;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.DocumentCreated;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.DocumentCreated;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.DocumentCreated;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.DocumentCreated;
         /**
@@ -70216,32 +70123,32 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.DocumentProperties): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.DocumentProperties` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.DocumentProperties` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.DocumentProperties` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.DocumentPropertiesLoadOptions): Word.DocumentProperties;
-        load(option?: string | string[]): Word.DocumentProperties;
-        load(option?: {
+        load(options?: Word.Interfaces.DocumentPropertiesLoadOptions): Word.DocumentProperties;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.DocumentProperties;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.DocumentProperties;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.DocumentProperties;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.DocumentProperties;
         /**
@@ -70283,7 +70190,7 @@ declare namespace Word {
         /**
          *
          * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
-            **Note**: Only the default highlight colors are available in Office for Windows Desktop. These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black". When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+                    **Note**: Only the default highlight colors are available in Office for Windows Desktop. These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black". When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
          *
          * [Api set: WordApi 1.1]
          */
@@ -70352,32 +70259,32 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.Font): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.Font` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.Font` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.Font` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.FontLoadOptions): Word.Font;
-        load(option?: string | string[]): Word.Font;
-        load(option?: {
+        load(options?: Word.Interfaces.FontLoadOptions): Word.Font;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.Font;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.Font;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.Font;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.Font;
         /**
@@ -70509,35 +70416,30 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.InlinePicture): void;
         /**
-         *
          * Deletes the inline picture from the document.
          *
          * [Api set: WordApi 1.2]
          */
         delete(): void;
         /**
-         *
          * Gets the base64 encoded string representation of the inline image.
          *
          * [Api set: WordApi 1.1]
          */
         getBase64ImageSrc(): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Gets the next inline image. Throws an error if this inline image is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNext(): Word.InlinePicture;
         /**
-         *
          * Gets the next inline image. Returns a null object if this inline image is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNextOrNullObject(): Word.InlinePicture;
         /**
-         *
          * Gets the picture, or the starting or ending point of the picture, as a range.
          *
          * [Api set: WordApi 1.3]
@@ -70546,7 +70448,6 @@ declare namespace Word {
          */
         getRange(rangeLocation?: Word.RangeLocation): Word.Range;
         /**
-         *
          * Gets the picture, or the starting or ending point of the picture, as a range.
          *
          * [Api set: WordApi 1.3]
@@ -70555,7 +70456,6 @@ declare namespace Word {
          */
         getRange(rangeLocation?: "Whole" | "Start" | "End" | "Before" | "After" | "Content"): Word.Range;
         /**
-         *
          * Inserts a break at the specified location in the main document.
          *
          * [Api set: WordApi 1.2]
@@ -70565,7 +70465,6 @@ declare namespace Word {
          */
         insertBreak(breakType: Word.BreakType, insertLocation: Word.InsertLocation): void;
         /**
-         *
          * Inserts a break at the specified location in the main document.
          *
          * [Api set: WordApi 1.2]
@@ -70575,14 +70474,12 @@ declare namespace Word {
          */
         insertBreak(breakType: "Page" | "Next" | "SectionNext" | "SectionContinuous" | "SectionEven" | "SectionOdd" | "Line", insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): void;
         /**
-         *
          * Wraps the inline picture with a rich text content control.
          *
          * [Api set: WordApi 1.1]
          */
         insertContentControl(): Word.ContentControl;
         /**
-         *
          * Inserts a document at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -70592,7 +70489,6 @@ declare namespace Word {
          */
         insertFileFromBase64(base64File: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts a document at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -70602,7 +70498,6 @@ declare namespace Word {
          */
         insertFileFromBase64(base64File: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Inserts HTML at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -70612,7 +70507,6 @@ declare namespace Word {
          */
         insertHtml(html: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts HTML at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -70622,7 +70516,6 @@ declare namespace Word {
          */
         insertHtml(html: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Inserts an inline picture at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -70632,7 +70525,6 @@ declare namespace Word {
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: Word.InsertLocation): Word.InlinePicture;
         /**
-         *
          * Inserts an inline picture at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -70642,7 +70534,6 @@ declare namespace Word {
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.InlinePicture;
         /**
-         *
          * Inserts OOXML at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -70652,7 +70543,6 @@ declare namespace Word {
          */
         insertOoxml(ooxml: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts OOXML at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -70662,7 +70552,6 @@ declare namespace Word {
          */
         insertOoxml(ooxml: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Inserts a paragraph at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -70672,7 +70561,6 @@ declare namespace Word {
          */
         insertParagraph(paragraphText: string, insertLocation: Word.InsertLocation): Word.Paragraph;
         /**
-         *
          * Inserts a paragraph at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -70682,7 +70570,6 @@ declare namespace Word {
          */
         insertParagraph(paragraphText: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Paragraph;
         /**
-         *
          * Inserts text at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -70692,7 +70579,6 @@ declare namespace Word {
          */
         insertText(text: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts text at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -70702,7 +70588,6 @@ declare namespace Word {
          */
         insertText(text: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Selects the inline picture. This causes Word to scroll to the selection.
          *
          * [Api set: WordApi 1.2]
@@ -70711,7 +70596,6 @@ declare namespace Word {
          */
         select(selectionMode?: Word.SelectionMode): void;
         /**
-         *
          * Selects the inline picture. This causes Word to scroll to the selection.
          *
          * [Api set: WordApi 1.2]
@@ -70720,32 +70604,32 @@ declare namespace Word {
          */
         select(selectionMode?: "Select" | "Start" | "End"): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.InlinePicture` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.InlinePicture` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.InlinePicture` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.InlinePictureLoadOptions): Word.InlinePicture;
-        load(option?: string | string[]): Word.InlinePicture;
-        load(option?: {
+        load(options?: Word.Interfaces.InlinePictureLoadOptions): Word.InlinePicture;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.InlinePicture;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.InlinePicture;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.InlinePicture;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.InlinePicture;
         /**
@@ -70766,43 +70650,41 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         readonly items: Word.InlinePicture[];
         /**
-         *
          * Gets the first inline image in this collection. Throws an error if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.InlinePicture;
         /**
-         *
          * Gets the first inline image in this collection. Returns a null object if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirstOrNullObject(): Word.InlinePicture;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.InlinePictureCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.InlinePictureCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.InlinePictureCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.InlinePictureCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.InlinePictureCollection;
-        load(option?: string | string[]): Word.InlinePictureCollection;
-        load(option?: OfficeExtension.LoadOption): Word.InlinePictureCollection;
+        load(options?: Word.Interfaces.InlinePictureCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.InlinePictureCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.InlinePictureCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Word.InlinePictureCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.InlinePictureCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.InlinePictureCollection;
         /**
@@ -70849,7 +70731,6 @@ declare namespace Word {
          */
         readonly levelTypes: Word.ListLevelType[];
         /**
-         *
          * Gets the font of the bullet, number, or picture at the specified level in the list.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -70859,7 +70740,6 @@ declare namespace Word {
          */
         getLevelFont(level: number): Word.Font;
         /**
-         *
          * Gets the paragraphs that occur at the specified level in the list.
          *
          * [Api set: WordApi 1.3]
@@ -70868,7 +70748,6 @@ declare namespace Word {
          */
         getLevelParagraphs(level: number): Word.ParagraphCollection;
         /**
-         *
          * Gets the base64 encoded string representation of the picture at the specified level in the list.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -70878,7 +70757,6 @@ declare namespace Word {
          */
         getLevelPicture(level: number): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Gets the bullet, number, or picture at the specified level as a string.
          *
          * [Api set: WordApi 1.3]
@@ -70887,7 +70765,6 @@ declare namespace Word {
          */
         getLevelString(level: number): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Inserts a paragraph at the specified location.
          *
          * [Api set: WordApi 1.3]
@@ -70897,7 +70774,6 @@ declare namespace Word {
          */
         insertParagraph(paragraphText: string, insertLocation: Word.InsertLocation): Word.Paragraph;
         /**
-         *
          * Inserts a paragraph at the specified location.
          *
          * [Api set: WordApi 1.3]
@@ -70907,7 +70783,6 @@ declare namespace Word {
          */
         insertParagraph(paragraphText: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Paragraph;
         /**
-         *
          * Resets the font of the bullet, number, or picture at the specified level in the list.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -70918,7 +70793,6 @@ declare namespace Word {
          */
         resetLevelFont(level: number, resetFontName?: boolean): void;
         /**
-         *
          * Sets the alignment of the bullet, number, or picture at the specified level in the list.
          *
          * [Api set: WordApi 1.3]
@@ -70928,7 +70802,6 @@ declare namespace Word {
          */
         setLevelAlignment(level: number, alignment: Word.Alignment): void;
         /**
-         *
          * Sets the alignment of the bullet, number, or picture at the specified level in the list.
          *
          * [Api set: WordApi 1.3]
@@ -70938,7 +70811,6 @@ declare namespace Word {
          */
         setLevelAlignment(level: number, alignment: "Mixed" | "Unknown" | "Left" | "Centered" | "Right" | "Justified"): void;
         /**
-         *
          * Sets the bullet format at the specified level in the list. If the bullet is 'Custom', the charCode is required.
          *
          * [Api set: WordApi 1.3]
@@ -70950,7 +70822,6 @@ declare namespace Word {
          */
         setLevelBullet(level: number, listBullet: Word.ListBullet, charCode?: number, fontName?: string): void;
         /**
-         *
          * Sets the bullet format at the specified level in the list. If the bullet is 'Custom', the charCode is required.
          *
          * [Api set: WordApi 1.3]
@@ -70962,7 +70833,6 @@ declare namespace Word {
          */
         setLevelBullet(level: number, listBullet: "Custom" | "Solid" | "Hollow" | "Square" | "Diamonds" | "Arrow" | "Checkmark", charCode?: number, fontName?: string): void;
         /**
-         *
          * Sets the two indents of the specified level in the list.
          *
          * [Api set: WordApi 1.3]
@@ -70973,7 +70843,6 @@ declare namespace Word {
          */
         setLevelIndents(level: number, textIndent: number, bulletNumberPictureIndent: number): void;
         /**
-         *
          * Sets the numbering format at the specified level in the list.
          *
          * [Api set: WordApi 1.3]
@@ -70984,7 +70853,6 @@ declare namespace Word {
          */
         setLevelNumbering(level: number, listNumbering: Word.ListNumbering, formatString?: Array<string | number>): void;
         /**
-         *
          * Sets the numbering format at the specified level in the list.
          *
          * [Api set: WordApi 1.3]
@@ -70995,7 +70863,6 @@ declare namespace Word {
          */
         setLevelNumbering(level: number, listNumbering: "None" | "Arabic" | "UpperRoman" | "LowerRoman" | "UpperLetter" | "LowerLetter", formatString?: Array<string | number>): void;
         /**
-         *
          * Sets the picture at the specified level in the list.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -71006,7 +70873,6 @@ declare namespace Word {
          */
         setLevelPicture(level: number, base64EncodedImage?: string): void;
         /**
-         *
          * Sets the starting number at the specified level in the list. Default value is 1.
          *
          * [Api set: WordApi 1.3]
@@ -71016,32 +70882,32 @@ declare namespace Word {
          */
         setLevelStartingNumber(level: number, startingNumber: number): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.List` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.List` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.List` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.ListLoadOptions): Word.List;
-        load(option?: string | string[]): Word.List;
-        load(option?: {
+        load(options?: Word.Interfaces.ListLoadOptions): Word.List;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.List;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.List;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.List;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.List;
         /**
@@ -71062,7 +70928,6 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         readonly items: Word.List[];
         /**
-         *
          * Gets a list by its identifier. Throws an error if there isn't a list with the identifier in this collection.
          *
          * [Api set: WordApi 1.3]
@@ -71071,7 +70936,6 @@ declare namespace Word {
          */
         getById(id: number): Word.List;
         /**
-         *
          * Gets a list by its identifier. Returns a null object if there isn't a list with the identifier in this collection.
          *
          * [Api set: WordApi 1.3]
@@ -71080,21 +70944,18 @@ declare namespace Word {
          */
         getByIdOrNullObject(id: number): Word.List;
         /**
-         *
          * Gets the first list in this collection. Throws an error if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.List;
         /**
-         *
          * Gets the first list in this collection. Returns a null object if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirstOrNullObject(): Word.List;
         /**
-         *
          * Gets a list object by its index in the collection.
          *
          * [Api set: WordApi 1.3]
@@ -71103,29 +70964,29 @@ declare namespace Word {
          */
         getItem(index: number): Word.List;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.ListCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.ListCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.ListCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.ListCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.ListCollection;
-        load(option?: string | string[]): Word.ListCollection;
-        load(option?: OfficeExtension.LoadOption): Word.ListCollection;
+        load(options?: Word.Interfaces.ListCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.ListCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.ListCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Word.ListCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.ListCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.ListCollection;
         /**
@@ -71179,7 +71040,6 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.ListItem): void;
         /**
-         *
          * Gets the list item parent, or the closest ancestor if the parent does not exist. Throws an error if the list item has no ancestor.
          *
          * [Api set: WordApi 1.3]
@@ -71188,7 +71048,6 @@ declare namespace Word {
          */
         getAncestor(parentOnly?: boolean): Word.Paragraph;
         /**
-         *
          * Gets the list item parent, or the closest ancestor if the parent does not exist. Returns a null object if the list item has no ancestor.
          *
          * [Api set: WordApi 1.3]
@@ -71197,7 +71056,6 @@ declare namespace Word {
          */
         getAncestorOrNullObject(parentOnly?: boolean): Word.Paragraph;
         /**
-         *
          * Gets all descendant list items of the list item.
          *
          * [Api set: WordApi 1.3]
@@ -71206,32 +71064,32 @@ declare namespace Word {
          */
         getDescendants(directChildrenOnly?: boolean): Word.ParagraphCollection;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.ListItem` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.ListItem` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.ListItem` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.ListItemLoadOptions): Word.ListItem;
-        load(option?: string | string[]): Word.ListItem;
-        load(option?: {
+        load(options?: Word.Interfaces.ListItemLoadOptions): Word.ListItem;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.ListItem;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.ListItem;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.ListItem;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.ListItem;
         /**
@@ -71474,7 +71332,6 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.Paragraph): void;
         /**
-         *
          * Lets the paragraph join an existing list at the specified level. Fails if the paragraph cannot join the list or if the paragraph is already a list item.
          *
          * [Api set: WordApi 1.3]
@@ -71484,70 +71341,60 @@ declare namespace Word {
          */
         attachToList(listId: number, level: number): Word.List;
         /**
-         *
          * Clears the contents of the paragraph object. The user can perform the undo operation on the cleared content.
          *
          * [Api set: WordApi 1.1]
          */
         clear(): void;
         /**
-         *
          * Deletes the paragraph and its content from the document.
          *
          * [Api set: WordApi 1.1]
          */
         delete(): void;
         /**
-         *
          * Moves this paragraph out of its list, if the paragraph is a list item.
          *
          * [Api set: WordApi 1.3]
          */
         detachFromList(): void;
         /**
-         *
          * Gets an HTML representation of the paragraph object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word for the web, etc.). If you need exact fidelity, or consistency across platforms, use `Paragraph.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
         getHtml(): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Gets the next paragraph. Throws an error if the paragraph is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNext(): Word.Paragraph;
         /**
-         *
          * Gets the next paragraph. Returns a null object if the paragraph is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNextOrNullObject(): Word.Paragraph;
         /**
-         *
          * Gets the Office Open XML (OOXML) representation of the paragraph object.
          *
          * [Api set: WordApi 1.1]
          */
         getOoxml(): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Gets the previous paragraph. Throws an error if the paragraph is the first one.
          *
          * [Api set: WordApi 1.3]
          */
         getPrevious(): Word.Paragraph;
         /**
-         *
          * Gets the previous paragraph. Returns a null object if the paragraph is the first one.
          *
          * [Api set: WordApi 1.3]
          */
         getPreviousOrNullObject(): Word.Paragraph;
         /**
-         *
          * Gets the whole paragraph, or the starting or ending point of the paragraph, as a range.
          *
          * [Api set: WordApi 1.3]
@@ -71556,7 +71403,6 @@ declare namespace Word {
          */
         getRange(rangeLocation?: Word.RangeLocation): Word.Range;
         /**
-         *
          * Gets the whole paragraph, or the starting or ending point of the paragraph, as a range.
          *
          * [Api set: WordApi 1.3]
@@ -71565,7 +71411,6 @@ declare namespace Word {
          */
         getRange(rangeLocation?: "Whole" | "Start" | "End" | "Before" | "After" | "Content"): Word.Range;
         /**
-         *
          * Gets the text ranges in the paragraph by using punctuation marks and/or other ending marks.
          *
          * [Api set: WordApi 1.3]
@@ -71575,7 +71420,6 @@ declare namespace Word {
          */
         getTextRanges(endingMarks: string[], trimSpacing?: boolean): Word.RangeCollection;
         /**
-         *
          * Inserts a break at the specified location in the main document.
          *
          * [Api set: WordApi 1.1]
@@ -71585,7 +71429,6 @@ declare namespace Word {
          */
         insertBreak(breakType: Word.BreakType, insertLocation: Word.InsertLocation): void;
         /**
-         *
          * Inserts a break at the specified location in the main document.
          *
          * [Api set: WordApi 1.1]
@@ -71595,14 +71438,12 @@ declare namespace Word {
          */
         insertBreak(breakType: "Page" | "Next" | "SectionNext" | "SectionContinuous" | "SectionEven" | "SectionOdd" | "Line", insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): void;
         /**
-         *
          * Wraps the paragraph object with a rich text content control.
          *
          * [Api set: WordApi 1.1]
          */
         insertContentControl(): Word.ContentControl;
         /**
-         *
          * Inserts a document into the paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -71612,7 +71453,6 @@ declare namespace Word {
          */
         insertFileFromBase64(base64File: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts a document into the paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -71622,7 +71462,6 @@ declare namespace Word {
          */
         insertFileFromBase64(base64File: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Inserts HTML into the paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -71632,7 +71471,6 @@ declare namespace Word {
          */
         insertHtml(html: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts HTML into the paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -71642,7 +71480,6 @@ declare namespace Word {
          */
         insertHtml(html: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Inserts a picture into the paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -71652,7 +71489,6 @@ declare namespace Word {
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: Word.InsertLocation): Word.InlinePicture;
         /**
-         *
          * Inserts a picture into the paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -71662,7 +71498,6 @@ declare namespace Word {
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.InlinePicture;
         /**
-         *
          * Inserts OOXML into the paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -71672,7 +71507,6 @@ declare namespace Word {
          */
         insertOoxml(ooxml: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts OOXML into the paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -71682,7 +71516,6 @@ declare namespace Word {
          */
         insertOoxml(ooxml: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Inserts a paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -71692,7 +71525,6 @@ declare namespace Word {
          */
         insertParagraph(paragraphText: string, insertLocation: Word.InsertLocation): Word.Paragraph;
         /**
-         *
          * Inserts a paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -71702,7 +71534,6 @@ declare namespace Word {
          */
         insertParagraph(paragraphText: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Paragraph;
         /**
-         *
          * Inserts a table with the specified number of rows and columns.
          *
          * [Api set: WordApi 1.3]
@@ -71714,7 +71545,6 @@ declare namespace Word {
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: Word.InsertLocation, values?: string[][]): Word.Table;
         /**
-         *
          * Inserts a table with the specified number of rows and columns.
          *
          * [Api set: WordApi 1.3]
@@ -71726,7 +71556,6 @@ declare namespace Word {
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: "Before" | "After" | "Start" | "End" | "Replace", values?: string[][]): Word.Table;
         /**
-         *
          * Inserts text into the paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -71736,7 +71565,6 @@ declare namespace Word {
          */
         insertText(text: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts text into the paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -71746,7 +71574,6 @@ declare namespace Word {
          */
         insertText(text: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Performs a search with the specified SearchOptions on the scope of the paragraph object. The search results are a collection of range objects.
          *
          * [Api set: WordApi 1.1]
@@ -71764,7 +71591,6 @@ declare namespace Word {
             matchWildcards?: boolean;
         }): Word.RangeCollection;
         /**
-         *
          * Selects and navigates the Word UI to the paragraph.
          *
          * [Api set: WordApi 1.1]
@@ -71773,7 +71599,6 @@ declare namespace Word {
          */
         select(selectionMode?: Word.SelectionMode): void;
         /**
-         *
          * Selects and navigates the Word UI to the paragraph.
          *
          * [Api set: WordApi 1.1]
@@ -71782,7 +71607,6 @@ declare namespace Word {
          */
         select(selectionMode?: "Select" | "Start" | "End"): void;
         /**
-         *
          * Splits the paragraph into child ranges by using delimiters.
          *
          * [Api set: WordApi 1.3]
@@ -71793,39 +71617,38 @@ declare namespace Word {
          */
         split(delimiters: string[], trimDelimiters?: boolean, trimSpacing?: boolean): Word.RangeCollection;
         /**
-         *
          * Starts a new list with this paragraph. Fails if the paragraph is already a list item.
          *
          * [Api set: WordApi 1.3]
          */
         startNewList(): Word.List;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.Paragraph` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.Paragraph` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.Paragraph` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.ParagraphLoadOptions): Word.Paragraph;
-        load(option?: string | string[]): Word.Paragraph;
-        load(option?: {
+        load(options?: Word.Interfaces.ParagraphLoadOptions): Word.Paragraph;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.Paragraph;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.Paragraph;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.Paragraph;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.Paragraph;
         /**
@@ -71846,57 +71669,53 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         readonly items: Word.Paragraph[];
         /**
-         *
          * Gets the first paragraph in this collection. Throws an error if the collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.Paragraph;
         /**
-         *
          * Gets the first paragraph in this collection. Returns a null object if the collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirstOrNullObject(): Word.Paragraph;
         /**
-         *
          * Gets the last paragraph in this collection. Throws an error if the collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getLast(): Word.Paragraph;
         /**
-         *
          * Gets the last paragraph in this collection. Returns a null object if the collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getLastOrNullObject(): Word.Paragraph;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.ParagraphCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.ParagraphCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.ParagraphCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.ParagraphCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.ParagraphCollection;
-        load(option?: string | string[]): Word.ParagraphCollection;
-        load(option?: OfficeExtension.LoadOption): Word.ParagraphCollection;
+        load(options?: Word.Interfaces.ParagraphCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.ParagraphCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.ParagraphCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Word.ParagraphCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.ParagraphCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.ParagraphCollection;
         /**
@@ -72055,14 +71874,12 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.Range): void;
         /**
-         *
          * Clears the contents of the range object. The user can perform the undo operation on the cleared content.
          *
          * [Api set: WordApi 1.1]
          */
         clear(): void;
         /**
-         *
          * Compares this range's location with another range's location.
          *
          * [Api set: WordApi 1.3]
@@ -72071,14 +71888,12 @@ declare namespace Word {
          */
         compareLocationWith(range: Word.Range): OfficeExtension.ClientResult<Word.LocationRelation>;
         /**
-         *
          * Deletes the range and its content from the document.
          *
          * [Api set: WordApi 1.1]
          */
         delete(): void;
         /**
-         *
          * Returns a new range that extends from this range in either direction to cover another range. This range is not changed. Throws an error if the two ranges do not have a union.
          *
          * [Api set: WordApi 1.3]
@@ -72087,7 +71902,6 @@ declare namespace Word {
          */
         expandTo(range: Word.Range): Word.Range;
         /**
-         *
          * Returns a new range that extends from this range in either direction to cover another range. This range is not changed. Returns a null object if the two ranges do not have a union.
          *
          * [Api set: WordApi 1.3]
@@ -72096,7 +71910,6 @@ declare namespace Word {
          */
         expandToOrNullObject(range: Word.Range): Word.Range;
         /**
-         *
          * Gets the names all bookmarks in or overlapping the range. A bookmark is hidden if its name starts with the underscore character.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -72107,21 +71920,18 @@ declare namespace Word {
          */
         getBookmarks(includeHidden?: boolean, includeAdjacent?: boolean): OfficeExtension.ClientResult<string[]>;
         /**
-         *
          * Gets an HTML representation of the range object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word for the web, etc.). If you need exact fidelity, or consistency across platforms, use `Range.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
         getHtml(): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Gets hyperlink child ranges within the range.
          *
          * [Api set: WordApi 1.3]
          */
         getHyperlinkRanges(): Word.RangeCollection;
         /**
-         *
          * Gets the next text range by using punctuation marks and/or other ending marks. Throws an error if this text range is the last one.
          *
          * [Api set: WordApi 1.3]
@@ -72131,7 +71941,6 @@ declare namespace Word {
          */
         getNextTextRange(endingMarks: string[], trimSpacing?: boolean): Word.Range;
         /**
-         *
          * Gets the next text range by using punctuation marks and/or other ending marks. Returns a null object if this text range is the last one.
          *
          * [Api set: WordApi 1.3]
@@ -72141,14 +71950,12 @@ declare namespace Word {
          */
         getNextTextRangeOrNullObject(endingMarks: string[], trimSpacing?: boolean): Word.Range;
         /**
-         *
          * Gets the OOXML representation of the range object.
          *
          * [Api set: WordApi 1.1]
          */
         getOoxml(): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Clones the range, or gets the starting or ending point of the range as a new range.
          *
          * [Api set: WordApi 1.3]
@@ -72157,7 +71964,6 @@ declare namespace Word {
          */
         getRange(rangeLocation?: Word.RangeLocation): Word.Range;
         /**
-         *
          * Clones the range, or gets the starting or ending point of the range as a new range.
          *
          * [Api set: WordApi 1.3]
@@ -72166,7 +71972,6 @@ declare namespace Word {
          */
         getRange(rangeLocation?: "Whole" | "Start" | "End" | "Before" | "After" | "Content"): Word.Range;
         /**
-         *
          * Gets the text child ranges in the range by using punctuation marks and/or other ending marks.
          *
          * [Api set: WordApi 1.3]
@@ -72176,7 +71981,6 @@ declare namespace Word {
          */
         getTextRanges(endingMarks: string[], trimSpacing?: boolean): Word.RangeCollection;
         /**
-         *
          * Inserts a bookmark on the range. If a bookmark of the same name exists somewhere, it is deleted first.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -72186,7 +71990,6 @@ declare namespace Word {
          */
         insertBookmark(name: string): void;
         /**
-         *
          * Inserts a break at the specified location in the main document.
          *
          * [Api set: WordApi 1.1]
@@ -72196,7 +71999,6 @@ declare namespace Word {
          */
         insertBreak(breakType: Word.BreakType, insertLocation: Word.InsertLocation): void;
         /**
-         *
          * Inserts a break at the specified location in the main document.
          *
          * [Api set: WordApi 1.1]
@@ -72206,14 +72008,12 @@ declare namespace Word {
          */
         insertBreak(breakType: "Page" | "Next" | "SectionNext" | "SectionContinuous" | "SectionEven" | "SectionOdd" | "Line", insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): void;
         /**
-         *
          * Wraps the range object with a rich text content control.
          *
          * [Api set: WordApi 1.1]
          */
         insertContentControl(): Word.ContentControl;
         /**
-         *
          * Inserts a document at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -72223,7 +72023,6 @@ declare namespace Word {
          */
         insertFileFromBase64(base64File: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts a document at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -72233,7 +72032,6 @@ declare namespace Word {
          */
         insertFileFromBase64(base64File: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Inserts HTML at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -72243,7 +72041,6 @@ declare namespace Word {
          */
         insertHtml(html: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts HTML at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -72253,7 +72050,6 @@ declare namespace Word {
          */
         insertHtml(html: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Inserts a picture at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -72263,7 +72059,6 @@ declare namespace Word {
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: Word.InsertLocation): Word.InlinePicture;
         /**
-         *
          * Inserts a picture at the specified location.
          *
          * [Api set: WordApi 1.2]
@@ -72273,7 +72068,6 @@ declare namespace Word {
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.InlinePicture;
         /**
-         *
          * Inserts OOXML at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -72283,7 +72077,6 @@ declare namespace Word {
          */
         insertOoxml(ooxml: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts OOXML at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -72293,7 +72086,6 @@ declare namespace Word {
          */
         insertOoxml(ooxml: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Inserts a paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -72303,7 +72095,6 @@ declare namespace Word {
          */
         insertParagraph(paragraphText: string, insertLocation: Word.InsertLocation): Word.Paragraph;
         /**
-         *
          * Inserts a paragraph at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -72313,7 +72104,6 @@ declare namespace Word {
          */
         insertParagraph(paragraphText: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Paragraph;
         /**
-         *
          * Inserts a table with the specified number of rows and columns.
          *
          * [Api set: WordApi 1.3]
@@ -72325,7 +72115,6 @@ declare namespace Word {
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: Word.InsertLocation, values?: string[][]): Word.Table;
         /**
-         *
          * Inserts a table with the specified number of rows and columns.
          *
          * [Api set: WordApi 1.3]
@@ -72337,7 +72126,6 @@ declare namespace Word {
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: "Before" | "After" | "Start" | "End" | "Replace", values?: string[][]): Word.Table;
         /**
-         *
          * Inserts text at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -72347,7 +72135,6 @@ declare namespace Word {
          */
         insertText(text: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
-         *
          * Inserts text at the specified location.
          *
          * [Api set: WordApi 1.1]
@@ -72357,7 +72144,6 @@ declare namespace Word {
          */
         insertText(text: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
-         *
          * Returns a new range as the intersection of this range with another range. This range is not changed. Throws an error if the two ranges are not overlapped or adjacent.
          *
          * [Api set: WordApi 1.3]
@@ -72366,7 +72152,6 @@ declare namespace Word {
          */
         intersectWith(range: Word.Range): Word.Range;
         /**
-         *
          * Returns a new range as the intersection of this range with another range. This range is not changed. Returns a null object if the two ranges are not overlapped or adjacent.
          *
          * [Api set: WordApi 1.3]
@@ -72375,7 +72160,6 @@ declare namespace Word {
          */
         intersectWithOrNullObject(range: Word.Range): Word.Range;
         /**
-         *
          * Performs a search with the specified SearchOptions on the scope of the range object. The search results are a collection of range objects.
          *
          * [Api set: WordApi 1.1]
@@ -72393,7 +72177,6 @@ declare namespace Word {
             matchWildcards?: boolean;
         }): Word.RangeCollection;
         /**
-         *
          * Selects and navigates the Word UI to the range.
          *
          * [Api set: WordApi 1.1]
@@ -72402,7 +72185,6 @@ declare namespace Word {
          */
         select(selectionMode?: Word.SelectionMode): void;
         /**
-         *
          * Selects and navigates the Word UI to the range.
          *
          * [Api set: WordApi 1.1]
@@ -72411,7 +72193,6 @@ declare namespace Word {
          */
         select(selectionMode?: "Select" | "Start" | "End"): void;
         /**
-         *
          * Splits the range into child ranges by using delimiters.
          *
          * [Api set: WordApi 1.3]
@@ -72423,32 +72204,32 @@ declare namespace Word {
          */
         split(delimiters: string[], multiParagraphs?: boolean, trimDelimiters?: boolean, trimSpacing?: boolean): Word.RangeCollection;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.Range` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.Range` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.Range` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.RangeLoadOptions): Word.Range;
-        load(option?: string | string[]): Word.Range;
-        load(option?: {
+        load(options?: Word.Interfaces.RangeLoadOptions): Word.Range;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.Range;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.Range;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.Range;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.Range;
         /**
@@ -72469,43 +72250,41 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         readonly items: Word.Range[];
         /**
-         *
          * Gets the first range in this collection. Throws an error if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.Range;
         /**
-         *
          * Gets the first range in this collection. Returns a null object if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirstOrNullObject(): Word.Range;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.RangeCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.RangeCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.RangeCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.RangeCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.RangeCollection;
-        load(option?: string | string[]): Word.RangeCollection;
-        load(option?: OfficeExtension.LoadOption): Word.RangeCollection;
+        load(options?: Word.Interfaces.RangeCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.RangeCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.RangeCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Word.RangeCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.RangeCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.RangeCollection;
         /**
@@ -72525,7 +72304,6 @@ declare namespace Word {
     class SearchOptions extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
         context: RequestContext;
-        matchWildCards: boolean;
         /**
          *
          * Gets or sets a value that indicates whether to ignore all punctuation characters between words. Corresponds to the Ignore punctuation check box in the Find and Replace dialog box.
@@ -72590,23 +72368,23 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.SearchOptions): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.SearchOptions` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.SearchOptions` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.SearchOptions` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.SearchOptionsLoadOptions): Word.SearchOptions;
-        load(option?: string | string[]): Word.SearchOptions;
-        load(option?: {
+        load(options?: Word.Interfaces.SearchOptionsLoadOptions): Word.SearchOptions;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.SearchOptions;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.SearchOptions;
@@ -72651,7 +72429,6 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.Section): void;
         /**
-         *
          * Gets one of the section's footers.
          *
          * [Api set: WordApi 1.1]
@@ -72660,7 +72437,6 @@ declare namespace Word {
          */
         getFooter(type: Word.HeaderFooterType): Word.Body;
         /**
-         *
          * Gets one of the section's footers.
          *
          * [Api set: WordApi 1.1]
@@ -72669,7 +72445,6 @@ declare namespace Word {
          */
         getFooter(type: "Primary" | "FirstPage" | "EvenPages"): Word.Body;
         /**
-         *
          * Gets one of the section's headers.
          *
          * [Api set: WordApi 1.1]
@@ -72678,7 +72453,6 @@ declare namespace Word {
          */
         getHeader(type: Word.HeaderFooterType): Word.Body;
         /**
-         *
          * Gets one of the section's headers.
          *
          * [Api set: WordApi 1.1]
@@ -72687,46 +72461,44 @@ declare namespace Word {
          */
         getHeader(type: "Primary" | "FirstPage" | "EvenPages"): Word.Body;
         /**
-         *
          * Gets the next section. Throws an error if this section is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNext(): Word.Section;
         /**
-         *
          * Gets the next section. Returns a null object if this section is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNextOrNullObject(): Word.Section;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.Section` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.Section` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.Section` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.SectionLoadOptions): Word.Section;
-        load(option?: string | string[]): Word.Section;
-        load(option?: {
+        load(options?: Word.Interfaces.SectionLoadOptions): Word.Section;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.Section;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.Section;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.Section;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.Section;
         /**
@@ -72747,43 +72519,41 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         readonly items: Word.Section[];
         /**
-         *
          * Gets the first section in this collection. Throws an error if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.Section;
         /**
-         *
          * Gets the first section in this collection. Returns a null object if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirstOrNullObject(): Word.Section;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.SectionCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.SectionCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.SectionCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.SectionCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.SectionCollection;
-        load(option?: string | string[]): Word.SectionCollection;
-        load(option?: OfficeExtension.LoadOption): Word.SectionCollection;
+        load(options?: Word.Interfaces.SectionCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.SectionCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.SectionCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Word.SectionCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.SectionCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.SectionCollection;
         /**
@@ -72802,10 +72572,6 @@ declare namespace Word {
     class Setting extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
         context: RequestContext;
-        private static DateJSONPrefix;
-        private static DateJSONSuffix;
-        private static replaceStringDateWithDate(value);
-        static _replaceDateWithStringDate(value: any): any;
         /**
          *
          * Gets the key of the setting. Read only.
@@ -72837,7 +72603,6 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.Setting): void;
         /**
-         *
          * Deletes the setting.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -72845,32 +72610,32 @@ declare namespace Word {
          */
         delete(): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.Setting` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.Setting` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.Setting` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.SettingLoadOptions): Word.Setting;
-        load(option?: string | string[]): Word.Setting;
-        load(option?: {
+        load(options?: Word.Interfaces.SettingLoadOptions): Word.Setting;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.Setting;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.Setting;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.Setting;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.Setting;
         /**
@@ -72878,6 +72643,14 @@ declare namespace Word {
         * Whereas the original Word.Setting object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SettingData`) that contains shallow copies of any loaded child properties from the original object.
         */
         toJSON(): Word.Interfaces.SettingData;
+    }
+    class SettingCustom {
+        private static DateJSONPrefix;
+        private static DateJSONSuffix;
+        static replaceStringDateWithDate(value: any): any;
+        static replaceDateWithStringDate(value: any): any;
+    }
+    interface Setting extends OfficeExtension.ClientObject, SettingCustom {
     }
     /**
      *
@@ -72892,7 +72665,6 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         readonly items: Word.Setting[];
         /**
-         *
          * Creates a new setting or sets an existing setting.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -72903,7 +72675,6 @@ declare namespace Word {
          */
         add(key: string, value: any): Word.Setting;
         /**
-         *
          * Deletes all settings in this add-in.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -72911,7 +72682,6 @@ declare namespace Word {
          */
         deleteAll(): void;
         /**
-         *
          * Gets the count of settings.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -72919,7 +72689,6 @@ declare namespace Word {
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a setting object by its key, which is case-sensitive. Throws an error if the setting does not exist.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -72929,7 +72698,6 @@ declare namespace Word {
          */
         getItem(key: string): Word.Setting;
         /**
-         *
          * Gets a setting object by its key, which is case-sensitive. Returns a null object if the setting does not exist.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -72939,29 +72707,29 @@ declare namespace Word {
          */
         getItemOrNullObject(key: string): Word.Setting;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.SettingCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.SettingCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.SettingCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.SettingCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.SettingCollection;
-        load(option?: string | string[]): Word.SettingCollection;
-        load(option?: OfficeExtension.LoadOption): Word.SettingCollection;
+        load(options?: Word.Interfaces.SettingCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.SettingCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.SettingCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Word.SettingCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.SettingCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.SettingCollection;
         /**
@@ -73183,7 +72951,6 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.Table): void;
         /**
-         *
          * Adds columns to the start or end of the table, using the first or last existing column as a template. This is applicable to uniform tables. The string values, if specified, are set in the newly inserted rows.
          *
          * [Api set: WordApi 1.3]
@@ -73194,7 +72961,6 @@ declare namespace Word {
          */
         addColumns(insertLocation: Word.InsertLocation, columnCount: number, values?: string[][]): void;
         /**
-         *
          * Adds columns to the start or end of the table, using the first or last existing column as a template. This is applicable to uniform tables. The string values, if specified, are set in the newly inserted rows.
          *
          * [Api set: WordApi 1.3]
@@ -73205,7 +72971,6 @@ declare namespace Word {
          */
         addColumns(insertLocation: "Before" | "After" | "Start" | "End" | "Replace", columnCount: number, values?: string[][]): void;
         /**
-         *
          * Adds rows to the start or end of the table, using the first or last existing row as a template. The string values, if specified, are set in the newly inserted rows.
          *
          * [Api set: WordApi 1.3]
@@ -73216,7 +72981,6 @@ declare namespace Word {
          */
         addRows(insertLocation: Word.InsertLocation, rowCount: number, values?: string[][]): Word.TableRowCollection;
         /**
-         *
          * Adds rows to the start or end of the table, using the first or last existing row as a template. The string values, if specified, are set in the newly inserted rows.
          *
          * [Api set: WordApi 1.3]
@@ -73227,28 +72991,24 @@ declare namespace Word {
          */
         addRows(insertLocation: "Before" | "After" | "Start" | "End" | "Replace", rowCount: number, values?: string[][]): Word.TableRowCollection;
         /**
-         *
          * Autofits the table columns to the width of the window.
          *
          * [Api set: WordApi 1.3]
          */
         autoFitWindow(): void;
         /**
-         *
          * Clears the contents of the table.
          *
          * [Api set: WordApi 1.3]
          */
         clear(): void;
         /**
-         *
          * Deletes the entire table.
          *
          * [Api set: WordApi 1.3]
          */
         delete(): void;
         /**
-         *
          * Deletes specific columns. This is applicable to uniform tables.
          *
          * [Api set: WordApi 1.3]
@@ -73258,7 +73018,6 @@ declare namespace Word {
          */
         deleteColumns(columnIndex: number, columnCount?: number): void;
         /**
-         *
          * Deletes specific rows.
          *
          * [Api set: WordApi 1.3]
@@ -73268,14 +73027,12 @@ declare namespace Word {
          */
         deleteRows(rowIndex: number, rowCount?: number): void;
         /**
-         *
          * Distributes the column widths evenly. This is applicable to uniform tables.
          *
          * [Api set: WordApi 1.3]
          */
         distributeColumns(): void;
         /**
-         *
          * Gets the border style for the specified border.
          *
          * [Api set: WordApi 1.3]
@@ -73284,7 +73041,6 @@ declare namespace Word {
          */
         getBorder(borderLocation: Word.BorderLocation): Word.TableBorder;
         /**
-         *
          * Gets the border style for the specified border.
          *
          * [Api set: WordApi 1.3]
@@ -73293,7 +73049,6 @@ declare namespace Word {
          */
         getBorder(borderLocation: "Top" | "Left" | "Bottom" | "Right" | "InsideHorizontal" | "InsideVertical" | "Inside" | "Outside" | "All"): Word.TableBorder;
         /**
-         *
          * Gets the table cell at a specified row and column. Throws an error if the specified table cell does not exist.
          *
          * [Api set: WordApi 1.3]
@@ -73303,7 +73058,6 @@ declare namespace Word {
          */
         getCell(rowIndex: number, cellIndex: number): Word.TableCell;
         /**
-         *
          * Gets the table cell at a specified row and column. Returns a null object if the specified table cell does not exist.
          *
          * [Api set: WordApi 1.3]
@@ -73313,7 +73067,6 @@ declare namespace Word {
          */
         getCellOrNullObject(rowIndex: number, cellIndex: number): Word.TableCell;
         /**
-         *
          * Gets cell padding in points.
          *
          * [Api set: WordApi 1.3]
@@ -73322,7 +73075,6 @@ declare namespace Word {
          */
         getCellPadding(cellPaddingLocation: Word.CellPaddingLocation): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets cell padding in points.
          *
          * [Api set: WordApi 1.3]
@@ -73331,49 +73083,42 @@ declare namespace Word {
          */
         getCellPadding(cellPaddingLocation: "Top" | "Left" | "Bottom" | "Right"): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets the next table. Throws an error if this table is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNext(): Word.Table;
         /**
-         *
          * Gets the next table. Returns a null object if this table is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNextOrNullObject(): Word.Table;
         /**
-         *
          * Gets the paragraph after the table. Throws an error if there isn't a paragraph after the table.
          *
          * [Api set: WordApi 1.3]
          */
         getParagraphAfter(): Word.Paragraph;
         /**
-         *
          * Gets the paragraph after the table. Returns a null object if there isn't a paragraph after the table.
          *
          * [Api set: WordApi 1.3]
          */
         getParagraphAfterOrNullObject(): Word.Paragraph;
         /**
-         *
          * Gets the paragraph before the table. Throws an error if there isn't a paragraph before the table.
          *
          * [Api set: WordApi 1.3]
          */
         getParagraphBefore(): Word.Paragraph;
         /**
-         *
          * Gets the paragraph before the table. Returns a null object if there isn't a paragraph before the table.
          *
          * [Api set: WordApi 1.3]
          */
         getParagraphBeforeOrNullObject(): Word.Paragraph;
         /**
-         *
          * Gets the range that contains this table, or the range at the start or end of the table.
          *
          * [Api set: WordApi 1.3]
@@ -73382,7 +73127,6 @@ declare namespace Word {
          */
         getRange(rangeLocation?: Word.RangeLocation): Word.Range;
         /**
-         *
          * Gets the range that contains this table, or the range at the start or end of the table.
          *
          * [Api set: WordApi 1.3]
@@ -73391,14 +73135,12 @@ declare namespace Word {
          */
         getRange(rangeLocation?: "Whole" | "Start" | "End" | "Before" | "After" | "Content"): Word.Range;
         /**
-         *
          * Inserts a content control on the table.
          *
          * [Api set: WordApi 1.3]
          */
         insertContentControl(): Word.ContentControl;
         /**
-         *
          * Inserts a paragraph at the specified location.
          *
          * [Api set: WordApi 1.3]
@@ -73408,7 +73150,6 @@ declare namespace Word {
          */
         insertParagraph(paragraphText: string, insertLocation: Word.InsertLocation): Word.Paragraph;
         /**
-         *
          * Inserts a paragraph at the specified location.
          *
          * [Api set: WordApi 1.3]
@@ -73418,7 +73159,6 @@ declare namespace Word {
          */
         insertParagraph(paragraphText: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Paragraph;
         /**
-         *
          * Inserts a table with the specified number of rows and columns.
          *
          * [Api set: WordApi 1.3]
@@ -73430,7 +73170,6 @@ declare namespace Word {
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: Word.InsertLocation, values?: string[][]): Word.Table;
         /**
-         *
          * Inserts a table with the specified number of rows and columns.
          *
          * [Api set: WordApi 1.3]
@@ -73442,7 +73181,6 @@ declare namespace Word {
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: "Before" | "After" | "Start" | "End" | "Replace", values?: string[][]): Word.Table;
         /**
-         *
          * Merges the cells bounded inclusively by a first and last cell.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -73455,7 +73193,6 @@ declare namespace Word {
          */
         mergeCells(topRow: number, firstCell: number, bottomRow: number, lastCell: number): Word.TableCell;
         /**
-         *
          * Performs a search with the specified SearchOptions on the scope of the table object. The search results are a collection of range objects.
          *
          * [Api set: WordApi 1.3]
@@ -73473,7 +73210,6 @@ declare namespace Word {
             matchWildcards?: boolean;
         }): Word.RangeCollection;
         /**
-         *
          * Selects the table, or the position at the start or end of the table, and navigates the Word UI to it.
          *
          * [Api set: WordApi 1.3]
@@ -73482,7 +73218,6 @@ declare namespace Word {
          */
         select(selectionMode?: Word.SelectionMode): void;
         /**
-         *
          * Selects the table, or the position at the start or end of the table, and navigates the Word UI to it.
          *
          * [Api set: WordApi 1.3]
@@ -73491,7 +73226,6 @@ declare namespace Word {
          */
         select(selectionMode?: "Select" | "Start" | "End"): void;
         /**
-         *
          * Sets cell padding in points.
          *
          * [Api set: WordApi 1.3]
@@ -73501,7 +73235,6 @@ declare namespace Word {
          */
         setCellPadding(cellPaddingLocation: Word.CellPaddingLocation, cellPadding: number): void;
         /**
-         *
          * Sets cell padding in points.
          *
          * [Api set: WordApi 1.3]
@@ -73511,32 +73244,32 @@ declare namespace Word {
          */
         setCellPadding(cellPaddingLocation: "Top" | "Left" | "Bottom" | "Right", cellPadding: number): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.Table` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.Table` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.Table` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.TableLoadOptions): Word.Table;
-        load(option?: string | string[]): Word.Table;
-        load(option?: {
+        load(options?: Word.Interfaces.TableLoadOptions): Word.Table;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.Table;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.Table;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.Table;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.Table;
         /**
@@ -73557,43 +73290,41 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         readonly items: Word.Table[];
         /**
-         *
          * Gets the first table in this collection. Throws an error if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.Table;
         /**
-         *
          * Gets the first table in this collection. Returns a null object if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirstOrNullObject(): Word.Table;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.TableCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.TableCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.TableCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.TableCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.TableCollection;
-        load(option?: string | string[]): Word.TableCollection;
-        load(option?: OfficeExtension.LoadOption): Word.TableCollection;
+        load(options?: Word.Interfaces.TableCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.TableCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.TableCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Word.TableCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.TableCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.TableCollection;
         /**
@@ -73703,21 +73434,18 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.TableRow): void;
         /**
-         *
          * Clears the contents of the row.
          *
          * [Api set: WordApi 1.3]
          */
         clear(): void;
         /**
-         *
          * Deletes the entire row.
          *
          * [Api set: WordApi 1.3]
          */
         delete(): void;
         /**
-         *
          * Gets the border style of the cells in the row.
          *
          * [Api set: WordApi 1.3]
@@ -73726,7 +73454,6 @@ declare namespace Word {
          */
         getBorder(borderLocation: Word.BorderLocation): Word.TableBorder;
         /**
-         *
          * Gets the border style of the cells in the row.
          *
          * [Api set: WordApi 1.3]
@@ -73735,7 +73462,6 @@ declare namespace Word {
          */
         getBorder(borderLocation: "Top" | "Left" | "Bottom" | "Right" | "InsideHorizontal" | "InsideVertical" | "Inside" | "Outside" | "All"): Word.TableBorder;
         /**
-         *
          * Gets cell padding in points.
          *
          * [Api set: WordApi 1.3]
@@ -73744,7 +73470,6 @@ declare namespace Word {
          */
         getCellPadding(cellPaddingLocation: Word.CellPaddingLocation): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets cell padding in points.
          *
          * [Api set: WordApi 1.3]
@@ -73753,21 +73478,18 @@ declare namespace Word {
          */
         getCellPadding(cellPaddingLocation: "Top" | "Left" | "Bottom" | "Right"): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets the next row. Throws an error if this row is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNext(): Word.TableRow;
         /**
-         *
          * Gets the next row. Returns a null object if this row is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNextOrNullObject(): Word.TableRow;
         /**
-         *
          * Inserts a content control on the row.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -73775,7 +73497,6 @@ declare namespace Word {
          */
         insertContentControl(): Word.ContentControl;
         /**
-         *
          * Inserts rows using this row as a template. If values are specified, inserts the values into the new rows.
          *
          * [Api set: WordApi 1.3]
@@ -73786,7 +73507,6 @@ declare namespace Word {
          */
         insertRows(insertLocation: Word.InsertLocation, rowCount: number, values?: string[][]): Word.TableRowCollection;
         /**
-         *
          * Inserts rows using this row as a template. If values are specified, inserts the values into the new rows.
          *
          * [Api set: WordApi 1.3]
@@ -73797,7 +73517,6 @@ declare namespace Word {
          */
         insertRows(insertLocation: "Before" | "After" | "Start" | "End" | "Replace", rowCount: number, values?: string[][]): Word.TableRowCollection;
         /**
-         *
          * Merges the row into one cell.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -73805,7 +73524,6 @@ declare namespace Word {
          */
         merge(): Word.TableCell;
         /**
-         *
          * Performs a search with the specified SearchOptions on the scope of the row. The search results are a collection of range objects.
          *
          * [Api set: WordApi 1.3]
@@ -73823,7 +73541,6 @@ declare namespace Word {
             matchWildcards?: boolean;
         }): Word.RangeCollection;
         /**
-         *
          * Selects the row and navigates the Word UI to it.
          *
          * [Api set: WordApi 1.3]
@@ -73832,7 +73549,6 @@ declare namespace Word {
          */
         select(selectionMode?: Word.SelectionMode): void;
         /**
-         *
          * Selects the row and navigates the Word UI to it.
          *
          * [Api set: WordApi 1.3]
@@ -73841,7 +73557,6 @@ declare namespace Word {
          */
         select(selectionMode?: "Select" | "Start" | "End"): void;
         /**
-         *
          * Sets cell padding in points.
          *
          * [Api set: WordApi 1.3]
@@ -73851,7 +73566,6 @@ declare namespace Word {
          */
         setCellPadding(cellPaddingLocation: Word.CellPaddingLocation, cellPadding: number): void;
         /**
-         *
          * Sets cell padding in points.
          *
          * [Api set: WordApi 1.3]
@@ -73861,32 +73575,32 @@ declare namespace Word {
          */
         setCellPadding(cellPaddingLocation: "Top" | "Left" | "Bottom" | "Right", cellPadding: number): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.TableRow` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.TableRow` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.TableRow` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.TableRowLoadOptions): Word.TableRow;
-        load(option?: string | string[]): Word.TableRow;
-        load(option?: {
+        load(options?: Word.Interfaces.TableRowLoadOptions): Word.TableRow;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.TableRow;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.TableRow;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.TableRow;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.TableRow;
         /**
@@ -73907,43 +73621,41 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         readonly items: Word.TableRow[];
         /**
-         *
          * Gets the first row in this collection. Throws an error if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.TableRow;
         /**
-         *
          * Gets the first row in this collection. Returns a null object if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirstOrNullObject(): Word.TableRow;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.TableRowCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.TableRowCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.TableRowCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.TableRowCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.TableRowCollection;
-        load(option?: string | string[]): Word.TableRowCollection;
-        load(option?: OfficeExtension.LoadOption): Word.TableRowCollection;
+        load(options?: Word.Interfaces.TableRowCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.TableRowCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.TableRowCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Word.TableRowCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.TableRowCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.TableRowCollection;
         /**
@@ -74053,21 +73765,18 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.TableCell): void;
         /**
-         *
          * Deletes the column containing this cell. This is applicable to uniform tables.
          *
          * [Api set: WordApi 1.3]
          */
         deleteColumn(): void;
         /**
-         *
          * Deletes the row containing this cell.
          *
          * [Api set: WordApi 1.3]
          */
         deleteRow(): void;
         /**
-         *
          * Gets the border style for the specified border.
          *
          * [Api set: WordApi 1.3]
@@ -74076,7 +73785,6 @@ declare namespace Word {
          */
         getBorder(borderLocation: Word.BorderLocation): Word.TableBorder;
         /**
-         *
          * Gets the border style for the specified border.
          *
          * [Api set: WordApi 1.3]
@@ -74085,7 +73793,6 @@ declare namespace Word {
          */
         getBorder(borderLocation: "Top" | "Left" | "Bottom" | "Right" | "InsideHorizontal" | "InsideVertical" | "Inside" | "Outside" | "All"): Word.TableBorder;
         /**
-         *
          * Gets cell padding in points.
          *
          * [Api set: WordApi 1.3]
@@ -74094,7 +73801,6 @@ declare namespace Word {
          */
         getCellPadding(cellPaddingLocation: Word.CellPaddingLocation): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets cell padding in points.
          *
          * [Api set: WordApi 1.3]
@@ -74103,21 +73809,18 @@ declare namespace Word {
          */
         getCellPadding(cellPaddingLocation: "Top" | "Left" | "Bottom" | "Right"): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets the next cell. Throws an error if this cell is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNext(): Word.TableCell;
         /**
-         *
          * Gets the next cell. Returns a null object if this cell is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNextOrNullObject(): Word.TableCell;
         /**
-         *
          * Adds columns to the left or right of the cell, using the cell's column as a template. This is applicable to uniform tables. The string values, if specified, are set in the newly inserted rows.
          *
          * [Api set: WordApi 1.3]
@@ -74128,7 +73831,6 @@ declare namespace Word {
          */
         insertColumns(insertLocation: Word.InsertLocation, columnCount: number, values?: string[][]): void;
         /**
-         *
          * Adds columns to the left or right of the cell, using the cell's column as a template. This is applicable to uniform tables. The string values, if specified, are set in the newly inserted rows.
          *
          * [Api set: WordApi 1.3]
@@ -74139,7 +73841,6 @@ declare namespace Word {
          */
         insertColumns(insertLocation: "Before" | "After" | "Start" | "End" | "Replace", columnCount: number, values?: string[][]): void;
         /**
-         *
          * Inserts rows above or below the cell, using the cell's row as a template. The string values, if specified, are set in the newly inserted rows.
          *
          * [Api set: WordApi 1.3]
@@ -74150,7 +73851,6 @@ declare namespace Word {
          */
         insertRows(insertLocation: Word.InsertLocation, rowCount: number, values?: string[][]): Word.TableRowCollection;
         /**
-         *
          * Inserts rows above or below the cell, using the cell's row as a template. The string values, if specified, are set in the newly inserted rows.
          *
          * [Api set: WordApi 1.3]
@@ -74161,7 +73861,6 @@ declare namespace Word {
          */
         insertRows(insertLocation: "Before" | "After" | "Start" | "End" | "Replace", rowCount: number, values?: string[][]): Word.TableRowCollection;
         /**
-         *
          * Sets cell padding in points.
          *
          * [Api set: WordApi 1.3]
@@ -74171,7 +73870,6 @@ declare namespace Word {
          */
         setCellPadding(cellPaddingLocation: Word.CellPaddingLocation, cellPadding: number): void;
         /**
-         *
          * Sets cell padding in points.
          *
          * [Api set: WordApi 1.3]
@@ -74181,7 +73879,6 @@ declare namespace Word {
          */
         setCellPadding(cellPaddingLocation: "Top" | "Left" | "Bottom" | "Right", cellPadding: number): void;
         /**
-         *
          * Splits the cell into the specified number of rows and columns.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -74192,32 +73889,32 @@ declare namespace Word {
          */
         split(rowCount: number, columnCount: number): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.TableCell` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.TableCell` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.TableCell` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.TableCellLoadOptions): Word.TableCell;
-        load(option?: string | string[]): Word.TableCell;
-        load(option?: {
+        load(options?: Word.Interfaces.TableCellLoadOptions): Word.TableCell;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.TableCell;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.TableCell;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.TableCell;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.TableCell;
         /**
@@ -74238,43 +73935,41 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         readonly items: Word.TableCell[];
         /**
-         *
          * Gets the first table cell in this collection. Throws an error if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.TableCell;
         /**
-         *
          * Gets the first table cell in this collection. Returns a null object if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirstOrNullObject(): Word.TableCell;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.TableCellCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.TableCellCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.TableCellCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.TableCellCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.TableCellCollection;
-        load(option?: string | string[]): Word.TableCellCollection;
-        load(option?: OfficeExtension.LoadOption): Word.TableCellCollection;
+        load(options?: Word.Interfaces.TableCellCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.TableCellCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.TableCellCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Word.TableCellCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.TableCellCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.TableCellCollection;
         /**
@@ -74328,32 +74023,32 @@ declare namespace Word {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Word.TableBorder): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Word.TableBorder` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Word.TableBorder` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Word.TableBorder` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: Word.Interfaces.TableBorderLoadOptions): Word.TableBorder;
-        load(option?: string | string[]): Word.TableBorder;
-        load(option?: {
+        load(options?: Word.Interfaces.TableBorderLoadOptions): Word.TableBorder;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.TableBorder;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): Word.TableBorder;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): Word.TableBorder;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): Word.TableBorder;
         /**
@@ -74370,43 +74065,36 @@ declare namespace Word {
      */
     enum EventType {
         /**
-         *
          * ContentControlDeleted represent the event that the content control has been deleted.
          *
          */
         contentControlDeleted = "ContentControlDeleted",
         /**
-         *
          * ContentControlSelectionChanged represents the event that the selection in the content control has been changed.
          *
          */
         contentControlSelectionChanged = "ContentControlSelectionChanged",
         /**
-         *
          * ContentControlDataChanged represents the event that the data in the content control have been changed.
          *
          */
         contentControlDataChanged = "ContentControlDataChanged",
         /**
-         *
          * ContentControlAdded represents the event a content control has been added to the document.
          *
          */
         contentControlAdded = "ContentControlAdded",
         /**
-         *
          * AnnotationAdded represents the event an annotation has been added to the document.
          *
          */
         annotationAdded = "AnnotationAdded",
         /**
-         *
          * AnnotationAdded represents the event an annotation has been updated in the document.
          *
          */
         annotationChanged = "AnnotationChanged",
         /**
-         *
          * AnnotationAdded represents the event an annotation has been deleted from the document.
          *
          */
@@ -74448,19 +74136,16 @@ declare namespace Word {
         richTextInline = "RichTextInline",
         richTextParagraphs = "RichTextParagraphs",
         /**
-         *
          * Contains a whole cell.
          *
          */
         richTextTableCell = "RichTextTableCell",
         /**
-         *
          * Contains a whole row.
          *
          */
         richTextTableRow = "RichTextTableRow",
         /**
-         *
          * Contains a whole table.
          *
          */
@@ -74475,7 +74160,6 @@ declare namespace Word {
         datePicker = "DatePicker",
         repeatingSection = "RepeatingSection",
         /**
-         *
          * Identifies a rich text content control.
          *
          */
@@ -74487,22 +74171,21 @@ declare namespace Word {
      * ContentControl appearance
      *
      * [Api set: WordApi]
+     * @remarks
+     * Either bounding box, or tags, or hidden
      */
     enum ContentControlAppearance {
         /**
-         *
          * Represents a content control shown as a shaded rectangle or bounding box (with optional title).
          *
          */
         boundingBox = "BoundingBox",
         /**
-         *
          * Represents a content control shown as start and end markers.
          *
          */
         tags = "Tags",
         /**
-         *
          * Represents a content control that is not shown.
          *
          */
@@ -74513,58 +74196,51 @@ declare namespace Word {
      * Underline types
      *
      * [Api set: WordApi]
+     * @remarks
+     * The supported styles for underline format. Must have same value as in word\inc\props.h
      */
     enum UnderlineType {
         mixed = "Mixed",
         /**
-         *
          * No underline.
          *
          */
         none = "None",
         /**
-         *
          * @deprecated Hidden is no longer supported.
          */
         hidden = "Hidden",
         /**
-         *
          * @deprecated DotLine is no longer supported.
          */
         dotLine = "DotLine",
         /**
-         *
          * A single underline. This is the default value.
          *
          */
         single = "Single",
         /**
-         *
          * Only underline individual words.
          *
          */
         word = "Word",
         /**
-         *
          * A double underline.
          *
          */
         double = "Double",
         /**
-         *
          * A single thick underline.
          *
          */
         thick = "Thick",
         /**
-         *
          * A dotted underline.
          *
          */
         dotted = "Dotted",
         dottedHeavy = "DottedHeavy",
         /**
-         *
          * A single dash underline.
          *
          */
@@ -74573,21 +74249,18 @@ declare namespace Word {
         dashLineLong = "DashLineLong",
         dashLineLongHeavy = "DashLineLongHeavy",
         /**
-         *
          * An alternating dot-dash underline.
          *
          */
         dotDashLine = "DotDashLine",
         dotDashLineHeavy = "DotDashLineHeavy",
         /**
-         *
          * An alternating dot-dot-dash underline.
          *
          */
         twoDotDashLine = "TwoDotDashLine",
         twoDotDashLineHeavy = "TwoDotDashLineHeavy",
         /**
-         *
          * A single wavy underline.
          *
          */
@@ -74603,42 +74276,35 @@ declare namespace Word {
      */
     enum BreakType {
         /**
-         *
          * Page break at the insertion point.
          *
          */
         page = "Page",
         /**
-         *
          * @deprecated Use sectionNext instead.
          */
         next = "Next",
         /**
-         *
          * Section break on next page.
          *
          */
         sectionNext = "SectionNext",
         /**
-         *
          * New section without a corresponding page break.
          *
          */
         sectionContinuous = "SectionContinuous",
         /**
-         *
          * Section break with the next section beginning on the next even-numbered page. If the section break falls on an even-numbered page, Word leaves the next odd-numbered page blank.
          *
          */
         sectionEven = "SectionEven",
         /**
-         *
          * Section break with the next section beginning on the next odd-numbered page. If the section break falls on an odd-numbered page, Word leaves the next even-numbered page blank.
          *
          */
         sectionOdd = "SectionOdd",
         /**
-         *
          * Line break.
          *
          */
@@ -74649,34 +74315,34 @@ declare namespace Word {
      * The insertion location types
      *
      * [Api set: WordApi]
+     * @remarks
+     * For an API call
+     * obj.insertSomething(newStuff, location);
+     * If the location is Before or After, 'newStuff' will be outside of the modified 'obj'.
+     * If the location is Start or End, 'newStuff' will be included as part of the modified 'obj'.
      */
     enum InsertLocation {
         /**
-         *
          * Add content before the contents of the calling object.
          *
          */
         before = "Before",
         /**
-         *
          * Add content after the contents of the calling object.
          *
          */
         after = "After",
         /**
-         *
          * Prepend content to the contents of the calling object.
          *
          */
         start = "Start",
         /**
-         *
          * Append content to the contents of the calling object.
          *
          */
         end = "End",
         /**
-         *
          * Replace the contents of the current object.
          *
          */
@@ -74688,31 +74354,26 @@ declare namespace Word {
     enum Alignment {
         mixed = "Mixed",
         /**
-         *
          * Unknown alignment.
          *
          */
         unknown = "Unknown",
         /**
-         *
          * Alignment to the left.
          *
          */
         left = "Left",
         /**
-         *
          * Alignment to the center.
          *
          */
         centered = "Centered",
         /**
-         *
          * Alignment to the right.
          *
          */
         right = "Right",
         /**
-         *
          * Fully justified alignment.
          *
          */
@@ -74723,19 +74384,16 @@ declare namespace Word {
      */
     enum HeaderFooterType {
         /**
-         *
          * Returns the header or footer on all pages of a section, but excludes the first page or odd pages if they are different.
          *
          */
         primary = "Primary",
         /**
-         *
          * Returns the header or footer on the first page of a section.
          *
          */
         firstPage = "FirstPage",
         /**
-         *
          * Returns all headers or footers on even-numbered pages of a section.
          *
          */
@@ -74784,37 +74442,31 @@ declare namespace Word {
      */
     enum RangeLocation {
         /**
-         *
          * The object's whole range. If the object is a paragraph content control or table content control, the EOP or Table characters after the content control are also included.
          *
          */
         whole = "Whole",
         /**
-         *
          * The starting point of the object. For content control, it is the point after the opening tag.
          *
          */
         start = "Start",
         /**
-         *
          * The ending point of the object. For paragraph, it is the point before the EOP. For content control, it is the point before the closing tag.
          *
          */
         end = "End",
         /**
-         *
          * For content control only. It is the point before the opening tag.
          *
          */
         before = "Before",
         /**
-         *
          * The point after the object. If the object is a paragraph content control or table content control, it is the point after the EOP or Table characters.
          *
          */
         after = "After",
         /**
-         *
          * The range between 'Start' and 'End'.
          *
          */
@@ -74825,85 +74477,71 @@ declare namespace Word {
      */
     enum LocationRelation {
         /**
-         *
          * Indicates that this instance and the range are in different sub-documents.
          *
          */
         unrelated = "Unrelated",
         /**
-         *
          * Indicates that this instance and the range represent the same range.
          *
          */
         equal = "Equal",
         /**
-         *
          * Indicates that this instance contains the range and that it shares the same start character. The range does not share the same end character as this instance.
          *
          */
         containsStart = "ContainsStart",
         /**
-         *
          * Indicates that this instance contains the range and that it shares the same end character. The range does not share the same start character as this instance.
          *
          */
         containsEnd = "ContainsEnd",
         /**
-         *
          * Indicates that this instance contains the range, with the exception of the start and end character of this instance.
          *
          */
         contains = "Contains",
         /**
-         *
          * Indicates that this instance is inside the range and that it shares the same start character. The range does not share the same end character as this instance.
          *
          */
         insideStart = "InsideStart",
         /**
-         *
          * Indicates that this instance is inside the range and that it shares the same end character. The range does not share the same start character as this instance.
          *
          */
         insideEnd = "InsideEnd",
         /**
-         *
          * Indicates that this instance is inside the range. The range does not share the same start and end characters as this instance.
          *
          */
         inside = "Inside",
         /**
-         *
          * Indicates that this instance occurs before, and is adjacent to, the range.
          *
          */
         adjacentBefore = "AdjacentBefore",
         /**
-         *
          * Indicates that this instance starts before the range and overlaps the range’s first character.
          *
          */
         overlapsBefore = "OverlapsBefore",
         /**
-         *
          * Indicates that this instance occurs before the range.
          *
          */
         before = "Before",
         /**
-         *
          * Indicates that this instance occurs after, and is adjacent to, the range.
          *
          */
         adjacentAfter = "AdjacentAfter",
         /**
-         *
          * Indicates that this instance starts inside the range and overlaps the range’s last character.
          *
          */
         overlapsAfter = "OverlapsAfter",
         /**
-         *
          * Indicates that this instance occurs after the range.
          *
          */
@@ -75006,13 +74644,11 @@ declare namespace Word {
      */
     enum Style {
         /**
-         *
          * Mixed styles or other style not in this list.
          *
          */
         other = "Other",
         /**
-         *
          * Reset character and paragraph style to default.
          *
          */
@@ -75027,55 +74663,46 @@ declare namespace Word {
         heading8 = "Heading8",
         heading9 = "Heading9",
         /**
-         *
          * Table-of-content level 1.
          *
          */
         toc1 = "Toc1",
         /**
-         *
          * Table-of-content level 2.
          *
          */
         toc2 = "Toc2",
         /**
-         *
          * Table-of-content level 3.
          *
          */
         toc3 = "Toc3",
         /**
-         *
          * Table-of-content level 4.
          *
          */
         toc4 = "Toc4",
         /**
-         *
          * Table-of-content level 5.
          *
          */
         toc5 = "Toc5",
         /**
-         *
          * Table-of-content level 6.
          *
          */
         toc6 = "Toc6",
         /**
-         *
          * Table-of-content level 7.
          *
          */
         toc7 = "Toc7",
         /**
-         *
          * Table-of-content level 8.
          *
          */
         toc8 = "Toc8",
         /**
-         *
          * Table-of-content level 9.
          *
          */
@@ -75103,7 +74730,6 @@ declare namespace Word {
         bookTitle = "BookTitle",
         bibliography = "Bibliography",
         /**
-         *
          * Table-of-content heading.
          *
          */
@@ -75249,6 +74875,8 @@ declare namespace Word {
         invalidArgument = "InvalidArgument",
         itemNotFound = "ItemNotFound",
         notImplemented = "NotImplemented",
+        searchDialogIsOpen = "SearchDialogIsOpen",
+        searchStringInvalidOrTooLong = "SearchStringInvalidOrTooLong",
     }
     module Interfaces {
         /**
@@ -75264,7 +74892,7 @@ declare namespace Word {
             */
             $skip?: number;
         }
-        /** An interface for updating data on the Body object, for use in "body.set({ ... })". */
+        /** An interface for updating data on the Body object, for use in `body.set({ ... })`. */
         interface BodyUpdateData {
             /**
             *
@@ -75288,7 +74916,7 @@ declare namespace Word {
              */
             styleBuiltIn?: Word.Style | "Other" | "Normal" | "Heading1" | "Heading2" | "Heading3" | "Heading4" | "Heading5" | "Heading6" | "Heading7" | "Heading8" | "Heading9" | "Toc1" | "Toc2" | "Toc3" | "Toc4" | "Toc5" | "Toc6" | "Toc7" | "Toc8" | "Toc9" | "FootnoteText" | "Header" | "Footer" | "Caption" | "FootnoteReference" | "EndnoteReference" | "EndnoteText" | "Title" | "Subtitle" | "Hyperlink" | "Strong" | "Emphasis" | "NoSpacing" | "ListParagraph" | "Quote" | "IntenseQuote" | "SubtleEmphasis" | "IntenseEmphasis" | "SubtleReference" | "IntenseReference" | "BookTitle" | "Bibliography" | "TocHeading" | "TableGrid" | "PlainTable1" | "PlainTable2" | "PlainTable3" | "PlainTable4" | "PlainTable5" | "TableGridLight" | "GridTable1Light" | "GridTable1Light_Accent1" | "GridTable1Light_Accent2" | "GridTable1Light_Accent3" | "GridTable1Light_Accent4" | "GridTable1Light_Accent5" | "GridTable1Light_Accent6" | "GridTable2" | "GridTable2_Accent1" | "GridTable2_Accent2" | "GridTable2_Accent3" | "GridTable2_Accent4" | "GridTable2_Accent5" | "GridTable2_Accent6" | "GridTable3" | "GridTable3_Accent1" | "GridTable3_Accent2" | "GridTable3_Accent3" | "GridTable3_Accent4" | "GridTable3_Accent5" | "GridTable3_Accent6" | "GridTable4" | "GridTable4_Accent1" | "GridTable4_Accent2" | "GridTable4_Accent3" | "GridTable4_Accent4" | "GridTable4_Accent5" | "GridTable4_Accent6" | "GridTable5Dark" | "GridTable5Dark_Accent1" | "GridTable5Dark_Accent2" | "GridTable5Dark_Accent3" | "GridTable5Dark_Accent4" | "GridTable5Dark_Accent5" | "GridTable5Dark_Accent6" | "GridTable6Colorful" | "GridTable6Colorful_Accent1" | "GridTable6Colorful_Accent2" | "GridTable6Colorful_Accent3" | "GridTable6Colorful_Accent4" | "GridTable6Colorful_Accent5" | "GridTable6Colorful_Accent6" | "GridTable7Colorful" | "GridTable7Colorful_Accent1" | "GridTable7Colorful_Accent2" | "GridTable7Colorful_Accent3" | "GridTable7Colorful_Accent4" | "GridTable7Colorful_Accent5" | "GridTable7Colorful_Accent6" | "ListTable1Light" | "ListTable1Light_Accent1" | "ListTable1Light_Accent2" | "ListTable1Light_Accent3" | "ListTable1Light_Accent4" | "ListTable1Light_Accent5" | "ListTable1Light_Accent6" | "ListTable2" | "ListTable2_Accent1" | "ListTable2_Accent2" | "ListTable2_Accent3" | "ListTable2_Accent4" | "ListTable2_Accent5" | "ListTable2_Accent6" | "ListTable3" | "ListTable3_Accent1" | "ListTable3_Accent2" | "ListTable3_Accent3" | "ListTable3_Accent4" | "ListTable3_Accent5" | "ListTable3_Accent6" | "ListTable4" | "ListTable4_Accent1" | "ListTable4_Accent2" | "ListTable4_Accent3" | "ListTable4_Accent4" | "ListTable4_Accent5" | "ListTable4_Accent6" | "ListTable5Dark" | "ListTable5Dark_Accent1" | "ListTable5Dark_Accent2" | "ListTable5Dark_Accent3" | "ListTable5Dark_Accent4" | "ListTable5Dark_Accent5" | "ListTable5Dark_Accent6" | "ListTable6Colorful" | "ListTable6Colorful_Accent1" | "ListTable6Colorful_Accent2" | "ListTable6Colorful_Accent3" | "ListTable6Colorful_Accent4" | "ListTable6Colorful_Accent5" | "ListTable6Colorful_Accent6" | "ListTable7Colorful" | "ListTable7Colorful_Accent1" | "ListTable7Colorful_Accent2" | "ListTable7Colorful_Accent3" | "ListTable7Colorful_Accent4" | "ListTable7Colorful_Accent5" | "ListTable7Colorful_Accent6";
         }
-        /** An interface for updating data on the ContentControl object, for use in "contentControl.set({ ... })". */
+        /** An interface for updating data on the ContentControl object, for use in `contentControl.set({ ... })`. */
         interface ContentControlUpdateData {
             /**
             *
@@ -75368,11 +74996,11 @@ declare namespace Word {
              */
             title?: string;
         }
-        /** An interface for updating data on the ContentControlCollection object, for use in "contentControlCollection.set({ ... })". */
+        /** An interface for updating data on the ContentControlCollection object, for use in `contentControlCollection.set({ ... })`. */
         interface ContentControlCollectionUpdateData {
             items?: Word.Interfaces.ContentControlData[];
         }
-        /** An interface for updating data on the CustomProperty object, for use in "customProperty.set({ ... })". */
+        /** An interface for updating data on the CustomProperty object, for use in `customProperty.set({ ... })`. */
         interface CustomPropertyUpdateData {
             /**
              *
@@ -75382,19 +75010,19 @@ declare namespace Word {
              */
             value?: any;
         }
-        /** An interface for updating data on the CustomPropertyCollection object, for use in "customPropertyCollection.set({ ... })". */
+        /** An interface for updating data on the CustomPropertyCollection object, for use in `customPropertyCollection.set({ ... })`. */
         interface CustomPropertyCollectionUpdateData {
             items?: Word.Interfaces.CustomPropertyData[];
         }
-        /** An interface for updating data on the CustomXmlPartCollection object, for use in "customXmlPartCollection.set({ ... })". */
+        /** An interface for updating data on the CustomXmlPartCollection object, for use in `customXmlPartCollection.set({ ... })`. */
         interface CustomXmlPartCollectionUpdateData {
             items?: Word.Interfaces.CustomXmlPartData[];
         }
-        /** An interface for updating data on the CustomXmlPartScopedCollection object, for use in "customXmlPartScopedCollection.set({ ... })". */
+        /** An interface for updating data on the CustomXmlPartScopedCollection object, for use in `customXmlPartScopedCollection.set({ ... })`. */
         interface CustomXmlPartScopedCollectionUpdateData {
             items?: Word.Interfaces.CustomXmlPartData[];
         }
-        /** An interface for updating data on the Document object, for use in "document.set({ ... })". */
+        /** An interface for updating data on the Document object, for use in `document.set({ ... })`. */
         interface DocumentUpdateData {
             /**
             *
@@ -75411,14 +75039,13 @@ declare namespace Word {
             */
             properties?: Word.Interfaces.DocumentPropertiesUpdateData;
         }
-        /** An interface for updating data on the DocumentCreated object, for use in "documentCreated.set({ ... })". */
+        /** An interface for updating data on the DocumentCreated object, for use in `documentCreated.set({ ... })`. */
         interface DocumentCreatedUpdateData {
             /**
             *
             * Gets the body object of the document. The body is the text that excludes headers, footers, footnotes, textboxes, etc..
             *
             * [Api set: WordApiHiddenDocument 1.3]
-            * @beta
             */
             body?: Word.Interfaces.BodyUpdateData;
             /**
@@ -75426,11 +75053,10 @@ declare namespace Word {
             * Gets the properties of the document.
             *
             * [Api set: WordApiHiddenDocument 1.3]
-            * @beta
             */
             properties?: Word.Interfaces.DocumentPropertiesUpdateData;
         }
-        /** An interface for updating data on the DocumentProperties object, for use in "documentProperties.set({ ... })". */
+        /** An interface for updating data on the DocumentProperties object, for use in `documentProperties.set({ ... })`. */
         interface DocumentPropertiesUpdateData {
             /**
              *
@@ -75496,7 +75122,7 @@ declare namespace Word {
              */
             title?: string;
         }
-        /** An interface for updating data on the Font object, for use in "font.set({ ... })". */
+        /** An interface for updating data on the Font object, for use in `font.set({ ... })`. */
         interface FontUpdateData {
             /**
              *
@@ -75522,7 +75148,7 @@ declare namespace Word {
             /**
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
-            **Note**: Only the default highlight colors are available in Office for Windows Desktop. These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black". When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+                        **Note**: Only the default highlight colors are available in Office for Windows Desktop. These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black". When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
              *
              * [Api set: WordApi 1.1]
              */
@@ -75577,7 +75203,7 @@ declare namespace Word {
              */
             underline?: Word.UnderlineType | "Mixed" | "None" | "Hidden" | "DotLine" | "Single" | "Word" | "Double" | "Thick" | "Dotted" | "DottedHeavy" | "DashLine" | "DashLineHeavy" | "DashLineLong" | "DashLineLongHeavy" | "DotDashLine" | "DotDashLineHeavy" | "TwoDotDashLine" | "TwoDotDashLineHeavy" | "Wave" | "WaveHeavy" | "WaveDouble";
         }
-        /** An interface for updating data on the InlinePicture object, for use in "inlinePicture.set({ ... })". */
+        /** An interface for updating data on the InlinePicture object, for use in `inlinePicture.set({ ... })`. */
         interface InlinePictureUpdateData {
             /**
              *
@@ -75622,15 +75248,15 @@ declare namespace Word {
              */
             width?: number;
         }
-        /** An interface for updating data on the InlinePictureCollection object, for use in "inlinePictureCollection.set({ ... })". */
+        /** An interface for updating data on the InlinePictureCollection object, for use in `inlinePictureCollection.set({ ... })`. */
         interface InlinePictureCollectionUpdateData {
             items?: Word.Interfaces.InlinePictureData[];
         }
-        /** An interface for updating data on the ListCollection object, for use in "listCollection.set({ ... })". */
+        /** An interface for updating data on the ListCollection object, for use in `listCollection.set({ ... })`. */
         interface ListCollectionUpdateData {
             items?: Word.Interfaces.ListData[];
         }
-        /** An interface for updating data on the ListItem object, for use in "listItem.set({ ... })". */
+        /** An interface for updating data on the ListItem object, for use in `listItem.set({ ... })`. */
         interface ListItemUpdateData {
             /**
              *
@@ -75640,7 +75266,7 @@ declare namespace Word {
              */
             level?: number;
         }
-        /** An interface for updating data on the Paragraph object, for use in "paragraph.set({ ... })". */
+        /** An interface for updating data on the Paragraph object, for use in `paragraph.set({ ... })`. */
         interface ParagraphUpdateData {
             /**
             *
@@ -75748,11 +75374,11 @@ declare namespace Word {
              */
             styleBuiltIn?: Word.Style | "Other" | "Normal" | "Heading1" | "Heading2" | "Heading3" | "Heading4" | "Heading5" | "Heading6" | "Heading7" | "Heading8" | "Heading9" | "Toc1" | "Toc2" | "Toc3" | "Toc4" | "Toc5" | "Toc6" | "Toc7" | "Toc8" | "Toc9" | "FootnoteText" | "Header" | "Footer" | "Caption" | "FootnoteReference" | "EndnoteReference" | "EndnoteText" | "Title" | "Subtitle" | "Hyperlink" | "Strong" | "Emphasis" | "NoSpacing" | "ListParagraph" | "Quote" | "IntenseQuote" | "SubtleEmphasis" | "IntenseEmphasis" | "SubtleReference" | "IntenseReference" | "BookTitle" | "Bibliography" | "TocHeading" | "TableGrid" | "PlainTable1" | "PlainTable2" | "PlainTable3" | "PlainTable4" | "PlainTable5" | "TableGridLight" | "GridTable1Light" | "GridTable1Light_Accent1" | "GridTable1Light_Accent2" | "GridTable1Light_Accent3" | "GridTable1Light_Accent4" | "GridTable1Light_Accent5" | "GridTable1Light_Accent6" | "GridTable2" | "GridTable2_Accent1" | "GridTable2_Accent2" | "GridTable2_Accent3" | "GridTable2_Accent4" | "GridTable2_Accent5" | "GridTable2_Accent6" | "GridTable3" | "GridTable3_Accent1" | "GridTable3_Accent2" | "GridTable3_Accent3" | "GridTable3_Accent4" | "GridTable3_Accent5" | "GridTable3_Accent6" | "GridTable4" | "GridTable4_Accent1" | "GridTable4_Accent2" | "GridTable4_Accent3" | "GridTable4_Accent4" | "GridTable4_Accent5" | "GridTable4_Accent6" | "GridTable5Dark" | "GridTable5Dark_Accent1" | "GridTable5Dark_Accent2" | "GridTable5Dark_Accent3" | "GridTable5Dark_Accent4" | "GridTable5Dark_Accent5" | "GridTable5Dark_Accent6" | "GridTable6Colorful" | "GridTable6Colorful_Accent1" | "GridTable6Colorful_Accent2" | "GridTable6Colorful_Accent3" | "GridTable6Colorful_Accent4" | "GridTable6Colorful_Accent5" | "GridTable6Colorful_Accent6" | "GridTable7Colorful" | "GridTable7Colorful_Accent1" | "GridTable7Colorful_Accent2" | "GridTable7Colorful_Accent3" | "GridTable7Colorful_Accent4" | "GridTable7Colorful_Accent5" | "GridTable7Colorful_Accent6" | "ListTable1Light" | "ListTable1Light_Accent1" | "ListTable1Light_Accent2" | "ListTable1Light_Accent3" | "ListTable1Light_Accent4" | "ListTable1Light_Accent5" | "ListTable1Light_Accent6" | "ListTable2" | "ListTable2_Accent1" | "ListTable2_Accent2" | "ListTable2_Accent3" | "ListTable2_Accent4" | "ListTable2_Accent5" | "ListTable2_Accent6" | "ListTable3" | "ListTable3_Accent1" | "ListTable3_Accent2" | "ListTable3_Accent3" | "ListTable3_Accent4" | "ListTable3_Accent5" | "ListTable3_Accent6" | "ListTable4" | "ListTable4_Accent1" | "ListTable4_Accent2" | "ListTable4_Accent3" | "ListTable4_Accent4" | "ListTable4_Accent5" | "ListTable4_Accent6" | "ListTable5Dark" | "ListTable5Dark_Accent1" | "ListTable5Dark_Accent2" | "ListTable5Dark_Accent3" | "ListTable5Dark_Accent4" | "ListTable5Dark_Accent5" | "ListTable5Dark_Accent6" | "ListTable6Colorful" | "ListTable6Colorful_Accent1" | "ListTable6Colorful_Accent2" | "ListTable6Colorful_Accent3" | "ListTable6Colorful_Accent4" | "ListTable6Colorful_Accent5" | "ListTable6Colorful_Accent6" | "ListTable7Colorful" | "ListTable7Colorful_Accent1" | "ListTable7Colorful_Accent2" | "ListTable7Colorful_Accent3" | "ListTable7Colorful_Accent4" | "ListTable7Colorful_Accent5" | "ListTable7Colorful_Accent6";
         }
-        /** An interface for updating data on the ParagraphCollection object, for use in "paragraphCollection.set({ ... })". */
+        /** An interface for updating data on the ParagraphCollection object, for use in `paragraphCollection.set({ ... })`. */
         interface ParagraphCollectionUpdateData {
             items?: Word.Interfaces.ParagraphData[];
         }
-        /** An interface for updating data on the Range object, for use in "range.set({ ... })". */
+        /** An interface for updating data on the Range object, for use in `range.set({ ... })`. */
         interface RangeUpdateData {
             /**
             *
@@ -75783,11 +75409,11 @@ declare namespace Word {
              */
             styleBuiltIn?: Word.Style | "Other" | "Normal" | "Heading1" | "Heading2" | "Heading3" | "Heading4" | "Heading5" | "Heading6" | "Heading7" | "Heading8" | "Heading9" | "Toc1" | "Toc2" | "Toc3" | "Toc4" | "Toc5" | "Toc6" | "Toc7" | "Toc8" | "Toc9" | "FootnoteText" | "Header" | "Footer" | "Caption" | "FootnoteReference" | "EndnoteReference" | "EndnoteText" | "Title" | "Subtitle" | "Hyperlink" | "Strong" | "Emphasis" | "NoSpacing" | "ListParagraph" | "Quote" | "IntenseQuote" | "SubtleEmphasis" | "IntenseEmphasis" | "SubtleReference" | "IntenseReference" | "BookTitle" | "Bibliography" | "TocHeading" | "TableGrid" | "PlainTable1" | "PlainTable2" | "PlainTable3" | "PlainTable4" | "PlainTable5" | "TableGridLight" | "GridTable1Light" | "GridTable1Light_Accent1" | "GridTable1Light_Accent2" | "GridTable1Light_Accent3" | "GridTable1Light_Accent4" | "GridTable1Light_Accent5" | "GridTable1Light_Accent6" | "GridTable2" | "GridTable2_Accent1" | "GridTable2_Accent2" | "GridTable2_Accent3" | "GridTable2_Accent4" | "GridTable2_Accent5" | "GridTable2_Accent6" | "GridTable3" | "GridTable3_Accent1" | "GridTable3_Accent2" | "GridTable3_Accent3" | "GridTable3_Accent4" | "GridTable3_Accent5" | "GridTable3_Accent6" | "GridTable4" | "GridTable4_Accent1" | "GridTable4_Accent2" | "GridTable4_Accent3" | "GridTable4_Accent4" | "GridTable4_Accent5" | "GridTable4_Accent6" | "GridTable5Dark" | "GridTable5Dark_Accent1" | "GridTable5Dark_Accent2" | "GridTable5Dark_Accent3" | "GridTable5Dark_Accent4" | "GridTable5Dark_Accent5" | "GridTable5Dark_Accent6" | "GridTable6Colorful" | "GridTable6Colorful_Accent1" | "GridTable6Colorful_Accent2" | "GridTable6Colorful_Accent3" | "GridTable6Colorful_Accent4" | "GridTable6Colorful_Accent5" | "GridTable6Colorful_Accent6" | "GridTable7Colorful" | "GridTable7Colorful_Accent1" | "GridTable7Colorful_Accent2" | "GridTable7Colorful_Accent3" | "GridTable7Colorful_Accent4" | "GridTable7Colorful_Accent5" | "GridTable7Colorful_Accent6" | "ListTable1Light" | "ListTable1Light_Accent1" | "ListTable1Light_Accent2" | "ListTable1Light_Accent3" | "ListTable1Light_Accent4" | "ListTable1Light_Accent5" | "ListTable1Light_Accent6" | "ListTable2" | "ListTable2_Accent1" | "ListTable2_Accent2" | "ListTable2_Accent3" | "ListTable2_Accent4" | "ListTable2_Accent5" | "ListTable2_Accent6" | "ListTable3" | "ListTable3_Accent1" | "ListTable3_Accent2" | "ListTable3_Accent3" | "ListTable3_Accent4" | "ListTable3_Accent5" | "ListTable3_Accent6" | "ListTable4" | "ListTable4_Accent1" | "ListTable4_Accent2" | "ListTable4_Accent3" | "ListTable4_Accent4" | "ListTable4_Accent5" | "ListTable4_Accent6" | "ListTable5Dark" | "ListTable5Dark_Accent1" | "ListTable5Dark_Accent2" | "ListTable5Dark_Accent3" | "ListTable5Dark_Accent4" | "ListTable5Dark_Accent5" | "ListTable5Dark_Accent6" | "ListTable6Colorful" | "ListTable6Colorful_Accent1" | "ListTable6Colorful_Accent2" | "ListTable6Colorful_Accent3" | "ListTable6Colorful_Accent4" | "ListTable6Colorful_Accent5" | "ListTable6Colorful_Accent6" | "ListTable7Colorful" | "ListTable7Colorful_Accent1" | "ListTable7Colorful_Accent2" | "ListTable7Colorful_Accent3" | "ListTable7Colorful_Accent4" | "ListTable7Colorful_Accent5" | "ListTable7Colorful_Accent6";
         }
-        /** An interface for updating data on the RangeCollection object, for use in "rangeCollection.set({ ... })". */
+        /** An interface for updating data on the RangeCollection object, for use in `rangeCollection.set({ ... })`. */
         interface RangeCollectionUpdateData {
             items?: Word.Interfaces.RangeData[];
         }
-        /** An interface for updating data on the SearchOptions object, for use in "searchOptions.set({ ... })". */
+        /** An interface for updating data on the SearchOptions object, for use in `searchOptions.set({ ... })`. */
         interface SearchOptionsUpdateData {
             /**
              *
@@ -75839,7 +75465,7 @@ declare namespace Word {
              */
             matchWildcards?: boolean;
         }
-        /** An interface for updating data on the Section object, for use in "section.set({ ... })". */
+        /** An interface for updating data on the Section object, for use in `section.set({ ... })`. */
         interface SectionUpdateData {
             /**
             *
@@ -75849,11 +75475,11 @@ declare namespace Word {
             */
             body?: Word.Interfaces.BodyUpdateData;
         }
-        /** An interface for updating data on the SectionCollection object, for use in "sectionCollection.set({ ... })". */
+        /** An interface for updating data on the SectionCollection object, for use in `sectionCollection.set({ ... })`. */
         interface SectionCollectionUpdateData {
             items?: Word.Interfaces.SectionData[];
         }
-        /** An interface for updating data on the Setting object, for use in "setting.set({ ... })". */
+        /** An interface for updating data on the Setting object, for use in `setting.set({ ... })`. */
         interface SettingUpdateData {
             /**
              *
@@ -75864,11 +75490,11 @@ declare namespace Word {
              */
             value?: any;
         }
-        /** An interface for updating data on the SettingCollection object, for use in "settingCollection.set({ ... })". */
+        /** An interface for updating data on the SettingCollection object, for use in `settingCollection.set({ ... })`. */
         interface SettingCollectionUpdateData {
             items?: Word.Interfaces.SettingData[];
         }
-        /** An interface for updating data on the Table object, for use in "table.set({ ... })". */
+        /** An interface for updating data on the Table object, for use in `table.set({ ... })`. */
         interface TableUpdateData {
             /**
             *
@@ -75976,11 +75602,11 @@ declare namespace Word {
              */
             width?: number;
         }
-        /** An interface for updating data on the TableCollection object, for use in "tableCollection.set({ ... })". */
+        /** An interface for updating data on the TableCollection object, for use in `tableCollection.set({ ... })`. */
         interface TableCollectionUpdateData {
             items?: Word.Interfaces.TableData[];
         }
-        /** An interface for updating data on the TableRow object, for use in "tableRow.set({ ... })". */
+        /** An interface for updating data on the TableRow object, for use in `tableRow.set({ ... })`. */
         interface TableRowUpdateData {
             /**
             *
@@ -76025,11 +75651,11 @@ declare namespace Word {
              */
             verticalAlignment?: Word.VerticalAlignment | "Mixed" | "Top" | "Center" | "Bottom";
         }
-        /** An interface for updating data on the TableRowCollection object, for use in "tableRowCollection.set({ ... })". */
+        /** An interface for updating data on the TableRowCollection object, for use in `tableRowCollection.set({ ... })`. */
         interface TableRowCollectionUpdateData {
             items?: Word.Interfaces.TableRowData[];
         }
-        /** An interface for updating data on the TableCell object, for use in "tableCell.set({ ... })". */
+        /** An interface for updating data on the TableCell object, for use in `tableCell.set({ ... })`. */
         interface TableCellUpdateData {
             /**
             *
@@ -76074,11 +75700,11 @@ declare namespace Word {
              */
             verticalAlignment?: Word.VerticalAlignment | "Mixed" | "Top" | "Center" | "Bottom";
         }
-        /** An interface for updating data on the TableCellCollection object, for use in "tableCellCollection.set({ ... })". */
+        /** An interface for updating data on the TableCellCollection object, for use in `tableCellCollection.set({ ... })`. */
         interface TableCellCollectionUpdateData {
             items?: Word.Interfaces.TableCellData[];
         }
-        /** An interface for updating data on the TableBorder object, for use in "tableBorder.set({ ... })". */
+        /** An interface for updating data on the TableBorder object, for use in `tableBorder.set({ ... })`. */
         interface TableBorderUpdateData {
             /**
              *
@@ -76102,7 +75728,7 @@ declare namespace Word {
              */
             width?: number;
         }
-        /** An interface describing the data returned by calling "body.toJSON()". */
+        /** An interface describing the data returned by calling `body.toJSON()`. */
         interface BodyData {
             /**
             *
@@ -76175,7 +75801,7 @@ declare namespace Word {
              */
             type?: Word.BodyType | "Unknown" | "MainDoc" | "Section" | "Header" | "Footer" | "TableCell";
         }
-        /** An interface describing the data returned by calling "contentControl.toJSON()". */
+        /** An interface describing the data returned by calling `contentControl.toJSON()`. */
         interface ContentControlData {
             /**
             *
@@ -76318,11 +75944,11 @@ declare namespace Word {
              */
             type?: Word.ContentControlType | "Unknown" | "RichTextInline" | "RichTextParagraphs" | "RichTextTableCell" | "RichTextTableRow" | "RichTextTable" | "PlainTextInline" | "PlainTextParagraph" | "Picture" | "BuildingBlockGallery" | "CheckBox" | "ComboBox" | "DropDownList" | "DatePicker" | "RepeatingSection" | "RichText" | "PlainText";
         }
-        /** An interface describing the data returned by calling "contentControlCollection.toJSON()". */
+        /** An interface describing the data returned by calling `contentControlCollection.toJSON()`. */
         interface ContentControlCollectionData {
             items?: Word.Interfaces.ContentControlData[];
         }
-        /** An interface describing the data returned by calling "customProperty.toJSON()". */
+        /** An interface describing the data returned by calling `customProperty.toJSON()`. */
         interface CustomPropertyData {
             /**
              *
@@ -76346,11 +75972,11 @@ declare namespace Word {
              */
             value?: any;
         }
-        /** An interface describing the data returned by calling "customPropertyCollection.toJSON()". */
+        /** An interface describing the data returned by calling `customPropertyCollection.toJSON()`. */
         interface CustomPropertyCollectionData {
             items?: Word.Interfaces.CustomPropertyData[];
         }
-        /** An interface describing the data returned by calling "customXmlPart.toJSON()". */
+        /** An interface describing the data returned by calling `customXmlPart.toJSON()`. */
         interface CustomXmlPartData {
             /**
              *
@@ -76369,15 +75995,15 @@ declare namespace Word {
              */
             namespaceUri?: string;
         }
-        /** An interface describing the data returned by calling "customXmlPartCollection.toJSON()". */
+        /** An interface describing the data returned by calling `customXmlPartCollection.toJSON()`. */
         interface CustomXmlPartCollectionData {
             items?: Word.Interfaces.CustomXmlPartData[];
         }
-        /** An interface describing the data returned by calling "customXmlPartScopedCollection.toJSON()". */
+        /** An interface describing the data returned by calling `customXmlPartScopedCollection.toJSON()`. */
         interface CustomXmlPartScopedCollectionData {
             items?: Word.Interfaces.CustomXmlPartData[];
         }
-        /** An interface describing the data returned by calling "document.toJSON()". */
+        /** An interface describing the data returned by calling `document.toJSON()`. */
         interface DocumentData {
             /**
             *
@@ -76431,14 +76057,13 @@ declare namespace Word {
              */
             saved?: boolean;
         }
-        /** An interface describing the data returned by calling "documentCreated.toJSON()". */
+        /** An interface describing the data returned by calling `documentCreated.toJSON()`. */
         interface DocumentCreatedData {
             /**
             *
             * Gets the body object of the document. The body is the text that excludes headers, footers, footnotes, textboxes, etc.. Read-only.
             *
             * [Api set: WordApiHiddenDocument 1.3]
-            * @beta
             */
             body?: Word.Interfaces.BodyData;
             /**
@@ -76446,7 +76071,6 @@ declare namespace Word {
             * Gets the collection of content control objects in the document. This includes content controls in the body of the document, headers, footers, textboxes, etc.. Read-only.
             *
             * [Api set: WordApiHiddenDocument 1.3]
-            * @beta
             */
             contentControls?: Word.Interfaces.ContentControlData[];
             /**
@@ -76462,7 +76086,6 @@ declare namespace Word {
             * Gets the properties of the document. Read-only.
             *
             * [Api set: WordApiHiddenDocument 1.3]
-            * @beta
             */
             properties?: Word.Interfaces.DocumentPropertiesData;
             /**
@@ -76470,7 +76093,6 @@ declare namespace Word {
             * Gets the collection of section objects in the document. Read-only.
             *
             * [Api set: WordApiHiddenDocument 1.3]
-            * @beta
             */
             sections?: Word.Interfaces.SectionData[];
             /**
@@ -76486,11 +76108,10 @@ declare namespace Word {
              * Indicates whether the changes in the document have been saved. A value of true indicates that the document hasn't changed since it was saved. Read-only.
              *
              * [Api set: WordApiHiddenDocument 1.3]
-             * @beta
              */
             saved?: boolean;
         }
-        /** An interface describing the data returned by calling "documentProperties.toJSON()". */
+        /** An interface describing the data returned by calling `documentProperties.toJSON()`. */
         interface DocumentPropertiesData {
             /**
             *
@@ -76619,7 +76240,7 @@ declare namespace Word {
              */
             title?: string;
         }
-        /** An interface describing the data returned by calling "font.toJSON()". */
+        /** An interface describing the data returned by calling `font.toJSON()`. */
         interface FontData {
             /**
              *
@@ -76645,7 +76266,7 @@ declare namespace Word {
             /**
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
-            **Note**: Only the default highlight colors are available in Office for Windows Desktop. These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black". When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+                        **Note**: Only the default highlight colors are available in Office for Windows Desktop. These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black". When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
              *
              * [Api set: WordApi 1.1]
              */
@@ -76700,7 +76321,7 @@ declare namespace Word {
              */
             underline?: Word.UnderlineType | "Mixed" | "None" | "Hidden" | "DotLine" | "Single" | "Word" | "Double" | "Thick" | "Dotted" | "DottedHeavy" | "DashLine" | "DashLineHeavy" | "DashLineLong" | "DashLineLongHeavy" | "DotDashLine" | "DotDashLineHeavy" | "TwoDotDashLine" | "TwoDotDashLineHeavy" | "Wave" | "WaveHeavy" | "WaveDouble";
         }
-        /** An interface describing the data returned by calling "inlinePicture.toJSON()". */
+        /** An interface describing the data returned by calling `inlinePicture.toJSON()`. */
         interface InlinePictureData {
             /**
              *
@@ -76753,11 +76374,11 @@ declare namespace Word {
              */
             width?: number;
         }
-        /** An interface describing the data returned by calling "inlinePictureCollection.toJSON()". */
+        /** An interface describing the data returned by calling `inlinePictureCollection.toJSON()`. */
         interface InlinePictureCollectionData {
             items?: Word.Interfaces.InlinePictureData[];
         }
-        /** An interface describing the data returned by calling "list.toJSON()". */
+        /** An interface describing the data returned by calling `list.toJSON()`. */
         interface ListData {
             /**
             *
@@ -76788,11 +76409,11 @@ declare namespace Word {
              */
             levelTypes?: Word.ListLevelType[];
         }
-        /** An interface describing the data returned by calling "listCollection.toJSON()". */
+        /** An interface describing the data returned by calling `listCollection.toJSON()`. */
         interface ListCollectionData {
             items?: Word.Interfaces.ListData[];
         }
-        /** An interface describing the data returned by calling "listItem.toJSON()". */
+        /** An interface describing the data returned by calling `listItem.toJSON()`. */
         interface ListItemData {
             /**
              *
@@ -76816,7 +76437,7 @@ declare namespace Word {
              */
             siblingIndex?: number;
         }
-        /** An interface describing the data returned by calling "paragraph.toJSON()". */
+        /** An interface describing the data returned by calling `paragraph.toJSON()`. */
         interface ParagraphData {
             /**
             *
@@ -76959,11 +76580,11 @@ declare namespace Word {
              */
             text?: string;
         }
-        /** An interface describing the data returned by calling "paragraphCollection.toJSON()". */
+        /** An interface describing the data returned by calling `paragraphCollection.toJSON()`. */
         interface ParagraphCollectionData {
             items?: Word.Interfaces.ParagraphData[];
         }
-        /** An interface describing the data returned by calling "range.toJSON()". */
+        /** An interface describing the data returned by calling `range.toJSON()`. */
         interface RangeData {
             /**
             *
@@ -77015,11 +76636,11 @@ declare namespace Word {
              */
             text?: string;
         }
-        /** An interface describing the data returned by calling "rangeCollection.toJSON()". */
+        /** An interface describing the data returned by calling `rangeCollection.toJSON()`. */
         interface RangeCollectionData {
             items?: Word.Interfaces.RangeData[];
         }
-        /** An interface describing the data returned by calling "searchOptions.toJSON()". */
+        /** An interface describing the data returned by calling `searchOptions.toJSON()`. */
         interface SearchOptionsData {
             /**
              *
@@ -77071,7 +76692,7 @@ declare namespace Word {
              */
             matchWildcards?: boolean;
         }
-        /** An interface describing the data returned by calling "section.toJSON()". */
+        /** An interface describing the data returned by calling `section.toJSON()`. */
         interface SectionData {
             /**
             *
@@ -77081,11 +76702,11 @@ declare namespace Word {
             */
             body?: Word.Interfaces.BodyData;
         }
-        /** An interface describing the data returned by calling "sectionCollection.toJSON()". */
+        /** An interface describing the data returned by calling `sectionCollection.toJSON()`. */
         interface SectionCollectionData {
             items?: Word.Interfaces.SectionData[];
         }
-        /** An interface describing the data returned by calling "setting.toJSON()". */
+        /** An interface describing the data returned by calling `setting.toJSON()`. */
         interface SettingData {
             /**
              *
@@ -77104,11 +76725,11 @@ declare namespace Word {
              */
             value?: any;
         }
-        /** An interface describing the data returned by calling "settingCollection.toJSON()". */
+        /** An interface describing the data returned by calling `settingCollection.toJSON()`. */
         interface SettingCollectionData {
             items?: Word.Interfaces.SettingData[];
         }
-        /** An interface describing the data returned by calling "table.toJSON()". */
+        /** An interface describing the data returned by calling `table.toJSON()`. */
         interface TableData {
             /**
             *
@@ -77251,11 +76872,11 @@ declare namespace Word {
              */
             width?: number;
         }
-        /** An interface describing the data returned by calling "tableCollection.toJSON()". */
+        /** An interface describing the data returned by calling `tableCollection.toJSON()`. */
         interface TableCollectionData {
             items?: Word.Interfaces.TableData[];
         }
-        /** An interface describing the data returned by calling "tableRow.toJSON()". */
+        /** An interface describing the data returned by calling `tableRow.toJSON()`. */
         interface TableRowData {
             /**
             *
@@ -77328,11 +76949,11 @@ declare namespace Word {
              */
             verticalAlignment?: Word.VerticalAlignment | "Mixed" | "Top" | "Center" | "Bottom";
         }
-        /** An interface describing the data returned by calling "tableRowCollection.toJSON()". */
+        /** An interface describing the data returned by calling `tableRowCollection.toJSON()`. */
         interface TableRowCollectionData {
             items?: Word.Interfaces.TableRowData[];
         }
-        /** An interface describing the data returned by calling "tableCell.toJSON()". */
+        /** An interface describing the data returned by calling `tableCell.toJSON()`. */
         interface TableCellData {
             /**
             *
@@ -77398,11 +77019,11 @@ declare namespace Word {
              */
             width?: number;
         }
-        /** An interface describing the data returned by calling "tableCellCollection.toJSON()". */
+        /** An interface describing the data returned by calling `tableCellCollection.toJSON()`. */
         interface TableCellCollectionData {
             items?: Word.Interfaces.TableCellData[];
         }
-        /** An interface describing the data returned by calling "tableBorder.toJSON()". */
+        /** An interface describing the data returned by calling `tableBorder.toJSON()`. */
         interface TableBorderData {
             /**
              *
@@ -77433,6 +77054,9 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         interface BodyLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -77519,6 +77143,9 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         interface ContentControlLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -77682,6 +77309,9 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         interface ContentControlCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -77845,6 +77475,9 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          */
         interface CustomPropertyLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
              *
@@ -77875,6 +77508,9 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          */
         interface CustomPropertyCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
              *
@@ -77906,6 +77542,9 @@ declare namespace Word {
          * @beta
          */
         interface CustomXmlPartLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
              *
@@ -77932,6 +77571,9 @@ declare namespace Word {
          * @beta
          */
         interface CustomXmlPartCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
              *
@@ -77958,6 +77600,9 @@ declare namespace Word {
          * @beta
          */
         interface CustomXmlPartScopedCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
              *
@@ -77983,6 +77628,9 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         interface DocumentLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -78020,13 +77668,15 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          */
         interface DocumentCreatedLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
             * Gets the body object of the document. The body is the text that excludes headers, footers, footnotes, textboxes, etc..
             *
             * [Api set: WordApiHiddenDocument 1.3]
-            * @beta
             */
             body?: Word.Interfaces.BodyLoadOptions;
             /**
@@ -78034,7 +77684,6 @@ declare namespace Word {
             * Gets the properties of the document.
             *
             * [Api set: WordApiHiddenDocument 1.3]
-            * @beta
             */
             properties?: Word.Interfaces.DocumentPropertiesLoadOptions;
             /**
@@ -78042,7 +77691,6 @@ declare namespace Word {
              * Indicates whether the changes in the document have been saved. A value of true indicates that the document hasn't changed since it was saved. Read-only.
              *
              * [Api set: WordApiHiddenDocument 1.3]
-             * @beta
              */
             saved?: boolean;
         }
@@ -78053,6 +77701,9 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          */
         interface DocumentPropertiesLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
              *
@@ -78181,6 +77832,9 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         interface FontLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
              *
@@ -78206,7 +77860,7 @@ declare namespace Word {
             /**
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
-            **Note**: Only the default highlight colors are available in Office for Windows Desktop. These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black". When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+                        **Note**: Only the default highlight colors are available in Office for Windows Desktop. These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black". When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
              *
              * [Api set: WordApi 1.1]
              */
@@ -78268,6 +77922,9 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         interface InlinePictureLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -78376,6 +78033,9 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         interface InlinePictureCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -78484,6 +78144,9 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          */
         interface ListLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
              *
@@ -78514,6 +78177,9 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          */
         interface ListCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
              *
@@ -78544,6 +78210,9 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          */
         interface ListItemLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
              *
@@ -78574,6 +78243,9 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         interface ParagraphLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -78779,6 +78451,9 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         interface ParagraphCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -78984,6 +78659,9 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         interface RangeLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -79084,6 +78762,9 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         interface RangeCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -79184,6 +78865,9 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         interface SearchOptionsLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
              *
@@ -79242,6 +78926,9 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         interface SectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -79258,6 +78945,9 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         interface SectionCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -79275,6 +78965,9 @@ declare namespace Word {
          * @beta
          */
         interface SettingLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
              *
@@ -79301,6 +78994,9 @@ declare namespace Word {
          * @beta
          */
         interface SettingCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
              *
@@ -79326,6 +79022,9 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          */
         interface TableLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -79510,6 +79209,9 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          */
         interface TableCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -79694,6 +79396,9 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          */
         interface TableRowLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -79773,6 +79478,9 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          */
         interface TableRowCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -79852,6 +79560,9 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          */
         interface TableCellLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -79938,6 +79649,9 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          */
         interface TableCellCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -80024,6 +79738,9 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          */
         interface TableBorderLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
              *
@@ -80084,6 +79801,7 @@ declare namespace Word {
      */
     function run<T>(batch: (context: Word.RequestContext) => Promise<T>): Promise<T>;
 }
+
 
 
 ////////////////////////////////////////////////////////////////
