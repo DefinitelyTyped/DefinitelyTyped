@@ -179,7 +179,7 @@ export namespace UIkit {
         (element: UIkitElement, options?: UIkitModalOptions): UIkitModalElement;
         alert(message: string, options?: UIkitModalOptions): Promise<void>;
         confirm(message: string, options?: UIkitModalOptions): Promise<void>;
-        prompt(content: string, value: string, options?: UIkitModalOptions): Promise<void>;
+        prompt(content: string, value: string, options?: UIkitModalOptions): Promise<string | null>;
         dialog(content: string, options?: UIkitModalOptions): Promise<void>;
         labels: {
             ok: string;
