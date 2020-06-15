@@ -52,6 +52,8 @@ export * from "./trigger/cloudfront-response";
 export * from "./trigger/cloudwatch-events";
 export * from "./trigger/cloudwatch-logs";
 // TODO: export * from "./trigger/codecommit";
+export * from "./trigger/codebuild-cloudwatch";
+export * from "./trigger/codebuild-cloudwatch-state";
 export * from "./trigger/codepipeline";
 export * from "./trigger/codepipeline-cloudwatch";
 export * from "./trigger/codepipeline-cloudwatch-action";
