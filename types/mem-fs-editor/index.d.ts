@@ -1,6 +1,7 @@
 // Type definitions for mem-fs-editor 5.1
 // Project: https://github.com/SBoudrias/mem-fs-editor#readme
 // Definitions by: My Food Bag <https://github.com/MyFoodBag>
+//                 Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -36,7 +37,7 @@ export interface Editor {
     copy(from: FilePaths, to: string, options?: CopyOptions, context?: TemplateData, templateOptions?: TemplateOptions): void;
 
     copyTpl(from: FilePaths, to: string, context?: TemplateData, templateOptions?: TemplateOptions, copyOptions?: CopyOptions): void;
-    
+
     move(from: FilePaths, to: string, options?: WithGlobOptions): void;
 
     exists(filepath: string): boolean;
@@ -84,7 +85,9 @@ export interface AppendOptions {
 
 //#region Editor#copy
 export interface CopyOptions extends WithGlobOptions {
+    ignoreNoMatch?: boolean;
     process?: ProcessingFunction;
+    processDestinationPath?: (path: string) => string;
 }
 
 export type ProcessingFunction = (contents: Buffer, path: string) => WriteContents;
