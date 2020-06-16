@@ -7,6 +7,6 @@
     "strict": true,                         
     "esModuleInterop": true
   },
-  "files": ["./guacamole-client.d.ts", "./guacamole-client.spec.ts"],
+  "files": ["./guacamole-client.d.ts", "./guacamole-client.test.ts"],
   "types": ["typePatches"]
 }
