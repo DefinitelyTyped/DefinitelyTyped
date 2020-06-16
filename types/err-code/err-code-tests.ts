@@ -41,3 +41,15 @@ const err3 = errCode<{
 const err3Message = err3.message;
 const err3MProp1 = err3.prop1;
 const err3MProp2a = err3.prop2.a;
+
+// test null code
+const err4 = errCode(new Error('err msg'), null, {
+    prop1: 'prop1 value',
+    prop2: {
+        a: 'prop2.a value',
+    }
+});
+
+const err4Message = err4.message;
+const err4MProp1 = err4.prop1;
+const err4MProp2a = err4.prop2.a;

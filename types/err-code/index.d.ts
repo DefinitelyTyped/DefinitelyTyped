@@ -4,7 +4,7 @@
 //                 Cayman <https://github.com/wemeetagain>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Scalar = Exclude<any, object>;
+type Scalar = number | string | boolean | bigint | null | undefined;
 
 declare function createError<Props extends object = object, Err extends Error = Error>(
     error: Err,
@@ -15,7 +15,7 @@ declare function createError<Code extends Scalar = Scalar, Props extends object 
     error: Err,
     code: Code,
     props?: Props,
-): Err & Props & { code: Code };
+): Err & Props & { code: NonNullable<Code> };
 
 declare namespace createError {
 }
