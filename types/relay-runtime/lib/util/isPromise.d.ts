@@ -1,1 +1,1 @@
-export function isPromise(p: any): p is Promise<any>;
+export default function isPromise(p: any): p is Promise<any>;
