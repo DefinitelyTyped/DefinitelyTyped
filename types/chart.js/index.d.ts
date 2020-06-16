@@ -26,6 +26,7 @@
 //                 Nobuhiko Futagami <https://github.com/nobu222>
 //                 Marco Ru <https://github.com/Marcoru97>
 //                 Tony Liu <https://github.com/tonybadguy>
+//                 Mathias Helminger <https://github.com/Ilmarinen100>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
