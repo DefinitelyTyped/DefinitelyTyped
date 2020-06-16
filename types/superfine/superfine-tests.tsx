@@ -11,6 +11,8 @@ superfine.patch(
         <g>
             <a href="#anything">
                 <rect />
+                <rect key="example key a" />
+                <rect key="example key b" />
             </a>
         </g>
     </div>
@@ -27,6 +29,8 @@ superfine.patch(
         <g>
             <a href="#anything">
                 <rect />
+                <rect key="example key a" />
+                <rect key="example key b" />
             </a>
         </g>
     </g>

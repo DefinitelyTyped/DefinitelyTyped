@@ -10,6 +10,8 @@ type HtmlOrSvgElementTagNameMap = HTMLElementTagNameMap & Pick<SVGElementTagName
 
 export type Props<TTagName extends keyof HtmlOrSvgElementTagNameMap> = {
     readonly [TAttributeName in keyof HtmlOrSvgElementTagNameMap[TTagName]]?: HtmlOrSvgElementTagNameMap[TTagName][TAttributeName]
+} & {
+    readonly key?: number | string
 };
 
 export interface VNode<TTagName extends keyof HtmlOrSvgElementTagNameMap> {

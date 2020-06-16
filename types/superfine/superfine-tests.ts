@@ -38,7 +38,22 @@ superfine.patch(
                         [
                             superfine.h(
                                 'rect',
-                                {},
+                                {
+                                },
+                                []
+                            ),
+                            superfine.h(
+                                'rect',
+                                {
+                                    key: 'example key a'
+                                },
+                                []
+                            ),
+                            superfine.h(
+                                'rect',
+                                {
+                                    key: 'example key b'
+                                },
                                 []
                             )
                         ]
@@ -87,7 +102,22 @@ superfine.patch(
                         [
                             superfine.h(
                                 'rect',
-                                {},
+                                {
+                                },
+                                []
+                            ),
+                            superfine.h(
+                                'rect',
+                                {
+                                    key: 'example key a'
+                                },
+                                []
+                            ),
+                            superfine.h(
+                                'rect',
+                                {
+                                    key: 'example key b'
+                                },
                                 []
                             )
                         ]
