@@ -1,4 +1,4 @@
-// Type definitions for connect-datadog 0.0
+// Type definitions for connect-datadog 0.0.9
 // Project: https://github.com/datadog/node-connect-datadog
 // Definitions by: Moshe Good <https://github.com/moshegood>
 //                 Michael Mifsud <https://github.com/xzyfer>
@@ -7,7 +7,7 @@
 // TypeScript Version: 2.3
 
 import express = require('express');
-import dogstatsd = require('node-dogstatsd');
+import dogstatsd = require('hot-shots');
 
 export = Factory;
 
@@ -22,6 +22,6 @@ declare namespace Factory {
         method?: boolean;
         protocol?: boolean;
         response_code?: boolean;
-        dogstatsd?: dogstatsd.StatsDClient;
+        dogstatsd?: dogstatsd.StatsD;
     }
 }
