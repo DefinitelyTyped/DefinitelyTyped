@@ -364,8 +364,8 @@ ReactDOM.render(
 const editorState = EditorState.createEmpty();
 
 const selection = editorState.getSelection();
-const newSelection = selection.merge({ focusKey: '8ajs', focusOffset: 0, isBackward: true })
-EditorState.forceSelection(editorState, newSelection)
+const newSelection = selection.merge({ focusKey: '8ajs', focusOffset: 0, isBackward: true });
+EditorState.forceSelection(editorState, newSelection);
 
 const contentState = editorState.getCurrentContent();
 const entityMap = contentState.getEntityMap();
