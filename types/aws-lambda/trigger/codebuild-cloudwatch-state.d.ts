@@ -42,7 +42,7 @@ export type CodeBuildEnvironmentComputeType =
     | 'BUILD_GENERAL1_MEDIUM'
     | 'BUILD_GENERAL1_LARGE'
     | 'BUILD_GENERAL1_2XLARGE';
-export type CodeBuildEnvironmentVariableType = 'PARAMETER_STORE' | 'PLAINTEXT';
+export type CodeBuildEnvironmentVariableType = 'PARAMETER_STORE' | 'PLAINTEXT' | 'SECRETS_MANAGER';
 
 export interface CodeBuildCloudWatchStateEvent {
     version: string;
