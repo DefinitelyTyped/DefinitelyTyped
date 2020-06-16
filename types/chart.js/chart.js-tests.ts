@@ -132,12 +132,6 @@ chart.isDatasetVisible(0); // $ExpectType boolean
 chart.setDatasetVisibility(0, false); // $ExpectType void
 chart.isDatasetVisible(0); // $ExpectType boolean
 chart.getVisibleDatasetCount(); // $ExpectType number
-chart.show(0); // $ExpectType void
-chart.hide(0); // $ExpectType void
-
-// Testing data visibility
-chart.toggleDataVisibility(0); // $ExpectType void
-chart.getDataVisibility(0); // $ExpectType boolean
 
 // Testing custom legends
 chart.config.options = {
