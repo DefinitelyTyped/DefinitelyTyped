@@ -52,6 +52,8 @@ declare class Chart {
     getElementsAtXAxis: (e: any) => Array<{}>;
     getDatasetAtEvent: (e: any) => Array<{}>;
     getDatasetMeta: (index: number) => Meta;
+    isDatasetVisible: (datasetIndex: number) => boolean;
+    setDatasetVisibility: (datasetIndex: number, visible: boolean) => void;
     ctx: CanvasRenderingContext2D | null;
     canvas: HTMLCanvasElement | null;
     width: number | null;
