@@ -13,6 +13,7 @@ import {
     Store,
     commitLocalUpdate,
     ReaderFragment,
+    isPromise,
 } from 'relay-runtime';
 
 const source = new RecordSource();
@@ -371,3 +372,12 @@ const nodeFragment: ReaderFragment = {
     type: 'Query',
     abstractKey: null,
 };
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// INTERNAL-ONLY
+// ~~~~~~~~~~~~~~~~~~~~~
+
+const p = Promise.resolve() as unknown;
+if (isPromise(p)) {
+    p.then(() => console.log('Indeed a promise'));
+}
