@@ -3,6 +3,7 @@
 // Definitions by: George <https://github.com/zorji>
 //                 Cayman <https://github.com/wemeetagain>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.2
 
 type Scalar = number | string | boolean | bigint | null | undefined;
 
