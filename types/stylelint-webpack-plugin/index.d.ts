@@ -35,8 +35,8 @@ declare namespace StylelintWebpackPlugin {
     }
 
     /**
-     * See stylelint's options for the complete list of options available.
-     * These options are passed through to the 'stylelint' directly.
+     * See {@link http://stylelint.io/user-guide/node-api/#options|stylelint's options} for the complete list of options available.
+     * These options are passed through to the `stylelint` directly.
      */
     interface Options extends Partial<StylelintOptions> {
         /**
@@ -51,7 +51,11 @@ declare namespace StylelintWebpackPlugin {
          * Will always return errors, if set to true.
          * @default false
          */
-        emitErrors?: boolean;
+        emitError?: boolean;
+        /**
+         * Will always return warnings, if set to `true`.
+         */
+        emitWarning?: boolean;
         /**
          * Will cause the module build to fail if there are any errors, if set to true.
          * @default false
@@ -85,10 +89,5 @@ declare namespace StylelintWebpackPlugin {
          * @default false
          */
         quiet?: boolean;
-        /**
-         * If true, stylelint will fix as many errors as possible. The fixes are made to the actual source files.
-         * All unfixed errors will be reported. See Autofixing errors docs.
-         */
-        fix?: boolean;
     }
 }
