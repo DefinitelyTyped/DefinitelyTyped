@@ -1,7 +1,3 @@
-import { Handler } from '../handler';
-
-export type CodeBuildCloudWatchStateHandler = Handler<CodeBuildCloudWatchStateEvent, void>;
-
 export type CodeBuildStateType = 'IN_PROGRESS' | 'SUCCEEDED' | 'FAILED' | 'STOPPED';
 export type CodeBuildPhaseType =
     | 'COMPLETED'
