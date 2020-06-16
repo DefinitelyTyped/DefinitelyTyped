@@ -293,7 +293,8 @@ export interface MongoClientOptions extends
     SSLOptions,
     TLSOptions,
     HighAvailabilityOptions,
-    WriteConcern {
+    WriteConcern,
+    UnifiedTopologyOptions {
 
     /**
      * The logging level (error/warn/info/debug)
@@ -336,18 +337,6 @@ export interface MongoClientOptions extends
      * the original parser, and aims to outright replace that parser in the near future.
      */
     useNewUrlParser?: boolean;
-
-    /**
-     * Enables the new unified topology layer
-     */
-    useUnifiedTopology?: boolean;
-
-    /**
-     * With `useUnifiedTopology`, the MongoDB driver will try to find a server to send any given operation to
-     * and keep retrying for `serverSelectionTimeoutMS` milliseconds.
-     * Default: 30000
-     */
-    serverSelectionTimeoutMS?: number;
 
     /**
      * number of retries for a tailable cursor
@@ -560,6 +549,64 @@ export interface DbCreateOptions extends CommonOptions {
      * working connection, default is -1 which is unlimited.
      */
     bufferMaxEntries?: number;
+}
+
+export interface UnifiedTopologyOptions {
+    /**
+     * Enables the new unified topology layer
+     */
+    useUnifiedTopology?: boolean;
+
+    /**
+     * **Only applies to the unified topology**
+     * The size of the latency window for selecting among multiple suitable servers
+     * @default 15
+     */
+    localThresholdMS?: number;
+
+    /**
+     * With `useUnifiedTopology`, the MongoDB driver will try to find a server to send any given operation to
+     * and keep retrying for `serverSelectionTimeoutMS` milliseconds.
+     * Default: 30000
+     */
+    serverSelectionTimeoutMS?: number;
+
+    /**
+     * **Only applies to the unified topology**
+     * The frequency with which topology updates are scheduled
+     * @default 10000
+     */
+    heartbeatFrequencyMS?: number;
+
+    /**
+     *  **Only applies to the unified topology**
+     * The maximum number of connections that may be associated with a pool at a given time.
+     * This includes in use and available connections
+     * @default 10
+     */
+    maxPoolSize?: number;
+
+    /**
+     * **Only applies to the unified topology**
+     * The minimum number of connections that MUST exist at any moment in a single connection pool.
+     * @default 0
+     */
+    minPoolSize?: number;
+
+    /**
+     * **Only applies to the unified topology**
+     * The maximum amount of time a connection should remain idle in the connection pool before being marked idle.
+     * @default Infinity
+     */
+    maxIdleTimeMS?: number;
+
+    /**
+     * **Only applies to the unified topology**
+     * The maximum amount of time operation execution should wait for a connection to become available.
+     * The default is 0 which means there is no limit.
+     * @default 0
+     */
+    waitQueueTimeoutMS?: number;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Server.html */
