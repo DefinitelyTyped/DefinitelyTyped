@@ -5248,6 +5248,20 @@ declare namespace echarts {
                         symbolOffset?: any[];
 
                         /**
+                         * Position according to X-Axis value.
+                         * For a line parallel to Y-Axis
+                         *
+                         */
+                        xAxis?: number;
+
+                        /**
+                         * Position according to Y-Axis value
+                         * For a line parallel to X-Axis
+                         *
+                         */
+                        yAxis?: number;
+
+                        /**
                          * Line style of this data item, which will be merged
                          * with `lineStyle` of starting point and ending point.
                          *
@@ -5861,6 +5875,20 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.1.symbolOffset
                          */
                         symbolOffset?: any[];
+
+                        /**
+                         * Position according to X-Axis value.
+                         * For a line parallel to Y-Axis
+                         *
+                         */
+                        xAxis?: number;
+
+                        /**
+                         * Position according to Y-Axis value
+                         * For a line parallel to X-Axis
+                         *
+                         */
+                        yAxis?: number;
 
                         /**
                          * Line style of this data item, which will be merged
