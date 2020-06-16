@@ -25,6 +25,7 @@ interface BootstrapSelectOptions {
     mobile?: boolean
     multipleSeparator?: string
     noneSelectedText?: string
+    noneResultsText?: string
     selectAllText?: string
     selectedTextFormat?: string
     selectOnTab?: boolean

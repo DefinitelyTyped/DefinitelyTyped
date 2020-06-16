@@ -17,6 +17,7 @@ $(".selectpicker").selectpicker({
     mobile: true,
     multipleSeparator: ", ",
     noneSelectedText: "test",
+    noneResultsText: "no results for {0}",
     selectAllText: "test",
     selectedTextFormat: "values",
     selectOnTab: true,
