@@ -194,7 +194,8 @@ export { getRelayHandleKey } from './lib/util/getRelayHandleKey';
 // INTERNAL-ONLY
 export { RelayConcreteNode } from './lib/util/RelayConcreteNode';
 export { RelayFeatureFlags } from './lib/util/RelayFeatureFlags';
-export { deepFreeze } from './lib/util/deepFreeze';
+export { default as deepFreeze } from './lib/util/deepFreeze';
+export { default as isPromise } from './lib/util/isPromise';
 
 /**
  * relay-compiler-language-typescript support for fragment references
