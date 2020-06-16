@@ -45,7 +45,7 @@ const defaultLocale = getDefaultLocale();
     includeTimes={[new Date()]}
     injectTimes={[new Date()]}
     inline
-    inlineFocusSelectedMonth={false}
+    focusSelectedMonth={false}
     isClearable
     locale=""
     maxDate={new Date()}

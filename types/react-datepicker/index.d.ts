@@ -70,7 +70,7 @@ export interface ReactDatePickerProps {
     includeTimes?: Date[];
     injectTimes?: Date[];
     inline?: boolean;
-    inlineFocusSelectedMonth?: boolean;
+    focusSelectedMonth?: boolean;
     isClearable?: boolean;
     locale?: string | Locale;
     maxDate?: Date | null;
