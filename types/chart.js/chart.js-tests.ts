@@ -127,10 +127,17 @@ if (chart.chartArea) {
     console.log(chart.chartArea.left);
 }
 
-// Testing visibility
+// Testing dataset visibility
 chart.isDatasetVisible(0); // $Expect true
 chart.setDatasetVisibility(0, false); // $ExpectType void
 chart.isDatasetVisible(0); // $Expect false
+chart.getVisibleDatasetCount(); // $Expect 1
+chart.show(0); // $ExpectType void
+chart.hide(0); // $ExpectType void
+
+// Testing data visibility
+chart.toggleDataVisibility(0); // $ExpectType void
+chart.getDataVisibility(0); // $Expect false
 
 // Testing custom legends
 chart.config.options = {
