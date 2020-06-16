@@ -1,7 +1,7 @@
 {
   "name": "guacamole-client-typedefs",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.0.1",
+  "main": "",
   "repository": "git@github.com:KonstantinSimeonov/guacamole-client-typedefs.git",
   "author": "Konstantin Simeonov <kon.simeonov@protonmail.com>",
   "license": "MIT",
