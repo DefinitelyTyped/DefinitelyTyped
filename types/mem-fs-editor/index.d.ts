@@ -1,4 +1,4 @@
-// Type definitions for mem-fs-editor 5.1
+// Type definitions for mem-fs-editor 7.0
 // Project: https://github.com/SBoudrias/mem-fs-editor#readme
 // Definitions by: My Food Bag <https://github.com/MyFoodBag>
 //                 Jason Kwok <https://github.com/JasonHK>
