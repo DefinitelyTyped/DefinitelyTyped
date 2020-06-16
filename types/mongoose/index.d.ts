@@ -766,8 +766,8 @@ declare module "mongoose" {
   }
 
   interface HookOptions {
-    document: boolean;
-    query: boolean;
+    document?: boolean;
+    query?: boolean;
   }
 
   /*
@@ -874,11 +874,7 @@ declare module "mongoose" {
       docs: T[], next: (err?: NativeError) => Promise<any>
     ) => void): this;
 
-    post<T extends Document>(method: 'deleteOne', { document, query }: HookOptions, fn: (
-      doc: T
-    ) => void): this;
-
-    post<T extends Document>(method: 'remove', { document, query }: HookOptions, fn: (
+    post<T extends Document>(method: 'remove' | 'deleteOne', { document, query }: HookOptions, fn: (
       doc: T
     ) => void): this;
 
