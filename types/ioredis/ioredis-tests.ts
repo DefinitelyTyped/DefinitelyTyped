@@ -431,6 +431,22 @@ new Redis.Cluster([
     },
 ]);
 
+new Redis.Cluster([
+    {
+        host: 'localhost',
+        port: 6379,
+        password: 'password',
+    },
+]);
+
+new Redis.Cluster([
+    {
+        host: 'localhost',
+        port: 6379,
+        password: null,
+    },
+]);
+
 redis.xack('streamName', 'groupName', 'id').then(console.log);
 redis.xack('streamName', 'groupName', 'id', cbNumber);
 redis.xadd('streamName', '*', 'field', 'name').then(console.log);

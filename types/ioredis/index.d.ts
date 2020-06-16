@@ -1384,7 +1384,7 @@ declare namespace IORedis {
     interface NodeConfiguration {
         host?: string;
         port?: number;
-        password?: string;
+        password?: string | null;
     }
 
     type ClusterNode = string | number | NodeConfiguration;
