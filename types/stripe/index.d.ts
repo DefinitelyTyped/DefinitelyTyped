@@ -10666,7 +10666,7 @@ declare namespace Stripe {
                  * By default, the entire amount is transferred to the destination.
                  */
                 amount_percent: number;
-            }
+            };
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
