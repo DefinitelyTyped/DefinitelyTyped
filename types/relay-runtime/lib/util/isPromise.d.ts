@@ -1,1 +1,1 @@
-export function isPromise(p: any): boolean;
+export function isPromise(p: any): p is Promise<any>;
