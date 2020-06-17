@@ -1,4 +1,10 @@
-import { CodeBuildCloudWatchStateEvent } from 'aws-lambda';
+import {
+    CodeBuildCloudWatchStateEvent,
+    CodeBuildCloudWatchStateHandler, CodeBuildStateEventDetail,
+    SNSEvent,
+} from 'aws-lambda';
+
+declare let codeBuildStateEventDetail: CodeBuildStateEventDetail;
 
 /* CodeBuild CloudWatch Events
  * see https://docs.aws.amazon.com/codebuild/latest/userguide/sample-build-notifications.html
@@ -157,4 +163,62 @@ const CodeBuildCloudWatchStateEvent: CodeBuildCloudWatchStateEvent = {
         'current-phase-context': '[: ]',
         version: '1',
     },
+};
+
+const eventBridgeHandler: CodeBuildCloudWatchStateHandler = async (event, context, callback) => {
+    str = event.account;
+    codeBuildStateEventDetail = event.detail;
+    str = event.id;
+    str = event.region;
+    str = event.resources[0];
+    str = event.source;
+    str = event.time;
+    str = event['detail-type'];
+
+    const detail: CodeBuildStateEventDetail = event.detail;
+
+    str = detail['build-status'];
+    str = detail['project-name'];
+    str = detail['build-id'];
+    str = detail['current-phase'];
+    str = detail['current-phase-context'];
+    str = detail.version;
+    str = detail['additional-information'].cache.type;
+    num = detail['additional-information']['build-number'];
+    num = detail['additional-information']['timeout-in-minutes'];
+    bool = detail['additional-information']['build-complete'];
+    str = detail['additional-information']['initiator'];
+    str = detail['additional-information']['build-start-time'];
+    str = detail['additional-information'].source.buildspec;
+    str = detail['additional-information'].source.location;
+    str = detail['additional-information'].source.type;
+    str = detail['additional-information']['source-version'];
+    str = detail['additional-information'].artifact.location;
+    str = detail['additional-information'].environment.image;
+    bool = detail['additional-information'].environment['privileged-mode'];
+    strOrUndefined = detail['additional-information'].environment['image-pull-credentials-type'];
+    str = detail['additional-information'].environment['compute-type'];
+    str = detail['additional-information'].environment.type;
+    str = detail['additional-information'].environment['environment-variables'][0].name;
+    strOrUndefined = detail['additional-information'].environment['environment-variables'][0].type;
+    str = detail['additional-information'].environment['environment-variables'][0].value;
+    str = detail['additional-information'].logs['group-name'];
+    str = detail['additional-information'].logs['stream-name'];
+    str = detail['additional-information'].logs['deep-link'];
+    strArrayOrUndefined = detail['additional-information'].phases[0]['phase-context'];
+    str = detail['additional-information'].phases[0]['start-time'];
+    strOrUndefined = detail['additional-information'].phases[0]['end-time'];
+    numOrUndefined = detail['additional-information'].phases[0]['duration-in-seconds'];
+    str = detail['additional-information'].phases[0]['phase-type'];
+    strOrUndefined = detail['additional-information'].phases[0]['phase-status'];
+    num = detail['additional-information']['queued-timeout-in-minutes'];
+
+    callback();
+    callback(new Error());
+};
+
+export const snsEventCodeBuildStateHandler = async (snsEvent: SNSEvent) => {
+    const event: CodeBuildCloudWatchStateEvent = JSON.parse(snsEvent.Records[0].Sns.Message);
+
+    codeBuildStateEventDetail = event.detail;
 };
