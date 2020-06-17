@@ -474,6 +474,11 @@ export type LogFunction = (logEvent: LogEvent) => void;
  */
 export interface Environment {
     /**
+     * Extra information attached to the environment instance
+     */
+    options: unknown;
+
+    /**
      * Determine if the operation can be resolved with data in the store (i.e. no
      * fields are missing).
      *
