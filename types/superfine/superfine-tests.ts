@@ -60,6 +60,19 @@ superfine.patch(
                                 }
                             ),
                             superfine.h(
+                                'text',
+                                {
+                                },
+                                'example string'
+                            ),
+                            superfine.h(
+                                'text',
+                                {
+                                },
+                                ['example string']
+                            ),
+                            'example string',
+                            superfine.h(
                                 'rect',
                                 {
                                     key: 'example key a'
@@ -108,6 +121,19 @@ superfine.patch(
                                 {
                                 }
                             ),
+                            superfine.h(
+                                'li',
+                                {
+                                },
+                                'example string'
+                            ),
+                            superfine.h(
+                                'li',
+                                {
+                                },
+                                ['example string']
+                            ),
+                            'example string',
                             superfine.h(
                                 'li',
                                 {
@@ -166,6 +192,19 @@ superfine.patch(
                         {
                         }
                     ),
+                    superfine.h(
+                        'text',
+                        {
+                        },
+                        'example string'
+                    ),
+                    superfine.h(
+                        'text',
+                        {
+                        },
+                        ['example string']
+                    ),
+                    'example string',
                     superfine.h(
                         'rect',
                         {

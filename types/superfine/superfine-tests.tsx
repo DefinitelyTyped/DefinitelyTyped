@@ -18,6 +18,9 @@ superfine.patch(
             <g>
                 <rect></rect>
                 <rect />
+                <text>example string</text>
+                <text>example string</text>
+                example string
                 <rect key="example key a"></rect>
                 <rect key="example key b"></rect>
             </g>
@@ -29,6 +32,9 @@ superfine.patch(
             <ul>
                 <li></li>
                 <li />
+                <li>example string</li>
+                <li>example string</li>
+                example string
                 <li key="example key a"></li>
                 <li key="example key b"></li>
             </ul>
@@ -48,6 +54,9 @@ superfine.patch(
         <g>
             <rect></rect>
             <rect />
+            <text>example string</text>
+            <text>example string</text>
+            example string
             <rect key="example key a"></rect>
             <rect key="example key b"></rect>
         </g>

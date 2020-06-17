@@ -21,19 +21,19 @@ export interface VNode<TTagName extends keyof HtmlOrSvgElementTagNameMap> {
 export function h(
     tagName: "svg",
     props: Props<"svg">,
-    children?: VNode<keyof SVGElementTagNameMap> | ReadonlyArray<VNode<keyof SVGElementTagNameMap>>
+    children?: VNode<keyof SVGElementTagNameMap> | string | ReadonlyArray<VNode<keyof SVGElementTagNameMap> | string>
 ): VNode<"svg">;
 
 export function h<TTagName extends keyof HTMLElementTagNameMap>(
     tagName: TTagName,
     props: Props<TTagName>,
-    children?: VNode<(keyof HTMLElementTagNameMap) | "svg"> | ReadonlyArray<VNode<(keyof HTMLElementTagNameMap) | "svg">>
+    children?: VNode<(keyof HTMLElementTagNameMap) | "svg"> | string | ReadonlyArray<VNode<(keyof HTMLElementTagNameMap) | "svg"> | string>
 ): VNode<TTagName>;
 
 export function h<TTagName extends keyof SVGElementTagNameMap>(
     tagName: TTagName,
     props: Props<TTagName>,
-    children?: VNode<keyof SVGElementTagNameMap> | ReadonlyArray<VNode<keyof SVGElementTagNameMap>>
+    children?: VNode<keyof SVGElementTagNameMap> | string | ReadonlyArray<VNode<keyof SVGElementTagNameMap> | string>
 ): VNode<TTagName>;
 
 export function patch<TTagName extends keyof HtmlOrSvgElementTagNameMap>(
