@@ -1,3 +1,7 @@
+import { EventBridgeEvent, EventBridgeHandler } from './eventbridge';
+
+export type CodeBuildCloudWatchStateHandler = EventBridgeHandler<'CodeBuild Build State Change', CodeBuildStateEventDetail, void>;
+
 export type CodeBuildStateType = 'IN_PROGRESS' | 'SUCCEEDED' | 'FAILED' | 'STOPPED';
 export type CodeBuildPhaseType =
     | 'COMPLETED'
@@ -40,67 +44,61 @@ export type CodeBuildEnvironmentComputeType =
     | 'BUILD_GENERAL1_2XLARGE';
 export type CodeBuildEnvironmentVariableType = 'PARAMETER_STORE' | 'PLAINTEXT' | 'SECRETS_MANAGER';
 
-export interface CodeBuildCloudWatchStateEvent {
+export interface CodeBuildStateEventDetail {
+    'build-status': CodeBuildStateType;
+    'project-name': string;
+    'build-id': string;
+    'current-phase': CodeBuildPhaseType;
+    'current-phase-context': string;
     version: string;
-    id: string;
-    'detail-type': 'CodeBuild Build State Change';
-    source: 'aws.codebuild';
-    account: string;
-    time: string;
-    region: string;
-    resources: string[];
-    detail: {
-        'build-status': CodeBuildStateType;
-        'project-name': string;
-        'build-id': string;
-        'current-phase': CodeBuildPhaseType;
-        'current-phase-context': string;
-        version: string;
-        'additional-information': {
-            cache: {
-                type: CodeBuildCacheType;
-            };
-            'build-number': number;
-            'timeout-in-minutes': number;
-            'build-complete': boolean;
-            initiator: string;
-            'build-start-time': string;
-            source: {
-                buildspec: string;
-                location: string;
-                type: CodeBuildSourceLocationType;
-            };
-            'source-version': string;
-            artifact: {
-                location: string;
-            };
-            environment: {
-                image: string;
-                'privileged-mode': boolean;
-                'image-pull-credentials-type'?: CodeBuildEnvironmentPullCredentialsType;
-                'compute-type': CodeBuildEnvironmentComputeType;
-                type: CodeBuildEnvironmentType;
-                'environment-variables': Array<{
-                    name: string;
-                    type?: CodeBuildEnvironmentVariableType;
-                    value: string;
-                }>;
-            };
-            'project-file-system-locations': [];
-            logs: {
-                'group-name': string;
-                'stream-name': string;
-                'deep-link': string;
-            };
-            phases: Array<{
-                'phase-context'?: string[]; // Not available for COMPLETED phase-type
-                'start-time': string;
-                'end-time'?: string; // Not available for COMPLETED phase-type
-                'duration-in-seconds'?: number; // Not available for COMPLETED phase-type
-                'phase-type': CodeBuildPhaseType;
-                'phase-status'?: CodeBuildPhaseStatusType; // Not available for COMPLETED phase-type
-            }>;
-            'queued-timeout-in-minutes': number;
+    'additional-information': {
+        cache: {
+            type: CodeBuildCacheType;
         };
+        'build-number': number;
+        'timeout-in-minutes': number;
+        'build-complete': boolean;
+        initiator: string;
+        'build-start-time': string;
+        source: {
+            buildspec: string;
+            location: string;
+            type: CodeBuildSourceLocationType;
+        };
+        'source-version': string;
+        artifact: {
+            location: string;
+        };
+        environment: {
+            image: string;
+            'privileged-mode': boolean;
+            'image-pull-credentials-type'?: CodeBuildEnvironmentPullCredentialsType;
+            'compute-type': CodeBuildEnvironmentComputeType;
+            type: CodeBuildEnvironmentType;
+            'environment-variables': Array<{
+                name: string;
+                type?: CodeBuildEnvironmentVariableType;
+                value: string;
+            }>;
+        };
+        'project-file-system-locations': [];
+        logs: {
+            'group-name': string;
+            'stream-name': string;
+            'deep-link': string;
+        };
+        phases: Array<{
+            'phase-context'?: string[]; // Not available for COMPLETED phase-type
+            'start-time': string;
+            'end-time'?: string; // Not available for COMPLETED phase-type
+            'duration-in-seconds'?: number; // Not available for COMPLETED phase-type
+            'phase-type': CodeBuildPhaseType;
+            'phase-status'?: CodeBuildPhaseStatusType; // Not available for COMPLETED phase-type
+        }>;
+        'queued-timeout-in-minutes': number;
     };
+}
+
+export interface CodeBuildCloudWatchStateEvent extends EventBridgeEvent<'CodeBuild Build State Change', CodeBuildStateEventDetail> {
+    source: 'aws.codebuild';
 }
