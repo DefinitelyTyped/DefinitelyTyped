@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 2.11
+// Type definitions for react-datepicker 3.0
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
@@ -24,6 +24,7 @@ import { Locale } from 'date-fns';
 export function registerLocale(localeName: string, localeData: {}): void;
 export function setDefaultLocale(localeName: string): void;
 export function getDefaultLocale(): string;
+export function CalendarContainer(className: string, children: React.ReactNode[], showPopperArrow: boolean, arrowProps: {}): React.ReactNode;
 
 interface HighlightDates {
     [className: string]: Date[];
@@ -32,12 +33,14 @@ interface HighlightDates {
 export interface ReactDatePickerProps {
     adjustDateOnChange?: boolean;
     allowSameDay?: boolean;
+    ariaLabelClose?: string;
     ariaLabelledBy?: string;
     autoComplete?: string;
     autoFocus?: boolean;
     calendarClassName?: string;
     calendarContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
     children?: React.ReactNode;
+    chooseDayAriaLabelPrefix?: string;
     className?: string;
     clearButtonTitle?: string;
     customInput?: React.ReactNode;
@@ -46,6 +49,10 @@ export interface ReactDatePickerProps {
     dateFormat?: string | string[];
     dateFormatCalendar?: string;
     dayClassName?(date: Date): string | null;
+    weekDayClassName?(date: Date): string | null;
+    monthClassName?(date: Date): string | null;
+    timeClassName?(date: Date): string | null;
+    disabledDayAriaLabelPrefix?: string;
     disabled?: boolean;
     disabledKeyboardNavigation?: boolean;
     dropdownMode?: 'scroll' | 'select';
@@ -63,7 +70,7 @@ export interface ReactDatePickerProps {
     includeTimes?: Date[];
     injectTimes?: Date[];
     inline?: boolean;
-    inlineFocusSelectedMonth?: boolean;
+    focusSelectedMonth?: boolean;
     isClearable?: boolean;
     locale?: string | Locale;
     maxDate?: Date | null;
@@ -152,11 +159,15 @@ export interface ReactDatePickerProps {
     todayButton?: React.ReactNode;
     useShortMonthInDropdown?: boolean;
     useWeekdaysShort?: boolean;
+    weekAriaLabelPrefix?: string;
     value?: string;
     weekLabel?: string;
     withPortal?: boolean;
+    portalId?: string;
     wrapperClassName?: string;
     yearDropdownItemNumber?: number;
+    excludeScrollbar?: boolean;
+    enableTabLoop?: boolean;
 }
 
 declare class ReactDatePicker extends React.Component<ReactDatePickerProps> {
