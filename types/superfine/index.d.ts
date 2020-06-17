@@ -18,13 +18,13 @@ export interface VNode<TTagName extends keyof HtmlOrSvgElementTagNameMap> {
     readonly name: TTagName;
 }
 
-type Child<TTagName extends keyof HtmlOrSvgElementTagNameMap> = 
+type Child<TTagName extends keyof HtmlOrSvgElementTagNameMap> =
     | string
-    | VNode<TTagName>
+    | VNode<TTagName>;
 
-type Children<TTagName extends keyof HtmlOrSvgElementTagNameMap> = 
+type Children<TTagName extends keyof HtmlOrSvgElementTagNameMap> =
     | Child<TTagName>
-    | ReadonlyArray<Child<TTagName>>
+    | ReadonlyArray<Child<TTagName>>;
 
 export function h(
     tagName: "svg",
