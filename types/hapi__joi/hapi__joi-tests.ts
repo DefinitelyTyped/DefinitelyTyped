@@ -1158,6 +1158,13 @@ schema = Joi.symbol().map({
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
+const rule = Joi.string().case('upper').$_getRule('case');
+if (rule && rule.args) {
+    const direction = rule.args.direction;
+}
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
 schema = Joi.any();
 const terms = schema.$_terms;
 
