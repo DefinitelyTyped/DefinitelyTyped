@@ -37,12 +37,27 @@ superfine.patch(
                     superfine.h(
                         'g',
                         {},
+                        superfine.h(
+                            'rect',
+                            {
+                            },
+                            []
+                        ),
+                    ),
+                    superfine.h(
+                        'g',
+                        {},
                         [
                             superfine.h(
                                 'rect',
                                 {
                                 },
                                 []
+                            ),
+                            superfine.h(
+                                'rect',
+                                {
+                                }
                             ),
                             superfine.h(
                                 'rect',
@@ -71,12 +86,27 @@ superfine.patch(
                     superfine.h(
                         'ul',
                         {},
+                        superfine.h(
+                            'li',
+                            {
+                            },
+                            []
+                        )
+                    ),
+                    superfine.h(
+                        'ul',
+                        {},
                         [
                             superfine.h(
                                 'li',
                                 {
                                 },
                                 []
+                            ),
+                            superfine.h(
+                                'li',
+                                {
+                                }
                             ),
                             superfine.h(
                                 'li',
@@ -114,12 +144,27 @@ superfine.patch(
             superfine.h(
                 'g',
                 {},
+                superfine.h(
+                    'rect',
+                    {
+                    },
+                    []
+                ),
+            ),
+            superfine.h(
+                'g',
+                {},
                 [
                     superfine.h(
                         'rect',
                         {
                         },
                         []
+                    ),
+                    superfine.h(
+                        'rect',
+                        {
+                        }
                     ),
                     superfine.h(
                         'rect',

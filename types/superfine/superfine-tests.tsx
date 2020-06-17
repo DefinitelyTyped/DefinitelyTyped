@@ -13,16 +13,24 @@ superfine.patch(
             console.log(e.clientX);
         }}>
             <g>
+                <rect></rect>
+            </g>
+            <g>
+                <rect></rect>
                 <rect />
-                <rect key="example key a" />
-                <rect key="example key b" />
+                <rect key="example key a"></rect>
+                <rect key="example key b"></rect>
             </g>
         </svg>
         <a href="#anything">
             <ul>
+                <li></li>
+            </ul>
+            <ul>
+                <li></li>
                 <li />
-                <li key="example key a" />
-                <li key="example key b" />
+                <li key="example key a"></li>
+                <li key="example key b"></li>
             </ul>
         </a>
     </div>
@@ -35,9 +43,13 @@ superfine.patch(
         console.log(e.clientX);
     }}>
         <g>
+            <rect></rect>
+        </g>
+        <g>
+            <rect></rect>
             <rect />
-            <rect key="example key a" />
-            <rect key="example key b" />
+            <rect key="example key a"></rect>
+            <rect key="example key b"></rect>
         </g>
     </svg>
 );
