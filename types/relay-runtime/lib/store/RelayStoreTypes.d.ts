@@ -476,7 +476,7 @@ export interface Environment {
     /**
      * Extra information attached to the environment instance
      */
-    options: any;
+    options: unknown;
 
     /**
      * Determine if the operation can be resolved with data in the store (i.e. no

@@ -32,12 +32,12 @@ export interface EnvironmentConfig {
     readonly store: Store;
     readonly missingFieldHandlers?: ReadonlyArray<MissingFieldHandler> | null;
     readonly operationTracker?: OperationTracker | null;
-    readonly options?: any;
+    readonly options?: unknown;
     readonly isServer?: boolean;
 }
 
 export default class RelayModernEnvironment implements Environment {
-    options: any;
+    options: unknown;
     configName: string | null | undefined;
     constructor(config: EnvironmentConfig);
     getStore(): Store;
