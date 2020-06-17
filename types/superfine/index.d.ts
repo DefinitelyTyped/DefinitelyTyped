@@ -18,22 +18,30 @@ export interface VNode<TTagName extends keyof HtmlOrSvgElementTagNameMap> {
     readonly name: TTagName;
 }
 
+type Child<TTagName extends keyof HtmlOrSvgElementTagNameMap> = 
+    | string
+    | VNode<TTagName>
+
+type Children<TTagName extends keyof HtmlOrSvgElementTagNameMap> = 
+    | Child<TTagName>
+    | ReadonlyArray<Child<TTagName>>
+
 export function h(
     tagName: "svg",
     props: Props<"svg">,
-    children?: VNode<keyof SVGElementTagNameMap> | string | ReadonlyArray<VNode<keyof SVGElementTagNameMap> | string>
+    children?: Children<keyof SVGElementTagNameMap>
 ): VNode<"svg">;
 
 export function h<TTagName extends keyof HTMLElementTagNameMap>(
     tagName: TTagName,
     props: Props<TTagName>,
-    children?: VNode<(keyof HTMLElementTagNameMap) | "svg"> | string | ReadonlyArray<VNode<(keyof HTMLElementTagNameMap) | "svg"> | string>
+    children?: Children<(keyof HTMLElementTagNameMap) | "svg">
 ): VNode<TTagName>;
 
 export function h<TTagName extends keyof SVGElementTagNameMap>(
     tagName: TTagName,
     props: Props<TTagName>,
-    children?: VNode<keyof SVGElementTagNameMap> | string | ReadonlyArray<VNode<keyof SVGElementTagNameMap> | string>
+    children?: Children<keyof SVGElementTagNameMap>
 ): VNode<TTagName>;
 
 export function patch<TTagName extends keyof HtmlOrSvgElementTagNameMap>(
