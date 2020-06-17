@@ -69,6 +69,7 @@ export {
     FragmentReference,
     FragmentSpecResolver,
     HandleFieldPayload,
+    InvalidationState,
     MissingFieldHandler,
     ModuleImportPointer,
     NormalizationSelector,
