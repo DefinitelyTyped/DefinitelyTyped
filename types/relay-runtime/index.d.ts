@@ -7,6 +7,7 @@
 //                 Stephen Pittman <https://github.com/Stephen2>
 //                 Martin Zlámal <https://github.com/mrtnzlml>
 //                 Christian Ivicevic <https://github.com/ChristianIvicevic>
+//                 Lorenzo Di Giacomo <https://github.com/morrys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
