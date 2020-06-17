@@ -10871,16 +10871,15 @@ declare namespace Office {
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Displays a reply form that includes the sender and all recipients of the selected message or the organizer and all attendees of the
+         * Displays a reply form that includes either the sender and all recipients of the selected message or the organizer and all attendees of the
          * selected appointment.
          *
-         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2-column or 1-column view.
          *
          * If any of the string parameters exceed their limits, `displayReplyAllForm` throws an exception.
          *
-         * When attachments are specified in the `formData.attachments` parameter, Outlook on the web and desktop clients attempt to download
-         * all attachments and attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI.
-         * If this isn't possible, then no error message is thrown.
+         * When attachments are specified in the `formData.attachments` parameter, Outlook attempts to download all attachments and attach them to the
+         * reply form. If any attachments fail to be added, an error is shown in the form UI. If this isn't possible, then no error message is thrown.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
@@ -10895,15 +10894,45 @@ declare namespace Office {
          */
         displayReplyAllForm(formData: string | ReplyFormData): void;
         /**
+         * Displays a reply form that includes either the sender and all recipients of the selected message or the organizer and all attendees of the
+         * selected appointment.
+         *
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2-column or 1-column view.
+         *
+         * If any of the string parameters exceed their limits, `displayReplyAllFormAsync` throws an exception.
+         *
+         * When attachments are specified in the `formData.attachments` parameter, Outlook attempts to download all attachments and attach them to the
+         * reply form. If any attachments fail to be added, an error is shown in the form UI. If this isn't possible, then no error message is thrown.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Appointment Attendee
+         *
+         * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+         *                   OR a {@link Office.ReplyFormData | ReplyFormData} object that contains body or attachment data and a callback function.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         *
+         * @beta
+         */
+        displayReplyAllFormAsync(formData: string | ReplyFormData, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
          * Displays a reply form that includes only the sender of the selected message or the organizer of the selected appointment.
          *
-         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2-column or 1-column view.
          *
          * If any of the string parameters exceed their limits, `displayReplyForm` throws an exception.
          *
-         * When attachments are specified in the `formData.attachments` parameter, Outlook on the web and desktop clients attempt to download
-         * all attachments and attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI.
-         * If this isn't possible, then no error message is thrown.
+         * When attachments are specified in the `formData.attachments` parameter, Outlook attempts to download all attachments and attach them to the
+         * reply form. If any attachments fail to be added, an error is shown in the form UI. If this isn't possible, then no error message is thrown.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
@@ -10917,6 +10946,36 @@ declare namespace Office {
          *                   OR a {@link Office.ReplyFormData | ReplyFormData} object that contains body or attachment data and a callback function.
          */
         displayReplyForm(formData: string | ReplyFormData): void;
+        /**
+         * Displays a reply form that includes only the sender of the selected message or the organizer of the selected appointment.
+         *
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2-column or 1-column view.
+         *
+         * If any of the string parameters exceed their limits, `displayReplyFormAsync` throws an exception.
+         *
+         * When attachments are specified in the `formData.attachments` parameter, Outlook attempts to download all attachments and attach them to the
+         * reply form. If any attachments fail to be added, an error is shown in the form UI. If this isn't possible, then no error message is thrown.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Appointment Attendee
+         *
+         * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+         *                   OR a {@link Office.ReplyFormData | ReplyFormData} object that contains body or attachment data and a callback function.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         *
+         * @beta
+         */
+        displayReplyFormAsync(formData: string | ReplyFormData, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Gets an attachment from a message or appointment and returns it as an `AttachmentContent` object.
          *
@@ -13195,14 +13254,14 @@ declare namespace Office {
          * The `displayAppointmentForm` method opens an existing calendar appointment in a new window on the desktop or in a dialog box on
          * mobile devices.
          *
-         * In Outlook on Mac, you can use this method to display a single appointment that is not part of a recurring series, or the
-         * master appointment of a recurring series, but you cannot display an instance of the series.
-         * This is because in Outlook on Mac, you cannot access the properties (including the item ID) of instances of a recurring series.
+         * In Outlook on Mac, you can use this method to display a single appointment that is not part of a recurring series, or the master appointment
+         * of a recurring series. However, you can't display an instance of the series because you can't access the properties
+         * (including the item ID) of instances of a recurring series.
          *
-         * In Outlook on the web, this method opens the specified form only if the body of the form is less than or equal to 32KB number of characters.
+         * In Outlook on the web, this method opens the specified form only if the body of the form is less than or equal to 32K characters.
          *
          * If the specified item identifier does not identify an existing appointment, a blank pane opens on the client computer or device, and
-         * no error message will be returned.
+         * no error message is returned.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
@@ -13216,14 +13275,48 @@ declare namespace Office {
          */
         displayAppointmentForm(itemId: string): void;
         /**
+         * Displays an existing calendar appointment.
+         *
+         * The `displayAppointmentFormAsync` method opens an existing calendar appointment in a new window on the desktop or in a dialog box on
+         * mobile devices.
+         *
+         * In Outlook on Mac, you can use this method to display a single appointment that is not part of a recurring series, or the master appointment
+         * of a recurring series. However, you can't display an instance of the series because you can't access the properties
+         * (including the item ID) of instances of a recurring series.
+         *
+         * In Outlook on the web, this method opens the specified form only if the body of the form is less than or equal to 32K characters.
+         *
+         * If the specified item identifier does not identify an existing appointment, a blank pane opens on the client computer or device, and
+         * no error message is returned.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * @param itemId - The Exchange Web Services (EWS) identifier for an existing calendar appointment.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         *
+         * @beta
+         */
+        displayAppointmentFormAsync(itemId: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
          * Displays an existing message.
          *
          * The `displayMessageForm` method opens an existing message in a new window on the desktop or in a dialog box on mobile devices.
          *
-         * In Outlook on the web, this method opens the specified form only if the body of the form is less than or equal to 32 KB number of characters.
+         * In Outlook on the web, this method opens the specified form only if the body of the form is less than or equal to 32K characters.
          *
          * If the specified item identifier does not identify an existing message, no message will be displayed on the client computer, and
-         * no error message will be returned.
+         * no error message is returned.
          *
          * Do not use the `displayMessageForm` with an itemId that represents an appointment. Use the `displayAppointmentForm` method to display
          * an existing appointment, and `displayNewAppointmentForm` to display a form to create a new appointment.
@@ -13239,6 +13332,39 @@ declare namespace Office {
          * @param itemId - The Exchange Web Services (EWS) identifier for an existing message.
          */
         displayMessageForm(itemId: string): void;
+        /**
+         * Displays an existing message.
+         *
+         * The `displayMessageFormAsync` method opens an existing message in a new window on the desktop or in a dialog box on mobile devices.
+         *
+         * In Outlook on the web, this method opens the specified form only if the body of the form is less than or equal to 32K characters.
+         *
+         * If the specified item identifier does not identify an existing message, no message will be displayed on the client computer, and
+         * no error message is returned.
+         *
+         * Do not use the `displayMessageForm` or `displayMessageFormAsync` method with an itemId that represents an appointment.
+         * Use the `displayAppointmentForm` or `displayAppointmentFormAsync` method to display an existing appointment,
+         * and `displayNewAppointmentForm` or `displayNewAppointmentFormAsync` to display a form to create a new appointment.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * @param itemId - The Exchange Web Services (EWS) identifier for an existing message.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         *
+         * @beta
+         */
+        displayMessageFormAsync(itemId: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Displays a form for creating a new calendar appointment.
          *
@@ -13266,6 +13392,41 @@ declare namespace Office {
          * @param parameters - An `AppointmentForm` describing the new appointment. All properties are optional.
          */
         displayNewAppointmentForm(parameters: AppointmentForm): void;
+        /**
+         * Displays a form for creating a new calendar appointment.
+         *
+         * The `displayNewAppointmentFormAsync` method opens a form that enables the user to create a new appointment or meeting.
+         * If parameters are specified, the appointment form fields are automatically populated with the contents of the parameters.
+         *
+         * In Outlook on the web, this method always displays a form with an attendees field.
+         * If you do not specify any attendees as input arguments, the method displays a form with a **Save** button.
+         * If you have specified attendees, the form would include the attendees and a **Send** button.
+         *
+         * In the Outlook rich client and Outlook RT, if you specify any attendees or resources in the `requiredAttendees`, `optionalAttendees`, or
+         * `resources` parameter, this method displays a meeting form with a **Send** button.
+         * If you don't specify any recipients, this method displays an appointment form with a **Save & Close** button.
+         *
+         * If any of the parameters exceed the specified size limits, or if an unknown parameter name is specified, an exception is thrown.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Read
+         *
+         * @param parameters - An `AppointmentForm` describing the new appointment. All properties are optional.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         *
+         * @beta
+         */
+        displayNewAppointmentFormAsync(parameters: AppointmentForm, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Displays a form for creating a new message.
          *
@@ -13312,6 +13473,58 @@ declare namespace Office {
          *        This is a string up to 100 characters.
          */
         displayNewMessageForm(parameters: any): void;
+        /**
+         * Displays a form for creating a new message.
+         *
+         * The `displayNewMessageFormAsync` method opens a form that enables the user to create a new message.
+         * If parameters are specified, the message form fields are automatically populated with the contents of the parameters.
+         *
+         * If any of the parameters exceed the specified size limits, or if an unknown parameter name is specified, an exception is thrown.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Read
+         *
+         * @param parameters - A dictionary containing all values to be filled in for the user in the new form. All parameters are optional.
+         *
+         *        `toRecipients`: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails | EmailAddressDetails} object
+         *        for each of the recipients on the To line. The array is limited to a maximum of 100 entries.
+         *
+         *        `ccRecipients`: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails | EmailAddressDetails} object
+         *        for each of the recipients on the Cc line. The array is limited to a maximum of 100 entries.
+         *
+         *        `bccRecipients`: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails | EmailAddressDetails} object
+         *        for each of the recipients on the Bcc line. The array is limited to a maximum of 100 entries.
+         *
+         *        `subject`: A string containing the subject of the message. The string is limited to a maximum of 255 characters.
+         *
+         *        `htmlBody`: The HTML body of the message. The body content is limited to a maximum size of 32 KB.
+         *
+         *        `attachments`: An array of JSON objects that are either file or item attachments.
+         *
+         *        `attachments.type`: Indicates the type of attachment. Must be file for a file attachment or item for an item attachment.
+         *
+         *        `attachments.name`: A string that contains the name of the attachment, up to 255 characters in length.
+         *
+         *        `attachments.url`: Only used if type is set to file. The URI of the location for the file.
+         *
+         *        `attachments.isInline`: Only used if type is set to file. If true, indicates that the attachment will be shown inline in the
+         *        message body, and should not be displayed in the attachment list.
+         *
+         *        `attachments.itemId`: Only used if type is set to item. The EWS item id of the existing e-mail you want to attach to the new message.
+         *        This is a string up to 100 characters.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         *
+         * @beta
+         */
+        displayNewMessageFormAsync(parameters: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Gets a string that contains a token used to call REST APIs or Exchange Web Services.
          *
@@ -15291,16 +15504,15 @@ declare namespace Office {
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Displays a reply form that includes the sender and all recipients of the selected message or the organizer and all attendees of the
+         * Displays a reply form that includes either the sender and all recipients of the selected message or the organizer and all attendees of the
          * selected appointment.
          *
-         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2-column or 1-column view.
          *
          * If any of the string parameters exceed their limits, `displayReplyAllForm` throws an exception.
          *
-         * When attachments are specified in the `formData.attachments` parameter, Outlook on the web and desktop clients attempt to download
-         * all attachments and attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI.
-         * If this isn't possible, then no error message is thrown.
+         * When attachments are specified in the `formData.attachments` parameter, Outlook attempts to download all attachments and attach them to the
+         * reply form. If any attachments fail to be added, an error is shown in the form UI. If this isn't possible, then no error message is thrown.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
@@ -15315,15 +15527,45 @@ declare namespace Office {
          */
         displayReplyAllForm(formData: string | ReplyFormData): void;
         /**
+         * Displays a reply form that includes either the sender and all recipients of the selected message or the organizer and all attendees of the
+         * selected appointment.
+         *
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2-column or 1-column view.
+         *
+         * If any of the string parameters exceed their limits, `displayReplyAllFormAsync` throws an exception.
+         *
+         * When attachments are specified in the `formData.attachments` parameter, Outlook attempts to download all attachments and attach them to the
+         * reply form. If any attachments fail to be added, an error is shown in the form UI. If this isn't possible, then no error message is thrown.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
+         *
+         * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+         *                   OR a {@link Office.ReplyFormData | ReplyFormData} object that contains body or attachment data and a callback function.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         *
+         * @beta
+         */
+        displayReplyAllFormAsync(formData: string | ReplyFormData, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
          * Displays a reply form that includes only the sender of the selected message or the organizer of the selected appointment.
          *
-         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2-column or 1-column view.
          *
          * If any of the string parameters exceed their limits, `displayReplyForm` throws an exception.
          *
-         * When attachments are specified in the `formData.attachments` parameter, Outlook on the web and desktop clients attempt to download
-         * all attachments and attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI.
-         * If this isn't possible, then no error message is thrown.
+         * When attachments are specified in the `formData.attachments` parameter, Outlook attempts to download all attachments and attach them to the
+         * reply form. If any attachments fail to be added, an error is shown in the form UI. If this isn't possible, then no error message is thrown.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
@@ -15337,6 +15579,36 @@ declare namespace Office {
          *                   OR a {@link Office.ReplyFormData | ReplyFormData} object that contains body or attachment data and a callback function.
          */
         displayReplyForm(formData: string | ReplyFormData): void;
+        /**
+         * Displays a reply form that includes only the sender of the selected message or the organizer of the selected appointment.
+         *
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2-column or 1-column view.
+         *
+         * If any of the string parameters exceed their limits, `displayReplyFormAsync` throws an exception.
+         *
+         * When attachments are specified in the `formData.attachments` parameter, Outlook attempts to download all attachments and attach them to the
+         * reply form. If any attachments fail to be added, an error is shown in the form UI. If this isn't possible, then no error message is thrown.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
+         *
+         * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+         *                   OR a {@link Office.ReplyFormData | ReplyFormData} object that contains body or attachment data and a callback function.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         *
+         * @beta
+         */
+        displayReplyFormAsync(formData: string | ReplyFormData, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Gets all the internet headers for the message as a string.
          *
