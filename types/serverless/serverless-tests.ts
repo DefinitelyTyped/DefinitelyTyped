@@ -117,7 +117,7 @@ getHttp(
 // Test entire Aws Serverless type
 const awsServerless: Aws.Serverless = {
     service: {
-        name: 'testName',
+        name: 'testName1',
         awsKmsKeyArn: 'testAwsKmsKeyArn'
     },
     frameworkVersion: 'testFrameworkVersion',
@@ -156,7 +156,7 @@ const awsServerless: Aws.Serverless = {
         environment: {
             testenvironmentkey: 'testenvironmentvalue'
         },
-        endpointType: 'testendpointType',
+        endpointType: 'regional',
         apiKeys: ['testApiKeys'],
         apiGateway: {
             restApiId: 'testrestApiId',

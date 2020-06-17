@@ -214,6 +214,8 @@ adapter.setObject('id', {
         read: true,
         write: false,
         role: 'some role',
+        def: [],
+        defAck: false,
     },
     native: {},
     protectedNative: ['none'],

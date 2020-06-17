@@ -49,6 +49,11 @@ dateOutput = dateParser("");
 dateParser = Globalize.dateParser({});
 dateOutput = dateParser("");
 
+let dateToPartsFormatter = Globalize.dateToPartsFormatter({});
+let datePartsOutput: Globalize.DateFormatPart[];
+datePartsOutput = dateToPartsFormatter(new Date());
+datePartsOutput = Globalize.formatDateToParts(new Date(), {});
+
 strOutput = en.formatDate(new Date(), {});
 strOutput = Globalize.formatDate(new Date(), {});
 dateOutput = en.parseDate("", {});

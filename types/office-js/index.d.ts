@@ -9172,7 +9172,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9194,7 +9194,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9624,7 +9624,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9644,7 +9644,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9674,13 +9674,9 @@ declare namespace Office {
          * that when Outlook is in cached mode, it may take some time before the item is actually synced to the server. 
          * Until the item is synced, using the item ID will return an error.
          *
-         * **Note**: The following clients have different behavior for `saveAsync` on appointments in compose mode:
-         *
-         * - In Outlook on Mac, only build 16.35.308 or later supports saving a meeting.
+         * **Note**: In Outlook on Mac, only build 16.35.308 or later supports saving a meeting.
          * Otherwise, the `saveAsync` method fails when called from a meeting in compose mode.
          * For a workaround, see {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API}.
-         *
-         * - Outlook on the web always sends an invitation or update when `saveAsync` is called on an appointment in compose mode.
          *
          * [Api set: Mailbox 1.3]
          *
@@ -9714,13 +9710,9 @@ declare namespace Office {
          * when Outlook is in cached mode, it may take some time before the item is actually synced to the server. 
          * Until the item is synced, using the item ID will return an error.
          *
-         * **Note**: The following clients have different behavior for `saveAsync` on appointments in compose mode:
-         *
-         * - In Outlook on Mac, only build 16.35.308 or later supports saving a meeting.
+         * **Note**: In Outlook on Mac, only build 16.35.308 or later supports saving a meeting.
          * Otherwise, the `saveAsync` method fails when called from a meeting in compose mode.
          * For a workaround, see {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API}.
-         *
-         * - Outlook on the web always sends an invitation or update when `saveAsync` is called on an appointment in compose mode.
          *
          * [Api set: Mailbox 1.3]
          *
@@ -10284,7 +10276,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10306,7 +10298,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10691,7 +10683,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10711,7 +10703,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10825,7 +10817,7 @@ declare namespace Office {
         /**
          * Gets the url of the attachment if its type is `MailboxEnums.AttachmentType.Cloud`.
          */
-        url: string;
+        url?: string;
     }
     /**
      * Represents an attachment on an item from the server. Read mode only.
@@ -12329,7 +12321,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          *
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Mailbox object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox#events | events section} for supported events.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -12350,7 +12342,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          *
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Mailbox object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox#events | events section} for supported events.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -12770,7 +12762,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          *
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Mailbox object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox#events | events section} for supported events.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -12789,7 +12781,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          *
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Mailbox object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox#events | events section} for supported events.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -13355,7 +13347,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13377,7 +13369,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13802,7 +13794,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13822,7 +13814,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14322,7 +14314,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14344,7 +14336,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14765,7 +14757,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14785,7 +14777,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *

@@ -39,6 +39,7 @@ declare namespace WebFont {
         monotype?:Monotype;
     }
     export interface Google {
+        api?: string;
         families:Array<string>;
         text?: string;
     }

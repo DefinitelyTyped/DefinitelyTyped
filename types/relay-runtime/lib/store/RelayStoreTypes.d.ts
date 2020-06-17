@@ -197,7 +197,13 @@ export interface CheckOptions {
     handlers: ReadonlyArray<MissingFieldHandler>;
 }
 
-export type OperationAvailability = 'available' | 'stale' | 'missing';
+export type OperationAvailability =
+    | {
+          status: 'available';
+          fetchTime: number | null | undefined;
+      }
+    | { status: 'stale' }
+    | { status: 'missing' };
 
 /**
  * An interface for keeping multiple views of data consistent across an

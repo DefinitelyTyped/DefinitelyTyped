@@ -29,8 +29,9 @@ gpio.destroy(err => {});
 gpio.reset();
 
 async function asyncTest() {
-    await gpio.promise.setup(7, gpio.DIR_IN, gpio.EDGE_BOTH);
-    await gpio.promise.write(7, true);
-    await gpio.promise.read(7);
-    await gpio.promise.destroy();
+    const one = await gpio.promise.setup(7, gpio.DIR_IN, gpio.EDGE_BOTH);
+    const two = await gpio.promise.setup(7, gpio.DIR_IN);
+    const three = await gpio.promise.write(7, true);
+    const four = await gpio.promise.read(7);
+    const five = await gpio.promise.destroy();
 }

@@ -7,6 +7,8 @@
 
 /// <reference types="node" />
 
+import { RequestHandler } from 'express';
+import { Params, ParamsDictionary, Query } from 'express-serve-static-core';
 import { IncomingMessage, Server, ServerResponse } from 'http';
 import * as Trouter from 'trouter';
 import { Url } from 'url';
@@ -15,7 +17,7 @@ declare namespace polka {
     /**
      * A middleware function
      */
-    type Middleware = (req: IncomingMessage, res: ServerResponse, next: Next) => void | Promise<void>;
+    type Middleware<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = Query> = RequestHandler<P, ResBody, ReqBody, ReqQuery>;
 
     /**
      * Calls the next middleware function in the chain, or throws an error.
@@ -59,7 +61,7 @@ declare namespace polka {
     /**
      * An instance of the Polka router.
      */
-    interface Polka extends Trouter<Middleware> {
+    interface Polka extends Trouter<RequestHandler> {
         /**
          * Parses the `req.url` property of the given request.
          */
@@ -69,13 +71,13 @@ declare namespace polka {
          * Attach middleware(s) and/or sub-application(s) to the server.
          * These will execute before your routes' handlers.
          */
-        use(...handlers: Middleware[]): this;
+        use(...handlers: RequestHandler[]): this;
 
         /**
          * Attach middleware(s) and/or sub-application(s) to the server.
          * These will execute before your routes' handlers.
          */
-        use(pattern: string | RegExp, ...handlers: Middleware[] | Polka[]): this;
+        use(pattern: string | RegExp, ...handlers: RequestHandler[] | Polka[]): this;
 
         /**
          * Boots (or creates) the underlying `http.Server` for the first time.

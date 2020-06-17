@@ -138,6 +138,7 @@ class Component extends React.Component<{}, ComponentState> {
                         <Brush dataKey="name" />
                         <ReferenceLine />
                         <ReferenceArea
+                            label="Reference Area"
                             stroke="red"
                             fill="red"
                             y2={1}

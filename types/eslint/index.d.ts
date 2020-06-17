@@ -1,4 +1,4 @@
-// Type definitions for eslint 6.8
+// Type definitions for eslint 7.2
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
@@ -366,7 +366,11 @@ export namespace Rule {
 //#region Linter
 
 export class Linter {
+    static version: string;
+
     version: string;
+
+    constructor(options?: { cwd?: string });
 
     verify(code: SourceCode | string, config: Linter.Config, filename?: string): Linter.LintMessage[];
     verify(code: SourceCode | string, config: Linter.Config, options: Linter.LintOptions): Linter.LintMessage[];
@@ -446,6 +450,8 @@ export namespace Linter {
         filename?: string;
         preprocess?: (code: string) => string[];
         postprocess?: (problemLists: LintMessage[][]) => LintMessage[];
+        filterCodeBlock?: boolean;
+        disableFixes?: boolean;
         allowInlineConfig?: boolean;
         reportUnusedDisableDirectives?: boolean;
     }
@@ -464,11 +470,12 @@ export namespace Linter {
         ruleId: string | null;
         message: string;
         messageId?: string;
-        nodeType: string;
+        nodeType?: string;
         fatal?: true;
         severity: Severity;
         fix?: Rule.Fix;
-        source: string | null;
+        /** @deprecated Use `linter.getSourceCode()` */
+        source?: string | null;
         suggestions?: LintSuggestion[];
     }
 
@@ -500,8 +507,94 @@ export namespace Linter {
 
 //#endregion
 
+//#region ESLint
+
+export class ESLint {
+    static version: string;
+
+    static outputFixes(results: ESLint.LintResult[]): Promise<void>;
+
+    static getErrorResults(results: ESLint.LintResult[]): ESLint.LintResult[];
+
+    constructor(options: ESLint.Options);
+
+    lintFiles(patterns: string | string[]): Promise<ESLint.LintResult[]>;
+
+    lintText(code: string, options?: { filePath?: string; warnIgnored?: boolean }): Promise<ESLint.LintResult[]>;
+
+    calculateConfigForFile(filePath: string): Promise<any>;
+
+    isPathIgnored(filePath: string): Promise<boolean>;
+
+    loadFormatter(nameOrPath?: string): Promise<ESLint.Formatter>;
+}
+
+export namespace ESLint {
+    interface Options {
+        // File enumeration
+        cwd?: string;
+        errorOnUnmatchedPattern?: boolean;
+        extensions?: string[];
+        globInputPaths?: boolean;
+        ignore?: boolean;
+        ignorePath?: string;
+
+        // Linting
+        allowInlineConfig?: boolean;
+        baseConfig?: Linter.Config;
+        overrideConfig?: Linter.Config;
+        overrideConfigFile?: string;
+        plugins?: Record<string, any>;
+        reportUnusedDisableDirectives?: Linter.RuleLevel;
+        resolvePluginsRelativeTo?: string;
+        rulePaths?: string[];
+        useEslintrc?: boolean;
+
+        // Autofix
+        fix?: boolean | ((message: Linter.LintMessage) => boolean);
+        fixTypes?: Array<Rule.RuleMetaData['type']>;
+
+        // Cache-related
+        cache?: boolean;
+        cacheLocation?: string;
+    }
+
+    interface LintResult {
+        filePath: string;
+        messages: Linter.LintMessage[];
+        errorCount: number;
+        warningCount: number;
+        fixableErrorCount: number;
+        fixableWarningCount: number;
+        output?: string;
+        source?: string;
+        usedDeprecatedRules: DeprecatedRuleUse[];
+    }
+
+    interface LintResultData {
+        rulesMeta: {
+            [ruleId: string]: Rule.RuleMetaData;
+        };
+    }
+
+    interface DeprecatedRuleUse {
+        ruleId: string;
+        replacedBy: string[];
+    }
+
+    interface Formatter {
+        format(results: LintResult[], data?: LintResultData): string;
+    }
+
+    // Docs reference the type by this name
+    type EditInfo = Rule.Fix;
+}
+
+//#endregion
+
 //#region CLIEngine
 
+/** @deprecated Deprecated in favor of `ESLint` */
 export class CLIEngine {
     static version: string;
 
@@ -530,6 +623,7 @@ export class CLIEngine {
     static outputFixes(report: CLIEngine.LintReport): void;
 }
 
+/** @deprecated Deprecated in favor of `ESLint` */
 export namespace CLIEngine {
     class Options {
         allowInlineConfig?: boolean;
@@ -559,22 +653,9 @@ export namespace CLIEngine {
         reportUnusedDisableDirectives?: boolean;
     }
 
-    interface LintResult {
-        filePath: string;
-        messages: Linter.LintMessage[];
-        errorCount: number;
-        warningCount: number;
-        fixableErrorCount: number;
-        fixableWarningCount: number;
-        output?: string;
-        source?: string;
-    }
+    type LintResult = ESLint.LintResult;
 
-    interface LintResultData {
-        rulesMeta: {
-            [ruleId: string]: Rule.RuleMetaData;
-        };
-    }
+    type LintResultData = ESLint.LintResultData;
 
     interface LintReport {
         results: LintResult[];
@@ -585,10 +666,7 @@ export namespace CLIEngine {
         usedDeprecatedRules: DeprecatedRuleUse[];
     }
 
-    interface DeprecatedRuleUse {
-      ruleId: string;
-      replacedBy: string[];
-    }
+    type DeprecatedRuleUse = ESLint.DeprecatedRuleUse;
 
     type Formatter = (results: LintResult[], data?: LintResultData) => string;
 }

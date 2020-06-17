@@ -3,6 +3,7 @@
         "index.d.ts",
         "node-tests.ts",
         "test/assert.ts",
+        "test/async_hooks.ts",
         "test/buffer.ts",
         "test/child_process.ts",
         "test/cluster.ts",
