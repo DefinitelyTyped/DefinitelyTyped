@@ -58,10 +58,22 @@ const cache = new QueryResponseCache({ size: 250, ttl: 60000 });
 // ~~~~~~~~~~~~~~~~~~~~~
 // Environment
 // ~~~~~~~~~~~~~~~~~~~~~
+
+const isServer = false;
+
+const options = {
+    test: true,
+};
+
+const treatMissingFieldsAsNull = false;
+
 const environment = new Environment({
     handlerProvider, // Can omit.
     network,
     store,
+    isServer,
+    options,
+    treatMissingFieldsAsNull,
     missingFieldHandlers: [
         ...getDefaultMissingFieldHandlers(),
         // Example from https://relay.dev/docs/en/experimental/a-guided-tour-of-relay
