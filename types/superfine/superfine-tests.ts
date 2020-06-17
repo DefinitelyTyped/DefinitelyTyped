@@ -27,30 +27,76 @@ superfine.patch(
                 []
             ),
             superfine.h(
-                'g',
-                {},
+                'svg',
+                {
+                    onclick: e => {
+                        console.log(e.clientX);
+                    },
+                },
                 [
                     superfine.h(
-                        'a',
+                        'g',
+                        {},
+                        [
+                            superfine.h(
+                                'a',
+                                {
+                                    href: '#anything'
+                                },
+                                [
+                                    superfine.h(
+                                        'rect',
+                                        {
+                                        },
+                                        []
+                                    ),
+                                    superfine.h(
+                                        'rect',
+                                        {
+                                            key: 'example key a'
+                                        },
+                                        []
+                                    ),
+                                    superfine.h(
+                                        'rect',
+                                        {
+                                            key: 'example key b'
+                                        },
+                                        []
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                ]
+            ),
+            superfine.h(
+                'a',
+                {
+                    href: '#anything'
+                },
+                [
+                    superfine.h(
+                        'ul',
                         {
-                            href: '#anything'
+                            
                         },
                         [
                             superfine.h(
-                                'rect',
+                                'li',
                                 {
                                 },
                                 []
                             ),
                             superfine.h(
-                                'rect',
+                                'li',
                                 {
                                     key: 'example key a'
                                 },
                                 []
                             ),
                             superfine.h(
-                                'rect',
+                                'li',
                                 {
                                     key: 'example key b'
                                 },
@@ -66,30 +112,15 @@ superfine.patch(
 
 // Strongly typed SVG element root.
 superfine.patch(
-    document.createElementNS('http://www.w3.org/2000/svg', 'g'),
+    document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
     superfine.h(
-        'g',
+        'svg',
         {
             onclick: e => {
                 console.log(e.clientX);
             },
         },
         [
-            superfine.h(
-                'input',
-                {
-                    type: 'number',
-                    value: '3',
-                    min: '2',
-                    max: '5',
-                    disabled: false,
-                    onchange: e => {
-                        // TypeScript DOM library limitations prevent typing of e.target.value.
-                        console.log(e.target);
-                    }
-                },
-                []
-            ),
             superfine.h(
                 'g',
                 {},
