@@ -13,10 +13,10 @@ import {
 } from './RelayStoreTypes';
 import { DataID, Disposable } from '../util/RelayRuntimeTypes';
 
-export type InvalidationState = {
+export interface InvalidationState {
     dataIDs: ReadonlyArray<DataID>;
     invalidations: Map<DataID, number | undefined | null>;
-};
+}
 
 export default class RelayModernStore implements Store {
     constructor(

@@ -200,7 +200,7 @@ export type OperationAvailability =
     | { status: 'stale' }
     | { status: 'missing' };
 
-export type { InvalidationState } from './RelayModernStore';
+export { InvalidationState } from './RelayModernStore';
 
 /**
  * An interface for keeping multiple views of data consistent across an
