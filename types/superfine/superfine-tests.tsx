@@ -13,11 +13,9 @@ superfine.patch(
             console.log(e.clientX);
         }}>
             <g>
-                <a href="#anything">
-                    <rect />
-                    <rect key="example key a" />
-                    <rect key="example key b" />
-                </a>
+                <rect />
+                <rect key="example key a" />
+                <rect key="example key b" />
             </g>
         </svg>
         <a href="#anything">
@@ -37,11 +35,9 @@ superfine.patch(
         console.log(e.clientX);
     }}>
         <g>
-            <a href="#anything">
-                <rect />
-                <rect key="example key a" />
-                <rect key="example key b" />
-            </a>
+            <rect />
+            <rect key="example key a" />
+            <rect key="example key b" />
         </g>
     </svg>
 );
