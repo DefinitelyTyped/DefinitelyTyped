@@ -25,6 +25,7 @@
 //                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
 //                 JongChan Choi <https://github.com/disjukr>
 //                 Victor Magalhães <https://github.com/vhfmag>
+//                 Dale Tan <https://github.com/hellatan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2266,6 +2267,7 @@ declare namespace React {
         cellPadding?: number | string;
         cellSpacing?: number | string;
         summary?: string;
+        width?: number | string;
     }
 
     interface TextareaHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2295,6 +2297,8 @@ declare namespace React {
         rowSpan?: number;
         scope?: string;
         abbr?: string;
+        height?: number | string;
+        width?: number | string;
         valign?: "top" | "middle" | "bottom" | "baseline";
     }
 
