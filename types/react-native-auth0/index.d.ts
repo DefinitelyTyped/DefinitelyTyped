@@ -180,12 +180,16 @@ export interface AuthorizeParams {
     prompt?: string;
 }
 
+export interface AuthorizeOptions {
+    ephemeralSession?: boolean;
+}
+
 export interface ClearSessionParams {
     federated: boolean;
 }
 
 export class WebAuth {
-    authorize(parameters: AuthorizeParams): Promise<any>;
+    authorize(parameters: AuthorizeParams, options?: AuthorizeOptions): Promise<any>;
     clearSession(parameters?: ClearSessionParams): Promise<any>;
 }
 
