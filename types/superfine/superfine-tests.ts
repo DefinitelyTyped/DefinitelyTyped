@@ -78,9 +78,7 @@ superfine.patch(
                 [
                     superfine.h(
                         'ul',
-                        {
-                            
-                        },
+                        {},
                         [
                             superfine.h(
                                 'li',
