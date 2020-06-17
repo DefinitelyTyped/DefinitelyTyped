@@ -1,5 +1,5 @@
 declare module 'guacamole-client' {
-
+  type Mimetype = string;
   /**
    * An object used by the Guacamole client to house arbitrarily-many named
    * input and output streams.
@@ -39,7 +39,7 @@ declare module 'guacamole-client' {
      * and its mimetype as its two only arguments. If the onbody handler of
      * this object is overridden, this callback will not be invoked.
      */
-    requestInputStream(name: string, bodyCallback?: (stream: InputStream, mimetype: string) => void): void;
+    requestInputStream(name: string, bodyCallback?: (stream: InputStream, mimetype: Mimetype) => void): void;
 
     /**
      * Creates a new output stream associated with this object and having the
@@ -49,7 +49,7 @@ declare module 'guacamole-client' {
      * @param name The defined name of an output stream within this object.
      * @returns An output stream which will write blobs to the named output stream of this object.
      */
-    createOutputStream(mimetype: string, name: string): OutputStream;
+    createOutputStream(mimetype: Mimetype, name: string): OutputStream;
 
     /**
      * Called when this object receives the body of a requested input stream.
@@ -63,7 +63,7 @@ declare module 'guacamole-client' {
      * @param mimetype The mimetype of the data being received.
      * @param name The name of the stream whose body has been received.
      */
-    onbody: null | ((bodyStream: InputStream, mimetype: string) => void);
+    onbody: null | ((bodyStream: InputStream, mimetype: Mimetype) => void);
 
     /**
      * Called when this object is being undefined. Once undefined, no further
@@ -74,8 +74,170 @@ declare module 'guacamole-client' {
     onundefine: null | (() => void);
   }
 
-  export class AudioPlayer {}
-  export class VideoPlayer {}
+  // TODO: BigInt?
+  type TypedArray = Uint32Array |
+    Uint16Array |
+    Uint8Array |
+    Uint8ClampedArray |
+    Int32Array |
+    Int16Array |
+    Int8Array |
+    Float64Array |
+    Float32Array;
+
+  /**
+   * A writer which automatically writes to the given output stream with arbitrary
+   * binary data, supplied as ArrayBuffers.
+   * 
+   * @param stream The stream that data will be written
+   */
+  export class ArrayBufferWriter {
+    /**
+     * The default maximum blob length for new Guacamole.ArrayBufferWriter
+     * instances.
+     */
+    static readonly DEFAULT_BLOB_LENGTH: 6048;
+
+    /**
+     * The maximum length of any blob sent by this Guacamole.ArrayBufferWriter,
+     * in bytes. Data sent via sendData() which exceeds
+     * this length will be split into multiple blobs. As the Guacamole protocol
+     * limits the maximum size of any instruction or instruction element to
+     * 8192 bytes, and the contents of blobs will be base64-encoded, this value
+     * should only be increased with extreme caution.
+     *
+     */
+    blobLength: number;
+
+    /**
+     * Sends the given data.
+     * @param data The data to send.
+     */
+    sendData(data: ArrayBuffer | TypedArray): void;
+
+    /**
+     * Signals that no further text will be sent, effectively closing the
+     * stream.
+     */
+    sendEnd(): void;
+
+    /**
+     * Fired for received data, if acknowledged by the server.
+     * @event
+     * @param status The status of the operation.
+     */
+    onack: null | ((status: Status) => void);
+}
+
+
+  /**
+   * A reader which automatically handles the given input stream, returning
+   * strictly received packets as array buffers. Note that this object will
+   * overwrite any installed event handlers on the given Guacamole.InputStream.
+   * @param stream The stream that data will be read from.
+   */
+  export class ArrayBufferReader {
+    constructor(stream: InputStream);
+
+    /**
+     * Fired once for every blob of data received.
+     * @event
+     * @param buffer The data packet received.
+     */
+    ondata: null | ((data: ArrayBuffer) => void);
+
+    /**
+     * Fired once this stream is finished and no further data will be written.
+     * @event
+     */
+    onend: null | (() => void);
+  }
+
+  /**
+   * Abstract audio player which accepts, queues and plays back arbitrary audio
+   * data. It is up to implementations of this class to provide some means of
+   * handling a provided Guacamole.InputStream. Data received along the provided
+   * stream is to be played back immediately.
+   */
+  export class AudioPlayer {
+   /**
+    * Returns a list of all mimetypes supported by any built-in
+    * Guacamole.AudioPlayer, in rough order of priority. Beware that only the core
+    * mimetypes themselves will be listed. Any mimetype parameters, even required
+    * ones, will not be included in the list. For example, "audio/L8" is a
+    * supported raw audio mimetype that is supported, but it is invalid without
+    * additional parameters. Something like "audio/L8;rate=44100" would be valid,
+    * however (see https://tools.ietf.org/html/rfc4856).
+    * @returns A list of all mimetypes supported by any built-in Guacamole.AudioPlayer, excluding any parameters.
+    */
+    static getSupportedTypes(): Mimetype[];
+
+    /**
+     * Returns an instance of Guacamole.AudioPlayer providing support for the given
+     * audio format. If support for the given audio format is not available, null
+     * is returned.
+     *
+     * @param stream The Guacamole.InputStream to read audio data from.
+     * @param mimetype The mimetype of the audio data in the provided stream.
+     * @return A Guacamole.AudioPlayer instance supporting the given mimetype and
+     * reading from the given stream, or null if support for the given mimetype is absent.
+     */
+    static getInstance(stream: InputStream, mimetype: Mimetype): AudioPlayer | null;
+
+    /**
+     * Notifies this Guacamole.AudioPlayer that all audio up to the current
+     * point in time has been given via the underlying stream, and that any
+     * difference in time between queued audio data and the current time can be
+     * considered latency.
+     */
+    sync(): void;
+  }
+
+  export class VideoPlayer {
+    /**
+     * Determines whether the given mimetype is supported by any built-in
+     * implementation of Guacamole.VideoPlayer, and thus will be properly handled
+     * by Guacamole.VideoPlayer.getInstance().
+     * @param mimetype The mimetype to check.
+     * @returns true if the given mimetype is supported by any built-in Guacamole.VideoPlayer, false otherwise.
+     */
+    static isSupportedType(mimetype: MimeType): boolean;
+
+    /**
+     * Returns a list of all mimetypes supported by any built-in
+     * Guacamole.VideoPlayer, in rough order of priority. Beware that only the core
+     * mimetypes themselves will be listed. Any mimetype parameters, even required
+     * ones, will not be included in the list.
+     *
+     * @returns A list of all mimetypes supported by any built-in Guacamole.VideoPlayer,
+     * excluding any parameters.
+     */
+    static getSupportedTypes(): Mimetype[];
+
+    /**
+     * Returns an instance of Guacamole.VideoPlayer providing support for the given
+     * video format. If support for the given video format is not available, null
+     * is returned.
+     *
+     * @param stream The Guacamole.InputStream to read video data from.
+     * @param layer The destination layer in which this Guacamole.VideoPlayer should play
+     * the received video data.
+     * @param mimetype The mimetype of the video data in the provided stream.
+     * @return
+     * A Guacamole.VideoPlayer instance supporting the given mimetype and
+     * reading from the given stream, or null if support for the given mimetype
+     * is absent.
+     */
+    static getInstance(stream: InputStream, layer: VisibleLayer, mimetype: MimeType): VideoPlayer | null;
+
+    /**
+     * Notifies this Guacamole.VideoPlayer that all video up to the current
+     * point in time has been given via the underlying stream, and that any
+     * difference in time between queued video data and the current time can be
+     * considered latency.
+     */
+    sync(): void;
+  }
 
   type TunnelState = Readonly<{
     /**
@@ -123,13 +285,9 @@ declare module 'guacamole-client' {
     readonly url: string;
   }
 
-  export class Layer {
-
-  }
-
   type LineCap = 'round' | 'square' | 'butt';
   type LineJoin = 'round' | 'bevel' | 'mitter';
-  export class VisibleLayer {
+  export class Layer {
     constructor(width: number, height: number);
     width: number;
     height: number;
@@ -157,6 +315,8 @@ declare module 'guacamole-client' {
     fillColor(r: number, g: number, b: number, a: number): void;
     strokeLayer(cap: LineCap, join: LineJoin, thickness: number, layer: Layer): void;
   }
+
+  export class VisibleLayer extends Layer {}
 
   export class InputStream {
     constructor(client: Client, index: number);
@@ -459,7 +619,7 @@ declare module 'guacamole-client' {
      * @param mimetype The mimetype of the data being sent.
      * @param name The name of the connection parameter to attempt to update.
      */
-    createArgumentValueStream(mimetype: string, name: string): OutputStream;
+    createArgumentValueStream(mimetype: Mimetype, name: string): OutputStream;
 
     /**
      * Opens a new audio stream for writing, where audio data having the give
@@ -468,7 +628,7 @@ declare module 'guacamole-client' {
      *
      * @param mimetype The mimetype of the audio data that will be sent along the returned stream.
      */
-    createAudioStream(mimetype: string): OutputStream;
+    createAudioStream(mimetype: Mimetype): OutputStream;
 
     /**
      * Opens a new clipboard object for writing, having the given mimetype. The
@@ -477,7 +637,7 @@ declare module 'guacamole-client' {
      * @param mimetype The mimetype of the data being sent.
      * @param name The name of the pipe.
      */
-    createClipboardStream(mimetype: string, name: string): OutputStream;
+    createClipboardStream(mimetype: Mimetype, name: string): OutputStream;
 
     /**
      * Opens a new file for writing, having the given index, mimetype and
@@ -487,7 +647,7 @@ declare module 'guacamole-client' {
      * @param mimetype The mimetype of the file being sent.
      * @param filename The filename of the file being sent.
      */
-    createFileStream(mimetype: string, filename: string): OutputStream;
+    createFileStream(mimetype: Mimetype, filename: string): OutputStream;
 
     /**
      * Creates a new output stream associated with the given object and having
@@ -500,7 +660,7 @@ declare module 'guacamole-client' {
      * @param name The defined name of an output stream within the given object.
      * @returns An output stream which will write blobs to the named output stream of the given object.
      */
-    createObjectOutputStream(index: number, mimetype: string, name: string): OutputStream;
+    createObjectOutputStream(index: number, mimetype: Mimetype, name: string): OutputStream;
 
     /**
      * Allocates an available stream index and creates a new
@@ -522,7 +682,7 @@ declare module 'guacamole-client' {
      * @param mimetype The mimetype of the data being sent.
      * @param name The name of the pipe.
      */
-    createPipeStream(mimetype: string, name: string): OutputStream;
+    createPipeStream(mimetype: Mimetype, name: string): OutputStream;
 
     /**
      * Marks a currently-open stream as complete. The other end of the
@@ -659,7 +819,7 @@ declare module 'guacamole-client' {
      * has been initialied to play the data in the provided stream, or null
      * if the built-in audio players of the Guacamole client should be used.
      */
-    onaudio: null | ((audioStream: InputStream, mimetype: string) => AudioPlayer | null);
+    onaudio: null | ((audioStream: InputStream, mimetype: Mimetype) => AudioPlayer | null);
 
     /**
      * Fired when a video stream is created. The stream provided to this event
@@ -678,7 +838,7 @@ declare module 'guacamole-client' {
      * has been initialied to play the data in the provided stream, or null
      * if the built-in video players of the Guacamole client should be used.
      */
-    onvideo: null | ((videoStream: InputStream, layer: VisibleLayer, mimetype: string) => VideoPlayer | null);
+    onvideo: null | ((videoStream: InputStream, layer: VisibleLayer, mimetype: Mimetype) => VideoPlayer | null);
 
     /**
      * Fired when the current value of a connection parameter is being exposed
@@ -689,7 +849,7 @@ declare module 'guacamole-client' {
      * @param mimetype The mimetype of the data which will be received.
      * @param name The name of the connection parameter whose value is being exposed.
      */
-    onargv: null | ((parameterStream: InputStream, mimetype: string, name: string) => void);
+    onargv: null | ((parameterStream: InputStream, mimetype: Mimetype, name: string) => void);
 
     /**
      * Fired when the clipboard of the remote client is changing.
@@ -698,7 +858,7 @@ declare module 'guacamole-client' {
      * @param stream The stream that will receive clipboard data from the server.
      * @param mimetype The mimetype of the data which will be received.
      */
-    onclipboard: null | ((clipboardStream: InputStream, mimetype: string) => void);
+    onclipboard: null | ((clipboardStream: InputStream, mimetype: Mimetype) => void);
 
     /**
      * Fired when a file stream is created. The stream provided to this event
@@ -709,7 +869,7 @@ declare module 'guacamole-client' {
      * @param mimetype The mimetype of the file received.
      * @param filename The name of the file received.
      */
-    onfile: null | ((fileStream: InputStream, mimetype: string, name: string) => void);
+    onfile: null | ((fileStream: InputStream, mimetype: Mimetype, name: string) => void);
 
     /**
      * Fired when a filesystem object is created. The object provided to this
@@ -731,7 +891,7 @@ declare module 'guacamole-client' {
      * @param mimetype The mimetype of the data which will be received.
      * @param name The name of the pipe.
      */
-    onpipe: null | ((pipeStream: InputStream, mimetype: string, name: string) => void);
+    onpipe: null | ((pipeStream: InputStream, mimetype: Mimetype, name: string) => void);
 
     /**
      * Fired whenever a sync instruction is received from the server, indicating
@@ -746,25 +906,126 @@ declare module 'guacamole-client' {
   }
 
   export namespace Keyboard {
+    /**
+     * The state of all supported keyboard modifiers.
+     */
     export class ModifierState {
+      /**
+       * Returns the modifier state applicable to the keyboard event given.
+       * @param event The keyboard event to read.
+       * @returns The current state of keyboard modifiers.
+       */
       static fromKeyboardEvent(event: KeyboardEvent): ModifierState;
-      ctrl: boolean;
-      hyper: boolean;
-      meta: boolean;
+
+      /**
+       * Whether shift is currently pressed.
+       */
       shift: boolean;
+
+      /**
+       * Whether ctrl is currently pressed.
+       */
+        ctrl: boolean;
+
+      /**
+       * Whether alt is currently pressed.
+       */
       alt: boolean;
+
+      /**
+       * Whether meta (apple key) is currently pressed.
+       */
+      meta: boolean;
+
+      /**
+       * Whether hyper (windows key) is currently pressed.
+       */
+      hyper: boolean;
     }
   }
 
+  /**
+   * Provides cross-browser and cross-keyboard keyboard for a specific element.
+   * Browser and keyboard layout variation is abstracted away, providing events
+   * which represent keys as their corresponding X11 keysym.
+   * @param element
+   * The Element to use to provide keyboard events. If omitted, at least one
+   * Element must be manually provided through the listenTo() function for
+   * the Guacamole.Keyboard instance to have any effect.
+   */
   export class Keyboard {
     constructor(element: HTMLDocument | HTMLElement);
 
+    /**
+     * Fired whenever the user presses a key with the element associated
+     * with this Guacamole.Keyboard in focus.
+     * @event
+     * @param keysym The keysym of the key being pressed.
+     * @return true if the key event should be allowed through to the browser, false otherwise.
+     */
     onkeydown: null | ((keysym: number) => boolean | void);
+
+    /**
+     * Fired whenever the user releases a key with the element associated
+     * with this Guacamole.Keyboard in focus.
+     * @event
+     * @param keysym The keysym of the key being released.
+     */
     onkeyup: null | ((keysym: number) => void);
-    pressed: { [keysym: number]: true };
+
+    /**
+     * All modifiers and their states.
+     */
     modifiers: Keyboard.ModifierState;
+
+    /**
+     * The state of every key, indexed by keysym. If a particular key is
+     * pressed, the value of pressed for that keysym will be true. If a key
+     * is not currently pressed, it will not be defined. 
+     */
+    pressed: { [keysym: number]: true };
+
+    /**
+     * Marks a key as pressed, firing the keydown event if registered. Key
+     * repeat for the pressed key will start after a delay if that key is
+     * not a modifier. The return value of this function depends on the
+     * return value of the keydown event handler, if any.
+     * 
+     * @param keysym The keysym of the key to press.
+     * @return true if event should NOT be canceled, false otherwise.
+     */
+    press(keysym: number): boolean;
+
+    /**
+     * Marks a key as released, firing the keyup event if registered.
+     * @param keysym The keysym of the key to release.
+     */
     release(keysym: number): void;
+
+    /**
+     * Presses and releases the keys necessary to type the given string of
+     * text.
+     *
+     * @param str The string to type.
+     */
+    type(str: string): void;
+
+    /**
+     * Resets the state of this keyboard, releasing all keys, and firing keyup
+     * events for each released key.
+     */
     reset(): void;
+
+    /**
+     * Attaches event listeners to the given Element, automatically translating
+     * received key, input, and composition events into simple keydown/keyup
+     * events signalled through this Guacamole.Keyboard's onkeydown and
+     * onkeyup handlers.
+     *
+     * @param element
+     * The Element to attach event listeners to for the sake of handling key or input events.
+     */
+    listenTo(element: HTMLElement | HTMLDocument): void;
   }
 
   export namespace Mouse {
