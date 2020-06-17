@@ -8,17 +8,12 @@ import {
     NormalizationScalarField,
     NormalizationLinkedField,
 } from '../util/NormalizationNode';
-import {
-    ConnectionReference,
-    ConnectionResolver,
-    ConnectionSnapshot,
-    ConnectionInternalEvent,
-    ConnectionID,
-} from './RelayConnection';
+import { ConnectionInternalEvent, ConnectionID } from './RelayConnection';
 import { PayloadData, Network, UploadableMap, PayloadError, GraphQLResponse } from '../network/RelayNetworkTypes';
 import { RelayObservable } from '../network/RelayObservable';
 import { RelayOperationTracker } from './RelayOperationTracker';
 import { RecordState } from './RelayRecordState';
+import { InvalidationState } from './RelayModernStore';
 
 export type FragmentReference = unknown;
 export type OperationTracker = RelayOperationTracker;
@@ -205,6 +200,8 @@ export type OperationAvailability =
     | { status: 'stale' }
     | { status: 'missing' };
 
+export { InvalidationState } from './RelayModernStore';
+
 /**
  * An interface for keeping multiple views of data consistent across an
  * application.
@@ -231,17 +228,19 @@ export interface Store {
     /**
      * Notify subscribers (see `subscribe`) of any data that was published
      * (`publish()`) since the last time `notify` was called.
+     * Optionally provide an OperationDescriptor indicating the source operation
+     * that was being processed to produce this run.
      *
-     * Also this method should return an array of the affected fragment owners
+     * This method should return an array of the affected fragment owners
      */
-    notify(): ReadonlyArray<RequestDescriptor>;
+    notify(sourceOperation?: OperationDescriptor, invalidateStore?: boolean): ReadonlyArray<RequestDescriptor>;
 
     /**
      * Publish new information (e.g. from the network) to the store, updating its
      * internal record source. Subscribers are not immediately notified - this
      * occurs when `notify()` is called.
      */
-    publish(source: RecordSource): void;
+    publish(source: RecordSource, idsMarkedForInvalidation?: Set<DataID>): void;
 
     /**
      * Ensure that all the records necessary to fulfill the given selector are
@@ -263,29 +262,6 @@ export interface Store {
      */
     holdGC(): Disposable;
 
-    lookupConnection_UNSTABLE<TEdge, TState>(
-        connectionReference: ConnectionReference<TEdge>,
-        resolver: ConnectionResolver<TEdge, TState>,
-    ): ConnectionSnapshot<TEdge, TState>;
-
-    subscribeConnection_UNSTABLE<TEdge, TState>(
-        snapshot: ConnectionSnapshot<TEdge, TState>,
-        resolver: ConnectionResolver<TEdge, TState>,
-        callback: (state: TState) => void,
-    ): Disposable;
-
-    /**
-     * Publish connection events, updating the store's list of events. As with
-     * publish(), subscribers are only notified after notify() is called.
-     */
-    publishConnectionEvents_UNSTABLE(events: ConnectionInternalEvent[], final: boolean): void;
-
-    /**
-     * Get a read-only view of the store's internal connection events for a given
-     * connection.
-     */
-    getConnectionEvents_UNSTABLE(connectionID: ConnectionID): ReadonlyArray<ConnectionInternalEvent>;
-
     /**
      * Record a backup/snapshot of the current state of the store, including
      * records and derived data such as fragment and connection subscriptions.
@@ -297,6 +273,30 @@ export interface Store {
      * Reset the state of the store to the point that snapshot() was last called.
      */
     restore(): void;
+
+    /**
+     * Will return an opaque snapshot of the current invalidation state of
+     * the data ids that were provided.
+     */
+    lookupInvalidationState(dataIDs: ReadonlyArray<DataID>): InvalidationState;
+
+    /**
+     * Given the previous invalidation state for those
+     * ids, this function will return:
+     *   - false, if the invalidation state for those ids is the same, meaning
+     *     **it has not changed**
+     *   - true, if the invalidation state for the given ids has changed
+     */
+    checkInvalidationState(previousInvalidationState: InvalidationState): boolean;
+
+    /**
+     * Will subscribe the provided callback to the invalidation state of the
+     * given data ids. Whenever the invalidation state for any of the provided
+     * ids changes, the callback will be called, and provide the latest
+     * invalidation state.
+     * Disposing of the returned disposable will remove the subscription.
+     */
+    subscribeToInvalidationState(invalidationState: InvalidationState, callback: () => void): Disposable;
 }
 
 /**

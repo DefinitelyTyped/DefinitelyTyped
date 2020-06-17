@@ -22,6 +22,7 @@ const storeWithNullOptions = new Store(source, {
     gcScheduler: null,
     operationLoader: null,
     gcReleaseBufferSize: null,
+    queryCacheExpirationTime: null,
 });
 const storeWithOptions = new Store(source, {
     gcScheduler: () => undefined,
@@ -30,6 +31,7 @@ const storeWithOptions = new Store(source, {
         load: () => Promise.resolve(null),
     },
     gcReleaseBufferSize: 10,
+    queryCacheExpirationTime: 1000,
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
