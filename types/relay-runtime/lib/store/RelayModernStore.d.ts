@@ -12,20 +12,13 @@ import {
     RequestDescriptor,
 } from './RelayStoreTypes';
 import { DataID, Disposable } from '../util/RelayRuntimeTypes';
-import {
-    ConnectionReference,
-    ConnectionResolver,
-    ConnectionSnapshot,
-    ConnectionInternalEvent,
-    ConnectionID,
-} from './RelayConnection';
 
 export type InvalidationState = {
     dataIDs: ReadonlyArray<DataID>;
     invalidations: Map<DataID, number | undefined | null>;
 };
 
-export class RelayModernStore implements Store {
+export default class RelayModernStore implements Store {
     constructor(
         source: MutableRecordSource,
         options?: {

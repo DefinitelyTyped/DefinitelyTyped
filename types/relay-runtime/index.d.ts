@@ -137,7 +137,7 @@ import QueryResponseCache from './lib/network/RelayQueryResponseCache';
 export { QueryResponseCache };
 export { RelayRecordSource as RecordSource } from './lib/store/RelayRecordSource';
 export { RelayModernRecord as Record } from './lib/store/RelayModernRecord';
-export { RelayModernStore as Store } from './lib/store/RelayModernStore';
+export { default as Store } from './lib/store/RelayModernStore';
 
 export {
     areEqualSelectors,
