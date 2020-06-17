@@ -918,6 +918,7 @@ declare namespace IORedis {
 
     interface Redis extends EventEmitter, Commander, Commands {
         Promise: typeof Promise;
+        options: RedisOptions;
         status: string;
         connect(callback?: () => void): Promise<void>;
         disconnect(): void;
