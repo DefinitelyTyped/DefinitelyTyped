@@ -8,7 +8,6 @@ import {
     NormalizationScalarField,
     NormalizationLinkedField,
 } from '../util/NormalizationNode';
-import { ConnectionInternalEvent, ConnectionID } from './RelayConnection';
 import { PayloadData, Network, UploadableMap, PayloadError, GraphQLResponse } from '../network/RelayNetworkTypes';
 import { RelayObservable } from '../network/RelayObservable';
 import { RelayOperationTracker } from './RelayOperationTracker';
@@ -397,7 +396,7 @@ export interface RecordSourceSelectorProxy<T = {}> extends RecordSourceProxy {
     getRootField<K extends keyof T>(fieldName: K): RecordProxy<NonNullable<T[K]>>;
     getRootField(fieldName: string): RecordProxy | null;
     getPluralRootField(fieldName: string): Array<RecordProxy<T> | null> | null;
-    insertConnectionEdge_UNSTABLE(connectionID: ConnectionID, args: Variables, edge: RecordProxy): void;
+    invalidateStore(): void;
 }
 
 interface OperationDescriptor {
@@ -811,12 +810,12 @@ export type MissingFieldHandler =
  * The results of normalizing a query.
  */
 export interface RelayResponsePayload {
-    readonly connectionEvents: ConnectionInternalEvent[] | null | undefined;
     readonly errors: PayloadError[] | null | undefined;
     readonly fieldPayloads: HandleFieldPayload[] | null | undefined;
     readonly incrementalPlaceholders: IncrementalDataPlaceholder[] | null | undefined;
     readonly moduleImportPayloads: ModuleImportPayload[] | null | undefined;
     readonly source: MutableRecordSource;
+    readonly isFinal: boolean;
 }
 
 /**
