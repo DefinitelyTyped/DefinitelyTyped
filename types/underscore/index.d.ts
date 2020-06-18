@@ -71,17 +71,17 @@ declare module _ {
         source: string;
     }
 
-    interface Collection<T> { }
-
     // Common interface between Arrays and jQuery objects
-    interface List<T> extends Collection<T> {
+    interface List<T> {
         [index: number]: T;
         length: number;
     }
 
-    interface Dictionary<T> extends Collection<T> {
+    interface Dictionary<T> {
         [index: string]: T;
     }
+
+    type Collection<T> = List<T> | Dictionary<T>;
 
     interface Predicate<T> {
         (value: T): boolean;
