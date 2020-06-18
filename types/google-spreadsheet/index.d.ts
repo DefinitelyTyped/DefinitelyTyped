@@ -782,7 +782,7 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
               }
             | Array<string | number | boolean>,
         options?: { raw: boolean; insert: boolean },
-    ): Promise<void>;
+    ): Promise<GoogleSpreadsheetRow>;
 
     /**
      * @description
