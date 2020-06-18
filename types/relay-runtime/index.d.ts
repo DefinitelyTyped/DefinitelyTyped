@@ -53,14 +53,6 @@ export {
     getRequest,
 } from './lib/query/RelayModernGraphQLTag';
 export { isClientID, generateClientID, generateUniqueClientID } from './lib/store/ClientID';
-export {
-    ConnectionEvent,
-    ConnectionID,
-    ConnectionReference,
-    ConnectionReferenceObject,
-    ConnectionResolver,
-    ConnectionSnapshot,
-} from './lib/store/RelayConnection';
 export { TaskScheduler } from './lib/store/RelayModernQueryExecutor';
 export { RecordState } from './lib/store/RelayRecordState';
 export {
