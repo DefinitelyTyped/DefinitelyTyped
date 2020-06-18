@@ -625,6 +625,8 @@ interface ModelWithFunction extends mongoose.Document {
 
     selfRefArray?: (ModelWithFunction | mongodb.ObjectID | undefined)[];
 
+    selfRefArray2?: ModelWithFunction[] | mongodb.ObjectID[];
+
     parent?: {
         ref: { 
             _id: mongodb.ObjectId; 
@@ -755,5 +757,8 @@ ModelWithFunctionInSchema.create({ name: "test", jobs: [], enum: SchemaEnum.Bar 
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], enumArray: [SchemaEnum.Bar, SchemaEnum.Foo] });
 
 ModelWithFunctionInSchema.create({ name: "test", jobs: [] }).then(ref => {
-    ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRef: ref, selfRef2: ref._id, selfRefArray: [ref, ref._id] });
+    const id: mongodb.ObjectID = ref._id;
+    ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRef: ref, selfRef2: ref._id, selfRefArray: [ref, id] });
+    ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRefArray2: [id, id] });
+    ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRefArray2: [ref, ref] });
 });
