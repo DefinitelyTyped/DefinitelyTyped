@@ -4,8 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import cytoscape from 'cytoscape';
-import { Stylesheet, LayoutOptions, ElementDefinition } from 'cytoscape';
+import cytoscape, { Stylesheet, LayoutOptions, ElementDefinition } from 'cytoscape';
 import { Component, CSSProperties } from 'react';
 
 export interface CytoscapeComponentProps {
