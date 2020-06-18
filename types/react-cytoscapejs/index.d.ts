@@ -4,16 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import cytoscape, { Stylesheet, LayoutOptions, ElementDefinition } from 'cytoscape';
+import cytoscape = require('cytoscape');
 import { Component, CSSProperties } from 'react';
 
 export interface CytoscapeComponentProps {
     id?: string;
     cy?: (cy: cytoscape.Core) => void;
     style?: CSSProperties;
-    elements: ElementDefinition[];
-    layout?: LayoutOptions;
-    stylesheet?: Stylesheet | Stylesheet[] | string;
+    elements: cytoscape.ElementDefinition[];
+    layout?: cytoscape.LayoutOptions;
+    stylesheet?: cytoscape.Stylesheet | cytoscape.Stylesheet[] | string;
     className?: string;
     zoom?: number;
     pan?: Position;
@@ -30,9 +30,9 @@ export default class CytoscapeComponent extends Component<CytoscapeComponentProp
     static normalizeElements(
         data:
             | {
-                  nodes: ElementDefinition[];
-                  edges: ElementDefinition[];
+                  nodes: cytoscape.ElementDefinition[];
+                  edges: cytoscape.ElementDefinition[];
               }
-            | ElementDefinition[],
-    ): ElementDefinition[];
+            | cytoscape.ElementDefinition[],
+    ): cytoscape.ElementDefinition[];
 }
