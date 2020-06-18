@@ -135,14 +135,14 @@ export interface ColorStyle {
 }
 
 export interface TextFormat {
-    foregroundColor: Color;
-    foregroundColorStyle: ColorStyle;
-    fontFamily: string;
-    fontSize: number;
-    bold: boolean;
-    italic: boolean;
-    strikethrough: boolean;
-    underline: boolean;
+    foregroundColor?: Color;
+    foregroundColorStyle?: ColorStyle;
+    fontFamily?: string;
+    fontSize?: number;
+    bold?: boolean;
+    italic?: boolean;
+    strikethrough?: boolean;
+    underline?: boolean;
 }
 
 export interface NumberFormat {
@@ -504,6 +504,12 @@ export class GoogleSpreadsheetRow {
 
     /**
      * @description
+     * This represents the properties that get loaded using the header row
+     */
+    [x: string]: any
+
+    /**
+     * @description
      * row number in the worksheet
      * - NOT 0 indexed, starts at 1
      */
@@ -545,43 +551,43 @@ export interface WorksheetBasicProperties {
      * - used in row-based interactions
      * - defines the dynamic properties of the Worksheet's GoogleSpreadsheetRows
      */
-    headerValues: string[];
+    headerValues?: string[];
 
     /**
      * @description
      * name of the worksheet tab
      */
-    title: string;
+    title?: string;
 
     /**
      * @description
      * tab index in the worksheet doc (based on rightToLeft property)
      */
-    index: number;
+    index?: number;
 
     /**
      * @description
      * additional properties of the worksheet if this sheet is a grid
      */
-    gridProperties: WorksheetGridProperties;
+    gridProperties?: WorksheetGridProperties;
 
     /**
      * @description
      * true if the worksheet is hidden in the UI, false if it's visible
      */
-    hidden: boolean;
+    hidden?: boolean;
 
     /**
      * @description
      * the color of the worksheet tab
      */
-    tabColor: Color;
+    tabColor?: Color;
 
     /**
      * @description
      * true if the worksheet is an RTL sheet instead of an LTR sheet
      */
-    rightToLeft: boolean;
+    rightToLeft?: boolean;
 
     // #endregion
 }
@@ -777,7 +783,7 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
                   [header: string]: string | number | boolean;
               }
             | Array<string | number | boolean>,
-        options: { raw: boolean; insert: boolean },
+        options?: { raw: boolean; insert: boolean },
     ): Promise<void>;
 
     /**
@@ -800,7 +806,7 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
               }
             | Array<string | number | boolean>
         )>,
-        options: { raw: boolean; insert: boolean },
+        options?: { raw: boolean; insert: boolean },
     ): Promise<GoogleSpreadsheetRow[]>;
 
     /**
@@ -879,7 +885,7 @@ export interface SpreadsheetBasicProperties {
      * @description
      * document title
      */
-    title: string;
+    title?: string;
 
     /**
      * @description
@@ -887,7 +893,7 @@ export interface SpreadsheetBasicProperties {
      * - ISO code format
      * - ex: "en", "en_US"
      */
-    locale: string;
+    locale?: string;
 
     /**
      * @description
@@ -895,31 +901,31 @@ export interface SpreadsheetBasicProperties {
      * - CLDR format
      * - ex: "America/New_York", "GMT-07:00"
      */
-    timeZone: string;
+    timeZone?: string;
 
     /**
      * @description
      * when volatile functions should be recalculated
      */
-    autoRecalc: RecalculationInterval;
+    autoRecalc?: RecalculationInterval;
 
     /**
      * @description
      * default format for all cells in all worksheets of the document
      */
-    defaultFormat: CellFormat;
+    defaultFormat?: CellFormat;
 
     /**
      * @description
      * theme applied to all worksheets of the document
      */
-    spreadsheetTheme: SpreadsheetTheme;
+    spreadsheetTheme?: SpreadsheetTheme;
 
     /**
      * @description
      * how circular dependencies are resolved with iterative calculations
      */
-    iterativeCalculationSettings: IterativeCalculationSetting;
+    iterativeCalculationSettings?: IterativeCalculationSetting;
 
     // #endregion
 }

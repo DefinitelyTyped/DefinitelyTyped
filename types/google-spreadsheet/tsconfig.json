@@ -8,9 +8,9 @@
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
-        "types": [],
+        "types": ["node"],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "google-spreadsheet-tests.d.ts"]
+    "files": ["index.d.ts", "google-spreadsheet-tests.ts"]
 }

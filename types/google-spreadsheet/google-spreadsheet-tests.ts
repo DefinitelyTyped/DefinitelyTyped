@@ -1,13 +1,15 @@
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 
+const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
+
 (async () => {
      // spreadsheet key is the long id in the sheets URL
      const doc = new GoogleSpreadsheet('<the sheet ID from the url>');
 
      // use service account creds
      await doc.useServiceAccountAuth({
-         client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-         private_key: process.env.GOOGLE_PRIVATE_KEY,
+         client_email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
+         private_key: GOOGLE_PRIVATE_KEY,
      });
      // OR load directly from json file if not in secure environment
      await doc.useServiceAccountAuth(require('./creds-from-google.json'));
@@ -18,16 +20,16 @@ import { GoogleSpreadsheet } from 'google-spreadsheet';
      console.log(doc.title);
      await doc.updateProperties({ title: 'renamed doc' });
 
-     const sheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id]
-     console.log(sheet.title);
-     console.log(sheet.rowCount);
+    let sheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id]
+    console.log(sheet.title);
+    console.log(sheet.rowCount);
 
      // adding / removing sheets
      const newSheet = await doc.addSheet({ title: 'hot new sheet!' });
      await newSheet.delete();
 
      // create a sheet and set the header row
-     const sheet = await doc.addSheet({ headerValues: ['name', 'email'] });
+     sheet = await doc.addSheet({ headerValues: ['name', 'email'] });
 
      // append rows
      const larryRow = await sheet.addRow({ name: 'Larry Page', email: 'larry@google.com' });
@@ -59,4 +61,4 @@ import { GoogleSpreadsheet } from 'google-spreadsheet';
      a1.textFormat = { bold: true };
      c6.note = 'This is a note!';
      await sheet.saveUpdatedCells(); // save all updates in one call
- };)();
+ })();
