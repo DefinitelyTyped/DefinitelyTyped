@@ -1,6 +1,6 @@
-import { GoogleSpreadsheet } from 'google-spreadsheet';
-
 /// <reference types="node" />
+
+import { GoogleSpreadsheet } from 'google-spreadsheet';
 
 const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
 
