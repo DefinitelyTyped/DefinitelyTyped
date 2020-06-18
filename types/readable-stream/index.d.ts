@@ -4,11 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="node" />
+/// <reference types="node/v10" />
 
 import * as stream from "stream";
 import * as SafeBuffer from "safe-buffer";
-import { StringDecoder } from "string_decoder";
+
+declare class StringDecoder {
+    constructor(encoding?: BufferEncoding | string);
+    write(buffer: Buffer): string;
+    end(buffer?: Buffer): string;
+}
 
 declare class _Readable extends stream.Readable {
     // static ReadableState: _Readable.ReadableState;
@@ -74,6 +79,7 @@ declare namespace _Readable {
         readonly readableHighWaterMark: number;
         readonly readableLength: number;
         readonly readableObjectMode: boolean;
+        readonly writableObjectMode: boolean;
         _readableState: ReadableState;
 
         _read(size?: number): void;
@@ -103,7 +109,7 @@ declare namespace _Readable {
     class PassThrough extends Transform implements stream.PassThrough {
         constructor(options?: TransformOptions);
 
-        _transform<T>(chunk: T, encoding: BufferEncoding | null | undefined, callback: (error: any, data: T) => void): void;
+        _transform<T>(chunk: T, encoding: BufferEncoding | string | null | undefined, callback: (error?: Error, data?: T) => void): void;
     }
 
     // ==== _stream_readable ====
@@ -236,8 +242,8 @@ declare namespace _Readable {
     }
 
     type WritableOptions = WritableStateOptions & {
-        write?(this: Writable, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
-        writev?(this: Writable, chunk: ArrayLike<{ chunk: any; encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
+        write?(this: Writable, chunk: any, encoding: BufferEncoding | string, callback: (error?: Error | null) => void): void;
+        writev?(this: Writable, chunk: ArrayLike<{ chunk: any; encoding: BufferEncoding | string }>, callback: (error?: Error | null) => void): void;
         destroy?(this: Writable, error: Error | null, callback: (error: Error | null) => void): void;
         final?(this: Writable, callback: (error?: Error | null) => void): void;
     };
