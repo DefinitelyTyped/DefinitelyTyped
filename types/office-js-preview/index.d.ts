@@ -12166,10 +12166,9 @@ declare namespace Office {
          *
          * `customProps.get("name")`
          *
-         * `var dictionary = customProps.getAll();
-         * dictionary["name"]`
+         * `var dictionary = customProps.getAll(); dictionary["name"]`
          *
-         * The dictionary object can be iterated through to discover all `names` and `values`.
+         * You can iterate through the dictionary object to discover all `names` and `values`.
          *
          * [Api set: Mailbox Preview]
          *
