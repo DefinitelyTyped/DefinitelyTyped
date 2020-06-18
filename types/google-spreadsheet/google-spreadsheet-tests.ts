@@ -1,4 +1,6 @@
-import { GoogleSpreadsheet } from 'google-spreadsheet';
+import { GoogleSpreadsheet } from '../google-spreadsheet';
+
+/// <reference types="node" />
 
 const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
 
@@ -11,8 +13,6 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
          client_email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
          private_key: GOOGLE_PRIVATE_KEY,
      });
-     // OR load directly from json file if not in secure environment
-     await doc.useServiceAccountAuth(require('./creds-from-google.json'));
      // OR use API key -- only for read-only access to public sheets
      doc.useApiKey('YOUR-API-KEY');
 

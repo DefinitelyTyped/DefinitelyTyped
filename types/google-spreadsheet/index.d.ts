@@ -4,8 +4,6 @@
 //                 Federico Grandi <https://github.com/EndBug>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// see EDITING.md for editing guide
-
 // #region ENUMS
 
 export type WorksheetType = 'GRID' | 'OBJECT';
