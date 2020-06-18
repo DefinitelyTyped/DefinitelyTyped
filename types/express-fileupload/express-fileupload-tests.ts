@@ -13,6 +13,7 @@ function isUploadedFile(file: UploadedFile | UploadedFile[]): file is UploadedFi
 const uploadHandler: RequestHandler = (req: Request, res: Response, next: NextFunction) => {
     if (typeof req.files === 'object') {
         const fileField = req.files.field;
+        console.log(fileField.mimetype); 
         if (isUploadedFile(fileField)) {
             console.log(fileField.name);
             fileField.mv('/tmp/test', err => {

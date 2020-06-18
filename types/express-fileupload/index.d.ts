@@ -1,4 +1,4 @@
-// Type definitions for express-fileupload 1.1
+// Type definitions for express-fileupload 1.1.6
 // Project: https://github.com/richardgirges/express-fileupload#readme
 // Definitions by: Gintautas Miselis <https://github.com/Naktibalda>
 //                 Sefa Ilkimen <https://github.com/silkimen>
@@ -11,7 +11,7 @@ import express = require('express');
 declare global {
     namespace Express {
         interface Request {
-            files?: fileUpload.FileArray;
+            files?: fileUpload.FileObject;
         }
     }
 }
@@ -19,8 +19,8 @@ declare global {
 declare function fileUpload(options?: fileUpload.Options): express.RequestHandler;
 
 declare namespace fileUpload {
-    class FileArray {
-        [index: string]: UploadedFile | UploadedFile[];
+    interface FileObject {
+        [key: string]: UploadedFile;
     }
 
     interface UploadedFile {
