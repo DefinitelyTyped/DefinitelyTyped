@@ -1,4 +1,4 @@
-// Type definitions for non-npm package OpenFin API 50.0
+// Type definitions for non-npm package OpenFin API 51.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker>
 //                 Ricardo de Pena <https://github.com/rdepena>
@@ -6,18 +6,20 @@
 //                 Li Cui <https://github.com/licui3936>
 //                 Tomer Sharon <https://github.com/tomer-openfin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.6
 
-// based on v15.80.50.23
+// based on v16.83.51.26
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
 
 declare const fdc3: typeof import('./_v2/fdc3/main');
+// declare const GoldenLayout: typeof import('./_v2/api/platform/golden-layout');
 
 /**
  * When running within the OpenFin Runtime, and the `fdc3Api` flag in your manifest is set, your web applications will
  * have access to the "fdc3" namespace without the need to include additional source files. You can treat the "fdc3"
  * namespace as you would the "window", "navigator" or "document" objects.
  */
+
 declare namespace fdc3 {
     type AppChannel = import('./_v2/fdc3/main').AppChannel;
     type AppDirIntent = import('./_v2/fdc3/main').AppDirIntent;
@@ -84,23 +86,23 @@ declare namespace fin {
     var System: import('./_v2/api/system/system').default;
     var View: import('./_v2/api/view/view').default;
     var Window: import('./_v2/api/window/window').default;
-
+    var me: import('./_v2/api/fin').default['me'];
     // v2 shapes
     type applicationLogInfo = import('./_v2/api/application/application').LogInfo;
     type ApplicationOption = import('./_v2/api/application/applicationOption').ApplicationOption;
     type ApplicationInfo = import('./_v2/api/system/application').ApplicationInfo;
     type AppAssetInfo = import('./_v2/api/system/download-asset').AppAssetInfo;
     type AppAssetRequest = import('./_v2/api/system/download-asset').AppAssetRequest;
-    type ApplySnapshotOptions = import('./_v2/api/platform/platform').ApplySnapshotOptions;
-    type AnchorType = import('./_v2/shapes').AnchorType
-    type Bounds = import('./_v2/shapes').Bounds;
+    type ApplySnapshotOptions = import('./_v2/shapes/Platform').ApplySnapshotOptions;
+    type AnchorType = import('./_v2/shapes/shapes').AnchorType
+    type Bounds = import('./_v2/shapes/shapes').Bounds;
     type Channel = import('./_v2/api/interappbus/channel/index').Channel;
     type ChannelClient = import('./_v2/api/interappbus/channel/client').ChannelClient;
     type ClearCacheOption = import('./_v2/api/system/clearCacheOption').ClearCacheOption;
     type CookieInfo = import('./_v2/api/system/cookie').CookieInfo;
     type CookieOption = import('./_v2/api/system/cookie').CookieOption;
     type CrashReporterOption = import('./_v2/api/system/crashReporterOption').CrashReporterOption;
-    type ContextMenuSettings = import('./_v2/shapes').ContextMenuSettings;
+    type ContextMenuSettings = import('./_v2/shapes/shapes').ContextMenuSettings;
     type DownloadPreloadInfo = import('./_v2/api/system/download-preload').DownloadPreloadInfo;
     type DownloadPreloadOption = import('./_v2/api/system/download-preload').DownloadPreloadOption;
     type EntityInfo = import('./_v2/api/system/entity').EntityInfo;
@@ -113,30 +115,30 @@ declare namespace fin {
     type LaunchInfo = import('./_v2/api/application/application').ApplicationInfo;
     type LogInfo = import('./_v2/api/system/log').LogInfo;
     type MonitorInfo = import('./_v2/api/system/monitor').MonitorInfo;
-    type Opacity = import('./_v2/shapes').Opacity;
+    type Opacity = import('./_v2/shapes/shapes').Opacity;
     type PointTopLeft = import('./_v2/api/system/point').PointTopLeft;
-    type Position = import('./_v2/shapes').Position;
+    type Position = import('./_v2/shapes/shapes').Position;
     type Platform = import('./_v2/api/platform/platform').Platform;
-    type InitPlatformOptions = import('./_v2/api/platform/platform').InitPlatformOptions;
+    type InitPlatformOptions = import('./_v2/shapes/Platform').InitPlatformOptions;
     type Layout = import('./_v2/api/platform/layout').Layout;
-    type PlatformOptions = import('./_v2/api/platform/platform').PlatformOptions;
+    type PlatformOptions = import('./_v2/shapes/Platform').PlatformOptions;
     type ProcessInfo = import('./_v2/api/system/process').ProcessInfo;
     type ProxyInfo = import('./_v2/api/system/proxy').ProxyInfo;
     type RegistryInfo = import('./_v2/api/system/registry-info').RegistryInfo;
     type RuntimeInfo = import('./_v2/api/system/runtime-info').RuntimeInfo;
     type RVMInfo = import('./_v2/api/system/rvm').RVMInfo;
     type RvmLaunchOptions = import('./_v2/api/application/application').RvmLaunchOptions;
-    type RGB = import('./_v2/shapes').RGB;
+    type RGB = import('./_v2/shapes/shapes').RGB;
     type RuntimeDownloadOptions = import('./_v2/api/system/download-asset').RuntimeDownloadOptions;
     type RuntimeDownloadProgress = import('./_v2/api/system/download-asset').RuntimeDownloadProgress;
     type ShortCutConfig = import('./_v2/api/application/application').ShortCutConfig;
-    type Snapshot = import('./_v2/api/platform/platform').Snapshot;
+    type Snapshot = import('./_v2/shapes/Platform').Snapshot;
     type SystemWindowInfo = import('./_v2/api/system/window').WindowInfo;
-    type Size = import('./_v2/shapes').Size;
+    type Size = import('./_v2/shapes/shapes').Size;
     type TrayInfo = import('./_v2/api/application/application').TrayInfo;
-    type Transition = import('./_v2/shapes').Transition;
-    type TransitionOptions = import('./_v2/shapes').TransitionOptions;
-    type TransitionBase = import('./_v2/shapes').TransitionBase;
+    type Transition = import('./_v2/shapes/shapes').Transition;
+    type TransitionOptions = import('./_v2/shapes/shapes').TransitionOptions;
+    type TransitionBase = import('./_v2/shapes/shapes').TransitionBase;
     type ViewCreationOptions = import('./_v2/api/view/view').ViewCreationOptions;
     type View = import('./_v2/api/view/view').View;
     type ViewOptions = import('./_v2/api/view/view').ViewOptions;
@@ -1536,27 +1538,27 @@ declare namespace fin {
          * @tutorial Platform.setContext
          * @experimental
          */
-        setContext(context?: any): Promise<void>;
         /**
-         * Get the context of your current window or view environment that was previously set using {@link Platform#setContext setContext}.
+         * Set the context of a host window. The context will be available to the window itself, and to its child Views. It will be saved in any platform snapshots.
+         * It can be retrieved using {@link Platform#getWindowContext getWindowContext}.
+         * @param {any} context - A field where serializable context data can be stored to be saved in platform snapshots.
+         * @param {Identity} [target] - A target window or view may optionally be provided. If no target is provided, the update will be applied
+         * to the current window (if called from a Window) or the current host window (if called from a View).
+         * @return {Promise<void>}
+         * @tutorial Platform.setWindowContext
+         * @experimental
+         */
+        setWindowContext(context?: any, target?: Identity): Promise<void>;
+        /**
+         * Get the context context of a host window that was previously set using {@link Platform#setWindowContext setWindowContext}.
          * The context will be saved in any platform snapshots.  Returns a promise that resolves to the context.
+         * @param {Identity} [target] - A target window or view may optionally be provided. If no target is provided, target will be
+         * the current window (if called from a Window) or the current host window (if called from a View).
          * @return {Promise<any>}
-         * @tutorial Platform.getContext
+         * @tutorial Platform.getWindowContext
          * @experimental
          */
-        getContext(): Promise<any>;
-        /**
-         * Set a listener to be executed when the when a View's target Window experiences a context update. Can only be set from a view that
-         * has wrapped it's current platform. The listener receives the new context as its first argument and the previously context as the
-         * second argument.  If the listener returns a truthy value, the View's context will be updated with the new context as if
-         * {@link Platform#setContext setContext} was called.  This can only be set once per javascript environment (once per View), and any
-         * subsequent calls to onWindowContextUpdated will error out.  If the listener is successfully set, returns a promise that resolves to
-         * true.
-         * @return {Promise.<boolean>}
-         * @tutorial Platform.onWindowContextUpdated
-         * @experimental
-         */
-        onWindowContextUpdated(listener: (newContext: any, oldContext?: any) => any): Promise<boolean>;
+        getWindowContext(target?: Identity): Promise<any>;
     }
     interface OpenFinLayoutStatic {
         /**

@@ -1,3 +1,7 @@
+function test_fin_me() {
+    const {uuid, name, isWindow, isView, isFrame} = fin.me;
+}
+
 function test_application() {
     let application: fin.OpenFinApplication;
     // constructor
@@ -477,7 +481,7 @@ function test_system() {
     fin.desktop.System.launchExternalProcess({
         path: "notepad",
         arguments: "",
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log('the exit code', result.exitCode);
         }
     }, payload => {
@@ -491,7 +495,7 @@ function test_system() {
         // will default to the one mentioned by appAssets.target
         // If the the path below refers to a specific path it will override this default
         alias: "myApp",
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log('the exit code', result.exitCode);
         }
     }, payload => {
@@ -503,7 +507,7 @@ function test_system() {
     fin.desktop.System.launchExternalProcess({
         alias: "myApp",
         arguments: "e f g",
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log('the exit code', result.exitCode);
         }
     }, payload => {
@@ -520,7 +524,7 @@ function test_system() {
             subject: 'O=OpenFin INC., L=New York, S=NY, C=US',
             thumbprint: '3c a5 28 19 83 05 fe 69 88 e6 8f 4b 3a af c5 c5 1b 07 80 5b'
         },
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log('the exit code', result.exitCode);
         }
     }, payload => {
@@ -537,7 +541,7 @@ function test_system() {
     // monitorExternalProcess
     fin.desktop.System.monitorExternalProcess({
         pid: 2508,
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log('the exit code', result.exitCode);
         }
     }, payload => {
@@ -563,7 +567,7 @@ function test_system() {
     fin.desktop.System.launchExternalProcess({
         path: "notepad",
         arguments: "",
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log("The exit code", result.exitCode);
         }
     }, result => {
@@ -603,7 +607,7 @@ function test_system() {
         // notepad is in the system's PATH
         path: "notepad",
         arguments: "",
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log("The exit code", result.exitCode);
         }
     }, result => {
@@ -903,9 +907,9 @@ async function test_external_window() {
     fin.System.getFocusedExternalWindow();
 
     // getAllExternalWindows
-    fin.System.getAllExternalWindows().then(exWins => exWins.forEach(exWin => console.log(exWin.uuid)));
+    fin.System.getAllExternalWindows().then((exWins: any[]) => exWins.forEach(exWin => console.log(exWin.uuid)));
     // addEventListener
-    externalWin.addListener('some-event', event => console.log(event.message));
+    externalWin.addListener('some-event', (event: { message: any; }) => console.log(event.message));
 
     // removeEventListener
     externalWin.removeListener('some-event', () => {});
@@ -957,12 +961,10 @@ async function testPlatform() {
     // createWindow
     platform.createWindow({uuid: 'uuid', name: 'name'});
     // get and set context
-    const context = await platform.getContext();
-    platform.setContext(context);
+    const context = await platform.getWindowContext();
+    platform.setWindowContext(context);
     // launchLegacyManifest
     platform.launchLegacyManifest('some_manifest_url.html');
-    // onWindowContextUpdate
-    platform.onWindowContextUpdate((newContext, oldContext) => ({...oldContext, ...newContext}));
     // quit
     platform.quit();
 }
@@ -1006,8 +1008,8 @@ async function testLayout() {
     const sameLayout = await fin.desktop.Platform.Layout.getCurrent();
 
     const config = await layout.getConfig();
-
-    fin.desktop.Platform.Layout.init({layout: config});
+    const initOptions = {layout: config};
+    fin.desktop.Platform.Layout.init(initOptions);
 
     const wrappedLayout = await fin.desktop.Platform.Layout.wrap(layout.identity);
     const anotherWrappedLayout = fin.desktop.Platform.Layout.wrapSync(layout.identity);
