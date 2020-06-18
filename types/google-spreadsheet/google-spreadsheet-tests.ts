@@ -1,4 +1,4 @@
-import { GoogleSpreadsheet } from '../google-spreadsheet';
+import { GoogleSpreadsheet } from 'google-spreadsheet';
 
 /// <reference types="node" />
 
