@@ -659,3 +659,142 @@ function strong_typed_values_tests() {
 
     _.values<{title: string, value: number}>(dictionaryLike);
 }
+
+// tests for #7931 - verify that the result of a function like reduce that returns a singleton can be chained further
+// $ExpectType number[]
+_.chain([1, 2, 3])
+    .reduce((acc, x) => { acc.unshift(x); return acc; }, [] as number[])
+    .map(x => x + 1)
+    .value();
+
+// $ExpectType boolean
+_.chain([{ a: 1, b: 2, c: 3 }, { a: 4, b: 5, c: 6 }])
+    .findWhere({ a: 1 })
+    .some(n => n === 2)
+    .value();
+
+// $ExpectType number
+_.chain([1, 2, 3, 4, 5, 6])
+    .chunk(3)
+    .first()
+    .reduce((aggregate, n) => aggregate + n, 0)
+    .value();
+
+// common testing types and objects
+interface SimpleStringObject {
+    a: string;
+    b: string;
+}
+
+interface SimpleStringObjectListWithExtraProperties extends _.List<SimpleStringObject> {
+    notAListProperty: boolean;
+}
+
+interface StronglyKeyedSimpleStringObjectDictionary extends _.Dictionary<SimpleStringObject> {
+    a: SimpleStringObject;
+    b: SimpleStringObject;
+    c: SimpleStringObject;
+}
+
+const simpleStringObjectArray: SimpleStringObject[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'b' }, { a: 'c', b: 'a' }];
+const simpleStringObjectListWithExtraProperties: SimpleStringObjectListWithExtraProperties = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: { a: 'c', b: 'a' }, length: 3, notAListProperty: true };
+const simpleStringObjectList: _.List<SimpleStringObject> = simpleStringObjectListWithExtraProperties;
+const stronglyKeyedSimpleStringObjectDictionary: StronglyKeyedSimpleStringObjectDictionary = { a: { a: 'a', b: 'c' }, b: { a: 'b', b: 'b' }, c: { a: 'c', b: 'a' } };
+const simpleStringObjectDictionary: _.Dictionary<SimpleStringObject> = stronglyKeyedSimpleStringObjectDictionary;
+
+const simpleString = 'abc';
+
+const simpleNumber = 7;
+
+// Arrays
+
+// chunk
+{
+    const length = 2;
+
+    _.chunk(simpleStringObjectArray, length); // $ExpectType SimpleStringObject[][]
+    _(simpleStringObjectArray).chunk(length); // $ExpectType SimpleStringObject[][]
+    _.chain(simpleStringObjectArray).chunk(length); // $ExpectType _Chain<SimpleStringObject[], SimpleStringObject[][]>
+
+    _.chunk(simpleStringObjectList, length); // $ExpectType SimpleStringObject[][]
+    _(simpleStringObjectList).chunk(length); // $ExpectType SimpleStringObject[][]
+    _.chain(simpleStringObjectList).chunk(length); // $ExpectType _Chain<SimpleStringObject[], SimpleStringObject[][]>
+
+    _.chunk(simpleString, length); // $ExpectType string[][]
+    _(simpleString).chunk(length); // $ExpectType string[][]
+    _.chain(simpleString).chunk(length); // $ExpectType _Chain<string[], string[][]>
+}
+
+// OOP Style
+
+// underscore
+{
+    _(simpleStringObjectArray); // $ExpectType Underscore<SimpleStringObject, SimpleStringObject[]>
+
+    _(simpleStringObjectListWithExtraProperties) // $ExpectType Underscore<SimpleStringObject, SimpleStringObjectListWithExtraProperties>
+    _(simpleStringObjectList); // $ExpectType Underscore<SimpleStringObject, List<SimpleStringObject>>
+
+    _(stronglyKeyedSimpleStringObjectDictionary) // $ExpectType Underscore<SimpleStringObject, StronglyKeyedSimpleStringObjectDictionary>
+    _(simpleStringObjectDictionary); // $ExpectType Underscore<SimpleStringObject, Dictionary<SimpleStringObject>>
+
+    _(simpleString); // $ExpectType Underscore<string, string>
+    _(simpleNumber); // $ExpectType Underscore<never, number>
+}
+
+// value
+// verify that the object type given to underscore is returned by value
+{
+    _(simpleStringObjectArray).value(); // $ExpectType SimpleStringObject[]
+
+    _(simpleStringObjectListWithExtraProperties).value(); // $ExpectType SimpleStringObjectListWithExtraProperties
+    _(simpleStringObjectList).value(); // $ExpectType List<SimpleStringObject>
+
+    _(stronglyKeyedSimpleStringObjectDictionary).value(); // $ExpectType StronglyKeyedSimpleStringObjectDictionary
+    _(simpleStringObjectDictionary).value(); // $ExpectType Dictionary<SimpleStringObject>
+
+    _(simpleString).value(); // $ExpectType string
+    _(simpleNumber).value(); // $ExpectType number
+}
+
+// Chaining
+
+// chain
+// verify that the right chain item and value types are yielded by calls to chain
+// these tests also check to make sure that _.chain() and _().chain() yield the same types
+{
+    _.chain(simpleStringObjectArray); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _(simpleStringObjectArray).chain(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+
+    _.chain(simpleStringObjectListWithExtraProperties); // $ExpectType _Chain<SimpleStringObject, SimpleStringObjectListWithExtraProperties>
+    _(simpleStringObjectListWithExtraProperties).chain(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObjectListWithExtraProperties>
+
+    _.chain(simpleStringObjectList); // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
+    _(simpleStringObjectList).chain(); // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
+
+    _.chain(stronglyKeyedSimpleStringObjectDictionary); // $ExpectType _Chain<SimpleStringObject, StronglyKeyedSimpleStringObjectDictionary>
+    _(stronglyKeyedSimpleStringObjectDictionary).chain(); // $ExpectType _Chain<SimpleStringObject, StronglyKeyedSimpleStringObjectDictionary>
+
+    _.chain(simpleStringObjectDictionary); // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
+    _(simpleStringObjectDictionary).chain(); // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
+
+    _.chain(simpleString); // $ExpectType _Chain<string, string>
+    _(simpleString).chain(); // $ExpectType _Chain<string, string>
+
+    _.chain(simpleNumber); // $ExpectType _Chain<never, number>
+    _(simpleNumber).chain(); // $ExpectType _Chain<never, number>
+}
+
+// value
+// verify that the object type given to chain is returned by value
+{
+    _.chain(simpleStringObjectArray).value(); // $ExpectType SimpleStringObject[]
+
+    _.chain(simpleStringObjectListWithExtraProperties).value(); // $ExpectType SimpleStringObjectListWithExtraProperties
+    _.chain(simpleStringObjectList).value(); // $ExpectType List<SimpleStringObject>
+
+    _.chain(stronglyKeyedSimpleStringObjectDictionary).value(); // $ExpectType StronglyKeyedSimpleStringObjectDictionary
+    _.chain(simpleStringObjectDictionary).value(); // $ExpectType Dictionary<SimpleStringObject>
+
+    _.chain(simpleString).value(); // $ExpectType string
+    _.chain(simpleNumber).value(); // $ExpectType number
+}
