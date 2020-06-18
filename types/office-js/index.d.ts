@@ -16234,6 +16234,8 @@ declare namespace Office {
         /**
          * Gets the user's time zone in Windows format.
          *
+         * The system time zone is usually returned. However, in Outlook on the web, the default time zone in the calendar preferences is returned instead.
+         *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
