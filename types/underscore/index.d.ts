@@ -1128,7 +1128,7 @@ declare module _ {
          * @param list The list to split.
          * @param length The maximum size of the inner arrays.
          * @returns The chunked list.
-         */
+         **/
         chunk<T>(list: List<T>, length: number): T[][]
 
         /*************
@@ -4634,7 +4634,7 @@ declare module _ {
          * Chunks a wrapped list into multiple arrays, each containing length or fewer items.
          * @param length The maximum size of the inner arrays.
          * @returns The chunked list.
-         */
+         **/
         chunk(length: number): T[][];
 
         /* ***********
@@ -5595,7 +5595,7 @@ declare module _ {
          * Chunks a wrapped list into multiple arrays, each containing length or fewer items.
          * @param length The maximum size of the inner arrays.
          * @returns The wrapped chunked list.
-         */
+         **/
         chunk(length: number): _Chain<T[], T[][]>;
 
         /* ***********
