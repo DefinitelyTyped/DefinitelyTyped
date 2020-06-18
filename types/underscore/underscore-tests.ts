@@ -725,7 +725,7 @@ const simpleNumber = 7;
     _(simpleStringObjectDictionary); // $ExpectType Underscore<SimpleStringObject, Dictionary<SimpleStringObject>>
 
     _(simpleString); // $ExpectType Underscore<string, string>
-    _(simpleNumber); // $ExpectType Underscore<number, number>
+    _(simpleNumber); // $ExpectType Underscore<never, number>
 }
 
 // value
@@ -767,8 +767,8 @@ const simpleNumber = 7;
     _.chain(simpleString); // $ExpectType _Chain<string, string>
     _(simpleString).chain(); // $ExpectType _Chain<string, string>
 
-    _.chain(simpleNumber); // $ExpectType _Chain<number, number>
-    _(simpleNumber).chain(); // $ExpectType _Chain<number, number>
+    _.chain(simpleNumber); // $ExpectType _Chain<never, number>
+    _(simpleNumber).chain(); // $ExpectType _Chain<never, number>
 }
 
 // value

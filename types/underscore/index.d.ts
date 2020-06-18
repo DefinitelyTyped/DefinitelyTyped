@@ -128,7 +128,7 @@ declare module _ {
          **/
         <T extends TypeOfList<V>, V extends List<any> = List<T>>(value: V): Underscore<T, V>;
         <T extends TypeOfDictionary<V>, V extends Dictionary<any> = Dictionary<T>>(value: V): Underscore<T, V>;
-        <V>(value: V): Underscore<V>;
+        <V>(value: V): Underscore<never, V>;
 
         /* *************
         * Collections *
@@ -4123,7 +4123,7 @@ declare module _ {
          **/
         chain<T extends TypeOfList<V>, V extends List<any> = List<T>>(value: V): _Chain<T, V>;
         chain<T extends TypeOfDictionary<V>, V extends Dictionary<any> = Dictionary<T>>(value: V): _Chain<T, V>;
-        chain<V>(value: V): _Chain<V>;
+        chain<V>(value: V): _Chain<never, V>;
 
         /**
          * Current version
