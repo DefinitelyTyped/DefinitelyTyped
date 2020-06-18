@@ -245,6 +245,9 @@ const FixedSizeGridTestRefs: React.SFC = () => (
 
 if (fixedRef.current) {
     fixedRef.current.scrollTo({ scrollLeft: 0, scrollTop: 0});
+    fixedRef.current.scrollTo({ scrollLeft: 0 });
+    fixedRef.current.scrollTo({ scrollTop: 0 });
+    fixedRef.current.scrollTo({});
     fixedRef.current.scrollToItem({});
     fixedRef.current.scrollToItem({ align: "auto" });
     fixedRef.current.scrollToItem({ rowIndex: 0 });
@@ -274,6 +277,9 @@ const VariableSizeGridTestRefs: React.SFC = () => (
 
 if (variableRef.current) {
     variableRef.current.scrollTo({ scrollLeft: 0, scrollTop: 0});
+    variableRef.current.scrollTo({ scrollLeft: 0 });
+    variableRef.current.scrollTo({ scrollTop: 0 });
+    variableRef.current.scrollTo({});
     variableRef.current.scrollToItem({});
     variableRef.current.scrollToItem({ align: "auto" });
     variableRef.current.scrollToItem({ rowIndex: 0 });
@@ -282,8 +288,15 @@ if (variableRef.current) {
     variableRef.current.scrollToItem({ align: "start", rowIndex: 0, columnIndex: 0 });
     variableRef.current.resetAfterColumnIndex(0);
     variableRef.current.resetAfterColumnIndex(0, true);
+    variableRef.current.resetAfterColumnIndex();
     variableRef.current.resetAfterRowIndex(0);
     variableRef.current.resetAfterRowIndex(0, false);
+    variableRef.current.resetAfterRowIndex();
     variableRef.current.resetAfterIndices({ columnIndex: 0, rowIndex: 0 });
     variableRef.current.resetAfterIndices({ columnIndex: 0, rowIndex: 0, shouldForceUpdate: true });
+    variableRef.current.resetAfterIndices({ columnIndex: 0, shouldForceUpdate: true });
+    variableRef.current.resetAfterIndices({ columnIndex: 0 });
+    variableRef.current.resetAfterIndices({ rowIndex: 0, shouldForceUpdate: true });
+    variableRef.current.resetAfterIndices({ rowIndex: 0 });
+    variableRef.current.resetAfterIndices({});
 }
