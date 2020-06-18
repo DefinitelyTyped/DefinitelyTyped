@@ -1,4 +1,4 @@
-// Type definitions for react-cytoscapejs 4.0
+// Type definitions for react-cytoscapejs 1.1.0
 // Project: https://github.com/plotly/react-cytoscapejs
 // Definitions by:  Emmanuel COunasse <https://github.com/manuc66/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
