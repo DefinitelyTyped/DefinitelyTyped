@@ -660,11 +660,24 @@ function strong_typed_values_tests() {
     _.values<{title: string, value: number}>(dictionaryLike);
 }
 
-// test for #7931 - verify that the result of a function like reduce that returns a singleton can be chained further
+// tests for #7931 - verify that the result of a function like reduce that returns a singleton can be chained further
 // $ExpectType number[]
 _.chain([1, 2, 3])
     .reduce((acc, x) => { acc.unshift(x); return acc; }, [] as number[])
     .map(x => x + 1)
+    .value();
+
+// $ExpectType boolean
+_.chain([{ a: 1, b: 2, c: 3 }, { a: 4, b: 5, c: 6 }])
+    .findWhere({ a: 1 })
+    .some(n => n === 2)
+    .value();
+
+// $ExpectType number
+_.chain([1, 2, 3, 4, 5, 6])
+    .chunk(3)
+    .first()
+    .reduce((aggregate, n) => aggregate + n, 0)
     .value();
 
 // common testing types and objects
