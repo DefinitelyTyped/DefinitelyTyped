@@ -663,8 +663,8 @@ function strong_typed_values_tests() {
 // test for #7931 - verify that the result of a function like reduce that returns a singleton can be chained further
 // $ExpectType number[]
 _.chain([1, 2, 3])
-    .reduce((acc, x) => [x], [] as number[])
-    .map(() => 1)
+    .reduce((acc, x) => { acc.unshift(x); return acc; }, [] as number[])
+    .map(x => x + 1)
     .value();
 
 // common testing types and objects

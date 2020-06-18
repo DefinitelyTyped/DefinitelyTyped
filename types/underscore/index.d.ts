@@ -109,7 +109,11 @@ declare module _ {
 
     type TypeOfList<V> = V extends _.List<infer T> ? T : never;
 
-    type TypeOfDictionary<T> = T extends _.Dictionary<infer V> ? V : never;
+    type TypeOfDictionary<V> = V extends _.Dictionary<infer T> ? T : never;
+
+    type TypeOfCollection<V> = V extends _.Collection<infer T> ? T : never;
+
+    type _ChainSingle<V> = _Chain<TypeOfCollection<V>, V>;
 
     interface Cancelable {
         cancel(): void;
@@ -6123,9 +6127,7 @@ declare module _ {
          **/
         value(): V;
     }
-    interface _ChainSingle<T> {
-        value(): T;
-    }
+
     interface _ChainOfArrays<T> extends _Chain<T[]> {
         flatten(shallow?: boolean): _Chain<T>;
     }
