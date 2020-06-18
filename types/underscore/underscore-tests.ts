@@ -926,7 +926,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     // specifying any as T causes the result to be any[], which isn't ideal, but on the other hand getting that result involves choosing
     // to specify any in the first place
     {
-        let result: unknown[];
+        let result: any[];
 
         result = _.map<any, typeof simpleStringObjectPropertyName>(simpleStringObjectArray, simpleStringObjectPropertyName);
         result = _.map(simpleStringObjectArray as any, simpleStringObjectPropertyName);
@@ -2829,7 +2829,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     // without parameters
     {
-        let result: unknown[];
+        let result: any[];
 
         result = _.invoke<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectArray, simpleStringObjectPropertyName);
         result = _.invoke(simpleNoParameterFunctionObjectArray, simpleStringObjectPropertyName);
@@ -2842,7 +2842,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     }
 
     {
-        let result: unknown[];
+        let result: any[];
 
         result = _.invoke<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectList, simpleStringObjectPropertyName);
         result = _.invoke(simpleNoParameterFunctionObjectList, simpleStringObjectPropertyName);
@@ -2855,7 +2855,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     }
 
     {
-        let result: unknown[];
+        let result: any[];
 
         result = _.invoke<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectDictionary, simpleStringObjectPropertyName);
         result = _.invoke(simpleNoParameterFunctionObjectDictionary, simpleStringObjectPropertyName);
@@ -2868,7 +2868,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     }
 
     {
-        let result: unknown[];
+        let result: any[];
 
         result = _.invoke<string>(simpleString, simpleStringObjectPropertyName);
         result = _.invoke(simpleString, simpleStringObjectPropertyName);
@@ -2883,7 +2883,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     // with parameters
     {
         const arg = -1;
-        let result: unknown[];
+        let result: any[];
 
         result = _.invoke<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectArray, simpleStringObjectPropertyName, arg);
         result = _.invoke(simpleOneParameterFunctionObjectArray, simpleStringObjectPropertyName, arg);
@@ -2897,7 +2897,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     {
         const arg = -1;
-        let result: unknown[];
+        let result: any[];
 
         result = _.invoke<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectList, simpleStringObjectPropertyName, arg);
         result = _.invoke(simpleOneParameterFunctionObjectList, simpleStringObjectPropertyName, arg);
@@ -2911,7 +2911,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     {
         const arg = -1;
-        let result: unknown[];
+        let result: any[];
 
         result = _.invoke<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectDictionary, simpleStringObjectPropertyName, arg);
         result = _.invoke(simpleOneParameterFunctionObjectDictionary, simpleStringObjectPropertyName, arg);
@@ -2926,7 +2926,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     {
         const functionName = 'substring';
         const arg = 1;
-        let result: unknown[];
+        let result: any[];
 
         result = _.invoke<string>(simpleString, functionName, arg);
         result = _.invoke(simpleString, functionName, arg);
@@ -3105,7 +3105,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     // specifying any as T causes the result to be any[], which isn't ideal, but on the other hand getting that result involves choosing
     // to specify any in the first place
     {
-        let result: unknown[];
+        let result: any[];
 
         result = _.pluck<any, typeof simpleStringObjectPropertyName>(simpleStringObjectArray, simpleStringObjectPropertyName);
         result = _.pluck(simpleStringObjectArray as any, simpleStringObjectPropertyName);
@@ -5018,44 +5018,44 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
         result = _.chain(list).flatten(true).value();
     }
 
-    // four dimensions, deep - this is where recursion gives up and results in unknown[]
+    // four dimensions, deep - this is where recursion gives up and results in any[]
     {
         const array: SimpleStringObject[][][][] = [[[simpleStringObjectArray]]];
-        let result: unknown[];
+        let result: any[];
 
-        // $ExpectType unknown[]
+        // $ExpectType any[]
         result = _.flatten<SimpleStringObject[][][]>(array);
-        // $ExpectType unknown[]
+        // $ExpectType any[]
         result = _.flatten(array);
 
-        // $ExpectType unknown[]
+        // $ExpectType any[]
         result = _<SimpleStringObject[][][], SimpleStringObject[][][][]>(array).flatten();
-        // $ExpectType unknown[]
+        // $ExpectType any[]
         result = _(array).flatten();
 
-        // $ExpectType unknown[]
+        // $ExpectType any[]
         result = _.chain<SimpleStringObject[][][], SimpleStringObject[][][][]>(array).flatten().value();
-        // $ExpectType unknown[]
+        // $ExpectType any[]
         result = _.chain(array).flatten().value();
     }
 
     {
         const list: _.List<_.List<_.List<_.List<SimpleStringObject>>>> = { 0: { 0: { 0: simpleStringObjectList, length: 1 }, length: 1 }, length: 1 };
-        let result: unknown[];
+        let result: any[];
 
-        // $ExpectType unknown[]
+        // $ExpectType any[]
         result = _.flatten<_.List<_.List<_.List<SimpleStringObject>>>>(list);
-        // $ExpectType unknown[]
+        // $ExpectType any[]
         result = _.flatten(list);
 
-        // $ExpectType unknown[]
+        // $ExpectType any[]
         result = _<_.List<_.List<_.List<SimpleStringObject>>>, _.List<_.List<_.List<_.List<SimpleStringObject>>>>>(list).flatten();
-        // $ExpectType unknown[]
+        // $ExpectType any[]
         result = _(list).flatten();
 
-        // $ExpectType unknown[]
+        // $ExpectType any[]
         result = _.chain<_.List<_.List<_.List<SimpleStringObject>>>, _.List<_.List<_.List<_.List<SimpleStringObject>>>>>(list).flatten().value();
-        // $ExpectType unknown[]
+        // $ExpectType any[]
         result = _.chain(list).flatten().value();
     }
 
@@ -5560,7 +5560,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 }
 
 // zip
-// once TS 3.1 is reached as a minimum version, as a breaking change, ideally update zip to zip<T extends _.List<unknown>[]>(...arrays: T): { [K in keyof T]: T[K] extends _.List<infer TItem> ? TItem : never }[];
+// once TS 3.1 is reached as a minimum version, as a breaking change, ideally update zip to zip<T extends _.List<any>[]>(...arrays: T): { [K in keyof T]: T[K] extends _.List<infer TItem> ? TItem : never }[];
 {
     {
         const array1: string[] = ['a', 'b'];

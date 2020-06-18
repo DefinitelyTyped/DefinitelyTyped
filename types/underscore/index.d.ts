@@ -67,7 +67,7 @@ declare module _ {
     }
 
     interface CompiledTemplate {
-        (data?: unknown): string;
+        (data?: any): string;
         source: string;
     }
 
@@ -111,10 +111,14 @@ declare module _ {
 
     type TypeOfDictionary<V> = V extends Dictionary<infer T> ? T : never;
 
+    type TypeOfCollection<V> = V extends Collection<infer T> ? T : never;
+
+    type _ChainSingle<V> = _Chain<TypeOfCollection<V>, V>;
+
     type NonFalsy<T> = T extends undefined | null | false | '' | 0 ? never : T;
 
     // given a union type like { a: string } | { b: number } | undefined, generates a union of all the keys of all the types in the union
-    type KeysOfUnion<T> = T extends unknown ? keyof T : never;
+    type KeysOfUnion<T> = T extends any ? keyof T : never;
 
     // given a union type like { a: string } | { a: number } | { b: boolean } and a property name,
     // generates a union of all the types implemented by that property name and adds undefined
@@ -122,7 +126,7 @@ declare module _ {
     // e.g. TypesOfUnionProperty<{ a: string } | { a: number } | { b: boolean }, 'a'> => string | number | undefined
     type TypesOfUnionProperty<T, K extends KeysOfUnion<T>> =
         // iterate over each type T in a type union
-        T extends unknown
+        T extends any
         // check whether the property is implemented by T, using Extract to get around K possibly not being in keyof T
         ? T[Extract<keyof T, K>] extends never
         // if T does not implement property K, add undefined to the resulting type union
@@ -143,8 +147,8 @@ declare module _ {
     // so writing this that way doesn't work
     type DeepFlattenedList<T> = T extends List<infer TItem> & object
         ? TItem extends List<infer TInnerItem> & object
-        ? TInnerItem extends List<unknown> & object
-        ? unknown
+        ? TInnerItem extends List<any> & object
+        ? any
         : TInnerItem
         : TItem
         : T;
@@ -179,7 +183,7 @@ declare module _ {
         each<T>(
             list: T[],
             iterator: ListIterator<T, void, T[]>,
-            context?: unknown): T[];
+            context?: any): T[];
 
         /**
         * Iterates over a list of elements, yielding each in turn to an iterator function. The iterator is
@@ -193,7 +197,7 @@ declare module _ {
         each<T>(
             list: List<T>,
             iterator: ListIterator<T, void>,
-            context?: unknown): List<T>;
+            context?: any): List<T>;
 
         /**
         * @see each
@@ -204,7 +208,7 @@ declare module _ {
         each<T>(
             object: Dictionary<T>,
             iterator: ObjectIterator<T, void>,
-            context?: unknown): Dictionary<T>;
+            context?: any): Dictionary<T>;
 
         /**
         * @see each
@@ -222,7 +226,7 @@ declare module _ {
         map<T, TResult>(
             list: List<T>,
             iterator: ListIterator<T, TResult>,
-            context?: unknown): TResult[];
+            context?: any): TResult[];
 
         /**
         * @see map
@@ -234,7 +238,7 @@ declare module _ {
         map<T, TResult>(
             object: Dictionary<T>,
             iterator: ObjectIterator<T, TResult>,
-            context?: unknown): TResult[];
+            context?: any): TResult[];
 
         /**
         * @see map
@@ -246,8 +250,8 @@ declare module _ {
             collection: Collection<T>,
             iterator: K): TypesOfUnionProperty<T, K>[];
         map(
-            collection: Collection<unknown>,
-            iterator: string): unknown[];
+            collection: Collection<any>,
+            iterator: string): any[];
 
         /**
         * @see map
@@ -279,7 +283,7 @@ declare module _ {
             list: List<T>,
             iterator: MemoIterator<T, TResult>,
             memo?: TResult,
-            context?: unknown): TResult;
+            context?: any): TResult;
 
         /**
         * @see reduce
@@ -288,7 +292,7 @@ declare module _ {
             object: Dictionary<T>,
             iterator: MemoObjectIterator<T, TResult>,
             memo?: TResult,
-            context?: unknown): TResult;
+            context?: any): TResult;
 
         /**
         * @see reduce
@@ -314,7 +318,7 @@ declare module _ {
             list: List<T>,
             iterator: MemoIterator<T, TResult>,
             memo?: TResult,
-            context?: unknown): TResult;
+            context?: any): TResult;
 
         /**
         * @see reduceRight
@@ -323,7 +327,7 @@ declare module _ {
             object: Dictionary<T>,
             iterator: MemoObjectIterator<T, TResult>,
             memo?: TResult,
-            context?: unknown): TResult;
+            context?: any): TResult;
 
         /**
         * @see reduceRight
@@ -342,7 +346,7 @@ declare module _ {
         find<T>(
             list: List<T>,
             iterator: ListIterator<T, boolean>,
-            context?: unknown): T | undefined;
+            context?: any): T | undefined;
 
         /**
         * @see find
@@ -350,7 +354,7 @@ declare module _ {
         find<T>(
             object: Dictionary<T>,
             iterator: ObjectIterator<T, boolean>,
-            context?: unknown): T | undefined;
+            context?: any): T | undefined;
 
         /**
         * @see find
@@ -375,7 +379,7 @@ declare module _ {
         filter<T>(
             list: List<T>,
             iterator: ListIterator<T, boolean>,
-            context?: unknown): T[];
+            context?: any): T[];
 
         /**
         * @see filter
@@ -383,7 +387,7 @@ declare module _ {
         filter<T>(
             object: Dictionary<T>,
             iterator: ObjectIterator<T, boolean>,
-            context?: unknown): T[];
+            context?: any): T[];
 
         /**
         * @see filter
@@ -430,7 +434,7 @@ declare module _ {
         reject<T>(
             list: List<T>,
             iterator: ListIterator<T, boolean>,
-            context?: unknown): T[];
+            context?: any): T[];
 
         /**
         * @see reject
@@ -438,7 +442,7 @@ declare module _ {
         reject<T>(
             object: Dictionary<T>,
             iterator: ObjectIterator<T, boolean>,
-            context?: unknown): T[];
+            context?: any): T[];
 
         /**
         * @see reject
@@ -458,7 +462,7 @@ declare module _ {
         every<T>(
             list: List<T>,
             iterator?: ListIterator<T, boolean>,
-            context?: unknown): boolean;
+            context?: any): boolean;
 
         /**
         * @see every
@@ -466,7 +470,7 @@ declare module _ {
         every<T>(
             object: Dictionary<T>,
             iterator?: ObjectIterator<T, boolean>,
-            context?: unknown): boolean;
+            context?: any): boolean;
 
         /**
         * @see every
@@ -491,7 +495,7 @@ declare module _ {
         some<T>(
             list: List<T>,
             iterator?: ListIterator<T, boolean>,
-            context?: unknown): boolean;
+            context?: any): boolean;
 
         /**
         * @see some
@@ -499,7 +503,7 @@ declare module _ {
         some<T>(
             object: Dictionary<T>,
             iterator?: ObjectIterator<T, boolean>,
-            context?: unknown): boolean;
+            context?: any): boolean;
 
         /**
         * @see some
@@ -552,7 +556,7 @@ declare module _ {
         invoke<T>(
             list: Collection<T>,
             methodName: string,
-            ...args: unknown[]): unknown[];
+            ...args: any[]): any[];
 
         /**
         * A convenient version of what is perhaps the most common use-case for map: extracting a list of
@@ -565,8 +569,8 @@ declare module _ {
             collection: Collection<T>,
             propertyName: K): TypesOfUnionProperty<T, K>[];
         pluck(
-            collection: Collection<unknown>,
-            propertyName: string): unknown[];
+            collection: Collection<any>,
+            propertyName: string): any[];
 
         /**
         * Returns the maximum value in list.
@@ -586,7 +590,7 @@ declare module _ {
         max<T>(
             list: List<T>,
             iterator: ListIterator<T, number>,
-            context?: unknown): T;
+            context?: any): T;
 
         /**
         * @see max
@@ -594,7 +598,7 @@ declare module _ {
         max<T>(
             object: Dictionary<T>,
             iterator: ObjectIterator<T, number>,
-            context?: unknown): T | number;
+            context?: any): T | number;
 
         /**
         * @see max
@@ -621,7 +625,7 @@ declare module _ {
         min<T>(
             list: List<T>,
             iterator: ListIterator<T, number>,
-            context?: unknown): T | number;
+            context?: any): T | number;
 
         /**
         * @see min
@@ -629,7 +633,7 @@ declare module _ {
         min<T>(
             object: Dictionary<T>,
             iterator: ObjectIterator<T, number>,
-            context?: unknown): T | number;
+            context?: any): T | number;
 
         /**
         * @see min
@@ -648,16 +652,16 @@ declare module _ {
         **/
         sortBy<T>(
             list: List<T>,
-            iterator?: ListIterator<T, unknown>,
-            context?: unknown): T[];
+            iterator?: ListIterator<T, any>,
+            context?: any): T[];
 
         /**
         * @see sortBy
         */
         sortBy<T>(
             object: Dictionary<T>,
-            iterator?: ObjectIterator<T, unknown>,
-            context?: unknown): T[];
+            iterator?: ObjectIterator<T, any>,
+            context?: any): T[];
 
         /**
         * @see sortBy
@@ -678,16 +682,16 @@ declare module _ {
         **/
         groupBy<T>(
             list: List<T>,
-            iterator: ListIterator<T, unknown>,
-            context?: unknown): Dictionary<T[]>;
+            iterator: ListIterator<T, any>,
+            context?: any): Dictionary<T[]>;
 
         /**
         * @see groupBy
         **/
         groupBy<T>(
             object: Dictionary<T>,
-            iterator: ObjectIterator<T, unknown>,
-            context?: unknown): Dictionary<T[]>;
+            iterator: ObjectIterator<T, any>,
+            context?: any): Dictionary<T[]>;
 
         /**
         * @see groupBy
@@ -703,16 +707,16 @@ declare module _ {
         **/
         indexBy<T>(
             list: List<T>,
-            iterator: ListIterator<T, unknown>,
-            context?: unknown): Dictionary<T>;
+            iterator: ListIterator<T, any>,
+            context?: any): Dictionary<T>;
 
         /**
        * @see indexBy
        **/
         indexBy<T>(
             object: Dictionary<T>,
-            iterator: ObjectIterator<T, unknown>,
-            context?: unknown): Dictionary<T>;
+            iterator: ObjectIterator<T, any>,
+            context?: any): Dictionary<T>;
 
         /**
         * @see indexBy
@@ -733,16 +737,16 @@ declare module _ {
         **/
         countBy<T>(
             list: List<T>,
-            iterator: ListIterator<T, unknown>,
-            context?: unknown): Dictionary<number>;
+            iterator: ListIterator<T, any>,
+            context?: any): Dictionary<number>;
 
         /**
          * @see countBy
          **/
         countBy<T>(
             object: Dictionary<T>,
-            iterator: ObjectIterator<T, unknown>,
-            context?: unknown): Dictionary<number>;
+            iterator: ObjectIterator<T, any>,
+            context?: any): Dictionary<number>;
 
         /**
         * @see countBy
@@ -797,7 +801,7 @@ declare module _ {
         partition<T>(
             list: List<T>,
             iterator: ListIterator<T, boolean>,
-            context?: unknown): [T[], T[]];
+            context?: any): [T[], T[]];
 
         /**
         * @see partition.
@@ -805,7 +809,7 @@ declare module _ {
         partition<T>(
             object: Dictionary<T>,
             iterator: ObjectIterator<T, boolean>,
-            context?: unknown): [T[], T[]];
+            context?: any): [T[], T[]];
 
         /**
         * @see partition.
@@ -961,16 +965,16 @@ declare module _ {
         uniq<T>(
             array: List<T>,
             isSorted?: boolean,
-            iterator?: ListIterator<T, unknown> | keyof T,
-            context?: unknown): T[];
+            iterator?: ListIterator<T, any> | keyof T,
+            context?: any): T[];
 
         /**
         * @see uniq
         **/
         uniq<T>(
             array: List<T>,
-            iterator?: ListIterator<T, unknown> | keyof T,
-            context?: unknown): T[];
+            iterator?: ListIterator<T, any> | keyof T,
+            context?: any): T[];
 
         /**
         * @see uniq
@@ -984,7 +988,7 @@ declare module _ {
         * @param arrays The arrays to merge/zip.
         * @return Zipped version of `arrays`.
         **/
-        zip(...arrays: List<unknown>[]): unknown[][];
+        zip(...arrays: List<any>[]): any[][];
 
         /**
         * The opposite of zip. Given a number of arrays, returns a series of new arrays, the first
@@ -994,7 +998,7 @@ declare module _ {
         * @param array The arrays to unzip.
         * @return Unzipped version of `arrays`.
         **/
-        unzip(array: List<List<unknown>>): unknown[][];
+        unzip(array: List<List<any>>): any[][];
 
         /**
         * Converts arrays into objects. Pass either a single list of [key, value] pairs, or a
@@ -1061,7 +1065,7 @@ declare module _ {
         findIndex<T>(
             array: List<T>,
             predicate: ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>,
-            context?: unknown): number;
+            context?: any): number;
 
         /**
         * Returns the last index of an element in `array` where the predicate truth test passes
@@ -1073,7 +1077,7 @@ declare module _ {
         findLastIndex<T>(
             array: List<T>,
             predicate: ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>,
-            context?: unknown): number;
+            context?: any): number;
 
         /**
         * Uses a binary search to determine the index at which the value should be inserted into the list in order
@@ -1088,8 +1092,8 @@ declare module _ {
         sortedIndex<T>(
             list: List<T>,
             value: T,
-            iterator?: ListIterator<T, unknown> | keyof T,
-            context?: unknown
+            iterator?: ListIterator<T, any> | keyof T,
+            context?: any
         ): number;
 
         /**
@@ -1137,7 +1141,7 @@ declare module _ {
         **/
         bind(
             func: Function,
-            context: unknown,
+            context: any,
             ...args: any[]): () => any;
 
         /**
@@ -3823,14 +3827,14 @@ declare module _ {
         * @param other Compare to `object`.
         * @return True if `object` is equal to `other`.
         **/
-        isEqual(object: unknown, other: unknown): boolean;
+        isEqual(object: any, other: any): boolean;
 
         /**
         * Returns true if object contains no values.
         * @param object Check if this object has no properties or values.
         * @return True if `object` is empty.
         **/
-        isEmpty(object: unknown): boolean;
+        isEmpty(object: any): boolean;
 
         /**
         * Returns true if the keys and values in `properties` matches with the `object` properties.
@@ -3838,35 +3842,35 @@ declare module _ {
         * @param properties Properties be compared with `object`
         * @return True if `object` has matching keys and values, otherwise false.
         **/
-        isMatch(object: unknown, properties: unknown): boolean;
+        isMatch(object: any, properties: any): boolean;
 
         /**
         * Returns true if object is a DOM element.
         * @param object Check if this object is a DOM element.
         * @return True if `object` is a DOM element, otherwise false.
         **/
-        isElement(object: unknown): object is Element;
+        isElement(object: any): object is Element;
 
         /**
         * Returns true if object is an Array.
         * @param object Check if this object is an Array.
         * @return True if `object` is an Array, otherwise false.
         **/
-        isArray(object: unknown): object is unknown[];
+        isArray(object: any): object is any[];
 
         /**
         * Returns true if object is an Array.
         * @param object Check if this object is an Array.
         * @return True if `object` is an Array, otherwise false.
         **/
-        isArray<T>(object: unknown): object is T[];
+        isArray<T>(object: any): object is T[];
 
         /**
          * Returns true if object is a Symbol.
          * @param object Check if this object is a Symbol.
          * @return True if `object` is a Symbol, otherwise false.
          **/
-        isSymbol(object: unknown): object is symbol;
+        isSymbol(object: any): object is symbol;
 
         /**
         * Returns true if value is an Object. Note that JavaScript arrays and functions are objects,
@@ -3874,70 +3878,70 @@ declare module _ {
         * @param object Check if this object is an Object.
         * @return True of `object` is an Object, otherwise false.
         **/
-        isObject(object: unknown): object is object;
+        isObject(object: any): object is object;
 
         /**
         * Returns true if object is an Arguments object.
         * @param object Check if this object is an Arguments object.
         * @return True if `object` is an Arguments object, otherwise false.
         **/
-        isArguments(object: unknown): object is IArguments;
+        isArguments(object: any): object is IArguments;
 
         /**
         * Returns true if object is a Function.
         * @param object Check if this object is a Function.
         * @return True if `object` is a Function, otherwise false.
         **/
-        isFunction(object: unknown): object is Function;
+        isFunction(object: any): object is Function;
 
         /**
         * Returns true if object inherits from an Error.
         * @param object Check if this object is an Error.
         * @return True if `object` is a Error, otherwise false.
         **/
-        isError(object: unknown): object is Error;
+        isError(object: any): object is Error;
 
         /**
         * Returns true if object is a String.
         * @param object Check if this object is a String.
         * @return True if `object` is a String, otherwise false.
         **/
-        isString(object: unknown): object is string;
+        isString(object: any): object is string;
 
         /**
         * Returns true if object is a Number (including NaN).
         * @param object Check if this object is a Number.
         * @return True if `object` is a Number, otherwise false.
         **/
-        isNumber(object: unknown): object is number;
+        isNumber(object: any): object is number;
 
         /**
         * Returns true if object is a finite Number.
         * @param object Check if this object is a finite Number.
         * @return True if `object` is a finite Number.
         **/
-        isFinite(object: unknown): boolean;
+        isFinite(object: any): boolean;
 
         /**
         * Returns true if object is either true or false.
         * @param object Check if this object is a bool.
         * @return True if `object` is a bool, otherwise false.
         **/
-        isBoolean(object: unknown): object is boolean;
+        isBoolean(object: any): object is boolean;
 
         /**
         * Returns true if object is a Date.
         * @param object Check if this object is a Date.
         * @return True if `object` is a Date, otherwise false.
         **/
-        isDate(object: unknown): object is Date;
+        isDate(object: any): object is Date;
 
         /**
         * Returns true if object is a RegExp.
         * @param object Check if this object is a RegExp.
         * @return True if `object` is a RegExp, otherwise false.
         **/
-        isRegExp(object: unknown): object is RegExp;
+        isRegExp(object: any): object is RegExp;
 
         /**
         * Returns true if object is NaN.
@@ -3946,21 +3950,21 @@ declare module _ {
         * @param object Check if this object is NaN.
         * @return True if `object` is NaN, otherwise false.
         **/
-        isNaN(object: unknown): boolean;
+        isNaN(object: any): boolean;
 
         /**
         * Returns true if the value of object is null.
         * @param object Check if this object is null.
         * @return True if `object` is null, otherwise false.
         **/
-        isNull(object: unknown): object is null;
+        isNull(object: any): object is null;
 
         /**
         * Returns true if value is undefined.
         * @param object Check if this object is undefined.
         * @return True if `object` is undefined, otherwise false.
         **/
-        isUndefined(object: unknown): object is undefined;
+        isUndefined(object: any): object is undefined;
 
         /* *********
         * Utility *
@@ -4129,7 +4133,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see each
         **/
-        each(iterator: CollectionIterator<T, void, V>, context?: unknown): V;
+        each(iterator: CollectionIterator<T, void, V>, context?: any): V;
 
         /**
         * @see each
@@ -4140,7 +4144,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see map
         **/
-        map<TResult>(iterator: CollectionIterator<T, TResult, V>, context?: unknown): TResult[];
+        map<TResult>(iterator: CollectionIterator<T, TResult, V>, context?: any): TResult[];
 
         /**
         * Wrapped type Collection<T>.
@@ -4163,7 +4167,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see reduce
         **/
-        reduce<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo?: TResult, context?: unknown): TResult;
+        reduce<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo?: TResult, context?: any): TResult;
 
         /**
         * @see reduce
@@ -4179,7 +4183,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see reduceRight
         **/
-        reduceRight<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo?: TResult, context?: unknown): TResult;
+        reduceRight<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo?: TResult, context?: any): TResult;
 
         /**
         * @see reduceRight
@@ -4190,7 +4194,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see find
         **/
-        find(iterator: CollectionIterator<T, boolean, V>, context?: unknown): T | undefined;
+        find(iterator: CollectionIterator<T, boolean, V>, context?: any): T | undefined;
 
         /**
         * @see find
@@ -4206,7 +4210,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see filter
         **/
-        filter(iterator: CollectionIterator<T, boolean, V>, context?: unknown): T[];
+        filter(iterator: CollectionIterator<T, boolean, V>, context?: any): T[];
 
         /**
         * @see filter
@@ -4234,7 +4238,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see reject
         **/
-        reject(iterator: CollectionIterator<T, boolean, V>, context?: unknown): T[];
+        reject(iterator: CollectionIterator<T, boolean, V>, context?: any): T[];
 
         /**
         * @see reject
@@ -4245,7 +4249,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see every
         **/
-        every(iterator?: CollectionIterator<T, boolean, V>, context?: unknown): boolean;
+        every(iterator?: CollectionIterator<T, boolean, V>, context?: any): boolean;
 
         /**
         * @see every
@@ -4261,7 +4265,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see some
         **/
-        some(iterator?: CollectionIterator<T, boolean, V>, context?: unknown): boolean;
+        some(iterator?: CollectionIterator<T, boolean, V>, context?: any): boolean;
 
         /**
         * @see some
@@ -4295,20 +4299,20 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see invoke
         **/
-        invoke(methodName: string, ...args: unknown[]): unknown[];
+        invoke(methodName: string, ...args: any[]): any[];
 
         /**
         * Wrapped type Collection<T>.
         * @see pluck
         **/
         pluck<K extends KeysOfUnion<T>>(propertyName: K): TypesOfUnionProperty<T, K>[];
-        pluck(propertyName: string): unknown[];
+        pluck(propertyName: string): any[];
 
         /**
         * Wrapped type Collection<T>.
         * @see max
         **/
-        max(iterator?: CollectionIterator<T, number, V>, context?: unknown): T | number;
+        max(iterator?: CollectionIterator<T, number, V>, context?: any): T | number;
 
         /**
         * @see max
@@ -4319,7 +4323,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see min
         **/
-        min(iterator?: CollectionIterator<T, number, V>, context?: unknown): T | number;
+        min(iterator?: CollectionIterator<T, number, V>, context?: any): T | number;
 
         /**
         * @see min
@@ -4330,7 +4334,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see sortBy
         **/
-        sortBy(iterator?: CollectionIterator<T, unknown, V>, context?: unknown): T[];
+        sortBy(iterator?: CollectionIterator<T, any, V>, context?: any): T[];
 
         /**
         * Wrapped type Collection<T>.
@@ -4342,7 +4346,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see groupBy
         **/
-        groupBy(iterator: CollectionIterator<T, unknown, V>, context?: unknown): Dictionary<T[]>;
+        groupBy(iterator: CollectionIterator<T, any, V>, context?: any): Dictionary<T[]>;
 
         /**
         * Wrapped type Collection<T>.
@@ -4354,7 +4358,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see indexBy
         **/
-        indexBy(iterator: CollectionIterator<T, unknown, V>, context?: unknown): Dictionary<T>;
+        indexBy(iterator: CollectionIterator<T, any, V>, context?: any): Dictionary<T>;
 
         /**
         * Wrapped type Collection<T>.
@@ -4366,7 +4370,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see countBy
         **/
-        countBy(iterator?: CollectionIterator<T, unknown, V>, context?: unknown): Dictionary<number>;
+        countBy(iterator?: CollectionIterator<T, any, V>, context?: any): Dictionary<number>;
 
         /**
         * Wrapped type Collection<T>.
@@ -4490,7 +4494,7 @@ declare module _ {
         * Wrapped type List<T>.
         * @see partition
         **/
-        partition(iterator: CollectionIterator<T, boolean, V>, context?: unknown): [T[], T[]];
+        partition(iterator: CollectionIterator<T, boolean, V>, context?: any): [T[], T[]];
 
         /**
         * Wrapped type List<T>.
@@ -4520,13 +4524,13 @@ declare module _ {
         * Wrapped type List<T>.
         * @see uniq
         **/
-        uniq(isSorted?: boolean, iterator?: ListIterator<T, unknown, V> | keyof T, cotext?: unknown): T[];
+        uniq(isSorted?: boolean, iterator?: ListIterator<T, any, V> | keyof T, cotext?: any): T[];
 
         /**
         * Wrapped type List<T>.
         * @see uniq
         **/
-        uniq(iterator?: ListIterator<T, unknown, V> | keyof T, context?: unknown): T[];
+        uniq(iterator?: ListIterator<T, any, V> | keyof T, context?: any): T[];
 
         /**
         * @see uniq
@@ -4537,13 +4541,13 @@ declare module _ {
         * Wrapped type List<T>.
         * @see zip
         **/
-        zip(...arrays: List<unknown>[]): unknown[][];
+        zip(...arrays: List<any>[]): any[][];
 
         /**
         * Wrapped type List<T>.
         * @see unzip
         **/
-        unzip(): unknown[][];
+        unzip(): any[][];
 
         /**
         * Wrapped type List<string>.
@@ -4555,7 +4559,7 @@ declare module _ {
         * Wrapped type List<[string, any]>.
         * @see object
         **/
-        object(): T extends [string, infer TValue] ? Dictionary<TValue> : Dictionary<unknown>;
+        object(): T extends [string, infer TValue] ? Dictionary<TValue> : Dictionary<any>;
 
         /**
         * Wrapped type List<T>.
@@ -4577,18 +4581,18 @@ declare module _ {
         /**
         * @see findIndex
         **/
-        findIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | KeysOfUnion<T>, context?: unknown): number;
+        findIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | KeysOfUnion<T>, context?: any): number;
 
         /**
         * @see findLastIndex
         **/
-        findLastIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | KeysOfUnion<T>, context?: unknown): number;
+        findLastIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | KeysOfUnion<T>, context?: any): number;
 
         /**
         * Wrapped type List<T>.
         * @see sortedIndex
         **/
-        sortedIndex(value: T, iterator?: ListIterator<T, unknown, V> | keyof T, context?: unknown): number;
+        sortedIndex(value: T, iterator?: ListIterator<T, any, V> | keyof T, context?: any): number;
 
         /**
         * Wrapped type number.
@@ -5057,7 +5061,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see each
         **/
-        each(iterator: CollectionIterator<T, void, V>, context?: unknown): _Chain<T, V>;
+        each(iterator: CollectionIterator<T, void, V>, context?: any): _Chain<T, V>;
 
         /**
         * @see each
@@ -5068,7 +5072,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see map
         **/
-        map<TResult>(iterator: CollectionIterator<T, TResult, V>, context?: unknown):  _Chain<TResult, TResult[]>;
+        map<TResult>(iterator: CollectionIterator<T, TResult, V>, context?: any):  _Chain<TResult, TResult[]>;
 
         /**
         * Wrapped type Collection<T>.
@@ -5091,7 +5095,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see reduce
         **/
-        reduce<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo?: TResult, context?: unknown): _Chain<TResult>;
+        reduce<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo?: TResult, context?: any): _ChainSingle<TResult>;
 
         /**
         * @see reduce
@@ -5107,7 +5111,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see reduceRight
         **/
-        reduceRight<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo?: TResult, context?: unknown): _Chain<TResult>;
+        reduceRight<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo?: TResult, context?: any): _ChainSingle<TResult>;
 
         /**
         * @see reduceRight
@@ -5118,12 +5122,12 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see find
         **/
-        find(iterator: CollectionIterator<T, boolean, V>, context?: unknown): _Chain<T | undefined>;
+        find(iterator: CollectionIterator<T, boolean, V>, context?: any): _ChainSingle<T | undefined>;
 
         /**
         * @see find
         **/
-        find(iterator: Partial<T> | KeysOfUnion<T>): _Chain<T | undefined>;
+        find(iterator: Partial<T> | KeysOfUnion<T>): _ChainSingle<T | undefined>;
 
         /**
         * @see find
@@ -5134,7 +5138,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see filter
         **/
-        filter(iterator: CollectionIterator<T, boolean, V>, context?: unknown): _Chain<T, T[]>;
+        filter(iterator: CollectionIterator<T, boolean, V>, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type Collection<T>.
@@ -5157,13 +5161,13 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see findWhere
         **/
-        findWhere(properties: Partial<T>): _Chain<T | undefined>;
+        findWhere(properties: Partial<T>): _ChainSingle<T | undefined>;
 
         /**
         * Wrapped type Collection<T>.
         * @see reject
         **/
-        reject(iterator: CollectionIterator<T, boolean, V>, context?: unknown): _Chain<T, T[]>;
+        reject(iterator: CollectionIterator<T, boolean, V>, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type Collection<T>.
@@ -5175,13 +5179,13 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see every
         **/
-        every(iterator?: CollectionIterator<T, boolean, V>, context?: unknown): _Chain<boolean>;
+        every(iterator?: CollectionIterator<T, boolean, V>, context?: any): _ChainSingle<boolean>;
 
         /**
         * Wrapped type Collection<T>.
         * @see every
         **/
-        every(iterator?: Partial<T> | KeysOfUnion<T>): _Chain<boolean>;
+        every(iterator?: Partial<T> | KeysOfUnion<T>): _ChainSingle<boolean>;
 
         /**
         * @see every
@@ -5192,13 +5196,13 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see some
         **/
-        some(iterator?: CollectionIterator<T, boolean, V>, context?: unknown): _Chain<boolean>;
+        some(iterator?: CollectionIterator<T, boolean, V>, context?: any): _ChainSingle<boolean>;
 
         /**
         * Wrapped type Collection<T>.
         * @see some
         **/
-        some(iterator?: Partial<T> | KeysOfUnion<T>): _Chain<boolean>;
+        some(iterator?: Partial<T> | KeysOfUnion<T>): _ChainSingle<boolean>;
 
         /**
         * @see some
@@ -5209,7 +5213,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see contains
         **/
-        contains(value: T, fromIndex?: number): _Chain<boolean>;
+        contains(value: T, fromIndex?: number): _ChainSingle<boolean>;
 
         /**
         * Alias for 'contains'.
@@ -5227,44 +5231,44 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see invoke
         **/
-        invoke(methodName: string, ...args: unknown[]): _Chain<unknown, unknown[]>;
+        invoke(methodName: string, ...args: any[]): _Chain<any, any[]>;
 
         /**
         * Wrapped type Collection<T>.
         * @see pluck
         **/
         pluck<K extends KeysOfUnion<T>>(propertyName: K): _Chain<TypesOfUnionProperty<T, K>, TypesOfUnionProperty<T, K>[]>;
-        pluck(propertyName: string): _Chain<unknown, unknown[]>;
+        pluck(propertyName: string): _Chain<any, any[]>;
 
         /**
         * Wrapped type Collection<T>.
         * @see max
         **/
-        max(iterator?: CollectionIterator<T, number, V>, context?: unknown): _Chain<T | number>;
+        max(iterator?: CollectionIterator<T, number, V>, context?: any): _ChainSingle<T | number>;
 
         /**
         * Wrapped type Collection<T>.
         * @see max
         */
-        max(iterator?: PropertyNamesOfType<T, number>): _Chain<T | number>;
+        max(iterator?: PropertyNamesOfType<T, number>): _ChainSingle<T | number>;
 
         /**
         * Wrapped type Collection<T>.
         * @see min
         **/
-        min(iterator?: CollectionIterator<T, number, V>, context?: unknown): _Chain<T | number>;
+        min(iterator?: CollectionIterator<T, number, V>, context?: any): _ChainSingle<T | number>;
 
         /**
         * Wrapped type Collection<T>.
         * @see min
         */
-        min(iterator?: PropertyNamesOfType<T, number>): _Chain<T | number>;
+        min(iterator?: PropertyNamesOfType<T, number>): _ChainSingle<T | number>;
 
         /**
         * Wrapped type Collection<T>.
         * @see sortBy
         **/
-        sortBy(iterator?: CollectionIterator<T, unknown, V>, context?: unknown): _Chain<T, T[]>;
+        sortBy(iterator?: CollectionIterator<T, any, V>, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type Collection<T>.
@@ -5276,7 +5280,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see groupBy
         **/
-        groupBy(iterator: CollectionIterator<T, unknown, V>, context?: unknown): _Chain<T[], Dictionary<T[]>>;
+        groupBy(iterator: CollectionIterator<T, any, V>, context?: any): _Chain<T[], Dictionary<T[]>>;
 
         /**
         * Wrapped type Collection<T>.
@@ -5288,7 +5292,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see indexBy
         **/
-        indexBy(iterator: CollectionIterator<T, unknown, V>, context?: unknown): _Chain<T, Dictionary<T>>;
+        indexBy(iterator: CollectionIterator<T, any, V>, context?: any): _Chain<T, Dictionary<T>>;
 
         /**
         * Wrapped type Collection<T>.
@@ -5300,7 +5304,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see countBy
         **/
-        countBy(iterator?: CollectionIterator<T, unknown, V>, context?: unknown): _Chain<number, Dictionary<number>>;
+        countBy(iterator?: CollectionIterator<T, any, V>, context?: any): _Chain<number, Dictionary<number>>;
 
         /**
         * Wrapped type Collection<T>.
@@ -5323,7 +5327,7 @@ declare module _ {
         /**
         * @see sample
         **/
-        sample(): _Chain<T | undefined>;
+        sample(): _ChainSingle<T | undefined>;
 
         /**
         * Wrapped type Collection<T>.
@@ -5335,7 +5339,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see size
         **/
-        size(): _Chain<number>;
+        size(): _ChainSingle<number>;
 
         /*********
         * Arrays *
@@ -5345,7 +5349,7 @@ declare module _ {
         * Wrapped type List<T>.
         * @see first
         **/
-        first(): _Chain<T | undefined>;
+        first(): _ChainSingle<T | undefined>;
 
         /**
         * Wrapped type List<T>.
@@ -5373,7 +5377,7 @@ declare module _ {
         * Wrapped type List<T>.
         * @see last
         **/
-        last(): _Chain<T | undefined>;
+        last(): _ChainSingle<T | undefined>;
 
         /**
         * Wrapped type List<T>.
@@ -5424,7 +5428,7 @@ declare module _ {
         * Wrapped type List<T>.
         * @see partition
         **/
-        partition(iterator: CollectionIterator<T, boolean, V>, context?: unknown): _Chain<T[], [T[], T[]]>;
+        partition(iterator: CollectionIterator<T, boolean, V>, context?: any): _Chain<T[], [T[], T[]]>;
 
         /**
         * Wrapped type List<T>.
@@ -5454,13 +5458,13 @@ declare module _ {
         * Wrapped type List<T>.
         * @see uniq
         **/
-        uniq(isSorted?: boolean, iterator?: ListIterator<T, unknown, V> | keyof T, context?: unknown): _Chain<T, T[]>;
+        uniq(isSorted?: boolean, iterator?: ListIterator<T, any, V> | keyof T, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type List<T>.
         * @see uniq
         **/
-        uniq(iterator?: ListIterator<T, unknown, V> | keyof T, context?: unknown): _Chain<T, T[]>;
+        uniq(iterator?: ListIterator<T, any, V> | keyof T, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type List<T>.
@@ -5472,13 +5476,13 @@ declare module _ {
         * Wrapped type List<T>.
         * @see zip
         **/
-        zip(...arrays: List<unknown>[]): _Chain<unknown[], unknown[][]>;
+        zip(...arrays: List<any>[]): _Chain<any[], any[][]>;
 
         /**
         * Wrapped type List<T>.
         * @see unzip
         **/
-        unzip(): _Chain<unknown[], unknown[][]>;
+        unzip(): _Chain<any[], any[][]>;
 
         /**
         * @see object
@@ -5488,40 +5492,40 @@ declare module _ {
         /**
         * @see object
         **/
-        object(): T extends [string, infer TValue] ? _Chain<TValue, Dictionary<TValue>> : _Chain<unknown, Dictionary<unknown>>;
+        object(): T extends [string, infer TValue] ? _Chain<TValue, Dictionary<TValue>> : _Chain<any, Dictionary<any>>;
 
         /**
         * Wrapped type List<T>.
         * @see indexOf
         **/
-        indexOf(value: T, isSorted?: boolean): _Chain<number>;
+        indexOf(value: T, isSorted?: boolean): _ChainSingle<number>;
 
         /**
         * @see indexOf
         **/
-        indexOf(value: T, startFrom: number): _Chain<number>;
+        indexOf(value: T, startFrom: number): _ChainSingle<number>;
 
         /**
         * Wrapped type List<T>.
         * @see lastIndexOf
         **/
-        lastIndexOf(value: T, from?: number): _Chain<number>;
+        lastIndexOf(value: T, from?: number): _ChainSingle<number>;
 
         /**
         * @see findIndex
         **/
-        findIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | KeysOfUnion<T>, context?: unknown): _Chain<number>;
+        findIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | KeysOfUnion<T>, context?: any): _ChainSingle<number>;
 
         /**
         * @see findLastIndex
         **/
-        findLastIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | KeysOfUnion<T>, context?: unknown): _Chain<number>;
+        findLastIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | KeysOfUnion<T>, context?: any): _ChainSingle<number>;
 
         /**
         * Wrapped type List<T>.
         * @see sortedIndex
         **/
-        sortedIndex(value: T, iterator?: ListIterator<T, unknown, V> | keyof T, context?: unknown): _Chain<number>;
+        sortedIndex(value: T, iterator?: ListIterator<T, any, V> | keyof T, context?: any): _ChainSingle<number>;
 
         /**
         * Wrapped type number.
@@ -5985,20 +5989,20 @@ declare module _ {
         * @param separator Optional. Specifies a string to separate each element of the array. The separator is converted to a string if necessary. If omitted, the array elements are separated with a comma.
         * @return The string conversions of all array elements joined into one string.
         **/
-        join(separator?: any): _Chain<T>;
+        join(separator?: any): _ChainSingle<T>;
 
         /**
         * Removes the last element from an array and returns that element.
         * @return Returns the popped element.
         **/
-        pop(): _Chain<T>;
+        pop(): _ChainSingle<T>;
 
         /**
         * Adds one or more elements to the end of an array and returns the new length of the array.
         * @param item The elements to add to the end of the array.
         * @return The array with the element added to the end.
         **/
-        push(...item: Array<T>): _Chain<T>;
+        push(...item: Array<T>): _ChainSingle<T>;
 
         /**
         * Reverses an array in place. The first array element becomes the last and the last becomes the first.
@@ -6010,7 +6014,7 @@ declare module _ {
         * Removes the first element from an array and returns that element. This method changes the length of the array.
         * @return The shifted element.
         **/
-        shift(): _Chain<T>;
+        shift(): _ChainSingle<T>;
 
         /**
         * Returns a shallow copy of a portion of an array into a new array object.
@@ -6040,7 +6044,7 @@ declare module _ {
         * A string representing the specified array and its elements.
         * @return A string representing the specified array and its elements.
         **/
-        toString(): _Chain<T>;
+        toString(): _ChainSingle<T>;
 
         /**
         * Adds one or more elements to the beginning of an array and returns the new length of the array.
