@@ -1,4 +1,4 @@
-// Type definitions for non-npm package twitch-ext 1.20
+// Type definitions for non-npm package twitch-ext 1.24
 // Project: https://dev.twitch.tv/docs/extensions/reference/#javascript-helper
 // Definitions by: Benedict Etzel <https://github.com/beheh>
 //                 Federico Della Rovere <https://github.com/FedeDR>
@@ -41,9 +41,14 @@ interface TwitchExt {
     features: TwitchExtFeatures;
 
     /**
-     * @see https://dev.twitch.tv/docs/extensions/bits/#javascript-helper
+     * @see https://dev.twitch.tv/docs/extensions/reference#helper-bits
      */
     bits: TwitchExtBits;
+
+    /**
+     * @see https://dev.twitch.tv/docs/extensions/reference#helper-viewer
+     */
+    viewer: TwitchExtViewer;
 
     /**
      * Helper methods for the Twitch Extension rig.
@@ -76,6 +81,16 @@ interface TwitchExt {
      * @see https://dev.twitch.tv/docs/extensions/reference/#onerror
      */
     onError(errorCallback: (errorValue: any) => void): void;
+
+    /**
+     * This function allows an extension to adjust its visibility when the viewer highlights the extension by hovering
+     * over the extension’s menu icon or open menu, in the video player. The function applies only to video-overlay and
+     * component Extensions.
+     *
+     * @param callback This callback is called whenever the extension is or is no longer highlighted by the user.
+     * @see https://dev.twitch.tv/docs/extensions/reference/#onhighlightchanged
+     */
+    onHighlightChanged(callback: (isHighlighted: boolean) => void): void;
 
     /**
      * This function registers a callback that gets called whenever an extension changes position in the player. This
@@ -201,10 +216,22 @@ interface TwitchExtConfiguration {
 
 interface TwitchExtFeatureFlags {
     /**
+     * If this flag is true, Bits in Extensions features will work in your extension on the current channel.
+     * If this flag is false, disable or hide the Bits in Extensions features in your extension.
+     */
+    isBitsEnabled: boolean;
+
+    /**
      * If this flag is true, you can send a chat message to the current channel using Send Extension Chat Message
      * (subject to the authentication requirements documented for that endpoint).
      */
     isChatEnabled: boolean;
+
+    /**
+     * If this flag is true, your extension has the ability to get the subscription status of identity-linked viewers
+     * from both the helper in the twitch.ext.viewer.subscriptionStatus object and via the Twitch API.
+     */
+    isSubscriptionStatusAvailable: boolean;
 }
 
 /**
@@ -267,6 +294,11 @@ interface TwitchExtBitsTransaction {
      * Full product object from getProducts call
      */
     product: TwitchExtBitsProduct;
+
+    /**
+     * Will be "twitch.ext" + your extension ID.
+     */
+    domainID: string;
 
     /**
      * ID of the transaction.
@@ -353,6 +385,59 @@ interface TwitchExtBits {
     useBits(sku: string): void;
 }
 
+interface TwitchExtViewerSubscriptionStatus {
+    /**
+     * This tier of the subscription.
+     * Possible values are 1000, 200 and 300 for tier one, two and three subscriptions respectively.
+     */
+    tier: string;
+}
+
+/**
+ * @see TwitchExt.viewer
+ */
+interface TwitchExtViewer {
+    /**
+     * The opaque id of the viewer.
+     */
+    opaqueId: string;
+
+    /**
+     * The Twitch ID of a linked viewer. null if the viewer has not opted to share their identity with the extension.
+     */
+    id: string | null;
+
+    /**
+     * The role of the user. See the JWT schema for possible values.
+     */
+    role: string;
+
+    /**
+     * Provided as a convenience to check whether or not a user has shared their identity with their extension
+     */
+    isLinked: boolean;
+
+    /**
+     * The encoded JWT. This is the same as the token property of the authData parameter that currently gets passed to
+     * the onAuthorized callback.
+     */
+    sessionToken: string;
+
+    /**
+     * An object containing information about the viewer’s subscription. The value of subscriptionStatus will be null if
+     * the user is either not a subscriber, or opting not to share their identity. The value will also be null if the
+     * extension otherwise doesn't have subscription capabilities.
+     */
+    subscriptionStatus: TwitchExtViewerSubscriptionStatus | null;
+
+    /**
+     * This function binds a callback will be invoked when the viewer’s status changes (e.g. if a viewer subscribes and
+     * changes their subscription status).
+     * @param callback The callback that is called whenever the viewer's status changes
+     */
+    onChanged(callback: () => void): void;
+}
+
 /**
  * The developer rig object as available under window.Twitch.ext.rig.
  *
@@ -433,6 +518,21 @@ interface TwitchExtContext {
     hlsLatencyBroadcaster: number;
 
     /**
+     * Information about the current channel’s hosting status, or undefined if the channel is not currently hosting.
+     */
+    hostingInfo?: {
+        /**
+         * Numeric ID of the channel being hosted by the currently visible channel
+         */
+        hostedChannelId: string;
+
+        /**
+         * Numeric ID of the host channel
+         */
+        hostingChannelId: string;
+    };
+
+    /**
      * If true, the viewer is watching in fullscreen mode.
      * Do not use this for mobile extensions; it is not sent for mobile.
      */
@@ -488,7 +588,8 @@ interface TwitchExtContext {
 /**
  * The extension window receives the following query parameters, which indicate
  * information about the extension environment that isn’t subject to change over
- * the frame’s life cycle.
+ * the frame’s life cycle. Note that all parameters are encoded as strings here,
+ * because they are always part of the URL.
  *
  * @see https://dev.twitch.tv/docs/extensions/reference/#client-query-parameters
  */
@@ -501,9 +602,16 @@ interface TwitchExtClientQueryParams {
     /**
      * The user’s language setting.
      *
-     * @example en
+     * @example "en"
      */
     language: string;
+
+    /**
+     * The user’s language locale.
+     *
+     * @example "en-US"
+     */
+    locale: string;
 
     /**
      * The extension’s mode.

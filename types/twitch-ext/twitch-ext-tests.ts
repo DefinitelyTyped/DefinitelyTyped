@@ -22,6 +22,18 @@ window.Twitch.ext.onVisibilityChanged((isVisible, context) => {
     }
 });
 
+window.Twitch.ext.onHighlightChanged(isHighlighted => {
+    if (isHighlighted) {
+        console.log('Extension was highlighted');
+    } else {
+        console.log('Extension is no longer highlighted');
+    }
+});
+
+window.Twitch.ext.onPositionChanged(position => {
+    console.log(`Extension moved to x=${position.x}, y=${position.y}`);
+});
+
 window.Twitch.ext.onError(e => console.error(e));
 
 // Twitch Extension Actions
@@ -95,6 +107,11 @@ window.Twitch.ext.bits.onTransactionComplete(transaction => {
 window.Twitch.ext.bits.setUseLoopback(true);
 window.Twitch.ext.bits.showBitsBalance();
 window.Twitch.ext.bits.useBits('MY-PRODUCT');
+
+// Twitch Viewer
+window.Twitch.ext.viewer.onChanged(() => {
+    console.log('Viewer id: ' + window.Twitch.ext.viewer.id);
+});
 
 // Developer Rig
 window.Twitch.ext.rig.log('Hello, world!');
