@@ -147,6 +147,7 @@ export interface ReactDatePickerProps {
     showTimeSelectOnly?: boolean;
     showWeekNumbers?: boolean;
     showYearDropdown?: boolean;
+    showYearPicker?: boolean;
     startDate?: Date | null;
     startOpen?: boolean;
     strictParsing?: boolean;

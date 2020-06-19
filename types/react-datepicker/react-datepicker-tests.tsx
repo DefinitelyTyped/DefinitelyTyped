@@ -122,6 +122,7 @@ const defaultLocale = getDefaultLocale();
     showTimeSelectOnly
     showWeekNumbers
     showYearDropdown
+    showYearPicker
     startDate={new Date()}
     startOpen
     tabIndex={1}
