@@ -5,7 +5,6 @@ import Client = require("./Client");
 import { SocketOptions } from "./Socket";
 
 declare function connect(optionsOrPath: connect.ConnectOptions | string, connectionListener?: (err: Error | null, client: Client) => void): Client;
-declare function connect(port: number, host?: string, connectionListener?: (err: Error | null, client: Client) => void): Client;
 
 export = connect;
 
