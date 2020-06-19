@@ -170,10 +170,6 @@ declare namespace Sanctuary {
       (m: ReadonlyArray<A>): A[];
       (m: Foldable<A>): Foldable<A>;
     };
-    rejectM<A>(pred: Predicate<A>): {
-      (m: ReadonlyArray<A>): A[];
-      (m: Foldable<A>): Foldable<A>;
-    };
     takeWhile<A>(pred: Predicate<A>): (foldable: Foldable<A>) => Foldable<A>;
     dropWhile<A>(pred: Predicate<A>): (foldable: Foldable<A>) => Foldable<A>;
     //  Combinator
