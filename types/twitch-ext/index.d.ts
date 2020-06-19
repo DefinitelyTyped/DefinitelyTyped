@@ -23,7 +23,7 @@ interface TwitchExt {
     /**
      * This encodes the environment. For external users, this is always production.
      */
-    environment: "production";
+    environment: 'production';
 
     /**
      * @see https://dev.twitch.tv/docs/extensions/reference/#twitch-extension-actions
@@ -66,10 +66,7 @@ interface TwitchExt {
      * @see https://dev.twitch.tv/docs/extensions/reference/#oncontext
      */
     onContext(
-        contextCallback: <T extends Partial<TwitchExtContext>>(
-            context: T,
-            changed: ReadonlyArray<keyof T>
-        ) => void
+        contextCallback: <T extends Partial<TwitchExtContext>>(context: T, changed: ReadonlyArray<keyof T>) => void,
     ): void;
 
     /**
@@ -87,9 +84,7 @@ interface TwitchExt {
      * @param callback This callback is called whenever an extension changes position in the player.
      * @see https://dev.twitch.tv/docs/extensions/reference/#onpositionchanged
      */
-    onPositionChanged(
-        callback: (position: { x: number; y: number }) => void
-    ): void;
+    onPositionChanged(callback: (position: { x: number; y: number }) => void): void;
 
     /**
      * This function registers a callback that gets called whenever an extension is hidden/re-shown. (This occurs only
@@ -100,9 +95,7 @@ interface TwitchExt {
      * @see https://dev.twitch.tv/docs/extensions/reference/#onvisibilitychanged
      */
     onVisibilityChanged(
-        callback:
-            | ((isVisible: false) => void)
-            | ((isVisible: true, context: Partial<TwitchExtContext>) => void)
+        callback: ((isVisible: false) => void) | ((isVisible: true, context: Partial<TwitchExtContext>) => void),
     ): void;
 
     /**
@@ -122,10 +115,7 @@ interface TwitchExt {
      * @param callback These fields correspond to the values in the send() message, except the message is always a string.
      * @see https://dev.twitch.tv/docs/extensions/reference/#listen
      */
-    listen(
-        target: string,
-        callback: (target: string, contentType: string, message: string) => void
-    ): void;
+    listen(target: string, callback: (target: string, contentType: string, message: string) => void): void;
 
     /**
      * This function unbinds the listen callback from the target.
@@ -134,10 +124,7 @@ interface TwitchExt {
      * @param callback These fields correspond to the values in the send() message, except the message is always a string.
      * @see https://dev.twitch.tv/docs/extensions/reference/#unlisten
      */
-    unlisten(
-        target: string,
-        callback: (target: string, contentType: string, message: string) => void
-    ): void;
+    unlisten(target: string, callback: (target: string, contentType: string, message: string) => void): void;
 }
 
 /**
@@ -201,9 +188,7 @@ interface TwitchExtConfiguration {
      * the records for the global, developer and broadcaster segments will be set if the data is available.
      * @param callback The callback that is fired.
      */
-    onChanged(
-        callback: () => void
-    ): void;
+    onChanged(callback: () => void): void;
 
     /**
      * This function can be called by the front end to set an extension configuration.
@@ -211,7 +196,7 @@ interface TwitchExtConfiguration {
      * @param version The version of configuration with which the segment is stored.
      * @param content The string-encoded configuration.
      */
-    set(segment: "broadcaster", version: string, content: string): void;
+    set(segment: 'broadcaster', version: string, content: string): void;
 }
 
 interface TwitchExtFeatureFlags {
@@ -233,9 +218,7 @@ interface TwitchExtFeatures extends TwitchExtFeatureFlags {
      *
      * @param callback The callback is called with an array of feature flags which were updated.
      */
-    onChanged(
-        callback: (changed: ReadonlyArray<keyof TwitchExtFeatureFlags>) => void
-    ): void;
+    onChanged(callback: (changed: ReadonlyArray<keyof TwitchExtFeatureFlags>) => void): void;
 }
 
 interface TwitchExtBitsProductCost {
@@ -247,7 +230,7 @@ interface TwitchExtBitsProductCost {
     /**
      * Always the string "bits". Reserved for future use.
      */
-    type: "bits";
+    type: 'bits';
 }
 
 interface TwitchExtBitsProduct {
@@ -278,7 +261,7 @@ interface TwitchExtBitsTransaction {
      */
     displayName: string;
 
-    initiator: "CURRENT_USER" | "OTHER";
+    initiator: 'CURRENT_USER' | 'OTHER';
 
     /**
      * Full product object from getProducts call
@@ -332,9 +315,7 @@ interface TwitchExtBits {
      *
      * @see https://dev.twitch.tv/docs/extensions/bits/#ontransactioncompletecallbacktransactionobject
      */
-    onTransactionComplete(
-        callback: (transaction: TwitchExtBitsTransaction) => void
-    ): void;
+    onTransactionComplete(callback: (transaction: TwitchExtBitsTransaction) => void): void;
 
     /**
      * This function sets the state of the extension helper, so it does not call live services for
@@ -481,17 +462,17 @@ interface TwitchExtContext {
     /**
      * The mode the extension is currently run in.
      */
-    mode: "viewer" | "dashboard" | "config";
+    mode: 'viewer' | 'dashboard' | 'config';
 
     /**
      * Indicates how the stream is being played.
      */
-    playbackMode: "video" | "audio" | "remote" | "chat-only";
+    playbackMode: 'video' | 'audio' | 'remote' | 'chat-only';
 
     /**
      * The user’s theme setting on the Twitch website.
      */
-    theme: "light" | "dark";
+    theme: 'light' | 'dark';
 
     /**
      * Resolution of the broadcast.
@@ -515,7 +496,7 @@ interface TwitchExtClientQueryParams {
     /**
      * The type of the anchor in which the extension is activated.
      */
-    anchor: "component" | "panel" | "video_overlay";
+    anchor: 'component' | 'panel' | 'video_overlay';
 
     /**
      * The user’s language setting.
@@ -527,28 +508,28 @@ interface TwitchExtClientQueryParams {
     /**
      * The extension’s mode.
      */
-    mode: "config" | "dashboard" | "viewer";
+    mode: 'config' | 'dashboard' | 'viewer';
 
     /**
      * The platform on which the Twitch client is running.
      */
-    platform: "mobile" | "web";
+    platform: 'mobile' | 'web';
 
     /**
      * Indicates whether the extension is popped out.
      */
-    popout: "true" | "false";
+    popout: 'true' | 'false';
 
     /**
      * The release state of the extension.
      */
     state:
-        | "testing"
-        | "hosted_test"
-        | "approved"
-        | "released"
-        | "ready_for_review"
-        | "in_review"
-        | "pending_action"
-        | "uploading";
+        | 'testing'
+        | 'hosted_test'
+        | 'approved'
+        | 'released'
+        | 'ready_for_review'
+        | 'in_review'
+        | 'pending_action'
+        | 'uploading';
 }
