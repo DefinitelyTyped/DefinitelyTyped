@@ -10,11 +10,11 @@ declare const version: string;
 
 declare const GlobalWorkerOptions: GlobalWorkerOptions;
 
-interface GlobalWorkerOptions {
+declare interface GlobalWorkerOptions {
   workerSrc: string;
 }
 
-interface PDFPromise<T> {
+declare interface PDFPromise<T> {
     isResolved(): boolean;
     isRejected(): boolean;
     resolve(value: T): void;
@@ -22,7 +22,7 @@ interface PDFPromise<T> {
     then<U>(onResolve: (promise: T) => U, onReject?: (reason: string) => void): PDFPromise<U>;
 }
 
-interface PDFTreeNode {
+declare interface PDFTreeNode {
     title: string;
     bold: boolean;
     italic: boolean;
@@ -31,20 +31,20 @@ interface PDFTreeNode {
     items: PDFTreeNode[];
 }
 
-interface PDFInfo {
+declare interface PDFInfo {
     PDFFormatVersion: string;
     IsAcroFormPresent: boolean;
     IsXFAPresent: boolean;
     [key: string]: any;    // return type is string, typescript chokes
 }
 
-interface PDFMetadata {
+declare interface PDFMetadata {
     parse(): void;
     get(name: string): string;
     has(name: string): boolean;
 }
 
-interface PDFDataRangeTransportListener {
+declare interface PDFDataRangeTransportListener {
     (loaded: number, total: number): void
 }
 
@@ -69,7 +69,7 @@ declare class PDFDataRangeTransport {
     abort(): void
 }
 
-interface PDFWorkerParameters {
+declare interface PDFWorkerParameters {
     name?: string
     port?: any
     verbosity?: VerbosityLevel
@@ -89,16 +89,16 @@ declare enum  CMapCompressionType {
     BINARY= 1,
     STREAM= 2,
   }
-interface CMapReaderFactory {
+declare interface CMapReaderFactory {
     new (params: {baseUrl: string, isCompressed: boolean}): CMapReader
 }
-interface CMapReader {
+declare interface CMapReader {
     fetch(params: {name: string}): Promise<{
         cMapData: any,
         compressionType: CMapCompressionType
     }>
 }
-interface PDFSource {
+declare interface PDFSource {
     /** The URL of the PDF. */
     url?: string;
     /**
@@ -243,12 +243,12 @@ interface PDFSource {
     pdfBug?: boolean
 }
 
-interface PDFProgressData {
+declare interface PDFProgressData {
     loaded: number;
     total: number;
 }
 
-interface PDFDocumentProxy {
+declare interface PDFDocumentProxy {
 
     /**
      * Total number of pages the PDF contains.
@@ -314,12 +314,12 @@ interface PDFDocumentProxy {
     destroy(): void;
 }
 
-interface PDFRef {
+declare interface PDFRef {
     num: number;
     gen: any; // todo
 }
 
-interface PDFPageViewportOptions {
+declare interface PDFPageViewportOptions {
     viewBox: any;
     scale: number;
     rotation: number;
@@ -328,7 +328,7 @@ interface PDFPageViewportOptions {
     dontFlip: boolean;
 }
 
-interface PDFPageViewport {
+declare interface PDFPageViewport {
     width: number;
     height: number;
     scale: number;
@@ -340,12 +340,12 @@ interface PDFPageViewport {
     convertToPdfPoint(x: number, y: number): number[]; // [x, y]
 }
 
-interface ViewportParameters {
+declare interface ViewportParameters {
     scale: number; // The desired scale of the viewport.
     rotation?: number; // (optional) The desired rotation, in degrees, of the viewport. If omitted it defaults to the page rotation.
     dontFlip?: boolean; // (optional) If true, the y-axis will not be flipped. The default value is `false`.
 }
-interface PDFAnnotationData {
+declare interface PDFAnnotationData {
     subtype: string;
     rect: number[]; // [x1, y1, x2, y2]
     annotationFlags: any; // todo
@@ -354,7 +354,7 @@ interface PDFAnnotationData {
     hasAppearance: boolean;
 }
 
-interface PDFAnnotations {
+declare interface PDFAnnotations {
     getData(): PDFAnnotationData;
     hasHtml(): boolean; // always false
     getHtmlElement(commonOjbs: any): HTMLElement; // throw new NotImplementedException()
@@ -365,19 +365,19 @@ interface PDFAnnotations {
     // ... todo
 }
 
-interface PDFRenderTextLayer {
+declare interface PDFRenderTextLayer {
     beginLayout(): void;
     endLayout(): void;
     appendText(): void;
 }
 
-interface PDFRenderImageLayer {
+declare interface PDFRenderImageLayer {
     beginLayout(): void;
     endLayout(): void;
     appendImage(): void;
 }
 
-interface PDFRenderParams {
+declare interface PDFRenderParams {
     canvasContext: CanvasRenderingContext2D;
     viewport?: PDFPageViewport;
     textLayer?: PDFRenderTextLayer;
@@ -385,7 +385,7 @@ interface PDFRenderParams {
     continueCallback?: (_continue: () => void) => void;
 }
 
-interface PDFViewerParams {
+declare interface PDFViewerParams {
     container: HTMLElement;
     viewer?: HTMLElement;
 }
@@ -393,7 +393,7 @@ interface PDFViewerParams {
 /**
  * RenderTask is basically a promise but adds a cancel function to termiate it.
  **/
-interface PDFRenderTask extends PDFLoadingTask<PDFPageProxy> {
+declare interface PDFRenderTask extends PDFLoadingTask<PDFPageProxy> {
 
     /**
      * Cancel the rendering task.  If the task is currently rendering it will not be cancelled until graphics pauses with a timeout.  The promise that this object extends will resolve when cancelled.
@@ -401,7 +401,7 @@ interface PDFRenderTask extends PDFLoadingTask<PDFPageProxy> {
     cancel(): void;
 }
 
-interface PDFPageProxy {
+declare interface PDFPageProxy {
 
     /**
      * Page index of the page.  First page is 0.
@@ -462,7 +462,7 @@ interface PDFPageProxy {
     destroy(): void;
 }
 
-interface TextContentItem {
+declare interface TextContentItem {
     str: string;
     transform: number[]; // [0..5]   4=x, 5=y
     width: number;
@@ -471,7 +471,7 @@ interface TextContentItem {
     fontName: string; // A lookup into the styles map of the owning TextContent
 }
 
-interface TextContent {
+declare interface TextContent {
     items: TextContentItem[];
     styles: any;
 }
@@ -479,7 +479,7 @@ interface TextContent {
 /**
  * A PDF document and page is built of many objects.  E.g. there are objects for fonts, images, rendering code and such.  These objects might get processed inside of a worker.  The `PDFObjects` implements some basic functions to manage these objects.
  **/
-interface PDFObjects {
+declare interface PDFObjects {
     get(objId: number, callback?: any): any;
     resolve(objId: number, data: any): any;
     isResolved(objId: number): boolean;
@@ -488,7 +488,7 @@ interface PDFObjects {
     clear(): void;
 }
 
-interface PDFJSUtilStatic {
+declare interface PDFJSUtilStatic {
     /**
      * Normalize rectangle so that (x1,y1) < (x2,y2)
      * @param {number[]} rect - the rectangle with [x1,y1,x2,y2]
@@ -500,9 +500,9 @@ interface PDFJSUtilStatic {
     normalizeRect(rect:number[]): number[];
 }
 
-export const PDFJS: PDFJSStatic;
+declare const PDFJS: PDFJSStatic;
 
-interface PDFJSStatic {
+declare interface PDFJSStatic {
     /**
      * The maximum allowed image size in total pixels e.g. width * height.  Images above this value will not be drawn.  Use -1 for no limit.
      **/
@@ -640,7 +640,7 @@ interface PDFJSStatic {
     PDFSinglePageViewer(params: PDFViewerParams): void;
 }
 
-interface PDFLoadingTask<T> {
+declare interface PDFLoadingTask<T> {
     promise: PDFPromise<T>;
 }
 
