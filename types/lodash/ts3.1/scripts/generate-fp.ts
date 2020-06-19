@@ -554,6 +554,10 @@ function curryDefinition(definition: Definition, paramOrder: number[], spreadInd
                 const otherReturnInterface = interfaces.find(i => new RegExp(`\\b${i.name}\\b`).test(otherOverload.returnType));
                 if (returnInterface && otherReturnInterface) {
                     _.remove(otherReturnInterface.overloads, o => new RegExp(`\\b${otherReturnInterface.name}\\b`).test(o.returnType));
+                    // Take the union of all type params from both interfaces.
+                    // (This means some type params will be unused in some overloads, which is fine.)
+                    returnInterface.typeParams = _.unionBy(returnInterface.typeParams, otherReturnInterface.typeParams, "name");
+                    overload.returnType = returnInterface.name + typeParamsToString(returnInterface.typeParams, false);
                     mergeInterfaces([returnInterface, otherReturnInterface]);
                     _.pull(interfaces, otherReturnInterface);
                     // Rename any other references to the removed interface(s)
@@ -756,8 +760,8 @@ function curryParams(
     // Remove the `extends` constraint from interface type parameters, because sometimes they extend things that aren't passed to the interface.
     for (const typeParam of interfaceDef.typeParams) {
         // 1. retain `extends keyof X` constraints so that TObject[TKey] still works.
-        // 2. retain `any[]` constraints so that variadic generics work.
-        if (!_.startsWith(typeParam.extends, "keyof ") && typeParam.extends !== "any[]")
+        // 2. retain array constraints in case the overloads rely on array indexing or variadic generics.
+        if (!_.startsWith(typeParam.extends, "keyof ") && !_.startsWith(typeParam.extends, "Array<") && !_.endsWith(typeParam.extends, "[]"))
             delete typeParam.extends;
     }
     return interfaceDef;

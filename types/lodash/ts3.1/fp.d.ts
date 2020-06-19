@@ -2119,7 +2119,7 @@ declare namespace _ {
         <T extends object>(callbackOrIterateeOrIteratee: lodash.__, obj: T | null | undefined): LodashMapValues1x2<T>;
         <T extends object, TResult>(callback: (value: T[keyof T]) => TResult, obj: T | null | undefined): { [P in keyof T]: TResult };
         (iteratee: object): LodashMapValues2x1;
-        <T>(iteratee: lodash.__, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): LodashMapValues2x2;
+        <T>(iteratee: lodash.__, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): LodashMapValues2x2<T>;
         <T>(iteratee: object, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<boolean>;
         <T extends object>(iteratee: object, obj: T | null | undefined): { [P in keyof T]: boolean };
         <T, TKey extends keyof T>(iteratee: TKey): LodashMapValues4x1<T, TKey>;
@@ -2138,7 +2138,7 @@ declare namespace _ {
         <T>(obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<boolean>;
         <T extends object>(obj: T | null | undefined): { [P in keyof T]: boolean };
     }
-    interface LodashMapValues2x2 {
+    interface LodashMapValues2x2<T> {
         (iteratee: object): lodash.Dictionary<boolean>;
         <TKey extends keyof T>(iteratee: TKey): lodash.Dictionary<T[TKey]>;
         (iteratee: string): lodash.Dictionary<any>;
@@ -2257,7 +2257,7 @@ declare namespace _ {
         (paths: lodash.Many<lodash.PropertyName>): LodashOmit3x1;
         <T extends object>(paths: lodash.Many<lodash.PropertyName>, object: T | null | undefined): lodash.PartialObject<T>;
     }
-    type LodashOmit1x1<K> = <T extends object>(object: T | null | undefined) => Pick<T, Exclude<keyof T, K[number]>>;
+    type LodashOmit1x1<K extends lodash.PropertyName[]> = <T extends object>(object: T | null | undefined) => Pick<T, Exclude<keyof T, K[number]>>;
     interface LodashOmit1x2<T> {
         <K extends lodash.PropertyName[]>(paths: K): Pick<T, Exclude<keyof T, K[number]>>;
         <K extends keyof T>(paths: lodash.Many<K>): lodash.Omit<T, K>;
