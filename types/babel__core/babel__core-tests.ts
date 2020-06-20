@@ -122,3 +122,6 @@ checkConfigFunction(api => {
         }
     };
 });
+
+// $ExpectType boolean
+babel.loadPartialConfig()?.hasFilesystemConfig();
