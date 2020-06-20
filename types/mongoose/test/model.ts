@@ -612,6 +612,11 @@ enum SchemaEnum {
     Bar
 }
 
+enum StringSchemaEnum {
+    Foo = "foo",
+    Bar = "bar"
+}
+
 interface ModelWithFunction extends mongoose.Document {
     name: string;
 
@@ -628,6 +633,9 @@ interface ModelWithFunction extends mongoose.Document {
     number?: number;
 
     enum?: SchemaEnum;
+
+    enum2?: StringSchemaEnum;
+
 
     selfRef?: ModelWithFunction | mongodb.ObjectID;
 
@@ -777,14 +785,12 @@ ModelWithFunctionInSchema.create({ name: "test", jobs: [], objectId: "valid-obje
 ModelWithFunctionInSchema.create({ 
     name: "test", 
     jobs: [], 
-    //$ExpectType: mongoose.Types.ObjectId | string | undefined
     objectId: new mongodb.ObjectID("valid-object-id-source") 
 });
 
 ModelWithFunctionInSchema.create({ 
     name: "test", 
     jobs: [], 
-    //$ExpectType: Date | string | undefined
     date: new Date() 
 });
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], date: "2020-01-01" });
@@ -795,3 +801,12 @@ ModelWithFunctionInSchema.create({ name: "test", jobs: [], boolean: 1 });
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], decimal: "1" });
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], decimal: 1 });
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], number: "1" });
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], enum2: "bad value" });
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], date: [123] });
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], objectId: [123] });
