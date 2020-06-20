@@ -87,7 +87,7 @@ export function refreshPost(): IterableIterator<void>;
  * Signals that the latest autosave of the post has been received, by initialization or autosave.
  *
  * @deprecated since 5.6. Callers should use the `receiveAutosaves( postId, autosave )`
- * 			   selector from the '@wordpress/core-data' package.
+ *                selector from the '@wordpress/core-data' package.
  *
  * @param newAutosave - Autosave post object.
  */

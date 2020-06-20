@@ -3,6 +3,7 @@
 // Definitions by:  Andrew Luca <https://github.com/iamandrewluca>
 //                  Craig S <https://github.com/Mrman>
 //                  Arturs Vonda <https://github.com/artursvonda>
+//                  Matthew M <https://github.com/magoogli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -50,7 +51,7 @@ export class ApiError<T = any> extends Error {
     constructor(status: number, statusText: string, response: T);
 }
 
-export function getJSON(res: Response): Promise<any> | Promise<void>;
+export function getJSON(res: Response): Promise<any>;
 
 export function apiMiddleware(api: MiddlewareAPI): ReturnType<Middleware>;
 

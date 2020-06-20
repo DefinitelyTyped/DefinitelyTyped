@@ -20,7 +20,27 @@ const MuiCustomTable: React.FC<Props> = (props) => {
             label: 'Name',
             options: {
                 filterType: 'custom',
-                sortDirection: 'none'
+                sortDirection: 'none',
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    return (
+                        <input
+                            type="text"
+                            value={value}
+                            name={`${tableMeta.columnData.name}-${tableMeta.rowIndex}`}
+                            onChange={event => updateValue(event.target.value)}
+                        />
+                    );
+                }
+            }
+        },
+        {
+            name: 'color',
+            label: 'Color',
+            options: {
+                filter: true,
+                customFilterListOptions: {
+                    render: (value: string) => value.toUpperCase()
+                  },
             }
         },
         {
@@ -32,7 +52,7 @@ const MuiCustomTable: React.FC<Props> = (props) => {
     const TableOptions: MUIDataTableOptions = {
         fixedHeaderOptions: {
             xAxis: false,
-            yAxis: true
+            yAxis: true,
         },
         filterType: 'checkbox',
         responsive: 'scrollFullHeight',
@@ -79,6 +99,14 @@ const MuiCustomTable: React.FC<Props> = (props) => {
                     });
             }
         },
+        onRowsDelete: (rowsDeleted: {
+            lookup: { [dataIndex: number]: boolean };
+            data: Array<{ index: number; dataIndex: number }>;
+        }) => {
+            if (rowsDeleted.data[0].index === rowsDeleted.data[0].dataIndex && rowsDeleted.lookup[0]) {
+                console.log(`Data deleted on index ${rowsDeleted.data[0].dataIndex}`);
+            }
+        },
         textLabels: {
             body: {
                 noMatch: 'Sorry, no matching records found',
@@ -118,11 +146,11 @@ const MuiCustomTable: React.FC<Props> = (props) => {
 };
 
 const TableFruits = [
-    { id: 1, name: "Apple", amount: 1 },
-    { id: 2, name: "Pear", amount: 2 },
-    { id: 3, name: "Strawberry", amount: 5 },
-    { id: 4, name: "Banana", amount: 7 },
-    { id: 5, name: "Orange", amount: 9 },
+    { id: 1, name: "Apple", color: "Red", amount: 1 },
+    { id: 2, name: "Pear", color: "Green", amount: 2 },
+    { id: 3, name: "Strawberry", color: "Red", amount: 5 },
+    { id: 4, name: "Banana", color: "Yellow", amount: 7 },
+    { id: 5, name: "Orange", color: "Orange", amount: 9 },
 ];
 
 const options: MUIDataTableOptions = {

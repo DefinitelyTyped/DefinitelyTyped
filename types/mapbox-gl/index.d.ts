@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 1.9
+// Type definitions for Mapbox GL JS 1.10
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -43,6 +43,33 @@ declare namespace mapboxgl {
 
     export function setRTLTextPlugin(pluginURL: string, callback: (error: Error) => void, deferred?: boolean): void;
     export function getRTLTextPluginStatus(): PluginStatus;
+
+    /**
+     * Initializes resources like WebWorkers that can be shared across maps to lower load
+     * times in some situations. `mapboxgl.workerUrl` and `mapboxgl.workerCount`, if being
+     * used, must be set before `prewarm()` is called to have an effect.
+     *
+     * By default, the lifecycle of these resources is managed automatically, and they are
+     * lazily initialized when a Map is first created. By invoking `prewarm()`, these
+     * resources will be created ahead of time, and will not be cleared when the last Map
+     * is removed from the page. This allows them to be re-used by new Map instances that
+     * are created later. They can be manually cleared by calling
+     * `mapboxgl.clearPrewarmedResources()`. This is only necessary if your web page remains
+     * active but stops using maps altogether.
+     *
+     * This is primarily useful when using GL-JS maps in a single page app, wherein a user
+     * would navigate between various views that can cause Map instances to constantly be
+     * created and destroyed.
+     */
+    export function prewarm(): void;
+
+    /**
+     * Clears up resources that have previously been created by `mapboxgl.prewarm()`.
+     * Note that this is typically not necessary. You should only call this function
+     * if you expect the user of your app to not return to a Map view at any point
+     * in your application.
+     */
+    export function clearPrewarmedResources(): void;
 
     type PluginStatus = 'unavailable' | 'loading' | 'loaded' | 'error';
 
@@ -170,13 +197,21 @@ declare namespace mapboxgl {
 
         setMaxBounds(lnglatbounds?: LngLatBoundsLike): this;
 
-        setMinZoom(minZoom?: number): this;
+        setMinZoom(minZoom?: number | null): this;
 
         getMinZoom(): number;
 
-        setMaxZoom(maxZoom?: number): this;
+        setMaxZoom(maxZoom?: number | null): this;
 
         getMaxZoom(): number;
+
+        setMinPitch(minPitch?: number | null): this;
+
+        getMinPitch(): number;
+
+        setMaxPitch(maxPitch?: number | null): this;
+
+        getMaxPitch(): number;
 
         getRenderWorldCopies(): boolean;
 
@@ -280,7 +315,7 @@ declare namespace mapboxgl {
 
         getLayer(id: string): mapboxgl.Layer;
 
-        setFilter(layer: string, filter?: any[] | null): this;
+        setFilter(layer: string, filter?: any[] | boolean | null): this;
 
         setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
 
@@ -452,6 +487,8 @@ declare namespace mapboxgl {
         doubleClickZoom: DoubleClickZoomHandler;
 
         touchZoomRotate: TouchZoomRotateHandler;
+
+        touchPitch: TouchPitchHandler;
     }
 
     export interface MapboxOptions {
@@ -577,16 +614,16 @@ declare namespace mapboxgl {
         /** If set, the map is constrained to the given bounds. */
         maxBounds?: LngLatBoundsLike;
 
-        /** Maximum pitch of the map */
+        /** Maximum pitch of the map. */
         maxPitch?: number;
 
-        /** Maximum zoom of the map */
+        /** Maximum zoom of the map. */
         maxZoom?: number;
 
-        /** Minimum pitch of the map */
+        /** Minimum pitch of the map. */
         minPitch?: number;
 
-        /** Minimum zoom of the map */
+        /** Minimum zoom of the map. */
         minZoom?: number;
 
         /** If true, The maps canvas can be exported to a PNG using map.getCanvas().toDataURL();. This is false by default as a performance optimization. */
@@ -641,6 +678,9 @@ declare namespace mapboxgl {
 
         /** If true, enable the "pinch to rotate and zoom" interaction (see TouchZoomRotateHandler). */
         touchZoomRotate?: boolean;
+
+        /** If true, the "drag to pitch" interaction is enabled */
+        touchPitch?: boolean;
 
         /** Initial zoom level */
         zoom?: number;
@@ -810,6 +850,18 @@ declare namespace mapboxgl {
         disableRotation(): void;
 
         enableRotation(): void;
+    }
+
+    export class TouchPitchHandler {
+        constructor(map: mapboxgl.Map);
+
+        enable(): void;
+
+        isActive(): boolean;
+
+        isEnabled(): boolean;
+
+        disable(): void;
     }
 
     export interface IControl {
@@ -1083,6 +1135,8 @@ declare namespace mapboxgl {
         clusterRadius?: number;
 
         clusterMaxZoom?: number;
+
+        clusterProperties?: object;
 
         lineMetrics?: boolean;
 
@@ -1408,6 +1462,14 @@ declare namespace mapboxgl {
         setDraggable(shouldBeDraggable: boolean): this;
 
         isDraggable(): boolean;
+
+        getRotationAlignment(): Alignment;
+
+        setRotationAlignment(alignment: Alignment): this;
+
+        getPitchAlignment(): Alignment;
+
+        setPitchAlignment(alignment: Alignment): this;
     }
 
     type Alignment = 'map' | 'viewport' | 'auto';
@@ -1991,7 +2053,7 @@ declare namespace mapboxgl {
         'text-radial-offset'?: number | Expression;
         'text-variable-anchor'?: Anchor[];
         'text-writing-mode'?: ('horizontal' | 'vertical')[];
-        'symbol-sort-key'?: number;
+        'symbol-sort-key'?: number | Expression;
     }
 
     export interface SymbolPaint {

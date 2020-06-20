@@ -1,4 +1,7 @@
 {
-    "extends": "dtslint/dt.json"
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "npm-naming": [true,{"mode":"code","errors":[["NeedsExportEquals",false]]}]
+    }
 }
   

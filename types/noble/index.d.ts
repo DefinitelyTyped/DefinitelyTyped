@@ -25,6 +25,12 @@ export declare function on(event: "scanStop", listener: () => void): events.Even
 export declare function on(event: "discover", listener: (peripheral: Peripheral) => void): events.EventEmitter;
 export declare function on(event: string, listener: Function): events.EventEmitter;
 
+export declare function once(event: "stateChange", listener: (state: string) => void): events.EventEmitter;
+export declare function once(event: "scanStart", listener: () => void): events.EventEmitter;
+export declare function once(event: "scanStop", listener: () => void): events.EventEmitter;
+export declare function once(event: "discover", listener: (peripheral: Peripheral) => void): events.EventEmitter;
+export declare function once(event: string, listener: Function): events.EventEmitter;
+
 export declare function removeListener(event: "stateChange", listener: (state: string) => void): events.EventEmitter;
 export declare function removeListener(event: "scanStart", listener: () => void): events.EventEmitter;
 export declare function removeListener(event: "scanStop", listener: () => void): events.EventEmitter;
@@ -60,8 +66,14 @@ export declare class Peripheral extends events.EventEmitter {
     on(event: "connect", listener: (error: string) => void): this;
     on(event: "disconnect", listener: (error: string) => void): this;
     on(event: "rssiUpdate", listener: (rssi: number) => void): this;
-	on(event: "servicesDiscover", listener: (services: Service[]) => void): this;
-	on(event: string, listener: Function): this;
+    on(event: "servicesDiscover", listener: (services: Service[]) => void): this;
+    on(event: string, listener: Function): this;
+
+    once(event: "connect", listener: (error: string) => void): this;
+    once(event: "disconnect", listener: (error: string) => void): this;
+    once(event: "rssiUpdate", listener: (rssi: number) => void): this;
+    once(event: "servicesDiscover", listener: (services: Service[]) => void): this;
+    once(event: string, listener: Function): this;
 }
 
 export interface Advertisement {
@@ -87,8 +99,12 @@ export declare class Service extends events.EventEmitter {
     toString(): string;
 
     on(event: "includedServicesDiscover", listener: (includedServiceUuids: string[]) => void): this;
-	on(event: "characteristicsDiscover", listener: (characteristics: Characteristic[]) => void): this;
-	on(event: string, listener: Function): this;
+    on(event: "characteristicsDiscover", listener: (characteristics: Characteristic[]) => void): this;
+    on(event: string, listener: Function): this;
+
+    once(event: "includedServicesDiscover", listener: (includedServiceUuids: string[]) => void): this;
+    once(event: "characteristicsDiscover", listener: (characteristics: Characteristic[]) => void): this;
+    once(event: string, listener: Function): this;
 }
 
 export declare class Characteristic extends events.EventEmitter {
@@ -111,9 +127,17 @@ export declare class Characteristic extends events.EventEmitter {
     on(event: "write", withoutResponse: boolean, listener: (error: string) => void): this;
     on(event: "broadcast", listener: (state: string) => void): this;
     on(event: "notify", listener: (state: string) => void): this;
-	on(event: "descriptorsDiscover", listener: (descriptors: Descriptor[]) => void): this;
-	on(event: string, listener: Function): this;
+    on(event: "descriptorsDiscover", listener: (descriptors: Descriptor[]) => void): this;
+    on(event: string, listener: Function): this;
     on(event: string, option: boolean, listener: Function): this;
+
+    once(event: "read", listener: (data: Buffer, isNotification: boolean) => void): this;
+    once(event: "write", withoutResponse: boolean, listener: (error: string) => void): this;
+    once(event: "broadcast", listener: (state: string) => void): this;
+    once(event: "notify", listener: (state: string) => void): this;
+    once(event: "descriptorsDiscover", listener: (descriptors: Descriptor[]) => void): this;
+    once(event: string, listener: Function): this;
+    once(event: string, option: boolean, listener: Function): this;
 }
 
 export declare class Descriptor extends events.EventEmitter {
@@ -126,6 +150,10 @@ export declare class Descriptor extends events.EventEmitter {
     toString(): string;
 
     on(event: "valueRead", listener: (error: string, data: Buffer) => void): this;
-	on(event: "valueWrite", listener: (error: string) => void): this;
-	on(event: string, listener: Function): this;
+    on(event: "valueWrite", listener: (error: string) => void): this;
+    on(event: string, listener: Function): this;
+
+    once(event: "valueRead", listener: (error: string, data: Buffer) => void): this;
+    once(event: "valueWrite", listener: (error: string) => void): this;
+    once(event: string, listener: Function): this;
 }

@@ -20,6 +20,9 @@
 //                 Ville Kentta <https://github.com/vkentta>
 //                 Fabien Caylus <https://github.com/fcaylus>
 //                 Samuel Weckstrom <https://github.com/samuelweckstrom>
+//                 George Cheng <https://github.com/Gerhut>
+//                 Haldun Anil <https://github.com/haldunanil>
+//                 Tobias Knapp <https://github.com/t-knapp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -45,11 +48,11 @@ export type LayoutType = 'horizontal' | 'vertical';
 export type AnimationEasingType = 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
 export type ScaleType =
     'auto' | 'linear' | 'pow' | 'sqrt' | 'log' | 'identity' | 'time' | 'band' | 'point' |
-    'ordinal' | 'quantile' | 'quantize' | 'utcTime' | 'sequential' | 'threshold';
+    'ordinal' | 'quantile' | 'quantize' | 'utc' | 'sequential' | 'threshold';
 export type PositionType =
     'top' | 'left' | 'right' | 'bottom' | 'inside' | 'outside' | 'insideLeft' | 'insideRight' |
     'insideTop' | 'insideBottom' | 'insideTopLeft' | 'insideBottomLeft' | 'insideTopRight' |
-    'insideBottomRight' | 'insideStart' | 'insideEnd' | 'end' | 'center';
+    'insideBottomRight' | 'insideStart' | 'insideEnd' | 'end' | 'center' | 'centerTop' | 'centerBottom';
 export type StackOffsetType = 'sign' | 'expand' | 'none' | 'wiggle' | 'silhouette';
 export type LineType =
     'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' |
@@ -692,6 +695,7 @@ export interface ReferenceAreaProps extends Partial<PresentationAttributes> {
     xAxisId?: string | number;
     yAxisId?: string | number;
     shape?: ContentRenderer<ReferenceAreaProps & RectangleProps> | React.ReactElement;
+    label?: string | number | ContentRenderer<any> | React.ReactElement;
 }
 
 export class ReferenceArea extends React.Component<ReferenceAreaProps> { }

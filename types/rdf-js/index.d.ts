@@ -1,4 +1,4 @@
-// Type definitions for the RDFJS specification 2.0
+// Type definitions for the RDFJS specification 3.0
 // Project: https://github.com/rdfjs/representation-task-force
 // Definitions by: Ruben Taelman <https://github.com/rubensworks>
 //                 Laurens Rietveld <https://github.com/LaurensRietveld>
@@ -26,7 +26,7 @@ export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
 /**
  * Contains an IRI.
  */
-export interface NamedNode {
+export interface NamedNode<Iri extends string = string> {
     /**
      * Contains the constant "NamedNode".
      */
@@ -34,7 +34,7 @@ export interface NamedNode {
     /**
      * The IRI of the named node (example: `http://example.org/resource`)
      */
-    value: string;
+    value: Iri;
 
     /**
      * @param other The term to compare with.
@@ -200,7 +200,7 @@ export interface BaseQuad {
    * @param other The term to compare with.
    * @return True if and only if the argument is a) of the same type b) has all components equal.
    */
-  equals(other: BaseQuad): boolean;
+  equals(other: BaseQuad | null | undefined): boolean;
 }
 
 /**
@@ -232,19 +232,11 @@ export interface Quad extends BaseQuad {
      * @param other The term to compare with.
      * @return True if and only if the argument is a) of the same type b) has all components equal.
      */
-    equals(other: BaseQuad): boolean;
+    equals(other: BaseQuad | null | undefined): boolean;
 }
 
 /**
- * An RDF triple, containing the subject, predicate, object terms.
- *
- * Triple is an alias of Quad.
- */
-// tslint:disable-next-line no-empty-interface
-export interface Triple extends Quad {}
-
-/**
- * A factory for instantiating RDF terms, triples and quads.
+ * A factory for instantiating RDF terms and quads.
  */
 export interface DataFactory<OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad> {
     /**
@@ -252,6 +244,9 @@ export interface DataFactory<OutQuad extends BaseQuad = Quad, InQuad extends Bas
      * @return A new instance of NamedNode.
      * @see NamedNode
      */
+    // TODO: This could be changed into a Generic method that returns a NamedNode constained to the
+    //       given `value` - but note that that would be a breaking change. See commit
+    //       16d29e86cd6fe34e6ac6f53bba6ba1a1988d7401.
     namedNode(value: string): NamedNode;
 
     /**
@@ -287,17 +282,6 @@ export interface DataFactory<OutQuad extends BaseQuad = Quad, InQuad extends Bas
      * @return An instance of DefaultGraph.
      */
     defaultGraph(): DefaultGraph;
-
-    /**
-     * @param subject   The triple subject term.
-     * @param predicate The triple predicate term.
-     * @param object    The triple object term.
-     * @return A new instance of Quad with `Quad.graph` set to DefaultGraph.
-     * @see Quad
-     * @see Triple
-     * @see DefaultGraph
-     */
-    triple(subject: InQuad['subject'], predicate: InQuad['predicate'], object: InQuad['object']): InQuad;
 
     /**
      * @param subject   The quad subject term.

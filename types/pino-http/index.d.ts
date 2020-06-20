@@ -29,17 +29,27 @@ declare namespace PinoHttp {
         genReqId?: GenReqId;
         useLevel?: Level;
         stream?: DestinationStream;
-        autoLogging?: boolean | autoLoggingOptions;
+        autoLogging?: boolean | AutoLoggingOptions;
         customLogLevel?: (res: ServerResponse, error: Error) => Level;
+        customSuccessMessage?: (req: IncomingMessage) => string;
+        customErrorMessage?: (req: IncomingMessage) => string;
+        customAttributeKeys?: CustomAttributeKeys;
     }
 
     interface GenReqId {
         (req: IncomingMessage): ReqId;
     }
 
-    interface autoLoggingOptions {
+    interface AutoLoggingOptions {
         ignorePaths?: string[];
         getPath?: (req: IncomingMessage) => string | undefined;
+    }
+
+    interface CustomAttributeKeys {
+        req?: string;
+        res?: string;
+        err?: string;
+        responseTime?: string;
     }
 }
 

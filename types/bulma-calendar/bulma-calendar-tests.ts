@@ -1,4 +1,4 @@
-import BulmaCalendar from 'bulma-calendar';
+import BulmaCalendar = require('bulma-calendar');
 
 new BulmaCalendar('.selector');
 BulmaCalendar.attach('.selector');

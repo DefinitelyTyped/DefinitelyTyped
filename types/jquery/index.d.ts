@@ -24,7 +24,7 @@
 //                 Terry Mun <https://github.com/terrymun>
 //                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.7
 
 /// <reference types="sizzle" />
 /// <reference path="JQueryStatic.d.ts" />

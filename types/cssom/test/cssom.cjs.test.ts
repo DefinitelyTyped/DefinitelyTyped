@@ -9,7 +9,7 @@ styleSheet = CSSOM.parse(`
 ::before,
 ::after,
 ::marker {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 `);
 

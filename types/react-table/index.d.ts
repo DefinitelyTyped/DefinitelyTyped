@@ -272,7 +272,7 @@ export interface UseTableInstanceProps<D extends object> {
 }
 
 export interface UseTableHeaderGroupProps<D extends object> {
-    headers: Array<ColumnInstance<D>>;
+    headers: Array<HeaderGroup<D>>;
     getHeaderGroupProps: (propGetter?: HeaderGroupPropGetter<D>) => TableHeaderProps;
     getFooterGroupProps: (propGetter?: FooterGroupPropGetter<D>) => TableFooterProps;
     totalHeaderCount: number; // not documented
@@ -547,7 +547,7 @@ export type UseGroupByOptions<D extends object> = Partial<{
     disableGroupBy: boolean;
     defaultCanGroupBy: boolean;
     aggregations: Record<string, AggregatorFn<D>>;
-    groupByFn: (rows: Array<Row<D>>, columnId: IdType<D>) => Record<string, Row<D>>;
+    groupByFn: (rows: Array<Row<D>>, columnId: IdType<D>) => Record<string, Array<Row<D>>>;
     autoResetGroupBy?: boolean;
 }>;
 
@@ -594,7 +594,7 @@ export interface UseGroupByColumnProps<D extends object> {
 
 export interface UseGroupByRowProps<D extends object> {
     isGrouped: boolean;
-    groupById: IdType<D>;
+    groupByID: IdType<D>;
     groupByVal: string;
     values: Record<IdType<D>, AggregatedValue>;
     subRows: Array<Row<D>>;
@@ -864,7 +864,7 @@ export function defaultOrderByFn<D extends object = {}>(
 export function defaultGroupByFn<D extends object = {}>(
     rows: Array<Row<D>>,
     columnId: IdType<D>,
-): Record<string, Row<D>>;
+): Record<string, Array<Row<D>>>;
 
 export function makePropGetter(hooks: Hooks, ...meta: any[]): any;
 

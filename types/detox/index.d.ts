@@ -1,10 +1,11 @@
-// Type definitions for detox 14.5
+// Type definitions for detox 16.4
 // Project: https://github.com/wix/detox
 // Definitions by: Tareq El-Masri <https://github.com/TareqElMasri>
 //                 Steve Chun <https://github.com/stevechun>
 //                 Hammad Jutt <https://github.com/hammadj>
 //                 pera <https://github.com/santiagofm>
 //                 Max Komarychev <https://github.com/maxkomarychev>
+//                 Dor Ben Baruch <https://github.com/Dor256>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare global {
     const device: Detox.Device;
@@ -13,6 +14,7 @@ declare global {
     const waitFor: Detox.WaitFor;
     const expect: Detox.Expect<Detox.Expect<Promise<void>>>;
     const by: Detox.Matchers;
+    const detoxCircus: Detox.DetoxCircus;
 
     namespace Detox {
         interface Detox {
@@ -56,6 +58,18 @@ declare global {
         }
 
         interface Device {
+            /**
+             * Holds the environment-unique ID of the device - namely, the adb ID on Android (e.g. emulator-5554) and the Mac-global simulator UDID on iOS,
+             * as used by simctl (e.g. AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE).
+             *
+             * The value will be undefined until the device is properly prepared (i.e. in detox.init())
+             */
+            id: string;
+            /**
+             * Holds a descriptive name of the device. Example: emulator-5554 (Pixel_API_26)
+             * The value will be undefined until the device is properly prepared (i.e. in detox.init()).
+             */
+            name: string;
             /**
              * Launch the app
              * @param config
@@ -183,7 +197,7 @@ declare global {
              * // or
              * await device.setBiometricEnrollment(false);
              */
-            setBiometricEnrollment(enabled: true): Promise<void>;
+            setBiometricEnrollment(enabled: boolean): Promise<void>;
             /**
              * Simulates the success of a face match via FaceID (iOS Only)
              */
@@ -527,6 +541,7 @@ declare global {
             reminders?: RemindersPermission;
             siri?: SiriPermission;
             speech?: SpeechPermission;
+            faceid?: FaceIDPermission;
         }
 
         type LocationPermission = 'always' | 'inuse' | 'never' | 'unset';
@@ -544,6 +559,7 @@ declare global {
         type SiriPermission = PermissionState;
         type SpeechPermission = PermissionState;
         type NotificationsPermission = PermissionState;
+        type FaceIDPermission = PermissionState;
 
         interface DeviceLanchAppConfig {
             /**
@@ -583,6 +599,26 @@ declare global {
              * Launch config for specifying the native language and locale
              */
             languageAndLocale?: LanguageAndLocale;
+        }
+
+        interface CircusTestEventListenerBase {
+            handleTestEvent(event: any, state: any): Promise<void>;
+        }
+
+        interface DetoxCircus {
+            /**
+             * A get function that Enables access to this instance (single in each worker's scope)
+             */
+            getEnv(): {
+                /**
+                 * Registers a listener such as an adapter or reporter
+                 * @param listener
+                 * @example
+                 * detoxCircus.getEnv().addEventsListener(adapter)
+                 * detoxCircus.getEnv().addEventsListener(assignReporter)
+                 */
+                addEventsListener(listener: CircusTestEventListenerBase): void
+            };
         }
     }
 }

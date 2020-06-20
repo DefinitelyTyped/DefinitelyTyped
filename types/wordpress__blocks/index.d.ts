@@ -7,7 +7,7 @@
 
 import { Dashicon } from '@wordpress/components';
 import { dispatch, select } from '@wordpress/data';
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 export * from './api';
 export { withBlockContentContext } from './block-content-provider';

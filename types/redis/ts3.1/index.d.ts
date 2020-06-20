@@ -10,7 +10,7 @@ export interface RetryStrategyOptions {
     attempt: number;
 }
 
-export type RetryStrategy = (options: RetryStrategyOptions) => number | Error;
+export type RetryStrategy = (options: RetryStrategyOptions) => number | Error | unknown;
 
 export interface ClientOpts {
     host?: string;
@@ -979,6 +979,14 @@ export interface Commands<R> {
     TYPE(key: string, cb?: Callback<string>): R;
 
     /**
+     * Deletes a key in a non-blocking manner.
+     * Very similar to DEL, but actual memory reclamation
+     * happens in a different thread, making this non-blocking.
+     */
+    unlink: OverloadedCommand<string, number, R>;
+    UNLINK: OverloadedCommand<string, number, R>;
+
+    /**
      * Forget about all watched keys.
      */
     unwatch(cb?: Callback<'OK'>): R;
@@ -1167,7 +1175,7 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     connected: boolean;
     command_queue_length: number;
     offline_queue_length: number;
-    retry_delay: number;
+    retry_delay: number | Error;
     retry_backoff: number;
     command_queue: any[];
     offline_queue: any[];

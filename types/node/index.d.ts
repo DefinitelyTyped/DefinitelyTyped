@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 13.13
+// Type definitions for non-npm package Node.js 14.0
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -9,7 +9,6 @@
 //                 Benjamin Toueg <https://github.com/btoueg>
 //                 Bruno Scheufler <https://github.com/brunoscheufler>
 //                 Chigozirim C. <https://github.com/smac89>
-//                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 David Junger <https://github.com/touffy>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
@@ -43,6 +42,8 @@
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Surasak Chaisurin <https://github.com/Ryan-Willpower>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Anna Henningsen <https://github.com/addaleax>
+//                 Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.5.
@@ -58,6 +59,12 @@
 
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 /// <reference path="base.d.ts" />
+
+// We can't include globals.global.d.ts in globals.d.ts, as it'll cause duplication errors in TypeScript 3.5+
+/// <reference path="globals.global.d.ts" />
+
+// We can't include assert.d.ts in base.d.ts, as it'll cause duplication errors in TypeScript 3.7+
+/// <reference path="assert.d.ts" />
 
 // Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)
 // Empty interfaces are used here which merge fine with the real declarations in the lib XXX files

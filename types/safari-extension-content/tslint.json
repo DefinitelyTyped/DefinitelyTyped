@@ -4,6 +4,7 @@
         "callable-types": false,
         "comment-format": false,
         "dt-header": false,
+        "jsdoc-format": false,
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
         "no-redundant-jsdoc": false,
