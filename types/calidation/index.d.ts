@@ -1,4 +1,4 @@
-// Type definitions for calidation 2.0
+// Type definitions for calidation 1.16
 // Project: https://github.com/selbekk/calidation#readme
 // Definitions by: Ray Knight <https://github.com/ArrayKnight>
 //                 Lisa Tassone <https://github.com/lisatassone>
