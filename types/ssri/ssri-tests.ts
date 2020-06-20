@@ -186,7 +186,4 @@ const expectedIntegrity = ssri.parse(fs.readFileSync('integrity.txt', 'utf8'));
 const updatedIntegrity = ssri.fromData(data, { algorithms: ['sha512'] });
 expectedIntegrity.merge(updatedIntegrity); // $ExpectType void
 expectedIntegrity.merge(updatedIntegrity, {}); // $ExpectType void
-// $ExpectType void
-expectedIntegrity.merge(updatedIntegrity, {
-    strict: true,
-});
+expectedIntegrity.merge(updatedIntegrity, { strict: true }); // $ExpectType void
