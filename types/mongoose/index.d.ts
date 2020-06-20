@@ -111,7 +111,6 @@ declare module "mongoose" {
 
   // used to exclude functions from all levels of the schema
   type DeepNonFunctionProperties<T> =
-    T extends MongooseBuiltIns ? T :
     T extends Map<infer KM, infer KV> 
       // handle map values
       // Maps are not scrubbed, replace below line with this once minimum TS version is 3.7:
@@ -121,7 +120,7 @@ declare module "mongoose" {
     T extends Array<infer U>
       ? (U extends object 
         ? { [V in keyof NonFunctionProperties<OmitReadonly<U>>]: U[V] extends object | undefined
-          ? DeepNonFunctionProperties<NonNullable<U[V]>> 
+          ? DeepNonFunctionProperties<NonNullable<ImplicitMongooseConversions<U[V]>>> 
           : ImplicitMongooseConversions<U[V]> }
         : ImplicitMongooseConversions<U>)[]
       : 
