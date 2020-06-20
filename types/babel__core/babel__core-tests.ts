@@ -123,7 +123,7 @@ checkConfigFunction(api => {
     };
 });
 
-// $ExpectType PartialConfig | null
+// $ExpectType Readonly<PartialConfig> | null
 const partialConfig = babel.loadPartialConfig();
 
 if (partialConfig) {
