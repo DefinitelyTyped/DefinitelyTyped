@@ -3,4 +3,6 @@
 // Definitions by: Sean S. LeBlanc <https://github.com/seleb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function(preloadEnv?: string): void;
+declare function dotenvLoad(preloadEnv?: string): void;
+
+export = dotenvLoad;
