@@ -668,6 +668,7 @@ interface ModelWithFunction extends mongoose.Document {
             title: string, 
             func: () => {}, // should be excluded in CreateQuery<T>
             tuple?: [number, number]
+            objectId?: mongoose.Types.ObjectId;
 
             mapWithFuncs?: Map<string, { 
                 title: string, 
@@ -676,6 +677,7 @@ interface ModelWithFunction extends mongoose.Document {
                     title: string, 
                     func: () => {} // should be excluded in CreateQuery<T>
                     readonly readonly: unknown; // should be excluded in CreateQuery<T>
+                    objectId?: mongoose.Types.ObjectId;
                 }> 
             }>;
         }>
@@ -717,13 +719,15 @@ ModelWithFunctionInSchema.create({
         deepArray: [{ 
             title: "test", 
             tuple: [1, 2], 
+            objectId: "valid-object-id-source",
             mapWithFuncs: { 
                 test: { 
                     title: "test", 
                     innerMap: { 
                         test: { 
-                            title: "hello" 
-                        }
+                            title: "hello",
+                            objectId: "valid-object-id-source"
+                        },
                     }
                 }
             } 
