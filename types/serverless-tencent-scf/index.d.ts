@@ -1,4 +1,4 @@
-// Type definitions for TencentCloud Serverless Cloud Function(SCF)
+// Type definitions for TencentCloud Serverless Cloud Function(SCF) 0.1
 // Project: https://intl.cloud.tencent.com/product/scf
 // Definitions by: Yaozu Lv <https://github.com/yaozulv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

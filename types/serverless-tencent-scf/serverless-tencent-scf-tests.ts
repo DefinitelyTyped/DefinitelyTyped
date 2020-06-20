@@ -1,4 +1,4 @@
-import { Handler, APIGatewayEvent, TimerEvent, COSEvent, CMQTopicEvent, CKafkaEvent } from 'tencentcloud-scf';
+import { Handler, APIGatewayEvent, TimerEvent, COSEvent, CMQTopicEvent, CKafkaEvent } from 'serverless-tencent-scf';
 
 interface CustomEvent {
     hello: 'world';
