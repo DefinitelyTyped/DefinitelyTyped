@@ -11,6 +11,7 @@ declare namespace nProgress {
         easing: string;
         speed: number;
         trickle: boolean;
+        trickleRate: number;
         trickleSpeed: number;
         showSpinner: boolean;
         parent: string;
