@@ -7,6 +7,7 @@ import * as React from "react";
 
 export interface ReactCompassProps {
     direction: number;
+    directionNames?: string[];
 }
 
 export function directionName(dir: number): string;
