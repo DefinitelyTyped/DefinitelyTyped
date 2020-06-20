@@ -30,7 +30,7 @@
 //                 Regev Brody <https://github.com/regevbr>
 //                 Mark Skelton <https://github.com/mskelton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.8
 
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
@@ -763,13 +763,13 @@ declare namespace jest {
          */
         toBeFalsy(): R;
         /**
-         * For comparing floating point numbers.
+         * For comparing numeric values.
          */
-        toBeGreaterThan(expected: number): R;
+        toBeGreaterThan(expected: number | bigint): R;
         /**
-         * For comparing floating point numbers.
+         * For comparing numeric values.
          */
-        toBeGreaterThanOrEqual(expected: number): R;
+        toBeGreaterThanOrEqual(expected: number | bigint): R;
         /**
          * Ensure that an object is an instance of a class.
          * This matcher uses `instanceof` underneath.
@@ -779,13 +779,13 @@ declare namespace jest {
          */
         toBeInstanceOf<E = any>(expected: E): R;
         /**
-         * For comparing floating point numbers.
+         * For comparing numeric values.
          */
-        toBeLessThan(expected: number): R;
+        toBeLessThan(expected: number | bigint): R;
         /**
-         * For comparing floating point numbers.
+         * For comparing numeric values.
          */
-        toBeLessThanOrEqual(expected: number): R;
+        toBeLessThanOrEqual(expected: number | bigint): R;
         /**
          * This is the same as `.toBe(null)` but the error messages are a bit nicer.
          * So use `.toBeNull()` when you want to check that something is null.

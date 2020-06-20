@@ -3,9 +3,5 @@
     "dependencies": {
         "jest-diff": "^26.0.0",
         "pretty-format": "^26.0.0"
-    },
-    "types": "index",
-    "typesVersions": {
-        ">=3.2.0-0": { "*": ["ts3.2/*"] }
     }
 }

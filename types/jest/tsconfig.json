@@ -3,7 +3,8 @@
         "module": "commonjs",
         "lib": [
             "es6",
-            "dom"
+            "dom",
+            "ESNext"
         ],
         "noImplicitAny": true,
         "noImplicitThis": false,
@@ -13,7 +14,7 @@
         "typeRoots": [
             "../"
         ],
-        "target": "es5",
+        "target": "ESNext",
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

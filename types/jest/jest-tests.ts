@@ -862,14 +862,18 @@ describe('', () => {
         expect(0).toBeFalsy();
 
         expect(0).toBeGreaterThan(1);
+        expect(0n).toBeGreaterThan(1n);
 
         expect(0).toBeGreaterThanOrEqual(1);
+        expect(0n).toBeGreaterThanOrEqual(1n);
 
         expect(3).toBeInstanceOf(Number);
 
         expect(0).toBeLessThan(1);
+        expect(0n).toBeLessThan(1n);
 
         expect(0).toBeLessThanOrEqual(1);
+        expect(0n).toBeLessThanOrEqual(1n);
 
         expect(null).toBeNull();
         expect(undefined).toBeNull();
