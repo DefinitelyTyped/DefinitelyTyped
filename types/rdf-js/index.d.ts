@@ -2,6 +2,7 @@
 // Project: https://github.com/rdfjs/representation-task-force
 // Definitions by: Ruben Taelman <https://github.com/rubensworks>
 //                 Laurens Rietveld <https://github.com/LaurensRietveld>
+//                 Tomasz Pluskiewicz <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
