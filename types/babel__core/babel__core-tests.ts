@@ -123,8 +123,13 @@ checkConfigFunction(api => {
     };
 });
 
-// $ExpectType boolean | undefined
-babel.loadPartialConfig()?.hasFilesystemConfig();
+// $ExpectType PartialConfig | null
+const partialConfig = babel.loadPartialConfig();
+
+if (partialConfig) {
+    // $ExpectType boolean
+    partialConfig.hasFilesystemConfig();
+}
 
 function withPluginPass(state: babel.PluginPass) {
     state.file.hub.addHelper('something');
