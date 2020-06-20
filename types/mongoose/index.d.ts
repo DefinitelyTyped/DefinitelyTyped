@@ -101,8 +101,15 @@ declare module "mongoose" {
 
   type OmitReadonly<T> = Omit<T, ReadonlyKeysOf<T>>;
 
+  type ImplicitMongooseConversions<T> = 
+    T extends (mongodb.ObjectID | Date) 
+      ? T | string 
+      : T;
+
+  type BuiltIns = mongodb.ObjectID | Date | string | number;
   // used to exclude functions from all levels of the schema
   type DeepNonFunctionProperties<T> =
+    T extends BuiltIns ? T :
     T extends Map<infer KM, infer KV> 
       // handle map values
       // Maps are not scrubbed, replace below line with this once minimum TS version is 3.7:
@@ -113,15 +120,15 @@ declare module "mongoose" {
       ? (U extends object 
         ? { [V in keyof NonFunctionProperties<OmitReadonly<U>>]: U[V] extends object | undefined
           ? DeepNonFunctionProperties<NonNullable<U[V]>> 
-          : U[V] }
-        : U)[]
+          : ImplicitMongooseConversions<U[V]> }
+        : ImplicitMongooseConversions<U>)[]
       : 
     T extends object
       ? { [V in keyof NonFunctionProperties<OmitReadonly<T>>]: T[V] extends object | undefined
-        ? DeepNonFunctionProperties<NonNullable<T[V]>> 
-        : T[V] }
+        ? DeepNonFunctionProperties<NonNullable<ImplicitMongooseConversions<T[V]>>> 
+        : ImplicitMongooseConversions<T[V]> }
       :
-    T;
+    ImplicitMongooseConversions<T>;
 
   // mongoose allows Map<K, V> to be specified either as a Map or a Record<K, V>
   type DeepMapAsObject<T> = T extends object | undefined

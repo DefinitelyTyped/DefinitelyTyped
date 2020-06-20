@@ -617,6 +617,10 @@ interface ModelWithFunction extends mongoose.Document {
 
     someFunc: () => any;
 
+    objectId?: mongoose.Types.ObjectId;
+
+    date?: Date;
+
     enum?: SchemaEnum;
 
     selfRef?: ModelWithFunction | mongodb.ObjectID;
@@ -762,3 +766,19 @@ ModelWithFunctionInSchema.create({ name: "test", jobs: [] }).then(ref => {
     ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRefArray2: [id, id] });
     ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRefArray2: [ref, ref] });
 });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], objectId: "valid-object-id-source" });
+ModelWithFunctionInSchema.create({ 
+    name: "test", 
+    jobs: [], 
+    //$ExpectType: mongoose.Types.ObjectId | string | undefined
+    objectId: new mongodb.ObjectID("valid-object-id-source") 
+});
+
+ModelWithFunctionInSchema.create({ 
+    name: "test", 
+    jobs: [], 
+    //$ExpectType: Date | string | undefined
+    date: new Date() 
+});
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], date: "2020-01-01" });
