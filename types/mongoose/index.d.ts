@@ -105,7 +105,7 @@ declare module "mongoose" {
 
   type ImplicitMongooseConversions<T> = 
     T extends MongooseBuiltIns 
-      ? T extends boolean ? T | string | number
+      ? T extends (boolean | mongodb.Decimal128) ? T | string | number
       : T | string 
     : T;
 

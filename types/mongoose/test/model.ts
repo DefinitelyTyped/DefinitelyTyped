@@ -793,4 +793,5 @@ ModelWithFunctionInSchema.create({ name: "test", jobs: [], date: "2020-01-01" })
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], boolean: "true" });
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], boolean: 1 });
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], decimal: "1" });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], decimal: 1 });
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], number: "1" });
