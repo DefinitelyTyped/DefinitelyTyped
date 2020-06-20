@@ -123,7 +123,7 @@ checkConfigFunction(api => {
     };
 });
 
-// $ExpectType boolean
+// $ExpectType boolean | undefined
 babel.loadPartialConfig()?.hasFilesystemConfig();
 
 function withPluginPass(state: babel.PluginPass) {
