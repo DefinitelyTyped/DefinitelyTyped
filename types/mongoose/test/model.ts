@@ -621,6 +621,12 @@ interface ModelWithFunction extends mongoose.Document {
 
     date?: Date;
 
+    boolean?: boolean;
+
+    decimal?: mongodb.Decimal128;
+
+    number?: number;
+
     enum?: SchemaEnum;
 
     selfRef?: ModelWithFunction | mongodb.ObjectID;
@@ -782,3 +788,9 @@ ModelWithFunctionInSchema.create({
     date: new Date() 
 });
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], date: "2020-01-01" });
+
+// allow strings, since mongoose can cast them
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], boolean: "true" });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], boolean: 1 });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], decimal: "1" });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], number: "1" });

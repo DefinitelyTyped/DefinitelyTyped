@@ -101,15 +101,17 @@ declare module "mongoose" {
 
   type OmitReadonly<T> = Omit<T, ReadonlyKeysOf<T>>;
 
-  type ImplicitMongooseConversions<T> = 
-    T extends (mongodb.ObjectID | Date) 
-      ? T | string 
-      : T;
+  type MongooseBuiltIns = mongodb.ObjectID | mongodb.Decimal128 | Date | string | number | boolean;
 
-  type BuiltIns = mongodb.ObjectID | Date | string | number;
+  type ImplicitMongooseConversions<T> = 
+    T extends MongooseBuiltIns 
+      ? T extends boolean ? T | string | number
+      : T | string 
+    : T;
+
   // used to exclude functions from all levels of the schema
   type DeepNonFunctionProperties<T> =
-    T extends BuiltIns ? T :
+    T extends MongooseBuiltIns ? T :
     T extends Map<infer KM, infer KV> 
       // handle map values
       // Maps are not scrubbed, replace below line with this once minimum TS version is 3.7:
