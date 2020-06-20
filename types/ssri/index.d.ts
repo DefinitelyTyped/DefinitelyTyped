@@ -1,4 +1,4 @@
-// Type definitions for ssri 8.0
+// Type definitions for ssri 7.1
 // Project: https://github.com/zkat/ssri
 // Definitions by: Jeow Li Huan <https://github.com/huan086>
 //                 ExE Boss <https://github.com/ExE-Boss>
