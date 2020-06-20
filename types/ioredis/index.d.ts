@@ -697,10 +697,10 @@ declare namespace IORedis {
         dbsize(callback: Callback<number>): void;
         dbsize(): Promise<number>;
 
-        auth(password: string, callback: Callback<string>): void;
         auth(username: string, password: string, callback: Callback<string>): void;
+        auth(password: string, callback: Callback<string>): void;
+        auth(username: string, password?: string): Promise<string>;
         auth(password: string): Promise<string>;
-        auth(username: string, password: string): Promise<string>;
 
         ping(callback: Callback<string>): void;
         ping(message: string, callback: Callback<string>): void;
