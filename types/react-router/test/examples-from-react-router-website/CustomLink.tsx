@@ -18,9 +18,9 @@ const CustomLinkExample = () => (
   </Router>
 );
 
-interface OldSchoolMenuLinkProps extends LinkProps {
-  activeOnlyWhenExact?: boolean;
-  children: string;
+type OldSchoolMenuLinkProps = LinkProps & {
+    activeOnlyWhenExact?: boolean;
+    children: string;
 }
 
 const OldSchoolMenuLink: React.SFC<OldSchoolMenuLinkProps> = ({ children, to, activeOnlyWhenExact }) => (

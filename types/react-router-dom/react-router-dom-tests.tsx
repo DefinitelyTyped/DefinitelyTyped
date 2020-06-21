@@ -4,7 +4,7 @@ import * as H from 'history';
 
 const getIsActive = (extraProp: string) => (match: match | null, location: H.Location) => !!extraProp;
 
-interface Props extends NavLinkProps {
+type Props = NavLinkProps & {
     extraProp: string;
 }
 

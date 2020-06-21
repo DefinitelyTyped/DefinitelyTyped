@@ -3,7 +3,7 @@ import * as React from 'react';
 import { match } from 'react-router';
 import { HashLink, NavHashLink, NavHashLinkProps } from 'react-router-hash-link';
 
-interface Props extends NavHashLinkProps {
+type Props = NavHashLinkProps & {
   extraProp: string;
 }
 

@@ -6,14 +6,15 @@
 
 import * as React from 'react';
 import { LinkProps, NavLinkProps } from 'react-router-dom';
+import * as H from 'history';
 
-export interface HashLinkProps extends LinkProps {
+export type HashLinkProps<S = H.LocationState> = LinkProps<S> & {
   smooth?: boolean;
   scroll?: (element: HTMLElement) => void;
 }
 
 export class HashLink extends React.Component<HashLinkProps, any> {}
 
-export interface NavHashLinkProps extends NavLinkProps, HashLinkProps {}
+export type NavHashLinkProps<S = H.LocationState> = NavLinkProps<S> & HashLinkProps<S>
 
 export class NavHashLink extends React.Component<NavHashLinkProps, any> {}
