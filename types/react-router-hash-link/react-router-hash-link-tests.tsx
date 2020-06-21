@@ -17,8 +17,8 @@ export default function(props: Props) {
   );
 }
 
-<HashLink to="url" />;
+<HashLink to="url">link</HashLink>;
 
 const acceptRef = (node: HTMLAnchorElement | null) => {
 };
-<HashLink to="/url" replace={true} innerRef={acceptRef} />;
+<HashLink to="/url" replace={true} innerRef={acceptRef}>link</HashLink>;

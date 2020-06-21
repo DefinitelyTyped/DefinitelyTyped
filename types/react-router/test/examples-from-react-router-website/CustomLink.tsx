@@ -9,8 +9,8 @@ import {
 const CustomLinkExample = () => (
   <Router>
     <div>
-      <OldSchoolMenuLink activeOnlyWhenExact={true} to="/" label="Home"/>
-      <OldSchoolMenuLink to="/about" label="About"/>
+      <OldSchoolMenuLink activeOnlyWhenExact={true} to="/">Home</OldSchoolMenuLink>
+      <OldSchoolMenuLink to="/about">About</OldSchoolMenuLink>
       <hr/>
       <Route exact path="/" component={Home}/>
       <Route path="/about" component={About}/>
@@ -20,13 +20,13 @@ const CustomLinkExample = () => (
 
 interface OldSchoolMenuLinkProps extends LinkProps {
   activeOnlyWhenExact?: boolean;
-  label: string;
+  children: string;
 }
 
-const OldSchoolMenuLink: React.SFC<OldSchoolMenuLinkProps> = ({ label, to, activeOnlyWhenExact }) => (
+const OldSchoolMenuLink: React.SFC<OldSchoolMenuLinkProps> = ({ children, to, activeOnlyWhenExact }) => (
   <Route path={to as string} exact={activeOnlyWhenExact} children={(params: { match: boolean }) => (
     <div className={params.match ? 'active' : ''}>
-      {params.match ? '> ' : ''}<Link to={to}>{label}</Link>
+      {params.match ? '> ' : ''}<Link to={to}>{children}</Link>
     </div>
   )}/>
 );
