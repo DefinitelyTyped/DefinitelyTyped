@@ -371,7 +371,14 @@ const awsServerless: Aws.Serverless = {
                     http: {
                         path: 'testpath',
                         method: 'testmethod',
-                        cors: false,
+                        cors: {
+                          allowCredentials: true,
+                          cacheControl: 'cacheControl',
+                          headers: ['header1', 'header2'],
+                          origins: ['origin1', 'origin2'],
+                          maxAge: 1000,
+                        },
+                        async: false,
                         private: false,
                         authorizer: {
                             name: 'testname',
@@ -380,6 +387,25 @@ const awsServerless: Aws.Serverless = {
                             identitySource: 'testidentitySource',
                             identityValidationExpression: 'testidentityValidationExpression',
                             type: 'testtype',
+                        },
+                        request: {
+                            parameters: {
+                                querystrings: {
+                                    param1: true,
+                                    param2: true,
+                                },
+                                headers: {
+                                    header1: true,
+                                    header2: true,
+                                },
+                                paths: {
+                                    path1: true,
+                                    path2: true,
+                                },
+                            },
+                            schema: {
+                                'application/json': 'schema1'
+                            },
                         }
                     },
                 }, {
