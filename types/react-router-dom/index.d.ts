@@ -57,6 +57,7 @@ export interface LinkProps<S = H.LocationState> extends React.AnchorHTMLAttribut
     to: H.LocationDescriptor<S> | ((location: H.Location<S>) => H.LocationDescriptor<S>);
     replace?: boolean;
     innerRef?: React.Ref<HTMLAnchorElement>;
+    children: React.ReactChild | React.ReactChild[];
 }
 export function Link<S = H.LocationState>(
     // TODO: Define this as ...params: Parameters<Link<S>> when only TypeScript >= 3.1 support is needed.

@@ -11,7 +11,7 @@ interface Props extends NavLinkProps {
 export default function(props: Props) {
     const { extraProp, ...rest } = props;
     const isActive = getIsActive(extraProp);
-    return <NavLink {...rest} isActive={isActive} />;
+    return <NavLink {...rest} isActive={isActive}>link</NavLink>;
 }
 
 type OtherProps = RouteComponentProps<{
@@ -27,30 +27,32 @@ const Component: React.FC<OtherProps> = props => {
     return <div>{id}</div>;
 };
 
-<Link to="/url" />;
+<Link to="/url">link</Link>;
 
-const MyLink: React.FC<LinkProps> = props => <Link style={{ color: 'red' }} {...props} />;
-<Link to="/url" component={MyLink} />;
+const MyLink: React.FC<LinkProps> = props => <Link style={{ color: 'red' }} {...props}>link</Link>;
+<Link to="/url" component={MyLink}>link</Link>;
 
-<Link to={location => ({ ...location, pathname: '/pizza' })} />;
-<NavLink to={location => ({ ...location, pathname: '/pizza' })} />;
+<Link to={location => ({ ...location, pathname: '/pizza' })}>link</Link>;
+<NavLink to={location => ({ ...location, pathname: '/pizza' })}>link</NavLink>;
 
 const refCallback: React.Ref<HTMLAnchorElement> = node => {};
-<Link to="/url" replace={true} innerRef={refCallback} />;
-<Link to="/url" replace={true} ref={refCallback} />;
-<NavLink to="/url" replace={true} innerRef={refCallback} />;
-<NavLink to="/url" replace={true} ref={refCallback} />;
+<Link to="/url" replace={true} innerRef={refCallback}>link</Link>;
+<Link to="/url" replace={true} ref={refCallback}>link</Link>;
+<NavLink to="/url" replace={true} innerRef={refCallback}>link</NavLink>;
+<NavLink to="/url" replace={true} ref={refCallback}>link</NavLink>;
 const ref = React.createRef<HTMLAnchorElement>();
-<Link to="/url" replace={true} innerRef={ref} />;
-<Link to="/url" replace={true} ref={ref} />;
-<NavLink to="/url" replace={true} innerRef={ref} />;
-<NavLink to="/url" replace={true} ref={ref} />;
+<Link to="/url" replace={true} innerRef={ref}>link</Link>;
+<Link to="/url" replace={true} ref={ref}>link</Link>;
+<NavLink to="/url" replace={true} innerRef={ref}>link</NavLink>;
+<NavLink to="/url" replace={true} ref={ref}>link</NavLink>;
 
-<Link to="/url" aria-current="page" />;
+<Link to="/url" aria-current="page">link</Link>;
 
 React.createElement<LinkProps<{ foo: number }> & React.RefAttributes<HTMLAnchorElement>>(Link, {
     to: { pathname: 'abc', state: { foo: 5 } },
+    children: 'link',
 });
 React.createElement<NavLinkProps<{ foo: number }> & React.RefAttributes<HTMLAnchorElement>>(NavLink, {
     to: { pathname: 'abc', state: { foo: 5 } },
+    children: 'link',
 });
