@@ -52,13 +52,22 @@ export interface HashRouterProps {
 }
 export class HashRouter extends React.Component<HashRouterProps, any> {}
 
-export interface LinkProps<S = H.LocationState> extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-    component?: React.ComponentType<any>;
+export interface BaseLinkProps<S = H.LocationState> extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     to: H.LocationDescriptor<S> | ((location: H.Location<S>) => H.LocationDescriptor<S>);
     replace?: boolean;
     innerRef?: React.Ref<HTMLAnchorElement>;
-    children: React.ReactChild | React.ReactChild[];
 }
+
+export interface CustomLinkProps<S = H.LocationState> extends BaseLinkProps<S> {
+  component: React.ComponentType<any>;
+}
+
+export interface AnchorLinkProps<S = H.LocationState> extends BaseLinkProps<S> {
+  children: React.ReactChild | React.ReactChild[];
+}
+
+export type LinkProps<S = H.LocationState> = CustomLinkProps<S> | AnchorLinkProps<S>
+
 export function Link<S = H.LocationState>(
     // TODO: Define this as ...params: Parameters<Link<S>> when only TypeScript >= 3.1 support is needed.
     props: React.PropsWithoutRef<LinkProps<S>> & React.RefAttributes<HTMLAnchorElement>,
@@ -68,7 +77,7 @@ export interface Link<S = H.LocationState>
         React.PropsWithoutRef<LinkProps<S>> & React.RefAttributes<HTMLAnchorElement>
     > {}
 
-export interface NavLinkProps<S = H.LocationState> extends LinkProps<S> {
+export interface BaseNavLinkProps<S = H.LocationState> {
     activeClassName?: string;
     activeStyle?: React.CSSProperties;
     exact?: boolean;
@@ -76,6 +85,9 @@ export interface NavLinkProps<S = H.LocationState> extends LinkProps<S> {
     isActive?<Params extends { [K in keyof Params]?: string }>(match: match<Params> | null, location: H.Location<S>): boolean;
     location?: H.Location<S>;
 }
+
+export type NavLinkProps<S = H.LocationState> = BaseNavLinkProps<S> & LinkProps<S>
+
 export function NavLink<S = H.LocationState>(
     // TODO: Define this as ...params: Parameters<NavLink<S>> when only TypeScript >= 3.1 support is needed.
     props: React.PropsWithoutRef<NavLinkProps<S>> & React.RefAttributes<HTMLAnchorElement>,
