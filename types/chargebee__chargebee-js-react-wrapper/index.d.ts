@@ -40,9 +40,9 @@ export interface AuthorizeWith3dsAdditionalData {
 export interface PaymentIntent {
     readonly id: string;
     readonly status: 'inited' | 'in_progress' | 'authorized' | 'consumed' | 'expired';
-	/**
-	 * The currency code (ISO 4217 format) of the amount used in transaction.
-	 */
+    /**
+     * The currency code (ISO 4217 format) of the amount used in transaction.
+     */
     readonly currency_code?: string;
 	/**
 	 * Amount in cents, min=0
