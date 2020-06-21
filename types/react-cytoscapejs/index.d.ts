@@ -26,7 +26,8 @@ export interface CytoscapeComponentProps {
     autounselectify?: boolean;
 }
 
-export default class CytoscapeComponent extends Component<CytoscapeComponentProps> {
+export = CytoscapeComponent;
+class CytoscapeComponent extends Component<CytoscapeComponentProps> {
     static normalizeElements(
         data:
             | {
