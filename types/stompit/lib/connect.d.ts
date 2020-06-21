@@ -4,8 +4,8 @@ import { ConnectionOptions as TlsConnectionOptions } from "tls";
 import Client = require("./Client");
 import { SocketOptions } from "./Socket";
 
-declare function connect(optionsOrPath: connect.ConnectOptions | string, connectionListener?: (err: Error | null, client: Client) => void): Client;
-declare function connect(port: number, host?: string, connectionListener?: (err: Error | null, client: Client) => void): Client;
+declare function connect(optionsOrPath: connect.ConnectOptions | string, connectionListener?: connect.ConnectionListener): Client;
+declare function connect(port: number, host?: string, connectionListener?: connect.ConnectionListener): Client;
 
 export = connect;
 
@@ -21,6 +21,7 @@ declare namespace connect {
     interface BaseConnectOptions extends SocketOptions {
         connectHeaders?: ConnectHeaders;
         ssl?: boolean;
+        // This connectionListener type comes from @types/node
         connect?: (options: ConnectOptions, connectionListener?: () => void) => Socket;
     }
 
@@ -37,4 +38,6 @@ declare namespace connect {
     }
 
     type ConnectOptions = NetTcpConnectOptions | NetIpcConnectOptions | SslConnectOptions;
+
+    type ConnectionListener = (err: Error | null, client: Client) => void;
 }
