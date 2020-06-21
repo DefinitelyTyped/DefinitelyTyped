@@ -7,7 +7,7 @@
 import cytoscape = require('cytoscape');
 import { Component, CSSProperties } from 'react';
 
-export interface CytoscapeComponentProps {
+interface CytoscapeComponentProps {
     id?: string;
     cy?: (cy: cytoscape.Core) => void;
     style?: CSSProperties;
@@ -26,8 +26,7 @@ export interface CytoscapeComponentProps {
     autounselectify?: boolean;
 }
 
-export = CytoscapeComponent;
-class CytoscapeComponent extends Component<CytoscapeComponentProps> {
+declare class CytoscapeComponent extends Component<CytoscapeComponentProps> {
     static normalizeElements(
         data:
             | {
@@ -37,3 +36,5 @@ class CytoscapeComponent extends Component<CytoscapeComponentProps> {
             | cytoscape.ElementDefinition[],
     ): cytoscape.ElementDefinition[];
 }
+
+export default CytoscapeComponent;
