@@ -3,6 +3,7 @@
 // Definitions by: synaestheory <https://github.com/synaesthoery>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function decode(str: string | Buffer): string;
+/// <reference types="node"/>
 
+export function decode(str: string | Buffer): string;
 export function encode(str: string | Buffer): string;
