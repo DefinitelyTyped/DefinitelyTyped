@@ -21,6 +21,7 @@
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Dion Shi <https://github.com/dionshihk>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Michał Grzegorzewski <https://github.com/spamshaker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1316,13 +1317,14 @@ declare namespace webpack {
     }
     // tslint:disable-next-line:interface-name
     interface ICompiler {
-        run(handler: ICompiler.Handler): void;
-        watch(watchOptions: ICompiler.WatchOptions, handler: ICompiler.Handler): Watching;
+        run(handler: ICompiler.Handler | ICompiler.MultiHandler): void;
+        watch(watchOptions: ICompiler.WatchOptions, handler: ICompiler.Handler | ICompiler.MultiHandler): Watching;
     }
 
     namespace ICompiler {
+        import MultiStats = compilation.MultiStats;
         type Handler = (err: Error, stats: Stats) => void;
-
+        type MultiHandler = (err: Error, stats: MultiStats) => void;
         interface WatchOptions {
             /**
              * Add a delay before rebuilding once the first file changed. This allows webpack to aggregate any other
@@ -1417,7 +1419,7 @@ declare namespace webpack {
     }
 
     namespace MultiCompiler {
-        type Handler = ICompiler.Handler;
+        type Handler = ICompiler.MultiHandler;
         type WatchOptions = ICompiler.WatchOptions;
     }
 
