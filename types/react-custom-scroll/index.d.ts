@@ -1,4 +1,4 @@
-// Type definitions for react-custom-scroll 4.2.0
+// Type definitions for react-custom-scroll 4.2
 // Project: https://github.com/rommguy/react-custom-scroll
 // Definitions by:  Guy Romm <https://github.com/rommguy>
 //                  rvdende <https://github.com/rvdende>
@@ -14,7 +14,7 @@ export interface CustomScrollProps {
     allowOuterScroll?: boolean;
     heightRelativeToParent?: string;
     flex?: number | string;
-    onScoll?: (e?: any) => any
+    onScoll?: (e?: any) => any;
     addScrolledClass?: boolean;
     freezePosition?: boolean;
     minScrollHandleHeight?: number;
@@ -29,4 +29,3 @@ export interface CustomScrollProps {
 declare const CustomScroll: ComponentClass<CustomScrollProps>;
 
 export default CustomScroll;
-
