@@ -11,10 +11,10 @@ import * as H from 'history';
 export type HashLinkProps<S = H.LocationState> = LinkProps<S> & {
   smooth?: boolean;
   scroll?: (element: HTMLElement) => void;
-}
+};
 
 export class HashLink extends React.Component<HashLinkProps, any> {}
 
-export type NavHashLinkProps<S = H.LocationState> = NavLinkProps<S> & HashLinkProps<S>
+export type NavHashLinkProps<S = H.LocationState> = NavLinkProps<S> & HashLinkProps<S>;
 
 export class NavHashLink extends React.Component<NavHashLinkProps, any> {}

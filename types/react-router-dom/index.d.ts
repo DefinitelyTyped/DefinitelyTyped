@@ -68,7 +68,7 @@ export interface AnchorLinkProps<S = H.LocationState> extends BaseLinkProps<S> {
   children: React.ReactChild | React.ReactChild[];
 }
 
-export type LinkProps<S = H.LocationState> = CustomLinkProps<S> | AnchorLinkProps<S>
+export type LinkProps<S = H.LocationState> = CustomLinkProps<S> | AnchorLinkProps<S>;
 
 export function Link<S = H.LocationState>(
     // TODO: Define this as ...params: Parameters<Link<S>> when only TypeScript >= 3.1 support is needed.
@@ -88,7 +88,7 @@ export interface BaseNavLinkProps<S = H.LocationState> {
     location?: H.Location<S>;
 }
 
-export type NavLinkProps<S = H.LocationState> = BaseNavLinkProps<S> & LinkProps<S>
+export type NavLinkProps<S = H.LocationState> = BaseNavLinkProps<S> & LinkProps<S>;
 
 export function NavLink<S = H.LocationState>(
     // TODO: Define this as ...params: Parameters<NavLink<S>> when only TypeScript >= 3.1 support is needed.

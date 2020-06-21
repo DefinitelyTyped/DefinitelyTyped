@@ -5,15 +5,16 @@
 
 import { Route, Link, RouteProps, LinkProps, NavLinkProps } from 'react-router-dom';
 import { ReactNode, ComponentType } from 'react';
+import * as H from 'history';
 
 export type AriaCurrent = 'page' | 'step' | 'location' | 'date' | 'time' | 'true';
 
-export interface NavTabProps extends NavLinkProps {
+export type NavTabProps<S = H.LocationState> = NavLinkProps<S> & {
     style?: React.CSSProperties;
     disabled?: boolean;
     allowClickOnActive?: boolean;
     'aria-current'?: AriaCurrent;
-}
+};
 export interface RoutedTabsProps {
     startPathWith?: string;
     className?: string;

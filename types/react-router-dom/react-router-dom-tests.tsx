@@ -6,7 +6,7 @@ const getIsActive = (extraProp: string) => (match: match | null, location: H.Loc
 
 type Props = NavLinkProps & {
     extraProp: string;
-}
+};
 
 export default function(props: Props) {
     const { extraProp, ...rest } = props;

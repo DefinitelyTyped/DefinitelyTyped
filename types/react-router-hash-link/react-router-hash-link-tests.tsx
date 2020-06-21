@@ -5,7 +5,7 @@ import { HashLink, NavHashLink, NavHashLinkProps } from 'react-router-hash-link'
 
 type Props = NavHashLinkProps & {
   extraProp: string;
-}
+};
 
 const getIsActive = (extraProp: string) => (match: match<any>, location: H.Location) => !!extraProp;
 

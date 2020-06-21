@@ -21,7 +21,7 @@ const CustomLinkExample = () => (
 type OldSchoolMenuLinkProps = LinkProps & {
     activeOnlyWhenExact?: boolean;
     children: string;
-}
+};
 
 const OldSchoolMenuLink: React.SFC<OldSchoolMenuLinkProps> = ({ children, to, activeOnlyWhenExact }) => (
   <Route path={to as string} exact={activeOnlyWhenExact} children={(params: { match: boolean }) => (
