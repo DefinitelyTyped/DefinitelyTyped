@@ -4,7 +4,9 @@ import { ConnectionOptions as TlsConnectionOptions } from "tls";
 import Client = require("./Client");
 import { SocketOptions } from "./Socket";
 
-declare function connect(optionsOrPath: connect.ConnectOptions | string, connectionListener?: connect.ConnectionListener): Client;
+declare function connect(
+    optionsOrPathOrPort: connect.ConnectOptions | string | number,
+    connectionListener?: connect.ConnectionListener): Client;
 declare function connect(port: number, host?: string, connectionListener?: connect.ConnectionListener): Client;
 
 export = connect;
