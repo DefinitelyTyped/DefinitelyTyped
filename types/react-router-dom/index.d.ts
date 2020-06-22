@@ -63,7 +63,7 @@ export interface CustomLinkProps<S = H.LocationState> extends BaseLinkProps<S> {
 }
 
 interface NonEmptyArray<A> extends Array<A> {
-  0: A
+  0: A;
 }
 
 // enforces jxs-a11y/anchor-has-content
