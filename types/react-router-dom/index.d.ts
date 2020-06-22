@@ -7,7 +7,7 @@
 //                 Daniel Nixon <https://github.com/danielnixon>
 //                 Tony Ward <https://github.com/ynotdraw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 import { match } from 'react-router';
 import * as React from 'react';
@@ -62,9 +62,10 @@ export interface CustomLinkProps<S = H.LocationState> extends BaseLinkProps<S> {
   component: React.ComponentType<any>;
 }
 
-interface NonEmptyArray<A> extends Array<A> {
+export interface NonEmptyArray<A> extends Array<A> {
   0: A;
 }
+
 
 // enforces jxs-a11y/anchor-has-content
 // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/master/docs/rules/anchor-has-content.md
