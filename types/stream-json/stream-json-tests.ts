@@ -3,6 +3,7 @@ import { Transform, TransformOptions } from 'stream';
 import * as make from 'stream-json';
 
 import * as Assembler from 'stream-json/Assembler';
+import * as Disassembler from 'stream-json/Disassembler';
 import * as Emitter from 'stream-json/Emitter';
 import * as Parser from 'stream-json/Parser';
 import * as Stringer from 'stream-json/Stringer';
@@ -17,6 +18,8 @@ import * as StreamArray from 'stream-json/streamers/StreamArray';
 import * as StreamObject from 'stream-json/streamers/StreamObject';
 import * as StreamValues from 'stream-json/streamers/StreamValues';
 
+import * as Batch from 'stream-json/utils/Batch';
+import * as Verifier from 'stream-json/utils/Verifier';
 import * as emit from 'stream-json/utils/emit';
 import * as withParser from 'stream-json/utils/withParser';
 
@@ -50,7 +53,7 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
     asm.dropToLevel(0);
 
     parser.on('keyValue', (value: string) =>
-        console.log(value, asm.key, asm.stack.length, asm.done, asm.depth, asm.path)
+        console.log(value, asm.key, asm.stack.length, asm.done, asm.depth, asm.path),
     );
     asm.on('done', (asm: Assembler) => console.log(JSON.stringify(asm.current)));
 }
@@ -84,6 +87,24 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
     const p5: Parser.parser.Constructor = Parser.parser({ packValues: false, packKeys: true, streamKeys: false });
 
     used([p1, p2, p3, p4, p5]);
+}
+
+{
+    // Disassembler tests
+
+    const d1: Disassembler = new Disassembler({ packValues: false });
+    const d2: Disassembler = Disassembler.make({
+        jsonStreaming: true,
+        replacer: (acc, next) => `${acc}${next}`,
+    });
+    const d3: Disassembler = Disassembler.disassembler({
+        streamValues: false,
+        replacer: ['foo', 'bar'],
+    });
+    const d4: Disassembler.make.Constructor = Disassembler.make();
+    const d5: Disassembler.disassembler.Constructor = Disassembler.disassembler();
+
+    used([d1, d2, d3, d4, d5]);
 }
 
 {
@@ -142,17 +163,17 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     { name: 'numberChunk', value: '0' },
                     { name: 'endNumber' },
                     { name: 'numberValue', value: '0' },
-                ]
-            })
+                ],
+            }),
         )
         .pipe(Replace.make({ filter: /\b_\w*\b/i, allowEmptyReplacement: true }))
         .pipe(
             Replace.replace({
                 filter: (stack: FilterBase.Stack, token: FilterBase.Token) => stack.length > 2,
                 replacement: (stack: FilterBase.Stack, token: FilterBase.Token) => [
-                    { name: token.name === 'startArray' ? 'trueValue' : 'falseValue' }
-                ]
-            })
+                    { name: token.name === 'startArray' ? 'trueValue' : 'falseValue' },
+                ],
+            }),
         );
 
     Replace.withParser({ filter: '_meta' });
@@ -221,8 +242,8 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
-        })
+            },
+        }),
     );
     parser.pipe(
         StreamArray.make({
@@ -232,8 +253,8 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
-        })
+            },
+        }),
     );
     parser.pipe(StreamArray.streamArray());
 
@@ -261,8 +282,8 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
-        })
+            },
+        }),
     );
     parser.pipe(
         StreamObject.make({
@@ -272,8 +293,8 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
-        })
+            },
+        }),
     );
     parser.pipe(StreamObject.streamObject());
 
@@ -301,8 +322,8 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
-        })
+            },
+        }),
     );
     parser.pipe(
         StreamValues.make({
@@ -312,12 +333,36 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
-        })
+            },
+        }),
     );
     parser.pipe(StreamValues.streamValues());
 
     StreamValues.withParser();
+}
+
+{
+    // Batch tests
+
+    const b1: Batch = new Batch();
+    const b2: Batch = Batch.make({ batchSize: 1000 });
+    const b3: Batch = Batch.batch({ batchSize: 100 });
+    const b4: Batch.make.Constructor = Batch.make();
+    const b5: Batch.batch.Constructor = Batch.batch();
+
+    used([b1, b2, b3, b4, b5]);
+}
+
+{
+    // Verifier tests
+
+    const v1: Verifier = new Verifier();
+    const v2: Verifier = Verifier.make({ jsonStreaming: true });
+    const v3: Verifier = Verifier.parser({ jsonStreaming: false });
+    const v4: Verifier.make.Constructor = Verifier.make();
+    const v5: Verifier.parser.Constructor = Verifier.parser();
+
+    used([v1, v2, v3, v4, v5]);
 }
 
 {
