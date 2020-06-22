@@ -342,7 +342,10 @@ const awsServerless: Aws.Serverless = {
             onError: 'testonError',
             awsKmsKeyArn: 'testawsKmsKeyArn',
             environment: {
-                testenvironment: 'testenvironmentvalue'
+                testenvironment: 'testenvironmentvalue',
+                testRefEnvironment: {
+                    Ref: 'MyRessource',
+                }
             },
             tags: {
                 testtagkey: 'testtagvalue'
