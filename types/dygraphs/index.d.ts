@@ -252,7 +252,7 @@ declare namespace dygraphs {
          * be calculated automatically (e.g. [null, 30] to automatically calculate just the lower
          * bound)
          */
-        valueRange?: number[];
+        valueRange?: [number | null, number | null];
 
         /**
          * Whether to display gridlines in the chart. This may be set on a per-axis basis to define
