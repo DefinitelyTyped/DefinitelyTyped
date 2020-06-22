@@ -16,3 +16,5 @@ liveServer.start({
         },
     ],
 });
+
+liveServer.shutdown();
