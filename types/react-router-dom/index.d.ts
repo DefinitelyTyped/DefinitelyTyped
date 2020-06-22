@@ -62,13 +62,15 @@ export interface CustomLinkProps<S = H.LocationState> extends BaseLinkProps<S> {
   component: React.ComponentType<any>;
 }
 
+type NonEmptyArray<T> = [T, ...T[]];
+
 // enforces jxs-a11y/anchor-has-content
 // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/master/docs/rules/anchor-has-content.md
 export interface AnchorLinkProps<S = H.LocationState> extends BaseLinkProps<S> {
-  children: React.ReactChild | [React.ReactChild, ...React.ReactChild[]];
+  children: React.ReactChild | NonEmptyArray<React.ReactChild>;
 }
 
-export type LinkProps<S = H.LocationState> = {} & CustomLinkProps<S> | AnchorLinkProps<S>;
+export type LinkProps<S = H.LocationState> = CustomLinkProps<S> | AnchorLinkProps<S>;
 
 export function Link<S = H.LocationState>(
     // TODO: Define this as ...params: Parameters<Link<S>> when only TypeScript >= 3.1 support is needed.
