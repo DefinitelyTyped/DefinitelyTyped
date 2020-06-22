@@ -10665,7 +10665,7 @@ declare namespace Stripe {
                  * This represents the percentage of the subscription invoice subtotal that will be transferred to the destination account.
                  * By default, the entire amount is transferred to the destination.
                  */
-                amount_percent: number;
+                amount_percent?: number;
             };
         }
 
