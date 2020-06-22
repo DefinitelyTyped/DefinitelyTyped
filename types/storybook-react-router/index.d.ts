@@ -2,7 +2,7 @@
 // Project: https://github.com/gvaldambrini/storybook-router
 // Definitions by: Alex Lomia <https://github.com/alexlomm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.2
 
 import { DecoratorFunction, StoryApi } from '@storybook/addons';
 import { StoryFnReactReturnType } from '@storybook/react/dist/client/preview/types';
