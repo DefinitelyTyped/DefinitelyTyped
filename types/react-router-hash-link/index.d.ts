@@ -2,7 +2,7 @@
 // Project: https://github.com/rafrex/react-router-hash-link
 // Definitions by: Sam Baeck <https://github.com/zoompie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 import * as React from 'react';
 import { LinkProps, NavLinkProps } from 'react-router-dom';
