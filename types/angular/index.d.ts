@@ -188,6 +188,17 @@ declare namespace angular {
          * @param extraModules An optional array of modules that should be added to the original list of modules that the app was about to be bootstrapped with.
          */
         resumeBootstrap?(extraModules?: string[]): ng.auto.IInjectorService;
+
+        /**
+         * Restores the pre-1.8 behavior of jqLite that turns XHTML-like strings like
+         * `<div /><span />` to `<div></div><span></span>` instead of `<div><span></span></div>`.
+         * The new behavior is a security fix so if you use this method, please try to adjust
+         * to the change & remove the call as soon as possible.
+         * Note that this only patches jqLite. If you use jQuery 3.5.0 or newer, please read
+         * [jQuery 3.5 upgrade guide](https://jquery.com/upgrade-guide/3.5/) for more details
+         * about the workarounds.
+         */
+        UNSAFE_restoreLegacyJqLiteXHTMLReplacement(): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
