@@ -147,8 +147,8 @@ declare namespace IORedis {
         (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): void;
         (arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
         (arg1: T, arg2: T, cb: Callback<U>): void;
-        (data: T[] | { [key: string]: T }, cb: Callback<U>): void;
-        (data: T[] | { [key: string]: T }): Promise<U>;
+        (data: T[] | { [key: string]: T } | Map<string, T>, cb: Callback<U>): void;
+        (data: T[] | { [key: string]: T } | Map<string, T>): Promise<U>;
         (...args: T[]): Promise<U>;
     }
 
@@ -156,8 +156,8 @@ declare namespace IORedis {
         (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T, arg2: T, cb: Callback<U>): void;
-        (key: KeyType, data: T[] | { [key: string]: T }, cb: Callback<U>): void;
-        (key: KeyType, data: T[] | { [key: string]: T }): Promise<U>;
+        (key: KeyType, data: T[] | { [key: string]: T } | Map<string, ValueType>, cb: Callback<U>): void;
+        (key: KeyType, data: T[] | { [key: string]: T } | Map<string, ValueType>): Promise<U>;
         (key: KeyType, ...args: T[]): Promise<U>;
     }
 
@@ -918,6 +918,7 @@ declare namespace IORedis {
 
     interface Redis extends EventEmitter, Commander, Commands {
         Promise: typeof Promise;
+        options: RedisOptions;
         status: string;
         connect(callback?: () => void): Promise<void>;
         disconnect(): void;
@@ -1395,7 +1396,7 @@ declare namespace IORedis {
     type Ok = 'OK';
 
     interface Cluster extends EventEmitter, Commander, Commands {
-        connect(callback: () => void): Promise<void>;
+        connect(): Promise<void>;
         disconnect(): void;
         nodes(role?: NodeRole): Redis[];
     }
@@ -1590,7 +1591,7 @@ declare namespace IORedis {
 
     type DNSLookupFunction = (
         hostname: string,
-        callback: (err: NodeJS.ErrnoException, address: string, family: number) => void,
+        callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
     ) => void;
     interface NatMap {
         [key: string]: { host: string; port: number };

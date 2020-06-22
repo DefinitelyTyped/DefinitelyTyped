@@ -1,10 +1,9 @@
 {
   "private": true,
   "name": "lodash-scripts",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
-    "generate": "ts-node generate-fp",
-    "fp": "ts-node generate-fp"
+    "generate": "ts-node generate-modules && ts-node generate-fp"
   },
   "devDependencies": {
     "lodash": "^4.17.4",

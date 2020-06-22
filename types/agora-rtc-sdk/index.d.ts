@@ -1,9 +1,8 @@
-// Type definitions for agora-rtc-sdk 3.0
+// Type definitions for agora-rtc-sdk 3.1
 // Project: https://github.com/AgoraIO/web-archive#readme
-// Definitions by: Menthays <https://github.com/menthays>
-//                 Derek Lu <https://github.com/scaret>
+// Definitions by: Yu SiCheng <https://github.com/ysclyy>
 //                 Wangjie <https://github.com/wangjie-agora>
-//                 Yu SiCheng <https://github.com/ysclyy>
+//                 Zhang Xianyang <https://github.com/disoul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -57,7 +56,7 @@ declare namespace AgoraRTC {
      *
      * Use this method before calling {@link createClient} to check the compatibility between the system and the web browser.
      *
-     * **Note:**
+     * **Note**
      *
      * Agora has yet to conduct comprehensive tests on Chromium kernel browsers, such as QQ and 360.
      * Agora will gradually achieve compatibility on most mainstream browsers in subsequent versions of the Web SDK.
@@ -70,7 +69,7 @@ declare namespace AgoraRTC {
      *
      * This method returns the codecs supported by both the Agora Web SDK and the web browser. The Agora Web SDK supports VP8 and H.264 for video, and OPUS for audio.
      *
-     * **Note:**
+     * **Note**
      *
      * - This method supports all web browsers. For web browsers that do not support WebRTC or are not recognized, the returned codec list is empty.
      * - The returned codec list is based on the [SDP](https://tools.ietf.org/html/rfc4566) used by the web browser and for reference only.
@@ -112,13 +111,13 @@ declare namespace AgoraRTC {
         stream: MediaStream
     }): Promise<{ video: Array<"VP8" | "H264">, audio: Array<"OPUS"> }>;
     /**
-     * Enumerates the Media Devices
+     * Enumerates the media devices
      *
      * This method enumerates the available media input and output devices, such as microphones, cameras, headsets, and so on.
      *
      * If this method succeeds, the SDK returns a list of media devices in an array of {@link MediaDeviceInfo} objects.
      *
-     * **Note:**
+     * **Note**
      *
      * On Safari 12.1 or later, call this method after calling {@link createStream} successfully.
      * @example
@@ -200,7 +199,11 @@ declare namespace AgoraRTC {
         /**
          * Device ID
          *
-         * Unique ID of the device.
+         * The unique ID of the device.
+         *
+         * **Note**
+         *
+         * On Chrome 81 or later, the device ID is only available after the user has granted permission to use the media device.
          */
         readonly deviceId: string;
         /**
@@ -208,7 +211,7 @@ declare namespace AgoraRTC {
          *
          * Returns a `DOMString` that is a label describing this device (for example "External USB Webcam").
          *
-         * **Note:**
+         * **Note**
          *
          * For security reasons, the label field is always blank unless an active media stream exists or the user has granted persistent permission for media device access.
          *
@@ -241,9 +244,9 @@ declare namespace AgoraRTC {
          * - "pause": The stream playback might be paused by the user. See [pause event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/pause_event).
          * - "suspend": The failure might be caused by the browser policy. See [suspend event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/suspend_event).
          * - "canplay": Some browsers automatically stop the playback when the playback window is not displayed on the screen. See [canplay event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/canplay_event).
-         * - "timer": The playback failure is caused by an unknown reason and captured by the internal timer.
+         * - "error": The playback failure is usually caused by autoplay restriction.
          *
-         * Due to the differences in browsers, `reason` might have different values for the same event.
+         * Due to the differences in browsers, `reason` may have different values for the same event.
          */
         readonly reason: string;
     }
@@ -253,7 +256,7 @@ declare namespace AgoraRTC {
      * This interface sets the video encoder configuration in {@link setVideoEncoderConfiguration}.
      *
      * Depending on the OS, browser, and camera, the actual resolution, frame rate, and bitrate might be different from the set values.
-     */
+    */
     interface VideoEncoderConfiguration {
         /**
          * Resolution of the video.
@@ -276,7 +279,7 @@ declare namespace AgoraRTC {
          *
          * The value range is [1, 10000]. We recommend setting the frame rate between 5 fps and 30 fps.
          *
-         * **Note:**
+         * **Note**
          * - This parameter sets the local capturing video frame rate. The actual encoding frame rate depends on the device, system, and browser.
          * - When the network conditions change, the browser adjusts the encoding frame rate automatically.
          */
@@ -305,7 +308,7 @@ declare namespace AgoraRTC {
      * Audio statistics of the remote stream.
      *
      * If {@link getRemoteAudioStats} is called successfully, the {@link RemoteAudioStatsMap} interface provides the UID and {@link RemoteAudioStats} of each remote user.
-     */
+    */
     interface RemoteAudioStats {
         /**
          * End-to-end delay in ms.
@@ -478,7 +481,7 @@ declare namespace AgoraRTC {
          * - "unknown": Unknown network type.
          * - "UNSUPPORTED": The browser does not support getting the network type.
          *
-         * **Note:**
+         * **Note**
          *
          * Chrome 61 or later is required for this function, and the compatibility is not guaranteed.
          * See [Network Information API](https://developer.mozilla.org/en-US/docs/Web/API/Network_Information_API) for details.
@@ -548,7 +551,7 @@ declare namespace AgoraRTC {
     }
 
     /**
-     * Adds a watermark image to the CDN (Content Delivery Network) live stream in {@link setLiveTranscoding}.
+     * Configurations for the watermark image to put on top of the video in {@link setLiveTranscoding}.
      *
      * **Since**
      * <br>&emsp;&emsp;&emsp;*3.0.0*
@@ -557,37 +560,38 @@ declare namespace AgoraRTC {
         /**
          * The HTTP/HTTPS URL address of the image on the broadcasting video.
          *
-         * ASCII characters only. The maximum length of this parameter is 1024 bytes. Only supports online PNG files.
+         * ASCII characters only. The maximum length of this parameter is 1024 bytes. Supports online PNG only.
          */
         url: string;
         /**
-         * The position of the image on the upper left of the broadcasting video on the horizontal axis.
+         * The horizontal distance (pixel) between the watermark image's top-left corner and the video's top-left corner.
          *
          * Integer only. The value range is [0,10000]. The default value is 0.
          */
         x?: number;
         /**
-         * The position of the image on the upper left of the broadcasting video on the vertical axis.
+         * The vertical distance (pixel) between the watermark image's top-left corner and the video's top-left corner.
          *
          * Integer only. The value range is [0,10000]. The default value is 0.
          */
         y?: number;
         /**
-         * The width of the watermark image.
+         * The width (pixel) of the watermark image.
          *
          * Integer only. The value range is [0,10000]. The default value is 160.
          */
         width?: number;
         /**
-         * The height of the watermark image.
+         * The height (pixel) of the watermark image.
          *
          * Integer only. The value range is [0,10000]. The default value is 160.
          */
         height?: number;
     }
+
     /** Manages the user layout configuration in {@link setLiveTranscoding}. */
     interface TranscodingUser {
-        /** User ID of the CDN live host. */
+        /** The user ID of the CDN live host. */
         uid?: number | string;
         /**
          * The position of the upper left end of the video on the horizontal axis.
@@ -602,38 +606,38 @@ declare namespace AgoraRTC {
          */
         y?: number;
         /**
-         * Width of the video.
-         *
-         * Integer only. The value range is [0,10000], and the default value is 360.
-         */
-        width?: number;
-        /**
-         * Height of the video.
+         * The width of the video.
          *
          * Integer only. The value range is [0,10000], and the default value is 640.
          */
+        width?: number;
+        /**
+         * The height of the video.
+         *
+         * Integer only. The value range is [0,10000], and the default value is 360.
+         */
         height?: number;
         /**
-         * Layer position of the video frame.
+         * The layer index of the video frame.
          *
          * Integer only. The value range is [0,100].
          *
          * From v2.3.0, Agora SDK supports setting zOrder as 0.
          *
-         * - 0: (Default) Lowest.
-         * - 100: Highest.
+         * - 0: (Default) Bottom layer.
+         * - 100: Top layer.
          *
          */
         zOrder?: number;
         /**
-         * Transparency of the video frame.
+         * The transparency level of the video frame.
          *
          * The value ranges between 0.0 and 1.0:
          *
          * - 0.0: Completely transparent.
-         * - 1.0: (Default) Opaque.
+         * - 1.0: Opaque.
          */
-        alpha?: number;
+        alpha: number;
     }
 
     /**
@@ -705,7 +709,7 @@ declare namespace AgoraRTC {
          *
          * The log-upload function is disabled by default, if you need to enable this function, please call this method before all the other methods.
          *
-         * **Note:**
+         * **Note**
          *
          * If the user fails to join the channel, the log information is not available on Agora’s server.
          * @example `AgoraRTC.Logger.enableLogUpload();`
@@ -725,19 +729,16 @@ declare namespace AgoraRTC {
     /**
      * A class defining the properties of the `config` parameter in the {@link createClient} method.
      *
-     * **Note:**
+     * **Note**
      *
-     * - Ensure that you do not leave {@link mode} and {@link codec} as empty.
-     * - Ensure that you set these properties before calling {@link Client.join}.
-     *
-     * [[include:ClientConfig-example.md]]
+     * Ensure that you set {@link mode} and {@link codec}.
      * @example
      * **Sample code**
      * ``` javascript
      * var config = {
      *      mode: "live",
      *      codec: "vp8",
-     *      proxyServer: "YOUR NGINX PROXY SERVER IP",
+     *      proxyServer: "YOUR HTTP PROXY SERVER IP",
      *      turnServer: {
      *          turnServerURL: "YOUR TURNSERVER URL",
      *          username: "YOUR USERNAME",
@@ -760,7 +761,7 @@ declare namespace AgoraRTC {
          * The host sends and receives voice/video, while the audience can only receive voice/video.
          * - `"rtc"`: Sets the channel profile as communication. This is used in one-on-one calls or group calls, where all users in the channel can talk freely.
          *
-         * **Note:**
+         * **Note**
          *
          * If you need to communicate with Agora Native SDK, Agora recommends the following settings:
          * - For Native SDK v2.3.2 and later:
@@ -768,7 +769,7 @@ declare namespace AgoraRTC {
          *  * Set {@link mode} as `"live"` if the Native SDK uses the live broadcast channel profile.
          * - For Native SDK before v2.3.2, set mode as "live" regardless of which channel profile the Native SDK uses.
          *
-         * **Note:**
+         * **Note**
          *
          * The `"rtc"` mode supports the Agora Recording SDK 2.3.3 or later.
          */
@@ -778,24 +779,31 @@ declare namespace AgoraRTC {
          * - `"vp8"`: Sets the browser to use VP8 for encoding.
          * - `"h264"`: Sets the browser to use H.264 for encoding.
          *
-         * **Note:**
+         * **Note**
          *
          * - Safari 12.1 or earlier does not support the VP8 codec.
          * - Codec support on mobile devices is a bit complex, see [Use Agora Web SDK on Mobile Devices](https://docs.agora.io/en/faq/web_on_mobile) for details.
          */
         codec: "vp8" | "h264";
         /**
-         * Your Nginx server domain name.
+         * Your HTTP proxy server domain name.
+         *
+         * You can also use cloud proxy by {@link startProxyServer}. See [Use Cloud Proxy](https://docs.agora.io/en/Agora%20Platform/cloud_proxy_web?platform=Web) for details.
          *
          * ASCII characters only, and the string length must be greater than 0 and less than 256 bytes.
          *
-         * Enterprise users with a company firewall can use this property to pass signaling messages to the Agora SD-RTN through the Nginx Server.
+         * **Note**
+         * - We support https/SSL proxy server via port 443.
+         * - Ensure that the proxy server supports wss (WebSocket Secure).
+         * - For the required firewall ports, see [Firewall Requirements](https://docs.agora.io/en/Agora%20Platform/firewall?platform=All%20Platforms#web-sdk-1).
          */
         proxyServer?: string;
         /**
-         * TURN server settings.
+         * TURN server configurations.
          *
-         * Enterprise users with a company firewall can use this property to pass audio and video data to the Agora SD-RTN through the TURN Server.
+         * An array of the `turnServer` objects. You can pass configurations of multiple TURN servers to this property.
+         *
+         * You can also use cloud proxy by {@link startProxyServer}. See [Use Cloud Proxy](https://docs.agora.io/en/Agora%20Platform/cloud_proxy_web?platform=Web) for details.
          */
         turnServer?: {
             /** Your TURN Server URL address. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes. */
@@ -810,15 +818,15 @@ declare namespace AgoraRTC {
             tcpport?: string;
             /**
              * Sets whether to force data transfer by TURN Server:
-             * - true: Force data transfer.
-             * - false: (default) Not to force data transfer.
+             * - `true`: Force data transfer.
+             * - `false`: (default) Not to force data transfer.
              */
             forceturn?: boolean;
-        };
+        }[];
     }
 
     /**
-     * A class for managing user-specific CDN live audio/video transcoding settings in {@link setLiveTranscoding}.
+     * The configurations for CDN live stream transcoding. To be used in {@link setLiveTranscoding}.
      *
      * @example **Sample code**
      * ``` javascript
@@ -835,40 +843,41 @@ declare namespace AgoraRTC {
      *   userCount: 0,
      *   backgroundColor: 0x000000,
      *   transcodingUsers: [],
+     *   images: [],
      * };
      * ```
      */
     interface LiveTranscoding {
         /**
-         * Width of the video.
+         * The width of the video in pixels.
          *
-         * Positive integer, the default value is 640. The value range is [64, 10000].
+         * A positive integer, the default value is 640.
          *
-         * - When pushing video streams to the CDN, set the value of width × height to at least 64 × 64, or the SDK adjusts it to 64 x 64.
-         * - When pushing audio streams to the CDN, set the value of width × height to 0 × 0.
+         * - When pushing video streams to the CDN, ensure that `width` is at least 64; otherwise, the Agora server adjusts the value to 64.
+         * - When pushing audio streams to the CDN, set `width` and `height` as 0.
          */
         width?: number;
         /**
-         * Height of the video.
+         * The height of the video in pixels.
          *
-         * Positive integer, the default value is 360. The value range is [64, 10000].
+         * A positive integer. The default value is 360.
          *
-         * - When pushing video streams to the CDN, set the value of width × height to at least 64 × 64, or the SDK adjusts it to 64 x 64.
-         * - When pushing audio streams to the CDN, set the value of width × height to 0 × 0.
+         * - When pushing video streams to the CDN, ensure that `height` is at least 64; otherwise, the Agora server adjusts the value to 64.
+         * - When pushing audio streams to the CDN, set `width` and `height` as 0.
          */
         height?: number;
         /**
-         * Bitrate of the CDN live output video stream.
+         * The bitrate (Kbps) of the output video stream.
          *
-         * Positive integer. The default value is 400 Kbps. The value range is [1,1000000].
+         * A positive integer. The default value is 400 Kbps. The value range is [1,1000000].
          *
          * Set the bitrate according to the {@link AgoraRTC.VideoEncoderConfiguration.bitrate Video Profile Table}. If you set a bitrate beyond the proper range, the SDK automatically adapts it to a value within the range.
          */
         videoBitrate?: number;
         /**
-         * Frame rate of the output data stream set for CDN live.
+         * The video frame rate (fps) of the CDN live stream.
          *
-         * Positive integer. The default value is 15 fps. The value range is [1, 30]. Agora adjusts all values over 30 to 30.
+         * A positive integer. The default value is 15 fps. The value range is [1, 30]. The Agora server adjusts any value over 30 to 30.
          */
         videoFramerate?: number;
         /**
@@ -880,7 +889,7 @@ declare namespace AgoraRTC {
          */
         lowLatency?: boolean;
         /**
-         * Audio sampling rate:
+         * The audio sampling rate:
          *
          * - 32000: 32 kHz
          * - 44100: (Default) 44.1 kHz
@@ -888,41 +897,41 @@ declare namespace AgoraRTC {
          */
         audioSampleRate?: 32000 | 44100 | 48000;
         /**
-         * Bitrate of the CDN live audio output stream in Kbps.
+         * The audio bitrate (Kbps) of the CDN live stream.
          *
-         * Positive integer. The default value is 48, and the highest value is 128.
+         * A positive integer. The default value is 48, and the highest value is 128.
          */
         audioBitrate?: number;
         /**
-         * Agora’s self-defined audio channel type.
+         * The number of audio channels for the CDN live stream.
          *
-         * Agora recommends choosing 1 or 2. Special players are required if you choose 3, 4 or 5:
+         * Agora recommends choosing 1 (mono), or 2 (stereo) audio channels. Special players are required if you choose 3, 4, or 5.
          *
          * - 1: (Default) Mono
-         * - 2: Dual sound channels
-         * - 3: Three sound channels
-         * - 4: Four sound channels
-         * - 5: Five sound channels
+         * - 2: Stereo
+         * - 3: Three audio channels
+         * - 4: Four audio channels
+         * - 5: Five audio channels
          */
         audioChannels?: 1 | 2 | 3 | 4 | 5;
-        /** Video GOP in frames. The default value is 30 frames. The value range is [1,10000]. */
+        /** The video GOP in frames. The default value is 30 frames. The value range is [1,10000]. */
         videoGop?: number;
         /**
-         * Video codec profile type.
+         * The video codec profile type.
          *
-         * Set it as 66, 77, or 100 (default). If you set this parameter to other values, Agora adjusts it to the default value 100.
+         * Set it as 66, 77, or 100 (default). If you set this parameter to any other value, Agora adjusts it to the default value 100.
          *
-         * - 66: Baseline video codec profile. Generally used in video calls on mobile phones.
-         * - 77: Main video codec profile.Generally used in mainstream electronics, such as MP4 players, portable video players, PSP, and iPads.
-         * - 100: (Default) High video codec profile.Generally used in high - resolution broadcasts or television.
+         * - 66: Baseline video codec profile. Generally used for video calls on mobile phones.
+         * - 77: Main video codec profile. Generally used for mainstream electronics, such as MP4 players, portable video players, PSP, and iPads.
+         * - 100: (Default) High video codec profile. Generally used for high-resolution broadcasts or television.
          */
         videoCodecProfile?: 66 | 77 | 100;
-        /** Number of users; default value is 0. The maximum is 17. */
+        /** The number of users; default value is 0. The maximum is 17. */
         userCount?: number;
         /**
-         * The background color in RGB hex value.
+         * The background color in RGB hex.
          *
-         * Value only, do not include a #. The default value is 0x000000. The value range is [0x000000, 0xffffff].
+         * Value only. Do not include a preceding #. The default value is 0x000000. The value range is [0x000000, 0xffffff].
          */
         backgroundColor?: number;
         /**
@@ -932,7 +941,7 @@ declare namespace AgoraRTC {
          */
         transcodingUsers: TranscodingUser[];
         /**
-         * Adds a watermark image to the CDN live stream.
+         * Watermark images for the CDN live stream.
          *
          * **Since**
          * <br>&emsp;&emsp;&emsp;*3.0.0*
@@ -988,7 +997,7 @@ declare namespace AgoraRTC {
          *
          * Positive integer. The default value is 400 Kbps. The value range is [1, 10000].
          *
-         * **Note:**
+         * **Note**
          *
          * The setting of the video bitrate is closely linked to the resolution. If the video bitrate you set is beyond the reasonable range, the SDK will set it within the reasonable range instead.
          */
@@ -1000,7 +1009,7 @@ declare namespace AgoraRTC {
          * - 44100: (Default) 44.1 kHz
          * - 48000: 48 kHz
          *
-         * **Note:**
+         * **Note**
          *
          * Agora recommends that you stay with the default value and not reset it at this point of time.
          */
@@ -1010,7 +1019,7 @@ declare namespace AgoraRTC {
          *
          * Positive integer. The default value is 48. The value range is [1, 10000].
          *
-         * **Note:**
+         * **Note**
          *
          * Agora recommends that you stay with the default value and not reset it at this point of time.
          */
@@ -1020,7 +1029,7 @@ declare namespace AgoraRTC {
          *
          * Positive integer. The default value is 1. The value range is [1, 2].
          *
-         * **Note:**
+         * **Note**
          *
          * Agora recommends that you stay with the default value and not reset it at this point of time.
          */
@@ -1061,7 +1070,7 @@ declare namespace AgoraRTC {
          *
          * To share the local audio playback when sharing the screen, ensure that you set {@link screen} as `true`. We recommend also setting {@link audio} as `false`. If both `screenAudio` and `audio` are set as `true`, the stream only contains the local audio playback.
          *
-         * **Note:**
+         * **Note**
          *
          * - This function supports only Chrome 73 or later on Windows.
          * - For the audio sharing to take effect, the user must check **Share audio** in the pop-up window when sharing the screen.
@@ -1074,7 +1083,7 @@ declare namespace AgoraRTC {
         /**
          * Specifies the video source of the stream.
          *
-         * **Note:**
+         * **Note**
          *
          * If you use a video source created by the Canvas API, re-draw on the canvas every one second when the drawing is still to keep the video publishing.
          */
@@ -1096,12 +1105,12 @@ declare namespace AgoraRTC {
          */
         microphoneId?: string;
         /**
-         * Sets using the front or rear camera
-         *
-         * You can set this parameter to use the front or rear camera on mobile devices:
-         * - `"user"`: The front camera.
-         * - `"environment"`: The rear camera.
-         */
+        * Sets using the front or rear camera
+        *
+        * You can set this parameter to use the front or rear camera on mobile devices:
+        * - `"user"`: The front camera.
+        * - `"environment"`: The rear camera.
+        */
         facingMode?: string;
         /**
          * Marks whether to mirror the local video image of the publisher in the local preview.
@@ -1121,7 +1130,7 @@ declare namespace AgoraRTC {
          *
          * Set this property if you use the Chrome screen-sharing extension. See [Chrome Extension for Screen Sharing](../../../chrome_screensharing_plugin?platform=Web) for details.
          *
-         * **Note:**
+         * **Note**
          *
          * Chrome 72 and later versions support screen sharing without the extension. You can leave `extensionId` as empty.
          *
@@ -1136,7 +1145,7 @@ declare namespace AgoraRTC {
          * - `"application"`: share all windows of an App
          * - `"window"`: share a specified window of an App
          *
-         * **Note:**
+         * **Note**
          *
          * Firefox on Windows does not support the application mode.
          *
@@ -1150,7 +1159,7 @@ declare namespace AgoraRTC {
              *
              * The default value is `true` (enable). If you wish not to enable the audio gain control, set `AGC` as `false`.
              *
-             * **Note:**
+             * **Note**
              *
              * Safari does not support this setting.
              */
@@ -1160,7 +1169,7 @@ declare namespace AgoraRTC {
              *
              * The default value is `true` (enable). If you wish not to enable the  acoustic echo cancellation, set `AEC` as `false`.
              *
-             * **Note:**
+             * **Note**
              *
              * Safari does not support this setting.
              */
@@ -1170,7 +1179,7 @@ declare namespace AgoraRTC {
              *
              * The default value is `true` (enable). If you wish not to enable automatic noise suppression, set `ANS` as `false`.
              *
-             * **Note:**
+             * **Note**
              *
              * - Safari does not support this setting.
              * - Noise suppression is always enabled on Firefox. Setting `ANS` as `false` does not take effect on Firefox.
@@ -1192,7 +1201,7 @@ declare namespace AgoraRTC {
         /**
          * Number of lost packets of the sent audio.
          *
-         * **Note:**
+         * **Note**
          *
          * Safari and Firefox do not support this property.
          */
@@ -1290,9 +1299,9 @@ declare namespace AgoraRTC {
     }
 
     /**
-     * The Stream object created by the {@link createStream} method.
+     * The Stream interface provides methods that define the behaviors of a Stream object, such as the playback control and video encoder configurations.
      *
-     * A stream represents a published local or remote media stream object in a call session.
+     * The Stream object is created by the {@link createStream} method. A stream represents a published local or subscribed remote media stream object in a call session.
      *
      * All Stream methods can be called for both local and remote streams if not specified.
      */
@@ -1306,19 +1315,19 @@ declare namespace AgoraRTC {
         /**
          * Occurs when the video track no longer provides data to the stream.
          *
-         * Possible reasons include device removal and deauthorization. See [MediaStreamTrack.onended](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/onended).
+         * Possible reasons include device removal and deauthorization. See [Media​Stream​Track​.onended](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/onended).
          */
         on(event: "videoTrackEnded", callback: (evt: any) => void): void;
         /**
          * Occurs when the audio track no longer provides data to the stream.
          *
-         * Possible reasons include device removal and deauthorization. See [MediaStreamTrack.onended](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/onended).
+         * Possible reasons include device removal and deauthorization. See [Media​Stream​Track​.onended](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/onended).
          */
         on(event: "audioTrackEnded", callback: (evt: any) => void): void;
         /**
          * Occurs when the audio mixing stream playback starts/resumes.
          *
-         * **Note:**
+         * **Note**
          * This callback is triggered when the audio mixing stream is loaded and starts playing, or when the paused audio mixing stream resumes playing.
          */
         on(event: "audioMixingPlayed", callback: (evt: any) => void): void;
@@ -1341,7 +1350,7 @@ declare namespace AgoraRTC {
          *     - "aborted": The player is removed before the stream is played successfully.
          *     - "paused": The player is stopped.
          * - reason: The reason why the playback status changes. Usually, this value is the event that triggers the status change. Possible values include the following:
-         *     - "playing": The playback starts. See [HTMLMediaElement: playing event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/playing_event).
+         *     - "playing": The playback starts. See [HTMLMedia​Element: playing event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/playing_event).
          *     - "stalled": The failure might be caused by the browser policy. See [stalled event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/stalled_event).
          *     - "pause": The stream playback might be paused by the user. See [pause event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/pause_event).
          *     - "suspend": The failure might be caused by the browser policy. See [suspend event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/suspend_event).
@@ -1410,7 +1419,7 @@ declare namespace AgoraRTC {
          *
          * This method plays the video or audio stream.
          *
-         * **Note:**
+         * **Note**
          *
          * Due to browser policy changes, this method must be triggered by the user's gesture on the Chrome 70+ and Safari browsers.
          * See [Autoplay Policy Changes](https://developers.google.com/web/updates/2017/09/autoplay-policy-changes) for details.
@@ -1492,7 +1501,7 @@ declare namespace AgoraRTC {
          *
          * If you call this method to enable the audio track for local streams, the `Client.on("unmute-audio")` callback is triggered on the remote client.
          *
-         * **Note:** For local streams, it works only when the audio flag is `true` in the stream.
+         * **Note** For local streams, it works only when the audio flag is `true` in the stream.
          *
          * By default the audio track is enabled. If you call {@link muteAudio}, call this method to enable audio.
          * @returns
@@ -1508,7 +1517,7 @@ declare namespace AgoraRTC {
          * - For local streams, this method call stops sending audio and triggers the `Client.on("mute-audio")` callback on the remote client.
          * - For remote streams, the SDK still receives audio but stops playing it after you call this method.
          *
-         * **Note:** For local streams, it works only when the audio flag is `true` in the stream.
+         * **Note** For local streams, it works only when the audio flag is `true` in the stream.
          * @returns
          * - `true`: Success.
          * - `false`: Failure. Possible reasons include no audio, stream not initialized, and audio track already disabled.
@@ -1521,7 +1530,7 @@ declare namespace AgoraRTC {
          *
          * If you call this method to enable the audio track for local streams, the `Client.on("unmute-video")` callback is triggered on the remote client.
          *
-         * **Note:** For local streams, it works only when the video flag is `true` in the stream.
+         * **Note** For local streams, it works only when the video flag is `true` in the stream.
          *
          * By default the video track is enabled. If you call {@link muteVideo}, call this method to enable video.
          * @returns
@@ -1537,7 +1546,7 @@ declare namespace AgoraRTC {
          * - For local streams, this method call stops sending video and triggers the `Client.on("mute-video")` callback on the remote client.
          * - For remote streams, the SDK still receives video but stops playing it after you call this method.
          *
-         * **Note:** For local streams, it works only when the video flag is `true` in the stream.
+         * **Note** For local streams, it works only when the video flag is `true` in the stream.
          * @returns
          * - `true`: Success.
          * - `false`: Failure. Possible reasons include no video, stream not initialized, and video track already disabled.
@@ -1622,7 +1631,7 @@ declare namespace AgoraRTC {
          *
          * This method does not apply to streams that contain no audio data and may result in warnings.
          *
-         * **Note:**
+         * **Note**
          *
          * Due to browser policy changes, this method must be triggered by the user's gesture on the Chrome 70+ and Safari browser.
          * See [Autoplay Policy Changes](https://developers.google.com/web/updates/2017/09/autoplay-policy-changes) for details.
@@ -1657,7 +1666,7 @@ declare namespace AgoraRTC {
          *
          * The replaced track will be stopped.
          *
-         * **Note:**
+         * **Note**
          *
          * - Supports Chrome 65+, Safari, and latest Firefox.
          * - This method might not take effect on some mobile devices.
@@ -1704,7 +1713,7 @@ declare namespace AgoraRTC {
          * localStream.addTrack(anotherStream.getVideoTrack());
          * ```
          *
-         * **Note:**
+         * **Note**
          *
          * - This method does not support Firefox and Safari.
          * - A Stream object can have only one audio track and one video track at most.
@@ -1717,7 +1726,7 @@ declare namespace AgoraRTC {
          *
          * When the track is removed, the `Client.on("stream-updated")` callback is triggered on the remote client.
          *
-         * **Note:**
+         * **Note**
          *
          * - If you need to change both the audio and video tracks, we recommend using the [[replaceTrack]] method instead.
          * - This method does not support Firefox and Safari.
@@ -1739,7 +1748,7 @@ declare namespace AgoraRTC {
          *
          * It is optional and works only when called before {@link Stream.init}. The default value is `"music_standard"`.
          *
-         * **Note:**
+         * **Note**
          *
          * Due to the limitations of browsers, some browsers may not be fully compatible with the audio profile you set.
          *
@@ -1771,7 +1780,7 @@ declare namespace AgoraRTC {
          *
          * This method sets the audio output device for the remote stream. You can use it to switch between the speakerphones. It can be called either before or after the remote stream is played.
          *
-         * **Note:**
+         * **Note**
          *
          * Only Chrome 49 or later supports this function.
          * @param deviceId The device ID can be retrieved from {@link getDevices}, whose [[kind]] should be "audiooutput". The retrieved ID is ASCII characters, and the string length is greater than 0 and less than 256 bytes.
@@ -1799,7 +1808,7 @@ declare namespace AgoraRTC {
          * - The stream is created by defining the [[audioSource]] and [[videoSource]] properties.
          * - The Firefox browser.
          *
-         * **Note:**
+         * **Note**
          *
          * This method might not take effect on some mobile devices.
          * @param type Type of the device: "audio" or "video".
@@ -1820,9 +1829,11 @@ declare namespace AgoraRTC {
          *
          * This method is optional and is usually called before {@link Stream.init}. From v2.7, you can also call this method after {@link Stream.init} to change the video encoding profile.
          *
-         * **Note:**
+         * **Note**
          *
+         * - This method works for local streams only.
          * - Do not call this method when publishing streams.
+         * - If you enable dual streams ({@link enableDualStream}), we do not support increasing the video resolution in this method. This is a [known issue](https://bugs.chromium.org/p/chromium/issues/detail?id=768205) of Chromium.
          * - On some iOS devices, when you update the video profile after {@link Stream.init}, black bars might appear around your video.
          * - Changing the video profile after {@link Stream.init} works only on Chrome 63 or later and Safari 11 or later.
          * @example `setVideoProfile("480p");`
@@ -1836,11 +1847,13 @@ declare namespace AgoraRTC {
          *
          * You can use this method to customize the video resolution, frame rate, and bitrate of the local stream. This method can be called before or after {@link Stream.init}.
          *
-         * **Note:**
+         * **Note**
          *
+         * - This method works for local streams only.
          * - Do not call this method when publishing streams.
+         * - If you enable dual streams ({@link enableDualStream}), we do not support increasing the video resolution in this method. This is a [known issue](https://bugs.chromium.org/p/chromium/issues/detail?id=768205) of Chromium.
          * - On some iOS devices, when you update the video encoder configuration after {@link Stream.init}, black bars might appear around your video.
-         * - The actual resolution, frame rate, and bitrate depend on the device, see [MediaStreamTrack.applyConstraints()](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/applyConstraints) for more information.
+         * - The actual resolution, frame rate, and bitrate depend on the device, see [Media​Stream​Track​.apply​Constraints()](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/applyConstraints) for more information.
          * - This method works on Chrome 63 or later and is not fully functional on other browsers with the following issues:
          *   - The frame rate setting does not take effect on Safari 12 or earlier.
          *   - Safari 11 or earlier only supports specific resolutions.
@@ -1867,12 +1880,16 @@ declare namespace AgoraRTC {
          *      });
          * ```
          *
-         */
+        */
         setVideoEncoderConfiguration(config: VideoEncoderConfiguration): void;
         /**
          * Sets the Screen Profile
          *
-         * This method sets the profile of the screen in screen-sharing.
+         * This method sets the profile of the screen in screen-sharing. Ensure that you call this method before {@link Stream.init}.
+         *
+         * **Note**
+         *
+         * This method works for local streams only.
          * @param profile The screen profile. See the following table for details.
          *
          * [[include:ScreenProfileDefinition.md]]
@@ -1889,7 +1906,7 @@ declare namespace AgoraRTC {
          *
          * When the audio mixing file playback finishes, the SDK triggers the `Stream.on("audioMixingFinished")` callback on the local client.
          *
-         * **Note:**
+         * **Note**
          *
          * - This method supports the following browsers:
          *   * Safari 12 and later
@@ -1910,7 +1927,7 @@ declare namespace AgoraRTC {
          *   - "LOAD_AUDIO_FAILED": Fails to load the online audio file.
          *   - "CREATE_BUFFERSOURCE_FAILED": Fails to create buffer for audio mixing.
          *
-         * **Note:**
+         * **Note**
          * The callbacks of the other audio mixing methods are the same as this one, using the Node.js callback pattern.
          *
          * @example **Sample code**
@@ -1968,7 +1985,7 @@ declare namespace AgoraRTC {
                  * - `true`: The content of the online audio file replaces the audio stream from the microphone.
                  * - `false`: (Default) The online audio file is mixed with the audio stream from the microphone.
                  *
-                 * **Note:**
+                 * **Note**
                  *
                  * Safari does not support this parameter.
                  */
@@ -2027,7 +2044,7 @@ declare namespace AgoraRTC {
          *
          * You can use this method to add specific audio effects for specific scenarios. For example, gaming.
          *
-         * **Note:**
+         * **Note**
          *
          * - Due to web browser autoplay policy changes, this method must be triggered by a user gesture on Chrome 70+ and Safari web browsers.
          * See [Autoplay Policy Changes](https://developers.google.com/web/updates/2017/09/autoplay-policy-changes) for details.
@@ -2044,7 +2061,7 @@ declare namespace AgoraRTC {
          * - null: the method call succeeds.
          * - err: the method call fails.
          *
-         * **Note:**
+         * **Note**
          *
          * The callbacks of the audio effect methods all use the Node.js callback pattern.
          *
@@ -2316,11 +2333,17 @@ declare namespace AgoraRTC {
          *   * Chrome 65 or later
          *   * Firefox 70.0.1 or later
          *
-         * **Note:**
+         * **Note**
          *
          * - This function does not support mobile devices.
-         * - If the dual-stream mode is enabled ({@link enableDualStream}), the image enhancement options apply only to the high-video stream.
-         * - To remove a video track ({@link removeTrack}) after enabling image enhancement, call this method to disable image enhancement first.
+         * - If the dual-stream mode is enabled ({@link enableDualStream}), the image enhancement options apply only to the high-quality video stream.
+         * - If image enhancement is enabled, you must call this method to disable it before calling the following methods:
+         *   - {@link leave}
+         *   - {@link stop}
+         *   - {@link removeTrack}
+         *   - {@link unpublish}
+         * - The image enhancement function involves real-time compute-intensive processing. Though it is based on hardware acceleration, the processing has high GPU and CPU overheads.
+         * For low-end devices, enabling image enhancement affects the system performance. When the video resolution is set as 360p, 720p or higher, and the frame rate is set as 30 fps or 15 fps, do not enable image enhancement.
          *
          * @param enabled Sets whether to enable image enhancement:
          *
@@ -2343,28 +2366,24 @@ declare namespace AgoraRTC {
         setBeautyEffectOptions(
             enabled: boolean,
             options: {
-                /**
-                 * The contrast level, used with the `lighteningLevel` parameter.
+                /** The contrast level, used with the `lighteningLevel` parameter.
                  *
                  * - 0: Low contrast level.
                  * - 1: (Default) The original contrast level.
                  * - 2: High contrast level.
                  */
                 lighteningContrastLevel?: number,
-                /**
-                 * The brightness level.
+                /** The brightness level.
                  *
                  * The value ranges from 0.0 (original) to 1.0. The default value is 0.7.
                  */
                 lighteningLevel?: number,
-                /**
-                 * The sharpness level.
+                /** The sharpness level.
                  *
                  * The value ranges from 0.0 (original) to 1.0. The default value is 0.5. This parameter is usually used to remove blemishes.
                  */
                 smoothnessLevel?: number,
-                /**
-                 * The redness level.
+                /** The redness level.
                  *
                  * The value ranges from 0.0 (original) to 1.0. The default value is 0.1. This parameter adjusts the red saturation level.
                  */
@@ -2383,7 +2402,7 @@ declare namespace AgoraRTC {
          *
          * This method gets the connection statistics of the stream.
          *
-         * **Note:**
+         * **Note**
          *
          * It may take some time to get some of the statistics.
          *
@@ -2433,15 +2452,33 @@ declare namespace AgoraRTC {
     }
 
     /**
-     * The Client object returned by the {@link createClient} method provides access to much of the core AgoraRTC functionality.
+     * The Client interface provides major functions for a voice/video call, such as joining a channel and publishing a stream.
+     *
+     * The Client object is created by the {@link createClient} method and represents the local client.
      */
     interface Client {
+        /**
+         *  Occurs when the local user receives metadata.
+         *
+         * **Since**
+         * <br>&emsp;&emsp;&emsp;*3.1.0*
+         *
+         * This callback reports the received metadata and the ID of the user who sends it.
+         * @example **Sample code**
+         * ``` javascript
+         * client.on("receive-metadata", function (evt) {
+         *   console.log("receive metadata from: ", evt.uid);
+         *   console.log("receive metadata: ", evt.metadata);
+         * })
+         * ```
+         */
+         on(event: "receive-metadata", callback: (evt: any) => void): void;
         /**
          * Occurs when the first remote audio frame is decoded.
          *
          * The SDK triggers this callback when the local client successfully subscribes to a remote stream and decodes the first audio frame.
          *
-         * **Note:** This callback supports only the Google Chrome browser.
+         * **Note** This callback supports only the Google Chrome browser.
          * @example **Sample code**
          * ``` javascript
          * client.on('first-audio-frame-decode', function (evt) {
@@ -2480,9 +2517,21 @@ declare namespace AgoraRTC {
          */
         on(event: "stream-published", callback: (evt: any) => void): void;
         /**
+         * Occurs when the local stream is unpublished.
+         * @example **Sample code**
+         * ``` javascript
+         * client.on("stream-unpublished", function(evt) {
+         *     console.log("local stream unpublished");
+         *     //……
+         * })
+         *
+         * ```
+         */
+        on(event: "stream-unpublished", callback: (evt: any) => void): void;
+        /**
          * Occurs when the remote stream is added.
          *
-         * **Note:**
+         * **Note**
          *
          * When the local user joins the channel, if other users are already in the channel, the SDK also reports to the app on the existing remote streams.
          * @example **Sample code**
@@ -2538,7 +2587,7 @@ declare namespace AgoraRTC {
          * - A remote user switches the user role to the host by calling the [[Client.setClientRole]] method after joining the channel.
          * - A remote user/host rejoins the channel after a network interruption.
          * - The host injects an online media stream into the channel by calling the [[Client.addInjectStreamUrl]] method.
-         *
+
          * @example **Sample code**
          *
          * ```javascript
@@ -2560,7 +2609,7 @@ declare namespace AgoraRTC {
          * A poor network connection may lead to false detections, so we recommend using the signaling system for reliable offline detection.
          * - A remote user switches the client role from host to audience.
          *
-         * **Note:**
+         * **Note**
          * In live-broadcast channels, the SDK triggers this callback only when a host goes offline.
          *
          * @example **Sample code**
@@ -2652,11 +2701,8 @@ declare namespace AgoraRTC {
         /**
          * This callback notifies the peer user that he/she is banned from the channel. Only the banned users receive this callback.
          *
-         * Possible reasons include:
-         * - K_CHANNEL_PERMISSION_INVALID: The user has no permission.
-         * - K_UID_BANNED: The UID is banned.
-         * - K_IP_BANNED: The IP is banned.
-         * - K_CHANNEL_BANNED The channel is banned.
+         * Usually the reason is that the UID is banned (`K_UID_BANNED`(14)).
+         *
          * @example **Sample code**
          * ``` javascript
          * client.on("client-banned", function (evt) {
@@ -2670,6 +2716,8 @@ declare namespace AgoraRTC {
          */
         on(event: "client-banned", callback: (evt: any) => void): void;
         /**
+         * **DEPRECATED** from 3.0.2. Use `Client.on("volume-indicator")` instead.
+         *
          * This callback notifies the application who is the active speaker in the channel.
          * @example **Sample code**
          * ``` javascript
@@ -2715,7 +2763,7 @@ declare namespace AgoraRTC {
          *
          * The SDK triggers this callback when the live transcoding setting is updated by calling the {@link setLiveTranscoding} method.
          *
-         * **Note:**
+         * **Note**
          *
          * The first call of the {@link setLiveTranscoding} method does not trigger this callback.
          */
@@ -2777,7 +2825,7 @@ declare namespace AgoraRTC {
          *
          * ```
          *
-         * Note:
+         * Note
          *
          * Chrome 61+ is required for this function, and the compatibility is not guaranteed.
          * See [Network Information API](https://developer.mozilla.org/en-US/docs/Web/API/Network_Information_API) for details.
@@ -2805,7 +2853,7 @@ declare namespace AgoraRTC {
          *
          * ```
          *
-         * **Note:**
+         * **Note**
          *
          * Only supports Chrome 49+.
          */
@@ -2825,7 +2873,7 @@ declare namespace AgoraRTC {
         /**
          * Occurs when the type of a video stream changes.
          *
-         * It happens when a high-video stream changes to a low-video stream, or vice versa.
+         * It happens when a high-quality video stream changes to a low-quality video stream, or vice versa.
          *
          * The stream type (streamType):
          *
@@ -2926,11 +2974,35 @@ declare namespace AgoraRTC {
                                                         /** @param role Role that the user switches to. */
                                                         { role: string }) => void): void;
         /**
+         * Occurs when the SDK starts reconnecting to the server automatically after the connection is lost.
+         *
+         * @example **Sample code**
+         * ``` javascript
+         * client.on("reconnect", function() {
+         *   console.log("reconnect");
+         * })
+         * ```
+         *
+         */
+        on(event: "reconnect", callback: () => void): void;
+        /**
+         * Occurs when the SDK is connected to the server.
+         *
+         * @example **Sample code**
+         * ``` javascript
+         * client.on("connected", function() {
+         *   console.log("connected");
+         * })
+         * ```
+         *
+         */
+        on(event: "connected", callback: () => void): void;
+        /**
          * Reports the network quality of the local user once every two seconds.
          *
          * This callback reports on the uplink and downlink network conditions of the local user.
          *
-         * **Note:**
+         * **Note**
          *
          * This is an experimental feature and the network quality rating is for reference only.
          *
@@ -2952,7 +3024,7 @@ declare namespace AgoraRTC {
          * If you set `fallbackType` as 2 in [[setStreamFallbackOption]],
          * the SDK triggers this callback when the remote media stream falls back to audio only due to unreliable network conditions or switches back to the video after the network condition improves.
          *
-         * **Note:**
+         * **Note**
          *
          * Once the remote media stream is switched to the low stream due to unreliable network conditions,
          * you can monitor the stream switch between a high stream and low stream in the `stream-type-changed` callback.
@@ -2993,7 +3065,7 @@ declare namespace AgoraRTC {
          *
          * ![](https://web-cdn.agora.io/docs-files/1547180053430)
          *
-         * **Note:**
+         * **Note**
          *
          * This callback supports only the Chrome browser.
          * @example **Sample code**
@@ -3038,8 +3110,7 @@ declare namespace AgoraRTC {
          * <br>&emsp;&emsp;&emsp;*3.0.0*
          */
         on(event: "channel-media-relay-event", callback: (evt: {
-            /**
-             * The event code for media stream relay.
+            /** The event code for media stream relay.
              *
              * - 0: The user disconnects from the server due to a poor network connection.
              * - 1: The user is connected to the server.
@@ -3049,7 +3120,7 @@ declare namespace AgoraRTC {
              * - 5: The server receives the video stream from the source channel.
              * - 6: The server receives the audio stream from the source channel.
              * - 7: The destination channel is updated.
-             */
+            */
             code: number
         }) => void): void;
         /**
@@ -3068,7 +3139,7 @@ declare namespace AgoraRTC {
              * - 1: The SDK tries to relay the media stream to the destination channel.
              * - 2: The SDK successfully relays the media stream to the destination channel.
              * - 3: An error occurs. See `code` for the error code. In case of an error, the SDK resets the media stream relay state, and you need to call {@link startChannelMediaRelay} to restart the relay.
-             */
+            */
             state: number,
             /**
              * The error code.
@@ -3087,7 +3158,7 @@ declare namespace AgoraRTC {
              * - 11: The token of the destination channel has expired.
              * - 12: The relay has already started. Possibly caused by calling {@link startChannelMediaRelay} repeatedly, or calling {@link startChannelMediaRelay} before {@link stopChannelMediaRelay} succeeds.
              * - 13: The relay has not started. Possibly caused by calling {@link updateChannelMediaRelay} before {@link startChannelMediaRelay} succeeds.
-             */
+            */
             code: number
         }) => void): void;
         /**
@@ -3155,7 +3226,7 @@ declare namespace AgoraRTC {
          * ```
          * @param tokenOrKey
          * - Low security requirements: Pass `null` as the parameter value.
-         * - High security requirements: Pass the string of the Token or Channel Key as the parameter value. See [Use Security Keys](../../../token) for details.
+         * - High security requirements: Pass the string of the Token or Channel Key as the parameter value. See [Use Security Keys](https://docs.agora.io/en/Agora%20Platform/token?platform=All%20Platforms#use-a-token-for-authentication) for details.
          * @param channel A string that provides a unique channel name for the Agora session. The length must be within 64 bytes. Supported character scopes:
          *
          * - All lowercase English letters: a to z.
@@ -3164,18 +3235,19 @@ declare namespace AgoraRTC {
          * - The space character.
          * - Punctuation characters and other symbols, including: "!", "#", "$", "%", "&", "(", ")", "+", "-", ":", ";", "<", "=", ".", ">", "?", "@", "[", "]", "^", "_", " {", "}", "|", "~", ",".
          * @param uid The user ID, an integer or a string, ASCII characters only. Ensure this ID is unique.
-         *            If you set the uid to `null`, the server assigns one and returns it in the `onSuccess` callback.
+         *            If you set the uid to `null` or `0`, the server assigns one and returns it in the `onSuccess` callback.
          *
-         * **Note:**
+         * **Note**
          *
          * - All users in the same channel should have the same type (number or string) of `uid`.
          * - If you use a number as the user ID, it should be a 32-bit unsigned integer with a value ranging from 0 to (2<sup>32</sup>-1).
          * - If you use a string as the user ID, the maximum length is 255 characters.
-         * - You can use string UIDs to interoperate with the Native SDK 2.8 or later. Ensure that the Native SDK uses the User Account to join the channel. See [Use String User Accounts](https://docs.agora.io/en/Interactive%20Broadcast/string_web?platform=Web).
+         * - You can use string UIDs to interoperate with the Native SDK 2.8 or later. Ensure that the Native SDK uses the User Account to join the channel. See [Use String User Accounts](https://docs.agora.io/en/faq/string).
          * @param onSuccess The callback when the method succeeds. The server returns the uid which represents the identity of the user.
          * @param onFailure The callback when the method fails. The following are common errors:
          * - "INVALID_OPERATION": Unable to join the channel. Usually due to calling `Client.join` repeatedly.
          * - "UID_CONFLICT": The `uid` of the local client conflicts with other users in the channel.
+         * - "ERR_REPEAT_JOIN": The local client has already joined the channel.
          * - "SOCKET_ERROR": The SDK disconnects with the Agora server when joining the channel.
          */
         join(
@@ -3220,7 +3292,7 @@ declare namespace AgoraRTC {
          * - On the local client: `Client.on("stream-published")`
          * - On the remote client: `Client.on("stream-added")`
          *
-         * **Note:**
+         * **Note**
          *
          * In a live broadcast, whoever calls this API is the host.
          * @example **Sample code**
@@ -3245,6 +3317,10 @@ declare namespace AgoraRTC {
          * This method unpublishes the local stream.
          *
          * When the stream is unpublished, the `Client.on("stream-removed")` callback is triggered on the remote client.
+         *
+         * **Note**
+         *
+         * In a live broadcast, the user role of a host switches to audience after unpublishing, and the `Client.on("peer-leave")` callback is triggered on the remote client.
          * @example
          * **Sample code**
          * ``` javascript
@@ -3273,7 +3349,7 @@ declare namespace AgoraRTC {
          * @param stream Stream object, which represents the remote stream.
          * @param options Sets whether to receive the video or audio data independently by the `video` and `audio` parameters.
          *
-         * **Note:**
+         * **Note**
          *
          * - `video` and `audio` cannot be set as `false` at the same time. If you need to stop subscribing to the stream, call [[Client.unsubscribe]] instead.
          * - Safari does not support independent subscription. Set `options` as `null` for Safari, otherwise the`SAFARI_NOT_SUPPORTED_FOR_TRACK_SUBSCRIPTION` error occurs.
@@ -3388,13 +3464,21 @@ declare namespace AgoraRTC {
          *
          * This method enables the dual-stream mode on the publisher side. We recommend calling this method after joining a channel({@link Client.join}).
          *
-         * Dual streams are a hybrid of a high-video stream and a low-video stream:
+         * Dual streams are a hybrid of a high-quality video stream and a low-quality video stream:
          *
-         * - High-video stream: high bitrate, high resolution
-         * - Low-video stream: low bitrate, low resolution
+         * - High-quality video stream: High bitrate, high resolution.
+         * - Low-quality video stream: Low bitrate, low resolution.
          *
-         * We do not recommend using the track methods ([[addTrack]]/[[removeTrack]]/[[replaceTrack]]) on dual streams, which might cause different performance in the high-video and low-video streams.
+         * We do not recommend using the track methods ([[addTrack]]/[[removeTrack]]/[[replaceTrack]]) on dual streams, which may cause different performance in the high-quality and low-quality video streams.
          *
+         * **Note**
+         *
+         * This method does not apply to the following scenarios:
+         *
+         * -   The stream is created by defining the [[audioSource]] and [[videoSource]] properties.
+         * -   Audio-only mode (audio: true, video: false)
+         * -   Safari browser
+         * -   Screen-sharing scenario
          * @example **Sample code**
          * ``` javascript
          * client.enableDualStream(function() {
@@ -3403,15 +3487,6 @@ declare namespace AgoraRTC {
          *   console.log(err)
          * })
          * ```
-         *
-         * **Note:**
-         *
-         * This method does not apply to the following scenarios:
-         *
-         * -   The stream is created by defining the [[audioSource]] and [[videoSource]] properties.
-         * -   Audio-only mode (audio: true, video: false)
-         * -   Safari browser on iOS
-         * -   Screen-sharing scenario
          * @param onSuccess The callback when the method succeeds.
          * @param onFailure The callback when the method fails. The following are common errors:
          * - "IOS_NOT_SUPPORT": Does not support iOS.
@@ -3424,43 +3499,59 @@ declare namespace AgoraRTC {
             onFailure?: (err: string) => void
         ): void;
         /**
-         * Sets the Low-video Stream Parameter
+         * Sets the video profile of the low-quality video stream
          *
-         * If you enabled the dual-stream mode by calling {@link Client.enableDualStream}, use this method to set the low-video stream profile.
+         * If you have enabled the dual-stream mode by calling {@link Client.enableDualStream}, use this method to set the video profile of the low-quality stream.
          *
-         * If you do not set the low-video stream profile, the SDK will assign default values based on your stream video profile.
+         * The default video profile of the low-quality video stream:
+         * - Resolution (width × height): 160 × 120
+         * - Bitrate: 50 Kbps
+         * - Frame rate: 15 fps
          *
-         * **Note:**
-         * - As different web browsers have different restrictions on the video profile, the parameters you set may fail to take effect.
-         * The Firefox browser has a fixed frame rate of 30 fps, therefore the frame rate settings do not work on the Firefox browser.
-         * - Due to limitations of some devices and browsers, the resolution you set may fail to take effect and get adjusted by the browser.
-         * In this case, billings will be calculated based on the actual resolution.
-         * - Call {@link Client.join} before using this method.
-         * - Screen sharing supports the high-video stream only.
-         * @param param Sets the video profile of the low-video stream.
+         * **Note**
+         *
+         * - The low-quality video stream keeps the aspect ratio of the high-quality video stream. If the resolution of the low-quality stream has a different aspect ratio, the SDK automatically adjusts the height of the low-quality stream.
+         * - As different web browsers have different restrictions on the video profile, your settings may not take effect.
+         *   - The Firefox browser has a fixed frame rate of 30 fps, therefore the frame rate setting does not work on the Firefox browser.
+         *   - The resolution you set may not take effect.
+         * - Billings are calculated based on the actual resolution.
+         * - Call this method after calling {@link Client.join} and before calling {@link Client.publish}.
+         * @param param The video profile of the low-quality video stream.
          */
         setLowStreamParameter(param: {
             /**
-             * Width of the low-video stream frame. A positive integer, and the value range is [1,10000].
+             * The width of the low-quality video stream frame.
              *
-             * The width and height parameters are bound together, and take effect only when both are set.Otherwise, the SDK assigns default values.
+             * A positive integer, and the value range is [1,10000]. The default value is 160.
+             *
+             * The width and height parameters are bound together, and take effect only when both are set. Otherwise, the SDK assigns the default values.
              */
             width?: number;
             /**
-             * Height of the low-video stream frame. A positive integer, and the value range is [1,10000].
+             * The height of the low-quality video stream frame.
              *
-             * The width and height parameters are bound together, and take effect only when both are set. Otherwise, the SDK assigns default values.
+             * A positive integer, and the value range is [1,10000]. The default value is 120.
+             *
+             * The width and height parameters are bound together, and take effect only when both are set. Otherwise, the SDK assigns the default values.
              */
             height?: number;
-            /** Frame rate of the low-video stream frame in fps. A positive integer, and the value range is [1,10000]. */
+            /**
+             * The frame rate of the low-quality video stream frame in fps.
+             *
+             * A positive integer, and the value range is [1,10000]. The default value is 15.
+             */
             framerate?: number;
-            /** Bitrate of the low-video stream frame in Kbps. A positive integer, and the value range is [1,10000000]. */
+            /**
+             * The bitrate of the low-quality video stream frame in Kbps.
+             *
+             * A positive integer, and the value range is [1,10000000]. The default value is 50.
+             */
             bitrate?: number;
         }): void;
         /**
-         * Sets the Remote Video-stream Type
+         * Sets the stream type of a remote stream
          *
-         * When a remote user sends dual streams, this method decides on which stream to receive on the subscriber side. If this method is not used, the subscriber receives the high-video stream.
+         * When a remote user sends dual streams, this method decides on which stream to receive on the subscriber side. If this method is not used, the subscriber receives the high-quality video stream.
          *
          * @example **Sample code**
          * ``` javascript
@@ -3490,18 +3581,18 @@ declare namespace AgoraRTC {
          *
          * Use this method to set stream fallback option on the receiver.
          *
-         * Under poor network conditions, the SDK can choose to subscribe to the low-video stream or only the audio stream.
+         * Under poor network conditions, the SDK can choose to subscribe to the low-quality video stream or only the audio stream.
          *
-         * If the auto-fallback option is enabled, the SDK triggers the `Client.on("stream-type-changed")` callback when the remote stream changes from a high-video stream to a low-video stream or vice versa, and triggers the `Client.on("stream-fallback")` callback when the remote stream changes from a video stream to an audio-only stream or vice versa.
+         * If the auto-fallback option is enabled, the SDK triggers the `Client.on("stream-type-changed")` callback when the remote stream changes from a high-quality video stream to a low-quality video stream or vice versa, and triggers the `Client.on("stream-fallback")` callback when the remote stream changes from a video stream to an audio-only stream or vice versa.
          *
-         * **Note:**
+         * **Note**
          *
          * This method can only be used when the publisher has enabled the dual-stream mode by {@link enableDualStream}.
          * @param stream The remote stream object.
          * @param fallbackType The fallback option:
          * - 0: Disable the fallback.
-         * - 1: (Default) Automatically subscribe to the low-video stream under poor network.
-         * - 2: Under poor network, the SDK may subscribe to the low-video stream (of lower resolution and lower bitrate) first,
+         * - 1: (Default) Automatically subscribe to the low-quality video stream under poor network.
+         * - 2: Under poor network, the SDK may subscribe to the low-quality video stream (of lower resolution and lower bitrate) first,
          *      but if the network still does not allow displaying the video, the SDK will receive audio only.
          * @example **Sample code**
          * ```javascript
@@ -3541,7 +3632,7 @@ declare namespace AgoraRTC {
          *
          * If this method is enabled, the SDK triggers the `"volume-indicator"` callback to report the volumes every two seconds, regardless of whether there are active speakers.
          *
-         * **Note:**
+         * **Note**
          *
          * - If you have multiple web pages running the Web SDK, this function might not work.
          * @example **Sample code**
@@ -3567,7 +3658,7 @@ declare namespace AgoraRTC {
          *
          * This method configures the CDN live streaming before joining a channel.
          *
-         * **Note:**
+         * **Note**
          *
          * Call {@link configPublisher} before {@link Client.join}.
          *
@@ -3598,10 +3689,10 @@ declare namespace AgoraRTC {
          * When the live stream starts, the SDK triggers the `Client.on("liveStreamingStarted")` callback.
          * If this method call fails, the SDK triggers the `Client.on("liveStreamingFailed")` callback.
          *
-         * **Note:**
+         * **Note**
          *
          * - Only hosts in live-broadcast channels can call this method. Ensure that you set the user role as `"host"` in {@link setClientRole}.
-         * - Call this method after {@link Stream.init}.
+         * - Call this method after the {@link publish} method call succeeds.
          * - Push one live stream at a time. If you need to push several streams, ensure that the current stream starts successfully before pushing the next one.
          * @example **Sample code**
          * ``` javascript
@@ -3618,7 +3709,7 @@ declare namespace AgoraRTC {
          * This method sets the video layout and audio for CDN live.
          * A successful call of this method to update the transcoding settings triggers the `Client.on("liveTranscodingUpdated")` callback.
          *
-         * **Note:**
+         * **Note**
          *
          * - Ensure that you [enable the RTMP Converter service](../../../cdn_streaming_web#prerequisites) before using this function.
          * - The first call of this method does not trigger the `Client.on("liveTranscodingUpdated")` callback.
@@ -3637,6 +3728,8 @@ declare namespace AgoraRTC {
         /**
          * Injects an Online Media Stream to a Live Broadcast
          *
+         * If this method is called successfully, the server pulls the voice or video stream and injects it into a live channel. This is applicable to scenarios where all of the audience members in the channel can watch a live show and interact with each other. See [Inject an Online Media Stream](https://docs.agora.io/en/Interactive%20Broadcast/inject_stream_web?platform=Web) for details.
+         *
          * This method call triggers the following callbacks:
          * - On the local client:
          *   - `Client.on("streamInjectedStatus")`, with the state of injecting the online stream.
@@ -3644,14 +3737,11 @@ declare namespace AgoraRTC {
          * - On the remote client:
          *   - `Client.on("stream-added")` and `Client.on("peer-online")`(uid: 666), if the online media stream is injected into the channel.
          *
-         * If this method is called successfully, the server pulls the voice or video stream and injects it into a live channel.
-         * This is applicable to scenarios where all of the audience members in the channel can watch a live show and interact with each other.
-         *
-         * **Note:**
-         *
-         * Ensure that you [enable the RTMP Converter service](../../../cdn_streaming_web#prerequisites) before using this function.
+         * **Note**
+         * - You can only inject one online media stream into the same channel at the same time.
+         * - Ensure that you [enable the RTMP Converter service](../../../cdn_streaming_web#prerequisites) before using this function.
          * @param url URL address of the live streaming. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes.
-         * Valid protocols are RTMP, HLS, and FLV.
+         * Valid protocols are RTMP, HLS, and HTTP-FLV.
          * - Supported FLV audio codec type: AAC.
          * - Supported FLV video codec type: H.264 (AVC).
          * @param config Configuration of the inject stream, see {@link InjectStreamConfig} for details.
@@ -3683,15 +3773,17 @@ declare namespace AgoraRTC {
         /**
          * Deploys a Proxy Server
          *
-         * Use this method to deploy the Nginx server. See [Deploy the Enterprise Proxy](https://docs.agora.io/en/Interactive%20Broadcast/proxy_web?platform=Web) for details.
+         * Use this method to deploy an HTTP proxy server.
          *
-         * **Note:**
+         * You can also use cloud proxy by {@link startProxyServer}. See [Use Cloud Proxy](https://docs.agora.io/en/Agora%20Platform/cloud_proxy_web?platform=Web) for details.
+         *
+         * **Note**
          *
          * - Ensure that you call this API before {@link Client.join}.
          * - Proxy services by different service providers may result in slow performance if you are using the Firefox browser.
          *   Therefore, Agora recommends using the same service provider for the proxy services. If you use different service providers, Agora recommends not using the Firefox browser.
          * @example `client.setProxyServer(proxyServer);`
-         * @param proxyServer Your Nginx server domain name. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes.
+         * @param proxyServer Your proxy server domain name. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes. See {@link ClientConfig.proxyServer} for details.
          */
         setProxyServer(proxyServer: ClientConfig["proxyServer"]): void;
         /**
@@ -3699,11 +3791,13 @@ declare namespace AgoraRTC {
          *
          * Use this method to deploy the TURN server.
          *
-         * **Note:**
+         * You can also use cloud proxy by {@link startProxyServer}. See [Use Cloud Proxy](https://docs.agora.io/en/Agora%20Platform/cloud_proxy_web?platform=Web) for details.
+         *
+         * **Note**
          *
          * Ensure that you call this API before {@link Client.join}.
          * @example `client.setTurnServer(config);`
-         * @param turnServer The TURN server settings.
+         * @param turnServer The TURN server settings. See {@link ClientConfig.turnServer} for details.
          */
         setTurnServer(turnServer: ClientConfig["turnServer"]): void;
         /**
@@ -3713,7 +3807,7 @@ declare namespace AgoraRTC {
          *
          * All users in a channel must set the same encryption password.
          *
-         * **Note:**
+         * **Note**
          *
          * - Ensure you call [[setEncryptionSecret]] and [[setEncryptionMode]] before joining the channel, otherwise the encryption is disabled.
          * - Do not use this method for CDN live streaming.
@@ -3729,7 +3823,7 @@ declare namespace AgoraRTC {
          *
          * All users in a channel must set the same encryption mode.
          *
-         * **Note:**
+         * **Note**
          *
          * - Ensure you call [[setEncryptionSecret]] and [[setEncryptionMode]] before joining the channel, otherwise the encryption is disabled.
          * - Do not use this method for CDN live streaming.
@@ -3784,7 +3878,7 @@ declare namespace AgoraRTC {
          *
          * Currently only the network type information is provided, see [[NetworkType]].
          *
-         * **Note:**
+         * **Note**
          *
          * Chrome 61+ is required for this function, and the compatibility is not guaranteed.
          * See [Network Information API](https://developer.mozilla.org/en-US/docs/Web/API/Network_Information_API) for details.
@@ -3807,7 +3901,7 @@ declare namespace AgoraRTC {
          *
          * Currently only the battery level information is provided, see [[BatteryLevel]].
          *
-         * **Note:**
+         * **Note**
          *
          * This feature is experimental, see [Battery Status API](https://developer.mozilla.org/en-US/docs/Web/API/Battery_Status_API) for browser compatibility.
          *
@@ -3837,7 +3931,7 @@ declare namespace AgoraRTC {
          *
          * If this method succeeds, the SDK returns a list of audio output devices in an array of [[MediaDeviceInfo]] objects.
          *
-         * **Note:**
+         * **Note**
          *
          * Only Chrome 49 or later supports this function.
          */
@@ -3855,7 +3949,7 @@ declare namespace AgoraRTC {
          *
          * This method retrieves the audio statistics of the remote stream, including audio codec type, packet loss rate, bitrate, and so on.
          *
-         * **Note:**
+         * **Note**
          *
          * - The statistics are calculated after the `stream-subscribed` event, which may take at most 3 seconds.
          * - This method supports the Chrome browser only.
@@ -3886,7 +3980,7 @@ declare namespace AgoraRTC {
          *
          * This method retrieves the audio statistics of the published stream, including audio codec type, sampling rate, bitrate, and so on.
          *
-         * **Note:**
+         * **Note**
          *
          * - Some of the statistics are calculated after the `stream-published` event, which may take at most 3 seconds.
          * - This method supports the Chrome browser only.
@@ -3914,7 +4008,7 @@ declare namespace AgoraRTC {
          *
          * This method retrieves the video statistics of the remote stream, including packet loss rate, video bitrate, frame rate, and so on.
          *
-         * **Note:**
+         * **Note**
          *
          * - The statistics are calculated after the `stream-subscribed` event, which may take at most 3 seconds.
          * - This method supports the Chrome browser only.
@@ -3949,7 +4043,7 @@ declare namespace AgoraRTC {
          *
          * This method retrieves the video statistics of the published stream, including video resolution, bitrate, frame rate, and so on.
          *
-         * **Note:**
+         * **Note**
          *
          * - Some of the statistics are calculated after the `stream-published` event, which may take at most 3 seconds.
          * - This method supports the Chrome browser only.
@@ -3983,7 +4077,7 @@ declare namespace AgoraRTC {
          *
          * This method gets the statistics of the transmission quality to Agora service.
          *
-         * **Note:**
+         * **Note**
          *
          * - Calculation of the statistics may take at most 3 seconds.
          * - This method supports the Chrome browser only.
@@ -4006,7 +4100,7 @@ declare namespace AgoraRTC {
          *
          * This method gets the statistics of the session connection.
          *
-         * **Note:**
+         * **Note**
          *
          * - This method should be called after joining the channel, and it may take at most 3 seconds to retrieve the statistics.
          * - This method supports the Chrome browser only.
@@ -4059,8 +4153,9 @@ declare namespace AgoraRTC {
          * - `Client.on("channel-media-relay-event")`, which reports the events of the media stream relay.
          *   - If the media stream relay starts successfully, this callback returns `code` 4, reporting that the SDK starts relaying the media stream to the destination channel.
          *
-         * **Note:**
+         * **Note**
          *
+         * - Contact sales-us@agora.io to enable this function.
          * - We do not support string user IDs in this API.
          * - Call this method only after joining a channel.
          * - In a live-broadcast channel, only a host can call this method.
@@ -4096,7 +4191,7 @@ declare namespace AgoraRTC {
          * - If the update succeeds, the callback returns `code` 7.
          * - If the update fails, the callback returns `code` 8, and the SDK also triggers the `Client.on("channel-media-relay-state")` callback with `state` 3. In this case, the media relay state is reset, and you need to call {@link startChannelMediaRelay} again to restart the relay.
          *
-         * **Note:**
+         * **Note**
          *
          * - Call this method after {@link startChannelMediaRelay}.
          * - You can add a maximum of four destination channels to a relay.
@@ -4152,6 +4247,23 @@ declare namespace AgoraRTC {
          * ```
          */
         stopChannelMediaRelay(callback: (err: null | ChannelMediaError) => void): void;
+
+        /**
+         * Sends metadata.
+         *
+         * **Since**
+         * <br>&emsp;&emsp;&emsp;*3.1.0*
+         *
+         * This method adds metadata in a media stream, which allows you to diversify interactions in live broadcasts.
+         * Example metadata includes shopping links, digital coupons, and online quizzes.
+         *
+         * **Note**
+         * - This function supports the H.264 codec only. Ensure that you set `codec` as `"h264"` in `createClient`。
+         * - Ensure that you call this method after successfully publishing a stream.
+         * @param data String, the metadata to send. The maximum size is 1024 bytes.
+         * @param callback The result of sending metadata.
+         */
+        sendMetadata(data: string, callback: (err: null | string) => void): void;
     }
 
     /**

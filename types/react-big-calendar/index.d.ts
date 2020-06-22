@@ -16,6 +16,8 @@
 //                 Paito Anderson <https://github.com/PaitoAnderson>
 //                 Jan Michalak <https://github.com/michalak111>
 //                 Felix Hessenberger <https://github.com/fhessenberger>
+//                 Tom Price <https://github.com/tomtom5152>
+//                 Daniele Carrucciu <https://github.com/catruzz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
@@ -35,6 +37,12 @@ export type ViewsProps = View[] | {
     month?: boolean | React.ComponentType<any> & ViewStatic,
     week?: boolean | React.ComponentType<any> & ViewStatic
 };
+export type DayLayoutFunction<TEvent extends object = Event> = (_: {
+    events: TEvent[],
+    minimumStartDifference: number,
+    slotMetrics: any,
+    accessors: any,
+}) => Array<{ event: TEvent, style: React.CSSProperties }>;
 export type DayLayoutAlgorithm = 'overlap' | 'no-overlap';
 export type NavigateAction = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 export interface Event {
@@ -271,7 +279,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     onDoubleClickEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelectEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelecting?: (range: { start: stringOrDate; end: stringOrDate }) => boolean | undefined | null;
-    onRangeChange?: (range: Date[] | { start: stringOrDate; end: stringOrDate }) => void;
+    onRangeChange?: (range: Date[] | { start: stringOrDate; end: stringOrDate }, view: View | undefined) => void;
     selected?: any;
     views?: ViewsProps;
     drilldownView?: View | null;
@@ -297,7 +305,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     formats?: Formats;
     components?: Components<TEvent>;
     messages?: Messages;
-    dayLayoutAlgorithm?: DayLayoutAlgorithm;
+    dayLayoutAlgorithm?: DayLayoutAlgorithm | DayLayoutFunction<TEvent>;
     titleAccessor?: keyof TEvent | ((event: TEvent) => string);
     tooltipAccessor?: keyof TEvent | ((event: TEvent) => string);
     allDayAccessor?: keyof TEvent | ((event: TEvent) => boolean);

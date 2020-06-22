@@ -95,7 +95,7 @@ export class DownloaderHelper extends EventEmitter {
     stop(): Promise<boolean>;
     pipe(readableStream: StreamReadable, options?: any): StreamReadable; // Add pipes to the pipe list that will be applied later when the download starts
     unpipe(readableStream?: StreamReadable): void; // Unpipe an stream , if a stream is not specified, then all pipes are detached.
-    getDownloadPath(): string;	// gets the full path where the file will be downloaded (available after the start phase)
+    getDownloadPath(): string;    // gets the full path where the file will be downloaded (available after the start phase)
     isResumable(): boolean; // return tru/false if the download can be resumable (available after the start phase)
     updateOptions(options: Options): void; // updates the options, can be use on pause/resume events
     getStats(): Stats; // returns stats from the current download, these are the same stats sent via progress event

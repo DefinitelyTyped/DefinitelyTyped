@@ -5,42 +5,42 @@ import Supercluster = require('supercluster');
 //
 
 interface TestPointProps {
-	myTestFeatureName: string;
+    myTestFeatureName: string;
 }
 
 interface TestClusterProps {
-	myTestClusterName: string;
+    myTestClusterName: string;
 }
 
 const points: Array<Supercluster.PointFeature<TestPointProps>> = [
-	{
-		type: 'Feature',
-		properties: { myTestFeatureName: 'a' },
-		geometry: { type: 'Point', coordinates: [10, 20] }
-	},
-	{
-		type: 'Feature',
-		properties: { myTestFeatureName: 'b' },
-		geometry: { type: 'Point', coordinates: [20, 30] }
-	}
+    {
+        type: 'Feature',
+        properties: { myTestFeatureName: 'a' },
+        geometry: { type: 'Point', coordinates: [10, 20] }
+    },
+    {
+        type: 'Feature',
+        properties: { myTestFeatureName: 'b' },
+        geometry: { type: 'Point', coordinates: [20, 30] }
+    }
 ];
 
 // construct()
 new Supercluster();
 new Supercluster({});
 const index = new Supercluster({
-	minZoom: 5,
-	maxZoom: 16,
-	radius: 40,
-	extent: 256,
-	nodeSize: 64,
-	log: true,
-	map: (props: TestPointProps): TestClusterProps => ({
-		myTestClusterName: props.myTestFeatureName.toUpperCase()
-	}),
-	reduce: (accumulated, props) => {
-		accumulated.myTestClusterName += ` & ${props.myTestClusterName}`;
-	},
+    minZoom: 5,
+    maxZoom: 16,
+    radius: 40,
+    extent: 256,
+    nodeSize: 64,
+    log: true,
+    map: (props: TestPointProps): TestClusterProps => ({
+        myTestClusterName: props.myTestFeatureName.toUpperCase()
+    }),
+    reduce: (accumulated, props) => {
+        accumulated.myTestClusterName += ` & ${props.myTestClusterName}`;
+    },
 });
 
 // load()
@@ -60,14 +60,14 @@ const firstProps = clusters[0].properties; // Either cluster or point properties
 // getTile()
 const tile = index.getTile(0, 0, 0);
 if (tile) {
-	const tileProps = tile.features[0].tags; // Either cluster or point properties
-	// Generic cluster properties
-	(<Supercluster.ClusterProperties> tileProps).cluster;
-	(<Supercluster.ClusterProperties> tileProps).point_count;
-	// Custom cluster properties
-	(<TestClusterProps> tileProps).myTestClusterName;
-	// Custom point properties
-	(<TestPointProps> tileProps).myTestFeatureName;
+    const tileProps = tile.features[0].tags; // Either cluster or point properties
+    // Generic cluster properties
+    (<Supercluster.ClusterProperties> tileProps).cluster;
+    (<Supercluster.ClusterProperties> tileProps).point_count;
+    // Custom cluster properties
+    (<TestClusterProps> tileProps).myTestClusterName;
+    // Custom point properties
+    (<TestPointProps> tileProps).myTestFeatureName;
 }
 
 // Other methods
@@ -83,16 +83,16 @@ index.getClusterExpansionZoom(0);
 
 const index2 = new Supercluster();
 index2.load([
-	{
-		type: 'Feature',
-		properties: { testPropertyA: 100 },
-		geometry: { type: 'Point', coordinates: [10, 20] }
-	},
-	{
-		type: 'Feature',
-		properties: { testPropertyB: 'test' },
-		geometry: { type: 'Point', coordinates: [20, 30] }
-	}
+    {
+        type: 'Feature',
+        properties: { testPropertyA: 100 },
+        geometry: { type: 'Point', coordinates: [10, 20] }
+    },
+    {
+        type: 'Feature',
+        properties: { testPropertyB: 'test' },
+        geometry: { type: 'Point', coordinates: [20, 30] }
+    }
 ]);
 const clusters2 = index2.getClusters([-180, -85, 180, 85], 2);
 const firstProps2 = clusters2[0].properties;

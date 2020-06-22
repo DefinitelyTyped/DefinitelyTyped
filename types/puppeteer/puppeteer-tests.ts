@@ -120,8 +120,10 @@ puppeteer.launch().then(async browser => {
     console.log(content);
   });
 
-  Devices.forEach(device => console.log(device.name));
-  puppeteer.devices.forEach(device => console.log(device.name));
+  Object.keys(Devices).forEach(name => console.log(name));
+  Object.keys(puppeteer.devices).forEach(name => console.log(name));
+  Object.values(Devices).forEach(device => console.log(device.name));
+  Object.values(puppeteer.devices).forEach(device => console.log(device.name));
 
   await page.emulateMediaType("screen");
   await page.emulate(Devices['test']);

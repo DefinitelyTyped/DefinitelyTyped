@@ -53,6 +53,8 @@ declare namespace assert {
             stackStartFunction?: () => void;
         });
     }
+
+    const strict: typeof assert;
 }
 
 export = assert;

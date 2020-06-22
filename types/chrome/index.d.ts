@@ -11,6 +11,7 @@
 //                 Brian Wilson <https://github.com/echoabstract>
 //                 Sebastiaan Pasma <https://github.com/spasma>
 //                 bdbai <https://github.com/bdbai>
+//                 pokutuna <https://github.com/pokutuna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -1594,6 +1595,13 @@ declare namespace chrome.declarativeContent {
 
     /** Declarative event action that shows the extension's page action while the corresponding conditions are met. */
     export class ShowPageAction { }
+
+    /** Declarative event action that changes the icon of the page action while the corresponding conditions are met. */
+    export class SetIcon {
+        constructor (options?: {
+            imageData?: ImageData | {[size: string]: ImageData}
+        })
+    }
 
     /** Provides the Declarative Event API consisting of addRules, removeRules, and getRules. */
     export interface PageChangedEvent extends chrome.events.Event<() => void> { }
@@ -3826,8 +3834,12 @@ declare namespace chrome.input.ime {
          * @since Chrome 79.
          */
         altgrKey?: boolean;
-        /** The ID of the request. */
-        requestId: string;
+        /**
+         * Optional.
+         * The ID of the request.
+         * @deprecated since Chrome 79.
+         */
+        requestId?: string;
         /** Value of the key being pressed */
         key: string;
         /**
@@ -3989,6 +4001,18 @@ declare namespace chrome.input.ime {
         engineId: string;
     }
 
+    /** Type of the assistive window. */
+    export type AssistiveWindowType = 'undo';
+
+    /** ID of a button in an assistive window. */
+    export type AssistiveWindowButton = 'undo'|'addToDictionary';
+
+    /** Properties of an assistive window. */
+    export interface AssistiveWindowProperties {
+      type: AssistiveWindowType;
+      visible: boolean;
+    }
+
     export interface CandidateWindowParameterProperties {
         /**
          * Optional.
@@ -4073,7 +4097,16 @@ declare namespace chrome.input.ime {
         anchor: number;
     }
 
+    export interface AssistiveWindowButtonClickedDetails {
+        /** The ID of the button clicked. */
+        buttonID: AssistiveWindowButton;
+        /** The type of the assistive window. */
+        windowType: AssistiveWindowType;
+    }
+
     export interface BlurEvent extends chrome.events.Event<(contextID: number) => void> { }
+
+    export interface AssistiveWindowButtonClickedEvent extends chrome.events.Event<(details: AssistiveWindowButtonClickedDetails) => void> { }
 
     export interface CandidateClickedEvent extends chrome.events.Event<(engineID: string, candidateID: number, button: string) => void> { }
 
@@ -4128,6 +4161,17 @@ declare namespace chrome.input.ime {
      */
     export function updateMenuItems(parameters: MenuItemParameters, callback?: () => void): void;
     /**
+     * Shows/Hides an assistive window with the given properties.
+     * @param {{
+     *   contextID: number,
+     *   properties: !chrome.input.ime.AssistiveWindowProperties
+     * }} parameters
+     * @param callback Called when the operation completes.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function(boolean success) {...};
+     */
+    export function setAssistiveWindowProperties(parameters: object, callback?: (success: boolean) => void): void;
+    /**
      * Sets the properties of the candidate window. This fails if the extension doesn't own the active IME
      * @param callback Called when the operation completes.
      * If you specify the callback parameter, it should be a function that looks like this:
@@ -4176,6 +4220,8 @@ declare namespace chrome.input.ime {
 
     /** This event is sent when focus leaves a text box. It is sent to all extensions that are listening to this event, and enabled by the user. */
     export var onBlur: BlurEvent;
+    /** This event is sent when a button in an assistive window is clicked. */
+    export var onAssistiveWindowButtonClicked: AssistiveWindowButtonClickedEvent;
     /** This event is sent if this extension owns the active IME. */
     export var onCandidateClicked: CandidateClickedEvent;
     /** This event is sent if this extension owns the active IME. */
@@ -4716,6 +4762,11 @@ declare namespace chrome.omnibox {
         content: string;
         /** The text that is displayed in the URL dropdown. Can contain XML-style markup for styling. The supported tags are 'url' (for a literal URL), 'match' (for highlighting text that matched what the user's query), and 'dim' (for dim helper text). The styles can be nested, eg. dimmed match. You must escape the five predefined entities to display them as text: stackoverflow.com/a/1091953/89484 */
         description: string;
+        /**
+        * Whether the suggest result can be deleted by the user.
+        * @since Chrome 63.
+        */
+        deletable?: boolean;
     }
 
     export interface Suggestion {
@@ -5452,8 +5503,8 @@ declare namespace chrome.serial {
   * @export
   * @param connectionId The id of the connection.
   * @param signals The set of signal changes to send to the device:
-  * boolean:	(optional) dtr - DTR (Data Terminal Ready).
-  * boolean:	(optional) rts - RTS (Request To Send).
+  * boolean:    (optional) dtr - DTR (Data Terminal Ready).
+  * boolean:    (optional) rts - RTS (Request To Send).
   * @param callback Called once the control signals have been set.
   * The callback parameter should be a function that looks like this:
   * function(boolean result) {...};
@@ -6660,7 +6711,7 @@ declare namespace chrome.system.display {
        * If set, updates the display's logical bounds origin along y-axis.
        * @see[See documentation for boundsOriginX parameter.]
        */
-      boundsOriginY: number;
+      boundsOriginY?: number;
 
       /**
        * If set, updates the display mode to the mode matching this value.
@@ -7882,16 +7933,17 @@ declare namespace chrome.tts {
         /**
          * Optional. This voice's gender.
          * One of: "male", or "female"
+         * @deprecated since Chrome 70. Gender is deprecated and will be ignored.
          */
         gender?: string;
         /** Optional. The name of the voice. */
         voiceName?: string;
-        /** The ID of the extension providing this voice. */
-        extensionsId?: string;
-        /** All of the callback event types that this voice is capable of sending. */
+        /** Optional. The ID of the extension providing this voice. */
+        extensionId?: string;
+        /** Optional. All of the callback event types that this voice is capable of sending. */
         eventTypes?: string[];
         /**
-         * If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs.
+         * Optional. If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs.
          * @since Chrome 33.
          */
         remote?: boolean;

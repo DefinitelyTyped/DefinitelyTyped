@@ -94,9 +94,10 @@ import {
 
 {
     // getJSON
-    getJSON(new Response()); // $ExpectType Promise<any> | Promise<void>
+    getJSON(new Response()); // $ExpectType Promise<any>
     getJSON(); // $ExpectError
     getJSON(0); // $ExpectError
+    getJSON(new Response()).then((value: any) => value); // $ExpectType Promise<any>
 }
 
 {

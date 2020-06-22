@@ -91,6 +91,7 @@ function TestAnimatedAPI() {
 
     spring1.start();
     spring1.stop();
+    spring1.reset();
 
     Animated.parallel(
         [

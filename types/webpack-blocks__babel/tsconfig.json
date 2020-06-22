@@ -1,21 +1,21 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"lib": [
-			"es6"
-		],
-		"noImplicitAny": true,
-		"noImplicitThis": true,
-		"strictNullChecks": true,
-		"strictFunctionTypes": true,
-		"esModuleInterop": true,
-		"baseUrl": "../",
-		"typeRoots": [
-			"../"
-		],
-		"types": [],
-		"noEmit": true,
-		"forceConsistentCasingInFileNames": true,
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "esModuleInterop": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
         "paths": {
             "@webpack-blocks/assets": ["webpack-blocks__assets"],
             "@webpack-blocks/babel": ["webpack-blocks__babel"],
@@ -28,9 +28,9 @@
             "@webpack-blocks/uglify": ["webpack-blocks__uglify"],
             "@webpack-blocks/webpack": ["webpack-blocks__webpack"]
         }
-	},
-	"files": [
-		"index.d.ts",
-		"webpack-blocks__babel-tests.ts"
-	]
+    },
+    "files": [
+        "index.d.ts",
+        "webpack-blocks__babel-tests.ts"
+    ]
 }

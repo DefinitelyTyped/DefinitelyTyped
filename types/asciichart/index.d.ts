@@ -1,12 +1,14 @@
 // Type definitions for asciichart 1.5
 // Project: https://github.com/kroitor/asciichart
-// Definitions by: pokutuna <https://github.com/DefinitelyTyped>
+// Definitions by: pokutuna <https://github.com/pokutuna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface PlotConfig {
     offset?: number;
     padding?: string;
     height?: number;
+    min?: number;
+    max?: number;
     format?: (x: number, i: number) => string;
 }
 

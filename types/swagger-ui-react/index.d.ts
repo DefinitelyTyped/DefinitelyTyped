@@ -28,6 +28,7 @@ export interface SwaggerUIProps {
     docExpansion?: 'list' | 'full' | 'none';
     defaultModelExpandDepth?: number;
     plugins?: Plugin[];
+    supportedSubmitMethods?: string[];
 }
 
 declare class SwaggerUI extends React.PureComponent<SwaggerUIProps> {}

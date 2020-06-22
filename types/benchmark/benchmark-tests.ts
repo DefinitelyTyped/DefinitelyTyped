@@ -214,7 +214,7 @@ bench.on('cycle', (event: Benchmark.Event) => {
   target.stats.deviation;
   target.stats.mean;
   target.stats.sample;
-  target.stats.variances;
+  target.stats.variance;
   target.times;
   target.times.cycle;
   target.times.elapsed;

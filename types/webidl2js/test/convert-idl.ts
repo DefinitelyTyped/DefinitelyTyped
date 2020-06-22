@@ -7,46 +7,46 @@ const idlDir = path.resolve(__dirname, '../src');
 const libDir = path.resolve(__dirname, '../lib');
 
 const transformer = new Transformer({
-	implSuffix: '-impl',
+    implSuffix: '-impl',
 
-	processCEReactions(code) {
-		this; // $ExpectType ProcessorContext
-		this.addImport; // $ExpectType (specifier: string, property?: string | undefined) => string
+    processCEReactions(code) {
+        this; // $ExpectType ProcessorContext
+        this.addImport; // $ExpectType (specifier: string, property?: string | undefined) => string
 
-		code; // $ExpectType string
-		return code;
-	},
+        code; // $ExpectType string
+        return code;
+    },
 
-	processHTMLConstructor(code) {
-		this; // $ExpectType ProcessorContext
-		this.addImport; // $ExpectType (specifier: string, property?: string | undefined) => string
+    processHTMLConstructor(code) {
+        this; // $ExpectType ProcessorContext
+        this.addImport; // $ExpectType (specifier: string, property?: string | undefined) => string
 
-		code; // $ExpectType string
-		return code;
-	},
+        code; // $ExpectType string
+        return code;
+    },
 
-	processReflect(idl, implName) {
-		this; // $ExpectType ProcessorContext
-		this.addImport; // $ExpectType (specifier: string, property?: string | undefined) => string
+    processReflect(idl, implName) {
+        this; // $ExpectType ProcessorContext
+        this.addImport; // $ExpectType (specifier: string, property?: string | undefined) => string
 
-		idl; // $ExpectType AttributeMemberType
-		implName; // $ExpectType string
+        idl; // $ExpectType AttributeMemberType
+        implName; // $ExpectType string
 
-		const reflectAttr = idl.extAttrs.find(attr => attr.name === 'Reflect');
-		const attrName: string =
-			(reflectAttr && reflectAttr.rhs && JSON.parse(reflectAttr.rhs.value as string)) || idl.name.toLowerCase();
+        const reflectAttr = idl.extAttrs.find(attr => attr.name === 'Reflect');
+        const attrName: string =
+            (reflectAttr && reflectAttr.rhs && JSON.parse(reflectAttr.rhs.value as string)) || idl.name.toLowerCase();
 
-		return {
-			get: `${implName}.getAttributeNS(null, "${attrName}")`,
-			set: `${implName}.setAttributeNS(null, "${attrName}", V)`,
-		};
-	},
+        return {
+            get: `${implName}.getAttributeNS(null, "${attrName}")`,
+            set: `${implName}.setAttributeNS(null, "${attrName}", V)`,
+        };
+    },
 
-	suppressErrors: false,
+    suppressErrors: false,
 });
 
 transformer.addSource(idlDir, libDir);
 transformer.generate(libDir).catch(err => {
-	console.error(err);
-	process.exit(1);
+    console.error(err);
+    process.exit(1);
 });

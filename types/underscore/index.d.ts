@@ -8,6 +8,7 @@
 //                 Florian Keller <https://github.com/ffflorian>
 //                 Regev Brody <https://github.com/regevbr>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Michael Ness <https://github.com/reubenrybnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -70,17 +71,17 @@ declare module _ {
         source: string;
     }
 
-    interface Collection<T> { }
-
     // Common interface between Arrays and jQuery objects
-    interface List<T> extends Collection<T> {
+    interface List<T> {
         [index: number]: T;
         length: number;
     }
 
-    interface Dictionary<T> extends Collection<T> {
+    interface Dictionary<T> {
         [index: string]: T;
     }
+
+    type Collection<T> = List<T> | Dictionary<T>;
 
     interface Predicate<T> {
         (value: T): boolean;
@@ -106,22 +107,28 @@ declare module _ {
         (prev: TResult, curr: T, key: string, list: Dictionary<T>): TResult;
     }
 
+    type TypeOfList<V> = V extends _.List<infer T> ? T : never;
+
+    type TypeOfDictionary<V> = V extends _.Dictionary<infer T> ? T : never;
+
+    type TypeOfCollection<V> = V extends _.Collection<infer T> ? T : never;
+
+    type _ChainSingle<V> = _Chain<TypeOfCollection<V>, V>;
+
     interface Cancelable {
         cancel(): void;
     }
 
-    type TypeOfDictionary<T> = T extends _.Dictionary<infer V> ? V : never;
-
     interface UnderscoreStatic {
         /**
-        * Underscore OOP Wrapper, all Underscore functions that take an object
-        * as the first parameter can be invoked through this function.
-        * @param key First argument to Underscore object functions.
-        **/
-        <T>(value: _.List<T>): Underscore<T, _.List<T>>;
-        <T>(value: Array<T>): Underscore<T, Array<T>>;
-        <T extends TypeOfDictionary<V>, V extends _.Dictionary<any> = _.Dictionary<T>>(value: V): Underscore<T, V>;
-        <T>(value: T): Underscore<T>;
+         * Underscore OOP Wrapper, all Underscore functions that take an object
+         * as the first parameter can be invoked through this function.
+         * @param value First argument to Underscore object functions.
+         * @returns An Underscore wrapper around the supplied value.
+         **/
+        <T extends TypeOfList<V>, V extends List<any> = List<T>>(value: V): Underscore<T, V>;
+        <T extends TypeOfDictionary<V>, V extends Dictionary<any> = Dictionary<T>>(value: V): Underscore<T, V>;
+        <V>(value: V): Underscore<never, V>;
 
         /* *************
         * Collections *
@@ -1121,12 +1128,12 @@ declare module _ {
         range(stop: number): number[];
 
         /**
-        * Split an **array** into several arrays containing **count** or less elements
-        * of initial array.
-        * @param array The array to split
-        * @param count The maximum size of the inner arrays.
-        */
-        chunk<T>(array: _.Collection<T>, count: number): (_.Collection<T>)[]
+         * Chunks a list into multiple arrays, each containing length or fewer items.
+         * @param list The list to split.
+         * @param length The maximum size of the inner arrays.
+         * @returns The chunked list.
+         **/
+        chunk<T>(list: List<T>, length: number): T[][]
 
         /*************
          * Functions *
@@ -4109,14 +4116,14 @@ declare module _ {
         *********** */
 
         /**
-        * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
-        * until value() is used.
-        * @param obj Object to chain.
-        * @return Wrapped `obj`.
-        **/
-        chain<T>(obj: T[]): _Chain<T, T[]>;
-        chain<T extends TypeOfDictionary<V>, V extends _.Dictionary<any> = _.Dictionary<T>>(obj: V): _Chain<T, V>;
-        chain<T extends {}>(obj: T): _Chain<T>;
+         * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
+         * until value() is used.
+         * @param value The object to chain.
+         * @returns An underscore chain wrapper around the supplied value.
+         **/
+        chain<T extends TypeOfList<V>, V extends List<any> = List<T>>(value: V): _Chain<T, V>;
+        chain<T extends TypeOfDictionary<V>, V extends Dictionary<any> = Dictionary<T>>(value: V): _Chain<T, V>;
+        chain<V>(value: V): _Chain<never, V>;
 
         /**
          * Current version
@@ -4628,10 +4635,11 @@ declare module _ {
         range(): number[];
 
         /**
-         * Wrapped type any[][].
-         * @see _.chunk
+         * Chunks a wrapped list into multiple arrays, each containing length or fewer items.
+         * @param length The maximum size of the inner arrays.
+         * @returns The chunked list.
          **/
-        chunk(): any[][];
+        chunk(length: number): T[][];
 
         /* ***********
         * Functions *
@@ -5059,17 +5067,17 @@ declare module _ {
         *********** */
 
         /**
-        * Wrapped type `any`.
-        * @see _.chain
-        **/
+         * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
+         * until value() is used.
+         * @returns An underscore chain wrapper around the wrapped value.
+         **/
         chain(): _Chain<T, V>;
 
         /**
-        * Wrapped type `any`.
-        * Extracts the value of a wrapped object.
-        * @return Value of the wrapped object.
-        **/
-        value<TResult>(): TResult;
+         * Extracts the value of the wrapped object.
+         * @returns The value of the wrapped object.
+         **/
+        value(): V;
     }
 
     interface _Chain<T, V = T> {
@@ -5588,10 +5596,11 @@ declare module _ {
         range(): _Chain<T>;
 
         /**
-         * Wrapped type `any[][]`.
-         * @see _.chunk
+         * Chunks a wrapped list into multiple arrays, each containing length or fewer items.
+         * @param length The maximum size of the inner arrays.
+         * @returns The wrapped chunked list.
          **/
-        chunk(): _Chain<T>;
+        chunk(length: number): _Chain<T[], T[][]>;
 
         /* ***********
         * Functions *
@@ -6106,20 +6115,19 @@ declare module _ {
         *********** */
 
         /**
-        * Wrapped type `any`.
-        * @see _.chain
-        **/
-        chain(): _Chain<T>;
+          * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
+          * until value() is used.
+          * @returns An underscore chain wrapper around the wrapped value.
+          **/
+        chain(): _Chain<T, V>;
 
         /**
-        * Wrapped type `any`.
-        * @see _.value
-        **/
+         * Extracts the value of the wrapped object.
+         * @returns The value of the wrapped object.
+         **/
         value(): V;
     }
-    interface _ChainSingle<T> {
-        value(): T;
-    }
+
     interface _ChainOfArrays<T> extends _Chain<T[]> {
         flatten(shallow?: boolean): _Chain<T>;
     }
