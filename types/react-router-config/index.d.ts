@@ -5,7 +5,7 @@
 //                 Phoenix He <https://github.com/NullMDR>
 //                 Mathieu TUDISCO <https://github.com/mathieutu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 import * as React from "react";
 import { RouteComponentProps, SwitchProps, match } from "react-router";
