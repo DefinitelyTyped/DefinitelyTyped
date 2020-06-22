@@ -1,4 +1,4 @@
-// Type definitions for ECharts 4.6.0
+// Type definitions for ECharts 4.6.1
 // Project: http://echarts.apache.org
 // Definitions by: Xie Jingyang <https://github.com/xieisabug>
 //                 AntiMoron <https://github.com/AntiMoron>
@@ -10,6 +10,7 @@
 //                 dwhitney <https://github.com/dwhitney>
 //                 Ruixuel <https://github.com/ruixuel>
 //                 Robert <https://github.com/robert-wettstaedt>
+//                 trajnisz <https://github.com/trajnisz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

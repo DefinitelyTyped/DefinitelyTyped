@@ -9,6 +9,7 @@
 //                  Peter Ferrarotto <https://github.com/peterjferrarotto>
 //                  Xavier Ho <https://github.com/spaxe>
 //                  Jongsu Liam Kim <https://github.com/appleparan>
+//                  Fredrik Sandström <https://github.com/Veckodag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -1951,8 +1952,8 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#collection/style
      */
     type ClassName = string;
-    /** A space-separated list of class names */
-    type ClassNames = string;
+    /** A space-separated list of class names or an array */
+    type ClassNames = string | ClassName[];
 
     interface CollectionStyle {
         /**
@@ -3559,7 +3560,8 @@ declare namespace cytoscape {
          * http://js.cytoscape.org/#style/node-body
          */
         interface Node extends Partial<Overlay>, PaddingNode, Partial<Labels<NodeSingular>>, BackgroundImage,
-            Partial<Ghost>, Partial<Visibility<NodeSingular>>, Partial<PieChartBackground>, Partial<Events<NodeSingular>> {
+            Partial<Ghost>, Partial<Visibility<NodeSingular>>, Partial<PieChartBackground>, Partial<Events<NodeSingular>>,
+            Partial<TransitionAnimation> {
             /**
              * The CSS content field
              */
@@ -3757,7 +3759,8 @@ declare namespace cytoscape {
 
         interface Edge extends EdgeLine, EdgeArrow, Partial<Gradient>, Partial<Overlay>, Partial<BezierEdges>,
             Partial<UnbundledBezierEdges>, Partial<HaystackEdges>, Partial<SegmentsEdges>, Partial<Visibility<EdgeSingular>>,
-            Partial<Labels<EdgeSingular>>, Partial<Events<NodeSingular>> { }
+            Partial<Labels<EdgeSingular>>, Partial<Events<EdgeSingular>>, Partial<EdgeEndpoints<EdgeSingular>>,
+            Partial<TransitionAnimation> { }
 
         /**
          * These properties affect the styling of an edge’s line:
@@ -3990,6 +3993,16 @@ declare namespace cytoscape {
             "target-arrow-fill"?: PropertyValueEdge<ArrowFill>;
             /** The fill state of the edge’s mid-target arrow. */
             "mid-target-arrow-fill"?: PropertyValueEdge<ArrowFill>;
+        }
+
+        /**
+         * https://js.cytoscape.org/#style/edge-endpoints
+         */
+        interface EdgeEndpoints<SingularType extends EdgeSingular> {
+            /** Specifies the endpoint of the source side of the edge  */
+            "source-endpoint": PropertyValue<SingularType, "inside-to-node" | "outside-to-node" | "outside-to-node-or-label" | "outside-to-line" | "outside-to-line-or-label" | string>;
+            /** Specifies the endpoint of the target side of the edge  */
+            "target-endpoint": PropertyValue<SingularType, "inside-to-node" | "outside-to-node" | "outside-to-node-or-label" | "outside-to-line" | "outside-to-line-or-label" | string>;
         }
 
         /**

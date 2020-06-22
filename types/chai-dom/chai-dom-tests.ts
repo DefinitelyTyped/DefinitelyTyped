@@ -22,4 +22,5 @@ function test() {
     expect(testElement).to.contain('foo');
     expect(testElement).to.contain(document.body);
     expect(testElement).to.be.visible;
+    expect(testElement).to.have.tagName('foo');
 }

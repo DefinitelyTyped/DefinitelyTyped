@@ -102,7 +102,7 @@ declare class Gpio extends EventEmitter {
          * @param edge
          * @returns Promise
          */
-        setup: (channel: number, direction: PinDirection, edge: EDGE) => Promise<unknown>;
+        setup: (channel: number, direction: PinDirection, edge?: EDGE) => Promise<boolean>;
         /**
          * @see {@link Gpio.write}
          * @param channel
@@ -115,7 +115,7 @@ declare class Gpio extends EventEmitter {
          * @param channel
          * @returns Promise
          */
-        read: (channel: number) => Promise<unknown>;
+        read: (channel: number) => Promise<boolean>;
         /**
          * @see {@link Gpio.destroy}
          * @returns Promise

@@ -5,13 +5,18 @@ declare namespace Aws {
         Types based on https://github.com/serverless/serverless/blob/master/docs/providers/aws/guide/serverless.yml.md
     */
     interface Serverless {
-        service: Service;
+        service: Service | string;
         frameworkVersion: string;
         provider: Provider;
         package?: Package;
         functions?: Functions;
         layers?: Layers;
         resources?: Resources;
+        plugins?: string[];
+        org?: string;
+        app?: string;
+        tenant?: string;
+        custom?: Custom;
     }
 
     interface Service {
@@ -40,7 +45,7 @@ declare namespace Aws {
         cfnRole?: string;
         versionFunctions?: boolean;
         environment?: Environment;
-        endpointType?: string;
+        endpointType?: 'regional' | 'edge' | 'private';
         apiKeys?: string[];
         apiGateway?: ApiGateway;
         alb?: Alb;
@@ -260,12 +265,33 @@ declare namespace Aws {
         type?: string;
     }
 
+    interface HttpCors {
+        origins?: string | string[];
+        headers?: string | string[];
+        allowCredentials?: boolean;
+        maxAge?: number;
+        cacheControl?: string;
+    }
+
+    interface HttpRequestParametersValidation {
+        querystrings?: { [key: string]: boolean };
+        headers?: { [key: string]: boolean };
+        paths?: { [key: string]: boolean };
+    }
+
+    interface HttpRequestValidation {
+        parameters?: HttpRequestParametersValidation;
+        schema?: { [key: string]: string };
+    }
+
     interface Http {
         path: string;
         method: string;
-        cors?: boolean;
+        cors?: boolean | HttpCors;
         private?: boolean;
+        async?: boolean;
         authorizer?: HttpAuthorizer;
+        request?: HttpRequestValidation;
     }
 
     interface HttpApiEventAuthorizer {
@@ -534,8 +560,12 @@ declare namespace Aws {
 
     interface Resources {
         Resources: CloudFormationResources;
-        extensions: CloudFormationResources;
-        Outputs: Outputs;
+        extensions?: CloudFormationResources;
+        Outputs?: Outputs;
+    }
+
+    interface Custom {
+        [key: string]: any;
     }
 }
 

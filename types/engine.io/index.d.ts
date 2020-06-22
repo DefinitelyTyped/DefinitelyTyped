@@ -22,7 +22,7 @@ declare namespace engine {
 
     interface ServerOptions {
         /**
-         * how many ms without a pong packet to consider the connection closed (60000)
+         * how many ms without a pong packet to consider the connection closed (5000)
          */
         pingTimeout?: number;
         /**
@@ -34,7 +34,7 @@ declare namespace engine {
          */
         upgradeTimeout?: number;
         /**
-         * how many bytes or characters a message can be, before closing the session (to avoid DoS). Default value is 10E7.
+         * how many bytes or characters a message can be, before closing the session (to avoid DoS). Default value is 10E6.
          */
         maxHttpBufferSize?: number;
         /**

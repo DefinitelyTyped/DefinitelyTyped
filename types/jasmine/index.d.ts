@@ -914,6 +914,8 @@ declare namespace jasmine {
         first(): CallInfo;
         /** By chaining the spy with calls.reset(), will clears all tracking for a spy */
         reset(): void;
+        /** Set this spy to do a shallow clone of arguments passed to each invocation. */
+        saveArgumentsByValue(): void;
     }
 
     interface CallInfo {

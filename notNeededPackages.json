@@ -463,6 +463,12 @@
             "asOfVersion": "2.8.1"
         },
         {
+            "libraryName": "cash-dom",
+            "typingsPackageName": "cash",
+            "sourceRepoURL": "https://github.com/fabiospampinato/cash",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "cassandra-driver",
             "typingsPackageName": "cassandra-driver",
             "sourceRepoURL": "https://github.com/datastax/nodejs-driver",
@@ -5549,6 +5555,12 @@
             "typingsPackageName": "wordpress__dom-ready",
             "sourceRepoURL": "https://github.com/WordPress/gutenberg",
             "asOfVersion": "2.9.0"
+        },
+        {
+            "libraryName": "@wordpress/element",
+            "typingsPackageName": "wordpress__element",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.14.0"
         },
         {
             "libraryName": "@wordpress/escape-html",
