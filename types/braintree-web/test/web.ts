@@ -318,6 +318,54 @@ braintree.client.create({
     });
   });
 
+  braintree.paypalCheckout.create({
+    client: clientInstance
+  }, function (createErr, paypalInstance) {
+    if (createErr) {
+      if (createErr.code === 'PAYPAL_BROWSER_NOT_SUPPORTED') {
+        console.error('This browser is not supported.');
+      } else {
+        console.error('Error!', createErr);
+      }
+    }
+
+    let button = new HTMLButtonElement();
+
+    button.addEventListener('click', function () {
+      // Disable the button so that we don't attempt to open multiple popups.
+      button.setAttribute('disabled', 'disabled');
+
+      // Because PayPal tokenization opens a popup, this must be called
+      // as a result of a user action, such as a button click.
+      paypalInstance.tokenize({
+        flow: 'vault' // Required
+        // Any other tokenization options
+      }, function (tokenizeErr: braintree.BraintreeError, payload: braintree.PayPalTokenizePayload) {
+        button.removeAttribute('disabled');
+
+        if (tokenizeErr) {
+          // Handle tokenization errors or premature flow closure
+
+          switch (tokenizeErr.code) {
+            case 'PAYPAL_POPUP_CLOSED':
+              console.error('Customer closed PayPal popup.');
+              break;
+            case 'PAYPAL_ACCOUNT_TOKENIZATION_FAILED':
+              console.error('PayPal tokenization failed. See details:', tokenizeErr.details);
+              break;
+            case 'PAYPAL_FLOW_FAILED':
+              console.error('Unable to initialize PayPal flow. Are your options correct?', tokenizeErr.details);
+              break;
+            default:
+              console.error('Error!', tokenizeErr);
+          }
+        } else {
+          // Submit payload.nonce to your server
+        }
+      });
+    });
+  });
+
   braintree.unionpay.create({ client: clientInstance }, function (createErr, unionpayInstance) {
     if (createErr) {
       console.error(createErr);
@@ -490,4 +538,3 @@ braintree.threeDSecure.cancelVerifyCard(function (err: braintree.BraintreeError,
   verifyPayload.liabilityShifted; // boolean
   verifyPayload.liabilityShiftPossible; // boolean
 });
-
