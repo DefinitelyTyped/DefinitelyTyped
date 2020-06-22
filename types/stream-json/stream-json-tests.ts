@@ -115,8 +115,9 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
     const s3: Stringer = Stringer.stringer({ useKeyValues: true });
     const s4: Stringer.make.Constructor = Stringer.make();
     const s5: Stringer.stringer.Constructor = Stringer.stringer();
+    const s6: Stringer = Stringer.stringer({ makeArray: true });
 
-    used([s1, s2, s3, s4, s5]);
+    used([s1, s2, s3, s4, s5, s6]);
 }
 
 {
