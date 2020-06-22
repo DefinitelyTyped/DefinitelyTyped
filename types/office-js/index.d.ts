@@ -16563,7 +16563,19 @@ declare namespace OfficeExtension {
 
     class EventHandlers<T> {
         constructor(context: ClientRequestContext, parentObject: ClientObject, name: string, eventInfo: EventInfo<T>);
+        /**
+         * Adds a function to be called when the event is triggered.
+         * @param handler A promise-based function that takes in any relevant event arguments.
+         */
         add(handler: (args: T) => Promise<any>): EventHandlerResult<T>;
+        /**
+         * Removes the specified function from the event handler list so that it will not be called on subsequent events. 
+         * 
+         * **Note**: The same {@link Office.ClientRequestContext | RequestContext} object that the handler was added in must be used when removing the handler. 
+         * More information can be found in the {@link https://docs.microsoft.com/office/dev/add-ins/develop/common-coding-issues#removing-event-handlers | Coding guidance for common issues and unexpected platform behaviors}. 
+         * 
+         * @param handler A reference to a function previously provided to the `add` method as an event handler. 
+         */
         remove(handler: (args: T) => Promise<any>): void;
     }
 
