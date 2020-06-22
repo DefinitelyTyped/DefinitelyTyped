@@ -68,7 +68,7 @@ export interface AnchorLinkProps<S = H.LocationState> extends BaseLinkProps<S> {
   children: React.ReactChild | [React.ReactChild, ...React.ReactChild[]];
 }
 
-export type LinkProps<S = H.LocationState> = CustomLinkProps<S> | AnchorLinkProps<S>;
+export type LinkProps<S = H.LocationState> = {} & CustomLinkProps<S> | AnchorLinkProps<S>;
 
 export function Link<S = H.LocationState>(
     // TODO: Define this as ...params: Parameters<Link<S>> when only TypeScript >= 3.1 support is needed.
