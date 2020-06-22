@@ -1,19 +1,13 @@
-// Type definitions for react-lazy-load-image-component 1.3
+// Type definitions for react-lazy-load-image-component 1.5
 // Project: https://github.com/Aljullu/react-lazy-load-image-component#readme
 // Definitions by: Dan Vanderkam <https://github.com/danvk>
 //                 Diego Chavez <https://github.com/diegochavez>
 //                 Truong Hoang Dung <https://github.com/revskill10>
+//                 Kodai Suzuki <https://github.com/kodai3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import {
-    CSSProperties,
-    ComponentType,
-    FunctionComponent,
-    ImgHTMLAttributes,
-    ReactElement,
-    ReactNode,
-} from 'react';
+import { ComponentType, CSSProperties, FunctionComponent, ImgHTMLAttributes, ReactElement, ReactNode } from 'react';
 
 export type DelayMethod = 'debounce' | 'throttle';
 export type Effect = 'blur' | 'black-and-white' | 'opacity';
@@ -44,13 +38,17 @@ export interface CommonProps {
     scrollPosition?: ScrollPosition;
 }
 
-export interface LazyLoadImageProps extends CommonProps, Omit<ImgHTMLAttributes<HTMLImageElement>, 'placeholder' | 'onload'>  {
+export interface LazyLoadImageProps
+    extends CommonProps,
+        Omit<ImgHTMLAttributes<HTMLImageElement>, 'placeholder' | 'onload'> {
     /** Name of the effect to use. Requires importing CSS, see README.md. */
     effect?: Effect;
     /** Image src to display while the image is not visible or loaded. */
     placeholderSrc?: string;
     /** In some occasions (for example, when using a placeholderSrc) a wrapper span tag is rendered. This prop allows setting a class to that element. */
     wrapperClassName?: string;
+    /** Props that should be passed to the wrapper span when it is rendered (for example, when using placeholderSrc or effect) */
+    wrapperProps?: React.HTMLAttributes<HTMLSpanElement>;
 }
 
 export const LazyLoadImage: FunctionComponent<LazyLoadImageProps>;
