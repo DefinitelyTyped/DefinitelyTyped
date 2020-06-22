@@ -3,6 +3,7 @@
 // Definitions by: Gyusun Yeom <https://github.com/Perlmint>
 //                 Totooria Hyperion <https://github.com/TotooriaHyperion>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Jesse Katsumata <https://github.com/Naturalclar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -31,7 +32,7 @@ export type DigestType = 'hex' | 'base26' | 'base32' | 'base36' | 'base49' | 'ba
  * Recommended way to retrieve the options of a loader invocation
  * {@link https://github.com/webpack/loader-utils#getoptions}
  */
-export function getOptions(loaderContext: loader.LoaderContext): Readonly<OptionObject> | null;
+export function getOptions(loaderContext: loader.LoaderContext): Readonly<OptionObject>;
 
 /**
  * Parses a passed string (e.g. loaderContext.resourceQuery) as a query string, and returns an object.

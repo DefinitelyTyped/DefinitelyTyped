@@ -9,6 +9,7 @@ const options: format.Options = {
     indentation: '   ',
     stripComments: true,
     debug: true,
+    lineSeparator: '\n'
 };
 
 format(testXml, options);

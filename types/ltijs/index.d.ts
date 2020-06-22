@@ -5,6 +5,18 @@
 
 /// <reference types="express" />
 
+import { IdToken } from './lib/IdToken';
+import { PlatformContext } from './lib/Utils/Platform';
+
+declare module 'express' {
+    interface Response {
+        locals: {
+            token?: IdToken;
+            context?: PlatformContext;
+        };
+    }
+}
+
 export * from './lib/Provider/Provider';
 export * from './lib/Provider/Services/DeepLinking';
 export * from './lib/Provider/Services/GradeService';

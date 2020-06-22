@@ -659,3 +659,5 @@ redis.pipeline()
     .zremrangebylex('foo', '-', '+', (err: Error | null, res: number) => {
         // do something with res or err
     });
+
+const { port, host } =  redis.options;

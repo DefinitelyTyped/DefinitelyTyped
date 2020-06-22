@@ -4,6 +4,9 @@
  * @param input - Base64 encoded string.
  * @param encoding - Base64 variant.
  * @returns Decoded string.
+ * @example
+ * encoding.b64decode(str)
+ * encoding.b64decode(str, 'rawstd')
  */
 export function b64decode(input: string, encoding?: Base64Variant): string;
 
@@ -13,6 +16,9 @@ export function b64decode(input: string, encoding?: Base64Variant): string;
  * @param input - String to encode.
  * @param encoding - Base64 variant.
  * @returns Base64 encoded string.
+ * @example
+ * encoding.b64encode(str)
+ * encoding.b64encode(str, 'rawstd')
  */
 export function b64encode(input: string, encoding?: Base64Variant): string;
 
@@ -32,6 +38,9 @@ declare namespace encoding {
      * @param input - Base64 encoded string.
      * @param encoding - Base64 variant.
      * @returns Decoded string.
+     * @example
+     * encoding.b64decode(str)
+     * encoding.b64decode(str, 'rawstd')
      */
     function b64decode(input: string, encoding?: Base64Variant): string;
     /**
@@ -40,6 +49,9 @@ declare namespace encoding {
      * @param input - Base64 encoded string.
      * @param encoding - Base64 variant.
      * @returns Decoded string.
+     * @example
+     * encoding.b64encode(str)
+     * encoding.b64encode(str, 'rawstd')
      */
     function b64encode(input: string, encoding?: Base64Variant): string;
 }

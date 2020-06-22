@@ -258,6 +258,11 @@ const poolClusterWithOptions = mysql.createPoolCluster({
     defaultSelector: 'RR'
 });
 
+// raw
+// $ExpectType { toSqlString: () => string; }
+const CURRENT_TIMESTAMP = mysql.raw('CURRENT_TIMESTAMP()');
+const sqlString = mysql.format('UPDATE posts SET modified = ? WHERE id = ?', [CURRENT_TIMESTAMP, 42]);
+
 // destroy
 poolCluster.end();
 

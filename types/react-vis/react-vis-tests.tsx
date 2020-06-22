@@ -9,6 +9,7 @@ import {
     LineMarkSeries,
     HexbinSeries,
     ChartLabel,
+    VerticalBarSeries
 } from 'react-vis';
 
 export function Example() {
@@ -101,6 +102,36 @@ export class HexbinSizeExample extends Component {
                             textAnchor: 'start',
                         }}
                     />
+                </XYPlot>
+            </div>
+        );
+    }
+}
+
+export class BarSeriesExample extends Component {
+    state = {
+        xAxis: 0,
+        yAxis: 3,
+    };
+
+    render() {
+        const { xAxis, yAxis } = this.state;
+        const data = DATA.map((d: any) => ({
+            x: Number(d[DIMENSIONS[xAxis]]),
+            y: Number(d[DIMENSIONS[yAxis]]),
+        }));
+
+        return (
+            <div className="centered-and-flexed">
+                <XYPlot
+                    xType="ordinal"
+                    width={250}
+                    height={250}
+                    colorType={"literal"}
+                    style={{ fill: "#ffffff", height: "300px" }}
+                    margin={{ left: 0, top: 25 }} >
+                    <XAxis />
+                    <VerticalBarSeries data={data} stroke={0} barWidth={1.0} />
                 </XYPlot>
             </div>
         );
