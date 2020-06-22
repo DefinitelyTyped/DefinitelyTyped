@@ -414,7 +414,6 @@ import unescapeFuncEs from 'validator/es/lib/unescape';
 import whitelistFuncEs from 'validator/es/lib/whitelist';
 import isSlugFuncEs from 'validator/es/lib/isSlug';
 
-
 /************************************************
  *                                               *
  *                  API TESTS                    *
