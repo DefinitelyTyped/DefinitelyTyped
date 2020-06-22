@@ -168,4 +168,3 @@ export function useRouteMatch<Params extends { [K in keyof Params]?: string } = 
 export function useRouteMatch<Params extends { [K in keyof Params]?: string } = {}>(
     path: string | string[] | RouteProps,
 ): match<Params> | null;
-
