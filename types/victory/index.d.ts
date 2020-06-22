@@ -586,11 +586,11 @@ declare module 'victory' {
          */
         handleStyle?: React.CSSProperties;
         /**
-         * The optional onBrushCleared prop accepts an function to be called when tha active brush area is cleared. 
+         * The optional onBrushCleared prop accepts an function to be called when tha active brush area is cleared.
          * The function accepts the parameters of domain (the updated domain), and props
          * (the props used by VictoryBrushContainer).
          * @example: onBrushCleared={(domain, props) => handleBrushCleared(domain, props)}
-        */
+         */
         onBrushCleared?: (domain: DomainPropType, props: VictoryBrushContainerProps) => void;
         /**
          * The optional onBrushDomainChange prop accepts an function to be called on
