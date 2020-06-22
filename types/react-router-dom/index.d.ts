@@ -65,7 +65,7 @@ export interface CustomLinkProps<S = H.LocationState> extends BaseLinkProps<S> {
 // enforces jxs-a11y/anchor-has-content
 // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/master/docs/rules/anchor-has-content.md
 export interface AnchorLinkProps<S = H.LocationState> extends BaseLinkProps<S> {
-  children: React.ReactChild | (React.ReactChild[] & [ React.ReactChild ]);
+  children: React.ReactChild | (React.ReactChild[] & { O: React.ReactChild });
 }
 
 export type LinkProps<S = H.LocationState> = CustomLinkProps<S> | AnchorLinkProps<S>;
