@@ -586,12 +586,26 @@ declare module 'victory' {
          */
         handleStyle?: React.CSSProperties;
         /**
+         * The optional onBrushCleared prop accepts an function to be called when tha active brush area is cleared. 
+         * The function accepts the parameters of domain (the updated domain), and props
+         * (the props used by VictoryBrushContainer).
+         * @example: onBrushCleared={(domain, props) => handleBrushCleared(domain, props)}
+        */
+        onBrushCleared?: (domain: DomainPropType, props: VictoryBrushContainerProps) => void;
+        /**
          * The optional onBrushDomainChange prop accepts an function to be called on
          * each update to the highlighted domain. The function accepts the parameters of
          * domain (the updated domain), and props (the props used by VictoryBrushContainer).
          * @example onBrushDomainChange={(domain, props) => handleDomainChange(domain, props)}
          */
         onBrushDomainChange?: (domain: DomainPropType, props: VictoryBrushContainerProps) => void;
+        /**
+         * The optional onBrushDomainChangeEnd prop accepts an function to be called only on mouse
+         * up events. The function accepts the parameters of domain (the updated domain), and props
+         * (the props used by VictoryBrushContainer).
+         * @example: onBrushDomainChangeEnd={(domain, props) => handleDomainChangeEnd(domain, props)}
+         */
+        onBrushDomainChangeEnd?: (domain: DomainPropType, props: VictoryBrushContainerProps) => void;
     }
 
     export class VictoryBrushContainer extends React.Component<VictoryBrushContainerProps, any> {}
