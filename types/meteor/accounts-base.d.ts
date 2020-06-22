@@ -12,6 +12,10 @@ declare module "meteor/accounts-base" {
         text?: (user: Meteor.User, url: string) => string;
         html?: (user: Meteor.User, url: string) => string;
     }
+            
+    interface FieldSpecifier {
+        [id: string]: Number;
+    }
 
     module Accounts {
         var urls: URLS;
@@ -36,6 +40,7 @@ declare module "meteor/accounts-base" {
             passwordResetTokenExpirationInDays?: number;
             passwordEnrollTokenExpirationInDays?: number;
             ambiguousErrorMessages?: boolean;
+            defaultFieldSelector?: FieldSpecifier;
         }): void;
 
         function onLogin(func: Function): {
@@ -106,9 +111,9 @@ declare module "meteor/accounts-base" {
 
         function onCreateUser(func: (options: { profile?: {} }, user: Meteor.User) => void): void;
 
-        function findUserByEmail(email: string): Meteor.User | null | undefined;
+        function findUserByEmail(email: string, options?: FieldSpecifier): Meteor.User | null | undefined | any;
 
-        function findUserByUsername(username: string): Meteor.User | null | undefined;
+        function findUserByUsername(username: string, options?: FieldSpecifier): Meteor.User | null | undefined | any;
 
         function sendEnrollmentEmail(userId: string, email?: string): void;
 
