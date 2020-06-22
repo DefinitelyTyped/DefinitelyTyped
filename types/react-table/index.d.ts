@@ -75,7 +75,7 @@ export type ColumnGroup<D extends object = {}> =
         })
     )
     // Not used, but needed for backwards compatibility
-    & { accessor?: Accessor<D>; };
+    & { accessor?: keyof D extends never ? IdType<D> | Accessor<D> : Accessor<D>; };
 
 type ValueOf<T> = T[keyof T];
 
