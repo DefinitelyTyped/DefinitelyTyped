@@ -1194,6 +1194,11 @@ declare namespace chrome.contextMenus {
         /** Optional. Note: You cannot change an item to be a child of one of its own descendants.  */
         parentId?: any;
         type?: string;
+        /**
+         * Optional.
+         * @since Chrome 62.
+         * Whether the item is visible in the menu.
+         */
         visible?: boolean;
     }
 
