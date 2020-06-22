@@ -2859,6 +2859,15 @@ declare namespace braintree {
   /** @type {module:braintree-web/us-bank-account} */
   export var usBankAccount: braintree.USBankAccount;
 
+  /** @type {module:braintree-web/venmo} */
+  export var venmo: braintree.Venmo;
+
+  /** @type {module:braintree-web/google-payment} */
+  export var googlePayment: braintree.GooglePayment;
+
+  /** @type {module:braintree-web/paypal-checkout} */
+  export var paypalCheckout: braintree.PayPalCheckout;
+
   /**
    * @description The current version of the SDK, i.e. `3.0.2`.
    * @type {string}
@@ -2868,4 +2877,3 @@ declare namespace braintree {
 
 export = braintree;
 export as namespace braintree;
-
