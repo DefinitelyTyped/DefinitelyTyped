@@ -921,7 +921,10 @@ declare namespace braintree {
    * @property {string} type The payment method type, always `CreditCard`.
    */
   interface HostedFieldsAccountDetails {
+    bin: string;
     cardType: string;
+    expirationMonth: string;
+    expirationYear: string;
     lastTwo: string;
     lastFour: string;
   }
@@ -1050,6 +1053,7 @@ declare namespace braintree {
      * @returns {void}
      */
     teardown(callback?: callback): void;
+    teardown(): Promise<void>;
 
     /**
      * Tokenizes fields and returns a nonce payload.
