@@ -555,6 +555,7 @@ export interface PartialConfig {
     babelrc?: string;
     babelignore?: string;
     config?: string;
+    hasFilesystemConfig: () => boolean;
 }
 
 export interface ConfigItem {

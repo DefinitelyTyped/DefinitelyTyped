@@ -81,7 +81,9 @@ export function createPoolCluster(config?: PoolClusterConfig): PoolCluster;
  * format().
  * @param sql
  */
-export function raw(sql: string): () => string;
+export function raw(sql: string): {
+    toSqlString: () => string
+};
 
 export interface Connection extends EscapeFunctions {
     config: ConnectionConfig;

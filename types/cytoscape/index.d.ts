@@ -1952,8 +1952,8 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#collection/style
      */
     type ClassName = string;
-    /** A space-separated list of class names */
-    type ClassNames = string;
+    /** A space-separated list of class names or an array */
+    type ClassNames = string | ClassName[];
 
     interface CollectionStyle {
         /**
@@ -3560,7 +3560,8 @@ declare namespace cytoscape {
          * http://js.cytoscape.org/#style/node-body
          */
         interface Node extends Partial<Overlay>, PaddingNode, Partial<Labels<NodeSingular>>, BackgroundImage,
-            Partial<Ghost>, Partial<Visibility<NodeSingular>>, Partial<PieChartBackground>, Partial<Events<NodeSingular>> {
+            Partial<Ghost>, Partial<Visibility<NodeSingular>>, Partial<PieChartBackground>, Partial<Events<NodeSingular>>,
+            Partial<TransitionAnimation> {
             /**
              * The CSS content field
              */
@@ -3758,7 +3759,8 @@ declare namespace cytoscape {
 
         interface Edge extends EdgeLine, EdgeArrow, Partial<Gradient>, Partial<Overlay>, Partial<BezierEdges>,
             Partial<UnbundledBezierEdges>, Partial<HaystackEdges>, Partial<SegmentsEdges>, Partial<Visibility<EdgeSingular>>,
-            Partial<Labels<EdgeSingular>>, Partial<Events<EdgeSingular>>, Partial<EdgeEndpoints<EdgeSingular>> { }
+            Partial<Labels<EdgeSingular>>, Partial<Events<EdgeSingular>>, Partial<EdgeEndpoints<EdgeSingular>>,
+            Partial<TransitionAnimation> { }
 
         /**
          * These properties affect the styling of an edge’s line:

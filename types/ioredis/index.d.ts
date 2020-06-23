@@ -4,7 +4,6 @@
 //                 Christopher Eck <https://github.com/chrisleck>
 //                 Yoga Aliarham <https://github.com/aliarham11>
 //                 Ebrahim <https://github.com/br8h>
-//                 Shahar Mor <https://github.com/shaharmor>
 //                 Whemoon Jang <https://github.com/palindrom615>
 //                 Francis Gulotta <https://github.com/reconbot>
 //                 Dmitry Motovilov <https://github.com/funthing>
@@ -918,6 +917,7 @@ declare namespace IORedis {
 
     interface Redis extends EventEmitter, Commander, Commands {
         Promise: typeof Promise;
+        options: RedisOptions;
         status: string;
         connect(callback?: () => void): Promise<void>;
         disconnect(): void;

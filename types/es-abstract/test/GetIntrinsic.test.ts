@@ -166,9 +166,9 @@ declare const boolean: boolean;
 
     GetIntrinsic('%ThrowTypeError%'); // $ExpectType () => never
 
-    GetIntrinsic('%TypedArray%'); // $ExpectType unknown
-    GetIntrinsic('%TypedArray.prototype%'); // $ExpectType unknown
-    GetIntrinsic('%TypedArrayPrototype%'); // $ExpectType unknown
+    GetIntrinsic('%TypedArray%'); // $ExpectType TypedArrayConstructor
+    GetIntrinsic('%TypedArray.prototype%'); // $ExpectType TypedArrayPrototype
+    GetIntrinsic('%TypedArrayPrototype%'); // $ExpectType TypedArrayPrototype
 
     GetIntrinsic('%TypeError%'); // $ExpectType TypeErrorConstructor
     GetIntrinsic('%TypeError.prototype%'); // $ExpectType TypeError
@@ -370,9 +370,9 @@ declare const boolean: boolean;
 
     GetIntrinsic('%ThrowTypeError%', false); // $ExpectType () => never
 
-    GetIntrinsic('%TypedArray%', false); // $ExpectType unknown
-    GetIntrinsic('%TypedArray.prototype%', false); // $ExpectType unknown
-    GetIntrinsic('%TypedArrayPrototype%', false); // $ExpectType unknown
+    GetIntrinsic('%TypedArray%', false); // $ExpectType TypedArrayConstructor
+    GetIntrinsic('%TypedArray.prototype%', false); // $ExpectType TypedArrayPrototype
+    GetIntrinsic('%TypedArrayPrototype%', false); // $ExpectType TypedArrayPrototype
 
     GetIntrinsic('%TypeError%', false); // $ExpectType TypeErrorConstructor
     GetIntrinsic('%TypeError.prototype%', false); // $ExpectType TypeError
@@ -574,9 +574,9 @@ declare const boolean: boolean;
 
     GetIntrinsic('%ThrowTypeError%', true); // $ExpectType (() => never) | undefined
 
-    GetIntrinsic('%TypedArray%', true); // $ExpectType unknown
-    GetIntrinsic('%TypedArray.prototype%', true); // $ExpectType unknown
-    GetIntrinsic('%TypedArrayPrototype%', true); // $ExpectType unknown
+    GetIntrinsic('%TypedArray%', true); // $ExpectType TypedArrayConstructor | undefined
+    GetIntrinsic('%TypedArray.prototype%', true); // $ExpectType TypedArrayPrototype | undefined
+    GetIntrinsic('%TypedArrayPrototype%', true); // $ExpectType TypedArrayPrototype | undefined
 
     GetIntrinsic('%TypeError%', true); // $ExpectType TypeErrorConstructor | undefined
     GetIntrinsic('%TypeError.prototype%', true); // $ExpectType TypeError | undefined
@@ -778,9 +778,9 @@ declare const boolean: boolean;
 
     GetIntrinsic('%ThrowTypeError%', boolean); // $ExpectType (() => never) | undefined
 
-    GetIntrinsic('%TypedArray%', boolean); // $ExpectType unknown
-    GetIntrinsic('%TypedArray.prototype%', boolean); // $ExpectType unknown
-    GetIntrinsic('%TypedArrayPrototype%', boolean); // $ExpectType unknown
+    GetIntrinsic('%TypedArray%', boolean); // $ExpectType TypedArrayConstructor | undefined
+    GetIntrinsic('%TypedArray.prototype%', boolean); // $ExpectType TypedArrayPrototype | undefined
+    GetIntrinsic('%TypedArrayPrototype%', boolean); // $ExpectType TypedArrayPrototype | undefined
 
     GetIntrinsic('%TypeError%', boolean); // $ExpectType TypeErrorConstructor | undefined
     GetIntrinsic('%TypeError.prototype%', boolean); // $ExpectType TypeError | undefined

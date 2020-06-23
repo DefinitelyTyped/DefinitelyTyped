@@ -54,7 +54,7 @@ const ltiAdvanced = new Provider(
             secure: true,
             sameSite: 'None',
         },
-        serverAddon: app => {},
+        serverAddon: app => { },
     },
 );
 
@@ -143,3 +143,11 @@ ltiAdvanced.Grade.result(idToken, { userId: true });
 
 // $ExpectType Promise<false | MembersResult>
 ltiAdvanced.NamesAndRoles.getMembers(idToken);
+
+ltiAdvanced.app.get('/any', (request: Request, response: Response) => {
+    // $ExpectType PlatformContext | undefined
+    response.locals.context;
+
+    // $ExpectType IdToken | undefined
+    response.locals.token;
+});

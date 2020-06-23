@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 1.10
+// Type definitions for Mapbox GL JS 1.11
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -1136,6 +1136,11 @@ declare namespace mapboxgl {
 
         clusterMaxZoom?: number;
 
+        /**
+         * Minimum number of points necessary to form a cluster if clustering is enabled. Defaults to `2`.
+         */
+        clusterMinPoints?: number;
+
         clusterProperties?: object;
 
         lineMetrics?: boolean;
@@ -1511,6 +1516,11 @@ declare namespace mapboxgl {
          * The default value is `auto`.
          */
         pitchAlignment?: Alignment;
+
+        /** The scale to use for the default marker if options.element is not provided.
+         * The default scale (1) corresponds to a height of `41px` and a width of `27px`.
+         */
+        scale?: number;
     }
 
     /**

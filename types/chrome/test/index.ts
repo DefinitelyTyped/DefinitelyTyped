@@ -495,3 +495,39 @@ function testAssistiveWindow() {
             `${details.buttonID} button in ${details.windowType} window clicked`);
         });
 }
+
+// https://developer.chrome.com/extensions/omnibox#types
+function testOmnibox() {
+    const suggestion: chrome.omnibox.Suggestion = { description: 'description' };
+    chrome.omnibox.setDefaultSuggestion(suggestion);
+
+    function onInputEnteredCallback(text: string, disposition: chrome.omnibox.OnInputEnteredDisposition) {
+        if (disposition === 'currentTab') {
+        }
+        if (disposition === 'newForegroundTab') {
+        }
+        if (disposition === 'newBackgroundTab') {
+        }
+    }
+    chrome.omnibox.onInputEntered.addListener(onInputEnteredCallback);
+
+    const suggestResult1: chrome.omnibox.SuggestResult = {
+        content: 'content',
+        description: 'description',
+    };
+    const suggestResult2: chrome.omnibox.SuggestResult = {
+        content: 'content',
+        description: 'description',
+        deletable: true,
+    };
+    function onInputChangedCallback(text: string, suggest: (suggestResults: chrome.omnibox.SuggestResult[]) => void) {
+        suggest([suggestResult1, suggestResult2]);
+    }
+    chrome.omnibox.onInputChanged.addListener(onInputChangedCallback);
+
+    chrome.omnibox.onInputStarted.addListener(() => {});
+
+    chrome.omnibox.onInputCancelled.addListener(() => {});
+
+    chrome.omnibox.onDeleteSuggestion.addListener((text: string) => {});
+}

@@ -1,4 +1,4 @@
-// Type definitions for @carbon/pictograms-react 10.10
+// Type definitions for @carbon/pictograms-react 10.12
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/pictograms-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -92,6 +92,8 @@ export const ChipCircuit: CarbonPictogramType;
 export const ChipCredit: CarbonPictogramType;
 export const ChipDebit: CarbonPictogramType;
 export const CirclePacking: CarbonPictogramType;
+export const ClientFinancing_01: CarbonPictogramType;
+export const ClientFinancing_02: CarbonPictogramType;
 export const CloudAnalytics: CarbonPictogramType;
 export const CloudAssets: CarbonPictogramType;
 export const CloudBuilderProfessionalServices: CarbonPictogramType;
@@ -121,6 +123,8 @@ export const CloudyWindy: CarbonPictogramType;
 export const CoatHanger: CarbonPictogramType;
 export const CognosAnalytics: CarbonPictogramType;
 export const College: CarbonPictogramType;
+export const CommercialFinancing_01: CarbonPictogramType;
+export const CommercialFinancing_02: CarbonPictogramType;
 export const ConceptExpansion: CarbonPictogramType;
 export const ConceptInsights: CarbonPictogramType;
 export const Connect: CarbonPictogramType;
@@ -190,8 +194,10 @@ export const Faucet: CarbonPictogramType;
 export const Feedback: CarbonPictogramType;
 export const FileBackup: CarbonPictogramType;
 export const FileTransfer: CarbonPictogramType;
+export const FinanceStrategy: CarbonPictogramType;
 export const FinancialConsultant: CarbonPictogramType;
 export const FinancialGain: CarbonPictogramType;
+export const FinancialNetworks: CarbonPictogramType;
 export const FinancialNews: CarbonPictogramType;
 export const FireAlarm: CarbonPictogramType;
 export const FireExtinguisher: CarbonPictogramType;
@@ -204,10 +210,20 @@ export const Forklift: CarbonPictogramType;
 export const FreeTrial: CarbonPictogramType;
 export const Fuel: CarbonPictogramType;
 export const Gear: CarbonPictogramType;
+export const GlobalAnalytics: CarbonPictogramType;
+export const GlobalAssetsAndRecovery_01: CarbonPictogramType;
+export const GlobalAssetsAndRecovery_02: CarbonPictogramType;
 export const GlobalBusinessServices: CarbonPictogramType;
+export const GlobalCurrency: CarbonPictogramType;
+export const GlobalExchange: CarbonPictogramType;
 export const GlobalFinanceEuro: CarbonPictogramType;
+export const GlobalFinanceNetwork: CarbonPictogramType;
 export const GlobalFinanceSterling: CarbonPictogramType;
+export const GlobalMarkets: CarbonPictogramType;
+export const GlobalMarketsBar: CarbonPictogramType;
 export const GlobalNetwork: CarbonPictogramType;
+export const GlobalSecurity: CarbonPictogramType;
+export const GlobalStrategy: CarbonPictogramType;
 export const GlobalTechnologyServices: CarbonPictogramType;
 export const Globe: CarbonPictogramType;
 export const GlobeLocations: CarbonPictogramType;
@@ -321,6 +337,8 @@ export const NycManhattanAlt: CarbonPictogramType;
 export const Office: CarbonPictogramType;
 export const OilPump: CarbonPictogramType;
 export const OilRig: CarbonPictogramType;
+export const OptimizeCashFlow_01: CarbonPictogramType;
+export const OptimizeCashFlow_02: CarbonPictogramType;
 export const Overcast: CarbonPictogramType;
 export const PaperClip: CarbonPictogramType;
 export const Parliament: CarbonPictogramType;
