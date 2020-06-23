@@ -187,23 +187,26 @@ declare namespace braintree {
          *
          * @returns {(Promise|void)} Returns a promise if no callback is provided.
          */
-        createPayment(options: {
-            flow: paypal.FlowType;
-            intent?: paypal.Intent;
-            offerCredit?: boolean;
-            amount?: string | number;
-            currency?: string;
-            displayName?: string;
-            locale?: string;
-            vaultInitiatedCheckoutPaymentMethodToken?: string;
-            shippingOptions?: paypal.ShippingOption[];
-            enableShippingAddress?: boolean;
-            shippingAddressOverride?: paypal.Address;
-            shippingAddressEditable?: boolean;
-            billingAgreementDescription?: string;
-            landingPageType?: string;
-            lineItems?: paypal.LineItem[];
-        }, callback?: callback): Promise<string>;
+        createPayment(
+            options: {
+                flow: paypal.FlowType;
+                intent?: paypal.Intent;
+                offerCredit?: boolean;
+                amount?: string | number;
+                currency?: string;
+                displayName?: string;
+                locale?: string;
+                vaultInitiatedCheckoutPaymentMethodToken?: string;
+                shippingOptions?: paypal.ShippingOption[];
+                enableShippingAddress?: boolean;
+                shippingAddressOverride?: paypal.Address;
+                shippingAddressEditable?: boolean;
+                billingAgreementDescription?: string;
+                landingPageType?: string;
+                lineItems?: paypal.LineItem[];
+            },
+            callback?: callback,
+        ): Promise<string>;
 
         /**
          * Tokenizes the authorize data from PayPal's checkout.js library when completing a buyer approval flow.
