@@ -2719,11 +2719,11 @@ declare namespace Cesium {
         show: Property;
         translucencyByDistance: Property;
         pixelOffsetScaleByDistance: Property;
-        distanceDisplayCondition?: DistanceDisplayCondition | Property;
+        distanceDisplayCondition?: Property;
         constructor(options?: {
             text?: Property | string;
             font?: string;
-            style?: Property;
+            style?: LabelStyle | Property;
             fillColor?: Color;
             outlineColor?: Color;
             outlineWidth?: number;
@@ -2733,9 +2733,9 @@ declare namespace Cesium {
             backgroundColor?: Property;
             backgroundPadding?: Property;
             horizontalOrigin?: Property;
-            verticalOrigin?: Property;
+            verticalOrigin?: VerticalOrigin | Property;
             eyeOffset?: Property;
-            pixelOffset?: Property;
+            pixelOffset?: Cartesian2 | Property;
             translucencyByDistance?: Property;
             pixelOffsetScaleByDistance?: Property;
             heightReference?: Property;
@@ -3730,10 +3730,7 @@ declare namespace Cesium {
     class ClippingPlane {
         normal: Cartesian3;
         distance: number;
-        constructor(option: {
-            normal: Cartesian3;
-            distance: number;
-        })
+        constructor(normal: Cartesian3, distance: number);
 
         static clone(clippingPlane: ClippingPlane, result?: ClippingPlane): ClippingPlane;
         static fromPlane(plane: Plane, result?: ClippingPlane): ClippingPlane;
@@ -3750,7 +3747,7 @@ declare namespace Cesium {
         readonly length: number;
 
         constructor(options?: {
-            planes?: ClippingPlane;
+            planes?: ClippingPlane[];
             enabled?: boolean;
             modelMatrix?: Matrix4;
             unionClippingRegions?: boolean;

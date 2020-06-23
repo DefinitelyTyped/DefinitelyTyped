@@ -1,5 +1,8 @@
 import * as auth0 from 'auth0-js';
 
+auth0.version.raw; // $ExpectType string
+auth0.version; // $ExpectType { raw: string; }
+
 const webAuth = new auth0.WebAuth({
     domain: 'mine.auth0.com',
     clientID: 'dsa7d77dsa7d7',

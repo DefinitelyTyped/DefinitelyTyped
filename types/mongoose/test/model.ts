@@ -600,3 +600,165 @@ LocModel.findByIdAndUpdate('someId',
 LocModel.findByIdAndUpdate('someId',
   { $pull: { notes: { _id: { $in: ['someId', 'someId'] } } } }
 )
+
+// $ExpectError
+LocModel.create({ address: "foo", coords: [1, 2], facilities: ["foo", "bar"] });
+
+LocModel.create({ address: "foo", coords: [1, 2], facilities: ["foo", "bar"], name: "bar", openingTimes: ["foo"], rating: 10, reviews: ["foo"], notes: [] });
+LocModel.create<{address: string}>({ address: "foo" });
+
+enum SchemaEnum {
+    Foo,
+    Bar
+}
+
+interface ModelWithFunction extends mongoose.Document {
+    name: string;
+
+    someFunc: () => any;
+
+    enum?: SchemaEnum;
+
+    selfRef?: ModelWithFunction | mongodb.ObjectID;
+
+    selfRef2?: ModelWithFunction | mongodb.ObjectID;
+
+    selfRefArray?: (ModelWithFunction | mongodb.ObjectID | undefined)[];
+
+    selfRefArray2?: ModelWithFunction[] | mongodb.ObjectID[];
+
+    parent?: {
+        ref: { 
+            _id: mongodb.ObjectId; 
+            child: ModelWithFunction
+        } | mongodb.ObjectID;
+    }
+
+    enumArray?: SchemaEnum[];
+
+    deeperFuncTest?: {
+        test: string;
+        // ensure this doesn't turn required
+        optionalTest?: string;
+
+        someFunc: () => any; // should be excluded in CreateQuery<T>
+
+        tuple?: [number, number];
+        array?: number[];
+
+        deepArray?: Array<{ 
+            title: string, 
+            func: () => {}, // should be excluded in CreateQuery<T>
+            tuple?: [number, number]
+
+            mapWithFuncs?: Map<string, { 
+                title: string, 
+                func: () => {}, // should be excluded in CreateQuery<T>
+                innerMap: Map<string, {
+                    title: string, 
+                    func: () => {} // should be excluded in CreateQuery<T>
+                    readonly readonly: unknown; // should be excluded in CreateQuery<T>
+                }> 
+            }>;
+        }>
+    }
+    
+    map?: Map<string, boolean>
+
+    mapWithFuncs?: Map<string, { 
+        title: string, 
+        func: () => {}, // should be excluded in CreateQuery<T>
+        innerMap: Map<string, {
+            title: string, 
+            func: () => {} // should be excluded in CreateQuery<T>
+            readonly readonly: unknown; // should be excluded in CreateQuery<T>
+        }> 
+    }>;
+
+
+    jobs: Array<{ 
+        title: string, 
+        readonly readonly: unknown // should be excluded in CreateQuery<T>
+    }>;
+
+    titles?: Array<{ title: string }>;
+
+    readonly readonly: unknown; // should be excluded in CreateQuery<T>
+}
+
+// we are only testing the types, not the functionality, so no mongoose.Schema needed
+var ModelWithFunctionInSchema = mongoose.model<ModelWithFunction>("ModelWithFunction", {} as any);
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { test: "test", array: [1, 2, 3], tuple: [1, 2] } });
+
+ModelWithFunctionInSchema.create({ 
+    name: "test", 
+    jobs: [], 
+    deeperFuncTest: { 
+        test: "hello", 
+        deepArray: [{ 
+            title: "test", 
+            tuple: [1, 2], 
+            mapWithFuncs: { 
+                test: { 
+                    title: "test", 
+                    innerMap: { 
+                        test: { 
+                            title: "hello" 
+                        }
+                    }
+                }
+            } 
+        }] 
+    } 
+});
+
+
+// ------------------------------------------------------------------------------------
+// TESTS DISABLED: note that these tests does not properly pass $ExpectError on TS 3.3
+// they can be re-enabled once minimum TS version is bumped 
+
+//! $ExpectError
+//ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { deepArray: [{ title1: "test" }] } });
+
+//! $ExpectError
+//ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { test: "hello", deepArray: [{ title1: "test" }] } });
+
+//! $ExpectError
+//ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { foo: "bar" } });
+// ------------------------------------------------------------------------------------
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ foo: "bar" });
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], foo: "bar" });
+
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], someFunc: {} as any });
+
+// works with map
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], map: new Map<string, boolean>([["test", true]]) });
+
+// works with object
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], map: { test: true } });
+
+// works with array
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], map: [["test", true]] });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [{ title: "hello" }] });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [{ title: "hello" }], titles: [{ title: "test" }] });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], mapWithFuncs: { test: { title: "hello", innerMap: { test: { title: "hello" } } }} });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], enum: SchemaEnum.Bar });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], enumArray: [SchemaEnum.Bar, SchemaEnum.Foo] });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [] }).then(ref => {
+    const id: mongodb.ObjectID = ref._id;
+    ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRef: ref, selfRef2: ref._id, selfRefArray: [ref, id] });
+    ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRefArray2: [id, id] });
+    ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRefArray2: [ref, ref] });
+});

@@ -1,4 +1,4 @@
-// Type definitions for Jest 25.2
+// Type definitions for Jest 26.0
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -28,6 +28,7 @@
 //                 Devansh Jethmalani <https://github.com/devanshj>
 //                 Pawel Fajfer <https://github.com/pawfa>
 //                 Regev Brody <https://github.com/regevbr>
+//                 Mark Skelton <https://github.com/mskelton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -299,7 +300,7 @@ declare namespace jest {
     /**
      * Instructs Jest to use fake versions of the standard timer functions.
      */
-    function useFakeTimers(): typeof jest;
+    function useFakeTimers(implementation?: 'modern' | 'legacy'): typeof jest;
     /**
      * Instructs Jest to use the real versions of the standard timer functions.
      */

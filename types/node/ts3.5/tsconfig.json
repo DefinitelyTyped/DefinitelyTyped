@@ -1,7 +1,8 @@
 {
     "files": [
         "index.d.ts",
-        "node-tests.ts"
+        "node-tests.ts",
+        "test/globals.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

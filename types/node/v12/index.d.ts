@@ -41,6 +41,7 @@
 //                 Junxiao Shi <https://github.com/yoursunny>
 //                 Ilia Baryshnikov <https://github.com/qwelias>
 //                 ExE Boss <https://github.com/ExE-Boss>
+//                 Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.2.
@@ -57,7 +58,10 @@
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 /// <reference path="base.d.ts" />
 
-// We can't include assert.d.ts in base.d.ts, as it'll cause duplication errors in +ts3.7
+// We can't include globals.global.d.ts in globals.d.ts, as it'll cause duplication errors in TypeScript 3.4+
+/// <reference path="globals.global.d.ts" />
+
+// We can't include assert.d.ts in base.d.ts, as it'll cause duplication errors in TypeScript 3.7+
 /// <reference path="assert.d.ts" />
 
 // TypeScript 2.1-specific augmentations:

@@ -243,11 +243,11 @@ declare namespace Office {
      * *Supported hosts, by platform*
      *  <table>
      *   <tr><th>                             </th><th> Office on Windows </th><th> Office in web browser </th><th> Office on iPad </th><th> Outlook on mobile devices </th><th> Office on Mac </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+     *   <tr><td><strong> Excel      </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
      *   <tr><td><strong> Outlook    </strong></td><td> Y                 </td><td> Y                     </td><td>                </td><td> Y                         </td><td> Y             </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                 </td><td>                       </td><td>                </td><td>                           </td><td>               </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+     *   <tr><td><strong> PowerPoint </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
+     *   <tr><td><strong> Project    </strong></td><td> Y                 </td><td>                       </td><td>                </td><td>                           </td><td> Y             </td></tr>
+     *   <tr><td><strong> Word       </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
      *  </table>
      */
     var context: Context;
@@ -278,11 +278,11 @@ declare namespace Office {
      * *Supported hosts, by platform*
      *  <table>
      *   <tr><th>                             </th><th> Office on Windows </th><th> Office in web browser </th><th> Office on iPad </th><th> Outlook on mobile devices </th><th> Office on Mac </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+     *   <tr><td><strong> Excel      </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
      *   <tr><td><strong> Outlook    </strong></td><td> Y                 </td><td> Y                     </td><td>                </td><td> Y                         </td><td> Y             </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                 </td><td>                       </td><td>                </td><td>                           </td><td>               </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+     *   <tr><td><strong> PowerPoint </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
+     *   <tr><td><strong> Project    </strong></td><td> Y                 </td><td>                       </td><td>                </td><td>                           </td><td> Y             </td></tr>
+     *   <tr><td><strong> Word       </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
      *  </table>
      * 
      * @param reason Indicates how the app was initialized.
@@ -553,11 +553,11 @@ declare namespace Office {
         * *Supported hosts, by platform*
         *  <table>
         *   <tr><th>                             </th><th> Office on Windows </th><th> Office in web browser </th><th> Office on iPad </th><th> Outlook on mobile devices </th><th> Office on Mac </th></tr>
-        *   <tr><td><strong> Excel      </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+        *   <tr><td><strong> Excel      </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
         *   <tr><td><strong> Outlook    </strong></td><td> Y                 </td><td> Y                     </td><td>                </td><td> Y                         </td><td> Y             </td></tr>
-        *   <tr><td><strong> PowerPoint </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
-        *   <tr><td><strong> Project    </strong></td><td> Y                 </td><td>                       </td><td>                </td><td>                           </td><td>               </td></tr>
-        *   <tr><td><strong> Word       </strong></td><td> Y                 </td><td>                       </td><td> Y              </td><td>                           </td><td>               </td></tr>
+        *   <tr><td><strong> PowerPoint </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
+        *   <tr><td><strong> Project    </strong></td><td> Y                 </td><td>                       </td><td>                </td><td>                           </td><td> Y             </td></tr>
+        *   <tr><td><strong> Word       </strong></td><td> Y                 </td><td>                       </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
         *  </table>
         */
         displayLanguage: string;
@@ -4801,7 +4801,7 @@ declare namespace Office {
          * 
          * The set method creates a new setting of the specified name if it does not already exist, or sets an existing setting of the specified name 
          * in the in-memory copy of the settings property bag. After you call the Settings.saveAsync method, the value is stored in the document as 
-         * the serialized JSON representation of its data type. A maximum of 2MB is available for the settings of each add-in.
+         * the serialized JSON representation of its data type.
          * 
          * @param settingName The case-sensitive name of the setting to set or create.
          * @param value Specifies the value to be stored.
@@ -7666,7 +7666,13 @@ declare namespace Office {
              */
             Item = "item",
             /**
-             * The attachment is stored in a cloud location, such as OneDrive. The `id` property of the attachment contains a URL to the file.
+             * The attachment is stored in a cloud location, such as OneDrive.
+             *
+             * **Important**: In Read mode, the `id` property of the attachment's {@link Office.AttachmentDetails | details} object
+             * contains a URL to the file.
+             * From requirement set 1.8, the `url` property included in the attachment's
+             * {@link https://docs.microsoft.com/javascript/api/outlook/office.attachmentdetailscompose?view=outlook-js-1.8 | details} object
+             * contains a URL to the file in Compose mode.
              */
             Cloud = "cloud"
         }
@@ -9166,7 +9172,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9188,7 +9194,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9374,7 +9380,7 @@ declare namespace Office {
          *                 type `Office.AsyncResult`. If the call fails, the `asyncResult.error` property will contain an error code with the reason for
          *                 the failure.
          */
-        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetailsCompose[]>) => void): void;
         /**
          * Gets the item's attachments as an array.
          * 
@@ -9390,7 +9396,7 @@ declare namespace Office {
          *                 type `Office.AsyncResult`. If the call fails, the `asyncResult.error` property will contain an error code with the reason for
          *                 the failure.
          */
-        getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
+        getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetailsCompose[]>) => void): void;
         /**
          * Asynchronously gets the ID of a saved item.
          *
@@ -9618,7 +9624,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9638,7 +9644,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9668,13 +9674,9 @@ declare namespace Office {
          * that when Outlook is in cached mode, it may take some time before the item is actually synced to the server. 
          * Until the item is synced, using the item ID will return an error.
          *
-         * **Note**: The following clients have different behavior for `saveAsync` on appointments in compose mode:
-         *
-         * - In Outlook on Mac, only build 16.35.308 or later supports saving a meeting.
+         * **Note**: In Outlook on Mac, only build 16.35.308 or later supports saving a meeting.
          * Otherwise, the `saveAsync` method fails when called from a meeting in compose mode.
          * For a workaround, see {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API}.
-         *
-         * - Outlook on the web always sends an invitation or update when `saveAsync` is called on an appointment in compose mode.
          *
          * [Api set: Mailbox 1.3]
          *
@@ -9708,13 +9710,9 @@ declare namespace Office {
          * when Outlook is in cached mode, it may take some time before the item is actually synced to the server. 
          * Until the item is synced, using the item ID will return an error.
          *
-         * **Note**: The following clients have different behavior for `saveAsync` on appointments in compose mode:
-         *
-         * - In Outlook on Mac, only build 16.35.308 or later supports saving a meeting.
+         * **Note**: In Outlook on Mac, only build 16.35.308 or later supports saving a meeting.
          * Otherwise, the `saveAsync` method fails when called from a meeting in compose mode.
          * For a workaround, see {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API}.
-         *
-         * - Outlook on the web always sends an invitation or update when `saveAsync` is called on an appointment in compose mode.
          *
          * [Api set: Mailbox 1.3]
          *
@@ -10278,7 +10276,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10300,7 +10298,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10318,16 +10316,15 @@ declare namespace Office {
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Displays a reply form that includes the sender and all recipients of the selected message or the organizer and all attendees of the 
+         * Displays a reply form that includes either the sender and all recipients of the selected message or the organizer and all attendees of the
          * selected appointment.
          *
-         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2-column or 1-column view.
          *
          * If any of the string parameters exceed their limits, `displayReplyAllForm` throws an exception.
          *
-         * When attachments are specified in the `formData.attachments` parameter, Outlook on the web and desktop clients attempt to download
-         * all attachments and attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI. 
-         * If this isn't possible, then no error message is thrown.
+         * When attachments are specified in the `formData.attachments` parameter, Outlook attempts to download all attachments and attach them to the
+         * reply form. If any attachments fail to be added, an error is shown in the form UI. If this isn't possible, then no error message is thrown.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
@@ -10344,13 +10341,12 @@ declare namespace Office {
         /**
          * Displays a reply form that includes only the sender of the selected message or the organizer of the selected appointment.
          *
-         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2-column or 1-column view.
          *
          * If any of the string parameters exceed their limits, `displayReplyForm` throws an exception.
          *
-         * When attachments are specified in the `formData.attachments` parameter, Outlook on the web and desktop clients attempt to download
-         * all attachments and attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI. 
-         * If this isn't possible, then no error message is thrown.
+         * When attachments are specified in the `formData.attachments` parameter, Outlook attempts to download all attachments and attach them to the
+         * reply form. If any attachments fail to be added, an error is shown in the form UI. If this isn't possible, then no error message is thrown.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
@@ -10685,7 +10681,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10705,7 +10701,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10780,29 +10776,25 @@ declare namespace Office {
         format: MailboxEnums.AttachmentContentFormat | string;
     }
     /**
-     * Represents an attachment on an item from the server. Read mode only.
+     * Represents an attachment on an item. Compose mode only.
      *
-     * An array of `AttachmentDetails` objects is returned as the attachments property of an appointment or message item.
+     * An array of `AttachmentDetailsCompose` objects is returned as the attachments property of an appointment or message item.
+     *
+     * [Api set: Mailbox 1.8]
      *
      * @remarks
-     * 
+     *
      * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
-     * 
-     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Read
+     *
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
      */
-    interface AttachmentDetails {
+    interface AttachmentDetailsCompose {
         /**
          * Gets a value that indicates the type of an attachment.
          */
         attachmentType: MailboxEnums.AttachmentType | string;
         /**
-         * Gets the MIME content type of the attachment.
-         * 
-         * This property is only available in Read mode.
-         */
-        contentType: string;
-        /**
-         * Gets the Exchange attachment ID of the attachment.
+         * Gets the index of the attachment.
          */
         id: string;
         /**
@@ -10811,7 +10803,7 @@ declare namespace Office {
         isInline: boolean;
         /**
          * Gets the name of the attachment.
-         * 
+         *
          * **Important**: For message or appointment items that were attached by drag-and-drop or "Attach Item",
          * `name` includes a file extension in Outlook on Mac, but excludes the extension on the web or Windows.
          */
@@ -10822,10 +10814,51 @@ declare namespace Office {
         size: number;
         /**
          * Gets the url of the attachment if its type is `MailboxEnums.AttachmentType.Cloud`.
-         * 
-         * [Api set: Mailbox 1.8]
          */
-        url: string;
+        url?: string;
+    }
+    /**
+     * Represents an attachment on an item from the server. Read mode only.
+     *
+     * An array of `AttachmentDetails` objects is returned as the attachments property of an appointment or message item.
+     *
+     * [Api set: Mailbox 1.1]
+     *
+     * @remarks
+     *
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+     *
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Read
+     */
+    interface AttachmentDetails {
+        /**
+         * Gets a value that indicates the type of an attachment.
+         */
+        attachmentType: MailboxEnums.AttachmentType | string;
+        /**
+         * Gets the MIME content type of the attachment.
+         */
+        contentType: string;
+        /**
+         * Gets the Exchange attachment ID of the attachment.
+         * However, if the attachment type is `MailboxEnums.AttachmentType.Cloud`, then a URL for the file is returned.
+         */
+        id: string;
+        /**
+         * Gets a value that indicates whether the attachment should be displayed in the body of the item.
+         */
+        isInline: boolean;
+        /**
+         * Gets the name of the attachment.
+         *
+         * **Important**: For message or appointment items that were attached by drag-and-drop or "Attach Item",
+         * `name` includes a file extension in Outlook on Mac, but excludes the extension on the web or Windows.
+         */
+        name: string;
+        /**
+         * Gets the size of the attachment in bytes.
+         */
+        size: number;
     }
     /**
      * Provides information about the attachments that raised the `Office.EventType.AttachmentsChanged` event.
@@ -10835,7 +10868,7 @@ declare namespace Office {
     export interface AttachmentsChangedEventArgs { 
         /** 
          * Represents the set of attachments that were added or removed. 
-         * For each such attachment, gets a subset of {@link Office.AttachmentDetails | AttachmentDetails} properties: `id`, `name`, `size`, and `attachmentType`.
+         * For each such attachment, gets `id`, `name`, `size`, and `attachmentType` properties.
          * 
          * [Api set: Mailbox 1.8]
          */
@@ -12286,7 +12319,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          *
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Mailbox object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox#events | events section} for supported events.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -12307,7 +12340,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          *
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Mailbox object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox#events | events section} for supported events.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -12411,14 +12444,14 @@ declare namespace Office {
          * The `displayAppointmentForm` method opens an existing calendar appointment in a new window on the desktop or in a dialog box on 
          * mobile devices.
          *
-         * In Outlook on Mac, you can use this method to display a single appointment that is not part of a recurring series, or the 
-         * master appointment of a recurring series, but you cannot display an instance of the series. 
-         * This is because in Outlook on Mac, you cannot access the properties (including the item ID) of instances of a recurring series.
+         * In Outlook on Mac, you can use this method to display a single appointment that is not part of a recurring series, or the master appointment
+         * of a recurring series. However, you can't display an instance of the series because you can't access the properties
+         * (including the item ID) of instances of a recurring series.
          *
-         * In Outlook on the web, this method opens the specified form only if the body of the form is less than or equal to 32KB number of characters.
+         * In Outlook on the web, this method opens the specified form only if the body of the form is less than or equal to 32K characters.
          *
          * If the specified item identifier does not identify an existing appointment, a blank pane opens on the client computer or device, and 
-         * no error message will be returned.
+         * no error message is returned.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
@@ -12436,10 +12469,10 @@ declare namespace Office {
          *
          * The `displayMessageForm` method opens an existing message in a new window on the desktop or in a dialog box on mobile devices.
          *
-         * In Outlook on the web, this method opens the specified form only if the body of the form is less than or equal to 32 KB number of characters.
+         * In Outlook on the web, this method opens the specified form only if the body of the form is less than or equal to 32K characters.
          *
          * If the specified item identifier does not identify an existing message, no message will be displayed on the client computer, and
-         * no error message will be returned.
+         * no error message is returned.
          *
          * Do not use the `displayMessageForm` with an itemId that represents an appointment. Use the `displayAppointmentForm` method to display
          * an existing appointment, and `displayNewAppointmentForm` to display a form to create a new appointment.
@@ -12727,7 +12760,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          *
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Mailbox object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox#events | events section} for supported events.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -12746,7 +12779,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          *
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Mailbox object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox#events | events section} for supported events.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -12973,7 +13006,8 @@ declare namespace Office {
         /**
          * Gets an object that provides methods to get or update the recipients on the Bcc (blind carbon copy) line of a message.
          *
-         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
+         * By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, Windows, and Mac,
+         * the following limits apply.
          *
          * - Get 500 members maximum.
          *
@@ -13018,8 +13052,9 @@ declare namespace Office {
          * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the 
          * current item.
          *
-         * The `cc` property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the recipients on the Cc line of 
-         * the message. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
+         * The `cc` property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the recipients on the
+         * **Cc** line of the message. By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, Windows,
+         * and Mac, the following limits apply.
          * 
          * - Get 500 members maximum.
          *
@@ -13146,8 +13181,9 @@ declare namespace Office {
          * Provides access to the recipients on the To line of a message. The type of object and level of access depends on the mode of the
          * current item.
          *
-         * The `to` property returns a `Recipients` object that provides methods to get or update the recipients on the To line of the message.
-         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
+         * The `to` property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the recipients on the
+         * **To** line of the message. By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, Windows,
+         * and Mac, the following limits apply.
          * 
          * - Get 500 members maximum.
          *
@@ -13309,7 +13345,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13331,7 +13367,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13515,7 +13551,7 @@ declare namespace Office {
          *                 type `Office.AsyncResult`. If the call fails, the `asyncResult.error` property will contain an error code with the reason for
          *                 the failure.
          */
-        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetailsCompose[]>) => void): void;
         /**
          * Gets the item's attachments as an array.
          * 
@@ -13531,7 +13567,7 @@ declare namespace Office {
          *                 type `Office.AsyncResult`. If the call fails, the `asyncResult.error` property will contain an error code with the reason for
          *                 the failure.
          */
-        getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
+        getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetailsCompose[]>) => void): void;
         /**
          * Asynchronously gets the ID of a saved item.
          *
@@ -13756,7 +13792,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13776,7 +13812,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13972,7 +14008,8 @@ declare namespace Office {
          * current item.
          *
          * The `cc` property returns an array that contains an `EmailAddressDetails` object for each recipient listed on the Cc line of the message. 
-         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
+         * By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, you can get 20 members maximum, while
+         * on Windows and Mac, you can get 500 members maximum.
          *
          * @remarks
          *
@@ -14261,7 +14298,8 @@ declare namespace Office {
          * current item.
          *
          * The `to` property returns an array that contains an `EmailAddressDetails` object for each recipient listed on the To line of the message.
-         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
+         * By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, you can get 20 members maximum, while
+         * on Windows and Mac, you can get 500 members maximum.
          *
          * @remarks
          *
@@ -14274,7 +14312,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14296,7 +14334,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14314,16 +14352,15 @@ declare namespace Office {
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Displays a reply form that includes the sender and all recipients of the selected message or the organizer and all attendees of the 
+         * Displays a reply form that includes either the sender and all recipients of the selected message or the organizer and all attendees of the
          * selected appointment.
          *
-         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2-column or 1-column view.
          *
          * If any of the string parameters exceed their limits, `displayReplyAllForm` throws an exception.
          *
-         * When attachments are specified in the `formData.attachments` parameter, Outlook on the web and desktop clients attempt to download
-         * all attachments and attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI.
-         * If this isn't possible, then no error message is thrown.
+         * When attachments are specified in the `formData.attachments` parameter, Outlook attempts to download all attachments and attach them to the
+         * reply form. If any attachments fail to be added, an error is shown in the form UI. If this isn't possible, then no error message is thrown.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
@@ -14340,13 +14377,12 @@ declare namespace Office {
         /**
          * Displays a reply form that includes only the sender of the selected message or the organizer of the selected appointment.
          *
-         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2-column or 1-column view.
          *
          * If any of the string parameters exceed their limits, `displayReplyForm` throws an exception.
          *
-         * When attachments are specified in the `formData.attachments` parameter, Outlook on the web and desktop clients attempt to download
-         * all attachments and attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI.
-         * If this isn't possible, then no error message is thrown.
+         * When attachments are specified in the `formData.attachments` parameter, Outlook attempts to download all attachments and attach them to the
+         * reply form. If any attachments fail to be added, an error is shown in the form UI. If this isn't possible, then no error message is thrown.
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
@@ -14717,7 +14753,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14737,7 +14773,7 @@ declare namespace Office {
         /**
          * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
-         * To see which event types are supported, see `Office.EventType` for details.
+         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -16198,6 +16234,8 @@ declare namespace Office {
         /**
          * Gets the user's time zone in Windows format.
          *
+         * The system time zone is usually returned. However, in Outlook on the web, the default time zone in the calendar preferences is returned instead.
+         *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
@@ -16525,7 +16563,19 @@ declare namespace OfficeExtension {
 
     class EventHandlers<T> {
         constructor(context: ClientRequestContext, parentObject: ClientObject, name: string, eventInfo: EventInfo<T>);
+        /**
+         * Adds a function to be called when the event is triggered.
+         * @param handler A promise-based function that takes in any relevant event arguments.
+         */
         add(handler: (args: T) => Promise<any>): EventHandlerResult<T>;
+        /**
+         * Removes the specified function from the event handler list so that it will not be called on subsequent events. 
+         * 
+         * **Note**: The same {@link OfficeExtension.ClientRequestContext | RequestContext} object that the handler was added in must be used when removing the handler. 
+         * More information can be found in {@link https://docs.microsoft.com/office/dev/add-ins/develop/common-coding-issues#removing-event-handlers | Coding guidance for common issues and unexpected platform behaviors}. 
+         * 
+         * @param handler A reference to a function previously provided to the `add` method as an event handler. 
+         */
         remove(handler: (args: T) => Promise<any>): void;
     }
 

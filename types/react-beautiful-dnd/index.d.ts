@@ -1,4 +1,4 @@
-// Type definitions for react-beautiful-dnd 12.1
+// Type definitions for react-beautiful-dnd 13.0
 // Project: https://github.com/atlassian/react-beautiful-dnd
 // Definitions by: varHarrie <https://github.com/varHarrie>
 //                 Bradley Ayers <https://github.com/bradleyayers>
@@ -8,6 +8,7 @@
 //                 Taeheon Kim <https://github.com/lonyele>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 Arun George <https://github.com/aruniverse>
+//                 Nick Garlis <https://github.com/nickgarlis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // Refer to https://github.com/atlassian/react-beautiful-dnd/blob/master/src/types.js
@@ -249,14 +250,6 @@ export interface DisplacedBy {
     point: Position;
 }
 
-export type VerticalUserDirection = 'up' | 'down';
-export type HorizontalUserDirection = 'left' | 'right';
-
-export interface UserDirection {
-    vertical: VerticalUserDirection;
-    horizontal: HorizontalUserDirection;
-}
-
 // details of the item that is being combined with
 export interface Combine {
     draggableId: DraggableId;
@@ -276,7 +269,6 @@ export interface ReorderImpact {
 
 export interface CombineImpact {
     type: 'COMBINE';
-    whenEntered: UserDirection;
     combine: Combine;
 }
 
@@ -307,6 +299,8 @@ export interface ClientPositions {
 export interface PagePositions {
     selection: Position;
     borderBoxCenter: Position;
+    // how much the page position has changed from the initial
+    offset: Position;
 }
 
 // There are two seperate modes that a drag can be in
@@ -424,7 +418,6 @@ export interface DraggingState {
     dimensions: DimensionMap;
     initial: DragPositions;
     current: DragPositions;
-    userDirection: UserDirection;
     impact: DragImpact;
     viewport: Viewport;
     afterCritical: LiftEffect;
@@ -562,10 +555,14 @@ export interface DragDropContextProps {
     onDragStart?(initial: DragStart, provided: ResponderProvided): void;
     onDragUpdate?(initial: DragUpdate, provided: ResponderProvided): void;
     onDragEnd(result: DropResult, provided: ResponderProvided): void;
+    children: React.ReactNode | null;
+    dragHandleUsageInstructions?: string;
+    nonce?: string;
+    enableDefaultSensors?: boolean;
     sensors?: Sensor[];
 }
 
-export class DragDropContext extends React.Component<DragDropContextProps> {}
+export class DragDropContext extends React.Component<DragDropContextProps> { }
 
 /**
  *  Droppable
@@ -604,7 +601,7 @@ export interface DroppableProps {
     children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement<HTMLElement>;
 }
 
-export class Droppable extends React.Component<DroppableProps> {}
+export class Droppable extends React.Component<DroppableProps> { }
 
 /**
  *  Draggable
@@ -649,8 +646,9 @@ export interface DraggableProvidedDraggableProps {
 export interface DraggableProvidedDragHandleProps {
     'data-rbd-drag-handle-draggable-id': DraggableId;
     'data-rbd-drag-handle-context-id': ContextId;
-    'aria-labelledby': ElementId;
+    'aria-describedby': ElementId;
 
+    role: string;
     tabIndex: number;
     draggable: boolean;
     onDragStart: React.DragEventHandler<any>;
@@ -691,6 +689,6 @@ export interface DraggableProps {
     shouldRespectForcePress?: boolean;
 }
 
-export class Draggable extends React.Component<DraggableProps> {}
+export class Draggable extends React.Component<DraggableProps> { }
 
 export function resetServerContext(): void;

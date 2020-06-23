@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { AppHelper } from './index';
+import { AppHelper, Job } from './index';
 
 interface connectionObject {
     clientKey: string;
@@ -14,17 +14,26 @@ interface connectionObject {
     password: string;
 }
 
-type eachCB<T> = (docId: string, node: T) => any;
-type regularCB = (error: Error) => any;
+interface eachCB<T, U> {
+    (this: T, docId: string, node: U): void;
+}
+
+interface gitanaCallback<T> {
+    (this: T, error?: Error): void;
+}
+
+interface jobCallback<T> {
+    (this: T, job: Job): void;
+}
 
 declare namespace Gitana {
     class Base {
         extend(): any;
 
-        then(callback: any): any;
+        then(callback: gitanaCallback<this>): this;
     }
 
-    class AbstractApplicationObject {
+    class AbstractApplicationObject extends AbstractPlatformObject {
         constructor(application: any, object: any);
 
         base(): void;
@@ -60,7 +69,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class AbstractDirectoryObject {
+    class AbstractDirectoryObject extends AbstractPlatformObject {
         constructor(directory: any, object: any);
 
         base(): void;
@@ -99,7 +108,7 @@ declare namespace Gitana {
     class AbstractMap extends AbstractPersistable {
         constructor(driver: any, object: any);
 
-        asArray(): AbstractNode[];
+        asArray(): any[];
 
         base(): void;
 
@@ -111,9 +120,9 @@ declare namespace Gitana {
 
         count(callback: any): any;
 
-        each(callback: eachCB<AbstractNode>): this;
+        each(callback: eachCB<this, any>): this;
 
-        eachX(callback: eachCB<AbstractNode>): this;
+        eachX(callback: eachCB<this, any>): this;
 
         filter(callback: any): any;
 
@@ -153,13 +162,13 @@ declare namespace Gitana {
     class AbstractNode extends AbstractRepositoryObject {
         constructor(branch: any, object: any);
 
-        addFeature(featureId: any, featureConfig: any): any;
+        addFeature(featureId: string, featureConfig: any): any;
 
-        attach(attachmentId: any, contentType: any, data: any, filename: any): any;
+        attach(attachmentId: string, contentType: any, data: any, filename: any): NodeAttachment;
 
-        attachment(attachmentId: any): any;
+        attachment(attachmentId: string): NodeAttachment;
 
-        attachmentDownloadUri(attachmentId: any): any;
+        attachmentDownloadUri(attachmentId: string): string;
 
         base(): void;
 
@@ -171,39 +180,43 @@ declare namespace Gitana {
 
         clone(): any;
 
-        getFeature(featureId: any, callback: any): any;
+        getBranch(): Branch;
+
+        getBranchId(): string;
+
+        getFeature(featureId: string, callback?: any): any;
 
         getFeatureIds(callback: any): any;
 
-        getPreviewUri(name: any, config: any): any;
+        getPreviewUri(name: any, config: any): string;
 
-        getQName(): any;
+        getQName(): string;
 
-        getTypeQName(): any;
+        getTypeQName(): string;
 
-        getUri(): any;
+        getUri(): string;
 
         handleSystemProperties(response: any): void;
 
         hasFeature(featureId: any, callback: any): any;
 
-        isAssociation(): any;
+        isAssociation(): boolean;
 
-        isContainer(): any;
+        isContainer(): boolean;
 
-        listAttachments(local: any): any;
+        listAttachments(local?: any): NodeAttachmentMap;
 
-        ref(): any;
+        ref(): string;
 
-        refresh(): any;
+        refresh(): this;
 
-        removeFeature(featureId: any): any;
+        removeFeature(featureId: string): any;
 
         stats(): any;
 
-        touch(): any;
+        touch(): this;
 
-        unattach(attachmentId: any): any;
+        unattach(attachmentId: string): this;
 
         static extend(_instance: any, _static: any, ...args: any[]): any;
 
@@ -223,31 +236,31 @@ declare namespace Gitana {
 
         chainCopyState(otherObject: any): void;
 
-        get(key: any): any;
+        get(key: string): any;
 
-        getDescription(): any;
+        getDescription(): string;
 
-        getId(): any;
+        getId(): string;
 
-        getProxiedUri(): any;
+        getProxiedUri(): string;
 
-        getSystemMetadata(): any;
+        getSystemMetadata(): SystemMetadata;
 
-        getTitle(): any;
+        getTitle(): string;
 
-        getType(): any;
+        getType(): string;
 
-        getUri(): any;
+        getUri(): string;
 
         handleSystemProperties(response: any): void;
 
         loadFrom(anotherObject: any): void;
 
-        ref(): any;
+        ref(): string;
 
         replacePropertiesWith(object: any): void;
 
-        set(key: any, value: any): void;
+        set(key: string, value: any): void;
 
         stringify(pretty: any): any;
 
@@ -284,7 +297,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class AbstractPlatformDataStore {
+    class AbstractPlatformDataStore extends DataStore {
         constructor(platform: any, object: any);
 
         base(): void;
@@ -313,9 +326,9 @@ declare namespace Gitana {
 
         base(): void;
 
-        getRepository(): any;
+        getRepository(): Repository;
 
-        getCluster(): any;
+        getCluster(): Cluster;
 
         copy(target: any, asynchronous: any, config: any): any;
 
@@ -323,7 +336,7 @@ declare namespace Gitana {
 
         importArchive(settings: any, reportFn: any): any;
 
-        ref(): any;
+        ref(): string;
 
         static extend(_instance: any, _static: any, ...args: any[]): any;
 
@@ -352,7 +365,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class AbstractRegistrarObject {
+    class AbstractRegistrarObject extends AbstractPlatformObject {
         constructor(registrar: any, object: any);
 
         base(): void;
@@ -377,7 +390,7 @@ declare namespace Gitana {
 
         ref(): any;
 
-        trap(cb: any): any;
+        trap(callback: gitanaCallback<this>): this;
 
         static extend(_instance: any, _static: any, ...args: any[]): any;
 
@@ -429,9 +442,9 @@ declare namespace Gitana {
 
         del(): any;
 
-        reload(): any;
+        reload(): this;
 
-        update(): any;
+        update(): this;
 
         static extend(_instance: any, _static: any, ...args: any[]): any;
 
@@ -449,7 +462,7 @@ declare namespace Gitana {
 
         base(): void;
 
-        ref(): any;
+        ref(): string;
 
         static extend(_instance: any, _static: any, ...args: any[]): any;
 
@@ -606,10 +619,10 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class AppHelper {
+    class AppHelper extends AbstractObject {
         constructor(platform: any, config: any);
 
-        application(): any;
+        application(): Application;
 
         base(): void;
 
@@ -617,11 +630,11 @@ declare namespace Gitana {
 
         init(callback: any): void;
 
-        platform(): this;
+        platform(): Platform;
 
-        project(): any;
+        project(): Project;
 
-        stack(): any;
+        stack(): Stack;
 
         static extend(_instance: any, _static: any, ...args: any[]): any;
 
@@ -634,7 +647,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class Application {
+    class Application extends AbstractPlatformObject {
         constructor(platform: any, object: any);
 
         base(): void;
@@ -681,51 +694,51 @@ declare namespace Gitana {
 
         findDeployedApplication(deploymentKey: any): any;
 
-        getType(): any;
+        getType(): string;
 
-        getUri(): any;
+        getUri(): string;
 
         invalidateAllPageRenditions(deploymentKey: any): any;
 
         listAutoClientMappingObjects(callback: any, pagination: any): any;
 
-        listEmailProviders(pagination: any): any;
+        listEmailProviders(pagination: any): EmailProviderMap;
 
-        listEmails(pagination: any): any;
+        listEmails(pagination: any): EmailMap;
 
-        listMessages(pagination: any): any;
+        listMessages(pagination: any): MessageMap;
 
         listPageRenditions(deploymentKey: any, pagination: any): any;
 
         listRegistrations(pagination: any): any;
 
-        listSettings(pagination: any): any;
+        listSettings(pagination: any): SettingsMap;
 
         listTrustedDomainMappingObjects(callback: any, pagination: any): any;
 
         loadDeploymentInfo(deploymentKey: any, callback: any): any;
 
-        queryEmailProviders(query: any, pagination: any): any;
+        queryEmailProviders(query: any, pagination: any): EmailProviderMap;
 
-        queryEmails(query: any, pagination: any): any;
+        queryEmails(query: any, pagination: any): EmailMap;
 
-        queryMessages(query: any, pagination: any): any;
+        queryMessages(query: any, pagination: any): MessageMap;
 
         queryPageRenditions(deploymentKey: any, query: any, pagination: any): any;
 
         queryRegistrations(query: any, pagination: any): any;
 
-        querySettings(query: any, pagination: any): any;
+        querySettings(query: any, pagination: any): SettingsMap;
 
         readApplicationPrincipalSettings(...args: any[]): any;
 
         readApplicationSettings(scope: any, key: any): any;
 
-        readEmail(emailId: any): any;
+        readEmail(emailId: any): Email;
 
-        readEmailProvider(emailProviderId: any): any;
+        readEmailProvider(emailProviderId: any): EmailProvider;
 
-        readMessage(messageId: any): any;
+        readMessage(messageId: any): Message;
 
         readPageRendition(deploymentKey: any, pageRenditionIdOrKey: any): any;
 
@@ -748,10 +761,16 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class ApplicationMap {
+    class ApplicationMap extends AbstractPlatformObjectMap {
         constructor(platform: any, object: any);
 
         base(): void;
+
+        asArray(): Application[];
+
+        each(callback: eachCB<this, Application>): this;
+
+        eachX(callback: eachCB<this, Application>): this;
 
         buildObject(json: any): any;
 
@@ -768,24 +787,24 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class Archive {
+    class Archive extends AbstractVaultObject {
         constructor(vault: any, object: any);
 
-        attach(attachmentId: any, contentType: any, data: any): any;
+        attach(attachmentId: string, contentType: any, data: any): any;
 
-        attachment(attachmentId: any): any;
+        attachment(attachmentId: string): any;
 
         base(): void;
 
         clone(): any;
 
-        getDownloadUri(): any;
+        getDownloadUri(): string;
 
-        getPreviewUri(name: any, config: any): any;
+        getPreviewUri(name: any, config: any): string;
 
-        getType(): any;
+        getType(): string;
 
-        getUri(): any;
+        getUri(): string;
 
         listAttachments(local: any): any;
 
@@ -806,10 +825,16 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class ArchiveMap {
+    class ArchiveMap extends AbstractPlatformObjectMap {
         constructor(vault: any, object: any);
 
         base(): void;
+
+        asArray(): Archive[];
+
+        each(callback: eachCB<this, Archive>): this;
+
+        eachX(callback: eachCB<this, Archive>): this;
 
         buildObject(json: any): any;
 
@@ -826,7 +851,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class Association {
+    class Association extends AbstractNode {
         constructor(branch: any, object: any);
 
         base(): void;
@@ -835,23 +860,23 @@ declare namespace Gitana {
 
         getDirectionality(): any;
 
-        getOtherNodeId(node: any): any;
+        getOtherNodeId(node: Node): string;
 
-        getSourceNodeChangesetId(): any;
+        getSourceNodeChangesetId(): string;
 
-        getSourceNodeId(): any;
+        getSourceNodeId(): string;
 
-        getSourceNodeType(): any;
+        getSourceNodeType(): string;
 
-        getTargetNodeChangesetId(): any;
+        getTargetNodeChangesetId(): string;
 
-        getTargetNodeId(): any;
+        getTargetNodeId(): string;
 
-        getTargetNodeType(): any;
+        getTargetNodeType(): string;
 
-        getType(): any;
+        getType(): string;
 
-        isAssociation(): any;
+        isAssociation(): boolean;
 
         readOtherNode(node: any): any;
 
@@ -1063,21 +1088,21 @@ declare namespace Gitana {
 
         download(callback: any): any;
 
-        getContentType(): any;
+        getContentType(): string;
 
-        getDownloadUri(): any;
+        getDownloadUri(): string;
 
-        getFilename(): any;
+        getFilename(): string;
 
-        getId(): any;
+        getId(): string;
 
-        getLength(): any;
+        getLength(): number | string;
 
-        getPreviewUri(name: any, config: any): any;
+        getPreviewUri(name: any, config: any): string;
 
-        getUri(): any;
+        getUri(): string;
 
-        stream(callback: any): void;
+        stream(callback: any): any;
 
         static extend(_instance: any, _static: any, ...args: any[]): any;
 
@@ -1090,7 +1115,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class BinaryAttachmentMap {
+    class BinaryAttachmentMap extends AbstractMap {
         constructor(persistable: any, object: any);
 
         base(): void;
@@ -1098,6 +1123,12 @@ declare namespace Gitana {
         buildObject(attachment: any): any;
 
         chainCopyState(otherObject: any): void;
+
+        asArray(): BinaryAttachment[];
+
+        each(callback: eachCB<this, BinaryAttachment>): this;
+
+        eachX(callback: eachCB<this, BinaryAttachment>): this;
 
         clone(): any;
 
@@ -1125,7 +1156,7 @@ declare namespace Gitana {
 
         archive(callback: any): any;
 
-        associate(sourceNode: any, targetNode: any, object: any): any;
+        associate(sourceNode: any, targetNode: any, object: any): Branch;
 
         base(): void;
 
@@ -1147,29 +1178,29 @@ declare namespace Gitana {
 
         dropCustomIndex(name: any): any;
 
-        find(config: any, pagination: any): any;
+        find(config: any, pagination: any): NodeMap;
 
-        findNodes(config: any, pagination: any): any;
+        findNodes(config: any, pagination: any): NodeMap;
 
-        generateQName(object: any, callback: any): any;
+        generateQName(object: any, callback: any): Branch;
 
-        getBranchType(): any;
+        getBranchType(): string;
 
-        getTip(): any;
+        getTip(): string;
 
-        getType(): any;
+        getType(): string;
 
-        getUri(): any;
+        getUri(): string;
 
         graphqlQuery(query: any, operationName: any, variables: any, callback: any): any;
 
         graphqlSchema(callback: any): any;
 
-        isMaster(): any;
+        isMaster(): boolean;
 
-        listDefinitions(filter: any, pagination: any): any;
+        listDefinitions(filter: any, pagination: any): NodeMap;
 
-        listItems(listKey: any, pagination: any): any;
+        listItems(listKey: any, pagination: any): NodeMap;
 
         listMounts(pagination: any): any;
 
@@ -1189,33 +1220,33 @@ declare namespace Gitana {
 
         purgeAllDeletions(): any;
 
-        queryDefinitions(json: any, pagination: any): any;
+        queryDefinitions(json: any, pagination: any): NodeMap;
 
         queryDeletions(query: any, pagination: any): DeletionMap;
 
-        queryItems(listKey: any, query: any, pagination: any): any;
+        queryItems(listKey: any, query: any, pagination: any): NodeMap;
 
         queryNodes(query: any, pagination: any): NodeMap;
 
         queryOne(query: any, errHandler: any): Node;
 
-        readDefinition(qname: any): Definition;
+        readDefinition(qname: string): Definition;
 
-        readDeletion(nodeId: any): Deletion;
+        readDeletion(nodeId: string): Deletion;
 
         readGroupNode(group: any, createIfNotFound: any): any;
 
-        readNode(nodeId: any, path: any, params: any): Node;
+        readNode(nodeId: string, path: any, params: any): Node;
 
         readPersonNode(user: any, createIfNotFound: any): any;
 
-        rootNode(): any;
+        rootNode(): Node;
 
         searchNodes(search: any, pagination: any): NodeMap;
 
         startChangesetHistory(options: any, callback: any): any;
 
-        startValidation(repair: boolean, callback: regularCB): any;
+        startValidation(repair: boolean, callback: any): this;
 
         traverse(node: any, config: any): any;
 
@@ -1232,14 +1263,20 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class BranchMap {
-        trap(cb: any): any;
+    class BranchMap extends AbstractPlatformObjectMap {
+        trap(cb: gitanaCallback<this>): this;
 
         constructor(repository: any, object: any);
 
         base(): void;
 
         buildObject(json: any): any;
+
+        asArray(): Branch[];
+
+        each(callback: eachCB<this, Branch>): this;
+
+        eachX(callback: eachCB<this, Branch>): this;
 
         clone(): any;
 
@@ -1272,18 +1309,18 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class Changeset {
+    class Changeset extends AbstractRepositoryObject {
         constructor(repository: any, object: any);
 
         base(): void;
 
         clone(): any;
 
-        getType(): any;
+        getType(): string;
 
-        getUri(): any;
+        getUri(): string;
 
-        listNodes(pagination: any): any;
+        listNodes(pagination: any): NodeMap;
 
         static extend(_instance: any, _static: any, ...args: any[]): any;
 
@@ -1296,13 +1333,19 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class ChangesetMap {
+    class ChangesetMap extends AbstractPlatformObjectMap {
         constructor(repository: any, object: any);
 
         base(): void;
 
         buildObject(json: any): any;
 
+        asArray(): Changeset[];
+
+        each(callback: eachCB<this, Changeset>): this;
+
+        eachX(callback: eachCB<this, Changeset>): this;
+
         clone(): any;
 
         static extend(_instance: any, _static: any, ...args: any[]): any;
@@ -1316,7 +1359,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class Client {
+    class Client extends AbstractPlatformObject {
         constructor(platform: any, object: any);
 
         base(): void;
@@ -1327,13 +1370,13 @@ declare namespace Gitana {
 
         getAuthorizedGrantTypes(): any;
 
-        getEnabled(): any;
+        getEnabled(): boolean;
 
         getScope(): any;
 
-        getType(): any;
+        getType(): string;
 
-        getUri(): any;
+        getUri(): string;
 
         listAuthenticationGrants(pagination: any): any;
 
@@ -1348,10 +1391,16 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class ClientMap {
+    class ClientMap extends AbstractMap {
         constructor(platform: any, object: any);
 
         base(): void;
+
+        asArray(): Client[];
+
+        each(callback: eachCB<this, Client>): this;
+
+        eachX(callback: eachCB<this, Client>): this;
 
         buildObject(json: any): any;
 
@@ -1368,36 +1417,36 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class Cluster {
+    class Cluster extends DataStore {
         constructor(driver: any, object: any);
 
         base(): void;
 
         clone(): any;
 
-        getType(): any;
+        getType(): string;
 
-        getUri(): any;
+        getUri(): string;
 
-        killJob(jobId: any): any;
+        killJob(jobId: string): any;
 
-        loadContainedTypes(type: any, callback: any): any;
+        loadContainedTypes(type: any, callback: any): Cluster;
 
-        queryFailedJobs(query: any, pagination: any): any;
+        queryFailedJobs(query: any, pagination: any): JobMap;
 
-        queryFinishedJobs(query: any, pagination: any): any;
+        queryFinishedJobs(query: any, pagination: any): JobMap;
 
-        queryJobs(query: any, pagination: any): any;
+        queryJobs(query: any, pagination: any): JobMap;
 
-        queryRunningJobs(query: any, pagination: any): any;
+        queryRunningJobs(query: any, pagination: any): JobMap;
 
-        queryUnstartedJobs(query: any, pagination: any): any;
+        queryUnstartedJobs(query: any, pagination: any): JobMap;
 
-        queryWaitingJobs(query: any, pagination: any): any;
+        queryWaitingJobs(query: any, pagination: any): JobMap;
 
-        readJob(jobId: any): any;
+        readJob(jobId: string): Job;
 
-        waitForJobCompletion(jobId: any, callback: any, progressCallback?: any): void;
+        waitForJobCompletion(jobId: string, callback: jobCallback<this>, progressCallback?: any): Cluster;
 
         static extend(_instance: any, _static: any, ...args: any[]): any;
 
@@ -1410,7 +1459,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class Connection {
+    class Connection extends AbstractDirectoryObject {
         constructor(directory: any, object: any);
 
         base(): void;
@@ -1432,13 +1481,19 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class ConnectionMap {
+    class ConnectionMap extends AbstractPlatformObjectMap {
         constructor(directory: any, object: any);
 
         base(): void;
 
         buildObject(json: any): any;
 
+        asArray(): Connection[];
+
+        each(callback: eachCB<this, Connection>): this;
+
+        eachX(callback: eachCB<this, Connection>): this;
+
         clone(): any;
 
         static extend(_instance: any, _static: any, ...args: any[]): any;
@@ -1452,7 +1507,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class ContainedDataStore {
+    class ContainedDataStore extends DataStore {
         constructor(container: any, object: any);
 
         base(): void;
@@ -1604,7 +1659,7 @@ declare namespace Gitana {
         static all(args: any, ...obj: any[]): any;
     }
 
-    class Definition {
+    class Definition extends Node {
         constructor(branch: any, object: any);
 
         base(): void;
@@ -1632,7 +1687,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class Deletion {
+    class Deletion extends AbstractRepositoryObject {
         constructor(branch: any, object: any);
 
         base(): void;
@@ -1658,12 +1713,18 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class DeletionMap {
+    class DeletionMap extends AbstractPlatformObjectMap {
         constructor(branch: any, object: any);
 
         base(): void;
 
         buildObject(json: any): any;
+
+        asArray(): Deletion[];
+
+        each(callback: eachCB<this, Deletion>): this;
+
+        eachX(callback: eachCB<this, Deletion>): this;
 
         clone(): any;
 
@@ -2128,7 +2189,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class Email {
+    class Email extends AbstractApplicationObject {
         constructor(application: any, object: any);
 
         base(): void;
@@ -2152,12 +2213,18 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class EmailMap {
+    class EmailMap extends AbstractPlatformObjectMap {
         constructor(application: any, object: any);
 
         base(): void;
 
         buildObject(json: any): any;
+
+        asArray(): Email[];
+
+        each(callback: eachCB<this, Email>): this;
+
+        eachX(callback: eachCB<this, Email>): this;
 
         clone(): any;
 
@@ -2172,7 +2239,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class EmailProvider {
+    class EmailProvider extends AbstractApplicationObject {
         constructor(application: any, object: any);
 
         base(): void;
@@ -2200,12 +2267,18 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class EmailProviderMap {
+    class EmailProviderMap extends AbstractPlatformObjectMap {
         constructor(application: any, object: any);
 
         base(): void;
 
         buildObject(json: any): any;
+
+        asArray(): EmailProvider[];
+
+        each(callback: eachCB<this, EmailProvider>): this;
+
+        eachX(callback: eachCB<this, EmailProvider>): this;
 
         clone(): any;
 
@@ -2220,7 +2293,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class Form {
+    class Form extends Node {
         constructor(branch: any, object: any);
 
         base(): void;
@@ -2242,7 +2315,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class HasFormAssociation {
+    class HasFormAssociation extends Association {
         constructor(branch: any, object: any);
 
         base(): void;
@@ -2264,7 +2337,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class HasTranslationAssociation {
+    class HasTranslationAssociation extends Association {
         constructor(branch: any, object: any);
 
         base(): void;
@@ -2371,9 +2444,9 @@ declare namespace Gitana {
     class Job extends AbstractClusterObject {
         constructor(cluster: any, object: any);
 
-        attach(attachmentId: any, contentType: any, data: any): any;
+        attach(attachmentId: string, contentType: any, data: any): any;
 
-        attachment(attachmentId: any): any;
+        attachment(attachmentId: string): NodeAttachment;
 
         base(): void;
 
@@ -2395,39 +2468,39 @@ declare namespace Gitana {
 
         getPausedTimestamp(): any;
 
-        getPlatformId(): any;
+        getPlatformId(): string;
 
-        getPreviewUri(name: any, config: any): any;
+        getPreviewUri(name: any, config: any): string;
 
         getPriority(): any;
 
-        getRunAsPrincipalDomainId(): any;
+        getRunAsPrincipalDomainId(): string;
 
-        getRunAsPrincipalId(): any;
+        getRunAsPrincipalId(): string;
 
-        getScheduledStartTime(): any;
+        getScheduledStartTime(): string;
 
         getStarted(): any;
 
-        getStartedBy(): any;
+        getStartedBy(): string;
 
-        getStartedTimestamp(): any;
+        getStartedTimestamp(): Timestamp;
 
-        getState(): any;
+        getState(): string;
 
         getStopped(): any;
 
-        getStoppedTimestamp(): any;
+        getStoppedTimestamp(): Timestamp;
 
-        getSubmittedBy(): any;
+        getSubmittedBy(): string;
 
-        getSubmittedTimestamp(): any;
+        getSubmittedTimestamp(): Timestamp;
 
-        getType(): any;
+        getType(): string;
 
-        getUri(): any;
+        getUri(): string;
 
-        listAttachments(local: any): any;
+        listAttachments(local: any): NodeAttachmentMap;
 
         unattach(attachmentId: any): any;
 
@@ -2442,10 +2515,16 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class JobMap {
+    class JobMap extends AbstractMap {
         constructor(cluster: any, object: any);
 
         base(): void;
+
+        asArray(): Job[];
+
+        each(callback: eachCB<this, Job>): this;
+
+        eachX(callback: eachCB<this, Job>): this;
 
         buildObject(json: any): any;
 
@@ -2462,7 +2541,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class LogEntry {
+    class LogEntry extends AbstractObject {
         constructor(platform: any, object: any);
 
         base(): void;
@@ -2506,10 +2585,16 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class LogEntryMap {
+    class LogEntryMap extends AbstractMap {
         constructor(platform: any, object: any);
 
         base(): void;
+
+        asArray(): LogEntry[];
+
+        each(callback: eachCB<this, LogEntry>): this;
+
+        eachX(callback: eachCB<this, LogEntry>): this;
 
         buildObject(json: any): any;
 
@@ -2526,7 +2611,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class MergeConflict {
+    class MergeConflict extends AbstractRepositoryObject {
         constructor(repository: any, object: any);
 
         base(): void;
@@ -2552,12 +2637,18 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class MergeConflictMap {
+    class MergeConflictMap extends AbstractPlatformObjectMap {
         constructor(repository: any, object: any);
 
         base(): void;
 
         buildObject(json: any): any;
+
+        asArray(): MergeConflict[];
+
+        each(callback: eachCB<this, MergeConflict>): this;
+
+        eachX(callback: eachCB<this, MergeConflict>): this;
 
         clone(): any;
 
@@ -2572,7 +2663,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class Message {
+    class Message extends AbstractApplicationObject {
         constructor(application: any, object: any);
 
         base(): void;
@@ -2594,12 +2685,18 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class MessageMap {
+    class MessageMap extends AbstractPlatformObjectMap {
         constructor(application: any, object: any);
 
         base(): void;
 
         buildObject(json: any): any;
+
+        asArray(): Message[];
+
+        each(callback: eachCB<this, Message>): this;
+
+        eachX(callback: eachCB<this, Message>): this;
 
         clone(): any;
 
@@ -2693,11 +2790,11 @@ declare namespace Gitana {
 
         constructor(branch: any, object: any);
 
-        associate(targetNodeId: any, object: any, undirected: any): any;
+        associate(targetNodeId: string | Node, object: any, undirected: boolean): this;
 
-        associateOf(sourceNode: any, object: any, undirected: any): any;
+        associateOf(sourceNode: Node, object: any, undirected: boolean): this;
 
-        associations(config: any, pagination: any): any;
+        associations(config: any, pagination: any): NodeMap;
 
         base(): void;
 
@@ -2715,21 +2812,21 @@ declare namespace Gitana {
 
         editions(callback: any): any;
 
-        find(config: any, pagination: any): any;
+        find(config: any, pagination: any): NodeMap;
 
-        findRelatives(config: any, associationConfig: any, pagination: any): any;
+        findRelatives(config: any, associationConfig: any, pagination: any): NodeMap;
 
-        getType(): any;
+        getType(): string;
 
         grantAuthority(principal: any, authorityId: any): any;
 
-        incomingAssociations(type: any, pagination: any): any;
+        incomingAssociations(type: any, pagination: any): NodeMap;
 
         listAuthorities(principal: any): any;
 
-        listChildren(pagination: any): any;
+        listChildren(pagination: any): NodeMap;
 
-        listRelatives(config: any, pagination: any): any;
+        listRelatives(config: any, pagination: any): NodeMap;
 
         listTranslations(edition: any, pagination: any): any;
 
@@ -2739,27 +2836,27 @@ declare namespace Gitana {
 
         loadAuthorityGrants(principalIds: any, callback: any): any;
 
-        loadTree(config: any, callback: any): any;
+        loadTree(config: any, callback: any): this;
 
         locales(edition: any, callback: any): any;
 
-        lock(): any;
+        lock(): this;
 
-        mount(mountKey: any): any;
+        mount(mountKey: string): this;
 
-        moveToFolder(targetFolder: any): any;
+        moveToFolder(targetFolder: string | Node): this;
 
-        outgoingAssociations(type: any, pagination: any): any;
+        outgoingAssociations(type: any, pagination: any): NodeMap;
 
         patch(patches: any): any;
 
-        queryRelatives(query: any, config: any, pagination: any): any;
+        queryRelatives(query: any, config: any, pagination: any): NodeMap;
 
         readTranslation(...args: any[]): any;
 
         readVersion(changesetId: any, params: any): any;
 
-        resolvePath(rootNodeId: any, callback: any): any;
+        resolvePath(rootNodeId: string, callback: any): any;
 
         restoreVersion(changesetId: any): any;
 
@@ -2767,13 +2864,13 @@ declare namespace Gitana {
 
         revokeAuthority(principal: any, authorityId: any): any;
 
-        traverse(config: any): any;
+        traverse(config: any): TraversalResults;
 
-        unassociate(targetNodeId: any, type: any, undirected: any): any;
+        unassociate(targetNodeId: string | Node, type: any, undirected: any): this;
 
-        unlock(): any;
+        unlock(): this;
 
-        unmount(): any;
+        unmount(): this;
 
         static extend(_instance: any, _static: any, ...args: any[]): any;
 
@@ -2804,10 +2901,16 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class NodeAttachmentMap {
+    class NodeAttachmentMap extends BinaryAttachmentMap {
         constructor(persistable: any, object: any);
 
         base(): void;
+
+        asArray(): NodeAttachment[];
+
+        each(callback: eachCB<this, NodeAttachment>): this;
+
+        eachX(callback: eachCB<this, NodeAttachment>): this;
 
         buildObject(attachment: any): any;
 
@@ -2830,6 +2933,12 @@ declare namespace Gitana {
         base(): void;
 
         buildObject(json: any): any;
+
+        asArray(): Node[];
+
+        each(callback: eachCB<this, Node>): this;
+
+        eachX(callback: eachCB<this, Node>): this;
 
         clone(): any;
 
@@ -3712,7 +3821,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class PlatformDataStoreMap {
+    class PlatformDataStoreMap extends AbstractMap {
         constructor(platform: any, object: any);
 
         base(): void;
@@ -3752,7 +3861,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class Project {
+    class Project extends AbstractPlatformObject {
         constructor(platform: any, object: any);
 
         adminMaintenance(): any;
@@ -3790,10 +3899,16 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class ProjectMap {
+    class ProjectMap extends AbstractMap {
         constructor(platform: any, object: any);
 
         base(): void;
+
+        asArray(): Project[];
+
+        each(callback: eachCB<this, Project>): this;
+
+        eachX(callback: eachCB<this, Project>): this;
 
         buildObject(json: any): any;
 
@@ -3946,7 +4061,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class Release {
+    class Release extends AbstractRepositoryObject {
         constructor(repository: any, object: any);
 
         archive(callback: any): any;
@@ -3982,12 +4097,18 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class ReleaseMap {
+    class ReleaseMap extends AbstractPlatformObjectMap {
         constructor(repository: any, object: any);
 
         base(): void;
 
         buildObject(json: any): any;
+
+        asArray(): Release[];
+
+        each(callback: eachCB<this, Release>): this;
+
+        eachX(callback: eachCB<this, Release>): this;
 
         clone(): any;
 
@@ -4081,49 +4202,49 @@ declare namespace Gitana {
 
         getUri(): any;
 
-        listBranches(pagination: any): any;
+        listBranches(pagination: any): BranchMap;
 
         listChangesetChildren(changesetId: any): any;
 
         listChangesetParents(changesetId: any): any;
 
-        listChangesets(): any;
+        listChangesets(): ChangesetMap;
 
-        listConflicts(pagination: any): any;
+        listConflicts(pagination: any): MergeConflictMap;
 
         listMerges(sourceBranchId: any, mergeType: any): any;
 
         listPullSources(branchId: any, pagination: any): any;
 
-        listReleases(pagination: any): any;
+        listReleases(pagination: any): ReleaseMap;
 
-        queryBranches(query: any, pagination?: any): any;
+        queryBranches(query: any, pagination?: any): BranchMap;
 
-        queryChangesets(query: any, pagination: any): any;
+        queryChangesets(query: any, pagination: any): ChangesetMap;
 
-        queryConflicts(query: any, pagination: any): any;
+        queryConflicts(query: any, pagination: any): MergeConflictMap;
 
-        queryReleases(query: any, pagination: any): any;
+        queryReleases(query: any, pagination: any): ReleaseMap;
 
-        readBranch(branchId: any): any;
+        readBranch(branchId: string): Branch;
 
-        readChangeset(changesetId: any): any;
+        readChangeset(changesetId: string): Changeset;
 
-        readConflict(conflictId: any): any;
+        readConflict(conflictId: string): MergeConflict;
 
-        readRelease(releaseId: any): any;
+        readRelease(releaseId: string): Release;
 
-        startChanges(sourceBranchId: any, targetBranchId: any, options?: any, callback?: any): any;
+        startChanges(sourceBranchId: string, targetBranchId: string, optionsOrCallback?: any, callback?: any): any;
 
-        startCopyFrom(sourceBranchId: any, targetBranchId: any, config: any, callback: any): any;
+        startCopyFrom(sourceBranchId: string, targetBranchId: string, config: any, callback: any): any;
 
-        startCreateBranch(branchId: any, changesetId: any, object: any, callback: any): any;
+        startCreateBranch(branchId: string, changesetId: string, object: any, callback: any): any;
 
-        startCreateRelease(object: any, sourceId: any, callback: any): any;
+        startCreateRelease(object: string, sourceId: string, callback: any): any;
 
-        startDiff(sourceBranchId: any, targetBranchId: any, callback: any): any;
+        startDiff(sourceBranchId: string, targetBranchId: string, callback: any): any;
 
-        startMerge(sourceBranchId: any, targetBranchId: any, callback: any): any;
+        startMerge(sourceBranchId: string, targetBranchId: string, callback: any): any;
 
         static extend(_instance: any, _static: any, ...args: any[]): any;
 
@@ -4136,12 +4257,18 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class RepositoryMap {
+    class RepositoryMap extends AbstractPlatformObjectMap {
         constructor(platform: any, object: any);
 
         base(): void;
 
         buildObject(json: any): any;
+
+        asArray(): Repository[];
+
+        each(callback: eachCB<this, Repository>): this;
+
+        eachX(callback: eachCB<this, Repository>): this;
 
         clone(): any;
 
@@ -4184,7 +4311,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class ResultMap {
+    class ResultMap extends AbstractPlatformObjectMap {
         constructor(driver: any, resultMap: any);
 
         base(): void;
@@ -4234,12 +4361,18 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class RoleMap {
+    class RoleMap extends AbstractPlatformObjectMap {
         constructor(cluster: any, roleContainer: any, object: any);
 
         base(): void;
 
         buildObject(json: any): any;
+
+        asArray(): Role[];
+
+        each(callback: eachCB<this, Role>): this;
+
+        eachX(callback: eachCB<this, Role>): this;
 
         clone(): any;
 
@@ -4278,12 +4411,18 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class ScheduledWorkMap {
+    class ScheduledWorkMap extends AbstractPlatformObjectMap {
         constructor(platform: any, object: any);
 
         base(): void;
 
         buildObject(json: any): any;
+
+        asArray(): ScheduledWork[];
+
+        each(callback: eachCB<this, ScheduledWork>): this;
+
+        eachX(callback: eachCB<this, ScheduledWork>): this;
 
         clone(): any;
 
@@ -4336,12 +4475,18 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class SettingsMap {
+    class SettingsMap extends AbstractPlatformObjectMap {
         constructor(application: any, object: any);
 
         base(): void;
 
         buildObject(json: any): any;
+
+        asArray(): Settings[];
+
+        each(callback: eachCB<this, Settings>): this;
+
+        eachX(callback: eachCB<this, Settings>): this;
 
         clone(): any;
 
@@ -4356,7 +4501,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class Stack {
+    class Stack extends AbstractPlatformObject {
         constructor(platform: any, object: any);
 
         assignDataStore(datastore: any, key: any, ...args: any[]): any;
@@ -4391,15 +4536,15 @@ declare namespace Gitana {
 
         listTeams(pagination: any): any;
 
-        queryDataStores(query: any, pagination: any): any;
+        queryDataStores(query: any, pagination: any): PlatformDataStoreMap;
 
-        queryLogEntries(query: any, pagination: any): any;
+        queryLogEntries(query: any, pagination: any): LogEntryMap;
 
-        readDataStore(key: any, callback: any): any;
+        readDataStore(key: any, callback: any): Stack;
 
-        readLog(callback: any): any;
+        readLog(callback: any): this;
 
-        readLogEntry(logEntryId: any): any;
+        readLogEntry(logEntryId: any): LogEntry;
 
         readOwnersTeam(): any;
 
@@ -4422,10 +4567,16 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class StackMap {
+    class StackMap extends AbstractMap {
         constructor(platform: any, object: any);
 
         base(): void;
+
+        asArray(): Stack[];
+
+        each(callback: eachCB<this, Stack>): this;
+
+        eachX(callback: eachCB<this, Stack>): this;
 
         buildObject(json: any): any;
 
@@ -4442,30 +4593,30 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class SystemMetadata {
+    class SystemMetadata extends Base {
         constructor();
 
         base(): void;
 
         get(key: any): any;
 
-        getChangesetId(): any;
+        getChangesetId(): string;
 
-        getCreatedBy(): any;
+        getCreatedBy(): string;
 
-        getCreatedByPrincipalDomainId(): any;
+        getCreatedByPrincipalDomainId(): string;
 
-        getCreatedByPrincipalId(): any;
+        getCreatedByPrincipalId(): string;
 
-        getCreatedOn(): any;
+        getCreatedOn(): Timestamp;
 
-        getModifiedBy(): any;
+        getModifiedBy(): string;
 
-        getModifiedByPrincipalDomainId(): any;
+        getModifiedByPrincipalDomainId(): string;
 
-        getModifiedByPrincipalId(): any;
+        getModifiedByPrincipalId(): string;
 
-        getModifiedOn(): any;
+        getModifiedOn(): Timestamp;
 
         updateFrom(json: any): void;
 
@@ -4670,7 +4821,7 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class Timestamp {
+    class Timestamp extends Base {
         constructor(object: any);
 
         base(): void;
@@ -4748,14 +4899,14 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class TraversalResults {
+    class TraversalResults extends AbstractPersistable {
         constructor(branch: any, object: any);
 
-        association(id: any): any;
+        association(id: string): Association;
 
-        associationCount(callback: any): any;
+        associationCount(callback: any): this;
 
-        associations(): any;
+        associations(): NodeMap;
 
         base(): void;
 
@@ -4765,11 +4916,11 @@ declare namespace Gitana {
 
         handleResponse(response: any): void;
 
-        node(id: any): any;
+        node(id: string): Node;
 
-        nodeCount(callback: any): any;
+        nodeCount(callback: any): this;
 
-        nodes(): any;
+        nodes(): NodeMap;
 
         static extend(_instance: any, _static: any, ...args: any[]): any;
 
@@ -5453,7 +5604,7 @@ declare class Gitana {
 
     static configureRequestHeaders(method: any, url: any, headers: any, options: any): void;
 
-    static connect(config: string | connectionObject, callback: regularCB): AppHelper;
+    static connect(config: string | connectionObject, callback: gitanaCallback<AppHelper>): AppHelper;
 
     static contains(a: any, obj: any): any;
 
@@ -5547,7 +5698,7 @@ declare class Gitana {
 }
 
 declare global {
-    function Chain(param: any): any;
+    function Chain<T>(param: T): T;
 }
 
 export = Gitana;

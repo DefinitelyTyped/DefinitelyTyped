@@ -751,3 +751,5 @@ table = new Tabulator('#example-table', {
 });
 const filterVal = table.getHeaderFilterValue('name');
 table.recalc();
+const columns = table.getColumns(true);
+columns.forEach(col => col.getDefinition());

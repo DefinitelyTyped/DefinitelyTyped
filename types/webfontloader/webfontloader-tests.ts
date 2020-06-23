@@ -23,7 +23,8 @@ var config: webfontloader.Config = {
       },
       monotype: {
         projectId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
-        version: 12345
+        version: 12345,
+        loadAllFonts: true
       },
       timeout: 2000
 }

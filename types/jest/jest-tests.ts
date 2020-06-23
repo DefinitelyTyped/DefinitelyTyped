@@ -285,6 +285,12 @@ jest.addMatchers(customMatcherFactories)
 jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
 
+// https://jestjs.io/docs/en/jest-object#jestusefaketimersimplementation-modern--legacy
+jest.useFakeTimers('modern');
+jest.useFakeTimers('legacy');
+// $ExpectError
+jest.useFakeTimers('foo');
+
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
 // $ExpectType any
 jest.requireActual('./thisReturnsTheActualModule');
