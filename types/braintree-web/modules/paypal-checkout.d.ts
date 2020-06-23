@@ -548,7 +548,7 @@ declare namespace braintree {
             billingAgreementDescription?: string;
             landingPageType?: string;
             lineItems?: PayPalCheckoutLineItem[];
-        }): Promise<void>;
+        }, callback?: callback): Promise<string>;
 
         /**
          * Tokenizes the authorize data from PayPal's checkout.js library when completing a buyer approval flow.
