@@ -1,5 +1,3 @@
-/// <reference path="./core.d.ts" />
-
 /** @module braintree-web/client */
 declare namespace braintree {
     export var client: Client;

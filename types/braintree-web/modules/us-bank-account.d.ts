@@ -1,6 +1,3 @@
-/// <reference path="./core.d.ts" />
-/// <reference path="./client.d.ts" />
-
 /**
  * @module braintree-web/us-bank-account
  * @description This module is for accepting payments of US bank accounts.
