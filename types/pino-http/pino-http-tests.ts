@@ -29,4 +29,5 @@ pinoHttp({ customAttributeKeys: { err: 'err' } });
 pinoHttp({ customAttributeKeys: { responseTime: 'responseTime' } });
 pinoHttp({ customAttributeKeys: { req: 'req', res: 'res', err: 'err', responseTime: 'responseTime' } });
 pinoHttp({ customLogLevel: (req, res) => 'info' });
+pinoHttp({ reqCustomProps: req => ({ key1: 'value1', 'x-key-2': 'value2' }) });
 pinoHttp(new Writable());
