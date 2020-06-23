@@ -31,13 +31,25 @@ interface SimpleStringObject {
 const simpleStringObjectPropertyName = 'a';
 const simpleStringObjectPartialPropertyMatch: Partial<SimpleStringObject> = { a: 'b' };
 
+interface SimpleStringObjectListWithExtraProperties extends _.List<SimpleStringObject> {
+    notAListProperty: boolean;
+}
+
 const simpleStringObjectArray: SimpleStringObject[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'b' }, { a: 'c', b: 'a' }];
+const simpleStringObjectListWithExtraProperties: SimpleStringObjectListWithExtraProperties = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: { a: 'c', b: 'a' }, length: 3, notAListProperty: true };
 const simpleStringObjectList: _.List<SimpleStringObject> = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: { a: 'c', b: 'a' }, length: 3 };
 const simpleStringObjectListPropertyModifyingIterator = (value: SimpleStringObject, index: number, list: _.List<SimpleStringObject>) => value.a += 'b';
 const simpleStringObjectListPropertySelectingIterator = (value: SimpleStringObject, index: number, list: _.List<SimpleStringObject>) => value.a;
 const simpleStringObjectListPropertyComparingIterator = (value: SimpleStringObject, index: number, list: _.List<SimpleStringObject>) => value.a === 'b';
 const simpleStringObjectListPropertyMemoIterator = (prev: string, value: SimpleStringObject, index: number, list: _.List<SimpleStringObject>) => prev + value.a;
 
+interface StronglyKeyedSimpleStringObjectDictionary extends _.Dictionary<SimpleStringObject> {
+    a: SimpleStringObject;
+    b: SimpleStringObject;
+    c: SimpleStringObject;
+}
+
+const stronglyKeyedSimpleStringObjectDictionary: StronglyKeyedSimpleStringObjectDictionary = { a: { a: 'a', b: 'c' }, b: { a: 'b', b: 'b' }, c: { a: 'c', b: 'a' } };
 const simpleStringObjectDictionary: _.Dictionary<SimpleStringObject> = { a: { a: 'a', b: 'c' }, b: { a: 'b', b: 'b' }, c: { a: 'c', b: 'a' } };
 const simpleStringObjectDictionaryPropertyModifyingIterator = (element: SimpleStringObject, key: string, dictionary: _.Dictionary<SimpleStringObject>) => element.a += 'b';
 const simpleStringObjectDictionaryPropertySelectingIterator = (element: SimpleStringObject, key: string, dictionary: _.Dictionary<SimpleStringObject>) => element.a;
@@ -53,11 +65,9 @@ const stringListMemoIterator = (prev: _.Dictionary<number>, value: string, index
     return prev;
 };
 
-type SimpleStringObjectOrUndefined = SimpleStringObject | undefined;
-
-const simpleStringObjectOrUndefinedArray: SimpleStringObjectOrUndefined[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'b' }, undefined];
-const simpleStringObjectOrUndefinedList: _.List<SimpleStringObjectOrUndefined> = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: undefined, length: 3 };
-const simpleStringObjectOrUndefinedDictionary: _.Dictionary<SimpleStringObjectOrUndefined> = { a: { a: 'a', b: 'c' }, b: { a: 'b', b: 'b' }, c: undefined };
+const simpleStringObjectOrUndefinedArray: (SimpleStringObject | undefined)[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'b' }, undefined];
+const simpleStringObjectOrUndefinedList: _.List<SimpleStringObject | undefined> = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: undefined, length: 3 };
+const simpleStringObjectOrUndefinedDictionary: _.Dictionary<SimpleStringObject | undefined> = { a: { a: 'a', b: 'c' }, b: { a: 'b', b: 'b' }, c: undefined };
 
 interface SimpleMultiTypeObject {
     a: boolean;
@@ -120,4407 +130,3198 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
 // each, forEach
 {
-    {
+    _.each(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator); // $ExpectType SimpleStringObject[]
+    _.each(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator, context); // $ExpectType SimpleStringObject[]
 
-        let result: SimpleStringObject[];
+    _(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.each(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator);
-        result = _.each(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator, context);
+    _.chain(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator);
-        result = _(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator, context);
+    _.forEach(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator); // $ExpectType SimpleStringObject[]
+    _.forEach(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator).value();
-        result = _.chain(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator, context).value();
+    _(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.forEach(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator);
-        result = _.forEach(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator, context);
+    _.chain(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator);
-        result = _(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator, context);
+    _.each(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator); // $ExpectType List<SimpleStringObject>
+    _.each(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator, context); // $ExpectType List<SimpleStringObject>
 
-        result = _.chain(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator).value();
-        result = _.chain(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator, context).value();
-    }
+    _(simpleStringObjectList).each(simpleStringObjectListPropertyModifyingIterator); // $ExpectType List<SimpleStringObject>
+    _(simpleStringObjectList).each(simpleStringObjectListPropertyModifyingIterator, context); // $ExpectType List<SimpleStringObject>
 
-    {
-        let result: _.List<SimpleStringObject>;
+    _.chain(simpleStringObjectList).each(simpleStringObjectListPropertyModifyingIterator); // // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
+    _.chain(simpleStringObjectList).each(simpleStringObjectListPropertyModifyingIterator, context); // // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
 
-        result = _.each(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator);
-        result = _.each(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator, context);
+    _.forEach(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator); // $ExpectType List<SimpleStringObject>
+    _.forEach(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator, context); // $ExpectType List<SimpleStringObject>
 
-        result = _(simpleStringObjectList).each(simpleStringObjectListPropertyModifyingIterator);
-        result = _(simpleStringObjectList).each(simpleStringObjectListPropertyModifyingIterator, context);
+    _(simpleStringObjectList).forEach(simpleStringObjectListPropertyModifyingIterator); // $ExpectType List<SimpleStringObject>
+    _(simpleStringObjectList).forEach(simpleStringObjectListPropertyModifyingIterator, context); // $ExpectType List<SimpleStringObject>
 
-        result = _.chain(simpleStringObjectList).each(simpleStringObjectListPropertyModifyingIterator).value();
-        result = _.chain(simpleStringObjectList).each(simpleStringObjectListPropertyModifyingIterator, context).value();
+    _.chain(simpleStringObjectList).forEach(simpleStringObjectListPropertyModifyingIterator); // // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
+    _.chain(simpleStringObjectList).forEach(simpleStringObjectListPropertyModifyingIterator, context); // // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
 
-        result = _.forEach(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator);
-        result = _.forEach(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator, context);
+    _.each(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyModifyingIterator); // $ExpectType Dictionary<SimpleStringObject>
+    _.each(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyModifyingIterator, context); // $ExpectType Dictionary<SimpleStringObject>
 
-        result = _(simpleStringObjectList).forEach(simpleStringObjectListPropertyModifyingIterator);
-        result = _(simpleStringObjectList).forEach(simpleStringObjectListPropertyModifyingIterator, context);
+    _(simpleStringObjectDictionary).each(simpleStringObjectDictionaryPropertyModifyingIterator); // $ExpectType Dictionary<SimpleStringObject>
+    _(simpleStringObjectDictionary).each(simpleStringObjectDictionaryPropertyModifyingIterator, context); // $ExpectType Dictionary<SimpleStringObject>
 
-        result = _.chain(simpleStringObjectList).forEach(simpleStringObjectListPropertyModifyingIterator).value();
-        result = _.chain(simpleStringObjectList).forEach(simpleStringObjectListPropertyModifyingIterator, context).value();
-    }
+    _.chain(simpleStringObjectDictionary).each(simpleStringObjectDictionaryPropertyModifyingIterator); // // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
+    _.chain(simpleStringObjectDictionary).each(simpleStringObjectDictionaryPropertyModifyingIterator, context); // // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
 
-    {
-        let result: _.Dictionary<SimpleStringObject>;
+    _.forEach(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyModifyingIterator); // $ExpectType Dictionary<SimpleStringObject>
+    _.forEach(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyModifyingIterator, context); // $ExpectType Dictionary<SimpleStringObject>
 
-        result = _.each(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyModifyingIterator);
-        result = _.each(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyModifyingIterator, context);
+    _(simpleStringObjectDictionary).forEach(simpleStringObjectDictionaryPropertyModifyingIterator); // $ExpectType Dictionary<SimpleStringObject>
+    _(simpleStringObjectDictionary).forEach(simpleStringObjectDictionaryPropertyModifyingIterator, context); // $ExpectType Dictionary<SimpleStringObject>
 
-        result = _(simpleStringObjectDictionary).each(simpleStringObjectDictionaryPropertyModifyingIterator);
-        result = _(simpleStringObjectDictionary).each(simpleStringObjectDictionaryPropertyModifyingIterator, context);
-
-        result = _.chain(simpleStringObjectDictionary).each(simpleStringObjectDictionaryPropertyModifyingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).each(simpleStringObjectDictionaryPropertyModifyingIterator, context).value();
-
-        result = _.forEach(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyModifyingIterator);
-        result = _.forEach(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyModifyingIterator, context);
-
-        result = _(simpleStringObjectDictionary).forEach(simpleStringObjectDictionaryPropertyModifyingIterator);
-        result = _(simpleStringObjectDictionary).forEach(simpleStringObjectDictionaryPropertyModifyingIterator, context);
-
-        result = _.chain(simpleStringObjectDictionary).forEach(simpleStringObjectDictionaryPropertyModifyingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).forEach(simpleStringObjectDictionaryPropertyModifyingIterator, context).value();
-    }
+    _.chain(simpleStringObjectDictionary).forEach(simpleStringObjectDictionaryPropertyModifyingIterator); // // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
+    _.chain(simpleStringObjectDictionary).forEach(simpleStringObjectDictionaryPropertyModifyingIterator, context); // // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
 }
 
 // map, collect
 {
     // function iterator
-    {
-        let result: string[];
+    _.map(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
+    _.map(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
 
-        result = _.map(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
-        result = _.map(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
+    _(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
+    _(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
 
-        result = _(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator, context);
+    _.chain(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<string, string[]>
+    _.chain(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<string, string[]>
 
-        result = _.chain(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator, context).value();
+    _.collect(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
+    _.collect(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
 
-        result = _.collect(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
-        result = _.collect(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
+    _(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
+    _(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
 
-        result = _(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator, context);
+    _.chain(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<string, string[]>
+    _.chain(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<string, string[]>
 
-        result = _.chain(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator, context).value();
-    }
+    _.map(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
+    _.map(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
 
-    {
-        let result: string[];
+    _(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
+    _(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
 
-        result = _.map(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
-        result = _.map(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
+    _.chain(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<string, string[]>
+    _.chain(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<string, string[]>
 
-        result = _(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator, context);
+    _.collect(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
+    _.collect(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator, context).value();
+    _(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
+    _(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
 
-        result = _.collect(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
-        result = _.collect(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
+    _.chain(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<string, string[]>
+    _.chain(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<string, string[]>
 
-        result = _(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator, context);
+    _.map(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType string[]
+    _.map(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator, context).value();
-    }
+    _(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType string[]
+    _(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType string[]
 
-    {
-        let result: string[];
+    _.chain(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType _Chain<string, string[]>
+    _.chain(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType _Chain<string, string[]>
 
-        result = _.map(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
-        result = _.map(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
+    _.collect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType string[]
+    _.collect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType string[]
 
-        result = _(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator);
-        result = _(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator, context);
+    _(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType string[]
+    _(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
+    _.chain(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType _Chain<string, string[]>
+    _.chain(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType _Chain<string, string[]>
 
-        result = _.collect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
-        result = _.collect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
+    _.map(simpleString, stringListModifyingIterator); // $ExpectType string[]
+    _.map(simpleString, stringListModifyingIterator, context); // $ExpectType string[]
 
-        result = _(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator);
-        result = _(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator, context);
+    _(simpleString).map(stringListModifyingIterator); // $ExpectType string[]
+    _(simpleString).map(stringListModifyingIterator, context); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
-    }
+    _.chain(simpleString).map(stringListModifyingIterator); // $ExpectType _Chain<string, string[]>
+    _.chain(simpleString).map(stringListModifyingIterator, context); // $ExpectType _Chain<string, string[]>
 
-    {
-        let result: string[];
+    _.collect(simpleString, stringListModifyingIterator); // $ExpectType string[]
+    _.collect(simpleString, stringListModifyingIterator, context); // $ExpectType string[]
 
-        result = _.map(simpleString, stringListModifyingIterator);
-        result = _.map(simpleString, stringListModifyingIterator, context);
+    _(simpleString).collect(stringListModifyingIterator); // $ExpectType string[]
+    _(simpleString).collect(stringListModifyingIterator, context); // $ExpectType string[]
 
-        result = _(simpleString).map(stringListModifyingIterator);
-        result = _(simpleString).map(stringListModifyingIterator, context);
-
-        result = _.chain(simpleString).map(stringListModifyingIterator).value();
-        result = _.chain(simpleString).map(stringListModifyingIterator, context).value();
-
-        result = _.collect(simpleString, stringListModifyingIterator);
-        result = _.collect(simpleString, stringListModifyingIterator, context);
-
-        result = _(simpleString).collect(stringListModifyingIterator);
-        result = _(simpleString).collect(stringListModifyingIterator, context);
-
-        result = _.chain(simpleString).collect(stringListModifyingIterator).value();
-        result = _.chain(simpleString).collect(stringListModifyingIterator, context).value();
-    }
+    _.chain(simpleString).collect(stringListModifyingIterator); // $ExpectType _Chain<string, string[]>
+    _.chain(simpleString).collect(stringListModifyingIterator, context); // $ExpectType _Chain<string, string[]>
 
     // partial object iterator with a non-nullable single type
-    {
-        let result: boolean[];
+    _.map(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.map(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _(simpleStringObjectArray).map(simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _.chain(simpleStringObjectArray).map(simpleStringObjectPartialPropertyMatch).value();
+    _.collect(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.collect(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _(simpleStringObjectArray).collect(simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _.chain(simpleStringObjectArray).collect(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.map(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    {
-        let result: boolean[];
+    _(simpleStringObjectList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.map(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _(simpleStringObjectList).map(simpleStringObjectPartialPropertyMatch);
+    _.collect(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.chain(simpleStringObjectList).map(simpleStringObjectPartialPropertyMatch).value();
+    _(simpleStringObjectList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.collect(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _(simpleStringObjectList).collect(simpleStringObjectPartialPropertyMatch);
+    _.map(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.chain(simpleStringObjectList).collect(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _(simpleStringObjectDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    {
-        let result: boolean[];
+    _.chain(simpleStringObjectDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _.map(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+    _.collect(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _(simpleStringObjectDictionary).map(simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.chain(simpleStringObjectDictionary).map(simpleStringObjectPartialPropertyMatch).value();
-
-        result = _.collect(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
-
-        result = _(simpleStringObjectDictionary).collect(simpleStringObjectPartialPropertyMatch);
-
-        result = _.chain(simpleStringObjectDictionary).collect(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.chain(simpleStringObjectDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
     // partial object iterator with a non-nullable intersecting type union
-    {
-        let result: boolean[];
+    _.map(intersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.map(intersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch);
+    _(intersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _(intersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch);
+    _.chain(intersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _.chain(intersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch).value();
+    _.collect(intersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.collect(intersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch);
+    _(intersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _(intersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch);
+    _.chain(intersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _.chain(intersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.map(intersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    {
-        let result: boolean[];
+    _(intersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.map(intersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch);
+    _.chain(intersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _(intersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch);
+    _.collect(intersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.chain(intersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch).value();
+    _(intersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.collect(intersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch);
+    _.chain(intersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _(intersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch);
+    _.map(intersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.chain(intersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _(intersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    {
-        let result: boolean[];
+    _.chain(intersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _.map(intersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch);
+    _.collect(intersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _(intersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch);
+    _(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.chain(intersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch).value();
-
-        result = _.collect(intersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch);
-
-        result = _(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch);
-
-        result = _.chain(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.chain(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
     // partial object iterator with a nullable type union
-    {
-        let result: boolean[];
+    _.map(simpleStringObjectOrUndefinedArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.map(simpleStringObjectOrUndefinedArray, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _.chain(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPartialPropertyMatch).value();
+    _.collect(simpleStringObjectOrUndefinedArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.collect(simpleStringObjectOrUndefinedArray, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _.chain(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.map(simpleStringObjectOrUndefinedList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    {
-        let result: boolean[];
+    _(simpleStringObjectOrUndefinedList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.map(simpleStringObjectOrUndefinedList, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectOrUndefinedList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _(simpleStringObjectOrUndefinedList).map(simpleStringObjectPartialPropertyMatch);
+    _.collect(simpleStringObjectOrUndefinedList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.chain(simpleStringObjectOrUndefinedList).map(simpleStringObjectPartialPropertyMatch).value();
+    _(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.collect(simpleStringObjectOrUndefinedList, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPartialPropertyMatch);
+    _.map(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.chain(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    {
-        let result: boolean[];
+    _.chain(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _.map(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPartialPropertyMatch);
+    _.collect(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.chain(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPartialPropertyMatch).value();
-
-        result = _.collect(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPartialPropertyMatch);
-
-        result = _(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPartialPropertyMatch);
-
-        result = _.chain(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.chain(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
     // partial object iterator with a non-nullable non-intersecting type union
-    {
-        let result: boolean[];
+    _.map(nonIntersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.map(nonIntersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch);
+    _(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch);
+    _.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch).value();
+    _.collect(nonIntersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.collect(nonIntersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch);
+    _(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch);
+    _.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.map(nonIntersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    {
-        let result: boolean[];
+    _(nonIntersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.map(nonIntersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch);
+    _.chain(nonIntersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _(nonIntersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch);
+    _.collect(nonIntersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.chain(nonIntersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch).value();
+    _(nonIntersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.collect(nonIntersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch);
+    _.chain(nonIntersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _(nonIntersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch);
+    _.map(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.chain(nonIntersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    {
-        let result: boolean[];
+    _.chain(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _.map(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch);
+    _.collect(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch);
+    _(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.chain(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch).value();
-
-        result = _.collect(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch);
-
-        result = _(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch);
-
-        result = _.chain(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.chain(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
     // partial object iterator of type any
-    {
-        let result: boolean[];
+    _.map(simpleStringObjectArray as any, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.map(simpleStringObjectArray as any, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectArray as any).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _(simpleStringObjectArray as any).map(simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectArray as any).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
-        result = _.chain(simpleStringObjectArray as any).map(simpleStringObjectPartialPropertyMatch).value();
+    _.collect(simpleStringObjectArray as any, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _.collect(simpleStringObjectArray as any, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectArray as any).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-        result = _(simpleStringObjectArray as any).collect(simpleStringObjectPartialPropertyMatch);
-
-        result = _.chain(simpleStringObjectArray as any).collect(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.chain(simpleStringObjectArray as any).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
 
     // property name iterator with a non-nullable single type
-    {
-        let result: string[];
+    _.map(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType string[]
 
-        result = _.map(simpleStringObjectArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).map(simpleStringObjectPropertyName); // $ExpectType string[]
 
-        result = _(simpleStringObjectArray).map(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
 
-        result = _.chain(simpleStringObjectArray).map(simpleStringObjectPropertyName).value();
+    _.collect(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType string[]
 
-        result = _.collect(simpleStringObjectArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).collect(simpleStringObjectPropertyName); // $ExpectType string[]
 
-        result = _(simpleStringObjectArray).collect(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
 
-        result = _.chain(simpleStringObjectArray).collect(simpleStringObjectPropertyName).value();
-    }
+    _.map(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType string[]
 
-    {
-        let result: string[];
+    _(simpleStringObjectList).map(simpleStringObjectPropertyName); // $ExpectType string[]
 
-        result = _.map(simpleStringObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
 
-        result = _(simpleStringObjectList).map(simpleStringObjectPropertyName);
+    _.collect(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectList).map(simpleStringObjectPropertyName).value();
+    _(simpleStringObjectList).collect(simpleStringObjectPropertyName); // $ExpectType string[]
 
-        result = _.collect(simpleStringObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
 
-        result = _(simpleStringObjectList).collect(simpleStringObjectPropertyName);
+    _.map(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectList).collect(simpleStringObjectPropertyName).value();
-    }
+    _(simpleStringObjectDictionary).map(simpleStringObjectPropertyName); // $ExpectType string[]
 
-    {
-        let result: string[];
+    _.chain(simpleStringObjectDictionary).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
 
-        result = _.map(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+    _.collect(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType string[]
 
-        result = _(simpleStringObjectDictionary).map(simpleStringObjectPropertyName);
+    _(simpleStringObjectDictionary).collect(simpleStringObjectPropertyName); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectDictionary).map(simpleStringObjectPropertyName).value();
-
-        result = _.collect(simpleStringObjectDictionary, simpleStringObjectPropertyName);
-
-        result = _(simpleStringObjectDictionary).collect(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectDictionary).collect(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectDictionary).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
 
     // property name iterator with a non-nullable intersecting type union
-    {
-        let result: (string | boolean)[];
+    _.map(intersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-        result = _.map(intersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+    _(intersectingObjectPropertiesArray).map(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-        result = _(intersectingObjectPropertiesArray).map(simpleStringObjectPropertyName);
+    _.chain(intersectingObjectPropertiesArray).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
 
-        result = _.chain(intersectingObjectPropertiesArray).map(simpleStringObjectPropertyName).value();
+    _.collect(intersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-        result = _.collect(intersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+    _(intersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-        result = _(intersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName);
+    _.chain(intersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
 
-        result = _.chain(intersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName).value();
-    }
+    _.map(intersectingObjectPropertiesList, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-    {
-        let result: (string | boolean)[];
+    _(intersectingObjectPropertiesList).map(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-        result = _.map(intersectingObjectPropertiesList, simpleStringObjectPropertyName);
+    _.chain(intersectingObjectPropertiesList).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
 
-        result = _(intersectingObjectPropertiesList).map(simpleStringObjectPropertyName);
+    _.collect(intersectingObjectPropertiesList, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-        result = _.chain(intersectingObjectPropertiesList).map(simpleStringObjectPropertyName).value();
+    _(intersectingObjectPropertiesList).collect(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-        result = _.collect(intersectingObjectPropertiesList, simpleStringObjectPropertyName);
+    _.chain(intersectingObjectPropertiesList).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
 
-        result = _(intersectingObjectPropertiesList).collect(simpleStringObjectPropertyName);
+    _.map(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-        result = _.chain(intersectingObjectPropertiesList).collect(simpleStringObjectPropertyName).value();
-    }
+    _(intersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-    {
-        let result: (string | boolean)[];
+    _.chain(intersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
 
-        result = _.map(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
+    _.collect(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-        result = _(intersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName);
+    _(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-        result = _.chain(intersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName).value();
-
-        result = _.collect(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
-
-        result = _(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName);
-
-        result = _.chain(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName).value();
-    }
+    _.chain(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
 
     // property name iterator with a nullable type union
-    {
-        let result: (string | undefined)[];
+    _.map(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.map(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
-        result = _.chain(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPropertyName).value();
+    _.collect(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.collect(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
-        result = _.chain(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPropertyName).value();
-    }
+    _.map(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    {
-        let result: (string | undefined)[];
+    _(simpleStringObjectOrUndefinedList).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.map(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectOrUndefinedList).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
-        result = _(simpleStringObjectOrUndefinedList).map(simpleStringObjectPropertyName);
+    _.collect(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.chain(simpleStringObjectOrUndefinedList).map(simpleStringObjectPropertyName).value();
+    _(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.collect(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
-        result = _(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPropertyName);
+    _.map(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.chain(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPropertyName).value();
-    }
+    _(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    {
-        let result: (string | undefined)[];
+    _.chain(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
-        result = _.map(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName);
+    _.collect(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPropertyName);
+    _(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.chain(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPropertyName).value();
-
-        result = _.collect(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName);
-
-        result = _(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
     // property name iterator with a non-nullable non-intersecting type union
-    {
-        let result: (string | undefined)[];
+    _.map(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.map(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+    _(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName);
+    _.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
-        result = _.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName).value();
+    _.collect(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.collect(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+    _(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName);
+    _.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
-        result = _.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName).value();
-    }
+    _.map(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    {
-        let result: (string | undefined)[];
+    _(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.map(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+    _.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
-        result = _(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName);
+    _.collect(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName).value();
+    _(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.collect(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+    _.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
-        result = _(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName);
+    _.map(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName).value();
-    }
+    _(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    {
-        let result: (string | undefined)[];
+    _.chain(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
-        result = _.map(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
+    _.collect(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName);
+    _(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.chain(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName).value();
-
-        result = _.collect(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
-
-        result = _(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName);
-
-        result = _.chain(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName).value();
-    }
+    _.chain(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
     // property name iterator with type any
     // specifying any as T causes the result to be any[], which isn't ideal, but on the other hand getting that result involves choosing
     // to specify any in the first place
-    {
-        let result: any[];
+    _.map(simpleStringObjectArray as any, simpleStringObjectPropertyName); // $ExpectType any[]
 
-        result = _.map(simpleStringObjectArray as any, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray as any).map(simpleStringObjectPropertyName); // $ExpectType any[]
 
-        result = _(simpleStringObjectArray as any).map(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray as any).map(simpleStringObjectPropertyName); // $ExpectType _Chain<any, any[]>
 
-        result = _.chain(simpleStringObjectArray as any).map(simpleStringObjectPropertyName).value();
+    _.collect(simpleStringObjectArray as any, simpleStringObjectPropertyName); // $ExpectType any[]
 
-        result = _.collect(simpleStringObjectArray as any, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray as any).collect(simpleStringObjectPropertyName); // $ExpectType any[]
 
-        result = _(simpleStringObjectArray as any).collect(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectArray as any).collect(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectArray as any).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<any, any[]>
 }
 
 // reduce, foldl, inject
 {
-    {
-        const memo = '';
-        let result: string;
+    const stringMemo = '';
+    const dictionaryMemo: _.Dictionary<number> = {};
 
-        result = _.reduce(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo);
-        result = _.reduce(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo, context);
+    _.reduce(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _.reduce(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, memo);
-        result = _(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, memo, context);
+    _(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.chain(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, memo).value();
-        result = _.chain(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+    _.chain(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
+    _.chain(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
 
-        result = _.foldl(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo);
-        result = _.foldl(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo, context);
+    _.foldl(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _.foldl(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, memo);
-        result = _(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, memo, context);
+    _(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.chain(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, memo).value();
-        result = _.chain(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+    _.chain(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
+    _.chain(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
 
-        result = _.inject(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo);
-        result = _.inject(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo, context);
+    _.inject(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _.inject(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, memo);
-        result = _(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, memo, context);
+    _(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.chain(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, memo).value();
-        result = _.chain(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, memo, context).value();
-    }
+    _.chain(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
+    _.chain(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
 
-    {
-        const memo = '';
-        let result: string;
+    _.reduce(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _.reduce(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.reduce(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo);
-        result = _.reduce(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo, context);
+    _(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, memo);
-        result = _(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, memo, context);
+    _.chain(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
+    _.chain(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
 
-        result = _.chain(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, memo).value();
-        result = _.chain(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+    _.foldl(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _.foldl(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.foldl(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo);
-        result = _.foldl(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo, context);
+    _(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, memo);
-        result = _(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, memo, context);
+    _.chain(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
+    _.chain(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
 
-        result = _.chain(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, memo).value();
-        result = _.chain(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+    _.inject(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _.inject(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.inject(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo);
-        result = _.inject(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo, context);
+    _(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, memo);
-        result = _(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, memo, context);
+    _.chain(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
+    _.chain(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
 
-        result = _.chain(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, memo).value();
-        result = _.chain(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, memo, context).value();
-    }
+    _.reduce(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
+    _.reduce(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-    {
-        const memo = '';
-        let result: string;
+    _(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
+    _(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.reduce(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo);
-        result = _.reduce(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+    _.chain(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
+    _.chain(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
 
-        result = _(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, memo);
-        result = _(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+    _.foldl(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
+    _.foldl(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.chain(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
-        result = _.chain(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
+    _(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
+    _(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.foldl(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo);
-        result = _.foldl(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+    _.chain(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
+    _.chain(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
 
-        result = _(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, memo);
-        result = _(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+    _.inject(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
+    _.inject(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.chain(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
-        result = _.chain(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
+    _(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
+    _(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.inject(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo);
-        result = _.inject(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+    _.chain(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
+    _.chain(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
 
-        result = _(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, memo);
-        result = _(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+    _.reduce(simpleString, stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
+    _.reduce(simpleString, stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
 
-        result = _.chain(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
-        result = _.chain(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
-    }
+    _(simpleString).reduce(stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
+    _(simpleString).reduce(stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
 
-    {
-        const memo: _.Dictionary<number> = {};
-        let result: _.Dictionary<number>;
+    _.chain(simpleString).reduce(stringListMemoIterator, dictionaryMemo); // $ExpectType _ChainSingle<Dictionary<number>>
+    _.chain(simpleString).reduce(stringListMemoIterator, dictionaryMemo, context); // $ExpectType _ChainSingle<Dictionary<number>>
 
-        result = _.reduce(simpleString, stringListMemoIterator, memo);
-        result = _.reduce(simpleString, stringListMemoIterator, memo, context);
+    _.foldl(simpleString, stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
+    _.foldl(simpleString, stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
 
-        result = _(simpleString).reduce(stringListMemoIterator, memo);
-        result = _(simpleString).reduce(stringListMemoIterator, memo, context);
+    _(simpleString).foldl(stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
+    _(simpleString).foldl(stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
 
-        result = _.chain(simpleString).reduce(stringListMemoIterator, memo).value();
-        result = _.chain(simpleString).reduce(stringListMemoIterator, memo, context).value();
+    _.chain(simpleString).foldl(stringListMemoIterator, dictionaryMemo); // $ExpectType _ChainSingle<Dictionary<number>>
+    _.chain(simpleString).foldl(stringListMemoIterator, dictionaryMemo, context); // $ExpectType _ChainSingle<Dictionary<number>>
 
-        result = _.foldl(simpleString, stringListMemoIterator, memo);
-        result = _.foldl(simpleString, stringListMemoIterator, memo, context);
+    _.inject(simpleString, stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
+    _.inject(simpleString, stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
 
-        result = _(simpleString).foldl(stringListMemoIterator, memo);
-        result = _(simpleString).foldl(stringListMemoIterator, memo, context);
+    _(simpleString).inject(stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
+    _(simpleString).inject(stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
 
-        result = _.chain(simpleString).foldl(stringListMemoIterator, memo).value();
-        result = _.chain(simpleString).foldl(stringListMemoIterator, memo, context).value();
-
-        result = _.inject(simpleString, stringListMemoIterator, memo);
-        result = _.inject(simpleString, stringListMemoIterator, memo, context);
-
-        result = _(simpleString).inject(stringListMemoIterator, memo);
-        result = _(simpleString).inject(stringListMemoIterator, memo, context);
-
-        result = _.chain(simpleString).inject(stringListMemoIterator, memo).value();
-        result = _.chain(simpleString).inject(stringListMemoIterator, memo, context).value();
-    }
+    _.chain(simpleString).inject(stringListMemoIterator, dictionaryMemo); // $ExpectType _ChainSingle<Dictionary<number>>
+    _.chain(simpleString).inject(stringListMemoIterator, dictionaryMemo, context); // $ExpectType _ChainSingle<Dictionary<number>>
 }
 
 // reduceRight, foldr
 {
-    {
-        const memo = '';
-        let result: string;
+    const stringMemo = '';
+    const dictionaryMemo: _.Dictionary<number> = {};
 
-        result = _.reduceRight(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo);
-        result = _.reduceRight(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo, context);
+    _.reduceRight(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _.reduceRight(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, memo);
-        result = _(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, memo, context);
+    _(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.chain(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, memo).value();
-        result = _.chain(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+    _.chain(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
+    _.chain(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
 
-        result = _.foldr(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo);
-        result = _.foldr(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo, context);
+    _.foldr(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _.foldr(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, memo);
-        result = _(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, memo, context);
+    _(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.chain(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, memo).value();
-        result = _.chain(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, memo, context).value();
-    }
+    _.chain(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
+    _.chain(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
 
-    {
-        const memo = '';
-        let result: string;
+    _.reduceRight(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _.reduceRight(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.reduceRight(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo);
-        result = _.reduceRight(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo, context);
+    _(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, memo);
-        result = _(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, memo, context);
+    _.chain(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
+    _.chain(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
 
-        result = _.chain(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, memo).value();
-        result = _.chain(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+    _.foldr(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _.foldr(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.foldr(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo);
-        result = _.foldr(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo, context);
+    _(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
+    _(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, memo);
-        result = _(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, memo, context);
+    _.chain(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
+    _.chain(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
 
-        result = _.chain(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, memo).value();
-        result = _.chain(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, memo, context).value();
-    }
+    _.reduceRight(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
+    _.reduceRight(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-    {
-        const memo = '';
-        let result: string;
+    _(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
+    _(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.reduceRight(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo);
-        result = _.reduceRight(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+    _.chain(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
+    _.chain(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
 
-        result = _(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, memo);
-        result = _(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+    _.foldr(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
+    _.foldr(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.chain(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
-        result = _.chain(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
+    _(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
+    _(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-        result = _.foldr(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo);
-        result = _.foldr(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+    _.chain(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
+    _.chain(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
 
-        result = _(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, memo);
-        result = _(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+    _.reduceRight(simpleString, stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
+    _.reduceRight(simpleString, stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
 
-        result = _.chain(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
-        result = _.chain(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
-    }
+    _(simpleString).reduceRight(stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
+    _(simpleString).reduceRight(stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
 
-    {
-        const memo: _.Dictionary<number> = {};
-        let result: _.Dictionary<number>;
+    _.chain(simpleString).reduceRight(stringListMemoIterator, dictionaryMemo); // $ExpectType _ChainSingle<Dictionary<number>>
+    _.chain(simpleString).reduceRight(stringListMemoIterator, dictionaryMemo, context); // $ExpectType _ChainSingle<Dictionary<number>>
 
-        result = _.reduceRight(simpleString, stringListMemoIterator, memo);
-        result = _.reduceRight(simpleString, stringListMemoIterator, memo, context);
+    _.foldr(simpleString, stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
+    _.foldr(simpleString, stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
 
-        result = _(simpleString).reduceRight(stringListMemoIterator, memo);
-        result = _(simpleString).reduceRight(stringListMemoIterator, memo, context);
+    _(simpleString).foldr(stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
+    _(simpleString).foldr(stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
 
-        result = _.chain(simpleString).reduceRight(stringListMemoIterator, memo).value();
-        result = _.chain(simpleString).reduceRight(stringListMemoIterator, memo, context).value();
-
-        result = _.foldr(simpleString, stringListMemoIterator, memo);
-        result = _.foldr(simpleString, stringListMemoIterator, memo, context);
-
-        result = _(simpleString).foldr(stringListMemoIterator, memo);
-        result = _(simpleString).foldr(stringListMemoIterator, memo, context);
-
-        result = _.chain(simpleString).foldr(stringListMemoIterator, memo).value();
-        result = _.chain(simpleString).foldr(stringListMemoIterator, memo, context).value();
-    }
+    _.chain(simpleString).foldr(stringListMemoIterator, dictionaryMemo); // $ExpectType _ChainSingle<Dictionary<number>>
+    _.chain(simpleString).foldr(stringListMemoIterator, dictionaryMemo, context); // $ExpectType _ChainSingle<Dictionary<number>>
 }
 
 // find, detect
 {
     // function iterator
-    {
-        let result: {a: string} | undefined;
+    _.find(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
+    _.find(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-        result = _.find(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
-        result = _.find(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+    _(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
+    _(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-        result = _(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    _.chain(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _.chain(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator, context).value();
+    _.detect(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
+    _.detect(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-        result = _.detect(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
-        result = _.detect(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+    _(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
+    _(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-        result = _(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    _.chain(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _.chain(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator, context).value();
-    }
+    _.find(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
+    _.find(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-    {
-        let result: SimpleStringObjectOrUndefined;
+    _(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
+    _(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-        result = _.find(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
-        result = _.find(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    _.chain(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator, context);
+    _.detect(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
+    _.detect(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-        result = _.chain(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator, context).value();
+    _(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
+    _(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-        result = _.detect(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
-        result = _.detect(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    _.chain(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator, context);
+    _.find(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
+    _.find(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-        result = _.chain(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator, context).value();
-    }
+    _(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
+    _(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-    {
-        let result: SimpleStringObjectOrUndefined;
+    _.chain(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    _.chain(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _.find(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _.find(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _.detect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
+    _.detect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-        result = _(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
+    _(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-        result = _.chain(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+    _.chain(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    _.chain(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _.detect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _.detect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _.find(simpleString, stringListComparingIterator); // $ExpectType string | undefined
+    _.find(simpleString, stringListComparingIterator, context); // $ExpectType string | undefined
 
-        result = _(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _(simpleString).find(stringListComparingIterator); // $ExpectType string | undefined
+    _(simpleString).find(stringListComparingIterator, context); // $ExpectType string | undefined
 
-        result = _.chain(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
-    }
+    _.chain(simpleString).find(stringListComparingIterator); // $ExpectType _ChainSingle<string | undefined>
+    _.chain(simpleString).find(stringListComparingIterator, context); // $ExpectType _ChainSingle<string | undefined>
 
-    {
-        let result: string | undefined;
+    _.detect(simpleString, stringListComparingIterator); // $ExpectType string | undefined
+    _.detect(simpleString, stringListComparingIterator, context); // $ExpectType string | undefined
 
-        result = _.find(simpleString, stringListComparingIterator);
-        result = _.find(simpleString, stringListComparingIterator, context);
+    _(simpleString).detect(stringListComparingIterator); // $ExpectType string | undefined
+    _(simpleString).detect(stringListComparingIterator, context); // $ExpectType string | undefined
 
-        result = _(simpleString).find(stringListComparingIterator);
-        result = _(simpleString).find(stringListComparingIterator, context);
-
-        result = _.chain(simpleString).find(stringListComparingIterator).value();
-        result = _.chain(simpleString).find(stringListComparingIterator, context).value();
-
-        result = _.detect(simpleString, stringListComparingIterator);
-        result = _.detect(simpleString, stringListComparingIterator, context);
-
-        result = _(simpleString).detect(stringListComparingIterator);
-        result = _(simpleString).detect(stringListComparingIterator, context);
-
-        result = _.chain(simpleString).detect(stringListComparingIterator).value();
-        result = _.chain(simpleString).detect(stringListComparingIterator, context).value();
-    }
+    _.chain(simpleString).detect(stringListComparingIterator); // $ExpectType _ChainSingle<string | undefined>
+    _.chain(simpleString).detect(stringListComparingIterator, context); // $ExpectType _ChainSingle<string | undefined>
 
     // partial object iterator
-    {
-        let result: SimpleStringObjectOrUndefined;
+    _.find(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-        result = _.find(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectArray).find(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-        result = _(simpleStringObjectArray).find(simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectArray).find(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _.chain(simpleStringObjectArray).find(simpleStringObjectPartialPropertyMatch).value();
+    _.detect(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-        result = _.detect(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectArray).detect(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-        result = _(simpleStringObjectArray).detect(simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectArray).detect(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _.chain(simpleStringObjectArray).detect(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.find(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-    {
-        let result: SimpleStringObjectOrUndefined;
+    _(simpleStringObjectList).find(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-        result = _.find(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectList).find(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _(simpleStringObjectList).find(simpleStringObjectPartialPropertyMatch);
+    _.detect(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-        result = _.chain(simpleStringObjectList).find(simpleStringObjectPartialPropertyMatch).value();
+    _(simpleStringObjectList).detect(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-        result = _.detect(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectList).detect(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _(simpleStringObjectList).detect(simpleStringObjectPartialPropertyMatch);
+    _.find(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-        result = _.chain(simpleStringObjectList).detect(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _(simpleStringObjectDictionary).find(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-    {
-        let result: SimpleStringObjectOrUndefined;
+    _.chain(simpleStringObjectDictionary).find(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _.find(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+    _.detect(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-        result = _(simpleStringObjectDictionary).find(simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectDictionary).detect(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-        result = _.chain(simpleStringObjectDictionary).find(simpleStringObjectPartialPropertyMatch).value();
-
-        result = _.detect(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
-
-        result = _(simpleStringObjectDictionary).detect(simpleStringObjectPartialPropertyMatch);
-
-        result = _.chain(simpleStringObjectDictionary).detect(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.chain(simpleStringObjectDictionary).detect(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
     // property name iterator
-    {
-        let result: SimpleStringObjectOrUndefined;
+    _.find(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-        result = _.find(simpleStringObjectArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).find(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-        result = _(simpleStringObjectArray).find(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).find(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _.chain(simpleStringObjectArray).find(simpleStringObjectPropertyName).value();
+    _.detect(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-        result = _.detect(simpleStringObjectArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).detect(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-        result = _(simpleStringObjectArray).detect(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).detect(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _.chain(simpleStringObjectArray).detect(simpleStringObjectPropertyName).value();
-    }
+    _.find(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-    {
-        let result: SimpleStringObjectOrUndefined;
+    _(simpleStringObjectList).find(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-        result = _.find(simpleStringObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).find(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _(simpleStringObjectList).find(simpleStringObjectPropertyName);
+    _.detect(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-        result = _.chain(simpleStringObjectList).find(simpleStringObjectPropertyName).value();
+    _(simpleStringObjectList).detect(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-        result = _.detect(simpleStringObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).detect(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _(simpleStringObjectList).detect(simpleStringObjectPropertyName);
+    _.find(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-        result = _.chain(simpleStringObjectList).detect(simpleStringObjectPropertyName).value();
-    }
+    _(simpleStringObjectDictionary).find(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-    {
-        let result: SimpleStringObjectOrUndefined;
+    _.chain(simpleStringObjectDictionary).find(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _.find(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+    _.detect(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-        result = _(simpleStringObjectDictionary).find(simpleStringObjectPropertyName);
+    _(simpleStringObjectDictionary).detect(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-        result = _.chain(simpleStringObjectDictionary).find(simpleStringObjectPropertyName).value();
-
-        result = _.detect(simpleStringObjectDictionary, simpleStringObjectPropertyName);
-
-        result = _(simpleStringObjectDictionary).detect(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectDictionary).detect(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectDictionary).detect(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 }
 
 // filter, select
 {
     // function iterator
-    {
-        let result: SimpleStringObject[];
+    _.filter(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _.filter(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.filter(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
-        result = _.filter(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+    _(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator, context).value();
+    _.select(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _.select(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.select(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
-        result = _.select(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+    _(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator, context).value();
-    }
+    _.filter(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _.filter(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.filter(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
-        result = _.filter(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator, context);
+    _.select(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _.select(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator, context).value();
+    _(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.select(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
-        result = _.select(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator, context);
+    _.filter(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _.filter(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator, context).value();
-    }
+    _(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _.chain(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.filter(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _.filter(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _.select(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _.select(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+    _.chain(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.select(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _.select(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _.filter(simpleString, stringListComparingIterator); // $ExpectType string[]
+    _.filter(simpleString, stringListComparingIterator, context); // $ExpectType string[]
 
-        result = _(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _(simpleString).filter(stringListComparingIterator); // $ExpectType string[]
+    _(simpleString).filter(stringListComparingIterator, context); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
-    }
+    _.chain(simpleString).filter(stringListComparingIterator); // $ExpectType _Chain<string, string[]>
+    _.chain(simpleString).filter(stringListComparingIterator, context); // $ExpectType _Chain<string, string[]>
 
-    {
-        let result: string[];
+    _.select(simpleString, stringListComparingIterator); // $ExpectType string[]
+    _.select(simpleString, stringListComparingIterator, context); // $ExpectType string[]
 
-        result = _.filter(simpleString, stringListComparingIterator);
-        result = _.filter(simpleString, stringListComparingIterator, context);
+    _(simpleString).select(stringListComparingIterator); // $ExpectType string[]
+    _(simpleString).select(stringListComparingIterator, context); // $ExpectType string[]
 
-        result = _(simpleString).filter(stringListComparingIterator);
-        result = _(simpleString).filter(stringListComparingIterator, context);
-
-        result = _.chain(simpleString).filter(stringListComparingIterator).value();
-        result = _.chain(simpleString).filter(stringListComparingIterator, context).value();
-
-        result = _.select(simpleString, stringListComparingIterator);
-        result = _.select(simpleString, stringListComparingIterator, context);
-
-        result = _(simpleString).select(stringListComparingIterator);
-        result = _(simpleString).select(stringListComparingIterator, context);
-
-        result = _.chain(simpleString).select(stringListComparingIterator).value();
-        result = _.chain(simpleString).select(stringListComparingIterator, context).value();
-    }
+    _.chain(simpleString).select(stringListComparingIterator); // $ExpectType _Chain<string, string[]>
+    _.chain(simpleString).select(stringListComparingIterator, context); // $ExpectType _Chain<string, string[]>
 
     // partial object iterator
-    {
-        let result: SimpleStringObject[];
+    _.filter(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _.filter(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectArray).filter(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).filter(simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectArray).filter(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).filter(simpleStringObjectPartialPropertyMatch).value();
+    _.select(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _.select(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectArray).select(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).select(simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectArray).select(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).select(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.filter(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).filter(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _.filter(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectList).filter(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).filter(simpleStringObjectPartialPropertyMatch);
+    _.select(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).filter(simpleStringObjectPartialPropertyMatch).value();
+    _(simpleStringObjectList).select(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _.select(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectList).select(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).select(simpleStringObjectPartialPropertyMatch);
+    _.filter(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).select(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _(simpleStringObjectDictionary).filter(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _.chain(simpleStringObjectDictionary).filter(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.filter(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+    _.select(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectDictionary).filter(simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectDictionary).select(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectDictionary).filter(simpleStringObjectPartialPropertyMatch).value();
-
-        result = _.select(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
-
-        result = _(simpleStringObjectDictionary).select(simpleStringObjectPartialPropertyMatch);
-
-        result = _.chain(simpleStringObjectDictionary).select(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.chain(simpleStringObjectDictionary).select(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
     // property name iterator
-    {
-        let result: SimpleStringObject[];
+    _.filter(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.filter(simpleStringObjectArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).filter(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).filter(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).filter(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).filter(simpleStringObjectPropertyName).value();
+    _.select(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.select(simpleStringObjectArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).select(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).select(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).select(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).select(simpleStringObjectPropertyName).value();
-    }
+    _.filter(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).filter(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.filter(simpleStringObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).filter(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).filter(simpleStringObjectPropertyName);
+    _.select(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).filter(simpleStringObjectPropertyName).value();
+    _(simpleStringObjectList).select(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.select(simpleStringObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).select(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).select(simpleStringObjectPropertyName);
+    _.filter(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).select(simpleStringObjectPropertyName).value();
-    }
+    _(simpleStringObjectDictionary).filter(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _.chain(simpleStringObjectDictionary).filter(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.filter(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+    _.select(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectDictionary).filter(simpleStringObjectPropertyName);
+    _(simpleStringObjectDictionary).select(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectDictionary).filter(simpleStringObjectPropertyName).value();
-
-        result = _.select(simpleStringObjectDictionary, simpleStringObjectPropertyName);
-
-        result = _(simpleStringObjectDictionary).select(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectDictionary).select(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectDictionary).select(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 }
 
 // where
 {
-    {
-        let result: SimpleStringObject[];
+    _.where(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _.where(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectArray).where(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).where(simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectArray).where(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).where(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.where(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).where(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _.where(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectList).where(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).where(simpleStringObjectPartialPropertyMatch);
+    _.where(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).where(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _(simpleStringObjectDictionary).where(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
-
-        result = _.where(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
-
-        result = _(simpleStringObjectDictionary).where(simpleStringObjectPartialPropertyMatch);
-
-        result = _.chain(simpleStringObjectDictionary).where(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.chain(simpleStringObjectDictionary).where(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 }
 
 // findWhere
 {
-    {
-        let result: SimpleStringObjectOrUndefined;
+    _.findWhere(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-        result = _.findWhere(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectArray).findWhere(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-        result = _(simpleStringObjectArray).findWhere(simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectArray).findWhere(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _.chain(simpleStringObjectArray).findWhere(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.findWhere(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-    {
-        let result: SimpleStringObjectOrUndefined;
+    _(simpleStringObjectList).findWhere(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-        result = _.findWhere(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectList).findWhere(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _(simpleStringObjectList).findWhere(simpleStringObjectPartialPropertyMatch);
+    _.findWhere(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-        result = _.chain(simpleStringObjectList).findWhere(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _(simpleStringObjectDictionary).findWhere(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-    {
-        let result: SimpleStringObjectOrUndefined;
-
-        result = _.findWhere(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
-
-        result = _(simpleStringObjectDictionary).findWhere(simpleStringObjectPartialPropertyMatch);
-
-        result = _.chain(simpleStringObjectDictionary).findWhere(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.chain(simpleStringObjectDictionary).findWhere(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 }
 
 // reject
 {
     // function iterator
-    {
-        let result: SimpleStringObject[];
+    _.reject(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _.reject(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.reject(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
-        result = _.reject(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+    _(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator, context).value();
-    }
+    _.reject(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _.reject(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.reject(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
-        result = _.reject(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator, context);
+    _.reject(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _.reject(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator, context).value();
-    }
+    _(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _.chain(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.reject(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _.reject(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _.reject(simpleString, stringListComparingIterator); // $ExpectType string[]
+    _.reject(simpleString, stringListComparingIterator, context); // $ExpectType string[]
 
-        result = _(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _(simpleString).reject(stringListComparingIterator); // $ExpectType string[]
+    _(simpleString).reject(stringListComparingIterator, context); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
-    }
-
-    {
-        let result: string[];
-
-        result = _.reject(simpleString, stringListComparingIterator);
-        result = _.reject(simpleString, stringListComparingIterator, context);
-
-        result = _(simpleString).reject(stringListComparingIterator);
-        result = _(simpleString).reject(stringListComparingIterator, context);
-
-        result = _.chain(simpleString).reject(stringListComparingIterator).value();
-        result = _.chain(simpleString).reject(stringListComparingIterator, context).value();
-    }
+    _.chain(simpleString).reject(stringListComparingIterator); // $ExpectType _Chain<string, string[]>
+    _.chain(simpleString).reject(stringListComparingIterator, context); // $ExpectType _Chain<string, string[]>
 
     // partial object iterator
-    {
-        let result: SimpleStringObject[];
+    _.reject(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _.reject(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectArray).reject(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).reject(simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectArray).reject(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).reject(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.reject(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).reject(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _.reject(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectList).reject(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).reject(simpleStringObjectPartialPropertyMatch);
+    _.reject(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).reject(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _(simpleStringObjectDictionary).reject(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
-
-        result = _.reject(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
-
-        result = _(simpleStringObjectDictionary).reject(simpleStringObjectPartialPropertyMatch);
-
-        result = _.chain(simpleStringObjectDictionary).reject(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.chain(simpleStringObjectDictionary).reject(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
     // property name iterator
-    {
-        let result: SimpleStringObject[];
+    _.reject(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.reject(simpleStringObjectArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).reject(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).reject(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).reject(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).reject(simpleStringObjectPropertyName).value();
-    }
+    _.reject(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).reject(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.reject(simpleStringObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).reject(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).reject(simpleStringObjectPropertyName);
+    _.reject(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).reject(simpleStringObjectPropertyName).value();
-    }
+    _(simpleStringObjectDictionary).reject(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
-
-        result = _.reject(simpleStringObjectDictionary, simpleStringObjectPropertyName);
-
-        result = _(simpleStringObjectDictionary).reject(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectDictionary).reject(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectDictionary).reject(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 }
 
 // every, all
 {
     // function iterator
-    {
-        let result: boolean;
+    _.every(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
+    _.every(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _.every(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
-        result = _.every(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+    _(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
+    _(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
 
-        result = _.chain(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator, context).value();
+    _.all(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
+    _.all(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _.all(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
-        result = _.all(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+    _(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
+    _(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
 
-        result = _.chain(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator, context).value();
-    }
+    _.every(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
+    _.every(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-    {
-        let result: boolean;
+    _(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
+    _(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _.every(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
-        result = _.every(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
 
-        result = _(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator, context);
+    _.all(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
+    _.all(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator, context).value();
+    _(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
+    _(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _.all(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
-        result = _.all(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
 
-        result = _(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator, context);
+    _.every(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType boolean
+    _.every(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator, context).value();
-    }
+    _(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType boolean
+    _(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType boolean
 
-    {
-        let result: boolean;
+    _.chain(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
 
-        result = _.every(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _.every(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _.all(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType boolean
+    _.all(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType boolean
+    _(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+    _.chain(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
 
-        result = _.all(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _.all(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _.every(simpleString, stringListComparingIterator); // $ExpectType boolean
+    _.every(simpleString, stringListComparingIterator, context); // $ExpectType boolean
 
-        result = _(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _(simpleString).every(stringListComparingIterator); // $ExpectType boolean
+    _(simpleString).every(stringListComparingIterator, context); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
-    }
+    _.chain(simpleString).every(stringListComparingIterator); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleString).every(stringListComparingIterator, context); // $ExpectType _ChainSingle<boolean>
 
-    {
-        let result: boolean;
+    _.all(simpleString, stringListComparingIterator); // $ExpectType boolean
+    _.all(simpleString, stringListComparingIterator, context); // $ExpectType boolean
 
-        result = _.every(simpleString, stringListComparingIterator);
-        result = _.every(simpleString, stringListComparingIterator, context);
+    _(simpleString).all(stringListComparingIterator); // $ExpectType boolean
+    _(simpleString).all(stringListComparingIterator, context); // $ExpectType boolean
 
-        result = _(simpleString).every(stringListComparingIterator);
-        result = _(simpleString).every(stringListComparingIterator, context);
-
-        result = _.chain(simpleString).every(stringListComparingIterator).value();
-        result = _.chain(simpleString).every(stringListComparingIterator, context).value();
-
-        result = _.all(simpleString, stringListComparingIterator);
-        result = _.all(simpleString, stringListComparingIterator, context);
-
-        result = _(simpleString).all(stringListComparingIterator);
-        result = _(simpleString).all(stringListComparingIterator, context);
-
-        result = _.chain(simpleString).all(stringListComparingIterator).value();
-        result = _.chain(simpleString).all(stringListComparingIterator, context).value();
-    }
+    _.chain(simpleString).all(stringListComparingIterator); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleString).all(stringListComparingIterator, context); // $ExpectType _ChainSingle<boolean>
 
     // partial object iterator
-    {
-        let result: boolean;
+    _.every(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _.every(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectArray).every(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _(simpleStringObjectArray).every(simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectArray).every(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
 
-        result = _.chain(simpleStringObjectArray).every(simpleStringObjectPartialPropertyMatch).value();
+    _.all(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _.all(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectArray).all(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _(simpleStringObjectArray).all(simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectArray).all(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
 
-        result = _.chain(simpleStringObjectArray).all(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.every(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-    {
-        let result: boolean;
+    _(simpleStringObjectList).every(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _.every(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectList).every(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
 
-        result = _(simpleStringObjectList).every(simpleStringObjectPartialPropertyMatch);
+    _.all(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectList).every(simpleStringObjectPartialPropertyMatch).value();
+    _(simpleStringObjectList).all(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _.all(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectList).all(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
 
-        result = _(simpleStringObjectList).all(simpleStringObjectPartialPropertyMatch);
+    _.every(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectList).all(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _(simpleStringObjectDictionary).every(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-    {
-        let result: boolean;
+    _.chain(simpleStringObjectDictionary).every(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
 
-        result = _.every(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+    _.all(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _(simpleStringObjectDictionary).every(simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectDictionary).all(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectDictionary).every(simpleStringObjectPartialPropertyMatch).value();
-
-        result = _.all(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
-
-        result = _(simpleStringObjectDictionary).all(simpleStringObjectPartialPropertyMatch);
-
-        result = _.chain(simpleStringObjectDictionary).all(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.chain(simpleStringObjectDictionary).all(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
 
     // property name iterator
-    {
-        let result: boolean;
+    _.every(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _.every(simpleStringObjectArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).every(simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _(simpleStringObjectArray).every(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).every(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
 
-        result = _.chain(simpleStringObjectArray).every(simpleStringObjectPropertyName).value();
+    _.all(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _.all(simpleStringObjectArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).all(simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _(simpleStringObjectArray).all(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).all(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
 
-        result = _.chain(simpleStringObjectArray).all(simpleStringObjectPropertyName).value();
-    }
+    _.every(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType boolean
 
-    {
-        let result: boolean;
+    _(simpleStringObjectList).every(simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _.every(simpleStringObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).every(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
 
-        result = _(simpleStringObjectList).every(simpleStringObjectPropertyName);
+    _.all(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectList).every(simpleStringObjectPropertyName).value();
+    _(simpleStringObjectList).all(simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _.all(simpleStringObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).all(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
 
-        result = _(simpleStringObjectList).all(simpleStringObjectPropertyName);
+    _.every(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectList).all(simpleStringObjectPropertyName).value();
-    }
+    _(simpleStringObjectDictionary).every(simpleStringObjectPropertyName); // $ExpectType boolean
 
-    {
-        let result: boolean;
+    _.chain(simpleStringObjectDictionary).every(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
 
-        result = _.every(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+    _.all(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _(simpleStringObjectDictionary).every(simpleStringObjectPropertyName);
+    _(simpleStringObjectDictionary).all(simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectDictionary).every(simpleStringObjectPropertyName).value();
-
-        result = _.all(simpleStringObjectDictionary, simpleStringObjectPropertyName);
-
-        result = _(simpleStringObjectDictionary).all(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectDictionary).all(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectDictionary).all(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
 }
 
 // some, any
 {
     // function iterator
-    {
-        let result: boolean;
+    _.some(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
+    _.some(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _.some(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
-        result = _.some(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+    _(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
+    _(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
 
-        result = _.chain(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator, context).value();
+    _.any(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
+    _.any(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _.any(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
-        result = _.any(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+    _(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
+    _(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
 
-        result = _.chain(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator, context).value();
-    }
+    _.some(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
+    _.some(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-    {
-        let result: boolean;
+    _(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
+    _(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _.some(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
-        result = _.some(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
 
-        result = _(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator, context);
+    _.any(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
+    _.any(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator, context).value();
+    _(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
+    _(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _.any(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
-        result = _.any(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
 
-        result = _(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator, context);
+    _.some(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType boolean
+    _.some(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator, context).value();
-    }
+    _(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType boolean
+    _(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType boolean
 
-    {
-        let result: boolean;
+    _.chain(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
 
-        result = _.some(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _.some(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _.any(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType boolean
+    _.any(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType boolean
+    _(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+    _.chain(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
 
-        result = _.any(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _.any(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _.some(simpleString, stringListComparingIterator); // $ExpectType boolean
+    _.some(simpleString, stringListComparingIterator, context); // $ExpectType boolean
 
-        result = _(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _(simpleString).some(stringListComparingIterator); // $ExpectType boolean
+    _(simpleString).some(stringListComparingIterator, context); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
-    }
+    _.chain(simpleString).some(stringListComparingIterator); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleString).some(stringListComparingIterator, context); // $ExpectType _ChainSingle<boolean>
 
-    {
-        let result: boolean;
+    _.any(simpleString, stringListComparingIterator); // $ExpectType boolean
+    _.any(simpleString, stringListComparingIterator, context); // $ExpectType boolean
 
-        result = _.some(simpleString, stringListComparingIterator);
-        result = _.some(simpleString, stringListComparingIterator, context);
+    _(simpleString).any(stringListComparingIterator); // $ExpectType boolean
+    _(simpleString).any(stringListComparingIterator, context); // $ExpectType boolean
 
-        result = _(simpleString).some(stringListComparingIterator);
-        result = _(simpleString).some(stringListComparingIterator, context);
-
-        result = _.chain(simpleString).some(stringListComparingIterator).value();
-        result = _.chain(simpleString).some(stringListComparingIterator, context).value();
-
-        result = _.any(simpleString, stringListComparingIterator);
-        result = _.any(simpleString, stringListComparingIterator, context);
-
-        result = _(simpleString).any(stringListComparingIterator);
-        result = _(simpleString).any(stringListComparingIterator, context);
-
-        result = _.chain(simpleString).any(stringListComparingIterator).value();
-        result = _.chain(simpleString).any(stringListComparingIterator, context).value();
-    }
+    _.chain(simpleString).any(stringListComparingIterator); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleString).any(stringListComparingIterator, context); // $ExpectType _ChainSingle<boolean>
 
     // partial object iterator
-    {
-        let result: boolean;
+    _.some(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _.some(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectArray).some(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _(simpleStringObjectArray).some(simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectArray).some(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
 
-        result = _.chain(simpleStringObjectArray).some(simpleStringObjectPartialPropertyMatch).value();
+    _.any(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _.any(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectArray).any(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _(simpleStringObjectArray).any(simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectArray).any(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
 
-        result = _.chain(simpleStringObjectArray).any(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.some(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-    {
-        let result: boolean;
+    _(simpleStringObjectList).some(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _.some(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectList).some(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
 
-        result = _(simpleStringObjectList).some(simpleStringObjectPartialPropertyMatch);
+    _.any(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectList).some(simpleStringObjectPartialPropertyMatch).value();
+    _(simpleStringObjectList).any(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _.any(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectList).any(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
 
-        result = _(simpleStringObjectList).any(simpleStringObjectPartialPropertyMatch);
+    _.some(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectList).any(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _(simpleStringObjectDictionary).some(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-    {
-        let result: boolean;
+    _.chain(simpleStringObjectDictionary).some(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
 
-        result = _.some(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+    _.any(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _(simpleStringObjectDictionary).some(simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectDictionary).any(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectDictionary).some(simpleStringObjectPartialPropertyMatch).value();
-
-        result = _.any(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
-
-        result = _(simpleStringObjectDictionary).any(simpleStringObjectPartialPropertyMatch);
-
-        result = _.chain(simpleStringObjectDictionary).any(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.chain(simpleStringObjectDictionary).any(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
 
     // property name iterator
-    {
-        let result: boolean;
+    _.some(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _.some(simpleStringObjectArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).some(simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _(simpleStringObjectArray).some(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).some(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
 
-        result = _.chain(simpleStringObjectArray).some(simpleStringObjectPropertyName).value();
+    _.any(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _.any(simpleStringObjectArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).any(simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _(simpleStringObjectArray).any(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).any(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
 
-        result = _.chain(simpleStringObjectArray).any(simpleStringObjectPropertyName).value();
-    }
+    _.some(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType boolean
 
-    {
-        let result: boolean;
+    _(simpleStringObjectList).some(simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _.some(simpleStringObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).some(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
 
-        result = _(simpleStringObjectList).some(simpleStringObjectPropertyName);
+    _.any(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectList).some(simpleStringObjectPropertyName).value();
+    _(simpleStringObjectList).any(simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _.any(simpleStringObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).any(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
 
-        result = _(simpleStringObjectList).any(simpleStringObjectPropertyName);
+    _.some(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectList).any(simpleStringObjectPropertyName).value();
-    }
+    _(simpleStringObjectDictionary).some(simpleStringObjectPropertyName); // $ExpectType boolean
 
-    {
-        let result: boolean;
+    _.chain(simpleStringObjectDictionary).some(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
 
-        result = _.some(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+    _.any(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _(simpleStringObjectDictionary).some(simpleStringObjectPropertyName);
+    _(simpleStringObjectDictionary).any(simpleStringObjectPropertyName); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectDictionary).some(simpleStringObjectPropertyName).value();
-
-        result = _.any(simpleStringObjectDictionary, simpleStringObjectPropertyName);
-
-        result = _(simpleStringObjectDictionary).any(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectDictionary).any(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectDictionary).any(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
 }
 
 // contains, include, includes
 {
     const fromIndex = 1;
+    const simpleStringObjectValue = simpleStringObjectArray[0];
+    const simpleStringValue = simpleString[0];
 
-    {
-        const value = simpleStringObjectArray[0];
-        let result: boolean;
+    _.contains(simpleStringObjectArray, simpleStringObjectValue); // $ExpectType boolean
+    _.contains(simpleStringObjectArray, simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-        result = _.contains(simpleStringObjectArray, value);
-        result = _.contains(simpleStringObjectArray, value, fromIndex);
+    _(simpleStringObjectArray).contains(simpleStringObjectValue); // $ExpectType boolean
+    _(simpleStringObjectArray).contains(simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-        result = _(simpleStringObjectArray).contains(value);
-        result = _(simpleStringObjectArray).contains(value, fromIndex);
+    _.chain(simpleStringObjectArray).contains(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectArray).contains(simpleStringObjectValue, fromIndex); // $ExpectType _ChainSingle<boolean>
 
-        result = _.chain(simpleStringObjectArray).contains(value).value();
-        result = _.chain(simpleStringObjectArray).contains(value, fromIndex).value();
+    _.include(simpleStringObjectArray, simpleStringObjectValue); // $ExpectType boolean
+    _.include(simpleStringObjectArray, simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-        result = _.include(simpleStringObjectArray, value);
-        result = _.include(simpleStringObjectArray, value, fromIndex);
+    _(simpleStringObjectArray).include(simpleStringObjectValue); // $ExpectType boolean
+    _(simpleStringObjectArray).include(simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-        result = _(simpleStringObjectArray).include(value);
-        result = _(simpleStringObjectArray).include(value, fromIndex);
+    _.chain(simpleStringObjectArray).include(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectArray).include(simpleStringObjectValue, fromIndex); // $ExpectType _ChainSingle<boolean>
 
-        result = _.chain(simpleStringObjectArray).include(value).value();
-        result = _.chain(simpleStringObjectArray).include(value, fromIndex).value();
+    _.includes(simpleStringObjectArray, simpleStringObjectValue); // $ExpectType boolean
+    _.includes(simpleStringObjectArray, simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-        result = _.includes(simpleStringObjectArray, value);
-        result = _.includes(simpleStringObjectArray, value, fromIndex);
+    _(simpleStringObjectArray).includes(simpleStringObjectValue); // $ExpectType boolean
+    _(simpleStringObjectArray).includes(simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-        result = _(simpleStringObjectArray).includes(value);
-        result = _(simpleStringObjectArray).includes(value, fromIndex);
+    _.chain(simpleStringObjectArray).includes(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectArray).includes(simpleStringObjectValue, fromIndex); // $ExpectType _ChainSingle<boolean>
 
-        result = _.chain(simpleStringObjectArray).includes(value).value();
-        result = _.chain(simpleStringObjectArray).includes(value, fromIndex).value();
-    }
+    _.contains(simpleStringObjectList, simpleStringObjectValue); // $ExpectType boolean
+    _.contains(simpleStringObjectList, simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-    {
-        const value = simpleStringObjectList[0];
-        let result: boolean;
+    _(simpleStringObjectList).contains(simpleStringObjectValue); // $ExpectType boolean
+    _(simpleStringObjectList).contains(simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-        result = _.contains(simpleStringObjectList, value);
-        result = _.contains(simpleStringObjectList, value, fromIndex);
+    _.chain(simpleStringObjectList).contains(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectList).contains(simpleStringObjectValue, fromIndex); // $ExpectType _ChainSingle<boolean>
 
-        result = _(simpleStringObjectList).contains(value);
-        result = _(simpleStringObjectList).contains(value, fromIndex);
+    _.include(simpleStringObjectList, simpleStringObjectValue); // $ExpectType boolean
+    _.include(simpleStringObjectList, simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectList).contains(value).value();
-        result = _.chain(simpleStringObjectList).contains(value, fromIndex).value();
+    _(simpleStringObjectList).include(simpleStringObjectValue); // $ExpectType boolean
+    _(simpleStringObjectList).include(simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-        result = _.include(simpleStringObjectList, value);
-        result = _.include(simpleStringObjectList, value, fromIndex);
+    _.chain(simpleStringObjectList).include(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectList).include(simpleStringObjectValue, fromIndex); // $ExpectType _ChainSingle<boolean>
 
-        result = _(simpleStringObjectList).include(value);
-        result = _(simpleStringObjectList).include(value, fromIndex);
+    _.includes(simpleStringObjectList, simpleStringObjectValue); // $ExpectType boolean
+    _.includes(simpleStringObjectList, simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectList).include(value).value();
-        result = _.chain(simpleStringObjectList).include(value, fromIndex).value();
+    _(simpleStringObjectList).includes(simpleStringObjectValue); // $ExpectType boolean
+    _(simpleStringObjectList).includes(simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-        result = _.includes(simpleStringObjectList, value);
-        result = _.includes(simpleStringObjectList, value, fromIndex);
+    _.chain(simpleStringObjectList).includes(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleStringObjectList).includes(simpleStringObjectValue, fromIndex); // $ExpectType _ChainSingle<boolean>
 
-        result = _(simpleStringObjectList).includes(value);
-        result = _(simpleStringObjectList).includes(value, fromIndex);
+    _.contains(simpleStringObjectDictionary, simpleStringObjectValue); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectList).includes(value).value();
-        result = _.chain(simpleStringObjectList).includes(value, fromIndex).value();
-    }
+    _(simpleStringObjectDictionary).contains(simpleStringObjectValue); // $ExpectType boolean
 
-    {
-        const value = simpleStringObjectDictionary.a;
-        let result: boolean;
+    _.chain(simpleStringObjectDictionary).contains(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
 
-        result = _.contains(simpleStringObjectDictionary, value);
+    _.include(simpleStringObjectDictionary, simpleStringObjectValue); // $ExpectType boolean
 
-        result = _(simpleStringObjectDictionary).contains(value);
+    _(simpleStringObjectDictionary).include(simpleStringObjectValue); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectDictionary).contains(value).value();
+    _.chain(simpleStringObjectDictionary).include(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
 
-        result = _.include(simpleStringObjectDictionary, value);
+    _.includes(simpleStringObjectDictionary, simpleStringObjectValue); // $ExpectType boolean
 
-        result = _(simpleStringObjectDictionary).include(value);
+    _(simpleStringObjectDictionary).includes(simpleStringObjectValue); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectDictionary).include(value).value();
+    _.chain(simpleStringObjectDictionary).includes(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
 
-        result = _.includes(simpleStringObjectDictionary, value);
+    _.contains(simpleString, simpleStringValue); // $ExpectType boolean
+    _.contains(simpleString, simpleStringValue, fromIndex); // $ExpectType boolean
 
-        result = _(simpleStringObjectDictionary).includes(value);
+    _(simpleString).contains(simpleStringValue); // $ExpectType boolean
+    _(simpleString).contains(simpleStringValue, fromIndex); // $ExpectType boolean
 
-        result = _.chain(simpleStringObjectDictionary).includes(value).value();
-    }
+    _.chain(simpleString).contains(simpleStringValue); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleString).contains(simpleStringValue, fromIndex); // $ExpectType _ChainSingle<boolean>
 
-    {
-        const value = simpleString[0];
-        let result: boolean;
+    _.include(simpleString, simpleStringValue); // $ExpectType boolean
+    _.include(simpleString, simpleStringValue, fromIndex); // $ExpectType boolean
 
-        result = _.contains(simpleString, value);
-        result = _.contains(simpleString, value, fromIndex);
+    _(simpleString).include(simpleStringValue); // $ExpectType boolean
+    _(simpleString).include(simpleStringValue, fromIndex); // $ExpectType boolean
 
-        result = _(simpleString).contains(value);
-        result = _(simpleString).contains(value, fromIndex);
+    _.chain(simpleString).include(simpleStringValue); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleString).include(simpleStringValue, fromIndex); // $ExpectType _ChainSingle<boolean>
 
-        result = _.chain(simpleString).contains(value).value();
-        result = _.chain(simpleString).contains(value, fromIndex).value();
+    _.includes(simpleString, simpleStringValue); // $ExpectType boolean
+    _.includes(simpleString, simpleStringValue, fromIndex); // $ExpectType boolean
 
-        result = _.include(simpleString, value);
-        result = _.include(simpleString, value, fromIndex);
+    _(simpleString).includes(simpleStringValue); // $ExpectType boolean
+    _(simpleString).includes(simpleStringValue, fromIndex); // $ExpectType boolean
 
-        result = _(simpleString).include(value);
-        result = _(simpleString).include(value, fromIndex);
-
-        result = _.chain(simpleString).include(value).value();
-        result = _.chain(simpleString).include(value, fromIndex).value();
-
-        result = _.includes(simpleString, value);
-        result = _.includes(simpleString, value, fromIndex);
-
-        result = _(simpleString).includes(value);
-        result = _(simpleString).includes(value, fromIndex);
-
-        result = _.chain(simpleString).includes(value).value();
-        result = _.chain(simpleString).includes(value, fromIndex).value();
-    }
+    _.chain(simpleString).includes(simpleStringValue); // $ExpectType _ChainSingle<boolean>
+    _.chain(simpleString).includes(simpleStringValue, fromIndex); // $ExpectType _ChainSingle<boolean>
 }
 
 // invoke
 // once TS 3.6 is reached as a minimum version, as a breaking change, consider updating invoke to be the following:
 // type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? K : never }[keyof T];
 {
+    const functionName = 'substring';
+    const simpleStringArg = 1;
+    const simpleStringObjectArg = -1;
 
     // without parameters
-    {
-        let result: any[];
+    _.invoke(simpleNoParameterFunctionObjectArray, simpleStringObjectPropertyName); // $ExpectType any[]
 
-        result = _.invoke(simpleNoParameterFunctionObjectArray, simpleStringObjectPropertyName);
+    _(simpleNoParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName); // $ExpectType any[]
 
-        result = _(simpleNoParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName);
+    _.chain(simpleNoParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName); // $ExpectType _Chain<any, any[]>
 
-        result = _.chain(simpleNoParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName).value();
-    }
+    _.invoke(simpleNoParameterFunctionObjectList, simpleStringObjectPropertyName); // $ExpectType any[]
 
-    {
-        let result: any[];
+    _(simpleNoParameterFunctionObjectList).invoke(simpleStringObjectPropertyName); // $ExpectType any[]
 
-        result = _.invoke(simpleNoParameterFunctionObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleNoParameterFunctionObjectList).invoke(simpleStringObjectPropertyName); // $ExpectType _Chain<any, any[]>
 
-        result = _(simpleNoParameterFunctionObjectList).invoke(simpleStringObjectPropertyName);
+    _.invoke(simpleNoParameterFunctionObjectDictionary, simpleStringObjectPropertyName); // $ExpectType any[]
 
-        result = _.chain(simpleNoParameterFunctionObjectList).invoke(simpleStringObjectPropertyName).value();
-    }
+    _(simpleNoParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName); // $ExpectType any[]
 
-    {
-        let result: any[];
+    _.chain(simpleNoParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName); // $ExpectType _Chain<any, any[]>
 
-        result = _.invoke(simpleNoParameterFunctionObjectDictionary, simpleStringObjectPropertyName);
+    _.invoke(simpleString, simpleStringObjectPropertyName); // $ExpectType any[]
 
-        result = _(simpleNoParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName);
+    _(simpleString).invoke(simpleStringObjectPropertyName); // $ExpectType any[]
 
-        result = _.chain(simpleNoParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName).value();
-    }
-
-    {
-        let result: any[];
-
-        result = _.invoke(simpleString, simpleStringObjectPropertyName);
-
-        result = _(simpleString).invoke(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleString).invoke(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleString).invoke(simpleStringObjectPropertyName); // $ExpectType _Chain<any, any[]>
 
     // with parameters
-    {
-        const arg = -1;
-        let result: any[];
+    _.invoke(simpleOneParameterFunctionObjectArray, simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType any[]
 
-        result = _.invoke(simpleOneParameterFunctionObjectArray, simpleStringObjectPropertyName, arg);
+    _(simpleOneParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType any[]
 
-        result = _(simpleOneParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName, arg);
+    _.chain(simpleOneParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType _Chain<any, any[]>
 
-        result = _.chain(simpleOneParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName, arg).value();
-    }
+    _.invoke(simpleOneParameterFunctionObjectList, simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType any[]
 
-    {
-        const arg = -1;
-        let result: any[];
+    _(simpleOneParameterFunctionObjectList).invoke(simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType any[]
 
-        result = _.invoke(simpleOneParameterFunctionObjectList, simpleStringObjectPropertyName, arg);
+    _.chain(simpleOneParameterFunctionObjectList).invoke(simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType _Chain<any, any[]>
 
-        result = _(simpleOneParameterFunctionObjectList).invoke(simpleStringObjectPropertyName, arg);
+    _.invoke(simpleOneParameterFunctionObjectDictionary, simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType any[]
 
-        result = _.chain(simpleOneParameterFunctionObjectList).invoke(simpleStringObjectPropertyName, arg).value();
-    }
+    _(simpleOneParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType any[]
 
-    {
-        const arg = -1;
-        let result: any[];
+    _.chain(simpleOneParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType _Chain<any, any[]>
 
-        result = _.invoke(simpleOneParameterFunctionObjectDictionary, simpleStringObjectPropertyName, arg);
+    _.invoke(simpleString, functionName, simpleStringArg); // $ExpectType any[]
 
-        result = _(simpleOneParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName, arg);
+    _(simpleString).invoke(functionName, simpleStringArg); // $ExpectType any[]
 
-        result = _.chain(simpleOneParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName, arg).value();
-    }
-
-    {
-        const functionName = 'substring';
-        const arg = 1;
-        let result: any[];
-
-        result = _.invoke(simpleString, functionName, arg);
-
-        result = _(simpleString).invoke(functionName, arg);
-
-        result = _.chain(simpleString).invoke(functionName, arg).value();
-    }
+    _.chain(simpleString).invoke(functionName, simpleStringArg); // $ExpectType _Chain<any, any[]>
 }
 
 // pluck
 {
     // property name iterator with a non-nullable single type
-    {
-        let result: string[];
+    _.pluck(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType string[]
 
-        result = _.pluck(simpleStringObjectArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).pluck(simpleStringObjectPropertyName); // $ExpectType string[]
 
-        result = _(simpleStringObjectArray).pluck(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
 
-        result = _.chain(simpleStringObjectArray).pluck(simpleStringObjectPropertyName).value();
-    }
+    _.pluck(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType string[]
 
-    {
-        let result: string[];
+    _(simpleStringObjectList).pluck(simpleStringObjectPropertyName); // $ExpectType string[]
 
-        result = _.pluck(simpleStringObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
 
-        result = _(simpleStringObjectList).pluck(simpleStringObjectPropertyName);
+    _.pluck(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectList).pluck(simpleStringObjectPropertyName).value();
-    }
+    _(simpleStringObjectDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType string[]
 
-    {
-        let result: string[];
-
-        result = _.pluck(simpleStringObjectDictionary, simpleStringObjectPropertyName);
-
-        result = _(simpleStringObjectDictionary).pluck(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectDictionary).pluck(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
 
     // property name iterator with a non-nullable intersecting type union
-    {
-        let result: (string | boolean)[];
+    _.pluck(intersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-        result = _.pluck(intersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+    _(intersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-        result = _(intersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName);
+    _.chain(intersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
 
-        result = _.chain(intersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName).value();
-    }
+    _.pluck(intersectingObjectPropertiesList, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-    {
-        let result: (string | boolean)[];
+    _(intersectingObjectPropertiesList).pluck(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-        result = _.pluck(intersectingObjectPropertiesList, simpleStringObjectPropertyName);
+    _.chain(intersectingObjectPropertiesList).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
 
-        result = _(intersectingObjectPropertiesList).pluck(simpleStringObjectPropertyName);
+    _.pluck(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-        result = _.chain(intersectingObjectPropertiesList).pluck(simpleStringObjectPropertyName).value();
-    }
+    _(intersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-    {
-        let result: (string | boolean)[];
-
-        result = _.pluck(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
-
-        result = _(intersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName);
-
-        result = _.chain(intersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName).value();
-    }
+    _.chain(intersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
 
     // property name iterator with a nullable type union
-    {
-        let result: (string | undefined)[];
+    _.pluck(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.pluck(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectOrUndefinedArray).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _(simpleStringObjectOrUndefinedArray).pluck(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectOrUndefinedArray).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
-        result = _.chain(simpleStringObjectOrUndefinedArray).pluck(simpleStringObjectPropertyName).value();
-    }
+    _.pluck(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    {
-        let result: (string | undefined)[];
+    _(simpleStringObjectOrUndefinedList).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.pluck(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectOrUndefinedList).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
-        result = _(simpleStringObjectOrUndefinedList).pluck(simpleStringObjectPropertyName);
+    _.pluck(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.chain(simpleStringObjectOrUndefinedList).pluck(simpleStringObjectPropertyName).value();
-    }
+    _(simpleStringObjectOrUndefinedDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    {
-        let result: (string | undefined)[];
-
-        result = _.pluck(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName);
-
-        result = _(simpleStringObjectOrUndefinedDictionary).pluck(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectOrUndefinedDictionary).pluck(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectOrUndefinedDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
     // property name iterator with a non-nullable non-intersecting type union
-    {
-        let result: (string | undefined)[];
+    _.pluck(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.pluck(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+    _(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName);
+    _.chain(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
-        result = _.chain(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName).value();
-    }
+    _.pluck(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    {
-        let result: (string | undefined)[];
+    _(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.pluck(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+    _.chain(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
-        result = _(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName);
+    _.pluck(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-        result = _.chain(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName).value();
-    }
+    _(nonIntersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    {
-        let result: (string | undefined)[];
-
-        result = _.pluck(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
-
-        result = _(nonIntersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName);
-
-        result = _.chain(nonIntersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName).value();
-    }
+    _.chain(nonIntersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
 
     // property name iterator with type any
     // specifying any as T causes the result to be any[], which isn't ideal, but on the other hand getting that result involves choosing
     // to specify any in the first place
-    {
-        let result: any[];
+    _.pluck(simpleStringObjectArray as any, simpleStringObjectPropertyName); // $ExpectType any[]
 
-        result = _.pluck(simpleStringObjectArray as any, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray as any).pluck(simpleStringObjectPropertyName); // $ExpectType any[]
 
-        result = _(simpleStringObjectArray as any).pluck(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectArray as any).pluck(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectArray as any).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<any, any[]>
 }
 
 // max
 {
     // without iterator
-    {
-        let result: number;
+    _.max(simpleNumberArray); // $ExpectType number
 
-        result = _.max(simpleNumberArray);
+    _(simpleNumberArray).max(); // $ExpectType number
 
-        result = _(simpleNumberArray).max();
+    _.chain(simpleNumberArray).max(); // $ExpectType _ChainSingle<number>
 
-        result = _.chain(simpleNumberArray).max().value();
-    }
+    _.max(simpleNumberList); // $ExpectType number
 
-    {
-        let result: number;
+    _(simpleNumberList).max(); // $ExpectType number
 
-        result = _.max(simpleNumberList);
+    _.chain(simpleNumberList).max(); // $ExpectType _ChainSingle<number>
 
-        result = _(simpleNumberList).max();
+    _.max(simpleNumberDictionary); // $ExpectType number
 
-        result = _.chain(simpleNumberList).max().value();
-    }
+    _(simpleNumberDictionary).max(); // $ExpectType number
 
-    {
-        let result: number;
-
-        result = _.max(simpleNumberDictionary);
-
-        result = _(simpleNumberDictionary).max();
-
-        result = _.chain(simpleNumberDictionary).max().value();
-    }
+    _.chain(simpleNumberDictionary).max(); // $ExpectType _ChainSingle<number>
 
     // function iterator
-    {
-        let result: SimpleNumberObject | number;
+    _.max(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
+    _.max(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-        result = _.max(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator);
-        result = _.max(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator, context);
+    _(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
+    _(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-        result = _(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator);
-        result = _(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator, context);
+    _.chain(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    _.chain(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType _ChainSingle<number | SimpleNumberObject>
 
-        result = _.chain(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator, context).value();
-    }
+    _.max(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
+    _.max(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-    {
-        let result: SimpleNumberObject | number;
+    _(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
+    _(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-        result = _.max(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator);
-        result = _.max(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator, context);
+    _.chain(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    _.chain(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType _ChainSingle<number | SimpleNumberObject>
 
-        result = _(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator);
-        result = _(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator, context);
+    _.max(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
+    _.max(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-        result = _.chain(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator, context).value();
-    }
+    _(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
+    _(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-    {
-        let result: SimpleNumberObject | number;
-
-        result = _.max(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator);
-        result = _.max(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator, context);
-
-        result = _(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator);
-        result = _(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator, context);
-
-        result = _.chain(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator).value();
-        result = _.chain(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator, context).value();
-    }
+    _.chain(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    _.chain(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator, context); // $ExpectType _ChainSingle<number | SimpleNumberObject>
 
     // property name iterator
-    {
-        let result: SimpleNumberObject | number;
+    _.max(simpleNumberObjectArray, simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-        result = _.max(simpleNumberObjectArray, simpleStringObjectPropertyName);
+    _(simpleNumberObjectArray).max(simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-        result = _(simpleNumberObjectArray).max(simpleStringObjectPropertyName);
+    _.chain(simpleNumberObjectArray).max(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<number | SimpleNumberObject>
 
-        result = _.chain(simpleNumberObjectArray).max(simpleStringObjectPropertyName).value();
-    }
+    _.max(simpleNumberObjectList, simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-    {
-        let result: SimpleNumberObject | number;
+    _(simpleNumberObjectList).max(simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-        result = _.max(simpleNumberObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleNumberObjectList).max(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<number | SimpleNumberObject>
 
-        result = _(simpleNumberObjectList).max(simpleStringObjectPropertyName);
+    _.max(simpleNumberObjectDictionary, simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-        result = _.chain(simpleNumberObjectList).max(simpleStringObjectPropertyName).value();
-    }
+    _(simpleNumberObjectDictionary).max(simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-    {
-        let result: SimpleNumberObject | number;
-
-        result = _.max(simpleNumberObjectDictionary, simpleStringObjectPropertyName);
-
-        result = _(simpleNumberObjectDictionary).max(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleNumberObjectDictionary).max(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleNumberObjectDictionary).max(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<number | SimpleNumberObject>
 }
 
 // min
 {
     // without iterator
-    {
-        let result: number;
+    _.min(simpleNumberArray); // $ExpectType number
 
-        result = _.min(simpleNumberArray);
+    _(simpleNumberArray).min(); // $ExpectType number
 
-        result = _(simpleNumberArray).min();
+    _.chain(simpleNumberArray).min(); // $ExpectType _ChainSingle<number>
 
-        result = _.chain(simpleNumberArray).min().value();
-    }
+    _.min(simpleNumberList); // $ExpectType number
 
-    {
-        let result: number;
+    _(simpleNumberList).min(); // $ExpectType number
 
-        result = _.min(simpleNumberList);
+    _.chain(simpleNumberList).min(); // $ExpectType _ChainSingle<number>
 
-        result = _(simpleNumberList).min();
+    _.min(simpleNumberDictionary); // $ExpectType number
 
-        result = _.chain(simpleNumberList).min().value();
-    }
+    _(simpleNumberDictionary).min(); // $ExpectType number
 
-    {
-        let result: number;
-
-        result = _.min(simpleNumberDictionary);
-
-        result = _(simpleNumberDictionary).min();
-
-        result = _.chain(simpleNumberDictionary).min().value();
-    }
+    _.chain(simpleNumberDictionary).min(); // $ExpectType _ChainSingle<number>
 
     // function iterator
-    {
-        let result: SimpleNumberObject | number;
+    _.min(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
+    _.min(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-        result = _.min(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator);
-        result = _.min(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator, context);
+    _(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
+    _(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-        result = _(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator);
-        result = _(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator, context);
+    _.chain(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    _.chain(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType _ChainSingle<number | SimpleNumberObject>
 
-        result = _.chain(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator, context).value();
-    }
+    _.min(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
+    _.min(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-    {
-        let result: SimpleNumberObject | number;
+    _(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
+    _(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-        result = _.min(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator);
-        result = _.min(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator, context);
+    _.chain(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    _.chain(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType _ChainSingle<number | SimpleNumberObject>
 
-        result = _(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator);
-        result = _(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator, context);
+    _.min(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
+    _.min(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-        result = _.chain(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator, context).value();
-    }
+    _(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
+    _(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-    {
-        let result: SimpleNumberObject | number;
-
-        result = _.min(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator);
-        result = _.min(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator, context);
-
-        result = _(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator);
-        result = _(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator, context);
-
-        result = _.chain(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator).value();
-        result = _.chain(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator, context).value();
-    }
+    _.chain(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    _.chain(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator, context); // $ExpectType _ChainSingle<number | SimpleNumberObject>
 
     // property name iterator
-    {
-        let result: SimpleNumberObject | number;
+    _.min(simpleNumberObjectArray, simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-        result = _.min(simpleNumberObjectArray, simpleStringObjectPropertyName);
+    _(simpleNumberObjectArray).min(simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-        result = _(simpleNumberObjectArray).min(simpleStringObjectPropertyName);
+    _.chain(simpleNumberObjectArray).min(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<number | SimpleNumberObject>
 
-        result = _.chain(simpleNumberObjectArray).min(simpleStringObjectPropertyName).value();
-    }
+    _.min(simpleNumberObjectList, simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-    {
-        let result: SimpleNumberObject | number;
+    _(simpleNumberObjectList).min(simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-        result = _.min(simpleNumberObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleNumberObjectList).min(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<number | SimpleNumberObject>
 
-        result = _(simpleNumberObjectList).min(simpleStringObjectPropertyName);
+    _.min(simpleNumberObjectDictionary, simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-        result = _.chain(simpleNumberObjectList).min(simpleStringObjectPropertyName).value();
-    }
+    _(simpleNumberObjectDictionary).min(simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-    {
-        let result: SimpleNumberObject | number;
-
-        result = _.min(simpleNumberObjectDictionary, simpleStringObjectPropertyName);
-
-        result = _(simpleNumberObjectDictionary).min(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleNumberObjectDictionary).min(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleNumberObjectDictionary).min(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<number | SimpleNumberObject>
 }
 
 // sortBy
 {
     // function iterator
-    {
-        let result: SimpleStringObject[];
+    _.sortBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _.sortBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.sortBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
-        result = _.sortBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
+    _(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator, context);
+    _.chain(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator, context).value();
-    }
+    _.sortBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _.sortBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.sortBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
-        result = _.sortBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
+    _.chain(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator, context);
+    _.sortBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _.sortBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator, context).value();
-    }
+    _(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
-
-        result = _.sortBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
-        result = _.sortBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
-
-        result = _(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator);
-        result = _(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator, context);
-
-        result = _.chain(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
-    }
+    _.chain(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
     // property name iterator
-    {
-        let result: SimpleStringObject[];
+    _.sortBy(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.sortBy(simpleStringObjectArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).sortBy(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).sortBy(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).sortBy(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).sortBy(simpleStringObjectPropertyName).value();
-    }
+    _.sortBy(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).sortBy(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.sortBy(simpleStringObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).sortBy(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).sortBy(simpleStringObjectPropertyName);
+    _.sortBy(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).sortBy(simpleStringObjectPropertyName).value();
-    }
+    _(simpleStringObjectDictionary).sortBy(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
-
-        result = _.sortBy(simpleStringObjectDictionary, simpleStringObjectPropertyName);
-
-        result = _(simpleStringObjectDictionary).sortBy(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectDictionary).sortBy(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectDictionary).sortBy(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 }
 
 // groupBy
 {
     // function iterator
-    {
-        let result: _.Dictionary<SimpleStringObject[]>;
+    _.groupBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject[]>
+    _.groupBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject[]>
 
-        result = _.groupBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
-        result = _.groupBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
+    _(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject[]>
+    _(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject[]>
 
-        result = _(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator, context);
+    _.chain(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
+    _.chain(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator, context); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
 
-        result = _.chain(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator, context).value();
-    }
+    _.groupBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject[]>
+    _.groupBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject[]>
 
-    {
-        let result: _.Dictionary<SimpleStringObject[]>;
+    _(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject[]>
+    _(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject[]>
 
-        result = _.groupBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
-        result = _.groupBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
+    _.chain(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
+    _.chain(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator, context); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
 
-        result = _(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator, context);
+    _.groupBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject[]>
+    _.groupBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator, context).value();
-    }
+    _(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject[]>
+    _(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject[]>
 
-    {
-        let result: _.Dictionary<SimpleStringObject[]>;
-
-        result = _.groupBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
-        result = _.groupBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
-
-        result = _(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator);
-        result = _(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator, context);
-
-        result = _.chain(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
-    }
+    _.chain(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
+    _.chain(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator, context); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
 
     // property name iterator
-    {
-        let result: _.Dictionary<SimpleStringObject[]>;
+    _.groupBy(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject[]>
 
-        result = _.groupBy(simpleStringObjectArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).groupBy(simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject[]>
 
-        result = _(simpleStringObjectArray).groupBy(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).groupBy(simpleStringObjectPropertyName); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
 
-        result = _.chain(simpleStringObjectArray).groupBy(simpleStringObjectPropertyName).value();
-    }
+    _.groupBy(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject[]>
 
-    {
-        let result: _.Dictionary<SimpleStringObject[]>;
+    _(simpleStringObjectList).groupBy(simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject[]>
 
-        result = _.groupBy(simpleStringObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).groupBy(simpleStringObjectPropertyName); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
 
-        result = _(simpleStringObjectList).groupBy(simpleStringObjectPropertyName);
+    _.groupBy(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectList).groupBy(simpleStringObjectPropertyName).value();
-    }
+    _(simpleStringObjectDictionary).groupBy(simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject[]>
 
-    {
-        let result: _.Dictionary<SimpleStringObject[]>;
-
-        result = _.groupBy(simpleStringObjectDictionary, simpleStringObjectPropertyName);
-
-        result = _(simpleStringObjectDictionary).groupBy(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectDictionary).groupBy(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectDictionary).groupBy(simpleStringObjectPropertyName); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
 }
 
 // indexBy
 {
     // function iterator
-    {
-        let result: _.Dictionary<SimpleStringObject>;
+    _.indexBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject>
+    _.indexBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject>
 
-        result = _.indexBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
-        result = _.indexBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
+    _(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject>
+    _(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject>
 
-        result = _(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator, context);
+    _.chain(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator); // // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
+    _.chain(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator, context); // // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
 
-        result = _.chain(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator, context).value();
-    }
+    _.indexBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject>
+    _.indexBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject>
 
-    {
-        let result: _.Dictionary<SimpleStringObject>;
+    _(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject>
+    _(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject>
 
-        result = _.indexBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
-        result = _.indexBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
+    _.chain(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator); // // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
+    _.chain(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator, context); // // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
 
-        result = _(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator, context);
+    _.indexBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject>
+    _.indexBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject>
 
-        result = _.chain(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator, context).value();
-    }
+    _(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject>
+    _(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject>
 
-    {
-        let result: _.Dictionary<SimpleStringObject>;
-
-        result = _.indexBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
-        result = _.indexBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
-
-        result = _(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator);
-        result = _(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator, context);
-
-        result = _.chain(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
-    }
+    _.chain(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator); // // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
+    _.chain(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator, context); // // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
 
     // property name iterator
-    {
-        let result: _.Dictionary<SimpleStringObject>;
+    _.indexBy(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject>
 
-        result = _.indexBy(simpleStringObjectArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).indexBy(simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject>
 
-        result = _(simpleStringObjectArray).indexBy(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).indexBy(simpleStringObjectPropertyName); // // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
 
-        result = _.chain(simpleStringObjectArray).indexBy(simpleStringObjectPropertyName).value();
-    }
+    _.indexBy(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject>
 
-    {
-        let result: _.Dictionary<SimpleStringObject>;
+    _(simpleStringObjectList).indexBy(simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject>
 
-        result = _.indexBy(simpleStringObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).indexBy(simpleStringObjectPropertyName); // // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
 
-        result = _(simpleStringObjectList).indexBy(simpleStringObjectPropertyName);
+    _.indexBy(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject>
 
-        result = _.chain(simpleStringObjectList).indexBy(simpleStringObjectPropertyName).value();
-    }
+    _(simpleStringObjectDictionary).indexBy(simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject>
 
-    {
-        let result: _.Dictionary<SimpleStringObject>;
-
-        result = _.indexBy(simpleStringObjectDictionary, simpleStringObjectPropertyName);
-
-        result = _(simpleStringObjectDictionary).indexBy(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectDictionary).indexBy(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectDictionary).indexBy(simpleStringObjectPropertyName); // // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
 }
 
 // countBy
 {
     // function iterator
-    {
-        let result: _.Dictionary<number>;
+    _.countBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<number>
+    _.countBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<number>
 
-        result = _.countBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
-        result = _.countBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
+    _(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<number>
+    _(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<number>
 
-        result = _(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator, context);
+    _.chain(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<number, Dictionary<number>>
+    _.chain(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<number, Dictionary<number>>
 
-        result = _.chain(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator, context).value();
-    }
+    _.countBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<number>
+    _.countBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<number>
 
-    {
-        let result: _.Dictionary<number>;
+    _(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<number>
+    _(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<number>
 
-        result = _.countBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
-        result = _.countBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
+    _.chain(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<number, Dictionary<number>>
+    _.chain(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<number, Dictionary<number>>
 
-        result = _(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator, context);
+    _.countBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType Dictionary<number>
+    _.countBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType Dictionary<number>
 
-        result = _.chain(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator, context).value();
-    }
+    _(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType Dictionary<number>
+    _(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType Dictionary<number>
 
-    {
-        let result: _.Dictionary<number>;
+    _.chain(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType _Chain<number, Dictionary<number>>
+    _.chain(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType _Chain<number, Dictionary<number>>
 
-        result = _.countBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
-        result = _.countBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
+    _.countBy(simpleString, stringListSelectingIterator); // $ExpectType Dictionary<number>
+    _.countBy(simpleString, stringListSelectingIterator, context); // $ExpectType Dictionary<number>
 
-        result = _(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator);
-        result = _(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator, context);
+    _(simpleString).countBy(stringListSelectingIterator); // $ExpectType Dictionary<number>
+    _(simpleString).countBy(stringListSelectingIterator, context); // $ExpectType Dictionary<number>
 
-        result = _.chain(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
-    }
-
-    {
-        let result: _.Dictionary<number>;
-
-        result = _.countBy(simpleString, stringListSelectingIterator);
-        result = _.countBy(simpleString, stringListSelectingIterator, context);
-
-        result = _(simpleString).countBy(stringListSelectingIterator);
-        result = _(simpleString).countBy(stringListSelectingIterator, context);
-
-        result = _.chain(simpleString).countBy(stringListSelectingIterator).value();
-        result = _.chain(simpleString).countBy(stringListSelectingIterator, context).value();
-    }
+    _.chain(simpleString).countBy(stringListSelectingIterator); // $ExpectType _Chain<number, Dictionary<number>>
+    _.chain(simpleString).countBy(stringListSelectingIterator, context); // $ExpectType _Chain<number, Dictionary<number>>
 
     // property name iterator
-    {
-        let result: _.Dictionary<number>;
+    _.countBy(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType Dictionary<number>
 
-        result = _.countBy(simpleStringObjectArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).countBy(simpleStringObjectPropertyName); // $ExpectType Dictionary<number>
 
-        result = _(simpleStringObjectArray).countBy(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).countBy(simpleStringObjectPropertyName); // $ExpectType _Chain<number, Dictionary<number>>
 
-        result = _.chain(simpleStringObjectArray).countBy(simpleStringObjectPropertyName).value();
-    }
+    _.countBy(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType Dictionary<number>
 
-    {
-        let result: _.Dictionary<number>;
+    _(simpleStringObjectList).countBy(simpleStringObjectPropertyName); // $ExpectType Dictionary<number>
 
-        result = _.countBy(simpleStringObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).countBy(simpleStringObjectPropertyName); // $ExpectType _Chain<number, Dictionary<number>>
 
-        result = _(simpleStringObjectList).countBy(simpleStringObjectPropertyName);
+    _.countBy(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType Dictionary<number>
 
-        result = _.chain(simpleStringObjectList).countBy(simpleStringObjectPropertyName).value();
-    }
+    _(simpleStringObjectDictionary).countBy(simpleStringObjectPropertyName); // $ExpectType Dictionary<number>
 
-    {
-        let result: _.Dictionary<number>;
-
-        result = _.countBy(simpleStringObjectDictionary, simpleStringObjectPropertyName);
-
-        result = _(simpleStringObjectDictionary).countBy(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectDictionary).countBy(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectDictionary).countBy(simpleStringObjectPropertyName); // $ExpectType _Chain<number, Dictionary<number>>
 }
 
 // shuffle
 {
-    {
-        let result: SimpleStringObject[];
+    _.shuffle(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
-        result = _.shuffle(simpleStringObjectArray);
+    _(simpleStringObjectArray).shuffle(); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).shuffle();
+    _.chain(simpleStringObjectArray).shuffle(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).shuffle().value();
-    }
+    _.shuffle(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).shuffle(); // $ExpectType SimpleStringObject[]
 
-        result = _.shuffle(simpleStringObjectList);
+    _.chain(simpleStringObjectList).shuffle(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).shuffle();
+    _.shuffle(simpleStringObjectDictionary); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).shuffle().value();
-    }
+    _(simpleStringObjectDictionary).shuffle(); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _.chain(simpleStringObjectDictionary).shuffle(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.shuffle(simpleStringObjectDictionary);
+    _.shuffle(simpleString); // $ExpectType string[]
 
-        result = _(simpleStringObjectDictionary).shuffle();
+    _(simpleString).shuffle(); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectDictionary).shuffle().value();
-    }
-
-    {
-        let result: string[];
-
-        result = _.shuffle(simpleString);
-
-        result = _(simpleString).shuffle();
-
-        result = _.chain(simpleString).shuffle().value();
-    }
+    _.chain(simpleString).shuffle(); // $ExpectType _Chain<string, string[]>
 }
 
 // sample
 {
+    const n = 2;
+
     // without n
-    {
-        let result: SimpleStringObjectOrUndefined;
+    _.sample(simpleStringObjectArray); // $ExpectType SimpleStringObject | undefined
 
-        result = _.sample(simpleStringObjectArray);
+    _(simpleStringObjectArray).sample(); // $ExpectType SimpleStringObject | undefined
 
-        result = _(simpleStringObjectArray).sample();
+    _.chain(simpleStringObjectArray).sample(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _.chain(simpleStringObjectArray).sample().value();
-    }
+    _.sample(simpleStringObjectList); // $ExpectType SimpleStringObject | undefined
 
-    {
-        let result: SimpleStringObjectOrUndefined;
+    _(simpleStringObjectList).sample(); // $ExpectType SimpleStringObject | undefined
 
-        result = _.sample(simpleStringObjectList);
+    _.chain(simpleStringObjectList).sample(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _(simpleStringObjectList).sample();
+    _.sample(simpleStringObjectDictionary); // $ExpectType SimpleStringObject | undefined
 
-        result = _.chain(simpleStringObjectList).sample().value();
-    }
+    _(simpleStringObjectDictionary).sample(); // $ExpectType SimpleStringObject | undefined
 
-    {
-        let result: SimpleStringObjectOrUndefined;
+    _.chain(simpleStringObjectDictionary).sample(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _.sample(simpleStringObjectDictionary);
+    _.sample(simpleString); // $ExpectType string | undefined
 
-        result = _(simpleStringObjectDictionary).sample();
+    _(simpleString).sample(); // $ExpectType string | undefined
 
-        result = _.chain(simpleStringObjectDictionary).sample().value();
-    }
-
-    {
-        let result: string | undefined;
-
-        result = _.sample(simpleString);
-
-        result = _(simpleString).sample();
-
-        result = _.chain(simpleString).sample().value();
-    }
+    _.chain(simpleString).sample(); // $ExpectType _ChainSingle<string | undefined>
 
     // with n
-    {
-        const n = 2;
-        let result: SimpleStringObject[];
+    _.sample(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
-        result = _.sample(simpleStringObjectArray, n);
+    _(simpleStringObjectArray).sample(n); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).sample(n);
+    _.chain(simpleStringObjectArray).sample(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).sample(n).value();
-    }
+    _.sample(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
-    {
-        const n = 2;
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).sample(n); // $ExpectType SimpleStringObject[]
 
-        result = _.sample(simpleStringObjectList, n);
+    _.chain(simpleStringObjectList).sample(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).sample(n);
+    _.sample(simpleStringObjectDictionary, n); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).sample(n).value();
-    }
+    _(simpleStringObjectDictionary).sample(n); // $ExpectType SimpleStringObject[]
 
-    {
-        const n = 2;
-        let result: SimpleStringObject[];
+    _.chain(simpleStringObjectDictionary).sample(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.sample(simpleStringObjectDictionary, n);
+    _.sample(simpleString, n); // $ExpectType string[]
 
-        result = _(simpleStringObjectDictionary).sample(n);
+    _(simpleString).sample(n); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectDictionary).sample(n).value();
-    }
-
-    {
-        const n = 2;
-        let result: string[];
-
-        result = _.sample(simpleString, n);
-
-        result = _(simpleString).sample(n);
-
-        result = _.chain(simpleString).sample(n).value();
-    }
+    _.chain(simpleString).sample(n); // $ExpectType _Chain<string, string[]>
 }
 
 // toArray
 {
-    {
-        let result: SimpleStringObject[];
+    _.toArray(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
-        result = _.toArray(simpleStringObjectArray);
+    _(simpleStringObjectArray).toArray(); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).toArray();
+    _.chain(simpleStringObjectArray).toArray(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).toArray().value();
-    }
+    _.toArray(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).toArray(); // $ExpectType SimpleStringObject[]
 
-        result = _.toArray(simpleStringObjectList);
+    _.chain(simpleStringObjectList).toArray(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).toArray();
+    _.toArray(simpleStringObjectDictionary); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).toArray().value();
-    }
+    _(simpleStringObjectDictionary).toArray(); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _.chain(simpleStringObjectDictionary).toArray(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.toArray(simpleStringObjectDictionary);
+    _.toArray(simpleString); // $ExpectType string[]
 
-        result = _(simpleStringObjectDictionary).toArray();
+    _(simpleString).toArray(); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectDictionary).toArray().value();
-    }
-
-    {
-        let result: string[];
-
-        result = _.toArray(simpleString);
-
-        result = _(simpleString).toArray();
-
-        result = _.chain(simpleString).toArray().value();
-    }
+    _.chain(simpleString).toArray(); // $ExpectType _Chain<string, string[]>
 }
 
 // size
 {
-    {
-        let result: number;
+    _.size(simpleStringObjectArray); // $ExpectType number
 
-        result = _.size(simpleStringObjectArray);
+    _(simpleStringObjectArray).size(); // $ExpectType number
 
-        result = _(simpleStringObjectArray).size();
+    _.chain(simpleStringObjectArray).size(); // $ExpectType _ChainSingle<number>
 
-        result = _.chain(simpleStringObjectArray).size().value();
-    }
+    _.size(simpleStringObjectList); // $ExpectType number
 
-    {
-        let result: number;
+    _(simpleStringObjectList).size(); // $ExpectType number
 
-        result = _.size(simpleStringObjectList);
+    _.chain(simpleStringObjectList).size(); // $ExpectType _ChainSingle<number>
 
-        result = _(simpleStringObjectList).size();
+    _.size(simpleStringObjectDictionary); // $ExpectType number
 
-        result = _.chain(simpleStringObjectList).size().value();
-    }
+    _(simpleStringObjectDictionary).size(); // $ExpectType number
 
-    {
-        let result: number;
+    _.chain(simpleStringObjectDictionary).size(); // $ExpectType _ChainSingle<number>
 
-        result = _.size(simpleStringObjectDictionary);
+    _.size(simpleString); // $ExpectType number
 
-        result = _(simpleStringObjectDictionary).size();
+    _(simpleString).size(); // $ExpectType number
 
-        result = _.chain(simpleStringObjectDictionary).size().value();
-    }
-
-    {
-        let result: number;
-
-        result = _.size(simpleString);
-
-        result = _(simpleString).size();
-
-        result = _.chain(simpleString).size().value();
-    }
+    _.chain(simpleString).size(); // $ExpectType _ChainSingle<number>
 }
 
 // partition
 {
     // function iterator
-    {
-        let result: [SimpleStringObject[], SimpleStringObject[]];
+    _.partition(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
+    _.partition(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-        result = _.partition(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
-        result = _.partition(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+    _(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
+    _(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-        result = _(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
+    _.chain(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
 
-        result = _.chain(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator, context).value();
-    }
+    _.partition(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
+    _.partition(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-    {
-        let result: [SimpleStringObject[], SimpleStringObject[]];
+    _(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
+    _(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-        result = _.partition(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
-        result = _.partition(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
+    _.chain(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
 
-        result = _(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator, context);
+    _.partition(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
+    _.partition(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-        result = _.chain(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator, context).value();
-    }
+    _(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
+    _(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-    {
-        let result: [SimpleStringObject[], SimpleStringObject[]];
+    _.chain(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
+    _.chain(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
 
-        result = _.partition(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _.partition(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _.partition(simpleString, stringListComparingIterator); // $ExpectType [string[], string[]]
+    _.partition(simpleString, stringListComparingIterator, context); // $ExpectType [string[], string[]]
 
-        result = _(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator);
-        result = _(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator, context);
+    _(simpleString).partition(stringListComparingIterator); // $ExpectType [string[], string[]]
+    _(simpleString).partition(stringListComparingIterator, context); // $ExpectType [string[], string[]]
 
-        result = _.chain(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
-    }
-
-    {
-        let result: [string[], string[]];
-
-        result = _.partition(simpleString, stringListComparingIterator);
-        result = _.partition(simpleString, stringListComparingIterator, context);
-
-        result = _(simpleString).partition(stringListComparingIterator);
-        result = _(simpleString).partition(stringListComparingIterator, context);
-
-        result = _.chain(simpleString).partition(stringListComparingIterator).value();
-        result = _.chain(simpleString).partition(stringListComparingIterator, context).value();
-    }
+    _.chain(simpleString).partition(stringListComparingIterator); // $ExpectType _Chain<string[], [string[], string[]]>
+    _.chain(simpleString).partition(stringListComparingIterator, context); // $ExpectType _Chain<string[], [string[], string[]]>
 
     // partial object iterator
-    {
-        let result: [SimpleStringObject[], SimpleStringObject[]];
+    _.partition(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-        result = _.partition(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectArray).partition(simpleStringObjectPartialPropertyMatch); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-        result = _(simpleStringObjectArray).partition(simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectArray).partition(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
 
-        result = _.chain(simpleStringObjectArray).partition(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.partition(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-    {
-        let result: [SimpleStringObject[], SimpleStringObject[]];
+    _(simpleStringObjectList).partition(simpleStringObjectPartialPropertyMatch); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-        result = _.partition(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectList).partition(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
 
-        result = _(simpleStringObjectList).partition(simpleStringObjectPartialPropertyMatch);
+    _.partition(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-        result = _.chain(simpleStringObjectList).partition(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _(simpleStringObjectDictionary).partition(simpleStringObjectPartialPropertyMatch); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-    {
-        let result: [SimpleStringObject[], SimpleStringObject[]];
-
-        result = _.partition(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
-
-        result = _(simpleStringObjectDictionary).partition(simpleStringObjectPartialPropertyMatch);
-
-        result = _.chain(simpleStringObjectDictionary).partition(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _.chain(simpleStringObjectDictionary).partition(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
 
     // property name iterator
-    {
-        let result: [SimpleStringObject[], SimpleStringObject[]];
+    _.partition(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-        result = _.partition(simpleStringObjectArray, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).partition(simpleStringObjectPropertyName); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-        result = _(simpleStringObjectArray).partition(simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).partition(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
 
-        result = _.chain(simpleStringObjectArray).partition(simpleStringObjectPropertyName).value();
-    }
+    _.partition(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-    {
-        let result: [SimpleStringObject[], SimpleStringObject[]];
+    _(simpleStringObjectList).partition(simpleStringObjectPropertyName); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-        result = _.partition(simpleStringObjectList, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).partition(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
 
-        result = _(simpleStringObjectList).partition(simpleStringObjectPropertyName);
+    _.partition(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-        result = _.chain(simpleStringObjectList).partition(simpleStringObjectPropertyName).value();
-    }
+    _(simpleStringObjectDictionary).partition(simpleStringObjectPropertyName); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-    {
-        let result: [SimpleStringObject[], SimpleStringObject[]];
-
-        result = _.partition(simpleStringObjectDictionary, simpleStringObjectPropertyName);
-
-        result = _(simpleStringObjectDictionary).partition(simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectDictionary).partition(simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectDictionary).partition(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
 }
 
 // Arrays
 
 // first, head, take
 {
+    const n = 2;
+
     // without n
-    {
-        let result: SimpleStringObjectOrUndefined;
+    _.first(simpleStringObjectArray); // $ExpectType SimpleStringObject | undefined
 
-        result = _.first(simpleStringObjectArray);
+    _(simpleStringObjectArray).first(); // $ExpectType SimpleStringObject | undefined
 
-        result = _(simpleStringObjectArray).first();
+    _.chain(simpleStringObjectArray).first(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _.chain(simpleStringObjectArray).first().value();
+    _.head(simpleStringObjectArray); // $ExpectType SimpleStringObject | undefined
 
-        result = _.head(simpleStringObjectArray);
+    _(simpleStringObjectArray).head(); // $ExpectType SimpleStringObject | undefined
 
-        result = _(simpleStringObjectArray).head();
+    _.chain(simpleStringObjectArray).head(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _.chain(simpleStringObjectArray).head().value();
+    _.take(simpleStringObjectArray); // $ExpectType SimpleStringObject | undefined
 
-        result = _.take(simpleStringObjectArray);
+    _(simpleStringObjectArray).take(); // $ExpectType SimpleStringObject | undefined
 
-        result = _(simpleStringObjectArray).take();
+    _.chain(simpleStringObjectArray).take(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _.chain(simpleStringObjectArray).take().value();
-    }
+    _.first(simpleStringObjectList); // $ExpectType SimpleStringObject | undefined
 
-    {
-        let result: SimpleStringObjectOrUndefined;
+    _(simpleStringObjectList).first(); // $ExpectType SimpleStringObject | undefined
 
-        result = _.first(simpleStringObjectList);
+    _.chain(simpleStringObjectList).first(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _(simpleStringObjectList).first();
+    _.head(simpleStringObjectList); // $ExpectType SimpleStringObject | undefined
 
-        result = _.chain(simpleStringObjectList).first().value();
+    _(simpleStringObjectList).head(); // $ExpectType SimpleStringObject | undefined
 
-        result = _.head(simpleStringObjectList);
+    _.chain(simpleStringObjectList).head(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _(simpleStringObjectList).head();
+    _.take(simpleStringObjectList); // $ExpectType SimpleStringObject | undefined
 
-        result = _.chain(simpleStringObjectList).head().value();
+    _(simpleStringObjectList).take(); // $ExpectType SimpleStringObject | undefined
 
-        result = _.take(simpleStringObjectList);
+    _.chain(simpleStringObjectList).take(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _(simpleStringObjectList).take();
+    _.first(simpleString); // $ExpectType string | undefined
 
-        result = _.chain(simpleStringObjectList).take().value();
-    }
+    _(simpleString).first(); // $ExpectType string | undefined
 
-    {
-        let result: string | undefined;
+    _.chain(simpleString).first(); // $ExpectType _ChainSingle<string | undefined>
 
-        result = _.first(simpleString);
+    _.head(simpleString); // $ExpectType string | undefined
 
-        result = _(simpleString).first();
+    _(simpleString).head(); // $ExpectType string | undefined
 
-        result = _.chain(simpleString).first().value();
+    _.chain(simpleString).head(); // $ExpectType _ChainSingle<string | undefined>
 
-        result = _.head(simpleString);
+    _.take(simpleString); // $ExpectType string | undefined
 
-        result = _(simpleString).head();
+    _(simpleString).take(); // $ExpectType string | undefined
 
-        result = _.chain(simpleString).head().value();
-
-        result = _.take(simpleString);
-
-        result = _(simpleString).take();
-
-        result = _.chain(simpleString).take().value();
-    }
+    _.chain(simpleString).take(); // $ExpectType _ChainSingle<string | undefined>
 
     // with n
-    {
-        const n = 2;
-        let result: SimpleStringObject[];
+    _.first(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
-        result = _.first(simpleStringObjectArray, n);
+    _(simpleStringObjectArray).first(n); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).first(n);
+    _.chain(simpleStringObjectArray).first(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).first(n).value();
+    _.head(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
-        result = _.head(simpleStringObjectArray, n);
+    _(simpleStringObjectArray).head(n); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).head(n);
+    _.chain(simpleStringObjectArray).head(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).head(n).value();
+    _.take(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
-        result = _.take(simpleStringObjectArray, n);
+    _(simpleStringObjectArray).take(n); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).take(n);
+    _.chain(simpleStringObjectArray).take(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).take(n).value();
-    }
+    _.first(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
-    {
-        const n = 2;
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).first(n); // $ExpectType SimpleStringObject[]
 
-        result = _.first(simpleStringObjectList, n);
+    _.chain(simpleStringObjectList).first(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).first(n);
+    _.head(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).first(n).value();
+    _(simpleStringObjectList).head(n); // $ExpectType SimpleStringObject[]
 
-        result = _.head(simpleStringObjectList, n);
+    _.chain(simpleStringObjectList).head(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).head(n);
+    _.take(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).head(n).value();
+    _(simpleStringObjectList).take(n); // $ExpectType SimpleStringObject[]
 
-        result = _.take(simpleStringObjectList, n);
+    _.chain(simpleStringObjectList).take(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).take(n);
+    _.first(simpleString, n); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectList).take(n).value();
-    }
+    _(simpleString).first(n); // $ExpectType string[]
 
-    {
-        const n = 2;
-        let result: string[];
+    _.chain(simpleString).first(n); // $ExpectType _Chain<string, string[]>
 
-        result = _.first(simpleString, n);
+    _.head(simpleString, n); // $ExpectType string[]
 
-        result = _(simpleString).first(n);
+    _(simpleString).head(n); // $ExpectType string[]
 
-        result = _.chain(simpleString).first(n).value();
+    _.chain(simpleString).head(n); // $ExpectType _Chain<string, string[]>
 
-        result = _.head(simpleString, n);
+    _.take(simpleString, n); // $ExpectType string[]
 
-        result = _(simpleString).head(n);
+    _(simpleString).take(n); // $ExpectType string[]
 
-        result = _.chain(simpleString).head(n).value();
-
-        result = _.take(simpleString, n);
-
-        result = _(simpleString).take(n);
-
-        result = _.chain(simpleString).take(n).value();
-    }
+    _.chain(simpleString).take(n); // $ExpectType _Chain<string, string[]>
 }
 
 // initial
 {
+    const n = 2;
+
     // without n
-    {
-        let result: SimpleStringObject[];
+    _.initial(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
-        result = _.initial(simpleStringObjectArray);
+    _(simpleStringObjectArray).initial(); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).initial();
+    _.chain(simpleStringObjectArray).initial(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).initial().value();
-    }
+    _.initial(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).initial(); // $ExpectType SimpleStringObject[]
 
-        result = _.initial(simpleStringObjectList);
+    _.chain(simpleStringObjectList).initial(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).initial();
+    _.initial(simpleString); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectList).initial().value();
-    }
+    _(simpleString).initial(); // $ExpectType string[]
 
-    {
-        let result: string[];
-
-        result = _.initial(simpleString);
-
-        result = _(simpleString).initial();
-
-        result = _.chain(simpleString).initial().value();
-    }
+    _.chain(simpleString).initial(); // $ExpectType _Chain<string, string[]>
 
     // with n
-    {
-        const n = 2;
-        let result: SimpleStringObject[];
+    _.initial(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
-        result = _.initial(simpleStringObjectArray, n);
+    _(simpleStringObjectArray).initial(n); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).initial(n);
+    _.chain(simpleStringObjectArray).initial(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).initial(n).value();
-    }
+    _.initial(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
-    {
-        const n = 2;
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).initial(n); // $ExpectType SimpleStringObject[]
 
-        result = _.initial(simpleStringObjectList, n);
+    _.chain(simpleStringObjectList).initial(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).initial(n);
+    _.initial(simpleString, n); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectList).initial(n).value();
-    }
+    _(simpleString).initial(n); // $ExpectType string[]
 
-    {
-        const n = 2;
-        let result: string[];
-
-        result = _.initial(simpleString, n);
-
-        result = _(simpleString).initial(n);
-
-        result = _.chain(simpleString).initial(n).value();
-    }
+    _.chain(simpleString).initial(n); // $ExpectType _Chain<string, string[]>
 }
 
 // last
 {
+    const n = 2;
+
     // without n
-    {
-        let result: SimpleStringObjectOrUndefined;
+    _.last(simpleStringObjectArray); // $ExpectType SimpleStringObject | undefined
 
-        result = _.last(simpleStringObjectArray);
+    _(simpleStringObjectArray).last(); // $ExpectType SimpleStringObject | undefined
 
-        result = _(simpleStringObjectArray).last();
+    _.chain(simpleStringObjectArray).last(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _.chain(simpleStringObjectArray).last().value();
-    }
+    _.last(simpleStringObjectList); // $ExpectType SimpleStringObject | undefined
 
-    {
-        let result: SimpleStringObjectOrUndefined;
+    _(simpleStringObjectList).last(); // $ExpectType SimpleStringObject | undefined
 
-        result = _.last(simpleStringObjectList);
+    _.chain(simpleStringObjectList).last(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
 
-        result = _(simpleStringObjectList).last();
+    _.last(simpleString); // $ExpectType string | undefined
 
-        result = _.chain(simpleStringObjectList).last().value();
-    }
+    _(simpleString).last(); // $ExpectType string | undefined
 
-    {
-        let result: string | undefined;
-
-        result = _.last(simpleString);
-
-        result = _(simpleString).last();
-
-        result = _.chain(simpleString).last().value();
-    }
+    _.chain(simpleString).last(); // $ExpectType _ChainSingle<string | undefined>
 
     // with n
-    {
-        const n = 2;
-        let result: SimpleStringObject[];
+    _.last(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
-        result = _.last(simpleStringObjectArray, n);
+    _(simpleStringObjectArray).last(n); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).last(n);
+    _.chain(simpleStringObjectArray).last(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).last(n).value();
-    }
+    _.last(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
-    {
-        const n = 2;
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).last(n); // $ExpectType SimpleStringObject[]
 
-        result = _.last(simpleStringObjectList, n);
+    _.chain(simpleStringObjectList).last(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).last(n);
+    _.last(simpleString, n); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectList).last(n).value();
-    }
+    _(simpleString).last(n); // $ExpectType string[]
 
-    {
-        const n = 2;
-        let result: string[];
-
-        result = _.last(simpleString, n);
-
-        result = _(simpleString).last(n);
-
-        result = _.chain(simpleString).last(n).value();
-    }
+    _.chain(simpleString).last(n); // $ExpectType _Chain<string, string[]>
 }
 
 // rest, tail, drop
 {
+    const n = 2;
+
     // without n
-    {
-        let result: SimpleStringObject[];
+    _.rest(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
-        result = _.rest(simpleStringObjectArray);
+    _(simpleStringObjectArray).rest(); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).rest();
+    _.chain(simpleStringObjectArray).rest(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).rest().value();
+    _.tail(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
-        result = _.tail(simpleStringObjectArray);
+    _(simpleStringObjectArray).tail(); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).tail();
+    _.chain(simpleStringObjectArray).tail(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).tail().value();
+    _.drop(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
-        result = _.drop(simpleStringObjectArray);
+    _(simpleStringObjectArray).drop(); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).drop();
+    _.chain(simpleStringObjectArray).drop(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).drop().value();
-    }
+    _.rest(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).rest(); // $ExpectType SimpleStringObject[]
 
-        result = _.rest(simpleStringObjectList);
+    _.chain(simpleStringObjectList).rest(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).rest();
+    _.tail(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).rest().value();
+    _(simpleStringObjectList).tail(); // $ExpectType SimpleStringObject[]
 
-        result = _.tail(simpleStringObjectList);
+    _.chain(simpleStringObjectList).tail(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).tail();
+    _.drop(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).tail().value();
+    _(simpleStringObjectList).drop(); // $ExpectType SimpleStringObject[]
 
-        result = _.drop(simpleStringObjectList);
+    _.chain(simpleStringObjectList).drop(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).drop();
+    _.rest(simpleString); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectList).drop().value();
-    }
+    _(simpleString).rest(); // $ExpectType string[]
 
-    {
-        let result: string[];
+    _.chain(simpleString).rest(); // $ExpectType _Chain<string, string[]>
 
-        result = _.rest(simpleString);
+    _.tail(simpleString); // $ExpectType string[]
 
-        result = _(simpleString).rest();
+    _(simpleString).tail(); // $ExpectType string[]
 
-        result = _.chain(simpleString).rest().value();
+    _.chain(simpleString).tail(); // $ExpectType _Chain<string, string[]>
 
-        result = _.tail(simpleString);
+    _.drop(simpleString); // $ExpectType string[]
 
-        result = _(simpleString).tail();
+    _(simpleString).drop(); // $ExpectType string[]
 
-        result = _.chain(simpleString).tail().value();
-
-        result = _.drop(simpleString);
-
-        result = _(simpleString).drop();
-
-        result = _.chain(simpleString).drop().value();
-    }
+    _.chain(simpleString).drop(); // $ExpectType _Chain<string, string[]>
 
     // with n
-    {
-        const n = 2;
-        let result: SimpleStringObject[];
+    _.rest(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
-        result = _.rest(simpleStringObjectArray, n);
+    _(simpleStringObjectArray).rest(n); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).rest(n);
+    _.chain(simpleStringObjectArray).rest(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).rest(n).value();
+    _.tail(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
-        result = _.tail(simpleStringObjectArray, n);
+    _(simpleStringObjectArray).tail(n); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).tail(n);
+    _.chain(simpleStringObjectArray).tail(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).tail(n).value();
+    _.drop(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
-        result = _.drop(simpleStringObjectArray, n);
+    _(simpleStringObjectArray).drop(n); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).drop(n);
+    _.chain(simpleStringObjectArray).drop(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).drop(n).value();
-    }
+    _.rest(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
-    {
-        const n = 2;
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).rest(n); // $ExpectType SimpleStringObject[]
 
-        result = _.rest(simpleStringObjectList, n);
+    _.chain(simpleStringObjectList).rest(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).rest(n);
+    _.tail(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).rest(n).value();
+    _(simpleStringObjectList).tail(n); // $ExpectType SimpleStringObject[]
 
-        result = _.tail(simpleStringObjectList, n);
+    _.chain(simpleStringObjectList).tail(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).tail(n);
+    _.drop(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).tail(n).value();
+    _(simpleStringObjectList).drop(n); // $ExpectType SimpleStringObject[]
 
-        result = _.drop(simpleStringObjectList, n);
+    _.chain(simpleStringObjectList).drop(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).drop(n);
+    _.rest(simpleString, n); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectList).drop(n).value();
-    }
+    _(simpleString).rest(n); // $ExpectType string[]
 
-    {
-        const n = 2;
-        let result: string[];
+    _.chain(simpleString).rest(n); // $ExpectType _Chain<string, string[]>
 
-        result = _.rest(simpleString, n);
+    _.tail(simpleString, n); // $ExpectType string[]
 
-        result = _(simpleString).rest(n);
+    _(simpleString).tail(n); // $ExpectType string[]
 
-        result = _.chain(simpleString).rest(n).value();
+    _.chain(simpleString).tail(n); // $ExpectType _Chain<string, string[]>
 
-        result = _.tail(simpleString, n);
+    _.drop(simpleString, n); // $ExpectType string[]
 
-        result = _(simpleString).tail(n);
+    _(simpleString).drop(n); // $ExpectType string[]
 
-        result = _.chain(simpleString).tail(n).value();
-
-        result = _.drop(simpleString, n);
-
-        result = _(simpleString).drop(n);
-
-        result = _.chain(simpleString).drop(n).value();
-    }
+    _.chain(simpleString).drop(n); // $ExpectType _Chain<string, string[]>
 }
 
 // compact
 {
-    {
-        let result: SimpleStringObject[];
+    _.compact(simpleStringObjectOrUndefinedArray); // $ExpectType SimpleStringObject[]
 
-        result = _.compact(simpleStringObjectOrUndefinedArray);
+    _(simpleStringObjectOrUndefinedArray).compact(); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectOrUndefinedArray).compact();
+    _.chain(simpleStringObjectOrUndefinedArray).compact(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectOrUndefinedArray).compact().value();
-    }
+    _.compact(simpleStringObjectOrUndefinedList); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectOrUndefinedList).compact(); // $ExpectType SimpleStringObject[]
 
-        result = _.compact(simpleStringObjectOrUndefinedList);
-
-        result = _(simpleStringObjectOrUndefinedList).compact();
-
-        result = _.chain(simpleStringObjectOrUndefinedList).compact().value();
-    }
+    _.chain(simpleStringObjectOrUndefinedList).compact(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 }
 
 // flatten
 {
+    const twoDimensionArray: SimpleStringObject[][] = [simpleStringObjectArray];
+    const twoDimensionList: _.List<_.List<SimpleStringObject>> = { 0: simpleStringObjectList, length: 1 };
+    const threeDimensionArray: SimpleStringObject[][][] = [[simpleStringObjectArray]];
+    const threeDimensionList: _.List<_.List<_.List<SimpleStringObject>>> = { 0: { 0: simpleStringObjectList, length: 1 }, length: 1 };
+    const fourDimensionArray: SimpleStringObject[][][][] = [[[simpleStringObjectArray]]];
+    const fourDimensionList: _.List<_.List<_.List<_.List<SimpleStringObject>>>> = { 0: { 0: { 0: simpleStringObjectList, length: 1 }, length: 1 }, length: 1 };
+    const stringArray: string[][] = [simpleStringArray];
+    const stringList: _.List<_.List<string>> = { 0: simpleStringList, length: 1 };
+    const typeUnionArray: NonIntersectingObjectPropertiesType[][] = [nonIntersectingObjectPropertiesArray];
+    const typeUnionList: _.List<_.List<NonIntersectingObjectPropertiesType>> = { 0: nonIntersectingObjectPropertiesList, length: 1 };
+
     // one dimension, deep
-    {
-        let result: SimpleStringObject[];
+    _.flatten(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
-        result = _.flatten(simpleStringObjectArray);
+    _(simpleStringObjectArray).flatten(); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).flatten();
+    _.chain(simpleStringObjectArray).flatten(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).flatten().value();
-    }
+    _.flatten(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).flatten(); // $ExpectType SimpleStringObject[]
 
-        result = _.flatten(simpleStringObjectList);
-
-        result = _(simpleStringObjectList).flatten();
-
-        result = _.chain(simpleStringObjectList).flatten().value();
-    }
+    _.chain(simpleStringObjectList).flatten(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
     // one dimension, shallow
-    {
-        let result: SimpleStringObject[];
+    _.flatten(simpleStringObjectArray, true); // $ExpectType SimpleStringObject[]
 
-        result = _.flatten(simpleStringObjectArray, true);
+    _(simpleStringObjectArray).flatten(true); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).flatten(true);
+    _.chain(simpleStringObjectArray).flatten(true); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).flatten(true).value();
-    }
+    _.flatten(simpleStringObjectList, true); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).flatten(true); // $ExpectType SimpleStringObject[]
 
-        result = _.flatten(simpleStringObjectList, true);
-
-        result = _(simpleStringObjectList).flatten(true);
-
-        result = _.chain(simpleStringObjectList).flatten(true).value();
-    }
+    _.chain(simpleStringObjectList).flatten(true); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
     // two dimensions, deep
-    {
-        const array: SimpleStringObject[][] = [simpleStringObjectArray];
-        let result: SimpleStringObject[];
+    _.flatten(twoDimensionArray); // $ExpectType SimpleStringObject[]
 
-        result = _.flatten(array);
+    _(twoDimensionArray).flatten(); // $ExpectType SimpleStringObject[]
 
-        result = _(array).flatten();
+    _.chain(twoDimensionArray).flatten(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(array).flatten().value();
-    }
+    _.flatten(twoDimensionList); // $ExpectType SimpleStringObject[]
 
-    {
-        const list: _.List<_.List<SimpleStringObject>> = { 0: simpleStringObjectList, length: 1 };
-        let result: SimpleStringObject[];
+    _(twoDimensionList).flatten(); // $ExpectType SimpleStringObject[]
 
-        result = _.flatten(list);
-
-        result = _(list).flatten();
-
-        result = _.chain(list).flatten().value();
-    }
+    _.chain(twoDimensionList).flatten(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
     // two dimensions, shallow
-    {
-        const array: SimpleStringObject[][] = [simpleStringObjectArray];
-        let result: SimpleStringObject[];
+    _.flatten(twoDimensionArray, true); // $ExpectType SimpleStringObject[]
 
-        result = _.flatten(array, true);
+    _(twoDimensionArray).flatten(true); // $ExpectType SimpleStringObject[]
 
-        result = _(array).flatten(true);
+    _.chain(twoDimensionArray).flatten(true); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(array).flatten(true).value();
-    }
+    _.flatten(twoDimensionList, true); // $ExpectType SimpleStringObject[]
 
-    {
-        const list: _.List<_.List<SimpleStringObject>> = { 0: simpleStringObjectList, length: 1 };
-        let result: SimpleStringObject[];
+    _(twoDimensionList).flatten(true); // $ExpectType SimpleStringObject[]
 
-        result = _.flatten(list, true);
-
-        result = _(list).flatten(true);
-
-        result = _.chain(list).flatten(true).value();
-    }
+    _.chain(twoDimensionList).flatten(true); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
     // three dimensions, deep
-    {
-        const array: SimpleStringObject[][][] = [[simpleStringObjectArray]];
-        let result: SimpleStringObject[];
+    _.flatten(threeDimensionArray); // $ExpectType SimpleStringObject[]
 
-        result = _.flatten(array);
+    _(threeDimensionArray).flatten(); // $ExpectType SimpleStringObject[]
 
-        result = _(array).flatten();
+    _.chain(threeDimensionArray).flatten(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(array).flatten().value();
-    }
+    _.flatten(threeDimensionList); // $ExpectType SimpleStringObject[]
 
-    {
-        const list: _.List<_.List<_.List<SimpleStringObject>>> = { 0: { 0: simpleStringObjectList, length: 1 }, length: 1 };
-        let result: SimpleStringObject[];
+    _(threeDimensionList).flatten(); // $ExpectType SimpleStringObject[]
 
-        result = _.flatten(list);
-
-        result = _(list).flatten();
-
-        result = _.chain(list).flatten().value();
-    }
+    _.chain(threeDimensionList).flatten(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
     // three dimensions, shallow
-    {
-        const array: SimpleStringObject[][][] = [[simpleStringObjectArray]];
-        let result: SimpleStringObject[][];
+    _.flatten(threeDimensionArray, true); // $ExpectType SimpleStringObject[][]
 
-        result = _.flatten(array, true);
+    _(threeDimensionArray).flatten(true); // $ExpectType SimpleStringObject[][]
 
-        result = _(array).flatten(true);
+    _.chain(threeDimensionArray).flatten(true); // $ExpectType _Chain<SimpleStringObject[], SimpleStringObject[][]>
 
-        result = _.chain(array).flatten(true).value();
-    }
+    _.flatten(threeDimensionList, true); // $ExpectType List<SimpleStringObject>[]
 
-    {
-        const list: _.List<_.List<_.List<SimpleStringObject>>> = { 0: { 0: simpleStringObjectList, length: 1 }, length: 1 };
-        let result: _.List<SimpleStringObject>[];
+    _(threeDimensionList).flatten(true); // $ExpectType List<SimpleStringObject>[]
 
-        result = _.flatten(list, true);
-
-        result = _(list).flatten(true);
-
-        result = _.chain(list).flatten(true).value();
-    }
+    _.chain(threeDimensionList).flatten(true); // $ExpectType _Chain<List<SimpleStringObject>, List<SimpleStringObject>[]>
 
     // four dimensions, deep - this is where recursion gives up and results in any[]
-    {
-        const array: SimpleStringObject[][][][] = [[[simpleStringObjectArray]]];
-        let result: any[];
+    _.flatten(fourDimensionArray); // $ExpectType any[]
 
-        // $ExpectType any[]
-        // $ExpectType any[]
-        result = _.flatten(array);
+    _(fourDimensionArray).flatten(); // $ExpectType any[]
 
-        // $ExpectType any[]
-        // $ExpectType any[]
-        result = _(array).flatten();
+    _.chain(fourDimensionArray).flatten(); // $ExpectType _Chain<any, any[]>
 
-        // $ExpectType any[]
-        // $ExpectType any[]
-        result = _.chain(array).flatten().value();
-    }
+    _.flatten(fourDimensionList); // $ExpectType any[]
 
-    {
-        const list: _.List<_.List<_.List<_.List<SimpleStringObject>>>> = { 0: { 0: { 0: simpleStringObjectList, length: 1 }, length: 1 }, length: 1 };
-        let result: any[];
+    _(fourDimensionList).flatten(); // $ExpectType any[]
 
-        // $ExpectType any[]
-        // $ExpectType any[]
-        result = _.flatten(list);
-
-        // $ExpectType any[]
-        // $ExpectType any[]
-        result = _(list).flatten();
-
-        // $ExpectType any[]
-        // $ExpectType any[]
-        result = _.chain(list).flatten().value();
-    }
+    _.chain(fourDimensionList).flatten(); // $ExpectType _Chain<any, any[]>
 
     // string lists, deep
-    {
-        const array: string[][] = [simpleStringArray];
-        let result: string[];
+    _.flatten(stringArray); // $ExpectType string[]
 
-        result = _.flatten(array);
+    _(stringArray).flatten(); // $ExpectType string[]
 
-        result = _(array).flatten();
+    _.chain(stringArray).flatten(); // $ExpectType _Chain<string, string[]>
 
-        result = _.chain(array).flatten().value();
-    }
+    _.flatten(stringList); // $ExpectType string[]
 
-    {
-        const list: _.List<_.List<string>> = { 0: simpleStringList, length: 1 };
-        let result: string[];
+    _(stringList).flatten(); // $ExpectType string[]
 
-        result = _.flatten(list);
-
-        result = _(list).flatten();
-
-        result = _.chain(list).flatten().value();
-    }
+    _.chain(stringList).flatten(); // $ExpectType _Chain<string, string[]>
 
     // string lists, shallow
-    {
-        let result: string[];
+    _.flatten(simpleStringList, true); // $ExpectType string[]
 
-        result = _.flatten(simpleStringList, true);
+    _(simpleStringArray).flatten(true); // $ExpectType string[]
 
-        result = _(simpleStringArray).flatten(true);
+    _.chain(simpleStringArray).flatten(true); // $ExpectType _Chain<string, string[]>
 
-        result = _.chain(simpleStringArray).flatten(true).value();
-    }
+    _.flatten(simpleStringList, true); // $ExpectType string[]
 
-    {
-        let result: string[];
+    _(simpleStringList).flatten(true); // $ExpectType string[]
 
-        result = _.flatten(simpleStringList, true);
-
-        result = _(simpleStringList).flatten(true);
-
-        result = _.chain(simpleStringList).flatten(true).value();
-    }
+    _.chain(simpleStringList).flatten(true); // $ExpectType _Chain<string, string[]>
 
     // type unions, deep
-    {
-        const array: NonIntersectingObjectPropertiesType[][] = [nonIntersectingObjectPropertiesArray];
-        let result: NonIntersectingObjectPropertiesType[];
+    _.flatten(typeUnionArray); // $ExpectType NonIntersectingObjectPropertiesType[]
 
-        result = _.flatten(array);
+    _(typeUnionArray).flatten(); // $ExpectType NonIntersectingObjectPropertiesType[]
 
-        result = _(array).flatten();
+    _.chain(typeUnionArray).flatten(); // $ExpectType _Chain<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>
 
-        result = _.chain(array).flatten().value();
-    }
+    _.flatten(typeUnionList); // $ExpectType NonIntersectingObjectPropertiesType[]
 
-    {
-        const list: _.List<_.List<NonIntersectingObjectPropertiesType>> = { 0: nonIntersectingObjectPropertiesList, length: 1 };
-        let result: NonIntersectingObjectPropertiesType[];
+    _(typeUnionList).flatten(); // $ExpectType NonIntersectingObjectPropertiesType[]
 
-        result = _.flatten(list);
-
-        result = _(list).flatten();
-
-        result = _.chain(list).flatten().value();
-    }
+    _.chain(typeUnionList).flatten(); // $ExpectType _Chain<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>
 
     // type unions, shallow
-    {
-        let result: NonIntersectingObjectPropertiesType[];
+    _.flatten(nonIntersectingObjectPropertiesArray, true); // $ExpectType NonIntersectingObjectPropertiesType[]
 
-        result = _.flatten(nonIntersectingObjectPropertiesArray, true);
+    _(nonIntersectingObjectPropertiesArray).flatten(true); // $ExpectType NonIntersectingObjectPropertiesType[]
 
-        result = _(nonIntersectingObjectPropertiesArray).flatten(true);
+    _.chain(nonIntersectingObjectPropertiesArray).flatten(true); // $ExpectType _Chain<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>
 
-        result = _.chain(nonIntersectingObjectPropertiesArray).flatten(true).value();
-    }
+    _.flatten(nonIntersectingObjectPropertiesList, true); // $ExpectType NonIntersectingObjectPropertiesType[]
 
-    {
-        let result: NonIntersectingObjectPropertiesType[];
+    _(nonIntersectingObjectPropertiesList).flatten(true); // $ExpectType NonIntersectingObjectPropertiesType[]
 
-        result = _.flatten(nonIntersectingObjectPropertiesList, true);
-
-        result = _(nonIntersectingObjectPropertiesList).flatten(true);
-
-        result = _.chain(nonIntersectingObjectPropertiesList).flatten(true).value();
-    }
+    _.chain(nonIntersectingObjectPropertiesList).flatten(true); // $ExpectType _Chain<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>
 }
 
 // without
 {
-    {
-        const item1 = simpleStringObjectArray[0];
-        const item2 = simpleStringObjectArray[1];
-        let result: SimpleStringObject[];
+    const simpleStringObject1 = simpleStringObjectArray[0];
+    const simpleStringObject2 = simpleStringObjectArray[1];
+    const simpleString1 = simpleString[0];
+    const simpleString2 = simpleString[1];
 
-        result = _.without(simpleStringObjectArray, item1, item2);
+    _.without(simpleStringObjectArray, simpleStringObject1, simpleStringObject2); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).without(item1, item2);
+    _(simpleStringObjectArray).without(simpleStringObject1, simpleStringObject2); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectArray).without(item1, item2).value();
-    }
+    _.chain(simpleStringObjectArray).without(simpleStringObject1, simpleStringObject2); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-    {
-        const item1 = simpleStringObjectList[0];
-        const item2 = simpleStringObjectList[1];
-        let result: SimpleStringObject[];
+    _.without(simpleStringObjectList, simpleStringObject1, simpleStringObject2); // $ExpectType SimpleStringObject[]
 
-        result = _.without(simpleStringObjectList, item1, item2);
+    _(simpleStringObjectList).without(simpleStringObject1, simpleStringObject2); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectList).without(item1, item2);
+    _.chain(simpleStringObjectList).without(simpleStringObject1, simpleStringObject2); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectList).without(item1, item2).value();
-    }
+    _.without(simpleString, simpleString1, simpleString2); // $ExpectType string[]
 
-    {
-        const item1 = simpleString[0];
-        const item2 = simpleString[1];
-        let result: string[];
+    _(simpleString).without(simpleString1, simpleString2); // $ExpectType string[]
 
-        result = _.without(simpleString, item1, item2);
-
-        result = _(simpleString).without(item1, item2);
-
-        result = _.chain(simpleString).without(item1, item2).value();
-    }
+    _.chain(simpleString).without(simpleString1, simpleString2); // $ExpectType _Chain<string, string[]>
 }
 
 // union
 {
-    {
-        let result: SimpleStringObject[];
+    _.union(simpleStringObjectArray, simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
-        result = _.union(simpleStringObjectArray, simpleStringObjectArray);
+    _(simpleStringObjectArray).union(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).union(simpleStringObjectArray);
+    _.chain(simpleStringObjectArray).union(simpleStringObjectArray); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).union(simpleStringObjectArray).value();
-    }
+    _.union(simpleStringObjectList, simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).union(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
-        result = _.union(simpleStringObjectList, simpleStringObjectList);
+    _.chain(simpleStringObjectList).union(simpleStringObjectList); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).union(simpleStringObjectList);
+    _.union(simpleString, simpleString); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectList).union(simpleStringObjectList).value();
-    }
+    _(simpleString).union(simpleString); // $ExpectType string[]
 
-    {
-        let result: string[];
-
-        result = _.union(simpleString, simpleString);
-
-        result = _(simpleString).union(simpleString);
-
-        result = _.chain(simpleString).union(simpleString).value();
-    }
+    _.chain(simpleString).union(simpleString); // $ExpectType _Chain<string, string[]>
 }
 
 // intersection
 {
-    {
-        let result: SimpleStringObject[];
+    _.intersection(simpleStringObjectArray, simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
-        result = _.intersection(simpleStringObjectArray, simpleStringObjectArray);
+    _(simpleStringObjectArray).intersection(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).intersection(simpleStringObjectArray);
+    _.chain(simpleStringObjectArray).intersection(simpleStringObjectArray); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).intersection(simpleStringObjectArray).value();
-    }
+    _.intersection(simpleStringObjectList, simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).intersection(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
-        result = _.intersection(simpleStringObjectList, simpleStringObjectList);
+    _.chain(simpleStringObjectList).intersection(simpleStringObjectList); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).intersection(simpleStringObjectList);
+    _.intersection(simpleString, simpleString); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectList).intersection(simpleStringObjectList).value();
-    }
+    _(simpleString).intersection(simpleString); // $ExpectType string[]
 
-    {
-        let result: string[];
-
-        result = _.intersection(simpleString, simpleString);
-
-        result = _(simpleString).intersection(simpleString);
-
-        result = _.chain(simpleString).intersection(simpleString).value();
-    }
+    _.chain(simpleString).intersection(simpleString); // $ExpectType _Chain<string, string[]>
 }
 
 // difference
 {
-    {
-        let result: SimpleStringObject[];
+    _.difference(simpleStringObjectArray, simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
-        result = _.difference(simpleStringObjectArray, simpleStringObjectArray);
+    _(simpleStringObjectArray).difference(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).difference(simpleStringObjectArray);
+    _.chain(simpleStringObjectArray).difference(simpleStringObjectArray); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).difference(simpleStringObjectArray).value();
-    }
+    _.difference(simpleStringObjectList, simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).difference(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
-        result = _.difference(simpleStringObjectList, simpleStringObjectList);
+    _.chain(simpleStringObjectList).difference(simpleStringObjectList); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).difference(simpleStringObjectList);
+    _.difference(simpleString, simpleString); // $ExpectType string[]
 
-        result = _.chain(simpleStringObjectList).difference(simpleStringObjectList).value();
-    }
+    _(simpleString).difference(simpleString); // $ExpectType string[]
 
-    {
-        let result: string[];
-
-        result = _.difference(simpleString, simpleString);
-
-        result = _(simpleString).difference(simpleString);
-
-        result = _.chain(simpleString).difference(simpleString).value();
-    }
+    _.chain(simpleString).difference(simpleString); // $ExpectType _Chain<string, string[]>
 }
 
 // uniq, unique
 {
     // function iterator
-    {
-        let result: SimpleStringObject[];
+    _.uniq(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
+    _.uniq(simpleStringObjectArray, true); // $ExpectType SimpleStringObject[]
+    _.uniq(simpleStringObjectArray, true, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _.uniq(simpleStringObjectArray, true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.uniq(simpleStringObjectArray);
-        result = _.uniq(simpleStringObjectArray, true);
-        result = _.uniq(simpleStringObjectArray, true, simpleStringObjectListPropertySelectingIterator);
-        result = _.uniq(simpleStringObjectArray, true, simpleStringObjectListPropertySelectingIterator, context);
+    _(simpleStringObjectArray).uniq(); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).uniq(true); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).uniq();
-        result = _(simpleStringObjectArray).uniq(true);
-        result = _(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator, context);
+    _.chain(simpleStringObjectArray).uniq(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectArray).uniq(true); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).uniq().value();
-        result = _.chain(simpleStringObjectArray).uniq(true).value();
-        result = _.chain(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator, context).value();
+    _.unique(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
+    _.unique(simpleStringObjectArray, true); // $ExpectType SimpleStringObject[]
+    _.unique(simpleStringObjectArray, true, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _.unique(simpleStringObjectArray, true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.unique(simpleStringObjectArray);
-        result = _.unique(simpleStringObjectArray, true);
-        result = _.unique(simpleStringObjectArray, true, simpleStringObjectListPropertySelectingIterator);
-        result = _.unique(simpleStringObjectArray, true, simpleStringObjectListPropertySelectingIterator, context);
+    _(simpleStringObjectArray).unique(); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).unique(true); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).unique();
-        result = _(simpleStringObjectArray).unique(true);
-        result = _(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator, context);
+    _.chain(simpleStringObjectArray).unique(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectArray).unique(true); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).unique().value();
-        result = _.chain(simpleStringObjectArray).unique(true).value();
-        result = _.chain(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator, context).value();
-    }
+    _.uniq(simpleStringObjectList); // $ExpectType SimpleStringObject[]
+    _.uniq(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _.uniq(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
+    _.uniq(simpleStringObjectList, true); // $ExpectType SimpleStringObject[]
+    _.uniq(simpleStringObjectList, true, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _.uniq(simpleStringObjectList, true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).uniq(); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).uniq(true); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.uniq(simpleStringObjectList);
-        result = _.uniq(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
-        result = _.uniq(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
-        result = _.uniq(simpleStringObjectList, true);
-        result = _.uniq(simpleStringObjectList, true, simpleStringObjectListPropertySelectingIterator);
-        result = _.uniq(simpleStringObjectList, true, simpleStringObjectListPropertySelectingIterator, context);
+    _.chain(simpleStringObjectList).uniq(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectList).uniq(true); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).uniq();
-        result = _(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator, context);
-        result = _(simpleStringObjectList).uniq(true);
-        result = _(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator, context);
+    _.unique(simpleStringObjectList); // $ExpectType SimpleStringObject[]
+    _.unique(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _.unique(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
+    _.unique(simpleStringObjectList, true); // $ExpectType SimpleStringObject[]
+    _.unique(simpleStringObjectList, true, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _.unique(simpleStringObjectList, true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).uniq().value();
-        result = _.chain(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator, context).value();
-        result = _.chain(simpleStringObjectList).uniq(true).value();
-        result = _.chain(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator, context).value();
+    _(simpleStringObjectList).unique(); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).unique(true); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-        result = _.unique(simpleStringObjectList);
-        result = _.unique(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
-        result = _.unique(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
-        result = _.unique(simpleStringObjectList, true);
-        result = _.unique(simpleStringObjectList, true, simpleStringObjectListPropertySelectingIterator);
-        result = _.unique(simpleStringObjectList, true, simpleStringObjectListPropertySelectingIterator, context);
-
-        result = _(simpleStringObjectList).unique();
-        result = _(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator, context);
-        result = _(simpleStringObjectList).unique(true);
-        result = _(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator, context);
-
-        result = _.chain(simpleStringObjectList).unique().value();
-        result = _.chain(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator, context).value();
-        result = _.chain(simpleStringObjectList).unique(true).value();
-        result = _.chain(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator, context).value();
-    }
+    _.chain(simpleStringObjectList).unique(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectList).unique(true); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
     // property name iterator
-    {
-        let result: SimpleStringObject[];
+    _.uniq(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    _.uniq(simpleStringObjectArray, true, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.uniq(simpleStringObjectArray, simpleStringObjectPropertyName);
-        result = _.uniq(simpleStringObjectArray, true, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).uniq(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).uniq(true, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).uniq(simpleStringObjectPropertyName);
-        result = _(simpleStringObjectArray).uniq(true, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).uniq(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectArray).uniq(true, simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).uniq(simpleStringObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).uniq(true, simpleStringObjectPropertyName).value();
+    _.unique(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    _.unique(simpleStringObjectArray, true, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.unique(simpleStringObjectArray, simpleStringObjectPropertyName);
-        result = _.unique(simpleStringObjectArray, true, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).unique(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).unique(true, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _(simpleStringObjectArray).unique(simpleStringObjectPropertyName);
-        result = _(simpleStringObjectArray).unique(true, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).unique(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectArray).unique(true, simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _.chain(simpleStringObjectArray).unique(simpleStringObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).unique(true, simpleStringObjectPropertyName).value();
-    }
+    _.uniq(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    _.uniq(simpleStringObjectList, true, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectList).uniq(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).uniq(true, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.uniq(simpleStringObjectList, simpleStringObjectPropertyName);
-        result = _.uniq(simpleStringObjectList, true, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectList).uniq(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectList).uniq(true, simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        result = _(simpleStringObjectList).uniq(simpleStringObjectPropertyName);
-        result = _(simpleStringObjectList).uniq(true, simpleStringObjectPropertyName);
+    _.unique(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    _.unique(simpleStringObjectList, true, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.chain(simpleStringObjectList).uniq(simpleStringObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).uniq(true, simpleStringObjectPropertyName).value();
+    _(simpleStringObjectList).unique(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).unique(true, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-        result = _.unique(simpleStringObjectList, simpleStringObjectPropertyName);
-        result = _.unique(simpleStringObjectList, true, simpleStringObjectPropertyName);
-
-        result = _(simpleStringObjectList).unique(simpleStringObjectPropertyName);
-        result = _(simpleStringObjectList).unique(true, simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectList).unique(simpleStringObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).unique(true, simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectList).unique(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _.chain(simpleStringObjectList).unique(true, simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 }
 
 // zip
 {
-    {
-        const array1: string[] = ['a', 'b'];
-        const array2: number[] = [1, 2];
-        const array3: boolean[] = [true, false];
-        let result: any[][]; // ideally should be [string, number, boolean][]
+    const array1: string[] = ['a', 'b'];
+    const array2: number[] = [1, 2];
+    const array3: boolean[] = [true, false];
+    const list1: _.List<string> = { 0: 'a', 1: 'b', length: 2 };
+    const list2: _.List<number> = { 0: 1, 1: 2, length: 2 };
+    const list3: _.List<boolean> = { 0: true, 1: false, length: 2 };
 
-        result = _.zip(array1, array2, array3);
+    _.zip(array1, array2, array3); // $ExpectType any[][]
 
-        result = _(array1).zip(array2, array3);
+    _(array1).zip(array2, array3); // $ExpectType any[][]
 
-        result = _.chain(array1).zip(array2, array3).value();
-    }
+    _.chain(array1).zip(array2, array3); // $ExpectType _Chain<any[], any[][]>
 
-    {
-        const list1: _.List<string> = { 0: 'a', 1: 'b', length: 2 };
-        const list2: _.List<number> = { 0: 1, 1: 2, length: 2 };
-        const list3: _.List<boolean> = { 0: true, 1: false, length: 2 };
-        let result: any[][]; // ideally should be [string, number, boolean][]
+    _.zip(list1, list2, list3); // $ExpectType any[][]
 
-        result = _.zip(list1, list2, list3);
+    _(list1).zip(list2, list3); // $ExpectType any[][]
 
-        result = _(list1).zip(list2, list3);
-
-        result = _.chain(list1).zip(list2, list3).value();
-    }
+    _.chain(list1).zip(list2, list3); // $ExpectType _Chain<any[], any[][]>
 }
 
 // unzip
 {
-    {
-        const array: [string, number, boolean][] = [['a', 1, true], ['b', 2, false]];
-        let result: any[][]; // ideally should be [string[], number[], boolean[]]
+    const array: [string, number, boolean][] = [['a', 1, true], ['b', 2, false]];
+    const list: _.List<_.List<(string | number | boolean)>> = { 0: { 0: 'a', 1: 1, 2: true, length: 3 }, 1: { 0: 'b', 1: 2, 2: false, length: 3 }, length: 2 };
 
-        result = _.unzip(array);
+    _.unzip(array); // $ExpectType any[][]
 
-        result = _(array).unzip();
+    _(array).unzip(); // $ExpectType any[][]
 
-        result = _.chain(array).unzip().value();
-    }
+    _.chain(array).unzip(); // $ExpectType _Chain<any[], any[][]>
 
-    {
-        const list: _.List<_.List<(string | number | boolean)>> = { 0: { 0: 'a', 1: 1, 2: true, length: 3 }, 1: { 0: 'b', 1: 2, 2: false, length: 3 }, length: 2 };
-        let result: any[][]; // ideally should be [(string | number | boolean)[], (string | number | boolean)[], (string | number | boolean)[]]
+    _.unzip(list); // $ExpectType any[][]
 
-        result = _.unzip(list);
+    _(list).unzip(); // $ExpectType any[][]
 
-        result = _(list).unzip();
-
-        result = _.chain(list).unzip().value();
-    }
+    _.chain(list).unzip(); // $ExpectType _Chain<any[], any[][]>
 }
 
 // object
 {
     // separate key and value sets
-    {
-        const keyArray: string[] = ['a', 'b'];
-        const valueArray: number[] = [1, 2];
-        let result: _.Dictionary<number>;
+    const keyArray: string[] = ['a', 'b'];
+    const valueArray: number[] = [1, 2];
+    const keyList: _.List<string> = { 0: 'a', 1: 'b', length: 2 };
+    const valueList: _.List<number> = { 0: 1, 1: 2, length: 2 };
+    const pairArray: [string, number][] = [['a', 1], ['b', 2]];
+    const pairList: _.List<[string, number]> = { 0: ['a', 1], 1: ['b', 2], length: 2 };
 
-        result = _.object(keyArray, valueArray);
+    _.object(keyArray, valueArray); // $ExpectType Dictionary<number>
 
-        result = _(keyArray).object(valueArray);
+    _(keyArray).object(valueArray); // $ExpectType Dictionary<number>
 
-        result = _.chain(keyArray).object(valueArray).value();
-    }
+    _.chain(keyArray).object(valueArray); // $ExpectType _Chain<number, Dictionary<number>>
 
-    {
-        const keyList: _.List<string> = { 0: 'a', 1: 'b', length: 2 };
-        const valueList: _.List<number> = { 0: 1, 1: 2, length: 2 };
-        let result: _.Dictionary<number>;
+    _.object(keyList, valueList); // $ExpectType Dictionary<number>
 
-        result = _.object(keyList, valueList);
+    _(keyList).object(valueList); // $ExpectType Dictionary<number>
 
-        result = _(keyList).object(valueList);
-
-        result = _.chain(keyList).object(valueList).value();
-    }
+    _.chain(keyList).object(valueList); // $ExpectType _Chain<number, Dictionary<number>>
 
     // key value pair tuples
-    {
-        const array: [string, number][] = [['a', 1], ['b', 2]];
-        let result: _.Dictionary<number>;
+    _.object(pairArray); // $ExpectType Dictionary<number>
 
-        result = _.object(array);
+    _(pairArray).object(); // $ExpectType Dictionary<number>
 
-        result = _(array).object();
+    _.chain(pairArray).object(); // $ExpectType _Chain<number, Dictionary<number>>
 
-        result = _.chain(array).object().value();
-    }
+    _.object(pairList); // $ExpectType Dictionary<number>
 
-    {
-        const list: _.List<[string, number]> = { 0: ['a', 1], 1: ['b', 2], length: 2 };
-        let result: _.Dictionary<number>;
+    _(pairList).object(); // $ExpectType Dictionary<number>
 
-        result = _.object(list);
-
-        result = _(list).object();
-
-        result = _.chain(list).object().value();
-    }
+    _.chain(pairList).object(); // $ExpectType _Chain<number, Dictionary<number>>
 }
 
 // chunk
 {
-    {
-        const length = 2;
-        let result: SimpleStringObject[][];
+    const length = 2;
 
-        result = _.chunk(simpleStringObjectArray, length);
+    _.chunk(simpleStringObjectArray, length); // $ExpectType SimpleStringObject[][]
 
-        result = _(simpleStringObjectArray).chunk(length);
+    _(simpleStringObjectArray).chunk(length); // $ExpectType SimpleStringObject[][]
 
-        result = _.chain(simpleStringObjectArray).chunk(length).value();
+    _.chain(simpleStringObjectArray).chunk(length); // $ExpectType _Chain<SimpleStringObject[], SimpleStringObject[][]>
 
-        result = _.chain(simpleStringObjectArray).chunk(length).value();
-    }
+    _.chunk(simpleStringObjectList, length); // $ExpectType SimpleStringObject[][]
 
-    {
-        const length = 2;
-        let result: SimpleStringObject[][];
+    _(simpleStringObjectList).chunk(length); // $ExpectType SimpleStringObject[][]
 
-        result = _.chunk(simpleStringObjectList, length);
+    _.chain(simpleStringObjectList).chunk(length); // $ExpectType _Chain<SimpleStringObject[], SimpleStringObject[][]>
 
-        result = _(simpleStringObjectList).chunk(length);
+    _.chunk(simpleString, length); // $ExpectType string[][]
 
-        result = _.chain(simpleStringObjectList).chunk(length).value();
+    _(simpleString).chunk(length); // $ExpectType string[][]
 
-        result = _.chain(simpleStringObjectList).chunk(length).value();
-    }
-
-    {
-        const length = 2;
-        let result: string[][];
-
-        result = _.chunk(simpleString, length);
-
-        result = _(simpleString).chunk(length);
-
-        result = _.chain(simpleString).chunk(length).value();
-    }
+    _.chain(simpleString).chunk(length); // $ExpectType _Chain<string[], string[][]>
 }
 
 // indexOf
 {
+    const simpleStringObjectItem = simpleStringObjectArray[0];
+    const simpleStringItem = simpleString[0];
     const isSorted = true;
 
-    {
-        const item = simpleStringObjectArray[0];
-        let result: number;
+    _.indexOf(simpleStringObjectArray, simpleStringObjectItem); // $ExpectType number
+    _.indexOf(simpleStringObjectArray, simpleStringObjectItem, isSorted); // $ExpectType number
 
-        result = _.indexOf(simpleStringObjectArray, item);
-        result = _.indexOf(simpleStringObjectArray, item, isSorted);
+    _(simpleStringObjectArray).indexOf(simpleStringObjectItem); // $ExpectType number
+    _(simpleStringObjectArray).indexOf(simpleStringObjectItem, isSorted); // $ExpectType number
 
-        result = _(simpleStringObjectArray).indexOf(item);
-        result = _(simpleStringObjectArray).indexOf(item, isSorted);
+    _.chain(simpleStringObjectArray).indexOf(simpleStringObjectItem); // $ExpectType _ChainSingle<number>
+    _.chain(simpleStringObjectArray).indexOf(simpleStringObjectItem, isSorted); // $ExpectType _ChainSingle<number>
 
-        result = _.chain(simpleStringObjectArray).indexOf(item).value();
-        result = _.chain(simpleStringObjectArray).indexOf(item, isSorted).value();
+    _.chain(simpleStringObjectArray).indexOf(simpleStringObjectItem); // $ExpectType _ChainSingle<number>
+    _.chain(simpleStringObjectArray).indexOf(simpleStringObjectItem, isSorted); // $ExpectType _ChainSingle<number>
 
-        result = _.chain(simpleStringObjectArray).indexOf(item).value();
-        result = _.chain(simpleStringObjectArray).indexOf(item, isSorted).value();
-    }
+    _.indexOf(simpleStringObjectList, simpleStringObjectItem); // $ExpectType number
+    _.indexOf(simpleStringObjectList, simpleStringObjectItem, isSorted); // $ExpectType number
 
-    {
-        const item = simpleStringObjectList[0];
-        let result: number;
+    _(simpleStringObjectList).indexOf(simpleStringObjectItem); // $ExpectType number
+    _(simpleStringObjectList).indexOf(simpleStringObjectItem, isSorted); // $ExpectType number
 
-        result = _.indexOf(simpleStringObjectList, item);
-        result = _.indexOf(simpleStringObjectList, item, isSorted);
+    _.chain(simpleStringObjectList).indexOf(simpleStringObjectItem); // $ExpectType _ChainSingle<number>
+    _.chain(simpleStringObjectList).indexOf(simpleStringObjectItem, isSorted); // $ExpectType _ChainSingle<number>
 
-        result = _(simpleStringObjectList).indexOf(item);
-        result = _(simpleStringObjectList).indexOf(item, isSorted);
+    _.chain(simpleStringObjectList).indexOf(simpleStringObjectItem); // $ExpectType _ChainSingle<number>
+    _.chain(simpleStringObjectList).indexOf(simpleStringObjectItem, isSorted); // $ExpectType _ChainSingle<number>
 
-        result = _.chain(simpleStringObjectList).indexOf(item).value();
-        result = _.chain(simpleStringObjectList).indexOf(item, isSorted).value();
+    _.indexOf(simpleString, simpleStringItem); // $ExpectType number
+    _.indexOf(simpleString, simpleStringItem, isSorted); // $ExpectType number
 
-        result = _.chain(simpleStringObjectList).indexOf(item).value();
-        result = _.chain(simpleStringObjectList).indexOf(item, isSorted).value();
-    }
+    _(simpleString).indexOf(simpleStringItem); // $ExpectType number
+    _(simpleString).indexOf(simpleStringItem, isSorted); // $ExpectType number
 
-    {
-        const item = simpleString[0];
-        let result: number;
-
-        result = _.indexOf(simpleString, item);
-        result = _.indexOf(simpleString, item, isSorted);
-
-        result = _(simpleString).indexOf(item);
-        result = _(simpleString).indexOf(item, isSorted);
-
-        result = _.chain(simpleString).indexOf(item).value();
-        result = _.chain(simpleString).indexOf(item, isSorted).value();
-    }
+    _.chain(simpleString).indexOf(simpleStringItem); // $ExpectType _ChainSingle<number>
+    _.chain(simpleString).indexOf(simpleStringItem, isSorted); // $ExpectType _ChainSingle<number>
 }
 
 // lastIndexof
 {
     const fromIndex = 1;
+    const simpleStringObjectItem = simpleStringObjectArray[0];
+    const simpleStringItem = simpleString[0];
 
-    {
-        const item = simpleStringObjectArray[0];
-        let result: number;
+    _.lastIndexOf(simpleStringObjectArray, simpleStringObjectItem); // $ExpectType number
+    _.lastIndexOf(simpleStringObjectArray, simpleStringObjectItem, fromIndex); // $ExpectType number
 
-        result = _.lastIndexOf(simpleStringObjectArray, item);
-        result = _.lastIndexOf(simpleStringObjectArray, item, fromIndex);
+    _(simpleStringObjectArray).lastIndexOf(simpleStringObjectItem); // $ExpectType number
+    _(simpleStringObjectArray).lastIndexOf(simpleStringObjectItem, fromIndex); // $ExpectType number
 
-        result = _(simpleStringObjectArray).lastIndexOf(item);
-        result = _(simpleStringObjectArray).lastIndexOf(item, fromIndex);
+    _.chain(simpleStringObjectArray).lastIndexOf(simpleStringObjectItem); // $ExpectType _ChainSingle<number>
+    _.chain(simpleStringObjectArray).lastIndexOf(simpleStringObjectItem, fromIndex); // $ExpectType _ChainSingle<number>
 
-        result = _.chain(simpleStringObjectArray).lastIndexOf(item).value();
-        result = _.chain(simpleStringObjectArray).lastIndexOf(item, fromIndex).value();
+    _.chain(simpleStringObjectArray).lastIndexOf(simpleStringObjectItem); // $ExpectType _ChainSingle<number>
+    _.chain(simpleStringObjectArray).lastIndexOf(simpleStringObjectItem, fromIndex); // $ExpectType _ChainSingle<number>
 
-        result = _.chain(simpleStringObjectArray).lastIndexOf(item).value();
-        result = _.chain(simpleStringObjectArray).lastIndexOf(item, fromIndex).value();
-    }
+    _.lastIndexOf(simpleStringObjectList, simpleStringObjectItem); // $ExpectType number
+    _.lastIndexOf(simpleStringObjectList, simpleStringObjectItem, fromIndex); // $ExpectType number
 
-    {
-        const item = simpleStringObjectList[0];
-        let result: number;
+    _(simpleStringObjectList).lastIndexOf(simpleStringObjectItem); // $ExpectType number
+    _(simpleStringObjectList).lastIndexOf(simpleStringObjectItem, fromIndex); // $ExpectType number
 
-        result = _.lastIndexOf(simpleStringObjectList, item);
-        result = _.lastIndexOf(simpleStringObjectList, item, fromIndex);
+    _.chain(simpleStringObjectList).lastIndexOf(simpleStringObjectItem); // $ExpectType _ChainSingle<number>
+    _.chain(simpleStringObjectList).lastIndexOf(simpleStringObjectItem, fromIndex); // $ExpectType _ChainSingle<number>
 
-        result = _(simpleStringObjectList).lastIndexOf(item);
-        result = _(simpleStringObjectList).lastIndexOf(item, fromIndex);
+    _.chain(simpleStringObjectList).lastIndexOf(simpleStringObjectItem); // $ExpectType _ChainSingle<number>
+    _.chain(simpleStringObjectList).lastIndexOf(simpleStringObjectItem, fromIndex); // $ExpectType _ChainSingle<number>
 
-        result = _.chain(simpleStringObjectList).lastIndexOf(item).value();
-        result = _.chain(simpleStringObjectList).lastIndexOf(item, fromIndex).value();
+    _.lastIndexOf(simpleString, simpleStringItem); // $ExpectType number
+    _.lastIndexOf(simpleString, simpleStringItem, fromIndex); // $ExpectType number
 
-        result = _.chain(simpleStringObjectList).lastIndexOf(item).value();
-        result = _.chain(simpleStringObjectList).lastIndexOf(item, fromIndex).value();
-    }
+    _(simpleString).lastIndexOf(simpleStringItem); // $ExpectType number
+    _(simpleString).lastIndexOf(simpleStringItem, fromIndex); // $ExpectType number
 
-    {
-        const item = simpleString[0];
-        let result: number;
-
-        result = _.lastIndexOf(simpleString, item);
-        result = _.lastIndexOf(simpleString, item, fromIndex);
-
-        result = _(simpleString).lastIndexOf(item);
-        result = _(simpleString).lastIndexOf(item, fromIndex);
-
-        result = _.chain(simpleString).lastIndexOf(item).value();
-        result = _.chain(simpleString).lastIndexOf(item, fromIndex).value();
-    }
+    _.chain(simpleString).lastIndexOf(simpleStringItem); // $ExpectType _ChainSingle<number>
+    _.chain(simpleString).lastIndexOf(simpleStringItem, fromIndex); // $ExpectType _ChainSingle<number>
 }
 
 // sortedIndex
 {
+    const simpleStringItem = 'b';
+    const simpleStringObjectItem = simpleStringObjectArray[0];
+
     // no iterator
-    {
-        const item = 'b';
-        let result: number;
+    _.sortedIndex(simpleStringArray, simpleStringItem); // $ExpectType number
 
-        result = _.sortedIndex(simpleStringArray, item);
+    _(simpleStringArray).sortedIndex(simpleStringItem); // $ExpectType number
 
-        result = _(simpleStringArray).sortedIndex(item);
+    _.chain(simpleStringArray).sortedIndex(simpleStringItem); // $ExpectType _ChainSingle<number>
 
-        result = _.chain(simpleStringArray).sortedIndex(item).value();
-    }
+    _.sortedIndex(simpleStringList, simpleStringItem); // $ExpectType number
 
-    {
-        const item = 'b';
-        let result: number;
+    _(simpleStringList).sortedIndex(simpleStringItem); // $ExpectType number
 
-        result = _.sortedIndex(simpleStringList, item);
+    _.chain(simpleStringList).sortedIndex(simpleStringItem); // $ExpectType _ChainSingle<number>
 
-        result = _(simpleStringList).sortedIndex(item);
+    _.sortedIndex(simpleString, simpleStringItem); // $ExpectType number
 
-        result = _.chain(simpleStringList).sortedIndex(item).value();
-    }
+    _(simpleString).sortedIndex(simpleStringItem); // $ExpectType number
 
-    {
-        const item = 'b';
-        let result: number;
-
-        result = _.sortedIndex(simpleString, item);
-
-        result = _(simpleString).sortedIndex(item);
-
-        result = _.chain(simpleString).sortedIndex(item).value();
-    }
+    _.chain(simpleString).sortedIndex(simpleStringItem); // $ExpectType _ChainSingle<number>
 
     // function iterator
-    {
-        const item = simpleStringObjectArray[0];
-        let result: number;
+    _.sortedIndex(simpleStringObjectArray, simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator); // $ExpectType number
+    _.sortedIndex(simpleStringObjectArray, simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType number
 
-        result = _.sortedIndex(simpleStringObjectArray, item, simpleStringObjectListPropertySelectingIterator);
-        result = _.sortedIndex(simpleStringObjectArray, item, simpleStringObjectListPropertySelectingIterator, context);
+    _(simpleStringObjectArray).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator); // $ExpectType number
+    _(simpleStringObjectArray).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType number
 
-        result = _(simpleStringObjectArray).sortedIndex(item, simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectArray).sortedIndex(item, simpleStringObjectListPropertySelectingIterator, context);
+    _.chain(simpleStringObjectArray).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator); // $ExpectType _ChainSingle<number>
+    _.chain(simpleStringObjectArray).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _ChainSingle<number>
 
-        result = _.chain(simpleStringObjectArray).sortedIndex(item, simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectArray).sortedIndex(item, simpleStringObjectListPropertySelectingIterator, context).value();
-    }
+    _.sortedIndex(simpleStringObjectList, simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator); // $ExpectType number
+    _.sortedIndex(simpleStringObjectList, simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType number
 
-    {
-        const item = simpleStringObjectList[0];
-        let result: number;
+    _(simpleStringObjectList).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator); // $ExpectType number
+    _(simpleStringObjectList).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType number
 
-        result = _.sortedIndex(simpleStringObjectList, item, simpleStringObjectListPropertySelectingIterator);
-        result = _.sortedIndex(simpleStringObjectList, item, simpleStringObjectListPropertySelectingIterator, context);
-
-        result = _(simpleStringObjectList).sortedIndex(item, simpleStringObjectListPropertySelectingIterator);
-        result = _(simpleStringObjectList).sortedIndex(item, simpleStringObjectListPropertySelectingIterator, context);
-
-        result = _.chain(simpleStringObjectList).sortedIndex(item, simpleStringObjectListPropertySelectingIterator).value();
-        result = _.chain(simpleStringObjectList).sortedIndex(item, simpleStringObjectListPropertySelectingIterator, context).value();
-    }
+    _.chain(simpleStringObjectList).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator); // $ExpectType _ChainSingle<number>
+    _.chain(simpleStringObjectList).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _ChainSingle<number>
 
     // property name iterator
-    {
-        const item = simpleStringObjectArray[0];
-        let result: number;
+    _.sortedIndex(simpleStringObjectArray, simpleStringObjectItem, simpleStringObjectPropertyName); // $ExpectType number
 
-        result = _.sortedIndex(simpleStringObjectArray, item, simpleStringObjectPropertyName);
+    _(simpleStringObjectArray).sortedIndex(simpleStringObjectItem, simpleStringObjectPropertyName); // $ExpectType number
 
-        result = _(simpleStringObjectArray).sortedIndex(item, simpleStringObjectPropertyName);
+    _.chain(simpleStringObjectArray).sortedIndex(simpleStringObjectItem, simpleStringObjectPropertyName); // $ExpectType _ChainSingle<number>
 
-        result = _.chain(simpleStringObjectArray).sortedIndex(item, simpleStringObjectPropertyName).value();
-    }
+    _.sortedIndex(simpleStringObjectList, simpleStringObjectItem, simpleStringObjectPropertyName); // $ExpectType number
 
-    {
-        const item = simpleStringObjectList[0];
-        let result: number;
+    _(simpleStringObjectList).sortedIndex(simpleStringObjectItem, simpleStringObjectPropertyName); // $ExpectType number
 
-        result = _.sortedIndex(simpleStringObjectList, item, simpleStringObjectPropertyName);
-
-        result = _(simpleStringObjectList).sortedIndex(item, simpleStringObjectPropertyName);
-
-        result = _.chain(simpleStringObjectList).sortedIndex(item, simpleStringObjectPropertyName).value();
-    }
+    _.chain(simpleStringObjectList).sortedIndex(simpleStringObjectItem, simpleStringObjectPropertyName); // $ExpectType _ChainSingle<number>
 }
 
 // findIndex
 {
-    {
-        let result: number;
+    _.findIndex(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType number
+    _.findIndex(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType number
 
-        result = _.findIndex(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
-        result = _.findIndex(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+    _(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator); // $ExpectType number
+    _(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType number
 
-        result = _(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<number>
+    _.chain(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<number>
 
-        result = _.chain(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator, context).value();
-    }
+    _.findIndex(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType number
 
-    {
-        let result: number;
+    _(simpleStringObjectArray).findIndex(simpleStringObjectPartialPropertyMatch); // $ExpectType number
 
-        result = _.findIndex(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectArray).findIndex(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<number>
 
-        result = _(simpleStringObjectArray).findIndex(simpleStringObjectPartialPropertyMatch);
+    _.findIndex(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType number
+    _.findIndex(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType number
 
-        result = _.chain(simpleStringObjectArray).findIndex(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator); // $ExpectType number
+    _(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType number
 
-    {
-        let result: number;
+    _.chain(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<number>
+    _.chain(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<number>
 
-        result = _.findIndex(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
-        result = _.findIndex(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+    _.findIndex(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType number
 
-        result = _(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator, context);
+    _(simpleStringObjectList).findIndex(simpleStringObjectPartialPropertyMatch); // $ExpectType number
 
-        result = _.chain(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator, context).value();
-    }
+    _.chain(simpleStringObjectList).findIndex(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<number>
 
-    {
-        let result: number;
+    _.findIndex(simpleString, stringListComparingIterator); // $ExpectType number
+    _.findIndex(simpleString, stringListComparingIterator, context); // $ExpectType number
 
-        result = _.findIndex(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+    _(simpleString).findIndex(stringListComparingIterator); // $ExpectType number
+    _(simpleString).findIndex(stringListComparingIterator, context); // $ExpectType number
 
-        result = _(simpleStringObjectList).findIndex(simpleStringObjectPartialPropertyMatch);
-
-        result = _.chain(simpleStringObjectList).findIndex(simpleStringObjectPartialPropertyMatch).value();
-    }
-
-    {
-        let result: number;
-
-        result = _.findIndex(simpleString, stringListComparingIterator);
-        result = _.findIndex(simpleString, stringListComparingIterator, context);
-
-        result = _(simpleString).findIndex(stringListComparingIterator);
-        result = _(simpleString).findIndex(stringListComparingIterator, context);
-
-        result = _.chain(simpleString).findIndex(stringListComparingIterator).value();
-        result = _.chain(simpleString).findIndex(stringListComparingIterator, context).value();
-    }
+    _.chain(simpleString).findIndex(stringListComparingIterator); // $ExpectType _ChainSingle<number>
+    _.chain(simpleString).findIndex(stringListComparingIterator, context); // $ExpectType _ChainSingle<number>
 }
 
 // findLastIndex
 {
-    {
-        let result: number;
+    _.findLastIndex(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType number
+    _.findLastIndex(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType number
 
-        result = _.findLastIndex(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
-        result = _.findLastIndex(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+    _(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator); // $ExpectType number
+    _(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType number
 
-        result = _(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator, context);
+    _.chain(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<number>
+    _.chain(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<number>
 
-        result = _.chain(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator, context).value();
-    }
+    _.findLastIndex(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType number
+    _.findLastIndex(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType number
 
-    {
-        const array: { a: string, b: string }[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'd' }];
-        let result: number;
+    _(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator); // $ExpectType number
+    _(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType number
 
-        result = _.findLastIndex(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+    _.chain(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<number>
+    _.chain(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<number>
 
-        result = _(simpleStringObjectArray).findLastIndex(simpleStringObjectPartialPropertyMatch);
+    _.findLastIndex(simpleString, stringListComparingIterator); // $ExpectType number
+    _.findLastIndex(simpleString, stringListComparingIterator, context); // $ExpectType number
 
-        result = _.chain(simpleStringObjectArray).findLastIndex(simpleStringObjectPartialPropertyMatch).value();
-    }
+    _(simpleString).findLastIndex(stringListComparingIterator); // $ExpectType number
+    _(simpleString).findLastIndex(stringListComparingIterator, context); // $ExpectType number
 
-    {
-        let result: number;
+    _.chain(simpleString).findLastIndex(stringListComparingIterator); // $ExpectType _ChainSingle<number>
+    _.chain(simpleString).findLastIndex(stringListComparingIterator, context); // $ExpectType _ChainSingle<number>
 
-        result = _.findLastIndex(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
-        result = _.findLastIndex(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+    // partial property iterator
+    _.findLastIndex(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType number
 
-        result = _(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator);
-        result = _(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator, context);
+    _(simpleStringObjectArray).findLastIndex(simpleStringObjectPartialPropertyMatch); // $ExpectType number
 
-        result = _.chain(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator).value();
-        result = _.chain(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator, context).value();
-    }
+    _.chain(simpleStringObjectArray).findLastIndex(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<number>
 
-    {
-        let result: number;
+    _.findLastIndex(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType number
 
-        result = _.findLastIndex(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+    _(simpleStringObjectList).findLastIndex(simpleStringObjectPartialPropertyMatch); // $ExpectType number
 
-        result = _(simpleStringObjectList).findLastIndex(simpleStringObjectPartialPropertyMatch);
-
-        result = _.chain(simpleStringObjectList).findLastIndex(simpleStringObjectPartialPropertyMatch).value();
-    }
-
-    {
-        let result: number;
-
-        result = _.findLastIndex(simpleString, stringListComparingIterator);
-        result = _.findLastIndex(simpleString, stringListComparingIterator, context);
-
-        result = _(simpleString).findLastIndex(stringListComparingIterator);
-        result = _(simpleString).findLastIndex(stringListComparingIterator, context);
-
-        result = _.chain(simpleString).findLastIndex(stringListComparingIterator).value();
-        result = _.chain(simpleString).findLastIndex(stringListComparingIterator, context).value();
-    }
+    _.chain(simpleStringObjectList).findLastIndex(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<number>
 }
 
 // range
@@ -4528,100 +3329,49 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     const start = 0;
     const stop = 10;
     const step = 1;
-    let result: number[];
 
-    result = _.range(stop);
-    result = _.range(start, stop);
-    result = _.range(start, stop, step);
+    _.range(stop); // $ExpectType number[]
+    _.range(start, stop); // $ExpectType number[]
+    _.range(start, stop, step); // $ExpectType number[]
 
-    result = _(stop).range();
-    result = _(start).range(stop);
-    result = _(start).range(stop, step);
+    _(stop).range(); // $ExpectType number[]
+    _(start).range(stop); // $ExpectType number[]
+    _(start).range(stop, step); // $ExpectType number[]
 
-    result = _.chain(stop).range().value();
-    result = _.chain(start).range(stop).value();
-    result = _.chain(start).range(stop, step).value();
+    _.chain(stop).range(); // $ExpectType _Chain<number, number[]>
+    _.chain(start).range(stop); // $ExpectType _Chain<number, number[]>
+    _.chain(start).range(stop, step); // $ExpectType _Chain<number, number[]>
 }
 
 // OOP Style
 
 // underscore
 {
-    {
-        let result: _.Underscore<SimpleStringObject, SimpleStringObject[]>;
+    _(simpleStringObjectArray); // $ExpectType Underscore<SimpleStringObject, SimpleStringObject[]>
 
-        // $ExpectType Underscore<SimpleStringObject, SimpleStringObject[]>
-        result = _(simpleStringObjectArray);
-    }
+    _(simpleStringObjectListWithExtraProperties) // $ExpectType Underscore<SimpleStringObject, SimpleStringObjectListWithExtraProperties>
+    _(simpleStringObjectList); // $ExpectType Underscore<SimpleStringObject, List<SimpleStringObject>>
 
-    {
-        let result: _.Underscore<SimpleStringObject, _.List<SimpleStringObject>>;
+    _(stronglyKeyedSimpleStringObjectDictionary) // $ExpectType Underscore<SimpleStringObject, StronglyKeyedSimpleStringObjectDictionary>
+    _(simpleStringObjectDictionary); // $ExpectType Underscore<SimpleStringObject, Dictionary<SimpleStringObject>>
 
-        // $ExpectType Underscore<SimpleStringObject, List<SimpleStringObject>>
-        result = _(simpleStringObjectList);
-    }
-
-    {
-        let result: _.Underscore<SimpleStringObject, _.Dictionary<SimpleStringObject>>;
-
-        // $ExpectType Underscore<SimpleStringObject, Dictionary<SimpleStringObject>>
-        result = _(simpleStringObjectDictionary);
-
-    }
-
-    {
-        let result: _.Underscore<string, string>;
-
-        // $ExpectType Underscore<string, string>
-        result = _(simpleString);
-    }
-
-    {
-        let result: _.Underscore<number, number>;
-
-        // $ExpectType Underscore<number, number>
-        result = _(simpleNumber);
-    }
+    _(simpleString); // $ExpectType Underscore<string, string>
+    _(simpleNumber); // $ExpectType Underscore<never, number>
 }
 
 // value
-// verify that the object given to underscore is returned by value
+// verify that the object type given to underscore is returned by value
 {
-    {
-        let result: SimpleStringObject[];
+    _(simpleStringObjectArray).value(); // $ExpectType SimpleStringObject[]
 
-        // $ExpectType SimpleStringObject[]
-        result = _(simpleStringObjectArray).value();
-    }
+    _(simpleStringObjectListWithExtraProperties).value(); // $ExpectType SimpleStringObjectListWithExtraProperties
+    _(simpleStringObjectList).value(); // $ExpectType List<SimpleStringObject>
 
-    {
-        let result: _.List<SimpleStringObject>;
+    _(stronglyKeyedSimpleStringObjectDictionary).value(); // $ExpectType StronglyKeyedSimpleStringObjectDictionary
+    _(simpleStringObjectDictionary).value(); // $ExpectType Dictionary<SimpleStringObject>
 
-        // $ExpectType List<SimpleStringObject>
-        result = _(simpleStringObjectList).value();
-    }
-
-    {
-        let result: _.Dictionary<SimpleStringObject>;
-
-        // $ExpectType Dictionary<SimpleStringObject>
-        result = _(simpleStringObjectDictionary).value();
-
-    }
-
-    {
-        let result: string;
-
-        // $ExpectType string
-        result = _(simpleString).value();
-    }
-
-    {
-        let result: number;
-
-        // $ExpectType number
-        result = _(simpleNumber).value();
-    }
+    _(simpleString).value(); // $ExpectType string
+    _(simpleNumber).value(); // $ExpectType number
 }
 
 // Chaining
@@ -4630,96 +3380,41 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 // verify that the right chain item and value types are yielded by calls to chain
 // these tests also check to make sure that _.chain() and _().chain() yield the same types
 {
-    {
-        let result: _._Chain<SimpleStringObject, SimpleStringObject[]>;
+    _.chain(simpleStringObjectArray); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    _(simpleStringObjectArray).chain(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
 
-        // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-        result = _.chain(simpleStringObjectArray);
+    _.chain(simpleStringObjectListWithExtraProperties); // $ExpectType _Chain<SimpleStringObject, SimpleStringObjectListWithExtraProperties>
+    _(simpleStringObjectListWithExtraProperties).chain(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObjectListWithExtraProperties>
 
-        // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-        result = _(simpleStringObjectArray).chain();
-    }
+    _.chain(simpleStringObjectList); // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
+    _(simpleStringObjectList).chain(); // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
 
-    {
-        let result: _._Chain<SimpleStringObject, _.List<SimpleStringObject>>;
+    _.chain(stronglyKeyedSimpleStringObjectDictionary); // $ExpectType _Chain<SimpleStringObject, StronglyKeyedSimpleStringObjectDictionary>
+    _(stronglyKeyedSimpleStringObjectDictionary).chain(); // $ExpectType _Chain<SimpleStringObject, StronglyKeyedSimpleStringObjectDictionary>
 
-        // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
-        result = _.chain(simpleStringObjectList);
+    _.chain(simpleStringObjectDictionary); // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
+    _(simpleStringObjectDictionary).chain(); // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
 
-        // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
-        result = _(simpleStringObjectList).chain();
-    }
+    _.chain(simpleString); // $ExpectType _Chain<string, string>
+    _(simpleString).chain(); // $ExpectType _Chain<string, string>
 
-    {
-        let result: _._Chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>;
-
-        // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
-        result = _.chain(simpleStringObjectDictionary);
-
-        // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
-        result = _(simpleStringObjectDictionary).chain();
-
-    }
-
-    {
-        let result: _._Chain<string, string>;
-
-        // $ExpectType _Chain<string, string>
-        result = _.chain(simpleString);
-
-        // $ExpectType _Chain<string, string>
-        result = _(simpleString).chain();
-    }
-
-    {
-        let result: _._Chain<number, number>;
-
-        // $ExpectType _Chain<number, number>
-        result = _.chain(simpleNumber);
-
-        // $ExpectType _Chain<number, number>
-        result = _(simpleNumber).chain();
-    }
+    _.chain(simpleNumber); // $ExpectType _Chain<never, number>
+    _(simpleNumber).chain(); // $ExpectType _Chain<never, number>
 }
 
 // value
-// verify that the object given to chain is returned by value
+// verify that the object type given to chain is returned by value
 {
-    {
-        let result: SimpleStringObject[];
+    _.chain(simpleStringObjectArray).value(); // $ExpectType SimpleStringObject[]
 
-        // $ExpectType SimpleStringObject[]
-        result = _.chain(simpleStringObjectArray).value();
-    }
+    _.chain(simpleStringObjectListWithExtraProperties).value(); // $ExpectType SimpleStringObjectListWithExtraProperties
+    _.chain(simpleStringObjectList).value(); // $ExpectType List<SimpleStringObject>
 
-    {
-        let result: _.List<SimpleStringObject>;
+    _.chain(stronglyKeyedSimpleStringObjectDictionary).value(); // $ExpectType StronglyKeyedSimpleStringObjectDictionary
+    _.chain(simpleStringObjectDictionary).value(); // $ExpectType Dictionary<SimpleStringObject>
 
-        // $ExpectType List<SimpleStringObject>
-        result = _.chain(simpleStringObjectList).value();
-    }
-
-    {
-        let result: _.Dictionary<SimpleStringObject>;
-
-        // $ExpectType Dictionary<SimpleStringObject>
-        result = _.chain(simpleStringObjectDictionary).value();
-
-    }
-
-    {
-        let result: string;
-
-        // $ExpectType string
-        result = _.chain(simpleString).value();
-    }
-
-    {
-        let result: number;
-
-        // $ExpectType number
-        result = _.chain(simpleNumber).value();
-    }
+    _.chain(simpleString).value(); // $ExpectType string
+    _.chain(simpleNumber).value(); // $ExpectType number
 }
 
 var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);

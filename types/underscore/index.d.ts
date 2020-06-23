@@ -165,7 +165,7 @@ declare module _ {
         **/
         <T extends TypeOfList<V>, V extends List<any> = List<T>>(value: V): Underscore<T, V>;
         <T extends TypeOfDictionary<V>, V extends Dictionary<any> = Dictionary<T>>(value: V): Underscore<T, V>;
-        <V>(value: V): Underscore<V>;
+        <V>(value: V): Underscore<never, V>;
 
         /* *************
         * Collections *
@@ -590,7 +590,7 @@ declare module _ {
         max<T>(
             list: List<T>,
             iterator: ListIterator<T, number>,
-            context?: any): T;
+            context?: any): T | number;
 
         /**
         * @see max
@@ -773,7 +773,7 @@ declare module _ {
         /**
         * @see sample
         **/
-        sample<T>(collection: Collection<T>): T;
+        sample<T>(collection: Collection<T>): T | undefined;
 
         /**
         * Converts the collection (anything that can be iterated over), into a real Array. Useful for transmuting
@@ -4115,7 +4115,7 @@ declare module _ {
         **/
         chain<T extends TypeOfList<V>, V extends List<any> = List<T>>(value: V): _Chain<T, V>;
         chain<T extends TypeOfDictionary<V>, V extends Dictionary<any> = Dictionary<T>>(value: V): _Chain<T, V>;
-        chain<V>(value: V): _Chain<V>;
+        chain<V>(value: V): _Chain<never, V>;
 
         /**
          * Current version
@@ -4151,6 +4151,12 @@ declare module _ {
         * @see map
         **/
         map<K extends KeysOfUnion<T>>(iterator: K): TypesOfUnionProperty<T, K>[];
+
+        /**
+        * Wrapped type Collection<T>.
+        * @see map
+        **/
+        map(iterator: string): any[]
 
         /**
         * Wrapped type Collection<T>.
@@ -5079,6 +5085,12 @@ declare module _ {
         * @see map
         **/
         map<K extends KeysOfUnion<T>>(iterator: K): _Chain<TypesOfUnionProperty<T, K>, TypesOfUnionProperty<T, K>[]>;
+
+        /**
+        * Wrapped type Collection<T>.
+        * @see map
+        **/
+        map(iterator: string): _Chain<any, any[]>;
 
         /**
         * Wrapped type Collection<T>.
