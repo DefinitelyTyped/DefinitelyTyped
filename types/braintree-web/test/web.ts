@@ -46,6 +46,35 @@ braintree.client.create({
     console.log('Got nonce:', response.creditCards[0].nonce);
   });
 
+  const googlePaymentsClient = new google.payments.api.PaymentsClient({});
+
+  braintree.googlePayment.create({
+    client: clientInstance
+  }).then((googlePayInstance: braintree.GooglePayment) => {
+    let button = new HTMLButtonElement();
+
+    button.addEventListener('click', function (event) {
+
+      event.preventDefault();
+
+      googlePayInstance.createPaymentDataRequest({
+        transactionInfo: {
+          currencyCode: 'USD',
+          totalPriceStatus: 'FINAL',
+          totalPrice: '100.00'
+        }
+      }).then((paymentDataRequest: google.payments.api.PaymentDataRequest) => {
+        googlePaymentsClient.loadPaymentData(paymentDataRequest).then(function (paymentData) {
+          return googlePayInstance.parseResponse(paymentData);
+        }).then((result: braintree.GooglePaymentTokenizePayload) => {
+          console.log('nonce', result.nonce);
+        }).catch((err) => {
+          console.error(err);
+        });
+      });
+    });
+  });
+
   braintree.hostedFields.create({
     client: clientInstance,
     authorization: clientToken,
