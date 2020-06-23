@@ -5067,7 +5067,7 @@ declare namespace Office {
          *
          * The set method creates a new setting of the specified name if it does not already exist, or sets an existing setting of the specified name
          * in the in-memory copy of the settings property bag. After you call the Settings.saveAsync method, the value is stored in the document as
-         * the serialized JSON representation of its data type. A maximum of 2MB is available for the settings of each add-in.
+         * the serialized JSON representation of its data type.
          *
          * @param settingName The case-sensitive name of the setting to set or create.
          * @param value Specifies the value to be stored.
