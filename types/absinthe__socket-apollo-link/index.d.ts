@@ -1,6 +1,6 @@
 // Type definitions for @absinthe/socket-apollo-link 0.2
 // Project: https://github.com/absinthe-graphql/absinthe-socket/tree/master/packages/absinthe-phoenix-socket-apollo-link#readme
-// Definitions by: Maarten van Vliet <https://github.com/DefinitelyTyped>
+// Definitions by: Maarten van Vliet <https://github.com/maartenvanvliet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
