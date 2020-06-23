@@ -1,4 +1,4 @@
-// Type definitions for aria-query 3.0
+// Type definitions for aria-query 4.0
 // Project: https://github.com/A11yance/aria-query#readme
 // Definitions by: Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -298,9 +298,20 @@ export interface ARIARoleRelation {
 export interface ARIARoleRelationConcept {
     name: string;
     attributes?: ARIARoleRelationConceptAttribute[];
+    // These constraints are drawn from the mapping between ARIA and HTML:
+    // https://www.w3.org/TR/html-aria
+    constraints?: Array<
+        | 'direct descendant of document'
+        | 'direct descendant of ol, ul or menu'
+        | 'direct descendant of details element with the open attribute defined'
+        | 'descendant of table'
+    >;
 }
 
 export interface ARIARoleRelationConceptAttribute {
     name: string;
-    value?: string;
+    value?: string | number;
+    // These constraints are drawn from the mapping between ARIA and HTML:
+    // https://www.w3.org/TR/html-aria
+    constraints?: Array<'unset' | '>1'>;
 }
