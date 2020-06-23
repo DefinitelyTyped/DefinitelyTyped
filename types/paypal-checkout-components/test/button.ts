@@ -8,6 +8,8 @@ paypal.Button.render({
   },
 
   onAuthorize: async (data: paypal.AuthorizationData, actions: object): Promise<paypal.AuthorizationTokenizePayload> => {
+    console.log('onAuthorize', data, actions);
+
     return {
       nonce: 'foo',
       type: paypal.FlowType.Checkout,
@@ -20,17 +22,11 @@ paypal.Button.render({
     }
   },
 
-  onCancel: (data) => {
-    console.log('checkout.js payment cancelled', JSON.stringify(data, 0, 2));
+  onCancel: (data: paypal.CancellationData) => {
+    console.log('checkout.js payment cancelled', data);
   },
 
-  onError: (error: string) {
+  onError: (error: string) => {
     console.error('checkout.js error', error);
   }
 }, '#paypal-button');
-
-// .then(function () {
-//   // The PayPal button will be rendered in an html element with the id
-//   // `paypal-button`. This function will be called when the PayPal button
-//   // is set up and ready to be used.
-// });
