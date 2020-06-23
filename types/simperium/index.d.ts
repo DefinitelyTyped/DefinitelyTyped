@@ -48,12 +48,12 @@ export interface BucketObject<T> {
     isIndexing?: boolean;
 }
 
-type EntityCallback<T, E = Error | null> = (
+export type EntityCallback<T, E = Error | null> = (
     error: E extends null ? null : NonNullable<E>,
     entity: E extends null ? T : undefined,
 ) => void;
 
-type EntitiesCallback<T, E = Error | null> = (
+export type EntitiesCallback<T, E = Error | null> = (
     error: E extends null ? null : NonNullable<E>,
     entities: E extends null ? T[] : undefined,
 ) => void;
@@ -87,7 +87,10 @@ type DiffOp<T> =
     | { o: '-' }
     | { o: 'r'; v: T }
     | { o: 'I'; v: number }
-    | { o: 'L'; v: { [index: number]: T extends Array<infer U> ? DiffOp<U> : never } }
+    | {
+          o: 'L';
+          v: { [index: number]: T extends Array<infer U> ? DiffOp<U> : never };
+      }
     | { o: 'O'; v: JSONDiff<T> }
     | { o: 'd'; v: DMPDiff };
 
@@ -115,9 +118,10 @@ interface BucketEvent<T> extends SimperiumEvent {
     index: (cv: ChangeVersion) => void;
     indexing: () => void;
     remove: (entityId: EntityId) => void;
+    update: (entityId: EntityId, updatedEntity: T, remoteInfo: RemoteInfo<T>) => void;
 }
 
-interface RemoteInfo<T> {
+export interface RemoteInfo<T> {
     isIndexing: boolean;
     original: T;
     patch: JSONDiff<T>;
@@ -155,6 +159,8 @@ export interface Bucket<Name, T = null, Q = never> extends CustomEventEmitter<Bu
     ): Promise<BucketObject<T>>;
 }
 
+export function Bucket<T>(name: string, storeProvider: BucketStore<T>, channel?: Channel<T>): Bucket<T>;
+
 type LocalQueuedChange<T> =
     | { type: 'modify'; id: EntityId; object: T }
     | { type: 'full'; originalChange: Change<T>; object: T }
@@ -169,6 +175,7 @@ interface LocalQueueEvent<T> extends SimperiumEvent {
 interface LocalQueue<T> extends CustomEventEmitter<LocalQueueEvent<T>> {}
 
 interface ChannelEvent<T> extends SimperiumEvent {
+    acknowledge: (entityId: EntityId, change: Change<T>) => void;
     indexingStateChange: (isIndexing: boolean) => void;
     ready: () => void;
     send: (message: string) => void;
@@ -191,7 +198,13 @@ interface ClientConfig<Buckets> {
     websocketClientProvider: (url: string) => WebSocket;
 }
 
-export function initClient<Buckets>(
+export function Client<Buckets>(
+    appID: string,
+    token: string,
+    clientConfig?: Partial<ClientConfig<Buckets>>,
+): Client<Buckets>;
+
+export function createClient<Buckets>(
     appID: string,
     token: string,
     clientConfig?: Partial<ClientConfig<Buckets>>,
@@ -202,11 +215,10 @@ export function Auth(
     apiKey: string,
 ): {
     authorize(username: string, password: string): Promise<{ access_token?: string }>;
-
     create(username: string, password: string): Promise<{ access_token?: string }>;
 };
 
-export default initClient;
+export default createClient;
 
 interface SimperiumEvent {
     [type: string]: (...args: any[]) => void;
