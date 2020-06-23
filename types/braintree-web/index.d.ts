@@ -1,5 +1,3 @@
-/// <reference types="googlepay" />
-
 // Type definitions for Braintree-web v3.47.0
 // Project: https://github.com/braintree/braintree-web
 // Definitions by: Guy Shahine <https://github.com/chlela>
@@ -719,7 +717,7 @@ declare namespace braintree {
         totalPriceStatus: string;
         totalPrice: string;
       };
-    }): Promise<google.payments.api.PaymentDataRequest>;
+    }): Promise<any>;
 
     /**
      * Parse the response from the tokenization.
