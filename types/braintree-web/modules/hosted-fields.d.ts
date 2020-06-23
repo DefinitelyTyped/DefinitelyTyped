@@ -1,4 +1,3 @@
-
 interface HostedFieldsFieldMaskInput {
   /**
    * The character to use when masking the input.

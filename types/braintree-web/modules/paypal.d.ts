@@ -1,5 +1,7 @@
 /** @module braintree-web/paypal */
 declare namespace braintree {
+  export var paypal: PayPal;
+
   /**
    * @property {Function} close A handle to close the PayPal checkout flow.
    */
@@ -209,6 +211,4 @@ declare namespace braintree {
      */
     teardown(callback?: () => void): void;
   }
-
-  export var paypal: PayPal;
 }

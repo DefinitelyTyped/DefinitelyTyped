@@ -1,5 +1,7 @@
 /** @module braintree-web/venmo */
 declare namespace braintree {
+  export var venmo: Venmo;
+
   interface VenmoTokenizePayload {
     nonce: string;
     type: string;
@@ -112,6 +114,4 @@ declare namespace braintree {
     teardown(callback?: () => void): void;
     teardown(): Promise<void>;
   }
-
-  export var venmo: Venmo;
 }

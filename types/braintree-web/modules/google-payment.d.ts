@@ -2,7 +2,7 @@
 
 /** @module braintree-web/google-payment */
 declare namespace braintree {
-  export var googlePayment: braintree.GooglePayment;
+  export var googlePayment: GooglePayment;
 
   export type GooglePaymentTokenizeValues = 'Yes' | 'No' | 'Unknown';
 

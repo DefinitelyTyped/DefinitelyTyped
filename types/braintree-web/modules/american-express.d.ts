@@ -3,7 +3,7 @@
  * @description This module is for use with Amex Express Checkout. To accept American Express cards, use Hosted Fields.
  */
 declare namespace braintree {
-  export var americanExpress: braintree.AmericanExpress;
+  export var americanExpress: AmericanExpress;
 
   export interface AmericanExpress {
     /**

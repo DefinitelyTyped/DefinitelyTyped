@@ -3,7 +3,7 @@
  * @description This module allows you to accept UnionPay payments. *It is currently in beta and is subject to change.*
  */
 declare namespace braintree {
-  export var unionpay: braintree.UnionPay;
+  export var unionpay: UnionPay;
 
   /**
    * @property {string} nonce The payment method nonce.
