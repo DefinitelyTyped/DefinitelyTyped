@@ -14,6 +14,7 @@
 /// <reference path="./modules/paypal-checkout.d.ts" />
 /// <reference path="./modules/three-d-secure.d.ts" />
 /// <reference path="./modules/unionpay.d.ts" />
+/// <reference path="./modules/us-bank-account.d.ts" />
 /// <reference path="./modules/google-payment.d.ts" />
 /// <reference path="./modules/venmo.d.ts" />
 
