@@ -1,4 +1,4 @@
-// Type definitions for connect-datadog 0.0.9
+// Type definitions for connect-datadog 0.0
 // Project: https://github.com/datadog/node-connect-datadog
 // Definitions by: Moshe Good <https://github.com/moshegood>
 //                 Michael Mifsud <https://github.com/xzyfer>
