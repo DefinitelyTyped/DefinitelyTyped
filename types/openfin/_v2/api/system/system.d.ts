@@ -22,7 +22,7 @@ import { CrashReporterOption } from './crashReporterOption';
 import { SystemEvents } from '../events/system';
 import { InstalledApps } from './installedApps';
 import { CertifiedAppInfo } from './certifiedAppInfo';
-interface ServiceIdentifier {
+export interface ServiceIdentifier {
     name: string;
 }
 /**

@@ -95,7 +95,6 @@ declare namespace fin {
     type ApplySnapshotOptions = import('./_v2/shapes/Platform').ApplySnapshotOptions;
     type AnchorType = import('./_v2/shapes/shapes').AnchorType
     type Bounds = import('./_v2/shapes/shapes').Bounds;
-    type CertifiedAppInfo = import('./_v2/api/system/certifiedAppInfo').CertifiedAppInfo;
     type Channel = import('./_v2/api/interappbus/channel/index').Channel;
     type ChannelClient = import('./_v2/api/interappbus/channel/client').ChannelClient;
     type ClearCacheOption = import('./_v2/api/system/clearCacheOption').ClearCacheOption;

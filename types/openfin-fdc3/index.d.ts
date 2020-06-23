@@ -2,8 +2,7 @@
 // Project: https://github.com/HadoukenIO/fdc3-service#readme
 // Definitions by: bryangaleOF <https://github.com/bryangaleOF>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// Minimum TypeScript Version: 3.0
+// TypeScript Version: 3.6
 
 export as namespace fdc3;
 
