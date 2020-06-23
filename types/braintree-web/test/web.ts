@@ -454,6 +454,36 @@ braintree.client.create({
       }
     });
   });
+
+  braintree.venmo.create({ client: clientInstance }, function (createErr, venmoInstance) {
+    let button = new HTMLButtonElement();
+
+    button.addEventListener('click', function () {
+      // Disable the button so that we don't attempt to open multiple popups.
+      button.setAttribute('disabled', 'disabled');
+
+      // Because tokenize opens a new window, this must be called
+      // as a result of a user action, such as a button click.
+      venmoInstance.tokenize().then(function (payload: braintree.VenmoTokenizePayload) {
+        console.log(payload.nonce);
+      }).catch(function (tokenizeError: braintree.BraintreeError) {
+        // Handle flow errors or premature flow closure
+        switch (tokenizeError.code) {
+          case 'VENMO_APP_CANCELED':
+            console.log('User canceled Venmo flow.');
+            break;
+          case 'VENMO_CANCELED':
+            console.log('User canceled Venmo, or Venmo app is not available.');
+            break;
+          default:
+            console.error('Error!', tokenizeError);
+        }
+      }).then(function () {
+        button.removeAttribute('disabled');
+      });
+    });
+
+  });
 });
 
 let existingNonce = "fake-valid-nonce";

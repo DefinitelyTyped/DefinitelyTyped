@@ -1,3 +1,5 @@
+/// <reference types="googlepay" />
+
 /** @module braintree-web/google-payment */
 declare namespace braintree {
   export var googlePayment: braintree.GooglePayment;
@@ -163,7 +165,7 @@ declare namespace braintree {
     *
     * @returns {(Promise|void)} Returns a promise if no callback is provided.
     */
-    create(options: { client?: Client; authorization?: string; useDeferredClient?: boolean; googlePayVersion?: number; googleMerchantId?: string }): Promise<Venmo>;
+    create(options: { client?: Client; authorization?: string; useDeferredClient?: boolean; googlePayVersion?: number; googleMerchantId?: string }): Promise<GooglePayment>;
     create(options: { client?: Client; authorization?: string; useDeferredClient?: boolean; googlePayVersion?: number; googleMerchantId?: string }, callback?: callback): void;
 
     /**
@@ -245,7 +247,7 @@ declare namespace braintree {
         totalPriceStatus: string;
         totalPrice: string;
       };
-    }): Promise<any>;
+    }): Promise<google.payments.api.PaymentDataRequest>;
 
     /**
      * Parse the response from the tokenization.
