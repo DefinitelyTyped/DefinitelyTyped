@@ -1,42 +1,25 @@
 import ScrollMagic, { DestroyEvent, SceneProgressEvent } from 'scrollmagic';
 
-function test_originalTest() {
-    const myController = new ScrollMagic.Controller();
+const myController = new ScrollMagic.Controller();
 
-    const currentVersion = ScrollMagic.version;
+const currentVersion = ScrollMagic.version;
 
-    function handleDestroy(e: DestroyEvent) {
-        console.log(e);
-    }
-
-    function handleBorderCrossing(e: SceneProgressEvent<'enter'> | SceneProgressEvent<'leave'>) {
-        console.log(e.state);
-    }
-
-    const myScene = new ScrollMagic.Scene({
-        duration: 300,
-        loglevel: 2,
-        triggerHook: 'onLeave',
-        triggerElement: '#trigger',
-    })
-        .on('destroy', handleDestroy)
-        .on('enter leave', handleBorderCrossing)
-        .addTo(myController);
-
-    myScene.destroy();
+function handleDestroy(e: DestroyEvent) {
+    console.log(e);
 }
 
-function test_controllerContainerString() {
-    const mySelector = 'myElement';
-
-    const myController = new ScrollMagic.Controller({
-        container: mySelector,
-    });
+function handleBorderCrossing(e: SceneProgressEvent<'enter'> | SceneProgressEvent<'leave'>) {
+    console.log(e.state);
 }
-function test_controllerContainerElement() {
-    const myElement: HTMLDivElement = document.createElement('div');
 
-    const myController = new ScrollMagic.Controller({
-        container: myElement,
-    });
-}
+const myScene = new ScrollMagic.Scene({
+    duration: 300,
+    loglevel: 2,
+    triggerHook: 'onLeave',
+    triggerElement: '#trigger',
+})
+    .on('destroy', handleDestroy)
+    .on('enter leave', handleBorderCrossing)
+    .addTo(myController);
+
+myScene.destroy();
