@@ -1,4 +1,4 @@
-// Type definitions for Braintree-web v3.47.0
+// Type definitions for Braintree-web v3.62.0
 // Project: https://github.com/braintree/braintree-web
 // Definitions by: Guy Shahine <https://github.com/chlela>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
