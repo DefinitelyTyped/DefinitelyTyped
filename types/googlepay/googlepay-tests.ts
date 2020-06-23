@@ -26,6 +26,21 @@ const allowedPaymentMethods = new Array<google.payments.api.PaymentMethodSpecifi
     }
 });
 
+// $ExpectError
+allowedPaymentMethods[0].tokenizationSpecification = {
+    type: 'DIRECT',
+    parameters: {
+    }
+};
+
+allowedPaymentMethods[0].tokenizationSpecification = {
+    type: 'DIRECT',
+    parameters: {
+        protocolVersion: 'ECv2',
+        publicKey: 'BOdoXP1aiNp.....kh3JUhiSZKHYF2Y=',
+    }
+};
+
 const getGooglePaymentsClient = (env?: google.payments.api.Environment) => {
     return new google.payments.api.PaymentsClient({
         environment: env,

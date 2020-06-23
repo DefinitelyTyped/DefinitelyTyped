@@ -172,7 +172,8 @@ const pretty = pino({
         messageKey: 'msg',
         timestampKey: 'timestamp',
         translateTime: 'UTC:h:MM:ss TT Z',
-        search: 'foo == `bar`'
+        search: 'foo == `bar`',
+        suppressFlushSyncWarning: true
     }
 });
 
@@ -182,6 +183,14 @@ const withTimeFn = pino({
 
 const withNestedKey = pino({
     nestedKey: 'payload',
+});
+
+const withHooks = pino({
+    hooks: {
+        logMethod(args, method) {
+            return method.apply(this, args);
+        }
+    }
 });
 
 // Properties/types imported from pino-std-serializers

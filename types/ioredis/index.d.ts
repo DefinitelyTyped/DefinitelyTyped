@@ -918,6 +918,7 @@ declare namespace IORedis {
 
     interface Redis extends EventEmitter, Commander, Commands {
         Promise: typeof Promise;
+        options: RedisOptions;
         status: string;
         connect(callback?: () => void): Promise<void>;
         disconnect(): void;
@@ -1590,7 +1591,7 @@ declare namespace IORedis {
 
     type DNSLookupFunction = (
         hostname: string,
-        callback: (err: NodeJS.ErrnoException, address: string, family: number) => void,
+        callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
     ) => void;
     interface NatMap {
         [key: string]: { host: string; port: number };

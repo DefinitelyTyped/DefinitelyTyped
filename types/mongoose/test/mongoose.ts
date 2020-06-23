@@ -174,6 +174,9 @@ conn1.name.toLowerCase()
 conn1.host.toLowerCase()
 conn1.port.toFixed()
 conn1.useDb('myDb').useDb('');
+conn1.useDb('myDb').useDb('', {});
+conn1.useDb('myDb').useDb('', {useCache: false});
+conn1.useDb('myDb').useDb('', {useCache: true});
 mongoose.Connection.STATES.hasOwnProperty('');
 mongoose.Connection.STATES.disconnected === 0;
 mongoose.Connection.STATES.connected === 1;

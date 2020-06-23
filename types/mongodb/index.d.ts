@@ -293,7 +293,8 @@ export interface MongoClientOptions extends
     SSLOptions,
     TLSOptions,
     HighAvailabilityOptions,
-    WriteConcern {
+    WriteConcern,
+    UnifiedTopologyOptions {
 
     /**
      * The logging level (error/warn/info/debug)
@@ -336,18 +337,6 @@ export interface MongoClientOptions extends
      * the original parser, and aims to outright replace that parser in the near future.
      */
     useNewUrlParser?: boolean;
-
-    /**
-     * Enables the new unified topology layer
-     */
-    useUnifiedTopology?: boolean;
-
-    /**
-     * With `useUnifiedTopology`, the MongoDB driver will try to find a server to send any given operation to
-     * and keep retrying for `serverSelectionTimeoutMS` milliseconds.
-     * Default: 30000
-     */
-    serverSelectionTimeoutMS?: number;
 
     /**
      * number of retries for a tailable cursor
@@ -560,6 +549,64 @@ export interface DbCreateOptions extends CommonOptions {
      * working connection, default is -1 which is unlimited.
      */
     bufferMaxEntries?: number;
+}
+
+export interface UnifiedTopologyOptions {
+    /**
+     * Enables the new unified topology layer
+     */
+    useUnifiedTopology?: boolean;
+
+    /**
+     * **Only applies to the unified topology**
+     * The size of the latency window for selecting among multiple suitable servers
+     * @default 15
+     */
+    localThresholdMS?: number;
+
+    /**
+     * With `useUnifiedTopology`, the MongoDB driver will try to find a server to send any given operation to
+     * and keep retrying for `serverSelectionTimeoutMS` milliseconds.
+     * Default: 30000
+     */
+    serverSelectionTimeoutMS?: number;
+
+    /**
+     * **Only applies to the unified topology**
+     * The frequency with which topology updates are scheduled
+     * @default 10000
+     */
+    heartbeatFrequencyMS?: number;
+
+    /**
+     *  **Only applies to the unified topology**
+     * The maximum number of connections that may be associated with a pool at a given time.
+     * This includes in use and available connections
+     * @default 10
+     */
+    maxPoolSize?: number;
+
+    /**
+     * **Only applies to the unified topology**
+     * The minimum number of connections that MUST exist at any moment in a single connection pool.
+     * @default 0
+     */
+    minPoolSize?: number;
+
+    /**
+     * **Only applies to the unified topology**
+     * The maximum amount of time a connection should remain idle in the connection pool before being marked idle.
+     * @default Infinity
+     */
+    maxIdleTimeMS?: number;
+
+    /**
+     * **Only applies to the unified topology**
+     * The maximum amount of time operation execution should wait for a connection to become available.
+     * The default is 0 which means there is no limit.
+     * @default 0
+     */
+    waitQueueTimeoutMS?: number;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Server.html */
@@ -1228,10 +1275,25 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: UpdateOneOptions,
         callback: MongoCallback<UpdateWriteOpResult>,
     ): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.3/api/Collection.html#watch */
+    /**
+     * @param pipeline - an array of
+     * {@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/ aggregation pipeline stages}
+     * through which to pass change stream documents. This allows for filtering (using `$match`) and manipulating
+     * the change stream documents.
+     *
+     * @param options - optional settings
+     * @see http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#watch
+     */
     watch<T = TSchema>(
         pipeline?: object[],
         options?: ChangeStreamOptions & { session?: ClientSession },
+    ): ChangeStream<T>;
+    /**
+     * @param options - optional settings
+     * @see http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#watch
+     */
+    watch<T = TSchema>(
+      options?: ChangeStreamOptions & { session?: ClientSession },
     ): ChangeStream<T>;
 }
 
@@ -1467,59 +1529,59 @@ export type FilterQuery<T> = {
     RootQuerySelector<T>;
 
 /** https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#insertone */
-export type BulkWriteInsertOneOperation<T> = {
+export type BulkWriteInsertOneOperation<TSchema> = {
     insertOne: {
-        document: T
+        document: OptionalId<TSchema>
     }
 };
 
 /** https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#updateone-and-updatemany */
-export type BulkWriteUpdateOperation<T> = {
+export type BulkWriteUpdateOperation<TSchema> = {
     arrayFilters?: object[];
     collation?: object;
     hint?: string | object;
-    filter: FilterQuery<T>;
-    update: UpdateQuery<T>;
+    filter: FilterQuery<TSchema>;
+    update: UpdateQuery<TSchema>;
     upsert?: boolean;
 };
-export type BulkWriteUpdateOneOperation<T> = {
-    updateOne: BulkWriteUpdateOperation<T>;
+export type BulkWriteUpdateOneOperation<TSchema> = {
+    updateOne: BulkWriteUpdateOperation<TSchema>;
 };
-export type BulkWriteUpdateManyOperation<T> = {
-    updateMany: BulkWriteUpdateOperation<T>;
+export type BulkWriteUpdateManyOperation<TSchema> = {
+    updateMany: BulkWriteUpdateOperation<TSchema>;
 };
 
 /** https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#replaceone */
-export type BulkWriteReplaceOneOperation<T> = {
+export type BulkWriteReplaceOneOperation<TSchema> = {
     replaceOne: {
         collation?: object;
         hint?: string | object;
-        filter: FilterQuery<T>;
-        replacement: T;
+        filter: FilterQuery<TSchema>;
+        replacement: TSchema;
         upsert?: boolean;
     }
 };
 
 /** https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#deleteone-and-deletemany */
-export type BulkWriteDeleteOperation<T> = {
+export type BulkWriteDeleteOperation<TSchema> = {
     collation?: object;
-    filter: FilterQuery<T>;
+    filter: FilterQuery<TSchema>;
 };
-export type BulkWriteDeleteOneOperation<T> = {
-    deleteOne: BulkWriteDeleteOperation<T>;
+export type BulkWriteDeleteOneOperation<TSchema> = {
+    deleteOne: BulkWriteDeleteOperation<TSchema>;
 };
-export type BulkWriteDeleteManyOperation<T> = {
-    deleteMany: BulkWriteDeleteOperation<T>;
+export type BulkWriteDeleteManyOperation<TSchema> = {
+    deleteMany: BulkWriteDeleteOperation<TSchema>;
 };
 
 /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#bulkWrite */
-export type BulkWriteOperation<T> =
-    BulkWriteInsertOneOperation<T> |
-    BulkWriteUpdateOneOperation<T> |
-    BulkWriteUpdateManyOperation<T> |
-    BulkWriteReplaceOneOperation<T> |
-    BulkWriteDeleteOneOperation<T> |
-    BulkWriteDeleteManyOperation<T>;
+export type BulkWriteOperation<TSchema> =
+    BulkWriteInsertOneOperation<TSchema> |
+    BulkWriteUpdateOneOperation<TSchema> |
+    BulkWriteUpdateManyOperation<TSchema> |
+    BulkWriteReplaceOneOperation<TSchema> |
+    BulkWriteDeleteOneOperation<TSchema> |
+    BulkWriteDeleteManyOperation<TSchema>;
 
 /** http://docs.mongodb.org/manual/reference/command/collStats/ */
 export interface CollStats {

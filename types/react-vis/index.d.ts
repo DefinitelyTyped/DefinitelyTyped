@@ -2,7 +2,7 @@
 // Project: https://github.com/uber/react-vis#readme
 // Definitions by: Domino987 <https://github.com/Domino987>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
+// TypeScript Version: 3.9
 
 import {
     Component,
@@ -292,16 +292,24 @@ export interface LineSeriesCanvasProps extends AbstractSeriesProps<LineSeriesPoi
 }
 export class LineSeriesCanvas extends AbstractSeries<LineSeriesCanvasProps> {}
 
-export interface HorizontalBarSeriesProps extends AbstractSeriesProps<HorizontalBarSeriesPoint> {}
+export interface HorizontalBarSeriesProps extends AbstractSeriesProps<HorizontalBarSeriesPoint> {
+    barWidth: number;
+}
 export class HorizontalBarSeries extends AbstractSeries<HorizontalBarSeriesProps> {}
 
-export interface HorizontalBarSeriesCanvasProps extends AbstractSeriesProps<HorizontalBarSeriesPoint> {}
+export interface HorizontalBarSeriesCanvasProps extends AbstractSeriesProps<HorizontalBarSeriesPoint> {
+    barWidth: number;
+}
 export class HorizontalBarSeriesCanvas extends AbstractSeries<HorizontalBarSeriesCanvasProps> {}
 
-export interface VerticalBarSeriesProps extends AbstractSeriesProps<VerticalBarSeriesPoint> {}
+export interface VerticalBarSeriesProps extends AbstractSeriesProps<VerticalBarSeriesPoint> {
+    barWidth: number;
+}
 export class VerticalBarSeries extends AbstractSeries<VerticalBarSeriesProps> {}
 
-export interface VerticalBarSeriesCanvasProps extends AbstractSeriesProps<VerticalBarSeriesPoint> {}
+export interface VerticalBarSeriesCanvasProps extends AbstractSeriesProps<VerticalBarSeriesPoint> {
+    barWidth: number;
+}
 export class VerticalBarSeriesCanvas extends AbstractSeries<VerticalBarSeriesCanvasProps> {}
 
 export interface VerticalRectSeriesProps extends AbstractSeriesProps<VerticalRectSeriesPoint> {}

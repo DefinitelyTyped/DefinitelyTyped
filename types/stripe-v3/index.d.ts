@@ -16,6 +16,7 @@
 //                 Kevin Soltysiak <https://github.com/ksol>
 //                 Kohei Matsubara <https://github.com/matsuby>
 //                 Marko Kaznovac <https://github.com/kaznovac>
+//                 Hartley Robertson <https://github.com/hartleyrobertson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -995,6 +996,7 @@ declare namespace stripe {
 
         interface StyleOptions {
             color?: string;
+            backgroundColor?: string;
             fontFamily?: string;
             fontSize?: string;
             fontSmoothing?: string;

@@ -13,6 +13,7 @@ import {
     Store,
     commitLocalUpdate,
     ReaderFragment,
+    isPromise,
 } from 'relay-runtime';
 
 const source = new RecordSource();
@@ -21,6 +22,7 @@ const storeWithNullOptions = new Store(source, {
     gcScheduler: null,
     operationLoader: null,
     gcReleaseBufferSize: null,
+    queryCacheExpirationTime: null,
 });
 const storeWithOptions = new Store(source, {
     gcScheduler: () => undefined,
@@ -29,6 +31,7 @@ const storeWithOptions = new Store(source, {
         load: () => Promise.resolve(null),
     },
     gcReleaseBufferSize: 10,
+    queryCacheExpirationTime: 1000,
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -57,10 +60,22 @@ const cache = new QueryResponseCache({ size: 250, ttl: 60000 });
 // ~~~~~~~~~~~~~~~~~~~~~
 // Environment
 // ~~~~~~~~~~~~~~~~~~~~~
+
+const isServer = false;
+
+const options = {
+    test: true,
+};
+
+const treatMissingFieldsAsNull = false;
+
 const environment = new Environment({
     handlerProvider, // Can omit.
     network,
     store,
+    isServer,
+    options,
+    treatMissingFieldsAsNull,
     missingFieldHandlers: [
         ...getDefaultMissingFieldHandlers(),
         // Example from https://relay.dev/docs/en/experimental/a-guided-tour-of-relay
@@ -371,3 +386,12 @@ const nodeFragment: ReaderFragment = {
     type: 'Query',
     abstractKey: null,
 };
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// INTERNAL-ONLY
+// ~~~~~~~~~~~~~~~~~~~~~
+
+const p = Promise.resolve() as unknown;
+if (isPromise(p)) {
+    p.then(() => console.log('Indeed a promise'));
+}

@@ -13,6 +13,7 @@
 //                 Kalley Powell <https://github.com/kalley>
 //                 Elías García <https://github.com/elias-garcia>
 //                 Ian Sanders <https://github.com/iansan5653>
+//                 Jay Fong <https://github.com/fjc0k>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
@@ -250,7 +251,7 @@ export interface ArraySchemaConstructor {
     new (): NotRequiredArraySchema<{}>;
 }
 
-interface BasicArraySchema<E, T extends E[] | null | undefined> extends Schema<T> {
+export interface BasicArraySchema<E, T extends E[] | null | undefined> extends Schema<T> {
     min(limit: number | Ref, message?: ArrayLocale['min']): this;
     max(limit: number | Ref, message?: ArrayLocale['max']): this;
     ensure(): this;
@@ -572,7 +573,7 @@ export interface FormatErrorParams {
 
 export type LocaleValue = string | ((params: FormatErrorParams) => string);
 
-interface MixedLocale {
+export interface MixedLocale {
     default?: TestOptionsMessage;
     required?: TestOptionsMessage;
     oneOf?: TestOptionsMessage<{ values: any }>;
@@ -580,7 +581,7 @@ interface MixedLocale {
     notType?: LocaleValue;
 }
 
-interface StringLocale {
+export interface StringLocale {
     length?: TestOptionsMessage<{ length: number }>;
     min?: TestOptionsMessage<{ min: number }>;
     max?: TestOptionsMessage<{ max: number }>;
@@ -592,7 +593,7 @@ interface StringLocale {
     uppercase?: TestOptionsMessage;
 }
 
-interface NumberLocale {
+export interface NumberLocale {
     min?: TestOptionsMessage<{ min: number }>;
     max?: TestOptionsMessage<{ max: number }>;
     lessThan?: TestOptionsMessage<{ less: number }>;
@@ -602,16 +603,16 @@ interface NumberLocale {
     integer?: TestOptionsMessage;
 }
 
-interface DateLocale {
+export interface DateLocale {
     min?: TestOptionsMessage<{ min: Date | string }>;
     max?: TestOptionsMessage<{ max: Date | string }>;
 }
 
-interface ObjectLocale {
+export interface ObjectLocale {
     noUnknown?: TestOptionsMessage;
 }
 
-interface ArrayLocale {
+export interface ArrayLocale {
     min?: TestOptionsMessage<{ min: number }>;
     max?: TestOptionsMessage<{ max: number }>;
 }
