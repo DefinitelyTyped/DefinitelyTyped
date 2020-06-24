@@ -96,7 +96,7 @@ function test_doc_rdf_stream_to_triples_1() {
     parser.parse('abc', console.log);
 
     const streamParser: N3.N3StreamParser = new N3.StreamParser();
-    const quad: RDF.Quad = streamParser.read();
+    const quad: RDF.Quad | null = streamParser.read();
     const rdfStream = fs.createReadStream('cartoons.ttl');
     const pipedStreamParser: N3.N3StreamParser = rdfStream.pipe(streamParser);
     streamParser.pipe(new class SlowConsumer extends stream.Writable {

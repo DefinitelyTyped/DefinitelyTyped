@@ -318,7 +318,7 @@ export interface Stream<Q extends BaseQuad = Quad> extends EventEmitter {
      *
      * @return A quad from the internal buffer, or null if none is available.
      */
-    read(): Q;
+    read(): Q | null;
 }
 
 /**
