@@ -8,12 +8,12 @@
 // TypeScript Version: 3.5
 
 import {
+	CSSProperties,
     ComponentType,
-    CSSProperties,
     FunctionComponent,
     ImgHTMLAttributes,
     ReactElement,
-    ReactNode
+    ReactNode,
 } from 'react';
 
 export type DelayMethod = 'debounce' | 'throttle';

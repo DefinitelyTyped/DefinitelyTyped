@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { LazyLoadComponent, LazyLoadImage, LazyLoadImageProps, ScrollPosition, trackWindowScroll } from 'react-lazy-load-image-component';
+import { LazyLoadComponent, LazyLoadImage, LazyLoadImageProps, trackWindowScroll, ScrollPosition } from 'react-lazy-load-image-component';
 
 interface ImageProps {
   key: string;
