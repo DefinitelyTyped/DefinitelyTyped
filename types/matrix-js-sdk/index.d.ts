@@ -412,7 +412,7 @@ export class MatrixClient extends EventEmitter {
   members(
     roomId: string, includeMembership: string, excludeMembership: string, atEventId: string, callback?: MatrixCallback,
   ): Promise<object>;
-  mxcUrlToHttp(mxcUrl: string, width: number, height: number, resizeMethod: string, allowDirectLinks: boolean): null | string;
+  mxcUrlToHttp(mxcUrl: string, width: number | null, height: number | null, resizeMethod: string | null, allowDirectLinks: boolean | null): null | string;
   paginateEventTimeline(eventTimeline: EventTimeline, opts?: object): Promise<boolean>;
   peekInRoom(roomId: string): Promise<object>;
   prepareKeyBackupVersion(password: string): Promise<object>;
