@@ -5,6 +5,7 @@
 //                 Tim Baumann <https://github.com/timjb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
+//                 Mike Morearty <https://github.com/mmorearty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
