@@ -10,7 +10,7 @@ import * as React from 'react';
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export interface TabsProps extends Omit<React.HTMLProps<HTMLDivElement>, 'className' | 'onSelect'> {
+export interface TabsProps extends Omit<React.HTMLProps<HTMLDivElement>, 'className' | 'onSelect' | 'ref'> {
     className?: string | string[] | { [name: string]: boolean };
     defaultFocus?: boolean;
     defaultIndex?: number;
