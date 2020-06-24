@@ -4801,7 +4801,7 @@ declare namespace Office {
          * 
          * The set method creates a new setting of the specified name if it does not already exist, or sets an existing setting of the specified name 
          * in the in-memory copy of the settings property bag. After you call the Settings.saveAsync method, the value is stored in the document as 
-         * the serialized JSON representation of its data type. A maximum of 2MB is available for the settings of each add-in.
+         * the serialized JSON representation of its data type.
          * 
          * @param settingName The case-sensitive name of the setting to set or create.
          * @param value Specifies the value to be stored.
@@ -16563,7 +16563,19 @@ declare namespace OfficeExtension {
 
     class EventHandlers<T> {
         constructor(context: ClientRequestContext, parentObject: ClientObject, name: string, eventInfo: EventInfo<T>);
+        /**
+         * Adds a function to be called when the event is triggered.
+         * @param handler A promise-based function that takes in any relevant event arguments.
+         */
         add(handler: (args: T) => Promise<any>): EventHandlerResult<T>;
+        /**
+         * Removes the specified function from the event handler list so that it will not be called on subsequent events. 
+         * 
+         * **Note**: The same {@link OfficeExtension.ClientRequestContext | RequestContext} object that the handler was added in must be used when removing the handler. 
+         * More information can be found in {@link https://docs.microsoft.com/office/dev/add-ins/develop/common-coding-issues#removing-event-handlers | Coding guidance for common issues and unexpected platform behaviors}. 
+         * 
+         * @param handler A reference to a function previously provided to the `add` method as an event handler. 
+         */
         remove(handler: (args: T) => Promise<any>): void;
     }
 

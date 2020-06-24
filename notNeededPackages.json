@@ -4963,6 +4963,12 @@
             "asOfVersion": "3.1.1"
         },
         {
+            "libraryName": "stylelint-webpack-plugin",
+            "typingsPackageName": "stylelint-webpack-plugin",
+            "sourceRepoURL": "https://github.com/webpack-contrib/stylelint-webpack-plugin",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "subsume",
             "typingsPackageName": "subsume",
             "sourceRepoURL": "https://github.com/sindresorhus/subsume",

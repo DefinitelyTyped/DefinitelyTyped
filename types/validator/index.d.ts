@@ -1,4 +1,4 @@
-// Type definitions for validator.js 13.0
+// Type definitions for validator.js 13.1
 // Project: https://github.com/validatorjs/validator.js
 // Definitions by: tgfjt <https://github.com/tgfjt>
 //                 Ilya Mochalov <https://github.com/chrootsu>

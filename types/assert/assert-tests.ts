@@ -15,3 +15,5 @@ assert.throws(
 assert['fail'](true, true, 'works like a charm');
 
 assert.strict; // $ExpectType typeof assert
+
+assert.fail(); // $ExpectType never
