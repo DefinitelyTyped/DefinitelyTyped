@@ -4,6 +4,31 @@
 declare namespace braintree {
     export var paypalCheckout: braintree.PayPalCheckout;
 
+    export interface PayPalCheckoutCreatePaymentOptions {
+        flow: paypal.FlowType;
+        intent?: paypal.Intent;
+        offerCredit?: boolean;
+        amount?: string | number;
+        currency?: string;
+        displayName?: string;
+        locale?: string;
+        vaultInitiatedCheckoutPaymentMethodToken?: string;
+        shippingOptions?: paypal.ShippingOption[];
+        enableShippingAddress?: boolean;
+        shippingAddressOverride?: paypal.Address;
+        shippingAddressEditable?: boolean;
+        billingAgreementDescription?: string;
+        landingPageType?: string;
+        lineItems?: paypal.LineItem[];
+    }
+
+    export interface PayPalCheckoutTokenizationOptions {
+        payerId: string;
+        paymentId?: string;
+        billingToken?: string;
+        vault?: boolean;
+    }
+
     export interface PayPalCheckout {
         /**
          * @static
@@ -188,23 +213,7 @@ declare namespace braintree {
          * @returns {(Promise|void)} Returns a promise if no callback is provided.
          */
         createPayment(
-            options: {
-                flow: paypal.FlowType;
-                intent?: paypal.Intent;
-                offerCredit?: boolean;
-                amount?: string | number;
-                currency?: string;
-                displayName?: string;
-                locale?: string;
-                vaultInitiatedCheckoutPaymentMethodToken?: string;
-                shippingOptions?: paypal.ShippingOption[];
-                enableShippingAddress?: boolean;
-                shippingAddressOverride?: paypal.Address;
-                shippingAddressEditable?: boolean;
-                billingAgreementDescription?: string;
-                landingPageType?: string;
-                lineItems?: paypal.LineItem[];
-            },
+            options: PayPalCheckoutCreatePaymentOptions,
             callback?: callback,
         ): Promise<string>;
 
@@ -237,19 +246,9 @@ declare namespace braintree {
          *
          * @returns {(Promise|void)} Returns a promise if no callback is provided.
          */
-        tokenizePayment(tokenizeOptions: {
-            payerId: string;
-            paymentId?: string;
-            billingToken?: string;
-            vault?: boolean;
-        }): Promise<paypal.TokenizePayload>;
+        tokenizePayment(tokenizeOptions: PayPalCheckoutTokenizationOptions): Promise<paypal.TokenizePayload>;
         tokenizePayment(
-            tokenizeOptions: {
-                payerId: string;
-                paymentId?: string;
-                billingToken?: string;
-                vault?: boolean;
-            },
+            tokenizeOptions: PayPalCheckoutTokenizationOptions,
             callback?: callback,
         ): void;
 
