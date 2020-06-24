@@ -140,7 +140,7 @@ declare namespace jest {
      * > Note: This function is only available when using modern fake timers
      * > implementation
      */
-    function setSystemTime(now?: number): void;
+    function setSystemTime(now?: number | Date): void;
     /**
      * When mocking time, Date.now() will also be mocked. If you for some
      * reason need access to the real current time, you can invoke this
