@@ -131,6 +131,26 @@ declare namespace jest {
      */
     function getTimerCount(): number;
     /**
+     * Set the current system time used by fake timers. Simulates a user
+     * changing the system clock while your program is running. It affects the
+     * current time but it does not in itself cause e.g. timers to fire; they
+     * will fire exactly as they would have done without the call to
+     * jest.setSystemTime().
+     *
+     * > Note: This function is only available when using modern fake timers
+     * > implementation
+     */
+    function setSystemTime(now?: number): void;
+    /**
+     * When mocking time, Date.now() will also be mocked. If you for some
+     * reason need access to the real current time, you can invoke this
+     * function.
+     *
+     * > Note: This function is only available when using modern fake timers
+     * > implementation
+     */
+    function getRealSystemTime(): number;
+    /**
      * Indicates that the module system should never return a mocked version
      * of the specified module, including all of the specificied module's dependencies.
      */
