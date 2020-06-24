@@ -5107,6 +5107,24 @@
             "asOfVersion": "3.12.0"
         },
         {
+            "libraryName": "@testing-library/dom",
+            "typingsPackageName": "testing-library__dom",
+            "sourceRepoURL": "https://github.com/testing-library/dom-testing-library",
+            "asOfVersion": "7.5.0"
+        },
+        {
+            "libraryName": "@testing-library/react",
+            "typingsPackageName": "testing-library__react",
+            "sourceRepoURL": "https://github.com/testing-library/react-testing-library",
+            "asOfVersion": "10.2.0"
+        },
+        {
+            "libraryName": "@testing-library/user-event",
+            "typingsPackageName": "testing-library__user-event",
+            "sourceRepoURL": "https://github.com/testing-library/user-event",
+            "asOfVersion": "4.2.0"
+        },
+        {
             "libraryName": "text-clipper",
             "typingsPackageName": "text-clipper",
             "sourceRepoURL": "https://github.com/arendjr/text-clipper",
