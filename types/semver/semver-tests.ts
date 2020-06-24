@@ -169,6 +169,10 @@ semver.simplify(versions, '>=3.0.0 <3.1.0'); // $ExpectType string | Range
 semver.simplify(versions, '3.0.0 || 3.1 || 3.2 || 3.3'); // $ExpectType string | Range
 semver.simplify(versions, '1 || 2 || 3'); // $ExpectType string | Range
 semver.simplify(versions, '2.1 || 2.2 || 2.3'); // $ExpectType string | Range
+semver.subset('1.x', '1.x'); // $ExpectType boolean
+semver.subset(new Range('1.2.3'), new Range('1.2.3')); // $ExpectType boolean
+semver.subset('^1.2.3-pre.0', '1.x', { includePrerelease: true }); // $ExpectType boolean
+semver.subset('', ''); // $ExpectType boolean
 
 // Coercion
 sem = semver.coerce(str);

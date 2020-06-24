@@ -1,4 +1,4 @@
-// Type definitions for semver 7.2
+// Type definitions for semver 7.3
 // Project: https://github.com/npm/node-semver
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 BendingBender <https://github.com/BendingBender>
@@ -80,6 +80,7 @@ import semverGtr = require('./ranges/gtr');
 import semverLtr = require('./ranges/ltr');
 import semverIntersects = require('./ranges/intersects');
 import simplifyRange = require('./ranges/simplify');
+import rangeSubset = require('./ranges/subset');
 
 export {
     semverSatisfies as satisfies,
@@ -93,6 +94,7 @@ export {
     semverLtr as ltr,
     semverIntersects as intersects,
     simplifyRange as simplify,
+    rangeSubset as subset,
 };
 
 // classes
