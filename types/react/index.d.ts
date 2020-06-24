@@ -1216,6 +1216,7 @@ declare namespace React {
         metaKey: boolean;
         repeat: boolean;
         shiftKey: boolean;
+        /** @deprecated */
         which: number;
     }
 
