@@ -1241,7 +1241,7 @@ declare namespace React {
         shiftKey: boolean;
     }
 
-    interface TouchEvent<T = Element> extends SyntheticEvent<T, NativeTouchEvent> {
+    interface TouchEvent<T = Element> extends UIEvent<T, NativeTouchEvent> {
         altKey: boolean;
         changedTouches: TouchList;
         ctrlKey: boolean;
