@@ -524,8 +524,8 @@ export interface Commands<R> {
     /**
      * Set the string value of a hash field.
      */
-    hset(key: string, field: string, value: string, cb?: Callback<number>): R;
-    HSET(key: string, field: string, value: string, cb?: Callback<number>): R;
+    hset: OverloadedSetCommand<string, number, R>;
+    HSET: OverloadedSetCommand<string, number, R>;
 
     /**
      * Set the value of a hash field, only if the field does not exist.
