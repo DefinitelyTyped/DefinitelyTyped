@@ -8,7 +8,7 @@
 // TypeScript Version: 3.5
 
 import {
-	CSSProperties,
+    CSSProperties,
     ComponentType,
     FunctionComponent,
     ImgHTMLAttributes,
