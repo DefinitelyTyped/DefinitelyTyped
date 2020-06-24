@@ -752,14 +752,6 @@ columns.forEach(col => col.getDefinition());
 
 // 4.7 updates
 
-let groupContextMenu: Tabulator.MenuObject<Tabulator.GroupComponent>[] = [
-    {
-        label: 'Hide Group',
-        action: (e, group) => {
-            group.hide();
-        },
-    },
-];
 table = new Tabulator('#example-table', {
     movableRowsElementDrop: (e, element, row) => {},
     downloadRowRange: 'selected',
@@ -767,16 +759,16 @@ table = new Tabulator('#example-table', {
     validationMode: 'highlight',
     paginationSizeSelector: [10, 25, 50, 100, true],
     groupHeader: (value, count, data, group) => {
-        return value + "<span style='color:#d00; margin-left:10px;'>(" + count + ' item)</span>';
+        return '';
     },
     groupHeaderPrint: (value, count, data, group) => {
-        return value + "<span style='color:#d00; margin-left:10px;'></span>";
+        return '';
     },
     groupHeaderClipboard: (value, count, data, group) => {
-        return value + "<span style='color:#d00; margin-left:10px;'></span>";
+        return '';
     },
     groupHeaderHtmlOutput: (value, count, data, group) => {
-        return value + "<span style='color:#d00; margin-left:10px;'></span>";
+        return '';
     },
     langs: {
         en: {
@@ -786,7 +778,14 @@ table = new Tabulator('#example-table', {
             },
         },
     },
-    groupContextMenu: groupContextMenu,
+    groupContextMenu: [
+        {
+            label: 'Hide Group',
+            action: (e, group) => {
+                group.hide();
+            },
+        },
+    ],
 });
 table.clearCellEdited();
 cell.clearEdited();

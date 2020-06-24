@@ -1470,7 +1470,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
     }
 
     interface AutoCompleteParams extends SharedEditorParams, SharedSelectAutoCompleteEditorParams {
-        values: true | string[] | JSONRecord | string | {}[];
+        values: true | string[] | JSONRecord | string | any[];
         listItemFormatter?: (value: string, text: string) => string;
         searchFunc?: (term: string, values: string[]) => string[] | Promise<string[]>;
         allowEmpty?: boolean;
@@ -1643,7 +1643,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         /**You can validate the whole table in one go by calling the validate method on the table instance.
        *
         This will return a value of true if every cell passes validation, if any cells fail, then it will return an array of Cell Components representing each cell in that row that has failed validation.     */
-        validate: () => true | Tabulator.CellComponent[];
+        validate: () => true | CellComponent[];
         /**The isFrozen function on a Row Component will return a boolean representing the current frozen state of the row. */
         isFrozen: () => boolean;
     }
@@ -1738,7 +1738,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         /**You can validate a column
        *
         This will return a value of true if every cell passes validation, if any cells fail, then it will return an array of Cell Components representing each cell in that column that has failed validation.             */
-        validate: () => true | Tabulator.CellComponent[];
+        validate: () => true | CellComponent[];
     }
 
     interface CellComponent {
