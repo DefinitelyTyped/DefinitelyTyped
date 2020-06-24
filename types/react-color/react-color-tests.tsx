@@ -15,8 +15,8 @@ interface CustomProps extends InjectedColorProps {
 }
 
 const CustomComponent: StatelessComponent<CustomProps> = (props: CustomProps) => {
-    function onChange(color: ColorResult) {
-        console.log(color);
+    function onChange(color: ColorResult, event: React.ChangeEvent<HTMLInputElement>) {
+        console.log(color, event);
     }
 
     return (
