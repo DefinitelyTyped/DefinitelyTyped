@@ -163,6 +163,7 @@ export declare var ISOLATION_LEVEL: {
 export interface IOptions extends tds.ConnectionOptions {
     beforeConnect?: void;
     connectionString?: string;
+    enableArithAbort?: boolean;
     instanceName?: string;
     trustedConnection?: boolean;
     useUTC?: boolean;

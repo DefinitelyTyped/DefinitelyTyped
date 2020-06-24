@@ -4,7 +4,7 @@
 //          - ~/base.d.ts         - Shared definitions common to all TypeScript versions
 //          - ~/index.d.ts        - Definitions specific to TypeScript 2.1
 //          - ~/ts3.2/base.d.ts   - Definitions specific to TypeScript 3.2
-//          - ~/ts3.2/index.d.ts  - Definitions specific to TypeScript 3.2 with assert pulled in
+//          - ~/ts3.2/index.d.ts  - Definitions specific to TypeScript 3.2 with global and assert pulled in
 
 // Reference required types from the default lib:
 /// <reference lib="es2018" />

@@ -182,8 +182,8 @@ fs.appendFileSync(filename, data, writeOpts);
 
 fs.watchFile(filename, watchListener);
 fs.watchFile(filename, {
-	persistent: bool,
-	interval: num
+    persistent: bool,
+    interval: num
 }, watchListener);
 fs.unwatchFile(filename);
 watcher = fs.watch(filename, { persistent: bool }, (event: string, filename: string) => {
@@ -194,15 +194,15 @@ bool = fs.existsSync(path);
 
 readStream = fs.createReadStream(path);
 readStream = fs.createReadStream(path, {
-	flags: str,
-	encoding: str as BufferEncoding,
-	fd: num,
-	mode: num
+    flags: str,
+    encoding: str as BufferEncoding,
+    fd: num,
+    mode: num
 });
 writeStream = fs.createWriteStream(path);
 writeStream = fs.createWriteStream(path, {
-	flags: str,
-	encoding: str as BufferEncoding
+    flags: str,
+    encoding: str as BufferEncoding
 });
 
 function isDirectoryCallback(err: Error, isDirectory: boolean) {}

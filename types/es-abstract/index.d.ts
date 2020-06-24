@@ -1,7 +1,7 @@
 // Type definitions for es-abstract 1.16
-// Project: https://github.com/ljharb/es-abstract#readme
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-//                 Jordan Harband <https://github.com/ljharb>
+// Project: https://github.com/ljharb/es-abstract
+// Definitions by: Jordan Harband <https://github.com/ljharb>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
@@ -16,40 +16,40 @@ import ES2018 = require('./es2018');
 import ES2019 = require('./es2019');
 
 declare namespace ESAbstract {
-	// ES2015 types:
-	type PropertyKey = string | symbol;
+    // ES2015 types:
+    type PropertyKey = string | symbol;
 
-	// ES5 types:
-	interface GenericDescriptor {
-		'[[Enumerable]]'?: boolean;
-		'[[Configurable]]'?: boolean;
-	}
+    // ES5 types:
+    interface GenericDescriptor {
+        '[[Configurable]]'?: boolean;
+        '[[Enumerable]]'?: boolean;
+    }
 
-	interface AccessorDescriptor extends GenericDescriptor {
-		'[[Get]]'?(): any;
-		'[[Set]]'?(value: any): void;
-	}
+    interface AccessorDescriptor<T = unknown> extends GenericDescriptor {
+        '[[Get]]'?(): T;
+        '[[Set]]'?(value: T): void;
+    }
 
-	interface DataDescriptor extends GenericDescriptor {
-		'[[Value]]'?: any;
-		'[[Writable]]'?: boolean;
-	}
+    interface DataDescriptor<T = unknown> extends GenericDescriptor {
+        '[[Writable]]'?: boolean;
+        '[[Value]]'?: T;
+    }
 
-	type PropertyDescriptor = AccessorDescriptor | DataDescriptor;
+    type PropertyDescriptor<T = unknown> = AccessorDescriptor<T> | DataDescriptor<T>;
 }
 
 interface ESAbstract extends ES6 {
-	readonly ES5: ES5;
-	/** @deprecated */
-	readonly ES6: ES6;
-	/** @deprecated */
-	readonly ES7: ES7;
+    readonly ES5: ES5;
+    /** @deprecated */
+    readonly ES6: ES6;
+    /** @deprecated */
+    readonly ES7: ES7;
 
-	readonly ES2015: ES2015;
-	readonly ES2016: ES2016;
-	readonly ES2017: ES2017;
-	readonly ES2018: ES2018;
-	readonly ES2019: ES2019;
+    readonly ES2015: ES2015;
+    readonly ES2016: ES2016;
+    readonly ES2017: ES2017;
+    readonly ES2018: ES2018;
+    readonly ES2019: ES2019;
 }
 
 declare const ESAbstract: ESAbstract;

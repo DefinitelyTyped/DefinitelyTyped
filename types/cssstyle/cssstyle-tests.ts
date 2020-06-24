@@ -2,7 +2,7 @@ import { CSSStyleDeclaration } from 'cssstyle';
 
 // $ExpectType CSSStyleDeclaration
 const style = new CSSStyleDeclaration(text => {
-	text; // $ExpectType string
+    text; // $ExpectType string
 });
 
 style.cssText; // $ExpectType string

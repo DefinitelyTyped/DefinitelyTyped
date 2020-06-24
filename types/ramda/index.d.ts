@@ -1387,8 +1387,8 @@ export function pathSatisfies<T, U>(pred: (val: T) => boolean): _.F.Curry<(a: Pa
  * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
  * property is ignored.
  */
-export function pick<T, K extends string>(names: readonly K[], obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
-export function pick<K extends string>(names: readonly K[]): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<T, K extends string | number | symbol>(names: readonly K[], obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<K extends string | number | symbol>(names: readonly K[]): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
 
 /**
  * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.

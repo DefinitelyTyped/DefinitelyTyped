@@ -18,7 +18,7 @@ function testObj() {
 
 function testOverrideRand() {
     var options = ['Wake Up', 'Snooze Alarm'];
-	var weights = [0.25, 0.75];
+    var weights = [0.25, 0.75];
 
     function rand() {
         return 4; // chosen by fair dice roll.

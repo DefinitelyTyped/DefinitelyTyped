@@ -27,6 +27,7 @@ import { Scroll } from './Scroll';
 import { IntercomError } from './IntercomError';
 
 import { IncomingMessage } from 'http';
+import request = require('request');
 
 export { IntercomError };
 
@@ -51,6 +52,12 @@ export class Client {
     leads: Leads;
     visitors: Visitors;
     messages: Messages;
+
+    /**
+     * client library also supports passing in `request` options
+     * Note that certain request options (such as `json`, and certain `headers` names cannot be overridden).
+     */
+    useRequestOpts(options?: request.CoreOptions): this;
 }
 
 export class ApiResponse<T> extends IncomingMessage {

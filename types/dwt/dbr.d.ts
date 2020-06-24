@@ -159,8 +159,8 @@ declare namespace dynamsoft {
         /** 
          * Append a new template string to current runtime settings.
          * @method BarcodeReader#decode
-         * @param {string} content	A JSON string that represents the content of the settings.
-         * @param {number} emSettingPriority	The parameter setting mode, which decides to inherit parameters from previous template setting or overwrite previous settings and replace by new template.
+         * @param {string} content    A JSON string that represents the content of the settings.
+         * @param {number} emSettingPriority    The parameter setting mode, which decides to inherit parameters from previous template setting or overwrite previous settings and replace by new template.
          * @return {void}
          */
         appendTplStringToRuntimeSettings(content: string, emSettingPriority: number): void;

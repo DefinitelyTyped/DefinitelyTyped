@@ -13,7 +13,7 @@
     "forceConsistentCasingInFileNames": true
   },
   "files": [
-		"index.d.ts",
-		"ip-address-tests.ts"
-	]
+        "index.d.ts",
+        "ip-address-tests.ts"
+    ]
 }

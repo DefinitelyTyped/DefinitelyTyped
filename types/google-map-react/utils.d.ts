@@ -1,6 +1,6 @@
-import { Bounds, Coords, Point, Size } from '.';
+import { Bounds, Coords, Point, Size, NESWBounds } from '.';
 
-interface Tile extends Point {
+export interface Tile extends Point {
     zoom: number;
 }
 

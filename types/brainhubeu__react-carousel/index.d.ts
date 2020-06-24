@@ -1,4 +1,4 @@
-// Type definitions for @brainhubeu/react-carousel 1.13
+// Type definitions for @brainhubeu/react-carousel 1.15
 // Project: https://github.com/brainhubeu/react-carousel
 // Definitions by: Jack Allen <https://github.com/jackall3n>
 //                Jeff Wen <https://github.com/sinchang>
@@ -45,6 +45,7 @@ export interface CarouselProps {
     dots?: boolean;
     breakpoints?: any;
     rtl?: boolean;
+    minDraggableOffset?: number;
 }
 
 export default class extends React.Component<CarouselProps> {

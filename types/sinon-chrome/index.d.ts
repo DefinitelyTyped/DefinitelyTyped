@@ -430,6 +430,7 @@ declare namespace SinonChrome.runtime {
     export var getManifest: SinonChromeStub;
     export var getPackageDirectoryEntry: SinonChromeStub;
     export var getPlatformInfo: SinonChromeStub;
+    export var openOptionsPage: SinonChromeStub;
     export var reload: SinonChromeStub;
     export var requestUpdateCheck: SinonChromeStub;
     export var restart: SinonChromeStub;

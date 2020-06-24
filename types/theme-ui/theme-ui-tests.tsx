@@ -25,6 +25,9 @@ export const Component = () => {
                 <Flex sx={{ backgroundColor: 'pink' }} />
                 <button onClick={() => setColorMode('another-theme')}>Change Mode</button>
             </div>
+            <div sx={{ label: 'my-label', div: { label: 'blah' } }}>
+                <h1>Label test</h1>
+            </div>
         </>
     );
 };
@@ -112,6 +115,52 @@ const themeWithStyles: Theme = {
             mt: 4,
             mb: 2,
         },
+    },
+};
+
+const themeWithValidVariants: Theme = {
+    colors: {
+        text: '#000',
+        background: '#fff',
+        primary: '#07c',
+    },
+    grids: { main: { color: 'primary' } },
+    buttons: { primary: { color: 'primary' } },
+    text: { heading: { color: 'primary' } },
+    links: { nav: { color: 'primary' } },
+    images: { avatar: { color: 'primary' } },
+    cards: { primary: { color: 'primary' } },
+    layout: { container: { color: 'primary' } },
+    forms: { label: { color: 'primary' } },
+    badges: { primary: { color: 'primary' } },
+    alerts: { primary: { color: 'primary' } },
+    messages: { primary: { color: 'primary' } },
+};
+
+// prettier-ignore
+const themeWithInvalidVariants: Theme = { layouts: { // $ExpectError
+        container: {
+            color: 'primary',
+        },
+    },
+    colors: {
+        text: '#000',
+        background: '#fff',
+        primary: '#07c',
+    },
+};
+
+const themeWithValidOptions: Theme = {
+    useCustomProperties: true,
+    useBodyStyles: true,
+    initialColorModeName: 'default',
+    useColorSchemeMediaQuery: false,
+    useBorderBox: true,
+    useLocalStorage: true,
+    colors: {
+        text: '#000',
+        background: '#fff',
+        primary: '#07c',
     },
 };
 

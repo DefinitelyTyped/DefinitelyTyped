@@ -9,11 +9,11 @@ create('cobertura', { file: 'foo', projectRoot: 'bar' });
 create('html');
 create('html', { verbose: false, subdir: 'foo' });
 create('html', {
-	linkMapper: {
-		getPath: () => 'foo',
-		relativePath: () => 'foo',
-		assetPath: () => 'foo'
-	}
+    linkMapper: {
+        getPath: () => 'foo',
+        relativePath: () => 'foo',
+        assetPath: () => 'foo'
+    }
 });
 
 create('json');

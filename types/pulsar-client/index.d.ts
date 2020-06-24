@@ -27,9 +27,15 @@ export type SubscriptionType =
     'Shared' |
     'Failover';
 
-export interface AuthenticationTls {
+export class AuthenticationTls {
+    constructor(authTlsOpts: { certificatePath: string; privateKeyPath: string });
     certificatePath: string;
     privateKeyPath: string;
+}
+
+export class AuthenticationToken {
+    constructor(authTokenOpts: { token: string });
+    token: string;
 }
 
 export interface ClientOpts {
@@ -42,7 +48,7 @@ export interface ClientOpts {
      * Configure the authentication provider.
      * Default: No Authentication
      */
-    authentication?: AuthenticationTls;
+    authentication?: AuthenticationTls | AuthenticationToken;
 
     /**
      * The timeout for Node.js client operations (creating producers, subscribing to and unsubscribing from topics).
@@ -382,6 +388,18 @@ export class Consumer {
      * @param messageId Message ID to acknowledge.
      */
     acknowledgeId(messageId: MessageId): void;
+
+    /**
+     * Negatively acknowledges a message to the Pulsar broker by message object.
+     * @param message Message to acknowledge.
+     */
+    negativeAcknowledge(message: Message): void;
+
+    /**
+     * Negatively acknowledges a message to the Pulsar broker by message ID object.
+     * @param messageId Message ID to acknowledge.
+     */
+    negativeAcknowledgeId(messageId: MessageId): void;
 
     /**
      * Acknowledges all the messages in the stream, up to and including the specified message.

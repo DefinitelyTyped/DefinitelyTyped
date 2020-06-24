@@ -42,11 +42,11 @@ export function apiFetch(options: APIFetchOptions): void;
  * import * as resolvers from './resolvers';
  *
  * registerStore ( 'my-custom-store', {
- * 	reducer,
- * 	controls,
- * 	actions,
- * 	selectors,
- * 	resolvers,
+ *     reducer,
+ *     controls,
+ *     actions,
+ *     selectors,
+ *     resolvers,
  * } );
  * ```
  *

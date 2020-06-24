@@ -11,7 +11,7 @@ import {
 } from 'react-tracking';
 import { string } from 'prop-types';
 
-function customEventReporter(data: { page?: string }) {}
+function customEventReporter(data: { page?: string }) { }
 
 interface Props {
     someProp: string;
@@ -60,6 +60,17 @@ class ClassPage extends React.Component<Props, State> {
                 Click Me!
             </button>
         );
+    }
+
+    @track((_props, _state, _args, [resp, err]) => {
+        if (err || !resp) {
+            return { event: 'Async Error' };
+        }
+        return { event: 'Async Response' };
+    })
+    async handleAsync() {
+        // ... other stuff
+        return 'response';
     }
 }
 
@@ -115,6 +126,12 @@ interface Trackables {
 
 const App = track()((props: { foo: string }) => {
     const tracking = useTracking<Trackables>();
+
+    React.useEffect(() =>
+        tracking.trackEvent({
+            page: 'Home - useEffect callback'
+        })
+    );
     return (
         <div
             onClick={() => {

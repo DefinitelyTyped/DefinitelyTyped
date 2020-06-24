@@ -324,6 +324,7 @@ export interface SupportOptionDefault {
 }
 
 export interface SupportOption {
+    name: string;
     since?: string;
     type: 'int' | 'boolean' | 'choice' | 'path';
     array?: boolean;

@@ -1,134 +1,154 @@
 // Type definitions for calidation 1.16
 // Project: https://github.com/selbekk/calidation#readme
 // Definitions by: Ray Knight <https://github.com/ArrayKnight>
+//                 Lisa Tassone <https://github.com/lisatassone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
 import * as React from 'react';
 
-export interface Dictionary<T = any> {
-    [key: string]: T;
-}
+export type Dirty<T extends object = any> = Record<keyof T, boolean>;
 
-export type Dirty = Dictionary<boolean>;
+export type Errors<T extends object = any> = Record<keyof T, string | null>;
 
-export type Errors = Dictionary<string | null>;
+export type Fields<T extends object = any> = T;
 
-export type Fields = Dictionary;
+export type Transform<T extends object = any> = Record<keyof T, (value: any) => T[keyof T]>;
 
-export type Transforms = Dictionary<(value: any) => any>;
+export type Transforms<T extends object = any> = Partial<Transform<T>>;
 
-export interface ValidatorContext {
-    errors: Errors;
-    fields: Fields;
+export interface ValidatorContext<T extends object = any> {
+    errors: Errors<T>;
+    fields: Fields<T>;
     isDirty: boolean;
 }
 
-export interface SimpleValidatorConfig {
+export interface SimpleValidatorConfig<T extends object = any> {
     message: string;
-    validateIf?: ((context: ValidatorContext) => boolean) | boolean;
+    validateIf?: ((context: ValidatorContext<T>) => boolean) | boolean;
 }
 
-export type SimpleValidator = string | SimpleValidatorConfig | ((context: ValidatorContext) => SimpleValidatorConfig);
+export type SimpleValidator<T extends object = any> =
+    | string
+    | SimpleValidatorConfig<T>
+    | ((context: ValidatorContext<T>) => SimpleValidatorConfig<T>);
 
-export interface BlacklistValidatorConfig extends SimpleValidatorConfig {
+export interface BlacklistValidatorConfig<T extends object = any> extends SimpleValidatorConfig<T> {
     blacklist: string[];
 }
 
-export type BlacklistValidator = BlacklistValidatorConfig | ((context: ValidatorContext) => BlacklistValidatorConfig);
+export type BlacklistValidator<T extends object = any> =
+    | BlacklistValidatorConfig<T>
+    | ((context: ValidatorContext<T>) => BlacklistValidatorConfig<T>);
 
-export interface ValueValidatorConfig<T> extends SimpleValidatorConfig {
-    value: T;
+export interface ValueValidatorConfig<P, T extends object = any> extends SimpleValidatorConfig<T> {
+    value: P;
 }
 
-export type ValueValidator<T> = ValueValidatorConfig<T> | ((context: ValidatorContext) => ValueValidatorConfig<T>);
+export type ValueValidator<P, T extends object = any> =
+    | ValueValidatorConfig<P, T>
+    | ((context: ValidatorContext<T>) => ValueValidatorConfig<P, T>);
 
-export interface RegexValidatorConfig extends SimpleValidatorConfig {
+export interface RegexValidatorConfig<T extends object = any> extends SimpleValidatorConfig<T> {
     regex: RegExp;
 }
 
-export type RegexValidator = RegexValidatorConfig | ((context: ValidatorContext) => RegexValidatorConfig);
+export type RegexValidator<T extends object = any> =
+    | RegexValidatorConfig<T>
+    | ((context: ValidatorContext<T>) => RegexValidatorConfig<T>);
 
-export interface WhitelistValidatorConfig extends SimpleValidatorConfig {
+export interface WhitelistValidatorConfig<T extends object = any> extends SimpleValidatorConfig<T> {
     whitelist: string[];
 }
 
-export type WhitelistValidator = WhitelistValidatorConfig | ((context: ValidatorContext) => RegexValidatorConfig);
+export type WhitelistValidator<T extends object = any> =
+    | WhitelistValidatorConfig<T>
+    | ((context: ValidatorContext<T>) => RegexValidatorConfig<T>);
 
-export interface LengthValidatorConfig extends SimpleValidatorConfig {
+export interface LengthValidatorConfig<T extends object = any> extends SimpleValidatorConfig<T> {
     length: number;
 }
 
-export type LengthValidator = LengthValidatorConfig | ((context: ValidatorContext) => LengthValidatorConfig);
+export type LengthValidator<T extends object = any> =
+    | LengthValidatorConfig<T>
+    | ((context: ValidatorContext<T>) => LengthValidatorConfig<T>);
 
-export type Validator =
-    | SimpleValidator
-    | BlacklistValidator
-    | ValueValidator<any>
-    | RegexValidator
-    | WhitelistValidator
-    | LengthValidator;
+export type Validator<T extends object = any> =
+    | SimpleValidator<T>
+    | BlacklistValidator<T>
+    | ValueValidator<T>
+    | RegexValidator<T>
+    | WhitelistValidator<T>
+    | LengthValidator<T>;
 
-export interface FieldConfig {
-    isBlacklisted?: BlacklistValidator;
-    isEmail?: SimpleValidator;
-    isEqual?: ValueValidator<any>;
-    isGreaterThan?: ValueValidator<number>;
-    isLessThan?: ValueValidator<number>;
-    isRequired?: SimpleValidator;
-    isNumber?: SimpleValidator;
-    isRegexMatch?: RegexValidator;
-    isWhitelisted?: WhitelistValidator;
-    isMinLength?: LengthValidator;
-    isMaxLength?: LengthValidator;
-    isExactLength?: LengthValidator;
+export interface FieldConfig<T extends object = any> {
+    isBlacklisted?: BlacklistValidator<T>;
+    isEmail?: SimpleValidator<T>;
+    isEqual?: ValueValidator<any, T>;
+    isGreaterThan?: ValueValidator<number, T>;
+    isLessThan?: ValueValidator<number, T>;
+    isRequired?: SimpleValidator<T>;
+    isNumber?: SimpleValidator<T>;
+    isRegexMatch?: RegexValidator<T>;
+    isWhitelisted?: WhitelistValidator<T>;
+    isMinLength?: LengthValidator<T>;
+    isMaxLength?: LengthValidator<T>;
+    isExactLength?: LengthValidator<T>;
 }
 
-export type FieldsConfig = Dictionary<FieldConfig>;
+export type FieldsConfig<T extends object = any> = Record<
+    string,
+    FieldConfig<T> | Record<string, SimpleValidator<T>> | Record<string, ValueValidator<T>>
+>;
 
-export interface FormContext {
-    dirty: Dirty;
-    errors: Errors;
-    fields: Fields;
+export interface FormContext<T extends object = any> {
+    dirty: Dirty<T>;
+    errors: Errors<T>;
+    fields: Fields<T>;
     isValid: boolean;
     resetAll: () => void;
-    register: (config: FieldsConfig, transforms: Transforms, initialValues: Dictionary) => void;
-    unregister: (config: FieldsConfig) => void;
-    setError: (delta: Errors) => void;
-    setField: (delta: Fields) => void;
+    register: (config: FieldsConfig<T>, transforms: Transforms<T>, initialValues: T) => void;
+    unregister: (config: FieldsConfig<T>) => void;
+    setError: (delta: Errors<T>) => void;
+    setField: (delta: Partial<T>) => void;
     submit: () => void;
     submitted: boolean;
 }
 
-export interface FormProps
+export interface FormProps<T extends object = any>
     extends Omit<React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>, 'onSubmit'> {
     onChange?: (event: React.ChangeEvent<HTMLFormElement>) => void;
     onReset?: () => void;
-    onSubmit?: (context: FormContext) => void;
-    onUpdate?: (context: FormContext) => void;
+    onSubmit?: (context: FormContext<T>) => void;
+    onUpdate?: (context: FormContext<T>) => void;
 }
 
-export class Form extends React.Component<FormProps> {}
+export class Form<T extends object = any> extends React.Component<FormProps<T>> {}
 
-export type ValidationContext = Omit<FormContext, 'register' | 'unregister'>;
+export type ValidationContext<T extends object = any> = Omit<FormContext<T>, 'register' | 'unregister'>;
 
-export interface ValidationProps {
-    children: (context: ValidationContext) => React.ReactNode;
-    config: FieldsConfig;
-    initialValues?: Dictionary;
-    transforms?: Transforms;
+export interface ValidationProps<T extends object = any> {
+    children: (context: ValidationContext<T>) => React.ReactNode;
+    config: FieldsConfig<T>;
+    initialValues?: T;
+    transforms?: Transforms<T>;
 }
 
-export class Validation extends React.Component<ValidationProps> {}
+export class Validation<T extends object = any> extends React.Component<ValidationProps<T>> {}
 
-export interface FormValidationProps extends FormProps, ValidationProps {
-    children: (context: ValidationContext) => React.ReactNode;
+export interface FormValidationProps<T extends object = any> extends FormProps<T>, ValidationProps<T> {
+    children: (context: ValidationContext<T>) => React.ReactNode;
 }
 
-export class FormValidation extends React.Component<FormValidationProps> {}
+export class FormValidation<T extends object = any> extends React.Component<FormValidationProps<T>> {}
 
-export interface ValidatorsProviderProps {
-    validators: Dictionary<(config: SimpleValidatorConfig) => (value: any) => string | null>;
+export type CustomValidatorFunction<T extends object = any> = (
+    config: SimpleValidatorConfig<T>,
+    context: ValidatorContext<T>,
+) => (value: T[keyof T]) => string | null;
+
+export interface ValidatorsProviderProps<T extends object = any> {
+    validators: Record<string, CustomValidatorFunction<T>>;
 }
 
-export class ValidatorsProvider extends React.Component<ValidatorsProviderProps> {}
+export class ValidatorsProvider<T extends object = any> extends React.Component<ValidatorsProviderProps<T>> {}

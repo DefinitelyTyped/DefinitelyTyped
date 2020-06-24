@@ -1,4 +1,4 @@
-// Type definitions for Jest 25.2
+// Type definitions for Jest 26.0
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -28,6 +28,7 @@
 //                 Devansh Jethmalani <https://github.com/devanshj>
 //                 Pawel Fajfer <https://github.com/pawfa>
 //                 Regev Brody <https://github.com/regevbr>
+//                 Mark Skelton <https://github.com/mskelton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -176,12 +177,12 @@ declare namespace jest {
      * Returns the actual module instead of a mock, bypassing all checks on
      * whether the module should receive a mock implementation or not.
      */
-    function requireActual(moduleName: string): any;
+    function requireActual<TModule = any>(moduleName: string): TModule;
     /**
      * Returns a mock module instead of the actual module, bypassing all checks
      * on whether the module should be required normally or not.
      */
-    function requireMock(moduleName: string): any;
+    function requireMock<TModule = any>(moduleName: string): TModule;
     /**
      * Resets the module registry - the cache of all required modules. This is
      * useful to isolate modules where local state might conflict between tests.
@@ -299,7 +300,7 @@ declare namespace jest {
     /**
      * Instructs Jest to use fake versions of the standard timer functions.
      */
-    function useFakeTimers(): typeof jest;
+    function useFakeTimers(implementation?: 'modern' | 'legacy'): typeof jest;
     /**
      * Instructs Jest to use the real versions of the standard timer functions.
      */

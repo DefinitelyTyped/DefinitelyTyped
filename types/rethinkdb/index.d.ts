@@ -82,6 +82,8 @@ declare module "rethinkdb" {
         each<T>(cb: (err: Error, row: T) => boolean, done?: () => void): void; // returning false stops iteration
         next(cb: (err: Error, row: any) => void): void;
         next<T>(cb: (err: Error, row: T) => void): void;
+        next(): Promise<any>;
+        next<T>(): Promise<T>;
         toArray(cb: (err: Error, rows: any[]) => void): void;
         toArray<T>(cb: (err: Error, rows: T[]) => void): void;
         toArray(): Promise<any[]>;
