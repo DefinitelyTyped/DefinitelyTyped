@@ -18,7 +18,6 @@
 //                 Sebastian Sebald <https://github.com/sebald>
 //                 Andy <https://github.com/andys8>
 //                 Antoine Brault <https://github.com/antoinebrault>
-//                 Jeroen Claassens <https://github.com/favna>
 //                 Gregor Stamać <https://github.com/gstamac>
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Alex Bolenok <https://github.com/quassnoi>
