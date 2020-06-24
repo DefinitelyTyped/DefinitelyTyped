@@ -610,37 +610,44 @@ export interface UnifiedTopologyOptions {
     waitQueueTimeoutMS?: number;
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/Server.html */
+/** http://mongodb.github.io/node-mongodb-native/3.6/api/Server.html */
 export interface SocketOptions {
     /**
-     * Reconnect on error. default:false
+     * Reconnect on error.
+     * @default true
      */
     autoReconnect?: boolean;
     /**
-     * TCP Socket NoDelay option. default:true
+     * TCP Socket NoDelay option.
+     * @default true
      */
     noDelay?: boolean;
     /**
-     * TCP KeepAlive enabled on the socket. default:true
+     * TCP KeepAlive enabled on the socket.
+     * @default true
      */
     keepAlive?: boolean;
     /**
-     * TCP KeepAlive initial delay before sending first keep-alive packet when idle. default:300000
+     * TCP KeepAlive initial delay before sending first keep-alive packet when idle.
+     * @default 30000
      */
     keepAliveInitialDelay?: number;
     /**
-     * TCP Connection timeout setting. default 0
+     * TCP Connection timeout setting.
+     * @default 10000
      */
     connectTimeoutMS?: number;
     /**
-     * Version of IP stack. Can be 4, 6 or null. default: null.
+     * Version of IP stack. Can be 4, 6 or null.
+     * @default null
      *
      * If null, will attempt to connect with IPv6, and will fall back to IPv4 on failure
-     * refer to http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html
+     * refer to http://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html
      */
     family?: 4 | 6 | null;
     /**
-     * TCP Socket timeout setting. default 0
+     * TCP Socket timeout setting.
+     * @default 360000
      */
     socketTimeoutMS?: number;
 }
