@@ -24,7 +24,7 @@ class TestApp extends React.Component {
         console.log('selected tab: ' + index.toString());
         console.log('last tab: ' + last.toString());
         console.log('event: ' + event.type);
-    };
+    }
     private readonly tabsRef = React.createRef<Tabs>();
 
     render() {
