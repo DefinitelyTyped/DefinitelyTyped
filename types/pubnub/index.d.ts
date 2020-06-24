@@ -372,6 +372,9 @@ declare namespace Pubnub {
         publisher: string;
     }
 
+    /**
+     * @deprecated For objects v2, use the ObjectsEvent
+     */
     interface UserEvent {
         channel: string;
         subscription: string;
@@ -384,6 +387,9 @@ declare namespace Pubnub {
         publisher: string;
     }
 
+    /**
+     * @deprecated For objects v2, use the ObjectsEvent
+     */
     interface SpaceEvent {
         channel: string;
         subscription: string;
@@ -405,6 +411,9 @@ declare namespace Pubnub {
         custom?: object | null;
     }
 
+    /**
+     * @deprecated For objects v2, use the ObjectsEvent
+     */
     interface MembershipEvent {
         channel: string;
         subscription: string;
@@ -426,6 +435,17 @@ declare namespace Pubnub {
             event: string;
             data: MessageAction;
         };
+    }
+
+    interface ObjectsEvent {
+        channel: string,
+        message: {
+            event: "set" | "delete",
+            type: "uuid" | "channel" | "membership",
+            data: object
+        }
+        subscription: string,
+        timetoken: number
     }
 
     // publish
@@ -653,13 +673,24 @@ declare namespace Pubnub {
 
         signal?(signalEvent: SignalEvent): void;
 
+        /**
+         * @deprecated For objects v2, use the objects listener
+         */
         user?(userEvent: UserEvent): void;
 
+        /**
+         * @deprecated For objects v2, use the objects listener
+         */
         space?(spaceEvent: SpaceEvent): void;
 
+        /**
+         * @deprecated For objects v2, use the objects listener
+         */
         membership?(membershipEvent: MembershipEvent): void;
 
         messageAction?(messageActionEvent: MessageActionEvent): void;
+
+        objects?(objectsEvent: ObjectsEvent): void;
     }
 
     // hereNow
