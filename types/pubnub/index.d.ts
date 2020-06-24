@@ -129,74 +129,134 @@ declare class Pubnub {
 
     grant(params: Pubnub.GrantParameters): Promise<{}>;
 
+    /**
+     * @deprecated For objects v2, use setUUIDMetadata
+     */
     createUser(
         params: Pubnub.UserInputParameters,
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetUserResponse) => void,
     ): void;
 
+    /**
+     * @deprecated For objects v2, use setUUIDMetadata
+     */
     createUser(params: Pubnub.UserInputParameters): Promise<Pubnub.GetUserResponse>;
 
+    /**
+     * @deprecated For objects v2, use setUUIDMetadata
+     */
     updateUser(
         params: Pubnub.UserInputParameters,
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetUserResponse) => void,
     ): void;
 
+    /**
+     * @deprecated For objects v2, use setUUIDMetadata
+     */
     updateUser(params: Pubnub.UserInputParameters): Promise<Pubnub.GetUserResponse>;
 
+    /**
+     * @deprecated For objects v2, use removeUUIDMetadata
+     */
     deleteUser(
         userId: string,
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.DeleteUserResponse) => void,
     ): void;
 
+    /**
+     * @deprecated For objects v2, use removeUUIDMetadata
+     */
     deleteUser(userId: string): Promise<Pubnub.DeleteUserResponse>;
 
+    /**
+     * @deprecated For objects v2, use getAllUUIDMetadata
+     */
     getUsers(
         params: Pubnub.GetObjectsParameters,
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetUsersResponse) => void,
     ): void;
 
+    /**
+     * @deprecated For objects v2, use getAllUUIDMetadata
+     */
     getUsers(params: Pubnub.GetObjectsParameters): Promise<Pubnub.GetUsersResponse>;
 
+    /**
+     * @deprecated For objects v2, use getUUIDMetadata
+     */
     getUser(
         params: Pubnub.GetUserParameters,
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetUserResponse) => void,
     ): void;
 
+    /**
+     * @deprecated For objects v2, use getUUIDMetadata
+     */
     getUser(params: Pubnub.GetUserParameters): Promise<Pubnub.GetUserResponse>;
 
+    /**
+     * @deprecated For objects v2, use setChannelMetadata
+     */
     createSpace(
         params: Pubnub.SpaceInputParameters,
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetSpaceResponse) => void,
     ): void;
 
+    /**
+     * @deprecated For objects v2, use setChannelMetadata
+     */
     createSpace(params: Pubnub.SpaceInputParameters): Promise<Pubnub.GetSpaceResponse>;
 
+    /**
+     * @deprecated For objects v2, use setChannelMetadata
+     */
     updateSpace(
         params: Pubnub.SpaceInputParameters,
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetSpaceResponse) => void,
     ): void;
 
+    /**
+     * @deprecated For objects v2, use setChannelMetadata
+     */
     updateSpace(params: Pubnub.SpaceInputParameters): Promise<Pubnub.GetSpaceResponse>;
 
+    /**
+     * @deprecated For objects v2, use removeChannelMetadata
+     */
     deleteSpace(
         spaceId: string,
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.DeleteSpaceResponse) => void,
     ): void;
 
+    /**
+     * @deprecated For objects v2, use removeChannelMetadata
+     */
     deleteSpace(spaceId: string): Promise<Pubnub.DeleteSpaceResponse>;
 
+    /**
+     * @deprecated For objects v2, use getAllChannelMetadata
+     */
     getSpaces(
         params: Pubnub.GetObjectsParameters,
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetSpacesResponse) => void,
     ): void;
 
+    /**
+     * @deprecated For objects v2, use getAllChannelMetadata
+     */
     getSpaces(params: Pubnub.GetObjectsParameters): Promise<Pubnub.GetSpacesResponse>;
 
+    /**
+     * @deprecated For objects v2, use getChannelMetadata
+     */
     getSpace(
         params: Pubnub.GetSpaceParameters,
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetSpaceResponse) => void,
     ): void;
 
+    /**
+     * @deprecated For objects v2, use getChannelMetadata
+     */
     getSpace(params: Pubnub.GetSpaceParameters): Promise<Pubnub.GetSpaceResponse>;
 
     getMemberships(
@@ -206,53 +266,95 @@ declare class Pubnub {
 
     getMemberships(params: Pubnub.GetMembershipsParameters): Promise<Pubnub.GetMembershipsResponse>;
 
+    /**
+     * @deprecated For objects v2, use getChannelMembers
+     */
     getMembers(
         params: Pubnub.GetMembersParameters,
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembersResponse) => void,
     ): void;
 
+    /**
+     * @deprecated For objects v2, use getChannelMembers
+     */
     getMembers(params: Pubnub.GetMembersParameters): Promise<Pubnub.GetMembersResponse>;
 
+    /**
+     * @deprecated For objects v2, use setMemberships
+     */
     joinSpaces(
         params: Pubnub.MembershipsInputParameters,
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembershipsResponse) => void,
     ): void;
 
+    /**
+     * @deprecated For objects v2, use setMemberships
+     */
     joinSpaces(params: Pubnub.MembershipsInputParameters): Promise<Pubnub.GetMembershipsResponse>;
 
+    /**
+     * @deprecated removed in objects v2
+     */
     updateMemberships(
         params: Pubnub.MembershipsInputParameters,
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembershipsResponse) => void,
     ): void;
 
+    /**
+     * @deprecated removed in objects v2
+     */
     updateMemberships(params: Pubnub.MembershipsInputParameters): Promise<Pubnub.GetMembershipsResponse>;
 
+    /**
+     * @deprecated For objects v2, use removeMemberships
+     */
     leaveSpaces(
         params: Pubnub.LeaveSpacesParameters,
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembershipsResponse) => void,
     ): void;
 
+    /**
+     * @deprecated For objects v2, use removeMemberships
+     */
     leaveSpaces(params: Pubnub.LeaveSpacesParameters): Promise<Pubnub.GetMembershipsResponse>;
 
+    /**
+     * @deprecated For objects v2, use setChannelMembers
+     */
     addMembers(
         params: Pubnub.MembersInputParameters,
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembersResponse) => void,
     ): void;
 
+    /**
+     * @deprecated For objects v2, use setChannelMembers
+     */
     addMembers(params: Pubnub.MembersInputParameters): Promise<Pubnub.GetMembersResponse>;
 
+    /**
+     * @deprecated removed in objects v2
+     */
     updateMembers(
         params: Pubnub.MembersInputParameters,
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembersResponse) => void,
     ): void;
 
+    /**
+     * @deprecated removed in objects v2
+     */
     updateMembers(params: Pubnub.MembersInputParameters): Promise<Pubnub.GetMembersResponse>;
 
+    /**
+     * @deprecated For objects v2, use removeChannelMembers
+     */
     removeMembers(
         params: Pubnub.RemoveMembersParameters,
         callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembersResponse) => void,
     ): void;
 
+    /**
+     * @deprecated For objects v2, use removeChannelMembers
+     */
     removeMembers(params: Pubnub.RemoveMembersParameters): Promise<Pubnub.GetMembersResponse>;
 
     addMessageAction(
