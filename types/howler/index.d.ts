@@ -237,15 +237,14 @@ export class Howl {
     ): this;
     once(event: string, callback: HowlCallback | HowlErrorCallback, id?: number): this;
 
-    off(): this;
-    off(event: 'load', callback: () => void, id?: number): this;
-    off(event: 'loaderror' | 'playerror', callback: HowlErrorCallback, id?: number): this;
+    off(event: 'load', callback?: () => void, id?: number): this;
+    off(event: 'loaderror' | 'playerror', callback?: HowlErrorCallback, id?: number): this;
     off(
         event: 'play' | 'end' | 'pause' | 'stop' | 'mute' | 'volume' | 'rate' | 'seek' | 'fade' | 'unlock',
-        callback: HowlCallback,
+        callback?: HowlCallback,
         id?: number,
     ): this;
-    off(event: string, callback: HowlCallback | HowlErrorCallback, id?: number): this;
+    off(event?: string, callback?: HowlCallback | HowlErrorCallback, id?: number): this;
 
     stereo(pan: number, id?: number): this | void;
     pos(x: number, y: number, z: number, id?: number): this | void;

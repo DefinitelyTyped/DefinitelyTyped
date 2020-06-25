@@ -110,15 +110,15 @@ declare module "mongoose" {
       ? { [key: string]: DeepNonFunctionProperties<KV> } | [KM, KV][] | Map<KM, KV>
       : 
     T extends Array<infer U>
-      ? U extends object | undefined
+      ? (U extends object 
         ? { [V in keyof NonFunctionProperties<OmitReadonly<U>>]: U[V] extends object | undefined
           ? DeepNonFunctionProperties<NonNullable<U[V]>> 
-          : U[V] }[]
-        : T
+          : U[V] }
+        : U)[]
       : 
-    T extends object | undefined 
+    T extends object
       ? { [V in keyof NonFunctionProperties<OmitReadonly<T>>]: T[V] extends object | undefined
-        ?  DeepNonFunctionProperties<NonNullable<T[V]>> 
+        ? DeepNonFunctionProperties<NonNullable<T[V]>> 
         : T[V] }
       :
     T;
@@ -840,6 +840,11 @@ declare module "mongoose" {
     set(fn: Function): this;
   }
 
+  interface HookOptions {
+    document?: boolean;
+    query?: boolean;
+  }
+
   /*
    * section schema.js
    * http://mongoosejs.com/docs/api.html#schema-js
@@ -942,6 +947,10 @@ declare module "mongoose" {
     post<T extends Document>(method: 'insertMany', fn: (
       this: Model<Document>,
       docs: T[], next: (err?: NativeError) => Promise<any>
+    ) => void): this;
+
+    post<T extends Document>(method: 'remove' | 'deleteOne', { document, query }: HookOptions, fn: (
+      doc: T
     ) => void): this;
 
     post<T extends Document>(method: string | RegExp, fn: (
@@ -2146,8 +2155,15 @@ declare module "mongoose" {
     /**
      * Returns the current query conditions as a JSON object.
      * @returns current query conditions
+     * @deprecated You should use getFilter() instead of getQuery() where possible. getQuery() will likely be deprecated in a future release.
      */
     getQuery(): any;
+
+    /**
+     * Returns the current query filter (also known as conditions) as a POJO.
+     * @returns current query filter
+     */
+    getFilter(): any;
 
     /**
      * Returns the current update operations as a JSON object.
@@ -3618,6 +3634,12 @@ declare module "mongoose" {
      * @param fn optional callback
      */
     remove(fn?: (err: any, product: this) => void): Promise<this>;
+
+    /**
+     * Deletes the document from the db.
+     * @param fn optional callback
+     */
+    deleteOne(fn?: (err: any, product: this) => void): Promise<this>;
 
     /**
      * Saves this document.

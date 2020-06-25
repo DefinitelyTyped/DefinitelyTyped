@@ -121,6 +121,7 @@ map.on('load', function () {
         data: '/data.geojson',
         cluster: true,
         clusterMaxZoom: 14, // Max zoom to cluster points on
+        clusterMinPoints: 8,
         clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
         clusterProperties: { sum: ['+', ['get', 'property']] },
     });
@@ -598,6 +599,7 @@ let marker = new mapboxgl.Marker(undefined, {
     rotation: 15,
     rotationAlignment: 'map',
     pitchAlignment: 'viewport',
+    scale: 5.5
 })
     .setLngLat([-50, 50])
     .setPitchAlignment("map")

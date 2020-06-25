@@ -94,7 +94,7 @@ function test_datafactory() {
 
 function test_stream() {
     const stream: Stream = <any> {};
-    const quad: Quad = stream.read();
+    const quad: Quad | null = stream.read();
 
     const term: Term = <any> {};
     const source: Source = <any> {};

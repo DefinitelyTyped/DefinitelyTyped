@@ -11,6 +11,7 @@
 //                 Brian Wilson <https://github.com/echoabstract>
 //                 Sebastiaan Pasma <https://github.com/spasma>
 //                 bdbai <https://github.com/bdbai>
+//                 pokutuna <https://github.com/pokutuna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -1193,6 +1194,12 @@ declare namespace chrome.contextMenus {
         /** Optional. Note: You cannot change an item to be a child of one of its own descendants.  */
         parentId?: any;
         type?: string;
+        /**
+         * Optional.
+         * @since Chrome 62.
+         * Whether the item is visible in the menu.
+         */
+        visible?: boolean;
     }
 
     export interface MenuClickedEvent extends chrome.events.Event<(info: OnClickData, tab?: chrome.tabs.Tab) => void> { }
@@ -4761,6 +4768,11 @@ declare namespace chrome.omnibox {
         content: string;
         /** The text that is displayed in the URL dropdown. Can contain XML-style markup for styling. The supported tags are 'url' (for a literal URL), 'match' (for highlighting text that matched what the user's query), and 'dim' (for dim helper text). The styles can be nested, eg. dimmed match. You must escape the five predefined entities to display them as text: stackoverflow.com/a/1091953/89484 */
         description: string;
+        /**
+        * Whether the suggest result can be deleted by the user.
+        * @since Chrome 63.
+        */
+        deletable?: boolean;
     }
 
     export interface Suggestion {

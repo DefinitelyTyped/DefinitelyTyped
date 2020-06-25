@@ -26,6 +26,7 @@
 //                 Nobuhiko Futagami <https://github.com/nobu222>
 //                 Marco Ru <https://github.com/Marcoru97>
 //                 Tony Liu <https://github.com/tonybadguy>
+//                 Mathias Helminger <https://github.com/Ilmarinen100>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -52,6 +53,9 @@ declare class Chart {
     getElementsAtXAxis: (e: any) => Array<{}>;
     getDatasetAtEvent: (e: any) => Array<{}>;
     getDatasetMeta: (index: number) => Meta;
+    getVisibleDatasetCount: () => number;
+    isDatasetVisible: (datasetIndex: number) => boolean;
+    setDatasetVisibility: (datasetIndex: number, visible: boolean) => void;
     ctx: CanvasRenderingContext2D | null;
     canvas: HTMLCanvasElement | null;
     width: number | null;

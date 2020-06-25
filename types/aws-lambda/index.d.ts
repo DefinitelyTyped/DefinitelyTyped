@@ -35,6 +35,7 @@
 //                 Alexander Pepper <https://github.com/apepper>
 //                 Alessandro Palumbo <https://github.com/apalumbo>
 //                 Sachin Shekhar <https://github.com/SachinShekhar>
+//                 Ivan Martos <https://github.com/ivanmartos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -52,6 +53,7 @@ export * from "./trigger/cloudfront-response";
 export * from "./trigger/cloudwatch-events";
 export * from "./trigger/cloudwatch-logs";
 // TODO: export * from "./trigger/codecommit";
+export * from "./trigger/codebuild-cloudwatch-state";
 export * from "./trigger/codepipeline";
 export * from "./trigger/codepipeline-cloudwatch";
 export * from "./trigger/codepipeline-cloudwatch-action";

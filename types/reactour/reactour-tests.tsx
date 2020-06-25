@@ -140,6 +140,11 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                     update={this.state.update}
                     updateDelay={2}
                     disableFocusLock={false}
+                    accessibilityOptions={{
+                        ariaLabelledBy: "Tour aria label",
+                        closeButtonAriaLabel: "Close",
+                        showNavigationScreenReaders: true
+                    }}
                 >
                     <div>Something</div>
                 </Tour>

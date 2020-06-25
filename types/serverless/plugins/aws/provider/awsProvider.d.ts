@@ -265,12 +265,33 @@ declare namespace Aws {
         type?: string;
     }
 
+    interface HttpCors {
+        origins?: string | string[];
+        headers?: string | string[];
+        allowCredentials?: boolean;
+        maxAge?: number;
+        cacheControl?: string;
+    }
+
+    interface HttpRequestParametersValidation {
+        querystrings?: { [key: string]: boolean };
+        headers?: { [key: string]: boolean };
+        paths?: { [key: string]: boolean };
+    }
+
+    interface HttpRequestValidation {
+        parameters?: HttpRequestParametersValidation;
+        schema?: { [key: string]: string };
+    }
+
     interface Http {
         path: string;
         method: string;
-        cors?: boolean;
+        cors?: boolean | HttpCors;
         private?: boolean;
+        async?: boolean;
         authorizer?: HttpAuthorizer;
+        request?: HttpRequestValidation;
     }
 
     interface HttpApiEventAuthorizer {

@@ -11,100 +11,100 @@ import { CipherSuite } from './http';
  */
 export interface Options {
     /** Maximum parallel `http.batch()` connections per VU. */
-    batch: number;
+    batch?: number;
 
     /** Maximum parallel `http.batch()` host connections per VU. */
-    batchPerHost: number;
+    batchPerHost?: number;
 
     /** Blacklist IP ranges from being called. */
-    blacklistIPs: string[];
+    blacklistIPs?: string[];
 
     /** Discard response bodies. */
-    discardResponseBodies: boolean;
+    discardResponseBodies?: boolean;
 
     /** Test duration. */
-    duration: string;
+    duration?: string;
 
     /** Third party collector configuration. */
-    ext: { [name: string]: CollectorOptions };
+    ext?: { [name: string]: CollectorOptions };
 
     /** Static hostname mapping. */
-    hosts: { [name: string]: string };
+    hosts?: { [name: string]: string };
 
     /** Log all HTTP requests and responses. */
-    httpDebug: string;
+    httpDebug?: string;
 
     /** Disable TLS verification. Insecure. */
-    insecureSkipTLSVerify: boolean;
+    insecureSkipTLSVerify?: boolean;
 
     /** Iterations to execute. */
-    iterations: number;
+    iterations?: number;
 
     /** Persist the k6 process after test completion. */
-    linger: boolean;
+    linger?: boolean;
 
     /** Maximum HTTP redirects to follow. */
-    maxRedirects: number;
+    maxRedirects?: number;
 
     /** Minimum test iteration duration. */
-    minIterationDuration: string;
+    minIterationDuration?: string;
 
     /** Disable keepalive connections. */
-    noConnectionReuse: boolean;
+    noConnectionReuse?: boolean;
 
     /** Disable usage reports. */
-    noUsageReport: boolean;
+    noUsageReport?: boolean;
 
     /** Disable cross-VU TCP connection reuse. */
-    noVUConnectionReuse: boolean;
+    noVUConnectionReuse?: boolean;
 
     /** Start test in paused state. */
-    paused: boolean;
+    paused?: boolean;
 
     /** Maximum requests per second across all VUs. */
-    rps: number;
+    rps?: number;
 
     /** Setup function timeout. */
-    setupTimeout: string;
+    setupTimeout?: string;
 
     /** Test stage specifications. Program of target VU stages. */
-    stages: Stage[];
+    stages?: Stage[];
 
     /** Define stats for trend metrics. */
-    summaryTrendStats: string[];
+    summaryTrendStats?: string[];
 
     /** Which system tags to include in collected metrics. */
-    systemTags: string[];
+    systemTags?: string[];
 
     /** Tags to set test wide across all metrics. */
-    tags: { [name: string]: string };
+    tags?: { [name: string]: string };
 
     /** Teardown function timeout. */
-    teardownTimeout: string;
+    teardownTimeout?: string;
 
     /** Threshold specifications. Defines pass and fail conditions. */
-    thresholds: { [name: string]: Threshold[] };
+    thresholds?: { [name: string]: Threshold[] };
 
     /** Throw error on failed HTTP request. */
-    throw: boolean;
+    throw?: boolean;
 
     /** TLS client certificates. */
-    tlsAuth: Certificate[];
+    tlsAuth?: Certificate[];
 
     /** Allowed TLS cipher suites. */
-    tlsCipherSuites: CipherSuite[];
+    tlsCipherSuites?: CipherSuite[];
 
     /** Allowed TLS version. Use `http.SSL_*` `http.TLS_*` constants. */
-    tlsVersion: string | { min: string; max: string };
+    tlsVersion?: string | { min: string; max: string };
 
     /** User agent string to include in HTTP requests. */
-    userAgent: string;
+    userAgent?: string;
 
     /** Number of VUs to run concurrently. */
-    vus: number;
+    vus?: number;
 
     /** Maximum VUs. Preallocates VUs to enable faster scaling. */
-    vusMax: number;
+    vusMax?: number;
 }
 
 /**

@@ -172,6 +172,8 @@ export const LEGACY_ALIASES: { [intrinsic: string]: string[] } = {
     '%ArrayProto_keys%': ['Array', 'prototype', 'keys'],
     '%ArrayProto_values%': ['Array', 'prototype', 'values'],
     '%AsyncFunctionPrototype%': ['AsyncFunction', 'prototype'],
+    '%AsyncGenerator%': ['AsyncGeneratorFunction', 'prototype'],
+    '%AsyncGeneratorPrototype%': ['AsyncGeneratorFunction', 'prototype', 'prototype'],
     '%BooleanPrototype%': ['Boolean', 'prototype'],
     '%DataViewPrototype%': ['DataView', 'prototype'],
     '%DatePrototype%': ['Date', 'prototype'],
@@ -180,6 +182,8 @@ export const LEGACY_ALIASES: { [intrinsic: string]: string[] } = {
     '%Float32ArrayPrototype%': ['Float32Array', 'prototype'],
     '%Float64ArrayPrototype%': ['Float64Array', 'prototype'],
     '%FunctionPrototype%': ['Function', 'prototype'],
+    '%Generator%': ['GeneratorFunction', 'prototype'],
+    '%GeneratorPrototype%': ['GeneratorFunction', 'prototype', 'prototype'],
     '%Int8ArrayPrototype%': ['Int8Array', 'prototype'],
     '%Int16ArrayPrototype%': ['Int16Array', 'prototype'],
     '%Int32ArrayPrototype%': ['Int32Array', 'prototype'],
@@ -215,7 +219,6 @@ export const LEGACY_ALIASES: { [intrinsic: string]: string[] } = {
 };
 setProto(LEGACY_ALIASES, null);
 
-let override: Intrinsic;
 export const BASE_INTRINSIC_DATA: { [intrinsic: string]: string | Intrinsic } = {
     Array: { type: 'ArrayConstructor', get: 'typeof Array' },
     ArrayBuffer: {
@@ -235,9 +238,17 @@ export const BASE_INTRINSIC_DATA: { [intrinsic: string]: string | Intrinsic } = 
         },
     },
     AsyncFunction: { type: 'FunctionConstructor', get: 'typeof Function' },
-    AsyncGenerator: override = { type: 'AsyncGeneratorFunction', overrides: { prototype: 'AsyncGenerator<any>' } },
-    AsyncGeneratorFunction: { type: 'AsyncGeneratorFunctionConstructor', overrides: { prototype: override } },
-    AsyncGeneratorPrototype: 'AsyncGenerator<any>',
+    AsyncGeneratorFunction: {
+        type: 'AsyncGeneratorFunctionConstructor',
+        overrides: {
+            prototype: {
+                type: 'AsyncGeneratorFunction',
+                overrides: {
+                    prototype: 'AsyncGenerator<any>',
+                },
+            },
+        },
+    },
     AsyncIteratorPrototype: 'AsyncIterable<any>',
     Atomics: { type: 'Atomics', get: 'typeof Atomics' },
     BigInt: { type: 'BigIntConstructor', get: 'typeof BigInt' },
@@ -324,9 +335,17 @@ export const BASE_INTRINSIC_DATA: { [intrinsic: string]: string | Intrinsic } = 
             },
         },
     },
-    Generator: override = { type: 'GeneratorFunction', overrides: { prototype: 'Generator<any>' } },
-    GeneratorFunction: { type: 'GeneratorFunctionConstructor', overrides: { prototype: override } },
-    GeneratorPrototype: 'Generator<any>',
+    GeneratorFunction: {
+        type: 'GeneratorFunctionConstructor',
+        overrides: {
+            prototype: {
+                type: 'GeneratorFunction',
+                overrides: {
+                    prototype: 'Generator<any>',
+                },
+            },
+        },
+    },
     Int8Array: {
         type: 'Int8ArrayConstructor',
         get: 'typeof Int8Array',
@@ -462,7 +481,15 @@ export const BASE_INTRINSIC_DATA: { [intrinsic: string]: string | Intrinsic } = 
         },
     },
     ThrowTypeError: '() => never',
-    // TODO: Add types for %TypedArray%
+    TypedArray: {
+        type: 'TypedArrayConstructor',
+        overrides: {
+            prototype: {
+                type: 'TypedArrayPrototype',
+                getterType: 'TypedArray',
+            },
+        },
+    },
     TypeError: {
         type: 'TypeErrorConstructor',
         get: 'typeof TypeError',

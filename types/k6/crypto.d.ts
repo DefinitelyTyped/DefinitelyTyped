@@ -4,6 +4,8 @@ import { bytes } from '.';
  * Generate random bytes.
  * @param size - Number of bytes to generate.
  * @returns Random bytes.
+ * @example
+ * crypto.randomBytes(42)
  */
 export function randomBytes(size: number): bytes;
 
@@ -15,6 +17,8 @@ export function randomBytes(size: number): bytes;
  * @param data - Input data.
  * @param outputEncoding - Output encoding.
  * @returns Produced HMAC.
+ * @example
+ * crypto.hmac('sha256', 'mysecret', 'hello world!', 'hex')
  */
 export function hmac<OE extends OutputEncoding>(
     algorithm: Algorithm,
@@ -29,6 +33,8 @@ export function hmac<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns MD4 digest.
+ * @example
+ * crypto.md4('hello world!', 'hex')
  */
 export function md4<OE extends OutputEncoding>(
     input: string,
@@ -41,6 +47,8 @@ export function md4<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns MD5 digest.
+ * @example
+ * crypto.md5("hello world!", "hex")
  */
 export function md5<OE extends OutputEncoding>(
     input: string,
@@ -53,6 +61,8 @@ export function md5<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-1 digest.
+ * @example
+ * crypto.sha1('hello world!', 'hex')
  */
 export function sha1<OE extends OutputEncoding>(
     input: string,
@@ -65,6 +75,8 @@ export function sha1<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-256 digest.
+ * @example
+ * crypto.sha256('hello world!', 'hex')
  */
 export function sha256<OE extends OutputEncoding>(
     input: string,
@@ -77,6 +89,8 @@ export function sha256<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-384 digest.
+ * @example
+ * crypto.sha384('hello world!', 'hex')
  */
 export function sha384<OE extends OutputEncoding>(
     input: string,
@@ -89,6 +103,8 @@ export function sha384<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-512 digest.
+ * @example
+ * crypto.sha512('hello world!', 'hex')
  */
 export function sha512<OE extends OutputEncoding>(
     input: string,
@@ -101,6 +117,8 @@ export function sha512<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-512/224 digest.
+ * @example
+ * crypto.sha512_224('hello world!', 'hex')
  */
 export function sha512_224<OE extends OutputEncoding>(
     input: string,
@@ -113,6 +131,8 @@ export function sha512_224<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-512/256 digest.
+ * @example
+ * crypto.sha512_256('hello world!', 'hex')
  */
 export function sha512_256<OE extends OutputEncoding>(
     input: string,
@@ -125,6 +145,8 @@ export function sha512_256<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns RIPEMD-160 digest.
+ * @example
+ * crypto.ripemd160('hello world!', 'hex')
  */
 export function ripemd160<OE extends OutputEncoding>(
     input: string,
@@ -136,6 +158,7 @@ export function ripemd160<OE extends OutputEncoding>(
  * https://k6.io/docs/javascript-api/k6-crypto/createhash-algorithm
  * @param algorithm - Hash algorithm.
  * @returns Hashing object.
+ * @example
  */
 export function createHash(algorithm: Algorithm): Hasher;
 
@@ -145,6 +168,7 @@ export function createHash(algorithm: Algorithm): Hasher;
  * @param algorithm - Hash algorithm.
  * @param secret - Shared secret.
  * @returns HMAC hashing object.
+ * @example
  */
 export function createHMAC(algorithm: Algorithm, secret: string): Hasher;
 
@@ -196,14 +220,26 @@ export abstract class Hasher {
 
     /**
      * Add more data to the string we want to create a hash of.
+     * https://k6.io/docs/javascript-api/k6-crypto/hasher
      * @param input - Data to add.
+     * @example
+     * let hasher = crypto.createHMAC('sha256', 'a secret');
+     * hasher.update('hello ');
+     * hasher.update('world!');
+     * console.log(hasher.digest('hex'));
      */
     update(input: string): void;
 
     /**
      * Return a digest from the data added so far.
+     * https://k6.io/docs/javascript-api/k6-crypto/hasher
      * @param outputEncoding - Output encoding.
      * @returns Digest of data added so far.
+     * @example
+     * let hasher = crypto.createHMAC('sha256', 'a secret');
+     * hasher.update('hello ');
+     * hasher.update('world!');
+     * console.log(hasher.digest('hex'));
      */
     digest<OE extends OutputEncoding>(outputEncoding: OE): Output<OE>;
 }
@@ -214,6 +250,15 @@ export abstract class Hasher {
  */
 declare namespace crypto {
     /**
+     * Generate random bytes.
+     * @param size - Number of bytes to generate.
+     * @returns Random bytes.
+     * @example
+     * crypto.randomBytes(42)
+     */
+    function randomBytes(size: number): bytes;
+
+    /**
      * Produce HMAC.
      * https://k6.io/docs/javascript-api/k6-crypto/hmac-algorithm-secret-data-outputencoding
      * @param algorithm - Hash algorithm.
@@ -221,6 +266,8 @@ declare namespace crypto {
      * @param data - Input data.
      * @param outputEncoding - Output encoding.
      * @returns Produced HMAC.
+     * @example
+     * crypto.hmac('sha256', 'mysecret', 'hello world!', 'hex')
      */
     function hmac<OE extends OutputEncoding>(
         algorithm: Algorithm,
@@ -235,6 +282,8 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns MD4 digest.
+     * @example
+     * crypto.md4('hello world!', 'hex')
      */
     function md4<OE extends OutputEncoding>(
         input: string,
@@ -247,6 +296,8 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns MD5 digest.
+     * @example
+     * crypto.md5("hello world!", "hex")
      */
     function md5<OE extends OutputEncoding>(
         input: string,
@@ -259,6 +310,8 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-1 digest.
+     * @example
+     * crypto.sha1('hello world!', 'hex')
      */
     function sha1<OE extends OutputEncoding>(
         input: string,
@@ -271,6 +324,8 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-256 digest.
+     * @example
+     * crypto.sha256('hello world!', 'hex')
      */
     function sha256<OE extends OutputEncoding>(
         input: string,
@@ -283,6 +338,8 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-384 digest.
+     * @example
+     * crypto.sha384('hello world!', 'hex')
      */
     function sha384<OE extends OutputEncoding>(
         input: string,
@@ -295,6 +352,8 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-512 digest.
+     * @example
+     * crypto.sha512('hello world!', 'hex')
      */
     function sha512<OE extends OutputEncoding>(
         input: string,
@@ -307,6 +366,8 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-512/224 digest.
+     * @example
+     * crypto.sha512_224('hello world!', 'hex')
      */
     function sha512_224<OE extends OutputEncoding>(
         input: string,
@@ -319,6 +380,8 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-512/256 digest.
+     * @example
+     * crypto.sha512_256('hello world!', 'hex')
      */
     function sha512_256<OE extends OutputEncoding>(
         input: string,
@@ -331,6 +394,8 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns RIPEMD-160 digest.
+     * @example
+     * crypto.ripemd160('hello world!', 'hex')
      */
     function ripemd160<OE extends OutputEncoding>(
         input: string,
@@ -342,6 +407,11 @@ declare namespace crypto {
      * https://k6.io/docs/javascript-api/k6-crypto/createhash-algorithm
      * @param algorithm - Hash algorithm.
      * @returns Hashing object.
+     * @example
+     * let hasher = crypto.createHash('sha256');
+     * hasher.update('hello ');
+     * hasher.update('world!');
+     * console.log(hasher.digest('hex'));
      */
     function createHash(algorithm: Algorithm): Hasher;
 
@@ -351,6 +421,11 @@ declare namespace crypto {
      * @param algorithm - Hash algorithm.
      * @param secret - Shared secret.
      * @returns HMAC hashing object.
+     * @example
+     * let hasher = crypto.createHMAC('sha256', 'a secret');
+     * hasher.update('hello ');
+     * hasher.update('world!');
+     * console.log(hasher.digest('hex'));
      */
     function createHMAC(algorithm: Algorithm, secret: string): Hasher;
 }
