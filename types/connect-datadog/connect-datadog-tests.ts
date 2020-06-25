@@ -1,5 +1,5 @@
 import connectDD = require('connect-datadog');
-import dogstatsd = require('hot-shots');
+import hotShots = require('hot-shots');
 
 // works with no options
 const middleware = connectDD({});
@@ -13,7 +13,7 @@ const middleware2 = connectDD({
     protocol: true,
     response_code: true,
     tags: ['abc', 'def'],
-    dogstatsd: new dogstatsd.StatsD({
+    dogstatsd: new hotShots.StatsD({
         host: 'localhost',
     }),
 });
