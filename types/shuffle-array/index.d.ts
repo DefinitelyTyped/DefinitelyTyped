@@ -4,7 +4,6 @@
 //                 jwulf0 <https://github.com/jwulf0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 /**
  * copy - Sets if should return a shuffled copy of the given array. By default it's a falsy value.
  * rng - Specifies a custom random number generator.
