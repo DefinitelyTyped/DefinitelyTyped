@@ -1,3 +1,3 @@
-import svgTags, { SVGTags } from 'svg-tag-names'
+import * as svgTags from 'svg-tag-names';
 
-const list: SVGTags[] = svgTags;
+svgTags; // $ExpectType SVGTags[]
