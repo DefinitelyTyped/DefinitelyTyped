@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {
     AccordionItem,
+    Button,
     Column,
     DataTable,
     DataTableCustomRenderProps,
@@ -10,9 +11,11 @@ import {
     Dropdown,
     HeaderContainer,
     HeaderMenu,
+    HeaderMenuItem,
     FileUploader,
     NumberInput,
     Row,
+    SecondaryButton,
     Slider,
     Tab,
     Table,
@@ -24,7 +27,6 @@ import {
     TooltipDefinition,
     TextArea,
     TextInput,
-    FormItem,
     FileUploaderDropContainer,
     FileUploaderItem,
     MultiSelect,
@@ -32,7 +34,8 @@ import {
     SideNav,
     SideNavItem,
     SideNavItems,
-} from "carbon-components-react";
+    ButtonRenderIconRenderProps,
+} from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
 // AccordionItem
@@ -52,6 +55,88 @@ const accordionItemTwo = (
         Lorem ipsum.
     </AccordionItem>
 );
+
+//
+// Button
+//
+
+const buttonDefaultT1 = (
+    <Button onClick={(event) => event.preventDefault()}>Basic Button</Button>
+);
+
+const buttonRef = React.useRef<HTMLButtonElement>(null);
+const SimpleButtonIcon = () => <div/>;
+const buttonDefaultT2 = (
+    <Button
+        kind="danger"
+        onClick={(event) => {
+            event.preventDefault();
+        }}
+        renderIcon={SimpleButtonIcon}
+        ref={buttonRef}
+        type="reset"
+    >
+        Reset
+    </Button>
+);
+
+const buttonIconT1 = (
+    <Button renderIcon={SimpleButtonIcon}>With Render Icon</Button>
+);
+// TODO: find a way to make this fail because someProp is required by the component but it will never be provided.
+const IconWithProps: React.FC<{ someProp: number, anotherProp?: string }> = () => <div/>;
+const buttonIconT2 = (
+    <Button renderIcon={IconWithProps}>With Render Icon</Button>
+);
+
+const buttonIconT3 = (
+    <Button renderIcon={({ className }: ButtonRenderIconRenderProps) => <div className={className}/>}>Anon Icon Render</Button>
+);
+
+const anchorRef = React.useRef<HTMLAnchorElement>(null);
+const buttonAnchorT1 = (
+    <Button href="https://github.com/DefinitelyTyped/DefinitelyTyped" asdf={"asdf"} target="_blank" ref={anchorRef}>Anchor Link</Button>
+);
+
+const spanRef = React.useRef<HTMLSpanElement>(null);
+const buttonIntrinsicT1 = (
+    <Button
+        as="span"
+        kind="danger"
+        onClick={(event) => {
+            event.preventDefault();
+        }}
+        ref={spanRef}
+    >
+        Reset
+    </Button>
+);
+
+const ButtonCustomRenderComp1: React.FC<{ someProp: number, anotherProp?: string }> = () => <div/>;
+
+const buttonCustomRenderT1 = (
+    <Button
+        as={ButtonCustomRenderComp1}
+        kind="danger"
+        someProp={5}
+        anotherProp="test"
+    >
+        Custom Render
+    </Button>
+);
+
+//
+// SecondaryButton
+//
+const secondaryButtonT1 = (
+    <SecondaryButton onClick={(event) => event.preventDefault()}>Secondary</SecondaryButton>
+);
+const secondaryButtonT2 = (
+    <SecondaryButton as="span" onClick={(event) => event.preventDefault()}>Secondary</SecondaryButton>
+);
+const secondaryButtonT3 = (
+    <SecondaryButton as={ButtonCustomRenderComp1} someProp={6}>Secondary</SecondaryButton>
+)
 
 interface Row1 extends DataTableRow {
     rowProp: string;
@@ -285,6 +370,7 @@ const uisHeaderContainerCompRenderNotMatchingRequiredProps = <HeaderContainer re
 const uisHeaderContainerCompRenderNotMatchingOptionalProps = <HeaderContainer render={HeaderCompRender2} />;
 
 // UI Shell - HeaderMenu
+
 const uisHeaderMenuAnonRender = (
     <HeaderMenu menuLinkName="test" renderMenuContent={() => <div />}>
         <div />
@@ -302,6 +388,18 @@ const uisHeaderMenuCompRenderNotMatchingRequiredProps = (
 const uisHeaderMenuCompRenderNotMatchingOptionalProps = (
     <HeaderMenu menuLinkName="test" renderMenuContent={HeaderCompRender2} />
 );
+
+//
+// HeaderMenuItem
+//
+
+const uisHeaderMenuItemRequiredChild = (
+    <HeaderMenuItem>Required Child</HeaderMenuItem>
+);
+
+//
+// UIShell Link
+//
 
 interface TestCompPropsOverwrite {
     element?: 'overwriteTest'; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
