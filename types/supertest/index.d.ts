@@ -37,7 +37,9 @@ declare namespace supertest {
     function agent(
         app?: any,
         options?: AgentOptions,
-    ): SuperTest<Test> &
+    ): SuperAgentTest;
+    
+    type SuperAgentTest = SuperTest<Test> &
         Pick<
             Request,
             | 'use'
