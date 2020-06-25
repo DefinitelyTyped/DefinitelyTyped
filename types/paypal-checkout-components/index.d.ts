@@ -1,16 +1,16 @@
-// Type definitions for paypal-checkout-components v4.0.314
+// Type definitions for paypal-checkout-components 4.0
 // Project: https://github.com/paypal/paypal-checkout-components/
 // Definitions by: Jason Buckner <https://github.com/jbuckner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
 declare namespace paypal {
-  export enum Environment {
+  enum Environment {
     Production = 'production',
     Sandbox = 'sandbox'
   }
 
-  export enum ButtonColorOption {
+  enum ButtonColorOption {
     /**
      * Recommended
      * People around the world know us for the color gold and research confirms it.
@@ -40,11 +40,11 @@ declare namespace paypal {
      * If your website demands a monochromatic button experience, try the black button.
      * Because black is a common website color and less capable of drawing people's attention,
      * we recommend this button as a third alternative.
-    */
+     */
     Black = 'black'
   }
 
-  export enum ButtonShapeOption {
+  enum ButtonShapeOption {
     /**
      * Recommended
      * Whenever possible, use the pill-shaped button.
@@ -59,7 +59,7 @@ declare namespace paypal {
     Rect = 'rect'
   }
 
-  export enum ButtonSizeOption {
+  enum ButtonSizeOption {
     /**
      * Recommended. Default.
      * 150 pixels by 25 pixels
@@ -84,7 +84,7 @@ declare namespace paypal {
     Responsive = 'responsive'
   }
 
-  export enum ButtonLabelOption {
+  enum ButtonLabelOption {
     /**
      * The PayPal Checkout button. The default button.
      */
@@ -112,12 +112,12 @@ declare namespace paypal {
     PayPal = 'paypal'
   }
 
-  export class ButtonStyle {
+  class ButtonStyle {
     color: ButtonColorOption;
     label: ButtonLabelOption;
     shape: ButtonShapeOption;
     size: ButtonSizeOption;
-    tagline: boolean
+    tagline: boolean;
   }
 
   enum LineItemKind {
@@ -128,65 +128,41 @@ declare namespace paypal {
   interface LineItem {
       /**
        * Number of units of the item purchased. This value must be a whole number and can't be negative or zero.
-       *
-       * @type {string}
-       * @memberof LineItem
        */
       quantity: string;
 
       /**
        * Per-unit price of the item. Can include up to 2 decimal places. This value can't be negative or zero.
-       *
-       * @type {string}
-       * @memberof LineItem
        */
       unitAmount: string;
 
       /**
        * Item name. Maximum 127 characters.
-       *
-       * @type {string}
-       * @memberof LineItem
        */
       name: string;
 
       /**
        * Indicates whether the line item is a debit (sale) or credit (refund) to the customer. Accepted values: `debit` and `credit`.
-       *
-       * @type {LineItemKind}
-       * @memberof LineItem
        */
       kind: LineItemKind;
 
       /**
        * Per-unit tax price of the item. Can include up to 2 decimal places. This value can't be negative or zero.
-       *
-       * @type {(string | undefined)}
-       * @memberof LineItem
        */
       unitTaxAmount: string | undefined;
 
       /**
        * Item description. Maximum 127 characters.
-       *
-       * @type {(string | undefined)}
-       * @memberof LineItem
        */
       description: string | undefined;
 
       /**
        * Product or UPC code for the item. Maximum 127 characters.
-       *
-       * @type {(string | undefined)}
-       * @memberof LineItem
        */
       productCode: string | undefined;
 
       /**
        * The URL to product information.
-       *
-       * @type {(string | undefined)}
-       * @memberof LineItem
        */
       url: string | undefined;
   }
@@ -206,17 +182,11 @@ declare namespace paypal {
   interface CurrencyAmount {
       /**
        * The three-character ISO-4217 currency code. PayPal does not support all currencies.
-       *
-       * @type {string}
-       * @memberof ShippingOptionAmount
        */
       currency: string;
 
       /**
        * The amount the shipping option will cost. Includes the specified number of digits after decimal separator for the ISO-4217 currency code.
-       *
-       * @type {string}
-       * @memberof ShippingOptionAmount
        */
       value: string;
   }
@@ -224,41 +194,26 @@ declare namespace paypal {
   interface ShippingOption {
       /**
        * A unique ID that identifies a payer-selected shipping option.
-       *
-       * @type {string}
-       * @memberof ShippingOption
        */
       id: string;
 
       /**
        * A description that the payer sees, which helps them choose an appropriate shipping option. For example, `Free Shipping`, `USPS Priority Shipping`, `Expédition prioritaire USPS`, or `USPS yōuxiān fā huò`. Localize this description to the payer's locale.
-       *
-       * @type {string}
-       * @memberof ShippingOption
        */
       label: string;
 
       /**
        * If `selected = true` is specified as part of the API request it represents the shipping option that the payee/merchant expects to be pre-selected for the payer when they first view the shipping options within the PayPal checkout experience. As part of the response if a shipping option has `selected = true` it represents the shipping option that the payer selected during the course of checkout with PayPal. Only 1 `shippingOption` can be set to `selected = true`.
-       *
-       * @type {boolean}
-       * @memberof ShippingOption
        */
       selected: boolean;
 
       /**
        * The method by which the payer wants to get their items.
-       *
-       * @type {ShippingOptionType}
-       * @memberof ShippingOption
        */
       type: ShippingOptionType;
 
       /**
        * The shipping cost for the selected option.
-       *
-       * @type {CurrencyAmount}
-       * @memberof ShippingOption
        */
       amount: CurrencyAmount;
   }
@@ -266,65 +221,41 @@ declare namespace paypal {
   interface Address {
       /**
        * Street number and name.
-       *
-       * @type {string}
-       * @memberof Address
        */
       line1: string;
 
       /**
        * Extended address.
-       *
-       * @type {string}
-       * @memberof Address
        */
       line2?: string;
 
       /**
        * City or locality.
-       *
-       * @type {string}
-       * @memberof Address
        */
       city: string;
 
       /**
        * State or region.
-       *
-       * @type {string}
-       * @memberof Address
        */
       state: string;
 
       /**
        * Postal code.
-       *
-       * @type {string}
-       * @memberof Address
        */
       postalCode: string;
 
       /**
        * 2 character country code (e.g. US).
-       *
-       * @type {string}
-       * @memberof Address
        */
       countryCode: string;
 
       /**
        * Phone number.
-       *
-       * @type {string}
-       * @memberof Address
        */
       phone?: string;
 
       /**
        * Recipient of postage.
-       *
-       * @type {string}
-       * @memberof Address
        */
       recipientName?: string;
   }
@@ -332,54 +263,36 @@ declare namespace paypal {
   interface CreditFinancingOptions {
       /**
        * This is the estimated total payment amount including interest and fees the user will pay during the lifetime of the loan.
-       *
-       * @type {CurrencyAmount}
-       * @memberof CreditFinancingOptions
        */
       totalCost: CurrencyAmount;
 
       /**
        * Length of financing terms in months.
-       *
-       * @type {number}
-       * @memberof CreditFinancingOptions
        */
       term: number;
 
       /**
        * This is the estimated amount per month that the customer will need to pay including fees and interest.
-       *
-       * @type {CurrencyAmount}
-       * @memberof CreditFinancingOptions
        */
       monthlyPayment: CurrencyAmount;
 
       /**
        * Estimated interest or fees amount the payer will have to pay during the lifetime of the loan.
-       *
-       * @type {CurrencyAmount}
-       * @memberof CreditFinancingOptions
        */
       totalInterest: CurrencyAmount;
 
       /**
        * Status of whether the customer ultimately was approved for and chose to make the payment using the approved installment credit.
-       *
-       * @type {boolean}
-       * @memberof CreditFinancingOptions
        */
       payerAcceptance: boolean;
 
       /**
        * Indicates whether the cart amount is editable after payer's acceptance on PayPal side.
-       *
-       * @type {boolean}
-       * @memberof CreditFinancingOptions
        */
       cartAmountImmutable: boolean;
   }
 
-  export interface TokenizePayloadDetails {
+  interface TokenizePayloadDetails {
       email: string;
       payerId: string;
       firstName: string;
@@ -389,56 +302,38 @@ declare namespace paypal {
 
       /**
        * User's shipping address details, only available if shipping address is enabled.
-       *
-       * @type {Address}
-       * @memberof TokenizePayload
        */
       shippingAddress?: Address;
 
       /**
        * User's billing address details.
-       *
-       * @type {Address}
-       * @memberof TokenizePayload
        */
       billingAddress?: Address;
 
       /**
        * This property will only be present when the customer pays with PayPal Credit.
-       *
-       * @type {CreditFinancingOptions}
-       * @memberof TokenizePayload
        */
       creditFinancingOffered?: CreditFinancingOptions;
   }
 
-  export interface TokenizePayload {
+  interface TokenizePayload {
       /**
        * The payment method nonce.
-       *
-       * @type {string}
-       * @memberof TokenizePayload
        */
       nonce: string;
 
       /**
        * The payment method type, always `PayPalAccount`.
-       *
-       * @type {string}
-       * @memberof TokenizePayload
        */
       type: string;
 
       /**
        * Additional PayPal account details.
-       *
-       * @type {TokenizePayloadDetails}
-       * @memberof TokenizePayload
        */
       details: TokenizePayloadDetails;
   }
 
-  export enum FlowType {
+  enum FlowType {
       /**
        * Used to store the payment method for future use, ie subscriptions
        */
@@ -450,7 +345,7 @@ declare namespace paypal {
       Checkout = 'checkout',
   }
 
-  export enum Intent {
+  enum Intent {
       /**
        * Submits the transaction for authorization but not settlement.
        */
@@ -467,14 +362,14 @@ declare namespace paypal {
       Capture = 'capture',
   }
 
-  export interface AuthorizationData {
+  interface AuthorizationData {
     payerId: string;
     paymentId?: string;
     billingToken?: string;
     vault?: boolean;
   }
 
-  export interface CancellationData {
+  interface CancellationData {
     billingID: string;
     button_version: string;
     cancelUrl: string;
@@ -483,33 +378,24 @@ declare namespace paypal {
     paymentToken: string;
   }
 
-  export interface AuthorizationTokenizePayload {
+  interface AuthorizationTokenizePayload {
     /**
      * The payment method nonce.
-     *
-     * @type {string}
-     * @memberof TokenizePayload
      */
     nonce: string;
 
     /**
      * The payment method type, always `PayPalAccount`.
-     *
-     * @type {string}
-     * @memberof TokenizePayload
      */
     type: string;
 
     /**
      * Additional PayPal account details.
-     *
-     * @type {TokenizePayloadDetails}
-     * @memberof TokenizePayload
      */
     details: TokenizePayloadDetails;
   }
 
-  export interface Button {
+  interface Button {
     render(
       options: {
         env?: Environment;
@@ -545,7 +431,7 @@ declare namespace paypal {
     ): void;
   }
 
-  export var Button: Button;
+  const Button: Button;
 }
 
 export = paypal;
