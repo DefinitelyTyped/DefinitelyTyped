@@ -42693,32 +42693,32 @@ declare namespace Excel {
      */
     enum CommentChangeType {
         /**
-         * Comment(s) was edited.
+         * Comments were edited.
          *
          */
         commentEdited = "CommentEdited",
         /**
-         * Comment(s) was resolved.
+         * Comments were resolved.
          *
          */
         commentResolved = "CommentResolved",
         /**
-         * Comment(s) was reopened.
+         * Comments were reopened.
          *
          */
         commentReopened = "CommentReopened",
         /**
-         * Reply(ies) was added.
+         * Replies were added.
          *
          */
         replyAdded = "ReplyAdded",
         /**
-         * Reply(ies) was deleted.
+         * Replies were deleted.
          *
          */
         replyDeleted = "ReplyDeleted",
         /**
-         * Reply(ies) was edited.
+         * Replies were edited.
          *
          */
         replyEdited = "ReplyEdited"
