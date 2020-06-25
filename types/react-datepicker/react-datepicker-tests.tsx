@@ -113,6 +113,7 @@ const defaultLocale = getDefaultLocale();
     shouldCloseOnSelect
     showDisabledMonthNavigation
     showMonthDropdown
+    showFullMonthYearPicker
     showMonthYearDropdown
     showMonthYearPicker
     showPopperArrow
@@ -120,6 +121,7 @@ const defaultLocale = getDefaultLocale();
     showQuarterYearPicker
     showTimeSelect
     showTimeSelectOnly
+    showTwoColumnMonthYearPicker
     showWeekNumbers
     showYearDropdown
     showYearPicker
