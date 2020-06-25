@@ -21318,7 +21318,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Provides information about the comment(s) that raised the Added event.
+     * Provides information about the comments that raised the "CommentAdded" event.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -21326,7 +21326,7 @@ declare namespace Excel {
     interface CommentAddedEventArgs {
         /**
          *
-         * Get the CommentDetail array which contains the comment Id and Ids of its related replies.
+         * Gets the `CommentDetail` array that contains the comment ID and IDs of its related replies.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -21334,7 +21334,7 @@ declare namespace Excel {
         commentDetails: Excel.CommentDetail[];
         /**
          *
-         * Specifies the source of the event. See Excel.EventSource for details.
+         * Specifies the source of the event. See `Excel.EventSource` for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -21342,7 +21342,7 @@ declare namespace Excel {
         source: Excel.EventSource | "Local" | "Remote";
         /**
          *
-         * Gets the type of the event. See Excel.EventType for details.
+         * Gets the type of the event. See `Excel.EventType` for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -21350,7 +21350,7 @@ declare namespace Excel {
         type: "CommentAdded";
         /**
          *
-         * Gets the Id of the worksheet in which the event happened.
+         * Gets the ID of the worksheet in which the event happened.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -21359,7 +21359,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Provides information about the comment(s) that raised the Deleted event.
+     * Provides information about the comments that raised the "CommentDeleted" event.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -21367,7 +21367,7 @@ declare namespace Excel {
     interface CommentDeletedEventArgs {
         /**
          *
-         * Get the CommentDetail array which contains the comment Id and Ids of its related replies.
+         * Gets the `CommentDetail` array that contains the comment ID and IDs of its related replies.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -21375,7 +21375,7 @@ declare namespace Excel {
         commentDetails: Excel.CommentDetail[];
         /**
          *
-         * Specifies the source of the event. See Excel.EventSource for details.
+         * Specifies the source of the event. See `Excel.EventSource` for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -21383,7 +21383,7 @@ declare namespace Excel {
         source: Excel.EventSource | "Local" | "Remote";
         /**
          *
-         * Gets the type of the event. See Excel.EventType for details.
+         * Gets the type of the event. See `Excel.EventType` for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -21391,7 +21391,7 @@ declare namespace Excel {
         type: "CommentDeleted";
         /**
          *
-         * Gets the Id of the worksheet in which the event happened.
+         * Gets the ID of the worksheet in which the event happened.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -21416,7 +21416,7 @@ declare namespace Excel {
         changeType: Excel.CommentChangeType | "CommentEdited" | "CommentResolved" | "CommentReopened" | "ReplyAdded" | "ReplyDeleted" | "ReplyEdited";
         /**
          *
-         * Get the CommentDetail array which contains the comment Id and Ids of its related replies.
+         * Gets the `CommentDetail` array which contains the comment ID and IDs of its related replies.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -21424,7 +21424,7 @@ declare namespace Excel {
         commentDetails: Excel.CommentDetail[];
         /**
          *
-         * Specifies the source of the event. See Excel.EventSource for details.
+         * Specifies the source of the event. See `Excel.EventSource` for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -21432,7 +21432,7 @@ declare namespace Excel {
         source: Excel.EventSource | "Local" | "Remote";
         /**
          *
-         * Gets the type of the event. See Excel.EventType for details.
+         * Gets the type of the event. See `Excel.EventType` for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -21440,7 +21440,7 @@ declare namespace Excel {
         type: "CommentChanged";
         /**
          *
-         * Gets the Id of the worksheet in which the event happened.
+         * Gets the ID of the worksheet in which the event happened.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -21449,7 +21449,7 @@ declare namespace Excel {
     }
     /**
      *
-     * A structure for the comment Id and Ids of its related replies.
+     * A structure for the comment ID and IDs of its related replies.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -21457,7 +21457,7 @@ declare namespace Excel {
     interface CommentDetail {
         /**
          *
-         * Represents the ids of the related replies belong to comment.
+         * Represents the IDs of the related replies belong to comment.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -21465,7 +21465,7 @@ declare namespace Excel {
         replyIds: string[];
         /**
          *
-         * Represents the id of comment.
+         * Represents the ID of comment.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -23701,7 +23701,7 @@ declare namespace Excel {
          */
         getColumnsBefore(count?: number): Excel.Range;
         /**
-         * Returns a WorkbookRangeAreas object that represents the range containing all the direct precedents of a cell in same worksheet or in multiple worksheets.
+         * Returns a `WorkbookRangeAreas` object that represents the range containing all the direct precedents of a cell in same worksheet or in multiple worksheets.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -23787,7 +23787,7 @@ declare namespace Excel {
          */
         getPivotTables(fullyContained?: boolean): Excel.PivotTableScopedCollection;
         /**
-         * Returns a WorkbookRangeAreas object that represents the range containing all the precedents of a cell in same worksheet or in multiple worksheets.
+         * Returns a `WorkbookRangeAreas` object that represents the range containing all the precedents of a cell in same worksheet or in multiple worksheets.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -24512,7 +24512,7 @@ declare namespace Excel {
     }
     /**
      *
-     * WorkbookRangeAreas represents a collection of one or more rectangular ranges in multi worksheet.
+     * Represents a collection of one or more rectangular ranges in multiple worksheets.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -24530,7 +24530,7 @@ declare namespace Excel {
         readonly areas: Excel.RangeAreasCollection;
         /**
          *
-         * Returns a collection of ranges that comprise this WorkbookRangeAreas object.
+         * Returns a collection of ranges that comprise this object.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -24545,7 +24545,7 @@ declare namespace Excel {
          */
         readonly addresses: string[];
         /**
-         * Returns the RangeAreas object based on worksheet id or name in the collection.
+         * Returns the `RangeAreas` object based on worksheet id or name in the collection.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -24554,7 +24554,7 @@ declare namespace Excel {
          */
         getRangeAreasBySheet(key: string): Excel.RangeAreas;
         /**
-         * Returns the RangeAreas object based on worksheet name or id in the collection. If the worksheet does not exist, will return a null object.
+         * Returns the `RangeAreas` object based on worksheet name or id in the collection. If the worksheet does not exist, will return a null object.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
