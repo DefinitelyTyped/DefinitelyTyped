@@ -12,6 +12,10 @@
 // @see https://www.pubnub.com/docs/web-javascript/api-reference-configuration
 // TypeScript Version: 2.2
 
+// SDK callbacks all accept Pubnub.PubnubStatus as the first argument
+type Callback<ResponseType> = (status: Pubnub.PubnubStatus, response: ResponseType) => void;
+type StatusCallback = (status: Pubnub.PubnubStatus) => void;
+
 declare class Pubnub {
     constructor(config: Pubnub.PubnubConfig);
 
@@ -39,46 +43,46 @@ declare class Pubnub {
 
     publish(
         params: Pubnub.PublishParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.PublishResponse) => void,
+        callback: Callback<Pubnub.PublishResponse>,
     ): void;
 
     publish(params: Pubnub.PublishParameters): Promise<Pubnub.PublishResponse>;
 
     fire(
         params: Pubnub.FireParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.PublishResponse) => void,
+        callback: Callback<Pubnub.PublishResponse>,
     ): void;
 
     fire(params: Pubnub.FireParameters): Promise<Pubnub.PublishResponse>;
 
     signal(
         params: Pubnub.SignalParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.SignalResponse) => void,
+        callback: Callback<Pubnub.SignalResponse>,
     ): void;
 
     signal(params: Pubnub.SignalParameters): Promise<Pubnub.SignalResponse>;
 
     history(
         params: Pubnub.HistoryParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.HistoryResponse) => void,
+        callback: Callback<Pubnub.HistoryResponse>,
     ): void;
 
     history(params: Pubnub.HistoryParameters): Promise<Pubnub.HistoryResponse>;
 
     fetchMessages(
         params: Pubnub.FetchMessagesParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.FetchMessagesResponse) => void,
+        callback: Callback<Pubnub.FetchMessagesResponse>,
     ): void;
 
     fetchMessages(params: Pubnub.FetchMessagesParameters): Promise<Pubnub.FetchMessagesResponse>;
 
-    deleteMessages(params: Pubnub.DeleteMessagesParameters, callback: (status: Pubnub.PubnubStatus) => void): void;
+    deleteMessages(params: Pubnub.DeleteMessagesParameters, callback: StatusCallback): void;
 
     deleteMessages(params: Pubnub.DeleteMessagesParameters): Promise<void>;
 
     messageCounts(
         params: Pubnub.MessageCountsParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.MessageCountsResponse) => void,
+        callback: Callback<Pubnub.MessageCountsResponse>,
     ): void;
 
     messageCounts(params: Pubnub.MessageCountsParameters): Promise<Pubnub.MessageCountsResponse>;
@@ -99,42 +103,42 @@ declare class Pubnub {
 
     hereNow(
         params: Pubnub.HereNowParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.HereNowResponse) => void,
+        callback: Callback<Pubnub.HereNowResponse>,
     ): void;
 
     hereNow(params: Pubnub.HereNowParameters): Promise<Pubnub.HereNowResponse>;
 
     whereNow(
         params: Pubnub.WhereNowParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.WhereNowResponse) => void,
+        callback: Callback<Pubnub.WhereNowResponse>,
     ): void;
 
     whereNow(params: Pubnub.WhereNowParameters): Promise<Pubnub.WhereNowResponse>;
 
     getState(
         params: Pubnub.GetStateParameters,
-        callback: (status: Pubnub.PubnubStatus, state: Pubnub.GetStateResponse) => void,
+        callback: Callback<Pubnub.GetStateResponse>,
     ): void;
 
     getState(params: Pubnub.GetStateParameters): Promise<Pubnub.GetStateResponse>;
 
     setState(
         params: Pubnub.SetStateParameters,
-        callback: (status: Pubnub.PubnubStatus, state: Pubnub.SetStateResponse) => void,
+        callback: Callback<Pubnub.SetStateResponse>,
     ): void;
 
     setState(params: Pubnub.SetStateParameters): Promise<Pubnub.SetStateResponse>;
 
-    grant(params: Pubnub.GrantParameters, callback: (status: Pubnub.PubnubStatus, response: {}) => void): void;
+    grant(params: Pubnub.GrantParameters, callback: StatusCallback): void;
 
-    grant(params: Pubnub.GrantParameters): Promise<{}>;
+    grant(params: Pubnub.GrantParameters): Promise<void>;
 
     /**
      * @deprecated For objects v2, use setUUIDMetadata
      */
     createUser(
         params: Pubnub.UserInputParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetUserResponse) => void,
+        callback: Callback<Pubnub.GetUserResponse>,
     ): void;
 
     /**
@@ -147,7 +151,7 @@ declare class Pubnub {
      */
     updateUser(
         params: Pubnub.UserInputParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetUserResponse) => void,
+        callback: Callback<Pubnub.GetUserResponse>,
     ): void;
 
     /**
@@ -160,7 +164,7 @@ declare class Pubnub {
      */
     deleteUser(
         userId: string,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.DeleteUserResponse) => void,
+        callback: Callback<Pubnub.DeleteUserResponse>,
     ): void;
 
     /**
@@ -173,7 +177,7 @@ declare class Pubnub {
      */
     getUsers(
         params: Pubnub.GetObjectsParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetUsersResponse) => void,
+        callback: Callback<Pubnub.GetUsersResponse>,
     ): void;
 
     /**
@@ -186,7 +190,7 @@ declare class Pubnub {
      */
     getUser(
         params: Pubnub.GetUserParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetUserResponse) => void,
+        callback: Callback<Pubnub.GetUserResponse>,
     ): void;
 
     /**
@@ -199,7 +203,7 @@ declare class Pubnub {
      */
     createSpace(
         params: Pubnub.SpaceInputParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetSpaceResponse) => void,
+        callback: Callback<Pubnub.GetSpaceResponse>,
     ): void;
 
     /**
@@ -212,7 +216,7 @@ declare class Pubnub {
      */
     updateSpace(
         params: Pubnub.SpaceInputParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetSpaceResponse) => void,
+        callback: Callback<Pubnub.GetSpaceResponse>,
     ): void;
 
     /**
@@ -225,7 +229,7 @@ declare class Pubnub {
      */
     deleteSpace(
         spaceId: string,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.DeleteSpaceResponse) => void,
+        callback: Callback<Pubnub.DeleteSpaceResponse>,
     ): void;
 
     /**
@@ -238,7 +242,7 @@ declare class Pubnub {
      */
     getSpaces(
         params: Pubnub.GetObjectsParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetSpacesResponse) => void,
+        callback: Callback<Pubnub.GetSpacesResponse>,
     ): void;
 
     /**
@@ -251,7 +255,7 @@ declare class Pubnub {
      */
     getSpace(
         params: Pubnub.GetSpaceParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetSpaceResponse) => void,
+        callback: Callback<Pubnub.GetSpaceResponse>,
     ): void;
 
     /**
@@ -261,7 +265,7 @@ declare class Pubnub {
 
     getMemberships(
         params: Pubnub.GetMembershipsParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembershipsResponse) => void,
+        callback: Callback<Pubnub.GetMembershipsResponse>,
     ): void;
 
     getMemberships(params: Pubnub.GetMembershipsParameters): Promise<Pubnub.GetMembershipsResponse>;
@@ -271,7 +275,7 @@ declare class Pubnub {
      */
     getMembers(
         params: Pubnub.GetMembersParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembersResponse) => void,
+        callback: Callback<Pubnub.GetMembersResponse>,
     ): void;
 
     /**
@@ -284,7 +288,7 @@ declare class Pubnub {
      */
     joinSpaces(
         params: Pubnub.MembershipsInputParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembershipsResponse) => void,
+        callback: Callback<Pubnub.GetMembershipsResponse>,
     ): void;
 
     /**
@@ -297,7 +301,7 @@ declare class Pubnub {
      */
     updateMemberships(
         params: Pubnub.MembershipsInputParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembershipsResponse) => void,
+        callback: Callback<Pubnub.GetMembershipsResponse>,
     ): void;
 
     /**
@@ -310,7 +314,7 @@ declare class Pubnub {
      */
     leaveSpaces(
         params: Pubnub.LeaveSpacesParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembershipsResponse) => void,
+        callback: Callback<Pubnub.GetMembershipsResponse>,
     ): void;
 
     /**
@@ -323,7 +327,7 @@ declare class Pubnub {
      */
     addMembers(
         params: Pubnub.MembersInputParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembersResponse) => void,
+        callback: Callback<Pubnub.GetMembersResponse>,
     ): void;
 
     /**
@@ -336,7 +340,7 @@ declare class Pubnub {
      */
     updateMembers(
         params: Pubnub.MembersInputParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembersResponse) => void,
+        callback: Callback<Pubnub.GetMembersResponse>,
     ): void;
 
     /**
@@ -349,7 +353,7 @@ declare class Pubnub {
      */
     removeMembers(
         params: Pubnub.RemoveMembersParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembersResponse) => void,
+        callback: Callback<Pubnub.GetMembersResponse>,
     ): void;
 
     /**
@@ -359,21 +363,21 @@ declare class Pubnub {
 
     addMessageAction(
         params: Pubnub.AddMessageActionParameters,
-        callback: (status: Pubnub.PubnubStatus, response: { data: Pubnub.MessageAction }) => void,
+        callback: Callback<{ data: Pubnub.MessageAction }>,
     ): void;
 
     addMessageAction(params: Pubnub.AddMessageActionParameters): Promise<{ data: Pubnub.MessageAction }>;
 
     removeMessageAction(
         params: Pubnub.RemoveMessageActionParameters,
-        callback: (status: Pubnub.PubnubStatus, response: { data: {} }) => void,
+        callback: Callback<{ data: {} }>,
     ): void;
 
     removeMessageAction(params: Pubnub.RemoveMessageActionParameters): Promise<{ data: {} }>;
 
     getMessageActions(
         params: Pubnub.GetMessageActionsParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMessageActionsResponse) => void,
+        callback: Callback<Pubnub.GetMessageActionsResponse>
     ): void;
 
     getMessageActions(params: Pubnub.GetMessageActionsParameters): Promise<Pubnub.GetMessageActionsResponse>;
@@ -384,7 +388,7 @@ declare class Pubnub {
 
     time(): Promise<Pubnub.FetchTimeResponse>;
 
-    time(callback: (status: Pubnub.PubnubStatus, response: Pubnub.FetchTimeResponse) => void): void;
+    time(callback: Callback<Pubnub.FetchTimeResponse>): void;
 }
 
 declare namespace Pubnub {
@@ -648,24 +652,24 @@ declare namespace Pubnub {
     }
 
     interface Push {
-        addChannels(params: PushChannelParameters, callback: (status: PubnubStatus) => void): void;
+        addChannels(params: PushChannelParameters, callback: StatusCallback): void;
 
-        addChannels(params: PushChannelParameters): Promise<{}>;
+        addChannels(params: PushChannelParameters): Promise<void>;
 
         listChannels(
             params: PushDeviceParameters,
-            callback: (status: PubnubStatus, response: PushListChannelsResponse) => void,
+            callback: Callback<Pubnub.PushListChannelsResponse>,
         ): void;
 
         listChannels(params: PushDeviceParameters): Promise<PushListChannelsResponse>;
 
-        removeChannels(params: PushChannelParameters, callback: (status: PubnubStatus) => void): void;
+        removeChannels(params: PushChannelParameters, callback: StatusCallback): void;
 
-        removeChannels(params: PushChannelParameters): Promise<{}>;
+        removeChannels(params: PushChannelParameters): Promise<void>;
 
-        deleteDevice(params: PushDeviceParameters, callback: (status: PubnubStatus) => void): void;
+        deleteDevice(params: PushDeviceParameters, callback: StatusCallback): void;
 
-        deleteDevice(params: PushDeviceParameters): Promise<{}>;
+        deleteDevice(params: PushDeviceParameters): Promise<void>;
     }
 
     interface PushChannelParameters {
@@ -715,26 +719,26 @@ declare namespace Pubnub {
 
     // channelGroups
     interface ChannelGroups {
-        addChannels(params: AddChannelParameters, callback: (status: PubnubStatus) => void): void;
+        addChannels(params: AddChannelParameters, callback: StatusCallback): void;
 
         addChannels(params: AddChannelParameters): Promise<{}>;
 
-        removeChannels(params: RemoveChannelParameters, callback: (status: PubnubStatus) => void): void;
+        removeChannels(params: RemoveChannelParameters, callback: StatusCallback): void;
 
         removeChannels(params: RemoveChannelParameters): Promise<{}>;
 
         listChannels(
             params: ListChannelsParameters,
-            callback: (status: PubnubStatus, response: ListChannelsResponse) => void,
+            callback: Callback<Pubnub.ListChannelsResponse>,
         ): void;
 
         listChannels(params: ListChannelsParameters): Promise<ListChannelsResponse>;
 
-        listGroups(callback: (status: PubnubStatus, response: ListAllGroupsResponse) => void): void;
+        listGroups(callback: Callback<Pubnub.ListAllGroupsResponse>): void;
 
         listGroups(): Promise<ListAllGroupsResponse>;
 
-        deleteGroup(params: DeleteGroupParameters, callback: (status: PubnubStatus) => void): void;
+        deleteGroup(params: DeleteGroupParameters, callback: StatusCallback): void;
 
         deleteGroup(params: DeleteGroupParameters): Promise<{}>;
     }
