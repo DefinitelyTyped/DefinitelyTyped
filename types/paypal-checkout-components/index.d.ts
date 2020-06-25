@@ -56,3 +56,5 @@ export {
   TokenizePayload,
   TokenizePayloadDetails,
 };
+
+export as namespace paypal;

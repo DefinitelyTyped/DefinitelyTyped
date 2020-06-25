@@ -1,6 +1,6 @@
 export enum LineItemKind {
-  Debit = 'debit',
-  Credit = 'credit',
+    Debit = 'debit',
+    Credit = 'credit',
 }
 
 export interface LineItem {
@@ -252,34 +252,34 @@ export enum Intent {
 }
 
 export interface AuthorizationData {
-  payerId: string;
-  paymentId?: string;
-  billingToken?: string;
-  vault?: boolean;
+    payerId: string;
+    paymentId?: string;
+    billingToken?: string;
+    vault?: boolean;
 }
 
 export interface CancellationData {
-  billingID: string;
-  button_version: string;
-  cancelUrl: string;
-  intent: string;
-  paymentID: string;
-  paymentToken: string;
+    billingID: string;
+    button_version: string;
+    cancelUrl: string;
+    intent: string;
+    paymentID: string;
+    paymentToken: string;
 }
 
 export interface AuthorizationTokenizePayload {
-  /**
-   * The payment method nonce.
-   */
-  nonce: string;
+    /**
+     * The payment method nonce.
+     */
+    nonce: string;
 
-  /**
-   * The payment method type, always `PayPalAccount`.
-   */
-  type: string;
+    /**
+     * The payment method type, always `PayPalAccount`.
+     */
+    type: string;
 
-  /**
-   * Additional PayPal account details.
-   */
-  details: TokenizePayloadDetails;
+    /**
+     * Additional PayPal account details.
+     */
+    details: TokenizePayloadDetails;
 }
