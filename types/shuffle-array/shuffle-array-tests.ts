@@ -11,7 +11,7 @@ result = shuffle(a, {rng: () => 0});
 result = shuffle(a, {copy: true, rng: () => 0});
 
 var b = ['aaa', 'bbb', 'ccc']
-var result2: string[];
+var result2: string | string[];
 result2 = shuffle.pick(b);
 result2 = shuffle.pick(b, {});
 result2 = shuffle.pick(b, {picks: 3});
