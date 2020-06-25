@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {    
+    "target": "ES2016",
+    "module": "commonjs",
+    "lib": ["dom", "es6"],
+    "noEmit": true,                        /* Do not emit outputs. */        
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+        
+    "baseUrl": "../",                       /* Base directory to resolve non-absolute module names. */
+    "typeRoots": ["../"],                       /* List of folders to include type definitions from. */
+    "types": [],                           /* Type declaration files to be included in compilation. */   
+    "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
+  }
+}
