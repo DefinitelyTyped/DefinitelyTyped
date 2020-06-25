@@ -18844,7 +18844,7 @@ declare namespace Excel {
         unknown = "Unknown",
         /**
          * Equals comparator criterion.
-
+                    
                     Required Criteria: {`comparator`}.
                     Optional Criteria: {`wholeDays`, `exclusive`}.
          *
@@ -18852,7 +18852,7 @@ declare namespace Excel {
         equals = "Equals",
         /**
          * Date is before comparator date.
-
+                    
                     Required Criteria: {`comparator`}.
                     Optional Criteria: {`wholeDays`}.
          *
@@ -18860,7 +18860,7 @@ declare namespace Excel {
         before = "Before",
         /**
          * Date is before or equal to comparator date.
-
+                    
                     Required Criteria: {`comparator`}.
                     Optional Criteria: {`wholeDays`}.
          *
@@ -18868,7 +18868,7 @@ declare namespace Excel {
         beforeOrEqualTo = "BeforeOrEqualTo",
         /**
          * Date is after comparator date.
-
+                    
                     Required Criteria: {`comparator`}.
                     Optional Criteria: {`wholeDays`}.
          *
@@ -18876,7 +18876,7 @@ declare namespace Excel {
         after = "After",
         /**
          * Date is after or equal to comparator date.
-
+                    
                     Required Criteria: {`comparator`}.
                     Optional Criteria: {`wholeDays`}.
          *
@@ -18884,7 +18884,7 @@ declare namespace Excel {
         afterOrEqualTo = "AfterOrEqualTo",
         /**
          * Between `lowerBound` and `upperBound` dates.
-
+                    
                     Required Criteria: {`lowerBound`, `upperBound`}.
                     Optional Criteria: {`wholeDays`, `exclusive`}.
          *
@@ -19068,7 +19068,7 @@ declare namespace Excel {
         unknown = "Unknown",
         /**
          * Equals comparator criterion.
-
+                    
                     Required Criteria: {`comparator`}.
                     Optional Criteria: {`exclusive`}.
          *
@@ -19076,7 +19076,7 @@ declare namespace Excel {
         equals = "Equals",
         /**
          * Label begins with substring criterion.
-
+                    
                     Required Criteria: {`substring`}.
                     Optional Criteria: {`exclusive`}.
          *
@@ -19084,7 +19084,7 @@ declare namespace Excel {
         beginsWith = "BeginsWith",
         /**
          * Label ends with substring criterion.
-
+                    
                     Required Criteria: {`substring`}.
                     Optional Criteria: {`exclusive`}.
          *
@@ -19092,7 +19092,7 @@ declare namespace Excel {
         endsWith = "EndsWith",
         /**
          * Label contains substring criterion.
-
+                    
                     Required Criteria: {`substring`}.
                     Optional Criteria: {`exclusive`}.
          *
@@ -19100,35 +19100,35 @@ declare namespace Excel {
         contains = "Contains",
         /**
          * Greater than comparator criterion.
-
+                    
                     Required Criteria: {`comparator`}.
          *
          */
         greaterThan = "GreaterThan",
         /**
          * Greater than or equal to comparator criterion.
-
+                    
                     Required Criteria: {`comparator`}.
          *
          */
         greaterThanOrEqualTo = "GreaterThanOrEqualTo",
         /**
          * Less than comparator criterion.
-
+                    
                     Required Criteria: {`comparator`}.
          *
          */
         lessThan = "LessThan",
         /**
          * Less than or equal to comparator criterion.
-
+                    
                     Required Criteria: {`comparator`}.
          *
          */
         lessThanOrEqualTo = "LessThanOrEqualTo",
         /**
          * Between `lowerBound` and `upperBound` criteria.
-
+                    
                     Required Criteria: {`lowerBound`, `upperBound`}.
                     Optional Criteria: {`exclusive`}.
          *
@@ -19465,7 +19465,7 @@ declare namespace Excel {
         unknown = "Unknown",
         /**
          * Equals comparator criterion.
-
+                    
                     Required Criteria: {`value`, `comparator`}.
                     Optional Criteria: {`exclusive`}.
          *
@@ -19473,35 +19473,35 @@ declare namespace Excel {
         equals = "Equals",
         /**
          * Greater than comparator criterion.
-
+                    
                     Required Criteria: {`value`, `comparator`}.
          *
          */
         greaterThan = "GreaterThan",
         /**
          * Greater than or equal to comparator criterion.
-
+                    
                     Required Criteria: {`value`, `comparator`}.
          *
          */
         greaterThanOrEqualTo = "GreaterThanOrEqualTo",
         /**
          * Less than comparator criterion.
-
+                    
                     Required Criteria: {`value`, `comparator`}.
          *
          */
         lessThan = "LessThan",
         /**
          * Less than or equal to comparator criterion.
-
+                    
                     Required Criteria: {`value`, `comparator`}.
          *
          */
         lessThanOrEqualTo = "LessThanOrEqualTo",
         /**
          * Between `lowerBound` and `upperBound` criteria.
-
+                    
                     Required Criteria: {`value`, `lowerBound`, `upperBound`}.
                     Optional Criteria: {`exclusive`}.
          *
@@ -19509,14 +19509,14 @@ declare namespace Excel {
         between = "Between",
         /**
          * In top N (`threshold`) [items, percent, sum] of value category.
-
+                    
                     Required Criteria: {`value`, `threshold`, `selectionType`}.
          *
          */
         topN = "TopN",
         /**
          * In bottom N (`threshold`) [items, percent, sum] of value category.
-
+                    
                     Required Criteria: {`value`, `threshold`, `selectionType`}.
          *
          */
@@ -20376,10 +20376,8 @@ declare namespace Excel {
     /**
      *
      * Provides information about the selection that raised the "SelectionChanged" event.
-     *
-     * **Note**: If multiple, discontiguous cells are selected,
-     * `Binding.onSelectionChanged` only reports row and column information for one selection.
-     * Use `Worksheet.onSelectionChanged` for multiple selected ranges.
+                
+                 **Note**: If multiple, discontiguous cells are selected, `Binding.onSelectionChanged` only reports row and column information for one selection. Use `Worksheet.onSelectionChanged` for multiple selected ranges.
      *
      * [Api set: ExcelApi 1.2]
      */
@@ -21332,6 +21330,162 @@ declare namespace Excel {
     }
     /**
      *
+     * Provides information about the comments that raised the "CommentAdded" event.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    interface CommentAddedEventArgs {
+        /**
+         *
+         * Gets the `CommentDetail` array that contains the comment ID and IDs of its related replies.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        commentDetails: Excel.CommentDetail[];
+        /**
+         *
+         * Specifies the source of the event. See `Excel.EventSource` for details.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        source: Excel.EventSource | "Local" | "Remote";
+        /**
+         *
+         * Gets the type of the event. See `Excel.EventType` for details.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        type: "CommentAdded";
+        /**
+         *
+         * Gets the ID of the worksheet in which the event happened.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        worksheetId: string;
+    }
+    /**
+     *
+     * Provides information about the comments that raised the "CommentDeleted" event.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    interface CommentDeletedEventArgs {
+        /**
+         *
+         * Gets the `CommentDetail` array that contains the comment ID and IDs of its related replies.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        commentDetails: Excel.CommentDetail[];
+        /**
+         *
+         * Specifies the source of the event. See `Excel.EventSource` for details.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        source: Excel.EventSource | "Local" | "Remote";
+        /**
+         *
+         * Gets the type of the event. See `Excel.EventType` for details.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        type: "CommentDeleted";
+        /**
+         *
+         * Gets the ID of the worksheet in which the event happened.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        worksheetId: string;
+    }
+    /**
+     *
+     * Occurs when existing comments are changed.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    interface CommentChangedEventArgs {
+        /**
+         *
+         * Gets the change type that represents how the changed event is triggered.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        changeType: Excel.CommentChangeType | "CommentEdited" | "CommentResolved" | "CommentReopened" | "ReplyAdded" | "ReplyDeleted" | "ReplyEdited";
+        /**
+         *
+         * Gets the `CommentDetail` array which contains the comment ID and IDs of its related replies.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        commentDetails: Excel.CommentDetail[];
+        /**
+         *
+         * Specifies the source of the event. See `Excel.EventSource` for details.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        source: Excel.EventSource | "Local" | "Remote";
+        /**
+         *
+         * Gets the type of the event. See `Excel.EventType` for details.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        type: "CommentChanged";
+        /**
+         *
+         * Gets the ID of the worksheet in which the event happened.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        worksheetId: string;
+    }
+    /**
+     *
+     * A structure for the comment ID and IDs of its related replies.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    interface CommentDetail {
+        /**
+         *
+         * Represents the IDs of the related replies belong to comment.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        replyIds: string[];
+        /**
+         *
+         * Represents the ID of comment.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        commentId: string;
+    }
+    /**
+     *
      * Provides information about the shape that raised the Activated event.
      *
      * [Api set: ExcelApi 1.9]
@@ -21551,7 +21705,7 @@ declare namespace Excel {
         suspendApiCalculationUntilNextSync(): void;
         /**
          * Suspends screen updating until the next `context.sync()` is called.
-
+                    
                      **Note**: Don't call `suspendScreenUpdatingUntilNextSync` repeatedly (such as in a loop). Repeated calls will cause the Excel window to flicker.
          *
          * [Api set: ExcelApi 1.9]
@@ -21737,7 +21891,7 @@ declare namespace Excel {
         readonly properties: Excel.DocumentProperties;
         /**
          *
-         * Returns workbook protection object for a workbook.
+         * Returns the protection object for a workbook.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -22155,6 +22309,14 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.9]
          */
         readonly horizontalPageBreaks: Excel.PageBreakCollection;
+        /**
+         *
+         * Returns a collection of sheet views that are present in the worksheet.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly namedSheetViews: Excel.NamedSheetViewCollection;
         /**
          *
          * Collection of names scoped to the current worksheet.
@@ -22619,7 +22781,7 @@ declare namespace Excel {
         add(name?: string): Excel.Worksheet;
         /**
          * Inserts the specified worksheets of a workbook into the current workbook.
-
+                    
                      **Note**: This API is currently only supported for Office on Windows and Mac.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -22634,7 +22796,7 @@ declare namespace Excel {
         addFromBase64(base64File: string, sheetNamesToInsert?: string[], positionType?: Excel.WorksheetPositionType, relativeTo?: Worksheet | string): OfficeExtension.ClientResult<string[]>;
         /**
          * Inserts the specified worksheets of a workbook into the current workbook.
-
+                    
                      **Note**: This API is currently only supported for Office on Windows and Mac.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -23025,7 +23187,7 @@ declare namespace Excel {
          */
         freezeAt(frozenRange: Range | string): void;
         /**
-         * Freeze the first column(s) of the worksheet in place.
+         * Freeze the first column or columns of the worksheet in place.
          *
          * [Api set: ExcelApi 1.7]
          *
@@ -23033,7 +23195,7 @@ declare namespace Excel {
          */
         freezeColumns(count?: number): void;
         /**
-         * Freeze the top row(s) of the worksheet in place.
+         * Freeze the top row or rows of the worksheet in place.
          *
          * [Api set: ExcelApi 1.7]
          *
@@ -23354,7 +23516,7 @@ declare namespace Excel {
          * Fills range from the current range to the destination range using the specified AutoFill logic.
                      The destination range can be null, or can extend the source either horizontally or vertically.
                      Discontiguous ranges are not supported.
-
+                    
                      For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
          * [Api set: ExcelApi 1.9, ExcelApi Preview for null `destinationRange`]
@@ -23367,7 +23529,7 @@ declare namespace Excel {
          * Fills range from the current range to the destination range using the specified AutoFill logic.
                      The destination range can be null, or can extend the source either horizontally or vertically.
                      Discontiguous ranges are not supported.
-
+                    
                      For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
          * [Api set: ExcelApi 1.9, ExcelApi Preview for null `destinationRange`]
@@ -23551,6 +23713,13 @@ declare namespace Excel {
          */
         getColumnsBefore(count?: number): Excel.Range;
         /**
+         * Returns a `WorkbookRangeAreas` object that represents the range containing all the direct precedents of a cell in same worksheet or in multiple worksheets.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getDirectPrecedents(): Excel.WorkbookRangeAreas;
+        /**
          * Gets an object that represents the entire column of the range (for example, if the current range represents cells "B4:E11", its `getEntireColumn` is a range that represents columns "B:E").
          *
          * [Api set: ExcelApi 1.1]
@@ -23564,7 +23733,7 @@ declare namespace Excel {
         getEntireRow(): Excel.Range;
         /**
          * Renders the range as a base64-encoded png image.
-         *
+         * 
          * **Important**: This API is currently unsupported in Excel for Mac. Visit [OfficeDev/office-js Issue #235](https://github.com/OfficeDev/office-js/issues/235) for the current status.
          *
          * [Api set: ExcelApi 1.7]
@@ -23605,6 +23774,13 @@ declare namespace Excel {
          */
         getLastRow(): Excel.Range;
         /**
+         * Returns a RangeAreas object that represents the merged areas in this range. Note that if the merged areas count in this range is more than 512, the API will fail to return the result.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getMergedAreas(): Excel.RangeAreas;
+        /**
          * Gets an object which represents a range that's offset from the specified range. The dimension of the returned range will match this range. If the resulting range is forced outside the bounds of the worksheet grid, an error will be thrown.
          *
          * [Api set: ExcelApi 1.1]
@@ -23622,6 +23798,13 @@ declare namespace Excel {
          * @returns
          */
         getPivotTables(fullyContained?: boolean): Excel.PivotTableScopedCollection;
+        /**
+         * Returns a `WorkbookRangeAreas` object that represents the range containing all the precedents of a cell in same worksheet or in multiple worksheets.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getPrecedents(): Excel.WorkbookRangeAreas;
         /**
          * Gets a Range object similar to the current Range object, but with its bottom-right corner expanded (or contracted) by some number of rows and columns.
          *
@@ -24338,6 +24521,93 @@ declare namespace Excel {
         * Whereas the original Excel.RangeAreas object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.RangeAreasData`) that contains shallow copies of any loaded child properties from the original object.
         */
         toJSON(): Excel.Interfaces.RangeAreasData;
+    }
+    /**
+     *
+     * Represents a collection of one or more rectangular ranges in multiple worksheets.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class WorkbookRangeAreas extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         *
+         * Returns the RangeAreasCollection object, each RangeAreas in the collection represent one or more rectangle ranges in one worksheet.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly areas: Excel.RangeAreasCollection;
+        /**
+         *
+         * Returns a collection of ranges that comprises this object.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly ranges: Excel.RangeCollection;
+        /**
+         *
+         * Returns an array of address in A1-style. Address value will contain the worksheet name for each rectangular block of cells (e.g., "Sheet1!A1:B4, Sheet1!D1:D4"). Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly addresses: string[];
+        /**
+         * Returns the `RangeAreas` object based on worksheet id or name in the collection.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param key The name or id of the worksheet.
+         */
+        getRangeAreasBySheet(key: string): Excel.RangeAreas;
+        /**
+         * Returns the `RangeAreas` object based on worksheet name or id in the collection. If the worksheet does not exist, will return a null object.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param key The name or id of the worksheet.
+         */
+        getRangeAreasOrNullObjectBySheet(key: string): Excel.RangeAreas;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.WorkbookRangeAreasLoadOptions): Excel.WorkbookRangeAreas;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.WorkbookRangeAreas;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Excel.WorkbookRangeAreas;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Excel.WorkbookRangeAreas;
+        /**
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
+         */
+        untrack(): Excel.WorkbookRangeAreas;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Excel.WorkbookRangeAreas object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.WorkbookRangeAreasData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.WorkbookRangeAreasData;
     }
     /**
      *
@@ -25499,10 +25769,8 @@ declare namespace Excel {
         /**
          *
          * Occurs when the selected content in the binding is changed.
-         *
-         * **Note**: If multiple, discontiguous cells are selected,
-         * `Binding.onSelectionChanged` only reports row and column information for one selection.
-         * Use `Worksheet.onSelectionChanged` for multiple selected ranges.
+                    
+                     **Note**: If multiple, discontiguous cells are selected, `Binding.onSelectionChanged` only reports row and column information for one selection. Use `Worksheet.onSelectionChanged` for multiple selected ranges.
          *
          * [Api set: ExcelApi 1.2]
          *
@@ -25906,7 +26174,7 @@ declare namespace Excel {
         /**
          *
          * Name of the table.
-
+                    
                      The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
          *
          * [Api set: ExcelApi 1.1]
@@ -26287,7 +26555,7 @@ declare namespace Excel {
     /**
      *
      * Represents a collection of all the rows that are part of the table.
-
+                
                  Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
                  a TableRow object represent the physical location of the table row, but not the data.
                  That is, if the data is sorted or if new rows are added, a table row will continue
@@ -26309,7 +26577,7 @@ declare namespace Excel {
         readonly count: number;
         /**
          * Adds one or more rows to the table. The return object will be the top of the newly added row(s).
-
+                    
                      Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
                      a TableRow object represent the physical location of the table row, but not the data.
                      That is, if the data is sorted or if new rows are added, a table row will continue
@@ -26329,7 +26597,7 @@ declare namespace Excel {
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          * Gets a row based on its position in the collection.
-
+                    
                      Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
                      a TableRow object represent the physical location of the table row, but not the data.
                      That is, if the data is sorted or if new rows are added, a table row will continue
@@ -26367,7 +26635,7 @@ declare namespace Excel {
     /**
      *
      * Represents a row in a table.
-
+                
                  Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
                  a TableRow object represent the physical location of the table row, but not the data.
                  That is, if the data is sorted or if new rows are added, a table row will continue
@@ -27117,7 +27385,7 @@ declare namespace Excel {
         pattern: Excel.FillPattern | "None" | "Solid" | "Gray50" | "Gray75" | "Gray25" | "Horizontal" | "Vertical" | "Down" | "Up" | "Checker" | "SemiGray75" | "LightHorizontal" | "LightVertical" | "LightDown" | "LightUp" | "Grid" | "CrissCross" | "Gray16" | "Gray8" | "LinearGradient" | "RectangularGradient";
         /**
          *
-         * The HTML color code representing the color of the range pattern, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
+         * The HTML color code representing the color of the range pattern, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -27677,7 +27945,7 @@ declare namespace Excel {
         /**
          *
          * Specifies a ChartCategoryLabelLevel enumeration constant referring to
-                    the level of where the category labels are being sourced from. 
+                    the level of where the category labels are being sourced from.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -28248,7 +28516,7 @@ declare namespace Excel {
         filtered: boolean;
         /**
          *
-         * Specifies the angle of the first pie-chart or doughnut-chart slice, in degrees (clockwise from vertical). Applies only to pie, 3-D pie, and doughnut charts. Can be a value from 0 through 360.Specifies if the negative DataBar has the same fill color as the positive DataBar.
+         * Specifies the angle of the first pie-chart or doughnut-chart slice, in degrees (clockwise from vertical). Applies only to pie, 3-D pie, and doughnut charts. Can be a value from 0 through 360.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -28410,7 +28678,7 @@ declare namespace Excel {
         plotOrder: number;
         /**
          *
-         * Specifies the size of the secondary section of either a pie of pie chart or a bar of pie chart, as a percentage of the size of the primary pie. Can be a value from 5 to 200.
+         * Specifies the size of the secondary section of either a pie-of-pie chart or a bar-of-pie chart, as a percentage of the size of the primary pie. Can be a value from 5 to 200.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -32361,8 +32629,8 @@ declare namespace Excel {
          *
          * The first criterion used to filter data. Used as an operator in the case of "custom" filtering.
                      For example ">50" for number greater than 50 or "=*s" for values ending in "s".
-
-                     Used as a number in the case of top/bottom items/percents. e.g., "5" for the top 5 items if filterOn is set to "topItems"
+                    
+                     Used as a number in the case of top/bottom items/percents (e.g., "5" for the top 5 items if filterOn is set to "topItems").
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -32748,7 +33016,7 @@ declare namespace Excel {
     /**
      *
      * A scoped collection of custom XML parts.
-                A scoped collection is the result of some operation, e.g., filtering by namespace.
+                A scoped collection is the result of some operation (e.g., filtering by namespace).
                 A scoped collection cannot be scoped any further.
      *
      * [Api set: ExcelApi 1.5]
@@ -34212,7 +34480,7 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.PivotField): void;
         /**
-         * Sets one or multiple of the field's current PivotFilters and applies them to the field.
+         * Sets one or more of the field's current PivotFilters and applies them to the field.
                     If the provided filters are invalid or cannot be applied, an exception is thrown.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -34277,7 +34545,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param sortBy Specifies if the sorting is done in ascending or descending order.
+         * @param sortBy Specifies if the sorting is done in ascending or descending order.
          */
         sortByLabels(sortBy: SortBy): void;
         /**
@@ -34286,7 +34554,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.9]
          *
-         * @param sortBy Specifies if the sorting is done in ascending or descending order.
+         * @param sortBy Specifies if the sorting is done in ascending or descending order.
          * @param valuesHierarchy Specifies the values hierarchy on the data axis to be used for sorting.
          * @param pivotItemScope The items that should be used for the scope of the sorting. These will be the
                     items that make up the row or column that you want to sort on. If a string is used instead of a PivotItem,
@@ -34300,7 +34568,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.9]
          *
-         * @param sortBy Specifies if the sorting is done in ascending or descending order.
+         * @param sortBy Specifies if the sorting is done in ascending or descending order.
          * @param valuesHierarchy Specifies the values hierarchy on the data axis to be used for sorting.
          * @param pivotItemScope The items that should be used for the scope of the sorting. These will be the
                     items that make up the row or column that you want to sort on. If a string is used instead of a PivotItem,
@@ -34736,7 +35004,7 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * Gets the key of the custom property. Custom property keys are case-insensitive.
+         * Gets the key of the custom property. Custom property keys are case-insensitive. The key is limited to 255 characters (larger values will cause an "InvalidArgument" error to be thrown.)
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -34816,7 +35084,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param key The key that identifies the custom property object. It is case-insensitive.
+         * @param key The key that identifies the custom property object. It is case-insensitive.The key is limited to 255 characters (larger values will cause an "InvalidArgument" error to be thrown.)
          * @param value The value of this custom property.
          */
         add(key: string, value: string): Excel.WorksheetCustomProperty;
@@ -35014,7 +35282,7 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * The key of the custom property.
+         * The key of the custom property. The key is limited to 255 characters outside of Excel on the web (larger keys are automatically trimmed to 255 characters on other platforms).
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -35028,7 +35296,7 @@ declare namespace Excel {
         readonly type: Excel.DocumentPropertyType | "Number" | "Boolean" | "Date" | "String" | "Float";
         /**
          *
-         * The value of the custom property.
+         * The value of the custom property. The value is limited to 255 characters outside of Excel on the web (larger values are automatically trimmed to 255 characters on other platforms).
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -35096,8 +35364,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.7]
          *
-         * @param key Required. The custom property's key, which is case-insensitive.
-         * @param value Required. The custom property's value.
+         * @param key Required. The custom property's key, which is case-insensitive. The key is limited to 255 characters outside of Excel on the web (larger keys are automatically trimmed to 255 characters on other platforms).
+         * @param value Required. The custom property's value. The value is limited to 255 characters outside of Excel on the web (larger values are automatically trimmed to 255 characters on other platforms).
          */
         add(key: string, value: any): Excel.CustomProperty;
         /**
@@ -35672,7 +35940,7 @@ declare namespace Excel {
         matchPositiveBorderColor: boolean;
         /**
          *
-         * Specified if the negative DataBar has the same fill color as the positive DataBar.
+         * Specifies if the negative DataBar has the same fill color as the positive DataBar.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -36091,7 +36359,7 @@ declare namespace Excel {
     interface ConditionalColorScaleCriterion {
         /**
          *
-         * HTML color code representation of the color scale color. e.g., #FF0000 represents Red.
+         * HTML color code representation of the color scale color (e.g., #FF0000 represents Red).
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -37778,6 +38046,7 @@ declare namespace Excel {
         */
         toJSON(): Excel.Interfaces.TimelineStyleData;
     }
+    var EndIgnoreIntelliSenseInternalTestClass: any;
     /**
      *
      * Represents layout and print settings that are not dependent any printer-specific implementation. These settings include margins, orientation, page numbering, title rows, and print area.
@@ -38507,6 +38776,58 @@ declare namespace Excel {
     }
     /**
      *
+     * Contains the collection of cross-worksheets level Ranges.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class RangeAreasCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.RangeAreas[];
+        /**
+         * Gets the number of RangeAreas objects in this collection.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         * Returns the RangeAreas object based on position in the collection.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param index Index value of the range object to be retrieved. Zero-indexed.
+         */
+        getItemAt(index: number): Excel.RangeAreas;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.RangeAreasCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.RangeAreasCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.RangeAreasCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Excel.RangeAreasCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Excel.RangeAreasCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.RangeAreasCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
+        toJSON(): Excel.Interfaces.RangeAreasCollectionData;
+    }
+    /**
+     *
      * Represents the entity that is mentioned in comments.
      *
      * [Api set: ExcelApi 1.11]
@@ -38550,7 +38871,7 @@ declare namespace Excel {
         mentions?: Excel.CommentMention[];
         /**
          *
-         * Specifies the rich content of the comment (e.g., comment content with mentions, the first mentioned entity has an id attribute of 0, and the second mentioned entity has an id attribute of 1.
+         * Specifies the rich content of the comment (e.g., comment content with mentions, the first mentioned entity has an id attribute of 0, and the second mentioned entity has an id attribute of 1).
          *
          * [Api set: ExcelApi 1.11]
          */
@@ -38643,6 +38964,36 @@ declare namespace Excel {
          * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
          */
         load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Excel.CommentCollection;
+        /**
+         *
+         * Occurs when the comments are added.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @eventproperty
+         * @beta
+         */
+        readonly onAdded: OfficeExtension.EventHandlers<Excel.CommentAddedEventArgs>;
+        /**
+         *
+         * Occurs when comments or replies in a comment collection are changed, including when replies are deleted.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @eventproperty
+         * @beta
+         */
+        readonly onChanged: OfficeExtension.EventHandlers<Excel.CommentChangedEventArgs>;
+        /**
+         *
+         * Occurs when comments are deleted in the comment collection.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @eventproperty
+         * @beta
+         */
+        readonly onDeleted: OfficeExtension.EventHandlers<Excel.CommentDeletedEventArgs>;
         /**
         * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
         * Whereas the original `Excel.CommentCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.CommentCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
@@ -42283,41 +42634,49 @@ declare namespace Excel {
     enum DataChangeType {
         /**
          * Unknown represents the type of data change is not the listed types.
+         * [Api set: ExcelApi The name of this value was 'Others' in ExcelApi 1.7]
          *
          */
         unknown = "Unknown",
         /**
          * RangeEdited represents the data change event is triggered by range being edited.
+         * [Api set: ExcelApi 1.7]
          *
          */
         rangeEdited = "RangeEdited",
         /**
          * RowInserted represents the data change event is triggered by inserting new rows.
+         * [Api set: ExcelApi 1.7]
          *
          */
         rowInserted = "RowInserted",
         /**
          * RowDeleted represents the data change event is triggered by deleting rows.
+         * [Api set: ExcelApi 1.7]
          *
          */
         rowDeleted = "RowDeleted",
         /**
          * ColumnInserted represents the data change event is triggered by inserting new columns.
+         * [Api set: ExcelApi 1.7]
          *
          */
         columnInserted = "ColumnInserted",
         /**
          * ColumnDeleted represents the data change event is triggered by deleting columns.
+         * [Api set: ExcelApi 1.7]
          *
          */
         columnDeleted = "ColumnDeleted",
         /**
          * CellInserted represents the data change event is triggered by inserting new cells.
+         * [Api set: ExcelApi 1.7]
          *
          */
         cellInserted = "CellInserted",
         /**
          * CellDeleted represents the data change event is triggered by deleting cells.
+         * [Api set: ExcelApi 1.7]
          *
          */
         cellDeleted = "CellDeleted"
@@ -42336,6 +42695,45 @@ declare namespace Excel {
          *
          */
         hidden = "Hidden"
+    }
+    /**
+     *
+     * Represents how the comments in the event were changed.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum CommentChangeType {
+        /**
+         * Comments were edited.
+         *
+         */
+        commentEdited = "CommentEdited",
+        /**
+         * Comments were resolved.
+         *
+         */
+        commentResolved = "CommentResolved",
+        /**
+         * Comments were reopened.
+         *
+         */
+        commentReopened = "CommentReopened",
+        /**
+         * Replies were added.
+         *
+         */
+        replyAdded = "ReplyAdded",
+        /**
+         * Replies were deleted.
+         *
+         */
+        replyDeleted = "ReplyDeleted",
+        /**
+         * Replies were edited.
+         *
+         */
+        replyEdited = "ReplyEdited"
     }
     /**
      * [Api set: ExcelApi 1.7]
@@ -42488,17 +42886,17 @@ declare namespace Excel {
          */
         worksheetRowHiddenChanged = "WorksheetRowHiddenChanged",
         /**
-         * CommentAdded represents the type of event that is registered on commentCollection, and occurs when comments are added.
+         * CommentAdded represents the type of event that is registered on commentCollection, and occurs when comments are added.
          *
          */
         commentAdded = "CommentAdded",
         /**
-         * CommentDeleted represents the type of event that is registered on commentCollection, and occurs when comments are deleted.
+         * CommentDeleted represents the type of event that is registered on commentCollection, and occurs when comments are deleted.
          *
          */
         commentDeleted = "CommentDeleted",
         /**
-         * CommentChanged represents the type of event that is registered on commentCollection, and occurs when comments are changed.
+         * CommentChanged represents the type of event that is registered on commentCollection, and occurs when comments are changed.
          *
          */
         commentChanged = "CommentChanged",
@@ -42506,7 +42904,17 @@ declare namespace Excel {
          * RefreshRequestCompleted represents the type of event registered on LinkedDataType, and occurs when a request to refresh a data source is completed.
          *
          */
-        linkedDataTypeRefreshRequestCompleted = "LinkedDataTypeRefreshRequestCompleted"
+        linkedDataTypeRefreshRequestCompleted = "LinkedDataTypeRefreshRequestCompleted",
+        /**
+         * RefreshModeChanged represents the type of event registered on LinkedDataType, and occurs when the linked data type refresh mode is changed.
+         *
+         */
+        linkedDataTypeRefreshModeChanged = "LinkedDataTypeRefreshModeChanged",
+        /**
+         * LinkedDataTypeAdded represents the type of event registered on LinkedDataType, and occurs when a new linked data type is added to the workbook.
+         *
+         */
+        linkedDataTypeLinkedDataTypeAdded = "LinkedDataTypeLinkedDataTypeAdded"
     }
     /**
      * [Api set: ExcelApi 1.7]
@@ -42821,20 +43229,71 @@ declare namespace Excel {
         firstOddAndEven = "FirstOddAndEven"
     }
     /**
+     *
+     * The behavior types when AutoFill is used on a range in the workbook.
+     *
      * [Api set: ExcelApi 1.9]
      */
     enum AutoFillType {
+        /**
+         * Populates the adjacent cells based on the surrounding data (the standard AutoFill behavior).
+         *
+         */
         fillDefault = "FillDefault",
+        /**
+         * Populates the adjacent cells with data based on the selected data.
+         *
+         */
         fillCopy = "FillCopy",
+        /**
+         * Populates the adjacent cells with data that follows a pattern in the copied cells.
+         *
+         */
         fillSeries = "FillSeries",
+        /**
+         * Populates the adjacent cells with the selected formulas.
+         *
+         */
         fillFormats = "FillFormats",
+        /**
+         * Populates the adjacent cells with the selected values.
+         *
+         */
         fillValues = "FillValues",
+        /**
+         * A version of "FillSeries" for dates that bases the pattern on either the day of the month or the day of the week, depending on the context.
+         *
+         */
         fillDays = "FillDays",
+        /**
+         * A version of "FillSeries" for dates that bases the pattern on the day of the week and only includes weekdays.
+         *
+         */
         fillWeekdays = "FillWeekdays",
+        /**
+         * A version of "FillSeries" for dates that bases the pattern on the month.
+         *
+         */
         fillMonths = "FillMonths",
+        /**
+         * A version of "FillSeries" for dates that bases the pattern on the year.
+         *
+         */
         fillYears = "FillYears",
+        /**
+         * A version of "FillSeries" for numbers that fills out the values in the adjacent cells according to a linear trend model.
+         *
+         */
         linearTrend = "LinearTrend",
+        /**
+         * A version of "FillSeries" for numbers that fills out the values in the adjacent cells according to a growth trend model.
+         *
+         */
         growthTrend = "GrowthTrend",
+        /**
+         * Populates the adjacent cells by using Excel's FlashFill feature.
+         *
+         */
         flashFill = "FlashFill"
     }
     /**
@@ -43513,6 +43972,177 @@ declare namespace Excel {
          *
          */
         custom = "Custom"
+    }
+    /**
+     *
+     * Represents a named sheet view of a worksheet. A sheet view stores the sort and filter rules for a particular worksheet.
+                Every sheet view (even a temporary sheet view) has a unique, worksheet-scoped name that is used to access the view.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class NamedSheetView extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         *
+         * Gets or sets the name of the sheet view.
+                    The temporary sheet view name is the empty string ("").  Naming the view by using the name property causes the sheet view to be saved.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        name: string;
+        /**
+         * Activates this sheet view. This is equivalent to using "Switch To" in the Excel UI.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        activate(): void;
+        /**
+         * Removes the sheet view from the worksheet.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        delete(): void;
+        /**
+         * Creates a copy of this sheet view.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param name The name of the duplicated sheet view. If no name is provided, one will be generated.
+         * @returns The new, duplicated sheet view.
+         */
+        duplicate(name?: string): Excel.NamedSheetView;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.NamedSheetViewLoadOptions): Excel.NamedSheetView;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.NamedSheetView;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Excel.NamedSheetView;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Excel.NamedSheetView object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.NamedSheetViewData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.NamedSheetViewData;
+    }
+    /**
+     *
+     * Represents the collection of sheet views in the worksheet.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class NamedSheetViewCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.NamedSheetView[];
+        /**
+         * Creates a new sheet view with the given name.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param name The name of the sheet view to be created.
+                    Throws an error when the provided name already exists, is empty, or is a name reserved by the worksheet.
+         * @returns The newly created sheet view object.
+         */
+        add(name: string): Excel.NamedSheetView;
+        /**
+         * Creates and activates a new temporary sheet view.
+                    Temporary views are removed when closing the application, exiting the temporary view with the exit method, or switching to another sheet view.
+                    The temporary sheet view can also be acccessed with the empty string (""), if the temporary view exists.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         * @returns The newly created sheet view object.
+         */
+        enterTemporary(): Excel.NamedSheetView;
+        /**
+         * Exits the currently active sheet view.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        exit(): void;
+        /**
+         * Gets the worksheet's currently active sheet view.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         * @returns The currently active sheet view for this worksheet.
+         */
+        getActive(): Excel.NamedSheetView;
+        /**
+         * Gets the number of sheet views in this worksheet.
+                    Includes the temporary sheet view if it exists.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         * Gets a sheet view using its name.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param key The case-sensitive name of the sheet view. Use the empty string ("") to get the temporary sheet view, if the temporary view exists.
+         * @returns The sheet view with the given name, or the temporary view if the empty string was provided. If there is no current temporary view and the empty string was provided, then an error is thrown.
+         */
+        getItem(key: string): Excel.NamedSheetView;
+        /**
+         * Gets a sheet view by its index in the collection.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param index The index of the sheet view object in the collection.
+         * @returns The sheet view at the given index.
+         */
+        getItemAt(index: number): Excel.NamedSheetView;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.NamedSheetViewCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.NamedSheetViewCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.NamedSheetViewCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Excel.NamedSheetViewCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Excel.NamedSheetViewCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.NamedSheetViewCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
+        toJSON(): Excel.Interfaces.NamedSheetViewCollectionData;
     }
     /**
      *
@@ -46969,6 +47599,7 @@ declare namespace Excel {
         rangeExceedsLimit = "RangeExceedsLimit",
         requestAborted = "RequestAborted",
         unsupportedOperation = "UnsupportedOperation",
+        unsupportedSheet = "UnsupportedSheet",
         invalidOperationInCellEditMode = "InvalidOperationInCellEditMode"
     }
     module Interfaces {
@@ -47402,7 +48033,7 @@ declare namespace Excel {
             /**
              *
              * Name of the table.
-
+                        
                          The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
              *
              * [Api set: ExcelApi 1.1]
@@ -47676,7 +48307,7 @@ declare namespace Excel {
             pattern?: Excel.FillPattern | "None" | "Solid" | "Gray50" | "Gray75" | "Gray25" | "Horizontal" | "Vertical" | "Down" | "Up" | "Checker" | "SemiGray75" | "LightHorizontal" | "LightVertical" | "LightDown" | "LightUp" | "Grid" | "CrissCross" | "Gray16" | "Gray8" | "LinearGradient" | "RectangularGradient";
             /**
              *
-             * The HTML color code representing the color of the range pattern, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
+             * The HTML color code representing the color of the range pattern, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -47880,7 +48511,7 @@ declare namespace Excel {
             /**
              *
              * Specifies a ChartCategoryLabelLevel enumeration constant referring to
-                        the level of where the category labels are being sourced from. 
+                        the level of where the category labels are being sourced from.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -48142,7 +48773,7 @@ declare namespace Excel {
             filtered?: boolean;
             /**
              *
-             * Specifies the angle of the first pie-chart or doughnut-chart slice, in degrees (clockwise from vertical). Applies only to pie, 3-D pie, and doughnut charts. Can be a value from 0 through 360.Specifies if the negative DataBar has the same fill color as the positive DataBar.
+             * Specifies the angle of the first pie-chart or doughnut-chart slice, in degrees (clockwise from vertical). Applies only to pie, 3-D pie, and doughnut charts. Can be a value from 0 through 360.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -48304,7 +48935,7 @@ declare namespace Excel {
             plotOrder?: number;
             /**
              *
-             * Specifies the size of the secondary section of either a pie of pie chart or a bar of pie chart, as a percentage of the size of the primary pie. Can be a value from 5 to 200.
+             * Specifies the size of the secondary section of either a pie-of-pie chart or a bar-of-pie chart, as a percentage of the size of the primary pie. Can be a value from 5 to 200.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -50132,7 +50763,7 @@ declare namespace Excel {
         interface CustomPropertyUpdateData {
             /**
              *
-             * The value of the custom property.
+             * The value of the custom property. The value is limited to 255 characters outside of Excel on the web (larger values are automatically trimmed to 255 characters on other platforms).
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -50399,7 +51030,7 @@ declare namespace Excel {
             matchPositiveBorderColor?: boolean;
             /**
              *
-             * Specified if the negative DataBar has the same fill color as the positive DataBar.
+             * Specifies if the negative DataBar has the same fill color as the positive DataBar.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -51148,6 +51779,10 @@ declare namespace Excel {
         interface RangeCollectionUpdateData {
             items?: Excel.Interfaces.RangeData[];
         }
+        /** An interface for updating data on the RangeAreasCollection object, for use in `rangeAreasCollection.set({ ... })`. */
+        interface RangeAreasCollectionUpdateData {
+            items?: Excel.Interfaces.RangeAreasData[];
+        }
         /** An interface for updating data on the CommentCollection object, for use in `commentCollection.set({ ... })`. */
         interface CommentCollectionUpdateData {
             items?: Excel.Interfaces.CommentData[];
@@ -51658,6 +52293,22 @@ declare namespace Excel {
         interface SlicerItemCollectionUpdateData {
             items?: Excel.Interfaces.SlicerItemData[];
         }
+        /** An interface for updating data on the NamedSheetView object, for use in `namedSheetView.set({ ... })`. */
+        interface NamedSheetViewUpdateData {
+            /**
+             *
+             * Gets or sets the name of the sheet view.
+                        The temporary sheet view name is the empty string ("").  Naming the view by using the name property causes the sheet view to be saved.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: string;
+        }
+        /** An interface for updating data on the NamedSheetViewCollection object, for use in `namedSheetViewCollection.set({ ... })`. */
+        interface NamedSheetViewCollectionUpdateData {
+            items?: Excel.Interfaces.NamedSheetViewData[];
+        }
         /** An interface describing the data returned by calling `runtime.toJSON()`. */
         interface RuntimeData {
             /**
@@ -51807,7 +52458,7 @@ declare namespace Excel {
             properties?: Excel.Interfaces.DocumentPropertiesData;
             /**
             *
-            * Returns workbook protection object for a workbook.
+            * Returns the protection object for a workbook.
             *
             * [Api set: ExcelApi 1.7]
             */
@@ -52474,6 +53125,33 @@ declare namespace Excel {
              */
             style?: string;
         }
+        /** An interface describing the data returned by calling `workbookRangeAreas.toJSON()`. */
+        interface WorkbookRangeAreasData {
+            /**
+            *
+            * Returns the RangeAreasCollection object, each RangeAreas in the collection represent one or more rectangle ranges in one worksheet.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            areas?: Excel.Interfaces.RangeAreasData[];
+            /**
+            *
+            * Returns a collection of ranges that comprises this object.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            ranges?: Excel.Interfaces.RangeData[];
+            /**
+             *
+             * Returns an array of address in A1-style. Address value will contain the worksheet name for each rectangular block of cells (e.g., "Sheet1!A1:B4, Sheet1!D1:D4"). Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            addresses?: string[];
+        }
         /** An interface describing the data returned by calling `rangeView.toJSON()`. */
         interface RangeViewData {
             /**
@@ -52764,7 +53442,7 @@ declare namespace Excel {
             /**
              *
              * Name of the table.
-
+                        
                          The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
              *
              * [Api set: ExcelApi 1.1]
@@ -53099,7 +53777,7 @@ declare namespace Excel {
             pattern?: Excel.FillPattern | "None" | "Solid" | "Gray50" | "Gray75" | "Gray25" | "Horizontal" | "Vertical" | "Down" | "Up" | "Checker" | "SemiGray75" | "LightHorizontal" | "LightVertical" | "LightDown" | "LightUp" | "Grid" | "CrissCross" | "Gray16" | "Gray8" | "LinearGradient" | "RectangularGradient";
             /**
              *
-             * The HTML color code representing the color of the range pattern, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
+             * The HTML color code representing the color of the range pattern, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -53309,7 +53987,7 @@ declare namespace Excel {
             /**
              *
              * Specifies a ChartCategoryLabelLevel enumeration constant referring to
-                        the level of where the category labels are being sourced from. 
+                        the level of where the category labels are being sourced from.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -53592,7 +54270,7 @@ declare namespace Excel {
             filtered?: boolean;
             /**
              *
-             * Specifies the angle of the first pie-chart or doughnut-chart slice, in degrees (clockwise from vertical). Applies only to pie, 3-D pie, and doughnut charts. Can be a value from 0 through 360.Specifies if the negative DataBar has the same fill color as the positive DataBar.
+             * Specifies the angle of the first pie-chart or doughnut-chart slice, in degrees (clockwise from vertical). Applies only to pie, 3-D pie, and doughnut charts. Can be a value from 0 through 360.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -53754,7 +54432,7 @@ declare namespace Excel {
             plotOrder?: number;
             /**
              *
-             * Specifies the size of the secondary section of either a pie of pie chart or a bar of pie chart, as a percentage of the size of the primary pie. Can be a value from 5 to 200.
+             * Specifies the size of the secondary section of either a pie-of-pie chart or a bar-of-pie chart, as a percentage of the size of the primary pie. Can be a value from 5 to 200.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -55920,7 +56598,7 @@ declare namespace Excel {
         interface WorksheetCustomPropertyData {
             /**
              *
-             * Gets the key of the custom property. Custom property keys are case-insensitive.
+             * Gets the key of the custom property. Custom property keys are case-insensitive. The key is limited to 255 characters (larger values will cause an "InvalidArgument" error to be thrown.)
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -56030,7 +56708,7 @@ declare namespace Excel {
         interface CustomPropertyData {
             /**
              *
-             * The key of the custom property.
+             * The key of the custom property. The key is limited to 255 characters outside of Excel on the web (larger keys are automatically trimmed to 255 characters on other platforms).
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -56044,7 +56722,7 @@ declare namespace Excel {
             type?: Excel.DocumentPropertyType | "Number" | "Boolean" | "Date" | "String" | "Float";
             /**
              *
-             * The value of the custom property.
+             * The value of the custom property. The value is limited to 255 characters outside of Excel on the web (larger values are automatically trimmed to 255 characters on other platforms).
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -56325,7 +57003,7 @@ declare namespace Excel {
             matchPositiveBorderColor?: boolean;
             /**
              *
-             * Specified if the negative DataBar has the same fill color as the positive DataBar.
+             * Specifies if the negative DataBar has the same fill color as the positive DataBar.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -57118,6 +57796,10 @@ declare namespace Excel {
         /** An interface describing the data returned by calling `rangeCollection.toJSON()`. */
         interface RangeCollectionData {
             items?: Excel.Interfaces.RangeData[];
+        }
+        /** An interface describing the data returned by calling `rangeAreasCollection.toJSON()`. */
+        interface RangeAreasCollectionData {
+            items?: Excel.Interfaces.RangeAreasData[];
         }
         /** An interface describing the data returned by calling `commentCollection.toJSON()`. */
         interface CommentCollectionData {
@@ -57913,6 +58595,22 @@ declare namespace Excel {
         interface SlicerItemCollectionData {
             items?: Excel.Interfaces.SlicerItemData[];
         }
+        /** An interface describing the data returned by calling `namedSheetView.toJSON()`. */
+        interface NamedSheetViewData {
+            /**
+             *
+             * Gets or sets the name of the sheet view.
+                        The temporary sheet view name is the empty string ("").  Naming the view by using the name property causes the sheet view to be saved.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: string;
+        }
+        /** An interface describing the data returned by calling `namedSheetViewCollection.toJSON()`. */
+        interface NamedSheetViewCollectionData {
+            items?: Excel.Interfaces.NamedSheetViewData[];
+        }
         /** An interface describing the data returned by calling `functionResult.toJSON()`. */
         interface FunctionResultData<T> {
             /**
@@ -58088,7 +58786,7 @@ declare namespace Excel {
             properties?: Excel.Interfaces.DocumentPropertiesLoadOptions;
             /**
             *
-            * Returns workbook protection object for a workbook.
+            * Returns the protection object for a workbook.
             *
             * [Api set: ExcelApi 1.7]
             */
@@ -58807,6 +59505,27 @@ declare namespace Excel {
         }
         /**
          *
+         * WorkbookRangeAreas represents a collection of one or more rectangular ranges in multi worksheet.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface WorkbookRangeAreasLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * Returns an array of address in A1-style. Address value will contain the worksheet name for each rectangular block of cells (e.g., "Sheet1!A1:B4, Sheet1!D1:D4"). Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            addresses?: boolean;
+        }
+        /**
+         *
          * RangeView represents a set of visible cells of the parent range.
          *
          * [Api set: ExcelApi 1.3]
@@ -59362,7 +60081,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Name of the table.
-
+                        
                          The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
              *
              * [Api set: ExcelApi 1.1]
@@ -59496,7 +60215,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Name of the table.
-
+                        
                          The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
              *
              * [Api set: ExcelApi 1.1]
@@ -59631,7 +60350,7 @@ declare namespace Excel {
             /**
              *
              * Name of the table.
-
+                        
                          The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
              *
              * [Api set: ExcelApi 1.1]
@@ -59777,7 +60496,7 @@ declare namespace Excel {
         /**
          *
          * Represents a collection of all the rows that are part of the table.
-
+                    
                      Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
                      a TableRow object represent the physical location of the table row, but not the data.
                      That is, if the data is sorted or if new rows are added, a table row will continue
@@ -59808,7 +60527,7 @@ declare namespace Excel {
         /**
          *
          * Represents a row in a table.
-
+                    
                      Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
                      a TableRow object represent the physical location of the table row, but not the data.
                      That is, if the data is sorted or if new rows are added, a table row will continue
@@ -60105,7 +60824,7 @@ declare namespace Excel {
             pattern?: boolean;
             /**
              *
-             * The HTML color code representing the color of the range pattern, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
+             * The HTML color code representing the color of the range pattern, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -60389,7 +61108,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Specifies a ChartCategoryLabelLevel enumeration constant referring to
-                        the level of where the category labels are being sourced from. 
+                        the level of where the category labels are being sourced from.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -60574,7 +61293,7 @@ declare namespace Excel {
             /**
              *
              * Specifies a ChartCategoryLabelLevel enumeration constant referring to
-                        the level of where the category labels are being sourced from. 
+                        the level of where the category labels are being sourced from.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -60873,7 +61592,7 @@ declare namespace Excel {
             filtered?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Specifies the angle of the first pie-chart or doughnut-chart slice, in degrees (clockwise from vertical). Applies only to pie, 3-D pie, and doughnut charts. Can be a value from 0 through 360.Specifies if the negative DataBar has the same fill color as the positive DataBar.
+             * For EACH ITEM in the collection: Specifies the angle of the first pie-chart or doughnut-chart slice, in degrees (clockwise from vertical). Applies only to pie, 3-D pie, and doughnut charts. Can be a value from 0 through 360.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -61035,7 +61754,7 @@ declare namespace Excel {
             plotOrder?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Specifies the size of the secondary section of either a pie of pie chart or a bar of pie chart, as a percentage of the size of the primary pie. Can be a value from 5 to 200.
+             * For EACH ITEM in the collection: Specifies the size of the secondary section of either a pie-of-pie chart or a bar-of-pie chart, as a percentage of the size of the primary pie. Can be a value from 5 to 200.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -61202,7 +61921,7 @@ declare namespace Excel {
             filtered?: boolean;
             /**
              *
-             * Specifies the angle of the first pie-chart or doughnut-chart slice, in degrees (clockwise from vertical). Applies only to pie, 3-D pie, and doughnut charts. Can be a value from 0 through 360.Specifies if the negative DataBar has the same fill color as the positive DataBar.
+             * Specifies the angle of the first pie-chart or doughnut-chart slice, in degrees (clockwise from vertical). Applies only to pie, 3-D pie, and doughnut charts. Can be a value from 0 through 360.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -61364,7 +62083,7 @@ declare namespace Excel {
             plotOrder?: boolean;
             /**
              *
-             * Specifies the size of the secondary section of either a pie of pie chart or a bar of pie chart, as a percentage of the size of the primary pie. Can be a value from 5 to 200.
+             * Specifies the size of the secondary section of either a pie-of-pie chart or a bar-of-pie chart, as a percentage of the size of the primary pie. Can be a value from 5 to 200.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -63683,7 +64402,7 @@ declare namespace Excel {
         /**
          *
          * A scoped collection of custom XML parts.
-                    A scoped collection is the result of some operation, e.g., filtering by namespace.
+                    A scoped collection is the result of some operation (e.g., filtering by namespace).
                     A scoped collection cannot be scoped any further.
          *
          * [Api set: ExcelApi 1.5]
@@ -64510,7 +65229,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * Gets the key of the custom property. Custom property keys are case-insensitive.
+             * Gets the key of the custom property. Custom property keys are case-insensitive. The key is limited to 255 characters (larger values will cause an "InvalidArgument" error to be thrown.)
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64539,7 +65258,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets the key of the custom property. Custom property keys are case-insensitive.
+             * For EACH ITEM in the collection: Gets the key of the custom property. Custom property keys are case-insensitive. The key is limited to 255 characters (larger values will cause an "InvalidArgument" error to be thrown.)
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64656,7 +65375,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * The key of the custom property.
+             * The key of the custom property. The key is limited to 255 characters outside of Excel on the web (larger keys are automatically trimmed to 255 characters on other platforms).
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -64670,7 +65389,7 @@ declare namespace Excel {
             type?: boolean;
             /**
              *
-             * The value of the custom property.
+             * The value of the custom property. The value is limited to 255 characters outside of Excel on the web (larger values are automatically trimmed to 255 characters on other platforms).
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -64689,7 +65408,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: The key of the custom property.
+             * For EACH ITEM in the collection: The key of the custom property. The key is limited to 255 characters outside of Excel on the web (larger keys are automatically trimmed to 255 characters on other platforms).
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -64703,7 +65422,7 @@ declare namespace Excel {
             type?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: The value of the custom property.
+             * For EACH ITEM in the collection: The value of the custom property. The value is limited to 255 characters outside of Excel on the web (larger values are automatically trimmed to 255 characters on other platforms).
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -65176,7 +65895,7 @@ declare namespace Excel {
             matchPositiveBorderColor?: boolean;
             /**
              *
-             * Specified if the negative DataBar has the same fill color as the positive DataBar.
+             * Specifies if the negative DataBar has the same fill color as the positive DataBar.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -66701,6 +67420,91 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.10]
              */
             width?: boolean;
+        }
+        /**
+         *
+         * Contains the collection of cross-worksheets level Ranges.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface RangeAreasCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+            *
+            * For EACH ITEM in the collection: Returns a dataValidation object for all ranges in the RangeAreas.
+            *
+            * [Api set: ExcelApi 1.9]
+            */
+            dataValidation?: Excel.Interfaces.DataValidationLoadOptions;
+            /**
+            *
+            * For EACH ITEM in the collection: Returns a RangeFormat object, encapsulating the the font, fill, borders, alignment, and other properties for all ranges in the RangeAreas object.
+            *
+            * [Api set: ExcelApi 1.9]
+            */
+            format?: Excel.Interfaces.RangeFormatLoadOptions;
+            /**
+            *
+            * For EACH ITEM in the collection: Returns the worksheet for the current RangeAreas.
+            *
+            * [Api set: ExcelApi 1.9]
+            */
+            worksheet?: Excel.Interfaces.WorksheetLoadOptions;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns the RangeAreas reference in A1-style. Address value will contain the worksheet name for each rectangular block of cells (e.g., "Sheet1!A1:B4, Sheet1!D1:D4").
+             *
+             * [Api set: ExcelApi 1.9]
+             */
+            address?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns the RangeAreas reference in the user locale.
+             *
+             * [Api set: ExcelApi 1.9]
+             */
+            addressLocal?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns the number of rectangular ranges that comprise this RangeAreas object.
+             *
+             * [Api set: ExcelApi 1.9]
+             */
+            areaCount?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns the number of cells in the RangeAreas object, summing up the cell counts of all of the individual rectangular ranges. Returns -1 if the cell count exceeds 2^31-1 (2,147,483,647).
+             *
+             * [Api set: ExcelApi 1.9]
+             */
+            cellCount?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Specifies if all the ranges on this RangeAreas object represent entire columns (e.g., "A:C, Q:Z").
+             *
+             * [Api set: ExcelApi 1.9]
+             */
+            isEntireColumn?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Specifies if all the ranges on this RangeAreas object represent entire rows (e.g., "1:3, 5:7").
+             *
+             * [Api set: ExcelApi 1.9]
+             */
+            isEntireRow?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents the style for all ranges in this RangeAreas object.
+                        If the styles of the cells are inconsistent, null will be returned.
+                        For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
+             *
+             * [Api set: ExcelApi 1.9]
+             */
+            style?: boolean;
         }
         /**
          *
@@ -68351,6 +69155,51 @@ declare namespace Excel {
              * For EACH ITEM in the collection: Represents the title displayed in the UI.
              *
              * [Api set: ExcelApi 1.10]
+             */
+            name?: boolean;
+        }
+        /**
+         *
+         * Represents a named sheet view of a worksheet. A sheet view stores the sort and filter rules for a particular worksheet.
+                    Every sheet view (even a temporary sheet view) has a unique, worksheet-scoped name that is used to access the view.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface NamedSheetViewLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * Gets or sets the name of the sheet view.
+                        The temporary sheet view name is the empty string ("").  Naming the view by using the name property causes the sheet view to be saved.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: boolean;
+        }
+        /**
+         *
+         * Represents the collection of sheet views in the worksheet.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface NamedSheetViewCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets or sets the name of the sheet view.
+                        The temporary sheet view name is the empty string ("").  Naming the view by using the name property causes the sheet view to be saved.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
              */
             name?: boolean;
         }
