@@ -126,6 +126,24 @@ const simpleOneParameterFunctionObjectArray: SimpleOneParameterFunctionObject[] 
 const simpleOneParameterFunctionObjectList: _.List<SimpleOneParameterFunctionObject> = { 0: { a: Math.abs }, 1: { a: Math.abs }, length: 2 };
 const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParameterFunctionObject> = { a: { a: Math.abs }, b: { a: Math.abs } };
 
+// avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
+// the types under test need to be refactored
+interface UnderscoreType<TWrappedValue, TItemType> { }
+
+interface UnderscoreTypeExtractor {
+    <T, V>(chainResult: _.Underscore<T, V>): UnderscoreType<V, T>;
+}
+
+declare const extractUnderscoreTypes: UnderscoreTypeExtractor;
+
+interface ChainType<TWrappedValue, TItemType> { }
+
+interface ChainTypeExtractor {
+    <T, V>(chainResult: _._Chain<T, V>): ChainType<V, T>;
+}
+
+declare const extractChainTypes: ChainTypeExtractor;
+
 // Collections
 
 // each, forEach
@@ -136,8 +154,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.forEach(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator); // $ExpectType SimpleStringObject[]
     _.forEach(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator, context); // $ExpectType SimpleStringObject[]
@@ -145,8 +163,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.each(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator); // $ExpectType List<SimpleStringObject>
     _.each(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator, context); // $ExpectType List<SimpleStringObject>
@@ -194,8 +212,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
     _(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
 
-    _.chain(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<string, string[]>
-    _.chain(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<string[], string>
 
     _.collect(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
     _.collect(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
@@ -203,8 +221,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
     _(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
 
-    _.chain(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<string, string[]>
-    _.chain(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<string[], string>
 
     _.map(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
     _.map(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
@@ -212,8 +230,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
     _(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
 
-    _.chain(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<string, string[]>
-    _.chain(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<string[], string>
 
     _.collect(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
     _.collect(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
@@ -221,8 +239,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
     _(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
 
-    _.chain(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<string, string[]>
-    _.chain(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<string[], string>
 
     _.map(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType string[]
     _.map(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType string[]
@@ -230,8 +248,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType string[]
     _(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType string[]
 
-    _.chain(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType _Chain<string, string[]>
-    _.chain(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator, context)); // $ExpectType ChainType<string[], string>
 
     _.collect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType string[]
     _.collect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType string[]
@@ -239,8 +257,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType string[]
     _(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType string[]
 
-    _.chain(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType _Chain<string, string[]>
-    _.chain(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator, context)); // $ExpectType ChainType<string[], string>
 
     _.map(simpleString, stringListModifyingIterator); // $ExpectType string[]
     _.map(simpleString, stringListModifyingIterator, context); // $ExpectType string[]
@@ -248,8 +266,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).map(stringListModifyingIterator); // $ExpectType string[]
     _(simpleString).map(stringListModifyingIterator, context); // $ExpectType string[]
 
-    _.chain(simpleString).map(stringListModifyingIterator); // $ExpectType _Chain<string, string[]>
-    _.chain(simpleString).map(stringListModifyingIterator, context); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).map(stringListModifyingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleString).map(stringListModifyingIterator, context)); // $ExpectType ChainType<string[], string>
 
     _.collect(simpleString, stringListModifyingIterator); // $ExpectType string[]
     _.collect(simpleString, stringListModifyingIterator, context); // $ExpectType string[]
@@ -257,317 +275,317 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).collect(stringListModifyingIterator); // $ExpectType string[]
     _(simpleString).collect(stringListModifyingIterator, context); // $ExpectType string[]
 
-    _.chain(simpleString).collect(stringListModifyingIterator); // $ExpectType _Chain<string, string[]>
-    _.chain(simpleString).collect(stringListModifyingIterator, context); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).collect(stringListModifyingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleString).collect(stringListModifyingIterator, context)); // $ExpectType ChainType<string[], string>
 
     // partial object iterator with a non-nullable single type
     _.map(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(simpleStringObjectArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(simpleStringObjectArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.collect(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(simpleStringObjectArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(simpleStringObjectArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.map(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(simpleStringObjectList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(simpleStringObjectList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(simpleStringObjectList).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.collect(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(simpleStringObjectList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(simpleStringObjectList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(simpleStringObjectList).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.map(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(simpleStringObjectDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(simpleStringObjectDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.collect(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(simpleStringObjectDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(simpleStringObjectDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     // partial object iterator with a non-nullable intersecting type union
     _.map(intersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(intersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(intersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(intersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.collect(intersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(intersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(intersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(intersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.map(intersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(intersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(intersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(intersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.collect(intersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(intersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(intersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(intersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.map(intersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(intersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(intersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(intersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.collect(intersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     // partial object iterator with a nullable type union
     _.map(simpleStringObjectOrUndefinedArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.collect(simpleStringObjectOrUndefinedArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.map(simpleStringObjectOrUndefinedList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(simpleStringObjectOrUndefinedList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(simpleStringObjectOrUndefinedList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedList).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.collect(simpleStringObjectOrUndefinedList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.map(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.collect(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     // partial object iterator with a non-nullable non-intersecting type union
     _.map(nonIntersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.collect(nonIntersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.map(nonIntersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(nonIntersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(nonIntersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.collect(nonIntersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(nonIntersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(nonIntersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.map(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.collect(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     // partial object iterator of type any
     _.map(simpleStringObjectArray as any, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(simpleStringObjectArray as any).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(simpleStringObjectArray as any).map(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(simpleStringObjectArray as any).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     _.collect(simpleStringObjectArray as any, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
     _(simpleStringObjectArray as any).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
 
-    _.chain(simpleStringObjectArray as any).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<boolean, boolean[]>
+    extractChainTypes(_.chain(simpleStringObjectArray as any).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
 
     // property name iterator with a non-nullable single type
     _.map(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType string[]
 
     _(simpleStringObjectArray).map(simpleStringObjectPropertyName); // $ExpectType string[]
 
-    _.chain(simpleStringObjectArray).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
 
     _.collect(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType string[]
 
     _(simpleStringObjectArray).collect(simpleStringObjectPropertyName); // $ExpectType string[]
 
-    _.chain(simpleStringObjectArray).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
 
     _.map(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType string[]
 
     _(simpleStringObjectList).map(simpleStringObjectPropertyName); // $ExpectType string[]
 
-    _.chain(simpleStringObjectList).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleStringObjectList).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
 
     _.collect(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType string[]
 
     _(simpleStringObjectList).collect(simpleStringObjectPropertyName); // $ExpectType string[]
 
-    _.chain(simpleStringObjectList).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleStringObjectList).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
 
     _.map(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType string[]
 
     _(simpleStringObjectDictionary).map(simpleStringObjectPropertyName); // $ExpectType string[]
 
-    _.chain(simpleStringObjectDictionary).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
 
     _.collect(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType string[]
 
     _(simpleStringObjectDictionary).collect(simpleStringObjectPropertyName); // $ExpectType string[]
 
-    _.chain(simpleStringObjectDictionary).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
 
     // property name iterator with a non-nullable intersecting type union
     _.map(intersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
     _(intersectingObjectPropertiesArray).map(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-    _.chain(intersectingObjectPropertiesArray).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
+    extractChainTypes(_.chain(intersectingObjectPropertiesArray).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
 
     _.collect(intersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
     _(intersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-    _.chain(intersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
+    extractChainTypes(_.chain(intersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
 
     _.map(intersectingObjectPropertiesList, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
     _(intersectingObjectPropertiesList).map(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-    _.chain(intersectingObjectPropertiesList).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
+    extractChainTypes(_.chain(intersectingObjectPropertiesList).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
 
     _.collect(intersectingObjectPropertiesList, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
     _(intersectingObjectPropertiesList).collect(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-    _.chain(intersectingObjectPropertiesList).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
+    extractChainTypes(_.chain(intersectingObjectPropertiesList).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
 
     _.map(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
     _(intersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-    _.chain(intersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
+    extractChainTypes(_.chain(intersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
 
     _.collect(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
     _(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-    _.chain(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
+    extractChainTypes(_.chain(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
 
     // property name iterator with a nullable type union
     _.map(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     _.collect(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     _.map(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(simpleStringObjectOrUndefinedList).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(simpleStringObjectOrUndefinedList).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedList).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     _.collect(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     _.map(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     _.collect(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     // property name iterator with a non-nullable non-intersecting type union
     _.map(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     _.collect(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     _.map(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     _.collect(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     _.map(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     _.collect(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     // property name iterator with type any
     // specifying any as T causes the result to be any[], which isn't ideal, but on the other hand getting that result involves choosing
@@ -576,13 +594,13 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray as any).map(simpleStringObjectPropertyName); // $ExpectType any[]
 
-    _.chain(simpleStringObjectArray as any).map(simpleStringObjectPropertyName); // $ExpectType _Chain<any, any[]>
+    extractChainTypes(_.chain(simpleStringObjectArray as any).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<any[], any>
 
     _.collect(simpleStringObjectArray as any, simpleStringObjectPropertyName); // $ExpectType any[]
 
     _(simpleStringObjectArray as any).collect(simpleStringObjectPropertyName); // $ExpectType any[]
 
-    _.chain(simpleStringObjectArray as any).collect(simpleStringObjectPropertyName); // $ExpectType _Chain<any, any[]>
+    extractChainTypes(_.chain(simpleStringObjectArray as any).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<any[], any>
 }
 
 // reduce, foldl, inject
@@ -596,8 +614,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-    _.chain(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
-    _.chain(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
+    extractChainTypes(_.chain(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
     _.foldl(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _.foldl(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
@@ -605,8 +623,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-    _.chain(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
-    _.chain(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
+    extractChainTypes(_.chain(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
     _.inject(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _.inject(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
@@ -614,8 +632,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-    _.chain(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
-    _.chain(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
+    extractChainTypes(_.chain(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
     _.reduce(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _.reduce(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
@@ -623,8 +641,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-    _.chain(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
-    _.chain(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
+    extractChainTypes(_.chain(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
     _.foldl(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _.foldl(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
@@ -632,8 +650,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-    _.chain(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
-    _.chain(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
+    extractChainTypes(_.chain(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
     _.inject(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _.inject(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
@@ -641,8 +659,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-    _.chain(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
-    _.chain(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
+    extractChainTypes(_.chain(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
     _.reduce(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
     _.reduce(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
@@ -650,8 +668,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
     _(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-    _.chain(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
-    _.chain(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
     _.foldl(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
     _.foldl(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
@@ -659,8 +677,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
     _(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-    _.chain(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
-    _.chain(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
     _.inject(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
     _.inject(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
@@ -668,8 +686,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
     _(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-    _.chain(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
-    _.chain(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
     _.reduce(simpleString, stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
     _.reduce(simpleString, stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
@@ -677,8 +695,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).reduce(stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
     _(simpleString).reduce(stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
 
-    _.chain(simpleString).reduce(stringListMemoIterator, dictionaryMemo); // $ExpectType _ChainSingle<Dictionary<number>>
-    _.chain(simpleString).reduce(stringListMemoIterator, dictionaryMemo, context); // $ExpectType _ChainSingle<Dictionary<number>>
+    extractChainTypes(_.chain(simpleString).reduce(stringListMemoIterator, dictionaryMemo)); // $ExpectType ChainType<Dictionary<number>, number>
+    extractChainTypes(_.chain(simpleString).reduce(stringListMemoIterator, dictionaryMemo, context)); // $ExpectType ChainType<Dictionary<number>, number>
 
     _.foldl(simpleString, stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
     _.foldl(simpleString, stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
@@ -686,8 +704,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).foldl(stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
     _(simpleString).foldl(stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
 
-    _.chain(simpleString).foldl(stringListMemoIterator, dictionaryMemo); // $ExpectType _ChainSingle<Dictionary<number>>
-    _.chain(simpleString).foldl(stringListMemoIterator, dictionaryMemo, context); // $ExpectType _ChainSingle<Dictionary<number>>
+    extractChainTypes(_.chain(simpleString).foldl(stringListMemoIterator, dictionaryMemo)); // $ExpectType ChainType<Dictionary<number>, number>
+    extractChainTypes(_.chain(simpleString).foldl(stringListMemoIterator, dictionaryMemo, context)); // $ExpectType ChainType<Dictionary<number>, number>
 
     _.inject(simpleString, stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
     _.inject(simpleString, stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
@@ -695,8 +713,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).inject(stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
     _(simpleString).inject(stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
 
-    _.chain(simpleString).inject(stringListMemoIterator, dictionaryMemo); // $ExpectType _ChainSingle<Dictionary<number>>
-    _.chain(simpleString).inject(stringListMemoIterator, dictionaryMemo, context); // $ExpectType _ChainSingle<Dictionary<number>>
+    extractChainTypes(_.chain(simpleString).inject(stringListMemoIterator, dictionaryMemo)); // $ExpectType ChainType<Dictionary<number>, number>
+    extractChainTypes(_.chain(simpleString).inject(stringListMemoIterator, dictionaryMemo, context)); // $ExpectType ChainType<Dictionary<number>, number>
 }
 
 // reduceRight, foldr
@@ -710,8 +728,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-    _.chain(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
-    _.chain(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
+    extractChainTypes(_.chain(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
     _.foldr(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _.foldr(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
@@ -719,8 +737,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-    _.chain(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
-    _.chain(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
+    extractChainTypes(_.chain(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
     _.reduceRight(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _.reduceRight(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
@@ -728,8 +746,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-    _.chain(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
-    _.chain(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
+    extractChainTypes(_.chain(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
     _.foldr(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _.foldr(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
@@ -737,8 +755,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType string
     _(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-    _.chain(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
-    _.chain(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
+    extractChainTypes(_.chain(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
     _.reduceRight(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
     _.reduceRight(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
@@ -746,8 +764,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
     _(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-    _.chain(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
-    _.chain(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
     _.foldr(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
     _.foldr(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
@@ -755,8 +773,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType string
     _(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType string
 
-    _.chain(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo); // $ExpectType _ChainSingle<string>
-    _.chain(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context); // $ExpectType _ChainSingle<string>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
     _.reduceRight(simpleString, stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
     _.reduceRight(simpleString, stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
@@ -764,8 +782,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).reduceRight(stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
     _(simpleString).reduceRight(stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
 
-    _.chain(simpleString).reduceRight(stringListMemoIterator, dictionaryMemo); // $ExpectType _ChainSingle<Dictionary<number>>
-    _.chain(simpleString).reduceRight(stringListMemoIterator, dictionaryMemo, context); // $ExpectType _ChainSingle<Dictionary<number>>
+    extractChainTypes(_.chain(simpleString).reduceRight(stringListMemoIterator, dictionaryMemo)); // $ExpectType ChainType<Dictionary<number>, number>
+    extractChainTypes(_.chain(simpleString).reduceRight(stringListMemoIterator, dictionaryMemo, context)); // $ExpectType ChainType<Dictionary<number>, number>
 
     _.foldr(simpleString, stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
     _.foldr(simpleString, stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
@@ -773,8 +791,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).foldr(stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
     _(simpleString).foldr(stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
 
-    _.chain(simpleString).foldr(stringListMemoIterator, dictionaryMemo); // $ExpectType _ChainSingle<Dictionary<number>>
-    _.chain(simpleString).foldr(stringListMemoIterator, dictionaryMemo, context); // $ExpectType _ChainSingle<Dictionary<number>>
+    extractChainTypes(_.chain(simpleString).foldr(stringListMemoIterator, dictionaryMemo)); // $ExpectType ChainType<Dictionary<number>, number>
+    extractChainTypes(_.chain(simpleString).foldr(stringListMemoIterator, dictionaryMemo, context)); // $ExpectType ChainType<Dictionary<number>, number>
 }
 
 // find, detect
@@ -786,8 +804,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
     _(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
-    _.chain(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
+    extractChainTypes(_.chain(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.detect(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
     _.detect(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
@@ -795,8 +813,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
     _(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
-    _.chain(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
+    extractChainTypes(_.chain(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.find(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
     _.find(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
@@ -804,8 +822,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
     _(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
-    _.chain(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
+    extractChainTypes(_.chain(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.detect(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
     _.detect(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
@@ -813,8 +831,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
     _(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
-    _.chain(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
+    extractChainTypes(_.chain(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.find(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
     _.find(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
@@ -822,8 +840,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
     _(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
-    _.chain(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.detect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
     _.detect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
@@ -831,8 +849,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject | undefined
     _(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
-    _.chain(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.find(simpleString, stringListComparingIterator); // $ExpectType string | undefined
     _.find(simpleString, stringListComparingIterator, context); // $ExpectType string | undefined
@@ -840,8 +858,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).find(stringListComparingIterator); // $ExpectType string | undefined
     _(simpleString).find(stringListComparingIterator, context); // $ExpectType string | undefined
 
-    _.chain(simpleString).find(stringListComparingIterator); // $ExpectType _ChainSingle<string | undefined>
-    _.chain(simpleString).find(stringListComparingIterator, context); // $ExpectType _ChainSingle<string | undefined>
+    extractChainTypes(_.chain(simpleString).find(stringListComparingIterator)); // $ExpectType ChainType<string | undefined, string>
+    extractChainTypes(_.chain(simpleString).find(stringListComparingIterator, context)); // $ExpectType ChainType<string | undefined, string>
 
     _.detect(simpleString, stringListComparingIterator); // $ExpectType string | undefined
     _.detect(simpleString, stringListComparingIterator, context); // $ExpectType string | undefined
@@ -849,82 +867,82 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).detect(stringListComparingIterator); // $ExpectType string | undefined
     _(simpleString).detect(stringListComparingIterator, context); // $ExpectType string | undefined
 
-    _.chain(simpleString).detect(stringListComparingIterator); // $ExpectType _ChainSingle<string | undefined>
-    _.chain(simpleString).detect(stringListComparingIterator, context); // $ExpectType _ChainSingle<string | undefined>
+    extractChainTypes(_.chain(simpleString).detect(stringListComparingIterator)); // $ExpectType ChainType<string | undefined, string>
+    extractChainTypes(_.chain(simpleString).detect(stringListComparingIterator, context)); // $ExpectType ChainType<string | undefined, string>
 
     // partial object iterator
     _.find(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectArray).find(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectArray).find(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectArray).find(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.detect(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectArray).detect(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectArray).detect(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectArray).detect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.find(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectList).find(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectList).find(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectList).find(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.detect(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectList).detect(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectList).detect(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectList).detect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.find(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectDictionary).find(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectDictionary).find(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).find(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.detect(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectDictionary).detect(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectDictionary).detect(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).detect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     // property name iterator
     _.find(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectArray).find(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectArray).find(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectArray).find(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.detect(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectArray).detect(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectArray).detect(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectArray).detect(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.find(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectList).find(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectList).find(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectList).find(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.detect(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectList).detect(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectList).detect(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectList).detect(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.find(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectDictionary).find(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectDictionary).find(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).find(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.detect(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectDictionary).detect(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectDictionary).detect(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).detect(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 }
 
 // filter, select
@@ -936,8 +954,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.select(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
     _.select(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
@@ -945,8 +963,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.filter(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
     _.filter(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
@@ -954,8 +972,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.select(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
     _.select(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
@@ -963,8 +981,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.filter(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject[]
     _.filter(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
@@ -972,8 +990,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.select(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject[]
     _.select(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
@@ -981,8 +999,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.filter(simpleString, stringListComparingIterator); // $ExpectType string[]
     _.filter(simpleString, stringListComparingIterator, context); // $ExpectType string[]
@@ -990,8 +1008,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).filter(stringListComparingIterator); // $ExpectType string[]
     _(simpleString).filter(stringListComparingIterator, context); // $ExpectType string[]
 
-    _.chain(simpleString).filter(stringListComparingIterator); // $ExpectType _Chain<string, string[]>
-    _.chain(simpleString).filter(stringListComparingIterator, context); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).filter(stringListComparingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleString).filter(stringListComparingIterator, context)); // $ExpectType ChainType<string[], string>
 
     _.select(simpleString, stringListComparingIterator); // $ExpectType string[]
     _.select(simpleString, stringListComparingIterator, context); // $ExpectType string[]
@@ -999,82 +1017,82 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).select(stringListComparingIterator); // $ExpectType string[]
     _(simpleString).select(stringListComparingIterator, context); // $ExpectType string[]
 
-    _.chain(simpleString).select(stringListComparingIterator); // $ExpectType _Chain<string, string[]>
-    _.chain(simpleString).select(stringListComparingIterator, context); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).select(stringListComparingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleString).select(stringListComparingIterator, context)); // $ExpectType ChainType<string[], string>
 
     // partial object iterator
     _.filter(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).filter(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).filter(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).filter(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.select(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).select(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).select(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).select(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.filter(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).filter(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).filter(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).filter(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.select(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).select(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).select(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).select(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.filter(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectDictionary).filter(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectDictionary).filter(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).filter(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.select(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectDictionary).select(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectDictionary).select(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).select(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     // property name iterator
     _.filter(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).filter(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).filter(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).filter(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.select(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).select(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).select(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).select(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.filter(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).filter(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).filter(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).filter(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.select(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).select(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).select(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).select(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.filter(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectDictionary).filter(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectDictionary).filter(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).filter(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.select(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectDictionary).select(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectDictionary).select(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).select(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 }
 
 // where
@@ -1083,19 +1101,19 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray).where(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).where(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).where(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.where(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).where(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).where(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).where(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.where(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectDictionary).where(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectDictionary).where(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).where(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 }
 
 // findWhere
@@ -1104,19 +1122,19 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray).findWhere(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectArray).findWhere(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectArray).findWhere(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.findWhere(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectList).findWhere(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectList).findWhere(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectList).findWhere(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.findWhere(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectDictionary).findWhere(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectDictionary).findWhere(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).findWhere(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 }
 
 // reject
@@ -1128,8 +1146,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.reject(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
     _.reject(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
@@ -1137,8 +1155,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.reject(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject[]
     _.reject(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
@@ -1146,8 +1164,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.reject(simpleString, stringListComparingIterator); // $ExpectType string[]
     _.reject(simpleString, stringListComparingIterator, context); // $ExpectType string[]
@@ -1155,46 +1173,46 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).reject(stringListComparingIterator); // $ExpectType string[]
     _(simpleString).reject(stringListComparingIterator, context); // $ExpectType string[]
 
-    _.chain(simpleString).reject(stringListComparingIterator); // $ExpectType _Chain<string, string[]>
-    _.chain(simpleString).reject(stringListComparingIterator, context); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).reject(stringListComparingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleString).reject(stringListComparingIterator, context)); // $ExpectType ChainType<string[], string>
 
     // partial object iterator
     _.reject(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).reject(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).reject(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).reject(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.reject(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).reject(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).reject(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).reject(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.reject(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectDictionary).reject(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectDictionary).reject(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).reject(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     // property name iterator
     _.reject(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).reject(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).reject(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).reject(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.reject(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).reject(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).reject(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).reject(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.reject(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectDictionary).reject(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectDictionary).reject(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).reject(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 }
 
 // every, all
@@ -1206,8 +1224,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
     _(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-    _.chain(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<boolean, never>
 
     _.all(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
     _.all(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
@@ -1215,8 +1233,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
     _(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-    _.chain(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<boolean, never>
 
     _.every(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
     _.every(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
@@ -1224,8 +1242,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
     _(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-    _.chain(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<boolean, never>
 
     _.all(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
     _.all(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
@@ -1233,8 +1251,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
     _(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-    _.chain(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<boolean, never>
 
     _.every(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType boolean
     _.every(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType boolean
@@ -1242,8 +1260,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType boolean
     _(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType boolean
 
-    _.chain(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator, context)); // $ExpectType ChainType<boolean, never>
 
     _.all(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType boolean
     _.all(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType boolean
@@ -1251,8 +1269,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType boolean
     _(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType boolean
 
-    _.chain(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator, context)); // $ExpectType ChainType<boolean, never>
 
     _.every(simpleString, stringListComparingIterator); // $ExpectType boolean
     _.every(simpleString, stringListComparingIterator, context); // $ExpectType boolean
@@ -1260,8 +1278,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).every(stringListComparingIterator); // $ExpectType boolean
     _(simpleString).every(stringListComparingIterator, context); // $ExpectType boolean
 
-    _.chain(simpleString).every(stringListComparingIterator); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleString).every(stringListComparingIterator, context); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleString).every(stringListComparingIterator)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleString).every(stringListComparingIterator, context)); // $ExpectType ChainType<boolean, never>
 
     _.all(simpleString, stringListComparingIterator); // $ExpectType boolean
     _.all(simpleString, stringListComparingIterator, context); // $ExpectType boolean
@@ -1269,82 +1287,82 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).all(stringListComparingIterator); // $ExpectType boolean
     _(simpleString).all(stringListComparingIterator, context); // $ExpectType boolean
 
-    _.chain(simpleString).all(stringListComparingIterator); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleString).all(stringListComparingIterator, context); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleString).all(stringListComparingIterator)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleString).all(stringListComparingIterator, context)); // $ExpectType ChainType<boolean, never>
 
     // partial object iterator
     _.every(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
     _(simpleStringObjectArray).every(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-    _.chain(simpleStringObjectArray).every(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectArray).every(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean, never>
 
     _.all(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
     _(simpleStringObjectArray).all(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-    _.chain(simpleStringObjectArray).all(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectArray).all(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean, never>
 
     _.every(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
     _(simpleStringObjectList).every(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-    _.chain(simpleStringObjectList).every(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectList).every(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean, never>
 
     _.all(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
     _(simpleStringObjectList).all(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-    _.chain(simpleStringObjectList).all(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectList).all(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean, never>
 
     _.every(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
     _(simpleStringObjectDictionary).every(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-    _.chain(simpleStringObjectDictionary).every(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).every(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean, never>
 
     _.all(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
     _(simpleStringObjectDictionary).all(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-    _.chain(simpleStringObjectDictionary).all(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).all(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean, never>
 
     // property name iterator
     _.every(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType boolean
 
     _(simpleStringObjectArray).every(simpleStringObjectPropertyName); // $ExpectType boolean
 
-    _.chain(simpleStringObjectArray).every(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectArray).every(simpleStringObjectPropertyName)); // $ExpectType ChainType<boolean, never>
 
     _.all(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType boolean
 
     _(simpleStringObjectArray).all(simpleStringObjectPropertyName); // $ExpectType boolean
 
-    _.chain(simpleStringObjectArray).all(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectArray).all(simpleStringObjectPropertyName)); // $ExpectType ChainType<boolean, never>
 
     _.every(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType boolean
 
     _(simpleStringObjectList).every(simpleStringObjectPropertyName); // $ExpectType boolean
 
-    _.chain(simpleStringObjectList).every(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectList).every(simpleStringObjectPropertyName)); // $ExpectType ChainType<boolean, never>
 
     _.all(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType boolean
 
     _(simpleStringObjectList).all(simpleStringObjectPropertyName); // $ExpectType boolean
 
-    _.chain(simpleStringObjectList).all(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectList).all(simpleStringObjectPropertyName)); // $ExpectType ChainType<boolean, never>
 
     _.every(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType boolean
 
     _(simpleStringObjectDictionary).every(simpleStringObjectPropertyName); // $ExpectType boolean
 
-    _.chain(simpleStringObjectDictionary).every(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).every(simpleStringObjectPropertyName)); // $ExpectType ChainType<boolean, never>
 
     _.all(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType boolean
 
     _(simpleStringObjectDictionary).all(simpleStringObjectPropertyName); // $ExpectType boolean
 
-    _.chain(simpleStringObjectDictionary).all(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).all(simpleStringObjectPropertyName)); // $ExpectType ChainType<boolean, never>
 }
 
 // some, any
@@ -1356,8 +1374,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
     _(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-    _.chain(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<boolean, never>
 
     _.any(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
     _.any(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
@@ -1365,8 +1383,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
     _(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-    _.chain(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<boolean, never>
 
     _.some(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
     _.some(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
@@ -1374,8 +1392,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
     _(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-    _.chain(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<boolean, never>
 
     _.any(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
     _.any(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
@@ -1383,8 +1401,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator); // $ExpectType boolean
     _(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType boolean
 
-    _.chain(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<boolean, never>
 
     _.some(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType boolean
     _.some(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType boolean
@@ -1392,8 +1410,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType boolean
     _(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType boolean
 
-    _.chain(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator, context)); // $ExpectType ChainType<boolean, never>
 
     _.any(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType boolean
     _.any(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType boolean
@@ -1401,8 +1419,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType boolean
     _(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType boolean
 
-    _.chain(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator, context)); // $ExpectType ChainType<boolean, never>
 
     _.some(simpleString, stringListComparingIterator); // $ExpectType boolean
     _.some(simpleString, stringListComparingIterator, context); // $ExpectType boolean
@@ -1410,8 +1428,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).some(stringListComparingIterator); // $ExpectType boolean
     _(simpleString).some(stringListComparingIterator, context); // $ExpectType boolean
 
-    _.chain(simpleString).some(stringListComparingIterator); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleString).some(stringListComparingIterator, context); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleString).some(stringListComparingIterator)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleString).some(stringListComparingIterator, context)); // $ExpectType ChainType<boolean, never>
 
     _.any(simpleString, stringListComparingIterator); // $ExpectType boolean
     _.any(simpleString, stringListComparingIterator, context); // $ExpectType boolean
@@ -1419,82 +1437,82 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).any(stringListComparingIterator); // $ExpectType boolean
     _(simpleString).any(stringListComparingIterator, context); // $ExpectType boolean
 
-    _.chain(simpleString).any(stringListComparingIterator); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleString).any(stringListComparingIterator, context); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleString).any(stringListComparingIterator)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleString).any(stringListComparingIterator, context)); // $ExpectType ChainType<boolean, never>
 
     // partial object iterator
     _.some(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
     _(simpleStringObjectArray).some(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-    _.chain(simpleStringObjectArray).some(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectArray).some(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean, never>
 
     _.any(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
     _(simpleStringObjectArray).any(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-    _.chain(simpleStringObjectArray).any(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectArray).any(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean, never>
 
     _.some(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
     _(simpleStringObjectList).some(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-    _.chain(simpleStringObjectList).some(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectList).some(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean, never>
 
     _.any(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
     _(simpleStringObjectList).any(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-    _.chain(simpleStringObjectList).any(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectList).any(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean, never>
 
     _.some(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
     _(simpleStringObjectDictionary).some(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-    _.chain(simpleStringObjectDictionary).some(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).some(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean, never>
 
     _.any(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
     _(simpleStringObjectDictionary).any(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean
 
-    _.chain(simpleStringObjectDictionary).any(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).any(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean, never>
 
     // property name iterator
     _.some(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType boolean
 
     _(simpleStringObjectArray).some(simpleStringObjectPropertyName); // $ExpectType boolean
 
-    _.chain(simpleStringObjectArray).some(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectArray).some(simpleStringObjectPropertyName)); // $ExpectType ChainType<boolean, never>
 
     _.any(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType boolean
 
     _(simpleStringObjectArray).any(simpleStringObjectPropertyName); // $ExpectType boolean
 
-    _.chain(simpleStringObjectArray).any(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectArray).any(simpleStringObjectPropertyName)); // $ExpectType ChainType<boolean, never>
 
     _.some(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType boolean
 
     _(simpleStringObjectList).some(simpleStringObjectPropertyName); // $ExpectType boolean
 
-    _.chain(simpleStringObjectList).some(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectList).some(simpleStringObjectPropertyName)); // $ExpectType ChainType<boolean, never>
 
     _.any(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType boolean
 
     _(simpleStringObjectList).any(simpleStringObjectPropertyName); // $ExpectType boolean
 
-    _.chain(simpleStringObjectList).any(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectList).any(simpleStringObjectPropertyName)); // $ExpectType ChainType<boolean, never>
 
     _.some(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType boolean
 
     _(simpleStringObjectDictionary).some(simpleStringObjectPropertyName); // $ExpectType boolean
 
-    _.chain(simpleStringObjectDictionary).some(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).some(simpleStringObjectPropertyName)); // $ExpectType ChainType<boolean, never>
 
     _.any(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType boolean
 
     _(simpleStringObjectDictionary).any(simpleStringObjectPropertyName); // $ExpectType boolean
 
-    _.chain(simpleStringObjectDictionary).any(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).any(simpleStringObjectPropertyName)); // $ExpectType ChainType<boolean, never>
 }
 
 // contains, include, includes
@@ -1509,8 +1527,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).contains(simpleStringObjectValue); // $ExpectType boolean
     _(simpleStringObjectArray).contains(simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-    _.chain(simpleStringObjectArray).contains(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectArray).contains(simpleStringObjectValue, fromIndex); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectArray).contains(simpleStringObjectValue)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectArray).contains(simpleStringObjectValue, fromIndex)); // $ExpectType ChainType<boolean, never>
 
     _.include(simpleStringObjectArray, simpleStringObjectValue); // $ExpectType boolean
     _.include(simpleStringObjectArray, simpleStringObjectValue, fromIndex); // $ExpectType boolean
@@ -1518,8 +1536,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).include(simpleStringObjectValue); // $ExpectType boolean
     _(simpleStringObjectArray).include(simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-    _.chain(simpleStringObjectArray).include(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectArray).include(simpleStringObjectValue, fromIndex); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectArray).include(simpleStringObjectValue)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectArray).include(simpleStringObjectValue, fromIndex)); // $ExpectType ChainType<boolean, never>
 
     _.includes(simpleStringObjectArray, simpleStringObjectValue); // $ExpectType boolean
     _.includes(simpleStringObjectArray, simpleStringObjectValue, fromIndex); // $ExpectType boolean
@@ -1527,8 +1545,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).includes(simpleStringObjectValue); // $ExpectType boolean
     _(simpleStringObjectArray).includes(simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-    _.chain(simpleStringObjectArray).includes(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectArray).includes(simpleStringObjectValue, fromIndex); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectArray).includes(simpleStringObjectValue)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectArray).includes(simpleStringObjectValue, fromIndex)); // $ExpectType ChainType<boolean, never>
 
     _.contains(simpleStringObjectList, simpleStringObjectValue); // $ExpectType boolean
     _.contains(simpleStringObjectList, simpleStringObjectValue, fromIndex); // $ExpectType boolean
@@ -1536,8 +1554,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).contains(simpleStringObjectValue); // $ExpectType boolean
     _(simpleStringObjectList).contains(simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-    _.chain(simpleStringObjectList).contains(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectList).contains(simpleStringObjectValue, fromIndex); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectList).contains(simpleStringObjectValue)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectList).contains(simpleStringObjectValue, fromIndex)); // $ExpectType ChainType<boolean, never>
 
     _.include(simpleStringObjectList, simpleStringObjectValue); // $ExpectType boolean
     _.include(simpleStringObjectList, simpleStringObjectValue, fromIndex); // $ExpectType boolean
@@ -1545,8 +1563,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).include(simpleStringObjectValue); // $ExpectType boolean
     _(simpleStringObjectList).include(simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-    _.chain(simpleStringObjectList).include(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectList).include(simpleStringObjectValue, fromIndex); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectList).include(simpleStringObjectValue)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectList).include(simpleStringObjectValue, fromIndex)); // $ExpectType ChainType<boolean, never>
 
     _.includes(simpleStringObjectList, simpleStringObjectValue); // $ExpectType boolean
     _.includes(simpleStringObjectList, simpleStringObjectValue, fromIndex); // $ExpectType boolean
@@ -1554,26 +1572,26 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).includes(simpleStringObjectValue); // $ExpectType boolean
     _(simpleStringObjectList).includes(simpleStringObjectValue, fromIndex); // $ExpectType boolean
 
-    _.chain(simpleStringObjectList).includes(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleStringObjectList).includes(simpleStringObjectValue, fromIndex); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectList).includes(simpleStringObjectValue)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleStringObjectList).includes(simpleStringObjectValue, fromIndex)); // $ExpectType ChainType<boolean, never>
 
     _.contains(simpleStringObjectDictionary, simpleStringObjectValue); // $ExpectType boolean
 
     _(simpleStringObjectDictionary).contains(simpleStringObjectValue); // $ExpectType boolean
 
-    _.chain(simpleStringObjectDictionary).contains(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).contains(simpleStringObjectValue)); // $ExpectType ChainType<boolean, never>
 
     _.include(simpleStringObjectDictionary, simpleStringObjectValue); // $ExpectType boolean
 
     _(simpleStringObjectDictionary).include(simpleStringObjectValue); // $ExpectType boolean
 
-    _.chain(simpleStringObjectDictionary).include(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).include(simpleStringObjectValue)); // $ExpectType ChainType<boolean, never>
 
     _.includes(simpleStringObjectDictionary, simpleStringObjectValue); // $ExpectType boolean
 
     _(simpleStringObjectDictionary).includes(simpleStringObjectValue); // $ExpectType boolean
 
-    _.chain(simpleStringObjectDictionary).includes(simpleStringObjectValue); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).includes(simpleStringObjectValue)); // $ExpectType ChainType<boolean, never>
 
     _.contains(simpleString, simpleStringValue); // $ExpectType boolean
     _.contains(simpleString, simpleStringValue, fromIndex); // $ExpectType boolean
@@ -1581,8 +1599,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).contains(simpleStringValue); // $ExpectType boolean
     _(simpleString).contains(simpleStringValue, fromIndex); // $ExpectType boolean
 
-    _.chain(simpleString).contains(simpleStringValue); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleString).contains(simpleStringValue, fromIndex); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleString).contains(simpleStringValue)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleString).contains(simpleStringValue, fromIndex)); // $ExpectType ChainType<boolean, never>
 
     _.include(simpleString, simpleStringValue); // $ExpectType boolean
     _.include(simpleString, simpleStringValue, fromIndex); // $ExpectType boolean
@@ -1590,8 +1608,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).include(simpleStringValue); // $ExpectType boolean
     _(simpleString).include(simpleStringValue, fromIndex); // $ExpectType boolean
 
-    _.chain(simpleString).include(simpleStringValue); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleString).include(simpleStringValue, fromIndex); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleString).include(simpleStringValue)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleString).include(simpleStringValue, fromIndex)); // $ExpectType ChainType<boolean, never>
 
     _.includes(simpleString, simpleStringValue); // $ExpectType boolean
     _.includes(simpleString, simpleStringValue, fromIndex); // $ExpectType boolean
@@ -1599,8 +1617,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).includes(simpleStringValue); // $ExpectType boolean
     _(simpleString).includes(simpleStringValue, fromIndex); // $ExpectType boolean
 
-    _.chain(simpleString).includes(simpleStringValue); // $ExpectType _ChainSingle<boolean>
-    _.chain(simpleString).includes(simpleStringValue, fromIndex); // $ExpectType _ChainSingle<boolean>
+    extractChainTypes(_.chain(simpleString).includes(simpleStringValue)); // $ExpectType ChainType<boolean, never>
+    extractChainTypes(_.chain(simpleString).includes(simpleStringValue, fromIndex)); // $ExpectType ChainType<boolean, never>
 }
 
 // invoke
@@ -1616,50 +1634,50 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleNoParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName); // $ExpectType any[]
 
-    _.chain(simpleNoParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName); // $ExpectType _Chain<any, any[]>
+    extractChainTypes(_.chain(simpleNoParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName)); // $ExpectType ChainType<any[], any>
 
     _.invoke(simpleNoParameterFunctionObjectList, simpleStringObjectPropertyName); // $ExpectType any[]
 
     _(simpleNoParameterFunctionObjectList).invoke(simpleStringObjectPropertyName); // $ExpectType any[]
 
-    _.chain(simpleNoParameterFunctionObjectList).invoke(simpleStringObjectPropertyName); // $ExpectType _Chain<any, any[]>
+    extractChainTypes(_.chain(simpleNoParameterFunctionObjectList).invoke(simpleStringObjectPropertyName)); // $ExpectType ChainType<any[], any>
 
     _.invoke(simpleNoParameterFunctionObjectDictionary, simpleStringObjectPropertyName); // $ExpectType any[]
 
     _(simpleNoParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName); // $ExpectType any[]
 
-    _.chain(simpleNoParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName); // $ExpectType _Chain<any, any[]>
+    extractChainTypes(_.chain(simpleNoParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName)); // $ExpectType ChainType<any[], any>
 
     _.invoke(simpleString, simpleStringObjectPropertyName); // $ExpectType any[]
 
     _(simpleString).invoke(simpleStringObjectPropertyName); // $ExpectType any[]
 
-    _.chain(simpleString).invoke(simpleStringObjectPropertyName); // $ExpectType _Chain<any, any[]>
+    extractChainTypes(_.chain(simpleString).invoke(simpleStringObjectPropertyName)); // $ExpectType ChainType<any[], any>
 
     // with parameters
     _.invoke(simpleOneParameterFunctionObjectArray, simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType any[]
 
     _(simpleOneParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType any[]
 
-    _.chain(simpleOneParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType _Chain<any, any[]>
+    extractChainTypes(_.chain(simpleOneParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName, simpleStringObjectArg)); // $ExpectType ChainType<any[], any>
 
     _.invoke(simpleOneParameterFunctionObjectList, simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType any[]
 
     _(simpleOneParameterFunctionObjectList).invoke(simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType any[]
 
-    _.chain(simpleOneParameterFunctionObjectList).invoke(simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType _Chain<any, any[]>
+    extractChainTypes(_.chain(simpleOneParameterFunctionObjectList).invoke(simpleStringObjectPropertyName, simpleStringObjectArg)); // $ExpectType ChainType<any[], any>
 
     _.invoke(simpleOneParameterFunctionObjectDictionary, simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType any[]
 
     _(simpleOneParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType any[]
 
-    _.chain(simpleOneParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName, simpleStringObjectArg); // $ExpectType _Chain<any, any[]>
+    extractChainTypes(_.chain(simpleOneParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName, simpleStringObjectArg)); // $ExpectType ChainType<any[], any>
 
     _.invoke(simpleString, functionName, simpleStringArg); // $ExpectType any[]
 
     _(simpleString).invoke(functionName, simpleStringArg); // $ExpectType any[]
 
-    _.chain(simpleString).invoke(functionName, simpleStringArg); // $ExpectType _Chain<any, any[]>
+    extractChainTypes(_.chain(simpleString).invoke(functionName, simpleStringArg)); // $ExpectType ChainType<any[], any>
 }
 
 // pluck
@@ -1669,76 +1687,76 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray).pluck(simpleStringObjectPropertyName); // $ExpectType string[]
 
-    _.chain(simpleStringObjectArray).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
 
     _.pluck(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType string[]
 
     _(simpleStringObjectList).pluck(simpleStringObjectPropertyName); // $ExpectType string[]
 
-    _.chain(simpleStringObjectList).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleStringObjectList).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
 
     _.pluck(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType string[]
 
     _(simpleStringObjectDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType string[]
 
-    _.chain(simpleStringObjectDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
 
     // property name iterator with a non-nullable intersecting type union
     _.pluck(intersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
     _(intersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-    _.chain(intersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
+    extractChainTypes(_.chain(intersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
 
     _.pluck(intersectingObjectPropertiesList, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
     _(intersectingObjectPropertiesList).pluck(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-    _.chain(intersectingObjectPropertiesList).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
+    extractChainTypes(_.chain(intersectingObjectPropertiesList).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
 
     _.pluck(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
     _(intersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
 
-    _.chain(intersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | boolean, (string | boolean)[]>
+    extractChainTypes(_.chain(intersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
 
     // property name iterator with a nullable type union
     _.pluck(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(simpleStringObjectOrUndefinedArray).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(simpleStringObjectOrUndefinedArray).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedArray).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     _.pluck(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(simpleStringObjectOrUndefinedList).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(simpleStringObjectOrUndefinedList).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedList).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     _.pluck(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(simpleStringObjectOrUndefinedDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(simpleStringObjectOrUndefinedDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedDictionary).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     // property name iterator with a non-nullable non-intersecting type union
     _.pluck(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     _.pluck(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     _.pluck(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
     _(nonIntersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
 
-    _.chain(nonIntersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<string | undefined, (string | undefined)[]>
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     // property name iterator with type any
     // specifying any as T causes the result to be any[], which isn't ideal, but on the other hand getting that result involves choosing
@@ -1747,7 +1765,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray as any).pluck(simpleStringObjectPropertyName); // $ExpectType any[]
 
-    _.chain(simpleStringObjectArray as any).pluck(simpleStringObjectPropertyName); // $ExpectType _Chain<any, any[]>
+    extractChainTypes(_.chain(simpleStringObjectArray as any).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<any[], any>
 }
 
 // max
@@ -1757,19 +1775,19 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleNumberArray).max(); // $ExpectType number
 
-    _.chain(simpleNumberArray).max(); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleNumberArray).max()); // $ExpectType ChainType<number, never>
 
     _.max(simpleNumberList); // $ExpectType number
 
     _(simpleNumberList).max(); // $ExpectType number
 
-    _.chain(simpleNumberList).max(); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleNumberList).max()); // $ExpectType ChainType<number, never>
 
     _.max(simpleNumberDictionary); // $ExpectType number
 
     _(simpleNumberDictionary).max(); // $ExpectType number
 
-    _.chain(simpleNumberDictionary).max(); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleNumberDictionary).max()); // $ExpectType ChainType<number, never>
 
     // function iterator
     _.max(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
@@ -1778,8 +1796,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
     _(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-    _.chain(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator); // $ExpectType _ChainSingle<number | SimpleNumberObject>
-    _.chain(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    extractChainTypes(_.chain(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator)); // $ExpectType ChainType<number | SimpleNumberObject, never>
+    extractChainTypes(_.chain(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<number | SimpleNumberObject, never>
 
     _.max(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
     _.max(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
@@ -1787,8 +1805,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
     _(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-    _.chain(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator); // $ExpectType _ChainSingle<number | SimpleNumberObject>
-    _.chain(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    extractChainTypes(_.chain(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator)); // $ExpectType ChainType<number | SimpleNumberObject, never>
+    extractChainTypes(_.chain(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<number | SimpleNumberObject, never>
 
     _.max(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
     _.max(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
@@ -1796,27 +1814,27 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
     _(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-    _.chain(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator); // $ExpectType _ChainSingle<number | SimpleNumberObject>
-    _.chain(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator, context); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    extractChainTypes(_.chain(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator)); // $ExpectType ChainType<number | SimpleNumberObject, never>
+    extractChainTypes(_.chain(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator, context)); // $ExpectType ChainType<number | SimpleNumberObject, never>
 
     // property name iterator
     _.max(simpleNumberObjectArray, simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
     _(simpleNumberObjectArray).max(simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-    _.chain(simpleNumberObjectArray).max(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    extractChainTypes(_.chain(simpleNumberObjectArray).max(simpleStringObjectPropertyName)); // $ExpectType ChainType<number | SimpleNumberObject, never>
 
     _.max(simpleNumberObjectList, simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
     _(simpleNumberObjectList).max(simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-    _.chain(simpleNumberObjectList).max(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    extractChainTypes(_.chain(simpleNumberObjectList).max(simpleStringObjectPropertyName)); // $ExpectType ChainType<number | SimpleNumberObject, never>
 
     _.max(simpleNumberObjectDictionary, simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
     _(simpleNumberObjectDictionary).max(simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-    _.chain(simpleNumberObjectDictionary).max(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    extractChainTypes(_.chain(simpleNumberObjectDictionary).max(simpleStringObjectPropertyName)); // $ExpectType ChainType<number | SimpleNumberObject, never>
 }
 
 // min
@@ -1826,19 +1844,19 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleNumberArray).min(); // $ExpectType number
 
-    _.chain(simpleNumberArray).min(); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleNumberArray).min()); // $ExpectType ChainType<number, never>
 
     _.min(simpleNumberList); // $ExpectType number
 
     _(simpleNumberList).min(); // $ExpectType number
 
-    _.chain(simpleNumberList).min(); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleNumberList).min()); // $ExpectType ChainType<number, never>
 
     _.min(simpleNumberDictionary); // $ExpectType number
 
     _(simpleNumberDictionary).min(); // $ExpectType number
 
-    _.chain(simpleNumberDictionary).min(); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleNumberDictionary).min()); // $ExpectType ChainType<number, never>
 
     // function iterator
     _.min(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
@@ -1847,8 +1865,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
     _(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-    _.chain(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator); // $ExpectType _ChainSingle<number | SimpleNumberObject>
-    _.chain(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    extractChainTypes(_.chain(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator)); // $ExpectType ChainType<number | SimpleNumberObject, never>
+    extractChainTypes(_.chain(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<number | SimpleNumberObject, never>
 
     _.min(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
     _.min(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
@@ -1856,8 +1874,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
     _(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-    _.chain(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator); // $ExpectType _ChainSingle<number | SimpleNumberObject>
-    _.chain(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator, context); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    extractChainTypes(_.chain(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator)); // $ExpectType ChainType<number | SimpleNumberObject, never>
+    extractChainTypes(_.chain(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<number | SimpleNumberObject, never>
 
     _.min(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
     _.min(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
@@ -1865,27 +1883,27 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator); // $ExpectType number | SimpleNumberObject
     _(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator, context); // $ExpectType number | SimpleNumberObject
 
-    _.chain(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator); // $ExpectType _ChainSingle<number | SimpleNumberObject>
-    _.chain(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator, context); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    extractChainTypes(_.chain(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator)); // $ExpectType ChainType<number | SimpleNumberObject, never>
+    extractChainTypes(_.chain(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator, context)); // $ExpectType ChainType<number | SimpleNumberObject, never>
 
     // property name iterator
     _.min(simpleNumberObjectArray, simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
     _(simpleNumberObjectArray).min(simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-    _.chain(simpleNumberObjectArray).min(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    extractChainTypes(_.chain(simpleNumberObjectArray).min(simpleStringObjectPropertyName)); // $ExpectType ChainType<number | SimpleNumberObject, never>
 
     _.min(simpleNumberObjectList, simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
     _(simpleNumberObjectList).min(simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-    _.chain(simpleNumberObjectList).min(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    extractChainTypes(_.chain(simpleNumberObjectList).min(simpleStringObjectPropertyName)); // $ExpectType ChainType<number | SimpleNumberObject, never>
 
     _.min(simpleNumberObjectDictionary, simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
     _(simpleNumberObjectDictionary).min(simpleStringObjectPropertyName); // $ExpectType number | SimpleNumberObject
 
-    _.chain(simpleNumberObjectDictionary).min(simpleStringObjectPropertyName); // $ExpectType _ChainSingle<number | SimpleNumberObject>
+    extractChainTypes(_.chain(simpleNumberObjectDictionary).min(simpleStringObjectPropertyName)); // $ExpectType ChainType<number | SimpleNumberObject, never>
 }
 
 // sortBy
@@ -1897,8 +1915,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.sortBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
     _.sortBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
@@ -1906,8 +1924,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.sortBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType SimpleStringObject[]
     _.sortBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
@@ -1915,27 +1933,27 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     // property name iterator
     _.sortBy(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).sortBy(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).sortBy(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).sortBy(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.sortBy(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).sortBy(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).sortBy(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).sortBy(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.sortBy(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectDictionary).sortBy(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectDictionary).sortBy(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).sortBy(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 }
 
 // groupBy
@@ -2047,8 +2065,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<number>
     _(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<number>
 
-    _.chain(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<number, Dictionary<number>>
-    _.chain(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<number, Dictionary<number>>
+    extractChainTypes(_.chain(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<Dictionary<number>, number>
+    extractChainTypes(_.chain(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<Dictionary<number>, number>
 
     _.countBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<number>
     _.countBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<number>
@@ -2056,8 +2074,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<number>
     _(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<number>
 
-    _.chain(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<number, Dictionary<number>>
-    _.chain(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<number, Dictionary<number>>
+    extractChainTypes(_.chain(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<Dictionary<number>, number>
+    extractChainTypes(_.chain(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<Dictionary<number>, number>
 
     _.countBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType Dictionary<number>
     _.countBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType Dictionary<number>
@@ -2065,8 +2083,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType Dictionary<number>
     _(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType Dictionary<number>
 
-    _.chain(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType _Chain<number, Dictionary<number>>
-    _.chain(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType _Chain<number, Dictionary<number>>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator)); // $ExpectType ChainType<Dictionary<number>, number>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator, context)); // $ExpectType ChainType<Dictionary<number>, number>
 
     _.countBy(simpleString, stringListSelectingIterator); // $ExpectType Dictionary<number>
     _.countBy(simpleString, stringListSelectingIterator, context); // $ExpectType Dictionary<number>
@@ -2074,27 +2092,27 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).countBy(stringListSelectingIterator); // $ExpectType Dictionary<number>
     _(simpleString).countBy(stringListSelectingIterator, context); // $ExpectType Dictionary<number>
 
-    _.chain(simpleString).countBy(stringListSelectingIterator); // $ExpectType _Chain<number, Dictionary<number>>
-    _.chain(simpleString).countBy(stringListSelectingIterator, context); // $ExpectType _Chain<number, Dictionary<number>>
+    extractChainTypes(_.chain(simpleString).countBy(stringListSelectingIterator)); // $ExpectType ChainType<Dictionary<number>, number>
+    extractChainTypes(_.chain(simpleString).countBy(stringListSelectingIterator, context)); // $ExpectType ChainType<Dictionary<number>, number>
 
     // property name iterator
     _.countBy(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType Dictionary<number>
 
     _(simpleStringObjectArray).countBy(simpleStringObjectPropertyName); // $ExpectType Dictionary<number>
 
-    _.chain(simpleStringObjectArray).countBy(simpleStringObjectPropertyName); // $ExpectType _Chain<number, Dictionary<number>>
+    extractChainTypes(_.chain(simpleStringObjectArray).countBy(simpleStringObjectPropertyName)); // $ExpectType ChainType<Dictionary<number>, number>
 
     _.countBy(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType Dictionary<number>
 
     _(simpleStringObjectList).countBy(simpleStringObjectPropertyName); // $ExpectType Dictionary<number>
 
-    _.chain(simpleStringObjectList).countBy(simpleStringObjectPropertyName); // $ExpectType _Chain<number, Dictionary<number>>
+    extractChainTypes(_.chain(simpleStringObjectList).countBy(simpleStringObjectPropertyName)); // $ExpectType ChainType<Dictionary<number>, number>
 
     _.countBy(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType Dictionary<number>
 
     _(simpleStringObjectDictionary).countBy(simpleStringObjectPropertyName); // $ExpectType Dictionary<number>
 
-    _.chain(simpleStringObjectDictionary).countBy(simpleStringObjectPropertyName); // $ExpectType _Chain<number, Dictionary<number>>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).countBy(simpleStringObjectPropertyName)); // $ExpectType ChainType<Dictionary<number>, number>
 }
 
 // shuffle
@@ -2103,25 +2121,25 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray).shuffle(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).shuffle(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).shuffle()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.shuffle(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).shuffle(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).shuffle(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).shuffle()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.shuffle(simpleStringObjectDictionary); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectDictionary).shuffle(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectDictionary).shuffle(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).shuffle()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.shuffle(simpleString); // $ExpectType string[]
 
     _(simpleString).shuffle(); // $ExpectType string[]
 
-    _.chain(simpleString).shuffle(); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).shuffle()); // $ExpectType ChainType<string[], string>
 }
 
 // sample
@@ -2133,50 +2151,50 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray).sample(); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectArray).sample(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectArray).sample()); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.sample(simpleStringObjectList); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectList).sample(); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectList).sample(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectList).sample()); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.sample(simpleStringObjectDictionary); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectDictionary).sample(); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectDictionary).sample(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).sample()); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.sample(simpleString); // $ExpectType string | undefined
 
     _(simpleString).sample(); // $ExpectType string | undefined
 
-    _.chain(simpleString).sample(); // $ExpectType _ChainSingle<string | undefined>
+    extractChainTypes(_.chain(simpleString).sample()); // $ExpectType ChainType<string | undefined, string>
 
     // with n
     _.sample(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).sample(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).sample(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).sample(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.sample(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).sample(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).sample(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).sample(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.sample(simpleStringObjectDictionary, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectDictionary).sample(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectDictionary).sample(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).sample(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.sample(simpleString, n); // $ExpectType string[]
 
     _(simpleString).sample(n); // $ExpectType string[]
 
-    _.chain(simpleString).sample(n); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).sample(n)); // $ExpectType ChainType<string[], string>
 }
 
 // toArray
@@ -2185,25 +2203,25 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray).toArray(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).toArray(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).toArray()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.toArray(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).toArray(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).toArray(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).toArray()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.toArray(simpleStringObjectDictionary); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectDictionary).toArray(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectDictionary).toArray(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).toArray()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.toArray(simpleString); // $ExpectType string[]
 
     _(simpleString).toArray(); // $ExpectType string[]
 
-    _.chain(simpleString).toArray(); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).toArray()); // $ExpectType ChainType<string[], string>
 }
 
 // size
@@ -2212,25 +2230,25 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray).size(); // $ExpectType number
 
-    _.chain(simpleStringObjectArray).size(); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectArray).size()); // $ExpectType ChainType<number, never>
 
     _.size(simpleStringObjectList); // $ExpectType number
 
     _(simpleStringObjectList).size(); // $ExpectType number
 
-    _.chain(simpleStringObjectList).size(); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectList).size()); // $ExpectType ChainType<number, never>
 
     _.size(simpleStringObjectDictionary); // $ExpectType number
 
     _(simpleStringObjectDictionary).size(); // $ExpectType number
 
-    _.chain(simpleStringObjectDictionary).size(); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).size()); // $ExpectType ChainType<number, never>
 
     _.size(simpleString); // $ExpectType number
 
     _(simpleString).size(); // $ExpectType number
 
-    _.chain(simpleString).size(); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleString).size()); // $ExpectType ChainType<number, never>
 }
 
 // partition
@@ -2242,8 +2260,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
     _(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-    _.chain(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
-    _.chain(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
+    extractChainTypes(_.chain(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<[SimpleStringObject[], SimpleStringObject[]], SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<[SimpleStringObject[], SimpleStringObject[]], SimpleStringObject[]>
 
     _.partition(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
     _.partition(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
@@ -2251,8 +2269,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
     _(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-    _.chain(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
-    _.chain(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
+    extractChainTypes(_.chain(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<[SimpleStringObject[], SimpleStringObject[]], SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<[SimpleStringObject[], SimpleStringObject[]], SimpleStringObject[]>
 
     _.partition(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
     _.partition(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
@@ -2260,8 +2278,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
     _(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-    _.chain(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
-    _.chain(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator)); // $ExpectType ChainType<[SimpleStringObject[], SimpleStringObject[]], SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator, context)); // $ExpectType ChainType<[SimpleStringObject[], SimpleStringObject[]], SimpleStringObject[]>
 
     _.partition(simpleString, stringListComparingIterator); // $ExpectType [string[], string[]]
     _.partition(simpleString, stringListComparingIterator, context); // $ExpectType [string[], string[]]
@@ -2269,46 +2287,46 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).partition(stringListComparingIterator); // $ExpectType [string[], string[]]
     _(simpleString).partition(stringListComparingIterator, context); // $ExpectType [string[], string[]]
 
-    _.chain(simpleString).partition(stringListComparingIterator); // $ExpectType _Chain<string[], [string[], string[]]>
-    _.chain(simpleString).partition(stringListComparingIterator, context); // $ExpectType _Chain<string[], [string[], string[]]>
+    extractChainTypes(_.chain(simpleString).partition(stringListComparingIterator)); // $ExpectType ChainType<[string[], string[]], string[]>
+    extractChainTypes(_.chain(simpleString).partition(stringListComparingIterator, context)); // $ExpectType ChainType<[string[], string[]], string[]>
 
     // partial object iterator
     _.partition(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
     _(simpleStringObjectArray).partition(simpleStringObjectPartialPropertyMatch); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-    _.chain(simpleStringObjectArray).partition(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
+    extractChainTypes(_.chain(simpleStringObjectArray).partition(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<[SimpleStringObject[], SimpleStringObject[]], SimpleStringObject[]>
 
     _.partition(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
     _(simpleStringObjectList).partition(simpleStringObjectPartialPropertyMatch); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-    _.chain(simpleStringObjectList).partition(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
+    extractChainTypes(_.chain(simpleStringObjectList).partition(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<[SimpleStringObject[], SimpleStringObject[]], SimpleStringObject[]>
 
     _.partition(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
     _(simpleStringObjectDictionary).partition(simpleStringObjectPartialPropertyMatch); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-    _.chain(simpleStringObjectDictionary).partition(simpleStringObjectPartialPropertyMatch); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).partition(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<[SimpleStringObject[], SimpleStringObject[]], SimpleStringObject[]>
 
     // property name iterator
     _.partition(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
     _(simpleStringObjectArray).partition(simpleStringObjectPropertyName); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-    _.chain(simpleStringObjectArray).partition(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
+    extractChainTypes(_.chain(simpleStringObjectArray).partition(simpleStringObjectPropertyName)); // $ExpectType ChainType<[SimpleStringObject[], SimpleStringObject[]], SimpleStringObject[]>
 
     _.partition(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
     _(simpleStringObjectList).partition(simpleStringObjectPropertyName); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-    _.chain(simpleStringObjectList).partition(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
+    extractChainTypes(_.chain(simpleStringObjectList).partition(simpleStringObjectPropertyName)); // $ExpectType ChainType<[SimpleStringObject[], SimpleStringObject[]], SimpleStringObject[]>
 
     _.partition(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
     _(simpleStringObjectDictionary).partition(simpleStringObjectPropertyName); // $ExpectType [SimpleStringObject[], SimpleStringObject[]]
 
-    _.chain(simpleStringObjectDictionary).partition(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject[], [SimpleStringObject[], SimpleStringObject[]]>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).partition(simpleStringObjectPropertyName)); // $ExpectType ChainType<[SimpleStringObject[], SimpleStringObject[]], SimpleStringObject[]>
 }
 
 // Arrays
@@ -2322,110 +2340,110 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray).first(); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectArray).first(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectArray).first()); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.head(simpleStringObjectArray); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectArray).head(); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectArray).head(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectArray).head()); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.take(simpleStringObjectArray); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectArray).take(); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectArray).take(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectArray).take()); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.first(simpleStringObjectList); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectList).first(); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectList).first(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectList).first()); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.head(simpleStringObjectList); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectList).head(); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectList).head(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectList).head()); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.take(simpleStringObjectList); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectList).take(); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectList).take(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectList).take()); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.first(simpleString); // $ExpectType string | undefined
 
     _(simpleString).first(); // $ExpectType string | undefined
 
-    _.chain(simpleString).first(); // $ExpectType _ChainSingle<string | undefined>
+    extractChainTypes(_.chain(simpleString).first()); // $ExpectType ChainType<string | undefined, string>
 
     _.head(simpleString); // $ExpectType string | undefined
 
     _(simpleString).head(); // $ExpectType string | undefined
 
-    _.chain(simpleString).head(); // $ExpectType _ChainSingle<string | undefined>
+    extractChainTypes(_.chain(simpleString).head()); // $ExpectType ChainType<string | undefined, string>
 
     _.take(simpleString); // $ExpectType string | undefined
 
     _(simpleString).take(); // $ExpectType string | undefined
 
-    _.chain(simpleString).take(); // $ExpectType _ChainSingle<string | undefined>
+    extractChainTypes(_.chain(simpleString).take()); // $ExpectType ChainType<string | undefined, string>
 
     // with n
     _.first(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).first(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).first(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).first(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.head(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).head(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).head(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).head(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.take(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).take(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).take(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).take(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.first(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).first(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).first(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).first(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.head(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).head(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).head(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).head(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.take(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).take(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).take(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).take(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.first(simpleString, n); // $ExpectType string[]
 
     _(simpleString).first(n); // $ExpectType string[]
 
-    _.chain(simpleString).first(n); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).first(n)); // $ExpectType ChainType<string[], string>
 
     _.head(simpleString, n); // $ExpectType string[]
 
     _(simpleString).head(n); // $ExpectType string[]
 
-    _.chain(simpleString).head(n); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).head(n)); // $ExpectType ChainType<string[], string>
 
     _.take(simpleString, n); // $ExpectType string[]
 
     _(simpleString).take(n); // $ExpectType string[]
 
-    _.chain(simpleString).take(n); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).take(n)); // $ExpectType ChainType<string[], string>
 }
 
 // initial
@@ -2437,38 +2455,38 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray).initial(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).initial(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).initial()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.initial(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).initial(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).initial(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).initial()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.initial(simpleString); // $ExpectType string[]
 
     _(simpleString).initial(); // $ExpectType string[]
 
-    _.chain(simpleString).initial(); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).initial()); // $ExpectType ChainType<string[], string>
 
     // with n
     _.initial(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).initial(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).initial(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).initial(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.initial(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).initial(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).initial(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).initial(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.initial(simpleString, n); // $ExpectType string[]
 
     _(simpleString).initial(n); // $ExpectType string[]
 
-    _.chain(simpleString).initial(n); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).initial(n)); // $ExpectType ChainType<string[], string>
 }
 
 // last
@@ -2480,38 +2498,38 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray).last(); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectArray).last(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectArray).last()); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.last(simpleStringObjectList); // $ExpectType SimpleStringObject | undefined
 
     _(simpleStringObjectList).last(); // $ExpectType SimpleStringObject | undefined
 
-    _.chain(simpleStringObjectList).last(); // $ExpectType _ChainSingle<SimpleStringObject | undefined>
+    extractChainTypes(_.chain(simpleStringObjectList).last()); // $ExpectType ChainType<SimpleStringObject | undefined, never>
 
     _.last(simpleString); // $ExpectType string | undefined
 
     _(simpleString).last(); // $ExpectType string | undefined
 
-    _.chain(simpleString).last(); // $ExpectType _ChainSingle<string | undefined>
+    extractChainTypes(_.chain(simpleString).last()); // $ExpectType ChainType<string | undefined, string>
 
     // with n
     _.last(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).last(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).last(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).last(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.last(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).last(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).last(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).last(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.last(simpleString, n); // $ExpectType string[]
 
     _(simpleString).last(n); // $ExpectType string[]
 
-    _.chain(simpleString).last(n); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).last(n)); // $ExpectType ChainType<string[], string>
 }
 
 // rest, tail, drop
@@ -2523,110 +2541,110 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray).rest(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).rest(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).rest()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.tail(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).tail(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).tail(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).tail()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.drop(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).drop(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).drop(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).drop()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.rest(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).rest(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).rest(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).rest()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.tail(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).tail(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).tail(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).tail()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.drop(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).drop(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).drop(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).drop()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.rest(simpleString); // $ExpectType string[]
 
     _(simpleString).rest(); // $ExpectType string[]
 
-    _.chain(simpleString).rest(); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).rest()); // $ExpectType ChainType<string[], string>
 
     _.tail(simpleString); // $ExpectType string[]
 
     _(simpleString).tail(); // $ExpectType string[]
 
-    _.chain(simpleString).tail(); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).tail()); // $ExpectType ChainType<string[], string>
 
     _.drop(simpleString); // $ExpectType string[]
 
     _(simpleString).drop(); // $ExpectType string[]
 
-    _.chain(simpleString).drop(); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).drop()); // $ExpectType ChainType<string[], string>
 
     // with n
     _.rest(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).rest(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).rest(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).rest(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.tail(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).tail(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).tail(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).tail(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.drop(simpleStringObjectArray, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).drop(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).drop(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).drop(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.rest(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).rest(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).rest(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).rest(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.tail(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).tail(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).tail(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).tail(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.drop(simpleStringObjectList, n); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).drop(n); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).drop(n); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).drop(n)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.rest(simpleString, n); // $ExpectType string[]
 
     _(simpleString).rest(n); // $ExpectType string[]
 
-    _.chain(simpleString).rest(n); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).rest(n)); // $ExpectType ChainType<string[], string>
 
     _.tail(simpleString, n); // $ExpectType string[]
 
     _(simpleString).tail(n); // $ExpectType string[]
 
-    _.chain(simpleString).tail(n); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).tail(n)); // $ExpectType ChainType<string[], string>
 
     _.drop(simpleString, n); // $ExpectType string[]
 
     _(simpleString).drop(n); // $ExpectType string[]
 
-    _.chain(simpleString).drop(n); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).drop(n)); // $ExpectType ChainType<string[], string>
 }
 
 // compact
@@ -2635,13 +2653,13 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectOrUndefinedArray).compact(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectOrUndefinedArray).compact(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedArray).compact()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.compact(simpleStringObjectOrUndefinedList); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectOrUndefinedList).compact(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectOrUndefinedList).compact(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedList).compact()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 }
 
 // flatten
@@ -2662,143 +2680,143 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray).flatten(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).flatten(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).flatten()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.flatten(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).flatten(); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).flatten(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).flatten()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     // one dimension, shallow
     _.flatten(simpleStringObjectArray, true); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectArray).flatten(true); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).flatten(true); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).flatten(true)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.flatten(simpleStringObjectList, true); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).flatten(true); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).flatten(true); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).flatten(true)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     // two dimensions, deep
     _.flatten(twoDimensionArray); // $ExpectType SimpleStringObject[]
 
     _(twoDimensionArray).flatten(); // $ExpectType SimpleStringObject[]
 
-    _.chain(twoDimensionArray).flatten(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(twoDimensionArray).flatten()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.flatten(twoDimensionList); // $ExpectType SimpleStringObject[]
 
     _(twoDimensionList).flatten(); // $ExpectType SimpleStringObject[]
 
-    _.chain(twoDimensionList).flatten(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(twoDimensionList).flatten()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     // two dimensions, shallow
     _.flatten(twoDimensionArray, true); // $ExpectType SimpleStringObject[]
 
     _(twoDimensionArray).flatten(true); // $ExpectType SimpleStringObject[]
 
-    _.chain(twoDimensionArray).flatten(true); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(twoDimensionArray).flatten(true)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.flatten(twoDimensionList, true); // $ExpectType SimpleStringObject[]
 
     _(twoDimensionList).flatten(true); // $ExpectType SimpleStringObject[]
 
-    _.chain(twoDimensionList).flatten(true); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(twoDimensionList).flatten(true)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     // three dimensions, deep
     _.flatten(threeDimensionArray); // $ExpectType SimpleStringObject[]
 
     _(threeDimensionArray).flatten(); // $ExpectType SimpleStringObject[]
 
-    _.chain(threeDimensionArray).flatten(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(threeDimensionArray).flatten()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.flatten(threeDimensionList); // $ExpectType SimpleStringObject[]
 
     _(threeDimensionList).flatten(); // $ExpectType SimpleStringObject[]
 
-    _.chain(threeDimensionList).flatten(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(threeDimensionList).flatten()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     // three dimensions, shallow
     _.flatten(threeDimensionArray, true); // $ExpectType SimpleStringObject[][]
 
     _(threeDimensionArray).flatten(true); // $ExpectType SimpleStringObject[][]
 
-    _.chain(threeDimensionArray).flatten(true); // $ExpectType _Chain<SimpleStringObject[], SimpleStringObject[][]>
+    extractChainTypes(_.chain(threeDimensionArray).flatten(true)); // $ExpectType ChainType<SimpleStringObject[][], SimpleStringObject[]>
 
     _.flatten(threeDimensionList, true); // $ExpectType List<SimpleStringObject>[]
 
     _(threeDimensionList).flatten(true); // $ExpectType List<SimpleStringObject>[]
 
-    _.chain(threeDimensionList).flatten(true); // $ExpectType _Chain<List<SimpleStringObject>, List<SimpleStringObject>[]>
+    extractChainTypes(_.chain(threeDimensionList).flatten(true)); // $ExpectType ChainType<List<SimpleStringObject>[], List<SimpleStringObject>>
 
     // four dimensions, deep - this is where recursion gives up and results in any[]
     _.flatten(fourDimensionArray); // $ExpectType any[]
 
     _(fourDimensionArray).flatten(); // $ExpectType any[]
 
-    _.chain(fourDimensionArray).flatten(); // $ExpectType _Chain<any, any[]>
+    extractChainTypes(_.chain(fourDimensionArray).flatten()); // $ExpectType ChainType<any[], any>
 
     _.flatten(fourDimensionList); // $ExpectType any[]
 
     _(fourDimensionList).flatten(); // $ExpectType any[]
 
-    _.chain(fourDimensionList).flatten(); // $ExpectType _Chain<any, any[]>
+    extractChainTypes(_.chain(fourDimensionList).flatten()); // $ExpectType ChainType<any[], any>
 
     // string lists, deep
     _.flatten(stringArray); // $ExpectType string[]
 
     _(stringArray).flatten(); // $ExpectType string[]
 
-    _.chain(stringArray).flatten(); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(stringArray).flatten()); // $ExpectType ChainType<string[], string>
 
     _.flatten(stringList); // $ExpectType string[]
 
     _(stringList).flatten(); // $ExpectType string[]
 
-    _.chain(stringList).flatten(); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(stringList).flatten()); // $ExpectType ChainType<string[], string>
 
     // string lists, shallow
     _.flatten(simpleStringList, true); // $ExpectType string[]
 
     _(simpleStringArray).flatten(true); // $ExpectType string[]
 
-    _.chain(simpleStringArray).flatten(true); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleStringArray).flatten(true)); // $ExpectType ChainType<string[], string>
 
     _.flatten(simpleStringList, true); // $ExpectType string[]
 
     _(simpleStringList).flatten(true); // $ExpectType string[]
 
-    _.chain(simpleStringList).flatten(true); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleStringList).flatten(true)); // $ExpectType ChainType<string[], string>
 
     // type unions, deep
     _.flatten(typeUnionArray); // $ExpectType NonIntersectingObjectPropertiesType[]
 
     _(typeUnionArray).flatten(); // $ExpectType NonIntersectingObjectPropertiesType[]
 
-    _.chain(typeUnionArray).flatten(); // $ExpectType _Chain<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>
+    extractChainTypes(_.chain(typeUnionArray).flatten()); // $ExpectType ChainType<NonIntersectingObjectPropertiesType[], NonIntersectingObjectPropertiesType>
 
     _.flatten(typeUnionList); // $ExpectType NonIntersectingObjectPropertiesType[]
 
     _(typeUnionList).flatten(); // $ExpectType NonIntersectingObjectPropertiesType[]
 
-    _.chain(typeUnionList).flatten(); // $ExpectType _Chain<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>
+    extractChainTypes(_.chain(typeUnionList).flatten()); // $ExpectType ChainType<NonIntersectingObjectPropertiesType[], NonIntersectingObjectPropertiesType>
 
     // type unions, shallow
     _.flatten(nonIntersectingObjectPropertiesArray, true); // $ExpectType NonIntersectingObjectPropertiesType[]
 
     _(nonIntersectingObjectPropertiesArray).flatten(true); // $ExpectType NonIntersectingObjectPropertiesType[]
 
-    _.chain(nonIntersectingObjectPropertiesArray).flatten(true); // $ExpectType _Chain<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).flatten(true)); // $ExpectType ChainType<NonIntersectingObjectPropertiesType[], NonIntersectingObjectPropertiesType>
 
     _.flatten(nonIntersectingObjectPropertiesList, true); // $ExpectType NonIntersectingObjectPropertiesType[]
 
     _(nonIntersectingObjectPropertiesList).flatten(true); // $ExpectType NonIntersectingObjectPropertiesType[]
 
-    _.chain(nonIntersectingObjectPropertiesList).flatten(true); // $ExpectType _Chain<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesList).flatten(true)); // $ExpectType ChainType<NonIntersectingObjectPropertiesType[], NonIntersectingObjectPropertiesType>
 }
 
 // without
@@ -2812,19 +2830,19 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray).without(simpleStringObject1, simpleStringObject2); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).without(simpleStringObject1, simpleStringObject2); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).without(simpleStringObject1, simpleStringObject2)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.without(simpleStringObjectList, simpleStringObject1, simpleStringObject2); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).without(simpleStringObject1, simpleStringObject2); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).without(simpleStringObject1, simpleStringObject2); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).without(simpleStringObject1, simpleStringObject2)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.without(simpleString, simpleString1, simpleString2); // $ExpectType string[]
 
     _(simpleString).without(simpleString1, simpleString2); // $ExpectType string[]
 
-    _.chain(simpleString).without(simpleString1, simpleString2); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).without(simpleString1, simpleString2)); // $ExpectType ChainType<string[], string>
 }
 
 // union
@@ -2833,19 +2851,19 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray).union(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).union(simpleStringObjectArray); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).union(simpleStringObjectArray)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.union(simpleStringObjectList, simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).union(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).union(simpleStringObjectList); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).union(simpleStringObjectList)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.union(simpleString, simpleString); // $ExpectType string[]
 
     _(simpleString).union(simpleString); // $ExpectType string[]
 
-    _.chain(simpleString).union(simpleString); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).union(simpleString)); // $ExpectType ChainType<string[], string>
 }
 
 // intersection
@@ -2854,19 +2872,19 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray).intersection(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).intersection(simpleStringObjectArray); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).intersection(simpleStringObjectArray)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.intersection(simpleStringObjectList, simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).intersection(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).intersection(simpleStringObjectList); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).intersection(simpleStringObjectList)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.intersection(simpleString, simpleString); // $ExpectType string[]
 
     _(simpleString).intersection(simpleString); // $ExpectType string[]
 
-    _.chain(simpleString).intersection(simpleString); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).intersection(simpleString)); // $ExpectType ChainType<string[], string>
 }
 
 // difference
@@ -2875,19 +2893,19 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray).difference(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).difference(simpleStringObjectArray); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).difference(simpleStringObjectArray)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.difference(simpleStringObjectList, simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
     _(simpleStringObjectList).difference(simpleStringObjectList); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).difference(simpleStringObjectList); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).difference(simpleStringObjectList)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.difference(simpleString, simpleString); // $ExpectType string[]
 
     _(simpleString).difference(simpleString); // $ExpectType string[]
 
-    _.chain(simpleString).difference(simpleString); // $ExpectType _Chain<string, string[]>
+    extractChainTypes(_.chain(simpleString).difference(simpleString)); // $ExpectType ChainType<string[], string>
 }
 
 // uniq, unique
@@ -2903,10 +2921,10 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).uniq(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectArray).uniq(true); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).uniq()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectArray).uniq(true)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.unique(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
     _.unique(simpleStringObjectArray, true); // $ExpectType SimpleStringObject[]
@@ -2918,10 +2936,10 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).unique(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectArray).unique(true); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).unique()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectArray).unique(true)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.uniq(simpleStringObjectList); // $ExpectType SimpleStringObject[]
     _.uniq(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
@@ -2937,12 +2955,12 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).uniq(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectList).uniq(true); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).uniq()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).uniq(true)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.unique(simpleStringObjectList); // $ExpectType SimpleStringObject[]
     _.unique(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
@@ -2958,12 +2976,12 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).unique(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectList).unique(true); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).unique()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).unique(true)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     // property name iterator
     _.uniq(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
@@ -2972,8 +2990,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).uniq(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectArray).uniq(true, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).uniq(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectArray).uniq(true, simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).uniq(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectArray).uniq(true, simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.unique(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
     _.unique(simpleStringObjectArray, true, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
@@ -2981,8 +2999,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).unique(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectArray).unique(true, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectArray).unique(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectArray).unique(true, simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray).unique(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectArray).unique(true, simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.uniq(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
     _.uniq(simpleStringObjectList, true, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
@@ -2990,8 +3008,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).uniq(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectList).uniq(true, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).uniq(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectList).uniq(true, simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).uniq(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).uniq(true, simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     _.unique(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
     _.unique(simpleStringObjectList, true, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
@@ -2999,8 +3017,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).unique(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
     _(simpleStringObjectList).unique(true, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
 
-    _.chain(simpleStringObjectList).unique(simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _.chain(simpleStringObjectList).unique(true, simpleStringObjectPropertyName); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectList).unique(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).unique(true, simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 }
 
 // zip
@@ -3016,13 +3034,13 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(array1).zip(array2, array3); // $ExpectType any[][]
 
-    _.chain(array1).zip(array2, array3); // $ExpectType _Chain<any[], any[][]>
+    extractChainTypes(_.chain(array1).zip(array2, array3)); // $ExpectType ChainType<any[][], any[]>
 
     _.zip(list1, list2, list3); // $ExpectType any[][]
 
     _(list1).zip(list2, list3); // $ExpectType any[][]
 
-    _.chain(list1).zip(list2, list3); // $ExpectType _Chain<any[], any[][]>
+    extractChainTypes(_.chain(list1).zip(list2, list3)); // $ExpectType ChainType<any[][], any[]>
 }
 
 // unzip
@@ -3034,13 +3052,13 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(array).unzip(); // $ExpectType any[][]
 
-    _.chain(array).unzip(); // $ExpectType _Chain<any[], any[][]>
+    extractChainTypes(_.chain(array).unzip()); // $ExpectType ChainType<any[][], any[]>
 
     _.unzip(list); // $ExpectType any[][]
 
     _(list).unzip(); // $ExpectType any[][]
 
-    _.chain(list).unzip(); // $ExpectType _Chain<any[], any[][]>
+    extractChainTypes(_.chain(list).unzip()); // $ExpectType ChainType<any[][], any[]>
 }
 
 // object
@@ -3057,26 +3075,26 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(keyArray).object(valueArray); // $ExpectType Dictionary<number>
 
-    _.chain(keyArray).object(valueArray); // $ExpectType _Chain<number, Dictionary<number>>
+    extractChainTypes(_.chain(keyArray).object(valueArray)); // $ExpectType ChainType<Dictionary<number>, number>
 
     _.object(keyList, valueList); // $ExpectType Dictionary<number>
 
     _(keyList).object(valueList); // $ExpectType Dictionary<number>
 
-    _.chain(keyList).object(valueList); // $ExpectType _Chain<number, Dictionary<number>>
+    extractChainTypes(_.chain(keyList).object(valueList)); // $ExpectType ChainType<Dictionary<number>, number>
 
     // key value pair tuples
     _.object(pairArray); // $ExpectType Dictionary<number>
 
     _(pairArray).object(); // $ExpectType Dictionary<number>
 
-    _.chain(pairArray).object(); // $ExpectType _Chain<number, Dictionary<number>>
+    extractChainTypes(_.chain(pairArray).object()); // $ExpectType ChainType<Dictionary<number>, number>
 
     _.object(pairList); // $ExpectType Dictionary<number>
 
     _(pairList).object(); // $ExpectType Dictionary<number>
 
-    _.chain(pairList).object(); // $ExpectType _Chain<number, Dictionary<number>>
+    extractChainTypes(_.chain(pairList).object()); // $ExpectType ChainType<Dictionary<number>, number>
 }
 
 // chunk
@@ -3087,19 +3105,19 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringObjectArray).chunk(length); // $ExpectType SimpleStringObject[][]
 
-    _.chain(simpleStringObjectArray).chunk(length); // $ExpectType _Chain<SimpleStringObject[], SimpleStringObject[][]>
+    extractChainTypes(_.chain(simpleStringObjectArray).chunk(length)); // $ExpectType ChainType<SimpleStringObject[][], SimpleStringObject[]>
 
     _.chunk(simpleStringObjectList, length); // $ExpectType SimpleStringObject[][]
 
     _(simpleStringObjectList).chunk(length); // $ExpectType SimpleStringObject[][]
 
-    _.chain(simpleStringObjectList).chunk(length); // $ExpectType _Chain<SimpleStringObject[], SimpleStringObject[][]>
+    extractChainTypes(_.chain(simpleStringObjectList).chunk(length)); // $ExpectType ChainType<SimpleStringObject[][], SimpleStringObject[]>
 
     _.chunk(simpleString, length); // $ExpectType string[][]
 
     _(simpleString).chunk(length); // $ExpectType string[][]
 
-    _.chain(simpleString).chunk(length); // $ExpectType _Chain<string[], string[][]>
+    extractChainTypes(_.chain(simpleString).chunk(length)); // $ExpectType ChainType<string[][], string[]>
 }
 
 // indexOf
@@ -3114,11 +3132,11 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).indexOf(simpleStringObjectItem); // $ExpectType number
     _(simpleStringObjectArray).indexOf(simpleStringObjectItem, isSorted); // $ExpectType number
 
-    _.chain(simpleStringObjectArray).indexOf(simpleStringObjectItem); // $ExpectType _ChainSingle<number>
-    _.chain(simpleStringObjectArray).indexOf(simpleStringObjectItem, isSorted); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectArray).indexOf(simpleStringObjectItem)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleStringObjectArray).indexOf(simpleStringObjectItem, isSorted)); // $ExpectType ChainType<number, never>
 
-    _.chain(simpleStringObjectArray).indexOf(simpleStringObjectItem); // $ExpectType _ChainSingle<number>
-    _.chain(simpleStringObjectArray).indexOf(simpleStringObjectItem, isSorted); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectArray).indexOf(simpleStringObjectItem)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleStringObjectArray).indexOf(simpleStringObjectItem, isSorted)); // $ExpectType ChainType<number, never>
 
     _.indexOf(simpleStringObjectList, simpleStringObjectItem); // $ExpectType number
     _.indexOf(simpleStringObjectList, simpleStringObjectItem, isSorted); // $ExpectType number
@@ -3126,11 +3144,11 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).indexOf(simpleStringObjectItem); // $ExpectType number
     _(simpleStringObjectList).indexOf(simpleStringObjectItem, isSorted); // $ExpectType number
 
-    _.chain(simpleStringObjectList).indexOf(simpleStringObjectItem); // $ExpectType _ChainSingle<number>
-    _.chain(simpleStringObjectList).indexOf(simpleStringObjectItem, isSorted); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectList).indexOf(simpleStringObjectItem)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleStringObjectList).indexOf(simpleStringObjectItem, isSorted)); // $ExpectType ChainType<number, never>
 
-    _.chain(simpleStringObjectList).indexOf(simpleStringObjectItem); // $ExpectType _ChainSingle<number>
-    _.chain(simpleStringObjectList).indexOf(simpleStringObjectItem, isSorted); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectList).indexOf(simpleStringObjectItem)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleStringObjectList).indexOf(simpleStringObjectItem, isSorted)); // $ExpectType ChainType<number, never>
 
     _.indexOf(simpleString, simpleStringItem); // $ExpectType number
     _.indexOf(simpleString, simpleStringItem, isSorted); // $ExpectType number
@@ -3138,8 +3156,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).indexOf(simpleStringItem); // $ExpectType number
     _(simpleString).indexOf(simpleStringItem, isSorted); // $ExpectType number
 
-    _.chain(simpleString).indexOf(simpleStringItem); // $ExpectType _ChainSingle<number>
-    _.chain(simpleString).indexOf(simpleStringItem, isSorted); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleString).indexOf(simpleStringItem)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleString).indexOf(simpleStringItem, isSorted)); // $ExpectType ChainType<number, never>
 }
 
 // lastIndexof
@@ -3154,11 +3172,11 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).lastIndexOf(simpleStringObjectItem); // $ExpectType number
     _(simpleStringObjectArray).lastIndexOf(simpleStringObjectItem, fromIndex); // $ExpectType number
 
-    _.chain(simpleStringObjectArray).lastIndexOf(simpleStringObjectItem); // $ExpectType _ChainSingle<number>
-    _.chain(simpleStringObjectArray).lastIndexOf(simpleStringObjectItem, fromIndex); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectArray).lastIndexOf(simpleStringObjectItem)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleStringObjectArray).lastIndexOf(simpleStringObjectItem, fromIndex)); // $ExpectType ChainType<number, never>
 
-    _.chain(simpleStringObjectArray).lastIndexOf(simpleStringObjectItem); // $ExpectType _ChainSingle<number>
-    _.chain(simpleStringObjectArray).lastIndexOf(simpleStringObjectItem, fromIndex); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectArray).lastIndexOf(simpleStringObjectItem)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleStringObjectArray).lastIndexOf(simpleStringObjectItem, fromIndex)); // $ExpectType ChainType<number, never>
 
     _.lastIndexOf(simpleStringObjectList, simpleStringObjectItem); // $ExpectType number
     _.lastIndexOf(simpleStringObjectList, simpleStringObjectItem, fromIndex); // $ExpectType number
@@ -3166,11 +3184,11 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).lastIndexOf(simpleStringObjectItem); // $ExpectType number
     _(simpleStringObjectList).lastIndexOf(simpleStringObjectItem, fromIndex); // $ExpectType number
 
-    _.chain(simpleStringObjectList).lastIndexOf(simpleStringObjectItem); // $ExpectType _ChainSingle<number>
-    _.chain(simpleStringObjectList).lastIndexOf(simpleStringObjectItem, fromIndex); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectList).lastIndexOf(simpleStringObjectItem)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleStringObjectList).lastIndexOf(simpleStringObjectItem, fromIndex)); // $ExpectType ChainType<number, never>
 
-    _.chain(simpleStringObjectList).lastIndexOf(simpleStringObjectItem); // $ExpectType _ChainSingle<number>
-    _.chain(simpleStringObjectList).lastIndexOf(simpleStringObjectItem, fromIndex); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectList).lastIndexOf(simpleStringObjectItem)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleStringObjectList).lastIndexOf(simpleStringObjectItem, fromIndex)); // $ExpectType ChainType<number, never>
 
     _.lastIndexOf(simpleString, simpleStringItem); // $ExpectType number
     _.lastIndexOf(simpleString, simpleStringItem, fromIndex); // $ExpectType number
@@ -3178,8 +3196,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).lastIndexOf(simpleStringItem); // $ExpectType number
     _(simpleString).lastIndexOf(simpleStringItem, fromIndex); // $ExpectType number
 
-    _.chain(simpleString).lastIndexOf(simpleStringItem); // $ExpectType _ChainSingle<number>
-    _.chain(simpleString).lastIndexOf(simpleStringItem, fromIndex); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleString).lastIndexOf(simpleStringItem)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleString).lastIndexOf(simpleStringItem, fromIndex)); // $ExpectType ChainType<number, never>
 }
 
 // sortedIndex
@@ -3192,19 +3210,19 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     _(simpleStringArray).sortedIndex(simpleStringItem); // $ExpectType number
 
-    _.chain(simpleStringArray).sortedIndex(simpleStringItem); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringArray).sortedIndex(simpleStringItem)); // $ExpectType ChainType<number, never>
 
     _.sortedIndex(simpleStringList, simpleStringItem); // $ExpectType number
 
     _(simpleStringList).sortedIndex(simpleStringItem); // $ExpectType number
 
-    _.chain(simpleStringList).sortedIndex(simpleStringItem); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringList).sortedIndex(simpleStringItem)); // $ExpectType ChainType<number, never>
 
     _.sortedIndex(simpleString, simpleStringItem); // $ExpectType number
 
     _(simpleString).sortedIndex(simpleStringItem); // $ExpectType number
 
-    _.chain(simpleString).sortedIndex(simpleStringItem); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleString).sortedIndex(simpleStringItem)); // $ExpectType ChainType<number, never>
 
     // function iterator
     _.sortedIndex(simpleStringObjectArray, simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator); // $ExpectType number
@@ -3213,8 +3231,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator); // $ExpectType number
     _(simpleStringObjectArray).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType number
 
-    _.chain(simpleStringObjectArray).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator); // $ExpectType _ChainSingle<number>
-    _.chain(simpleStringObjectArray).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectArray).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleStringObjectArray).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<number, never>
 
     _.sortedIndex(simpleStringObjectList, simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator); // $ExpectType number
     _.sortedIndex(simpleStringObjectList, simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType number
@@ -3222,21 +3240,21 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator); // $ExpectType number
     _(simpleStringObjectList).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType number
 
-    _.chain(simpleStringObjectList).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator); // $ExpectType _ChainSingle<number>
-    _.chain(simpleStringObjectList).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectList).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleStringObjectList).sortedIndex(simpleStringObjectItem, simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<number, never>
 
     // property name iterator
     _.sortedIndex(simpleStringObjectArray, simpleStringObjectItem, simpleStringObjectPropertyName); // $ExpectType number
 
     _(simpleStringObjectArray).sortedIndex(simpleStringObjectItem, simpleStringObjectPropertyName); // $ExpectType number
 
-    _.chain(simpleStringObjectArray).sortedIndex(simpleStringObjectItem, simpleStringObjectPropertyName); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectArray).sortedIndex(simpleStringObjectItem, simpleStringObjectPropertyName)); // $ExpectType ChainType<number, never>
 
     _.sortedIndex(simpleStringObjectList, simpleStringObjectItem, simpleStringObjectPropertyName); // $ExpectType number
 
     _(simpleStringObjectList).sortedIndex(simpleStringObjectItem, simpleStringObjectPropertyName); // $ExpectType number
 
-    _.chain(simpleStringObjectList).sortedIndex(simpleStringObjectItem, simpleStringObjectPropertyName); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectList).sortedIndex(simpleStringObjectItem, simpleStringObjectPropertyName)); // $ExpectType ChainType<number, never>
 }
 
 // findIndex
@@ -3247,14 +3265,14 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator); // $ExpectType number
     _(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType number
 
-    _.chain(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<number>
-    _.chain(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<number, never>
 
     _.findIndex(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType number
 
     _(simpleStringObjectArray).findIndex(simpleStringObjectPartialPropertyMatch); // $ExpectType number
 
-    _.chain(simpleStringObjectArray).findIndex(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectArray).findIndex(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<number, never>
 
     _.findIndex(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType number
     _.findIndex(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType number
@@ -3262,14 +3280,14 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator); // $ExpectType number
     _(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType number
 
-    _.chain(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<number>
-    _.chain(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<number, never>
 
     _.findIndex(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType number
 
     _(simpleStringObjectList).findIndex(simpleStringObjectPartialPropertyMatch); // $ExpectType number
 
-    _.chain(simpleStringObjectList).findIndex(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectList).findIndex(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<number, never>
 
     _.findIndex(simpleString, stringListComparingIterator); // $ExpectType number
     _.findIndex(simpleString, stringListComparingIterator, context); // $ExpectType number
@@ -3277,8 +3295,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).findIndex(stringListComparingIterator); // $ExpectType number
     _(simpleString).findIndex(stringListComparingIterator, context); // $ExpectType number
 
-    _.chain(simpleString).findIndex(stringListComparingIterator); // $ExpectType _ChainSingle<number>
-    _.chain(simpleString).findIndex(stringListComparingIterator, context); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleString).findIndex(stringListComparingIterator)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleString).findIndex(stringListComparingIterator, context)); // $ExpectType ChainType<number, never>
 }
 
 // findLastIndex
@@ -3289,8 +3307,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator); // $ExpectType number
     _(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType number
 
-    _.chain(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<number>
-    _.chain(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<number, never>
 
     _.findLastIndex(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType number
     _.findLastIndex(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType number
@@ -3298,8 +3316,8 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator); // $ExpectType number
     _(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType number
 
-    _.chain(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator); // $ExpectType _ChainSingle<number>
-    _.chain(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<number, never>
 
     _.findLastIndex(simpleString, stringListComparingIterator); // $ExpectType number
     _.findLastIndex(simpleString, stringListComparingIterator, context); // $ExpectType number
@@ -3307,21 +3325,21 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(simpleString).findLastIndex(stringListComparingIterator); // $ExpectType number
     _(simpleString).findLastIndex(stringListComparingIterator, context); // $ExpectType number
 
-    _.chain(simpleString).findLastIndex(stringListComparingIterator); // $ExpectType _ChainSingle<number>
-    _.chain(simpleString).findLastIndex(stringListComparingIterator, context); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleString).findLastIndex(stringListComparingIterator)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(simpleString).findLastIndex(stringListComparingIterator, context)); // $ExpectType ChainType<number, never>
 
     // partial property iterator
     _.findLastIndex(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType number
 
     _(simpleStringObjectArray).findLastIndex(simpleStringObjectPartialPropertyMatch); // $ExpectType number
 
-    _.chain(simpleStringObjectArray).findLastIndex(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectArray).findLastIndex(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<number, never>
 
     _.findLastIndex(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType number
 
     _(simpleStringObjectList).findLastIndex(simpleStringObjectPartialPropertyMatch); // $ExpectType number
 
-    _.chain(simpleStringObjectList).findLastIndex(simpleStringObjectPartialPropertyMatch); // $ExpectType _ChainSingle<number>
+    extractChainTypes(_.chain(simpleStringObjectList).findLastIndex(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<number, never>
 }
 
 // range
@@ -3338,25 +3356,25 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     _(start).range(stop); // $ExpectType number[]
     _(start).range(stop, step); // $ExpectType number[]
 
-    _.chain(stop).range(); // $ExpectType _Chain<number, number[]>
-    _.chain(start).range(stop); // $ExpectType _Chain<number, number[]>
-    _.chain(start).range(stop, step); // $ExpectType _Chain<number, number[]>
+    extractChainTypes(_.chain(stop).range()); // $ExpectType ChainType<number[], number>
+    extractChainTypes(_.chain(start).range(stop)); // $ExpectType ChainType<number[], number>
+    extractChainTypes(_.chain(start).range(stop, step)); // $ExpectType ChainType<number[], number>
 }
 
 // OOP Style
 
 // underscore
 {
-    _(simpleStringObjectArray); // $ExpectType Underscore<SimpleStringObject, SimpleStringObject[]>
+    extractUnderscoreTypes(_(simpleStringObjectArray)); // $ExpectType UnderscoreType<SimpleStringObject[], SimpleStringObject>
 
-    _(simpleStringObjectListWithExtraProperties) // $ExpectType Underscore<SimpleStringObject, SimpleStringObjectListWithExtraProperties>
-    _(simpleStringObjectList); // $ExpectType Underscore<SimpleStringObject, List<SimpleStringObject>>
+    extractUnderscoreTypes(_(simpleStringObjectListWithExtraProperties)); // $ExpectType UnderscoreType<SimpleStringObjectListWithExtraProperties, SimpleStringObject>
+    extractUnderscoreTypes(_(simpleStringObjectList)); // $ExpectType UnderscoreType<List<SimpleStringObject>, SimpleStringObject>
 
-    _(stronglyKeyedSimpleStringObjectDictionary) // $ExpectType Underscore<SimpleStringObject, StronglyKeyedSimpleStringObjectDictionary>
-    _(simpleStringObjectDictionary); // $ExpectType Underscore<SimpleStringObject, Dictionary<SimpleStringObject>>
+    extractUnderscoreTypes(_(stronglyKeyedSimpleStringObjectDictionary)); // $ExpectType UnderscoreType<StronglyKeyedSimpleStringObjectDictionary, SimpleStringObject>
+    extractUnderscoreTypes(_(simpleStringObjectDictionary)); // $ExpectType UnderscoreType<Dictionary<SimpleStringObject>, SimpleStringObject>
 
-    _(simpleString); // $ExpectType Underscore<string, string>
-    _(simpleNumber); // $ExpectType Underscore<never, number>
+    extractUnderscoreTypes(_(simpleString)); // $ExpectType UnderscoreType<string, string>
+    extractUnderscoreTypes(_(simpleNumber)); // $ExpectType UnderscoreType<number, never>
 }
 
 // value
@@ -3378,28 +3396,28 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
 // chain
 // verify that the right chain item and value types are yielded by calls to chain
-// these tests also check to make sure that _.chain() and _().chain() yield the same types
+// these tests also check to make sure that extractChainTypes(_.chain() and _().chain() yield the same types
 {
-    _.chain(simpleStringObjectArray); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _(simpleStringObjectArray).chain(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_(simpleStringObjectArray).chain()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
-    _.chain(simpleStringObjectListWithExtraProperties); // $ExpectType _Chain<SimpleStringObject, SimpleStringObjectListWithExtraProperties>
-    _(simpleStringObjectListWithExtraProperties).chain(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObjectListWithExtraProperties>
+    extractChainTypes(_.chain(simpleStringObjectListWithExtraProperties)); // $ExpectType ChainType<SimpleStringObjectListWithExtraProperties, SimpleStringObject>
+    extractChainTypes(_(simpleStringObjectListWithExtraProperties).chain()); // $ExpectType ChainType<SimpleStringObjectListWithExtraProperties, SimpleStringObject>
 
-    _.chain(simpleStringObjectList); // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
-    _(simpleStringObjectList).chain(); // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
+    extractChainTypes(_.chain(simpleStringObjectList)); // $ExpectType ChainType<List<SimpleStringObject>, SimpleStringObject>
+    extractChainTypes(_(simpleStringObjectList).chain()); // $ExpectType ChainType<List<SimpleStringObject>, SimpleStringObject>
 
-    _.chain(stronglyKeyedSimpleStringObjectDictionary); // $ExpectType _Chain<SimpleStringObject, StronglyKeyedSimpleStringObjectDictionary>
-    _(stronglyKeyedSimpleStringObjectDictionary).chain(); // $ExpectType _Chain<SimpleStringObject, StronglyKeyedSimpleStringObjectDictionary>
+    extractChainTypes(_.chain(stronglyKeyedSimpleStringObjectDictionary)); // $ExpectType ChainType<StronglyKeyedSimpleStringObjectDictionary, SimpleStringObject>
+    extractChainTypes(_(stronglyKeyedSimpleStringObjectDictionary).chain()); // $ExpectType ChainType<StronglyKeyedSimpleStringObjectDictionary, SimpleStringObject>
 
-    _.chain(simpleStringObjectDictionary); // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
-    _(simpleStringObjectDictionary).chain(); // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
+    extractChainTypes(_.chain(simpleStringObjectDictionary)); // $ExpectType ChainType<Dictionary<SimpleStringObject>, SimpleStringObject>
+    extractChainTypes(_(simpleStringObjectDictionary).chain()); // $ExpectType ChainType<Dictionary<SimpleStringObject>, SimpleStringObject>
 
-    _.chain(simpleString); // $ExpectType _Chain<string, string>
-    _(simpleString).chain(); // $ExpectType _Chain<string, string>
+    extractChainTypes(_.chain(simpleString)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_(simpleString).chain()); // $ExpectType ChainType<string, string>
 
-    _.chain(simpleNumber); // $ExpectType _Chain<never, number>
-    _(simpleNumber).chain(); // $ExpectType _Chain<never, number>
+    extractChainTypes(_.chain(simpleNumber)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_(simpleNumber).chain()); // $ExpectType ChainType<number, never>
 }
 
 // value
