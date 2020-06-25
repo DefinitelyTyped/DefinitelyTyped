@@ -23175,7 +23175,7 @@ declare namespace Excel {
          */
         freezeAt(frozenRange: Range | string): void;
         /**
-         * Freeze the first column(s) of the worksheet in place.
+         * Freeze the first column or columns of the worksheet in place.
          *
          * [Api set: ExcelApi 1.7]
          *
@@ -23183,7 +23183,7 @@ declare namespace Excel {
          */
         freezeColumns(count?: number): void;
         /**
-         * Freeze the top row(s) of the worksheet in place.
+         * Freeze the top row or rows of the worksheet in place.
          *
          * [Api set: ExcelApi 1.7]
          *
@@ -24530,7 +24530,7 @@ declare namespace Excel {
         readonly areas: Excel.RangeAreasCollection;
         /**
          *
-         * Returns a collection of ranges that comprise this object.
+         * Returns a collection of ranges that comprises this object.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -42686,7 +42686,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents how the comment(s) in the event were changed.
+     * Represents how the comments in the event were changed.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -53125,7 +53125,7 @@ declare namespace Excel {
             areas?: Excel.Interfaces.RangeAreasData[];
             /**
             *
-            * Returns a collection of ranges that comprise this WorkbookRangeAreas object.
+            * Returns a collection of ranges that comprises this object.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
