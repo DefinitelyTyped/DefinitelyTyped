@@ -88,7 +88,6 @@ function parseHeartRate(data: DataView) {
 navigator.bluetooth.requestLEScan({
     acceptAllAdvertisements: true,
 }).then((scan) => {
-
     console.log('Scan started with:');
     console.log(' acceptAllAdvertisements: ' + scan.acceptAllAdvertisements);
     console.log(' active: ' + scan.active);
@@ -126,7 +125,8 @@ const logDataView = (labelOfDataSource: string, key: string | number, valueDataV
     }).join(' ');
     const textDecoder = new TextDecoder('ascii');
     const asciiString = textDecoder.decode(valueDataView.buffer);
-    console.log(`  ${labelOfDataSource} Data: ` + key +
-        '\n    (Hex) ' + hexString +
-        '\n    (ASCII) ' + asciiString);
+    console.log(`  ${labelOfDataSource} Data: ${key}
+        (Hex): ${hexString}
+        (ASCII): ${asciiString}
+    `);
   };

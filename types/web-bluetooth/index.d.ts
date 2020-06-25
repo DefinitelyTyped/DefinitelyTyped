@@ -47,13 +47,13 @@ interface BluetoothLEScanFilter {
     readonly services?: BluetoothServiceUUID[];
     readonly manufacturerData?: BluetoothManufacturerDataFilter;
     readonly serviceData?: BluetoothServiceDataFilter;
-};
+}
 
 interface RequestLEScanOptions {
     readonly filters?: BluetoothLEScanFilter[];
     readonly keepRepeatedDevices?: boolean;
     readonly acceptAllAdvertisements?: boolean;
-};
+}
 
 interface BluetoothLEScan extends RequestLEScanOptions {
     active: boolean;
