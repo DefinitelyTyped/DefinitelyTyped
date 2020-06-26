@@ -236,13 +236,13 @@ let usersTable: { age: number; name: string; id: string }[] = _.chain(usersData)
 
 // Test map function with _ChainOfArrays<>
 let usersTable_2 /*: { age: number; name: string; id: string }[][]*/ = _.chain(usersData)
-    .map<{ age: number; name: string; id: string }>((p, k: string) => {
+    .map<{ age: number; name: string; id: string }[]>((p, k: string) => {
         return [{ id: k, ...p }];
     })
     .value();
 
 let usersTable_3 /*: { score: number; fullName: string; login: string }[][]*/ = _.chain(usersTable)
-    .map<{ score: number; fullName: string; login: string }>(p => {
+    .map<{ score: number; fullName: string; login: string }[]>(p => {
         return [
             {
                 login: p.id,
@@ -681,6 +681,8 @@ _.chain([1, 2, 3, 4, 5, 6])
     .value();
 
 // common testing types and objects
+const context = {};
+
 interface SimpleStringObject {
     a: string;
     b: string;
@@ -696,13 +698,53 @@ interface StronglyKeyedSimpleStringObjectDictionary extends _.Dictionary<SimpleS
     c: SimpleStringObject;
 }
 
+const simpleStringObjectPropertyName = 'a';
+const simpleStringObjectPartialPropertyMatch: Partial<SimpleStringObject> = { a: 'b' };
+
 const simpleStringObjectArray: SimpleStringObject[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'b' }, { a: 'c', b: 'a' }];
 const simpleStringObjectListWithExtraProperties: SimpleStringObjectListWithExtraProperties = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: { a: 'c', b: 'a' }, length: 3, notAListProperty: true };
 const simpleStringObjectList: _.List<SimpleStringObject> = simpleStringObjectListWithExtraProperties;
+const simpleStringObjectListPropertySelectingIterator = (value: SimpleStringObject, index: number, list: _.List<SimpleStringObject>) => value.a;
+const simpleStringObjectListPropertyComparingIterator = (value: SimpleStringObject, index: number, list: _.List<SimpleStringObject>) => value.a === 'b';
+
 const stronglyKeyedSimpleStringObjectDictionary: StronglyKeyedSimpleStringObjectDictionary = { a: { a: 'a', b: 'c' }, b: { a: 'b', b: 'b' }, c: { a: 'c', b: 'a' } };
 const simpleStringObjectDictionary: _.Dictionary<SimpleStringObject> = stronglyKeyedSimpleStringObjectDictionary;
+const simpleStringObjectDictionaryPropertySelectingIterator = (element: SimpleStringObject, key: string, dictionary: _.Dictionary<SimpleStringObject>) => element.a;
+const simpleStringObjectDictionaryPropertyComparingIterator = (element: SimpleStringObject, key: string, list: _.Dictionary<SimpleStringObject>) => element.a === 'b';
+
+type SimpleStringObjectOrUndefined = SimpleStringObject | undefined;
+
+const simpleStringObjectOrUndefinedArray: SimpleStringObjectOrUndefined[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'b' }, undefined];
+const simpleStringObjectOrUndefinedList: _.List<SimpleStringObjectOrUndefined> = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: undefined, length: 3 };
+const simpleStringObjectOrUndefinedDictionary: _.Dictionary<SimpleStringObjectOrUndefined> = { a: { a: 'a', b: 'c' }, b: { a: 'b', b: 'b' }, c: undefined };
+
+interface SimpleMultiTypeObject {
+    a: boolean;
+    c: string;
+}
+
+type IntersectingObjectPropertiesType = SimpleStringObject | SimpleMultiTypeObject;
+
+const intersectingObjectPropertiesArray: IntersectingObjectPropertiesType[] = [{ a: 'a', b: 'b' }, { a: true, c: 'c' }];
+const intersectingObjectPropertiesList: _.List<IntersectingObjectPropertiesType> = { 0: { a: 'a', b: 'b' }, 1: { a: true, c: 'c' }, length: 2 };
+const intersectingObjectPropertiesDictionary: _.Dictionary<IntersectingObjectPropertiesType> = { a: { a: 'a', b: 'b' }, b: { a: true, c: 'c' } };
+
+interface SimpleNonIntersectingObject {
+    onlySimpleNonIntersectingObject: string;
+}
+
+type NonIntersectingObjectPropertiesType = SimpleStringObject | SimpleNonIntersectingObject;
+
+const nonIntersectingObjectPropertiesArray: NonIntersectingObjectPropertiesType[] = [{ a: 'a', b: 'c' }, { onlySimpleNonIntersectingObject: 'b' }];
+const nonIntersectingObjectPropertiesList: _.List<NonIntersectingObjectPropertiesType> = { 0: { a: 'a', b: 'c' }, 1: { onlySimpleNonIntersectingObject: 'b' }, length: 2 };
+const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObjectPropertiesType> = { a: { a: 'a', b: 'c' }, b: { onlySimpleNonIntersectingObject: 'b' } };
 
 const simpleString = 'abc';
+const stringListModifyingIterator = (value: string, index: number, list: _.List<string>) => value + 'b';
+const stringListComparingIterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+
+const simpleStringArray: string[] = ['a', 'c'];
+const simpleStringList: _.List<string> = { 0: 'a', 1: 'c', length: 2 };
 
 const simpleNumber = 7;
 
@@ -726,7 +768,579 @@ interface ChainTypeExtractor {
 
 declare const extractChainTypes: ChainTypeExtractor;
 
+// Collections
+
+// map, collect
+{
+    // function iterator
+    _.map(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
+    _.map(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
+    _(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
+    _(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<string[], string>
+    _.collect(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
+    _.collect(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
+    _(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
+    _(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<string[], string>
+
+    _.map(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
+    _.map(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
+    _(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
+    _(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<string[], string>
+    _.collect(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
+    _.collect(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
+    _(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator); // $ExpectType string[]
+    _(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator, context)); // $ExpectType ChainType<string[], string>
+
+    _.map(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType string[]
+    _.map(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType string[]
+    _(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType string[]
+    _(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator, context)); // $ExpectType ChainType<string[], string>
+    _.collect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType string[]
+    _.collect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType string[]
+    _(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType string[]
+    _(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator, context)); // $ExpectType ChainType<string[], string>
+
+    _.map(simpleString, stringListModifyingIterator); // $ExpectType string[]
+    _.map(simpleString, stringListModifyingIterator, context); // $ExpectType string[]
+    _(simpleString).map(stringListModifyingIterator); // $ExpectType string[]
+    _(simpleString).map(stringListModifyingIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleString).map(stringListModifyingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleString).map(stringListModifyingIterator, context)); // $ExpectType ChainType<string[], string>
+    _.collect(simpleString, stringListModifyingIterator); // $ExpectType string[]
+    _.collect(simpleString, stringListModifyingIterator, context); // $ExpectType string[]
+    _(simpleString).collect(stringListModifyingIterator); // $ExpectType string[]
+    _(simpleString).collect(stringListModifyingIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleString).collect(stringListModifyingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleString).collect(stringListModifyingIterator, context)); // $ExpectType ChainType<string[], string>
+
+    // partial object iterator with a non-nullable single type
+    _.map(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(simpleStringObjectArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(simpleStringObjectArray).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+    _.collect(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(simpleStringObjectArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(simpleStringObjectArray).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+
+    _.map(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(simpleStringObjectList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(simpleStringObjectList).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+    _.collect(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(simpleStringObjectList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(simpleStringObjectList).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+
+    _.map(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(simpleStringObjectDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(simpleStringObjectDictionary).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+    _.collect(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(simpleStringObjectDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(simpleStringObjectDictionary).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+
+    // partial object iterator with a non-nullable intersecting type union
+    _.map(intersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(intersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(intersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+    _.collect(intersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(intersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(intersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+
+    _.map(intersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(intersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(intersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+    _.collect(intersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(intersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(intersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+
+    _.map(intersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(intersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(intersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+    _.collect(intersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+
+    // partial object iterator with a nullable type union
+    _.map(simpleStringObjectOrUndefinedArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+    _.collect(simpleStringObjectOrUndefinedArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+
+    _.map(simpleStringObjectOrUndefinedList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(simpleStringObjectOrUndefinedList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedList).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+    _.collect(simpleStringObjectOrUndefinedList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+
+    _.map(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+    _.collect(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+
+    // partial object iterator with a non-nullable non-intersecting type union
+    _.map(nonIntersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+    _.collect(nonIntersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+
+    _.map(nonIntersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(nonIntersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+    _.collect(nonIntersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(nonIntersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+
+    _.map(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+    _.collect(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+
+    // partial object iterator with type any (see #33479)
+    _.map(simpleStringObjectArray as any, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(simpleStringObjectArray as any).map(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(simpleStringObjectArray as any).map(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+    _.collect(simpleStringObjectArray as any, simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    _(simpleStringObjectArray as any).collect(simpleStringObjectPartialPropertyMatch); // $ExpectType boolean[]
+    extractChainTypes(_.chain(simpleStringObjectArray as any).collect(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<boolean[], boolean>
+
+    // property name iterator with a non-nullable single type
+    _.map(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType string[]
+    _(simpleStringObjectArray).map(simpleStringObjectPropertyName); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringObjectArray).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
+    _.collect(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType string[]
+    _(simpleStringObjectArray).collect(simpleStringObjectPropertyName); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringObjectArray).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
+
+    _.map(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType string[]
+    _(simpleStringObjectList).map(simpleStringObjectPropertyName); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringObjectList).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
+    _.collect(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType string[]
+    _(simpleStringObjectList).collect(simpleStringObjectPropertyName); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringObjectList).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
+
+    _.map(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType string[]
+    _(simpleStringObjectDictionary).map(simpleStringObjectPropertyName); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringObjectDictionary).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
+    _.collect(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType string[]
+    _(simpleStringObjectDictionary).collect(simpleStringObjectPropertyName); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringObjectDictionary).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
+
+    // property name iterator with a non-nullable intersecting type union
+    _.map(intersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    _(intersectingObjectPropertiesArray).map(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    extractChainTypes(_.chain(intersectingObjectPropertiesArray).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
+    _.collect(intersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    _(intersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    extractChainTypes(_.chain(intersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
+
+    _.map(intersectingObjectPropertiesList, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    _(intersectingObjectPropertiesList).map(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    extractChainTypes(_.chain(intersectingObjectPropertiesList).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
+    _.collect(intersectingObjectPropertiesList, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    _(intersectingObjectPropertiesList).collect(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    extractChainTypes(_.chain(intersectingObjectPropertiesList).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
+
+    _.map(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    _(intersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    extractChainTypes(_.chain(intersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
+    _.collect(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    _(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    extractChainTypes(_.chain(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
+
+    // property name iterator with a nullable type union
+    _.map(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+    _.collect(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+
+    _.map(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(simpleStringObjectOrUndefinedList).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedList).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+    _.collect(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+
+    _.map(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+    _.collect(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+
+    // property name iterator with a non-nullable non-intersecting type union
+    _.map(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+    _.collect(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+
+    _.map(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+    _.collect(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+
+    _.map(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+    _.collect(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+
+    // property name iterator with type any (see #33479)
+    _.map(simpleStringObjectArray as any, simpleStringObjectPropertyName); // $ExpectType any[]
+    _(simpleStringObjectArray as any).map(simpleStringObjectPropertyName); // $ExpectType any[]
+    extractChainTypes(_.chain(simpleStringObjectArray as any).map(simpleStringObjectPropertyName)); // $ExpectType ChainType<any[], any>
+    _.collect(simpleStringObjectArray as any, simpleStringObjectPropertyName); // $ExpectType any[]
+    _(simpleStringObjectArray as any).collect(simpleStringObjectPropertyName); // $ExpectType any[]
+    extractChainTypes(_.chain(simpleStringObjectArray as any).collect(simpleStringObjectPropertyName)); // $ExpectType ChainType<any[], any>
+}
+
+// filter, select
+{
+    // function iterator
+    _.filter(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _.filter(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    _.select(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _.select(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    _.filter(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _.filter(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    _.select(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _.select(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    _.filter(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _.filter(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    _.select(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _.select(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator, context); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_.chain(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator, context)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    _.filter(simpleString, stringListComparingIterator); // $ExpectType string[]
+    _.filter(simpleString, stringListComparingIterator, context); // $ExpectType string[]
+    _(simpleString).filter(stringListComparingIterator); // $ExpectType string[]
+    _(simpleString).filter(stringListComparingIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleString).filter(stringListComparingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleString).filter(stringListComparingIterator, context)); // $ExpectType ChainType<string[], string>
+    _.select(simpleString, stringListComparingIterator); // $ExpectType string[]
+    _.select(simpleString, stringListComparingIterator, context); // $ExpectType string[]
+    _(simpleString).select(stringListComparingIterator); // $ExpectType string[]
+    _(simpleString).select(stringListComparingIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleString).select(stringListComparingIterator)); // $ExpectType ChainType<string[], string>
+    extractChainTypes(_.chain(simpleString).select(stringListComparingIterator, context)); // $ExpectType ChainType<string[], string>
+
+    // partial object iterator
+    _.filter(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).filter(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectArray).filter(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    _.select(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).select(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectArray).select(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    _.filter(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).filter(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectList).filter(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    _.select(simpleStringObjectList, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).select(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectList).select(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    _.filter(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectDictionary).filter(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectDictionary).filter(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    _.select(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectDictionary).select(simpleStringObjectPartialPropertyMatch); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectDictionary).select(simpleStringObjectPartialPropertyMatch)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    // property name iterator
+    _.filter(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).filter(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectArray).filter(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    _.select(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).select(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectArray).select(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    _.filter(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).filter(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectList).filter(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    _.select(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).select(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectList).select(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    _.filter(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectDictionary).filter(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectDictionary).filter(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    _.select(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectDictionary).select(simpleStringObjectPropertyName); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectDictionary).select(simpleStringObjectPropertyName)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+}
+
+// pluck
+{
+    // property name iterator with a non-nullable single type
+    _.pluck(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType string[]
+    _(simpleStringObjectArray).pluck(simpleStringObjectPropertyName); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringObjectArray).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
+
+    _.pluck(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType string[]
+    _(simpleStringObjectList).pluck(simpleStringObjectPropertyName); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringObjectList).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
+
+    _.pluck(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType string[]
+    _(simpleStringObjectDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringObjectDictionary).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<string[], string>
+
+    // property name iterator with a non-nullable intersecting type union
+    _.pluck(intersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    _(intersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    extractChainTypes(_.chain(intersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
+
+    _.pluck(intersectingObjectPropertiesList, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    _(intersectingObjectPropertiesList).pluck(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    extractChainTypes(_.chain(intersectingObjectPropertiesList).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
+
+    _.pluck(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    _(intersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType (string | boolean)[]
+    extractChainTypes(_.chain(intersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
+
+    // property name iterator with a nullable type union
+    _.pluck(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(simpleStringObjectOrUndefinedArray).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedArray).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+
+    _.pluck(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(simpleStringObjectOrUndefinedList).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedList).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+
+    _.pluck(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(simpleStringObjectOrUndefinedDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(simpleStringObjectOrUndefinedDictionary).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+
+    // property name iterator with a non-nullable non-intersecting type union
+    _.pluck(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+
+    _.pluck(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+
+    _.pluck(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    _(nonIntersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+
+    // property name iterator with type any (see #33479)
+    _.pluck(simpleStringObjectArray as any, simpleStringObjectPropertyName); // $ExpectType any[]
+    _(simpleStringObjectArray as any).pluck(simpleStringObjectPropertyName); // $ExpectType any[]
+    extractChainTypes(_.chain(simpleStringObjectArray as any).pluck(simpleStringObjectPropertyName)); // $ExpectType ChainType<any[], any>
+}
+
+// groupBy
+{
+    // function iterator
+    _.groupBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject[]>
+    _.groupBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject[]>
+    _(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject[]>
+    _(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject[]>
+    _.chain(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
+    _.chain(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator, context); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
+
+    _.groupBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject[]>
+    _.groupBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject[]>
+    _(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject[]>
+    _(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject[]>
+    _.chain(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
+    _.chain(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator, context); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
+
+    _.groupBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject[]>
+    _.groupBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject[]>
+    _(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator); // $ExpectType Dictionary<SimpleStringObject[]>
+    _(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator, context); // $ExpectType Dictionary<SimpleStringObject[]>
+    _.chain(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
+    _.chain(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator, context); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
+
+    // property name iterator
+    _.groupBy(simpleStringObjectArray, simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject[]>
+    _(simpleStringObjectArray).groupBy(simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject[]>
+    _.chain(simpleStringObjectArray).groupBy(simpleStringObjectPropertyName); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
+
+    _.groupBy(simpleStringObjectList, simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject[]>
+    _(simpleStringObjectList).groupBy(simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject[]>
+    _.chain(simpleStringObjectList).groupBy(simpleStringObjectPropertyName); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
+
+    _.groupBy(simpleStringObjectDictionary, simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject[]>
+    _(simpleStringObjectDictionary).groupBy(simpleStringObjectPropertyName); // $ExpectType Dictionary<SimpleStringObject[]>
+    _.chain(simpleStringObjectDictionary).groupBy(simpleStringObjectPropertyName); // // $ExpectType _Chain<SimpleStringObject[], Dictionary<SimpleStringObject[]>>
+}
+
 // Arrays
+
+// flatten
+{
+    const twoDimensionArray: SimpleStringObject[][] = [simpleStringObjectArray];
+    const twoDimensionList: _.List<_.List<SimpleStringObject>> = { 0: simpleStringObjectList, length: 1 };
+    const threeDimensionArray: SimpleStringObject[][][] = [[simpleStringObjectArray]];
+    const threeDimensionList: _.List<_.List<_.List<SimpleStringObject>>> = { 0: { 0: simpleStringObjectList, length: 1 }, length: 1 };
+    const fourDimensionArray: SimpleStringObject[][][][] = [[[simpleStringObjectArray]]];
+    const fourDimensionList: _.List<_.List<_.List<_.List<SimpleStringObject>>>> = { 0: { 0: { 0: simpleStringObjectList, length: 1 }, length: 1 }, length: 1 };
+    const mixedDimensionArray: (SimpleStringObject | SimpleStringObject[] | SimpleStringObject[][])[] = [simpleStringObjectArray[0], simpleStringObjectArray, [simpleStringObjectArray]];
+    const stringArray: string[][] = [simpleStringArray];
+    const stringList: _.List<_.List<string>> = { 0: simpleStringList, length: 1 };
+    const typeUnionArray: NonIntersectingObjectPropertiesType[][] = [nonIntersectingObjectPropertiesArray];
+    const typeUnionList: _.List<_.List<NonIntersectingObjectPropertiesType>> = { 0: nonIntersectingObjectPropertiesList, length: 1 };
+
+    // one dimension, deep
+    _.flatten(simpleStringObjectArray); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).flatten(); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectArray).flatten()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    _.flatten(simpleStringObjectList); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).flatten(); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectList).flatten()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    // one dimension, shallow
+    _.flatten(simpleStringObjectArray, true); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectArray).flatten(true); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectArray).flatten(true)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    _.flatten(simpleStringObjectList, true); // $ExpectType SimpleStringObject[]
+    _(simpleStringObjectList).flatten(true); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(simpleStringObjectList).flatten(true)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    // two dimensions, deep
+    _.flatten(twoDimensionArray); // $ExpectType SimpleStringObject[]
+    _(twoDimensionArray).flatten(); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(twoDimensionArray).flatten()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    _.flatten(twoDimensionList); // $ExpectType SimpleStringObject[]
+    _(twoDimensionList).flatten(); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(twoDimensionList).flatten()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    // two dimensions, shallow
+    _.flatten(twoDimensionArray, true); // $ExpectType SimpleStringObject[]
+    _(twoDimensionArray).flatten(true); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(twoDimensionArray).flatten(true)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    _.flatten(twoDimensionList, true); // $ExpectType SimpleStringObject[]
+    _(twoDimensionList).flatten(true); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(twoDimensionList).flatten(true)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    // three dimensions, deep
+    _.flatten(threeDimensionArray); // $ExpectType SimpleStringObject[]
+    _(threeDimensionArray).flatten(); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(threeDimensionArray).flatten()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    _.flatten(threeDimensionList); // $ExpectType SimpleStringObject[]
+    _(threeDimensionList).flatten(); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(threeDimensionList).flatten()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    // three dimensions, shallow
+    _.flatten(threeDimensionArray, true); // $ExpectType SimpleStringObject[][]
+    _(threeDimensionArray).flatten(true); // $ExpectType SimpleStringObject[][]
+    extractChainTypes(_.chain(threeDimensionArray).flatten(true)); // $ExpectType ChainType<SimpleStringObject[][], SimpleStringObject[]>
+
+    _.flatten(threeDimensionList, true); // $ExpectType List<SimpleStringObject>[]
+    _(threeDimensionList).flatten(true); // $ExpectType List<SimpleStringObject>[]
+    extractChainTypes(_.chain(threeDimensionList).flatten(true)); // $ExpectType ChainType<List<SimpleStringObject>[], List<SimpleStringObject>>
+
+    // four dimensions, deep - this is where recursion gives up and results in any[]
+    _.flatten(fourDimensionArray); // $ExpectType any[]
+    _(fourDimensionArray).flatten(); // $ExpectType any[]
+    extractChainTypes(_.chain(fourDimensionArray).flatten()); // $ExpectType ChainType<any[], any>
+
+    _.flatten(fourDimensionList); // $ExpectType any[]
+    _(fourDimensionList).flatten(); // $ExpectType any[]
+    extractChainTypes(_.chain(fourDimensionList).flatten()); // $ExpectType ChainType<any[], any>
+
+    // mixed dimensions, deep
+    _.flatten(mixedDimensionArray); // $ExpectType SimpleStringObject[]
+    _(mixedDimensionArray).flatten(); // $ExpectType SimpleStringObject[]
+    extractChainTypes(_.chain(mixedDimensionArray).flatten()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+
+    // mixed dimensions, shallow
+    _.flatten(mixedDimensionArray, true); // $ExpectType (SimpleStringObject | SimpleStringObject[])[]
+    _(mixedDimensionArray).flatten(true); // $ExpectType (SimpleStringObject | SimpleStringObject[])[]
+    extractChainTypes(_.chain(mixedDimensionArray).flatten(true)); // $ExpectType ChainType<(SimpleStringObject | SimpleStringObject[])[], SimpleStringObject | SimpleStringObject[]>
+
+    // string lists, deep
+    _.flatten(stringArray); // $ExpectType string[]
+    _(stringArray).flatten(); // $ExpectType string[]
+    extractChainTypes(_.chain(stringArray).flatten()); // $ExpectType ChainType<string[], string>
+
+    _.flatten(stringList); // $ExpectType string[]
+    _(stringList).flatten(); // $ExpectType string[]
+    extractChainTypes(_.chain(stringList).flatten()); // $ExpectType ChainType<string[], string>
+
+    // string lists, shallow
+    _.flatten(simpleStringArray, true); // $ExpectType string[]
+    _(simpleStringArray).flatten(true); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringArray).flatten(true)); // $ExpectType ChainType<string[], string>
+
+    _.flatten(simpleStringList, true); // $ExpectType string[]
+    _(simpleStringList).flatten(true); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringList).flatten(true)); // $ExpectType ChainType<string[], string>
+
+    // type unions, deep
+    _.flatten(typeUnionArray); // $ExpectType NonIntersectingObjectPropertiesType[]
+    _(typeUnionArray).flatten(); // $ExpectType NonIntersectingObjectPropertiesType[]
+    extractChainTypes(_.chain(typeUnionArray).flatten()); // $ExpectType ChainType<NonIntersectingObjectPropertiesType[], NonIntersectingObjectPropertiesType>
+
+    _.flatten(typeUnionList); // $ExpectType NonIntersectingObjectPropertiesType[]
+    _(typeUnionList).flatten(); // $ExpectType NonIntersectingObjectPropertiesType[]
+    extractChainTypes(_.chain(typeUnionList).flatten()); // $ExpectType ChainType<NonIntersectingObjectPropertiesType[], NonIntersectingObjectPropertiesType>
+
+    // type unions, shallow
+    _.flatten(nonIntersectingObjectPropertiesArray, true); // $ExpectType NonIntersectingObjectPropertiesType[]
+    _(nonIntersectingObjectPropertiesArray).flatten(true); // $ExpectType NonIntersectingObjectPropertiesType[]
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesArray).flatten(true)); // $ExpectType ChainType<NonIntersectingObjectPropertiesType[], NonIntersectingObjectPropertiesType>
+
+    _.flatten(nonIntersectingObjectPropertiesList, true); // $ExpectType NonIntersectingObjectPropertiesType[]
+    _(nonIntersectingObjectPropertiesList).flatten(true); // $ExpectType NonIntersectingObjectPropertiesType[]
+    extractChainTypes(_.chain(nonIntersectingObjectPropertiesList).flatten(true)); // $ExpectType ChainType<NonIntersectingObjectPropertiesType[], NonIntersectingObjectPropertiesType>
+}
 
 // chunk
 {
