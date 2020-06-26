@@ -1,4 +1,4 @@
-import OpenSeadragon, { Viewport, Drawer, MouseTracker } from "openseadragon";
+import OpenSeadragon, { Viewport, Drawer, MouseTracker, IIIFTileSource } from "openseadragon";
 
 const viewer = OpenSeadragon({ id: "viewerid" });
 
@@ -32,4 +32,8 @@ const viewer3 = OpenSeadragon({
             },
         ]
     }
+});
+
+const iiifTileSource = new IIIFTileSource({
+    tileFormat: 'jpg'
 });

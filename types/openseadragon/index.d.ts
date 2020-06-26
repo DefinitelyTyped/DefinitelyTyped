@@ -391,6 +391,7 @@ declare namespace OpenSeadragon {
         loadTilesWithAjax?: boolean;
         ajaxHeaders?: object;
         imageSmoothingEnabled?: boolean;
+        rotationIncrement?: number;
     }
 
     interface TileSourceOptions {
@@ -554,6 +555,7 @@ declare namespace OpenSeadragon {
         getOpacity(): number;
         setOpacity(opacity: number): Drawer;
         viewportToDrawerRectangle(rectangle: Rect): Rect;
+        setImageSmoothingEnabled(imageSmoothingEnabled?: boolean): void;
     }
 
     class DziTileSource extends TileSource {
@@ -570,7 +572,10 @@ declare namespace OpenSeadragon {
         );
     }
 
-    class IIIFTileSource extends TileSource {}
+    class IIIFTileSource extends TileSource {
+        constructor(options: TileSourceOptions & {tileFormat?: string});
+        canBeTiled(profile: string[]): boolean;
+    }
 
     class ImageLoader {
         constructor(options: { jobLimit?: number; timeout?: number });
