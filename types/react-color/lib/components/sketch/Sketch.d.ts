@@ -16,9 +16,10 @@ export interface SketchPickerStylesProps {
     Alpha: CSSProperties;
 }
 
+export type PresetColor = { color: string; title: string } | string;
 export interface SketchPickerProps extends ColorPickerProps<SketchPicker> {
     disableAlpha?: boolean;
-    presetColors?: string[];
+    presetColors?: PresetColor[];
     width?: string;
     styles?: Partial<Classes<SketchPickerStylesProps>>;
     onSwatchHover?(color: ColorResult, event: MouseEvent): void;

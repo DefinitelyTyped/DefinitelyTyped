@@ -32,6 +32,7 @@ const CustomComponent: StatelessComponent<CustomProps> = (props: CustomProps) =>
 const Custom = CustomPicker(CustomComponent);
 
 const colors = ["#000", "#333"];
+const colorsAsObject = [{title: 'foo', color: "#000"}, {title: 'foo', color: "#333"}];
 
 render(<AlphaPicker className="custom-cn" height="100px" width="100px" />, document.getElementById("main"));
 render(<BlockPicker className="custom-cn" colors={colors} width="100px" />, document.getElementById("main"));
@@ -43,6 +44,7 @@ render(<HuePicker className="custom-cn" height="100px" width="100px" />, documen
 render(<MaterialPicker className="custom-cn" />, document.getElementById("main"));
 render(<PhotoshopPicker className="custom-cn" header="Test" />, document.getElementById("main"));
 render(<SketchPicker className="custom-cn" disableAlpha presetColors={colors} />, document.getElementById("main"));
+render(<SketchPicker className="custom-cn" disableAlpha presetColors={colorsAsObject} />, document.getElementById("main"));
 render(<SliderPicker className="custom-cn" />, document.getElementById("main"));
 render(<SwatchesPicker className="custom-cn" colors={[colors]} height={100} width={100} />, document.getElementById("main"));
 render(<TwitterPicker className="custom-cn" />, document.getElementById("main"));
