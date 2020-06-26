@@ -706,7 +706,7 @@ const simpleString = 'abc';
 
 const simpleNumber = 7;
 
-declare const collectionNonCollectionMix: number | number[];
+declare const mixedIterabilityValue: number | number[];
 
 // avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
 // the types under test need to be refactored
@@ -760,7 +760,7 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractUnderscoreTypes(_(simpleString)); // $ExpectType UnderscoreType<string, string>
     extractUnderscoreTypes(_(simpleNumber)); // $ExpectType UnderscoreType<number, never>
 
-    extractUnderscoreTypes(_(collectionNonCollectionMix)); // $ExpectType UnderscoreType<number | number[], number>
+    extractUnderscoreTypes(_(mixedIterabilityValue)); // $ExpectType UnderscoreType<number | number[], number>
 }
 
 // value
@@ -777,7 +777,7 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(simpleString).value(); // $ExpectType string
     _(simpleNumber).value(); // $ExpectType number
 
-    _(collectionNonCollectionMix).value(); // $ExpectType number | number[]
+    _(mixedIterabilityValue).value(); // $ExpectType number | number[]
 }
 
 // Chaining
@@ -807,8 +807,8 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(simpleNumber)); // $ExpectType ChainType<number, never>
     extractChainTypes(_(simpleNumber).chain()); // $ExpectType ChainType<number, never>
 
-    extractChainTypes(_.chain(collectionNonCollectionMix)); // $ExpectType ChainType<number | number[], number>
-    extractChainTypes(_(collectionNonCollectionMix).chain()); // $ExpectType ChainType<number | number[], number>
+    extractChainTypes(_.chain(mixedIterabilityValue)); // $ExpectType ChainType<number | number[], number>
+    extractChainTypes(_(mixedIterabilityValue).chain()); // $ExpectType ChainType<number | number[], number>
 }
 
 // value
@@ -825,5 +825,5 @@ declare const extractChainTypes: ChainTypeExtractor;
     _.chain(simpleString).value(); // $ExpectType string
     _.chain(simpleNumber).value(); // $ExpectType number
 
-    _.chain(collectionNonCollectionMix).value(); // $ExpectType number | number[]
+    _.chain(mixedIterabilityValue).value(); // $ExpectType number | number[]
 }
