@@ -17,590 +17,590 @@ cal.init({ itemSelector: $(".class")[0] });
 cal.init({ itemSelector: d3.select(".class")[0][0] });
 
 cal.init({
-	itemSelector: "#domain-a",
-	domain: "month",
-	subDomain: "day",
-	cellSize: 20,
-	subDomainTextFormat: "%d",
-	range: 1,
-	displayLegend: false
+    itemSelector: "#domain-a",
+    domain: "month",
+    subDomain: "day",
+    cellSize: 20,
+    subDomainTextFormat: "%d",
+    range: 1,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#domain-b",
-	domain: "month",
-	subDomain: "x_day",
-	cellSize: 20, subDomainTextFormat: "%d",
-	range: 1,
-	displayLegend: false
+    itemSelector: "#domain-b",
+    domain: "month",
+    subDomain: "x_day",
+    cellSize: 20, subDomainTextFormat: "%d",
+    range: 1,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#cellSize-a",
-	domain: "day",
-	range: 1,
-	displayLegend: false
+    itemSelector: "#cellSize-a",
+    domain: "day",
+    range: 1,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#cellSize-b",
-	domain: "day",
-	range: 1,
-	cellSize: 15,
-	displayLegend: false
+    itemSelector: "#cellSize-b",
+    domain: "day",
+    range: 1,
+    cellSize: 15,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#cellPadding-a",
-	domain: "day",
-	range: 1,
-	displayLegend: false
+    itemSelector: "#cellPadding-a",
+    domain: "day",
+    range: 1,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#cellPadding-b",
-	domain: "day",
-	range: 1,
-	cellPadding: 5,
-	displayLegend: false
+    itemSelector: "#cellPadding-b",
+    domain: "day",
+    range: 1,
+    cellPadding: 5,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#cellRadius-a",
-	cellSize: 15,
-	domain: "day",
-	range: 1,
-	displayLegend: false
+    itemSelector: "#cellRadius-a",
+    cellSize: 15,
+    domain: "day",
+    range: 1,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#cellRadius-b",
-	cellSize: 15,
-	domain: "day",
-	range: 1,
-	cellRadius: 10,
-	displayLegend: false
+    itemSelector: "#cellRadius-b",
+    cellSize: 15,
+    domain: "day",
+    range: 1,
+    cellRadius: 10,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#domainGutter-a",
-	domain: "day",
-	range: 2,
-	displayLegend: false
+    itemSelector: "#domainGutter-a",
+    domain: "day",
+    range: 2,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#domainGutter-b",
-	domain: "day",
-	range: 2,
-	domainGutter: 10,
-	displayLegend: false
+    itemSelector: "#domainGutter-b",
+    domain: "day",
+    range: 2,
+    domainGutter: 10,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#domainMargin-a",
-	domain: "day",
-	range: 2,
-	displayLegend: false
+    itemSelector: "#domainMargin-a",
+    domain: "day",
+    range: 2,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#domainMargin-b",
-	domain: "day",
-	range: 2,
-	displayLegend: false,
-	domainMargin: 10
+    itemSelector: "#domainMargin-b",
+    domain: "day",
+    range: 2,
+    displayLegend: false,
+    domainMargin: 10
 });
 
 cal.init({
-	itemSelector: "#domainDynamicDimension-a",
-	domain: "month",
-	range: 5,
-	cellSize: 8,
-	displayLegend: false,
-	nextSelector: "#domainDynamicDimension-next",
-	previousSelector: "#domainDynamicDimension-previous"
+    itemSelector: "#domainDynamicDimension-a",
+    domain: "month",
+    range: 5,
+    cellSize: 8,
+    displayLegend: false,
+    nextSelector: "#domainDynamicDimension-next",
+    previousSelector: "#domainDynamicDimension-previous"
 });
 
 cal.init({
-	itemSelector: "#domainDynamicDimension-b",
-	domain: "month",
-	range: 5,
-	cellSize: 8,
-	displayLegend: false,
-	domainDynamicDimension: false,
-	nextSelector: "#domainDynamicDimension-next",
-	previousSelector: "#domainDynamicDimension-previous",
-	itemNamespace: "domainDynamicDimension"
+    itemSelector: "#domainDynamicDimension-b",
+    domain: "month",
+    range: 5,
+    cellSize: 8,
+    displayLegend: false,
+    domainDynamicDimension: false,
+    nextSelector: "#domainDynamicDimension-next",
+    previousSelector: "#domainDynamicDimension-previous",
+    itemNamespace: "domainDynamicDimension"
 });
 
 cal.init({
-	itemSelector: "#verticalOrientation-a",
-	domain: "day",
-	range: 2,
-	displayLegend: false
+    itemSelector: "#verticalOrientation-a",
+    domain: "day",
+    range: 2,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#verticalOrientation-b",
-	domain: "day",
-	range: 2,
-	displayLegend: false,
-	verticalOrientation: true
+    itemSelector: "#verticalOrientation-b",
+    domain: "day",
+    range: 2,
+    displayLegend: false,
+    verticalOrientation: true
 });
 
 cal.init({
-	itemSelector: "#label-a",
-	domain: "day",
-	range: 2,
-	displayLegend: false
+    itemSelector: "#label-a",
+    domain: "day",
+    range: 2,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#label-b",
-	domain: "day",
-	range: 2,
-	displayLegend: false,
-	label: {
-		position: "top"
-	}
+    itemSelector: "#label-b",
+    domain: "day",
+    range: 2,
+    displayLegend: false,
+    label: {
+        position: "top"
+    }
 });
 
 cal.init({
-	itemSelector: "#label-c",
-	domain: "day",
-	range: 2,
-	displayLegend: false,
-	label: {
-		position: "left",
-		width: 46
-	}
+    itemSelector: "#label-c",
+    domain: "day",
+    range: 2,
+    displayLegend: false,
+    label: {
+        position: "left",
+        width: 46
+    }
 });
 
 cal.init({
-	itemSelector: "#label-d",
-	domain: "day",
-	range: 2,
-	displayLegend: false,
-	label: {
-		position: "right",
-		width: 46,
-		offset: { x: 10, y: 30 }
-	}
+    itemSelector: "#label-d",
+    domain: "day",
+    range: 2,
+    displayLegend: false,
+    label: {
+        position: "right",
+        width: 46,
+        offset: { x: 10, y: 30 }
+    }
 });
 
 cal.init({
-	itemSelector: "#label-e",
-	domain: "day",
-	range: 2,
-	displayLegend: false,
-	label: {
-		position: "left",
-		width: 46,
-		rotate: "left"
-	}
+    itemSelector: "#label-e",
+    domain: "day",
+    range: 2,
+    displayLegend: false,
+    label: {
+        position: "left",
+        width: 46,
+        rotate: "left"
+    }
 });
 
 cal.init({
-	itemSelector: "#label-f",
-	domain: "day",
-	range: 2,
-	displayLegend: false,
-	label: {
-		position: "right",
-		width: 150,
-		rotate: "left"
-	}
+    itemSelector: "#label-f",
+    domain: "day",
+    range: 2,
+    displayLegend: false,
+    label: {
+        position: "right",
+        width: 150,
+        rotate: "left"
+    }
 });
 
 cal.init({
-	itemSelector: "#label-g",
-	domain: "day",
-	range: 2,
-	displayLegend: false,
-	label: {
-		position: "right",
-		width: 46,
-		rotate: "left"
-	}
+    itemSelector: "#label-g",
+    domain: "day",
+    range: 2,
+    displayLegend: false,
+    label: {
+        position: "right",
+        width: 46,
+        rotate: "left"
+    }
 });
 
 cal.init({
-	itemSelector: "#label-h",
-	domain: "day",
-	range: 2,
-	displayLegend: false,
-	label: {
-		position: "right",
-		width: 46,
-		rotate: "right",
-		align: "right"
-	}
+    itemSelector: "#label-h",
+    domain: "day",
+    range: 2,
+    displayLegend: false,
+    label: {
+        position: "right",
+        width: 46,
+        rotate: "right",
+        align: "right"
+    }
 });
 
 cal.init({
-	itemSelector: "#colLimit-a",
-	domain: "day",
-	range: 1,
-	displayLegend: false
+    itemSelector: "#colLimit-a",
+    domain: "day",
+    range: 1,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#colLimit-b",
-	domain: "day",
-	colLimit: 24,
-	range: 1,
-	displayLegend: false
+    itemSelector: "#colLimit-b",
+    domain: "day",
+    colLimit: 24,
+    range: 1,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#rowLimit-a",
-	domain: "month",
-	range: 1,
-	displayLegend: false
+    itemSelector: "#rowLimit-a",
+    domain: "month",
+    range: 1,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#rowLimit-b",
-	domain: "month",
-	rowLimit: 10,
-	range: 1,
-	displayLegend: false
+    itemSelector: "#rowLimit-b",
+    domain: "month",
+    rowLimit: 10,
+    range: 1,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#tooltip-a",
-	domain: "month",
-	range: 1,
-	displayLegend: false
+    itemSelector: "#tooltip-a",
+    domain: "month",
+    range: 1,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#tooltip-b",
-	domain: "month",
-	range: 1,
-	displayLegend: false,
-	tooltip: true
+    itemSelector: "#tooltip-b",
+    domain: "month",
+    range: 1,
+    displayLegend: false,
+    tooltip: true
 });
 
 cal.init({
-	itemSelector: "#start-a",
-	domain: "day",
-	range: 2,
-	displayLegend: false
+    itemSelector: "#start-a",
+    domain: "day",
+    range: 2,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#start-b",
-	domain: "day",
-	range: 2,
-	start: new Date(2000, 0, 15),
-	displayLegend: false
+    itemSelector: "#start-b",
+    domain: "day",
+    range: 2,
+    start: new Date(2000, 0, 15),
+    displayLegend: false
 });
 
 cal.init({
-	start: new Date(2000, 0), // January, 1st 2000
-	range: 12,
-	domain: "year",
-	subDomain: "month",
-	data: "http://localhost/api?start={{d:start}}&stop={{d:end}}"
+    start: new Date(2000, 0), // January, 1st 2000
+    range: 12,
+    domain: "year",
+    subDomain: "month",
+    data: "http://localhost/api?start={{d:start}}&stop={{d:end}}"
 });
 
 cal.init({
-	data: "http://localhost/datas.csv",
-	dataType: "csv"
+    data: "http://localhost/datas.csv",
+    dataType: "csv"
 });
 
 var dt = new Date();
 dt.setDate(dt.getDate() + 1);
 cal.init({
-	itemSelector: "#highlight-a",
-	domain: "day",
-	range: 2,
-	displayLegend: false,
-	highlight: ["now", dt]
+    itemSelector: "#highlight-a",
+    domain: "day",
+    range: 2,
+    displayLegend: false,
+    highlight: ["now", dt]
 });
 
 cal.init({
-	itemSelector: "#weekStartOnMonday-a",
-	domain: "month",
-	subDomain: "x_day",
-	cellSize: 20,
-	subDomainTextFormat: "%d",
-	range: 1,
-	displayLegend: false
+    itemSelector: "#weekStartOnMonday-a",
+    domain: "month",
+    subDomain: "x_day",
+    cellSize: 20,
+    subDomainTextFormat: "%d",
+    range: 1,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#weekStartOnMonday-b",
-	domain: "month",
-	subDomain: "x_day",
-	cellSize: 20,
-	subDomainTextFormat: "%d",
-	range: 1,
-	weekStartOnMonday: false,
-	displayLegend: false
+    itemSelector: "#weekStartOnMonday-b",
+    domain: "month",
+    subDomain: "x_day",
+    cellSize: 20,
+    subDomainTextFormat: "%d",
+    range: 1,
+    weekStartOnMonday: false,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#minDate-a",
-	domain: "month",
-	start: new Date(2000, 4),
-	minDate: new Date(2000, 1),
-	maxDate: new Date(2000, 8),
-	subDomain: "day",
-	range: 4,
-	displayLegend: false
+    itemSelector: "#minDate-a",
+    domain: "month",
+    start: new Date(2000, 4),
+    minDate: new Date(2000, 1),
+    maxDate: new Date(2000, 8),
+    subDomain: "day",
+    range: 4,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#legend-a",
-	domain: "day",
-	range: 2
+    itemSelector: "#legend-a",
+    domain: "day",
+    range: 2
 });
 
 cal.init({
-	itemSelector: "#legend-b",
-	domain: "day",
-	range: 2, legend: [-2.5, 0, 2.5]
+    itemSelector: "#legend-b",
+    domain: "day",
+    range: 2, legend: [-2.5, 0, 2.5]
 });
 
 cal.init({
-	itemSelector: "#displayLegend-a",
-	domain: "day",
-	range: 2
+    itemSelector: "#displayLegend-a",
+    domain: "day",
+    range: 2
 });
 
 cal.init({
-	itemSelector: "#displayLegend-b",
-	domain: "day",
-	range: 2,
-	displayLegend: false
+    itemSelector: "#displayLegend-b",
+    domain: "day",
+    range: 2,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#legendCellSize-a",
-	domain: "day",
-	range: 2
+    itemSelector: "#legendCellSize-a",
+    domain: "day",
+    range: 2
 });
 
 cal.init({
-	itemSelector: "#legendCellSize-b",
-	domain: "day",
-	range: 2, legendCellSize: 5
+    itemSelector: "#legendCellSize-b",
+    domain: "day",
+    range: 2, legendCellSize: 5
 });
 
 cal.init({
-	itemSelector: "#legendCellPadding-a",
-	domain: "day",
-	range: 3
+    itemSelector: "#legendCellPadding-a",
+    domain: "day",
+    range: 3
 });
 
 cal.init({
-	itemSelector: "#legendCellPadding-b",
-	domain: "day",
-	range: 3, legendCellPadding: 5
+    itemSelector: "#legendCellPadding-b",
+    domain: "day",
+    range: 3, legendCellPadding: 5
 });
 
 cal.init({
-	itemSelector: "#legendMargin-a",
-	domain: "day",
-	range: 3
+    itemSelector: "#legendMargin-a",
+    domain: "day",
+    range: 3
 });
 
 cal.init({
-	itemSelector: "#legendMargin-b",
-	domain: "day",
-	range: 3,
-	legendMargin: [50, 0, 0, 50]
+    itemSelector: "#legendMargin-b",
+    domain: "day",
+    range: 3,
+    legendMargin: [50, 0, 0, 50]
 });
 
 cal.init({
-	itemSelector: "#legendVerticalPosition-a",
-	domain: "day",
-	range: 2
+    itemSelector: "#legendVerticalPosition-a",
+    domain: "day",
+    range: 2
 });
 
 cal.init({
-	itemSelector: "#legendVerticalPosition-b",
-	domain: "day",
-	range: 2,
-	legendVerticalPosition: "top",
-	legendMargin: [0, 0, 10, 0]
+    itemSelector: "#legendVerticalPosition-b",
+    domain: "day",
+    range: 2,
+    legendVerticalPosition: "top",
+    legendMargin: [0, 0, 10, 0]
 });
 
 cal.init({
-	itemSelector: "#legendVerticalPosition-c",
-	domain: "day",
-	range: 2,
-	legendVerticalPosition: "center",
-	legendMargin: [0, 10, 0, 0]
+    itemSelector: "#legendVerticalPosition-c",
+    domain: "day",
+    range: 2,
+    legendVerticalPosition: "center",
+    legendMargin: [0, 10, 0, 0]
 });
 
 cal.init({
-	itemSelector: "#legendVerticalPosition-d",
-	domain: "day",
-	range: 2,
-	legendVerticalPosition: "center",
-	legendHorizontalPosition: "right",
-	legendMargin: [0, 0, 0, 10]
+    itemSelector: "#legendVerticalPosition-d",
+    domain: "day",
+    range: 2,
+    legendVerticalPosition: "center",
+    legendHorizontalPosition: "right",
+    legendMargin: [0, 0, 0, 10]
 });
 
 cal.init({
-	itemSelector: "#legendHorizontalPosition-a",
-	domain: "day",
-	range: 3
+    itemSelector: "#legendHorizontalPosition-a",
+    domain: "day",
+    range: 3
 });
 
 cal.init({
-	itemSelector: "#legendHorizontalPosition-b",
-	domain: "day",
-	range: 3,
-	legendHorizontalPosition: "right"
+    itemSelector: "#legendHorizontalPosition-b",
+    domain: "day",
+    range: 3,
+    legendHorizontalPosition: "right"
 });
 
 cal.init({
-	itemSelector: "#legendOrientation-a",
-	domain: "day",
-	range: 3,
-	legendVerticalPosition: "center",
-	legendOrientation: "vertical",
-	legendMargin: [0, 10, 0, 0]
+    itemSelector: "#legendOrientation-a",
+    domain: "day",
+    range: 3,
+    legendVerticalPosition: "center",
+    legendOrientation: "vertical",
+    legendMargin: [0, 10, 0, 0]
 });
 
 cal.init({
-	itemSelector: "#legendOrientation-b",
-	domain: "month",
-	subDomain: "x_day",
-	range: 3,
-	verticalOrientation: true,
-	legendVerticalPosition: "center",
-	legendHorizontalPosition: "right",
-	legendOrientation: "vertical",
-	legendMargin: [0, 0, 0, 20]
+    itemSelector: "#legendOrientation-b",
+    domain: "month",
+    subDomain: "x_day",
+    range: 3,
+    verticalOrientation: true,
+    legendVerticalPosition: "center",
+    legendHorizontalPosition: "right",
+    legendOrientation: "vertical",
+    legendMargin: [0, 0, 0, 20]
 });
 
 cal.init({
-	legendColors: {
-		min: "#efefef",
-		max: "steelblue",
-		empty: "white"
-		// Will use the CSS for the missing keys
-	}
+    legendColors: {
+        min: "#efefef",
+        max: "steelblue",
+        empty: "white"
+        // Will use the CSS for the missing keys
+    }
 });
 
 cal.init({
-	legendColors: ["#efefef", "steelblue"]
+    legendColors: ["#efefef", "steelblue"]
 });
 
 cal.init({
-	itemName: ["cat", "cats"]
+    itemName: ["cat", "cats"]
 });
 cal.init({
-	itemName: "cat"
+    itemName: "cat"
 });
 cal.init({
-	itemName: ["cat"]
-});
-
-cal.init({
-	subDomainDateFormat: function(date: Date): string
-	{
-		return date.toString();
-	}
+    itemName: ["cat"]
 });
 
 cal.init({
-	itemSelector: "#subDomainTextFormat-a",
-	start: new Date(2000, 0, 1, 1),
-	domain: "month",
-	subDomain: "x_day",
-	cellSize: 20,
-	range: 1,
-	displayLegend: false,
-	subDomainTextFormat: "%d"
+    subDomainDateFormat: function(date: Date): string
+    {
+        return date.toString();
+    }
 });
 
 cal.init({
-	itemSelector: "#subDomainTextFormat-b",
-	start: new Date(2000, 0, 1, 1),
-	data: "datas-years.json",
-	domain: "month",
-	subDomain: "x_day",
-	cellSize: 20,
-	range: 1,
-	displayLegend: false,
-	subDomainTextFormat: function(date: Date, value: number): number
-	{
-		return value;
-	}
+    itemSelector: "#subDomainTextFormat-a",
+    start: new Date(2000, 0, 1, 1),
+    domain: "month",
+    subDomain: "x_day",
+    cellSize: 20,
+    range: 1,
+    displayLegend: false,
+    subDomainTextFormat: "%d"
 });
 
 cal.init({
-	itemSelector: "#domainLabelFormat-a",
-	domain: "month",
-	subDomain: "day",
-	range: 1,
-	displayLegend: false
+    itemSelector: "#subDomainTextFormat-b",
+    start: new Date(2000, 0, 1, 1),
+    data: "datas-years.json",
+    domain: "month",
+    subDomain: "x_day",
+    cellSize: 20,
+    range: 1,
+    displayLegend: false,
+    subDomainTextFormat: function(date: Date, value: number): number
+    {
+        return value;
+    }
 });
 
 cal.init({
-	itemSelector: "#domainLabelFormat-b",
-	domain: "month",
-	subDomain: "day",
-	range: 1,
-	displayLegend: false,
-	domainLabelFormat: "%m-%Y"
+    itemSelector: "#domainLabelFormat-a",
+    domain: "month",
+    subDomain: "day",
+    range: 1,
+    displayLegend: false
 });
 
 cal.init({
-	itemSelector: "#legendTitleFormat-a",
-	domain: "day",
-	range: 3
+    itemSelector: "#domainLabelFormat-b",
+    domain: "month",
+    subDomain: "day",
+    range: 1,
+    displayLegend: false,
+    domainLabelFormat: "%m-%Y"
 });
 
 cal.init({
-	itemSelector: "#animationDuration-a",
-	domain: "day",
-	range: 4,
-	previousSelector: "#animationDuration-previous",
-	nextSelector: "#animationDuration-next",
-	itemNamespace: "animationDuration-a"
+    itemSelector: "#legendTitleFormat-a",
+    domain: "day",
+    range: 3
 });
 
 cal.init({
-	itemSelector: "#animationDuration-b",
-	domain: "day",
-	range: 4, animationDuration: 1500,
-	previousSelector: "#animationDuration-previous",
-	nextSelector: "#animationDuration-next",
-	itemNamespace: "animationDuration-b"
+    itemSelector: "#animationDuration-a",
+    domain: "day",
+    range: 4,
+    previousSelector: "#animationDuration-previous",
+    nextSelector: "#animationDuration-next",
+    itemNamespace: "animationDuration-a"
 });
 
 cal.init({
-	itemSelector: "#previousSelector-a",
-	domain: "day",
-	range: 4,
-	previousSelector: "#previousSelector-a-previous",
-	nextSelector: "#previousSelector-a-next"
+    itemSelector: "#animationDuration-b",
+    domain: "day",
+    range: 4, animationDuration: 1500,
+    previousSelector: "#animationDuration-previous",
+    nextSelector: "#animationDuration-next",
+    itemNamespace: "animationDuration-b"
 });
 
 cal.init({
-	itemSelector: "#previousSelector-b",
-	domain: "day",
-	range: 4,
-	previousSelector: "#example-previousSelector  ul + p > em",
-	nextSelector: "#example-previousSelector [title=next] li"
+    itemSelector: "#previousSelector-a",
+    domain: "day",
+    range: 4,
+    previousSelector: "#previousSelector-a-previous",
+    nextSelector: "#previousSelector-a-next"
 });
 
 cal.init({
-	nextSelector: "#next" // Attach #next onClick event to cal.next()
+    itemSelector: "#previousSelector-b",
+    domain: "day",
+    range: 4,
+    previousSelector: "#example-previousSelector  ul + p > em",
+    nextSelector: "#example-previousSelector [title=next] li"
 });
 
 cal.init({
-	nextSelector: "#next",
-	// Attach #next.cal onClick event to cal.next()
-	itemNamespace: "cal"
+    nextSelector: "#next" // Attach #next onClick event to cal.next()
+});
+
+cal.init({
+    nextSelector: "#next",
+    // Attach #next.cal onClick event to cal.next()
+    itemNamespace: "cal"
 });
 
 
@@ -645,77 +645,77 @@ cal = cal.destroy();
 
 
 cal.init({
-	itemSelector: "#onClick-a",
-	domain: "day",
-	range: 5, data: "datas-years.json",
-	start: new Date(2000, 0),
-	onClick: function(date: Date, nb: number)
-	{
-		$("#onClick-placeholder").html("You just clicked <br/>on <b>" +
-			date + "</b> <br/>with <b>" +
-			(nb === null ? "unknown" : nb) + "</b> items"
-		);
-	}
+    itemSelector: "#onClick-a",
+    domain: "day",
+    range: 5, data: "datas-years.json",
+    start: new Date(2000, 0),
+    onClick: function(date: Date, nb: number)
+    {
+        $("#onClick-placeholder").html("You just clicked <br/>on <b>" +
+            date + "</b> <br/>with <b>" +
+            (nb === null ? "unknown" : nb) + "</b> items"
+        );
+    }
 });
 
 cal.init({
-	itemSelector: "#afterLoad-a",
-	domain: "day",
-	range: 5,
-	afterLoad: function() { },
-	onComplete: function() { }
+    itemSelector: "#afterLoad-a",
+    domain: "day",
+    range: 5,
+    afterLoad: function() { },
+    onComplete: function() { }
 });
 
 cal.init({
-	itemSelector: "#afterLoadPreviousDomain-a",
-	domain: "day",
-	range: 5, afterLoadPreviousDomain: function(date: Date) { },
-	previousSelector: "#afterLoadPreviousDomain-selector"
+    itemSelector: "#afterLoadPreviousDomain-a",
+    domain: "day",
+    range: 5, afterLoadPreviousDomain: function(date: Date) { },
+    previousSelector: "#afterLoadPreviousDomain-selector"
 });
 
 cal.init({
-	itemSelector: "#afterLoadNextDomain-a",
-	domain: "day",
-	range: 5, afterLoadNextDomain: function(date: Date) { },
-	nextSelector: "#afterLoadNextDomain-selector"
+    itemSelector: "#afterLoadNextDomain-a",
+    domain: "day",
+    range: 5, afterLoadNextDomain: function(date: Date) { },
+    nextSelector: "#afterLoadNextDomain-selector"
 });
 
 cal.init({
-	itemSelector: "#onComplete-a",
-	domain: "day",
-	range: 5,
-	onComplete: function() { }
+    itemSelector: "#onComplete-a",
+    domain: "day",
+    range: 5,
+    onComplete: function() { }
 });
 
 var datas = [
-	{ date: 946702811, value: 15 },
-	{ date: 946702812, value: 25 },
-	{ date: 946702813, value: 10 }
+    { date: 946702811, value: 15 },
+    { date: 946702812, value: 25 },
+    { date: 946702813, value: 10 }
 ]
 
 cal.init({
-	data: datas,
-	afterLoadData: (data: any) =>
-	{
-		var stats: CalHeatMap.DataFormat = {};
-		for (var d in data)
-		{
-			stats[data[d].date] = data[d].value;
-		}
-		return stats;
-	}
+    data: datas,
+    afterLoadData: (data: any) =>
+    {
+        var stats: CalHeatMap.DataFormat = {};
+        for (var d in data)
+        {
+            stats[data[d].date] = data[d].value;
+        }
+        return stats;
+    }
 });
 
 cal.init({
-	itemSelector: "#onMinDomainReached-a",
-	domain: "month",
-	range: 5,
-	start: new Date(2000, 4),
-	minDate: new Date(2000, 3),
-	maxDate: new Date(2000, 11),
-	onMinDomainReached: function(hit: boolean) { },
-	onMaxDomainReached: function(hit: boolean) { },
-	nextSelector: "#onMinDomainReached-next",
-	previousSelector: "#onMinDomainReached-previous",
-	displayLegend: false
+    itemSelector: "#onMinDomainReached-a",
+    domain: "month",
+    range: 5,
+    start: new Date(2000, 4),
+    minDate: new Date(2000, 3),
+    maxDate: new Date(2000, 11),
+    onMinDomainReached: function(hit: boolean) { },
+    onMaxDomainReached: function(hit: boolean) { },
+    nextSelector: "#onMinDomainReached-next",
+    previousSelector: "#onMinDomainReached-previous",
+    displayLegend: false
 });

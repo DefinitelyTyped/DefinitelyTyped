@@ -18,11 +18,15 @@
 //                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
 //                 Eliot Ball <https://github.com/eliotball>
 //                 Ville Kentta <https://github.com/vkentta>
+//                 Fabien Caylus <https://github.com/fcaylus>
+//                 Samuel Weckstrom <https://github.com/samuelweckstrom>
+//                 George Cheng <https://github.com/Gerhut>
+//                 Haldun Anil <https://github.com/haldunanil>
+//                 Tobias Knapp <https://github.com/t-knapp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { getTickValues, getNiceTickValues, getTickValuesFixedDomain } from 'recharts-scale';
 import { CurveFactory } from 'd3-shape';
 
 export type Percentage = string;
@@ -43,11 +47,11 @@ export type LayoutType = 'horizontal' | 'vertical';
 export type AnimationEasingType = 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
 export type ScaleType =
     'auto' | 'linear' | 'pow' | 'sqrt' | 'log' | 'identity' | 'time' | 'band' | 'point' |
-    'ordinal' | 'quantile' | 'quantize' | 'utcTime' | 'sequential' | 'threshold';
+    'ordinal' | 'quantile' | 'quantize' | 'utc' | 'sequential' | 'threshold';
 export type PositionType =
     'top' | 'left' | 'right' | 'bottom' | 'inside' | 'outside' | 'insideLeft' | 'insideRight' |
     'insideTop' | 'insideBottom' | 'insideTopLeft' | 'insideBottomLeft' | 'insideTopRight' |
-    'insideBottomRight' | 'insideStart' | 'insideEnd' | 'end' | 'center';
+    'insideBottomRight' | 'insideStart' | 'insideEnd' | 'end' | 'center' | 'centerTop' | 'centerBottom';
 export type StackOffsetType = 'sign' | 'expand' | 'none' | 'wiggle' | 'silhouette';
 export type LineType =
     'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' |
@@ -60,9 +64,9 @@ export type ReferenceLinePosition = 'start' | 'middle' | 'end';
 export type PickedCSSStyleDeclarationKeys =
     'alignmentBaseline' | 'baselineShift' | 'clip' | 'clipPath' | 'clipRule' | 'color' |
     'colorInterpolationFilters' | 'cursor' | 'direction' | 'display' | 'dominantBaseline' |
-    'enableBackground' | 'fill' | 'fillRule' | 'filter' | 'floodColor' |
+    'fill' | 'fillRule' | 'filter' | 'floodColor' |
     'floodOpacity' | 'font' | 'fontFamily' | 'fontStretch' | 'fontStyle' | 'fontVariant' |
-    'glyphOrientationHorizontal' | 'glyphOrientationVertical' | 'letterSpacing' | 'lightingColor' |
+    'glyphOrientationVertical' | 'letterSpacing' | 'lightingColor' |
     'markerEnd' | 'markerMid' | 'markerStart' | 'mask' | 'overflow' | 'pointerEvents' |
     'stopColor' | 'strokeDasharray' | 'strokeLinecap' | 'strokeLinejoin' | 'textAnchor' |
     'textDecoration' | 'unicodeBidi' | 'visibility' | 'writingMode' | 'transform';
@@ -190,7 +194,7 @@ export interface AreaProps extends EventAttributes, Partial<PresentationAttribut
     legendType?: LegendType;
     connectNulls?: boolean;
     activeDot?: boolean | object | React.ReactElement | ContentRenderer<any>;
-    dot?: boolean | object | React.ReactElement | ContentRenderer<DotProps>;
+    dot?: boolean | object | React.ReactElement | ContentRenderer<DotProps & { payload: any }>;
     label?: boolean | object | ContentRenderer<any> | React.ReactElement;
     hide?: boolean;
     layout?: LayoutType;
@@ -325,6 +329,7 @@ export interface CartesianGridProps extends Partial<PresentationAttributes> {
 export class CartesianGrid extends React.Component<CartesianGridProps> { }
 
 export interface CellProps extends Partial<PresentationAttributes> {
+    className?: string;
     onClick?: RechartsFunction;
     onMouseEnter?: RechartsFunction;
     onMouseLeave?: RechartsFunction;
@@ -436,7 +441,7 @@ export interface LineProps extends EventAttributes, Partial<PresentationAttribut
     connectNulls?: boolean;
     hide?: boolean;
     activeDot?: object | React.ReactElement | ContentRenderer<any> | boolean;
-    dot?: object | React.ReactElement | ContentRenderer<DotProps> | boolean;
+    dot?: object | React.ReactElement | ContentRenderer<DotProps & { payload: any }> | boolean;
     top?: number;
     left?: number;
     width?: number;
@@ -689,6 +694,7 @@ export interface ReferenceAreaProps extends Partial<PresentationAttributes> {
     xAxisId?: string | number;
     yAxisId?: string | number;
     shape?: ContentRenderer<ReferenceAreaProps & RectangleProps> | React.ReactElement;
+    label?: string | number | ContentRenderer<any> | React.ReactElement;
 }
 
 export class ReferenceArea extends React.Component<ReferenceAreaProps> { }
@@ -720,6 +726,11 @@ export interface ReferenceDotProps extends EventAttributes, Partial<Presentation
 
 export class ReferenceDot extends React.Component<ReferenceDotProps> { }
 
+export interface SegmentItem {
+    x: number | string;
+    y: number | string;
+}
+
 export interface ReferenceLineProps extends Partial<PresentationAttributes<number | string, number | string>> {
     className?: number | string;
     viewBox?: ViewBox;
@@ -730,6 +741,7 @@ export interface ReferenceLineProps extends Partial<PresentationAttributes<numbe
     ifOverflow?: IfOverflowType;
     x?: number | string;
     y?: number | string;
+    segment?: Readonly<[SegmentItem, SegmentItem]>;
     label?: string | number | ContentRenderer<any> | React.ReactElement;
     xAxisId?: string | number;
     yAxisId?: string | number;
@@ -914,20 +926,18 @@ export interface LabelProps extends Partial<PresentationAttributes> {
 
 export class LabelList extends React.Component<LabelListProps> { }
 
-export interface LabelListProps {
+export type LabelListProps = {
     angle?: number;
     children?: React.ReactNode[] | React.ReactNode;
     className?: string;
     clockWise?: boolean;
     content?: React.ReactElement | ContentRenderer<LabelProps>;
     data?: number;
-    dataKey: string | number | RechartsFunction;
     formatter?: LabelFormatter;
     id?: string;
     offset?: number;
     position?: PositionType;
-    valueAccessor?: RechartsFunction;
-}
+} & ({ dataKey: string | number | RechartsFunction, valueAccessor?: never } | { valueAccessor: RechartsFunction, dataKey?: never });
 
 export type AxisDomain = string | number | ContentRenderer<any> | 'auto' | 'dataMin' | 'dataMax';
 

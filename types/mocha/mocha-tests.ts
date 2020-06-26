@@ -833,6 +833,10 @@ function test_browser_mocha_setup_all_options() {
     });
 }
 
+function testLoadFilesAsync() {
+    mocha.loadFilesAsync();
+}
+
 function test_constructor_slow_option() {
     const m: Mocha = new LocalMocha({ slow: 25 });
 }

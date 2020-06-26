@@ -4,6 +4,7 @@
 //                 Mahdi Abedi <https://github.com/abedi-ir>
 //                 Nikolai Ommundsen <https://github.com/niikoo>
 //                 Nitecube <https://github.com/Nitecube>
+//                 Hossein Hosni <https://github.com/hosni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -824,7 +825,7 @@ declare namespace Fancytree {
         /** navigate to next node by typing the first letters (default: false) */
         quicksearch?: boolean;
         /** Right to left mode (default: false) */
-        rtl?: false;
+        rtl?: boolean;
         /** optional margins for node.scrollIntoView() (default: {top: 0, bottom: 0}) */
         scrollOfs?: { top: number, bottom: number };
         /** scrollable container for node.scrollIntoView() (default: $container) */

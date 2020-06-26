@@ -14,16 +14,16 @@ conn.query(sql).on("data", (row: Object[]): void => {
 });
 
 conn.query(sql, [1, "s"], (error: Error, result: anyDB.ResultSet): void => {
-	result.rows.length;
-	result.fields.length;
+    result.rows.length;
+    result.fields.length;
 });
 
 conn.end();
 
 
 var poolConfig: anyDB.PoolConfig = {
-	min: 1,
-	max: 200
+    min: 1,
+    max: 200
 };
 
 var pool: anyDB.ConnectionPool = anyDB.createPool("mysql://user:password@localhost/testdb", poolConfig);

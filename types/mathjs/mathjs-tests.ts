@@ -153,6 +153,12 @@ Expressions examples
         math.evaluate(['f = 3', 'g = 4', 'f * g']);
     }
 
+    // get content of a parenthesis node
+    {
+        const node = math.parse('(1)');
+        const innerNode = node.content;
+    }
+
     // scope can contain both variables and functions
     {
         const scope = { hello: (name: string) => `hello, ${name}!` };

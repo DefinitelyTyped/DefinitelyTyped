@@ -46,10 +46,10 @@ declare module "os" {
     function cpus(): CpuInfo[];
     function type(): string;
     function release(): string;
-    function networkInterfaces(): { [index: string]: NetworkInterfaceInfo[] };
+    function networkInterfaces(): NodeJS.Dict<NetworkInterfaceInfo[]>;
     function homedir(): string;
     function userInfo(options: { encoding: 'buffer' }): UserInfo<Buffer>;
-    function userInfo(options?: { encoding: string }): UserInfo<string>;
+    function userInfo(options?: { encoding: BufferEncoding }): UserInfo<string>;
 
     type SignalConstants = {
         [key in NodeJS.Signals]: number;
@@ -209,6 +209,14 @@ declare module "os" {
     }
 
     function arch(): string;
+    /**
+     * Returns a string identifying the kernel version.
+     * On POSIX systems, the operating system release is determined by calling
+     * [uname(3)][]. On Windows, `pRtlGetVersion` is used, and if it is not available,
+     * `GetVersionExW()` will be used. See
+     * https://en.wikipedia.org/wiki/Uname#Examples for more information.
+     */
+    function version(): string;
     function platform(): NodeJS.Platform;
     function tmpdir(): string;
     const EOL: string;

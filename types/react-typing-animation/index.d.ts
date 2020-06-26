@@ -15,10 +15,10 @@ export interface TypingProps {
     speed?: number;
     startDelay?: number;
     loop?: boolean;
-    onStartedTyping?: () => {};
-    onBeforeType?: () => {};
-    onAfterType?: () => {};
-    onFinishedType?: () => {};
+    onStartedTyping?: () => void;
+    onBeforeType?: () => void;
+    onAfterType?: () => void;
+    onFinishedTyping?: () => void;
 }
 
 declare namespace Typing {

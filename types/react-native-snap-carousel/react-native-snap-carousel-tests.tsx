@@ -8,7 +8,7 @@ import {
     View,
     ViewStyle,
 } from 'react-native';
-import Carousel, { Pagination, ParallaxImage, AdditionalParallaxProps, } from 'react-native-snap-carousel';
+import Carousel, { Pagination, ParallaxImage, AdditionalParallaxProps } from 'react-native-snap-carousel';
 
 class StringCarousel extends Carousel<string> {}
 
@@ -33,7 +33,7 @@ class SnapCarouselTest extends React.Component {
                     sliderWidth={300}
                     containerCustomStyle={styles.container}
                     enableMomentum={true}
-                    keyboardDismissMode='interactive'
+                    keyboardDismissMode="interactive"
                     onSnapToItem={this.onSnapToItem}
                     onBeforeSnapToItem={this.onBeforeSnapToItem}
                     lockScrollTimeoutDuration={900}
@@ -54,23 +54,23 @@ class SnapCarouselTest extends React.Component {
     }
 
     private readonly onBeforeSnapToItem = (index: number) => {
-        console.log("Before snap to: ", index);
+        console.log('Before snap to: ', index);
     }
 
     private readonly onSnapToItem = (index: number) => {
-        console.log("Snapped to: ", index);
+        console.log('Snapped to: ', index);
     }
 
     private readonly onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        console.log("Scrolled: ", event);
+        console.log('Scrolled: ', event);
     }
 
     private readonly onLayout = (event: LayoutChangeEvent) => {
-        console.log("Layout: ", event);
+        console.log('Layout: ', event);
     }
 }
 
-class SnapCarouselWithPaginationTest extends React.Component<{}, {activeSlide: number}> {
+class SnapCarouselWithPaginationTest extends React.Component<{}, { activeSlide: number }> {
     state = { activeSlide: 0 };
 
     renderItem({ item }: { item: string }): React.ReactNode {
@@ -89,23 +89,27 @@ class SnapCarouselWithPaginationTest extends React.Component<{}, {activeSlide: n
                     renderItem={item => this.renderItem(item)}
                     itemWidth={75}
                     sliderWidth={300}
-                    keyboardDismissMode='interactive'
-                    onSnapToItem={(index) => this.setState({ activeSlide: index })}
+                    keyboardDismissMode="interactive"
+                    onSnapToItem={index => this.setState({ activeSlide: index })}
                 />
                 <Pagination
-                        dotsLength={2}
-                        activeDotIndex={this.state.activeSlide}
-                        containerStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.75)' }}
-                        dotStyle={{
-                            width: 10,
-                            height: 10,
-                            borderRadius: 5,
-                            marginHorizontal: 8,
-                            backgroundColor: 'rgba(255, 255, 255, 0.92)'
-                        }}
-                        inactiveDotOpacity={0.4}
-                        inactiveDotScale={0.6}
-                        />
+                    dotsLength={2}
+                    activeDotIndex={this.state.activeSlide}
+                    containerStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.75)' }}
+                    dotStyle={{
+                        width: 10,
+                        height: 10,
+                        borderRadius: 5,
+                        marginHorizontal: 8,
+                        backgroundColor: 'rgba(255, 255, 255, 0.92)',
+                    }}
+                    inactiveDotOpacity={0.4}
+                    inactiveDotScale={0.6}
+                    animatedDuration={250}
+                    animatedFriction={4}
+                    animatedTension={50}
+                    delayPressInDot={0}
+                />
             </View>
         );
     }

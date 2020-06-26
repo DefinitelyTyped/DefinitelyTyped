@@ -5615,7 +5615,7 @@ declare module "stream" {
         }
 
         export interface TransformOptions extends DuplexOptions {
-            transform?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
+            transform?: (chunk: any, encoding: string, callback: Function) => any;
             flush?: (callback: Function) => any;
         }
 

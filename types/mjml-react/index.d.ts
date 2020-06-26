@@ -359,6 +359,7 @@ export interface MjmlTableProps {
     containerBackgroundColor?: React.CSSProperties['backgroundColor'];
     width?: string | number;
     tableLayout?: 'auto' | 'fixed' | 'initial' | 'inherit';
+    align?: 'left' | 'right' | 'center';
 }
 
 export class MjmlTable extends React.Component<MjmlTableProps & RequiredChildrenProps & PaddingProps> { }

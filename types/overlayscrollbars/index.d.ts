@@ -1,4 +1,4 @@
-// Type definitions for OverlayScrollbars 1.9
+// Type definitions for OverlayScrollbars 1.12
 // Project: https://kingsora.github.io/OverlayScrollbars
 // Definitions by: KingSora <https://github.com/KingSora>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -96,6 +96,7 @@ declare namespace OverlayScrollbars {
         paddingAbsolute?: boolean;
         autoUpdate?: boolean | null;
         autoUpdateInterval?: number;
+        updateOnLoad?: string | ReadonlyArray<string> | null;
         nativeScrollbarsOverlaid?: {
             showNativeScrollbars?: boolean;
             initialize?: boolean;

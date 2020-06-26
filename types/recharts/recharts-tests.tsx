@@ -108,6 +108,9 @@ class Component extends React.Component<{}, ComponentState> {
                         <CartesianGrid vertical={true} horizontal={false} verticalFill={["#fafafa", "#c8c8c8"]} />
                         <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
                         <Line id="custom-id" type="monotone" dataKey="pv" stroke="#82ca9d" />
+                        <Line id="custom-id2" type="monotone" dataKey="pv" stroke="#82ca9d" dot={false} />
+                        <Line id="custom-id3" type="monotone" dataKey="pv" stroke="#82ca9d" dot={({ payload }) => <span>{payload.x}</span>} />
+                        <Line id="custom-id3" type="monotone" dataKey="pv" stroke="#82ca9d" dot={{ stroke: 'red', strokeWidth: 2 }} />
                         <Tooltip />
                         <Brush dataKey="name" />
                         <Brush dataKey="name" gap={3} />
@@ -138,6 +141,7 @@ class Component extends React.Component<{}, ComponentState> {
                         <Brush dataKey="name" />
                         <ReferenceLine />
                         <ReferenceArea
+                            label="Reference Area"
                             stroke="red"
                             fill="red"
                             y2={1}
@@ -213,7 +217,7 @@ class Component extends React.Component<{}, ComponentState> {
                             <LabelList dataKey="name" position="insideTop" angle={45} />
                         </Bar>
                         <Bar dataKey="uv" fill="#82ca9d" radius={[10, 10, 0, 0]}>
-                            <LabelList dataKey="uv" position="top" />
+                            <LabelList valueAccessor={(entry: any) => entry["uv"]} position="top" />
                         </Bar>
                     </BarChart>
                 </ResponsiveContainer>

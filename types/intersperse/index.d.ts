@@ -3,6 +3,6 @@
 // Definitions by: Gary King <https://github.com/garyking>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function intersperse(items: any[], separator: any): any[];
+declare function intersperse<T, U>(items: T[], separator: U): Array<T | U>;
 
 export = intersperse;

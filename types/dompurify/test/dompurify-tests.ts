@@ -28,6 +28,10 @@ str = dompurify.sanitize(dirty, { ADD_TAGS: ['my-tag'] });
 // extend the existing array of attributes
 str = dompurify.sanitize(dirty, { ADD_ATTR: ['my-attr'] });
 
+// extend the existing array of tags that can use Data URIs
+
+str = dompurify.sanitize(dirty, {ADD_DATA_URI_TAGS: ['a', 'area']});
+
 // prohibit HTML5 data attributes (default is true)
 str = dompurify.sanitize(dirty, { ALLOW_DATA_ATTR: false });
 

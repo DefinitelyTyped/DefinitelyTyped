@@ -15,6 +15,7 @@
 
 import * as framework from './cast.framework';
 import { PlayerDataChangedEvent } from './cast.framework.ui';
+import { Event as SystemEvent } from './cast.framework.system';
 import {
     Event,
     Id3Event,
@@ -45,6 +46,7 @@ declare global {
     const cast: { framework: typeof framework };
 
     type EventHandler = (event: Event) => void;
+    type SystemEventHandler = (event: SystemEvent) => void;
     type Id3EventHandler = (event: Id3Event) => void;
     type ErrorEventHandler = (event: ErrorEvent) => void;
     type MediaElementEventHandler = (event: MediaElementEvent) => void;

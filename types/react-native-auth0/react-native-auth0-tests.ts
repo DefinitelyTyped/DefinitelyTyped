@@ -79,3 +79,22 @@ auth0.users('token').patchUser<{ firstName: string; lastName: string }>({
     id: 'userId',
     metadata: { firstName: 'John', lastName: 'Dow' },
 });
+
+auth0.auth.passwordlessWithEmail({
+    email: 'info@auth0.com',
+    send: 'link',
+});
+
+auth0.auth.passwordlessWithSMS({
+    phoneNumber: '+5491159991000',
+});
+
+auth0.auth.loginWithEmail({
+    email: 'info@auth0.com',
+    code: '123456',
+});
+
+auth0.auth.loginWithSMS({
+    phoneNumber: 'info@auth0.com',
+    code: '123456',
+});

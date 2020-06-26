@@ -4,12 +4,14 @@
 //                 A.Mokhtar <https://github.com/xMokAx>,
 //                 Awwit <https://github.com/awwit>
 //                 wroughtec <https://github.com/wroughtec>
+//                 O.Jackman <https://github.com/chilledoj>
+//                 Eyas <https://github.com/Eyas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { Location as HLocation } from 'history';
-export type WindowLocation = Window['location'] & HLocation;
+import { Location as HLocation, LocationState } from 'history';
+export type WindowLocation<S = LocationState> = Window['location'] & HLocation<S>;
 
 export type HistoryActionType = 'PUSH' | 'POP';
 export type HistoryLocation = WindowLocation & { state?: any };
@@ -56,6 +58,8 @@ export interface LinkProps<TState> extends AnchorProps {
     replace?: boolean;
     getProps?: (props: LinkGetProps) => {};
     state?: TState;
+    /** @deprecated If using React >= 16.4, use ref instead. */
+    innerRef?: React.Ref<HTMLAnchorElement>;
 }
 
 export interface LinkGetProps {
@@ -65,7 +69,14 @@ export interface LinkGetProps {
     location: WindowLocation;
 }
 
-export class Link<TState> extends React.Component<LinkProps<TState>> {}
+export function Link<TState>(
+    // TODO: Define this as ...params: Parameters<Link<TState>> when only TypeScript >= 3.1 support is needed.
+    props: React.PropsWithoutRef<LinkProps<TState>> & React.RefAttributes<HTMLAnchorElement>,
+): ReturnType<Link<TState>>;
+export interface Link<TState>
+    extends React.ForwardRefExoticComponent<
+        React.PropsWithoutRef<LinkProps<TState>> & React.RefAttributes<HTMLAnchorElement>
+    > {}
 
 export interface RedirectProps<TState> {
     from?: string;
@@ -85,7 +96,7 @@ export interface MatchProps<TParams> {
 export type MatchRenderFn<TParams> = (props: MatchRenderProps<TParams>) => React.ReactNode;
 
 export interface MatchRenderProps<TParams> {
-    match: null | { uri: string; path: string } & TParams;
+    match: null | ({ uri: string; path: string } & TParams);
     location: WindowLocation;
     navigate: NavigateFn;
 }
@@ -161,4 +172,4 @@ export function useNavigate(): NavigateFn;
 
 export function useParams(): any;
 
-export function useMatch(pathname: string): null | { uri: string; path: string };
+export function useMatch(pathname: string): null | { uri: string; path: string; [param: string]: string };

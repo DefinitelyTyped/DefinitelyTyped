@@ -4,6 +4,7 @@
 //                 Adrien Etienne <https://github.com/AdrienEtienne>
 //                 Jonathan Fleckenstein <https://github.com/fleck>
 //                 James Lismore <https://github.com/jlismore>
+//                 Dragoș Străinu <https://github.com/strdr4605>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -31,6 +32,20 @@ export function isPossiblePhoneNumber(value: string): boolean;
  * Validates a phone number value
  */
 export function isValidPhoneNumber(value?: string): boolean;
+
+export function parsePhoneNumber(input: string): PhoneNumber | undefined;
+
+/**
+ * @see https://github.com/catamphetamine/libphonenumber-js#phonenumber
+ */
+export interface PhoneNumber {
+    number: string;
+    countryCallingCode: string;
+    nationalNumber: string;
+    country?: string;
+    ext?: string;
+    carrierCode?: string;
+}
 
 /**
  * This is simply an alias for getCountryCallingCode() from libphonenumber-js
@@ -79,6 +94,14 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * @example ["RU", "UA", "KZ"]
      */
     countries?: string[];
+
+    /**
+     * If country is specified then the phone number can only be input in "national"
+     * (not "international") format, and will be parsed as a phone number belonging
+     * to the country. Example: country="US"
+     */
+    country?: string;
+
     /**
      * Can be used to place some countries on top of the list of country <select/> options.
      *  - "|" — inserts a separator.
@@ -137,6 +160,19 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
     inputComponent?: React.ForwardRefExoticComponent<
         React.InputHTMLAttributes<HTMLInputElement> & React.RefAttributes<any>
     >;
+
+    /**
+     * If country is specified and international property is true then the phone number can only be input
+     * in "international" format for that country, but without "country calling code" part.
+     * For example, if country is "US" and international property is not passed then the phone number can
+     * only be input in the "national" format for US ((213) 373-4253). But if country is "US" and
+     * international property is true then the phone number will be input in the "international" format
+     * for US (213 373 4253) without "country calling code" part (+1). This could be used for implementing
+     * phone number input components that show "country calling code" part before the input field and then
+     * the user can fill in the rest of their phone number in the input field.
+     */
+    international?: boolean;
+
     /**
      * If `country` property is passed along with `international={true}` property
      * then the phone number will be input in "international" format for that `country`

@@ -11,6 +11,7 @@
 // TypeScript Version: 2.8
 
 import { Request, RequestHandler } from 'express';
+import { Readable } from 'stream';
 
 declare global {
     namespace Express {
@@ -31,13 +32,18 @@ declare global {
                 mimetype: string;
                 /** Size of the file in bytes. */
                 size: number;
-                /** `DiskStorage` Directory to which this file has been uploaded. */
+                /**
+                 * A readable stream of this file. Only available to the `_handleFile`
+                 * callback for custom `StorageEngine`s.
+                 */
+                stream: Readable;
+                /** `DiskStorage` only: Directory to which this file has been uploaded. */
                 destination: string;
-                /** `DiskStorage` Name of this file within `destination`. */
+                /** `DiskStorage` only: Name of this file within `destination`. */
                 filename: string;
-                /** `DiskStorage` Full path to the uploaded file. */
+                /** `DiskStorage` only: Full path to the uploaded file. */
                 path: string;
-                /** `MemoryStorage` A Buffer containing the entire file. */
+                /** `MemoryStorage` only: A Buffer containing the entire file. */
                 buffer: Buffer;
             }
         }

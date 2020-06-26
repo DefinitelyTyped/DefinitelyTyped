@@ -9,7 +9,9 @@ const refreshToken = (): Promise<void> => {
     refreshToken: string;
   }>(
     'url',
-    {},
+    {
+        method: "GET"
+    },
   ).then(() => {
     return;
   });

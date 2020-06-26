@@ -41,9 +41,24 @@ export interface ReactMicProps {
     /** Callback that is executed when chunk of audio is available */
     onData?: (recordedData: Blob) => void;
 
+    /** defaults -> "audio/webm".  Set to "audio/wav" for WAV or "audio/mp3" for MP3 audio format (available in React-Mic-Gold) */
+    mimeType?: 'audio/webm' | 'audio/wav';
+
     /** Sound wave color */
     strokeColor?: string;
 
     /** Background color */
     backgroundColor?: string;
+
+    /** Specify 1 for mono, defaults -> 2 (stereo) */
+    channelCount?: 1 | 2;
+
+    /** Enables/disables echo cancellation, defaults -> false */
+    echoCancellation?: boolean;
+
+    /** Enables/disables auto gain control, defaults -> false */
+    autoGainControl?: boolean;
+
+    /** Enables/disables background noise suppression, defaults -> false */
+    noiseSuppression?: boolean;
 }

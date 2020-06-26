@@ -1,10 +1,10 @@
 {
-  "extends": "dtslint/dt.json",
-  "rules": {
+    "extends": "dtslint/dt.json",
+    "rules": {
         "ban-types": false,
+        "interface-name": false,
         "no-any-union": false,
         "no-empty-interface": false,
-        "no-unnecessary-generics": false,
-        "interface-name": false
-  }
+        "no-unnecessary-generics": false
+    }
 }

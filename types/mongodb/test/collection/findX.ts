@@ -43,6 +43,8 @@ async function run() {
     const _b: Bag = b; // b is larger than bag and may contain extra properties
   });
   collection.findOne<Bag>({ color: 'white' }).then(b => {
-    b.cost;
+    if (b) {
+      b.cost; // $ExpectType number
+    }
   });
 }

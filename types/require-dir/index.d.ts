@@ -4,11 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface options {
-   recurse?: boolean;
-   duplicates?: boolean;
-   filter?: any;
-   mapKey?: any;
-   mapValue?: any;
+    recurse?: boolean;
+    duplicates?: boolean;
+    extensions?: string[];
+    filter?: any;
+    mapKey?: any;
+    mapValue?: any;
 }
 
 declare function requireDir(directory: string, options?: options): { [path: string]: any };

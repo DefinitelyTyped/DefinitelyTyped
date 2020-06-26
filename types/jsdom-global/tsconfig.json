@@ -2,6 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
+            "dom",
             "es6"
         ],
         "noImplicitAny": true,
@@ -12,9 +13,6 @@
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "parse5": [ "parse5/v4" ]
-        },
         "esModuleInterop": true,
         "types": [],
         "noEmit": true,

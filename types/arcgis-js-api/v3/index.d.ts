@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.31
+// Type definitions for ArcGIS API for JavaScript 3.32
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -2855,6 +2855,10 @@ declare module "esri/ServerInfo" {
     adminTokenServiceUrl: string;
     /** Version of the ArcGIS Server REST API deployed on this server. */
     currentVersion: number;
+    /** Indicates whether the server is a Portal instance. */
+    hasPortal: boolean;
+    /** Indicates whether the server is an ArcGIS Server instance. */
+    hasServer: boolean;
     /** The server URL. */
     server: string;
     /** Validity of short-lived token in minutes. */
@@ -17522,6 +17526,8 @@ declare module "esri/tasks/query" {
     static SPATIAL_REL_TOUCHES: any;
     /** The feature from feature class 1 is completely enclosed by the feature from feature class 2. */
     static SPATIAL_REL_WITHIN: any;
+    /** Indicates if the service should cache the query results. */
+    cacheHint: boolean;
     /** Buffer distance for input geometries. */
     distance: number;
     /** The geometry to apply to the spatial filter. */

@@ -194,9 +194,9 @@ module ChartComponent {
                 title: { text: "Efficiency" },
             },
             commonSeriesOptions:
-			{
+            {
                 type: 'line', enableAnimation: true,
-				tooltip:{ visible :true, template:'Tooltip'},
+                tooltip:{ visible :true, template:'Tooltip'},
                 marker:
                 {
                     shape: 'circle',
@@ -382,7 +382,7 @@ module ComboBoxComponent{
         var comboboxInstance =new ej.ComboBox($("#selectCar"), {
             width: "100%",
             placeholder: "Select a Bike",
-			fields: { text: "text", value: "empid" },
+            fields: { text: "text", value: "empid" },
             dataSource: BikeList,
             autofill: true
         });
@@ -501,14 +501,14 @@ module DialogComponent {
             width: 550,
             minWidth: 310,
             minHeight: 215,
-			target:".control",
+            target:".control",
             close:()=>{
-			$("#btnOpen").show();}
+            $("#btnOpen").show();}
         });
         var btnInstance = new ej.Button($("#btnOpen"), {
             size: "medium",
             click: ()=>{
-			$("#btnOpen").hide();
+            $("#btnOpen").hide();
         $("#basicDialog").ejDialog("open");},
             type: "button",
             height: 30,
@@ -800,7 +800,7 @@ module ListviewComponent {
     $(function () {
         var listviewInstance = new ej.ListView($("#defaultlistview"), {
             enableCheckMark: true,
-		    width: 400
+            width: 400
         });
     });
 }
@@ -1072,7 +1072,7 @@ module NavigationDrawerComponent {
             },
             position: "normal"
         });
-		$("#navpane_listview").click(function(e: any) {
+        $("#navpane_listview").click(function(e: any) {
             var text=e.target["text"]||$(e.target).closest("li.e-list").text();
             $("#butdrawer").parent().children("h2").text(text);
         });
@@ -1096,39 +1096,39 @@ module PivotChartOlap {
     $(function () {
         var sample = new ej.PivotChart($("#PivotChart"),{
             dataSource: {
-			data: "//bi.syncfusion.com/olap/msmdpump.dll",
-			catalog: "Adventure Works DW 2008 SE",
-			cube: "Adventure Works",
-			rows: [
-				{
-					fieldName: "[Date].[Fiscal]"
-				}
-			],
-			columns: [
-				{
-					fieldName: "[Customer].[Customer Geography]"
-				}
-			],
-			values: [
-				{
-					measures: [
-						{
-							fieldName: "[Measures].[Internet Sales Amount]"
-						}
-                    ],
-					axis: "columns"
-				}
+            data: "//bi.syncfusion.com/olap/msmdpump.dll",
+            catalog: "Adventure Works DW 2008 SE",
+            cube: "Adventure Works",
+            rows: [
+                {
+                    fieldName: "[Date].[Fiscal]"
+                }
             ],
-			filters:[]
+            columns: [
+                {
+                    fieldName: "[Customer].[Customer Geography]"
+                }
+            ],
+            values: [
+                {
+                    measures: [
+                        {
+                            fieldName: "[Measures].[Internet Sales Amount]"
+                        }
+                    ],
+                    axis: "columns"
+                }
+            ],
+            filters:[]
         },
-		isResponsive: true,zooming:{enableScrollbar: true},
+        isResponsive: true,zooming:{enableScrollbar: true},
         commonSeriesOptions: {
-			type: "column"
-		},
-		size: { height: "460px", width: "100%" },
-		primaryXAxis: { title: { text: "Date - Fiscal" }, labelRotation: 0 },
-		primaryYAxis: { title: { text: "Internet Sales Amount" } },
-		legend: { visible: true, rowCount: 2 },
+            type: "column"
+        },
+        size: { height: "460px", width: "100%" },
+        primaryXAxis: { title: { text: "Date - Fiscal" }, labelRotation: 0 },
+        primaryYAxis: { title: { text: "Internet Sales Amount" } },
+        legend: { visible: true, rowCount: 2 },
         load: function () {
                 var PivotChart = (<any>window).themeStyle + (<any>window).themeColor + (<any>window).themeVarient;
                 PivotChart = PivotChart.toString();
@@ -1176,42 +1176,42 @@ module PivotChartRelational {
     $(function () {
         var sample = new ej.PivotChart($("#PivotChart"),{
             dataSource: {
-			data: pivot_dataset,
-			rows: [
-				{
-					fieldName: "Country",
-					fieldCaption: "Country"
-				},
-				{
-					fieldName: "State",
-					fieldCaption: "State"
-				},
-				{
-					fieldName: "Date",
-					fieldCaption: "Date"
-				}
-			],
-			columns: [
-				{
-					fieldName: "Product",
-					fieldCaption: "Product"
-				}
-			],
-			values: [
-				{
-					fieldName: "Amount",
-					fieldCaption: "Amount"
-				}
-			],
-			filters:[]
-		},
-		isResponsive: true,zooming:{enableScrollbar: true},
-		commonSeriesOptions: {
-			type: "column"
-		},
-		size: { height: "460px", width: "100%" },
-		primaryYAxis: { title: { text: "Amount" } },
-		legend: { visible: true },
+            data: pivot_dataset,
+            rows: [
+                {
+                    fieldName: "Country",
+                    fieldCaption: "Country"
+                },
+                {
+                    fieldName: "State",
+                    fieldCaption: "State"
+                },
+                {
+                    fieldName: "Date",
+                    fieldCaption: "Date"
+                }
+            ],
+            columns: [
+                {
+                    fieldName: "Product",
+                    fieldCaption: "Product"
+                }
+            ],
+            values: [
+                {
+                    fieldName: "Amount",
+                    fieldCaption: "Amount"
+                }
+            ],
+            filters:[]
+        },
+        isResponsive: true,zooming:{enableScrollbar: true},
+        commonSeriesOptions: {
+            type: "column"
+        },
+        size: { height: "460px", width: "100%" },
+        primaryYAxis: { title: { text: "Amount" } },
+        legend: { visible: true },
         load: function () {
                 var PivotChart = (<any>window).themeStyle + (<any>window).themeColor + (<any>window).themeVarient;
                 PivotChart = PivotChart.toString();
@@ -1232,98 +1232,98 @@ module PivotGaugeOlap {
     $(function () {
         var sample = new ej.PivotGauge($("#PivotGauge"),{
             dataSource: {
-				data: "//bi.syncfusion.com/olap/msmdpump.dll",
-				catalog: "Adventure Works DW 2008 SE",
-				cube: "Adventure Works",
-				rows: [
-					{
-						fieldName: "[Date].[Fiscal]",
-						filterItems: { filterType: "include", values: ["[Date].[Fiscal].[Fiscal Year].&amp;[2004]"] }
-					},
-				],
-				columns: [
-					{
-						fieldName: "[Customer].[Customer Geography]"
-					}
-				],
-				values: [
-					{
-						measures: [
-							{
-								fieldName: "[Measures].[Internet Sales Amount]"
-							},
-							{
-								fieldName: "[Measures].[Internet Revenue Status]"
-							},
-							{
-								fieldName: "[Measures].[Internet Revenue Trend]"
-							},
-							{
-								fieldName: "[Measures].[Internet Revenue Goal]"
-							},
-						],
-						axis: "columns"
-					}
-				],
-				filters:[]
-			},
+                data: "//bi.syncfusion.com/olap/msmdpump.dll",
+                catalog: "Adventure Works DW 2008 SE",
+                cube: "Adventure Works",
+                rows: [
+                    {
+                        fieldName: "[Date].[Fiscal]",
+                        filterItems: { filterType: "include", values: ["[Date].[Fiscal].[Fiscal Year].&amp;[2004]"] }
+                    },
+                ],
+                columns: [
+                    {
+                        fieldName: "[Customer].[Customer Geography]"
+                    }
+                ],
+                values: [
+                    {
+                        measures: [
+                            {
+                                fieldName: "[Measures].[Internet Sales Amount]"
+                            },
+                            {
+                                fieldName: "[Measures].[Internet Revenue Status]"
+                            },
+                            {
+                                fieldName: "[Measures].[Internet Revenue Trend]"
+                            },
+                            {
+                                fieldName: "[Measures].[Internet Revenue Goal]"
+                            },
+                        ],
+                        axis: "columns"
+                    }
+                ],
+                filters:[]
+            },
             enableTooltip: true, isResponsive: true,
             labelFormatSettings: { decimalPlaces: 2 },
-			scales: [{
-				showRanges: true,
-				radius: 150, showScaleBar: true, size: 1,
+            scales: [{
+                showRanges: true,
+                radius: 150, showScaleBar: true, size: 1,
                 border: {
-					width: 0.5
-				},
-				showIndicators: true, showLabels: true,
-                pointers: [{
-					showBackNeedle: true,
-					backNeedleLength: 20,
-					length: 120,
-					width: 7
+                    width: 0.5
                 },
-				{
-					type: "marker",
-					markerType: "diamond",
-					distanceFromScale: 5,
-					placement: "center",
-					backgroundColor: "#29A4D9",
-					length: 25,
-					width: 15
-				}],
-                ticks: [{
-					type: "major",
-                    distanceFromScale: 2,
-					height: 16,
-					width: 1, color: "#8c8c8c"
-				},
+                showIndicators: true, showLabels: true,
+                pointers: [{
+                    showBackNeedle: true,
+                    backNeedleLength: 20,
+                    length: 120,
+                    width: 7
+                },
                 {
-					type: "minor",
-					height: 6,
-					width: 1,
-					distanceFromScale: 2,
+                    type: "marker",
+                    markerType: "diamond",
+                    distanceFromScale: 5,
+                    placement: "center",
+                    backgroundColor: "#29A4D9",
+                    length: 25,
+                    width: 15
+                }],
+                ticks: [{
+                    type: "major",
+                    distanceFromScale: 2,
+                    height: 16,
+                    width: 1, color: "#8c8c8c"
+                },
+                {
+                    type: "minor",
+                    height: 6,
+                    width: 1,
+                    distanceFromScale: 2,
                     color: "#8c8c8c"
                 }],
                 labels: [{
                     color: "#8c8c8c"
-				}],
-                ranges: [{
-					distanceFromScale: -5,
-                    backgroundColor: "#fc0606",
-					border: { color: "#fc0606" }
-                },
-				{
-					distanceFromScale: -5
                 }],
-				customLabels: [{
-					position: { x: 180, y: 290 },
-					font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
+                ranges: [{
+                    distanceFromScale: -5,
+                    backgroundColor: "#fc0606",
+                    border: { color: "#fc0606" }
                 },
-				{
-					position: { x: 180, y: 320 },
-					font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
+                {
+                    distanceFromScale: -5
+                }],
+                customLabels: [{
+                    position: { x: 180, y: 290 },
+                    font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
                 },
-				{
+                {
+                    position: { x: 180, y: 320 },
+                    font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
+                },
+                {
                     position: { x: 180, y: 150 },
                     font: { size: "12px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
                 }]
@@ -1365,86 +1365,86 @@ module PivotGaugeRelational {
     $(function () {
         var sample = new ej.PivotGauge($("#PivotGauge"),{
             dataSource: {
-				data: pivot_dataset,
-				rows: [
-					{
-						fieldName: "Country",
-					},
-					{
-						fieldName: "State",
-					}
-				],
-				columns: [
-					{
-						fieldName: "Product",
-					}
-				],
+                data: pivot_dataset,
+                rows: [
+                    {
+                        fieldName: "Country",
+                    },
+                    {
+                        fieldName: "State",
+                    }
+                ],
+                columns: [
+                    {
+                        fieldName: "Product",
+                    }
+                ],
                 values: [
-					{
-						fieldName: "Amount",
-					},
-					{
-						fieldName: "Quantity",
-					}
-				]
-			},
+                    {
+                        fieldName: "Amount",
+                    },
+                    {
+                        fieldName: "Quantity",
+                    }
+                ]
+            },
             enableTooltip: true, isResponsive: true,
             labelFormatSettings: { decimalPlaces: 2 },
-			scales: [{
-				showRanges: true,
-				radius: 150, showScaleBar: true, size: 1,
+            scales: [{
+                showRanges: true,
+                radius: 150, showScaleBar: true, size: 1,
                 border: {
-					width: 0.5
-				},
-				showIndicators: true, showLabels: true,
-                pointers: [{
-					showBackNeedle: true,
-					backNeedleLength: 20,
-					length: 120,
-					width: 7
+                    width: 0.5
                 },
-				{
-					type: "marker",
-					markerType: "diamond",
-					distanceFromScale: 5,
-					placement: "center",
-					backgroundColor: "#29A4D9",
-					length: 25,
-					width: 15
-				}],
-                ticks: [{
-					type: "major",
-                    distanceFromScale: 2,
-					height: 16,
-					width: 1, color: "#8c8c8c"
-				},
+                showIndicators: true, showLabels: true,
+                pointers: [{
+                    showBackNeedle: true,
+                    backNeedleLength: 20,
+                    length: 120,
+                    width: 7
+                },
                 {
-					type: "minor",
-					height: 6,
-					width: 1,
-					distanceFromScale: 2,
+                    type: "marker",
+                    markerType: "diamond",
+                    distanceFromScale: 5,
+                    placement: "center",
+                    backgroundColor: "#29A4D9",
+                    length: 25,
+                    width: 15
+                }],
+                ticks: [{
+                    type: "major",
+                    distanceFromScale: 2,
+                    height: 16,
+                    width: 1, color: "#8c8c8c"
+                },
+                {
+                    type: "minor",
+                    height: 6,
+                    width: 1,
+                    distanceFromScale: 2,
                     color: "#8c8c8c"
                 }],
                 labels: [{
                     color: "#8c8c8c"
-				}],
-                ranges: [{
-					distanceFromScale: -5,
-                    backgroundColor: "#fc0606",
-					border: { color: "#fc0606" }
-                },
-				{
-					distanceFromScale: -5
                 }],
-				customLabels: [{
-					position: { x: 180, y: 290 },
-					font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
+                ranges: [{
+                    distanceFromScale: -5,
+                    backgroundColor: "#fc0606",
+                    border: { color: "#fc0606" }
                 },
-				{
-					position: { x: 180, y: 320 },
-					font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
+                {
+                    distanceFromScale: -5
+                }],
+                customLabels: [{
+                    position: { x: 180, y: 290 },
+                    font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
                 },
-				{
+                {
+                    position: { x: 180, y: 320 },
+                    font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
+                },
+                {
                     position: { x: 180, y: 150 },
                     font: { size: "12px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
                 }]
@@ -1460,31 +1460,31 @@ module PivotGridOlap {
     $(function () {
         var sample = new ej.PivotGrid($("#PivotGrid"),{
             dataSource: {
-			data: "//bi.syncfusion.com/olap/msmdpump.dll",
-			catalog: "Adventure Works DW 2008 SE",
-			cube: "Adventure Works",
-			rows: [
-				{
-					fieldName: "[Date].[Fiscal]"
-				}
-			],
-			columns: [
-				{
-					fieldName: "[Customer].[Customer Geography]"
-				}
-			],
+            data: "//bi.syncfusion.com/olap/msmdpump.dll",
+            catalog: "Adventure Works DW 2008 SE",
+            cube: "Adventure Works",
+            rows: [
+                {
+                    fieldName: "[Date].[Fiscal]"
+                }
+            ],
+            columns: [
+                {
+                    fieldName: "[Customer].[Customer Geography]"
+                }
+            ],
             values: [
-				{
-					measures: [
-						{
-							fieldName: "[Measures].[Internet Sales Amount]",
-						}
+                {
+                    measures: [
+                        {
+                            fieldName: "[Measures].[Internet Sales Amount]",
+                        }
                     ],
-					axis: "columns"
-				}
-			],
-			filters:[]
-		},
+                    axis: "columns"
+                }
+            ],
+            filters:[]
+        },
         enableGroupingBar: true,
         pivotTableFieldListID:"PivotSchemaDesigner"
         });
@@ -1525,35 +1525,35 @@ module PivotGridRelational {
     $(function () {
         var sample = new ej.PivotGrid($("#PivotGrid"),{
             dataSource: {
-			data: pivot_dataset,
-			rows: [
-				{
-					fieldName: "Country",
-					fieldCaption: "Country"
-				},
-				{
-					fieldName: "State",
-					fieldCaption: "State"
-				}
-			],
-			columns:
-				[{
-					fieldName: "Product",
-					fieldCaption: "Product"
-				}
-			],
-			values: [
-				{
-					fieldName: "Amount",
-                    fieldCaption: "Amount"
-				},
-				{
-					fieldName: "Quantity",
-					fieldCaption: "Quantity"
-				}
+            data: pivot_dataset,
+            rows: [
+                {
+                    fieldName: "Country",
+                    fieldCaption: "Country"
+                },
+                {
+                    fieldName: "State",
+                    fieldCaption: "State"
+                }
             ],
-			filters:[]
-		},
+            columns:
+                [{
+                    fieldName: "Product",
+                    fieldCaption: "Product"
+                }
+            ],
+            values: [
+                {
+                    fieldName: "Amount",
+                    fieldCaption: "Amount"
+                },
+                {
+                    fieldName: "Quantity",
+                    fieldCaption: "Quantity"
+                }
+            ],
+            filters:[]
+        },
         enableGroupingBar: true,
         pivotTableFieldListID:"PivotSchemaDesigner"
         });
@@ -1567,31 +1567,31 @@ module PivotTreeMap {
     $(function () {
         var sample = new ej.PivotTreeMap($("#PivotTreeMap"),{
             dataSource: {
-			data: "//bi.syncfusion.com/olap/msmdpump.dll;Locale Identifier=1033;",
-			catalog: "Adventure Works DW 2008 SE",
-			cube: "Adventure Works",
-			rows: [
-				{
-					fieldName: "[Customer].[Customer Geography]"
-				}
-			],
-			columns: [
-				{
-					fieldName: "[Date].[Fiscal]"
-				}
-			],
+            data: "//bi.syncfusion.com/olap/msmdpump.dll;Locale Identifier=1033;",
+            catalog: "Adventure Works DW 2008 SE",
+            cube: "Adventure Works",
+            rows: [
+                {
+                    fieldName: "[Customer].[Customer Geography]"
+                }
+            ],
+            columns: [
+                {
+                    fieldName: "[Date].[Fiscal]"
+                }
+            ],
             values: [
-				{
-					measures: [
-						{
-							fieldName: "[Measures].[Customer Count]",
-						}
-					],
-					axis: "columns"
-				}
-			],
-			filters:[]
-		}
+                {
+                    measures: [
+                        {
+                            fieldName: "[Measures].[Customer Count]",
+                        }
+                    ],
+                    axis: "columns"
+                }
+            ],
+            filters:[]
+        }
         });
     });
 }
@@ -1630,7 +1630,7 @@ module RadialMenuComponent {
                 backImageClass: "backimageclass",
                 targetElementId: "radialtarget1"
             });
-			$("#radialtarget1").parent().css("position", "relative");
+            $("#radialtarget1").parent().css("position", "relative");
         }
         else {
             $("#contentDiv").html("Radial Menu is only supported from Internet Explorer Versioned 9 and above.").css({ "font-size": "20px", "color": "red" });
@@ -1878,14 +1878,14 @@ module RatingComponent {
 
 
 module ReportViewerComponent {
-	$(function () {
+    $(function () {
         var report = new ej.ReportViewer($("#DefaultReportViewer"), {
-			reportServiceUrl: (<any>window).baseurl + 'api/ReportViewer',
-			processingMode: ej.ReportViewer.ProcessingMode.Remote,
+            reportServiceUrl: (<any>window).baseurl + 'api/ReportViewer',
+            processingMode: ej.ReportViewer.ProcessingMode.Remote,
             reportPath: "ConditionalFormating.rdl",
-			isResponsive: true
-		});
-	});
+            isResponsive: true
+        });
+    });
 }
 
 
@@ -2958,9 +2958,9 @@ $(function () {
                 pdfUrl: (<any>window).baseurl + "api/Spreadsheet/PdfExport"
             },
             sheets: [{ rangeSettings: [{ dataSource: (<any>window).defaultData, startCell: "A1" }] }],
-			loadComplete: () => {
-			var spreadsheet = $("#basicSpreadsheet").data("ejSpreadsheet"), xlFormat = spreadsheet.XLFormat;
-			if (!(<any>spreadsheet).isImport) {
+            loadComplete: () => {
+            var spreadsheet = $("#basicSpreadsheet").data("ejSpreadsheet"), xlFormat = spreadsheet.XLFormat;
+            if (!(<any>spreadsheet).isImport) {
         spreadsheet.setWidthToColumns([140, 128, 105, 100, 100, 110, 120, 120, 100]);
         xlFormat.format({ "style": { "font-weight": "bold" } }, "A1:H1");
         xlFormat.format({ "type": "currency" }, "E2:H11");
@@ -2974,39 +2974,39 @@ $(function () {
 
 var default_data: Array<Object> = [
     { Category : "Employees", Country : "USA", JobDescription : "Sales",         JobGroup:"Executive",                         EmployeesCount : 50 },
-	{ Category : "Employees", Country : "USA", JobDescription : "Sales",         JobGroup : "Analyst",                         EmployeesCount : 40 },
-	{ Category : "Employees", Country : "USA", JobDescription : "Marketing",                                                   EmployeesCount : 40 },
-	{ Category : "Employees", Country : "USA", JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 55 },
-	{ Category : "Employees", Country : "USA", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 175},
-	{ Category : "Employees", Country : "USA", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 70 },
-	{ Category : "Employees", Country : "USA", JobDescription : "Management",                                                  EmployeesCount : 40 },
-	{ Category : "Employees", Country : "USA", JobDescription : "Accounts",                                                    EmployeesCount : 60 },
+    { Category : "Employees", Country : "USA", JobDescription : "Sales",         JobGroup : "Analyst",                         EmployeesCount : 40 },
+    { Category : "Employees", Country : "USA", JobDescription : "Marketing",                                                   EmployeesCount : 40 },
+    { Category : "Employees", Country : "USA", JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 55 },
+    { Category : "Employees", Country : "USA", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 175},
+    { Category : "Employees", Country : "USA", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 70 },
+    { Category : "Employees", Country : "USA", JobDescription : "Management",                                                  EmployeesCount : 40 },
+    { Category : "Employees", Country : "USA", JobDescription : "Accounts",                                                    EmployeesCount : 60 },
 
-	{ Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 43 },
-	{ Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 125},
-	{ Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 60 },
-	{ Category : "Employees", Country : "India",   JobDescription : "HR Executives",                                               EmployeesCount : 70 },
-	{ Category : "Employees", Country : "India",   JobDescription : "Accounts",                                                    EmployeesCount : 45 },
+    { Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 43 },
+    { Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 125},
+    { Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 60 },
+    { Category : "Employees", Country : "India",   JobDescription : "HR Executives",                                               EmployeesCount : 70 },
+    { Category : "Employees", Country : "India",   JobDescription : "Accounts",                                                    EmployeesCount : 45 },
 
-	{ Category : "Employees", Country : "Germany", JobDescription : "Sales",         JobGroup : "Executive",                       EmployeesCount : 30 },
-	{ Category : "Employees", Country : "Germany", JobDescription : "Sales",         JobGroup : "Analyst",                         EmployeesCount : 40 },
-	{ Category : "Employees", Country : "Germany", JobDescription : "Marketing",                                                   EmployeesCount : 50 },
-	{ Category : "Employees", Country : "Germany", JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 40 },
-	{ Category : "Employees", Country : "Germany", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 65 },
-	{ Category : "Employees", Country : "Germany", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 27 },
-	{ Category : "Employees", Country : "Germany", JobDescription : "Management",                                                  EmployeesCount : 33 },
-	{ Category : "Employees", Country : "Germany", JobDescription : "Accounts",                                                    EmployeesCount : 55 },
+    { Category : "Employees", Country : "Germany", JobDescription : "Sales",         JobGroup : "Executive",                       EmployeesCount : 30 },
+    { Category : "Employees", Country : "Germany", JobDescription : "Sales",         JobGroup : "Analyst",                         EmployeesCount : 40 },
+    { Category : "Employees", Country : "Germany", JobDescription : "Marketing",                                                   EmployeesCount : 50 },
+    { Category : "Employees", Country : "Germany", JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 40 },
+    { Category : "Employees", Country : "Germany", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 65 },
+    { Category : "Employees", Country : "Germany", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 27 },
+    { Category : "Employees", Country : "Germany", JobDescription : "Management",                                                  EmployeesCount : 33 },
+    { Category : "Employees", Country : "Germany", JobDescription : "Accounts",                                                    EmployeesCount : 55 },
 
-	{ Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 45 },
-	{ Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 96 },
-	{ Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 55 },
-	{ Category : "Employees", Country : "UK",      JobDescription : "HR Executives",                                               EmployeesCount : 60 },
-	{ Category : "Employees", Country : "UK",      JobDescription: "Accounts",                                                     EmployeesCount: 30  },
+    { Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 45 },
+    { Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 96 },
+    { Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 55 },
+    { Category : "Employees", Country : "UK",      JobDescription : "HR Executives",                                               EmployeesCount : 60 },
+    { Category : "Employees", Country : "UK",      JobDescription: "Accounts",                                                     EmployeesCount: 30  },
 
-	{ Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 40 },
-	{ Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 65 },
-	{ Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 27 },
-	{ Category : "Employees", Country : "France", JobDescription: "Marketing",                                                     EmployeesCount: 50  }
+    { Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 40 },
+    { Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 65 },
+    { Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 27 },
+    { Category : "Employees", Country : "France", JobDescription: "Marketing",                                                     EmployeesCount: 50  }
 ];
 
 module sunburstcomponent {
@@ -3015,16 +3015,16 @@ module sunburstcomponent {
             valueMemberPath: "EmployeesCount",
             levels: [
                 {groupMemberPath: "Country"},
-				{groupMemberPath: "JobDescription"},
-				{groupMemberPath: "JobGroup"},
-				{groupMemberPath: "JobRole"}
+                {groupMemberPath: "JobDescription"},
+                {groupMemberPath: "JobGroup"},
+                {groupMemberPath: "JobRole"}
             ],
             dataSource: default_data,
             dataLabelSettings:{visible:true},
-			tooltip:{visible:false},
-			enableAnimation:false,
-			size:{height:"600"},
-			innerRadius:0.2,
+            tooltip:{visible:false},
+            enableAnimation:false,
+            size:{height:"600"},
+            innerRadius:0.2,
             load: function () {
                 var sender = $("#Sunburst").data("ejSunburstChart");
                 var SunBurstTheme = (<any>window).themeStyle + (<any>window).themeColor + (<any>window).themeVarient;
@@ -3035,9 +3035,9 @@ module sunburstcomponent {
                     SunBurstTheme = "flatlight";
                 sender.model.theme = SunBurstTheme;
             },
-			title:{text:"Employees Count"},
-			zoomSettings:{enable:false},
-			legend:{visible:true,position:'top'},
+            title:{text:"Employees Count"},
+            zoomSettings:{enable:false},
+            legend:{visible:true,position:'top'},
         });
     });
 }
@@ -3133,75 +3133,75 @@ module TileViewComponent {
     $(function () {
         var tile1 = new ej.Tile($("#tile1"), {
             imagePosition:"fill",
-			caption:{text:"People"},
-			tileSize:"medium",
-			imageUrl:'content/images/tile/windows/people_1.png'
+            caption:{text:"People"},
+            tileSize:"medium",
+            imageUrl:'content/images/tile/windows/people_1.png'
         });
-		var tile2 = new ej.Tile($("#tile2"), {
+        var tile2 = new ej.Tile($("#tile2"), {
             imagePosition:"center",
-			tileSize:"small",
-			imageUrl:'content/images/tile/windows/alerts.png',
-        });
-		var tile3 = new ej.Tile($("#tile3"), {
-            imagePosition:"center",
-			tileSize:"small",
-			imageUrl:'content/images/tile/windows/bing.png',
-        });
-		var tile4 = new ej.Tile($("#tile4"), {
             tileSize:"small",
-		 	imageUrl:'content/images/tile/windows/camera.png',
+            imageUrl:'content/images/tile/windows/alerts.png',
         });
-		var tile5 = new ej.Tile($("#tile5"), {
+        var tile3 = new ej.Tile($("#tile3"), {
             imagePosition:"center",
-			tileSize:"small",
-			imageUrl:'content/images/tile/windows/messages.png',
+            tileSize:"small",
+            imageUrl:'content/images/tile/windows/bing.png',
         });
-		var tile6 = new ej.Tile($("#tile6"), {
+        var tile4 = new ej.Tile($("#tile4"), {
+            tileSize:"small",
+             imageUrl:'content/images/tile/windows/camera.png',
+        });
+        var tile5 = new ej.Tile($("#tile5"), {
             imagePosition:"center",
-			tileSize:"medium",
-			imageUrl:'content/images/tile/windows/games.png',
-			caption:{text:"Play"}
+            tileSize:"small",
+            imageUrl:'content/images/tile/windows/messages.png',
         });
-		var tile7 = new ej.Tile($("#tile7"), {
-			tileSize:"medium",
-			imageUrl:'content/images/tile/windows/map.png',
-			caption:{text:"Maps"}
+        var tile6 = new ej.Tile($("#tile6"), {
+            imagePosition:"center",
+            tileSize:"medium",
+            imageUrl:'content/images/tile/windows/games.png',
+            caption:{text:"Play"}
         });
-		var tile8 = new ej.Tile($("#tile8"), {
+        var tile7 = new ej.Tile($("#tile7"), {
+            tileSize:"medium",
+            imageUrl:'content/images/tile/windows/map.png',
+            caption:{text:"Maps"}
+        });
+        var tile8 = new ej.Tile($("#tile8"), {
             imagePosition:"fill",
-			tileSize:"wide",
-			imageUrl:'content/images/tile/windows/sports.png',
-			caption:{text:"Sports"}
+            tileSize:"wide",
+            imageUrl:'content/images/tile/windows/sports.png',
+            caption:{text:"Sports"}
         });
-		var tile9 = new ej.Tile($("#tile9"), {
+        var tile9 = new ej.Tile($("#tile9"), {
             imagePosition:"fill",
-			tileSize:"medium",
-			imageUrl:'content/images/tile/windows/people_2.png',
-			caption:{text:"People"}
+            tileSize:"medium",
+            imageUrl:'content/images/tile/windows/people_2.png',
+            caption:{text:"People"}
         });
-		var tile10 = new ej.Tile($("#tile10"), {
+        var tile10 = new ej.Tile($("#tile10"), {
             imagePosition:"center",
-			tileSize:"medium",
-			imageUrl:'content/images/tile/windows/pictures.png',
-			caption:{text:"Photo"}
+            tileSize:"medium",
+            imageUrl:'content/images/tile/windows/pictures.png',
+            caption:{text:"Photo"}
         });
-		var tile11 = new ej.Tile($("#tile11"), {
+        var tile11 = new ej.Tile($("#tile11"), {
             imagePosition:"center",
-			tileSize:"wide",
-			imageUrl:'content/images/tile/windows/weather.png',
-			caption:{text:"Weather"}
+            tileSize:"wide",
+            imageUrl:'content/images/tile/windows/weather.png',
+            caption:{text:"Weather"}
         });
-		var tile12 = new ej.Tile($("#tile12"), {
+        var tile12 = new ej.Tile($("#tile12"), {
             imagePosition:"center",
-			tileSize:"medium",
-			imageUrl:'content/images/tile/windows/music.png',
-			caption:{text:"Music"}
+            tileSize:"medium",
+            imageUrl:'content/images/tile/windows/music.png',
+            caption:{text:"Music"}
         });
-		var tile13 = new ej.Tile($("#tile13"), {
+        var tile13 = new ej.Tile($("#tile13"), {
             imagePosition:"center",
-			tileSize:"medium",
-			imageUrl:'content/images/tile/windows/favs.png',
-			caption:{text:"Favorites"}
+            tileSize:"medium",
+            imageUrl:'content/images/tile/windows/favs.png',
+            caption:{text:"Favorites"}
         });
     });
 }
@@ -3415,8 +3415,8 @@ module WaitingPopupComponent {
             showOnInit: true,
             showImage: true,
             text: 'waiting&hellip;',
-			target: "#target",
-			appendTo: "#waiting"
+            target: "#target",
+            appendTo: "#waiting"
         });
     });
 

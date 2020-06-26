@@ -312,16 +312,24 @@ export namespace Rule {
         report(descriptor: ReportDescriptor): void;
     }
 
+    interface ReportDescriptorOptionsBase {
+        data?: { [key: string]: string };
+
+        fix?: null | ((fixer: RuleFixer) => null | Fix | IterableIterator<Fix> | Fix[]);
+    }
+
+    type SuggestionDescriptorMessage = { desc: string } | { messageId: string };
+    type SuggestionReportDescriptor = SuggestionDescriptorMessage & ReportDescriptorOptionsBase;
+
+    interface ReportDescriptorOptions extends ReportDescriptorOptionsBase {
+        suggest?: SuggestionReportDescriptor[] | null;
+    }
+
     type ReportDescriptor = ReportDescriptorMessage & ReportDescriptorLocation & ReportDescriptorOptions;
     type ReportDescriptorMessage = { message: string } | { messageId: string };
     type ReportDescriptorLocation =
         | { node: ESTree.Node }
         | { loc: AST.SourceLocation | { line: number; column: number } };
-    interface ReportDescriptorOptions {
-        data?: { [key: string]: string };
-
-        fix?(fixer: RuleFixer): null | Fix | IterableIterator<Fix> | Fix[];
-    }
 
     interface RuleFixer {
         insertTextAfter(nodeOrToken: ESTree.Node | AST.Token, text: string): Fix;
@@ -350,7 +358,11 @@ export namespace Rule {
 //#region Linter
 
 export class Linter {
+    static version: string;
+
     version: string;
+
+    constructor(options?: { cwd?: string });
 
     verify(code: SourceCode | string, config: Linter.Config, filename?: string): Linter.LintMessage[];
     verify(code: SourceCode | string, config: Linter.Config, options: Linter.LintOptions): Linter.LintMessage[];
@@ -385,22 +397,29 @@ export namespace Linter {
         rules?: Partial<Rules>;
     }
 
-    interface RuleOverride<Rules extends RulesRecord = RulesRecord> extends HasRules<Rules> {
+    interface BaseConfig<Rules extends RulesRecord = RulesRecord> extends HasRules<Rules> {
+        $schema?: string;
+        env?: { [name: string]: boolean };
         extends?: string | string[];
-        excludedFiles?: string[];
-        files?: string[];
-    }
-
-    interface Config<Rules extends RulesRecord = RulesRecord> extends HasRules<Rules> {
+        globals?: { [name: string]: boolean };
+        noInlineConfig?: boolean;
+        overrides?: ConfigOverride[];
         parser?: string;
         parserOptions?: ParserOptions;
-        settings?: { [name: string]: any };
-        env?: { [name: string]: boolean };
-        globals?: { [name: string]: boolean };
-        extends?: string | string[];
-        overrides?: RuleOverride[];
-        processor?: string;
         plugins?: string[];
+        processor?: string;
+        reportUnusedDisableDirectives?: boolean;
+        settings?: { [name: string]: any };
+    }
+
+    interface ConfigOverride<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
+        excludedFiles?: string | string[];
+        files: string | string[];
+    }
+
+    // https://github.com/eslint/eslint/blob/v6.8.0/conf/config-schema.js
+    interface Config<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
+        ignorePatterns?: string | string[];
         root?: boolean;
     }
 
@@ -421,8 +440,16 @@ export namespace Linter {
         filename?: string;
         preprocess?: (code: string) => string[];
         postprocess?: (problemLists: LintMessage[][]) => LintMessage[];
+        filterCodeBlock?: boolean;
+        disableFixes?: boolean;
         allowInlineConfig?: boolean;
         reportUnusedDisableDirectives?: boolean;
+    }
+
+    interface LintSuggestion {
+        desc: string;
+        fix: Rule.Fix;
+        messageId?: string;
     }
 
     interface LintMessage {
@@ -432,11 +459,14 @@ export namespace Linter {
         endLine?: number;
         ruleId: string | null;
         message: string;
-        nodeType: string;
+        messageId?: string;
+        nodeType?: string;
         fatal?: true;
         severity: Severity;
         fix?: Rule.Fix;
-        source: string | null;
+        /** @deprecated Use `linter.getSourceCode()` */
+        source?: string | null;
+        suggestions?: LintSuggestion[];
     }
 
     interface FixOptions extends LintOptions {
@@ -467,10 +497,96 @@ export namespace Linter {
 
 //#endregion
 
+//#region ESLint
+
+export class ESLint {
+    static version: string;
+
+    static outputFixes(results: ESLint.LintResult[]): Promise<void>;
+
+    static getErrorResults(results: ESLint.LintResult[]): ESLint.LintResult[];
+
+    constructor(options: ESLint.Options);
+
+    lintFiles(patterns: string | string[]): Promise<ESLint.LintResult[]>;
+
+    lintText(code: string, options?: { filePath?: string; warnIgnored?: boolean }): Promise<ESLint.LintResult[]>;
+
+    calculateConfigForFile(filePath: string): Promise<any>;
+
+    isPathIgnored(filePath: string): Promise<boolean>;
+
+    loadFormatter(nameOrPath?: string): Promise<ESLint.Formatter>;
+}
+
+export namespace ESLint {
+    interface Options {
+        // File enumeration
+        cwd?: string;
+        errorOnUnmatchedPattern?: boolean;
+        extensions?: string[];
+        globInputPaths?: boolean;
+        ignore?: boolean;
+        ignorePath?: string;
+
+        // Linting
+        allowInlineConfig?: boolean;
+        baseConfig?: Linter.Config;
+        overrideConfig?: Linter.Config;
+        overrideConfigFile?: string;
+        plugins?: Record<string, any>;
+        reportUnusedDisableDirectives?: Linter.RuleLevel;
+        resolvePluginsRelativeTo?: string;
+        rulePaths?: string[];
+        useEslintrc?: boolean;
+
+        // Autofix
+        fix?: boolean | ((message: Linter.LintMessage) => boolean);
+        fixTypes?: Array<Rule.RuleMetaData['type']>;
+
+        // Cache-related
+        cache?: boolean;
+        cacheLocation?: string;
+    }
+
+    interface LintResult {
+        filePath: string;
+        messages: Linter.LintMessage[];
+        errorCount: number;
+        warningCount: number;
+        fixableErrorCount: number;
+        fixableWarningCount: number;
+        output?: string;
+        source?: string;
+        usedDeprecatedRules: DeprecatedRuleUse[];
+    }
+
+    interface LintResultData {
+        rulesMeta: {
+            [ruleId: string]: Rule.RuleMetaData;
+        };
+    }
+
+    interface DeprecatedRuleUse {
+        ruleId: string;
+        replacedBy: string[];
+    }
+
+    interface Formatter {
+        format(results: LintResult[], data?: LintResultData): string;
+    }
+
+    // Docs reference the type by this name
+    type EditInfo = Rule.Fix;
+}
+
+//#endregion
+
 //#region CLIEngine
 
+/** @deprecated Deprecated in favor of `ESLint` */
 export class CLIEngine {
-    version: string;
+    static version: string;
 
     constructor(options: CLIEngine.Options);
 
@@ -492,9 +608,12 @@ export class CLIEngine {
 
     static getErrorResults(results: CLIEngine.LintResult[]): CLIEngine.LintResult[];
 
+    static getFormatter(format?: string): CLIEngine.Formatter;
+
     static outputFixes(report: CLIEngine.LintReport): void;
 }
 
+/** @deprecated Deprecated in favor of `ESLint` */
 export namespace CLIEngine {
     class Options {
         allowInlineConfig?: boolean;
@@ -524,22 +643,9 @@ export namespace CLIEngine {
         reportUnusedDisableDirectives?: boolean;
     }
 
-    interface LintResult {
-        filePath: string;
-        messages: Linter.LintMessage[];
-        errorCount: number;
-        warningCount: number;
-        fixableErrorCount: number;
-        fixableWarningCount: number;
-        output?: string;
-        source?: string;
-    }
+    type LintResult = ESLint.LintResult;
 
-    interface LintResultData {
-        rulesMeta: {
-            [ruleId: string]: Rule.RuleMetaData;
-        };
-    }
+    type LintResultData = ESLint.LintResultData;
 
     interface LintReport {
         results: LintResult[];
@@ -550,10 +656,7 @@ export namespace CLIEngine {
         usedDeprecatedRules: DeprecatedRuleUse[];
     }
 
-    interface DeprecatedRuleUse {
-        ruleId: string;
-        replacedBy: string[];
-    }
+    type DeprecatedRuleUse = ESLint.DeprecatedRuleUse;
 
     type Formatter = (results: LintResult[], data?: LintResultData) => string;
 }
@@ -586,6 +689,13 @@ export namespace RuleTester {
         globals?: { [name: string]: boolean };
     }
 
+    interface SuggestionOutput {
+        messageId?: string;
+        desc?: string;
+        data?: Record<string, unknown>;
+        output: string;
+    }
+
     interface InvalidTestCase extends ValidTestCase {
         errors: number | Array<TestCaseError | string>;
         output?: string | null;
@@ -600,6 +710,7 @@ export namespace RuleTester {
         column?: number;
         endLine?: number;
         endColumn?: number;
+        suggestions?: SuggestionOutput[];
     }
 }
 

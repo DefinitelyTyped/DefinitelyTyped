@@ -165,13 +165,13 @@ async function run() {
   indexTypeResult1.insertedId;            // $ExpectType ObjectId
   // should not remove types of existing fields
   indexTypeResult1.ops[0].stringField;    // $ExpectType string
-  indexTypeResult1.ops[0].numberField;    // $ExpectType number
+  indexTypeResult1.ops[0].numberField;    // $ExpectType number | undefined
   // should assign "any" type to any other field
   indexTypeResult1.ops[0].randomField;    // $ExpectType any
   // should do the same for insertMany
   indexTypeResultMany1.ops[0]._id;          // $ExpectType ObjectId
   indexTypeResultMany1.insertedIds;         // $ExpectType { [key: number]: ObjectId; }
-  indexTypeResultMany1.ops[0].numberField;  // $ExpectType number
+  indexTypeResultMany1.ops[0].numberField;  // $ExpectType number | undefined
   indexTypeResultMany1.ops[0].stringField;  // $ExpectType string
   indexTypeResultMany1.ops[0].randomField;  // $ExpectType any
 

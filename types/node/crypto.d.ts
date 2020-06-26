@@ -118,7 +118,7 @@ declare module "crypto" {
     const fips: boolean;
 
     function createHash(algorithm: string, options?: HashOptions): Hash;
-    function createHmac(algorithm: string, key: BinaryLike, options?: stream.TransformOptions): Hmac;
+    function createHmac(algorithm: string, key: BinaryLike | KeyObject, options?: stream.TransformOptions): Hmac;
 
     type Utf8AsciiLatin1Encoding = "utf8" | "ascii" | "latin1";
     type HexBase64Latin1Encoding = "latin1" | "hex" | "base64";
@@ -161,7 +161,7 @@ declare module "crypto" {
         asymmetricKeySize?: number;
         export(options: KeyExportOptions<'pem'>): string | Buffer;
         export(options?: KeyExportOptions<'der'>): Buffer;
-        symmetricSize?: number;
+        symmetricKeySize?: number;
         type: KeyObjectType;
     }
 
@@ -208,7 +208,7 @@ declare module "crypto" {
         update(data: NodeJS.ArrayBufferView, input_encoding: undefined, output_encoding: HexBase64BinaryEncoding): string;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding | undefined, output_encoding: HexBase64BinaryEncoding): string;
         final(): Buffer;
-        final(output_encoding: string): string;
+        final(output_encoding: BufferEncoding): string;
         setAutoPadding(auto_padding?: boolean): this;
         // getAuthTag(): Buffer;
         // setAAD(buffer: Buffer): this; // docs only say buffer
@@ -230,17 +230,17 @@ declare module "crypto" {
 
     function createDecipheriv(
         algorithm: CipherCCMTypes,
-        key: BinaryLike,
+        key: CipherKey,
         iv: BinaryLike | null,
         options: CipherCCMOptions,
     ): DecipherCCM;
     function createDecipheriv(
         algorithm: CipherGCMTypes,
-        key: BinaryLike,
+        key: CipherKey,
         iv: BinaryLike | null,
         options?: CipherGCMOptions,
     ): DecipherGCM;
-    function createDecipheriv(algorithm: string, key: BinaryLike, iv: BinaryLike | null, options?: stream.TransformOptions): Decipher;
+    function createDecipheriv(algorithm: string, key: CipherKey, iv: BinaryLike | null, options?: stream.TransformOptions): Decipher;
 
     class Decipher extends stream.Transform {
         private constructor();
@@ -249,7 +249,7 @@ declare module "crypto" {
         update(data: NodeJS.ArrayBufferView, input_encoding: HexBase64BinaryEncoding | undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
         update(data: string, input_encoding: HexBase64BinaryEncoding | undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
-        final(output_encoding: string): string;
+        final(output_encoding: BufferEncoding): string;
         setAutoPadding(auto_padding?: boolean): this;
         // setAuthTag(tag: NodeJS.ArrayBufferView): this;
         // setAAD(buffer: NodeJS.ArrayBufferView): this;
@@ -337,9 +337,9 @@ declare module "crypto" {
         getPrivateKey(): Buffer;
         getPrivateKey(encoding: HexBase64Latin1Encoding): string;
         setPublicKey(public_key: NodeJS.ArrayBufferView): void;
-        setPublicKey(public_key: string, encoding: string): void;
+        setPublicKey(public_key: string, encoding: BufferEncoding): void;
         setPrivateKey(private_key: NodeJS.ArrayBufferView): void;
-        setPrivateKey(private_key: string, encoding: string): void;
+        setPrivateKey(private_key: string, encoding: BufferEncoding): void;
         verifyError: number;
     }
     function getDiffieHellman(group_name: string): DiffieHellman;
@@ -429,7 +429,7 @@ declare module "crypto" {
     function createECDH(curve_name: string): ECDH;
     function timingSafeEqual(a: NodeJS.ArrayBufferView, b: NodeJS.ArrayBufferView): boolean;
     /** @deprecated since v10.0.0 */
-    const DEFAULT_ENCODING: string;
+    const DEFAULT_ENCODING: BufferEncoding;
 
     type KeyType = 'rsa' | 'dsa' | 'ec';
     type KeyFormat = 'pem' | 'der';

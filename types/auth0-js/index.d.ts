@@ -1,4 +1,4 @@
-// Type definitions for Auth0.js 9.12
+// Type definitions for Auth0.js 9.13
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
 //                 Matt Durrant <https://github.com/mdurrant>
@@ -944,10 +944,11 @@ export interface AuthorizeOptions {
     nonce?: string;
     scope?: string;
     audience?: string;
-	language?: string;
+    language?: string;
     login_hint?: string;
-	prompt?: string;
+    prompt?: string;
     mode?: "login" | "signUp";
+    screen_hint?: "signup";
     accessType?: string;
     approvalPrompt?: string;
     appState?: any;
@@ -955,8 +956,12 @@ export interface AuthorizeOptions {
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {
-	/**
-	 * optional parameter for auth0 to use postMessage to communicate between the silent callback and the SPA.
-	 */
-	usePostMessage?: boolean;
+    /**
+     * optional parameter for auth0 to use postMessage to communicate between the silent callback and the SPA.
+     */
+    usePostMessage?: boolean;
 }
+
+export const version: {
+    raw: string;
+};
