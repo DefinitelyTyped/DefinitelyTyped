@@ -401,7 +401,7 @@ declare module _ {
          * @param collection The collection to filter.
          * @param iterator The truth test to apply.
          * @param context `this` object in `iterator`, optional.
-         * @return The filtered set of values.
+         * @returns The filtered set of values.
          **/
         filter<T>(
             collection: List<T>,
@@ -417,7 +417,7 @@ declare module _ {
          * test (iterator).
          * @param collection The collection to filter.
          * @param iterator The property to check for truthiness or the property values to filter on.
-         * @return The filtered set of values.
+         * @returns The filtered set of values.
          **/
         filter<T>(
             collection: Collection<T>,
@@ -933,7 +933,7 @@ declare module _ {
          * only be flattened a single level.
          * @param list The array to flatten.
          * @param shallow If true then only flatten one level, optional, default = false.
-         * @return The flattened list.
+         * @returns The flattened list.
          **/
         flatten<T>(list: List<T>, shallow?: false): DeepFlattenedList<T>[];
         flatten<T>(list: List<T>, shallow: true): ShallowFlattenedList<T>[];
@@ -4289,7 +4289,7 @@ declare module _ {
          * test (iterator).
          * @param iterator The truth test to apply.
          * @param context `this` object in `iterator`, optional.
-         * @return The filtered set of values.
+         * @returns The filtered set of values.
          **/
         filter(iterator: CollectionIterator<T, boolean, V>, context?: any): T[];
 
@@ -4297,7 +4297,7 @@ declare module _ {
          * Looks through each value in the wrapped collection, returning an array of all the values that pass a truth
          * test (iterator).
          * @param iterator The property to check for truthiness or the property values to filter on.
-         * @return The filtered set of values.
+         * @returns The filtered set of values.
          **/
         filter(iterator: Partial<T> | KeysOfUnion<T>): T[];
 
@@ -4575,7 +4575,7 @@ declare module _ {
          * Flattens the wrapped nested list (the nesting can be to any depth). If you pass shallow, the list will
          * only be flattened a single level.
          * @param shallow If true then only flatten one level, optional, default = false.
-         * @return The flattened list.
+         * @returns The flattened list.
          **/
         flatten(shallow?: false): DeepFlattenedList<T>[];
         flatten(shallow: true): ShallowFlattenedList<T>[];
@@ -5268,7 +5268,7 @@ declare module _ {
          * test (iterator).
          * @param iterator The truth test to apply.
          * @param context `this` object in `iterator`, optional.
-         * @return The filtered set of values in a chain wrapper.
+         * @returns The filtered set of values in a chain wrapper.
          **/
         filter(iterator: CollectionIterator<T, boolean, V>, context?: any): _Chain<T, T[]>;
 
@@ -5276,7 +5276,7 @@ declare module _ {
          * Looks through each value in the wrapped collection, returning an array of all the values that pass a truth
          * test (iterator).
          * @param iterator The property to check for truthiness or the property values to filter on.
-         * @return The filtered set of values in a chain wrapper.
+         * @returns The filtered set of values in a chain wrapper.
          **/
         filter(iterator: Partial<T> | KeysOfUnion<T>): _Chain<T, T[]>;
 
@@ -5410,14 +5410,14 @@ declare module _ {
          * Splits the wrapped collection into sets, grouped by the result of running each value through iterator.
          * @param iterator An iterator that returns the value to group by for each item in the collection.
          * @param context `this` object in `iterator`, optional.
-         * @return A dictionary with the group names as properties where each property contains the grouped elements from the collection in a chain wrapper.
+         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection in a chain wrapper.
          **/
         groupBy(iterator: CollectionIterator<T, any, V>, context?: any): _Chain<T[], Dictionary<T[]>>;
 
         /**
          * Splits the wrapped collection into sets, grouped by the specified property.
          * @param iterator Group iterator for each element within the collection, return the key to group the element by.
-         * @return A dictionary with the group names as properties where each property contains the grouped elements from the collection in a chain wrapper.
+         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection in a chain wrapper.
          **/
         groupBy(iterator: keyof T): _Chain<T[], Dictionary<T[]>>;
 
@@ -5554,7 +5554,7 @@ declare module _ {
          * Flattens the wrapped nested list (the nesting can be to any depth). If you pass shallow, the list will
          * only be flattened a single level.
          * @param shallow If true then only flatten one level, optional, default = false.
-         * @return The flattened list in a chain wrapper.
+         * @returns The flattened list in a chain wrapper.
          **/
         flatten(shallow?: false): _Chain<DeepFlattenedList<T>, DeepFlattenedList<T>[]>;
         flatten(shallow: true): _Chain<ShallowFlattenedList<T>, ShallowFlattenedList<T>[]>;
