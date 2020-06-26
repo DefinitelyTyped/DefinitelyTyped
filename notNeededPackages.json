@@ -5587,6 +5587,12 @@
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "@wordpress/dependency-extraction-webpack-plugin",
+            "typingsPackageName": "wordpress__dependency-extraction-webpack-plugin",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.7.0"
+        },
+        {
             "libraryName": "@wordpress/dom-ready",
             "typingsPackageName": "wordpress__dom-ready",
             "sourceRepoURL": "https://github.com/WordPress/gutenberg",
