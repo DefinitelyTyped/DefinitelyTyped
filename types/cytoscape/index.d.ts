@@ -411,6 +411,11 @@ declare namespace cytoscape {
         collection(eles?: Selector | CollectionArgument[]): CollectionReturnValue;
 
         /**
+         * check whether the specified id is in the collection
+         */
+        hasElementWithId(id: string): boolean;
+
+        /**
          * Get an element from its ID in a very performant way.
          * http://js.cytoscape.org/#cy.getElementById
          */
