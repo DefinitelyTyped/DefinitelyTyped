@@ -126,9 +126,7 @@ declare module _ {
          * @param value First argument to Underscore object functions.
          * @returns An Underscore wrapper around the supplied value.
          **/
-        <T extends TypeOfList<V>, V extends List<any> = List<T>>(value: V): Underscore<T, V>;
-        <T extends TypeOfDictionary<V>, V extends Dictionary<any> = Dictionary<T>>(value: V): Underscore<T, V>;
-        <V>(value: V): Underscore<never, V>;
+        <V>(value: V): Underscore<TypeOfCollection<V>, V>;
 
         /* *************
         * Collections *
@@ -4121,9 +4119,7 @@ declare module _ {
          * @param value The object to chain.
          * @returns An underscore chain wrapper around the supplied value.
          **/
-        chain<T extends TypeOfList<V>, V extends List<any> = List<T>>(value: V): _Chain<T, V>;
-        chain<T extends TypeOfDictionary<V>, V extends Dictionary<any> = Dictionary<T>>(value: V): _Chain<T, V>;
-        chain<V>(value: V): _Chain<never, V>;
+        chain<V>(value: V): _Chain<TypeOfCollection<V>, V>;
 
         /**
          * Current version
