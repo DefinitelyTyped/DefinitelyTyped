@@ -534,6 +534,12 @@ plugin = new webpack.DefinePlugin({
         ["value.txt"]
     )
 });
+plugin = new webpack.DefinePlugin({
+    TEST_RUNTIME: webpack.DefinePlugin.runtimeValue(
+        () => JSON.stringify("TEST_VALUE"),
+        true
+    )
+});
 plugin = new webpack.ProvidePlugin(definitions);
 plugin = new webpack.ProvidePlugin({
     $: "jquery"
