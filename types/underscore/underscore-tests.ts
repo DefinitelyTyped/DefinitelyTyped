@@ -2774,7 +2774,7 @@ declare const extractChainTypes: ChainTypeExtractor;
 
     _(mixedDimensionArray).flatten(); // $ExpectType SimpleStringObject[]
 
-    extractChainTypes(_.chain(mixedDimensionArray).flatten()); // $ExpectType ChainType<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(mixedDimensionArray).flatten()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
     // mixed dimensions, shallow
     _.flatten(mixedDimensionArray, true); // $ExpectType (SimpleStringObject | SimpleStringObject[])[]
