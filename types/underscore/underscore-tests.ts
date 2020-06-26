@@ -706,6 +706,24 @@ const simpleString = 'abc';
 
 const simpleNumber = 7;
 
+// avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
+// the types under test need to be refactored
+interface UnderscoreType<TWrappedValue, TItemType> { }
+
+interface UnderscoreTypeExtractor {
+    <T, V>(chainResult: _.Underscore<T, V>): UnderscoreType<V, T>;
+}
+
+declare const extractUnderscoreTypes: UnderscoreTypeExtractor;
+
+interface ChainType<TWrappedValue, TItemType> { }
+
+interface ChainTypeExtractor {
+    <T, V>(chainResult: _._Chain<T, V>): ChainType<V, T>;
+}
+
+declare const extractChainTypes: ChainTypeExtractor;
+
 // Arrays
 
 // chunk
@@ -714,31 +732,32 @@ const simpleNumber = 7;
 
     _.chunk(simpleStringObjectArray, length); // $ExpectType SimpleStringObject[][]
     _(simpleStringObjectArray).chunk(length); // $ExpectType SimpleStringObject[][]
-    _.chain(simpleStringObjectArray).chunk(length); // $ExpectType _Chain<SimpleStringObject[], SimpleStringObject[][]>
+    extractChainTypes(_.chain(simpleStringObjectArray).chunk(length)); // $ExpectType ChainType<SimpleStringObject[][], SimpleStringObject[]>
 
     _.chunk(simpleStringObjectList, length); // $ExpectType SimpleStringObject[][]
     _(simpleStringObjectList).chunk(length); // $ExpectType SimpleStringObject[][]
-    _.chain(simpleStringObjectList).chunk(length); // $ExpectType _Chain<SimpleStringObject[], SimpleStringObject[][]>
+    extractChainTypes(_.chain(simpleStringObjectList).chunk(length)); // $ExpectType ChainType<SimpleStringObject[][], SimpleStringObject[]>
 
     _.chunk(simpleString, length); // $ExpectType string[][]
     _(simpleString).chunk(length); // $ExpectType string[][]
-    _.chain(simpleString).chunk(length); // $ExpectType _Chain<string[], string[][]>
+    extractChainTypes(_.chain(simpleString).chunk(length)); // $ExpectType ChainType<string[][], string[]>
 }
 
 // OOP Style
 
 // underscore
 {
-    _(simpleStringObjectArray); // $ExpectType Underscore<SimpleStringObject, SimpleStringObject[]>
+    extractUnderscoreTypes(_(simpleStringObjectArray)); // $ExpectType UnderscoreType<SimpleStringObject[], SimpleStringObject>
 
-    _(simpleStringObjectListWithExtraProperties) // $ExpectType Underscore<SimpleStringObject, SimpleStringObjectListWithExtraProperties>
-    _(simpleStringObjectList); // $ExpectType Underscore<SimpleStringObject, List<SimpleStringObject>>
+    extractUnderscoreTypes(_(simpleStringObjectListWithExtraProperties)); // $ExpectType UnderscoreType<SimpleStringObjectListWithExtraProperties, SimpleStringObject>
+    extractUnderscoreTypes(_(simpleStringObjectList)); // $ExpectType UnderscoreType<List<SimpleStringObject>, SimpleStringObject>
 
-    _(stronglyKeyedSimpleStringObjectDictionary) // $ExpectType Underscore<SimpleStringObject, StronglyKeyedSimpleStringObjectDictionary>
-    _(simpleStringObjectDictionary); // $ExpectType Underscore<SimpleStringObject, Dictionary<SimpleStringObject>>
+    extractUnderscoreTypes(_(stronglyKeyedSimpleStringObjectDictionary)); // $ExpectType UnderscoreType<StronglyKeyedSimpleStringObjectDictionary, SimpleStringObject>
+    extractUnderscoreTypes(_(simpleStringObjectDictionary)); // $ExpectType UnderscoreType<Dictionary<SimpleStringObject>, SimpleStringObject>
 
-    _(simpleString); // $ExpectType Underscore<string, string>
-    _(simpleNumber); // $ExpectType Underscore<never, number>
+    extractUnderscoreTypes(_(simpleString)); // $ExpectType UnderscoreType<string, string>
+    extractUnderscoreTypes(_(simpleNumber)); // $ExpectType UnderscoreType<number, never>
+
 }
 
 // value
@@ -762,26 +781,26 @@ const simpleNumber = 7;
 // verify that the right chain item and value types are yielded by calls to chain
 // these tests also check to make sure that _.chain() and _().chain() yield the same types
 {
-    _.chain(simpleStringObjectArray); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
-    _(simpleStringObjectArray).chain(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+    extractChainTypes(_.chain(simpleStringObjectArray)); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
+    extractChainTypes(_(simpleStringObjectArray).chain()); // $ExpectType ChainType<SimpleStringObject[], SimpleStringObject>
 
-    _.chain(simpleStringObjectListWithExtraProperties); // $ExpectType _Chain<SimpleStringObject, SimpleStringObjectListWithExtraProperties>
-    _(simpleStringObjectListWithExtraProperties).chain(); // $ExpectType _Chain<SimpleStringObject, SimpleStringObjectListWithExtraProperties>
+    extractChainTypes(_.chain(simpleStringObjectListWithExtraProperties)); // $ExpectType ChainType<SimpleStringObjectListWithExtraProperties, SimpleStringObject>
+    extractChainTypes(_(simpleStringObjectListWithExtraProperties).chain()); // $ExpectType ChainType<SimpleStringObjectListWithExtraProperties, SimpleStringObject>
 
-    _.chain(simpleStringObjectList); // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
-    _(simpleStringObjectList).chain(); // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
+    extractChainTypes(_.chain(simpleStringObjectList)); // $ExpectType ChainType<List<SimpleStringObject>, SimpleStringObject>
+    extractChainTypes(_(simpleStringObjectList).chain()); // $ExpectType ChainType<List<SimpleStringObject>, SimpleStringObject>
 
-    _.chain(stronglyKeyedSimpleStringObjectDictionary); // $ExpectType _Chain<SimpleStringObject, StronglyKeyedSimpleStringObjectDictionary>
-    _(stronglyKeyedSimpleStringObjectDictionary).chain(); // $ExpectType _Chain<SimpleStringObject, StronglyKeyedSimpleStringObjectDictionary>
+    extractChainTypes(_.chain(stronglyKeyedSimpleStringObjectDictionary)); // $ExpectType ChainType<StronglyKeyedSimpleStringObjectDictionary, SimpleStringObject>
+    extractChainTypes(_(stronglyKeyedSimpleStringObjectDictionary).chain()); // $ExpectType ChainType<StronglyKeyedSimpleStringObjectDictionary, SimpleStringObject>
 
-    _.chain(simpleStringObjectDictionary); // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
-    _(simpleStringObjectDictionary).chain(); // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
+    extractChainTypes(_.chain(simpleStringObjectDictionary)); // $ExpectType ChainType<Dictionary<SimpleStringObject>, SimpleStringObject>
+    extractChainTypes(_(simpleStringObjectDictionary).chain()); // $ExpectType ChainType<Dictionary<SimpleStringObject>, SimpleStringObject>
 
-    _.chain(simpleString); // $ExpectType _Chain<string, string>
-    _(simpleString).chain(); // $ExpectType _Chain<string, string>
+    extractChainTypes(_.chain(simpleString)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_(simpleString).chain()); // $ExpectType ChainType<string, string>
 
-    _.chain(simpleNumber); // $ExpectType _Chain<never, number>
-    _(simpleNumber).chain(); // $ExpectType _Chain<never, number>
+    extractChainTypes(_.chain(simpleNumber)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_(simpleNumber).chain()); // $ExpectType ChainType<number, never>
 }
 
 // value
