@@ -16,7 +16,7 @@ export interface SketchPickerStylesProps {
     Alpha: CSSProperties;
 }
 
-type PresetColor = { color: string; title: string } | string;
+export type PresetColor = { color: string; title: string } | string;
 export interface SketchPickerProps extends ColorPickerProps<SketchPicker> {
     disableAlpha?: boolean;
     presetColors?: PresetColor[];
