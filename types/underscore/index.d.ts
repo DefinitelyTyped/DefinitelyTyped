@@ -95,7 +95,9 @@ declare module _ {
         (element: T, key: string, object: V): TResult;
     }
 
-    type CollectionIterator<T, TResult, V> = V extends List<T> ? ListIterator<T, TResult, V> : ObjectIterator<T, TResult, V>;
+    type CollectionIterator<T, TResult, V> = V extends List<T> ? ListIterator<T, TResult, V>
+        : V extends Dictionary<T> ? ObjectIterator<T, TResult, V>
+        : never;
 
     interface MemoIterator<T, TResult, V = List<T>> {
         (prev: TResult, curr: T, index: number, list: V): TResult;
@@ -105,7 +107,9 @@ declare module _ {
         (prev: TResult, curr: T, key: string, object: V): TResult;
     }
 
-    type MemoCollectionIterator<T, TResult, V> = V extends List<T> ? MemoIterator<T, TResult, V> : MemoObjectIterator<T, TResult, V>;
+    type MemoCollectionIterator<T, TResult, V> = V extends List<T> ? MemoIterator<T, TResult, V>
+        : V extends Dictionary<T> ? MemoObjectIterator<T, TResult, V>
+        : never;
 
     type TypeOfList<V> = V extends List<infer T> ? T : never;
 
@@ -163,9 +167,7 @@ declare module _ {
         * as the first parameter can be invoked through this function.
         * @param value First argument to Underscore object functions.
         **/
-        <T extends TypeOfList<V>, V extends List<any> = List<T>>(value: V): Underscore<T, V>;
-        <T extends TypeOfDictionary<V>, V extends Dictionary<any> = Dictionary<T>>(value: V): Underscore<T, V>;
-        <V>(value: V): Underscore<never, V>;
+        <V>(value: V): Underscore<TypeOfCollection<V>, V>;
 
         /* *************
         * Collections *
@@ -4113,9 +4115,7 @@ declare module _ {
         * @param value Object to chain.
         * @return Wrapped `value`.
         **/
-        chain<T extends TypeOfList<V>, V extends List<any> = List<T>>(value: V): _Chain<T, V>;
-        chain<T extends TypeOfDictionary<V>, V extends Dictionary<any> = Dictionary<T>>(value: V): _Chain<T, V>;
-        chain<V>(value: V): _Chain<never, V>;
+        chain<V>(value: V): _Chain<TypeOfCollection<V>, V>;
 
         /**
          * Current version
@@ -5757,7 +5757,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see tap
         **/
-        tap(interceptor: (...as: any[]) => any): _Chain<T>;
+        tap(interceptor: (...as: any[]) => any): _Chain<T, V>;
 
         /**
         * Wrapped type `object`.

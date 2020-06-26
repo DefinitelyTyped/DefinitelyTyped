@@ -126,6 +126,8 @@ const simpleOneParameterFunctionObjectArray: SimpleOneParameterFunctionObject[] 
 const simpleOneParameterFunctionObjectList: _.List<SimpleOneParameterFunctionObject> = { 0: { a: Math.abs }, 1: { a: Math.abs }, length: 2 };
 const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParameterFunctionObject> = { a: { a: Math.abs }, b: { a: Math.abs } };
 
+declare const collectionNonCollectionMix: number | number[];
+
 // avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
 // the types under test need to be refactored
 interface UnderscoreType<TWrappedValue, TItemType> { }
@@ -2670,6 +2672,7 @@ declare const extractChainTypes: ChainTypeExtractor;
     const threeDimensionList: _.List<_.List<_.List<SimpleStringObject>>> = { 0: { 0: simpleStringObjectList, length: 1 }, length: 1 };
     const fourDimensionArray: SimpleStringObject[][][][] = [[[simpleStringObjectArray]]];
     const fourDimensionList: _.List<_.List<_.List<_.List<SimpleStringObject>>>> = { 0: { 0: { 0: simpleStringObjectList, length: 1 }, length: 1 }, length: 1 };
+    const mixedDimensionArray: (SimpleStringObject | SimpleStringObject[] | SimpleStringObject[][])[] = [simpleStringObjectArray[0], simpleStringObjectArray, [simpleStringObjectArray]];
     const stringArray: string[][] = [simpleStringArray];
     const stringList: _.List<_.List<string>> = { 0: simpleStringList, length: 1 };
     const typeUnionArray: NonIntersectingObjectPropertiesType[][] = [nonIntersectingObjectPropertiesArray];
@@ -2765,6 +2768,20 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(fourDimensionList).flatten(); // $ExpectType any[]
 
     extractChainTypes(_.chain(fourDimensionList).flatten()); // $ExpectType ChainType<any[], any>
+
+    // mixed dimensions, deep
+    _.flatten(mixedDimensionArray); // $ExpectType SimpleStringObject[]
+
+    _(mixedDimensionArray).flatten(); // $ExpectType SimpleStringObject[]
+
+    extractChainTypes(_.chain(mixedDimensionArray).flatten()); // $ExpectType ChainType<SimpleStringObject, SimpleStringObject[]>
+
+    // mixed dimensions, shallow
+    _.flatten(mixedDimensionArray, true); // $ExpectType (SimpleStringObject | SimpleStringObject[])[]
+
+    _(mixedDimensionArray).flatten(true); // $ExpectType (SimpleStringObject | SimpleStringObject[])[]
+
+    extractChainTypes(_.chain(mixedDimensionArray).flatten(true)); // $ExpectType ChainType<(SimpleStringObject | SimpleStringObject[])[], SimpleStringObject | SimpleStringObject[]>
 
     // string lists, deep
     _.flatten(stringArray); // $ExpectType string[]
@@ -3375,6 +3392,8 @@ declare const extractChainTypes: ChainTypeExtractor;
 
     extractUnderscoreTypes(_(simpleString)); // $ExpectType UnderscoreType<string, string>
     extractUnderscoreTypes(_(simpleNumber)); // $ExpectType UnderscoreType<number, never>
+
+    extractUnderscoreTypes(_(collectionNonCollectionMix)); // $ExpectType UnderscoreType<number | number[], number>
 }
 
 // value
@@ -3390,6 +3409,8 @@ declare const extractChainTypes: ChainTypeExtractor;
 
     _(simpleString).value(); // $ExpectType string
     _(simpleNumber).value(); // $ExpectType number
+
+    _(collectionNonCollectionMix).value(); // $ExpectType number | number[]
 }
 
 // Chaining
@@ -3418,6 +3439,9 @@ declare const extractChainTypes: ChainTypeExtractor;
 
     extractChainTypes(_.chain(simpleNumber)); // $ExpectType ChainType<number, never>
     extractChainTypes(_(simpleNumber).chain()); // $ExpectType ChainType<number, never>
+
+    extractChainTypes(_.chain(collectionNonCollectionMix)); // $ExpectType ChainType<number | number[], number>
+    extractChainTypes(_(collectionNonCollectionMix).chain()); // $ExpectType ChainType<number | number[], number>
 }
 
 // value
@@ -3433,6 +3457,9 @@ declare const extractChainTypes: ChainTypeExtractor;
 
     _.chain(simpleString).value(); // $ExpectType string
     _.chain(simpleNumber).value(); // $ExpectType number
+
+    _.chain(collectionNonCollectionMix).value(); // $ExpectType number | number[]
+    _(collectionNonCollectionMix).chain().value(); // $ExpectType number | number[]
 }
 
 var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
@@ -3939,3 +3966,86 @@ function strong_typed_values_tests() {
 
     _.values<{title: string, value: number}>(dictionaryLike);
 }
+
+// tests for #7931 - verify that the result of a function like reduce that returns a singleton can be chained further
+// $ExpectType number[]
+_.chain([1, 2, 3])
+    .reduce((acc, x) => { acc.unshift(x); return acc; }, [] as number[])
+    .map(x => x + 1)
+    .value();
+
+// $ExpectType boolean
+_.chain([{ a: 1, b: 2, c: 3 }, { a: 4, b: 5, c: 6 }])
+    .findWhere({ a: 1 })
+    .some(n => n === 2)
+    .value();
+
+// $ExpectType number
+_.chain([1, 2, 3, 4, 5, 6])
+    .chunk(3)
+    .first()
+    .compact()
+    .reduce((aggregate, n) => aggregate + n, 0)
+    .value();
+
+// $ExpectType number[]
+_.chain([1, 2, 3, 4, 5, 6])
+    .sample()
+    .range(10)
+    .value();
+
+// $ExpectType number
+_.chain([{ a: 1, b: 2, c: 3 }, { a: 2, b: 1, c: 3 }, { a: 3, b: 2, c: 1 }])
+    .max(o => o.a)
+    .reduce((aggregate, num) => aggregate + num, 0)
+    .value();
+// end tests for #7931
+
+// $ExpectType [number[], number[]]
+_.chain([[1, 2, 3], [4, undefined, 5], [undefined, undefined, 6]])
+    .flatten()
+    .compact()
+    .partition(n => n > 3)
+    .value();
+
+// $ExpectType Dictionary<number>
+_.chain([[[{ a: 'a' }, { a: 'b' }], [{ a: 'c' }, { a: 'a' }]], [{ a: 'b' }, { a: 'd' }]])
+    .flatten()
+    .countBy(n => n.a)
+    .value();
+
+// $ExpectType boolean
+_.chain([{ a: 1 }, { a: 2 }, { a: 3 }, { b: 4 }])
+    .map('a')
+    .contains(3)
+    .value();
+
+// $ExpectType boolean
+_.chain([{ a: 1 }, { a: 2 }, { a: 3 }, { b: 4 }])
+    .map({ a: 3 })
+    .some()
+    .value();
+
+// $ExpectType NonIntersectingObjectPropertiesType[]
+_.chain(nonIntersectingObjectPropertiesDictionary)
+    .shuffle()
+    .filter('a')
+    .value();
+
+// $ExpectType SimpleStringObject[]
+_.chain(simpleStringObjectList)
+    .where({ a: 'b' })
+    .reject(o => o.a === 'b')
+    .value();
+
+// $ExpectType string | undefined
+_.chain(simpleStringObjectOrUndefinedList)
+    .pluck('a')
+    .find(a => a === 'a')
+    .value();
+
+// $ExpectType number | undefined
+_.chain([{ a: 1 }, { a: 2 }, { a: 3 }, { b: 4 }])
+    .pluck('a')
+    .max()
+    .value();
