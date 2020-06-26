@@ -17,6 +17,7 @@ const webAuth = new auth0.WebAuth({
     overrides: {
         __tenant: "tenant",
         __token_issuer: "mine.auth0.com",
+        __jwks_uri: "/jwks.json"
     },
     plugins: {
         plugins: []
@@ -24,10 +25,8 @@ const webAuth = new auth0.WebAuth({
     popupOrigin: "http://example.com/popup",
     protocol: "oauth2",
     response_type: "code",
-    rootUrl: "mine.com",
     state: "G96SDdfQW01SmVKcXdlVjRN",
     tenant: "tenant",
-    token_issuer: "mine.auth0.com",
     universalLoginPage: true,
     _csrf: "vMSoQzzI",
     _intstate: "deprecated",

@@ -538,17 +538,16 @@ export interface AuthOptions {
     leeway?: number;
     jwksURI?: string;
     overrides?: {
-      __tenant: string;
-      __token_issuer: string;
+      __tenant?: string;
+      __token_issuer?: string;
+      __jwks_uri?: string;
     };
     plugins?: any;
     popupOrigin?: string;
     protocol?: string;
     response_type?: string;
-    rootUrl?: string;
     state?: string;
     tenant?: string;
-    token_issuer?: string;
     universalLoginPage?: boolean;
     _csrf?: string;
     _intstate?: string;
