@@ -5930,7 +5930,7 @@ interface IUtilAnimationOptions {
     /**
      * Value to modify the property by
      */
-    byValue: number;
+    byValue?: number;
     /**
      * Duration of change (in ms)
      */
@@ -5938,7 +5938,7 @@ interface IUtilAnimationOptions {
     /**
      * Callback; invoked on every value change
      */
-    onChange?: Function;
+    onChange?: (value: number) => void;
     /**
      * Callback; invoked when value change is completed
      */

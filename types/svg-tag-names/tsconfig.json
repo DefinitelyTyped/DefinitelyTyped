@@ -4,20 +4,20 @@
         "lib": [
             "es6"
         ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
-        "forceConsistentCasingInFileNames": true,
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
-        "noEmit": true
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "net-keepalive-tests.ts"
+        "svg-tag-names-tests.ts"
     ]
 }

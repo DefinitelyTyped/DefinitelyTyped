@@ -42,7 +42,16 @@ declare namespace echarts {
             id?: string;
 
             /**
-             * `zlevel` value of all graghical elements in .
+             * Series name used for displaying in
+             * [tooltip](https://echarts.apache.org/en/option.html#tooltip)
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-themeRiver.name
+             */
+            name?: string;
+
+            /**
+             * `zlevel` value of all graphical elements in the series.
              *
              * `zlevel` is used to make layers with Canvas.
              * Graphical elements with different `zlevel` values will be placed

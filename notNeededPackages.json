@@ -2995,6 +2995,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "net-keepalive",
+            "typingsPackageName": "net-keepalive",
+            "sourceRepoURL": "https://github.com/hertzg/node-net-keepalive",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "new-github-issue-url",
             "typingsPackageName": "new-github-issue-url",
             "sourceRepoURL": "https://github.com/sindresorhus/new-github-issue-url",

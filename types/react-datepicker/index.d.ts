@@ -136,6 +136,7 @@ export interface ReactDatePickerProps {
     selectsStart?: boolean;
     shouldCloseOnSelect?: boolean;
     showDisabledMonthNavigation?: boolean;
+    showFullMonthYearPicker?: boolean;
     showMonthDropdown?: boolean;
     showMonthYearDropdown?: boolean;
     showMonthYearPicker?: boolean;
@@ -145,6 +146,7 @@ export interface ReactDatePickerProps {
     showTimeInput?: boolean;
     showTimeSelect?: boolean;
     showTimeSelectOnly?: boolean;
+    showTwoColumnMonthYearPicker?: boolean;
     showWeekNumbers?: boolean;
     showYearDropdown?: boolean;
     showYearPicker?: boolean;

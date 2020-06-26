@@ -8,7 +8,7 @@
 
 export as namespace jsyaml;
 
-export function safeLoad(str: string, opts?: LoadOptions): any;
+export function safeLoad(str: string, opts?: LoadOptions): string | object | undefined;
 export function load(str: string, opts?: LoadOptions): any;
 
 export class Type {

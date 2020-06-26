@@ -1163,7 +1163,7 @@ declare module "mongoose" {
     /** no default */
     strictQuery?: boolean;
     /** defaults to true */
-    strict?: boolean | 'throw';
+    strict?: boolean | "throw";
     /** no default */
     toJSON?: DocumentToObjectOptions;
     /** no default */
@@ -2517,7 +2517,7 @@ declare module "mongoose" {
     /** if true, returns the raw result from the MongoDB driver */
     rawResult?: boolean;
     /** overwrites the schema's strict mode option for this update */
-    strict?: boolean|string;
+    strict?: boolean | "throw";
     /** use client session for transaction */
     session?: ClientSession;
   }
@@ -3729,7 +3729,7 @@ declare module "mongoose" {
      */
     setDefaultsOnInsert?: boolean;
     /** overrides the strict option for this update */
-    strict?: boolean;
+    strict?: boolean | "throw";
     /** disables update-only mode, allowing you to overwrite the doc (false) */
     overwrite?: boolean;
     /**

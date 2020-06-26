@@ -79,7 +79,7 @@ import semverOutside = require('./ranges/outside');
 import semverGtr = require('./ranges/gtr');
 import semverLtr = require('./ranges/ltr');
 import semverIntersects = require('./ranges/intersects');
-import simplifyRange = require('./ranges/simplify');
+import simplify = require('./ranges/simplify');
 import rangeSubset = require('./ranges/subset');
 
 export {
@@ -93,7 +93,7 @@ export {
     semverGtr as gtr,
     semverLtr as ltr,
     semverIntersects as intersects,
-    simplifyRange as simplify,
+    simplify as simplifyRange,
     rangeSubset as subset,
 };
 

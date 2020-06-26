@@ -27,7 +27,6 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { getTickValues, getNiceTickValues, getTickValuesFixedDomain } from 'recharts-scale';
 import { CurveFactory } from 'd3-shape';
 
 export type Percentage = string;
@@ -195,7 +194,7 @@ export interface AreaProps extends EventAttributes, Partial<PresentationAttribut
     legendType?: LegendType;
     connectNulls?: boolean;
     activeDot?: boolean | object | React.ReactElement | ContentRenderer<any>;
-    dot?: boolean | object | React.ReactElement | ContentRenderer<DotProps>;
+    dot?: boolean | object | React.ReactElement | ContentRenderer<DotProps & { payload: any }>;
     label?: boolean | object | ContentRenderer<any> | React.ReactElement;
     hide?: boolean;
     layout?: LayoutType;
@@ -442,7 +441,7 @@ export interface LineProps extends EventAttributes, Partial<PresentationAttribut
     connectNulls?: boolean;
     hide?: boolean;
     activeDot?: object | React.ReactElement | ContentRenderer<any> | boolean;
-    dot?: object | React.ReactElement | ContentRenderer<DotProps> | boolean;
+    dot?: object | React.ReactElement | ContentRenderer<DotProps & { payload: any }> | boolean;
     top?: number;
     left?: number;
     width?: number;
