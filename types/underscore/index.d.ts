@@ -107,11 +107,13 @@ declare module _ {
         (prev: TResult, curr: T, key: string, list: Dictionary<T>): TResult;
     }
 
-    type TypeOfList<V> = V extends _.List<infer T> ? T : never;
+    type TypeOfList<V> = V extends List<infer T> ? T : never;
 
-    type TypeOfDictionary<V> = V extends _.Dictionary<infer T> ? T : never;
+    type TypeOfDictionary<V> = V extends Dictionary<infer T> ? T : never;
 
-    type TypeOfCollection<V> = V extends _.Collection<infer T> ? T : never;
+    type TypeOfCollection<V> = V extends List<infer T> ? T
+        : V extends Dictionary<infer T> ? T
+        : never;
 
     type _ChainSingle<V> = _Chain<TypeOfCollection<V>, V>;
 
