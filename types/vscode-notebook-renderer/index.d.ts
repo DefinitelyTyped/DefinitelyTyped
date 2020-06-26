@@ -1,6 +1,6 @@
 // Type definitions for non-npm package vscode-notebook-renderer 1.47
 // Project: https://github.com/microsoft/vscode-docs/blob/notebook/api/extension-guides/notebook.md
-// Definitions by: Connor Peet <https://github.com/me>
+// Definitions by: Connor Peet <https://github.com/connor4312>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.0
 
