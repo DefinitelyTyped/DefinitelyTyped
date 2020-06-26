@@ -1,10 +1,11 @@
-// Type definitions for shopify-buy 1.11
+// Type definitions for shopify-buy 2.10
 // Project: http://shopify.github.io/js-buy-sdk/api/
 // Definitions by: Martin Köhn <https://github.com/openminder>
 //                 Stephen Traiforos <https://github.com/straiforos>
 //                 Rosana Ruiz <https://github.com/totemika>
 //                 Juan Manuel Incaurgarat <https://github.com/kilinkis>
 //                 Chris Worman <https://github.com/chrisworman-pela>
+//                 Maciej Baron <https://github.com/MaciekBaron>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -68,7 +69,7 @@ declare namespace ShopifyBuy {
 
         fetch(id: string): Promise<Cart>;
 
-        addLineItems(checkoutId: string | number, lineItems: LineItem[]): Promise<Cart>;
+        addLineItems(checkoutId: string | number, lineItems: LineItemToAdd[]): Promise<Cart>;
 
         /**
          * Remove all line items from cart
@@ -281,6 +282,11 @@ declare namespace ShopifyBuy {
         value: any;
     }
 
+    export interface CustomAttribute {
+        key: string;
+        value: string;
+    }
+
     export interface Collection {
         handle: string;
         body_html: string;
@@ -323,6 +329,11 @@ declare namespace ShopifyBuy {
          * Example: two items have been added to the cart that cost $1.25 then the subtotal will be 2.50
          */
         subtotalPrice: string;
+
+        /**
+         * Get completed at date.
+         */
+        completedAt: string | null;
     }
 
     export interface LineItem extends GraphModel {
@@ -331,7 +342,7 @@ declare namespace ShopifyBuy {
          * previously before the product went on sale.
          * If no compareAtPrice is set then this value will be null. An example value: "5.00".
          */
-        compare_at_price: string | null;
+        compareAtPrice: string | null;
 
         /**
          * Variant's weight in grams. If no weight is set then 0 is returned.
@@ -352,7 +363,7 @@ declare namespace ShopifyBuy {
          * The total price for this line item. For instance if the variant costs 1.50 and you have a
          * quantity of 2 then line_price will be 3.00.
          */
-        line_price: string;
+        linePrice: string;
 
         /**
          * Price of the variant. For example: "5.00".
@@ -362,7 +373,7 @@ declare namespace ShopifyBuy {
         /**
          * ID of variant's product.
          */
-        product_id: string | number;
+        productId: string | number;
 
         /**
          * Count of variants to order.
@@ -377,12 +388,18 @@ declare namespace ShopifyBuy {
         /**
          * ID of line item variant.
          */
-        variant_id: string | number;
+        variantId: string | number;
 
         /**
          * Title of variant.
          */
-        variant_title: string;
+        variantTitle: string;
+    }
+
+    export interface LineItemToAdd {
+        variantId: string | number;
+        quantity: number;
+        customAttributes?: CustomAttribute[];
     }
 
     export interface Item {
