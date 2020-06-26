@@ -11,6 +11,7 @@
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Ivan Sieder <https://github.com/ivansieder>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Juan Belieni <https://github.com/juanbelieni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
