@@ -111,17 +111,17 @@ navigator.bluetooth.requestLEScan({
 
     setTimeout(stopScan, 10000);
     function stopScan() {
-      console.log('Stopping scan...');
-      scan.stop();
-      console.log('Stopped.  scan.active = ' + scan.active);
+        console.log('Stopping scan...');
+        scan.stop();
+        console.log('Stopped.  scan.active = ' + scan.active);
     }
 });
 
 /* Utils */
 const logDataView = (labelOfDataSource: string, key: string | number, valueDataView: DataView) => {
     const array = new Uint8Array(valueDataView.buffer);
-    const hexString = Array(array.length).map(b => {
-      return b.toString(16).padStart(2, '0');
+    const hexString = Array(array.length).map((_, index) => {
+        return `0${array[index].toString(16)}`.slice(-2);
     }).join(' ');
     const textDecoder = new TextDecoder('ascii');
     const asciiString = textDecoder.decode(valueDataView.buffer);
@@ -129,4 +129,4 @@ const logDataView = (labelOfDataSource: string, key: string | number, valueDataV
         (Hex): ${hexString}
         (ASCII): ${asciiString}
     `);
-  };
+};
