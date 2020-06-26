@@ -52,6 +52,7 @@ enum PropertyKind {
     UNDEFINED = 0,
     DATA = 1,
     ACCESSOR = 2,
+    OVERRIDDEN = 3,
 }
 
 const GENERATED_MARKER = '// ------------------------ >8 ------------------------';
@@ -194,23 +195,25 @@ function resolveProperty(
     get?: string,
     override?: string | Override,
 ) {
+    let overrideType;
     let propertyType;
     if (typeof override === 'string') {
-        propertyType = override;
+        overrideType = propertyType = override;
         override = undefined;
     } else {
-        propertyType = override?.type || appendType(get || type, propertyName);
+        propertyType = (overrideType = override?.type) || appendType(get || type, propertyName);
     }
 
     let propertyValue;
-    let propertyKind: PropertyKind | null = null;
+    let propertyKind: PropertyKind | null = overrideType ? PropertyKind.OVERRIDDEN : null;
     if (isObject(value)) {
-        propertyKind = PropertyKind.UNDEFINED;
         const desc = $gOPD(value, propertyName);
         if (desc) {
             const isGetter = 'get' in desc;
             propertyValue = isGetter ? desc.get : desc.value;
-            propertyKind = isGetter ? PropertyKind.ACCESSOR : PropertyKind.DATA;
+            propertyKind ?? (propertyKind = isGetter ? PropertyKind.ACCESSOR : PropertyKind.DATA);
+        } else {
+            propertyKind ?? (propertyKind = PropertyKind.UNDEFINED);
         }
     }
 
@@ -228,6 +231,7 @@ ${GENERATED_MARKER}
 // do not edit! ${new Date().toISOString()}
 
 // tslint:disable: ban-types
+// prettier-ignore
 declare namespace GetIntrinsic {
     interface Intrinsics {
 `);

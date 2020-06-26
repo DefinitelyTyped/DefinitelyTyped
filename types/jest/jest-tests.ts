@@ -291,6 +291,18 @@ jest.useFakeTimers('legacy');
 // $ExpectError
 jest.useFakeTimers('foo');
 
+// https://jestjs.io/docs/en/jest-object#jestsetsystemtimenow-number--date
+jest.setSystemTime();
+jest.setSystemTime(0);
+jest.setSystemTime(new Date(0));
+// $ExpectError
+jest.setSystemTime('foo');
+
+// https://jestjs.io/docs/en/jest-object#jestgetrealsystemtime
+const realSystemTime1: number = jest.getRealSystemTime();
+// $ExpectError
+const realSystemTime2: number = jest.getRealSystemTime('foo');
+
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
 // $ExpectType any
 jest.requireActual('./thisReturnsTheActualModule');

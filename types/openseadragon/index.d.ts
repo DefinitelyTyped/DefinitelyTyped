@@ -267,7 +267,7 @@ declare namespace OpenSeadragon {
         blendTime?: number;
         alwaysBlend?: boolean;
         autoHideControls?: boolean;
-        inmediateRender?: boolean;
+        immediateRender?: boolean;
         defaultZoomLevel?: number;
         opacity?: number;
         preload?: boolean;
@@ -1062,7 +1062,7 @@ declare namespace OpenSeadragon {
         getTileWidth(level: number): number;
         raiseEvent(eventName: string, eventArgs: object): void;
         removeAllHandlers(eventName: string): void;
-        removeHandler(eventName: string, handler: (event: Event) => void): void;
+        removeHandler(eventName: string, handler: EventHandler<TileSourceEvent>): void;
         supports(
             data: string | object | any[] | Document,
             url: string
@@ -1163,7 +1163,7 @@ declare namespace OpenSeadragon {
         ): Viewer;
         raiseEvent(eventName: string, eventArgs?: object): void;
         removeAllHandlers(eventName: string): void;
-        removeHandler(eventName: string, handler: (event: Event) => void): void;
+        removeHandler(eventName: string, handler: EventHandler<ViewerEvent>): void;
         removeOverlay(overlay: Element | string): Viewer;
         removeReferenceStrip(): void;
         setControlsEnabled(enabled: boolean): Viewer;
@@ -1324,7 +1324,7 @@ declare namespace OpenSeadragon {
         raiseEvent(eventName: string, eventArgs?: object): void;
         removeAll(): void;
         removeAllHandlers(eventName: string): void;
-        removeHandler(eventName: string, handler: (event: Event) => void): void;
+        removeHandler(eventName: string, handler: EventHandler<WorldEvent>): void;
         removeItem(item: TiledImage): void;
         resetItems(): void;
         setAutoRefigureSizes(value?: boolean): void;
@@ -1471,7 +1471,7 @@ declare namespace OpenSeadragon {
         lastDistance?: number;
         insideElementReleased?: boolean;
         scroll?: number;
-        inmediately?: number;
+        immediately?: number;
         enabled?: boolean;
         flipped?: number;
         fullPage?: boolean;

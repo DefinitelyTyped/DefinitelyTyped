@@ -340,7 +340,6 @@ declare namespace React {
 
     interface ConsumerProps<T> {
         children: (value: T) => ReactNode;
-        unstable_observedBits?: number;
     }
 
     // TODO: similar to how Fragment is actually a symbol, the values returned from createContext,
@@ -384,7 +383,6 @@ declare namespace React {
         // If you thought this should be optional, see
         // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24509#issuecomment-382213106
         defaultValue: T,
-        calculateChangedBits?: (prev: T, next: T) => number
     ): Context<T>;
 
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
@@ -398,12 +396,6 @@ declare namespace React {
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
         fallback: NonNullable<ReactNode>|null;
-        /**
-         * Tells React whether to “skip” revealing this boundary during the initial load.
-         * This API will likely be removed in a future release.
-         */
-        // NOTE: this is unflagged and is respected even in stable builds
-        unstable_avoidThisFallback?: boolean;
     }
     /**
      * This feature is not yet available for server-side rendering.
@@ -1224,6 +1216,7 @@ declare namespace React {
         metaKey: boolean;
         repeat: boolean;
         shiftKey: boolean;
+        /** @deprecated */
         which: number;
     }
 
@@ -1249,7 +1242,7 @@ declare namespace React {
         shiftKey: boolean;
     }
 
-    interface TouchEvent<T = Element> extends SyntheticEvent<T, NativeTouchEvent> {
+    interface TouchEvent<T = Element> extends UIEvent<T, NativeTouchEvent> {
         altKey: boolean;
         changedTouches: TouchList;
         ctrlKey: boolean;

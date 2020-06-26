@@ -197,6 +197,7 @@ Info.weekdays('2-digit');
 Info.features().intl;
 Info.features().intlTokens;
 Info.features().zones;
+Info.features().relative;
 
 /* Settings */
 Settings.defaultLocale;
