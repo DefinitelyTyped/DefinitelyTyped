@@ -1353,7 +1353,7 @@ declare class Dockerode {
     getEvents(options?: Dockerode.GetEventsOptions): Promise<NodeJS.ReadableStream>;
 
     pull(repoTag: string, options: {}, callback: Callback<any>, auth?: {}): Dockerode.Image;
-    pull(repoTag: string, options: {}, auth?: {}): Promise<any>;
+    pull(repoTag: string, options?: {}): Promise<any>;
 
     run(
         image: string,
