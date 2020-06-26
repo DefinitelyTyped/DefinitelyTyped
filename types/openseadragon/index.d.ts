@@ -592,7 +592,7 @@ declare namespace OpenSeadragon {
             url: string;
             buildPyramid?: boolean;
             crossOriginPolicy?: string | boolean;
-            ajaxWidthCredentials?: string | boolean;
+            ajaxWithCredentials?: string | boolean;
             useCanvas?: boolean;
         });
     }
