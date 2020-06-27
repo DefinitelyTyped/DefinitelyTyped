@@ -5,9 +5,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-export interface Schedule<T extends (...args: any[]) => void> {
+namespace rafSchd {
+  interface Schedule<T extends (...args: any[]) => void> {
     (...args: Parameters<T>): void;
     cancel(): void;
+  }
 }
+declare function rafSchd<T extends (...args: any[]) => void>(fn: T): Schedule<T>;
 
-export default function rafSchd<T extends (...args: any[]) => void>(fn: T): Schedule<T>;
+export = rafSchd;
