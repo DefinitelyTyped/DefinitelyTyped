@@ -394,19 +394,16 @@ declare class Pubnub {
         setUUIDMetadata(params: Pubnub.SetUUIDMetadataParameters, callback: Callback<Pubnub.SetUUIDMetadataResponse>): void;
         setUUIDMetadata(params: Pubnub.SetUUIDMetadataParameters): Promise<Pubnub.SetUUIDMetadataResponse>;
 
-        removeUUIDMetadata(): Promise<Pubnub.RemoveUUIDMetadataResponse>;
         removeUUIDMetadata(callback: Callback<Pubnub.RemoveUUIDMetadataResponse>): void;
-        removeUUIDMetadata(params: Pubnub.RemoveUUIDMetadataParameters): Promise<Pubnub.RemoveUUIDMetadataResponse>;
+        removeUUIDMetadata(params?: Pubnub.RemoveUUIDMetadataParameters): Promise<Pubnub.RemoveUUIDMetadataResponse>;
         removeUUIDMetadata(params: Pubnub.RemoveUUIDMetadataParameters, callback: Callback<Pubnub.RemoveUUIDMetadataResponse>): void;
 
-        getAllUUIDMetadata(): Promise<Pubnub.GetAllUUIDMetadataResponse>;
         getAllUUIDMetadata(callback: Callback<Pubnub.GetAllUUIDMetadataResponse>): void;
-        getAllUUIDMetadata(params: Pubnub.GetAllMetadataParameters): Promise<Pubnub.GetAllUUIDMetadataResponse>;
+        getAllUUIDMetadata(params?: Pubnub.GetAllMetadataParameters): Promise<Pubnub.GetAllUUIDMetadataResponse>;
         getAllUUIDMetadata(params: Pubnub.GetAllMetadataParameters, callback: Callback<Pubnub.GetAllUUIDMetadataResponse>): void;
 
-        getUUIDMetadata(): Promise<Pubnub.GetAllUUIDMetadataResponse>;
         getUUIDMetadata(callback: Callback<Pubnub.GetAllUUIDMetadataResponse>): void;
-        getUUIDMetadata(params: Pubnub.GetUUIDMetadataParameters): Promise<Pubnub.GetAllUUIDMetadataResponse>;
+        getUUIDMetadata(params?: Pubnub.GetUUIDMetadataParameters): Promise<Pubnub.GetAllUUIDMetadataResponse>;
         getUUIDMetadata(params: Pubnub.GetUUIDMetadataParameters, callback: Callback<Pubnub.GetAllUUIDMetadataResponse>): void;
 
         // Channel Metadata
@@ -416,18 +413,16 @@ declare class Pubnub {
         removeChannelMetadata(params: Pubnub.RemoveChannelMetadataParameters, callback: Callback<Pubnub.RemoveChannelMetadataResponse>): void;
         removeChannelMetadata(params: Pubnub.RemoveChannelMetadataParameters): Promise<Pubnub.RemoveChannelMetadataResponse>;
 
-        getAllChannelMetadata(): Promise<Pubnub.GetAllChannelMetadataResponse>;
         getAllChannelMetadata(callback: Callback<Pubnub.GetAllChannelMetadataResponse>): void;
-        getAllChannelMetadata(params: Pubnub.GetAllMetadataParameters): Promise<Pubnub.GetAllChannelMetadataResponse>;
+        getAllChannelMetadata(params?: Pubnub.GetAllMetadataParameters): Promise<Pubnub.GetAllChannelMetadataResponse>;
         getAllChannelMetadata(params: Pubnub.GetAllMetadataParameters, callback: Callback<Pubnub.GetAllChannelMetadataResponse>): void;
 
         getChannelMetadata(params: Pubnub.GetChannelMetadataParameters, callback: Callback<Pubnub.GetChannelMetadataResponse>): void;
         getChannelMetadata(params: Pubnub.GetChannelMetadataParameters): Promise<Pubnub.GetChannelMetadataResponse>;
 
         // Memberships
-        getMemberships(): Promise<Pubnub.GetMembershipsResponsev2>;
         getMemberships(callback: Callback<Pubnub.GetMembershipsResponsev2>): void;
-        getMemberships(params: Pubnub.GetMembershipsParametersv2): Promise<Pubnub.GetMembershipsResponsev2>;
+        getMemberships(params?: Pubnub.GetMembershipsParametersv2): Promise<Pubnub.GetMembershipsResponsev2>;
         getMemberships(params: Pubnub.GetMembershipsParametersv2, callback: Callback<Pubnub.GetMembershipsResponsev2>): void;
 
         setMemberships(params: Pubnub.SetMembershipsParameters, callback: Callback<Pubnub.SetMembershipsResponse>): void;
@@ -1289,7 +1284,7 @@ declare namespace Pubnub {
 
     interface SetMembershipsParameters extends ChannelMembersParameters {
         uuid?: string;
-        channels?: (string | object)[];
+        channels?: Array<string | object>;
     }
 
     type SetMembershipsResponse = PagedObjectsResponse<ChannelMembershipObject>;
@@ -1303,7 +1298,7 @@ declare namespace Pubnub {
 
     interface SetChannelMembersParameters extends UUIDMembersParameters {
         channel: string;
-        uuids: (string | object)[];
+        uuids: Array<string | object>;
     }
 
     type SetChannelMembersResponse = PagedObjectsResponse<UUIDMembershipObject>;

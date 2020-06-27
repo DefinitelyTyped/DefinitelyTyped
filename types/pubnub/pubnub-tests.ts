@@ -835,5 +835,3 @@ pubnub.objects.removeChannelMembers({
     channel: 'myChannel',
     uuids: ['uuid-1', 'uuid-2'],
 });
-
-
