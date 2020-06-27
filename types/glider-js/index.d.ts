@@ -5,7 +5,10 @@
 // TypeScript Version: 3.7
 
 declare namespace Glider {
-    type Selector = HTMLElement | string;
+    // Selectors are either results of querying document DOM or a string
+    // Let's default to nullable Element to allow friction free migration
+    // from JS to TS
+    type Selector<T> = T extends Element ? Element | null : string;
 
     type EasingFunction = (x: number, t: number, b: number, c: number, d: number) => number;
 
@@ -75,14 +78,14 @@ declare namespace Glider {
          * An object containing the prev/next arrow settings
          */
         arrows?: {
-            prev: Selector;
-            next: Selector;
+            prev: Selector<HTMLElement | string>;
+            next: Selector<HTMLElement | string>;
         };
 
         /**
          * An HTML element or selector containing the dot container
          */
-        dots?: Selector;
+        dots?: Selector<HTMLElement | string>;
 
         /**
          * If true, the list can be scrolled by click and dragging with the
