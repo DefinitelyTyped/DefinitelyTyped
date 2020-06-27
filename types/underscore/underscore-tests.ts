@@ -988,24 +988,26 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(stringRecordOrUndefinedDictionary).collect(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     // property name iterator with a non-nullable non-intersecting type union
-    _.map(nonIntersectingPropertiesArray, stringRecordProperty); // $ExpectType (string | undefined)[]
+    // linting has odd issues correctly determining the UnderscoreStatic.map type results for this case when using ExpectType for some reason
+    // that stop occurring when the minimum version is moved to TS 3.1, so use assignability checks instead for the moment as a workaround
+    let result: (string | undefined)[] = _.map(nonIntersectingPropertiesArray, stringRecordProperty);
     _(nonIntersectingPropertiesArray).map(stringRecordProperty); // $ExpectType (string | undefined)[]
     extractChainTypes(_.chain(nonIntersectingPropertiesArray).map(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-    _.collect(nonIntersectingPropertiesArray, stringRecordProperty); // $ExpectType (string | undefined)[]
+    result = _.collect(nonIntersectingPropertiesArray, stringRecordProperty);
     _(nonIntersectingPropertiesArray).collect(stringRecordProperty); // $ExpectType (string | undefined)[]
     extractChainTypes(_.chain(nonIntersectingPropertiesArray).collect(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
-    _.map(nonIntersectingPropertiesArray, stringRecordProperty); // $ExpectType (string | undefined)[]
+    result = _.map(nonIntersectingPropertiesArray, stringRecordProperty);
     _(nonIntersectingPropertiesArray).map(stringRecordProperty); // $ExpectType (string | undefined)[]
     extractChainTypes(_.chain(nonIntersectingPropertiesArray).map(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-    _.collect(nonIntersectingPropertiesArray, stringRecordProperty); // $ExpectType (string | undefined)[]
+    result = _.collect(nonIntersectingPropertiesArray, stringRecordProperty);
     _(nonIntersectingPropertiesArray).collect(stringRecordProperty); // $ExpectType (string | undefined)[]
     extractChainTypes(_.chain(nonIntersectingPropertiesArray).collect(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
-    _.map(nonIntersectingPropertiesDictionary, stringRecordProperty); // $ExpectType (string | undefined)[]
+    result = _.map(nonIntersectingPropertiesDictionary, stringRecordProperty);
     _(nonIntersectingPropertiesDictionary).map(stringRecordProperty); // $ExpectType (string | undefined)[]
     extractChainTypes(_.chain(nonIntersectingPropertiesDictionary).map(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-    _.collect(nonIntersectingPropertiesDictionary, stringRecordProperty); // $ExpectType (string | undefined)[]
+    result = _.collect(nonIntersectingPropertiesDictionary, stringRecordProperty);
     _(nonIntersectingPropertiesDictionary).collect(stringRecordProperty); // $ExpectType (string | undefined)[]
     extractChainTypes(_.chain(nonIntersectingPropertiesDictionary).collect(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
@@ -1160,15 +1162,17 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(stringRecordOrUndefinedDictionary).pluck(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     // property name iterator with a non-nullable non-intersecting type union
-    _.pluck(nonIntersectingPropertiesArray, stringRecordProperty); // $ExpectType (string | undefined)[]
+    // linting has odd issues correctly determining the UnderscoreStatic.map type results for this case when using ExpectType for some reason
+    // that stop occurring when the minimum version is moved to TS 3.1, so use assignability checks instead for the moment as a workaround
+    let result: (string | undefined)[] = _.pluck(nonIntersectingPropertiesArray, stringRecordProperty);
     _(nonIntersectingPropertiesArray).pluck(stringRecordProperty); // $ExpectType (string | undefined)[]
     extractChainTypes(_.chain(nonIntersectingPropertiesArray).pluck(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
-    _.pluck(nonIntersectingPropertiesArray, stringRecordProperty); // $ExpectType (string | undefined)[]
-    _(nonIntersectingPropertiesArray).pluck(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(nonIntersectingPropertiesArray).pluck(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
+    result = _.pluck(nonIntersectingPropertiesList, stringRecordProperty);
+    _(nonIntersectingPropertiesList).pluck(stringRecordProperty); // $ExpectType (string | undefined)[]
+    extractChainTypes(_.chain(nonIntersectingPropertiesList).pluck(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
-    _.pluck(nonIntersectingPropertiesDictionary, stringRecordProperty); // $ExpectType (string | undefined)[]
+    result = _.pluck(nonIntersectingPropertiesDictionary, stringRecordProperty);
     _(nonIntersectingPropertiesDictionary).pluck(stringRecordProperty); // $ExpectType (string | undefined)[]
     extractChainTypes(_.chain(nonIntersectingPropertiesDictionary).pluck(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
