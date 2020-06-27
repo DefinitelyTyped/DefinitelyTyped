@@ -155,7 +155,7 @@ declare class Pubnub {
     // objects v1
 
     /**
-     * @deprecated For objects v2, use objects.setUUIDMetadata
+     * deprecated: For objects v2, use objects.setUUIDMetadata
      */
     createUser(
         params: Pubnub.UserInputParameters,
@@ -163,12 +163,12 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated For objects v2, use objects.setUUIDMetadata
+     * deprecated: For objects v2, use objects.setUUIDMetadata
      */
     createUser(params: Pubnub.UserInputParameters): Promise<Pubnub.GetUserResponse>;
 
     /**
-     * @deprecated For objects v2, use objects.setUUIDMetadata
+     * deprecated: For objects v2, use objects.setUUIDMetadata
      */
     updateUser(
         params: Pubnub.UserInputParameters,
@@ -176,12 +176,12 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated For objects v2, use objects.setUUIDMetadata
+     * deprecated: For objects v2, use objects.setUUIDMetadata
      */
     updateUser(params: Pubnub.UserInputParameters): Promise<Pubnub.GetUserResponse>;
 
     /**
-     * @deprecated For objects v2, use objects.removeUUIDMetadata
+     * deprecated: For objects v2, use objects.removeUUIDMetadata
      */
     deleteUser(
         userId: string,
@@ -189,12 +189,12 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated For objects v2, use objects.removeUUIDMetadata
+     * deprecated: For objects v2, use objects.removeUUIDMetadata
      */
     deleteUser(userId: string): Promise<Pubnub.DeleteUserResponse>;
 
     /**
-     * @deprecated For objects v2, use objects.getAllUUIDMetadata
+     * deprecated: For objects v2, use objects.getAllUUIDMetadata
      */
     getUsers(
         params: Pubnub.GetObjectsParameters,
@@ -202,12 +202,12 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated For objects v2, use objects.getAllUUIDMetadata
+     * deprecated: For objects v2, use objects.getAllUUIDMetadata
      */
     getUsers(params: Pubnub.GetObjectsParameters): Promise<Pubnub.GetUsersResponse>;
 
     /**
-     * @deprecated For objects v2, use objects.getUUIDMetadata
+     * deprecated: For objects v2, use objects.getUUIDMetadata
      */
     getUser(
         params: Pubnub.GetUserParameters,
@@ -215,12 +215,12 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated For objects v2, use objects.getUUIDMetadata
+     * deprecated: For objects v2, use objects.getUUIDMetadata
      */
     getUser(params: Pubnub.GetUserParameters): Promise<Pubnub.GetUserResponse>;
 
     /**
-     * @deprecated For objects v2, use objects.setChannelMetadata
+     * deprecated: For objects v2, use objects.setChannelMetadata
      */
     createSpace(
         params: Pubnub.SpaceInputParameters,
@@ -228,12 +228,12 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated For objects v2, use objects.setChannelMetadata
+     * deprecated: For objects v2, use objects.setChannelMetadata
      */
     createSpace(params: Pubnub.SpaceInputParameters): Promise<Pubnub.GetSpaceResponse>;
 
     /**
-     * @deprecated For objects v2, use objects.setChannelMetadata
+     * deprecated: For objects v2, use objects.setChannelMetadata
      */
     updateSpace(
         params: Pubnub.SpaceInputParameters,
@@ -241,12 +241,12 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated For objects v2, use objects.setChannelMetadata
+     * deprecated: For objects v2, use objects.setChannelMetadata
      */
     updateSpace(params: Pubnub.SpaceInputParameters): Promise<Pubnub.GetSpaceResponse>;
 
     /**
-     * @deprecated For objects v2, use objects.removeChannelMetadata
+     * deprecated: For objects v2, use objects.removeChannelMetadata
      */
     deleteSpace(
         spaceId: string,
@@ -254,12 +254,12 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated For objects v2, use objects.removeChannelMetadata
+     * deprecated: For objects v2, use objects.removeChannelMetadata
      */
     deleteSpace(spaceId: string): Promise<Pubnub.DeleteSpaceResponse>;
 
     /**
-     * @deprecated For objects v2, use objects.getAllChannelMetadata
+     * deprecated: For objects v2, use objects.getAllChannelMetadata
      */
     getSpaces(
         params: Pubnub.GetObjectsParameters,
@@ -267,12 +267,12 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated For objects v2, use objects.getAllChannelMetadata
+     * deprecated: For objects v2, use objects.getAllChannelMetadata
      */
     getSpaces(params: Pubnub.GetObjectsParameters): Promise<Pubnub.GetSpacesResponse>;
 
     /**
-     * @deprecated For objects v2, use objects.getChannelMetadata
+     * deprecated: For objects v2, use objects.getChannelMetadata
      */
     getSpace(
         params: Pubnub.GetSpaceParameters,
@@ -280,12 +280,12 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated For objects v2, use objects.getChannelMetadata
+     * deprecated: For objects v2, use objects.getChannelMetadata
      */
     getSpace(params: Pubnub.GetSpaceParameters): Promise<Pubnub.GetSpaceResponse>;
 
     /**
-     * @deprecated For objects v2, use objects.getMemberships
+     * deprecated: For objects v2, use objects.getMemberships
      */
     getMemberships(
         params: Pubnub.GetMembershipsParameters,
@@ -293,12 +293,12 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated For objects v2, use objects.getMemberships
+     * deprecated: For objects v2, use objects.getMemberships
      */
     getMemberships(params: Pubnub.GetMembershipsParameters): Promise<Pubnub.GetMembershipsResponse>;
 
     /**
-     * @deprecated For objects v2, use objects.getChannelMembers
+     * deprecated: For objects v2, use objects.getChannelMembers
      */
     getMembers(
         params: Pubnub.GetMembersParameters,
@@ -306,12 +306,12 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated For objects v2, use objects.getChannelMembers
+     * deprecated: For objects v2, use objects.getChannelMembers
      */
     getMembers(params: Pubnub.GetMembersParameters): Promise<Pubnub.GetMembersResponse>;
 
     /**
-     * @deprecated For objects v2, use objects.setMemberships
+     * deprecated: For objects v2, use objects.setMemberships
      */
     joinSpaces(
         params: Pubnub.MembershipsInputParameters,
@@ -319,12 +319,12 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated For objects v2, use objects.setMemberships
+     * deprecated: For objects v2, use objects.setMemberships
      */
     joinSpaces(params: Pubnub.MembershipsInputParameters): Promise<Pubnub.GetMembershipsResponse>;
 
     /**
-     * @deprecated removed in objects v2
+     * deprecated: removed in objects v2
      */
     updateMemberships(
         params: Pubnub.MembershipsInputParameters,
@@ -332,12 +332,12 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated removed in objects v2
+     * deprecated: removed in objects v2
      */
     updateMemberships(params: Pubnub.MembershipsInputParameters): Promise<Pubnub.GetMembershipsResponse>;
 
     /**
-     * @deprecated For objects v2, use objects.removeMemberships
+     * deprecated: For objects v2, use objects.removeMemberships
      */
     leaveSpaces(
         params: Pubnub.LeaveSpacesParameters,
@@ -345,12 +345,12 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated For objects v2, use objects.removeMemberships
+     * deprecated: For objects v2, use objects.removeMemberships
      */
     leaveSpaces(params: Pubnub.LeaveSpacesParameters): Promise<Pubnub.GetMembershipsResponse>;
 
     /**
-     * @deprecated For objects v2, use objects.setChannelMembers
+     * deprecated: For objects v2, use objects.setChannelMembers
      */
     addMembers(
         params: Pubnub.MembersInputParameters,
@@ -358,12 +358,12 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated For objects v2, use objects.setChannelMembers
+     * deprecated: For objects v2, use objects.setChannelMembers
      */
     addMembers(params: Pubnub.MembersInputParameters): Promise<Pubnub.GetMembersResponse>;
 
     /**
-     * @deprecated removed in objects v2
+     * deprecated: removed in objects v2
      */
     updateMembers(
         params: Pubnub.MembersInputParameters,
@@ -371,12 +371,12 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated removed in objects v2
+     * deprecated: removed in objects v2
      */
     updateMembers(params: Pubnub.MembersInputParameters): Promise<Pubnub.GetMembersResponse>;
 
     /**
-     * @deprecated For objects v2, use objects.removeChannelMembers
+     * deprecated: For objects v2, use objects.removeChannelMembers
      */
     removeMembers(
         params: Pubnub.RemoveMembersParameters,
@@ -384,7 +384,7 @@ declare class Pubnub {
     ): void;
 
     /**
-     * @deprecated For objects v2, use objects.removeChannelMembers
+     * deprecated: For objects v2, use objects.removeChannelMembers
      */
     removeMembers(params: Pubnub.RemoveMembersParameters): Promise<Pubnub.GetMembersResponse>;
 
@@ -429,9 +429,9 @@ declare class Pubnub {
 
         getChannelMembers(params: Pubnub.GetChannelMembersParameters): Promise<Pubnub.GetChannelMembersResponse>;
 
-        getMemberships(params: Pubnub.GetMembershipsParameters, callback: Callback<Pubnub.GetMembershipsResponsev2>): void;
+        getMemberships(params: Pubnub.GetMembershipsParametersv2, callback: Callback<Pubnub.GetMembershipsResponsev2>): void;
 
-        getMemberships(params: Pubnub.GetMembershipsParameters): Promise<Pubnub.GetMembershipsResponsev2>;
+        getMemberships(params: Pubnub.GetMembershipsParametersv2): Promise<Pubnub.GetMembershipsResponsev2>;
 
         setMemberships(params: Pubnub.SetMembershipsParameters, callback: Callback<Pubnub.SetMembershipsResponse>): void;
 
@@ -448,7 +448,7 @@ declare class Pubnub {
         removeChannelMembers(params: Pubnub.RemoveChannelMembersParameters, callback: Callback<Pubnub.RemoveChannelMembersResponse>): void;
 
         removeChannelMembers(params: Pubnub.RemoveChannelMembersParameters): Promise<Pubnub.RemoveChannelMembersResponse>;
-    }
+    };
 
     // message actions
 
@@ -520,12 +520,12 @@ declare namespace Pubnub {
         publisher: string;
 
         /**
-         * @deprecated
+         * deprecated:
          */
         actualChannel: string;
 
         /**
-         * @deprecated
+         * deprecated:
          */
         subscribedChannel: string;
     }
@@ -554,11 +554,11 @@ declare namespace Pubnub {
         uuid: string;
 
         /**
-         * @deprecated
+         * deprecated:
          */
         actualChannel: string;
         /**
-         * @deprecated
+         * deprecated:
          */
         subscribedChannel: string;
     }
@@ -572,7 +572,7 @@ declare namespace Pubnub {
     }
 
     /**
-     * @deprecated For objects v2, use objects.the ObjectsEvent
+     * deprecated: For objects v2, use objects.the ObjectsEvent
      */
     interface UserEvent {
         channel: string;
@@ -587,7 +587,7 @@ declare namespace Pubnub {
     }
 
     /**
-     * @deprecated For objects v2, use objects.the ObjectsEvent
+     * deprecated: For objects v2, use objects.the ObjectsEvent
      */
     interface SpaceEvent {
         channel: string;
@@ -611,7 +611,7 @@ declare namespace Pubnub {
     }
 
     /**
-     * @deprecated For objects v2, use objects.the ObjectsEvent
+     * deprecated: For objects v2, use objects.the ObjectsEvent
      */
     interface MembershipEvent {
         channel: string;
@@ -637,14 +637,14 @@ declare namespace Pubnub {
     }
 
     interface ObjectsEvent {
-        channel: string,
+        channel: string;
         message: {
-            event: "set" | "delete",
-            type: "uuid" | "channel" | "membership",
-            data: object
-        }
-        subscription: string,
-        timetoken: number
+            event: "set" | "delete";
+            type: "uuid" | "channel" | "membership";
+            data: object;
+        };
+        subscription: string;
+        timetoken: number;
     }
 
     // publish
@@ -751,7 +751,7 @@ declare namespace Pubnub {
 
         listChannels(
             params: PushDeviceParameters,
-            callback: Callback<Pubnub.PushListChannelsResponse>,
+            callback: Callback<PushListChannelsResponse>,
         ): void;
 
         listChannels(params: PushDeviceParameters): Promise<PushListChannelsResponse>;
@@ -822,12 +822,12 @@ declare namespace Pubnub {
 
         listChannels(
             params: ListChannelsParameters,
-            callback: Callback<Pubnub.ListChannelsResponse>,
+            callback: Callback<ListChannelsResponse>,
         ): void;
 
         listChannels(params: ListChannelsParameters): Promise<ListChannelsResponse>;
 
-        listGroups(callback: Callback<Pubnub.ListAllGroupsResponse>): void;
+        listGroups(callback: Callback<ListAllGroupsResponse>): void;
 
         listGroups(): Promise<ListAllGroupsResponse>;
 
@@ -873,17 +873,17 @@ declare namespace Pubnub {
         signal?(signalEvent: SignalEvent): void;
 
         /**
-         * @deprecated For objects v2, use objects.the objects listener
+         * deprecated: For objects v2, use objects.the objects listener
          */
         user?(userEvent: UserEvent): void;
 
         /**
-         * @deprecated For objects v2, use objects.the objects listener
+         * deprecated: For objects v2, use objects.the objects listener
          */
         space?(spaceEvent: SpaceEvent): void;
 
         /**
-         * @deprecated For objects v2, use objects.the objects listener
+         * deprecated: For objects v2, use objects.the objects listener
          */
         membership?(membershipEvent: MembershipEvent): void;
 
@@ -1158,7 +1158,7 @@ declare namespace Pubnub {
         data: UUIDMetadata;
         include?: {
             customFields?: boolean;
-        }
+        };
     }
 
     type SetUUIDMetadataResponse = ObjectsResponse<UUIDMetadataObject>;
@@ -1189,7 +1189,7 @@ declare namespace Pubnub {
         uuid?: string;
         include?: {
             customFields?: boolean;
-        }
+        };
     }
 
     type GetUUIDMetadataResponse = ObjectsResponse<UUIDMetadataObject>;
@@ -1212,10 +1212,10 @@ declare namespace Pubnub {
         data: {
             name?: string;
             description?: string;
-        }
+        };
         include?: {
             customFields?: boolean;
-        }
+        };
     }
 
     type SetChannelMetadataResponse = ObjectsResponse<ChannelMetadataObject>;
@@ -1232,7 +1232,7 @@ declare namespace Pubnub {
         channel: string;
         include?: {
             customFields: boolean;
-        }
+        };
     }
 
     type GetChannelMetadataResponse = ObjectsResponse<ChannelMetadataObject>;
@@ -1253,14 +1253,14 @@ declare namespace Pubnub {
             customFields?: boolean;
             UUIDFields?: boolean;
             customUUIDFields?: boolean;
-        }
+        };
         filter?: string;
         sort?: object;
         limit?: number;
         page?: {
             next?: string;
             prev: string;
-        }
+        };
     }
 
     interface GetChannelMembersParameters extends ChannelMembersParameters {
@@ -1269,7 +1269,7 @@ declare namespace Pubnub {
 
     type GetChannelMembersResponse = PagedObjectsResponse<UUIDMembershipObject>;
 
-    interface GetMembershipsParameters extends ChannelMembersParameters {
+    interface GetMembershipsParametersv2 extends ChannelMembersParameters {
         uuid?: string;
     }
 
