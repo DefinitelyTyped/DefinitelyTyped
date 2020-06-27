@@ -292,9 +292,7 @@ authentication.oauthToken({
 authentication.getUserCountry((err, data) => {});
 
 authentication.getSSOData();
-authentication.getSSOData(true, (err, data) => {
-    data.sso; // $ExpectType boolean
-});
+authentication.getSSOData(true, (err, data) => {});
 
 // $ExpectError
 authentication.dbConnection.signup();

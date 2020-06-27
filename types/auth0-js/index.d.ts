@@ -973,15 +973,15 @@ export interface AuthorizeOptions {
 export type SsoDataResult = SsoSessionFoundResult | SsoSessionNotFoundResult;
 
 export interface SsoSessionFoundResult {
-    lastUsedClientID: string,
+    lastUsedClientID: string;
     lastUsedConnection: {
-        name: string,
-        strategy?: string,
-    },
-    lastUsedUserID: string,
-    lastUsedUsername: string,
-    sessionClients: string[],
-    sso: true,
+        name: string;
+        strategy?: string;
+    };
+    lastUsedUserID: string;
+    lastUsedUsername: string;
+    sessionClients: string[];
+    sso: true;
 }
 
 export interface SsoSessionNotFoundResult {
