@@ -7,6 +7,7 @@ const options: Glider.Options = {
         prev: '.glider-prev',
         next: '.glider-next',
     },
+    eventPropagate: true,
 };
 
 // $ExpectType Static<HTMLDivElement>

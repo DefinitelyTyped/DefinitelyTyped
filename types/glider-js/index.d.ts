@@ -160,6 +160,12 @@ declare namespace Glider {
         scrollPropagate?: boolean;
 
         /**
+         * Whether or not the event bubbles up from the container
+         * @default true
+         */
+        eventPropagate?: boolean;
+
+        /**
          * Whether or not Glider.js should skip wrapping its children with a
          * 'glider-track' <div>.
          */
