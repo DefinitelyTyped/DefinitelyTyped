@@ -1267,7 +1267,6 @@ declare namespace Pubnub {
         channel: string;
     }
 
-    // TODO: get clarification on what this response looks like
     type GetChannelMembersResponse = PagedObjectsResponse<UUIDMembershipObject>;
 
     interface GetMembershipsParameters extends ChannelMembersParameters {
