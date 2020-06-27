@@ -1162,7 +1162,7 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(stringRecordOrUndefinedDictionary).pluck(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
 
     // property name iterator with a non-nullable non-intersecting type union
-    // linting has odd issues correctly determining the UnderscoreStatic.map type results for this case when using ExpectType for some reason
+    // linting has odd issues correctly determining the UnderscoreStatic.pluck type results for this case when using ExpectType for some reason
     // that stop occurring when the minimum version is moved to TS 3.1, so use assignability checks instead for the moment as a workaround
     let result: (string | undefined)[] = _.pluck(nonIntersectingPropertiesArray, stringRecordProperty);
     _(nonIntersectingPropertiesArray).pluck(stringRecordProperty); // $ExpectType (string | undefined)[]
