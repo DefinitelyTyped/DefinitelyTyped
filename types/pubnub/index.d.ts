@@ -1,4 +1,4 @@
-// Type definitions for pubnub 4.27
+// Type definitions for pubnub 4.28
 // Project: https://github.com/pubnub/javascript
 // Definitions by:  bitbankinc <https://github.com/bitbankinc>,
 //                  rollymaduk <https://github.com/rollymaduk>,
