@@ -12,7 +12,11 @@ export as namespace S;
 
 type Nullable<A> = A | null;
 
-type Pair<A, B> = [A, B];
+interface Pair<A, B> {
+  constructor: {
+    '@@type': 'sanctuary/Either';
+  };
+}
 
 type Thunk<A> = () => A;
 
