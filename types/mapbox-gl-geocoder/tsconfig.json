@@ -1,15 +1,14 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es5",
         "lib": [
             "es6",
             "dom"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "noImplicitAny": false,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -20,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "rsvp-tests.ts"
+        "mapbox-gl-geocoder-tests.ts"
     ]
 }
