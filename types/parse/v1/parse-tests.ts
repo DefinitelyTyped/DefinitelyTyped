@@ -148,7 +148,7 @@ function test_query() {
     const testQuery = Parse.Query.or(query, query);
 }
 
-class TestCollection extends Parse.Collection<Parse.Object> {
+class TestCollection extends Parse.Collection<Object> {
 
     constructor(models?: Parse.Object[]) {
 
