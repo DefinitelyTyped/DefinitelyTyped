@@ -6,7 +6,7 @@
 //                 Patrick Simmelbauer <https://github.com/patsimm>
 //                 Mike Morearty <https://github.com/mmorearty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import {
   Mark,
@@ -29,7 +29,7 @@ export interface PluginSpec<T = any, S extends Schema = any> {
    * that are functions will be bound to have the plugin instance as
    * their `this` binding.
    */
-  props?: EditorProps<T, S> | null;
+  props?: EditorProps<Plugin<T, S>, S> | null;
   /**
    * Allows a plugin to define a [state field](#state.StateField), an
    * extra slot in the state object in which it can keep its own data.
@@ -91,7 +91,7 @@ export class Plugin<T = any, S extends Schema = any> {
   /**
    * The [props](#view.EditorProps) exported by this plugin.
    */
-  props: EditorProps<T, S>;
+  props: EditorProps<Plugin<T, S>, S>;
   /**
    * The plugin's [spec object](#state.PluginSpec).
    */
