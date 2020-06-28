@@ -4880,6 +4880,11 @@ export interface ModalPropsAndroid {
      *  Controls whether to force hardware acceleration for the underlying window.
      */
     hardwareAccelerated?: boolean;
+
+    /**
+     *  Determines whether your modal should go under the system statusbar.
+     */
+    statusBarTranslucent?: boolean;
 }
 
 export type ModalProps = ModalBaseProps & ModalPropsIOS & ModalPropsAndroid;

@@ -294,15 +294,20 @@ declare namespace Aws {
         request?: HttpRequestValidation;
     }
 
-    interface HttpApiEventAuthorizer {
+    interface NamedHttpApiEventAuthorizer {
         name: string;
+        scopes?: string[];
+    }
+
+    interface IdRefHttpApiEventAuthorizer {
+        id: string;
         scopes?: string[];
     }
 
     interface HttpApiEvent {
         method: string;
         path: string;
-        authorizer?: HttpApiEventAuthorizer;
+        authorizer?: NamedHttpApiEventAuthorizer | IdRefHttpApiEventAuthorizer;
     }
 
     interface WebsocketAuthorizer {

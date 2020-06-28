@@ -32,7 +32,7 @@ declare namespace DineroFactory {
 
     interface Dinero {
         getAmount(): number;
-        getCurrency(): string;
+        getCurrency(): Currency;
         getLocale(): string;
         setLocale(newLocale: string): Dinero;
         getPrecision(): number;

@@ -417,6 +417,16 @@ const awsServerless: Aws.Serverless = {
                             scopes: ['testscopes']
                         }
                     }
+                },
+                {
+                    httpApi: {
+                        method: 'testmethod',
+                        path: 'testpath',
+                        authorizer: {
+                            id: 'testid',
+                            scopes: ['testscopes'],
+                        },
+                    },
                 }, {
                     websocket: {
                         route: 'testroute',

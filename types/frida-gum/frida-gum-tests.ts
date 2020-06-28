@@ -77,6 +77,10 @@ const obj = new ObjC.Object(ptr("0x42"));
 // $ExpectType Object
 obj;
 
+const b = new ObjC.Block(ptr(0x1234));
+b.declare({ retType: "void", argTypes: ["int"] });
+b.declare({ types: "v12@?0i8" });
+
 Java.enumerateClassLoadersSync()
     .forEach(classLoader => {
         // $ExpectType ClassFactory
@@ -115,3 +119,18 @@ Java.enumerateClassLoadersSync()
         // $ExpectType Wrapper<AnotherProps>
         Java.cast(MyJavaClass, MyAnotherJavaClass);
     });
+
+Java.perform(() => {
+    Java.enumerateMethods("*!*game*/i").forEach(group => {
+        const factory = Java.ClassFactory.get(group.loader);
+        group.classes.forEach(klass => {
+            const C = factory.use(klass.name);
+            klass.methods.forEach(methodName => {
+                const method: Java.MethodDispatcher = C[methodName];
+                method.implementation = function(...args) {
+                    return method.apply(this, args);
+                };
+            });
+        });
+    });
+});
