@@ -157,3 +157,8 @@ MyTelegramBot.removeAllListeners('message');
 MyTelegramBot.listeners('message');
 MyTelegramBot.rawListeners('message');
 MyTelegramBot.listenerCount('message');
+MyTelegramBot.setChatPermissions(1234, {});
+MyTelegramBot.sendDice(1234, { disable_notification: true });
+MyTelegramBot.setChatAdministratorCustomTitle(1234, 'user_id', 'some_custom_title');
+MyTelegramBot.getMyCommands();
+MyTelegramBot.setMyCommands([{ command: 'command', description: 'description' }]);
