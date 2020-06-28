@@ -14,7 +14,7 @@ type Nullable<A> = A | null;
 
 interface Pair<A, B> {
   constructor: {
-    '@@type': 'sanctuary/Either';
+    '@@type': 'sanctuary/Pair';
   };
 }
 
