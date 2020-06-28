@@ -707,8 +707,8 @@ interface StringRecordExplicitDictionary extends _.Dictionary<StringRecord> {
     c: StringRecord;
 }
 
-const stringRecordExcplcitDictionary: StringRecordExplicitDictionary = { a: { a: 'a', b: 'c' }, b: { a: 'b', b: 'b' }, c: { a: 'c', b: 'a' } };
-const stringRecordDictionary: _.Dictionary<StringRecord> = stringRecordExcplcitDictionary;
+const stringRecordExplicitDictionary: StringRecordExplicitDictionary = { a: { a: 'a', b: 'c' }, b: { a: 'b', b: 'b' }, c: { a: 'c', b: 'a' } };
+const stringRecordDictionary: _.Dictionary<StringRecord> = stringRecordExplicitDictionary;
 const stringRecordDictionaryValueIterator = (element: StringRecord, key: string, dictionary: _.Dictionary<StringRecord>) => element.a;
 const stringRecordDictionaryBooleanIterator = (element: StringRecord, key: string, list: _.Dictionary<StringRecord>) => element.a === 'b';
 
@@ -1372,7 +1372,7 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractUnderscoreTypes(_(stringRecordAugmentedList)); // $ExpectType UnderscoreType<StringRecordAugmentedList, StringRecord>
     extractUnderscoreTypes(_(stringRecordList)); // $ExpectType UnderscoreType<List<StringRecord>, StringRecord>
 
-    extractUnderscoreTypes(_(stringRecordExcplcitDictionary)); // $ExpectType UnderscoreType<StringRecordExplicitDictionary, StringRecord>
+    extractUnderscoreTypes(_(stringRecordExplicitDictionary)); // $ExpectType UnderscoreType<StringRecordExplicitDictionary, StringRecord>
     extractUnderscoreTypes(_(stringRecordDictionary)); // $ExpectType UnderscoreType<Dictionary<StringRecord>, StringRecord>
 
     extractUnderscoreTypes(_(simpleString)); // $ExpectType UnderscoreType<string, string>
@@ -1389,7 +1389,7 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(stringRecordAugmentedList).value(); // $ExpectType StringRecordAugmentedList
     _(stringRecordList).value(); // $ExpectType List<StringRecord>
 
-    _(stringRecordExcplcitDictionary).value(); // $ExpectType StringRecordExplicitDictionary
+    _(stringRecordExplicitDictionary).value(); // $ExpectType StringRecordExplicitDictionary
     _(stringRecordDictionary).value(); // $ExpectType Dictionary<StringRecord>
 
     _(simpleString).value(); // $ExpectType string
@@ -1413,8 +1413,8 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(stringRecordList)); // $ExpectType ChainType<List<StringRecord>, StringRecord>
     extractChainTypes(_(stringRecordList).chain()); // $ExpectType ChainType<List<StringRecord>, StringRecord>
 
-    extractChainTypes(_.chain(stringRecordExcplcitDictionary)); // $ExpectType ChainType<StringRecordExplicitDictionary, StringRecord>
-    extractChainTypes(_(stringRecordExcplcitDictionary).chain()); // $ExpectType ChainType<StringRecordExplicitDictionary, StringRecord>
+    extractChainTypes(_.chain(stringRecordExplicitDictionary)); // $ExpectType ChainType<StringRecordExplicitDictionary, StringRecord>
+    extractChainTypes(_(stringRecordExplicitDictionary).chain()); // $ExpectType ChainType<StringRecordExplicitDictionary, StringRecord>
 
     extractChainTypes(_.chain(stringRecordDictionary)); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
     extractChainTypes(_(stringRecordDictionary).chain()); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
@@ -1437,7 +1437,7 @@ declare const extractChainTypes: ChainTypeExtractor;
     _.chain(stringRecordAugmentedList).value(); // $ExpectType StringRecordAugmentedList
     _.chain(stringRecordList).value(); // $ExpectType List<StringRecord>
 
-    _.chain(stringRecordExcplcitDictionary).value(); // $ExpectType StringRecordExplicitDictionary
+    _.chain(stringRecordExplicitDictionary).value(); // $ExpectType StringRecordExplicitDictionary
     _.chain(stringRecordDictionary).value(); // $ExpectType Dictionary<StringRecord>
 
     _.chain(simpleString).value(); // $ExpectType string
