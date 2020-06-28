@@ -107,11 +107,13 @@ declare module _ {
         (prev: TResult, curr: T, key: string, list: Dictionary<T>): TResult;
     }
 
-    type TypeOfList<V> = V extends _.List<infer T> ? T : never;
+    type TypeOfList<V> = V extends List<infer T> ? T : never;
 
-    type TypeOfDictionary<V> = V extends _.Dictionary<infer T> ? T : never;
+    type TypeOfDictionary<V> = V extends Dictionary<infer T> ? T : never;
 
-    type TypeOfCollection<V> = V extends _.Collection<infer T> ? T : never;
+    type TypeOfCollection<V> = V extends List<infer T> ? T
+        : V extends Dictionary<infer T> ? T
+        : never;
 
     type _ChainSingle<V> = _Chain<TypeOfCollection<V>, V>;
 
@@ -126,9 +128,7 @@ declare module _ {
          * @param value First argument to Underscore object functions.
          * @returns An Underscore wrapper around the supplied value.
          **/
-        <T extends TypeOfList<V>, V extends List<any> = List<T>>(value: V): Underscore<T, V>;
-        <T extends TypeOfDictionary<V>, V extends Dictionary<any> = Dictionary<T>>(value: V): Underscore<T, V>;
-        <V>(value: V): Underscore<never, V>;
+        <V>(value: V): Underscore<TypeOfCollection<V>, V>;
 
         /* *************
         * Collections *
@@ -4121,9 +4121,7 @@ declare module _ {
          * @param value The object to chain.
          * @returns An underscore chain wrapper around the supplied value.
          **/
-        chain<T extends TypeOfList<V>, V extends List<any> = List<T>>(value: V): _Chain<T, V>;
-        chain<T extends TypeOfDictionary<V>, V extends Dictionary<any> = Dictionary<T>>(value: V): _Chain<T, V>;
-        chain<V>(value: V): _Chain<never, V>;
+        chain<V>(value: V): _Chain<TypeOfCollection<V>, V>;
 
         /**
          * Current version
