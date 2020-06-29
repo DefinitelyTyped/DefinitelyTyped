@@ -24,11 +24,14 @@ export type ComponentResolver<Props, Module = DefaultComponent<Props>> = (
     props: Props,
 ) => React.ComponentType<Props>;
 
-export interface Options<Props, Module = DefaultComponent<Props>> {
+export interface OptionsWithoutResolver<Props> {
     cacheKey?(props: Props): any;
     fallback?: JSX.Element;
     ssr?: boolean;
-    resolveComponent?: ComponentResolver<Props, Module>;
+}
+
+export interface OptionsWithResolver<Props, Module = DefaultComponent<Props>> extends OptionsWithoutResolver<Props> {
+    resolveComponent: ComponentResolver<Props, Module>;
 }
 
 export interface LoadableReadyOptions {
@@ -51,14 +54,19 @@ export type LoadableLibrary<Module> = React.ComponentType<{
     Module &
     LoadableComponentMethods<object>;
 
-declare function lib<Props, Module = DefaultComponent<Props>>(
+declare function lib<Props, Module>(
     loadFn: (props: Props) => Promise<Module>,
-    options?: Options<Props, Module>,
-): LoadableLibrary<Props>;
+    options?: OptionsWithoutResolver<Props>,
+): LoadableLibrary<Module>;
 
 declare function loadableFunc<Props, Module = DefaultComponent<Props>>(
     loadFn: (props: Props) => Promise<Module>,
-    options?: Options<Props, Module>,
+    options: OptionsWithResolver<Props, Module>,
+): LoadableComponent<Props>;
+
+declare function loadableFunc<Props>(
+    loadFn: (props: Props) => Promise<DefaultComponent<Props>>,
+    options?: OptionsWithoutResolver<Props>,
 ): LoadableComponent<Props>;
 
 declare const loadable: typeof loadableFunc & { lib: typeof lib };
