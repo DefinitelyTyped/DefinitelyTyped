@@ -1,6 +1,7 @@
-import * as view from 'prosemirror-view';
-import * as state from 'prosemirror-state';
+import * as model from 'prosemirror-model';
 import * as schema from 'prosemirror-schema-basic';
+import * as state from 'prosemirror-state';
+import * as view from 'prosemirror-view';
 
 const { Decoration } = view;
 const decoration = new Decoration();
@@ -51,4 +52,19 @@ const res5_view = new view.EditorView<typeof schema.schema>(undefined, {
         // Ensure that `this` is bound to type EditorView<schema.schema>
         const v: view.EditorView<typeof schema.schema> = this;
     },
+});
+
+// Test `plain: boolean`
+const res6_plugin = new state.Plugin({
+    props: {
+        transformPastedText(text, plain) {
+            const isPlain: boolean = plain;
+            return text;
+        },
+
+        clipboardTextParser(text, $context, plain) {
+            const isPlain: boolean = plain;
+            return model.Slice.empty;
+        }
+    }
 });
