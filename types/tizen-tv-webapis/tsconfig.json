@@ -13,7 +13,7 @@
   },
   "files": [
     "index.d.ts",
-    "test/tizen-tv-webais-tests.cjs.ts",
-    "test/tizen-tv-webais-tests.global.ts"
+    "test/tizen-tv-webapis-tests.cjs.ts",
+    "test/tizen-tv-webapis-tests.global.ts"
   ]
 }
