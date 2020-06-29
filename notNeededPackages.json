@@ -1111,6 +1111,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "electron-packager",
+            "typingsPackageName": "electron-packager",
+            "sourceRepoURL": "https://github.com/electron/electron-packager",
+            "asOfVersion": "15.0.0"
+        },
+        {
             "libraryName": "electron-store",
             "typingsPackageName": "electron-store",
             "sourceRepoURL": "https://github.com/sindresorhus/electron-store",
