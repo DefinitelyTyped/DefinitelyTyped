@@ -1,6 +1,7 @@
 // Type definitions for next-auth 2.2.0
-// Definitions by: Lluis <https://github.com/lluia>, Iain <https://github.com/iaincollins>
-// Project: https://github.com/iaincollins/next-auth
+// Definitions by: Lluis <https://github.com/lluia>
+//                 Iain <https://github.com/iaincollins>
+// Project: https://github.com/iaincollins/next-auth#readme
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ConnectionOptions } from 'typeorm';
