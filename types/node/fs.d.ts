@@ -546,7 +546,7 @@ declare module "fs" {
          * Whether the numeric values in the returned fs.Stats object should be bigint.
          * @default false
          */
-        bigint?: number;
+        bigint?: boolean;
     }
 
     /**
