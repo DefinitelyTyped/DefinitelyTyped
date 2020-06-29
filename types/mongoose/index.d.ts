@@ -512,6 +512,20 @@ declare module "mongoose" {
     useFindAndModify?: boolean;
     /** Flag for using new Server Discovery and Monitoring engine instead of current (deprecated) one */
     useUnifiedTopology?: boolean;
+    /**
+     * With useUnifiedTopology, the MongoDB driver will try to find a server to send any given operation to,
+     * and keep retrying for serverSelectionTimeoutMS milliseconds.
+     * If not set, the MongoDB driver defaults to using 30000 (30 seconds).
+     */
+    serverSelectionTimeoutMS?: number;
+    /**
+     * With useUnifiedTopology, the MongoDB driver sends a heartbeat every heartbeatFrequencyMS to check on the status of the connection.
+     * A heartbeat is subject to serverSelectionTimeoutMS, so the MongoDB driver will retry failed heartbeats for up to 30 seconds by default.
+     * Mongoose only emits a 'disconnected' event after a heartbeat has failed,
+     * so you may want to decrease this setting to reduce the time between when your server goes down and when Mongoose emits 'disconnected'.
+     * We recommend you do not set this setting below 1000, too many heartbeats can lead to performance degradation.
+     */
+    heartbeatFrequencyMS?: number;
 
     // Legacy properties - passed to the connection server instance(s)
     mongos?: any;
