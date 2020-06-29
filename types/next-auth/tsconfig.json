@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "strict": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "jsx": "react",
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+    },
+    "files": [
+        "index.d.ts",
+        "next-auth-tests.ts"
+    ]
+}
