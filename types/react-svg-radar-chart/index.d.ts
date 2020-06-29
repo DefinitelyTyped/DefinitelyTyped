@@ -3,7 +3,6 @@
 // Definitions by: Lukas Tutkus <https://github.com/luksys5>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
-// Typescript Version 3.9.2
 
 import * as React from 'react';
 
