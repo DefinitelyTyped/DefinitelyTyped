@@ -574,7 +574,6 @@ declare namespace OpenSeadragon {
 
     class IIIFTileSource extends TileSource {
         constructor(options: TileSourceOptions & {tileFormat?: string});
-        canBeTiled(profile: string[]): boolean;
     }
 
     class ImageLoader {
