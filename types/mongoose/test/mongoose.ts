@@ -31,6 +31,8 @@ const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   useNewUrlParser: true,
   useFindAndModify: true,
   useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 30000,
+  heartbeatFrequencyMS: 2000,
   useCreateIndex: true,
   autoIndex: true,
   autoCreate: true,
