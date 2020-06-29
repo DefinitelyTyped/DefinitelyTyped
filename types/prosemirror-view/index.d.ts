@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-view 1.11
+// Type definitions for prosemirror-view 1.15
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -530,9 +530,10 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
    */
   clipboardParser?: DOMParser<S> | null;
   /**
-   * Transform pasted plain text.
+   * Transform pasted plain text. The `plain` flag will be true when
+   * the text is pasted as plain text.
    */
-  transformPastedText?: ((this: ThisT, text: string) => string) | null;
+  transformPastedText?: ((this: ThisT, text: string, plain: boolean) => string) | null;
   /**
    * A function to parse text from the clipboard into a document
    * slice. Called after
@@ -540,8 +541,10 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
    * The default behavior is to split the text into lines, wrap them
    * in `<p>` tags, and call
    * [`clipboardParser`](#view.EditorProps.clipboardParser) on it.
+   * The `plain` flag will be true when the text is pasted as plain
+   * text.
    */
-  clipboardTextParser?: ((this: ThisT, text: string, $context: ResolvedPos<S>) => Slice<S>) | null;
+  clipboardTextParser?: ((this: ThisT, text: string, $context: ResolvedPos<S>, plain: boolean) => Slice<S>) | null;
   /**
    * Can be used to transform pasted content before it is applied to
    * the document.
