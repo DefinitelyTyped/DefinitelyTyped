@@ -10,5 +10,10 @@
     "typeRoots": ["../"],
     "types": [],
     "esModuleInterop": true 
-  }
+  },
+  "files": [
+    "index.d.ts",
+    "test/tizen-tv-webais-tests.cjs.ts",
+    "test/tizen-tv-webais-tests.global.ts"
+  ]
 }
