@@ -1,8 +1,8 @@
 import Pubnub = require('pubnub');
 
 const console = {
-    log: (...params: any[]) => { },
-    error: (...params: any[]) => { },
+    log: (...params: any[]) => {},
+    error: (...params: any[]) => {},
 };
 
 const config: Pubnub.PubnubConfig = {
@@ -722,7 +722,7 @@ pubnub
 
 // APNS
 
-Pubnub.notificationPayload('Chat invitation', 'You have been invited to \'quiz\' chat').buildPayload(['apns2', 'fcm']);
+Pubnub.notificationPayload('Chat invitation', "You have been invited to 'quiz' chat").buildPayload(['apns2', 'fcm']);
 
 // Objects v2 (examples taken from docs https://www.pubnub.com/docs/web-javascript/api-reference-objects)
 
@@ -739,14 +739,14 @@ pubnub.objects.getUUIDMetadata({
 // using UUID from the config
 pubnub.objects.setUUIDMetadata({
     data: {
-        name: 'John Doe'
-    }
+        name: 'John Doe',
+    },
 });
 
 // using passed in UUID
 pubnub.objects.setUUIDMetadata({
     uuid: 'myUuid',
-    data: {}
+    data: {},
 });
 
 // using UUID from the config
@@ -754,13 +754,13 @@ pubnub.objects.removeUUIDMetadata();
 
 // using passed in UUID
 pubnub.objects.removeUUIDMetadata({
-    uuid: 'myUuid'
+    uuid: 'myUuid',
 });
 
 pubnub.objects.getAllChannelMetadata({
     include: {
-        totalCount: true
-    }
+        totalCount: true,
+    },
 });
 
 pubnub.objects.getChannelMetadata({
@@ -770,12 +770,12 @@ pubnub.objects.getChannelMetadata({
 pubnub.objects.setChannelMetadata({
     channel: 'myChannel',
     data: {
-        name: 'Channel Name'
-    }
+        name: 'Channel Name',
+    },
 });
 
 pubnub.objects.removeChannelMetadata({
-    channel: 'myChannel'
+    channel: 'myChannel',
 });
 
 // using UUID from the config
@@ -785,27 +785,23 @@ pubnub.objects.getMemberships();
 pubnub.objects.getMemberships({
     uuid: 'myUuid',
     include: {
-        channelFields: true
-    }
+        channelFields: true,
+    },
 });
 
 // using UUID from the config
 pubnub.objects.setMemberships({
-    channels: ['ch-1', 'ch-2']
+    channels: ['ch-1', 'ch-2'],
 });
 
 // using passed in UUID
 pubnub.objects.setMemberships({
     uuid: 'my-uuid',
-    channels: [
-        "my-channel-1",
-        { id: "my-channel-2" },
-        { id: "my-channel-3", custom: { hello: "world" } },
-    ],
+    channels: ['my-channel-1', { id: 'my-channel-2' }, { id: 'my-channel-3', custom: { hello: 'world' } }],
     include: {
         // To include channel fields in response
-        channelFields: true
-    }
+        channelFields: true,
+    },
 });
 
 // using UUID from the config
@@ -822,8 +818,8 @@ pubnub.objects.removeMemberships({
 pubnub.objects.getChannelMembers({
     channel: 'myChannel',
     include: {
-        UUIDFields: true
-    }
+        UUIDFields: true,
+    },
 });
 
 pubnub.objects.setChannelMembers({
