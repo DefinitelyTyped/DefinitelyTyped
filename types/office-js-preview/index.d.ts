@@ -42861,7 +42861,6 @@ declare namespace Excel {
          *
          */
         worksheetFormatChanged = "WorksheetFormatChanged",
-        wacoperationEvent = "WACOperationEvent",
         /**
          * RibbonCommandExecuted represents the type of event registered on ribbon, and occurs when user click on ribbon
          *
