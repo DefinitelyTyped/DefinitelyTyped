@@ -1118,13 +1118,15 @@ declare namespace Pubnub {
     // Objects v2
 
     // Object
+    interface ObjectCustom {
+        [key: string]: string | number | boolean;
+    }
+
     interface v2ObjectData {
         id: string;
         eTag: string;
         updated: string;
-        custom?: {
-            [key: string]: string;
-        } | null;
+        custom?: ObjectCustom | null;
     }
 
     // UUID metadata
@@ -1134,7 +1136,7 @@ declare namespace Pubnub {
         externalId?: string;
         profileUrl?: string;
         email?: string;
-        custom?: object;
+        custom?: ObjectCustom;
     }
 
     interface UUIDMetadataObject extends v2ObjectData {
@@ -1187,12 +1189,6 @@ declare namespace Pubnub {
 
     // Channel Metadata
 
-    interface ChannelMetadata {
-        name?: string;
-        description?: string;
-        custom: object;
-    }
-
     interface ChannelMetadataObject extends v2ObjectData {
         name: string | null;
         description: string | null;
@@ -1203,6 +1199,7 @@ declare namespace Pubnub {
         data: {
             name?: string;
             description?: string;
+            custom?: ObjectCustom;
         };
         include?: {
             customFields?: boolean;
