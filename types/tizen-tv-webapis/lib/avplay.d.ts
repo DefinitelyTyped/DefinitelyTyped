@@ -1,3 +1,4 @@
+/* tslint:disable:max-line-length */
 /**
  * Specifies the player state.
  * - `NONE`- Player is not created
@@ -7,6 +8,7 @@
  * - `PAUSED`- Player is paused
  * @since 2.3
  */
+// tslint:disable-next-line no-const-enum
 declare const enum AVPlayPlayerState {
     NONE = 'NONE',
     IDLE = 'IDLE',
@@ -24,6 +26,7 @@ type AVPlayPlayerStateUnion = AVPlayPlayerState | 'NONE' | 'IDLE' | 'READY' | 'P
  * - `PLAYER_DISPLAY_MODE_AUTO_ASPECT_RATIO`- Screen mode based on video dar/par info
  * @since 2.3
  */
+// tslint:disable-next-line no-const-enum
 declare const enum AVPlayDisplayMode {
     PLAYER_DISPLAY_MODE_LETTER_BOX = 'PLAYER_DISPLAY_MODE_LETTER_BOX',
     PLAYER_DISPLAY_MODE_FULL_SCREEN = 'PLAYER_DISPLAY_MODE_FULL_SCREEN',
@@ -44,6 +47,7 @@ type AVPlayDisplayModeUnion =
  * The actual buffering completion time may vary depending on the contents format, bitrate, network speed and so on.
  * @since 2.3
  */
+// tslint:disable-next-line no-const-enum
 declare const enum AVPlayBufferOption {
     PLAYER_BUFFER_FOR_PLAY = 'PLAYER_BUFFER_FOR_PLAY',
     PLAYER_BUFFER_FOR_RESUME = 'PLAYER_BUFFER_FOR_RESUME',
@@ -56,6 +60,7 @@ type AVPlayBufferOptionUnion = AVPlayBufferOption | 'PLAYER_BUFFER_FOR_PLAY' | '
  * @since 2.3
  * @note "PLAYER_BUFFER_SIZE_IN_BYTE" property has been deprecated from Tizen version 5.0
  */
+// tslint:disable-next-line no-const-enum
 declare const enum AVPlayBufferSizeUnit {
     PLAYER_BUFFER_SIZE_IN_BYTE = 'PLAYER_BUFFER_SIZE_IN_BYTE',
     PLAYER_BUFFER_SIZE_IN_SECOND = 'PLAYER_BUFFER_SIZE_IN_SECOND',
@@ -92,6 +97,7 @@ type AVPlayBufferSizeUnitUnion = AVPlayBufferSizeUnit | 'PLAYER_BUFFER_SIZE_IN_B
  * @note "SET_MODE_4K" property has been deprecated from Tizen version 5.0. Property "ADAPTIVE_INFO" with attribute "FIXED_MAX_RESOLUTION=max_widthXmax_height" has been available since 5.0 as an alternative.
  * @note "ADAPTIVE_INFO" with attribute  "FIXED_MAX_RESOLUTION=max_widthXmax_height" is available since Tizen version 5.0 and API version 4.1
  */
+// tslint:disable-next-line no-const-enum
 declare const enum AVPlayStreamingPropertyType {
     COOKIE = 'COOKIE',
     USER_AGENT = 'USER_AGENT',
@@ -139,6 +145,7 @@ type AVPlayStreamingPropertyTypeUnion =
  * - `EME_WIDEVINE_CDM`- Widevine Modular (supported since Tizen 5.0)
  * @since 2.3
  */
+// tslint:disable-next-line no-const-enum
 declare const enum AVPlayDrmType {
     PLAYREADY = 'PLAYREADY',
     EME_PLAYREADY = 'EME_PLAYREADY',
@@ -166,6 +173,7 @@ type AVPlayDrmTypeUnion =
  * @note 'Initialize' and 'Finalize' operations have been deprecated from Tizen version 5.0. Because these are being executed by avplay itself.
  * @note 'widevine_app_session' and 'widevine_data_type' operations have been deprecated from Tizen version 5.0. Because these are merged into "SetProperties". Please refer to setDrm() example.
  */
+// tslint:disable-next-line no-const-enum
 declare const enum AVPlayDrmOperation {
     'SetProperties' = 'SetProperties',
     'InstallLicense' = 'InstallLicense',
@@ -197,6 +205,7 @@ type AVPlayDrmOperationUnion =
  * - `TEXT`- Subtitle track
  * @since 2.3
  */
+// tslint:disable-next-line no-const-enum
 declare const enum AVPlayStreamType {
     VIDEO = 'VIDEO',
     AUDIO = 'AUDIO',
@@ -220,6 +229,7 @@ type AVPlayStreamTypeUnion = AVPlayStreamType | 'VIDEO' | 'AUDIO' | 'TEXT';
  * - `PLAYER_ERROR_GENEREIC`- Failed to create the display window
  * @since 2.3
  */
+// tslint:disable-next-line no-const-enum
 declare const enum AVPlayError {
     PLAYER_ERROR_NONE = 'PLAYER_ERROR_NONE',
     PLAYER_ERROR_INVALID_PARAMETER = 'PLAYER_ERROR_INVALID_PARAMETER',
@@ -260,6 +270,7 @@ type AVPlayErrorUnion =
  * @since 2.3
  * @note 'PLAYER_MSG_FRAGMENT_INFO' event has been deprecated from Tizen version 2.4, because it affects the application performance.
  */
+// tslint:disable-next-line no-const-enum
 declare const enum AVPlayEvent {
     PLAYER_MSG_NONE = 'PLAYER_MSG_NONE',
     PLAYER_MSG_RESOLUTION_CHANGED = 'PLAYER_MSG_RESOLUTION_CHANGED',
@@ -289,6 +300,7 @@ type AVPlayEventUnion =
  * @param extra_info string JSON string containing all media-related info (such as height, width, and fourCC for a video stream, and bitrate, fourCC, language, and codec type for an audio stream)
  * @since 2.3
  */
+// tslint:disable-next-line interface-over-type-literal
 type AVPlayStreamInfo = {
     index: number;
     type: AVPlayStreamTypeUnion;
@@ -302,6 +314,7 @@ type AVPlayStreamInfo = {
  * @param stop_pos Stop position
  * @since 2.3
  */
+// tslint:disable-next-line interface-over-type-literal
 type AVPlaySubtitleAttribute = {
     attr_type: string;
     start_pos: number;
@@ -406,6 +419,7 @@ interface AVPlaySoundAnalysisCallback {
  * This module defines the multimedia player functionalities provided by the Tizen Samsung TV Product API.
  * @since 2.3
  */
+// tslint:disable-next-line strict-export-declare-modifiers
 declare interface AVPlayManager {
     /**
      * Instantiates the player object with a content URL as the input parameter.

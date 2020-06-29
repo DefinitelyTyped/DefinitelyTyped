@@ -4,6 +4,7 @@
  * @privilegeName http://developer.samsung.com/privilege/sso.partner
  * @since 2.3
  */
+// tslint:disable-next-line strict-export-declare-modifiers
 declare interface SsoManager {
     /**
      * Retrieves the plugin version number.

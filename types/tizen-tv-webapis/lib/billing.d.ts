@@ -1,8 +1,10 @@
+/* tslint:disable:max-line-length */
 /**
  * Specifies billing server types.
  * - `DEV` - Staging server
  * - `PRD` - Operating server
  */
+// tslint:disable-next-line no-const-enum
 declare const enum TVServerType {
     DEV = 'DEV',
     PRD = 'PRD',
@@ -13,6 +15,7 @@ type TVServerTypeUnion = TVServerType | 'DEV' | 'PRD';
 /**
  * Defines the payment result and information.
  */
+// tslint:disable-next-line interface-over-type-literal
 type BillingBuyData = {
     /**
      * Payment result
@@ -28,6 +31,7 @@ type BillingBuyData = {
  * Defines a dictionary for product list data returned by the getProductsList API.
  * @param apiResult getProductsList API result dictionary in JSON format. This value is JSON string type data, so Please use it by JSON parsing. After you parse this value, you can use it in ProductsListAPIResult format at the below.
  */
+// tslint:disable-next-line interface-over-type-literal
 type ProductsListData = {
     apiResult: string;
 };
@@ -36,6 +40,7 @@ type ProductsListData = {
  * Defines a dictionary for data returned by the applyInvoice API.
  * @param apiResult applyInvoice API result dictionary in JSON format. This value is JSON string type data, so Please use it by JSON parsing. After you parse this value, you can use it in ApplyInvoiceAPIResult format at the below.
  */
+// tslint:disable-next-line interface-over-type-literal
 type ApplyInvoiceData = {
     apiResult: string;
 };
@@ -44,6 +49,7 @@ type ApplyInvoiceData = {
  * Defines a dictionary for data returned by the verifyInvoice API.
  * @param apiResult verifyInvoice API result dictionary in JSON format. This value is JSON string type data, so Please use it by JSON parsing. After you parse this value, you can use it in VerifyInvoiceAPIResult format at the below.
  */
+// tslint:disable-next-line interface-over-type-literal
 type VerifyInvoiceData = {
     apiResult: string;
 };
@@ -52,6 +58,7 @@ type VerifyInvoiceData = {
  * Defines a dictionary for data returned by the getServiceCountryAvailability API.
  * @param apiResult getServiceCountryAvailability API result dictionary in JSON format. This value is JSON string type data, so Please use it by JSON parsing. After you parse this value, you can use it in GetUserPurchaseListAPIResult format at the below.
  */
+// tslint:disable-next-line interface-over-type-literal
 type ServiceCountryAvailabilityData = {
     apiResult: string;
 };
@@ -60,6 +67,7 @@ type ServiceCountryAvailabilityData = {
  * Defines a dictionary for data returned by the getUserPurchaseList API.
  * @param apiResult getUserPurchaseList API result dictionary in JSON format. This value is JSON string type data, so Please use it by JSON parsing. After you parse this value, you can use it in GetUserPurchaseListAPIResult format at the below.
  */
+// tslint:disable-next-line interface-over-type-literal
 type UserPurchaseData = {
     apiResult: string;
 };
@@ -68,6 +76,7 @@ type UserPurchaseData = {
  * Defines a dictionary for subscription cancellation data returned by the cancelSubscription API.
  * @param apiResult cancelSubscription API result dictionary in JSON format. This value is JSON string type data, so Please use it by JSON parsing. After you parse this value, you can use it in CancelSubscriptionAPIResult format at the below.
  */
+// tslint:disable-next-line interface-over-type-literal
 type CancelSubscriptionData = {
     apiResult: string;
 };
@@ -77,6 +86,7 @@ type CancelSubscriptionData = {
  * @param apiResult IsServiceAvailable API result dictionary in JSON format. This value is JSON string type data, so Please use it by JSON parsing. After you parse this value, you can use it in ServiceAvailableAPIResult format at the below.
  * @deprecated 5.5
  */
+// tslint:disable-next-line interface-over-type-literal
 type ServiceAvailableData = {
     apiResult: string;
 };
@@ -152,6 +162,7 @@ interface BillingIsServiceAvailableCallback {
  * @privilegeName http://developer.samsung.com/privilege/billing
  * @since 2.4
  */
+// tslint:disable-next-line strict-export-declare-modifiers
 declare interface BillingManager {
     /**
      * Retrieves the Billing API version.

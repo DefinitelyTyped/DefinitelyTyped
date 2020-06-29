@@ -2,6 +2,7 @@
  * Defines constants for product info configuration keys.
  * @since 2.3
  */
+// tslint:disable-next-line no-const-enum
 declare const enum ProductInfoConfigKey {
     /**
      * Data service configuration, it can be set as string type with numbers
@@ -20,6 +21,7 @@ declare const enum ProductInfoConfigKey {
  * Defines constants for glasses-free 3D support.
  * @since 2.3
  */
+// tslint:disable-next-line no-const-enum
 declare const enum ProductInfoNoGlass3dSupport {
     /**
      * Glasses-free 3D is not supported
@@ -38,6 +40,7 @@ declare const enum ProductInfoNoGlass3dSupport {
  * Defines constants for infolink server types.
  * @since 2.3
  */
+// tslint:disable-next-line no-const-enum
 declare const enum ProductInfoSiServerType {
     /**
      * Operating server
@@ -74,6 +77,7 @@ interface ProductInfoConfigChangeCallback {
  * @privilegeName http://developer.samsung.com/privilege/productinfo
  * @since 2.3
  */
+// tslint:disable-next-line strict-export-declare-modifiers
 declare interface ProductInfoManager {
     ProductInfoConfigKey: {
         /**

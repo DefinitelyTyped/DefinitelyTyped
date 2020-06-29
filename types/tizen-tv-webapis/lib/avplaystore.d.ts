@@ -1,7 +1,9 @@
+/* tslint:disable:max-line-length */
 /**
  * This module defines the multimedia player functionalities provided by the Tizen Samsung TV Product API.
  * @since 2.3
  */
+// tslint:disable-next-line strict-export-declare-modifiers
 declare interface AVPlayStoreManager {
     /**
      * Creates a player instance that can be used for parallel pre-buffering. Up to 4 player instances can exist simultaneously.

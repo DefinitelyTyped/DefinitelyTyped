@@ -1,7 +1,9 @@
+/* tslint:disable:no-redundant-jsdoc-2 */
 /**
  * This interface defines the digital mode
  * @since 2.3
  */
+// tslint:disable-next-line no-const-enum
 declare const enum AvInfoDigitalCompMode {
     /**
      * line mode
@@ -15,6 +17,7 @@ declare const enum AvInfoDigitalCompMode {
     DOLBY_DIGITAL_COMP_MODE_RF = 1,
 }
 
+// tslint:disable-next-line strict-export-declare-modifiers
 declare interface AVInfoManager {
     AvInfoDigitalCompMode: {
         /**

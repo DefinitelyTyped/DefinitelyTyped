@@ -1,6 +1,7 @@
 /**
  * Defines constants for caption settings keys.
  */
+// tslint:disable-next-line no-const-enum
 declare const enum TvInfoMenuKey {
     /**
      * Caption On/Off
@@ -422,6 +423,7 @@ declare const enum TvInfoMenuKey {
 /**
  * Defines constants for TV menu settings values.
  */
+// tslint:disable-next-line no-const-enum
 declare const enum TvInfoMenuValue {
     /**
      * MenuValue Off
@@ -1167,6 +1169,7 @@ declare const enum TvInfoMenuValue {
 /**
  * Defines constants for TV information keys.
  */
+// tslint:disable-next-line no-const-enum
 declare const enum TvInfoKey {
     /**
      * Whether the application can be executed in the background
@@ -1177,6 +1180,7 @@ declare const enum TvInfoKey {
 /**
  * Defines constants for TV information values.
  */
+// tslint:disable-next-line no-const-enum
 declare const enum TvInfoValue {
     /**
      * Background execution is not supported
@@ -1193,6 +1197,7 @@ declare const enum TvInfoValue {
  * This module defines the TV settings value functionalities provided by the Tizen Samsung TV Product API.
  * @since 2.3
  */
+// tslint:disable-next-line strict-export-declare-modifiers
 declare interface TvInfoManager {
     /**
      * Caption settings key

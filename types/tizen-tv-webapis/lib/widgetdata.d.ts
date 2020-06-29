@@ -5,6 +5,7 @@
  * @privilegeName http://developer.samsung.com/privilege/widgetdata
  * @since 2.3
  */
+// tslint:disable-next-line strict-export-declare-modifiers
 declare interface WidgetDataManager {
     /**
      * Retrieves the plugin version number.
