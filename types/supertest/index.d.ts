@@ -34,11 +34,8 @@ declare namespace supertest {
     interface AgentOptions {
         ca?: any;
     }
-    function agent(
-        app?: any,
-        options?: AgentOptions,
-    ): SuperAgentTest;
-    
+    function agent(app?: any, options?: AgentOptions): SuperAgentTest;
+
     type SuperAgentTest = SuperTest<Test> &
         Pick<
             Request,
