@@ -556,6 +556,8 @@ declare namespace OpenSeadragon {
         setOpacity(opacity: number): Drawer;
         viewportToDrawerRectangle(rectangle: Rect): Rect;
         setImageSmoothingEnabled(imageSmoothingEnabled?: boolean): void;
+        viewportCoordToDrawerCoord(point: Point): Point;
+        clipWithPolygons(polygons: Point[][], useSketch?: boolean): void;
     }
 
     class DziTileSource extends TileSource {
@@ -715,6 +717,8 @@ declare namespace OpenSeadragon {
         setFlip(state: boolean): void;
         update(viewport: Viewport): void;
         updateSize(): void;
+        setWidth(width: number | string): void;
+        setHeight(width: number | string): void;
     }
 
     class OsmTileSource extends TileSource {
@@ -999,8 +1003,10 @@ declare namespace OpenSeadragon {
             handler: EventHandler<TiledImageEvent>
         ): void;
         reset(): void;
+        resetCroppingPolygons(): void;
         setClip(newClip: Rect | null): void;
         setCompositeOperation(compositeOperation: string): void;
+        setCroppingPolygons(polygons: Point[][]): void;
         setHeight(height: number, immediately?: boolean): void;
         setOpacity(opacity: number): void;
         setPosition(position: Point, immediately?: boolean): void;
