@@ -471,8 +471,8 @@ export type StylisPlugin = (
     line: number,
     column: number,
     length: number,
-    at:number,
-    depth:number
+    at: number,
+    depth: number
 ) => string | void;
 
 export interface StyleSheetManagerProps {
