@@ -13,7 +13,7 @@ declare const enum ProductInfoConfigKey {
      * Service country, readonly
      * @since 2.3
      */
-    CONFIG_KEY_SERVICE_COUNTRY = 1
+    CONFIG_KEY_SERVICE_COUNTRY = 1,
 }
 
 /**
@@ -31,7 +31,7 @@ declare const enum ProductInfoNoGlass3dSupport {
      * @descEng Glasses-free 3D is supported
      * @since 2.3
      */
-    NO_GLASS_3D_SUPPORTED = 1
+    NO_GLASS_3D_SUPPORTED = 1,
 }
 
 /**
@@ -55,7 +55,7 @@ declare const enum ProductInfoSiServerType {
      * Developing server
      * @since 2.3
      */
-    SI_TYPE_DEVELOPING_SERVER = 2
+    SI_TYPE_DEVELOPING_SERVER = 2,
 }
 
 /**
@@ -317,7 +317,7 @@ declare interface ProductInfoManager {
         key: ProductInfoConfigKey,
         value: string,
         onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -331,10 +331,7 @@ declare interface ProductInfoManager {
      * @since 2.3
      * @note Since plugin version 3.0, if a parameter value is out of range, InvalidValuesError is thrown instead of TypeMismatchError.
      */
-    addSystemConfigChangeListener: (
-        key: ProductInfoConfigKey,
-        listener: ProductInfoConfigChangeCallback
-    ) => number;
+    addSystemConfigChangeListener: (key: ProductInfoConfigKey, listener: ProductInfoConfigChangeCallback) => number;
 
     /**
      * Unregister a system configuration change listener.

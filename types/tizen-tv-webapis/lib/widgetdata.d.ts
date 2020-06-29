@@ -47,11 +47,7 @@ declare interface WidgetDataManager {
      * @since 4.0
      * @note If you need to share a file created by the widgetdata api with another c or c# app, you need to use one more privilege(http://tizen.org/privilege/appdir.shareddata)
      */
-    write: (
-        data: string,
-        onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
-    ) => void;
+    write: (data: string, onsuccess?: SuccessCallback, onerror?: ErrorCallback) => void;
 
     /**
      * Removes encrypted data.

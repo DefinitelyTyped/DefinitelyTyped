@@ -293,9 +293,7 @@ declare interface NetworkManager {
      * @note Since plugin version 3.0, if an input parameter is not compatible with its expected type, TypeMismatchError is thrown instead of NotSupportedError.
      * @note Since plugin version 3.0, the NotSupportedError exception has been removed.
      */
-    addNetworkStateChangeListener(
-        listener: NetworkStateChangedCallback
-    ): number;
+    addNetworkStateChangeListener(listener: NetworkStateChangedCallback): number;
 
     /**
      * Unregisters an asynchronous event listener.
@@ -461,7 +459,7 @@ declare const enum NetworkIpMode {
     /**
      * No wired or wireless connection
      */
-    UNKNOWN = 5
+    UNKNOWN = 5,
 }
 
 /**
@@ -483,7 +481,7 @@ declare const enum NetworkActiveConnectionType {
     /**
      * Connected to an Ethernet network.
      */
-    ETHERNET = 3
+    ETHERNET = 3,
 }
 
 /**
@@ -539,7 +537,7 @@ declare const enum NetworkState {
     /**
      * Wi-Fi module connection state unknown
      */
-    WIFI_MODULE_STATE_UNKNOWN = 8
+    WIFI_MODULE_STATE_UNKNOWN = 8,
 }
 
 /**
@@ -574,7 +572,7 @@ declare const enum NetworkWiFiSecurityMode {
     /**
      * Security mode unknown
      */
-    UNKNOWN = 6
+    UNKNOWN = 6,
 }
 
 /**
@@ -609,5 +607,5 @@ declare const enum NetworkWiFiEncryptionType {
     /**
      * Encryption type unknown
      */
-    UNKNOWN = 6
+    UNKNOWN = 6,
 }

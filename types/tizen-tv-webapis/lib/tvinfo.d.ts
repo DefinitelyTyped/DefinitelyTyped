@@ -416,7 +416,7 @@ declare const enum TvInfoMenuKey {
      * unsigned long CAPTION_STYLE_BOLD = 1;
      * unsigned long CAPTION_STYLE_ITALIC = 2;
      */
-    CAPTION_STYLE_KEY = 21
+    CAPTION_STYLE_KEY = 21,
 }
 
 /**
@@ -1161,7 +1161,7 @@ declare const enum TvInfoMenuValue {
     /**
      * caption style
      */
-    CAPTION_STYLE_ITALIC = 2
+    CAPTION_STYLE_ITALIC = 2,
 }
 
 /**
@@ -1171,7 +1171,7 @@ declare const enum TvInfoKey {
     /**
      * Whether the application can be executed in the background
      */
-    TV_VIEWER_BG_EXECUTABLE = 0
+    TV_VIEWER_BG_EXECUTABLE = 0,
 }
 
 /**
@@ -1186,7 +1186,7 @@ declare const enum TvInfoValue {
     /**
      * Background execution is supported
      */
-    TV_VIEWER_BG_EXECUTABLE = 1
+    TV_VIEWER_BG_EXECUTABLE = 1,
 }
 
 /**
@@ -2242,10 +2242,7 @@ declare interface TvInfoManager {
      * @since 2.3
      * @note Since plugin version 3.0, if a parameter value is out of range, InvalidValuesError is thrown instead of TypeMismatchError.
      */
-    addCaptionChangeListener: (
-        key: TvInfoMenuKey,
-        listener: TvInfoCaptionChangeCallback
-    ) => number;
+    addCaptionChangeListener: (key: TvInfoMenuKey, listener: TvInfoCaptionChangeCallback) => number;
 
     /**
      * Unregisters a caption menu change listener callback.

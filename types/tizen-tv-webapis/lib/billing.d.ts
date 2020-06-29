@@ -5,7 +5,7 @@
  */
 declare const enum TVServerType {
     DEV = 'DEV',
-    PRD = 'PRD'
+    PRD = 'PRD',
 }
 
 type TVServerTypeUnion = TVServerType | 'DEV' | 'PRD';
@@ -185,7 +185,7 @@ declare interface BillingManager {
         serverType: TVServerTypeUnion,
         paymentDetails: string,
         onsuccess: BillingBuyDataSuccessCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -215,7 +215,7 @@ declare interface BillingManager {
         checkValue: string,
         serverType: TVServerTypeUnion,
         onsuccess: BillingProductsListCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -243,7 +243,7 @@ declare interface BillingManager {
         countryCode: string,
         serverType: TVServerTypeUnion,
         onsuccess: BillingApplyInvoiceCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -271,7 +271,7 @@ declare interface BillingManager {
         countryCode: string,
         serverType: TVServerTypeUnion,
         onsuccess: BillingVerifyInvoiceCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -297,7 +297,7 @@ declare interface BillingManager {
         checkValue: string,
         serverType: TVServerTypeUnion,
         onsuccess: BillingGetServiceCountryAvailabilityCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -327,7 +327,7 @@ declare interface BillingManager {
         checkValue: string,
         serverType: TVServerTypeUnion,
         onsuccess: BillingGetUserPurchaseListCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -355,7 +355,7 @@ declare interface BillingManager {
         countryCode: string,
         serverType: TVServerTypeUnion,
         onsuccess: BillingCancelSubscriptionCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -374,6 +374,6 @@ declare interface BillingManager {
     isServiceAvailable: (
         serverType: TVServerTypeUnion,
         onsuccess: BillingIsServiceAvailableCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 }

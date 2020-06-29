@@ -12,16 +12,10 @@ declare const enum AVPlayPlayerState {
     IDLE = 'IDLE',
     READY = 'READY',
     PLAYING = 'PLAYING',
-    PAUSED = 'PAUSED'
+    PAUSED = 'PAUSED',
 }
 
-type AVPlayPlayerStateUnion =
-    | AVPlayPlayerState
-    | 'NONE'
-    | 'IDLE'
-    | 'READY'
-    | 'PLAYING'
-    | 'PAUSED';
+type AVPlayPlayerStateUnion = AVPlayPlayerState | 'NONE' | 'IDLE' | 'READY' | 'PLAYING' | 'PAUSED';
 
 /**
  * Specifies display modes.
@@ -33,7 +27,7 @@ type AVPlayPlayerStateUnion =
 declare const enum AVPlayDisplayMode {
     PLAYER_DISPLAY_MODE_LETTER_BOX = 'PLAYER_DISPLAY_MODE_LETTER_BOX',
     PLAYER_DISPLAY_MODE_FULL_SCREEN = 'PLAYER_DISPLAY_MODE_FULL_SCREEN',
-    PLAYER_DISPLAY_MODE_AUTO_ASPECT_RATIO = 'PLAYER_DISPLAY_MODE_AUTO_ASPECT_RATIO'
+    PLAYER_DISPLAY_MODE_AUTO_ASPECT_RATIO = 'PLAYER_DISPLAY_MODE_AUTO_ASPECT_RATIO',
 }
 
 type AVPlayDisplayModeUnion =
@@ -52,13 +46,10 @@ type AVPlayDisplayModeUnion =
  */
 declare const enum AVPlayBufferOption {
     PLAYER_BUFFER_FOR_PLAY = 'PLAYER_BUFFER_FOR_PLAY',
-    PLAYER_BUFFER_FOR_RESUME = 'PLAYER_BUFFER_FOR_RESUME'
+    PLAYER_BUFFER_FOR_RESUME = 'PLAYER_BUFFER_FOR_RESUME',
 }
 
-type AVPlayBufferOptionUnion =
-    | AVPlayBufferOption
-    | 'PLAYER_BUFFER_FOR_PLAY'
-    | 'PLAYER_BUFFER_FOR_RESUME';
+type AVPlayBufferOptionUnion = AVPlayBufferOption | 'PLAYER_BUFFER_FOR_PLAY' | 'PLAYER_BUFFER_FOR_RESUME';
 /**
  * Specifies buffer size units.
  * - `PLAYER_BUFFER_SIZE_IN_SECOND`- Buffer size in seconds
@@ -67,13 +58,10 @@ type AVPlayBufferOptionUnion =
  */
 declare const enum AVPlayBufferSizeUnit {
     PLAYER_BUFFER_SIZE_IN_BYTE = 'PLAYER_BUFFER_SIZE_IN_BYTE',
-    PLAYER_BUFFER_SIZE_IN_SECOND = 'PLAYER_BUFFER_SIZE_IN_SECOND'
+    PLAYER_BUFFER_SIZE_IN_SECOND = 'PLAYER_BUFFER_SIZE_IN_SECOND',
 }
 
-type AVPlayBufferSizeUnitUnion =
-    | AVPlayBufferSizeUnit
-    | 'PLAYER_BUFFER_SIZE_IN_BYTE'
-    | 'PLAYER_BUFFER_SIZE_IN_SECOND';
+type AVPlayBufferSizeUnitUnion = AVPlayBufferSizeUnit | 'PLAYER_BUFFER_SIZE_IN_BYTE' | 'PLAYER_BUFFER_SIZE_IN_SECOND';
 
 /**
  * Specifies parameters for various streaming protocols, such as HTTP, MMS, and adaptive streaming (Smooth Streaming, HLS, and MPEG-DASH).
@@ -120,7 +108,7 @@ declare const enum AVPlayStreamingPropertyType {
     SET_VR360_MODE = 'SET_VR360_MODE',
     USE_VIDEOMIXER = 'USE_VIDEOMIXER',
     SET_MIXEDFRAME = 'SET_MIXEDFRAME',
-    PORTRAIT_MODE = 'PORTRAIT_MODE'
+    PORTRAIT_MODE = 'PORTRAIT_MODE',
 }
 
 type AVPlayStreamingPropertyTypeUnion =
@@ -156,7 +144,7 @@ declare const enum AVPlayDrmType {
     EME_PLAYREADY = 'EME_PLAYREADY',
     VERIMATRIX = 'VERIMATRIX',
     WIDEVINE_CDM = 'WIDEVINE_CDM',
-    EME_WIDEVINE_CDM = 'EME_WIDEVINE_CDM'
+    EME_WIDEVINE_CDM = 'EME_WIDEVINE_CDM',
 }
 
 type AVPlayDrmTypeUnion =
@@ -187,7 +175,7 @@ declare const enum AVPlayDrmOperation {
     'Finalize' = 'Finalize',
     'widevine_license_data' = 'widevine_license_data',
     'widevine_app_session' = 'widevine_app_session',
-    'widevine_data_type' = 'widevine_data_type'
+    'widevine_data_type' = 'widevine_data_type',
 }
 
 type AVPlayDrmOperationUnion =
@@ -212,7 +200,7 @@ type AVPlayDrmOperationUnion =
 declare const enum AVPlayStreamType {
     VIDEO = 'VIDEO',
     AUDIO = 'AUDIO',
-    TEXT = 'TEXT'
+    TEXT = 'TEXT',
 }
 
 type AVPlayStreamTypeUnion = AVPlayStreamType | 'VIDEO' | 'AUDIO' | 'TEXT';
@@ -243,7 +231,7 @@ declare const enum AVPlayError {
     PLAYER_ERROR_NOT_SUPPORTED_FORMAT = 'PLAYER_ERROR_NOT_SUPPORTED_FORMAT',
     PLAYER_ERROR_INVALID_URI = 'PLAYER_ERROR_INVALID_URI',
     PLAYER_ERROR_CONNECTION_FAILED = 'PLAYER_ERROR_CONNECTION_FAILED',
-    PLAYER_ERROR_GENEREIC = 'PLAYER_ERROR_GENEREIC'
+    PLAYER_ERROR_GENEREIC = 'PLAYER_ERROR_GENEREIC',
 }
 
 type AVPlayErrorUnion =
@@ -280,7 +268,7 @@ declare const enum AVPlayEvent {
     PLAYER_SPARSE_TRACK_DETECT = 'PLAYER_SPARSE_TRACK_DETECT',
     PLAYER_STREAMING_EVENT = 'PLAYER_STREAMING_EVENT',
     PLAYER_MSG_HTTP_ERROR_CODE = 'PLAYER_MSG_HTTP_ERROR_CODE',
-    PLAYER_MSG_DRM_CHALLENGE_DATA = 'PLAYER_MSG_DRM_CHALLENGE_DATA'
+    PLAYER_MSG_DRM_CHALLENGE_DATA = 'PLAYER_MSG_DRM_CHALLENGE_DATA',
 }
 
 type AVPlayEventUnion =
@@ -397,12 +385,7 @@ interface AVPlayPlaybackCallback {
      * @throw WebAPIException NotSupportedError, UnknownError
      * @since 2.3
      */
-    onsubtitlechange?(
-        duration: number,
-        subtitles: string,
-        type: number,
-        attributes: AVPlaySubtitleAttribute
-    ): void;
+    onsubtitlechange?(duration: number, subtitles: string, type: number, attributes: AVPlaySubtitleAttribute): void;
 }
 
 /**
@@ -461,10 +444,7 @@ declare interface AVPlayManager {
      * @since 2.3
      * @constraint Can be called in the following states: "IDLE", "READY"
      */
-    prepareAsync: (
-        onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
-    ) => void;
+    prepareAsync: (onsuccess?: SuccessCallback, onerror?: ErrorCallback) => void;
 
     /**
      * Sets the display area for video content playback.
@@ -477,12 +457,7 @@ declare interface AVPlayManager {
      * @since 2.3
      * @constraint Can be called in the following states:"IDLE", "READY", "PLAYING", "PAUSED" (when APP is using normal calling sequence , OPEN+setDisplay+PREPARE etc).
      */
-    setDisplayRect: (
-        x: number,
-        y: number,
-        width: number,
-        height: number
-    ) => void;
+    setDisplayRect: (x: number, y: number, width: number, height: number) => void;
 
     /**
      * Starts stream playback, or resumes stream playback after pause.
@@ -505,11 +480,7 @@ declare interface AVPlayManager {
      * During this async operation, the other API would not be allowed. So, the application needs to wait for one of both callbacks( SuccessCallback, errorCallback) before any other API call.
      * For LIVE stream case, seek position must be within DVR range. DVR range could be retrieved using GET_LIVE_DURATION property in getStreamingProperty API.
      */
-    seekTo: (
-        milliseconds: number,
-        onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
-    ) => void;
+    seekTo: (milliseconds: number, onsuccess?: SuccessCallback, onerror?: ErrorCallback) => void;
 
     /**
      * Stops the player. Call this function after the video finishes playing.
@@ -548,11 +519,7 @@ declare interface AVPlayManager {
      * @constraint Can be called in the following states: "READY" (when using the synchronous prepare method), "PLAYING", "PAUSED"
      * During this async operation, the other API would not be allowed. So, the application needs to wait for one of both callbacks( SuccessCallback, errorCallback) before any other API call.
      */
-    jumpForward: (
-        milliseconds: number,
-        onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
-    ) => void;
+    jumpForward: (milliseconds: number, onsuccess?: SuccessCallback, onerror?: ErrorCallback) => void;
 
     /**
      * Skips playback backward by a specific amount of time. The player state is unchanged.
@@ -565,11 +532,7 @@ declare interface AVPlayManager {
      * @constraint Can be called in the following states: "READY" (when using the synchronous prepare method), "PLAYING", "PAUSED"
      * During this async operation, the other API would not be allowed. So, the application needs to wait for one of both callbacks( SuccessCallback, errorCallback) before any other API call.
      */
-    jumpBackward: (
-        milliseconds: number,
-        onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
-    ) => void;
+    jumpBackward: (milliseconds: number, onsuccess?: SuccessCallback, onerror?: ErrorCallback) => void;
 
     /**
      * Retrieves the total media duration.
@@ -612,11 +575,7 @@ declare interface AVPlayManager {
      * @note unit "PLAYER_BUFFER_SIZE_IN_BYTE" has been deprecated from Tizen version 5.0
      * @constraint Can be called in the following states: "IDLE"
      */
-    setBufferingParam: (
-        option: AVPlayBufferOptionUnion,
-        unit: AVPlayBufferSizeUnitUnion,
-        amount: number
-    ) => void;
+    setBufferingParam: (option: AVPlayBufferOptionUnion, unit: AVPlayBufferSizeUnitUnion, amount: number) => void;
 
     /**
      * Sets the current playback rate. Positive parameter values play the media forwards, while negative values cause the media to play in reverse.
@@ -658,11 +617,7 @@ declare interface AVPlayManager {
      * 'widevine_app_session' and 'widevine_data_type' operations have been deprecated from Tizen version 5.0. Because these are merged into "SetProperties". Please refer to setDrm() example.
      * @constraint Can be called in the following states: "IDLE"
      */
-    setDrm: (
-        drmType: AVPlayDrmTypeUnion,
-        drmOperation: AVPlayDrmOperationUnion,
-        jsonParam: string
-    ) => string;
+    setDrm: (drmType: AVPlayDrmTypeUnion, drmOperation: AVPlayDrmOperationUnion, jsonParam: string) => string;
 
     /**
      * Gets the device UID. The input would be the drm type.
@@ -684,9 +639,7 @@ declare interface AVPlayManager {
      * @deprecated 2.4
      * @constraint Can be called in the following states: "IDLE"
      */
-    setSoundAnalysisListener: (
-        soundAnalysisCallback: AVPlaySoundAnalysisCallback
-    ) => void;
+    setSoundAnalysisListener: (soundAnalysisCallback: AVPlaySoundAnalysisCallback) => void;
 
     /**
      * Unregisters the sound analysis listener.
@@ -746,10 +699,7 @@ declare interface AVPlayManager {
      * If buffering is not complete, calling this method for an AUDIO track returns an error.
      * The trackType "TEXT" is not supported for DASH streaming.
      */
-    setSelectTrack: (
-        trackType: AVPlayStreamTypeUnion,
-        trackIndex: number
-    ) => void;
+    setSelectTrack: (trackType: AVPlayStreamTypeUnion, trackIndex: number) => void;
 
     /**
      * Retrieves the currently-playing video, audio, or subtitle stream information, and notifies that a stream is playing.
@@ -793,10 +743,7 @@ declare interface AVPlayManager {
      * @constraint Can be called in the following states: "IDLE"
      * "READY", "PLAYING", "PAUSED" is valid only for SET_MIXEDFRAME.
      */
-    setStreamingProperty: (
-        propertyType: AVPlayStreamingPropertyTypeUnion,
-        propertyParam: string
-    ) => void;
+    setStreamingProperty: (propertyType: AVPlayStreamingPropertyTypeUnion, propertyParam: string) => void;
 
     /**
      * Retrieves a specific property value obtained by the streaming engine (Smooth Streaming, HLS, DASH, or Widevine).
@@ -807,9 +754,7 @@ declare interface AVPlayManager {
      * @note GET_SERVER_TIME_SCALE and GET_ABSOLUTE_SERVER_TIME: Supported for Smooth Streaming only.
      * @constraint Can be called in the following states: "READY", "PLAYING", "PAUSED"
      */
-    getStreamingProperty: (
-        propertyType: AVPlayStreamingPropertyTypeUnion
-    ) => string;
+    getStreamingProperty: (propertyType: AVPlayStreamingPropertyTypeUnion) => string;
 
     /**
      * Retrieves the AVPlay version.
@@ -871,6 +816,6 @@ declare interface AVPlayManager {
         resumeTime?: number,
         bPrepare?: boolean,
         onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 }

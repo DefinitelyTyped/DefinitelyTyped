@@ -25,11 +25,7 @@ declare interface SsoManager {
      * @throw `SecurityError`, `TypeMismatchError`, `NotSupportedError`, `InvalidValuesError`, `UnknownError`
      * @since 2.3
      */
-    showAccountView: (
-        widgetName: string,
-        onsuccess: SsoCallDataSuccessCallback,
-        onerror?: ErrorCallback
-    ) => void;
+    showAccountView: (widgetName: string, onsuccess: SsoCallDataSuccessCallback, onerror?: ErrorCallback) => void;
 
     /**
      * Retrieves the UID.
@@ -63,10 +59,7 @@ declare interface SsoManager {
      * @throw `TypeMismatchError`, `NotSupportedError`, `InvalidValuesError`, `UnknownError`
      * @since 2.3
      */
-    showCreateAccountView: (
-        onsuccess: SsoStringSuccessCallback,
-        onerror?: ErrorCallback
-    ) => void;
+    showCreateAccountView: (onsuccess: SsoStringSuccessCallback, onerror?: ErrorCallback) => void;
 }
 
 /**
@@ -127,5 +120,5 @@ declare enum SsoLoginState {
     /**
      * Logged in
      */
-    SSO_LOGIN = 1
+    SSO_LOGIN = 1,
 }

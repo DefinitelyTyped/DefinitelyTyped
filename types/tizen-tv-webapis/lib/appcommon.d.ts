@@ -31,11 +31,7 @@ declare interface AppCommonManager {
      * @since 2.3
      * @note Since plugin version 3.0, if a parameter value is out of range, InvalidValuesError is thrown instead of TypeMismatchError.
      */
-    setScreenSaver(
-        state: AppCommonScreenSaverState,
-        onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
-    ): void;
+    setScreenSaver(state: AppCommonScreenSaverState, onsuccess?: SuccessCallback, onerror?: ErrorCallback): void;
 }
 
 /**
@@ -54,5 +50,5 @@ declare const enum AppCommonScreenSaverState {
      * Screensaver on
      * @since 2.3
      */
-    SCREEN_SAVER_ON = 1
+    SCREEN_SAVER_ON = 1,
 }

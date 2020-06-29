@@ -12,7 +12,7 @@ declare const enum AvInfoDigitalCompMode {
      * rf mode
      * @since 2.3
      */
-    DOLBY_DIGITAL_COMP_MODE_RF = 1
+    DOLBY_DIGITAL_COMP_MODE_RF = 1,
 }
 
 declare interface AVInfoManager {
