@@ -84,7 +84,7 @@ type CancelSubscriptionData = {
 /**
  * Defines a dictionary for data returned by the IsServiceAvailable API.
  * @param apiResult IsServiceAvailable API result dictionary in JSON format. This value is JSON string type data, so Please use it by JSON parsing. After you parse this value, you can use it in ServiceAvailableAPIResult format at the below.
- * @deprecated 5.5
+ * @note `deprecated` 5.5
  */
 // tslint:disable-next-line interface-over-type-literal
 type ServiceAvailableData = {
@@ -150,7 +150,7 @@ interface BillingCancelSubscriptionCallback {
 /**
  * Callback method returning the service availability check status.
  * @param data It includes isServiceAvailable API result. but you can't use it as it is. you have to parse it as JSON format data.
- * @deprecated 5.5
+ * @note `deprecated` 5.5
  */
 interface BillingIsServiceAvailableCallback {
     (data: ServiceAvailableData): void;
@@ -380,7 +380,7 @@ declare interface BillingManager {
      * @privilegeName http://developer.samsung.com/privilege/billing
      * @throw WebAPIException TypeMismatchError, InvalidValuesError
      * @since 4.0
-     * @deprecated 5.5
+     * @note `deprecated` 5.5
      */
     isServiceAvailable: (
         serverType: TVServerTypeUnion,

@@ -45,7 +45,7 @@ declare interface AVInfoManager {
      * @returns AvInfoDigitalCompMode dolby digital component mode
      * @throw WebAPIException NotSupportedError
      * @since 2.3
-     * @deprecated 4.0
+     * @note `deprecated` 4.0
      */
     getDolbyDigitalCompMode: () => AvInfoDigitalCompMode;
 

@@ -404,13 +404,13 @@ interface AVPlayPlaybackCallback {
 /**
  * AVPlay Sound Analysis Callback
  * @since 2.3
- * @deprecated 2.4
+ * @note `deprecated` 2.4
  */
 interface AVPlaySoundAnalysisCallback {
     /**
      * AVPlay Sound Analysis data array
      * @since 2.3
-     * @deprecated 2.4
+     * @note `deprecated` 2.4
      */
     (data: number[]): void;
 }
@@ -650,7 +650,7 @@ declare interface AVPlayManager {
      * @param soundAnalysisCallback AVPlaySoundAnalysisCallback
      * @throw WebAPIException TypeMismatchError, NotSupportedError, InvalidValuesError, InvalidStateError, UnknownError
      * @since 2.3
-     * @deprecated 2.4
+     * @note `deprecated` 2.4
      * @constraint Can be called in the following states: "IDLE"
      */
     setSoundAnalysisListener: (soundAnalysisCallback: AVPlaySoundAnalysisCallback) => void;
@@ -659,7 +659,7 @@ declare interface AVPlayManager {
      * Unregisters the sound analysis listener.
      * @throw WebAPIException NotSupportedError, InvalidStateError, UnknownError
      * @since 2.3
-     * @deprecated 2.4
+     * @note `deprecated` 2.4
      * @constraint Can be called in the following states: "IDLE", "READY", "PLAYING", "PAUSED"
      */
     unsetSoundAnalysisListener: () => void;

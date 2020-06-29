@@ -187,7 +187,7 @@ declare const enum TvInfoMenuKey {
      * expected value DOMString
      * "OFF", "ON"
      * @since 2.3
-     * @deprecated 3.0
+     * @note `deprecated` 3.0
      */
     SMARTHUB_CHANNEL_BOUND_APPS_TICKER = 14,
 
@@ -1373,7 +1373,7 @@ declare interface TvInfoManager {
          * expected value DOMString
          * "OFF", "ON"
          * @since 2.3
-         * @deprecated 3.0
+         * @note `deprecated` 3.0
          */
         SMARTHUB_CHANNEL_BOUND_APPS_TICKER: 14;
         /**
