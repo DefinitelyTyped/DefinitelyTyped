@@ -557,32 +557,41 @@ declare namespace google.payments.api {
     }
 
     /**
-     * Tokenization parameters.
+     * Payment gateway tokenization parameters.
      *
      * These parameters will be used to tokenize/transmit the
      * payment method returned to you in a format you can charge or reference.
      */
-    interface PaymentMethodTokenizationSpecification {
+    interface PaymentGatewayTokenizationSpecification {
         /**
          * The type of payment method tokenization to apply to the selected
          * payment method.
-         *
-         * This field is required.
          */
-        type: PaymentMethodTokenizationType;
+        type: "PAYMENT_GATEWAY";
 
         /**
-         * Specific parameters used for tokenization.
-         *
-         * The values in this object will depend on the value of type set in
-         * [[PaymentMethodTokenizationSpecification.type|`type`]]:
-         *
-         * - [[PaymentMethodTokenizationType|`PAYMENT_GATEWAY`]]:
-         *   [[PaymentGatewayTokenizationParameters|`PaymentGatewayTokenizationParameters`]]
-         * - [[PaymentMethodTokenizationType|`DIRECT`]]:
-         *   [[DirectTokenizationParameters|`DirectTokenizationParameters`]]
+         * Specific parameters used for payment gateway tokenization.
          */
-        parameters: PaymentGatewayTokenizationParameters | DirectTokenizationParameters;
+        parameters: PaymentGatewayTokenizationParameters;
+    }
+
+    /**
+     * Direct tokenization parameters.
+     *
+     * These parameters will be used to tokenize/transmit the direct
+     * payment method returned to you in a format you can charge or reference.
+     */
+    interface DirectTokenizationSpecification {
+        /**
+         * The type of payment method tokenization to apply to the selected
+         * payment method.
+         */
+        type: "DIRECT";
+
+        /**
+         * Specific parameters used for direct tokenization.
+         */
+        parameters: DirectTokenizationParameters;
     }
 
     /**
@@ -1283,6 +1292,14 @@ declare namespace google.payments.api {
      *   PAYPAL payment method.
      */
     type PaymentMethodType = "CARD" | "PAYPAL";
+
+    /**
+     * Tokenization parameters.
+     *
+     * These parameters will be used to tokenize/transmit the
+     * payment method returned to you in a format you can charge or reference.
+     */
+    type PaymentMethodTokenizationSpecification = PaymentGatewayTokenizationSpecification | DirectTokenizationSpecification;
 
     /**
      * Payment method tokenization type enum string.

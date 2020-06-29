@@ -374,3 +374,27 @@ class Toolbar extends React.Component<ToolbarProps> {
         );
     }
 }
+
+// test OnRangeChange return types
+{
+    interface Props {
+        localizer: DateLocalizer;
+    }
+    const Basic = ({ localizer }: Props) => (
+        <Calendar
+            events={getEvents()}
+            views={allViews}
+            step={60}
+            showMultiDayTimes
+            defaultDate={new Date(2015, 3, 1)}
+            localizer={localizer}
+            onRangeChange={(range, view) => {
+                console.log('onRangeChange fired, range: %O, view: %O', range, view);
+            }}
+        />
+    );
+
+    const localizer = momentLocalizer(moment);
+
+    ReactDOM.render(<Basic localizer={localizer} />, document.body);
+}

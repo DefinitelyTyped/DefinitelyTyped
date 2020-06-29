@@ -192,6 +192,10 @@ import * as net from 'net';
         'content-type': 'application/json',
         'set-cookie': [ 'type=ninja', 'language=javascript' ]
     };
+
+    headers["access-control-request-headers"] = "content-type, x-custom-header";
+    headers["access-control-request-method"] = "PUT";
+    headers.origin = "https://example.com";
 }
 
 // statics

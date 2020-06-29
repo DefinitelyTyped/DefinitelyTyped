@@ -2033,6 +2033,11 @@ export interface ViewPropsAndroid {
      * re-used and re-composited with different parameters. The downside is that this can use up limited video memory, so this prop should be set back to false at the end of the interaction/animation.
      */
     renderToHardwareTextureAndroid?: boolean;
+
+    /**
+     * Whether this `View` should be focusable with a non-touch input device, eg. receive focus with a hardware keyboard.
+     */
+    focusable?: boolean;
 }
 
 type Falsy = undefined | null | false;
@@ -4875,6 +4880,11 @@ export interface ModalPropsAndroid {
      *  Controls whether to force hardware acceleration for the underlying window.
      */
     hardwareAccelerated?: boolean;
+
+    /**
+     *  Determines whether your modal should go under the system statusbar.
+     */
+    statusBarTranslucent?: boolean;
 }
 
 export type ModalProps = ModalBaseProps & ModalPropsIOS & ModalPropsAndroid;

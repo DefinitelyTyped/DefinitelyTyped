@@ -67,7 +67,7 @@ export class Promise<T, E = Error> {
 
     always<TT>(handler: () => Promise<TT>): Promise<TT>;
     then<TT, EE = Error>(result: (r: T) => TT, err?: (r: E) => EE): Promise<TT, EE>;
-    catch<TT>(err: (error: E) => TT): Promise<TT>;
+    catch<TT>(err: (error: E) => TT): Promise<T | TT>;
     cancel(): this;
     timeout(delay: number): this;
 

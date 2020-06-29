@@ -707,3 +707,17 @@ puppeteer.launch().then(async browser => {
 
   const selected: string[] = await elementHandle.select('a', 'b', 'c');
 })();
+
+// .executionContext on Frame, and ExecutionContext.queryObjects
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  const frame = page.mainFrame();
+  frame.executionContext().then(() => {});
+
+  const context = await frame.executionContext();
+
+  const queryObjectsRes = context.queryObjects(await context.evaluateHandle(() => {}));
+  queryObjectsRes.then(() => {});
+})();

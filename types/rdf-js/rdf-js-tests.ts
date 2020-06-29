@@ -17,6 +17,14 @@ function test_terms() {
     namedNodeEqual = namedNode.equals(null);
     namedNodeEqual = namedNode.equals(undefined);
 
+    const namedNodeConstant: NamedNode<'http://example.org'> = <any> {};
+    const constantIri: 'http://example.org' = namedNodeConstant.value;
+    // $ExpectError
+    const otherConstantIri: 'http://not-example.org' = namedNodeConstant.value;
+    // $ExpectError
+    const otherNamedNodeConstant: NamedNode<'http://not-example.org'> = namedNodeConstant;
+    const regularNamedNode: NamedNode = namedNodeConstant;
+
     const blankNode: BlankNode = <any> {};
     const termType2: string = blankNode.termType;
     const value2: string = blankNode.value;
@@ -86,7 +94,7 @@ function test_datafactory() {
 
 function test_stream() {
     const stream: Stream = <any> {};
-    const quad: Quad = stream.read();
+    const quad: Quad | null = stream.read();
 
     const term: Term = <any> {};
     const source: Source = <any> {};

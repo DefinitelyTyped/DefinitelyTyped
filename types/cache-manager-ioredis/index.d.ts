@@ -26,7 +26,7 @@ declare namespace CacheManagerIORedis {
     }
 
     interface RedisStoreConstructor {
-        create: (...options: RedisStoreSingleNodeConfig[]) => RedisSingleNodeStore | ((...options: RedisStoreClusterConfig[]) => RedisClusterStore);
+        create: ((...options: RedisStoreSingleNodeConfig[]) => RedisSingleNodeStore) | ((...options: RedisStoreClusterConfig[]) => RedisClusterStore);
     }
 
     type RedisStoreSingleNodeConfig = (CachingConfig & IORedis.RedisOptions & {
@@ -50,11 +50,11 @@ declare namespace CacheManagerIORedis {
         ttl(...args: any[]): Promise<any>;
     }
 
-    interface RedisSingleNodeStore extends Store {
+    interface RedisSingleNodeStore extends RedisStore {
         getClient(): IORedis.Redis;
     }
 
-    interface RedisClusterStore extends Store {
+    interface RedisClusterStore extends RedisStore {
         getClient(): IORedis.Cluster;
     }
 

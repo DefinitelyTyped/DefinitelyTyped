@@ -25,6 +25,7 @@
         "test/cloudfront-tests.ts",
         "test/cloudwatch-tests.ts",
         "test/codepipeline-tests.ts",
+        "test/codebuild-tests.ts",
         "test/cognito-tests.ts",
         "test/dynamodb-tests.ts",
         "test/eventbridge-tests.ts",

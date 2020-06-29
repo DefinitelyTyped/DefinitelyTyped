@@ -431,8 +431,8 @@ declare namespace Dockerode {
     /* tslint:disable:interface-name */
     interface IPAM {
         Driver: string;
-        Config?: { [key: string]: string };
-        Options?: Array<{ [key: string]: string }>;
+        Config?: Array<{[key: string]: string }>;
+        Options?: { [key: string]: string };
     }
     /* tslint:enable:interface-name */
 
@@ -1353,7 +1353,7 @@ declare class Dockerode {
     getEvents(options?: Dockerode.GetEventsOptions): Promise<NodeJS.ReadableStream>;
 
     pull(repoTag: string, options: {}, callback: Callback<any>, auth?: {}): Dockerode.Image;
-    pull(repoTag: string, options: {}, auth?: {}): Promise<any>;
+    pull(repoTag: string, options?: {}): Promise<any>;
 
     run(
         image: string,

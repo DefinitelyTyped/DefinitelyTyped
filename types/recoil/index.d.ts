@@ -177,3 +177,92 @@ export class RecoilValueReadOnly<T> extends AbstractRecoilValueReadonly<T> {}
 export type RecoilValue<T> = RecoilValueReadOnly<T> | RecoilState<T>;
 
 export function isRecoilValue(val: unknown): val is RecoilValue<any>;
+
+/** Utilities */
+
+// bigint not supported yet
+export type Primitive = undefined | null | boolean | number | symbol | string;
+
+export type SerializableParam = Primitive | SerializableParam[] | { [key: string]: SerializableParam };
+
+export interface AtomFamilyOptions<T, P extends SerializableParam> {
+    key: NodeKey;
+    dangerouslyAllowMutability?: boolean;
+    default: RecoilValue<T> | Promise<T> | T | ((param: P) => T | RecoilValue<T> | Promise<T>);
+}
+
+export function atomFamily<T, P extends SerializableParam>(
+    options: AtomFamilyOptions<T, P>,
+): (param: P) => RecoilState<T>;
+
+export interface ReadOnlySelectorFamilyOptions<T, P extends SerializableParam> {
+    key: string;
+    get: (param: P) => (opts: { get: GetRecoilValue }) => Promise<T> | RecoilValue<T> | T;
+    // cacheImplementation_UNSTABLE?: () => CacheImplementation<Loadable<T>>,
+    // cacheImplementationForParams_UNSTABLE?: () => CacheImplementation<
+    //   RecoilValue<T>,
+    // >,
+    dangerouslyAllowMutability?: boolean;
+}
+
+export interface ReadWriteSelectorFamilyOptions<T, P extends SerializableParam> {
+    key: string;
+    get: (param: P) => (opts: { get: GetRecoilValue }) => Promise<T> | RecoilValue<T> | T;
+    set: (
+        param: P,
+    ) => (
+        opts: { set: SetRecoilState; get: GetRecoilValue; reset: ResetRecoilState },
+        newValue: T | DefaultValue,
+    ) => void;
+    // cacheImplementation_UNSTABLE?: () => CacheImplementation<Loadable<T>>,
+    // cacheImplementationForParams_UNSTABLE?: () => CacheImplementation<
+    //   RecoilValue<T>,
+    // >,
+    dangerouslyAllowMutability?: boolean;
+}
+
+export function selectorFamily<T, P extends SerializableParam>(
+    options: ReadWriteSelectorFamilyOptions<T, P>,
+): (param: P) => RecoilState<T>;
+
+export function selectorFamily<T, P extends SerializableParam>(
+    options: ReadOnlySelectorFamilyOptions<T, P>,
+): (param: P) => RecoilValueReadOnly<T>;
+
+export function constSelector<T extends SerializableParam>(constant: T): RecoilValueReadOnly<T>;
+
+export function errorSelector(message: string): RecoilValueReadOnly<never>;
+
+export function readOnlySelector<T>(atom: RecoilValue<T>): RecoilValueReadOnly<T>;
+
+export function noWait<T>(state: RecoilValue<T>): RecoilValueReadOnly<Loadable<T>>;
+
+export type UnwrapRecoilValue<T> = T extends RecoilValue<infer R> ? R : never;
+
+export type UnwrapRecoilValueLoadables<T extends Array<RecoilValue<any>> | { [key: string]: RecoilValue<any> }> = {
+    [P in keyof T]: Loadable<UnwrapRecoilValue<T[P]>>;
+};
+
+export function waitForNone<RecoilValues extends Array<RecoilValue<any>> | [RecoilValue<any>]>(
+    param: RecoilValues,
+): RecoilValueReadOnly<UnwrapRecoilValueLoadables<RecoilValues>>;
+
+export function waitForNone<RecoilValues extends { [key: string]: RecoilValue<any> }>(
+    param: RecoilValues,
+): RecoilValueReadOnly<UnwrapRecoilValueLoadables<RecoilValues>>;
+
+export function waitForAny<RecoilValues extends Array<RecoilValue<any>> | [RecoilValue<any>]>(
+    param: RecoilValues,
+): RecoilValueReadOnly<UnwrapRecoilValueLoadables<RecoilValues>>;
+
+export function waitForAny<RecoilValues extends { [key: string]: RecoilValue<any> }>(
+    param: RecoilValues,
+): RecoilValueReadOnly<UnwrapRecoilValueLoadables<RecoilValues>>;
+
+export function waitForAll<RecoilValues extends Array<RecoilValue<any>> | [RecoilValue<any>]>(
+    param: RecoilValues,
+): RecoilValueReadOnly<UnwrapRecoilValueLoadables<RecoilValues>>;
+
+export function waitForAll<RecoilValues extends { [key: string]: RecoilValue<any> }>(
+    param: RecoilValues,
+): RecoilValueReadOnly<UnwrapRecoilValueLoadables<RecoilValues>>;
