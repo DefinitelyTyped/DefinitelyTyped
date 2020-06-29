@@ -3,8 +3,10 @@
 // Definitions by: Anton Rieder <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function naturalCompare(
+declare function naturalCompare(
     a: string,
     b: string,
     options?: { caseInsensitive?: boolean; alphabet?: string },
 ): number;
+
+export = naturalCompare;
