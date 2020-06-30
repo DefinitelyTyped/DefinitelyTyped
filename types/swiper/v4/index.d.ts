@@ -58,9 +58,14 @@ export type AutoplayEvent = 'autoplayStart' | 'autoplayStop' | 'autoplay';
 export type LazyLoadingEvent = 'lazyImageLoad' | 'lazyImageReady';
 
 /**
+ * Swiper hash-navigation event names.
+ */
+export type HashNavigationEvent = 'hashChange' | 'hashSet';
+
+/**
  * Swiper event names.
  */
-export type SwiperEvent = CommonEvent | PaginationEvent | AutoplayEvent | LazyLoadingEvent;
+export type SwiperEvent = CommonEvent | PaginationEvent | AutoplayEvent | LazyLoadingEvent | HashNavigationEvent;
 
 /**
  * Swiper module types.
