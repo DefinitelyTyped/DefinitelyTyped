@@ -13537,6 +13537,9 @@ declare namespace Office {
          * Calling the `getCallbackTokenAsync` method in compose mode requires you to have saved the item.
          * The `saveAsync` method requires a minimum permission level of `ReadWriteItem`.
          *
+         * **Important**: For guidance on delegate or shared scenarios, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
          * *REST Tokens*
          *
          * When a REST token is requested (`options.isRest` = `true`), the resulting token will not work to authenticate Exchange Web Services calls.
@@ -13616,6 +13619,9 @@ declare namespace Office {
          *
          * Calling the `getCallbackTokenAsync` method in compose mode requires you to have saved the item.
          * The `saveAsync` method requires a minimum permission level of `ReadWriteItem`.
+         *
+         * **Important**: For guidance on delegate or shared scenarios, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
          *
          * [Api set: All support Read mode; Mailbox 1.3 introduced Compose mode support]
          *
