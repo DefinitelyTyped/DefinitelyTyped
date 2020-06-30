@@ -300,8 +300,15 @@ export interface CartesianAxisProps extends EventAttributes, Partial<Presentatio
 
 export class CartesianAxis extends React.Component<CartesianAxisProps> { }
 
-export type CoordinatesGenerator = (arg: {
+export type HorizontalCoordinatesGenerator = (arg: {
     yAxis: CartesianGridProps['yAxis'];
+    width: CartesianGridProps['chartWidth'];
+    height: CartesianGridProps['chartHeight'];
+    offset: CartesianGridProps['offset'];
+}) => ReadonlyArray<number>;
+
+export type VerticalCoordinatesGenerator = (arg: {
+    xAxis: CartesianGridProps['xAxis'];
     width: CartesianGridProps['chartWidth'];
     height: CartesianGridProps['chartHeight'];
     offset: CartesianGridProps['offset'];
@@ -315,17 +322,16 @@ export interface CartesianGridProps extends Partial<PresentationAttributes> {
     vertical?: object | React.ReactElement | ContentRenderer<LineProps & CartesianGridProps> | boolean;
     horizontalPoints?: ReadonlyArray<number>;
     verticalPoints?: ReadonlyArray<number>;
-    horizontalCoordinatesGenerator?: CoordinatesGenerator;
-    verticalCoordinatesGenerator?: CoordinatesGenerator;
-    xAxis?: object;
-    yAxis?: object;
-    offset?: object;
+    horizontalCoordinatesGenerator?: HorizontalCoordinatesGenerator;
+    verticalCoordinatesGenerator?: VerticalCoordinatesGenerator;
+    xAxis?: XAxisProps;
+    yAxis?: YAxisProps;
+    offset?: ChartOffset;
     chartWidth?: number;
     chartHeight?: number;
     horizontalFill?: ReadonlyArray<string>;
     verticalFill?: ReadonlyArray<string>;
 }
-
 export class CartesianGrid extends React.Component<CartesianGridProps> { }
 
 export interface CellProps extends Partial<PresentationAttributes> {
@@ -336,6 +342,16 @@ export interface CellProps extends Partial<PresentationAttributes> {
 }
 
 export class Cell extends React.Component<CellProps> { }
+
+export interface ChartOffset {
+    top?: number;
+    bottom?: number;
+    left?: number;
+    right?: number;
+    width?: number;
+    height?: number;
+    brushBottom?: number;
+}
 
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export type ComposedChartProps = CategoricalChartWrapper & EventAttributes;
