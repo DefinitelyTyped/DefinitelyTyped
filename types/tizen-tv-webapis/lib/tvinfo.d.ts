@@ -921,7 +921,7 @@ declare const enum TvInfoMenuValue {
     AUDIO_LANGUAGE_CODE_MAO = 'MAO',
 
     /**
-     *
+     * Marathi voice mode
      */
     AUDIO_LANGUAGE_CODE_MAR = 'MAR',
 
@@ -2000,7 +2000,7 @@ declare interface TvInfoManager {
          */
         AUDIO_LANGUAGE_CODE_MAO: 'MAO';
         /**
-         *
+         * Marathi voice mode
          */
         AUDIO_LANGUAGE_CODE_MAR: 'MAR';
         /**
