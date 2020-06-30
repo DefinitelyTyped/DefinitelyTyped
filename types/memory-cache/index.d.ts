@@ -8,7 +8,7 @@
 
 export class CacheClass<K, V> {
     put(key: K, value: V, time?: number, timeoutCallback?: (key: K, value: V) => void): V;
-    get(key: K): V;
+    get(key: K): V | null;
     del(key: K): void;
     clear(): void;
 

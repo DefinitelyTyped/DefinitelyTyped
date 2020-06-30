@@ -1,4 +1,4 @@
-// Type definitions for N3 1.1
+// Type definitions for N3 1.4
 // Project: https://github.com/rdfjs/n3.js
 // Definitions by: Fred Eisele <https://github.com/phreed>
 //                 Ruben Taelman <https://github.com/rubensworks>
@@ -100,7 +100,7 @@ export class Quad extends BaseQuad implements RDF.Quad {
     toJSON(): string;
 }
 
-export class Triple extends Quad implements RDF.Triple {}
+export class Triple extends Quad implements RDF.Quad {}
 
 export namespace DataFactory {
     function namedNode(value: string): NamedNode;
@@ -127,11 +127,6 @@ export interface BlankTriple<Q extends RDF.BaseQuad = RDF.Quad> {
     object: Q['object'];
 }
 
-export interface ParserConstructor {
-    new<Q extends BaseQuad = Quad> (options?: ParserOptions): N3Parser<Q>;
-}
-export const Parser: ParserConstructor;
-
 export interface ParserOptions {
     format?: string;
     prefixes?: string[];
@@ -141,30 +136,15 @@ export interface ParserOptions {
 
 export type ParseCallback<Q extends BaseQuad = Quad> = (error: Error, quad: Q, prefixes: Prefixes) => void;
 
-export interface N3Parser<Q extends BaseQuad = Quad> {
+export class Parser<Q extends BaseQuad = Quad> {
+    constructor(options?: ParserOptions);
     parse(input: string): Q[];
     parse(input: string, callback: ParseCallback<Q>): void;
 }
 
-export interface StreamParserConstructor {
-  new<Q extends BaseQuad = Quad> (options?: ParserOptions): N3StreamParser<Q>;
-}
-export const StreamParser: StreamParserConstructor;
-
-export interface N3StreamParser<Q extends BaseQuad = Quad> extends RDF.Stream<Q>, NodeJS.WritableStream, RDF.Sink<EventEmitter, RDF.Stream<Q>> {
-    // Below are the NodeJS.ReadableStream methods,
-    // we can not extend the interface directly,
-    // as `read` clashes with RDF.Sink.
-    readable: boolean;
-    // read(size?: number): string | Buffer; // Overwritten by RDF.Stream
-    setEncoding(encoding: string | null): void;
-    pause(): this;
-    resume(): this;
-    isPaused(): boolean;
-    pipe<T extends NodeJS.WritableStream | RDF.Stream<Q>>(destination: T, options?: { end?: boolean; }): T;
-    unpipe(destination?: NodeJS.WritableStream | RDF.Stream<Q>): void;
-    unshift(chunk: string | Buffer): void;
-    wrap(oldStream: NodeJS.ReadableStream | RDF.Stream<Q>): NodeJS.ReadableStream;
+export class StreamParser<Q extends BaseQuad = Quad> extends stream.Transform implements RDF.Stream<Q>, RDF.Sink<EventEmitter, RDF.Stream<Q>> {
+    constructor(options?: ParserOptions);
+    import(stream: EventEmitter): RDF.Stream<Q>;
 }
 
 export interface WriterOptions {
@@ -173,13 +153,9 @@ export interface WriterOptions {
     end?: boolean;
 }
 
-export interface WriterConstructor {
-    new<Q extends RDF.BaseQuad = RDF.Quad> (options?: WriterOptions): N3Writer<Q>;
-    new<Q extends RDF.BaseQuad = RDF.Quad> (fd: any, options?: WriterOptions): N3Writer<Q>;
-}
-export const Writer: WriterConstructor;
-
-export interface N3Writer<Q extends RDF.BaseQuad = RDF.Quad> {
+export class Writer<Q extends RDF.BaseQuad = RDF.Quad> {
+    constructor(options?: WriterOptions);
+    constructor(fd: any, options?: WriterOptions);
     quadToString(subject: Q['subject'], predicate: Q['predicate'], object: Q['object'], graph?: Q['graph']): string;
     quadsToString(quads: RDF.Quad[]): string;
     addQuad(subject: Q['subject'], predicate: Q['predicate'], object: Q['object'] | Array<Q['object']>, graph?: Q['graph'], done?: () => void): void;
@@ -193,23 +169,27 @@ export interface N3Writer<Q extends RDF.BaseQuad = RDF.Quad> {
     list(triple: Array<Q['object']>): Quad_Object[];
 }
 
-export interface StreamWriterConstructor {
-  new<Q extends RDF.BaseQuad = RDF.Quad> (options?: WriterOptions): N3StreamWriter<Q>;
-  new<Q extends RDF.BaseQuad = RDF.Quad> (fd: any, options?: WriterOptions): N3StreamWriter<Q>;
+export class StreamWriter<Q extends RDF.BaseQuad = Quad> extends stream.Transform implements RDF.Sink<RDF.Stream<Q>, EventEmitter> {
+  constructor(options?: WriterOptions);
+  constructor(fd: any, options?: WriterOptions);
+  import(stream: RDF.Stream<Q>): EventEmitter;
 }
-export const StreamWriter: StreamWriterConstructor;
 
-export interface N3StreamWriter<Q extends RDF.BaseQuad = Quad> extends NodeJS.ReadWriteStream, RDF.Sink<RDF.Stream<Q>, EventEmitter> {}
-
-export interface N3Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad = Quad> extends RDF.Store<Q_RDF> {
+export class Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad = Quad> implements RDF.Store<Q_RDF> {
+    constructor(triples?: Q_RDF[], options?: StoreOptions);
     readonly size: number;
     addQuad(subject: Q_RDF['subject'], predicate: Q_RDF['predicate'], object: Q_RDF['object'] | Array<Q_RDF['object']>, graph?: Q_RDF['graph'], done?: () => void): void;
     addQuad(quad: Q_RDF): void;
     addQuads(quads: Q_RDF[]): void;
+    import(stream: RDF.Stream<Q_RDF>): EventEmitter;
     removeQuad(subject: Q_RDF['subject'], predicate: Q_RDF['predicate'], object: Q_RDF['object'] | Array<Q_RDF['object']>, graph?: Q_RDF['graph'], done?: () => void): void;
     removeQuad(quad: Q_RDF): void;
     removeQuads(quads: Q_RDF[]): void;
+    remove(stream: RDF.Stream<Q_RDF>): EventEmitter;
+    removeMatches(subject?: Term | RegExp, predicate?: Term | RegExp, object?: Term | RegExp, graph?: Term | RegExp): EventEmitter;
+    deleteGraph(graph: Q_RDF['graph'] | string): EventEmitter;
     getQuads(subject: OTerm, predicate: OTerm, object: OTerm | OTerm[], graph: OTerm): Quad[];
+    match(subject?: Term | RegExp, predicate?: Term | RegExp, object?: Term | RegExp, graph?: Term | RegExp): RDF.Stream<Q_RDF>;
     countQuads(subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): number;
     forEach(callback: QuadCallback<Q_N3>, subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): void;
     every(callback: QuadPredicate<Q_N3>, subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): boolean;
@@ -224,10 +204,6 @@ export interface N3Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends Bas
     forGraphs(callback: (result: Q_N3['graph']) => void, subject: OTerm, predicate: OTerm, object: OTerm): void;
     createBlankNode(suggestedName?: string): BlankNode;
 }
-export interface StoreConstructor {
-  new<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad = Quad> (triples?: Q_RDF[], options?: StoreOptions): N3Store<Q_RDF, Q_N3>;
-}
-export const Store: StoreConstructor;
 
 export interface StoreOptions {
     factory?: RDF.DataFactory;

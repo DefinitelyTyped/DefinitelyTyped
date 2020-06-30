@@ -3,8 +3,11 @@
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Simon Ihmig <https://github.com/simonihmig>
 //                 Mike North <https://github.com/mike-north>
+//                 Dan Freeman <https://github.com/dfreeman>
+//                 Chris Krycho <https://github.com/chriskrycho>
+//                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.7
 
 import { TestContext, ModuleCallbacks } from "ember-test-helpers";
 import Ember from 'ember';

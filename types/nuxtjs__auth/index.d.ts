@@ -44,6 +44,7 @@ export interface Auth<T = any> {
   setUser(user?: Partial<T>): any;
   reset(): Promise<never>;
   redirect(name: string): any;
+  onRedirect(listener: () => void): void;
   strategy(): string;
   registerStrategy(strategyName: string, strategy: object): void;
   setStrategy(strategyName: string): void;

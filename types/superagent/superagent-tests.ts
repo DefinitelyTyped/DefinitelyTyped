@@ -305,8 +305,8 @@ request
     req.part()
         .set('Content-Type', 'image/png')
         .set('Content-Disposition', 'attachment; filename="myimage.png"')
-        .write('some image data')
-        .write('some more image data');
+        .write('some image data');
+    req.write('some more image data');
 
     req.part()
         .set('Content-Disposition', 'form-data; name="name"')

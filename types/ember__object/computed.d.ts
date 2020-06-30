@@ -120,6 +120,15 @@ export function filter(
 ): ComputedProperty<any[]>;
 
 /**
+ * Filters the array by the callback and an array of additional dependent keys.
+ */
+export function filter(
+    dependentKey: string,
+    additionalDependentKeys: string[],
+    callback: (value: any, index: number, array: any[]) => boolean
+): ComputedProperty<any[]>;
+
+/**
  * Filters the array by the property and value
  */
 export function filterBy(
@@ -283,11 +292,28 @@ export function setDiff(
  * A computed property which returns a new array with all the
  * properties from the first dependent array sorted based on a property
  * or sort function.
+ * If used with an array of sort properties, it must receive exactly two arguments:
+ * the key of the array to sort, and the key of the array of sort properties.
+ * Alternatively the key of the array to sort, and a the sort function may be used.
  */
 export function sort(
     itemsKey: string,
     sortDefinition: string | ((itemA: any, itemB: any) => number)
 ): ComputedProperty<any[]>;
+
+/**
+ * A computed property which returns a new array with all the
+ * properties from the first dependent array sorted based on a property
+ * or sort function.
+ * It may recieve three arguments: the key of the array to sort, an array of dependent keys
+ * for the computed property, and the sort function.
+ */
+export function sort(
+    itemsKey: string,
+    dependentKeys: string[],
+    sortDefinition: string | ((itemA: any, itemB: any) => number)
+): ComputedProperty<any[]>;
+
 /**
  * A computed property that returns the sum of the values
  * in the dependent array.

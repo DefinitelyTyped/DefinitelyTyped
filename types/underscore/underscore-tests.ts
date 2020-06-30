@@ -3,6 +3,7 @@ declare const window: any;
 declare const alert: (msg: string) => any;
 declare const console: {log: any};
 
+_.VERSION; // $ExpectType string
 _.each([1, 2, 3], (num) => alert(num.toString()));
 _.each({ one: 1, two: 2, three: 3 }, (value, key) => alert(value.toString()));
 
@@ -10,143 +11,143 @@ _.map([1, 2, 3], (num) => num * 3);
 _.map({ one: 1, two: 2, three: 3 }, (value, key) => value * 3);
 let plucked: string[] = _.map([{key: 'apples'}, {key: 'oranges'}], 'key');
 
-//var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);	// https://typescript.codeplex.com/workitem/1960
+//var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);    // https://typescript.codeplex.com/workitem/1960
 var sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num, 0);
 sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num); // memo is optional #issue 5 github
 sum = _.reduce<string, number>({'a':'1', 'b':'2', 'c':'3'}, (memo, numstr) => memo + (+numstr));
 
 var list = [[0, 1], [2, 3], [4, 5]];
-//var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
+//var flat = _.reduceRight(list, (a, b) => a.concat(b), []);    // https://typescript.codeplex.com/workitem/1960
 var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
 namespace TestFind {
-	let array: {a: string}[] = [{a: 'a'}, {a: 'b'}];
-	let list: _.List<{a: string}> = {0: {a: 'a'}, 1: {a: 'b'}, length: 2};
-	let dict: _.Dictionary<{a: string}> = {a: {a: 'a'}, b: {a: 'b'}};
-	let context = {};
+    let array: {a: string}[] = [{a: 'a'}, {a: 'b'}];
+    let list: _.List<{a: string}> = {0: {a: 'a'}, 1: {a: 'b'}, length: 2};
+    let dict: _.Dictionary<{a: string}> = {a: {a: 'a'}, b: {a: 'b'}};
+    let context = {};
 
-	{
-		let iterator = (value: {a: string}, index: number, list: _.List<{a: string}>) => value.a === 'b';
-		let result: {a: string} | undefined;
+    {
+        let iterator = (value: {a: string}, index: number, list: _.List<{a: string}>) => value.a === 'b';
+        let result: {a: string} | undefined;
 
-		result = _.find<{a: string}>(array, iterator);
-		result = _.find<{a: string}>(array, iterator, context);
-		result = _.find<{a: string}, {a: string}>(array, {a: 'b'});
-		result = _.find<{a: string}>(array, 'a');
+        result = _.find<{a: string}>(array, iterator);
+        result = _.find<{a: string}>(array, iterator, context);
+        result = _.find<{a: string}, {a: string}>(array, {a: 'b'});
+        result = _.find<{a: string}>(array, 'a');
 
-		result = _(array).find<{a: string}>(iterator);
-		result = _(array).find<{a: string}>(iterator, context);
-		result = _(array).find<{a: string}, {a: string}>({a: 'b'});
-		result = _(array).find<{a: string}>('a');
+        result = _(array).find<{a: string}>(iterator);
+        result = _(array).find<{a: string}>(iterator, context);
+        result = _(array).find<{a: string}, {a: string}>({a: 'b'});
+        result = _(array).find<{a: string}>('a');
 
-		result = _(array).chain().find<{a: string}>(iterator).value();
-		result = _(array).chain().find<{a: string}>(iterator, context).value();
-		result = _(array).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
-		result = _(array).chain().find<{a: string}>('a').value();
+        result = _(array).chain().find<{a: string}>(iterator).value();
+        result = _(array).chain().find<{a: string}>(iterator, context).value();
+        result = _(array).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
+        result = _(array).chain().find<{a: string}>('a').value();
 
-		result = _.find<{a: string}>(list, iterator);
-		result = _.find<{a: string}>(list, iterator, context);
-		result = _.find<{a: string}, {a: string}>(list, {a: 'b'});
-		result = _.find<{a: string}>(list, 'a');
+        result = _.find<{a: string}>(list, iterator);
+        result = _.find<{a: string}>(list, iterator, context);
+        result = _.find<{a: string}, {a: string}>(list, {a: 'b'});
+        result = _.find<{a: string}>(list, 'a');
 
-		result = _(list).find<{a: string}>(iterator);
-		result = _(list).find<{a: string}>(iterator, context);
-		result = _(list).find<{a: string}, {a: string}>({a: 'b'});
-		result = _(list).find<{a: string}>('a');
+        result = _(list).find<{a: string}>(iterator);
+        result = _(list).find<{a: string}>(iterator, context);
+        result = _(list).find<{a: string}, {a: string}>({a: 'b'});
+        result = _(list).find<{a: string}>('a');
 
-		result = _(list).chain().find<{a: string}>(iterator).value();
-		result = _(list).chain().find<{a: string}>(iterator, context).value();
-		result = _(list).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
-		result = _(list).chain().find<{a: string}>('a').value();
+        result = _(list).chain().find<{a: string}>(iterator).value();
+        result = _(list).chain().find<{a: string}>(iterator, context).value();
+        result = _(list).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
+        result = _(list).chain().find<{a: string}>('a').value();
 
-		result = _.detect<{a: string}>(array, iterator);
-		result = _.detect<{a: string}>(array, iterator, context);
-		result = _.detect<{a: string}, {a: string}>(array, {a: 'b'});
-		result = _.detect<{a: string}>(array, 'a');
+        result = _.detect<{a: string}>(array, iterator);
+        result = _.detect<{a: string}>(array, iterator, context);
+        result = _.detect<{a: string}, {a: string}>(array, {a: 'b'});
+        result = _.detect<{a: string}>(array, 'a');
 
-		result = _(array).detect<{a: string}>(iterator);
-		result = _(array).detect<{a: string}>(iterator, context);
-		result = _(array).detect<{a: string}, {a: string}>({a: 'b'});
-		result = _(array).detect<{a: string}>('a');
+        result = _(array).detect<{a: string}>(iterator);
+        result = _(array).detect<{a: string}>(iterator, context);
+        result = _(array).detect<{a: string}, {a: string}>({a: 'b'});
+        result = _(array).detect<{a: string}>('a');
 
-		result = _(array).chain().detect<{a: string}>(iterator).value();
-		result = _(array).chain().detect<{a: string}>(iterator, context).value();
-		result = _(array).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
-		result = _(array).chain().detect<{a: string}>('a').value();
+        result = _(array).chain().detect<{a: string}>(iterator).value();
+        result = _(array).chain().detect<{a: string}>(iterator, context).value();
+        result = _(array).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
+        result = _(array).chain().detect<{a: string}>('a').value();
 
-		result = _.detect<{a: string}>(list, iterator);
-		result = _.detect<{a: string}>(list, iterator, context);
-		result = _.detect<{a: string}, {a: string}>(list, {a: 'b'});
-		result = _.detect<{a: string}>(list, 'a');
+        result = _.detect<{a: string}>(list, iterator);
+        result = _.detect<{a: string}>(list, iterator, context);
+        result = _.detect<{a: string}, {a: string}>(list, {a: 'b'});
+        result = _.detect<{a: string}>(list, 'a');
 
-		result = _(list).detect<{a: string}>(iterator);
-		result = _(list).detect<{a: string}>(iterator, context);
-		result = _(list).detect<{a: string}, {a: string}>({a: 'b'});
-		result = _(list).detect<{a: string}>('a');
+        result = _(list).detect<{a: string}>(iterator);
+        result = _(list).detect<{a: string}>(iterator, context);
+        result = _(list).detect<{a: string}, {a: string}>({a: 'b'});
+        result = _(list).detect<{a: string}>('a');
 
-		result = _(list).chain().detect<{a: string}>(iterator).value();
-		result = _(list).chain().detect<{a: string}>(iterator, context).value();
-		result = _(list).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
-		result = _(list).chain().detect<{a: string}>('a').value();
-	}
+        result = _(list).chain().detect<{a: string}>(iterator).value();
+        result = _(list).chain().detect<{a: string}>(iterator, context).value();
+        result = _(list).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
+        result = _(list).chain().detect<{a: string}>('a').value();
+    }
 
-	{
-		let iterator = (element: {a: string}, key: string, list: _.Dictionary<{a: string}>) => element.a === 'b';
-		let result: {a: string} | undefined;
+    {
+        let iterator = (element: {a: string}, key: string, list: _.Dictionary<{a: string}>) => element.a === 'b';
+        let result: {a: string} | undefined;
 
-		result = _.find<{a: string}>(dict, iterator);
-		result = _.find<{a: string}>(dict, iterator, context);
-		result = _.find<{a: string}, {a: string}>(dict, {a: 'b'});
-		result = _.find<{a: string}>(dict, 'a');
+        result = _.find<{a: string}>(dict, iterator);
+        result = _.find<{a: string}>(dict, iterator, context);
+        result = _.find<{a: string}, {a: string}>(dict, {a: 'b'});
+        result = _.find<{a: string}>(dict, 'a');
 
-		result = _(dict).find<{a: string}>(iterator);
-		result = _(dict).find<{a: string}>(iterator, context);
-		result = _(dict).find<{a: string}, {a: string}>({a: 'b'});
-		result = _(dict).find<{a: string}>('a');
+        result = _(dict).find<{a: string}>(iterator);
+        result = _(dict).find<{a: string}>(iterator, context);
+        result = _(dict).find<{a: string}, {a: string}>({a: 'b'});
+        result = _(dict).find<{a: string}>('a');
 
-		result = _(dict).chain().find<{a: string}>(iterator).value();
-		result = _(dict).chain().find<{a: string}>(iterator, context).value();
-		result = _(dict).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
-		result = _(dict).chain().find<{a: string}>('a').value();
+        result = _(dict).chain().find<{a: string}>(iterator).value();
+        result = _(dict).chain().find<{a: string}>(iterator, context).value();
+        result = _(dict).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
+        result = _(dict).chain().find<{a: string}>('a').value();
 
-		result = _.detect<{a: string}>(dict, iterator);
-		result = _.detect<{a: string}>(dict, iterator, context);
-		result = _.detect<{a: string}, {a: string}>(dict, {a: 'b'});
-		result = _.detect<{a: string}>(dict, 'a');
+        result = _.detect<{a: string}>(dict, iterator);
+        result = _.detect<{a: string}>(dict, iterator, context);
+        result = _.detect<{a: string}, {a: string}>(dict, {a: 'b'});
+        result = _.detect<{a: string}>(dict, 'a');
 
-		result = _(dict).detect<{a: string}>(iterator);
-		result = _(dict).detect<{a: string}>(iterator, context);
-		result = _(dict).detect<{a: string}, {a: string}>({a: 'b'});
-		result = _(dict).detect<{a: string}>('a');
+        result = _(dict).detect<{a: string}>(iterator);
+        result = _(dict).detect<{a: string}>(iterator, context);
+        result = _(dict).detect<{a: string}, {a: string}>({a: 'b'});
+        result = _(dict).detect<{a: string}>('a');
 
-		result = _(dict).chain().detect<{a: string}>(iterator).value();
-		result = _(dict).chain().detect<{a: string}>(iterator, context).value();
-		result = _(dict).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
-		result = _(dict).chain().detect<{a: string}>('a').value();
-	}
+        result = _(dict).chain().detect<{a: string}>(iterator).value();
+        result = _(dict).chain().detect<{a: string}>(iterator, context).value();
+        result = _(dict).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
+        result = _(dict).chain().detect<{a: string}>('a').value();
+    }
 
-	{
-		let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
-		let result: string | undefined;
+    {
+        let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+        let result: string | undefined;
 
-		result = _.find<string>('abc', iterator);
-		result = _.find<string>('abc', iterator, context);
+        result = _.find<string>('abc', iterator);
+        result = _.find<string>('abc', iterator, context);
 
-		result = _('abc').find<string>(iterator);
-		result = _('abc').find<string>(iterator, context);
+        result = _('abc').find<string>(iterator);
+        result = _('abc').find<string>(iterator, context);
 
-		result = _('abc').chain().find<string>(iterator).value();
-		result = _('abc').chain().find<string>(iterator, context).value();
+        result = _('abc').chain().find<string>(iterator).value();
+        result = _('abc').chain().find<string>(iterator, context).value();
 
-		result = _.detect<string>('abc', iterator);
-		result = _.detect<string>('abc', iterator, context);
+        result = _.detect<string>('abc', iterator);
+        result = _.detect<string>('abc', iterator, context);
 
-		result = _('abc').detect<string>(iterator);
-		result = _('abc').detect<string>(iterator, context);
+        result = _('abc').detect<string>(iterator);
+        result = _('abc').detect<string>(iterator, context);
 
-		result = _('abc').chain().detect<string>(iterator).value();
-		result = _('abc').chain().detect<string>(iterator, context).value();
-	}
+        result = _('abc').chain().detect<string>(iterator).value();
+        result = _('abc').chain().detect<string>(iterator, context).value();
+    }
 
     {
         _(list).map(x => x.a);
@@ -208,9 +209,9 @@ _.groupBy(['one', 'two', 'three'], 'length');
 _.indexBy(stooges, 'age')['40'].age;
 _(stooges).indexBy('age')['40'].name;
 _(stooges)
-	.chain()
-	.indexBy('age')
-	.value()['40'].age;
+    .chain()
+    .indexBy('age')
+    .value()['40'].age;
 
 let pensioners: string[] = _.chain(stooges)
     .filter(p => p.age >= 60)
@@ -263,8 +264,8 @@ _.size({ one: 1, two: 2, three: 3 });
 _.partition<number>([0, 1, 2, 3, 4, 5], (num) => {return num % 2 == 0 });
 
 interface Family {
-	name: string;
-	relation: string;
+    name: string;
+    relation: string;
 }
 var isUncleMoe = _.matches<Family>({ name: 'moe', relation: 'uncle' });
 _.filter([{ name: 'larry', relation: 'father' }, { name: 'moe', relation: 'uncle' }], isUncleMoe);
@@ -315,21 +316,21 @@ var func2 = _.bind(func, { name: 'moe' }, 'hi');
 func2();
 
 var buttonView = {
-	label: 'underscore',
-	onClick() { alert('clicked: ' + this.label); },
-	onHover() { console.log('hovering: ' + this.label); }
+    label: 'underscore',
+    onClick() { alert('clicked: ' + this.label); },
+    onHover() { console.log('hovering: ' + this.label); }
 };
 _.bindAll(buttonView);
 $('#underscore_button').bind('click', buttonView.onClick);
 
 var fibonacci = _.memoize(function (n) {
-	return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
+    return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
 });
 
 class MyClass {};
 
 var classMemoized = _.memoize<MyClass>(function (classInstance) {
-	return new classInstance();
+    return new classInstance();
 });
 
 var log = _.bind(console.log, console);
@@ -415,17 +416,17 @@ _.clone({ name: 'moe' });
 _.clone(['i', 'am', 'an', 'object!']);
 
 _([1, 2, 3, 4])
-	.chain()
-	.filter((num) => { return num % 2 == 0; })
-	.tap(alert)
-	.map((num) => { return num * num; })
-	.value();
+    .chain()
+    .filter((num) => { return num % 2 == 0; })
+    .tap(alert)
+    .map((num) => { return num * num; })
+    .value();
 
 _.chain([1, 2, 3, 200])
-	.filter((num) => { return num % 2 == 0; })
-	.tap(alert)
-	.map((num) => { return num * num; })
-	.value();
+    .filter((num) => { return num % 2 == 0; })
+    .tap(alert)
+    .map((num) => { return num * num; })
+    .value();
 
 _.has({ a: 1, b: 2, c: 3 }, "b");
 
@@ -523,9 +524,9 @@ _(3).times(function (n) { genie.grantWishNumber(n); });
 _.random(0, 100);
 
 _.mixin({
-	capitalize(string) {
-		return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
-	}
+    capitalize(string) {
+        return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
+    }
 });
 (<any>_("fabio")).capitalize();
 
@@ -549,7 +550,7 @@ var compiled2 = _.template("<% print('Hello ' + epithet); %>");
 compiled2({ epithet: "stooge" });
 var oldTemplateSettings = _.templateSettings;
 _.templateSettings = {
-	interpolate: /\{\{(.+?)\}\}/g
+    interpolate: /\{\{(.+?)\}\}/g
 };
 var template2 = _.template("Hello {{ name }}!");
 template2({ name: "Mustache" });
@@ -561,37 +562,37 @@ template0();
 
 //////////////// Chain Tests
 function chain_tests() {
-	// https://typescript.codeplex.com/workitem/1960
-	var numArray = _.chain([1, 2, 3, 4, 5, 6, 7, 8])
-		.filter(num => num % 2 == 0)
-		.map(num => num * num)
-		.value();
+    // https://typescript.codeplex.com/workitem/1960
+    var numArray = _.chain([1, 2, 3, 4, 5, 6, 7, 8])
+        .filter(num => num % 2 == 0)
+        .map(num => num * num)
+        .value();
 
-	var strArray = _([1, 2, 3, 4])
-		.chain()
-		.filter(num => num % 2 == 0)
-		.tap(alert)
-		.map(num => "string" + num)
-		.value();
+    var strArray = _([1, 2, 3, 4])
+        .chain()
+        .filter(num => num % 2 == 0)
+        .tap(alert)
+        .map(num => "string" + num)
+        .value();
 
-	var n = _.chain([1, 2, 3, 200])
-		.filter(num => num % 2 == 0)
-		.tap(alert)
-		.map(num => num * num)
-		.max()
-		.value();
+    var n = _.chain([1, 2, 3, 200])
+        .filter(num => num % 2 == 0)
+        .tap(alert)
+        .map(num => num * num)
+        .max()
+        .value();
 
-	var hoverOverValueShouldBeNumberNotAny = _([1, 2, 3]).chain()
-		.map(num => [num, num + 1])
-		.flatten()
-		.find(num => num % 2 == 0)
-		.value();
+    var hoverOverValueShouldBeNumberNotAny = _([1, 2, 3]).chain()
+        .map(num => [num, num + 1])
+        .flatten()
+        .find(num => num % 2 == 0)
+        .value();
 
-	var firstVal: number | undefined = _.chain([1, 2, 3])
-		.first()
-		.value();
+    var firstVal: number | undefined = _.chain([1, 2, 3])
+        .first()
+        .value();
 
-	var firstVal2: number | undefined = _.chain([])
+    var firstVal2: number | undefined = _.chain([])
         .first()
         .value();
 
@@ -602,9 +603,9 @@ function chain_tests() {
         .value(); // { odd: [1], even: [0, 2] }
 
   var matrixOfString : string[][] = _.chain({'foo' : '1', 'bar': '1'})
-  	.keys()    // return ['foo', 'bar'] : string[]
-  	.pairs()   // return [['foo', '0'], ['bar', '1']] : string[][]
-  	.value();
+      .keys()    // return ['foo', 'bar'] : string[]
+      .pairs()   // return [['foo', '0'], ['bar', '1']] : string[][]
+      .value();
 
     interface IYears {
         2016: number;
@@ -657,4 +658,172 @@ function strong_typed_values_tests() {
     }).size().value();
 
     _.values<{title: string, value: number}>(dictionaryLike);
+}
+
+// tests for #7931 - verify that the result of a function like reduce that returns a singleton can be chained further
+// $ExpectType number[]
+_.chain([1, 2, 3])
+    .reduce((acc, x) => { acc.unshift(x); return acc; }, [] as number[])
+    .map(x => x + 1)
+    .value();
+
+// $ExpectType boolean
+_.chain([{ a: 1, b: 2, c: 3 }, { a: 4, b: 5, c: 6 }])
+    .findWhere({ a: 1 })
+    .some(n => n === 2)
+    .value();
+
+// $ExpectType number
+_.chain([1, 2, 3, 4, 5, 6])
+    .chunk(3)
+    .first()
+    .reduce((aggregate, n) => aggregate + n, 0)
+    .value();
+
+// common testing types and objects
+interface StringRecord {
+    a: string;
+    b: string;
+}
+
+interface StringRecordAugmentedList extends _.List<StringRecord> {
+    notAListProperty: boolean;
+}
+
+interface StringRecordExplicitDictionary extends _.Dictionary<StringRecord> {
+    a: StringRecord;
+    b: StringRecord;
+    c: StringRecord;
+}
+
+const stringRecordArray: StringRecord[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'b' }, { a: 'c', b: 'a' }];
+const stringRecordAugmentedList: StringRecordAugmentedList = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: { a: 'c', b: 'a' }, length: 3, notAListProperty: true };
+const stringRecordList: _.List<StringRecord> = stringRecordAugmentedList;
+const stringRecordExplicitDictionary: StringRecordExplicitDictionary = { a: { a: 'a', b: 'c' }, b: { a: 'b', b: 'b' }, c: { a: 'c', b: 'a' } };
+const stringRecordDictionary: _.Dictionary<StringRecord> = stringRecordExplicitDictionary;
+
+const simpleString = 'abc';
+
+const simpleNumber = 7;
+
+declare const mixedIterabilityValue: number | number[];
+
+// avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
+// the types under test need to be refactored
+interface UnderscoreType<TWrappedValue, TItemType> { }
+
+interface UnderscoreTypeExtractor {
+    <T, V>(chainResult: _.Underscore<T, V>): UnderscoreType<V, T>;
+}
+
+declare const extractUnderscoreTypes: UnderscoreTypeExtractor;
+
+interface ChainType<TWrappedValue, TItemType> { }
+
+interface ChainTypeExtractor {
+    <T, V>(chainResult: _._Chain<T, V>): ChainType<V, T>;
+}
+
+declare const extractChainTypes: ChainTypeExtractor;
+
+// Arrays
+
+// chunk
+{
+    const length = 2;
+
+    _.chunk(stringRecordArray, length); // $ExpectType StringRecord[][]
+    _(stringRecordArray).chunk(length); // $ExpectType StringRecord[][]
+    extractChainTypes(_.chain(stringRecordArray).chunk(length)); // $ExpectType ChainType<StringRecord[][], StringRecord[]>
+
+    _.chunk(stringRecordList, length); // $ExpectType StringRecord[][]
+    _(stringRecordList).chunk(length); // $ExpectType StringRecord[][]
+    extractChainTypes(_.chain(stringRecordList).chunk(length)); // $ExpectType ChainType<StringRecord[][], StringRecord[]>
+
+    _.chunk(simpleString, length); // $ExpectType string[][]
+    _(simpleString).chunk(length); // $ExpectType string[][]
+    extractChainTypes(_.chain(simpleString).chunk(length)); // $ExpectType ChainType<string[][], string[]>
+}
+
+// OOP Style
+
+// underscore
+{
+    extractUnderscoreTypes(_(stringRecordArray)); // $ExpectType UnderscoreType<StringRecord[], StringRecord>
+
+    extractUnderscoreTypes(_(stringRecordAugmentedList)); // $ExpectType UnderscoreType<StringRecordAugmentedList, StringRecord>
+    extractUnderscoreTypes(_(stringRecordList)); // $ExpectType UnderscoreType<List<StringRecord>, StringRecord>
+
+    extractUnderscoreTypes(_(stringRecordExplicitDictionary)); // $ExpectType UnderscoreType<StringRecordExplicitDictionary, StringRecord>
+    extractUnderscoreTypes(_(stringRecordDictionary)); // $ExpectType UnderscoreType<Dictionary<StringRecord>, StringRecord>
+
+    extractUnderscoreTypes(_(simpleString)); // $ExpectType UnderscoreType<string, string>
+    extractUnderscoreTypes(_(simpleNumber)); // $ExpectType UnderscoreType<number, never>
+
+    extractUnderscoreTypes(_(mixedIterabilityValue)); // $ExpectType UnderscoreType<number | number[], number>
+}
+
+// value
+// verify that the object type given to underscore is returned by value
+{
+    _(stringRecordArray).value(); // $ExpectType StringRecord[]
+
+    _(stringRecordAugmentedList).value(); // $ExpectType StringRecordAugmentedList
+    _(stringRecordList).value(); // $ExpectType List<StringRecord>
+
+    _(stringRecordExplicitDictionary).value(); // $ExpectType StringRecordExplicitDictionary
+    _(stringRecordDictionary).value(); // $ExpectType Dictionary<StringRecord>
+
+    _(simpleString).value(); // $ExpectType string
+    _(simpleNumber).value(); // $ExpectType number
+
+    _(mixedIterabilityValue).value(); // $ExpectType number | number[]
+}
+
+// Chaining
+
+// chain
+// verify that the right chain item and value types are yielded by calls to chain
+// these tests also check to make sure that _.chain() and _().chain() yield the same types
+{
+    extractChainTypes(_.chain(stringRecordArray)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    extractChainTypes(_(stringRecordArray).chain()); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    extractChainTypes(_.chain(stringRecordAugmentedList)); // $ExpectType ChainType<StringRecordAugmentedList, StringRecord>
+    extractChainTypes(_(stringRecordAugmentedList).chain()); // $ExpectType ChainType<StringRecordAugmentedList, StringRecord>
+
+    extractChainTypes(_.chain(stringRecordList)); // $ExpectType ChainType<List<StringRecord>, StringRecord>
+    extractChainTypes(_(stringRecordList).chain()); // $ExpectType ChainType<List<StringRecord>, StringRecord>
+
+    extractChainTypes(_.chain(stringRecordExplicitDictionary)); // $ExpectType ChainType<StringRecordExplicitDictionary, StringRecord>
+    extractChainTypes(_(stringRecordExplicitDictionary).chain()); // $ExpectType ChainType<StringRecordExplicitDictionary, StringRecord>
+
+    extractChainTypes(_.chain(stringRecordDictionary)); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
+    extractChainTypes(_(stringRecordDictionary).chain()); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
+
+    extractChainTypes(_.chain(simpleString)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_(simpleString).chain()); // $ExpectType ChainType<string, string>
+
+    extractChainTypes(_.chain(simpleNumber)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_(simpleNumber).chain()); // $ExpectType ChainType<number, never>
+
+    extractChainTypes(_.chain(mixedIterabilityValue)); // $ExpectType ChainType<number | number[], number>
+    extractChainTypes(_(mixedIterabilityValue).chain()); // $ExpectType ChainType<number | number[], number>
+}
+
+// value
+// verify that the object type given to chain is returned by value
+{
+    _.chain(stringRecordArray).value(); // $ExpectType StringRecord[]
+
+    _.chain(stringRecordAugmentedList).value(); // $ExpectType StringRecordAugmentedList
+    _.chain(stringRecordList).value(); // $ExpectType List<StringRecord>
+
+    _.chain(stringRecordExplicitDictionary).value(); // $ExpectType StringRecordExplicitDictionary
+    _.chain(stringRecordDictionary).value(); // $ExpectType Dictionary<StringRecord>
+
+    _.chain(simpleString).value(); // $ExpectType string
+    _.chain(simpleNumber).value(); // $ExpectType number
+
+    _.chain(mixedIterabilityValue).value(); // $ExpectType number | number[]
 }

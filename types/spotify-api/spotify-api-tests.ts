@@ -2,6 +2,7 @@
 // Project: https://developer.spotify.com/web-api/
 // Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
 //                 Nils Måsén <https://github.com/piksel>
+//                 Basti Ortiz <https://github.com/Some-Dood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -5532,7 +5533,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
   "items": [
     {
       "album": {
-        "album_type": "ALBUM",
+        "album_type": "album",
         "artists": [
           {
             "external_urls": {
@@ -5783,7 +5784,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     },
     {
       "album": {
-        "album_type": "ALBUM",
+        "album_type": "album",
         "artists": [
           {
             "external_urls": {
@@ -6016,7 +6017,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     },
     {
       "album": {
-        "album_type": "ALBUM",
+        "album_type": "album",
         "artists": [
           {
             "external_urls": {
@@ -6251,7 +6252,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     },
     {
       "album": {
-        "album_type": "COMPILATION",
+        "album_type": "album",
         "artists": [
           {
             "external_urls": {
@@ -6340,7 +6341,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     },
     {
       "album": {
-        "album_type": "ALBUM",
+        "album_type": "album",
         "artists": [
           {
             "external_urls": {

@@ -162,11 +162,11 @@ interface OCRPro {
      * @return {void}
      */
     RecognizeSelectedImages(optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: () => void): void;
-	
-	NewOCRError(): OCRError;
-	NewOCRReadPara(): OCRReadPara;
-	NewOCRZone(): OCRZone;
-	NewSettings(): Settings;
+    
+    NewOCRError(): OCRError;
+    NewOCRReadPara(): OCRReadPara;
+    NewOCRZone(): OCRZone;
+    NewSettings(): Settings;
 }
 
 interface DynamsoftWebTwainAddon {

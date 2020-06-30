@@ -1,4 +1,4 @@
-// Type definitions for CodeMirror
+// Type definitions for codemirror
 // Project: https://github.com/marijnh/CodeMirror
 // Definitions by: jacqt <https://github.com/jacqt>
 //                 basarat <https://github.com/basarat>
@@ -7,9 +7,9 @@
 
 // See docs https://codemirror.net/doc/manual.html#addon_show-hint
 
-import * as CodeMirror from "codemirror";
+import * as CodeMirror from 'codemirror';
 
-declare module "codemirror" {
+declare module 'codemirror' {
     /** Provides a framework for showing autocompletion hints. Defines editor.showHint, which takes an optional
     options object, and pops up a widget that allows the user to select a completion. Finding hints is done with
     a hinting functions (the hint option), which is a function that take an editor instance and options object,
@@ -54,8 +54,15 @@ declare module "codemirror" {
     }
 
     interface ShowHintOptions {
-        completeSingle: boolean;
+        completeSingle?: boolean;
         hint: HintFunction | AsyncHintFunction;
+        alignWithWord?: boolean;
+        closeCharacters?: RegExp;
+        closeOnUnfocus?: boolean;
+        completeOnSingleClick?: boolean;
+        container?: HTMLElement | null;
+        customKeys?: { [key: string]: ((editor: Editor, handle: Handle) => void) | string } | null;
+        extraKeys?: { [key: string]: ((editor: Editor, handle: Handle) => void) | string } | null;
     }
 
     /** The Handle used to interact with the autocomplete dialog box.*/

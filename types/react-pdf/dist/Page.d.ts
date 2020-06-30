@@ -33,7 +33,7 @@ export interface TextItem {
     dir: string;
     transform: number[];
     width: number;
-    height:	number;
+    height: number;
     fontName: string;
 }
 

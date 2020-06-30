@@ -1,8 +1,16 @@
 // Type definitions for twemoji 12.1
 // Project: https://github.com/twitter/twemoji
 // Definitions by: Markus Tacker <https://github.com/coderbyheart>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
+
+/**
+ * A simple library that provides standard Unicode emoji support across all platforms.
+ * Twemoji v12.0 adheres to the Unicode 12.0 spec and supports the Emoji 12.0 spec
+ * The Twemoji library offers support for 3,075 emojis.
+ */
+export as namespace twemoji;
 
 /**
  * default assets url, by default will be Twitter Inc. CDN

@@ -1,4 +1,4 @@
-// Type definitions for slonik 21.4
+// Type definitions for slonik 22.1
 // Project: https://github.com/gajus/slonik#readme
 // Definitions by: Sebastian Sebald <https://github.com/sebald>
 //                 Misha Kaletsky <https://github.com/mmkal>
@@ -35,7 +35,8 @@ export type TypeNameIdentifierType =
   'int4' |
   'json' |
   'text' |
-  'timestamptz';
+  'timestamptz' |
+  'uuid';
 
 export type SerializableValueType =
     | string
@@ -320,10 +321,6 @@ export interface SqlTaggedTemplateType {
       members: ReadonlyArray<ValueExpressionType>,
       glue: SqlTokenType,
     ) => ListSqlTokenType;
-    raw: (
-        rawSql: string,
-        values?: ReadonlyArray<PrimitiveValueExpressionType>
-    ) => SqlTokenType;
     unnest: (
         // Value might be ReadonlyArray<ReadonlyArray<PrimitiveValueExpressionType>>,
         // or it can be infinitely nested array, e.g.
@@ -471,8 +468,11 @@ export interface ClientConfigurationType {
     /** Number of times to retry establishing a new connection. (Default: 3) */
     connectionRetryLimit?: number;
 
-    /** Timeout (in milliseconds) after which an error is raised if cannot cannot be established. (Default: 5000) */
-    connectionTimeout?: number;
+    /** connectionTimeout Timeout (in milliseconds) after which an error is raised if connection cannot cannot be established. (Default: 5000) */
+    connectionTimeout?: number | 'DISABLE_TIMEOUT';
+
+    /** idleInTransactionSessionTimeout Timeout (in milliseconds) after which idle clients are closed. Use 'DISABLE_TIMEOUT' constant to disable the timeout. (Default: 60000) */
+    idleInTransactionSessionTimeout?: number | 'DISABLE_TIMEOUT';
 
     /** Timeout (in milliseconds) after which idle clients are closed. (Default: 5000) */
     idleTimeout?: number;
@@ -482,6 +482,9 @@ export interface ClientConfigurationType {
 
     /** Uses libpq bindings when `pg-native` module is installed. (Default: true) */
     preferNativeBindings?: boolean;
+
+    /** Timeout (in milliseconds) after which database is instructed to abort the query. Use 'DISABLE_TIMEOUT' constant to disable the timeout. (Default: 60000) */
+    statementTimeout?: number | 'DISABLE_TIMEOUT';
 
     /**
      * An array of [Slonik interceptors](https://github.com/gajus/slonik#slonik-interceptors)

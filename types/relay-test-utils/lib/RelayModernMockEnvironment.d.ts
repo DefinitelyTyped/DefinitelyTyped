@@ -14,9 +14,9 @@ import {
     MissingFieldHandler,
 } from 'relay-runtime';
 
-type OperationMockResolver = (operation: OperationDescriptor) => GraphQLResponse | Error | null;
+export type OperationMockResolver = (operation: OperationDescriptor) => GraphQLResponse | Error | null;
 
-interface MockFunctions {
+export interface MockFunctions {
     clearCache: () => void;
     cachePayload: (
         request: ConcreteRequest | OperationDescriptor,
@@ -42,12 +42,12 @@ interface MockFunctions {
     queueOperationResolver: (resolver: OperationMockResolver) => void;
 }
 
-interface MockEnvironment {
+export interface MockEnvironment {
     mock: MockFunctions;
     mockClear: () => void;
 }
 
-interface RelayMockEnvironment extends MockEnvironment, IEnvironment {
+export interface RelayMockEnvironment extends MockEnvironment, IEnvironment {
     configName: string | null | undefined;
     revertUpdate(update: OptimisticUpdate): void;
     replaceUpdate(update: OptimisticUpdate, newUpdate: OptimisticUpdate): void;
@@ -95,5 +95,3 @@ export function createMockEnvironment(config?: {
     operationTracker?: OperationTracker;
     operationLoader?: OperationLoader;
 }): RelayMockEnvironment;
-
-export {};

@@ -1,4 +1,4 @@
-import { EventsKey } from '../events';
+import { EventsKey, ListenerFunction } from '../events';
 import BaseEvent from '../events/Event';
 import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
@@ -11,7 +11,7 @@ export interface Options {
     attributions?: AttributionLike;
     distance?: number;
     geometryFunction?: (p0: Feature<Geometry>) => Point;
-    source: VectorSource<Geometry>;
+    source?: VectorSource<Geometry>;
     wrapX?: boolean;
 }
 export default class Cluster extends VectorSource {
@@ -20,16 +20,16 @@ export default class Cluster extends VectorSource {
     protected features: Feature<Geometry>[];
     protected geometryFunction: (feature: Feature<Geometry>) => Point;
     protected resolution: number;
-    protected source: VectorSource<Geometry>;
     protected cluster(): void;
     protected createCluster(features: Feature<Geometry>[]): Feature<Geometry>;
     getDistance(): number;
     getResolutions(): number[];
     getSource(): VectorSource<Geometry>;
     setDistance(distance: number): void;
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    setSource(source: VectorSource<Geometry>): void;
+    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'addfeature', listener: (evt: VectorSourceEvent<Geometry>) => void): EventsKey;
     once(type: 'addfeature', listener: (evt: VectorSourceEvent<Geometry>) => void): EventsKey;
     un(type: 'addfeature', listener: (evt: VectorSourceEvent<Geometry>) => void): void;

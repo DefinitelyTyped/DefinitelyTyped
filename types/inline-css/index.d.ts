@@ -17,6 +17,7 @@ declare namespace InlineCss {
         preserveMediaQueries?: boolean;
         applyWidthAttributes?: boolean;
         applyTableAttributes?: boolean;
+        removeHtmlSelectors?: boolean;
     }
 }
 

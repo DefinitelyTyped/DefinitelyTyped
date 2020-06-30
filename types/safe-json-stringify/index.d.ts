@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 declare namespace safeJsonStringify {
-	function ensureProperties(obj: any): object;
+    function ensureProperties(obj: any): object;
 }
 
 // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#The_replacer_parameter

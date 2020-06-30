@@ -6,10 +6,10 @@
 // TypeScript Version: 2.3
 
 declare namespace defineProperties {
-	/**
-	 * Whether the current environment correctly supports property descriptors.
-	 */
-	const supportsDescriptors: boolean;
+    /**
+     * Whether the current environment correctly supports property descriptors.
+     */
+    const supportsDescriptors: boolean;
 }
 
 /**
@@ -21,8 +21,8 @@ declare namespace defineProperties {
  * @param predicates The optional predicates map, return `true` to override existing properties on `object`.
  */
 declare function defineProperties<M extends object>(
-	object: object,
-	map: M & ThisType<any>,
-	predicates?: Partial<Record<keyof M, () => boolean>>,
+    object: object,
+    map: M & ThisType<any>,
+    predicates?: Partial<Record<keyof M, () => boolean>>,
 ): void;
 export = defineProperties;

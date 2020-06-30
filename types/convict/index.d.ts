@@ -1,11 +1,15 @@
-// Type definitions for convict 4.2
+// Type definitions for convict 5.2
 // Project: https://github.com/mozilla/node-convict
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 //                 Vesa Poikajärvi <https://github.com/vesse>
 //                 Eli Young <https://github.com/elyscape>
 //                 Suntharesan Mohan <https://github.com/vanthiyathevan>
+//                 Igor Strebezhev <https://github.com/xamgore>
+//                 Peter Somogyvari <https://github.com/petermetz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+
+/// <reference types="node" />
 
 declare namespace convict {
     // Taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-307871458
@@ -56,7 +60,11 @@ declare namespace convict {
         | Boolean;
 
     interface SchemaObj<T = any> {
-        default: T;
+        /**
+         * You can define a configuration property as "required" without providing a default value.
+         * Set its default to null and if your format doesn't accept null it will throw an error.
+         */
+        default: T | null;
         doc?: string;
         /**
          * From the implementation:
@@ -84,6 +92,11 @@ declare namespace convict {
         properties: {
             [K in keyof T]: T[K] extends object ? InternalSchema<T[K]> : { default: T[K] }
         };
+    }
+
+    interface Options {
+        env?: NodeJS.ProcessEnv;
+        args?: string[];
     }
 
     interface Config<T> {
@@ -194,7 +207,7 @@ interface convict {
     addFormat(format: convict.Format): void;
     addFormats(formats: { [name: string]: convict.Format }): void;
     addParser(parsers: convict.Parser | convict.Parser[]): void;
-    <T>(config: convict.Schema<T> | string): convict.Config<T>;
+    <T>(config: convict.Schema<T> | string, opts?: convict.Options): convict.Config<T>;
 }
 declare var convict: convict;
 export = convict;

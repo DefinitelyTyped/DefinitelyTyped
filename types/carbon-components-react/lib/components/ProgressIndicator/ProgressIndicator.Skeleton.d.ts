@@ -1,9 +1,9 @@
 import * as React from "react";
 
-interface InheritedProps { }
+interface InheritedProps extends React.HTMLAttributes<HTMLUListElement> { }
 
 export interface ProgressIndicatorSkeletonProps extends InheritedProps { }
 
-declare class ProgressIndicatorSkeleton extends React.Component<ProgressIndicatorSkeletonProps> { }
+declare const ProgressIndicatorSkeleton: React.FC<ProgressIndicatorSkeletonProps>;
 
 export default ProgressIndicatorSkeleton;

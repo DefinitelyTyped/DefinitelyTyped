@@ -2,9 +2,10 @@
 // Project: https://mathjs.org/
 // Definitions by: Ilya Shestakov <https://github.com/siavol>,
 //                  Andy Patterson <https://github.com/andnp>,
-//                  Brad Besserman <https://github.com/bradbesserman>
-//                  Pawel Krol <https://github.com/pawkrol>
-//                  Charlee Li <https://github.com/charlee>
+//                  Brad Besserman <https://github.com/bradbesserman>,
+//                  Pawel Krol <https://github.com/pawkrol>,
+//                  Charlee Li <https://github.com/charlee>,
+//                  Mark Wiemer <https://github.com/mark-wiemer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -3072,6 +3073,7 @@ declare namespace math {
         isSymbolNode?: boolean;
         isUpdateNode?: boolean;
         comment?: string;
+        content?: MathNode;
         op?: string;
         fn?: string;
         args?: MathNode[];

@@ -22,6 +22,9 @@
             ],
             "@testing-library/dom": [
                 "testing-library__dom"
+            ],
+            "@sinonjs/fake-timers": [
+                "sinonjs__fake-timers"
             ]
         }
     },

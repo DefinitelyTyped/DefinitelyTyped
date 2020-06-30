@@ -18,7 +18,11 @@ declare module "child_process" {
         readonly killed: boolean;
         readonly pid: number;
         readonly connected: boolean;
-        kill(signal?: NodeJS.Signals | number): void;
+        readonly exitCode: number | null;
+        readonly signalCode: number | null;
+        readonly spawnargs: string[];
+        readonly spawnfile: string;
+        kill(signal?: NodeJS.Signals | number): boolean;
         send(message: any, callback?: (error: Error | null) => void): boolean;
         send(message: any, sendHandle?: net.Socket | net.Server, callback?: (error: Error | null) => void): boolean;
         send(message: any, sendHandle?: net.Socket | net.Server, options?: MessageOptions, callback?: (error: Error | null) => void): boolean;

@@ -1,5 +1,5 @@
 import { Dashicon } from '@wordpress/components';
-import { ComponentType, ReactNode } from '@wordpress/element';
+import { ComponentType, ReactNode } from 'react';
 
 declare namespace PluginSidebar {
     interface Props {

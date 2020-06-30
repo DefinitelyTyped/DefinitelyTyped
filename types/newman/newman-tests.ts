@@ -13,6 +13,7 @@ import {
     CollectionDefinition,
     VariableScopeDefinition
 } from "postman-collection";
+import * as http from 'http';
 
 const collection: CollectionDefinition = {};
 const environment: VariableScopeDefinition = {};
@@ -21,6 +22,7 @@ const folder: string | string[] = ['collectionFolderA', 'collectionFolderB'];
 const color = 'auto';
 const workingDir = 'path/to/working/directory';
 const insecureFileRead = true;
+const requestAgent = new http.Agent();
 
 // $ExpectType EventEmitter
 run(
@@ -31,7 +33,11 @@ run(
         folder,
         color,
         workingDir,
-        insecureFileRead
+        insecureFileRead,
+        requestAgents: {
+            http: requestAgent,
+            https: requestAgent,
+        },
     },
     (err, summary: NewmanRunSummary) => {
         summary.run; // $ExpectType NewmanRun

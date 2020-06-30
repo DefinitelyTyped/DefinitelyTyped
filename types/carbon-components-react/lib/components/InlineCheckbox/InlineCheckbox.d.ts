@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactInputAttr, RequiresIdProps } from "../../../typings/shared";
+import { ReactInputAttr, RequiresIdProps, ForwardRefReturn } from "../../../typings/shared";
 
 type ExcludedAttributes = "aria-label" | "className" | "id" | "onChange" | "ref" | "type";
 
@@ -16,6 +16,6 @@ export interface InlineCheckboxProps extends InheritedProps {
     onChange?(checked: boolean, id: string, event: React.ChangeEvent<HTMLInputElement>): void,
 }
 
-declare const InlineCheckbox: React.RefForwardingComponent<HTMLInputElement, InlineCheckboxProps>;
+declare const InlineCheckbox: ForwardRefReturn<HTMLInputElement, InlineCheckboxProps>;
 
 export default InlineCheckbox;

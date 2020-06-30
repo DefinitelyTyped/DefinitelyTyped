@@ -10,6 +10,7 @@ const defaultLocale = getDefaultLocale();
     adjustDateOnChange
     allowSameDay
     ariaLabelledBy=""
+    ariaLabelClose=""
     autoComplete=""
     autoFocus
     calendarClassName=""
@@ -18,9 +19,15 @@ const defaultLocale = getDefaultLocale();
     clearButtonTitle=""
     customInput={<input />}
     customInputRef=""
+    chooseDayAriaLabelPrefix=""
+    customTimeInput={<input />}
     dateFormat=""
     dateFormatCalendar=""
     dayClassName={date => ''}
+    weekDayClassName={date => ''}
+    monthClassName={date => ''}
+    timeClassName={date => ''}
+    disabledDayAriaLabelPrefix=""
     disabled
     disabledKeyboardNavigation
     dropdownMode="scroll"
@@ -38,7 +45,7 @@ const defaultLocale = getDefaultLocale();
     includeTimes={[new Date()]}
     injectTimes={[new Date()]}
     inline
-    inlineFocusSelectedMonth={false}
+    focusSelectedMonth={false}
     isClearable
     locale=""
     maxDate={new Date()}
@@ -106,6 +113,7 @@ const defaultLocale = getDefaultLocale();
     shouldCloseOnSelect
     showDisabledMonthNavigation
     showMonthDropdown
+    showFullMonthYearPicker
     showMonthYearDropdown
     showMonthYearPicker
     showPopperArrow
@@ -113,8 +121,10 @@ const defaultLocale = getDefaultLocale();
     showQuarterYearPicker
     showTimeSelect
     showTimeSelectOnly
+    showTwoColumnMonthYearPicker
     showWeekNumbers
     showYearDropdown
+    showYearPicker
     startDate={new Date()}
     startOpen
     tabIndex={1}
@@ -129,7 +139,11 @@ const defaultLocale = getDefaultLocale();
     value=""
     weekLabel=""
     withPortal
+    portalId=""
     wrapperClassName=""
+    weekAriaLabelPrefix=""
+    excludeScrollbar={false}
+    enableTabLoop={false}
     yearDropdownItemNumber={1}
 >
     <div />

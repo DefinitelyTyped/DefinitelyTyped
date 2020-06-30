@@ -1,4 +1,4 @@
-import { ComponentType, SVGProps, ReactComponentElement, ReactDOM } from '@wordpress/element';
+import { ComponentType, SVGProps, ReactComponentElement, ReactDOM } from 'react';
 
 import Dashicon from '../dashicon';
 

@@ -200,7 +200,7 @@ const _ = (
             </NavLink>
         </Flex>{' '}
         <Message mt={1}>This is just a message for someone to read</Message>{' '}
-        <IconButton aria-label="Toggle dark mode">
+        <IconButton aria-label="Toggle dark mode" onClick={() => {}}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentcolor">
                 <circle r={11} cx={12} cy={12} fill="none" stroke="currentcolor" strokeWidth={2} />
             </svg>

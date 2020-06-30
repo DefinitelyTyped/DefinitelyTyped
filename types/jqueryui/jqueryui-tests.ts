@@ -1459,8 +1459,8 @@ function test_dialog() {
     $(".selector").dialog({ title: "Dialog Title" });
     $(".selector").dialog({ width: 500 });
     $(".selector").dialog({ zIndex: 20 });
-	var $el = $( ".selector" ).dialog( "moveToTop" );
-	var isOpen = $( ".selector" ).dialog( "isOpen" );
+    var $el = $( ".selector" ).dialog( "moveToTop" );
+    var isOpen = $( ".selector" ).dialog( "isOpen" );
 }
 
 
@@ -1495,6 +1495,7 @@ function test_selectmenu() {
     // Events and options
     $("#selectmenu").selectmenu({
         appendTo: ".selector",
+        classes: { "ui-selectmenu-button": "custom-button", "ui-selectmenu-menu": "custom-menu" },
         disabled: true,
         icons: { submenu: "ui-icon-circle-triangle-e" },
         position: { my: "left top", at: "right-5 top+5" },

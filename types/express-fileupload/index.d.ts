@@ -51,7 +51,10 @@ declare namespace fileUpload {
     interface Options {
         /** Automatically creates the directory path specified in `.mv(filePathName)` */
         createParentPath?: boolean;
-        /** Applies uri decoding to file names if set true. */
+        /**
+         * Applies uri decoding to file names if set true.
+         * @default false
+         */
         uriDecodeFileNames?: boolean;
         /**
          * Strips characters from the upload's filename.
@@ -69,12 +72,13 @@ declare namespace fileUpload {
         /**
          * Returns a HTTP 413 when the file is bigger than the size limit if `true`.
          * Otherwise, it will add a `truncated = true` to the resulting file structure.
+         * @default false
          */
         abortOnLimit?: boolean;
         /**
          * Response which will be send to client if file size limit exceeded when `abortOnLimit` set to `true`.
          */
-        responseOnLimit?: boolean;
+        responseOnLimit?: string;
         /**
          * User defined limit handler which will be invoked if the file is bigger than configured limits.
          */
@@ -103,8 +107,14 @@ declare namespace fileUpload {
         /**
          * Turn on/off upload process logging.
          * Can be useful for troubleshooting.
+         * @default false
          */
         debug?: boolean;
+
+        /**
+         * @default 60000
+         */
+        uploadTimeout?: number;
         [property: string]: any;
     }
 }

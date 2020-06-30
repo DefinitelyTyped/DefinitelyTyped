@@ -1,4 +1,4 @@
-import { ComponentType, SVGProps } from '@wordpress/element';
+import { ComponentType, SVGProps } from 'react';
 
 declare namespace Dashicon {
     interface Props extends SVGProps<SVGSVGElement> {

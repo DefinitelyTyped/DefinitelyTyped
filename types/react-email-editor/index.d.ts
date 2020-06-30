@@ -1,6 +1,7 @@
-// Type definitions for react-email-editor 0.9
+// Type definitions for react-email-editor 1.0
 // Project: https://github.com/unlayer/react-email-editor
 // Definitions by: Nikita Granko <https://github.com/ngranko>
+//                 Vladimir Penyazkov <https://github.com/mindtraveller>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -23,10 +24,29 @@ export interface User {
     readonly email?: string;
 }
 
-export interface MergeTag {
+export interface GroupedMergeTag {
+    readonly name: string;
+    readonly mergeTags: Array<SimpleMergeTag | GroupedMergeTag>;
+}
+
+export interface SimpleMergeTag {
     readonly name: string;
     readonly value: string;
 }
+
+export interface ConditionalMergeTagRule {
+    readonly name: string;
+    readonly before: string;
+    readonly after: string;
+}
+
+export interface ConditionalMergeTag {
+    readonly name: string;
+    readonly rules: ConditionalMergeTagRule[];
+    readonly mergeTags?: SimpleMergeTag[];
+}
+
+export type MergeTag = SimpleMergeTag | ConditionalMergeTag | GroupedMergeTag;
 
 export interface DesignTagConfig {
     readonly delimeter: [string, string];

@@ -1,9 +1,18 @@
-import RNBackgroundDownloader, { DownloadTask } from 'react-native-background-downloader';
+import RNBackgroundDownloader, { DownloadTask, DownloadTaskState } from 'react-native-background-downloader';
+
+// Set global headers for downloader
+RNBackgroundDownloader.setHeaders({
+  'x-custom': 'Custom Header',
+  'x-custom-2': 'Another Custom Header',
+});
 
 const task = RNBackgroundDownloader.download({
     id: 'file123',
     url: 'https://link-to-very.large/file.zip',
     destination: `${RNBackgroundDownloader.directories.documents}/file.zip`,
+    headers: {
+      'x-custom-3': 'a-third-header',
+    },
 })
     .begin(expectedBytes => {
         console.log(`Going to download ${expectedBytes} bytes!`);
@@ -19,6 +28,22 @@ const task = RNBackgroundDownloader.download({
     });
 
 const taskFuncTest = (task: DownloadTask) => {
+    // Check task state
+    switch (task.state) {
+      case DownloadTaskState.DONE: {
+        console.log('Task is in state DONE');
+        break;
+      }
+      case DownloadTaskState.DOWNLOADING: {
+        console.log('Task is in state DOWNLOADING');
+        break;
+      }
+      case DownloadTaskState.PAUSED: {
+        console.log('Task is in state PAUSED');
+        break;
+      }
+    }
+
     // Pause the task
     task.pause();
 

@@ -8,6 +8,6 @@ export function useLazyLoadQuery<TQuery extends OperationType>(
         fetchKey?: string | number;
         fetchPolicy?: FetchPolicy;
         networkCacheConfig?: CacheConfig;
-        renderPolicy_UNSTABLE?: RenderPolicy;
+        UNSTABLE_renderPolicy?: RenderPolicy;
     },
 ): TQuery['response'];
