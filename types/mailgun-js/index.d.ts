@@ -112,7 +112,7 @@ declare namespace Mailgun {
         }
 
         interface BatchData extends SendData {
-            'recipient-variables'?: BatchSendRecipientVars;
+            'recipient-variables'?: string | BatchSendRecipientVars;
         }
 
         type SendTemplateData = SendData & {
@@ -121,10 +121,7 @@ declare namespace Mailgun {
         };
 
         interface BatchSendRecipientVars {
-            [email: string]: {
-                first: string;
-                id: number;
-            };
+            [email: string]: {[key: string]: any};
         }
 
         interface SendResponse {
