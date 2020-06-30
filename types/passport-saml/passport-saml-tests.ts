@@ -22,11 +22,11 @@ const samlStrategy = new SamlStrategy.Strategy(
                 // key removed, null if no key is removed
             }
         },
-    cert: fs.readFileSync('/path/to/cert.crt', 'utf8')
+        cert: fs.readFileSync('/path/to/cert.crt', 'utf8')
     },
     (profile: {}, done: (err: Error | null, user: {}, info?: {}) => void) => {
-      const user = {};
-      done(null, user);
+        const user = {};
+        done(null, user);
     }
 );
 
