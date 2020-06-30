@@ -77,7 +77,8 @@ declare namespace Mailgun {
 
     interface MailgunRequest {
         (resource: string, data: any, callback: (error: Error, response: any) => void): void;
-        (resource: string, data: any): Promise<any>;
+        (resource: string, callback: (error: Error, response: any) => void): void;
+        (resource: string, data?: any): Promise<any>;
     }
 
     namespace messages {

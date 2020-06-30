@@ -143,4 +143,6 @@ const validationResult6: mailgunFactory.validation.ValidateResponse = {
 
 // Generic requests
 mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] }, (error: any, body: any) => {});
-const response: Promise<any> = mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] });
+mailgun.get('/samples.mailgun.org/stats', (error: any, body: any) => {});
+const response1: Promise<any> = mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] });
+const response2: Promise<any> = mailgun.get('/samples.mailgun.org/stats');
