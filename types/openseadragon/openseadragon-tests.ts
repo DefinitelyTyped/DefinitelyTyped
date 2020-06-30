@@ -10,6 +10,10 @@ viewer.addHandler("full-screen", event => {
     console.log(event.fullScreen);
 });
 
+viewer.addSimpleImage({ url: "2003rosen1799/0001q.jpg" });
+
+viewer.addTiledImage({ tileSource: "2003rosen1799/0001q.jpg" });
+
 const viewport = new Viewport({ margins: {} });
 
 const element = new Element();

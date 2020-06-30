@@ -1090,8 +1090,7 @@ declare namespace OpenSeadragon {
         );
     }
 
-    interface TiledImageOptions {
-        tileSource: string | object;
+    interface ImageOptions {
         index?: number;
         replace?: boolean;
         x?: number;
@@ -1113,6 +1112,14 @@ declare namespace OpenSeadragon {
         error?: (error: Error) => void;
         collectionImmediately?: boolean;
         placeholderFillStyle?: string | CanvasGradient | CanvasPattern;
+    }
+
+    interface TiledImageOptions extends ImageOptions {
+        tileSource: string | object;
+    }
+
+    interface SimpleImageOptions extends ImageOptions {
+        url: string;
     }
 
     class Viewer extends ControlDock {
@@ -1150,7 +1157,7 @@ declare namespace OpenSeadragon {
             ) => void
         ): Viewer;
         addReferenceStrip(): void;
-        addSimpleImage(options: TiledImageOptions): void; // TODO: check options type
+        addSimpleImage(options: SimpleImageOptions): void;
         addTiledImage(options: TiledImageOptions): void;
         bindSequenceControls(): Viewer;
         bindStandardControls(): Viewer;
