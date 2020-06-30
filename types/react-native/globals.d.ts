@@ -281,7 +281,7 @@ declare class URL {
 }
 
 /**
- * Based on definitions of lib.dom and  lib.dom.iteralbe
+ * Based on definitions of lib.dom and lib.dom.iterable
  */
 declare class URLSearchParams {
     constructor(init?: string[][] | Record<string, string> | string | URLSearchParams);
