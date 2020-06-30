@@ -404,9 +404,29 @@ declare module 'guacamole-client' {
     onerror: null | ((status: Status) => void);
   }
 
+  /**
+   * Guacamole Tunnel implemented over WebSocket via XMLHttpRequest.
+   * @constructor
+   * @param tunnelURL The URL of the WebSocket tunneling service.
+   */
   export class WebSocketTunnel extends Tunnel {
-    constructor(url: string);
-    readonly url: string;
+    constructor(tunnelURL: string);
+  }
+
+  /**
+   * Guacamole Tunnel which replays a Guacamole protocol dump from a static file
+   * received via HTTP. Instructions within the file are parsed and handled as
+   * quickly as possible, while the file is being downloaded.
+   *
+   * @constructor
+   * @param url The URL of a Guacamole protocol dump.
+   * @param [crossDomain=false] Whether tunnel requests will be cross-domain, and thus must use CORS
+   * mechanisms and headers. By default, it is assumed that tunnel requests will be made to the same domain.
+   * @param [extraTunnelHeaders={}] Key value pairs containing the header names and values of any additional
+   * headers to be sent in tunnel requests. By default, no extra headers will be added.
+   */
+  export class StaticHTTPTunnel extends Tunnel {
+    constructor(url: string, crossDomain?: boolean, extraTunnelHeaders?: Record<string, string>);
   }
 
   type LineCap = 'round' | 'square' | 'butt';
@@ -980,13 +1000,38 @@ declare module 'guacamole-client' {
     onend: null | (() => void);
   }
 
+  /**
+   * A reader which automatically handles the given input stream, assembling all
+   * received blobs into a JavaScript object by appending them to each other, in
+   * order, and decoding the result as JSON. Note that this object will overwrite
+   * any installed event handlers on the given Guacamole.InputStream.
+   * @param stream The stream that JSON will be read from.
+   */
   export class JSONReader {
     constructor(stream: InputStream);
     readonly stream: InputStream;
 
+    /**
+     * Fired once for every blob of data received.
+     * @event
+     * @param length The number of characters received.
+     */
     onprogress: null | ((length: number) => void);
+
+    /**
+     * Fired once this stream is finished and no further data will be written.
+     * @event
+     */
     onend: null | (() => void);
 
+    /**
+     * @return The current length of this Guacamole.JSONReader.
+     */
+    getLength(): number;
+
+    /**
+     * @return The contents of this Guacamole.JSONReader, as parsed from the JSON contents of the input stream.
+     */
     getJSON(): object;
   }
 
@@ -2086,7 +2131,7 @@ declare module 'guacamole-client' {
       /**
        * Whether ctrl is currently pressed.
        */
-        ctrl: boolean;
+      ctrl: boolean;
 
       /**
        * Whether alt is currently pressed.
@@ -2191,6 +2236,94 @@ declare module 'guacamole-client' {
 
   export namespace Mouse {
     export type State = MouseState;
+
+    class GuacTouchDevice {
+      /**
+       * @param element The Element to use to provide touch events.
+       */
+      constructor(element: HTMLElement);
+
+      /**
+       * The distance a two-finger touch must move per scrollwheel event, in
+       * pixels.
+       */
+      scrollThreshold: number;
+
+      /**
+       * The maximum number of milliseconds to wait for a touch to end for the
+       * gesture to be considered a click.
+       * @default 250
+       */
+      clickTimingThreshold: number;
+
+      /**
+       * The maximum number of pixels to allow a touch to move for the gesture to
+       * be considered a click.
+       */
+      clickMoveThreshold: number;
+
+      /**
+       * The current mouse state. The properties of this state are updated when
+       * mouse events fire. This state object is also passed in as a parameter to
+       * the handler of any mouse events.
+       */
+      currentState: Mouse.State;
+
+      /**
+       * Fired whenever a mouse button is effectively pressed. This can happen
+       * as part of a "click" gesture initiated by the user by tapping one
+       * or more fingers over the touchpad element, as part of a "scroll"
+       * gesture initiated by dragging two fingers up or down, etc.
+       * @event
+       * @param {Guacamole.Mouse.State} state The current mouse state.
+       */
+      onmousedown: null | ((state: Mouse.State) => void);
+
+      /**
+       * Fired whenever a mouse button is effectively released. This can happen
+       * as part of a "click" gesture initiated by the user by tapping one
+       * or more fingers over the touchpad element, as part of a "scroll"
+       * gesture initiated by dragging two fingers up or down, etc.
+       * @event
+       * @param {Guacamole.Mouse.State} state The current mouse state.
+       */
+      onmouseup: null | ((state: Mouse.State) => void);
+
+      /**
+       * Fired whenever the user moves the mouse by dragging their finger over
+       * the touchpad element.
+       * @event
+       * @param {Guacamole.Mouse.State} state The current mouse state.
+       */
+      onmousemove: null | ((state: Mouse.State) => void);
+    }
+
+    /**
+     * Provides cross-browser relative touch event translation for a given element.
+     * 
+     * Touch events are translated into mouse events as if the touches occurred
+     * on a touchpad (drag to push the mouse pointer, tap to click).
+     * @constructor
+     * @param element The Element to use to provide touch events.
+     */
+    export class Touchpad extends GuacTouchDevice {}
+
+    /**
+     * Provides cross-browser absolute touch event translation for a given element.
+     * Touch events are translated into mouse events as if the touches occurred
+     * on a touchscreen (tapping anywhere on the screen clicks at that point,
+     * long-press to right-click).
+     * @constructor
+     * @param element The Element to use to provide touch events.
+     */
+    class Touchscreen extends GuacTouchDevice {
+
+    /**
+     * The amount of time a press must be held for long press to be
+     * detected.
+     */
+      longPressThreshold: number;
+    }
   }
 
   /**
@@ -2247,4 +2380,230 @@ declare module 'guacamole-client' {
      */
     onmouseout: null | (() => void);
   }
+
+  /**
+   * Represents a single key, or a single possible behavior of a key. Each key
+   * on the on-screen keyboard must have at least one associated
+   * Guacamole.OnScreenKeyboard.Key, whether that key is explicitly defined or
+   * implied, and may have multiple Guacamole.OnScreenKeyboard.Key if behavior
+   * depends on modifier states.
+   * @constructor
+   * @param template
+   *     The object whose identically-named properties will be used to initialize
+   *     the properties of this key.
+   * @param [name]
+   *     The name to use instead of any name provided within the template, if
+   *     any. If omitted, the name within the template will be used, assuming the
+   *     template contains a name.
+   */
+  class Key {
+    constructor(template: Key, name?: string);
+    /**
+     * The unique name identifying this key within the keyboard layout.
+     */
+    name: string;
+
+    /**
+     * The human-readable title that will be displayed to the user within the
+     * key. If not provided, this will be derived from the key name.
+     */
+    title: string;
+
+    /**
+     * The keysym to be pressed/released when this key is pressed/released. If
+     * not provided, this will be derived from the title if the title is a
+     * single character.
+     */
+    keysym: number;
+
+    /**
+     * The name of the modifier set when the key is pressed and cleared when
+     * this key is released, if any. The names of modifiers are distinct from
+     * the names of keys; both the "RightShift" and "LeftShift" keys may set
+     * the "shift" modifier, for example. By default, the key will affect no
+     * modifiers.
+     */
+    modifier: string;
+
+    /**
+     * An array containing the names of each modifier required for this key to
+     * have an effect. For example, a lowercase letter may require nothing,
+     * while an uppercase letter would require "shift", assuming the Shift key
+     * is named "shift" within the layout. By default, the key will require
+     * no modifiers.
+     */
+    requires: string[];
+  }
+
+  /**
+   * Represents an entire on-screen keyboard layout, including all available
+   * keys, their behaviors, and their relative position and sizing.
+   * @constructor
+   * @param {Guacamole.OnScreenKeyboard.Layout|Object} template
+   *     The object whose identically-named properties will be used to initialize
+   *     the properties of this layout.
+   */
+  class Layout  {
+    constructor(template: Layout);
+    /**
+     * The language of keyboard layout, such as "en_US". This property is for
+     * informational purposes only, but it is recommend to conform to the
+     * [language code]_[country code] format.
+     */
+    language: string;
+
+    /**
+     * The type of keyboard layout, such as "qwerty". This property is for
+     * informational purposes only, and does not conform to any standard.
+     */
+    type: string;
+
+    /**
+     * Map of key name to corresponding keysym, title, or key object. If only
+     * the keysym or title is provided, the key object will be created
+     * implicitly. In all cases, the name property of the key object will be
+     * taken from the name given in the mapping.
+     */
+    keys: Record<string, number | string | Key | Key[]>;
+
+    /**
+     * Arbitrarily nested, arbitrarily grouped key names. The contents of the
+     * layout will be traversed to produce an identically-nested grouping of
+     * keys in the DOM tree. All strings will be transformed into their
+     * corresponding sets of keys, while all objects and arrays will be
+     * transformed into named groups and anonymous groups respectively. Any
+     * numbers present will be transformed into gaps of that size, scaled
+     * according to the same units as each key.
+     */
+    layout: Layout;
+
+    /**
+     * The width of the entire keyboard, in arbitrary units. The width of each
+     * key is relative to this width, as both width values are assumed to be in
+     * the same units. The conversion factor between these units and pixels is
+     * derived later via a call to resize() on the Guacamole.OnScreenKeyboard.
+     */
+    width: number;
+
+    /**
+     * The width of each key, in arbitrary units, relative to other keys in
+     * this layout. The true pixel size of each key will be determined by the
+     * overall size of the keyboard. If not defined here, the width of each
+     * key will default to 1.
+     */
+    keyWidths: Record<string, number>;
+  }
+
+  export namespace OnScreenKeyboard {
+    export type Key = typeof Key;
+    export type Layout = typeof Layout;
+  }
+
+  /**
+   * Dynamic on-screen keyboard. Given the layout object for an on-screen
+   * keyboard, this object will construct a clickable on-screen keyboard with its
+   * own key events.
+   * @constructor
+   * @param layout The layout of the on-screen keyboard to display.
+   */
+  export class OnScreenKeyboard {
+    constructor(layout: Layout);
+
+    /**
+     * The number of mousemove events to require before re-enabling mouse
+     * event handling after receiving a touch event.
+     * @default 3
+     */
+    touchMouseThreshold: number;
+
+    /**
+     * Fired whenever the user presses a key on this Guacamole.OnScreenKeyboard.
+     * 
+     * @event
+     * @param keysym The keysym of the key being pressed.
+     */
+    onkeydown: null | ((keysym: number) => void);
+
+    /**
+     * Fired whenever the user releases a key on this Guacamole.OnScreenKeyboard.
+     * @event
+     * @param keysym The keysym of the key being released.
+     */
+    onkeyup: null | ((keysym: number) => void);
+
+    /**
+     * The keyboard layout provided at time of construction.
+     */
+    layout: Layout;
+
+    /**
+     * Returns the element containing the entire on-screen keyboard.
+     * @returns The element containing the entire on-screen keyboard.
+     */
+    getElement(): HTMLElement;
+
+    /**
+     * Resizes all elements within this Guacamole.OnScreenKeyboard such that
+     * the width is close to but does not exceed the specified width. The
+     * height of the keyboard is determined based on the width.
+     * @param width The width to resize this Guacamole.OnScreenKeyboard to, in pixels.
+     */
+    resize(width: number): void;
+
+    /**
+     * Map of all key names to their corresponding set of keys. Each key name
+     * may correspond to multiple keys due to the effect of modifiers.
+     * @type {Object.<String, Guacamole.OnScreenKeyboard.Key[]>}
+     */
+    keys: Record<string, Key[]>;
+  }
+
+  /**
+   * A hidden input field which attempts to keep itself focused at all times,
+   * except when another input field has been intentionally focused, whether
+   * programatically or by the user. The actual underlying input field, returned
+   * by getElement(), may be used as a reliable source of keyboard-related events,
+   * particularly composition and input events which may require a focused input
+   * field to be dispatched at all.
+   * @constructor
+   */
+  export class InputSink {
+    /**
+     * Attempts to focus the underlying input field. The focus attempt occurs
+     * asynchronously, and may silently fail depending on browser restrictions.
+     */
+    focus(): void;
+
+    /**
+     * Returns the underlying input field. This input field MUST be manually
+     * added to the DOM for the Guacamole.InputSink to have any effect.
+     */
+    getElement(): HTMLElement;
+  }
+
+
+  /**
+   * Simple Guacamole protocol parser that invokes an oninstruction event when
+   * full instructions are available from data received via receive().
+   * @constructor
+   */
+  export class Parser {
+    /**
+     * Appends the given instruction data packet to the internal buffer of
+     * this Guacamole.Parser, executing all completed instructions at
+     * the beginning of this buffer, if any.
+     * @param packet The instruction data to receive.
+     */
+    receive(packet: string): void;
+
+    /**
+     * Fired once for every complete Guacamole instruction received, in order.
+     * @event
+     * @param {String} opcode The Guacamole instruction opcode.
+     * @param {Array} parameters The parameters provided for the instruction, if any.
+     */
+    oninstruction: null | ((opcode: string, params: unknown[]) => void);
+  }
+
+
 }

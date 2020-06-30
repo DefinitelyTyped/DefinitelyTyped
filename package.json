@@ -1,7 +1,7 @@
 {
   "name": "guacamole-client-typedefs",
   "keywords": ["guacamole", "guacamole-client", "typescript", "typedefs", "d.ts", "typings", "apache"],
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "",
   "repository": "git@github.com:KonstantinSimeonov/guacamole-client-typedefs.git",
   "author": "Konstantin Simeonov <kon.simeonov@protonmail.com>",
