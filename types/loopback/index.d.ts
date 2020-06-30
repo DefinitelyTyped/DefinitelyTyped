@@ -814,7 +814,7 @@ declare namespace l {
              * boolean. Whether the method is static (eg. `MyModel.myMethod`). Use `false` to define the method on the prototype (for example, `MyModel.prototype.myMethod`). Default is true.
              * default: true
              */
-            isStatic?:    boolean;
+            isStatic?: boolean;
 
             /**
              *
@@ -847,7 +847,7 @@ declare namespace l {
             /**
              *     Argument name
              */
-            arg:    string;
+            arg: string;
             /**
              * A text description of the argument. This is used by API documentation generators like Swagger.
              You can split long descriptions into arrays of strings (lines) to keep line lengths manageable.
@@ -859,7 +859,7 @@ declare namespace l {
              ]
              ```
              */
-            description?:    string | string[];
+            description?: string | string[];
             /**
              * http    Object or Function    For input arguments: a function or an object describing mapping from HTTP request to the argument value. See HTTP mapping of input arguments below.
              * http.target
@@ -873,13 +873,13 @@ declare namespace l {
             /**
              *     True if argument is required; false otherwise.
              */
-            required?:    boolean;
+            required?: boolean;
 
             /**
              *     For callback arguments: set this property to true if your function has a single callback argument to use as the root object returned to remote caller.
              *    Otherwise the root object returned is a map (argument-name to argument-value).
              */
-            root?:    boolean;
+            root?: boolean;
 
             /**
              *     Argument datatype; must be a Loopback type. Additionally, callback arguments allow a special type "file"; see below.
@@ -890,7 +890,7 @@ declare namespace l {
              *    Default value that will be used to populate loopback-explorer input fields and swagger documentation.
              *    Note: This value will not be passed into remote methods function if argument is not present.
              */
-            default?:    string;
+            default?: string;
       }
 
       /**

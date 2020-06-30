@@ -141,7 +141,12 @@ declare module "react-easy-chart" {
         height?: number;
 
         /** Smoothing option for the lines */
-        interpolate?: 'linear' | 'linear-closed' | 'step' | 'step-before' | 'step-after' | 'basis' | 'basis-open' | 'basis-closed' | 'bundle' | 'cardinal' | 'cardinal-open' | 'cardinal-closed' | 'monotone';
+        interpolate?: 'linear' | 'linear-closed'
+            | 'step' | 'step-before' | 'step-after'
+            | 'basis' | 'basis-open' | 'basis-closed'
+            | 'bundle'
+            | 'cardinal' | 'cardinal-open' | 'cardinal-closed'
+            | 'monotone';
 
         lineColors?: Array<string>;
 

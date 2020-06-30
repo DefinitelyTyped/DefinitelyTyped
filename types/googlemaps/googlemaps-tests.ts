@@ -713,6 +713,10 @@ service.getDetails(
         }
 
         result.name; // $ExpectType string
+        result.reviews; // $ExpectType PlaceReview[] | undefined
+        if (result.reviews && result.reviews.length) {
+            result.reviews[0].rating; // $ExpectType number
+        }
     },
 );
 

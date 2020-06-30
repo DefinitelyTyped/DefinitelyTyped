@@ -7,7 +7,6 @@
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Jonathan Creamer <https://github.com/jcreamer898>
 //                 Alan Agius <https://github.com/alan-agius4>
-//                 Jason Cheatham <https://github.com/jason0x43>
 //                 Dennis George <https://github.com/dennispg>
 //                 Christophe Hurpeau <https://github.com/christophehurpeau>
 //                 ZSkycat <https://github.com/ZSkycat>
@@ -408,7 +407,21 @@ declare namespace webpack {
         [key: string]: boolean | string | string[] | Record<string, string | string[]>;
     }
 
-    type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;
+    interface ExternalsFunctionCallback {
+        /**
+         * Invoke with no arguments to not externalize
+         */
+        (): void;
+        /**
+         * Callback with an Error
+         */
+        (error: {}): void; /* tslint:disable-line */
+        /**
+         * Externalize the dependency
+         */
+        (error: null, result: string | string[] | ExternalsObjectElement, type?: string): void;
+    }
+    type ExternalsFunctionElement = (context: any, request: any, callback: ExternalsFunctionCallback) => any;
 
     interface Node {
         console?: boolean | 'mock';
@@ -1153,10 +1166,12 @@ declare namespace webpack {
         class MainTemplate extends Tapable {
           hooks: {
             jsonpScript?: SyncWaterfallHook<string, Chunk, string>;
+            require: SyncWaterfallHook<string, Chunk, string>;
             requireExtensions: SyncWaterfallHook<string, Chunk, string>;
             requireEnsure: SyncWaterfallHook<string, Chunk, string>;
             localVars: SyncWaterfallHook<string, Chunk, string>;
             afterStartup: SyncWaterfallHook<string, Chunk, string>;
+            hash: SyncHook<CryptoHash>;
             hashForChunk: SyncHook<CryptoHash, Chunk>;
           };
           outputOptions: Output;
@@ -1241,7 +1256,17 @@ declare namespace webpack {
             addModule(module: CompilationModule, cacheGroup: any): any;
             // tslint:disable-next-line:ban-types
             addEntry(context: any, entry: any, name: any, callback: Function): void;
-            getPath(filename: string, data: {hash?: any, chunk?: any, filename?: string, basename?: string, query?: any}): string;
+
+            getPath(filename: string, data: {
+                hash?: any,
+                chunk?: any,
+                filename?: string,
+                basename?: string,
+                query?: any,
+                contentHashType?: string,
+                contentHash?: string,
+            }): string;
+
             /**
              * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
              */
@@ -1725,7 +1750,7 @@ declare namespace webpack {
         constructor(definitions: {[key: string]: DefinePlugin.CodeValueObject});
         static runtimeValue(
             fn: ({ module }: { module: compilation.Module }) => DefinePlugin.CodeValuePrimitive,
-            fileDependencies?: string[]
+            fileDependencies?: true | string[]
         ): DefinePlugin.RuntimeValue;
     }
 
@@ -1837,6 +1862,10 @@ declare namespace webpack {
 
     class ExtendedAPIPlugin extends Plugin {
         constructor();
+    }
+
+    class ExternalsPlugin extends Plugin {
+        constructor(type: string, externals: ExternalsElement);
     }
 
     class HashedModuleIdsPlugin extends Plugin {

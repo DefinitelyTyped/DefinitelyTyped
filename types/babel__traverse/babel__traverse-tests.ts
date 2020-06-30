@@ -1,4 +1,4 @@
-import traverse, { Visitor, NodePath } from '@babel/traverse';
+import traverse, { Visitor, NodePath, Hub } from '@babel/traverse';
 import * as t from '@babel/types';
 
 // Examples from: https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md
@@ -257,3 +257,7 @@ const VisitorAliasTest: Visitor = {
     Function() {},
     Expression() {},
 };
+
+const hub = new Hub('file', { options: '' });
+// $ExpectType string | undefined
+hub.getCode();

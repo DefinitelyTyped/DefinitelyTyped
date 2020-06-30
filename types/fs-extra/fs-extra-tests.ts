@@ -15,6 +15,7 @@ const modeNum = 0;
 const modeStr = "";
 const object = {};
 const errorCallback = (err: Error) => { };
+const noParamCallback: fs.NoParamCallback = (err) => {};
 const ensureNum = 0o700;
 const ensureObj: fs.EnsureOptions = {
    mode: 0o700
@@ -170,7 +171,12 @@ fs.ensureLink(path, path).then(() => {
     // stub
 });
 fs.ensureLink(path, path, errorCallback);
+fs.createLink(path, path).then(() => {
+	// stub
+});
+fs.createLink(path, path, errorCallback);
 fs.ensureLinkSync(path, path);
+fs.createLinkSync(path, path);
 fs.ensureSymlink(path, path, "file").then(() => {
     // stub
 });
@@ -205,8 +211,8 @@ fs.fchmod(fd, modeNum, errorCallback);
 fs.fchmod(fd, modeStr, errorCallback);
 fs.fchmodSync(fd, modeNum);
 fs.fchmodSync(fd, modeStr);
-fs.lchmod(path, modeStr, errorCallback);
-fs.lchmod(path, modeNum, errorCallback);
+fs.lchmod(path, modeStr, noParamCallback);
+fs.lchmod(path, modeNum, noParamCallback);
 fs.lchmodSync(path, modeNum);
 fs.lchmodSync(path, modeStr);
 fs.statSync(path);
@@ -226,6 +232,11 @@ fs.write(0, new Buffer("")).then(x => {
     const b = x.bytesWritten;
 });
 
+const writevTest = async (buffs: NodeJS.ArrayBufferView[], position: number) => {
+    await fs.writev(fd, buffs); // $ExpectType WritevResult
+    await fs.writev(fd, buffs, position); // $ExpectType WritevResult
+};
+
 // $ExpectType Promise<void>
 fs.writeFile("foo.txt", "i am foo", { encoding: "utf-8" });
 
@@ -239,3 +250,8 @@ fs.copyFile("src", "dest", errorCallback);
 fs.createSymlink("src", "dest", "dir").then();
 fs.createSymlink("src", "dest", "file").then();
 fs.createSymlink("src", "dest", "dir", errorCallback);
+
+const openDirTest = async (path: string, opts: fs.OpenDirOptions) => {
+    await fs.opendir(path); // $ExpectType Dir
+    await fs.opendir(path, opts); // $ExpectType Dir
+};

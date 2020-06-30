@@ -1718,7 +1718,8 @@ declare namespace PlayerFramework {
         **/
         canPlayType(type: string): string;
         /**
-        * Raises the captionsinvoked event used to indicate that closed options should be toggled on/off or that a caption selection dialog should be presented to the user (usually in the form of a flyout).
+        * Raises the captionsinvoked event used to indicate that closed options should be toggled on/off or
+        * that a caption selection dialog should be presented to the user (usually in the form of a flyout).
         **/
         captions(): void;
         /**

@@ -92,6 +92,18 @@ client.mset(args, resCallback);
 
 client.incr(str, resCallback);
 
+// Test del and unlink with single and multiple parameters
+client.del('test');
+client.del('test', 'test2', 'test3');
+client.unlink('test', 'test2', 'test3');
+client.unlink('test');
+
+// Test del and unlink with single and multiple parameters and a callback
+client.del('test', numCallback);
+client.unlink('test', numCallback);
+client.del('test', 'test2', 'test3', numCallback);
+client.unlink('test', 'test2', 'test3', numCallback);
+
 // Friendlier hash commands
 client.hgetall(str, resCallback);
 client.hmset(str, value, okCallback);

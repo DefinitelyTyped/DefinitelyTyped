@@ -8,5 +8,7 @@ callBind(Object.prototype.hasOwnProperty); // $ExpectType (thisArg: unknown, v: 
 callBind(Object.prototype.hasOwnProperty, any); // $ExpectType (v: string | number | symbol) => boolean
 
 applyBind(() => {}); // $ExpectType (thisArg: unknown, args: readonly []) => void
-applyBind(Object.prototype.hasOwnProperty); // $ExpectType (thisArg: unknown, args: readonly [string | number | symbol]) => boolean
-applyBind(Object.prototype.hasOwnProperty, any); // $ExpectType (args: readonly [string | number | symbol]) => boolean
+// $ExpectType (thisArg: unknown, args: readonly [string | number | symbol]) => boolean || (thisArg: unknown, args: readonly [v: string | number | symbol]) => boolean
+applyBind(Object.prototype.hasOwnProperty);
+// $ExpectType (args: readonly [string | number | symbol]) => boolean || (args: readonly [v: string | number | symbol]) => boolean
+applyBind(Object.prototype.hasOwnProperty, any);

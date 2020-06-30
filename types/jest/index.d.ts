@@ -1,4 +1,4 @@
-// Type definitions for Jest 25.2
+// Type definitions for Jest 26.0
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -18,7 +18,6 @@
 //                 Sebastian Sebald <https://github.com/sebald>
 //                 Andy <https://github.com/andys8>
 //                 Antoine Brault <https://github.com/antoinebrault>
-//                 Jeroen Claassens <https://github.com/favna>
 //                 Gregor Stamać <https://github.com/gstamac>
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Alex Bolenok <https://github.com/quassnoi>
@@ -28,6 +27,7 @@
 //                 Devansh Jethmalani <https://github.com/devanshj>
 //                 Pawel Fajfer <https://github.com/pawfa>
 //                 Regev Brody <https://github.com/regevbr>
+//                 Mark Skelton <https://github.com/mskelton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -130,6 +130,26 @@ declare namespace jest {
      * Returns the number of fake timers still left to run.
      */
     function getTimerCount(): number;
+    /**
+     * Set the current system time used by fake timers. Simulates a user
+     * changing the system clock while your program is running. It affects the
+     * current time but it does not in itself cause e.g. timers to fire; they
+     * will fire exactly as they would have done without the call to
+     * jest.setSystemTime().
+     *
+     * > Note: This function is only available when using modern fake timers
+     * > implementation
+     */
+    function setSystemTime(now?: number | Date): void;
+    /**
+     * When mocking time, Date.now() will also be mocked. If you for some
+     * reason need access to the real current time, you can invoke this
+     * function.
+     *
+     * > Note: This function is only available when using modern fake timers
+     * > implementation
+     */
+    function getRealSystemTime(): number;
     /**
      * Indicates that the module system should never return a mocked version
      * of the specified module, including all of the specificied module's dependencies.
@@ -299,7 +319,7 @@ declare namespace jest {
     /**
      * Instructs Jest to use fake versions of the standard timer functions.
      */
-    function useFakeTimers(): typeof jest;
+    function useFakeTimers(implementation?: 'modern' | 'legacy'): typeof jest;
     /**
      * Instructs Jest to use the real versions of the standard timer functions.
      */

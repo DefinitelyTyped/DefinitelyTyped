@@ -444,7 +444,7 @@ export interface NightwatchTestSettingGeneric {
     /**
      * An object which will be made available within the test and can be overwritten per environment. Example:"globals" : {  "myGlobal" : "some_global" }
      */
-    globals?: NightwatchGlobals;
+    globals?: NightwatchTestHooks;
 
     /**
      * An array of folders or file patterns to be skipped (relative to the main source folder).
@@ -552,6 +552,10 @@ export interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
     contain(value: string): this;
     contains(value: string): this;
     match(value: string | RegExp): this;
+    startWith(value: string): this;
+    startsWith(value: string): this;
+    endWith(value: string): this;
+    endsWith(value: string): this;
 
     /**
      * Negates any of assertions following in the chain.
@@ -1046,15 +1050,19 @@ export interface NightwatchTestFunctions {
 }
 
 export type NightwatchTestHook =
-    | ((browser: NightwatchBrowser, done: (err?: any) => void) => void)
-    | ((done: (err?: any) => void) => void)
+    | GlobalNightwatchTestHookEach
+    | GlobalNightwatchTestHook
     ;
 
+export type GlobalNightwatchTestHookEach = ((browser: NightwatchBrowser, done: (err?: any) => void) => void);
+
+export type GlobalNightwatchTestHook = ((done: (err?: any) => void) => void);
+
 export interface NightwatchTestHooks extends NightwatchGlobals {
-    before?: NightwatchTestHook;
-    after?: NightwatchTestHook;
-    beforeEach?: NightwatchTestHook;
-    afterEach?: NightwatchTestHook;
+    before?: GlobalNightwatchTestHook;
+    after?: GlobalNightwatchTestHook;
+    beforeEach?: GlobalNightwatchTestHookEach;
+    afterEach?: GlobalNightwatchTestHookEach;
 }
 
 export type NightwatchTests = NightwatchTestFunctions | NightwatchTestHooks;

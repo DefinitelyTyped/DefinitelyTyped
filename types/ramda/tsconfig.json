@@ -172,6 +172,25 @@
         "test/pick-tests.ts",
         "test/pickAll-tests.ts",
         "test/pickBy-tests.ts",
-        "test/propEq-tests.ts"
+        "test/pipe-tests.ts",
+        "test/pipeK-tests.ts",
+        "test/pipeP-tests.ts",
+        "test/pipeWith-tests.ts",
+        "test/pluck-tests.ts",
+        "test/prepend-tests.ts",
+        "test/product-tests.ts",
+        "test/project-tests.ts",
+        "test/prop-tests.ts",
+        "test/propEq-tests.ts",
+        "test/propIs-tests.ts",
+        "test/propOr-tests.ts",
+        "test/props-tests.ts",
+        "test/propSatisfies-tests.ts",
+        "test/range-tests.ts",
+        "test/reduce-tests.ts",
+        "test/reduceBy-tests.ts",
+        "test/reduceRight-tests.ts",
+        "test/reduceWhile-tests.ts",
+        "test/reject-tests.ts"
     ]
 }

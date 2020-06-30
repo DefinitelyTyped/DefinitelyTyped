@@ -125,9 +125,9 @@ type.styleAliases;
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-// $ExpectType any
+// $ExpectType string | object | undefined
 yaml.safeLoad(str);
-// $ExpectType any
+// $ExpectType string | object | undefined
 yaml.safeLoad(str, loadOpts);
 
 // $ExpectType any

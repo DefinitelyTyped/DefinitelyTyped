@@ -141,7 +141,6 @@ interface RequireResolve extends NodeJS.RequireResolve {}
 interface NodeModule extends NodeJS.Module {}
 
 declare var process: NodeJS.Process;
-declare var global: NodeJS.Global;
 declare var console: Console;
 
 declare var __filename: string;
@@ -769,11 +768,11 @@ declare namespace NodeJS {
 
     interface Process extends EventEmitter {
         /**
-         * Can also be a tty.WriteStream, not typed due to limitation.s
+         * Can also be a tty.WriteStream, not typed due to limitations.
          */
         stdout: WriteStream;
         /**
-         * Can also be a tty.WriteStream, not typed due to limitation.s
+         * Can also be a tty.WriteStream, not typed due to limitations.
          */
         stderr: WriteStream;
         stdin: ReadStream;
@@ -830,7 +829,7 @@ declare namespace NodeJS {
                 visibility: string;
             };
         };
-        kill(pid: number, signal?: string | number): void;
+        kill(pid: number, signal?: string | number): true;
         pid: number;
         ppid: number;
         title: string;
@@ -919,6 +918,7 @@ declare namespace NodeJS {
         on(event: "newListener", listener: NewListenerListener): this;
         on(event: "removeListener", listener: RemoveListenerListener): this;
         on(event: "multipleResolves", listener: MultipleResolveListener): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
         once(event: "beforeExit", listener: BeforeExitListener): this;
         once(event: "disconnect", listener: DisconnectListener): this;

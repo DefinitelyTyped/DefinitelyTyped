@@ -16,6 +16,8 @@ export interface CleaveOptions {
 // Date Options
 export interface CleaveOptions {
     date?: boolean;
+    dateMin?: string;
+    dateMax?: string;
     datePattern?: ReadonlyArray<string>;
 }
 

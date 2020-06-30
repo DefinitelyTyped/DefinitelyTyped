@@ -600,10 +600,16 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     _.intersection(list, list); // $ExpectType AbcObject[]
     _.intersection(list, list, list); // $ExpectType AbcObject[]
+    _.intersection(undefined, list); // $ExpectType AbcObject[]
+    _.intersection(null, list); // $ExpectType AbcObject[]
     _(list).intersection(list); // $ExpectType Collection<AbcObject>
     _(list).intersection(list, list); // $ExpectType Collection<AbcObject>
+    _(list).intersection(undefined); // $ExpectType Collection<AbcObject>
+    _(list).intersection(null); // $ExpectType Collection<AbcObject>
     _.chain(list).intersection(list); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).intersection(list, list); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).intersection(undefined); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).intersection(null); // $ExpectType CollectionChain<AbcObject>
     fp.intersection(list, list); // $ExpectType AbcObject[]
     fp.intersection(list)(list); // $ExpectType AbcObject[]
 }
@@ -707,6 +713,12 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.intersectionWith(list, list, list, (a, b) => {
         a; // $ExpectType AbcObject
         b; // $ExpectType AbcObject
+        return true;
+    });
+    // $ExpectType AbcObject[]
+    _.intersectionWith(...[list, list], (a, b) => {
+        a; // $ExpectType AbcObject
+        b; // $ExpectType never
         return true;
     });
 
@@ -4254,14 +4266,20 @@ fp.now(); // $ExpectType number
 
 // _.isMatchWith
 {
-    const testIsMatchCustiomizerFn = (value: any, other: any, indexOrKey: number|string|symbol, object: object, source: object) => true;
+    const testIsMatchCustiomizerFnBoolean = (value: any, other: any, indexOrKey: number|string|symbol, object: object, source: object) => true;
+    const testIsMatchCustiomizerFnUndefined = (value: any, other: any, indexOrKey: number|string|symbol, object: object, source: object) => undefined;
 
-    _.isMatchWith({}, {}, testIsMatchCustiomizerFn); // $ExpectType boolean
-    _({}).isMatchWith({}, testIsMatchCustiomizerFn); // $ExpectType boolean
-    _.chain({}).isMatchWith({}, testIsMatchCustiomizerFn); // $ExpectType PrimitiveChain<boolean>
+    _.isMatchWith({}, {}, testIsMatchCustiomizerFnBoolean); // $ExpectType boolean
+    _.isMatchWith({}, {}, testIsMatchCustiomizerFnUndefined); // $ExpectType boolean
+    _({}).isMatchWith({}, testIsMatchCustiomizerFnBoolean); // $ExpectType boolean
+    _({}).isMatchWith({}, testIsMatchCustiomizerFnUndefined); // $ExpectType boolean
+    _.chain({}).isMatchWith({}, testIsMatchCustiomizerFnBoolean); // $ExpectType PrimitiveChain<boolean>
+    _.chain({}).isMatchWith({}, testIsMatchCustiomizerFnUndefined); // $ExpectType PrimitiveChain<boolean>
 
-    fp.isMatchWith(testIsMatchCustiomizerFn, {}, {}); // $ExpectType boolean
-    fp.isMatchWith(testIsMatchCustiomizerFn)({})({}); // $ExpectType boolean
+    fp.isMatchWith(testIsMatchCustiomizerFnBoolean, {}, {}); // $ExpectType boolean
+    fp.isMatchWith(testIsMatchCustiomizerFnUndefined, {}, {}); // $ExpectType boolean
+    fp.isMatchWith(testIsMatchCustiomizerFnBoolean)({})({}); // $ExpectType boolean
+    fp.isMatchWith(testIsMatchCustiomizerFnUndefined)({})({}); // $ExpectType boolean
 }
 
 // _.isNaN

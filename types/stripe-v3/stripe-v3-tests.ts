@@ -11,6 +11,9 @@ const style = {
         fontWeight: 'bold',
         '::placeholder': {
             color: '#aab7c4'
+        },
+        '::selection': {
+            backgroundColor: '#aaccdd'
         }
     },
     invalid: {
@@ -490,6 +493,18 @@ describe("Stripe elements", () => {
                     },
                 }
             }
+        ).then(result => {
+            if (result.error) {
+                console.error(result.error.message);
+            } else if (result.setupIntent) {
+                console.log(result.setupIntent.id);
+            }
+        });
+    });
+
+    it("should retrieve setup intent", () => {
+        stripe.retrieveSetupIntent(
+            'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',
         ).then(result => {
             if (result.error) {
                 console.error(result.error.message);

@@ -24,7 +24,7 @@ port.onMessage.addListener((response) => {
 
 browser.bookmarks.getTree();
 
-browser.proxy.onProxyError.addListener(error => {
+browser.proxy.onError.addListener(error => {
     console.error(`Proxy error: ${error.message}`);
 });
 

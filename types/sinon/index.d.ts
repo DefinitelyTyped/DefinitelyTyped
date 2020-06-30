@@ -1,7 +1,6 @@
 // Type definitions for Sinon 9.0
 // Project: https://sinonjs.org
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
-//                 Jonathan Little <https://github.com/rationull>
 //                 Lukas Spieß <https://github.com/lumaxis>
 //                 Nico Jansen <https://github.com/nicojs>
 //                 James Garbutt <https://github.com/43081j>
@@ -219,6 +218,11 @@ declare namespace Sinon {
          */
         returnValues: any[];
 
+        /**
+         * Holds a reference to the original method/function this stub has wrapped.
+         */
+        wrappedMethod: (...args: any[]) => any;
+
         // Methods
         (...args: any[]): any;
         /**
@@ -309,7 +313,7 @@ declare namespace Sinon {
         /**
          * Returns the nth call.
          * Accessing individual calls helps with more detailed behavior verification when the spy is called more than once.
-         * @param n
+         * @param n Zero based index of the spy call.
          */
         getCall(n: number): SinonSpyCall;
         /**

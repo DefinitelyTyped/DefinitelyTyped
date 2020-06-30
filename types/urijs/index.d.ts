@@ -7,6 +7,7 @@
 //                 TeamworkGuy2 <https://github.com/teamworkguy2>
 //                 Akuukis <https://github.com/Akuukis>
 //                 Marcell Toth <https://github.com/marcelltoth>
+//                 Vincenzo Chianese <https://github.com/XVincentX>
 //                 Andree Hagelstein <https://github.com/ahagelstein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
@@ -19,7 +20,7 @@
 
 // Compatability with node.js
 // tslint:disable-next-line:no-empty-interface
-interface HTMLElement {}
+interface HTMLElement { }
 
 export = URI;
 export as namespace URI;
@@ -27,7 +28,7 @@ export as namespace URI;
 declare const URI: {
     (value?: string | URI.URIOptions | HTMLElement): URI;
 
-    new (value?: string | URI.URIOptions | HTMLElement): URI;
+    new(value?: string | URI.URIOptions | HTMLElement): URI;
 
     addQuery(data: object, prop: string, value: string): object;
     addQuery(data: object, qryObj: object): object;
@@ -115,6 +116,8 @@ declare namespace URI {
         escapeQuerySpace: boolean;
         preventInvalidHostname: boolean;
     }
+
+    interface QueryDataMap { [key: string]: string | string[]; }
 }
 
 interface URI {
@@ -206,7 +209,7 @@ interface URI {
     preventInvalidHostname(val: boolean): URI;
 
     query(): string;
-    query(qry: string | object): URI;
+    query(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap)): URI;
     query(qry: boolean): object;
 
     readable(): string;
@@ -223,7 +226,7 @@ interface URI {
     scheme(): string;
     scheme(protocol: string): URI;
     search(): string;
-    search(qry: string | object): URI;
+    search(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap)): URI;
     search(qry: boolean): any;
     segment(): string[];
     segment(segments: string[] | string): URI;

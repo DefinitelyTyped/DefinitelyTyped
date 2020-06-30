@@ -35,6 +35,7 @@
 //                 Collin Pham <https://github.com/collin-pham>
 //                 Timon van Spronsen <https://github.com/TimonVS>
 //                 Sean Chen <https://github.com/kamiyo>
+//                 Asitha de Silva <https://github.com/asithade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -10650,6 +10651,22 @@ declare namespace Stripe {
              * Indicates if a customer is on or off-session while an invoice payment is attempted.
              */
             off_session?: boolean;
+
+            /**
+             * If specified, the funds from the subscription’s invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges.
+             */
+            transfer_data?: {
+                /**
+                 * ID of an existing, connected Stripe account.
+                 */
+                destination: string;
+                /**
+                 * A non-negative decimal between 0 and 100, with at most two decimal places.
+                 * This represents the percentage of the subscription invoice subtotal that will be transferred to the destination account.
+                 * By default, the entire amount is transferred to the destination.
+                 */
+                amount_percent?: number;
+            };
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {

@@ -930,7 +930,7 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
      * engines to follow this convention, thus allowing them to
      * work seamlessly within Express.
      */
-    engine(ext: string, fn: (path: string, options: object, callback: (e: any, rendered: string) => void) => void): this;
+    engine(ext: string, fn: (path: string, options: object, callback: (e: any, rendered?: string) => void) => void): this;
 
     /**
      * Assign `setting` to `val`, or return `setting`'s value.

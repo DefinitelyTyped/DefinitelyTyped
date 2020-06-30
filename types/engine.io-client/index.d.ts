@@ -59,7 +59,9 @@ declare namespace client {
          */
         path?: string;
         /**
-         * a list of transports to try (in order). Defaults to ['polling', 'websocket']. Engine always attempts to connect directly with the first one, provided the feature detection test for it passes.
+         * a list of transports to try (in order).
+         * Defaults to ['polling', 'websocket'].
+         * Engine always attempts to connect directly with the first one, provided the feature detection test for it passes.
          */
         transports?: Transport[];
         /**

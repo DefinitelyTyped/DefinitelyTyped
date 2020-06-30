@@ -47,9 +47,9 @@ test('DOM interactions', async () => {
     await fillIn('.message', 'content');
 
     const messageElement = find('.message')!;
-    await click(messageElement);
-    await doubleClick(messageElement);
-    await tap(messageElement);
+    await click(messageElement, { metaKey: true });
+    await doubleClick(messageElement, { metaKey: true });
+    await tap(messageElement, { clientX: 13, clientY: 17 });
     await focus(messageElement);
     await blur(messageElement);
     await triggerEvent(messageElement, 'custom-event');
@@ -90,6 +90,7 @@ test('wait helpers', async (assert) => {
     const {
         hasPendingRequests,
         hasPendingTimers,
+        hasPendingTransitions,
         hasPendingWaiters,
         hasRunLoop,
         pendingRequestCount

@@ -62,6 +62,7 @@ export interface CalendarPickerProps {
     nextComponent?: React.ReactNode;
     dayLabelsWrapper?: StyleProp<ViewStyle>;
     dayOfWeekStyles?: DayOfWeekStyle;
+    monthYearHeaderWrapperStyle?: StyleProp<ViewStyle>;
 }
 
 export type DayOfWeekStyle = {

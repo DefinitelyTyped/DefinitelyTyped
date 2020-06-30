@@ -15,7 +15,7 @@ import {
     PaymentMethodNonce,
     Transaction,
     WebhookNotificationKind,
-    MerchantAccountCreateRequest
+    MerchantAccountCreateRequest, Plan,
 } from 'braintree';
 
 /**
@@ -96,6 +96,25 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
 
     const transactions: Transaction[] = [];
     gateway.transaction.search(() => true).on('data', transactions.push);
+})();
+
+// Plan Gateway
+(async () => {
+    // $ExpectType { plans: Plan[]; }
+    await gateway.plan.all();
+})();
+
+// Subscription
+(async () => {
+    // $ExpectType ValidatedResponse<Subscription>
+    const result = await gateway.subscription.create({
+        paymentMethodToken: 'token',
+        planId: 'planId'
+    });
+
+    const { subscription } = result;
+    // $ExpectType string
+    subscription.nextBillingDate;
 })();
 
 (async () => {

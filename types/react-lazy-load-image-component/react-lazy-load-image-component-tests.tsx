@@ -33,6 +33,11 @@ const ImageWithCallbacks = () => (
     beforeLoad={() => {}}
     afterLoad={() => {}}
     placeholder={<span/>}
+    wrapperProps={{
+        style: {
+            background: '#FFFFFF',
+        },
+    }}
   />
 );
 

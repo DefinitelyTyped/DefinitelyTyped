@@ -23,3 +23,5 @@ ghpages.publish(
     },
     callback,
 );
+
+ghpages.defaults.remote; // $ExpectType string

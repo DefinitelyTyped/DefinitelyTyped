@@ -48,6 +48,7 @@ declare namespace Keycloak {
 
     interface TokenContent {
         exp: number;
+        sub: string;
         resource_access?: any;
         realm_access?: { roles?: string[] };
     }
@@ -84,7 +85,7 @@ declare namespace Keycloak {
     }
 
     interface GrantedRequest extends Request {
-        kauth: { grant?: Grant };
+        kauth?: { grant?: Grant };
     }
 }
 

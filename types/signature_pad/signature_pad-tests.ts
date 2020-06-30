@@ -1,4 +1,4 @@
-import SignaturePad from 'signature_pad';
+import SignaturePad = require('signature_pad');
 
 /* TEST 1 - Basic structure and usage */
 function BasicTest() {

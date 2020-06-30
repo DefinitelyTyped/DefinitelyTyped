@@ -73,7 +73,7 @@ declare module 'mongoose' {
         hasPrevPage: boolean;
         hasNextPage: boolean;
         meta?: any;
-        [customLabel: string]: T[] | number | boolean | undefined;
+        [customLabel: string]: T[] | number | boolean | null | undefined;
     }
 
     interface PaginateModel<T extends Document> extends Model<T> {
