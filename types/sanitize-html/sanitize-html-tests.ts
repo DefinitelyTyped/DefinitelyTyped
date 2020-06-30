@@ -6,6 +6,10 @@ let options: sanitize.IOptions = {
     'a': sanitize.defaults.allowedAttributes['a'].concat('rel'),
     'img': ['src', 'height', 'width', 'alt', 'style']
   },
+  allowedClasses: {
+    a: ['className'],
+    p: false,
+  },
   allowedStyles: {
     '*': {
         color: [/^red$/],
