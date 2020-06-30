@@ -1111,6 +1111,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "electron-packager",
+            "typingsPackageName": "electron-packager",
+            "sourceRepoURL": "https://github.com/electron/electron-packager",
+            "asOfVersion": "15.0.0"
+        },
+        {
             "libraryName": "electron-store",
             "typingsPackageName": "electron-store",
             "sourceRepoURL": "https://github.com/sindresorhus/electron-store",
@@ -5585,6 +5591,12 @@
             "typingsPackageName": "wordpress__blob",
             "sourceRepoURL": "https://github.com/WordPress/gutenberg",
             "asOfVersion": "2.8.0"
+        },
+        {
+            "libraryName": "@wordpress/dependency-extraction-webpack-plugin",
+            "typingsPackageName": "wordpress__dependency-extraction-webpack-plugin",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.7.0"
         },
         {
             "libraryName": "@wordpress/dom-ready",

@@ -1,4 +1,4 @@
-// Type definitions for ioredis 4.16
+// Type definitions for ioredis 4.17
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
@@ -15,6 +15,7 @@
 //                 Demian Rodriguez <https://github.com/demian85>
 //                 Andrew Lavers <https://github.com/alavers>
 //                 Claudiu Ceia <https://github.com/ClaudiuCeia>
+//                 Asyrique <https://github.com/asyrique>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -703,7 +704,10 @@ declare namespace IORedis {
         dbsize(callback: Callback<number>): void;
         dbsize(): Promise<number>;
 
+        auth(username: string, password: string, callback: Callback<string>): void;
         auth(password: string, callback: Callback<string>): void;
+        // tslint:disable-next-line unified-signatures
+        auth(username: string, password: string): Promise<string>;
         auth(password: string): Promise<string>;
 
         ping(callback: Callback<string>): void;
@@ -1231,6 +1235,7 @@ declare namespace IORedis {
         dbsize(callback?: Callback<number>): Pipeline;
 
         auth(password: string, callback?: Callback<string>): Pipeline;
+        auth(username: string, password: string, callback?: Callback<string>): Pipeline;
 
         ping(callback?: Callback<string>): Pipeline;
         ping(message: string, callback?: Callback<string>): Pipeline;
@@ -1421,6 +1426,10 @@ declare namespace IORedis {
         keepAlive?: number;
         connectionName?: string;
         /**
+         * If set, client will send AUTH command with the value of this option as the first argument when connected. The `password` option must be set too. Username should only be set for Redis >=6.
+         */
+        username?: string;
+        /**
          * If set, client will send AUTH command with the value of this option when connected.
          */
         password?: string;
@@ -1490,6 +1499,7 @@ declare namespace IORedis {
          * default: null.
          */
         name?: string;
+        sentinelUsername?: string;
         sentinelPassword?: string;
         sentinels?: Array<{ host: string; port: number }>;
         /**
