@@ -30,6 +30,10 @@ export interface OptionsWithoutResolver<Props> {
     ssr?: boolean;
 }
 
+export interface Options<Props, Module = DefaultComponent<Props>> extends OptionsWithoutResolver<Props> {
+    resolveComponent?: ComponentResolver<Props, Module>;
+}
+
 export interface OptionsWithResolver<Props, Module = DefaultComponent<Props>> extends OptionsWithoutResolver<Props> {
     resolveComponent: ComponentResolver<Props, Module>;
 }
