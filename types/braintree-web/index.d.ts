@@ -7,7 +7,7 @@
 
 import { VERSION, BraintreeError, callback } from './modules/core';
 import { AmericanExpress } from './modules/american-express';
-import { ApplePay, ApplePaySession, ApplePayStatusCodes } from './modules/apple-pay';
+import { ApplePay, ApplePaySession, ApplePayStatusCodes, ApplePayPayload } from './modules/apple-pay';
 import { Client, CreditCardInfo } from './modules/client';
 import { DataCollector } from './modules/data-collector';
 import { GooglePayment, GooglePaymentTokenizePayload } from './modules/google-payment';
@@ -35,7 +35,7 @@ export const venmo: Venmo;
 export {
   VERSION, BraintreeError, callback,
   AmericanExpress,
-  ApplePay, ApplePaySession, ApplePayStatusCodes,
+  ApplePay, ApplePaySession, ApplePayStatusCodes, ApplePayPayload,
   Client, CreditCardInfo,
   DataCollector,
   GooglePayment, GooglePaymentTokenizePayload,

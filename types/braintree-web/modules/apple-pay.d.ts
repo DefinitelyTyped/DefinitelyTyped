@@ -115,7 +115,8 @@ export class ApplePaySession {
  * @description Accept Apple Pay on the Web. *This component is currently in beta and is subject to change.*
  */
 export interface ApplePay {
-    create: (options: { client: Client }, callback: callback) => void;
+    create(options: { client: Client }): Promise<any>;
+    create(options: { client: Client }, callback?: callback): void;
 
     /**
      * @description The current version of the SDK, i.e. `3.0.2`.
