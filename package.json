@@ -34,5 +34,9 @@
             "_comment": "This will remove husky from when we started migrating to use prettier",
             "pre-commit": "npm uninstall husky"
         }
+    },
+    "dependencies": {
+        "@definitelytyped/definitions-parser": "0.0.40",
+        "@definitelytyped/utils": "0.0.40"
     }
 }
