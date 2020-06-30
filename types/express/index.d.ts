@@ -9,8 +9,8 @@
 
 /* =================== USAGE ===================
 
-    import * as express from "express";
-    var app = express.default();
+    import express = require("express");
+    var app = express();
 
  =============================================== */
 
