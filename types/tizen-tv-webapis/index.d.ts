@@ -1,4 +1,4 @@
-// Type definitions for @tizentv/tizen-tv-webapis 1.0.0
+// Type definitions for @tizentv/tizen-tv-webapis 1.0
 // Project: https://developer.samsung.com/smarttv/develop/api-references/samsung-product-api-references.html
 // Definitions by: SejoongDeJang <https://github.com/SejoongDeJang>
 //                 Dongkeun Nam <https://github.com/capscrom>
