@@ -1,0 +1,2 @@
+lib/ruby/gem-requirement.d.ts
+lib/ruby/gem-version.d.ts
