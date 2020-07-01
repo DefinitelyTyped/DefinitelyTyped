@@ -83,10 +83,11 @@ export interface PlotSelectionEvent {
     lassoPoints?: SelectionRange;
 }
 
-export type PlotRestyleEvent = [
-    any, // update object -- attribute updated: new value
-    number[], // array of traces updated
-];
+export interface PlotRestyleEventUpdate {
+    [key: string]: any;
+}
+
+export type PlotRestyleEvent = [PlotRestyleEventUpdate, number[]];
 
 export interface PlotScene {
     center: Point;

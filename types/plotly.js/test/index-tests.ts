@@ -227,7 +227,7 @@ const graphDiv = '#test';
         },
     };
 
-    Plotly.newPlot('myDiv', data, layout);
+    Plotly.newPlot(graphDiv, data, layout);
 })();
 
 //////////////////////////////////////////////////////////////////////
