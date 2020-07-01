@@ -1,4 +1,4 @@
-import EmailTemplates, { EmailOptions } from 'email-templates';
+import EmailTemplates = require('email-templates');
 import { createTransport } from 'nodemailer';
 import path = require('path');
 
@@ -52,7 +52,7 @@ const withTransportInstance = new EmailTemplates<Locals>({
 
 withTransportInstance.render('tmpl', { firstName: 'TypeScript' });
 
-const emailOptions: EmailOptions<Locals> = {
+const emailOptions: EmailTemplates.EmailOptions<Locals> = {
     template: 'tmpl',
     locals: {
         firstName: 'TypeScript'
