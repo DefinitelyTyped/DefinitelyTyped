@@ -31,11 +31,7 @@ declare interface PackageManager {
      * @throw WebAPIException `TypeMismatchError`, `SecurityError`.
      *
      */
-    install(
-        packageFileURI: string,
-        progressCallback: PackageProgressCallback,
-        errorCallback?: ErrorCallback
-    ): void;
+    install(packageFileURI: string, progressCallback: PackageProgressCallback, errorCallback?: ErrorCallback): void;
     /**
      * Uninstalls the package with a specified package ID.
      *
@@ -58,11 +54,7 @@ declare interface PackageManager {
      * @throw WebAPIException `TypeMismatchError`, `SecurityError`.
      *
      */
-    uninstall(
-        id: Tizen.PackageId,
-        progressCallback: PackageProgressCallback,
-        errorCallback?: ErrorCallback
-    ): void;
+    uninstall(id: Tizen.PackageId, progressCallback: PackageProgressCallback, errorCallback?: ErrorCallback): void;
     /**
      * Gets information of the installed packages.
      *
@@ -79,10 +71,7 @@ declare interface PackageManager {
      *
      * @throw WebAPIException `TypeMismatchError`, `SecurityError`.
      */
-    getPackagesInfo(
-        successCallback: PackageInformationArraySuccessCallback,
-        errorCallback?: ErrorCallback
-    ): void;
+    getPackagesInfo(successCallback: PackageInformationArraySuccessCallback, errorCallback?: ErrorCallback): void;
     /**
      * Gets information of an installed package.
      *
@@ -115,9 +104,7 @@ declare interface PackageManager {
      *
      * @throw WebAPIException `TypeMismatchError`, `SecurityError`, `UnknownError`.
      */
-    setPackageInfoEventListener(
-        eventCallback: PackageInformationEventCallback
-    ): void;
+    setPackageInfoEventListener(eventCallback: PackageInformationEventCallback): void;
     /**
      * Unsets the listener to stop receiving package notifications.
      *

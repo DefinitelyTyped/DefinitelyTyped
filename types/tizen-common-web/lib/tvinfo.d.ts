@@ -27,7 +27,7 @@ declare const enum CaptionInfoKey {
     CAPTION_EDGE_TYPE_KEY = 'CAPTION_EDGE_TYPE_KEY',
     CAPTION_EDGE_COLOR_KEY = 'CAPTION_EDGE_COLOR_KEY',
     CAPTION_WINDOW_COLOR_KEY = 'CAPTION_WINDOW_COLOR_KEY',
-    CAPTION_WINDOW_OPACITY_KEY = 'CAPTION_WINDOW_OPACITY_KEY'
+    CAPTION_WINDOW_OPACITY_KEY = 'CAPTION_WINDOW_OPACITY_KEY',
 }
 
 type CaptionInfoKeyUnion =
@@ -54,7 +54,7 @@ type CaptionInfoKeyUnion =
  */
 declare const enum CaptionState {
     CAPTION_OFF = 'CAPTION_OFF',
-    CAPTION_ON = 'CAPTION_ON'
+    CAPTION_ON = 'CAPTION_ON',
 }
 
 type CaptionStateUnion = CaptionState | 'CAPTION_OFF' | 'CAPTION_ON';
@@ -94,7 +94,7 @@ declare const enum CaptionMode {
     CAPTION_MODE_TEXT1 = 'CAPTION_MODE_TEXT1',
     CAPTION_MODE_TEXT2 = 'CAPTION_MODE_TEXT2',
     CAPTION_MODE_TEXT3 = 'CAPTION_MODE_TEXT3',
-    CAPTION_MODE_TEXT4 = 'CAPTION_MODE_TEXT4'
+    CAPTION_MODE_TEXT4 = 'CAPTION_MODE_TEXT4',
 }
 
 type CaptionModeUnion =
@@ -130,7 +130,7 @@ declare const enum CaptionFontSize {
     CAPTION_SIZE_SMALL = 'CAPTION_SIZE_SMALL',
     CAPTION_SIZE_STANDARD = 'CAPTION_SIZE_STANDARD',
     CAPTION_SIZE_LARGE = 'CAPTION_SIZE_LARGE',
-    CAPTION_SIZE_EXTRA_LARGE = 'CAPTION_SIZE_EXTRA_LARGE'
+    CAPTION_SIZE_EXTRA_LARGE = 'CAPTION_SIZE_EXTRA_LARGE',
 }
 
 type CaptionFontSizeUnion =
@@ -163,7 +163,7 @@ declare const enum CaptionFontStyle {
     CAPTION_FONT_STYLE4 = 'CAPTION_FONT_STYLE4',
     CAPTION_FONT_STYLE5 = 'CAPTION_FONT_STYLE5',
     CAPTION_FONT_STYLE6 = 'CAPTION_FONT_STYLE6',
-    CAPTION_FONT_STYLE7 = 'CAPTION_FONT_STYLE7'
+    CAPTION_FONT_STYLE7 = 'CAPTION_FONT_STYLE7',
 }
 
 type CaptionFontStyleUnion =
@@ -192,7 +192,7 @@ declare const enum CaptionColor {
     CAPTION_COLOR_BLUE = 'CAPTION_COLOR_BLUE',
     CAPTION_COLOR_YELLOW = 'CAPTION_COLOR_YELLOW',
     CAPTION_COLOR_MAGENTA = 'CAPTION_COLOR_MAGENTA',
-    CAPTION_COLOR_CYAN = 'CAPTION_COLOR_CYAN'
+    CAPTION_COLOR_CYAN = 'CAPTION_COLOR_CYAN',
 }
 
 type CaptionColorUnion =
@@ -217,7 +217,7 @@ declare const enum CaptionOpacity {
     CAPTION_OPACITY_FLASHING = 'CAPTION_OPACITY_FLASHING',
     CAPTION_OPACITY_TRANSLUCENT = 'CAPTION_OPACITY_TRANSLUCENT',
     CAPTION_OPACITY_TRANSPARENT = 'CAPTION_OPACITY_TRANSPARENT',
-    CAPTION_OPACITY_DEFAULT = 'CAPTION_OPACITY_DEFAULT'
+    CAPTION_OPACITY_DEFAULT = 'CAPTION_OPACITY_DEFAULT',
 }
 
 type CaptionOpacityUnion =
@@ -243,7 +243,7 @@ declare const enum CaptionEdge {
     CAPTION_EDGE_RAISED = 'CAPTION_EDGE_RAISED',
     CAPTION_EDGE_DEPRESSED = 'CAPTION_EDGE_DEPRESSED',
     CAPTION_EDGE_UNIFORM = 'CAPTION_EDGE_UNIFORM',
-    CAPTION_EDGE_DROP_SHADOWED = 'CAPTION_EDGE_DROP_SHADOWED'
+    CAPTION_EDGE_DROP_SHADOWED = 'CAPTION_EDGE_DROP_SHADOWED',
 }
 
 type CaptionEdgeUnion =
@@ -292,10 +292,7 @@ declare interface TVInfoManager {
      * @throw WebAPIException TypeMismatchError, InvalidValuesError, UnknownError
      * @since 2.4
      */
-    addCaptionValueChangeListener(
-        key: CaptionInfoKeyUnion,
-        callback: CaptionValueChangeCallback
-    ): number;
+    addCaptionValueChangeListener(key: CaptionInfoKeyUnion, callback: CaptionValueChangeCallback): number;
 
     /**
      * Removes a listener.

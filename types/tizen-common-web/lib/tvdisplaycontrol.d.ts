@@ -76,10 +76,7 @@ declare interface TVDisplayControlManager {
      * @privilegeName 5.0 http://tizen.org/privilege/tv.display
      * @warning 5.0 http://tizen.org/privilege/tv.display (public level) has been deprecated since 5.0.
      */
-    getSupported3DEffectModeList(
-        successCallback: Mode3DEffectListSupportCallback,
-        errorCallback?: ErrorCallback
-    ): void;
+    getSupported3DEffectModeList(successCallback: Mode3DEffectListSupportCallback, errorCallback?: ErrorCallback): void;
 }
 
 /**
@@ -101,7 +98,7 @@ declare const enum Display3DEffectMode {
     VERTICAL_STRIPE = 'VERTICAL_STRIPE',
     FRAME_SEQUENCE = 'FRAME_SEQUENCE',
     CHECKER_BD = 'CHECKER_BD',
-    FROM_2D_TO_3D = 'FROM_2D_TO_3D'
+    FROM_2D_TO_3D = 'FROM_2D_TO_3D',
 }
 
 type Display3DEffectModeUnion =
@@ -124,14 +121,10 @@ type Display3DEffectModeUnion =
 declare const enum Display3DModeState {
     NOT_CONNECTED = 'NOT_CONNECTED',
     NOT_SUPPORTED = 'NOT_SUPPORTED',
-    READY = 'READY'
+    READY = 'READY',
 }
 
-type Display3DModeStateUnion =
-    | Display3DModeState
-    | 'NOT_CONNECTED'
-    | 'NOT_SUPPORTED'
-    | 'READY';
+type Display3DModeStateUnion = Display3DModeState | 'NOT_CONNECTED' | 'NOT_SUPPORTED' | 'READY';
 
 /**
  * This interface defines a callback when a list of supported 3D modes is retrieved successfully.

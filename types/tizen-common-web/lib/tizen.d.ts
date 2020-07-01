@@ -40,7 +40,7 @@ declare const enum FilterMatchFlag {
     CONTAINS = 'CONTAINS',
     STARTSWITH = 'STARTSWITH',
     ENDSWITH = 'ENDSWITH',
-    EXISTS = 'EXISTS'
+    EXISTS = 'EXISTS',
 }
 
 type FilterMatchFlagUnion =
@@ -61,7 +61,7 @@ type FilterMatchFlagUnion =
  */
 declare const enum SortModeOrder {
     ASC = 'ASC',
-    DESC = 'DESC'
+    DESC = 'DESC',
 }
 
 type SortModeOrderUnion = SortModeOrder | 'ASC' | 'DESC';
@@ -75,7 +75,7 @@ type SortModeOrderUnion = SortModeOrder | 'ASC' | 'DESC';
  */
 declare const enum CompositeFilterType {
     UNION = 'UNION',
-    INTERSECTION = 'INTERSECTION'
+    INTERSECTION = 'INTERSECTION',
 }
 
 type CompositeFilterTypeUnion = CompositeFilterType | 'UNION' | 'INTERSECTION';
@@ -95,15 +95,10 @@ declare const enum BundleValueType {
     STRING = 'STRING',
     STRING_ARRAY = 'STRING_ARRAY',
     BYTES = 'BYTES',
-    BYTES_ARRAY = 'BYTES_ARRAY'
+    BYTES_ARRAY = 'BYTES_ARRAY',
 }
 
-type BundleValueTypeUnion =
-    | BundleValueType
-    | 'STRING'
-    | 'STRING_ARRAY'
-    | 'BYTES'
-    | 'BYTES_ARRAY';
+type BundleValueTypeUnion = BundleValueType | 'STRING' | 'STRING_ARRAY' | 'BYTES' | 'BYTES_ARRAY';
 
 declare interface BundleConstructor {
     new (): Bundle;
@@ -177,11 +172,7 @@ declare class Bundle {
 declare class AbstractFilter {}
 
 declare interface AttributeFilterConstructor {
-    new (
-        attributeName: string,
-        matchFlag?: FilterMatchFlagUnion,
-        matchValue?: any
-    ): AttributeFilter;
+    new (attributeName: string, matchFlag?: FilterMatchFlagUnion, matchValue?: any): AttributeFilter;
 }
 
 /**
@@ -192,11 +183,7 @@ declare interface AttributeFilterConstructor {
  * the specified value.
  */
 declare class AttributeFilter extends AbstractFilter {
-    constructor(
-        attributeName: string,
-        matchFlag?: FilterMatchFlagUnion,
-        matchValue?: any
-    );
+    constructor(attributeName: string, matchFlag?: FilterMatchFlagUnion, matchValue?: any);
     /**
      * The name of the object attribute used for filtering.
      *
@@ -223,11 +210,7 @@ declare class AttributeFilter extends AbstractFilter {
 }
 
 declare interface AttributeRangeFilterConstructor {
-    new (
-        attributeName: string,
-        initialValue?: any,
-        endValue?: any
-    ): AttributeRangeFilter;
+    new (attributeName: string, initialValue?: any, endValue?: any): AttributeRangeFilter;
 }
 /**
  * `AttributeRangeFilter` represents a filter based on an object attribute
@@ -261,10 +244,7 @@ declare class AttributeRangeFilter extends AbstractFilter {
 }
 
 interface CompositeFilterConstructor {
-    new (
-        type: CompositeFilterTypeUnion,
-        filters?: AbstractFilter[]
-    ): CompositeFilter;
+    new (type: CompositeFilterTypeUnion, filters?: AbstractFilter[]): CompositeFilter;
 }
 /**
  * `CompositeFilter` represents a set of filters.

@@ -100,7 +100,7 @@ declare interface TVInputDeviceManager {
     registerKeyBatch(
         keyNames: Tizen.InputDeviceKeyName[],
         successCallback?: SuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ): void;
 
     /**
@@ -118,6 +118,6 @@ declare interface TVInputDeviceManager {
     unregisterKeyBatch(
         keyNames: Tizen.InputDeviceKeyName[],
         successCallback?: SuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ): void;
 }

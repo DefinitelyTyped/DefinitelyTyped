@@ -15,16 +15,10 @@ declare const enum AudioOutputMode {
     DOLBY = 'DOLBY',
     DTS = 'DTS',
     AAC = 'AAC',
-    DOLBY_DIGITAL_PLUS = 'DOLBY_DIGITAL_PLUS'
+    DOLBY_DIGITAL_PLUS = 'DOLBY_DIGITAL_PLUS',
 }
 
-type AudioOutputModeUnion =
-    | AudioOutputMode
-    | 'PCM'
-    | 'DOLBY'
-    | 'DTS'
-    | 'AAC'
-    | 'DOLBY_DIGITAL_PLUS';
+type AudioOutputModeUnion = AudioOutputMode | 'PCM' | 'DOLBY' | 'DTS' | 'AAC' | 'DOLBY_DIGITAL_PLUS';
 
 /**
  * An enumerator to indicate the beep type.
@@ -61,7 +55,7 @@ declare const enum AudioBeepType {
     KEYPAD_ENTER = 'KEYPAD_ENTER',
     KEYPAD_DEL = 'KEYPAD_DEL',
     MOVE = 'MOVE',
-    PREPARING = 'PREPARING'
+    PREPARING = 'PREPARING',
 }
 
 type AudioBeepTypeUnion =

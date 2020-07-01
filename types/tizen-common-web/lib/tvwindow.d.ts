@@ -21,10 +21,7 @@ declare interface TVWindowManager {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.window
      */
-    getAvailableWindows: (
-        successCallback: AvailableWindowListCallback,
-        errorCallback?: ErrorCallback
-    ) => void;
+    getAvailableWindows: (successCallback: AvailableWindowListCallback, errorCallback?: ErrorCallback) => void;
 
     /**
      * Changes the source of a TV window.
@@ -43,7 +40,7 @@ declare interface TVWindowManager {
         videoSource: SystemInfoVideoSourceInfo,
         successCallback: SourceChangedSuccessCallback,
         errorCallback?: ErrorCallback,
-        type?: WindowTypeUnion
+        type?: WindowTypeUnion,
     ): void;
     /**
      * Gets information about the current source of a specified TV window.
@@ -96,7 +93,7 @@ declare interface TVWindowManager {
         errorCallback?: ErrorCallback,
         rectangle?: string[],
         type?: WindowTypeUnion,
-        zPosition?: ZPositionUnion
+        zPosition?: ZPositionUnion,
     ): void;
     /**
      * Hides a TV window which is shown.
@@ -109,11 +106,7 @@ declare interface TVWindowManager {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.window
      */
-    hide(
-        successCallback: SuccessCallback,
-        errorCallback?: ErrorCallback,
-        type?: WindowTypeUnion
-    ): void;
+    hide(successCallback: SuccessCallback, errorCallback?: ErrorCallback, type?: WindowTypeUnion): void;
     /**
      * Gets the area information of a TV window which is shown.
      *
@@ -135,7 +128,7 @@ declare interface TVWindowManager {
         successCallback: WindowRectangleSuccessCallback,
         errorCallback?: ErrorCallback,
         unit?: MeasurementUnitUnion,
-        type?: WindowTypeUnion
+        type?: WindowTypeUnion,
     ): void;
     /**
      * Gets video resolution information.
@@ -166,10 +159,7 @@ declare interface TVWindowManager {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.window
      */
-    addVideoResolutionChangeListener(
-        callback: VideoResolutionChangeCallback,
-        type?: WindowTypeUnion
-    ): number;
+    addVideoResolutionChangeListener(callback: VideoResolutionChangeCallback, type?: WindowTypeUnion): number;
     /**
      * Removes the listener to stop receiving notifications for the video resolution changes.
      *
@@ -191,7 +181,7 @@ declare interface TVWindowManager {
  * - `MAIN` - The main video window, which can be show anywhere
  */
 declare const enum WindowType {
-    MAIN = 'MAIN'
+    MAIN = 'MAIN',
 }
 
 type WindowTypeUnion = WindowType | 'MAIN';
@@ -203,7 +193,7 @@ type WindowTypeUnion = WindowType | 'MAIN';
  */
 declare const enum MeasurementUnit {
     px = 'px',
-    '%' = '%'
+    '%' = '%',
 }
 
 type MeasurementUnitUnion = MeasurementUnit | 'px' | '%';
@@ -224,7 +214,7 @@ declare const enum AspectRatio {
     ASPECT_RATIO_4x3 = 'ASPECT_RATIO_4x3',
     ASPECT_RATIO_16x9 = 'ASPECT_RATIO_16x9',
     ASPECT_RATIO_221x100 = 'ASPECT_RATIO_221x100',
-    ASPECT_RATIO_UNKNOWN = 'ASPECT_RATIO_UNKNOWN'
+    ASPECT_RATIO_UNKNOWN = 'ASPECT_RATIO_UNKNOWN',
 }
 
 type AspectRatioUnion =
@@ -242,7 +232,7 @@ type AspectRatioUnion =
  */
 declare const enum ZPosition {
     FRONT = 'FRONT',
-    BEHIND = 'BEHIND'
+    BEHIND = 'BEHIND',
 }
 
 type ZPositionUnion = ZPosition | 'FRONT' | 'BEHIND';

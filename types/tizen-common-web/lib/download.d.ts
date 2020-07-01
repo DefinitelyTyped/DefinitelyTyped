@@ -52,7 +52,7 @@ declare const enum DownloadState {
     CANCELED = 'CANCELED',
     COMPLETED = 'COMPLETED',
     FAILED = 'FAILED',
-    ABANDONED = 'ABANDONED'
+    ABANDONED = 'ABANDONED',
 }
 
 type DownloadStateUnion =
@@ -79,14 +79,10 @@ type DownloadStateUnion =
 declare const enum DownloadNetworkType {
     CELLULAR = 'CELLULAR',
     WIFI = 'WIFI',
-    ALL = 'ALL'
+    ALL = 'ALL',
 }
 
-type DownloadNetworkTypeUnion =
-    | DownloadNetworkType
-    | 'CELLULAR'
-    | 'WIFI'
-    | 'ALL';
+type DownloadNetworkTypeUnion = DownloadNetworkType | 'CELLULAR' | 'WIFI' | 'ALL';
 
 declare interface DownloadRequestConstructor {
     /**
@@ -111,7 +107,7 @@ declare interface DownloadRequestConstructor {
         destination?: string,
         fileName?: string,
         networkType?: DownloadNetworkTypeUnion,
-        httpHeader?: Tizen.DownloadHTTPHeaderFields
+        httpHeader?: Tizen.DownloadHTTPHeaderFields,
     ): DownloadRequest;
 }
 
@@ -141,7 +137,7 @@ declare class DownloadRequest {
         destination?: string,
         fileName?: string,
         networkType?: DownloadNetworkTypeUnion,
-        httpHeader?: Tizen.DownloadHTTPHeaderFields
+        httpHeader?: Tizen.DownloadHTTPHeaderFields,
     );
     url: string;
     destnation?: string;
@@ -173,10 +169,7 @@ declare interface DownloadManager {
      * @throw WebAPIException TypeMismatchError, NotSupportedError, InvalidValuesError, SecurityError, UnknownError
      *
      */
-    start: (
-        downloadRequest: DownloadRequest,
-        downloadCallback?: DownloadCallback
-    ) => number;
+    start: (downloadRequest: DownloadRequest, downloadCallback?: DownloadCallback) => number;
 
     /**
      * Cancels an ongoing download operation that is specified by the `downloadId` parameter.
@@ -287,10 +280,7 @@ declare interface DownloadManager {
      * @throw WebAPIException NotFoundError, TypeMismatchError, InvalidValuesError, UnknownError
      *
      */
-    setListener: (
-        downloadId: number,
-        downloadCallback: DownloadCallback
-    ) => void;
+    setListener: (downloadId: number, downloadCallback: DownloadCallback) => void;
 }
 
 /**
@@ -306,11 +296,7 @@ interface DownloadCallback {
      * @param receivedSize The size of data received in bytes.
      * @param totalSize The total size of data to receive in bytes.
      */
-    onprogress?(
-        downloadId: number,
-        receivedSize: number,
-        totalSize: number
-    ): void;
+    onprogress?(downloadId: number, receivedSize: number, totalSize: number): void;
 
     /**
      * Called when the download operation is paused by the `pause()` method.
