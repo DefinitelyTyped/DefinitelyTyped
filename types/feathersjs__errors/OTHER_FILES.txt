@@ -1,0 +1,2 @@
+handler.d.ts
+not-found.d.ts

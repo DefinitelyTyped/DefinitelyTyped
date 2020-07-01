@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // All are TODOs
+        "no-empty-interface": false,
+        "no-self-import": false
+    }
+}

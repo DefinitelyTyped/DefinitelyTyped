@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "@wordpress/element": "^2.14.0",
+        "react-autosize-textarea": "^7.0.0"
+    }
+}

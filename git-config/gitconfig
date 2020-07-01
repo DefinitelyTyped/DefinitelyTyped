@@ -1,5 +1,0 @@
-[user]
-	name = A Git User
-	email = git.user@domain.xyz
-[push]
-	default = simple

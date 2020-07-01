@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "forceConsistentCasingInFileNames": true,
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "module": "commonjs",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "typeRoots": [
+            "../"
+        ],
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "evaporate-tests.ts"
+    ]
+}

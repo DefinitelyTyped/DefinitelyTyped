@@ -1,0 +1,9 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
+        "no-consecutive-blank-lines": false,
+        "no-declare-current-package": false,
+        "no-single-declare-module": false
+    }
+}

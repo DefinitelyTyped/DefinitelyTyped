@@ -1,0 +1,4 @@
+lib/transforms/MaskTransform.d.ts
+lib/transforms/MatchTransform.d.ts
+lib/transforms/RefetchableFragmentTransform.d.ts
+lib/transforms/RelayDirectiveTransform.d.ts

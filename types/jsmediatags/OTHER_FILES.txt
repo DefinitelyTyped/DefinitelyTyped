@@ -1,0 +1,14 @@
+build2/ArrayFileReader.d.ts
+build2/BlobFileReader.d.ts
+build2/ByteArrayUtils.d.ts
+build2/ChunkedFileData.d.ts
+build2/FLACTagContents.d.ts
+build2/FLACTagReader.d.ts
+build2/ID3v1TagReader.d.ts
+build2/ID3v2FrameReader.d.ts
+build2/ID3v2TagContents.d.ts
+build2/ID3v2TagReader.d.ts
+build2/MP4TagContents.d.ts
+build2/MP4TagReader.d.ts
+build2/NodeFileReader.d.ts
+build2/XhrFileReader.d.ts

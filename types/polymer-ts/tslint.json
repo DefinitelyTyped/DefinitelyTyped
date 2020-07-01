@@ -1,0 +1,21 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "ban-types": false,
+        "callable-types": false,
+        "dt-header": false,
+        "member-access": false,
+        "no-any-union": false,
+        "no-empty-interface": false,
+        "no-inferrable-types": false,
+        "no-namespace": false,
+        "no-padding": false,
+        "no-redundant-jsdoc": false,
+        "no-trailing-whitespace": false,
+        "no-unnecessary-generics": false,
+        "no-unnecessary-qualifier": false,
+        "prefer-method-signature": false,
+        "unified-signatures": false
+    }
+}

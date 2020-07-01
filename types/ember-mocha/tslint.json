@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-declare-current-package": false,
+        "no-empty-interface": false,
+        "only-arrow-functions": false,
+        "strict-export-declare-modifiers": false,
+        "unified-signatures": false
+    }
+}
