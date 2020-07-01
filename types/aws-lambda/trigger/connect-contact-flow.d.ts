@@ -33,7 +33,7 @@ export interface ConnectContactFlowEvent {
     Name: 'ContactFlowEvent';
 }
 
-export type ConnectContactFlowChannel = 'VOICE' | 'CHAT'
+export type ConnectContactFlowChannel = 'VOICE' | 'CHAT';
 
 export type ConnectContactFlowInitiationMethod = 'INBOUND' | 'OUTBOUND' | 'TRANSFER' | 'CALLBACK' | 'API';
 
@@ -45,5 +45,3 @@ export interface ConnectContactFlowEndpoint {
 export interface ConnectContactFlowResult {
     [key: string]: string | null;
 }
-
-
