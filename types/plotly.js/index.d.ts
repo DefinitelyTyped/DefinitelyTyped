@@ -389,6 +389,8 @@ export interface Legend extends Label {
 
 export type AxisType = '-' | 'linear' | 'log' | 'date' | 'category';
 
+export type DTickValue = number | string;
+
 export interface TickFormatStop {
     /**
      * Determines whether or not this stop is used. If `false`,
@@ -400,7 +402,7 @@ export interface TickFormatStop {
      * which describe some zoom level, it is possible to omit `min` or `max`
      * value by passing `null`
      */
-    dtickrange: [number | null, number | null];
+    dtickrange: [DTickValue | null, DTickValue | null];
     /**
      * dtickformat for described zoom level, the same as `tickformat`
      */
@@ -438,7 +440,7 @@ export interface Axis {
     tickmode: 'auto' | 'linear' | 'array';
     nticks: number;
     tick0: number | string;
-    dtick: number | string;
+    dtick: DTickValue;
     tickvals: any[];
     ticktext: string[];
     ticks: 'outside' | 'inside' | '';
@@ -902,7 +904,7 @@ export interface ColorBar {
     tickmode: 'auto' | 'linear' | 'array';
     nticks: number;
     tick0: number | string;
-    dtick: number | string;
+    dtick: DTickValue;
     tickvals: Datum[] | Datum[][] | Datum[][][] | TypedArray;
     ticktext: Datum[] | Datum[][] | Datum[][][] | TypedArray;
     ticks: 'outside' | 'inside' | '';

@@ -174,6 +174,56 @@ const graphDiv = '#test';
         showEditInChartStudio: true,
     });
 })();
+// Should create new plot with tickformatstop
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: ['2005-01', '2005-02', '2005-03', '2005-04', '2005-05', '2005-06', '2005-07'],
+            y: [-20, 10, -5, 0, 5, -10, 20],
+            type: 'scatter',
+        },
+    ];
+    const layout: Partial<Layout> = {
+        xaxis: {
+            tickformatstops: [
+                {
+                    dtickrange: [null, 1000],
+                    value: '%H:%M:%S.%L ms',
+                },
+                {
+                    dtickrange: [1000, 60000],
+                    value: '%H:%M:%S s',
+                },
+                {
+                    dtickrange: [60000, 3600000],
+                    value: '%H:%M m',
+                },
+                {
+                    dtickrange: [3600000, 86400000],
+                    value: '%H:%M h',
+                },
+                {
+                    dtickrange: [86400000, 604800000],
+                    value: '%e. %b d',
+                },
+                {
+                    dtickrange: [604800000, 'M1'],
+                    value: '%e. %b w',
+                },
+                {
+                    dtickrange: ['M1', 'M12'],
+                    value: "%b '%y M",
+                },
+                {
+                    dtickrange: ['M12', null],
+                    value: '%Y Y',
+                },
+            ],
+        },
+    };
+
+    Plotly.newPlot('myDiv', data, layout);
+})();
 
 //////////////////////////////////////////////////////////////////////
 
