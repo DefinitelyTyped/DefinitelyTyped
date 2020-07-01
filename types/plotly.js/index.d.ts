@@ -496,7 +496,7 @@ export interface Axis {
     /**
      * Array of `Partial<TickFormatStop>` objects.
      */
-    tickformatstops: Partial<TickFormatStop>[];
+    tickformatstops: Array<Partial<TickFormatStop>>;
 }
 
 export type Calendar = 'gregorian' | 'chinese' | 'coptic' | 'discworld' | 'ethiopian' | 'hebrew' | 'islamic' | 'julian' | 'mayan' |
@@ -915,7 +915,7 @@ export interface ColorBar {
     tickfont: Font;
     tickangle: number;
     tickformat: string;
-    tickformatstops: Partial<TickFormatStop>[];
+    tickformatstops: Array<Partial<TickFormatStop>>;
     tickprefix: string;
     showtickprefix: 'all' | 'first' | 'last' | 'none';
     ticksuffix: string;
