@@ -236,7 +236,13 @@ export namespace Rule {
     }
 
     type NodeTypes = ESTree.Node['type'];
-    type NodeListener = { [T in NodeTypes]?: (node: ESTree.Node) => void };
+    type NodeListener = ESTree.Node extends infer T
+        ? (T extends ESTree.Node ? (_: { [_ in T['type']]?: (node: T) => void }) => void : never) extends (
+              _: infer U,
+          ) => void
+            ? U
+            : never
+        : never;
 
     interface RuleListener extends NodeListener {
         onCodePathStart?(codePath: CodePath, node: ESTree.Node): void;
@@ -254,6 +260,7 @@ export namespace Rule {
             | ((segment: CodePathSegment, node: ESTree.Node) => void)
             | ((fromSegment: CodePathSegment, toSegment: CodePathSegment, node: ESTree.Node) => void)
             | ((node: ESTree.Node) => void)
+            | NodeListener[keyof NodeListener]
             | undefined;
     }
 
