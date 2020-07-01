@@ -1422,7 +1422,7 @@ declare class TelegramBot extends EventEmitter {
         customTitle: string
     ): Promise<boolean>;
 
-    getMyCommands(): Promise<TelegramBot.BotCommand>;
+    getMyCommands(): Promise<TelegramBot.BotCommand[]>;
 
     setMyCommands(commands: TelegramBot.BotCommand[]): Promise<boolean>;
 }
