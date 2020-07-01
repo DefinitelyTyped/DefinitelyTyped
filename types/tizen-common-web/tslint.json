@@ -6,6 +6,6 @@
         "strict-export-declare-modifiers": false,
         "no-empty-interface": false,
         "interface-over-type-literal": false,
-        "npm-name": false
+        "npm-naming": false
     }
 }
