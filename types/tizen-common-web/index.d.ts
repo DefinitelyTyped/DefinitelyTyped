@@ -1,6 +1,10 @@
-// Type definitions for tizen-sdk 0.1,
-// Project: https://developer.samsung.com/tv/ (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: 장세중/S/W Platform Lab(VD)/Engineer/삼성전자 <https://github.com/SejoongDeJang>
+// Type definitions for @tizentv/tizen-common-web 1.0
+// Project: https://docs.tizen.org/application/web/api/5.5/device_api/tv/index.html
+// Definitions by: SejoongDeJang <https://github.com/SejoongDeJang>
+//                 Dongkeun Nam <https://github.com/capscrom>
+//                 Woosik Park <https://github.com/pwsses>
+//                 Dayoung Kim <https://github.com/darangkim>
+//                 Hyojin Kim <https://github.com/prozanne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./lib/filesystem.d.ts" />
