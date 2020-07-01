@@ -9,6 +9,21 @@ compiler('Hello there old chap!', { forceBlock: true });
 
 <Markdown options={{ forceInline: true }}># You got it babe!</Markdown>;
 
+<Markdown
+    options={{
+        namedCodesToUnicode: {
+            le: '\u2264',
+            ge: '\u2265',
+        },
+    }}
+>
+    This text is &le; than this text.
+</Markdown>;
+
+<Markdown options={{ disableParsingRawHTML: true }}>
+    This text has <span>html</span> in it but it won't be rendered
+</Markdown>;
+
 const MyParagraph: React.SFC = ({ children, ...props }) => <div {...props}>{children}</div>;
 
 interface MySquareImageProps {

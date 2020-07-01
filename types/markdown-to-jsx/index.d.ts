@@ -82,6 +82,12 @@ export interface MarkdownOptions {
 
     /** Custom function to generate an HTML id from headings. */
     slugify?: (text: string) => string;
+
+    /** List of html codes are converted to unicode characters */
+    namedCodesToUnicode?: { [key: string]: string };
+
+    /** By default, raw HTML is parsed to JSX. This behavior can be disabled with this option. */
+    disableParsingRawHTML?: boolean;
 }
 
 export function compiler(markdown: string, options?: MarkdownOptions): JSX.Element;
