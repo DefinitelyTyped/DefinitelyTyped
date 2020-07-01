@@ -94,7 +94,7 @@ declare namespace Tizen {
          *
          * System events do not require an application identifier to be specified. If one is specified, the event will be interpreted as an user event.
          */
-        appId: Tizen.ApplicationId;
+        appId: ApplicationId;
         /**
          * Name which describes the event.
          *
@@ -117,13 +117,10 @@ declare namespace Tizen {
  */
 declare const enum ApplicationControlLaunchMode {
     SINGLE = 'SINGLE',
-    GROUP = 'GROUP'
+    GROUP = 'GROUP',
 }
 
-type ApplicationControlLaunchModeUnion =
-    | ApplicationControlLaunchMode
-    | 'SINGLE'
-    | 'GROUP';
+type ApplicationControlLaunchModeUnion = ApplicationControlLaunchMode | 'SINGLE' | 'GROUP';
 
 /**
  * Specifies the possible modes of getting statistics of application usage.
@@ -137,13 +134,10 @@ type ApplicationControlLaunchModeUnion =
  */
 declare const enum ApplicationUsageMode {
     RECENTLY = 'RECENTLY',
-    FREQUENTLY = 'FREQUENTLY'
+    FREQUENTLY = 'FREQUENTLY',
 }
 
-type ApplicationUsageModeUnion =
-    | ApplicationUsageMode
-    | 'RECENTLY'
-    | 'FREQUENTLY';
+type ApplicationUsageModeUnion = ApplicationUsageMode | 'RECENTLY' | 'FREQUENTLY';
 
 /**
  * This interface defines what is instantiated by the `Tizen` object on the Tizen Platform.
@@ -190,7 +184,7 @@ declare interface ApplicationManager {
     kill: (
         contextId: Tizen.ApplicationContextId,
         successCallback?: SuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ) => void;
 
     /**
@@ -215,11 +209,7 @@ declare interface ApplicationManager {
      * @throw WebAPIException TypeMismatchError, SecurityError
      *
      */
-    launch: (
-        id: Tizen.ApplicationId,
-        successCallback?: SuccessCallback,
-        errorCallback?: ErrorCallback
-    ) => void;
+    launch: (id: Tizen.ApplicationId, successCallback?: SuccessCallback, errorCallback?: ErrorCallback) => void;
 
     /**
      * Launches an application with the specified application control.
@@ -268,7 +258,7 @@ declare interface ApplicationManager {
         id?: Tizen.ApplicationId,
         successCallback?: SuccessCallback,
         errorCallback?: ErrorCallback,
-        replyCallback?: ApplicationControlDataArrayReplyCallback
+        replyCallback?: ApplicationControlDataArrayReplyCallback,
     ) => void;
 
     /**
@@ -292,7 +282,7 @@ declare interface ApplicationManager {
     findAppControl: (
         appControl: ApplicationControl,
         successCallback: FindAppControlSuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ) => void;
 
     /**
@@ -309,10 +299,7 @@ declare interface ApplicationManager {
      * @throw WebAPIException TypeMismatchError
      *
      */
-    getAppsContext: (
-        successCallback: ApplicationContextArraySuccessCallback,
-        errorCallback?: ErrorCallback
-    ) => void;
+    getAppsContext: (successCallback: ApplicationContextArraySuccessCallback, errorCallback?: ErrorCallback) => void;
 
     /**
      * Gets the application context for the specified application context ID.
@@ -328,9 +315,7 @@ declare interface ApplicationManager {
      * @throw WebAPIException NotFoundError, UnknownError
      *
      */
-    getAppContext: (
-        contextId?: Tizen.ApplicationContextId
-    ) => ApplicationContext;
+    getAppContext: (contextId?: Tizen.ApplicationContextId) => ApplicationContext;
 
     /**
      * Gets the list of installed applications' information on a device.
@@ -346,10 +331,7 @@ declare interface ApplicationManager {
      * @throw WebAPIException TypeMismatchError
      *
      */
-    getAppsInfo: (
-        successCallback: ApplicationInformationArraySuccessCallback,
-        errorCallback?: ErrorCallback
-    ) => void;
+    getAppsInfo: (successCallback: ApplicationInformationArraySuccessCallback, errorCallback?: ErrorCallback) => void;
 
     /**
      * Gets application information for a specified application ID.
@@ -467,9 +449,7 @@ declare interface ApplicationManager {
      * @throw WebAPIException TypeMismatchError, UnknownError
      *
      */
-    addAppInfoEventListener: (
-        eventCallback: ApplicationInformationEventCallback
-    ) => number;
+    addAppInfoEventListener: (eventCallback: ApplicationInformationEventCallback) => number;
 
     /**
      * Removes the listener to stop receiving notifications for changes on the list of installed applications on a device.
@@ -497,10 +477,7 @@ declare interface ApplicationManager {
      * @throw WebAPIException TypeMismatchError, InvalidValuesError, AbortError
      *
      */
-    addAppStatusChangeListener: (
-        eventCallback: StatusEventCallback,
-        appId?: Tizen.ApplicationId
-    ) => number;
+    addAppStatusChangeListener: (eventCallback: StatusEventCallback, appId?: Tizen.ApplicationId) => number;
 
     /**
      * Removes the listener to stop receiving notifications for status changes of the installed applications on a device.
@@ -593,10 +570,7 @@ interface Application {
      * @throw WebAPIException TypeMismatchError, UnknownError
      *
      */
-    addEventListener: (
-        event: Tizen.EventInfo,
-        callback: EventCallback
-    ) => number;
+    addEventListener: (event: Tizen.EventInfo, callback: EventCallback) => number;
 
     /**
      * Removes an event listener with a specified listener identifier.
@@ -640,10 +614,7 @@ interface Application {
      * @throw WebAPIException TypeMismatchError, UnknownError
      *
      */
-    broadcastTrustedEvent: (
-        event: Tizen.EventInfo,
-        data: Tizen.UserEventData
-    ) => void;
+    broadcastTrustedEvent: (event: Tizen.EventInfo, data: Tizen.UserEventData) => void;
 }
 
 /**
@@ -789,7 +760,7 @@ declare interface ApplicationControlConstructor {
         mime?: string,
         category?: string,
         data?: ApplicationControlData[],
-        launchMode?: ApplicationControlLaunchModeUnion
+        launchMode?: ApplicationControlLaunchModeUnion,
     ): ApplicationControl;
 }
 
@@ -811,7 +782,7 @@ declare class ApplicationControl {
         mime?: string,
         category?: string,
         data?: ApplicationControlData[],
-        launchMode?: ApplicationControlLaunchModeUnion
+        launchMode?: ApplicationControlLaunchModeUnion,
         // | keyof ApplicationControlLaunchMode
     );
     /**
@@ -989,10 +960,7 @@ interface ApplicationControlDataArrayReplyCallback {
  * @since 2.0
  */
 interface FindAppControlSuccessCallback {
-    (
-        informationArray: ApplicationInformation[],
-        appControl: ApplicationControl
-    ): void;
+    (informationArray: ApplicationInformation[], appControl: ApplicationControl): void;
 }
 
 /**

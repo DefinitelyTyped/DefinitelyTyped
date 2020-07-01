@@ -97,7 +97,6 @@ declare interface SystemInfoManager {
      * @param key The device capability key for the device or additional custom device capability key specified by OEM.
      * @returns The value of the specified device capability.
      * @throw WebAPIException `UnknownError`
-     
      */
     getCapability(key: string): any;
 
@@ -138,7 +137,7 @@ declare interface SystemInfoManager {
     getPropertyValue(
         property: SystemInfoPropertyIdUnion,
         successCallback: SystemInfoPropertySuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ): void;
 
     /**
@@ -162,7 +161,7 @@ declare interface SystemInfoManager {
     getPropertyValueArray(
         property: SystemInfoPropertyIdUnion,
         successCallback: SystemInfoPropertyArraySuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ): void;
 
     /**
@@ -199,7 +198,7 @@ declare interface SystemInfoManager {
         property: SystemInfoPropertyIdUnion,
         successCallback: SystemInfoPropertySuccessCallback,
         options?: Tizen.SystemInfoOptions,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ): number;
 
     /**
@@ -229,7 +228,7 @@ declare interface SystemInfoManager {
         property: SystemInfoPropertyIdUnion,
         successCallback: SystemInfoPropertyArraySuccessCallback,
         options?: Tizen.SystemInfoOptions,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ): number;
 
     /**
@@ -677,7 +676,7 @@ declare const enum SystemInfoPropertyId {
     ADS = 'ADS',
     SERVICE_COUNTRY = 'SERVICE_COUNTRY',
     SOURCE_INFO = 'SOURCE_INFO',
-    PANEL = 'PANEL'
+    PANEL = 'PANEL',
 }
 
 type SystemInfoPropertyIdUnion =
@@ -718,7 +717,7 @@ declare const enum SystemInfoNetworkType {
     WIFI = 'WIFI',
     ETHERNET = 'ETHERNET',
     NET_PROXY = 'NET_PROXY',
-    UNKNOWN = 'UNKNOWN'
+    UNKNOWN = 'UNKNOWN',
 }
 
 type SystemInfoNetworkTypeUnion =
@@ -749,16 +748,10 @@ declare const enum SystemInfoWifiSecurityMode {
     WEP = 'WEP',
     WPA_PSK = 'WPA_PSK',
     WPA2_PSK = 'WPA2_PSK',
-    EAP = 'EAP'
+    EAP = 'EAP',
 }
 
-type SystemInfoWifiSecurityModeUnion =
-    | SystemInfoWifiSecurityMode
-    | 'NONE'
-    | 'WEP'
-    | 'WPA_PSK'
-    | 'WPA2_PSK'
-    | 'EAP';
+type SystemInfoWifiSecurityModeUnion = SystemInfoWifiSecurityMode | 'NONE' | 'WEP' | 'WPA_PSK' | 'WPA2_PSK' | 'EAP';
 
 /**
  * Wi-Fi Encryption Type.
@@ -775,7 +768,7 @@ declare const enum SystemInfoWifiEncryptionType {
     WEP = 'WEP',
     TKIP = 'TKIP',
     AES = 'AES',
-    TKIP_AES_MIXED = 'TKIP_AES_MIXED'
+    TKIP_AES_MIXED = 'TKIP_AES_MIXED',
 }
 
 type SystemInfoWifiEncryptionTypeUnion =
@@ -801,16 +794,10 @@ declare const enum SystemInfoNetworkIpMode {
     STATIC = 'STATIC',
     DYNAMIC = 'DYNAMIC',
     AUTO = 'AUTO',
-    FIXED = 'FIXED'
+    FIXED = 'FIXED',
 }
 
-type SystemInfoNetworkIpModeUnion =
-    | SystemInfoNetworkIpMode
-    | 'NONE'
-    | 'STATIC'
-    | 'DYNAMIC'
-    | 'AUTO'
-    | 'FIXED';
+type SystemInfoNetworkIpModeUnion = SystemInfoNetworkIpMode | 'NONE' | 'STATIC' | 'DYNAMIC' | 'AUTO' | 'FIXED';
 /**
  * Device profile.
  *
@@ -825,16 +812,10 @@ declare const enum SystemInfoProfile {
     MOBILE_WEB = 'MOBILE_WEB',
     MOBILE = 'MOBILE',
     WEARABLE = 'WEARABLE',
-    TV = 'TV'
+    TV = 'TV',
 }
 
-type SystemInfoProfileUnion =
-    | SystemInfoProfile
-    | 'MOBILE_FULL'
-    | 'MOBILE_WEB'
-    | 'MOBILE'
-    | 'WEARABLE'
-    | 'TV';
+type SystemInfoProfileUnion = SystemInfoProfile | 'MOBILE_FULL' | 'MOBILE_WEB' | 'MOBILE' | 'WEARABLE' | 'TV';
 /**
  * The low memory state of a device.
  * - `NORMAL` - indicating the remaining memory is sufficient for an application to run
@@ -843,13 +824,10 @@ type SystemInfoProfileUnion =
  */
 declare const enum SystemInfoLowMemoryStatus {
     NORMAL = 'NORMAL',
-    WARNING = 'WARNING'
+    WARNING = 'WARNING',
 }
 
-type SystemInfoLowMemoryStatusUnion =
-    | SystemInfoLowMemoryStatus
-    | 'NORMAL'
-    | 'WARNING';
+type SystemInfoLowMemoryStatusUnion = SystemInfoLowMemoryStatus | 'NORMAL' | 'WARNING';
 
 /**
  * Device Orientation Status.
@@ -870,7 +848,7 @@ declare const enum SystemInfoDeviceOrientationStatus {
     PORTRAIT_PRIMARY = 'PORTRAIT_PRIMARY',
     PORTRAIT_SECONDARY = 'PORTRAIT_SECONDARY',
     LANDSCAPE_PRIMARY = 'LANDSCAPE_PRIMARY',
-    LANDSCAPE_SECONDARY = 'LANDSCAPE_SECONDARY'
+    LANDSCAPE_SECONDARY = 'LANDSCAPE_SECONDARY',
 }
 
 type SystemInfoDeviceOrientationStatusUnion =
@@ -901,7 +879,7 @@ declare const enum SystemInfoVideoSourceType {
     HDMI = 'HDMI',
     SCART = 'SCART',
     DVI = 'DVI',
-    MEDIA = 'MEDIA'
+    MEDIA = 'MEDIA',
 }
 
 type SystemInfoVideoSourceTypeUnion =
