@@ -182,7 +182,7 @@ declare interface BillingManager {
      * OrderItemID[MANDATORY]/OrderTitle[MANDATORY]/OrderTotal[MANDATORY]/OrderCurrencyID[MANDATORY]/OrderID[OPTIONAL]/OrderCustomID[MANDATORY]
      * @param onsuccess Returns "payResult" and "payDetail" if there is no internal error occurs until client to server data communication.
      * payResult, can still contains error when billing server confirms that the given parameters does not have expected value or have problem while processing it
-     * payDetail, can have additional data when it's returned, such as InvoiceID. Please refer to the development guide of "buyItem"	for details
+     * payDetail, can have additional data when it's returned, such as InvoiceID. Please refer to the development guide of "buyItem" for details
      * @param onerror Optional callback method to invoke if an internal error occurs before the client to server data communication
      * SecurityError, if the application does not have the privilege to call this method
      * UnknownError, if other error occur, such as internal error or "billing client already running" error

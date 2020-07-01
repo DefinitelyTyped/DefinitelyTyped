@@ -1484,7 +1484,7 @@ declare interface TvInfoManager {
          * DOMString AUDIO_LANGUAGE_CODE_YOR = "YOR";
          * DOMString AUDIO_LANGUAGE_CODE_YUE = "YUE";
          * DOMString AUDIO_LANGUAGE_CODE_ZHO = "ZHO";
-         * DOMString	AUDIO_LANGUAGE_CODE_ZUL = "ZUL";
+         * DOMString AUDIO_LANGUAGE_CODE_ZUL = "ZUL";
          * Only the values that can be set in the menu can be set to webapi
          */
         PRIMARY_AUDIO_LANGUAGE_KEY: 18;
