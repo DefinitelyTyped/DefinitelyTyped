@@ -18,6 +18,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Brandon Mitchell <https://github.com/brammitch>
 //                 Jessica Blizzard <https://github.com/blizzardjessica>
+//                 Oleg Shilov <https://github.com/olegshilov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _d3 from "d3";
@@ -388,6 +389,43 @@ export interface Legend extends Label {
 
 export type AxisType = '-' | 'linear' | 'log' | 'date' | 'category';
 
+export interface TickFormatStop {
+    /**
+     * Determines whether or not this stop is used. If `false`,
+     * this stop is ignored even within its `dtickrange`.
+     */
+    enabled: boolean;
+    /**
+     * Range [`min`, `max`], where `min`, `max` - dtick values
+     * which describe some zoom level, it is possible to omit `min` or `max`
+     * value by passing `null`
+     */
+    dtickrange: [number | null, number | null];
+    /**
+     * dtickformat for described zoom level, the same as `tickformat`
+     */
+    value: string;
+    /**
+     * When used in a template, named items are created in the output figure
+     * in addition to any items the figure already has in this array.
+     * You can modify these items in the output figure by making
+     * your own item with `templateitemname` matching this `name`
+     * alongside your modifications (including `visible: false` or `enabled: false` to hide it).
+     * Has no effect outside of a template.
+     */
+    name: string;
+    /**
+     * Used to refer to a named item in this array in the template.
+     * Named items from the template will be created even without
+     * a matching item in the input figure, but you can modify one by
+     * making an item with `templateitemname` matching its `name`,
+     * alongside your modifications (including `visible: false` or `enabled: false` to hide it).
+     * If there is no template or no matching item, this item will be hidden
+     * unless you explicitly show it with `visible: true`.
+     */
+    templateitemname: string;
+}
+
 export interface Axis {
     visible: boolean;
     color: Color;
@@ -425,7 +463,23 @@ export interface Axis {
     showexponent: 'all' | 'first' | 'last' | 'none';
     exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B';
     separatethousands: boolean;
+    /**
+     * Sets the tick label formatting rule using d3 formatting mini-languages
+     * which are very similar to those in Python.
+     * For numbers, see: https://github.com/d3/d3-3.x-api-reference/blob/master/Formatting.md#d3_format
+     * And for dates see: https://github.com/d3/d3-3.x-api-reference/blob/master/Time-Formatting.md#format
+     * We add one item to d3's date formatter: `%{n}f` for fractional seconds with n digits.
+     * For example, `"2016-10-13 09:15:23.456"` with tickformat `"%H~%M~%S.%2f"` would display `"09~15~23.46"`
+     */
     tickformat: string;
+    /**
+     * Sets the hover text formatting rule using d3 formatting mini-languages
+     * which are very similar to those in Python.
+     * For numbers, see: https://github.com/d3/d3-3.x-api-reference/blob/master/Formatting.md#d3_format
+     * And for dates see: https://github.com/d3/d3-3.x-api-reference/blob/master/Time-Formatting.md#format
+     * We add one item to d3's date formatter: `%{n}f` for fractional seconds with n digits.
+     * For example, `"2016-10-13 09:15:23.456"` with tickformat `"%H~%M~%S.%2f"` would display "09~15~23.46"
+     */
     hoverformat: string;
     showline: boolean;
     linecolor: Color;
@@ -437,6 +491,10 @@ export interface Axis {
     zerolinecolor: Color;
     zerolinewidth: number;
     calendar: Calendar;
+    /**
+     * Array of `Partial<TickFormatStop>` objects.
+     */
+    tickformatstops: Partial<TickFormatStop>[];
 }
 
 export type Calendar = 'gregorian' | 'chinese' | 'coptic' | 'discworld' | 'ethiopian' | 'hebrew' | 'islamic' | 'julian' | 'mayan' |
@@ -799,7 +857,6 @@ export interface PlotData {
  * These interfaces are based on attribute descriptions in
  * https://github.com/plotly/plotly.js/tree/9d6144304308fc3007f0facf2535d38ea3e9b26c/src/transforms
  */
-
 export interface TransformStyle {
     target: number | string | number[] | string[];
     value: Partial<PlotData>;
@@ -856,10 +913,7 @@ export interface ColorBar {
     tickfont: Font;
     tickangle: number;
     tickformat: string;
-    tickformatstops: {
-        dtickrange: any[];
-        value: string;
-    };
+    tickformatstops: Partial<TickFormatStop>[];
     tickprefix: string;
     showtickprefix: 'all' | 'first' | 'last' | 'none';
     ticksuffix: string;
