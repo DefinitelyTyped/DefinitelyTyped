@@ -21,11 +21,15 @@ export function prerelease(v: string): string[];
 export function major(v: string): number;
 export function minor(v: string): number;
 export function patch(v: string): number;
+export function inc(): never;
 // ranges
 export function validRange(range: string): boolean;
 export function satisfies(version: string, range: string): boolean;
 export function maxSatisfying(versions: string[], range: string): string;
 export function minSatisfying(versions: string[], range: string): string;
 export function intersects(r1: string, r2: string): boolean;
+export function gtr(): never;
+export function ltr(): never;
+export function outside(): never;
 
 export type Comparator = '>' | '>=' | '<' | '<=' | '==' | '!=' | '===' | '!==';

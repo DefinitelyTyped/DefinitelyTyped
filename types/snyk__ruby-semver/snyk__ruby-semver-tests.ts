@@ -19,6 +19,10 @@ import {
     maxSatisfying,
     minSatisfying,
     intersects,
+    inc,
+    gtr,
+    ltr,
+    outside,
 } from '@snyk/ruby-semver';
 import GemVersion from '@snyk/ruby-semver/lib/ruby/gem-version';
 import GemRequirement from '@snyk/ruby-semver/lib/ruby/gem-requirement';
@@ -40,12 +44,16 @@ prerelease('1.2.3'); // $ExpectedType string[]
 major('1.2.3'); // $ExpectedType number
 minor('1.2.3'); // $ExpectedType number
 patch('1.2.3'); // $ExpectedType number
+inc(); // $ExpectedType never
 // ranges
 validRange('>1.2.3'); // $ExpectedType boolean
 satisfies('2.3.4', '>1.2.3'); // $ExpectedType boolean
 maxSatisfying(['2.3.4'], '>1.2.3'); // $ExpectedType string
 minSatisfying(['1.2.3'], '<2.3.4'); // $ExpectedType string
 intersects('>1.2.3', '<2.3.4'); // $ExpectedType boolean
+gtr(); // $ExpectedType never
+ltr(); // $ExpectedType never
+outside(); // $ExpectedType never
 
 // GemVersion
 GemVersion.isCorrect('1.2.3'); // $ExpectedType boolean
