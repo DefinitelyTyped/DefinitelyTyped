@@ -198,7 +198,7 @@ declare namespace ReactDates {
         firstDayOfWeek?: DayOfWeekShape;
         numberOfMonths?: number;
         keepOpenOnDateSelect?: boolean;
-        reopenPickerOnClearDates?: boolean;
+        reopenPickerOnClearDate?: boolean;
         renderCalendarInfo?: () => string | JSX.Element;
         calendarInfoPosition?: CalendarInfoPositionShape;
         hideKeyboardShortcutsPanel?: boolean;
@@ -268,7 +268,7 @@ declare namespace ReactDates {
         keyboardNavigationInstructions?: string;
         chooseAvailableStartDate?: (phraseArg: PhraseArg) => string;
         chooseAvailableEndDate?: (phraseArg: PhraseArg) => string;
-        dateIsUnavailable?: (phraseArg: PhraseArg)  => string;
+        dateIsUnavailable?: (phraseArg: PhraseArg) => string;
         dateIsSelected?: (phraseArg: PhraseArg) => string;
         dateIsSelectedAsStartDate?: (phraseArg: PhraseArg) => string;
         dateIsSelectedAsEndDate?: (phraseArg: PhraseArg) => string;
