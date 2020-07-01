@@ -4,12 +4,25 @@
 //                 David Hahn <https://github.com/davidka>
 //                 Tim Baumann <https://github.com/timjb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
+//                 Mike Morearty <https://github.com/mmorearty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 import { MarkType, Node as ProsemirrorNode, NodeType, Schema } from 'prosemirror-model';
 import { EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
+
+export interface Command<S extends Schema = any> {
+  (
+    state: EditorState<S>,
+    dispatch: (tr: Transaction<S>) => void,
+    view: EditorView<S>
+  ): boolean;
+}
+
+export interface Keymap<S extends Schema = any> {
+  [key: string]: Command<S>;
+}
 
 /**
  * Delete the selection, if there is one.
@@ -222,17 +235,17 @@ export function chainCommands<S extends Schema = any>(
  * * **Mod-Delete** to `deleteSelection`, `joinForward`, `selectNodeForward`
  * * **Mod-a** to `selectAll`
  */
-export let pcBaseKeymap: { [key: string]: any };
+export let pcBaseKeymap: Keymap;
 /**
  * A copy of `pcBaseKeymap` that also binds **Ctrl-h** like Backspace,
  * **Ctrl-d** like Delete, **Alt-Backspace** like Ctrl-Backspace, and
  * **Ctrl-Alt-Backspace**, **Alt-Delete**, and **Alt-d** like
  * Ctrl-Delete.
  */
-export let macBaseKeymap: { [key: string]: any };
+export let macBaseKeymap: Keymap;
 /**
  * Depending on the detected platform, this will hold
  * [`pcBasekeymap`](#commands.pcBaseKeymap) or
  * [`macBaseKeymap`](#commands.macBaseKeymap).
  */
-export let baseKeymap: { [key: string]: any };
+export let baseKeymap: Keymap;
