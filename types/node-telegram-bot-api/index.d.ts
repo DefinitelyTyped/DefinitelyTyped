@@ -287,16 +287,16 @@ declare namespace TelegramBot {
         error_message?: string;
     }
 
-  interface SendDiceOptions {
-    emoji?: string;
-    disable_notification?: boolean;
-    reply_to_message_id?: number;
-    reply_markup?:
-      | InlineKeyboardMarkup
-      | ReplyKeyboardMarkup
-      | ReplyKeyboardRemove
-      | ForceReply;
-  }
+    interface SendDiceOptions {
+        emoji?: string;
+        disable_notification?: boolean;
+        reply_to_message_id?: number;
+        reply_markup?:
+        | InlineKeyboardMarkup
+        | ReplyKeyboardMarkup
+        | ReplyKeyboardRemove
+        | ForceReply;
+    }
 
     /// TELEGRAM TYPES ///
     interface PassportFile {
@@ -1020,10 +1020,10 @@ declare namespace TelegramBot {
         type?: MessageType;
     }
 
-  interface BotCommand {
-    command: string;
-    description: string;
-  }
+    interface BotCommand {
+        command: string;
+        description: string;
+    }
 }
 
 declare class TelegramBot extends EventEmitter {
@@ -1406,25 +1406,25 @@ declare class TelegramBot extends EventEmitter {
             'error'
     ): number;
 
-  setChatPermissions(
-    chatId: number | string,
-    chatPermissions: TelegramBot.ChatPermissions
-  ): Promise<boolean>;
+    setChatPermissions(
+        chatId: number | string,
+        chatPermissions: TelegramBot.ChatPermissions
+    ): Promise<boolean>;
 
-  sendDice(
-    chatId: number | string,
-    options?: TelegramBot.SendDiceOptions
-  ): Promise<TelegramBot.Message>;
+    sendDice(
+        chatId: number | string,
+        options?: TelegramBot.SendDiceOptions
+    ): Promise<TelegramBot.Message>;
 
-  setChatAdministratorCustomTitle(
-    chatId: number | string,
-    userId: string,
-    customTitle: string
-  ): Promise<boolean>;
+    setChatAdministratorCustomTitle(
+        chatId: number | string,
+        userId: string,
+        customTitle: string
+    ): Promise<boolean>;
 
-  getMyCommands(): Promise<TelegramBot.BotCommand>;
+    getMyCommands(): Promise<TelegramBot.BotCommand>;
 
-  setMyCommands(commands: TelegramBot.BotCommand[]): Promise<boolean>;
+    setMyCommands(commands: TelegramBot.BotCommand[]): Promise<boolean>;
 }
 
 export = TelegramBot;
