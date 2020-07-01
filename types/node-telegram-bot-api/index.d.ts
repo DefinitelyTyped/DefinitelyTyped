@@ -287,15 +287,8 @@ declare namespace TelegramBot {
         error_message?: string;
     }
 
-    interface SendDiceOptions {
+    interface SendDiceOptions extends SendBasicOptions {
         emoji?: string;
-        disable_notification?: boolean;
-        reply_to_message_id?: number;
-        reply_markup?:
-        | InlineKeyboardMarkup
-        | ReplyKeyboardMarkup
-        | ReplyKeyboardRemove
-        | ForceReply;
     }
 
     /// TELEGRAM TYPES ///
