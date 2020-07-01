@@ -491,7 +491,7 @@ declare interface FilesystemManager {
      *   - `NotFoundError` - If the location input argument does not correspond to a valid location.
      *   - `UnknownError` - If any other error occurs.
      *
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.read
      * @remark ***camera*** location is supported since Tizen 2.3. If a device does not support camera, NotSupportedError will be thrown.
@@ -913,13 +913,13 @@ interface FileHandle {
  * A file handle representing a directory can be used for listing all
  * files and directories rooted as the file handle location.
  *
- * @deprecated 5.0
+ * @note `deprecated` 5.0
  */
 interface File {
     /**
      * The parent directory handle.
      * This attribute is set to ***null*** if there is no parent directory. This also implies that this directory represents a root location.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      */
     readonly parent?: File;
 
@@ -931,7 +931,7 @@ interface File {
      *   - ***false*** - if object has write access at its location.
      *
      * This attribute represents the actual state of a file or directory in the filesystem. Its value is not affected by the mode used in FileSystemManager.resolve() that was used to create the `File` object from which this `File` object was obtained.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      */
     readonly readOnly: boolean;
 
@@ -942,7 +942,7 @@ interface File {
      *   - ***true*** if this handle is a file
      *   - ***false*** if this handle is a directory
      *
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      */
     readonly isFile: boolean;
 
@@ -953,7 +953,7 @@ interface File {
      *   - ***true*** if this handle is a directory
      *   - ***false*** if this handle is a file
      *
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      */
     readonly isDirectory: boolean;
 
@@ -964,7 +964,7 @@ interface File {
      * be ***null***.
      * It is unspecified and platform-dependent if the creation
      * timestamp changes when a file is moved.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      */
     readonly created?: Date;
 
@@ -974,7 +974,7 @@ interface File {
      * If the platform does not support this attribute, it will be ***null***.
      * It is unspecified and platform-dependent if the modified
      * timestamp changes when a file is moved.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      */
     readonly modified?: Date;
 
@@ -989,7 +989,7 @@ interface File {
      * music/ramones/.
      * For the virtual roots, the path is same as the name of the virtual root.
      * For example, if the root is music, then the path is music. If the root is documents, then the path is documents.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      */
     readonly path: string;
 
@@ -1001,7 +1001,7 @@ interface File {
      * For example, if a directory is located at music/ramones/volume1, the
      * `name`  is be "volume1".
      * For the special case of the root itself, the `name`  is an empty string.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      */
     readonly name: string;
 
@@ -1013,21 +1013,21 @@ interface File {
      * For a directory, if the volume1 directory is located at music/ramones/, then the `fullPath` is music/ramones/volume1.
      * For the special case of the root itself, if the root is music, then the `fullPath` is music.
      * The `fullPath` is always equal to path + name.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      */
     readonly fullPath: string;
 
     /**
      * The size of this file, in bytes.
      * If an attempt to read this attribute for a directory is made, ***undefined*** is returned. To retrieve the number of files and directories contained in the directory, use the `length` attribute.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      */
     readonly fileSize: number;
 
     /**
      * The number of files and directories contained in a file handle.
      * If an attempt to read this attribute for a file is made, ***undefined*** is returned. To retrieve the size of a file, use the `fileSize` attribute.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      */
     readonly length: number;
 
@@ -1040,7 +1040,7 @@ interface File {
      * If that URI corresponds to a file located in any a widget's private areas (such as wgt-package, wgt-private, wgt-private-tmp),
      * the generated URI must be unique for that file and for the widget making the request (such as including some derived from the widget ID in the URI).
      * These URIs must not be accessible to other widgets, apart from the one invoking this method.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.read
      * @returns URI that identifies the file or ***null*** if an error occurs.
@@ -1060,7 +1060,7 @@ interface File {
      *   - `InvalidValuesError` - If any of the input parameters contain an invalid value.
      *   - `UnknownError` - If any other error occurs.
      *
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.read
      * @param onsuccess Callback method to be invoked when the list operation has been successfully completed.
@@ -1079,7 +1079,7 @@ interface File {
      *   - `IOError` - The operation is launched on a directory (not a file), the file is not valid or it does not exist.
      *   - `UnknownError` - If any other error occurs.
      *
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.read
      * @param mode      Mode in which the file is opened
@@ -1111,7 +1111,7 @@ interface File {
      *   - `IOError` - If the operation is launched on a directory (not a file), the file is not valid, or the file does not exist.
      *   - `UnknownError` - If any other error occurs.
      *
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.read
      * @param onsuccess Callback method to be invoked when a file has been successfully read.
@@ -1137,7 +1137,7 @@ interface File {
      *   - `IOError` - If the file in which the copyTo() method is invoked is a file (and not a directory), `originFilePath` corresponds to a file or directory in use by another process, `overwrite` parameter is ***false*** and `destinationFilePath` corresponds to an existing file or directory.
      *   - `UnknownError` - If any other error occurs.
      *
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.write
      * @param originFilePath      Origin full virtual file or directory path and it must be under the current directory.
@@ -1169,7 +1169,7 @@ interface File {
      *   - `IOError` - If the `File` in which the moveTo() method is invoked is a file (not a directory), `originFilePath` corresponds to a file or directory in use by another process, overwrite parameter is ***false*** and `destinationFilePath` corresponds to an existing file or directory.
      *   - `UnknownError` - If any other error occurs.
      *
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.write
      * @param originFilePath      Origin full virtual file or directory path and it must be under the current directory.
@@ -1197,7 +1197,7 @@ interface File {
      * This operation can only be performed on file handles that represent directories (that is, `isDirectory` == ***true***).
      * If the directory is successfully created, it will be returned.
      * In case the directory cannot be created, an error must be thrown with the appropriate error type.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.write
      * @param dirPath Relative directory path and it only contains characters supported by the underlying filesystem.
@@ -1212,7 +1212,7 @@ interface File {
      * The use of "." or ".." in path components is not supported. This operation can only be performed on file handlers that represent a directory (that is, `isDirectory` == ***true***).
      * If the file is successfully created, a file handle must be returned by this method.
      * In case the file cannot be created, an error must be thrown with the appropriate error type.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.write
      * @param relativeFilePath New file path and it should only contain characters supported by the underlying filesystem.
@@ -1227,7 +1227,7 @@ interface File {
      * Resolves an existing file or directory relative to the current directory this operation is performed on and returns a file handle for it.
      * The `filePath` is not allowed to contain the "." or ".." directory entries inside its value.
      * The encoding of file paths is [UTF-8](http://www.ietf.org/rfc/rfc2279.txt).
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.read
      * @param filePath Relative file path or file URI to resolve.
@@ -1250,7 +1250,7 @@ interface File {
      *    This code is also used if a recursive deletion partially fails and any data deleted so far cannot be recovered. This may occur due to the lack of filesystem permissions or if any directories or files are already opened by other processes.
      *   - `UnknownError` - If any other error occurs.
      *
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.write
      * @param directoryPath Full virtual path to the directory to delete (must be under the current one).
@@ -1280,7 +1280,7 @@ interface File {
      *   - `IOError` - If the file in which the delete() method is invoked is a file (not a directory), the file is in use by another process, or there is no permission in the file system.
      *   - `UnknownError` - If any other error occurs.
      *
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.write
      * @param filePath  Full virtual path to the file to delete (must be under the current directory).
@@ -1297,21 +1297,21 @@ interface File {
  * A series of read/write methods are available that permit both binary and text to be processed.
  * Once a file stream is closed, any operation attempt made on this stream results in a standard JavaScript error.
  * The read/write operations in this interface do not throw any security exceptions as the access rights are expected to be granted through the initial resolve() method or through the openStream() method of the `File` interface. Therefore, all actions performed on a successfully resolved File and FileStream are expected to succeed. This avoids successive asynchronous calls and may potentially increase application for a user.
- * @deprecated 5.0
+ * @note `deprecated` 5.0
  */
 interface FileStream {
     /**
      * The flag indicating whether the current file pointer is at the end of the file.
      * If set to ***true***, this attribute indicates that the file pointer is at the end of the file.
      * If set to ***false***, this attribute indicates that the file pointer is not at the end of the file and so it is anywhere within the file.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      */
     readonly eof: boolean;
 
     /**
      * The flag indicating the stream position for reads/writes.
      * The stream position is an offset of bytes from the start of the file stream. When invoking an operation that reads or writes from the stream, the operation will take place from the byte defined by this `position` attribute. If the read or write operation is successful, the position of the stream is advanced by the number of bytes read or written. If the read/write operation is not successful, the position of the stream is unchanged.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      */
     position: number;
 
@@ -1320,7 +1320,7 @@ interface FileStream {
      * The number of bytes available for reading is the maximum amount of bytes that can be read in the next read operation.
      * It corresponds to the number of bytes available after the file pointer denoted by the `position` attribute.
      * ***-1 ***if EOF is ***true***.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      */
     readonly bytesAvailable: number;
 
@@ -1328,7 +1328,7 @@ interface FileStream {
      * Closes this FileStream.
      * Flushes any pending buffered writes and closes the File. Always succeeds.
      * Note that pending writes might not succeed.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.read
      */
@@ -1338,7 +1338,7 @@ interface FileStream {
      * Reads the specified number of characters from the position of the file pointer in a FileStream and returns the characters as a string.
      *        The resulting string length might be shorter than `charCount` if EOF is ***true***.
      *
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.read
      * @param charCount Number of characters being read.
@@ -1349,7 +1349,7 @@ interface FileStream {
 
     /**
      * Reads the specified number of bytes from a FileStream.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.read
      * @param byteCount Number of bytes to read.
@@ -1360,7 +1360,7 @@ interface FileStream {
 
     /**
      * Reads the specified number of bytes from this FileStream, encoding the result in base64.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      *
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.read
@@ -1372,7 +1372,7 @@ interface FileStream {
 
     /**
      * Writes the specified DOMString to a FileStream.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.write
      * @param stringData Actual string to write.
@@ -1382,7 +1382,7 @@ interface FileStream {
 
     /**
      * Writes the specified bytes to this FileStream.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.write
      * @param byteData Byte data array being written.
@@ -1392,7 +1392,7 @@ interface FileStream {
 
     /**
      * Writes the result to this FileStream after converting the specified base64 DOMString to bytes.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @privilegeLevel public
      * @privilegeName      http://tizen.org/privilege/filesystem.write
      * @param base64Data The base64 data to written.
@@ -1404,12 +1404,12 @@ interface FileStream {
 /**
  * The FileSuccessCallback interface defines file system success callback with a `File` object as input argument.
  * It is used in asynchronous operations, such as FileSystemManager.resolve(), copying, moving and deleting files.
- * @deprecated 5.0
+ * @note `deprecated` 5.0
  */
 interface FileSuccessCallback {
     /**
      * Called when the asynchronous call completes successfully.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @param file File resulting from the asynchronous call.
      */
     (file: File): void;
@@ -1514,12 +1514,12 @@ interface ReadDataSuccessCallback {
 /**
  * The FileStringSuccessCallback callback interface specifies a success callback with a DOMString object as input argument.
  * It is used in asynchronous operation File.readAsText().
- * @deprecated 5.0
+ * @note `deprecated` 5.0
  */
 interface FileStringSuccessCallback {
     /**
      * Called when the asynchronous call completes successfully.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @param fileStr File represented as a DOMString resulting from the asynchronous call.
      */
     (fileStr: string): void;
@@ -1527,12 +1527,12 @@ interface FileStringSuccessCallback {
 /**
  * The FileStreamSuccessCallback interface specifies a success callback with a `FileStream` object as input argument.
  * It is used in asynchronous operation File.openStream().
- * @deprecated 5.0 Since 5.0
+ * @note `deprecated` 5.0 Since 5.0
  */
 interface FileStreamSuccessCallback {
     /**
      * Called when the File.openStream asynchronous call completes successfully.
-     * @deprecated 5.0 Since 5.0
+     * @note `deprecated` 5.0 Since 5.0
      * @param filestream Filestream to access file content.
      */
     (filestream: FileStream): void;
@@ -1553,12 +1553,12 @@ interface ListDirectorySuccessCallback {
 /**
  * The FileArraySuccessCallback interface defines file system specific success callback for listing methods.
  * This callback interface specifies a success callback with a function taking an array of `File` objects as input argument. It is used in asynchronous methods, such as File.listFiles().
- * @deprecated 5.0
+ * @note `deprecated` 5.0
  */
 interface FileArraySuccessCallback {
     /**
      * Called when the asynchronous call completes successfully.
-     * @deprecated 5.0
+     * @note `deprecated` 5.0
      * @param files Files resulting from the asynchronous call.
      */
     (files: File[]): void;

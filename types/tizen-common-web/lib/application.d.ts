@@ -425,7 +425,7 @@ declare interface ApplicationManager {
      * Adds a listener for receiving any notification for changes in the list of installed applications
      * on a device.
      *
-     * @deprecated 2.4 Instead, use `tizen.package.setPackageInfoEventListener()`
+     * @note `deprecated` 2.4 Instead, use `tizen.package.setPackageInfoEventListener()`
      *
      * It installs a callback that is triggered every time a change occurs on
      * the list of installed applications on a device. This change may
@@ -454,7 +454,7 @@ declare interface ApplicationManager {
     /**
      * Removes the listener to stop receiving notifications for changes on the list of installed applications on a device.
      *
-     * @deprecated 2.4 Instead, use `tizen.package.unsetPackageInfoEventListener()`
+     * @note `deprecated` 2.4 Instead, use `tizen.package.unsetPackageInfoEventListener()`
      *
      *
      * @param watchId An ID that identifies the listener

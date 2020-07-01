@@ -78,7 +78,7 @@ declare interface SystemInfoManager {
     /**
      * Gets the capabilities of the device.
      * The function must synchronously acquire the capabilities of the device.
-     * @deprecated 2.3 Deprecated since 2.3. Instead, use `getCapability()`.
+     * @note `deprecated` 2.3 Deprecated since 2.3. Instead, use `getCapability()`.
      *
      * @since 2.0
      * @returns Capabilities of the device.
@@ -250,7 +250,7 @@ declare interface SystemInfoManager {
 /**
  * SystemInfoDeviceCapability object.
  *
- * @deprecated 2.3 Deprecated since 2.3. Instead, use `getCapability()` to query device capabilities.
+ * @note `deprecated` 2.3 Deprecated since 2.3. Instead, use `getCapability()` to query device capabilities.
  *
  * @since 2.0
  */
@@ -804,8 +804,8 @@ type SystemInfoNetworkIpModeUnion = SystemInfoNetworkIpMode | 'NONE' | 'STATIC' 
  * @since 2.2
  *
  * @remark ***MOBILE***, ***WEARABLE*** and ***TV*** are supported since Tizen 2.3.
- * @deprecatedenum 2.3 MOBILE_WEB
- * @deprecatedenum 2.3 MOBILE_FULL MOBILE_FULL and MOBILE_WEB are deprecated since 2.3. Beginning with Tizen 2.3, MOBILE is returned instead.
+ * @note `deprecatedenum` 2.3 MOBILE_WEB
+ * @note `deprecatedenum` 2.3 MOBILE_FULL MOBILE_FULL and MOBILE_WEB are deprecated since 2.3. Beginning with Tizen 2.3, MOBILE is returned instead.
  */
 declare const enum SystemInfoProfile {
     MOBILE_FULL = 'MOBILE_FULL',
@@ -1123,7 +1123,7 @@ interface SystemInfoStorageUnit extends SystemInfoProperty {
     /**
      * True if this unit can be removed from the system (such as an sdcard unplugged), false otherwise.
      *
-     * @deprecated 2.1 Deprecated since 2.1. Instead, use `isRemovable`.
+     * @note `deprecated` 2.1 Deprecated since 2.1. Instead, use `isRemovable`.
      */
     readonly isRemoveable: boolean;
 }
