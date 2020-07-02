@@ -3,6 +3,7 @@
 // Definitions by: Lluis <https://github.com/lluia>
 //                 Iain <https://github.com/iaincollins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
 
 import { ConnectionOptions } from 'typeorm';
 import { NextApiRequest, NextApiResponse } from 'next';
