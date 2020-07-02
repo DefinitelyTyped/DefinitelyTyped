@@ -34,6 +34,15 @@ declare module 'twit' {
             }
 
             /**
+             * @see https://developer.twitter.com/en/docs/tweets/enrichments/overview/matching-rules
+             */
+            export interface MatchingRules {
+                tag: null;
+                id: number;
+                id_str: string;
+            }
+
+            /**
              * @see https://dev.twitter.com/overview/api/entities
              */
             export interface HashtagEntity {
@@ -200,7 +209,9 @@ declare module 'twit' {
                 in_reply_to_status_id_str?: string;
                 in_reply_to_user_id?: number;
                 in_reply_to_user_id_str?: string;
+                is_quote_status: string;
                 lang?: string;
+                matching_rules?: MatchingRules[];
                 place?: Place;
                 possibly_sensitive?: boolean;
                 quoted_status_id?: number;
