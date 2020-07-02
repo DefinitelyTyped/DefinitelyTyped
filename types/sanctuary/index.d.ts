@@ -178,8 +178,8 @@ declare namespace Sanctuary {
     // Pair
     Pair<A>(a: A): <B>(b: B) => Pair<A, B>;
     pair<A, B, C>(f: Fn2<A, B, C>): (p: Pair<A, B>) => C;
-    fst<A,B>(p: Pair<A, B>): A;
-    snd<A,B>(p: Pair<A, B>): B;
+    fst<A, B>(p: Pair<A, B>): A;
+    snd<A, B>(p: Pair<A, B>): B;
     swap<A, B>(p: Pair<A, B>): Pair<B, A>;
     //  Function
     curry2<A, B, C>(f: Fn2_<A, B, C>): Fn2<A, B, C>;
