@@ -78,6 +78,19 @@ declare module 'twit' {
                 name: string;
                 screen_name: string;
             }
+            export interface SymbolEntity {
+                indices: number[];
+                text: string;
+            }
+            export interface PollOptions {
+                position: number;
+                text: string;
+            }
+            export interface PollEntity {
+                options: PollOptions[];
+                end_datetime: string;
+                duration_minutes: string;
+            }
             export interface Entities {
                 hashtags: HashtagEntity[];
                 media: MediaEntity[];
