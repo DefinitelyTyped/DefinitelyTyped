@@ -4017,6 +4017,7 @@ declare namespace chrome.input.ime {
     export interface AssistiveWindowProperties {
       type: AssistiveWindowType;
       visible: boolean;
+      announceString?: string;
     }
 
     export interface CandidateWindowParameterProperties {
