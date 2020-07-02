@@ -96,6 +96,8 @@ declare module 'twit' {
                 media: MediaEntity[];
                 urls: UrlEntity[];
                 user_mentions: UserMentionEntity[];
+                symbols: SymbolEntity[];
+                polls: PollEntity[];
             }
 
             /**
