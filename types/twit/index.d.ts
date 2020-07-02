@@ -180,7 +180,6 @@ declare module 'twit' {
                 favorite_count?: number;
                 favorited?: boolean;
                 filter_level: 'none' | 'low' | 'medium';
-                geo?: Object;
                 in_reply_to_screen_name?: string;
                 in_reply_to_status_id?: number;
                 in_reply_to_status_id_str?: string;
