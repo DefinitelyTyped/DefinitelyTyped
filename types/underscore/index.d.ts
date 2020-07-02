@@ -4607,12 +4607,12 @@ declare module _ {
         /**
         * @see _.findIndex
         **/
-        findIndex<T>(array: _.List<T>, predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
+        findIndex(predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
 
         /**
         * @see _.findLastIndex
         **/
-        findLastIndex<T>(array: _.List<T>, predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
+        findLastIndex(predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
 
         /**
         * Wrapped type `any[]`.
@@ -5568,12 +5568,12 @@ declare module _ {
         /**
         * @see _.findIndex
         **/
-        findIndex<T>(predicate: _.ListIterator<T, boolean> | {}, context?: any): _ChainSingle<number>;
+        findIndex(predicate: _.ListIterator<T, boolean> | {}, context?: any): _ChainSingle<number>;
 
         /**
         * @see _.findLastIndex
         **/
-        findLastIndex<T>(predicate: _.ListIterator<T, boolean> | {}, context?: any): _ChainSingle<number>;
+        findLastIndex(predicate: _.ListIterator<T, boolean> | {}, context?: any): _ChainSingle<number>;
 
         /**
         * Wrapped type `any[]`.
