@@ -10,6 +10,8 @@ t.post('statuses/update', { status: 'hello!' }).then(res => {
     const status = res.data as Twit.Twitter.Status;
     console.log(status.id_str);
     console.log(res.resp.statusCode);
+    console.log(status.is_quote_status);
+    console.log(status.entities);
 });
 
 t.stream('statuses/filter', {
