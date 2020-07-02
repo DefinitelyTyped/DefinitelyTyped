@@ -88,7 +88,7 @@ declare module 'twit' {
                 screen_name: string;
             }
             export interface SymbolEntity {
-                indices: number[];
+                indices: [number, number];
                 text: string;
             }
             export interface PollOptions {
@@ -200,10 +200,12 @@ declare module 'twit' {
                     id: number;
                     id_str: string;
                 };
+                display_text_range?: [number, number];
                 entities: Entities;
                 favorite_count?: number;
                 favorited?: boolean;
                 filter_level: 'none' | 'low' | 'medium';
+                full_text?: string;
                 in_reply_to_screen_name?: string;
                 in_reply_to_status_id?: number;
                 in_reply_to_status_id_str?: string;
@@ -217,19 +219,17 @@ declare module 'twit' {
                 quoted_status_id?: number;
                 quoted_status_id_str?: string;
                 quoted_status?: Status;
-                scopes?: Object;
                 retweet_count: number;
                 retweeted: boolean;
                 retweeted_status?: Status;
+                scopes?: Object;
                 source?: string;
                 text?: string;
-                full_text?: string;
                 truncated: boolean;
                 user: User;
                 withheld_copyright?: boolean;
                 withheld_in_countries?: string[];
                 withheld_scope?: string;
-                display_text_range?: [number, number];
             }
             export interface Metadata {
                 max_id?: number;
