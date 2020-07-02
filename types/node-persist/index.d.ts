@@ -1,4 +1,4 @@
-// Type definitions for node-persist 3.0
+// Type definitions for node-persist 3.1.0
 // Project: https://github.com/simonlast/node-persist
 // Definitions by: Spencer Williams <https://github.com/spencerwi>,
 //                 Samuel Elliott <https://github.com/samuelthomas2774>
