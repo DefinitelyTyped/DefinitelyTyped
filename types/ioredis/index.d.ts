@@ -1400,6 +1400,8 @@ declare namespace IORedis {
     type Ok = 'OK';
 
     interface Cluster extends EventEmitter, Commander, Commands {
+        options: ClusterOptions;
+        status: string;
         connect(): Promise<void>;
         disconnect(): void;
         nodes(role?: NodeRole): Redis[];

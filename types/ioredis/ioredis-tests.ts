@@ -661,4 +661,7 @@ redis.pipeline()
         // do something with res or err
     });
 
-const { port, host } =  redis.options;
+redis.options.host;
+redis.status;
+cluster.options.maxRedirections;
+cluster.status;
