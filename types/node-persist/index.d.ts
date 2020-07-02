@@ -16,7 +16,7 @@ declare namespace NodePersist {
         stringify?: (data: any) => string;
         parse?: (str: string) => any;
         encoding?: BufferEncoding;
-        logging?: boolean;
+        logging?: ((...args: any[]) => void) | boolean;
         expiredInterval?: Milliseconds;
         forgiveParseErrors?: boolean;
         ttl?: Milliseconds;
