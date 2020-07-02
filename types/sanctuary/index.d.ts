@@ -13,9 +13,7 @@ export as namespace S;
 type Nullable<A> = A | null;
 
 interface Pair<A, B> {
-  constructor: {
-    '@@type': 'sanctuary/Pair';
-  };
+  '@@type': 'sanctuary/Pair';
 }
 
 type Thunk<A> = () => A;
@@ -35,15 +33,11 @@ type Predicate<A> = (a: A) => boolean;
 interface StrMap<A> { [k: string]: A; }
 
 interface Maybe<A> {
-  constructor: {
-    '@@type': 'sanctuary/Maybe';
-  };
+  '@@type': 'sanctuary/Maybe';
 }
 
 interface Either<A, B> {
-  constructor: {
-    '@@type': 'sanctuary/Either';
-  };
+  '@@type': 'sanctuary/Either';
 }
 
 type ValidNumber            = number;
@@ -184,8 +178,8 @@ declare namespace Sanctuary {
     // Pair
     Pair<A>(a: A): <B>(b: B) => Pair<A, B>;
     pair<A, B, C>(f: Fn2<A, B, C>): (p: Pair<A, B>) => C;
-    fst<A>(p: Pair<A, any>): A;
-    snd<B>(p: Pair<any, B>): B;
+    fst<A>(p: Pair<A, B>): A;
+    snd<B>(p: Pair<A, B>): B;
     swap<A, B>(p: Pair<A, B>): Pair<B, A>;
     //  Function
     curry2<A, B, C>(f: Fn2_<A, B, C>): Fn2<A, B, C>;
