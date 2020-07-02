@@ -1096,6 +1096,12 @@ declare namespace NodeJS {
         loaded: boolean;
         parent: Module | null;
         children: Module[];
+        /**
+         * @since 11.14.0
+         *
+         * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
+         */
+        path: string;
         paths: string[];
     }
 
