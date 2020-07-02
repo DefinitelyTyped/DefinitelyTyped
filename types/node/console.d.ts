@@ -1,4 +1,6 @@
 declare module "console" {
+    import { InspectOptions } from 'util';
+
     global {
         // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
         interface Console {
@@ -30,7 +32,7 @@ declare module "console" {
              * Uses {@link util.inspect()} on `obj` and prints the resulting string to `stdout`.
              * This function bypasses any custom `inspect()` function defined on `obj`.
              */
-            dir(obj: any, options?: NodeJS.InspectOptions): void;
+            dir(obj: any, options?: InspectOptions): void;
             /**
              * This method calls {@link console.log()} passing it the arguments received. Please note that this method does not produce any XML formatting
              */
