@@ -1,12 +1,14 @@
 import * as React from 'react';
+import { View, TextInput } from 'react-native';
 
 import CalendarPicker, {
     DateChangedCallback,
     SwipeCallback,
     CustomDateStyle,
     DisabledDatesFunc,
+    CustomDatesStylesFunc,
+    CustomDayHeaderStylesFunc,
 } from 'react-native-calendar-picker';
-import { View, TextInput } from 'react-native';
 
 const TestSimpleProps = () => (
     <CalendarPicker
@@ -102,6 +104,46 @@ const TestCustomDateStyle = () => {
     ];
 
     return <CalendarPicker customDatesStyles={customStyles} customDatesStylesPriority="customDates" />;
+};
+
+const TestCustomDateFuncs = () => {
+    const customDatesStylesFn: CustomDatesStylesFunc = (date) => {
+        if (date.weekday() === 0) {
+            return {
+                containerStyle: {
+                    backgroundColor: "red"
+                },
+                textStyle: {
+                    color: "black"
+                }
+            };
+        } else {
+            return {
+                containerStyle: {
+                    backgroundColor: "white"
+                },
+                style: {
+                    alignContent: "center",
+                },
+                textStyle: {
+                    color: "black"
+                }
+            };
+        }
+    };
+
+    const customDayHeaderStylesFn: CustomDayHeaderStylesFunc = (date: {
+        dayOfWeek: number;
+        year: number;
+        month: number
+    }) => {
+        return {
+            textStyle: {
+                color: date.year === 2020 ? "red" : "blue"
+            }
+        };
+    };
+    return <CalendarPicker customDatesStyles={customDatesStylesFn} customDayHeaderStyles={customDayHeaderStylesFn} />;
 };
 
 const TestCallbacks = () => {
