@@ -1,6 +1,6 @@
-import cxs from 'cxs';
-import cxsComponent from 'cxs/component';
 import * as React from 'react';
+const cxsComponent = require('./component');
+const cxs = require('./index');
 
 /**
  * Standard calls to cxs to generate classNames
@@ -11,15 +11,13 @@ cxs({
         color: 'green',
     },
 
-    // @ts-expect-error
-    borderWidth: () => {},
+    borderWidth: () => {}, // $ExpectError
 });
 
 cxsComponent('div')({
     fontSize: 24,
 
-    // @ts-expect-error
-    content: {},
+    content: {}, // $ExpectError
 });
 
 /** React component composition */
@@ -29,8 +27,7 @@ cxsComponent(ComponentA)({
     fontSize: 72,
 });
 
-// @ts-expect-error
-cxsComponent(ComponentA)(true);
+cxsComponent(ComponentA)(true); // $ExpectError
 
 /** React composition with props callback */
 type Props = {
@@ -39,6 +36,6 @@ type Props = {
 
 const ComponentB = (props: Props) => React.createElement('div');
 
-cxsComponent(ComponentB)(props => ({
+cxsComponent(ComponentB)((props: Props) => ({
     color: props.isActive ? 'blue' : 'purple',
 }));

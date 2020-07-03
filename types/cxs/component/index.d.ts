@@ -1,9 +1,5 @@
-// Type definitions for cxs 6.2
-// Project: https://github.com/cxs-css/cxs
-// Definitions by: Daniel Eden <https://github.com/daneden>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { CSSObject } from 'cxs';
 import * as React from 'react';
+import { CSSObject } from '../index';
 
 type ApparentComponentProps<
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,4 +20,4 @@ declare const cxsComponent: {
     ): (arg: CSSObject | ((arg: PropsType) => CSSObject)) => React.JSXElementConstructor<PropsType>;
 };
 
-export default cxsComponent;
+export = cxsComponent;
