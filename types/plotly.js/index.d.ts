@@ -489,14 +489,51 @@ export interface TickFormatStop {
 }
 
 export interface Axis {
+    /**
+     * A single toggle to hide the axis while preserving interaction like dragging.
+     * Default is true when a cheater plot is present on the axis, otherwise
+     * false
+     */
     visible: boolean;
+    /**
+     * Sets default for all colors associated with this axis
+     * all at once: line, font, tick, and grid colors.
+     * Grid color is lightened by blending this with the plot background
+     * Individual pieces can override this.
+     */
     color: Color;
+    /**
+     * title as string are @deprecated
+     */
     title: string | Partial<DataTitle>;
+    /**
+     * @deprecated
+     * Former `titlefont` is now the sub-attribute `font` of `title`.
+     * To customize title font properties, please use `title.font` now.
+     */
     titlefont: Partial<Font>;
     type: AxisType;
     autorange: true | false | 'reversed';
+    /**
+     * 'If *normal*, the range is computed in relation to the extrema
+     * of the input data.
+     * If *tozero*`, the range extends to 0,
+     * regardless of the input data
+     * If *nonnegative*, the range is non-negative,
+     * regardless of the input data.
+     * Applies only to linear axes.
+     */
     rangemode: 'normal' | 'tozero' | 'nonnegative';
     range: any[];
+    /**
+     * Determines whether or not this axis is zoom-able.
+     * If true, then zoom is disabled.
+     */
+    fixedrange: boolean;
+
+    /**
+     * Ticks
+     */
     tickmode: 'auto' | 'linear' | 'array';
     nticks: number;
     tick0: number | string;
@@ -512,6 +549,18 @@ export interface Axis {
     showspikes: boolean;
     spikecolor: Color;
     spikethickness: number;
+    /**
+     * Specifies the ordering logic for the case of categorical variables.
+     * By default, plotly uses *trace*, which specifies the order that is present in the data supplied.
+     * Set `categoryorder` to *category ascending* or *category descending* if order should be determined by
+     * the alphanumerical order of the category names.
+     * Set `categoryorder` to *array* to derive the ordering from the attribute `categoryarray`. If a category
+     * is not found in the `categoryarray` array, the sorting behavior for that attribute will be identical to
+     * the *trace* mode. The unspecified categories will follow the categories in `categoryarray`.
+     * Set `categoryorder` to *total ascending* or *total descending* if order should be determined by the
+     * numerical order of the values.
+     * Similarly, the order can be determined by the min, max, sum, mean or median of all the values.
+     */
     categoryorder:
         | 'trace'
         | 'category ascending'
@@ -533,11 +582,42 @@ export interface Axis {
     tickfont: Partial<Font>;
     tickangle: number;
     tickprefix: string;
+    /**
+     * If `all`, all tick labels are displayed with a prefix.
+     * If `first`, only the first tick is displayed with a prefix.
+     * If `last`, only the last tick is displayed with a suffix.
+     * If `none`, tick prefixes are hidden.
+     */
     showtickprefix: 'all' | 'first' | 'last' | 'none';
+    /**
+     * Sets a tick label suffix.
+     */
     ticksuffix: string;
+    /**
+     * Same as `showtickprefix` but for tick suffixes.
+     */
     showticksuffix: 'all' | 'first' | 'last' | 'none';
+    /**
+     * If `all`, all exponents are shown besides their significands.
+     * If `first`, only the exponent of the first tick is shown.
+     * If `last`, only the exponent of the last tick is shown.
+     * If `none`, no exponents appear.
+     */
     showexponent: 'all' | 'first' | 'last' | 'none';
+    /**
+     * Determines a formatting rule for the tick exponents.
+     * For example, consider the number 1,000,000,000.
+     * If `none`, it appears as *1,000,000,000*.
+     * If `e`, *1e+9*.
+     * If `E`, *1E+9*.
+     * If `power`, *1x10^9* (with 9 in a super script).
+     * If `SI`, *1G*.
+     * If `B`, *1B*.
+     */
     exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B';
+    /**
+     * 'If `true`, even 4-digit integers are separated
+     */
     separatethousands: boolean;
     /**
      * Sets the tick label formatting rule using d3 formatting mini-languages
@@ -557,20 +637,93 @@ export interface Axis {
      * For example, `"2016-10-13 09:15:23.456"` with tickformat `"%H~%M~%S.%2f"` would display "09~15~23.46"
      */
     hoverformat: string;
-    showline: boolean;
-    linecolor: Color;
-    linewidth: number;
-    showgrid: boolean;
-    gridcolor: Color;
-    gridwidth: number;
-    zeroline: boolean;
-    zerolinecolor: Color;
-    zerolinewidth: number;
     calendar: Calendar;
     /**
      * Array of `Partial<TickFormatStop>` objects.
      */
     tickformatstops: Array<Partial<TickFormatStop>>;
+    spikedash: string;
+    /**
+     * Determines the drawing mode for the spike line.
+     * If `toaxis`, the line is drawn from the data point to the axis the
+     * series is plotted on.
+     * If `across`, the line is drawn across the entire plot area, and
+     * supercedes *toaxis*.
+     * If `marker`, then a marker dot is drawn on the axis the series is
+     * plotted on
+     */
+    spikemode:
+        | 'toaxis'
+        | 'across'
+        | 'marker'
+        | 'toaxis+across'
+        | 'toaxis+across+marker'
+        | 'across+marker'
+        | 'toaxis+marker';
+    /**
+     * Determines whether spikelines are stuck to the cursor or to the closest datapoints.
+     */
+    spikesnap: 'data' | 'cursor' | 'hovered data';
+
+    /**
+     * Lines and Grids
+     */
+
+    /**
+     * Determines whether or not a line bounding this axis is drawn.
+     */
+    showline: boolean;
+    /**
+     * Sets the axis line color
+     */
+    linecolor: Color;
+    /**
+     * Sets the width (in px) of the axis line.
+     */
+    linewidth: number;
+    /**
+     * Determines whether or not grid lines are drawn.
+     * If `true`, the grid lines are drawn at every tick mark.
+     */
+    showgrid: boolean;
+    /**
+     * Sets the color of the grid lines.
+     */
+    gridcolor: Color;
+    /**
+     * Sets the width (in px) of the grid lines.
+     */
+    gridwidth: number;
+    /**
+     * Determines whether or not a line is drawn at along the 0 value
+     * of this axis.
+     * If `true`, the zero line is drawn on top of the grid lines.
+     */
+    zeroline: boolean;
+    /**
+     * Sets the line color of the zero line.
+     */
+    zerolinecolor: Color;
+    /**
+     * Sets the width (in px) of the zero line.
+     */
+    zerolinewidth: number;
+    /**
+     * Determines whether or not a dividers are drawn
+     * between the category levels of this axis.
+     * Only has an effect on *multicategory* axes.
+     */
+    showdividers: boolean;
+    /**
+     * Sets the color of the dividers
+     * Only has an effect on *multicategory* axes.
+     */
+    dividercolor: Color;
+    /**
+     * Sets the width (in px) of the dividers
+     * Only has an effect on *multicategory* axes.
+     */
+    dividerwidth: number;
 }
 
 export type Calendar =
@@ -617,8 +770,6 @@ export interface LayoutAxis extends Axis {
     scaleratio: number;
     constrain: 'range' | 'domain';
     constraintoward: 'left' | 'center' | 'right' | 'top' | 'middle' | 'bottom';
-    spikedash: string;
-    spikemode: string;
     anchor: 'free' | AxisName;
     side: 'top' | 'bottom' | 'left' | 'right' | 'clockwise' | 'counterclockwise';
     overlaying: 'free' | AxisName;
@@ -628,6 +779,9 @@ export interface LayoutAxis extends Axis {
     rangeslider: Partial<RangeSlider>;
     rangeselector: Partial<RangeSelector>;
     automargin: boolean;
+    /**
+     * @deprecated
+     */
     autotick: boolean;
     angle: any;
 }
