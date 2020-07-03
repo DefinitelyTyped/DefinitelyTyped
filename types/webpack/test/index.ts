@@ -1234,3 +1234,13 @@ compiler.hooks.compilation.tap('SomePlugin', compilation => {
     stats.normalizeFieldKey('field'); // $ExpectType string
     stats.sortOrderRegular('!field'); // $ExpectType boolean
 });
+
+const config1: webpack.ConfigurationFactory = (env) => {
+    env; // $ExpectType string | Record<string, string | number | boolean> | undefined
+    return {};
+};
+
+const config2: webpack.MultiConfigurationFactory = (env) => {
+    env; // $ExpectType string | Record<string, string | number | boolean> | undefined
+    return [];
+};
