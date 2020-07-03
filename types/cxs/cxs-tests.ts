@@ -24,9 +24,9 @@ cxsComponent(ComponentA)({
 });
 
 /** React composition with props callback */
-type Props = {
+interface Props {
     isActive: boolean;
-};
+}
 
 const ComponentB = (props: Props) => React.createElement('div');
 
