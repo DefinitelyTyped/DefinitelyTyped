@@ -107,27 +107,27 @@ const TestCustomDateStyle = () => {
 };
 
 const TestCustomDateFuncs = () => {
-    const customDatesStylesFn: CustomDatesStylesFunc = (date) => {
+    const customDatesStylesFn: CustomDatesStylesFunc = date => {
         if (date.weekday() === 0) {
             return {
                 containerStyle: {
-                    backgroundColor: "red"
+                    backgroundColor: 'red',
                 },
                 textStyle: {
-                    color: "black"
-                }
+                    color: 'black',
+                },
             };
         } else {
             return {
                 containerStyle: {
-                    backgroundColor: "white"
+                    backgroundColor: 'white',
                 },
                 style: {
-                    alignContent: "center",
+                    alignContent: 'center',
                 },
                 textStyle: {
-                    color: "black"
-                }
+                    color: 'black',
+                },
             };
         }
     };
@@ -135,12 +135,15 @@ const TestCustomDateFuncs = () => {
     const customDayHeaderStylesFn: CustomDayHeaderStylesFunc = (date: {
         dayOfWeek: number;
         year: number;
-        month: number
+        month: number;
     }) => {
         return {
             textStyle: {
-                color: date.year === 2020 ? "red" : "blue"
-            }
+                color: date.year === 2020 ? 'red' : 'blue',
+            },
+            style: {
+                backgroundColor: 'yellow',
+            },
         };
     };
     return <CalendarPicker customDatesStyles={customDatesStylesFn} customDayHeaderStyles={customDayHeaderStylesFn} />;
@@ -203,5 +206,5 @@ const TestSwipe = () => {
 };
 
 const TestCustomComponents = () => {
-    return (<CalendarPicker nextComponent={<View></View>} previousComponent={[<TextInput />]} />);
+    return <CalendarPicker nextComponent={<View></View>} previousComponent={[<TextInput />]} />;
 };

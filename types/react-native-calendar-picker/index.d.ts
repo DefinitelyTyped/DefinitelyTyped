@@ -40,6 +40,10 @@ export interface CalendarPickerProps {
     todayTextStyle?: StyleProp<TextStyle>;
     textStyle?: StyleProp<TextStyle>;
     customDatesStyles?: CustomDateStyle[] | CustomDatesStylesFunc;
+    /**
+     * @deprecated Use customDatesStyles & customDayHeaderStyles callbacks to style individual dates, days of week, and/or header.
+     */
+
     customDatesStylesPriority?: 'dayOfWeek' | 'customDates';
     scaleFactor?: number;
     minDate?: Date;
@@ -62,7 +66,7 @@ export interface CalendarPickerProps {
     nextComponent?: React.ReactNode;
     dayLabelsWrapper?: StyleProp<ViewStyle>;
     /**
-     * @deprecated dayOfWeekStyles is deprecated. Use customDatesStyles / customDayHeaderStyles callbacks instead
+     * @deprecated Use customDatesStyles & customDayHeaderStyles callbacks to style individual dates, days of week, and/or header.
      */
     dayOfWeekStyles?: DayOfWeekStyle;
     monthYearHeaderWrapperStyle?: StyleProp<ViewStyle>;
@@ -75,16 +79,21 @@ export type DayOfWeekStyle = {
 
 export type DisabledDatesFunc = (date: Moment) => boolean;
 
-export type CustomDatesStylesFunc = (date: Moment) => {
-    containerStyle: ViewStyle, 
-    style?: ViewStyle, 
-    textStyle: TextStyle
-}; 
+export type CustomDatesStylesFunc = (
+    date: Moment,
+) => {
+    containerStyle: ViewStyle;
+    style?: ViewStyle;
+    textStyle: TextStyle;
+};
 
-export type CustomDayHeaderStylesFuncDateArg = {dayOfWeek: number, month: number, year: number};
-export type CustomDayHeaderStylesFunc = (date: CustomDayHeaderStylesFuncDateArg) => {
-    textStyle: TextStyle
-}
+export type CustomDayHeaderStylesFuncDateArg = { dayOfWeek: number; month: number; year: number };
+export type CustomDayHeaderStylesFunc = (
+    date: CustomDayHeaderStylesFuncDateArg,
+) => {
+    textStyle: TextStyle;
+    style: ViewStyle;
+};
 
 export type MomentParsable = MomentInput;
 
