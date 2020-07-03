@@ -1,6 +1,6 @@
 import * as React from 'react';
-import cxsComponent = require('./component');
-import cxs = require('./index');
+import cxsComponent = require('cxs/component');
+import cxs = require('cxs');
 
 /**
  * Standard calls to cxs to generate classNames
