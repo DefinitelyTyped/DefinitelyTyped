@@ -83,16 +83,16 @@ declare namespace introJs {
         oncomplete(callback: Function): IntroJs;
         
         /**
-		 * @link https://introjs.com/docs/intro/api/#introjsaddstepoptions
-		 * @param {Step} options
-		 */
-		addStep(options: Step): IntroJs;
+         * @link https://introjs.com/docs/intro/api/#introjsaddstepoptions
+         * @param {Step} options
+         */
+        addStep(options: Step): IntroJs;
         
         /**
-		 * @link https://introjs.com/docs/intro/api/#introjsaddstepssteps
-		 * @param {Step[]} steps
-		 */
-		addSteps(steps: Step[]): IntroJs;
+         * @link https://introjs.com/docs/intro/api/#introjsaddstepssteps
+         * @param {Step[]} steps
+         */
+        addSteps(steps: Step[]): IntroJs;
 
         addHints(): IntroJs;
         showHint(stepId: number): IntroJs;
