@@ -676,7 +676,7 @@ declare module _ {
          **/
         groupBy<V extends Collection<any>>(
             collection: V,
-            iteratee: Iteratee<V, string | number>,
+            iteratee: Iteratee<V, any>,
             context?: any): Dictionary<TypeOfCollection<V>[]>;
 
         /**
@@ -4350,7 +4350,7 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection.
          **/
-        groupBy(iteratee: Iteratee<V, string | number>, context?: any): Dictionary<T[]>;
+        groupBy(iteratee: Iteratee<V, any>, context?: any): Dictionary<T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5299,7 +5299,7 @@ declare module _ {
          * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection
          * in a chain wrapper.
          **/
-        groupBy(iterator: Iteratee<V, string | number>, context?: any): _Chain<T[], Dictionary<T[]>>;
+        groupBy(iterator: Iteratee<V, any>, context?: any): _Chain<T[], Dictionary<T[]>>;
 
         /**
         * Wrapped type `any[]`.
