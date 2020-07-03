@@ -84,13 +84,11 @@ declare namespace introJs {
         
         /**
          * @link https://introjs.com/docs/intro/api/#introjsaddstepoptions
-         * @param {Step} options
          */
         addStep(options: Step): IntroJs;
         
         /**
          * @link https://introjs.com/docs/intro/api/#introjsaddstepssteps
-         * @param {Step[]} steps
          */
         addSteps(steps: Step[]): IntroJs;
 
