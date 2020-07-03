@@ -447,7 +447,7 @@ export interface Legend extends Label {
     yanchor: 'auto' | 'top' | 'middle' | 'bottom';
 }
 
-export type AxisType = '-' | 'linear' | 'log' | 'date' | 'category';
+export type AxisType = '-' | 'linear' | 'log' | 'date' | 'category' | 'multicategory';
 
 export type DTickValue = number | string;
 
