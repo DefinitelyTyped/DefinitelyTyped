@@ -749,6 +749,7 @@ const simpleStringList: _.List<string> = { 0: 'a', 1: 'c', length: 2 };
 const simpleNumber = 7;
 
 declare const mixedIterabilityValue: number | number[];
+declare const anyValue: any;
 
 // avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
 // the types under test need to be refactored
@@ -825,7 +826,7 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(simpleString).collect(stringListValueIterator)); // $ExpectType ChainType<number[], number>
     extractChainTypes(_.chain(simpleString).collect(stringListValueIterator, context)); // $ExpectType ChainType<number[], number>
 
-    // partial object iterator with a non-nullable single type
+    // partial object iterator
     _.map(stringRecordArray, partialStringRecord); // $ExpectType boolean[]
     _(stringRecordArray).map(partialStringRecord); // $ExpectType boolean[]
     extractChainTypes(_.chain(stringRecordArray).map(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
@@ -847,79 +848,8 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(stringRecordDictionary).collect(partialStringRecord); // $ExpectType boolean[]
     extractChainTypes(_.chain(stringRecordDictionary).collect(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
 
-    // partial object iterator with a non-nullable intersecting type union
-    _.map(intersectingObjectPropertiesArray, partialStringRecord); // $ExpectType boolean[]
-    _(intersectingObjectPropertiesArray).map(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(intersectingObjectPropertiesArray).map(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-    _.collect(intersectingObjectPropertiesArray, partialStringRecord); // $ExpectType boolean[]
-    _(intersectingObjectPropertiesArray).collect(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(intersectingObjectPropertiesArray).collect(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-
-    _.map(intersectingObjectPropertiesList, partialStringRecord); // $ExpectType boolean[]
-    _(intersectingObjectPropertiesList).map(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(intersectingObjectPropertiesList).map(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-    _.collect(intersectingObjectPropertiesList, partialStringRecord); // $ExpectType boolean[]
-    _(intersectingObjectPropertiesList).collect(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(intersectingObjectPropertiesList).collect(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-
-    _.map(intersectingObjectPropertiesDictionary, partialStringRecord); // $ExpectType boolean[]
-    _(intersectingObjectPropertiesDictionary).map(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(intersectingObjectPropertiesDictionary).map(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-    _.collect(intersectingObjectPropertiesDictionary, partialStringRecord); // $ExpectType boolean[]
-    _(intersectingObjectPropertiesDictionary).collect(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(intersectingObjectPropertiesDictionary).collect(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-
-    // partial object iterator with a nullable type union
-    _.map(stringRecordOrUndefinedArray, partialStringRecord); // $ExpectType boolean[]
-    _(stringRecordOrUndefinedArray).map(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(stringRecordOrUndefinedArray).map(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-    _.collect(stringRecordOrUndefinedArray, partialStringRecord); // $ExpectType boolean[]
-    _(stringRecordOrUndefinedArray).collect(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(stringRecordOrUndefinedArray).collect(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-
-    _.map(stringRecordOrUndefinedList, partialStringRecord); // $ExpectType boolean[]
-    _(stringRecordOrUndefinedList).map(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(stringRecordOrUndefinedList).map(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-    _.collect(stringRecordOrUndefinedList, partialStringRecord); // $ExpectType boolean[]
-    _(stringRecordOrUndefinedList).collect(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(stringRecordOrUndefinedList).collect(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-
-    _.map(stringRecordOrUndefinedDictionary, partialStringRecord); // $ExpectType boolean[]
-    _(stringRecordOrUndefinedDictionary).map(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(stringRecordOrUndefinedDictionary).map(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-    _.collect(stringRecordOrUndefinedDictionary, partialStringRecord); // $ExpectType boolean[]
-    _(stringRecordOrUndefinedDictionary).collect(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(stringRecordOrUndefinedDictionary).collect(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-
-    // partial object iterator with a non-nullable non-intersecting type union
-    _.map(nonIntersectingPropertiesArray, partialStringRecord); // $ExpectType boolean[]
-    _(nonIntersectingPropertiesArray).map(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(nonIntersectingPropertiesArray).map(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-    _.collect(nonIntersectingPropertiesArray, partialStringRecord); // $ExpectType boolean[]
-    _(nonIntersectingPropertiesArray).collect(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(nonIntersectingPropertiesArray).collect(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-
-    _.map(nonIntersectingPropertiesList, partialStringRecord); // $ExpectType boolean[]
-    _(nonIntersectingPropertiesList).map(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(nonIntersectingPropertiesList).map(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-    _.collect(nonIntersectingPropertiesList, partialStringRecord); // $ExpectType boolean[]
-    _(nonIntersectingPropertiesList).collect(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(nonIntersectingPropertiesList).collect(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-
-    _.map(nonIntersectingPropertiesDictionary, partialStringRecord); // $ExpectType boolean[]
-    _(nonIntersectingPropertiesDictionary).map(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(nonIntersectingPropertiesDictionary).map(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-    _.collect(nonIntersectingPropertiesDictionary, partialStringRecord); // $ExpectType boolean[]
-    _(nonIntersectingPropertiesDictionary).collect(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(nonIntersectingPropertiesDictionary).collect(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-
     // partial object iterator with type any (see #33479)
-    _.map(stringRecordArray as any, partialStringRecord); // $ExpectType boolean[]
-    _(stringRecordArray as any).map(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(stringRecordArray as any).map(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
-    _.collect(stringRecordArray as any, partialStringRecord); // $ExpectType boolean[]
-    _(stringRecordArray as any).collect(partialStringRecord); // $ExpectType boolean[]
-    extractChainTypes(_.chain(stringRecordArray as any).collect(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
+    _.map(anyValue, partialStringRecord); // $ExpectType boolean[]
 
     // property name iterator with a non-nullable single type
     _.map(stringRecordArray, stringRecordProperty); // $ExpectType string[]
@@ -943,81 +873,11 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(stringRecordDictionary).collect(stringRecordProperty); // $ExpectType string[]
     extractChainTypes(_.chain(stringRecordDictionary).collect(stringRecordProperty)); // $ExpectType ChainType<string[], string>
 
-    // property name iterator with a non-nullable intersecting type union
-    _.map(intersectingObjectPropertiesArray, stringRecordProperty); // $ExpectType (string | boolean)[]
-    _(intersectingObjectPropertiesArray).map(stringRecordProperty); // $ExpectType (string | boolean)[]
-    extractChainTypes(_.chain(intersectingObjectPropertiesArray).map(stringRecordProperty)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
-    _.collect(intersectingObjectPropertiesArray, stringRecordProperty); // $ExpectType (string | boolean)[]
-    _(intersectingObjectPropertiesArray).collect(stringRecordProperty); // $ExpectType (string | boolean)[]
-    extractChainTypes(_.chain(intersectingObjectPropertiesArray).collect(stringRecordProperty)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
-
+    // property name iterator with other list types
+    _.map(stringRecordOrUndefinedList, stringRecordProperty); // $ExpectType any[]
     _.map(intersectingObjectPropertiesList, stringRecordProperty); // $ExpectType (string | boolean)[]
-    _(intersectingObjectPropertiesList).map(stringRecordProperty); // $ExpectType (string | boolean)[]
-    extractChainTypes(_.chain(intersectingObjectPropertiesList).map(stringRecordProperty)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
-    _.collect(intersectingObjectPropertiesList, stringRecordProperty); // $ExpectType (string | boolean)[]
-    _(intersectingObjectPropertiesList).collect(stringRecordProperty); // $ExpectType (string | boolean)[]
-    extractChainTypes(_.chain(intersectingObjectPropertiesList).collect(stringRecordProperty)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
-
-    _.map(intersectingObjectPropertiesDictionary, stringRecordProperty); // $ExpectType (string | boolean)[]
-    _(intersectingObjectPropertiesDictionary).map(stringRecordProperty); // $ExpectType (string | boolean)[]
-    extractChainTypes(_.chain(intersectingObjectPropertiesDictionary).map(stringRecordProperty)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
-    _.collect(intersectingObjectPropertiesDictionary, stringRecordProperty); // $ExpectType (string | boolean)[]
-    _(intersectingObjectPropertiesDictionary).collect(stringRecordProperty); // $ExpectType (string | boolean)[]
-    extractChainTypes(_.chain(intersectingObjectPropertiesDictionary).collect(stringRecordProperty)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
-
-    // property name iterator with a nullable type union
-    _.map(stringRecordOrUndefinedArray, stringRecordProperty); // $ExpectType (string | undefined)[]
-    _(stringRecordOrUndefinedArray).map(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(stringRecordOrUndefinedArray).map(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-    _.collect(stringRecordOrUndefinedArray, stringRecordProperty); // $ExpectType (string | undefined)[]
-    _(stringRecordOrUndefinedArray).collect(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(stringRecordOrUndefinedArray).collect(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-
-    _.map(stringRecordOrUndefinedList, stringRecordProperty); // $ExpectType (string | undefined)[]
-    _(stringRecordOrUndefinedList).map(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(stringRecordOrUndefinedList).map(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-    _.collect(stringRecordOrUndefinedList, stringRecordProperty); // $ExpectType (string | undefined)[]
-    _(stringRecordOrUndefinedList).collect(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(stringRecordOrUndefinedList).collect(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-
-    _.map(stringRecordOrUndefinedDictionary, stringRecordProperty); // $ExpectType (string | undefined)[]
-    _(stringRecordOrUndefinedDictionary).map(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(stringRecordOrUndefinedDictionary).map(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-    _.collect(stringRecordOrUndefinedDictionary, stringRecordProperty); // $ExpectType (string | undefined)[]
-    _(stringRecordOrUndefinedDictionary).collect(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(stringRecordOrUndefinedDictionary).collect(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-
-    // property name iterator with a non-nullable non-intersecting type union
-    // linting has odd issues correctly determining the UnderscoreStatic.map type results for this case when using ExpectType for some reason
-    // that stop occurring when the minimum version is moved to TS 3.1, so use assignability checks instead for the moment as a workaround
-    let result: (string | undefined)[] = _.map(nonIntersectingPropertiesArray, stringRecordProperty);
-    _(nonIntersectingPropertiesArray).map(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(nonIntersectingPropertiesArray).map(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-    result = _.collect(nonIntersectingPropertiesArray, stringRecordProperty);
-    _(nonIntersectingPropertiesArray).collect(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(nonIntersectingPropertiesArray).collect(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-
-    result = _.map(nonIntersectingPropertiesArray, stringRecordProperty);
-    _(nonIntersectingPropertiesArray).map(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(nonIntersectingPropertiesArray).map(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-    result = _.collect(nonIntersectingPropertiesArray, stringRecordProperty);
-    _(nonIntersectingPropertiesArray).collect(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(nonIntersectingPropertiesArray).collect(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-
-    result = _.map(nonIntersectingPropertiesDictionary, stringRecordProperty);
-    _(nonIntersectingPropertiesDictionary).map(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(nonIntersectingPropertiesDictionary).map(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-    result = _.collect(nonIntersectingPropertiesDictionary, stringRecordProperty);
-    _(nonIntersectingPropertiesDictionary).collect(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(nonIntersectingPropertiesDictionary).collect(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-
-    // property name iterator with type any (see #33479)
-    _.map(stringRecordArray as any, stringRecordProperty); // $ExpectType any[]
-    _(stringRecordArray as any).map(stringRecordProperty); // $ExpectType any[]
-    extractChainTypes(_.chain(stringRecordArray as any).map(stringRecordProperty)); // $ExpectType ChainType<any[], any>
-    _.collect(stringRecordArray as any, stringRecordProperty); // $ExpectType any[]
-    _(stringRecordArray as any).collect(stringRecordProperty); // $ExpectType any[]
-    extractChainTypes(_.chain(stringRecordArray as any).collect(stringRecordProperty)); // $ExpectType ChainType<any[], any>
+    _.map(nonIntersectingPropertiesList, stringRecordProperty); // $ExpectType any[]
+    _.map(anyValue, stringRecordProperty); // $ExpectType any[]
 }
 
 // filter, select
@@ -1135,51 +995,11 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(stringRecordDictionary).pluck(stringRecordProperty); // $ExpectType string[]
     extractChainTypes(_.chain(stringRecordDictionary).pluck(stringRecordProperty)); // $ExpectType ChainType<string[], string>
 
-    // property name iterator with a non-nullable intersecting type union
-    _.pluck(intersectingObjectPropertiesArray, stringRecordProperty); // $ExpectType (string | boolean)[]
-    _(intersectingObjectPropertiesArray).pluck(stringRecordProperty); // $ExpectType (string | boolean)[]
-    extractChainTypes(_.chain(intersectingObjectPropertiesArray).pluck(stringRecordProperty)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
-
+    // property name iterator with other list types
+    _.pluck(stringRecordOrUndefinedList, stringRecordProperty); // $ExpectType any[]
     _.pluck(intersectingObjectPropertiesList, stringRecordProperty); // $ExpectType (string | boolean)[]
-    _(intersectingObjectPropertiesList).pluck(stringRecordProperty); // $ExpectType (string | boolean)[]
-    extractChainTypes(_.chain(intersectingObjectPropertiesList).pluck(stringRecordProperty)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
-
-    _.pluck(intersectingObjectPropertiesDictionary, stringRecordProperty); // $ExpectType (string | boolean)[]
-    _(intersectingObjectPropertiesDictionary).pluck(stringRecordProperty); // $ExpectType (string | boolean)[]
-    extractChainTypes(_.chain(intersectingObjectPropertiesDictionary).pluck(stringRecordProperty)); // $ExpectType ChainType<(string | boolean)[], string | boolean>
-
-    // property name iterator with a nullable type union
-    _.pluck(stringRecordOrUndefinedArray, stringRecordProperty); // $ExpectType (string | undefined)[]
-    _(stringRecordOrUndefinedArray).pluck(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(stringRecordOrUndefinedArray).pluck(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-
-    _.pluck(stringRecordOrUndefinedList, stringRecordProperty); // $ExpectType (string | undefined)[]
-    _(stringRecordOrUndefinedList).pluck(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(stringRecordOrUndefinedList).pluck(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-
-    _.pluck(stringRecordOrUndefinedDictionary, stringRecordProperty); // $ExpectType (string | undefined)[]
-    _(stringRecordOrUndefinedDictionary).pluck(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(stringRecordOrUndefinedDictionary).pluck(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-
-    // property name iterator with a non-nullable non-intersecting type union
-    // linting has odd issues correctly determining the UnderscoreStatic.pluck type results for this case when using ExpectType for some reason
-    // that stop occurring when the minimum version is moved to TS 3.1, so use assignability checks instead for the moment as a workaround
-    let result: (string | undefined)[] = _.pluck(nonIntersectingPropertiesArray, stringRecordProperty);
-    _(nonIntersectingPropertiesArray).pluck(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(nonIntersectingPropertiesArray).pluck(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-
-    result = _.pluck(nonIntersectingPropertiesList, stringRecordProperty);
-    _(nonIntersectingPropertiesList).pluck(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(nonIntersectingPropertiesList).pluck(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-
-    result = _.pluck(nonIntersectingPropertiesDictionary, stringRecordProperty);
-    _(nonIntersectingPropertiesDictionary).pluck(stringRecordProperty); // $ExpectType (string | undefined)[]
-    extractChainTypes(_.chain(nonIntersectingPropertiesDictionary).pluck(stringRecordProperty)); // $ExpectType ChainType<(string | undefined)[], string | undefined>
-
-    // property name iterator with type any (see #33479)
-    _.pluck(stringRecordArray as any, stringRecordProperty); // $ExpectType any[]
-    _(stringRecordArray as any).pluck(stringRecordProperty); // $ExpectType any[]
-    extractChainTypes(_.chain(stringRecordArray as any).pluck(stringRecordProperty)); // $ExpectType ChainType<any[], any>
+    _.pluck(nonIntersectingPropertiesList, stringRecordProperty) // $ExpectType any[]
+    _.pluck(anyValue, stringRecordProperty); // $ExpectType any[]
 }
 
 // groupBy

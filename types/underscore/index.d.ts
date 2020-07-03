@@ -117,25 +117,6 @@ declare module _ {
         : V extends Dictionary<infer T> ? T
         : never;
 
-    // given a union type like { a: string } | { b: number } | undefined, generates a union of all the keys of all the types in the union
-    type KeysOfUnion<T> = T extends any ? keyof T : never;
-
-    // given a union type like { a: string } | { a: number } | { b: boolean } and a property name,
-    // generates a union of all the types implemented by that property name and adds undefined
-    // if any type in the union doesn't implement the property
-    // e.g. TypesOfUnionProperty<{ a: string } | { a: number } | { b: boolean }, 'a'> => string | number | undefined
-    type TypesOfUnionProperty<T, K extends KeysOfUnion<T>> =
-        // iterate over each type T in a type union
-        T extends any
-        // check whether the property is implemented by T, using Extract to get around K possibly not being in keyof T
-        ? T[Extract<keyof T, K>] extends never
-        // if T does not implement property K, add undefined to the resulting type union
-        ? undefined
-        // if T does implement property K, add type T[K] to the resulting type union
-        : T[Extract<keyof T, K>]
-        // this should never actually be evaluated since all types extend any
-        : never;
-
     // '& object' prevents strings from being matched by list checks
     type ShallowFlattenedList<T> = T extends List<infer TItem> & object ? TItem : T;
 
@@ -233,9 +214,9 @@ declare module _ {
          * @param iterator The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection.
          */
-        map<T, K extends KeysOfUnion<T>>(
+        map<T, K extends keyof T>(
             collection: Collection<T>,
-            iterator: K): TypesOfUnionProperty<T, K>[];
+            iterator: K): T[K][];
         map(
             collection: Collection<any>,
             iterator: string): any[];
@@ -421,7 +402,7 @@ declare module _ {
          **/
         filter<T>(
             collection: Collection<T>,
-            iterator: Partial<T> | KeysOfUnion<T>): T[];
+            iterator: Partial<T> | string): T[];
 
         /**
         * @see filter
@@ -617,9 +598,9 @@ declare module _ {
          * @param propertyName The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection.
          **/
-        pluck<T, K extends KeysOfUnion<T>>(
+        pluck<T, K extends keyof T>(
             collection: Collection<T>,
-            propertyName: K): TypesOfUnionProperty<T, K>[];
+            propertyName: K): T[K][];
         pluck(
             collection: Collection<any>,
             propertyName: string): any[];
@@ -4209,7 +4190,7 @@ declare module _ {
          * @param iterator The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection.
          */
-        map<K extends KeysOfUnion<T>>(iterator: K): TypesOfUnionProperty<T, K>[];
+        map<K extends keyof T>(iterator: K): T[K][];
         map(iterator: string): any[];
 
         /**
@@ -4299,7 +4280,7 @@ declare module _ {
          * @param iterator The property to check for truthiness or the property values to filter on.
          * @returns The filtered set of values.
          **/
-        filter(iterator: Partial<T> | KeysOfUnion<T>): T[];
+        filter(iterator: Partial<T> | string): T[];
 
         /**
         * @see filter
@@ -4376,7 +4357,7 @@ declare module _ {
          * @param propertyName The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection.
          **/
-        pluck<K extends KeysOfUnion<T>>(propertyName: K): TypesOfUnionProperty<T, K>[];
+        pluck<K extends keyof T>(propertyName: K): T[K][];
         pluck(propertyName: string): any[];
 
         /**
@@ -5188,7 +5169,7 @@ declare module _ {
          * @param iterator The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection in a chain wrapper.
          **/
-        map<K extends KeysOfUnion<T>>(iterator: K): _Chain<TypesOfUnionProperty<T, K>, TypesOfUnionProperty<T, K>[]>;
+        map<K extends keyof T>(iterator: K): _Chain<T[K], T[K][]>;
         map(iterator: string): _Chain<any, any[]>;
 
         /**
@@ -5278,7 +5259,7 @@ declare module _ {
          * @param iterator The property to check for truthiness or the property values to filter on.
          * @returns The filtered set of values in a chain wrapper.
          **/
-        filter(iterator: Partial<T> | KeysOfUnion<T>): _Chain<T, T[]>;
+        filter(iterator: Partial<T> | string): _Chain<T, T[]>;
 
         /**
          * @see filter
@@ -5355,7 +5336,7 @@ declare module _ {
          * @param propertyName The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection in a chain wrapper.
          **/
-        pluck<K extends KeysOfUnion<T>>(propertyName: K): _Chain<TypesOfUnionProperty<T, K>, TypesOfUnionProperty<T, K>[]>;
+        pluck<K extends keyof T>(propertyName: K): _Chain<T[K], T[K][]>;
         pluck(propertyName: string): _Chain<any, any[]>;
 
         /**
