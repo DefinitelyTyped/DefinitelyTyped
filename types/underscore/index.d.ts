@@ -95,8 +95,25 @@ declare module _ {
         (element: T, key: string, object: V): TResult;
     }
 
-    type CollectionIterator<T, TResult, V> = V extends List<T> ? ListIterator<T, TResult, V>
+    type CollectionIterator<T, TResult, V> =
+        V extends List<T> ? ListIterator<T, TResult, V>
         : V extends Dictionary<T> ? ObjectIterator<T, TResult, V>
+        : never;
+
+    type Iteratee<V, R, T extends TypeOfCollection<V> = TypeOfCollection<V>> =
+        undefined |
+        CollectionIterator<T, R, V> |
+        keyof T |
+        string |
+        Array<string | number> |
+        Partial<T>;
+
+    type IterateeResult<V, I, T extends TypeOfCollection<V> = TypeOfCollection<V>> =
+        I extends undefined ? T // default iteratee is _.identity
+        : I extends CollectionIterator<T, infer R, V> ? R
+        : I extends keyof T ? T[I]
+        : I extends string | Array<string | number> ? any
+        : I extends Partial<T> ? boolean
         : never;
 
     type IterateePropertyShorthand = string | number;
@@ -113,7 +130,8 @@ declare module _ {
 
     type TypeOfDictionary<V> = V extends Dictionary<infer T> ? T : never;
 
-    type TypeOfCollection<V> = V extends List<infer T> ? T
+    type TypeOfCollection<V> =
+        V extends List<infer T> ? T
         : V extends Dictionary<infer T> ? T
         : never;
 
@@ -122,7 +140,8 @@ declare module _ {
     // unfortunately it's not possible to recursively collapse all possible list dimensions to T[] at this time,
     // so give up after one dimension since that's likely the most common case
     // '& object' prevents strings from being matched by list checks so types like string[] don't end up resulting in any
-    type DeepestListItemOrSelf<T> = T extends List<infer TItem> & object
+    type DeepestListItemOrSelf<T> =
+        T extends List<infer TItem> & object
         ? TItem extends List<any> & object
         ? any
         : TItem
@@ -190,46 +209,17 @@ declare module _ {
 
         /**
          * Produces a new array of values by mapping each value in the collection through a transformation function
-         * (iterator). Each invocation of iterator is called with three arguments: (value, key, collection).
+         * (iteratee). For function iteratees, each invocation of iteratee is called with three arguments:
+         * (value, key, collection).
          * @param collection Maps the elements of this collection.
-         * @param iterator Map iterator function for each element in the collection.
-         * @param context `this` object in `iterator`, optional.
+         * @param iteratee Map iteratee for each element in the collection.
+         * @param context `this` object in `iteratee`, optional.
          * @returns The mapped result.
          **/
-        map<T, TResult>(
-            collection: List<T>,
-            iterator: ListIterator<T, TResult>,
-            context?: any): TResult[];
-        map<T, TResult>(
-            collection: Dictionary<T>,
-            iterator: ObjectIterator<T, TResult>,
-            context?: any): TResult[];
-
-        /**
-         * Produces a new array of values by retrieving the value of the specified property from each item
-         * in the collection.
-         * @param collection The collection of items.
-         * @param iterator The name of a specific property to retrieve from all items.
-         * @returns The set of values for the specified property for each item in the collection.
-         */
-        map<T, K extends keyof T>(
-            collection: Collection<T>,
-            iterator: K): T[K][];
-        map(
-            collection: Collection<any>,
-            iterator: string): any[];
-
-        /**
-         * Produces a new array of boolean values by checking whether each value in the collection matches
-         * the set of provided values.
-         * @param collection The collection of items.
-         * @param iterator The set of properties to check the values for.
-         * @returns A set of boolean values that signify whether each item in the collection matches the set
-         * of provided values.
-         */
-        map<T>(
-            collection: Collection<T>,
-            iterator: Partial<T>): boolean[];
+        map<V extends Collection<any>, I extends Iteratee<V, any>>(
+            collection: V,
+            iteratee: I,
+            context?: any): IterateeResult<V, I>[];
 
         /**
          * @see map
@@ -376,31 +366,16 @@ declare module _ {
 
         /**
          * Looks through each value in the collection, returning an array of all the values that pass a truth
-         * test (iterator).
+         * test (iteratee).
          * @param collection The collection to filter.
-         * @param iterator The truth test to apply.
-         * @param context `this` object in `iterator`, optional.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
          * @returns The filtered set of values.
          **/
-        filter<T>(
-            collection: List<T>,
-            iterator: ListIterator<T, boolean>,
-            context?: any): T[];
-        filter<T>(
-            collection: Dictionary<T>,
-            iterator: ObjectIterator<T, boolean>,
-            context?: any): T[];
-
-        /**
-         * Looks through each value in the collection, returning an array of all the values that pass a truth
-         * test (iterator).
-         * @param collection The collection to filter.
-         * @param iterator The property to check for truthiness or the property values to filter on.
-         * @returns The filtered set of values.
-         **/
-        filter<T>(
-            collection: Collection<T>,
-            iterator: Partial<T> | string): T[];
+        filter<V extends Collection<any>>(
+            collection: V,
+            iteratee: Iteratee<V, boolean>,
+            context?: any): TypeOfCollection<V>[];
 
         /**
         * @see filter
@@ -599,6 +574,14 @@ declare module _ {
         pluck<T, K extends keyof T>(
             collection: Collection<T>,
             propertyName: K): T[K][];
+
+        /**
+         * A convenient version of what is perhaps the most common use-case for map: extracting a list of
+         * property values.
+         * @param collection The collection of items.
+         * @param propertyName The name of a specific property to retrieve from all items.
+         * @returns The set of values for the specified property for each item in the collection.
+         **/
         pluck(
             collection: Collection<any>,
             propertyName: string): any[];
@@ -692,30 +675,16 @@ declare module _ {
             context?: any): T[];
 
         /**
-         * Splits a collection into sets, grouped by the result of running each value through iterator.
+         * Splits a collection into sets, grouped by the result of running each value through iteratee.
          * @param collection The collection to group.
-         * @param iterator An iterator that returns the value to group by for each item in the collection.
-         * @param context `this` object in `iterator`, optional.
+         * @param iteratee An iteratee that provides the value to group by for each item in the collection.
+         * @param context `this` object in `iteratee`, optional.
          * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection.
          **/
-        groupBy<T>(
-            collection: List<T>,
-            iterator: ListIterator<T, any>,
-            context?: any): Dictionary<T[]>;
-        groupBy<T>(
-            collection: Dictionary<T>,
-            iterator: ObjectIterator<T, any>,
-            context?: any): Dictionary<T[]>;
-
-        /**
-         * Splits a collection into sets, grouped by the specified property.
-         * @param collection The collection to group.
-         * @param iterator Group iterator for each element within the collection, return the key to group the element by.
-         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection.
-         **/
-        groupBy<T>(
-            collection: Collection<T>,
-            iterator: keyof T): Dictionary<T[]>;
+        groupBy<V extends Collection<any>>(
+            collection: V,
+            iteratee: Iteratee<V, string | number>,
+            context?: any): Dictionary<TypeOfCollection<V>[]>;
 
         /**
         * Given a `list`, and an `iterator` function that returns a key for each element in the list (or a property name),
@@ -4175,30 +4144,15 @@ declare module _ {
 
         /**
          * Produces a new array of values by mapping each value in the wrapped collection through a transformation function
-         * (iterator). Each invocation of iterator is called with three arguments: (value, key, collection).
-         * @param iterator Map iterator function for each element in the collection.
-         * @param context `this` object in `iterator`, optional.
+         * (iteratee). For function iterators, each invocation of iterator is called with three arguments:
+         * (value, key, collection).
+         * @param iteratee Map iteratee for each element in the collection.
+         * @param context `this` object in `iteratee`, optional.
          * @returns The mapped result.
          **/
-        map<TResult>(iterator: CollectionIterator<T, TResult, V>, context?: any): TResult[];
-
-        /**
-         * Produces a new array of values by retrieving the value of the specified property from each item
-         * in the wrapped collection.
-         * @param iterator The name of a specific property to retrieve from all items.
-         * @returns The set of values for the specified property for each item in the collection.
-         */
-        map<K extends keyof T>(iterator: K): T[K][];
-        map(iterator: string): any[];
-
-        /**
-         * Produces a new array of boolean values by checking whether each value in the wrapped collection matches
-         * the set of provided values.
-         * @param iterator The set of properties to check the values for.
-         * @returns A set of boolean values that signify whether each item in the collection matches the set
-         * of provided values.
-         */
-        map(iterator: Partial<T>): boolean[];
+        map<I extends Iteratee<V, any>>(
+            iteratee: I,
+            context?: any): IterateeResult<V, I>[];
 
         /**
          * @see map
@@ -4265,20 +4219,12 @@ declare module _ {
 
         /**
          * Looks through each value in the wrapped collection, returning an array of all the values that pass a truth
-         * test (iterator).
-         * @param iterator The truth test to apply.
-         * @param context `this` object in `iterator`, optional.
+         * test (iteratee).
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
          * @returns The filtered set of values.
          **/
-        filter(iterator: CollectionIterator<T, boolean, V>, context?: any): T[];
-
-        /**
-         * Looks through each value in the wrapped collection, returning an array of all the values that pass a truth
-         * test (iterator).
-         * @param iterator The property to check for truthiness or the property values to filter on.
-         * @returns The filtered set of values.
-         **/
-        filter(iterator: Partial<T> | string): T[];
+        filter(iteratee: Iteratee<V, boolean>, context?: any): T[];
 
         /**
         * @see filter
@@ -4407,19 +4353,12 @@ declare module _ {
         sortBy(iterator: string, context?: any): T[];
 
         /**
-         * Splits the wrapped collection into sets, grouped by the result of running each value through iterator.
-         * @param iterator An iterator that returns the value to group by for each item in the collection.
-         * @param context `this` object in `iterator`, optional.
+         * Splits a collection into sets, grouped by the result of running each value through iteratee.
+         * @param iteratee An iteratee that provides the value to group by for each item in the collection.
+         * @param context `this` object in `iteratee`, optional.
          * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection.
          **/
-        groupBy(iterator: CollectionIterator<T, any, V>, context?: any): Dictionary<T[]>;
-
-        /**
-         * Splits the wrapped collection into sets, grouped by the specified property.
-         * @param iterator Group iterator for each element within the collection, return the key to group the element by.
-         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection.
-         **/
-        groupBy(iterator: keyof T): Dictionary<T[]>;
+        groupBy(iteratee: Iteratee<V, string | number>, context?: any): Dictionary<T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5154,30 +5093,15 @@ declare module _ {
 
         /**
          * Produces a new array of values by mapping each value in the wrapped collection through a transformation function
-         * (iterator). Each invocation of iterator is called with three arguments: (value, key, collection).
-         * @param iterator Map iterator function for each element in the collection.
-         * @param context `this` object in `iterator`, optional.
+         * (iteratee). For function iteratees, each invocation of iteratee is called with three arguments:
+         * (value, key, collection).
+         * @param iterator Map iteratee for each element in the collection.
+         * @param context `this` object in `iteratee`, optional.
          * @returns The mapped result in a chain wrapper.
          **/
-        map<TResult>(iterator: CollectionIterator<T, TResult, V>, context?: any): _Chain<TResult, TResult[]>;
-
-        /**
-         * Produces a new array of values by retrieving the value of the specified property from each item
-         * in the wrapped collection.
-         * @param iterator The name of a specific property to retrieve from all items.
-         * @returns The set of values for the specified property for each item in the collection in a chain wrapper.
-         **/
-        map<K extends keyof T>(iterator: K): _Chain<T[K], T[K][]>;
-        map(iterator: string): _Chain<any, any[]>;
-
-        /**
-         * Produces a new array of boolean values by checking whether each value in the wrapped collection matches
-         * the set of provided values.
-         * @param iterator The set of properties to check the values for.
-         * @returns A set of boolean values that signify whether each item in the collection matches the set
-         * of provided values in a chain wrapper.
-         **/
-        map(iterator: Partial<T>): _Chain<boolean, boolean[]>;
+        map<I extends Iteratee<V, any>>(
+            iteratee: I,
+            context?: any): _Chain<IterateeResult<V, I>, IterateeResult<V, I>[]>;
 
         /**
          * @see map
@@ -5244,20 +5168,12 @@ declare module _ {
 
         /**
          * Looks through each value in the wrapped collection, returning an array of all the values that pass a truth
-         * test (iterator).
-         * @param iterator The truth test to apply.
-         * @param context `this` object in `iterator`, optional.
+         * test (iteratee).
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
          * @returns The filtered set of values in a chain wrapper.
          **/
-        filter(iterator: CollectionIterator<T, boolean, V>, context?: any): _Chain<T, T[]>;
-
-        /**
-         * Looks through each value in the wrapped collection, returning an array of all the values that pass a truth
-         * test (iterator).
-         * @param iterator The property to check for truthiness or the property values to filter on.
-         * @returns The filtered set of values in a chain wrapper.
-         **/
-        filter(iterator: Partial<T> | string): _Chain<T, T[]>;
+        filter(iteratee: Iteratee<V, boolean>, context?: any): _Chain<T, T[]>;
 
         /**
          * @see filter
@@ -5386,19 +5302,13 @@ declare module _ {
         sortBy(iterator: string, context?: any): _Chain<T, T[]>;
 
         /**
-         * Splits the wrapped collection into sets, grouped by the result of running each value through iterator.
-         * @param iterator An iterator that returns the value to group by for each item in the collection.
-         * @param context `this` object in `iterator`, optional.
-         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection in a chain wrapper.
+         * Splits a collection into sets, grouped by the result of running each value through iteratee.
+         * @param iteratee An iteratee that provides the value to group by for each item in the collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection
+         * in a chain wrapper.
          **/
-        groupBy(iterator: CollectionIterator<T, any, V>, context?: any): _Chain<T[], Dictionary<T[]>>;
-
-        /**
-         * Splits the wrapped collection into sets, grouped by the specified property.
-         * @param iterator Group iterator for each element within the collection, return the key to group the element by.
-         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection in a chain wrapper.
-         **/
-        groupBy(iterator: keyof T): _Chain<T[], Dictionary<T[]>>;
+        groupBy(iterator: Iteratee<V, string | number>, context?: any): _Chain<T[], Dictionary<T[]>>;
 
         /**
         * Wrapped type `any[]`.
