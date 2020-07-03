@@ -82,7 +82,7 @@ declare namespace Aws {
     }
 
     interface Environment {
-        [key: string]: string;
+        [key: string]: any;
     }
 
     interface ApiGateway {
@@ -239,7 +239,7 @@ declare namespace Aws {
     interface Logs {
         restApi?: RestApiLogs;
         websocket?: WebsocketLogs;
-        httpApi?: HttpApiLogs;
+        httpApi?: boolean | HttpApiLogs;
         frameworkLambda?: boolean;
     }
 
