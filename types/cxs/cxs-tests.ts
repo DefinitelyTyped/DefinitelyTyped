@@ -11,13 +11,15 @@ cxs({
         color: 'green',
     },
 
-    borderWidth: () => {}, // $ExpectError
+    // @ts-expect-error
+    borderWidth: () => {},
 });
 
 cxsComponent('div')({
     fontSize: 24,
 
-    content: {}, // $ExpectError
+    // @ts-expect-error
+    content: {},
 });
 
 /** React component composition */
@@ -27,7 +29,8 @@ cxsComponent(ComponentA)({
     fontSize: 72,
 });
 
-cxsComponent(ComponentA)(true); // $ExpectError
+// @ts-expect-error
+cxsComponent(ComponentA)(true);
 
 /** React composition with props callback */
 type Props = {
