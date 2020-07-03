@@ -116,6 +116,10 @@ declare module _ {
         : I extends Partial<T> ? boolean
         : never;
 
+    type KeyOrPropertyName<T> = keyof T | string | number;
+
+    type PropertyTypeOrAny<T, K> = K extends keyof T ? T[K] : any;
+
     type IterateePropertyShorthand = string | number;
 
     interface MemoIterator<T, TResult> {
@@ -571,20 +575,9 @@ declare module _ {
          * @param propertyName The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection.
          **/
-        pluck<T, K extends keyof T>(
+        pluck<T, K extends KeyOrPropertyName<T>>(
             collection: Collection<T>,
-            propertyName: K): T[K][];
-
-        /**
-         * A convenient version of what is perhaps the most common use-case for map: extracting a list of
-         * property values.
-         * @param collection The collection of items.
-         * @param propertyName The name of a specific property to retrieve from all items.
-         * @returns The set of values for the specified property for each item in the collection.
-         **/
-        pluck(
-            collection: Collection<any>,
-            propertyName: string): any[];
+            propertyName: K): PropertyTypeOrAny<T, K>[];
 
         /**
         * Returns the maximum value in list.
@@ -4301,8 +4294,7 @@ declare module _ {
          * @param propertyName The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection.
          **/
-        pluck<K extends keyof T>(propertyName: K): T[K][];
-        pluck(propertyName: string): any[];
+        pluck<K extends KeyOrPropertyName<T>>(propertyName: K): PropertyTypeOrAny<T, K>[];
 
         /**
         * Wrapped type `number[]`.
@@ -5250,8 +5242,7 @@ declare module _ {
          * @param propertyName The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection in a chain wrapper.
          **/
-        pluck<K extends keyof T>(propertyName: K): _Chain<T[K], T[K][]>;
-        pluck(propertyName: string): _Chain<any, any[]>;
+        pluck<K extends KeyOrPropertyName<T>>(propertyName: K): _Chain<PropertyTypeOrAny<T, K>, PropertyTypeOrAny<T, K>[]>;
 
         /**
         * Wrapped type `number[]`.
