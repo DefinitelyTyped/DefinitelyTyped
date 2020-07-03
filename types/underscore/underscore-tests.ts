@@ -1050,7 +1050,8 @@ declare const extractChainTypes: ChainTypeExtractor;
     const threeDimensionList: _.List<_.List<_.List<StringRecord>>> = { 0: { 0: stringRecordList, length: 1 }, length: 1 };
     const fourDimensionArray: StringRecord[][][][] = [[[stringRecordArray]]];
     const fourDimensionList: _.List<_.List<_.List<_.List<StringRecord>>>> = { 0: { 0: { 0: stringRecordList, length: 1 }, length: 1 }, length: 1 };
-    const mixedDimensionArray: (StringRecord | StringRecord[] | StringRecord[][])[] = [stringRecordArray[0], stringRecordArray, [stringRecordArray]];
+    const mixedDimensionArray: (StringRecord | StringRecord[])[] = [stringRecordArray[0], stringRecordArray];
+    const veryMixedDimensionArray: (StringRecord | StringRecord[] | StringRecord[][])[] = [stringRecordArray[0], stringRecordArray, [stringRecordArray]];
     const stringArray: string[][] = [simpleStringArray];
     const stringList: _.List<_.List<string>> = { 0: simpleStringList, length: 1 };
     const typeUnionArray: NonIntersectingProperties[][] = [nonIntersectingPropertiesArray];
@@ -1092,16 +1093,16 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(twoDimensionList).flatten(true); // $ExpectType StringRecord[]
     extractChainTypes(_.chain(twoDimensionList).flatten(true)); // $ExpectType ChainType<StringRecord[], StringRecord>
 
-    // three dimensions, deep
-    _.flatten(threeDimensionArray); // $ExpectType StringRecord[]
-    _(threeDimensionArray).flatten(); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(threeDimensionArray).flatten()); // $ExpectType ChainType<StringRecord[], StringRecord>
+    // three dimensions, deep - this is where recursion gives up and results in any[]
+    _.flatten(threeDimensionArray); // $ExpectType any[]
+    _(threeDimensionArray).flatten(); // $ExpectType any[]
+    extractChainTypes(_.chain(threeDimensionArray).flatten()); // $ExpectType ChainType<any[], any>
 
-    _.flatten(threeDimensionList); // $ExpectType StringRecord[]
-    _(threeDimensionList).flatten(); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(threeDimensionList).flatten()); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.flatten(threeDimensionList); // $ExpectType any[]
+    _(threeDimensionList).flatten(); // $ExpectType any[]
+    extractChainTypes(_.chain(threeDimensionList).flatten()); // $ExpectType ChainType<any[], any>
 
-    // three dimensions, shallow
+    // three dimensions, shallow - we still shouldn't give up here
     _.flatten(threeDimensionArray, true); // $ExpectType StringRecord[][]
     _(threeDimensionArray).flatten(true); // $ExpectType StringRecord[][]
     extractChainTypes(_.chain(threeDimensionArray).flatten(true)); // $ExpectType ChainType<StringRecord[][], StringRecord[]>
@@ -1110,7 +1111,7 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(threeDimensionList).flatten(true); // $ExpectType List<StringRecord>[]
     extractChainTypes(_.chain(threeDimensionList).flatten(true)); // $ExpectType ChainType<List<StringRecord>[], List<StringRecord>>
 
-    // four dimensions, deep - this is where recursion gives up and results in any[]
+    // four dimensions, deep - verify that we continue to give for lists that are higher than three dimensions
     _.flatten(fourDimensionArray); // $ExpectType any[]
     _(fourDimensionArray).flatten(); // $ExpectType any[]
     extractChainTypes(_.chain(fourDimensionArray).flatten()); // $ExpectType ChainType<any[], any>
@@ -1125,9 +1126,9 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(mixedDimensionArray).flatten()); // $ExpectType ChainType<StringRecord[], StringRecord>
 
     // mixed dimensions, shallow
-    _.flatten(mixedDimensionArray, true); // $ExpectType (StringRecord | StringRecord[])[]
-    _(mixedDimensionArray).flatten(true); // $ExpectType (StringRecord | StringRecord[])[]
-    extractChainTypes(_.chain(mixedDimensionArray).flatten(true)); // $ExpectType ChainType<(StringRecord | StringRecord[])[], StringRecord | StringRecord[]>
+    _.flatten(veryMixedDimensionArray, true); // $ExpectType (StringRecord | StringRecord[])[]
+    _(veryMixedDimensionArray).flatten(true); // $ExpectType (StringRecord | StringRecord[])[]
+    extractChainTypes(_.chain(veryMixedDimensionArray).flatten(true)); // $ExpectType ChainType<(StringRecord | StringRecord[])[], StringRecord | StringRecord[]>
 
     // string lists, deep
     _.flatten(stringArray); // $ExpectType string[]

@@ -117,16 +117,14 @@ declare module _ {
         : V extends Dictionary<infer T> ? T
         : never;
 
-    // '& object' prevents strings from being matched by list checks
-    type ShallowFlattenedList<T> = T extends List<infer TItem> & object ? TItem : T;
+    type ListItemOrSelf<T> = T extends List<infer TItem> ? TItem : T;
 
     // unfortunately it's not possible to recursively collapse all possible list dimensions to T[] at this time,
-    // so give up after two recursions and require an assertion
-    type DeepFlattenedList<T> = T extends List<infer TItem> & object
-        ? TItem extends List<infer TInnerItem> & object
-        ? TInnerItem extends List<any> & object
+    // so give up after one dimension since that's likely the most common case
+    // '& object' prevents strings from being matched by list checks so types like string[] don't end up resulting in any
+    type DeepestListItemOrSelf<T> = T extends List<infer TItem> & object
+        ? TItem extends List<any> & object
         ? any
-        : TInnerItem
         : TItem
         : T;
 
@@ -916,8 +914,8 @@ declare module _ {
          * @param shallow If true then only flatten one level, optional, default = false.
          * @returns The flattened list.
          **/
-        flatten<T>(list: List<T>, shallow?: false): DeepFlattenedList<T>[];
-        flatten<T>(list: List<T>, shallow: true): ShallowFlattenedList<T>[];
+        flatten<T>(list: List<T>, shallow?: false): DeepestListItemOrSelf<T>[];
+        flatten<T>(list: List<T>, shallow: true): ListItemOrSelf<T>[];
 
         /**
         * Returns a copy of the array with all instances of the values removed.
@@ -4558,8 +4556,8 @@ declare module _ {
          * @param shallow If true then only flatten one level, optional, default = false.
          * @returns The flattened list.
          **/
-        flatten(shallow?: false): DeepFlattenedList<T>[];
-        flatten(shallow: true): ShallowFlattenedList<T>[];
+        flatten(shallow?: false): DeepestListItemOrSelf<T>[];
+        flatten(shallow: true): ListItemOrSelf<T>[];
 
         /**
         * Wrapped type `any[]`.
@@ -5537,8 +5535,8 @@ declare module _ {
          * @param shallow If true then only flatten one level, optional, default = false.
          * @returns The flattened list in a chain wrapper.
          **/
-        flatten(shallow?: false): _Chain<DeepFlattenedList<T>, DeepFlattenedList<T>[]>;
-        flatten(shallow: true): _Chain<ShallowFlattenedList<T>, ShallowFlattenedList<T>[]>;
+        flatten(shallow?: false): _Chain<DeepestListItemOrSelf<T>, DeepestListItemOrSelf<T>[]>;
+        flatten(shallow: true): _Chain<ListItemOrSelf<T>, ListItemOrSelf<T>[]>;
 
         /**
         * Wrapped type `any[]`.
