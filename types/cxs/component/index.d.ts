@@ -1,3 +1,4 @@
+// Minimum TypeScript Version: 3.8
 import * as React from 'react';
 import { CSSObject } from '../index';
 
