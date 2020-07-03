@@ -659,3 +659,184 @@ function strong_typed_values_tests() {
 
     _.values<{title: string, value: number}>(dictionaryLike);
 }
+
+// tests for #7931 - verify that the result of a function like reduce that returns a singleton can be chained further
+// $ExpectType number[]
+_.chain([1, 2, 3])
+    .reduce((acc, x) => { acc.unshift(x); return acc; }, [] as number[])
+    .map(x => x + 1)
+    .value();
+
+// $ExpectType boolean
+_.chain([{ a: 1, b: 2, c: 3 }, { a: 4, b: 5, c: 6 }])
+    .findWhere({ a: 1 })
+    .some(n => n === 2)
+    .value();
+
+// $ExpectType number
+_.chain([1, 2, 3, 4, 5, 6])
+    .chunk(3)
+    .first()
+    .reduce((aggregate, n) => aggregate + n, 0)
+    .value();
+
+// common testing types and objects
+interface StringRecord {
+    a: string;
+    b: string;
+}
+
+interface StringRecordAugmentedList extends _.List<StringRecord> {
+    notAListProperty: boolean;
+}
+
+interface StringRecordExplicitDictionary extends _.Dictionary<StringRecord> {
+    a: StringRecord;
+    b: StringRecord;
+    c: StringRecord;
+}
+
+const stringRecordArray: StringRecord[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'b' }, { a: 'c', b: 'a' }];
+const stringRecordAugmentedList: StringRecordAugmentedList = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: { a: 'c', b: 'a' }, length: 3, notAListProperty: true };
+const stringRecordList: _.List<StringRecord> = stringRecordAugmentedList;
+const stringRecordExplicitDictionary: StringRecordExplicitDictionary = { a: { a: 'a', b: 'c' }, b: { a: 'b', b: 'b' }, c: { a: 'c', b: 'a' } };
+const stringRecordDictionary: _.Dictionary<StringRecord> = stringRecordExplicitDictionary;
+
+const simpleString = 'abc';
+
+const simpleNumber = 7;
+
+declare const mixedIterabilityValue: number | number[];
+
+// avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
+// the types under test need to be refactored
+interface UnderscoreType<TWrappedValue, TItemType> { }
+
+interface UnderscoreTypeExtractor {
+    <T, V>(chainResult: _.Underscore<T, V>): UnderscoreType<V, T>;
+}
+
+declare const extractUnderscoreTypes: UnderscoreTypeExtractor;
+
+interface ChainType<TWrappedValue, TItemType> { }
+
+interface ChainTypeExtractor {
+    <T, V>(chainResult: _._Chain<T, V>): ChainType<V, T>;
+}
+
+declare const extractChainTypes: ChainTypeExtractor;
+
+// Arrays
+
+// chunk
+{
+    const length = 2;
+
+    _.chunk(stringRecordArray, length); // $ExpectType StringRecord[][]
+    _(stringRecordArray).chunk(length); // $ExpectType StringRecord[][]
+    extractChainTypes(_.chain(stringRecordArray).chunk(length)); // $ExpectType ChainType<StringRecord[][], StringRecord[]>
+
+    _.chunk(stringRecordList, length); // $ExpectType StringRecord[][]
+    _(stringRecordList).chunk(length); // $ExpectType StringRecord[][]
+    extractChainTypes(_.chain(stringRecordList).chunk(length)); // $ExpectType ChainType<StringRecord[][], StringRecord[]>
+
+    _.chunk(simpleString, length); // $ExpectType string[][]
+    _(simpleString).chunk(length); // $ExpectType string[][]
+    extractChainTypes(_.chain(simpleString).chunk(length)); // $ExpectType ChainType<string[][], string[]>
+}
+
+// findIndex and findLastIndex
+{
+    _([1, 2, 3, 1, 2, 3]).findIndex(num => num % 2 === 0); // $ExpectType number
+    _([{a: 'a'}, {a: 'b'}]).findIndex({a: 'b'}); // $ExpectType number
+    _.chain([1, 2, 3, 1, 2, 3]).findIndex(num => num % 2 === 0).value(); // $ExpectType number
+    _.chain([{a: 'a'}, {a: 'b'}]).findIndex({a: 'b'}).value(); // $ExpectType number
+
+    _([1, 2, 3, 1, 2, 3]).findLastIndex(num => num % 2 === 0); // $ExpectType number
+    _([{a: 'a'}, {a: 'b'}]).findLastIndex({ a: 'b' }); // $ExpectType number
+    _.chain([1, 2, 3, 1, 2, 3]).findLastIndex(num => num % 2 === 0).value(); // $ExpectType number
+    _.chain([{a: 'a'}, {a: 'b'}]).findLastIndex({ a: 'b' }).value(); // $ExpectType number
+}
+
+// OOP Style
+
+// underscore
+{
+    extractUnderscoreTypes(_(stringRecordArray)); // $ExpectType UnderscoreType<StringRecord[], StringRecord>
+
+    extractUnderscoreTypes(_(stringRecordAugmentedList)); // $ExpectType UnderscoreType<StringRecordAugmentedList, StringRecord>
+    extractUnderscoreTypes(_(stringRecordList)); // $ExpectType UnderscoreType<List<StringRecord>, StringRecord>
+
+    extractUnderscoreTypes(_(stringRecordExplicitDictionary)); // $ExpectType UnderscoreType<StringRecordExplicitDictionary, StringRecord>
+    extractUnderscoreTypes(_(stringRecordDictionary)); // $ExpectType UnderscoreType<Dictionary<StringRecord>, StringRecord>
+
+    extractUnderscoreTypes(_(simpleString)); // $ExpectType UnderscoreType<string, string>
+    extractUnderscoreTypes(_(simpleNumber)); // $ExpectType UnderscoreType<number, never>
+
+    extractUnderscoreTypes(_(mixedIterabilityValue)); // $ExpectType UnderscoreType<number | number[], number>
+}
+
+// value
+// verify that the object type given to underscore is returned by value
+{
+    _(stringRecordArray).value(); // $ExpectType StringRecord[]
+
+    _(stringRecordAugmentedList).value(); // $ExpectType StringRecordAugmentedList
+    _(stringRecordList).value(); // $ExpectType List<StringRecord>
+
+    _(stringRecordExplicitDictionary).value(); // $ExpectType StringRecordExplicitDictionary
+    _(stringRecordDictionary).value(); // $ExpectType Dictionary<StringRecord>
+
+    _(simpleString).value(); // $ExpectType string
+    _(simpleNumber).value(); // $ExpectType number
+
+    _(mixedIterabilityValue).value(); // $ExpectType number | number[]
+}
+
+// Chaining
+
+// chain
+// verify that the right chain item and value types are yielded by calls to chain
+// these tests also check to make sure that _.chain() and _().chain() yield the same types
+{
+    extractChainTypes(_.chain(stringRecordArray)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    extractChainTypes(_(stringRecordArray).chain()); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    extractChainTypes(_.chain(stringRecordAugmentedList)); // $ExpectType ChainType<StringRecordAugmentedList, StringRecord>
+    extractChainTypes(_(stringRecordAugmentedList).chain()); // $ExpectType ChainType<StringRecordAugmentedList, StringRecord>
+
+    extractChainTypes(_.chain(stringRecordList)); // $ExpectType ChainType<List<StringRecord>, StringRecord>
+    extractChainTypes(_(stringRecordList).chain()); // $ExpectType ChainType<List<StringRecord>, StringRecord>
+
+    extractChainTypes(_.chain(stringRecordExplicitDictionary)); // $ExpectType ChainType<StringRecordExplicitDictionary, StringRecord>
+    extractChainTypes(_(stringRecordExplicitDictionary).chain()); // $ExpectType ChainType<StringRecordExplicitDictionary, StringRecord>
+
+    extractChainTypes(_.chain(stringRecordDictionary)); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
+    extractChainTypes(_(stringRecordDictionary).chain()); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
+
+    extractChainTypes(_.chain(simpleString)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_(simpleString).chain()); // $ExpectType ChainType<string, string>
+
+    extractChainTypes(_.chain(simpleNumber)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_(simpleNumber).chain()); // $ExpectType ChainType<number, never>
+
+    extractChainTypes(_.chain(mixedIterabilityValue)); // $ExpectType ChainType<number | number[], number>
+    extractChainTypes(_(mixedIterabilityValue).chain()); // $ExpectType ChainType<number | number[], number>
+}
+
+// value
+// verify that the object type given to chain is returned by value
+{
+    _.chain(stringRecordArray).value(); // $ExpectType StringRecord[]
+
+    _.chain(stringRecordAugmentedList).value(); // $ExpectType StringRecordAugmentedList
+    _.chain(stringRecordList).value(); // $ExpectType List<StringRecord>
+
+    _.chain(stringRecordExplicitDictionary).value(); // $ExpectType StringRecordExplicitDictionary
+    _.chain(stringRecordDictionary).value(); // $ExpectType Dictionary<StringRecord>
+
+    _.chain(simpleString).value(); // $ExpectType string
+    _.chain(simpleNumber).value(); // $ExpectType number
+
+    _.chain(mixedIterabilityValue).value(); // $ExpectType number | number[]
+}

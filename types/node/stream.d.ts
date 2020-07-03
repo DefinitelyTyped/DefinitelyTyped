@@ -26,6 +26,8 @@ declare module "stream" {
             static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
 
             readable: boolean;
+            readonly readableEncoding: BufferEncoding | null;
+            readonly readableEnded: boolean;
             readonly readableHighWaterMark: number;
             readonly readableLength: number;
             readonly readableObjectMode: boolean;
@@ -124,7 +126,7 @@ declare module "stream" {
         interface WritableOptions {
             highWaterMark?: number;
             decodeStrings?: boolean;
-            defaultencoding?: BufferEncoding;
+            defaultEncoding?: BufferEncoding;
             objectMode?: boolean;
             emitClose?: boolean;
             write?(this: Writable, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;

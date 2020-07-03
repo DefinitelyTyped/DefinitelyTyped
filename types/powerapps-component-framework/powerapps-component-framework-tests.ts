@@ -128,3 +128,21 @@ const EntityReferenceTest: ComponentFramework.EntityReference = {
     etn: '',
     name: '',
 };
+
+const metadataTest: ComponentFramework.PropertyHelper.FieldPropertyMetadata.Metadata = {
+    DisplayName: '',
+    LogicalName: '',
+    RequiredLevel: -1,
+    IsSecured: false,
+    SourceType: 0,
+    Description: '',
+};
+
+const propertyTest: ComponentFramework.PropertyTypes.Property = {
+    error: false,
+    errorMessage: '',
+    formatted: '',
+    raw: '',
+    type: '',
+    attributes: metadataTest,
+};

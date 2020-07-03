@@ -114,6 +114,7 @@ export interface GraphData<N extends GraphNode, L extends GraphLink> {
 }
 
 export interface GraphEventCallbacks {
+    onClickGraph: (event: MouseEvent) => void;
     onClickNode: (nodeId: string) => void;
     onDoubleClickNode: (nodeId: string) => void;
     onRightClickNode: (event: MouseEvent, nodeId: string) => void;

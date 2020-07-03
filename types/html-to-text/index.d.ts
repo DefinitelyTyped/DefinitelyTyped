@@ -137,6 +137,7 @@ export interface Formatters {
     lineBreak?: Formatter;
     paragraph?: Formatter;
     anchor?: Formatter;
+    blockquote?: Formatter;
     heading?: Formatter;
     table?: Formatter;
     orderedList?: Formatter;

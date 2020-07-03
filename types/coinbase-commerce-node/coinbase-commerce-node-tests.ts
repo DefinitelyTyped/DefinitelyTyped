@@ -70,7 +70,7 @@ const chargeResponseExample: ChargeResource = {
         },
         {
             time: '2017-01-31T20:50:02Z',
-            status: 'CONFIRMED'
+            status: 'COMPLETED'
         },
         {
             time: '2017-01-31T20:50:02Z',
@@ -93,7 +93,7 @@ const chargeResponseExample: ChargeResource = {
         {
             network: 'ethereum',
             transaction_id: '0xe02fead885c3e4019945428ed54d094247bada2d0ac41b08fce7ce137bf29587',
-            status: 'CONFIRMED',
+            status: 'COMPLETED',
             value: {
                 local: { amount: '100.0', currency: 'USD' },
                 crypto: { amount: '10.00', currency: 'ETH' }

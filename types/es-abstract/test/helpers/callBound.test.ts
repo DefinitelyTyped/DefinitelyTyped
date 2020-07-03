@@ -11,5 +11,5 @@ callBound('%ObjProto_valueOf%'); // $ExpectType (thisArg: unknown) => Object
 // tslint:disable-next-line: max-line-length
 callBound('%PromiseProto_then%'); // $ExpectType (thisArg: unknown, onfulfilled?: ((value: any) => unknown) | null | undefined, onrejected?: ((reason: any) => unknown) | null | undefined) => Promise<unknown>
 
-// Unknown:
-callBound('%Object.prototype.hasOwnProperty%'); // $ExpectType any
+// Dotted intrinsic:
+callBound('%Object.prototype.hasOwnProperty%'); // $ExpectType (thisArg: unknown, v: string | number | symbol) => boolean

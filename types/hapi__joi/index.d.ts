@@ -1643,7 +1643,7 @@ declare namespace Joi {
         /**
          * Renames a key to another name (deletes the renamed key).
          */
-        rename(from: string, to: string, options?: RenameOptions): this;
+        rename(from: string | RegExp, to: string, options?: RenameOptions): this;
 
         /**
          * Requires the object to be a Joi schema instance.

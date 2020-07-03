@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 18.1.0.36-beta
+*  version : 18.1.0.52
 *  Copyright Syncfusion Inc. 2001 - 2020. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -43582,7 +43582,7 @@ declare namespace ej {
              */
             isChecked?: boolean;
 
-            /** Specifies the value for datepicker of Custom Cell type.
+            /** Specifies the datepicker of Custom Cell type.
              */
             value?: string;
         }

@@ -2,12 +2,12 @@ import * as React from 'react';
 import Calendar from 'react-calendar';
 
 interface State {
-  value: Date | Date[];
+  value: Date | Date[] | null;
 }
 
 export default class Sample extends React.Component<{}, State> {
   state = {
-    value: new Date(),
+    value: null,
   };
 
   onChange = (value: Date | Date[]) => {

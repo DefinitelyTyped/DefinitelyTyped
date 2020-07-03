@@ -1,6 +1,7 @@
-// Type definitions for typekit-webfontloader 1.6.4
+// Type definitions for typekit-webfontloader 1.6.28
 // Project: https://github.com/typekit/webfontloader
 // Definitions by: doskallemaskin <https://github.com/doskallemaskin>
+//                SECT <https://github.com/sectsect>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = WebFont;
@@ -38,6 +39,7 @@ declare namespace WebFont {
         monotype?:Monotype;
     }
     export interface Google {
+        api?: string;
         families:Array<string>;
         text?: string;
     }
@@ -55,6 +57,7 @@ declare namespace WebFont {
     export interface Monotype {
         projectId?:string;
         version?:number;
+        loadAllFonts?:boolean;
     }
 
 }

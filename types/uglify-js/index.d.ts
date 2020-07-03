@@ -1,5 +1,5 @@
 // Type definitions for UglifyJS 3.9
-// Project: https://github.com/mishoo/UglifyJS2
+// Project: https://github.com/mishoo/UglifyJS
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 John Reilly <https://github.com/johnnyreilly>

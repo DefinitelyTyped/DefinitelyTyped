@@ -3261,7 +3261,7 @@ class Example98 extends React.Component {
 class Example99 extends React.Component {
   render() {
     return (
-      <Table responsive>
+      <Table responsive="md">
         <thead>
           <tr>
             <th>#</th>

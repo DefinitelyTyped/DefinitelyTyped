@@ -69,6 +69,8 @@ declare namespace _Readable {
         destroyed: boolean;
         // Readable
         readable: boolean;
+        readonly readableEncoding: BufferEncoding | null;
+        readonly readableEnded: boolean;
         readonly readableHighWaterMark: number;
         readonly readableLength: number;
         readonly readableObjectMode: boolean;

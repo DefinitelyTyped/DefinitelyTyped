@@ -39,6 +39,8 @@
 //                 David Sheldrick <https://github.com/ds300>
 //                 Natsathorn Yuthakovit <https://github.com/natsathorn>
 //                 ConnectDotz <https://github.com/connectdotz>
+//                 Marcel Lasaj <https://github.com/TheWirv>
+//                 Alexey Molchan <https://github.com/alexeymolchan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2032,6 +2034,11 @@ export interface ViewPropsAndroid {
      * re-used and re-composited with different parameters. The downside is that this can use up limited video memory, so this prop should be set back to false at the end of the interaction/animation.
      */
     renderToHardwareTextureAndroid?: boolean;
+
+    /**
+     * Whether this `View` should be focusable with a non-touch input device, eg. receive focus with a hardware keyboard.
+     */
+    focusable?: boolean;
 }
 
 type Falsy = undefined | null | false;
@@ -4874,6 +4881,11 @@ export interface ModalPropsAndroid {
      *  Controls whether to force hardware acceleration for the underlying window.
      */
     hardwareAccelerated?: boolean;
+
+    /**
+     *  Determines whether your modal should go under the system statusbar.
+     */
+    statusBarTranslucent?: boolean;
 }
 
 export type ModalProps = ModalBaseProps & ModalPropsIOS & ModalPropsAndroid;
@@ -4963,10 +4975,19 @@ export interface TouchableWithoutFeedbackPropsIOS {
     tvParallaxProperties?: TVParallaxProperties;
 }
 
+export interface TouchableWithoutFeedbackPropsAndroid {
+    /**
+     * If true, doesn't play a system sound on touch.
+     *
+     * @platform android
+     */
+    touchSoundDisabled?: boolean | null;
+}
+
 /**
  * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html#props
  */
-export interface TouchableWithoutFeedbackProps extends TouchableWithoutFeedbackPropsIOS, AccessibilityProps {
+export interface TouchableWithoutFeedbackProps extends TouchableWithoutFeedbackPropsIOS, TouchableWithoutFeedbackPropsAndroid, AccessibilityProps {
     /**
      * Delay in ms, from onPressIn, before onLongPress is called.
      */
@@ -4985,7 +5006,7 @@ export interface TouchableWithoutFeedbackProps extends TouchableWithoutFeedbackP
     /**
      * If true, disable all interactions for this component.
      */
-    disabled?: boolean;
+    disabled?: boolean | null;
 
     /**
      * This defines how far your touch can start away from the button.
@@ -7973,6 +7994,29 @@ export class StatusBar extends React.Component<StatusBarProps> {
      * @param translucent Set as translucent.
      */
     static setTranslucent: (translucent: boolean) => void;
+
+    /**
+     * Push a StatusBar entry onto the stack.
+     * The return value should be passed to `popStackEntry` when complete.
+     *
+     * @param props Object containing the StatusBar props to use in the stack entry.
+     */
+    static pushStackEntry: (props: StatusBarProps) => StatusBarProps;
+
+    /**
+     * Pop a StatusBar entry from the stack.
+     *
+     * @param entry Entry returned from `pushStackEntry`.
+     */
+    static popStackEntry: (entry: StatusBarProps) => void;
+
+    /**
+     * Replace an existing StatusBar stack entry with new props.
+     *
+     * @param entry Entry returned from `pushStackEntry` to replace.
+     * @param props Object containing the StatusBar props to use in the replacement stack entry.
+     */
+    static replaceStackEntry: (entry: StatusBarProps, props: StatusBarProps) => StatusBarProps;
 }
 
 /**
@@ -8533,8 +8577,30 @@ export namespace Animated {
     type EndCallback = (result: EndResult) => void;
 
     export interface CompositeAnimation {
+        /**
+         * Animations are started by calling start() on your animation.
+         * start() takes a completion callback that will be called when the
+         * animation is done or when the animation is done because stop() was
+         * called on it before it could finish.
+         *
+         * @param callback - Optional function that will be called
+         *      after the animation finished running normally or when the animation
+         *      is done because stop() was called on it before it could finish
+         *
+         * @example
+         *   Animated.timing({}).start(({ finished }) => {
+         *    // completion callback
+         *   });
+         */
         start: (callback?: EndCallback) => void;
+        /**
+         * Stops any running animation.
+         */
         stop: () => void;
+        /**
+         * Stops any running animation and resets the value to its original.
+         */
+        reset: () => void;
     }
 
     interface AnimationConfig {
