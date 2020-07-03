@@ -81,17 +81,17 @@ export type DisabledDatesFunc = (date: Moment) => boolean;
 export type CustomDatesStylesFunc = (
     date: Moment,
 ) => {
-    containerStyle: ViewStyle;
+    containerStyle?: ViewStyle;
     style?: ViewStyle;
-    textStyle: TextStyle;
+    textStyle?: TextStyle;
 };
 
 export type CustomDayHeaderStylesFuncDateArg = { dayOfWeek: number; month: number; year: number };
 export type CustomDayHeaderStylesFunc = (
     date: CustomDayHeaderStylesFuncDateArg,
 ) => {
-    textStyle: TextStyle;
-    style: ViewStyle;
+    textStyle?: TextStyle;
+    style?: ViewStyle;
 };
 
 export type MomentParsable = MomentInput;
