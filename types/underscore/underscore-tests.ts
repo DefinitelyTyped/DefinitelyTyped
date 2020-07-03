@@ -698,11 +698,11 @@ interface StringRecordAugmentedList extends _.List<StringRecord> {
 
 const stringRecordAugmentedList: StringRecordAugmentedList = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: { a: 'c', b: 'a' }, length: 3, notAListProperty: true };
 const stringRecordList: _.List<StringRecord> = stringRecordAugmentedList;
-declare const twoDimensionStringRecordList: _.List<_.List<StringRecord>>;
-declare const threeDimensionStringRecordList: _.List<_.List<_.List<StringRecord>>>;
-declare const fourDimensionStringRecordList: _.List<_.List<_.List<_.List<StringRecord>>>>;
-declare const zeroAndOneDimensionStringRecordArray: (StringRecord | StringRecord[])[];
-declare const zeroOneTwoDimensionStringRecordArray: (StringRecord | StringRecord[] | StringRecord[][])[];
+declare const level2RecordList: _.List<_.List<StringRecord>>;
+declare const level3RecordList: _.List<_.List<_.List<StringRecord>>>;
+declare const level4RecordList: _.List<_.List<_.List<_.List<StringRecord>>>>;
+declare const twoLevelRecordArray: (StringRecord | StringRecord[])[];
+declare const threeLevelRecordArray: (StringRecord | StringRecord[] | StringRecord[][])[];
 
 const stringRecordListValueIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => value.a;
 const stringRecordListBooleanIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => value.a === 'b';
@@ -975,39 +975,39 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(stringRecordList).flatten(true)); // $ExpectType ChainType<StringRecord[], StringRecord>
 
     // two dimensions, deep
-    _.flatten(twoDimensionStringRecordList); // $ExpectType StringRecord[]
-    _(twoDimensionStringRecordList).flatten(); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(twoDimensionStringRecordList).flatten()); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.flatten(level2RecordList); // $ExpectType StringRecord[]
+    _(level2RecordList).flatten(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(level2RecordList).flatten()); // $ExpectType ChainType<StringRecord[], StringRecord>
 
     // two dimensions, shallow
-    _.flatten(twoDimensionStringRecordList, true); // $ExpectType StringRecord[]
-    _(twoDimensionStringRecordList).flatten(true); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(twoDimensionStringRecordList).flatten(true)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.flatten(level2RecordList, true); // $ExpectType StringRecord[]
+    _(level2RecordList).flatten(true); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(level2RecordList).flatten(true)); // $ExpectType ChainType<StringRecord[], StringRecord>
 
     // three dimensions, deep - this is where recursion gives up and results in any[]
-    _.flatten(threeDimensionStringRecordList); // $ExpectType any[]
-    _(threeDimensionStringRecordList).flatten(); // $ExpectType any[]
-    extractChainTypes(_.chain(threeDimensionStringRecordList).flatten()); // $ExpectType ChainType<any[], any>
+    _.flatten(level3RecordList); // $ExpectType any[]
+    _(level3RecordList).flatten(); // $ExpectType any[]
+    extractChainTypes(_.chain(level3RecordList).flatten()); // $ExpectType ChainType<any[], any>
 
     // three dimensions, shallow - verify that we continue to not give up for lists that are three dimensions or higher
-    _.flatten(threeDimensionStringRecordList, true); // $ExpectType List<StringRecord>[]
-    _(threeDimensionStringRecordList).flatten(true); // $ExpectType List<StringRecord>[]
-    extractChainTypes(_.chain(threeDimensionStringRecordList).flatten(true)); // $ExpectType ChainType<List<StringRecord>[], List<StringRecord>>
+    _.flatten(level3RecordList, true); // $ExpectType List<StringRecord>[]
+    _(level3RecordList).flatten(true); // $ExpectType List<StringRecord>[]
+    extractChainTypes(_.chain(level3RecordList).flatten(true)); // $ExpectType ChainType<List<StringRecord>[], List<StringRecord>>
 
     // four dimensions, deep - verify that we continue to give for lists that are higher than three dimensions
-    _.flatten(fourDimensionStringRecordList); // $ExpectType any[]
-    _(fourDimensionStringRecordList).flatten(); // $ExpectType any[]
-    extractChainTypes(_.chain(fourDimensionStringRecordList).flatten()); // $ExpectType ChainType<any[], any>
+    _.flatten(level4RecordList); // $ExpectType any[]
+    _(level4RecordList).flatten(); // $ExpectType any[]
+    extractChainTypes(_.chain(level4RecordList).flatten()); // $ExpectType ChainType<any[], any>
 
     // mixed dimensions, deep
-    _.flatten(zeroAndOneDimensionStringRecordArray); // $ExpectType StringRecord[]
-    _(zeroAndOneDimensionStringRecordArray).flatten(); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(zeroAndOneDimensionStringRecordArray).flatten()); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.flatten(twoLevelRecordArray); // $ExpectType StringRecord[]
+    _(twoLevelRecordArray).flatten(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(twoLevelRecordArray).flatten()); // $ExpectType ChainType<StringRecord[], StringRecord>
 
     // mixed dimensions, shallow
-    _.flatten(zeroOneTwoDimensionStringRecordArray, true); // $ExpectType (StringRecord | StringRecord[])[]
-    _(zeroOneTwoDimensionStringRecordArray).flatten(true); // $ExpectType (StringRecord | StringRecord[])[]
-    extractChainTypes(_.chain(zeroOneTwoDimensionStringRecordArray).flatten(true)); // $ExpectType ChainType<(StringRecord | StringRecord[])[], StringRecord | StringRecord[]>
+    _.flatten(threeLevelRecordArray, true); // $ExpectType (StringRecord | StringRecord[])[]
+    _(threeLevelRecordArray).flatten(true); // $ExpectType (StringRecord | StringRecord[])[]
+    extractChainTypes(_.chain(threeLevelRecordArray).flatten(true)); // $ExpectType ChainType<(StringRecord | StringRecord[])[], StringRecord | StringRecord[]>
 
     // string lists, deep
     _.flatten(twoDimensionSimpleStringList); // $ExpectType string[]
