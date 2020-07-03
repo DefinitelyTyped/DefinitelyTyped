@@ -43,7 +43,6 @@ export interface CalendarPickerProps {
     /**
      * @deprecated Use customDatesStyles & customDayHeaderStyles callbacks to style individual dates, days of week, and/or header.
      */
-
     customDatesStylesPriority?: 'dayOfWeek' | 'customDates';
     scaleFactor?: number;
     minDate?: Date;
