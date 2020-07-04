@@ -916,6 +916,22 @@ declare const extractChainTypes: ChainTypeExtractor;
     _.select(stringRecordDictionary, stringRecordProperty); // $ExpectType StringRecord[]
     _(stringRecordDictionary).select(stringRecordProperty); // $ExpectType StringRecord[]
     extractChainTypes(_.chain(stringRecordDictionary).select(stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // property path iteratee - lists
+    _.filter(stringRecordList, stringRecordPropertyPath); // $ExpectType StringRecord[]
+    _(stringRecordList).filter(stringRecordPropertyPath); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).filter(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.select(stringRecordList, stringRecordPropertyPath); // $ExpectType StringRecord[]
+    _(stringRecordList).select(stringRecordPropertyPath); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).select(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // property path iteratee - dictionaries
+    _.filter(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).filter(stringRecordPropertyPath); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).filter(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.select(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).select(stringRecordPropertyPath); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).select(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
 }
 
 // pluck
