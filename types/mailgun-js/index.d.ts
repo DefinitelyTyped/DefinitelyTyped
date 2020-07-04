@@ -142,11 +142,11 @@ declare namespace Mailgun {
         }
 
         interface MemberAddMultipleData {
-            members: {
+            members: Array<{
                 name?: string;
                 address: string;
                 subscribed?: boolean;
-            }[];
+            }>;
             upsert?: boolean;
         }
 
