@@ -4150,7 +4150,7 @@ declare module _ {
         map<I extends Iteratee<V, any>>(
             iteratee: I,
             context?: any
-        ): IterateeResult<I, TypeOfCollection<V>>[];
+        ): IterateeResult<I, T>[];
 
         /**
          * @see map
