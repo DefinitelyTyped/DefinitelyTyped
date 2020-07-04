@@ -739,13 +739,13 @@ interface NonIntersectingStringRecord {
 type NonIntersectingProperties = StringRecord | NonIntersectingStringRecord;
 
 const nonIntersectingPropertiesList: _.List<NonIntersectingProperties> = { 0: { a: 'a', b: 'c' }, 1: { onlyNonIntersectingStringRecord: 'b' }, length: 2 };
-declare const twoDimensionIntersectingPropertiesList: _.List<_.List<NonIntersectingProperties>>;
+declare const level2NonIntersectingPropertiesList: _.List<_.List<NonIntersectingProperties>>;
 
 const simpleString = 'abc';
 
 const simpleStringArray: string[] = ['a', 'c'];
 const simpleStringList: _.List<string> = { 0: 'a', 1: 'c', length: 2 };
-declare const twoDimensionSimpleStringList: _.List<_.List<string>>;
+declare const level2StringList: _.List<_.List<string>>;
 
 const stringListValueIterator = (value: string, index: number, list: _.List<string>) => value.length;
 const stringListBooleanIterator = (value: string, index: number, list: _.List<string>) => value === 'b';
@@ -1064,9 +1064,9 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(maxLevel3RecordArray).flatten(true)); // $ExpectType ChainType<(StringRecord | StringRecord[])[], StringRecord | StringRecord[]>
 
     // string lists, deep
-    _.flatten(twoDimensionSimpleStringList); // $ExpectType string[]
-    _(twoDimensionSimpleStringList).flatten(); // $ExpectType string[]
-    extractChainTypes(_.chain(twoDimensionSimpleStringList).flatten()); // $ExpectType ChainType<string[], string>
+    _.flatten(level2StringList); // $ExpectType string[]
+    _(level2StringList).flatten(); // $ExpectType string[]
+    extractChainTypes(_.chain(level2StringList).flatten()); // $ExpectType ChainType<string[], string>
 
     // string lists, shallow
     _.flatten(simpleStringArray, true); // $ExpectType string[]
@@ -1078,14 +1078,14 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(simpleStringList).flatten(true)); // $ExpectType ChainType<string[], string>
 
     // type unions, deep
-    _.flatten(twoDimensionIntersectingPropertiesList); // $ExpectType NonIntersectingProperties[]
-    _(twoDimensionIntersectingPropertiesList).flatten(); // $ExpectType NonIntersectingProperties[]
-    extractChainTypes(_.chain(twoDimensionIntersectingPropertiesList).flatten()); // $ExpectType ChainType<NonIntersectingProperties[], NonIntersectingProperties>
+    _.flatten(level2NonIntersectingPropertiesList); // $ExpectType NonIntersectingProperties[]
+    _(level2NonIntersectingPropertiesList).flatten(); // $ExpectType NonIntersectingProperties[]
+    extractChainTypes(_.chain(level2NonIntersectingPropertiesList).flatten()); // $ExpectType ChainType<NonIntersectingProperties[], NonIntersectingProperties>
 
     // type unions, shallow
-    _.flatten(twoDimensionIntersectingPropertiesList, true); // $ExpectType NonIntersectingProperties[]
-    _(twoDimensionIntersectingPropertiesList).flatten(true); // $ExpectType NonIntersectingProperties[]
-    extractChainTypes(_.chain(twoDimensionIntersectingPropertiesList).flatten(true)); // $ExpectType ChainType<NonIntersectingProperties[], NonIntersectingProperties>
+    _.flatten(level2NonIntersectingPropertiesList, true); // $ExpectType NonIntersectingProperties[]
+    _(level2NonIntersectingPropertiesList).flatten(true); // $ExpectType NonIntersectingProperties[]
+    extractChainTypes(_.chain(level2NonIntersectingPropertiesList).flatten(true)); // $ExpectType ChainType<NonIntersectingProperties[], NonIntersectingProperties>
 }
 
 // chunk
