@@ -701,8 +701,8 @@ const stringRecordList: _.List<StringRecord> = stringRecordAugmentedList;
 declare const level2RecordList: _.List<_.List<StringRecord>>;
 declare const level3RecordList: _.List<_.List<_.List<StringRecord>>>;
 declare const level4RecordList: _.List<_.List<_.List<_.List<StringRecord>>>>;
-declare const twoLevelRecordArray: (StringRecord | StringRecord[])[];
-declare const threeLevelRecordArray: (StringRecord | StringRecord[] | StringRecord[][])[];
+declare const maxLevel2RecordArray: (StringRecord | StringRecord[])[];
+declare const maxLevel3RecordArray: (StringRecord | StringRecord[] | StringRecord[][])[];
 
 const stringRecordListValueIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => value.a;
 const stringRecordListBooleanIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => value.a === 'b';
@@ -1000,14 +1000,14 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(level4RecordList).flatten()); // $ExpectType ChainType<any[], any>
 
     // mixed dimensions, deep
-    _.flatten(twoLevelRecordArray); // $ExpectType StringRecord[]
-    _(twoLevelRecordArray).flatten(); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(twoLevelRecordArray).flatten()); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.flatten(maxLevel2RecordArray); // $ExpectType StringRecord[]
+    _(maxLevel2RecordArray).flatten(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(maxLevel2RecordArray).flatten()); // $ExpectType ChainType<StringRecord[], StringRecord>
 
     // mixed dimensions, shallow
-    _.flatten(threeLevelRecordArray, true); // $ExpectType (StringRecord | StringRecord[])[]
-    _(threeLevelRecordArray).flatten(true); // $ExpectType (StringRecord | StringRecord[])[]
-    extractChainTypes(_.chain(threeLevelRecordArray).flatten(true)); // $ExpectType ChainType<(StringRecord | StringRecord[])[], StringRecord | StringRecord[]>
+    _.flatten(maxLevel3RecordArray, true); // $ExpectType (StringRecord | StringRecord[])[]
+    _(maxLevel3RecordArray).flatten(true); // $ExpectType (StringRecord | StringRecord[])[]
+    extractChainTypes(_.chain(maxLevel3RecordArray).flatten(true)); // $ExpectType ChainType<(StringRecord | StringRecord[])[], StringRecord | StringRecord[]>
 
     // string lists, deep
     _.flatten(twoDimensionSimpleStringList); // $ExpectType string[]
