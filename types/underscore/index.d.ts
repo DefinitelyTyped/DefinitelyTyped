@@ -575,10 +575,10 @@ declare module _ {
          * @param propertyName The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection.
          **/
-        pluck<T, K extends PropertyKey>(
-            collection: Collection<T>,
+        pluck<V extends Collection<any>, K extends PropertyKey>(
+            collection: V,
             propertyName: K
-        ): PropertyTypeOrAny<T, K>[];
+        ): PropertyTypeOrAny<TypeOfCollection<V>, K>[];
 
         /**
         * Returns the maximum value in list.
@@ -878,8 +878,8 @@ declare module _ {
          * @param shallow If true then only flatten one level, optional, default = false.
          * @returns The flattened list.
          **/
-        flatten<T>(list: List<T>, shallow?: false): DeepestListItemOrSelf<T>[];
-        flatten<T>(list: List<T>, shallow: true): ListItemOrSelf<T>[];
+        flatten<V extends List<any>>(list: V, shallow?: false): DeepestListItemOrSelf<TypeOfList<V>>[];
+        flatten<V extends List<any>>(list: V, shallow: true): ListItemOrSelf<TypeOfList<V>>[];
 
         /**
         * Returns a copy of the array with all instances of the values removed.
@@ -1114,7 +1114,7 @@ declare module _ {
          * @param length The maximum size of the inner arrays.
          * @returns The chunked list.
          **/
-        chunk<T>(list: List<T>, length: number): T[][]
+        chunk<V extends List<any>>(list: V, length: number): TypeOfList<V>[][]
 
         /*************
          * Functions *
