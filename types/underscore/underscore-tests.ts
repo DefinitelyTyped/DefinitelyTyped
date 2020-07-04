@@ -389,24 +389,24 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(simpleString).inject(stringListMemoIterator, dictionaryMemo, context)); // $ExpectType ChainType<Dictionary<number>, number>
 
     // without memo - strings
-    _.reduce(simpleString, stringListSelfMemoIterator); // $ExpectType Dictionary<number>
-    _.reduce(simpleString, stringListSelfMemoIterator, undefined, context); // $ExpectType Dictionary<number>
-    _(simpleString).reduce(stringListSelfMemoIterator); // $ExpectType Dictionary<number>
-    _(simpleString).reduce(stringListSelfMemoIterator, undefined, context); // $ExpectType Dictionary<number>
-    extractChainTypes(_.chain(simpleString).reduce(stringListSelfMemoIterator)); // $ExpectType ChainType<Dictionary<number>, number>
-    extractChainTypes(_.chain(simpleString).reduce(stringListSelfMemoIterator, undefined, context)); // $ExpectType ChainType<Dictionary<number>, number>
-    _.foldl(simpleString, stringListSelfMemoIterator); // $ExpectType Dictionary<number>
-    _.foldl(simpleString, stringListSelfMemoIterator, undefined, context); // $ExpectType Dictionary<number>
-    _(simpleString).foldl(stringListSelfMemoIterator); // $ExpectType Dictionary<number>
-    _(simpleString).foldl(stringListSelfMemoIterator, undefined, context); // $ExpectType Dictionary<number>
-    extractChainTypes(_.chain(simpleString).foldl(stringListSelfMemoIterator)); // $ExpectType ChainType<Dictionary<number>, number>
-    extractChainTypes(_.chain(simpleString).foldl(stringListSelfMemoIterator, undefined, context)); // $ExpectType ChainType<Dictionary<number>, number>
-    _.inject(simpleString, stringListSelfMemoIterator); // $ExpectType Dictionary<number>
-    _.inject(simpleString, stringListSelfMemoIterator, undefined, context); // $ExpectType Dictionary<number>
-    _(simpleString).inject(stringListSelfMemoIterator); // $ExpectType Dictionary<number>
-    _(simpleString).inject(stringListSelfMemoIterator, undefined, context); // $ExpectType Dictionary<number>
-    extractChainTypes(_.chain(simpleString).inject(stringListSelfMemoIterator)); // $ExpectType ChainType<Dictionary<number>, number>
-    extractChainTypes(_.chain(simpleString).inject(stringListSelfMemoIterator, undefined, context)); // $ExpectType ChainType<Dictionary<number>, number>
+    _.reduce(simpleString, stringListSelfMemoIterator); // $ExpectType string
+    _.reduce(simpleString, stringListSelfMemoIterator, undefined, context); // $ExpectType string
+    _(simpleString).reduce(stringListSelfMemoIterator); // $ExpectType string
+    _(simpleString).reduce(stringListSelfMemoIterator, undefined, context); // $ExpectType string
+    extractChainTypes(_.chain(simpleString).reduce(stringListSelfMemoIterator)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleString).reduce(stringListSelfMemoIterator, undefined, context)); // $ExpectType ChainType<string, string>
+    _.foldl(simpleString, stringListSelfMemoIterator); // $ExpectType string
+    _.foldl(simpleString, stringListSelfMemoIterator, undefined, context); // $ExpectType string
+    _(simpleString).foldl(stringListSelfMemoIterator); // $ExpectType string
+    _(simpleString).foldl(stringListSelfMemoIterator, undefined, context); // $ExpectType string
+    extractChainTypes(_.chain(simpleString).foldl(stringListSelfMemoIterator)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleString).foldl(stringListSelfMemoIterator, undefined, context)); // $ExpectType ChainType<string, string>
+    _.inject(simpleString, stringListSelfMemoIterator); // $ExpectType string
+    _.inject(simpleString, stringListSelfMemoIterator, undefined, context); // $ExpectType string
+    _(simpleString).inject(stringListSelfMemoIterator); // $ExpectType string
+    _(simpleString).inject(stringListSelfMemoIterator, undefined, context); // $ExpectType string
+    extractChainTypes(_.chain(simpleString).inject(stringListSelfMemoIterator)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleString).inject(stringListSelfMemoIterator, undefined, context)); // $ExpectType ChainType<string, string>
 }
 
 // reduceRight, foldr
@@ -457,18 +457,18 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(simpleString).foldr(stringListMemoIterator, dictionaryMemo, context)); // $ExpectType ChainType<Dictionary<number>, number>
 
     // without memo - strings
-    _.reduceRight(simpleString, stringListSelfMemoIterator); // $ExpectType Dictionary<number>
-    _.reduceRight(simpleString, stringListSelfMemoIterator, undefined, context); // $ExpectType Dictionary<number>
-    _(simpleString).reduceRight(stringListSelfMemoIterator); // $ExpectType Dictionary<number>
-    _(simpleString).reduceRight(stringListSelfMemoIterator, undefined, context); // $ExpectType Dictionary<number>
-    extractChainTypes(_.chain(simpleString).reduceRight(stringListSelfMemoIterator)); // $ExpectType ChainType<Dictionary<number>, number>
-    extractChainTypes(_.chain(simpleString).reduceRight(stringListSelfMemoIterator, undefined, context)); // $ExpectType ChainType<Dictionary<number>, number>
-    _.foldr(simpleString, stringListSelfMemoIterator); // $ExpectType Dictionary<number>
-    _.foldr(simpleString, stringListSelfMemoIterator, undefined, context); // $ExpectType Dictionary<number>
-    _(simpleString).foldr(stringListSelfMemoIterator); // $ExpectType Dictionary<number>
-    _(simpleString).foldr(stringListSelfMemoIterator, undefined, context); // $ExpectType Dictionary<number>
-    extractChainTypes(_.chain(simpleString).foldr(stringListSelfMemoIterator)); // $ExpectType ChainType<Dictionary<number>, number>
-    extractChainTypes(_.chain(simpleString).foldr(stringListSelfMemoIterator, undefined, context)); // $ExpectType ChainType<Dictionary<number>, number>
+    _.reduceRight(simpleString, stringListSelfMemoIterator); // $ExpectType string
+    _.reduceRight(simpleString, stringListSelfMemoIterator, undefined, context); // $ExpectType string
+    _(simpleString).reduceRight(stringListSelfMemoIterator); // $ExpectType string
+    _(simpleString).reduceRight(stringListSelfMemoIterator, undefined, context); // $ExpectType string
+    extractChainTypes(_.chain(simpleString).reduceRight(stringListSelfMemoIterator)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleString).reduceRight(stringListSelfMemoIterator, undefined, context)); // $ExpectType ChainType<string, string>
+    _.foldr(simpleString, stringListSelfMemoIterator); // $ExpectType string
+    _.foldr(simpleString, stringListSelfMemoIterator, undefined, context); // $ExpectType string
+    _(simpleString).foldr(stringListSelfMemoIterator); // $ExpectType string
+    _(simpleString).foldr(stringListSelfMemoIterator, undefined, context); // $ExpectType string
+    extractChainTypes(_.chain(simpleString).foldr(stringListSelfMemoIterator)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(simpleString).foldr(stringListSelfMemoIterator, undefined, context)); // $ExpectType ChainType<string, string>
 }
 
 // find, detect
