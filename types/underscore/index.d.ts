@@ -95,7 +95,8 @@ declare module _ {
         (element: T, key: string, object: V): TResult;
     }
 
-    type CollectionIterator<T, TResult, V> = V extends List<T> ? ListIterator<T, TResult, V>
+    type CollectionIterator<T, TResult, V> =
+        V extends List<T> ? ListIterator<T, TResult, V>
         : V extends Dictionary<T> ? ObjectIterator<T, TResult, V>
         : never;
 
@@ -127,7 +128,8 @@ declare module _ {
         (prev: TResult, curr: T, key: string, object: V): TResult;
     }
 
-    type MemoCollectionIterator<T, TResult, V> = V extends List<T> ? MemoIterator<T, TResult, V>
+    type MemoCollectionIterator<T, TResult, V> =
+        V extends List<T> ? MemoIterator<T, TResult, V>
         : V extends Dictionary<T> ? MemoObjectIterator<T, TResult, V>
         : never;
 
@@ -175,47 +177,23 @@ declare module _ {
         ************* */
 
         /**
-        * Iterates over a list of elements, yielding each in turn to an iterator function. The iterator is
-        * bound to the context object, if one is passed. Each invocation of iterator is called with three
-        * arguments: (element, index, list). If list is a JavaScript object, iterator's arguments will be
-        * (value, key, object). Delegates to the native forEach function if it exists.
-        * @param list Iterates over this list of elements.
-        * @param iterator Iterator function for each element `list`.
-        * @param context 'this' object in `iterator`, optional.
-        **/
-        each<T>(
-            list: T[],
-            iterator: ListIterator<T, void, T[]>,
-            context?: any): T[];
+         * Iterates over a collection of elements, yielding each in turn to an iteratee. The iteratee is
+         * bound to the context object, if one is passed. If iteratee is a function, Each invocation is
+         * called with three arguments: (value, key, collection).
+         * @param collection Iterates over this collection of elements.
+         * @param iteratee Iteratee for each element in `collection`.
+         * @param context 'this' object in `iteratee`, optional.
+         * @returns The original collection.
+         **/
+        each<V extends Collection<any>>(
+            collection: V,
+            iteratee: Iteratee<V, void>,
+            context?: any
+        ): V;
 
         /**
-        * Iterates over a list of elements, yielding each in turn to an iterator function. The iterator is
-        * bound to the context object, if one is passed. Each invocation of iterator is called with three
-        * arguments: (element, index, list). If list is a JavaScript object, iterator's arguments will be
-        * (value, key, object). Delegates to the native forEach function if it exists.
-        * @param list Iterates over this list of elements.
-        * @param iterator Iterator function for each element `list`.
-        * @param context 'this' object in `iterator`, optional.
-        **/
-        each<T>(
-            list: List<T>,
-            iterator: ListIterator<T, void>,
-            context?: any): List<T>;
-
-        /**
-        * @see each
-        * @param object Iterates over properties of this object.
-        * @param iterator Iterator function for each property on `object`.
-        * @param context 'this' object in `iterator`, optional.
-        **/
-        each<T>(
-            object: Dictionary<T>,
-            iterator: ObjectIterator<T, void>,
-            context?: any): Dictionary<T>;
-
-        /**
-        * @see each
-        **/
+         * @see each
+         **/
         forEach: UnderscoreStatic['each'];
 
         /**
@@ -234,108 +212,165 @@ declare module _ {
         ): IterateeResult<I, TypeOfCollection<V>>[];
 
         /**
-        * @see map
-        **/
+         * @see map
+         **/
         collect: UnderscoreStatic['map'];
 
         /**
-        * Also known as inject and foldl, reduce boils down a list of values into a single value.
-        * Memo is the initial state of the reduction, and each successive step of it should be
-        * returned by iterator. The iterator is passed four arguments: the memo, then the value
-        * and index (or key) of the iteration, and finally a reference to the entire list.
-        * @param list Reduces the elements of this array.
-        * @param iterator Reduce iterator function for each element in `list`.
-        * @param memo Initial reduce state.
-        * @param context `this` object in `iterator`, optional.
-        * @return Reduced object result.
-        **/
-        reduce<T, TResult>(
-            list: List<T>,
-            iterator: MemoIterator<T, TResult>,
-            memo?: TResult,
-            context?: any): TResult;
+         * Also known as inject and foldl, reduce boils down a collection of values into a
+         * single value. Memo is the initial state of the reduction, and each successive
+         * step of it should be returned by iteratee. The iteratee is passed four arguments:
+         * the memo, then the value and index (or key) of the iteration, and finally a reference
+         * to the entire collection.
+         *
+         * If no memo is passed to the initial invocation of reduce, the iteratee is not invoked
+         * on the first element of the collection. The first element is instead passed as the memo
+         * in the invocation of the iteratee on the next element in the collection.
+         * @param collection Reduces the elements of this collection.
+         * @param iteratee Reduce iteratee function for each element in `list`.
+         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns Reduced object result.
+         **/
+        reduce<V extends Collection<any>>(
+            collection: V,
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TypeOfCollection<V>, V>,
+            memo?: undefined,
+            context?: any
+        ): TypeOfCollection<V>;
 
         /**
-        * @see reduce
-        **/
-        reduce<T, TResult>(
-            object: Dictionary<T>,
-            iterator: MemoObjectIterator<T, TResult>,
-            memo?: TResult,
-            context?: any): TResult;
+         * Also known as inject and foldl, reduce boils down a collection of values into a
+         * single value. Memo is the initial state of the reduction, and each successive
+         * step of it should be returned by iteratee. The iteratee is passed four arguments:
+         * the memo, then the value and index (or key) of the iteration, and finally a reference
+         * to the entire collection.
+         *
+         * If no memo is passed to the initial invocation of reduce, the iteratee is not invoked
+         * on the first element of the collection. The first element is instead passed as the memo
+         * in the invocation of the iteratee on the next element in the collection.
+         * @param collection Reduces the elements of this collection.
+         * @param iteratee Reduce iteratee function for each element in `list`.
+         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns Reduced object result.
+         **/
+        reduce<V extends List<any>, TResult>(
+            collection: V,
+            iteratee: MemoIterator<TypeOfCollection<V>, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): TResult;
 
         /**
-        * @see reduce
-        **/
+         * Also known as inject and foldl, reduce boils down a collection of values into a
+         * single value. Memo is the initial state of the reduction, and each successive
+         * step of it should be returned by iteratee. The iteratee is passed four arguments:
+         * the memo, then the value and index (or key) of the iteration, and finally a reference
+         * to the entire collection.
+         *
+         * If no memo is passed to the initial invocation of reduce, the iteratee is not invoked
+         * on the first element of the collection. The first element is instead passed as the memo
+         * in the invocation of the iteratee on the next element in the collection.
+         * @param collection Reduces the elements of this collection.
+         * @param iteratee Reduce iteratee function for each element in `list`.
+         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns Reduced object result.
+         **/
+        reduce<V extends Dictionary<any>, TResult>(
+            collection: V,
+            iteratee: MemoObjectIterator<TypeOfCollection<V>, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): TResult;
+
+        /**
+         * @see reduce
+         **/
         inject: UnderscoreStatic['reduce'];
 
         /**
-        * @see reduce
-        **/
+         * @see reduce
+         **/
         foldl: UnderscoreStatic['reduce'];
 
         /**
-        * The right-associative version of reduce. Delegates to the JavaScript 1.8 version of
-        * reduceRight, if it exists. `foldr` is not as useful in JavaScript as it would be in a
-        * language with lazy evaluation.
-        * @param list Reduces the elements of this array.
-        * @param iterator Reduce iterator function for each element in `list`.
-        * @param memo Initial reduce state.
-        * @param context `this` object in `iterator`, optional.
-        * @return Reduced object result.
-        **/
-        reduceRight<T, TResult>(
-            list: List<T>,
-            iterator: MemoIterator<T, TResult>,
-            memo?: TResult,
-            context?: any): TResult;
+         * The right-associative version of reduce.
+         *
+         * This is not as useful in JavaScript as it would be in a language with lazy evaluation.
+         * @param collection Reduces the elements of this array.
+         * @param iteratee Reduce iteratee function for each element in `collection`.
+         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
+         * @param context `this` object in `iteratee`, optional.
+         * @return Reduced object result.
+         **/
+        reduceRight<V extends Collection<any>>(
+            collection: V,
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TypeOfCollection<V>, V>,
+            memo?: undefined,
+            context?: any
+        ): TypeOfCollection<V>;
 
         /**
-        * @see reduceRight
-        **/
-        reduceRight<T, TResult>(
-            object: Dictionary<T>,
-            iterator: MemoObjectIterator<T, TResult>,
-            memo?: TResult,
-            context?: any): TResult;
+         * The right-associative version of reduce.
+         *
+         * This is not as useful in JavaScript as it would be in a language with lazy evaluation.
+         * @param collection Reduces the elements of this array.
+         * @param iteratee Reduce iteratee function for each element in `collection`.
+         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
+         * @param context `this` object in `iteratee`, optional.
+         * @return Reduced object result.
+         **/
+        reduceRight<V extends List<any>, TResult>(
+            collection: V,
+            iteratee: MemoIterator<TypeOfCollection<V>, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): TResult;
 
         /**
-        * @see reduceRight
-        **/
+         * The right-associative version of reduce.
+         *
+         * This is not as useful in JavaScript as it would be in a language with lazy evaluation.
+         * @param collection Reduces the elements of this array.
+         * @param iteratee Reduce iteratee function for each element in `collection`.
+         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
+         * @param context `this` object in `iteratee`, optional.
+         * @return Reduced object result.
+         **/
+        reduceRight<V extends Dictionary<any>, TResult>(
+            collection: V,
+            iteratee: MemoObjectIterator<TypeOfCollection<V>, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): TResult;
+
+        /**
+         * @see reduceRight
+         **/
         foldr: UnderscoreStatic['reduceRight'];
 
         /**
-        * Looks through each value in the list, returning the first one that passes a truth
-        * test (iterator). The function returns as soon as it finds an acceptable element,
-        * and doesn't traverse the entire list.
-        * @param list Searches for a value in this list.
-        * @param iterator Search iterator function for each element in `list`.
-        * @param context `this` object in `iterator`, optional.
-        * @return The first acceptable found element in `list`, if nothing is found undefined/null is returned.
-        **/
-        find<T>(
-            list: List<T>,
-            iterator: ListIterator<T, boolean>,
-            context?: any): T | undefined;
+         * Looks through each value in the collection, returning the first one that passes a
+         * truth test (iteratee), or undefined if no value passes the test. The function
+         * returns as soon as it finds an acceptable element, and doesn't traverse the entire
+         * collection.
+         * @param collection Searches for a value in this collection.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @return The first element in `collection` that passes the truth test. If nothing
+         * is found undefined is returned.
+         **/
+        find<V extends Collection<any>>(
+            collection: V,
+            iteratee: Iteratee<V, boolean>,
+            context?: any
+        ): TypeOfCollection<V> | undefined;
 
         /**
-        * @see find
-        **/
-        find<T>(
-            object: Dictionary<T>,
-            iterator: ObjectIterator<T, boolean>,
-            context?: any): T | undefined;
-
-        /**
-        * @see find
-        **/
-        find<T>(
-            collection: Collection<T>,
-            iterator: Partial<T> | PropertyKey): T | undefined;
-
-        /**
-        * @see find
-        **/
+         * @see find
+         **/
         detect: UnderscoreStatic['find'];
 
         /**
@@ -353,8 +388,8 @@ declare module _ {
         ): TypeOfCollection<V>[];
 
         /**
-        * @see filter
-        **/
+         * @see filter
+         **/
         select: UnderscoreStatic['filter'];
 
         /**
@@ -364,9 +399,10 @@ declare module _ {
         * @param properties The properties to check for on each element within `collection`.
         * @return The elements within `collection` that contain the required `properties`.
         **/
-        where<T>(
-            collection: Collection<T>,
-            properties: Partial<T>): T[];
+        where<V extends Collection<any>>(
+            collection: V,
+            properties: Partial<TypeOfCollection<V>>
+        ): TypeOfCollection<V>[];
 
         /**
         * Looks through the list and returns the first value that matches all of the key-value pairs listed in properties.
@@ -374,9 +410,10 @@ declare module _ {
         * @param properties Properties to look for on the elements within `collection`.
         * @return The first element in `collection` that has all `properties`.
         **/
-        findWhere<T>(
-            collection: Collection<T>,
-            properties: Partial<T>): T | undefined;
+        findWhere<V extends Collection<any>>(
+            collection: V,
+            properties: Partial<TypeOfCollection<V>>
+        ): TypeOfCollection<V> | undefined;
 
         /**
         * Returns the values in list without the elements that the truth test (iterator) passes.
@@ -387,25 +424,11 @@ declare module _ {
         * @param context `this` object in `iterator`, optional.
         * @return The rejected list of elements.
         **/
-        reject<T>(
-            list: List<T>,
-            iterator: ListIterator<T, boolean>,
-            context?: any): T[];
-
-        /**
-        * @see reject
-        **/
-        reject<T>(
-            object: Dictionary<T>,
-            iterator: ObjectIterator<T, boolean>,
-            context?: any): T[];
-
-        /**
-        * @see reject
-        **/
-        reject<T>(
-            collection: Collection<T>,
-            iterator: Partial<T> | PropertyKey): T[];
+        reject<V extends Collection<any>>(
+            list: V,
+            iterator: Iteratee<V, boolean>,
+            context?: any
+        ): TypeOfCollection<V>[];
 
         /**
         * Returns true if all of the values in the list pass the iterator truth test. Delegates to the
@@ -415,25 +438,11 @@ declare module _ {
         * @param context `this` object in `iterator`, optional.
         * @return True if all elements passed the truth test, otherwise false.
         **/
-        every<T>(
-            list: List<T>,
-            iterator?: ListIterator<T, boolean>,
-            context?: any): boolean;
-
-        /**
-        * @see every
-        **/
-        every<T>(
-            object: Dictionary<T>,
-            iterator?: ObjectIterator<T, boolean>,
-            context?: any): boolean;
-
-        /**
-        * @see every
-        **/
-        every<T>(
-            collection: Collection<T>,
-            iterator?: Partial<T> | PropertyKey): boolean;
+        every<V extends Collection<any>>(
+            list: V,
+            iterator?: Iteratee<V, boolean>,
+            context?: any
+        ): boolean;
 
         /**
         * @see every
@@ -448,25 +457,11 @@ declare module _ {
         * @param context `this` object in `iterator`, optional.
         * @return True if any elements passed the truth test, otherwise false.
         **/
-        some<T>(
-            list: List<T>,
-            iterator?: ListIterator<T, boolean>,
-            context?: any): boolean;
-
-        /**
-        * @see some
-        **/
-        some<T>(
-            object: Dictionary<T>,
-            iterator?: ObjectIterator<T, boolean>,
-            context?: any): boolean;
-
-        /**
-        * @see some
-        **/
-        some<T>(
-            collection: Collection<T>,
-            iterator?: Partial<T> | PropertyKey): boolean;
+        some<V extends Collection<any>>(
+            list: V,
+            iterator?: Iteratee<V, boolean>,
+            context?: any
+        ): boolean;
 
         /**
         * @see some
@@ -480,17 +475,11 @@ declare module _ {
         * @param value The value to check for within `list`.
         * @return True if `value` is present in `list`, otherwise false.
         **/
-        contains<T>(
-            list: List<T>,
-            value: T,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see contains
-        **/
-        contains<T>(
-            object: Dictionary<T>,
-            value: T): boolean;
+        contains<V extends Collection<any>>(
+            list: V,
+            value: TypeOfCollection<V>,
+            fromIndex?: number
+        ): boolean;
 
         /**
         * @see contains
@@ -509,10 +498,11 @@ declare module _ {
         * @param methodName The method's name to call on each element within `list`.
         * @param arguments Additional arguments to pass to the method `methodName`.
         **/
-        invoke<T>(
-            list: Collection<T>,
+        invoke<V extends Collection<any>>(
+            list: V,
             methodName: string,
-            ...args: any[]): any[];
+            ...args: any[]
+        ): any[];
 
         /**
          * A convenient version of what is perhaps the most common use-case for map: extracting a list of
@@ -541,25 +531,11 @@ declare module _ {
         * @param context `this` object in `iterator`, optional.
         * @return The maximum element within `list` or -Infinity if the list is empty.
         **/
-        max<T>(
-            list: List<T>,
-            iterator: ListIterator<T, number>,
-            context?: any): T | number;
-
-        /**
-        * @see max
-        */
-        max<T>(
-            object: Dictionary<T>,
-            iterator: ObjectIterator<T, number>,
-            context?: any): T | number;
-
-        /**
-        * @see max
-        */
-        max<T>(
-            collection: Collection<T>,
-            iterator: PropertyNamesOfType<T, number>): T | number;
+        max<V extends Collection<any>>(
+            list: V,
+            iterator: Iteratee<V, number>,
+            context?: any
+        ): TypeOfCollection<V> | number;
 
         /**
         * Returns the minimum value in list.
@@ -576,25 +552,11 @@ declare module _ {
         * @param context `this` object in `iterator`, optional.
         * @return The minimum element within `list` or Infinity if the list is empty.
         **/
-        min<T>(
-            list: List<T>,
-            iterator: ListIterator<T, number>,
-            context?: any): T | number;
-
-        /**
-        * @see min
-        */
-        min<T>(
-            object: Dictionary<T>,
-            iterator: ObjectIterator<T, number>,
-            context?: any): T | number;
-
-        /**
-        * @see min
-        */
-        min<T>(
-            collection: Collection<T>,
-            iterator: PropertyNamesOfType<T, number>): T | number;
+        min<V extends Collection<any>>(
+            list: V,
+            iterator: Iteratee<V, number>,
+            context?: any
+        ): TypeOfCollection<V> | number;
 
         /**
         * Returns a sorted copy of list, ranked in ascending order by the results of running each value
@@ -604,26 +566,11 @@ declare module _ {
         * @param context `this` object in `iterator`, optional.
         * @return A sorted copy of `list`.
         **/
-        sortBy<T>(
-            list: List<T>,
-            iterator?: ListIterator<T, any>,
-            context?: any): T[];
-
-        /**
-        * @see sortBy
-        */
-        sortBy<T>(
-            object: Dictionary<T>,
-            iterator?: ObjectIterator<T, any>,
-            context?: any): T[];
-
-        /**
-        * @see sortBy
-        * @param iterator Sort iterator for each element within `list`.
-        **/
-        sortBy<T>(
-            collection: Collection<T>,
-            iterator: keyof T): T[];
+        sortBy<V extends Collection<any>>(
+            list: V,
+            iterator?: Iteratee<V, any>,
+            context?: any
+        ): TypeOfCollection<V>[];
 
         /**
          * Splits a collection into sets, grouped by the result of running each value through iteratee.
@@ -642,26 +589,10 @@ declare module _ {
         * Given a `list`, and an `iterator` function that returns a key for each element in the list (or a property name),
         * returns an object with an index of each item.  Just like groupBy, but for when you know your keys are unique.
         **/
-        indexBy<T>(
-            list: List<T>,
-            iterator: ListIterator<T, any>,
-            context?: any): Dictionary<T>;
-
-        /**
-       * @see indexBy
-       **/
-        indexBy<T>(
-            object: Dictionary<T>,
-            iterator: ObjectIterator<T, any>,
-            context?: any): Dictionary<T>;
-
-        /**
-        * @see indexBy
-        * @param iterator Property on each object to index them by.
-        **/
-        indexBy<T>(
-            collection: Collection<T>,
-            iterator: keyof T): Dictionary<T>;
+        indexBy<V extends Collection<any>>(
+            list: V,
+            iterator: Iteratee<V, any>,
+            context?: any): Dictionary<TypeOfCollection<V>>;
 
         /**
         * Sorts a list into groups and returns a count for the number of objects in each group. Similar
@@ -672,45 +603,30 @@ declare module _ {
         * @param context `this` object in `iterator`, optional.
         * @return An object with the group names as properties where each property contains the number of elements in that group.
         **/
-        countBy<T>(
-            list: List<T>,
-            iterator: ListIterator<T, any>,
-            context?: any): Dictionary<number>;
-
-        /**
-         * @see countBy
-         **/
-        countBy<T>(
-            object: Dictionary<T>,
-            iterator: ObjectIterator<T, any>,
-            context?: any): Dictionary<number>;
-
-        /**
-        * @see countBy
-        * @param iterator Function name
-        **/
-        countBy<T>(
-            collection: Collection<T>,
-            iterator: keyof T): Dictionary<number>;
+        countBy<V extends Collection<any>>(
+            list: V,
+            iterator: Iteratee<V, any>,
+            context?: any
+        ): Dictionary<number>;
 
         /**
         * Returns a shuffled copy of the list, using a version of the Fisher-Yates shuffle.
         * @param collection Collection to shuffle.
         * @return Shuffled copy of `list`.
         **/
-        shuffle<T>(collection: Collection<T>): T[];
+        shuffle<V extends Collection<any>>(collection: V): TypeOfCollection<V>[];
 
         /**
         * Produce a random sample from the `list`.  Pass a number to return `n` random elements from the list.  Otherwise a single random item will be returned.
         * @param collection Collection to sample.
         * @return Random sample of `n` elements in `list`.
         **/
-        sample<T>(collection: Collection<T>, n: number): T[];
+        sample<V extends Collection<any>>(collection: V, n: number): TypeOfCollection<V>[];
 
         /**
         * @see sample
         **/
-        sample<T>(collection: Collection<T>): T | undefined;
+        sample<V extends Collection<any>>(collection: V): TypeOfCollection<V> | undefined;
 
         /**
         * Converts the collection (anything that can be iterated over), into a real Array. Useful for transmuting
@@ -718,14 +634,14 @@ declare module _ {
         * @param collection Collection to transform into an array.
         * @return `collection` as an array.
         **/
-        toArray<T>(collection: Collection<T>): T[];
+        toArray<V extends Collection<any>>(collection: V): TypeOfCollection<V>[];
 
         /**
         * Return the number of values in the list.
         * @param collection Count the number of values/elements in this collection.
         * @return Number of values in `collection`.
         **/
-        size<T>(collection: Collection<T>): number;
+        size(collection: Collection<any>): number;
 
         /**
         * Split list into two arrays:
@@ -735,25 +651,11 @@ declare module _ {
         * @param context `this` object in `iterator`, optional.
         * @return Array where Array[0] are the elements in `array` that satisfies the predicate, and Array[1] the elements that did not.
         **/
-        partition<T>(
-            list: List<T>,
-            iterator: ListIterator<T, boolean>,
-            context?: any): [T[], T[]];
-
-        /**
-        * @see partition.
-        **/
-        partition<T>(
-            object: Dictionary<T>,
-            iterator: ObjectIterator<T, boolean>,
-            context?: any): [T[], T[]];
-
-        /**
-        * @see partition.
-        **/
-        partition<T>(
-            collection: Collection<T>,
-            iterator: Partial<T> | PropertyKey): [T[], T[]];
+        partition<V extends Collection<any>>(
+            list: V,
+            iterator: Iteratee<V, boolean>,
+            context?: any
+        ): [TypeOfCollection<V>[], TypeOfCollection<V>[]];
 
         /*********
         * Arrays *
@@ -764,15 +666,16 @@ declare module _ {
         * @param array Retrieves the first element of this array.
         * @return Returns the first element of `array`.
         **/
-        first<T>(array: List<T>): T | undefined;
+        first<V extends List<any>>(array: V): TypeOfList<V> | undefined;
 
         /**
         * @see first
         * @param n Return more than one element from `array`.
         **/
-        first<T>(
-            array: List<T>,
-            n: number): T[];
+        first<V extends List<any>>(
+            array: V,
+            n: number
+        ): TypeOfList<V>[];
 
         /**
         * @see first
@@ -791,24 +694,26 @@ declare module _ {
         * @param n Leaves this many elements behind, optional.
         * @return Returns everything but the last `n` elements of `array`.
         **/
-        initial<T>(
-            array: List<T>,
-            n?: number): T[];
+        initial<V extends List<any>>(
+            array: V,
+            n?: number
+        ): TypeOfList<V>[];
 
         /**
         * Returns the last element of an array. Passing n will return the last n elements of the array.
         * @param array Retrieves the last element of this array.
         * @return Returns the last element of `array`.
         **/
-        last<T>(array: List<T>): T | undefined;
+        last<V extends List<any>>(array: V): TypeOfList<V> | undefined;
 
         /**
         * @see last
         * @param n Return more than one element from `array`.
         **/
-        last<T>(
-            array: List<T>,
-            n: number): T[];
+        last<V extends List<any>>(
+            array: V,
+            n: number
+        ): TypeOfList<V>[];
 
         /**
         * Returns the rest of the elements in an array. Pass an index to return the values of the array
@@ -817,9 +722,10 @@ declare module _ {
         * @param n The index to start retrieving elements forward from, optional, default = 1.
         * @return Returns the elements of `array` from `index` to the end of `array`.
         **/
-        rest<T>(
-            array: List<T>,
-            n?: number): T[];
+        rest<V extends List<any>>(
+            array: V,
+            n?: number
+        ): TypeOfList<V>[];
 
         /**
         * @see rest
@@ -837,7 +743,7 @@ declare module _ {
         * @param array Array to compact.
         * @return Copy of `array` without false values.
         **/
-        compact<T>(array: List<T>): NonFalsy<T>[]
+        compact<V extends List<any>>(array: V): NonFalsy<TypeOfList<V>>[]
 
         /**
         * Flattens a nested array (the nesting can be to any depth). If you pass shallow, the array will
@@ -846,8 +752,12 @@ declare module _ {
         * @param shallow If true then only flatten one level, optional, default = false.
         * @return `array` flattened.
         **/
-        flatten<V extends List<any>>(list: V, shallow?: false): DeepestListItemOrSelf<TypeOfList<V>>[];
-        flatten<V extends List<any>>(list: V, shallow: true): ListItemOrSelf<TypeOfList<V>>[];
+        flatten<V extends List<any>>(array: V, shallow?: false): DeepestListItemOrSelf<TypeOfList<V>>[];
+
+        /**
+        * @see flatten
+        **/
+        flatten<V extends List<any>>(array: V, shallow: true): ListItemOrSelf<TypeOfList<V>>[];
 
         /**
         * Returns a copy of the array with all instances of the values removed.
@@ -855,9 +765,10 @@ declare module _ {
         * @param values The values to remove from `array`.
         * @return Copy of `array` without `values`.
         **/
-        without<T>(
-            array: List<T>,
-            ...values: T[]): T[];
+        without<V extends List<any>>(
+            array: V,
+            ...values: TypeOfList<V>[]
+        ): TypeOfList<V>[];
 
         /**
         * Computes the union of the passed-in arrays: the list of unique items, in order, that are
@@ -883,7 +794,8 @@ declare module _ {
         **/
         difference<T>(
             array: List<T>,
-            ...others: List<T>[]): T[];
+            ...others: List<T>[]
+        ): T[];
 
         /**
         * Produces a duplicate-free version of the array, using === to test object equality. If you know in
@@ -895,19 +807,21 @@ declare module _ {
         * @param context 'this' object in `iterator`, optional.
         * @return Copy of `array` where all elements are unique.
         **/
-        uniq<T>(
-            array: List<T>,
+        uniq<V extends List<any>>(
+            array: V,
             isSorted?: boolean,
-            iterator?: ListIterator<T, any> | keyof T,
-            context?: any): T[];
+            iterator?: Iteratee<V, any>,
+            context?: any
+        ): TypeOfList<V>[];
 
         /**
         * @see uniq
         **/
-        uniq<T>(
-            array: List<T>,
-            iterator?: ListIterator<T, any> | keyof T,
-            context?: any): T[];
+        uniq<V extends List<any>>(
+            array: V,
+            iterator?: Iteratee<V, any>,
+            context?: any
+        ): TypeOfList<V>[];
 
         /**
         * @see uniq
@@ -942,7 +856,8 @@ declare module _ {
         **/
         object<TValue>(
             keys: List<string>,
-            values: List<TValue>): Dictionary<TValue>;
+            values: List<TValue>
+        ): Dictionary<TValue>;
 
         /**
         * Converts arrays into objects. Pass either a single list of [key, value] pairs, or a
@@ -962,18 +877,20 @@ declare module _ {
         * @param isSorted True if the array is already sorted, optional, default = false.
         * @return The index of `value` within `array`.
         **/
-        indexOf<T>(
-            array: List<T>,
-            value: T,
-            isSorted?: boolean): number;
+        indexOf<V extends List<any>>(
+            array: V,
+            value: TypeOfList<V>,
+            isSorted?: boolean
+        ): number;
 
         /**
         * @see _indexof
         **/
-        indexOf<T>(
-            array: List<T>,
-            value: T,
-            startFrom: number): number;
+        indexOf<V extends List<any>>(
+            array: V,
+            value: TypeOfList<V>,
+            startFrom: number
+        ): number;
 
         /**
         * Returns the index of the last occurrence of value in the array, or -1 if value is not present. Uses the
@@ -983,10 +900,11 @@ declare module _ {
         * @param from The starting index for the search, optional.
         * @return The index of the last occurrence of `value` within `array`.
         **/
-        lastIndexOf<T>(
-            array: List<T>,
-            value: T,
-            from?: number): number;
+        lastIndexOf<V extends List<any>>(
+            array: V,
+            value: TypeOfList<V>,
+            from?: number
+        ): number;
 
         /**
         * Returns the first index of an element in `array` where the predicate truth test passes
@@ -995,10 +913,11 @@ declare module _ {
         * @param context `this` object in `predicate`, optional.
         * @return Returns the index of an element in `array` where the predicate truth test passes or -1.`
         **/
-        findIndex<T>(
-            array: List<T>,
-            predicate: ListIterator<T, boolean> | Partial<T> | PropertyKey,
-            context?: any): number;
+        findIndex<V extends List<any>>(
+            array: V,
+            predicate: Iteratee<V, boolean>,
+            context?: any
+        ): number;
 
         /**
         * Returns the last index of an element in `array` where the predicate truth test passes
@@ -1007,10 +926,11 @@ declare module _ {
         * @param context `this` object in `predicate`, optional.
         * @return Returns the index of an element in `array` where the predicate truth test passes or -1.`
         **/
-        findLastIndex<T>(
-            array: List<T>,
-            predicate: ListIterator<T, boolean> | Partial<T> | PropertyKey,
-            context?: any): number;
+        findLastIndex<V extends List<any>>(
+            array: V,
+            predicate: Iteratee<V, boolean>,
+            context?: any
+        ): number;
 
         /**
         * Uses a binary search to determine the index at which the value should be inserted into the list in order
@@ -1022,10 +942,10 @@ declare module _ {
         * @param context `this` object in `iterator`, optional.
         * @return The index where `value` should be inserted into `list`.
         **/
-        sortedIndex<T>(
-            list: List<T>,
-            value: T,
-            iterator?: ListIterator<T, any> | keyof T,
+        sortedIndex<V extends List<any>>(
+            list: V,
+            value: TypeOfList<V>,
+            iterator?: Iteratee<V, any>,
             context?: any
         ): number;
 
@@ -1042,7 +962,8 @@ declare module _ {
         range(
             start: number,
             stop: number,
-            step?: number): number[];
+            step?: number
+        ): number[];
 
         /**
         * @see range
@@ -1058,7 +979,7 @@ declare module _ {
         * @param array The array to split.
         * @param length The maximum size of the inner arrays.
         */
-        chunk<T>(array: List<T>, length: number): T[][]
+        chunk<V extends List<any>>(array: V, length: number): TypeOfList<V>[][]
 
         /*************
          * Functions *
@@ -4064,7 +3985,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see each
         **/
-        each(iterator: CollectionIterator<T, void, V>, context?: any): V;
+        each(iterator: Iteratee<V, void>, context?: any): V;
 
         /**
         * @see each
@@ -4120,12 +4041,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see find
         **/
-        find(iterator: CollectionIterator<T, boolean, V>, context?: any): T | undefined;
-
-        /**
-        * @see find
-        **/
-        find(iterator: Partial<T> | PropertyKey): T | undefined;
+        find(iterator: Iteratee<V, boolean>, context?: any): T | undefined;
 
         /**
         * @see find
@@ -4162,23 +4078,13 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see reject
         **/
-        reject(iterator: CollectionIterator<T, boolean, V>, context?: any): T[];
-
-        /**
-        * @see reject
-        **/
-        reject(iterator: Partial<T> | PropertyKey): T[];
+        reject(iterator: Iteratee<V, boolean>, context?: any): T[];
 
         /**
         * Wrapped type Collection<T>.
         * @see every
         **/
-        every(iterator?: CollectionIterator<T, boolean, V>, context?: any): boolean;
-
-        /**
-        * @see every
-        **/
-        every(iterator?: Partial<T> | PropertyKey): boolean;
+        every(iterator?: Iteratee<V, boolean>, context?: any): boolean;
 
         /**
         * @see every
@@ -4189,12 +4095,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see some
         **/
-        some(iterator?: CollectionIterator<T, boolean, V>, context?: any): boolean;
-
-        /**
-        * @see some
-        **/
-        some(iterator?: Partial<T> | PropertyKey): boolean;
+        some(iterator?: Iteratee<V, boolean>, context?: any): boolean;
 
         /**
         * @see some
@@ -4239,35 +4140,19 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see max
         **/
-        max(iterator?: CollectionIterator<T, number, V>, context?: any): T | number;
-
-        /**
-        * @see max
-        */
-        max(iterator?: PropertyNamesOfType<T, number>): T | number;
+        max(iterator?: Iteratee<V, number>, context?: any): T | number;
 
         /**
         * Wrapped type Collection<T>.
         * @see min
         **/
-        min(iterator?: CollectionIterator<T, number, V>, context?: any): T | number;
-
-        /**
-        * @see min
-        */
-        min(iterator?: PropertyNamesOfType<T, number>): T | number;
+        min(iterator?: Iteratee<V, number>, context?: any): T | number;
 
         /**
         * Wrapped type Collection<T>.
         * @see sortBy
         **/
-        sortBy(iterator?: CollectionIterator<T, any, V>, context?: any): T[];
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see sortBy
-        **/
-        sortBy(iterator: keyof T): T[];
+        sortBy(iterator?: Iteratee<V, any>, context?: any): T[];
 
         /**
          * Splits a collection into sets, grouped by the result of running each value through iteratee.
@@ -4281,25 +4166,13 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see indexBy
         **/
-        indexBy(iterator: CollectionIterator<T, any, V>, context?: any): Dictionary<T>;
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see indexBy
-        **/
-        indexBy(iterator: keyof T): Dictionary<T>;
+        indexBy(iterator: Iteratee<V, any>, context?: any): Dictionary<T>;
 
         /**
         * Wrapped type Collection<T>.
         * @see countBy
         **/
-        countBy(iterator?: CollectionIterator<T, any, V>, context?: any): Dictionary<number>;
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see countBy
-        **/
-        countBy(iterator: keyof T): Dictionary<number>;
+        countBy(iterator?: Iteratee<V, any>, context?: any): Dictionary<number>;
 
         /**
         * Wrapped type Collection<T>.
@@ -4417,13 +4290,7 @@ declare module _ {
         * Wrapped type List<T>.
         * @see partition
         **/
-        partition(iterator: CollectionIterator<T, boolean, V>, context?: any): [T[], T[]];
-
-        /**
-        * Wrapped type List<T>.
-        * @see partition
-        **/
-        partition(iterator: Partial<T> | PropertyKey): [T[], T[]];
+        partition(iterator: Iteratee<V, boolean>, context?: any): [T[], T[]];
 
         /**
         * Wrapped type List<T>.
@@ -4447,13 +4314,13 @@ declare module _ {
         * Wrapped type List<T>.
         * @see uniq
         **/
-        uniq(isSorted?: boolean, iterator?: ListIterator<T, any, V> | keyof T, cotext?: any): T[];
+        uniq(isSorted?: boolean, iterator?: Iteratee<V, any>, cotext?: any): T[];
 
         /**
         * Wrapped type List<T>.
         * @see uniq
         **/
-        uniq(iterator?: ListIterator<T, any, V> | keyof T, context?: any): T[];
+        uniq(iterator?: Iteratee<V, any>, context?: any): T[];
 
         /**
         * @see uniq
@@ -4504,18 +4371,18 @@ declare module _ {
         /**
         * @see findIndex
         **/
-        findIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | PropertyKey, context?: any): number;
+        findIndex(predicate: Iteratee<V, boolean>, context?: any): number;
 
         /**
         * @see findLastIndex
         **/
-        findLastIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | PropertyKey, context?: any): number;
+        findLastIndex(predicate: Iteratee<V, boolean>, context?: any): number;
 
         /**
         * Wrapped type List<T>.
         * @see sortedIndex
         **/
-        sortedIndex(value: T, iterator?: ListIterator<T, any, V> | keyof T, context?: any): number;
+        sortedIndex(value: T, iterator?: Iteratee<V, any>, context?: any): number;
 
         /**
         * Wrapped type number.
@@ -4984,7 +4851,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see each
         **/
-        each(iterator: CollectionIterator<T, void, V>, context?: any): _Chain<T, V>;
+        each(iterator: _ChainIteratee<V, void, T>, context?: any): _Chain<T, V>;
 
         /**
         * @see each
@@ -5040,12 +4907,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see find
         **/
-        find(iterator: CollectionIterator<T, boolean, V>, context?: any): _ChainSingle<T | undefined>;
-
-        /**
-        * @see find
-        **/
-        find(iterator: Partial<T> | PropertyKey): _ChainSingle<T | undefined>;
+        find(iterator: _ChainIteratee<V, boolean, T>, context?: any): _ChainSingle<T | undefined>;
 
         /**
         * @see find
@@ -5082,25 +4944,13 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see reject
         **/
-        reject(iterator: CollectionIterator<T, boolean, V>, context?: any): _Chain<T, T[]>;
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see reject
-        **/
-        reject(iterator: Partial<T> | PropertyKey): _Chain<T, T[]>;
+        reject(iterator: _ChainIteratee<V, boolean, T>, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type Collection<T>.
         * @see every
         **/
-        every(iterator?: CollectionIterator<T, boolean, V>, context?: any): _ChainSingle<boolean>;
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see every
-        **/
-        every(iterator?: Partial<T> | PropertyKey): _ChainSingle<boolean>;
+        every(iterator?: _ChainIteratee<V, boolean, T>, context?: any): _ChainSingle<boolean>;
 
         /**
         * @see every
@@ -5111,13 +4961,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see some
         **/
-        some(iterator?: CollectionIterator<T, boolean, V>, context?: any): _ChainSingle<boolean>;
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see some
-        **/
-        some(iterator?: Partial<T> | PropertyKey): _ChainSingle<boolean>;
+        some(iterator?: _ChainIteratee<V, boolean, T>, context?: any): _ChainSingle<boolean>;
 
         /**
         * @see some
@@ -5162,37 +5006,19 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see max
         **/
-        max(iterator?: CollectionIterator<T, number, V>, context?: any): _ChainSingle<T | number>;
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see max
-        */
-        max(iterator?: PropertyNamesOfType<T, number>): _ChainSingle<T | number>;
+        max(iterator?: _ChainIteratee<V, number, T>, context?: any): _ChainSingle<T | number>;
 
         /**
         * Wrapped type Collection<T>.
         * @see min
         **/
-        min(iterator?: CollectionIterator<T, number, V>, context?: any): _ChainSingle<T | number>;
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see min
-        */
-        min(iterator?: PropertyNamesOfType<T, number>): _ChainSingle<T | number>;
+        min(iterator?: _ChainIteratee<V, number, T>, context?: any): _ChainSingle<T | number>;
 
         /**
         * Wrapped type Collection<T>.
         * @see sortBy
         **/
-        sortBy(iterator?: CollectionIterator<T, any, V>, context?: any): _Chain<T, T[]>;
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see sortBy
-        **/
-        sortBy(iterator: keyof T): _Chain<T, T[]>;
+        sortBy(iterator?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
 
         /**
          * Splits a collection into sets, grouped by the result of running each value through iteratee.
@@ -5207,25 +5033,13 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see indexBy
         **/
-        indexBy(iterator: CollectionIterator<T, any, V>, context?: any): _Chain<T, Dictionary<T>>;
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see indexBy
-        **/
-        indexBy(iterator: keyof T): _Chain<T, Dictionary<T>>;
+        indexBy(iterator: _ChainIteratee<V, any, T>, context?: any): _Chain<T, Dictionary<T>>;
 
         /**
         * Wrapped type Collection<T>.
         * @see countBy
         **/
-        countBy(iterator?: CollectionIterator<T, any, V>, context?: any): _Chain<number, Dictionary<number>>;
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see countBy
-        **/
-        countBy(iterator: keyof T): _Chain<number, Dictionary<number>>;
+        countBy(iterator?: _ChainIteratee<V, any, T>, context?: any): _Chain<number, Dictionary<number>>;
 
         /**
         * Wrapped type Collection<T>.
@@ -5343,13 +5157,7 @@ declare module _ {
         * Wrapped type List<T>.
         * @see partition
         **/
-        partition(iterator: CollectionIterator<T, boolean, V>, context?: any): _Chain<T[], [T[], T[]]>;
-
-        /**
-        * Wrapped type List<T>.
-        * @see partition
-        **/
-        partition(iterator: Partial<T> | PropertyKey): _Chain<T[], [T[], T[]]>;
+        partition(iterator: _ChainIteratee<V, boolean, T>, context?: any): _Chain<T[], [T[], T[]]>;
 
         /**
         * Wrapped type List<T>.
@@ -5373,13 +5181,13 @@ declare module _ {
         * Wrapped type List<T>.
         * @see uniq
         **/
-        uniq(isSorted?: boolean, iterator?: ListIterator<T, any, V> | keyof T, context?: any): _Chain<T, T[]>;
+        uniq(isSorted?: boolean, iterator?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type List<T>.
         * @see uniq
         **/
-        uniq(iterator?: ListIterator<T, any, V> | keyof T, context?: any): _Chain<T, T[]>;
+        uniq(iterator?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type List<T>.
@@ -5429,18 +5237,18 @@ declare module _ {
         /**
         * @see findIndex
         **/
-        findIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | PropertyKey, context?: any): _ChainSingle<number>;
+        findIndex(predicate: _ChainIteratee<V, boolean, T>, context?: any): _ChainSingle<number>;
 
         /**
         * @see findLastIndex
         **/
-        findLastIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | PropertyKey, context?: any): _ChainSingle<number>;
+        findLastIndex(predicate: _ChainIteratee<V, boolean, T>, context?: any): _ChainSingle<number>;
 
         /**
         * Wrapped type List<T>.
         * @see sortedIndex
         **/
-        sortedIndex(value: T, iterator?: ListIterator<T, any, V> | keyof T, context?: any): _ChainSingle<number>;
+        sortedIndex(value: T, iterator?: _ChainIteratee<V, any, T>, context?: any): _ChainSingle<number>;
 
         /**
         * Wrapped type number.
