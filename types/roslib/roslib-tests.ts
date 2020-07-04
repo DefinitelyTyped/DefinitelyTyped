@@ -118,3 +118,109 @@ const tfclient_callback = function (transform: ROSLIB.Transform) {
 
 tfClient.subscribe('/transform', tfclient_callback);
 tfClient.unsubscribe('/transform', tfclient_callback);
+
+new ROSLIB.Pose();
+new ROSLIB.Pose(null);
+new ROSLIB.Pose({});
+new ROSLIB.Pose({ position: null });
+new ROSLIB.Pose({ orientation: null });
+new ROSLIB.Pose({ position: {} });
+new ROSLIB.Pose({ position: { x: 5 } });
+new ROSLIB.Pose({ position: { x: null } });
+new ROSLIB.Pose({ orientation: {} });
+new ROSLIB.Pose({ orientation: { y: -1 } });
+new ROSLIB.Pose({ orientation: { y: null } });
+const pose = new ROSLIB.Pose({ orientation: { w: 0, x: 0, y: 0, z: 0 }, position: { x: 0, y: 0, z: 0 } });
+// $ExpectType Pose
+pose.clone();
+// $ExpectType Vector3
+pose.position;
+// $ExpectType Quaternion
+pose.orientation;
+
+// URDF
+{
+    const parser = new DOMParser();
+    const document = parser.parseFromString('<actual-xml />', 'text/xml');
+    // $ExpectError
+    new ROSLIB.UrdfModel({});
+    // $ExpectError
+    new ROSLIB.UrdfModel();
+    new ROSLIB.UrdfModel({ xml: document });
+    new ROSLIB.UrdfModel({ xml: document, string: '<actual-xml />' });
+    const model = new ROSLIB.UrdfModel({ string: '<actual-xml />' });
+
+    const material: ROSLIB.UrdfMaterial = model.materials[0];
+
+    // $ExpectType string | null
+    material.textureFilename;
+    // $ExpectType UrdfColor | null
+    material.color;
+    // $ExpectType string
+    material.name;
+    // $ExpectType boolean
+    material.isLink();
+
+    if (material.color) {
+        // $ExpectType number
+        material.color.r;
+        // $ExpectType number
+        material.color.g;
+        // $ExpectType number
+        material.color.b;
+        // $ExpectType number
+        material.color.a;
+    }
+
+    const link: ROSLIB.UrdfLink = model.links[0];
+    // $ExpectType string
+    link.name;
+
+    const visual: ROSLIB.UrdfVisual = link.visuals[0];
+    // $ExpectType Pose | null
+    visual.origin;
+    // $ExpectType UrdfMaterial | null
+    visual.material;
+    switch (visual.geometry?.type) {
+        case ROSLIB.URDF_SPHERE:
+            // $ExpectType number
+            visual.geometry.radius;
+            // $ExpectError
+            visual.geometry.dimension;
+            break;
+        case ROSLIB.URDF_BOX:
+            // $ExpectType Vector3
+            visual.geometry.dimension;
+            break;
+        case ROSLIB.URDF_CYLINDER:
+            // $ExpectType number
+            visual.geometry.length;
+            // $ExpectType number
+            visual.geometry.radius;
+            break;
+        case ROSLIB.URDF_MESH:
+            // $ExpectType string
+            visual.geometry.filename;
+            // $ExpectType Vector3 | null
+            visual.geometry.scale;
+            // $ExpectError
+            visual.geometry.length;
+            break;
+    }
+    // $ExpectError
+    visual.geometry?.radius;
+
+    const joint: ROSLIB.UrdfJoint = model.joints[0];
+    // $ExpectType string
+    joint.name;
+    // $ExpectType string
+    joint.type;
+    // $ExpectType string | null
+    joint.parent;
+    // $ExpectType string | null
+    joint.child;
+    // $ExpectType number | null
+    joint.minval;
+    // $ExpectType number | null
+    joint.maxval;
+}

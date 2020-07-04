@@ -5,7 +5,7 @@
 //                 David Gonzalez <https://github.com/dgorobopec>
 //                 Arvid Norlander <https://github.com/VorpalBlade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.7
 
 /* ----------------------------------
 
@@ -469,7 +469,10 @@ declare namespace ROSLIB {
          *   * translation - the Vector3 describing the translation
          *   * rotation - the ROSLIB.Quaternion describing the rotation
          */
-        constructor(options: { translation: Vector3; rotation: Quaternion });
+        constructor(options?: {
+            translation?: ConstructorParameters<typeof Vector3>[0] | null;
+            rotation?: ConstructorParameters<typeof Quaternion>[0] | null;
+        });
 
         // getters
         public translation: Vector3;
@@ -491,7 +494,7 @@ declare namespace ROSLIB {
          *   * y - the y value
          *   * z - the z value
          */
-        constructor(options: { x: number; y: number; z: number });
+        constructor(options?: { x?: number | null; y?: number | null; z?: number | null } | null);
 
         // getters
         public x: number;
@@ -535,7 +538,7 @@ declare namespace ROSLIB {
          *   * z - the z value
          *   * w - the w value
          */
-        constructor(options?: { x: number; y: number; z: number; w: number });
+        constructor(options?: { x?: number | null; y?: number | null; z?: number | null; w?: number | null } | null);
 
         // getters
         public x: number;
@@ -573,6 +576,40 @@ declare namespace ROSLIB {
          * Perform a normalization on this quaternion.
          */
         normalize(): void;
+    }
+
+    export class Pose {
+        position: Vector3;
+        orientation: Quaternion;
+
+        /**
+         * A Pose in 3D space. Values are copied into this object.
+         *
+         *  @constructor
+         *  @param options - object with following keys:
+         *   * position - the Vector3 describing the position
+         *   * orientation - the ROSLIB.Quaternion describing the orientation
+         */
+        constructor(
+            options?: {
+                position?: ConstructorParameters<typeof Vector3>[0] | null;
+                orientation?: ConstructorParameters<typeof Quaternion>[0] | null;
+            } | null,
+        );
+
+        /**
+         * Apply a transform against this pose.
+         *
+         * @param tf the transform
+         */
+        applyTransform(tf: Transform): void;
+
+        /**
+         * Clone a copy of this pose.
+         *
+         * @returns the cloned pose
+         */
+        clone(): Pose;
     }
 
     class ActionClient {
@@ -633,5 +670,165 @@ declare namespace ROSLIB {
          * Cancel the current goal.
          */
         cancel(): void;
+    }
+
+    export class UrdfColor {
+        r: number;
+        g: number;
+        b: number;
+        a: number;
+        /**
+         * A Color element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+    }
+
+    export class UrdfMaterial {
+        textureFilename: string | null;
+        color: UrdfColor | null;
+        name: string;
+
+        /**
+         * A Material element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+
+        isLink(): boolean;
+    }
+
+    export class UrdfJoint {
+        name: string;
+        type: string;
+        parent: string | null;
+        child: string | null;
+        minval: number | null;
+        maxval: number | null;
+
+        /**
+         * A Joint element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+    }
+
+    export const URDF_SPHERE: 0;
+    export const URDF_BOX: 1;
+    export const URDF_CYLINDER: 2;
+    export const URDF_MESH: 3;
+
+    export type UrdfGeometry = UrdfSphere | UrdfBox | UrdfCylinder | UrdfMesh;
+
+    export class UrdfSphere {
+        type: typeof URDF_SPHERE;
+        radius: number;
+
+        /**
+         * A Sphere element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+    }
+
+    export class UrdfBox {
+        type: typeof URDF_BOX;
+        dimension: Vector3;
+
+        /**
+         * A Box element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+    }
+
+    export class UrdfCylinder {
+        type: typeof URDF_CYLINDER;
+        length: number;
+        radius: number;
+
+        /**
+         * A Cylinder element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+    }
+
+    export class UrdfMesh {
+        type: typeof URDF_MESH;
+        filename: string;
+        scale: Vector3 | null;
+
+        /**
+         * A Box element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+    }
+
+    export class UrdfVisual {
+        origin: Pose | null;
+        geometry: UrdfGeometry | null;
+        material: UrdfMaterial | null;
+
+        /**
+         * A Visual element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+    }
+
+    export class UrdfLink {
+        name: string;
+        visuals: UrdfVisual[];
+
+        /**
+         * A Link element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+    }
+
+    export class UrdfModel {
+        materials: Record<string, UrdfMaterial>;
+        links: Record<string, UrdfLink>;
+        joints: Record<string, UrdfJoint>;
+
+        /**
+         * A URDF Model can be used to parse a given URDF into the appropriate elements.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         *  * string - the XML element to parse as a string
+         */
+        constructor(options: { xml: Node; string?: string | null } | { string: string });
     }
 }
