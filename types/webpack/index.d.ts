@@ -1750,7 +1750,7 @@ declare namespace webpack {
         constructor(definitions: {[key: string]: DefinePlugin.CodeValueObject});
         static runtimeValue(
             fn: ({ module }: { module: compilation.Module }) => DefinePlugin.CodeValuePrimitive,
-            fileDependencies?: string[]
+            fileDependencies?: true | string[]
         ): DefinePlugin.RuntimeValue;
     }
 

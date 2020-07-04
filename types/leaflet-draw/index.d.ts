@@ -4,7 +4,6 @@
 //                 Ryan Blace <https://github.com/reblace>
 //                 Yun Shi <https://github.com/YunS-Stacy>
 //                 Kevin Richter <https://github.com/beschoenen>
-//                 Jeroen Claassens <https://github.com/favna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

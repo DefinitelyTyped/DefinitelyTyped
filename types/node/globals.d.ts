@@ -768,11 +768,11 @@ declare namespace NodeJS {
 
     interface Process extends EventEmitter {
         /**
-         * Can also be a tty.WriteStream, not typed due to limitation.s
+         * Can also be a tty.WriteStream, not typed due to limitations.
          */
         stdout: WriteStream;
         /**
-         * Can also be a tty.WriteStream, not typed due to limitation.s
+         * Can also be a tty.WriteStream, not typed due to limitations.
          */
         stderr: WriteStream;
         stdin: ReadStream;

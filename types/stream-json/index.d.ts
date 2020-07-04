@@ -1,4 +1,4 @@
-// Type definitions for stream-json 1.0
+// Type definitions for stream-json 1.5
 // Project: http://github.com/uhop/stream-json
 // Definitions by: Eugene Lazutkin <https://github.com/uhop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,6 +6,7 @@
 /// <reference types="node" />
 
 import * as Assembler from './Assembler';
+import * as Disassembler from './Disassembler';
 import * as Emitter from './Emitter';
 import * as Parser from './Parser';
 import * as Stringer from './Stringer';
@@ -20,6 +21,8 @@ import * as StreamArray from './streamers/StreamArray';
 import * as StreamObject from './streamers/StreamObject';
 import * as StreamValues from './streamers/StreamValues';
 
+import * as Batch from "./utils/Batch";
+import * as Verifier from "./utils/Verifier";
 import * as emit from './utils/emit';
 import * as withParser from './utils/withParser';
 

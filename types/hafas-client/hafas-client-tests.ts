@@ -57,6 +57,10 @@ client.locations("", { results: 1 })
     .then(locations => { /* ... */ })
     .catch(() => { /* ... */ });
 
-client.journeys("", "", { results: 1 })
+client.journeys("", "", { results: 1, subStops: true })
     .then(journeys => { /* ... */ })
+    .catch(() => { /* ... */ });
+
+client.radar({ north: 0, south: 0, west: 0, east: 0 }, { results: 1, duration: 10 })
+    .then(movements => { /* ... */ })
     .catch(() => { /* ... */ });

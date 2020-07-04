@@ -1,19 +1,20 @@
-import createHyphenator = require('hyphen');
-import hyphenationPatternsDe1996 = require('hyphen/patterns/de-1996');
-import hyphenationPatternsHu = require('hyphen/patterns/hu');
-import hyphenationPatternsEnGb = require('hyphen/patterns/en-gb');
-import { FactoryOptions } from "hyphen/common";
+import createHyphenator, { HyphenationFunctionSync } from 'hyphen';
+import hyphenationPatternsDe1996 from 'hyphen/patterns/de-1996';
+import hyphenationPatternsHu from 'hyphen/patterns/hu';
+import hyphenationPatternsEnGb from 'hyphen/patterns/en-gb';
 import { hyphenate as hyphenateEnGbAsync } from 'hyphen/en-gb';
 
 // Test with HTML
-const hyphenateDe1996FactoryOptions: FactoryOptions = { hyphenChar: '-', html: true };
-const hyphenateDe1996 = createHyphenator(hyphenationPatternsDe1996, hyphenateDe1996FactoryOptions);
+const hyphenateDe1996 = createHyphenator(hyphenationPatternsDe1996, {
+    hyphenChar: '-',
+    html: true,
+}) as HyphenationFunctionSync;
 if (hyphenateDe1996('<section>Silbentrennung</section>') !== '<section>Sil-ben-tren-nung</section>') {
     throw new Error('Test failed');
 }
 
 // Test with debug output
-const hyphenateHu = createHyphenator(hyphenationPatternsHu, { debug: true });
+const hyphenateHu = createHyphenator(hyphenationPatternsHu, { debug: true }) as HyphenationFunctionSync;
 if (hyphenateHu('szóelválasztás', { hyphenChar: '|' }) !== 'szó|el|vá|lasz|tás') {
     throw new Error('Test failed');
 }
@@ -26,13 +27,15 @@ hyphenateEnGbAsync('hyphenation', { hyphenChar: '#' }).then(result => {
 });
 
 // Test with minWordLength (new option in version 1.6)
-const hyphenateEnGbSyncWithMinWordLength = createHyphenator(hyphenationPatternsEnGb, {
+const hyphenateEnUsSyncWithMinWordLength = createHyphenator(hyphenationPatternsEnGb, {
     hyphenChar: '-',
     minWordLength: 11,
-});
-if (hyphenateEnGbSyncWithMinWordLength('hyphenation') !== 'hy-phen-a-tion') { // hyphenation has 11 chars => hyphenate
+}) as HyphenationFunctionSync;
+if (hyphenateEnUsSyncWithMinWordLength('hyphenation') !== 'hy-phen-a-tion') {
+    // hyphenation has 11 chars => hyphenate
     throw new Error('Test failed');
 }
-if (hyphenateEnGbSyncWithMinWordLength('sabotaging') !== 'sabotaging') { // sabotaging has 10 chars => don't hyphenate
+if (hyphenateEnUsSyncWithMinWordLength('sabotaging') !== 'sabotaging') {
+    // sabotaging has 10 chars => don't hyphenate
     throw new Error('Test failed');
 }

@@ -1,11 +1,25 @@
 import * as state from 'prosemirror-state';
 import * as model from 'prosemirror-model';
 import * as transform from 'prosemirror-transform';
+import * as view from 'prosemirror-view';
 
 let plugin: state.Plugin;
 
-plugin = new state.Plugin({});
 plugin = new state.Plugin({
+    state: {
+        init() {
+            // ensure that within state.init(), 'this' is of type Plugin
+            const p: state.Plugin = this;
+            return null;
+        },
+
+        apply(tr, value, oldState, newState) {
+            // ensure that within state.apply(), 'this' is of type Plugin
+            const p: state.Plugin = this;
+            return null;
+        },
+    },
+
     props: {}
 });
 

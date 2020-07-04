@@ -82,7 +82,7 @@ declare namespace Aws {
     }
 
     interface Environment {
-        [key: string]: string;
+        [key: string]: any;
     }
 
     interface ApiGateway {
@@ -239,7 +239,7 @@ declare namespace Aws {
     interface Logs {
         restApi?: RestApiLogs;
         websocket?: WebsocketLogs;
-        httpApi?: HttpApiLogs;
+        httpApi?: boolean | HttpApiLogs;
         frameworkLambda?: boolean;
     }
 
@@ -265,23 +265,49 @@ declare namespace Aws {
         type?: string;
     }
 
+    interface HttpCors {
+        origins?: string | string[];
+        headers?: string | string[];
+        allowCredentials?: boolean;
+        maxAge?: number;
+        cacheControl?: string;
+    }
+
+    interface HttpRequestParametersValidation {
+        querystrings?: { [key: string]: boolean };
+        headers?: { [key: string]: boolean };
+        paths?: { [key: string]: boolean };
+    }
+
+    interface HttpRequestValidation {
+        parameters?: HttpRequestParametersValidation;
+        schema?: { [key: string]: string };
+    }
+
     interface Http {
         path: string;
         method: string;
-        cors?: boolean;
+        cors?: boolean | HttpCors;
         private?: boolean;
+        async?: boolean;
         authorizer?: HttpAuthorizer;
+        request?: HttpRequestValidation;
     }
 
-    interface HttpApiEventAuthorizer {
+    interface NamedHttpApiEventAuthorizer {
         name: string;
+        scopes?: string[];
+    }
+
+    interface IdRefHttpApiEventAuthorizer {
+        id: string;
         scopes?: string[];
     }
 
     interface HttpApiEvent {
         method: string;
         path: string;
-        authorizer?: HttpApiEventAuthorizer;
+        authorizer?: NamedHttpApiEventAuthorizer | IdRefHttpApiEventAuthorizer;
     }
 
     interface WebsocketAuthorizer {

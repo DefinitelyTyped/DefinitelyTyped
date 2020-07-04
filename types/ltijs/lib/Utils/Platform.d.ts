@@ -19,6 +19,36 @@ export interface PlatformConfig {
     authConfig: PlatformAuthConfig;
 }
 
+export interface PlatformContext {
+    context: {
+        id: string;
+        label: string;
+        title: string;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        type: any[];
+    };
+    resource: {
+        title: string;
+        id: string;
+    };
+    path: string;
+    user: string;
+    deploymentId: string;
+    targetLinkUri: string;
+    launchPresentation: {
+        locale: string;
+        document_target: string;
+        return_url: string;
+    };
+    messageType: string;
+    version: string;
+    createdAt: Date;
+    __v: number;
+    __id: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    custom: any;
+}
+
 export interface Platform {
     platformName(name?: string): Promise<string | boolean>;
 

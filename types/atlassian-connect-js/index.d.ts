@@ -160,17 +160,17 @@ declare namespace AP {
             /**
              * Opens the dialog at a preset size: small, medium, large, x-large or fullscreen (with chrome).
              */
-            size: 'small' | 'medium' | 'large' | 'x-large' | 'fullscreen';
+            size?: 'small' | 'medium' | 'large' | 'x-large' | 'fullscreen';
 
             /**
              * if size is not set, define the width as a percentage (append a % to the number) or pixels.
              */
-            width: number;
+            width?: number;
 
             /**
              * if size is not set, define the height as a percentage (append a % to the number) or pixels.
              */
-            height: number;
+            height?: number;
 
             /**
              * (optional) opens the dialog with heading and buttons.
@@ -195,7 +195,7 @@ declare namespace AP {
             /**
              * (optional) custom data object that can be accessed from the actual dialog iFrame.
              */
-            customData: object;
+            customData?: object;
 
             /**
              * (optional) if true, pressing ESC inside the dialog will close the dialog (default is true).
@@ -443,32 +443,34 @@ declare namespace AP {
             close(): void;
         }
 
-        function create(options: {
-            /**
-             * The title text of the flag.
-             */
-            title: string;
+        function create(
+            options: Partial<{
+                /**
+                 * The title text of the flag.
+                 */
+                title: string;
 
-            /**
-             * The body text of the flag.
-             */
-            body: string;
+                /**
+                 * The body text of the flag.
+                 */
+                body: string;
 
-            /**
-             * Sets the type of the message. Valid options are "info", "success", "warning" and "error".
-             */
-            type: 'info' | 'success' | 'warning' | 'error';
+                /**
+                 * Sets the type of the message. Valid options are "info", "success", "warning" and "error".
+                 */
+                type: 'info' | 'success' | 'warning' | 'error';
 
-            /**
-             * The closing behaviour that this flag has. Valid options are "manual", and "auto".
-             */
-            close: 'manual' | 'auto';
+                /**
+                 * The closing behaviour that this flag has. Valid options are "manual", and "auto".
+                 */
+                close: 'manual' | 'auto';
 
-            /**
-             * Map of {actionIdentifier: 'Action link text'} to add to the flag. The actionIdentifier will be passed to a 'flag.action' event if the link is clicked.
-             */
-            actions: { [key: string]: string };
-        }): Flag;
+                /**
+                 * Map of {actionIdentifier: 'Action link text'} to add to the flag. The actionIdentifier will be passed to a 'flag.action' event if the link is clicked.
+                 */
+                actions: { [key: string]: string };
+            }>,
+        ): Flag;
     }
 
     /**
@@ -640,7 +642,7 @@ declare namespace AP {
          * Shows a date picker component. A callback will be invoked when the date (and time) is selected by the user.
          * @param options Configuration of the date picker.
          */
-        function openDatePicker(options: DatePickerOptions): void;
+        function openDatePicker(options: Partial<DatePickerOptions>): void;
 
         /**
          * Prepares the JQL Editor dialog in preparation for fast rendering. This method should be called on iframe load if it contains a JQL editor trigger.

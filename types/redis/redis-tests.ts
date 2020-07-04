@@ -106,10 +106,16 @@ client.unlink('test', 'test2', 'test3', numCallback);
 
 // Friendlier hash commands
 client.hgetall(str, resCallback);
+// Deprecated commands
 client.hmset(str, value, okCallback);
 client.hmset(str, str, str, str, str, okCallback);
 client.hmset(str, [str, str, str, str]);
 client.hmset(str, [str, value, str, value], okCallback);
+// Redis 4 variadic HSET
+client.hset(str, value, numCallback);
+client.hset(str, str, str, str, str, numCallback);
+client.hset(str, [str, str, str, str]);
+client.hset(str, [str, value, str, value], numCallback);
 
 // Publish / Subscribe
 client.publish(str, value);

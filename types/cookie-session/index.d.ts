@@ -84,17 +84,17 @@ declare namespace CookieSessionInterfaces {
         /**
          * Is true if the session has been changed during the request.
          */
-        isChanged: boolean;
+        isChanged?: boolean;
 
         /**
          * Is true if the session is new.
          */
-        isNew: boolean;
+        isNew?: boolean;
 
         /**
          * Determine if the session has been populated with data or is empty.
          */
-        isPopulated: boolean;
+        isPopulated?: boolean;
 
         [propertyName: string]: any;
     }

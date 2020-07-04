@@ -52,7 +52,7 @@ const withTransportInstance = new EmailTemplates<Locals>({
 
 withTransportInstance.render('tmpl', { firstName: 'TypeScript' });
 
-withTransportInstance.send({
+const emailOptions: EmailTemplates.EmailOptions<Locals> = {
     template: 'tmpl',
     locals: {
         firstName: 'TypeScript'
@@ -64,7 +64,9 @@ withTransportInstance.send({
             content: 'an attachment'
         }]
     }
-});
+};
+
+withTransportInstance.send(emailOptions);
 
 email.renderAll('mars');
 const promise = email.renderAll('mars', locals);
