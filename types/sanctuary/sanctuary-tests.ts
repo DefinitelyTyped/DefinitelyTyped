@@ -12,3 +12,6 @@ assert.equal(S.flip(S.concat)('foo')('bar'), "barfoo");
 
 // $ExpectType number[][]
 S.duplicate([1])
+
+// $ExpectType Maybe<Maybe<number>>
+S.duplicate(S.Just(1))
