@@ -95,6 +95,8 @@ declare module _ {
         (element: T, key: string, object: V): TResult;
     }
 
+    type EnumerableKey = string | number;
+
     type CollectionIterator<T, TResult, V> =
         V extends List<T> ? ListIterator<T, TResult, V>
         : V extends Dictionary<T> ? ObjectIterator<T, TResult, V>
@@ -103,8 +105,8 @@ declare module _ {
     type Iteratee<V, R, T extends TypeOfCollection<V> = TypeOfCollection<V>> =
         undefined |
         CollectionIterator<T, R, V> |
-        PropertyKey |
-        Array<PropertyKey> |
+        EnumerableKey |
+        Array<EnumerableKey> |
         Partial<T>;
 
     // temporary iteratee type for _Chain until _Chain return types have been fixed
@@ -114,7 +116,7 @@ declare module _ {
         I extends undefined ? T // default iteratee is _.identity
         : I extends (...args: any[]) => infer R ? R
         : I extends keyof T ? T[I]
-        : I extends PropertyKey | Array<PropertyKey> ? any
+        : I extends EnumerableKey | Array<EnumerableKey> ? any
         : I extends Partial<T> ? boolean
         : never;
 
@@ -577,7 +579,7 @@ declare module _ {
          * @param propertyName The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection.
          **/
-        pluck<V extends Collection<any>, K extends PropertyKey>(
+        pluck<V extends Collection<any>, K extends EnumerableKey>(
             collection: V,
             propertyName: K
         ): PropertyTypeOrAny<TypeOfCollection<V>, K>[];
@@ -4299,7 +4301,7 @@ declare module _ {
          * @param propertyName The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection.
          **/
-        pluck<K extends PropertyKey>(
+        pluck<K extends EnumerableKey>(
             propertyName: K
         ): PropertyTypeOrAny<T, K>[];
 
@@ -5250,7 +5252,7 @@ declare module _ {
          * @param propertyName The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection in a chain wrapper.
          **/
-        pluck<K extends PropertyKey>(
+        pluck<K extends EnumerableKey>(
             propertyName: K
         ): _Chain<PropertyTypeOrAny<T, K>, PropertyTypeOrAny<T, K>[]>;
 
