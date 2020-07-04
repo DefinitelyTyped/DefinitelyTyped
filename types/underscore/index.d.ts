@@ -99,6 +99,26 @@ declare module _ {
         : V extends Dictionary<T> ? ObjectIterator<T, TResult, V>
         : never;
 
+    type Iteratee<V, R, T extends TypeOfCollection<V> = TypeOfCollection<V>> =
+        undefined |
+        CollectionIterator<T, R, V> |
+        PropertyKey |
+        Array<PropertyKey> |
+        Partial<T>;
+
+    // temporary iteratee type for _Chain until _Chain return types have been fixed
+    type _ChainIteratee<V, R, T> = Iteratee<V extends Collection<T> ? V : T[], R>;
+
+    type IterateeResult<I, T> =
+        I extends undefined ? T // default iteratee is _.identity
+        : I extends (...args: any[]) => infer R ? R
+        : I extends keyof T ? T[I]
+        : I extends PropertyKey | Array<PropertyKey> ? any
+        : I extends Partial<T> ? boolean
+        : never;
+
+    type PropertyTypeOrAny<T, K> = K extends keyof T ? T[K] : any;
+
     interface MemoIterator<T, TResult, V = List<T>> {
         (prev: TResult, curr: T, index: number, list: V): TResult;
     }
@@ -119,45 +139,24 @@ declare module _ {
         : V extends Dictionary<infer T> ? T
         : never;
 
-    type _ChainSingle<V> = _Chain<TypeOfCollection<V>, V>;
-
     type NonFalsy<T> = T extends undefined | null | false | '' | 0 ? never : T;
-
-    // given a union type like { a: string } | { b: number } | undefined, generates a union of all the keys of all the types in the union
-    type KeysOfUnion<T> = T extends any ? keyof T : never;
-
-    // given a union type like { a: string } | { a: number } | { b: boolean } and a property name,
-    // generates a union of all the types implemented by that property name and adds undefined
-    // if any type in the union doesn't implement the property
-    // e.g. TypesOfUnionProperty<{ a: string } | { a: number } | { b: boolean }, 'a'> => string | number | undefined
-    type TypesOfUnionProperty<T, K extends KeysOfUnion<T>> =
-        // iterate over each type T in a type union
-        T extends any
-        // check whether the property is implemented by T, using Extract to get around K possibly not being in keyof T
-        ? T[Extract<keyof T, K>] extends never
-        // if T does not implement property K, add undefined to the resulting type union
-        ? undefined
-        // if T does implement property K, add type T[K] to the resulting type union
-        : T[Extract<keyof T, K>]
-        // this should never actually be evaluated since all types extend any
-        : never;
 
     type PropertyNamesOfType<T, P> = { [K in keyof T]: T[K] extends P ? K : never }[keyof T];
 
-    // '& object' prevents strings from being matched by list checks
-    type ShallowFlattenedList<T> = T extends List<infer TItem> & object ? TItem : T;
+    type ListItemOrSelf<T> = T extends List<infer TItem> ? TItem : T;
 
     // unfortunately it's not possible to recursively collapse all possible list dimensions to T[] at this time,
     // so give up after two dimensions and require an assertion
+    // '& object' prevents strings from being matched by list checks so types like string[] don't end up resulting in any
     // surprisingly T extends List<List<infer TItem>> isn't true when T = SomeType[][],
     // so writing this that way doesn't work
-    type DeepFlattenedList<T> = T extends List<infer TItem> & object
-        ? TItem extends List<infer TInnerItem> & object
-        ? TInnerItem extends List<any> & object
+    type DeepestListItemOrSelf<T> = T extends List<infer TItem> & object
+        ? TItem extends List<any> & object
         ? any
-        : TInnerItem
         : TItem
         : T;
+
+    type _ChainSingle<V> = _Chain<TypeOfCollection<V>, V>;
 
     interface Cancelable {
         cancel(): void;
@@ -220,52 +219,19 @@ declare module _ {
         forEach: UnderscoreStatic['each'];
 
         /**
-        * Produces a new array of values by mapping each value in list through a transformation function
-        * (iterator).
-        * @param list Maps the elements of this array.
-        * @param iterator Map iterator function for each element in `list`.
-        * @param context `this` object in `iterator`, optional.
-        * @return The mapped array result.
-        **/
-        map<T, TResult>(
-            list: List<T>,
-            iterator: ListIterator<T, TResult>,
-            context?: any): TResult[];
-
-        /**
-        * @see map
-        * @param object Maps the properties of this object.
-        * @param iterator Map iterator function for each property on `object`.
-        * @param context `this` object in `iterator`, optional.
-        * @return The mapped object result.
-        **/
-        map<T, TResult>(
-            object: Dictionary<T>,
-            iterator: ObjectIterator<T, TResult>,
-            context?: any): TResult[];
-
-        /**
-        * @see map
-        * @param collection The collection of items.
-        * @param iterator - The name of a specific property to retrieve from all items.
-        * @return The set of values for the specified property for each item in the collection.
-        */
-        map<T, K extends KeysOfUnion<T>>(
-            collection: Collection<T>,
-            iterator: K): TypesOfUnionProperty<T, K>[];
-        map(
-            collection: Collection<any>,
-            iterator: string): any[];
-
-        /**
-        * @see map
-        * @param collection - The collection of items.
-        * @param iterator - The set of properties to check the values for.
-        * @return A set of boolean values that signify whether each item in the collection matches the set of provided values.
-        */
-        map<T>(
-            collection: Collection<T>,
-            iterator: Partial<T>): boolean[];
+         * Produces a new array of values by mapping each value in the collection through a transformation function
+         * (iteratee). For function iteratees, each invocation of iteratee is called with three arguments:
+         * (value, key, collection).
+         * @param collection Maps the elements of this collection.
+         * @param iteratee Map iteratee for each element in the collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The mapped result.
+         **/
+        map<V extends Collection<any>, I extends Iteratee<V, any>>(
+            collection: V,
+            iteratee: I,
+            context?: any
+        ): IterateeResult<I, TypeOfCollection<V>>[];
 
         /**
         * @see map
@@ -365,7 +331,7 @@ declare module _ {
         **/
         find<T>(
             collection: Collection<T>,
-            iterator: Partial<T> | KeysOfUnion<T>): T | undefined;
+            iterator: Partial<T> | PropertyKey): T | undefined;
 
         /**
         * @see find
@@ -373,32 +339,18 @@ declare module _ {
         detect: UnderscoreStatic['find'];
 
         /**
-        * Looks through each value in the list, returning an array of all the values that pass a truth
-        * test (iterator). Delegates to the native filter method, if it exists.
-        * @param list Filter elements out of this list.
-        * @param iterator Filter iterator function for each element in `list`.
-        * @param context `this` object in `iterator`, optional.
-        * @return The filtered list of elements.
-        **/
-        filter<T>(
-            list: List<T>,
-            iterator: ListIterator<T, boolean>,
-            context?: any): T[];
-
-        /**
-        * @see filter
-        **/
-        filter<T>(
-            object: Dictionary<T>,
-            iterator: ObjectIterator<T, boolean>,
-            context?: any): T[];
-
-        /**
-        * @see filter
-        **/
-        filter<T>(
-            collection: Collection<T>,
-            iterator: Partial<T> | KeysOfUnion<T>): T[];
+         * Looks through each value in the collection, returning an array of all the values that pass a truth
+         * test (iteratee).
+         * @param collection The collection to filter.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The filtered set of values.
+         **/
+        filter<V extends Collection<any>>(
+            collection: V,
+            iteratee: Iteratee<V, boolean>,
+            context?: any
+        ): TypeOfCollection<V>[];
 
         /**
         * @see filter
@@ -453,7 +405,7 @@ declare module _ {
         **/
         reject<T>(
             collection: Collection<T>,
-            iterator: Partial<T> | KeysOfUnion<T>): T[];
+            iterator: Partial<T> | PropertyKey): T[];
 
         /**
         * Returns true if all of the values in the list pass the iterator truth test. Delegates to the
@@ -481,7 +433,7 @@ declare module _ {
         **/
         every<T>(
             collection: Collection<T>,
-            iterator?: Partial<T> | KeysOfUnion<T>): boolean;
+            iterator?: Partial<T> | PropertyKey): boolean;
 
         /**
         * @see every
@@ -514,7 +466,7 @@ declare module _ {
         **/
         some<T>(
             collection: Collection<T>,
-            iterator?: Partial<T> | KeysOfUnion<T>): boolean;
+            iterator?: Partial<T> | PropertyKey): boolean;
 
         /**
         * @see some
@@ -563,18 +515,16 @@ declare module _ {
             ...args: any[]): any[];
 
         /**
-        * A convenient version of what is perhaps the most common use-case for map: extracting a list of
-        * property values.
-        * @param collection The list to pluck elements out of that have the property `propertyName`.
-        * @param propertyName The property to look for on each element within `list`.
-        * @return The list of elements within `list` that have the property `propertyName`.
-        **/
-        pluck<T, K extends KeysOfUnion<T>>(
-            collection: Collection<T>,
-            propertyName: K): TypesOfUnionProperty<T, K>[];
-        pluck(
-            collection: Collection<any>,
-            propertyName: string): any[];
+         * A convenient version of what is perhaps the most common use-case for map: extracting a list of
+         * property values.
+         * @param collection The collection of items.
+         * @param propertyName The name of a specific property to retrieve from all items.
+         * @returns The set of values for the specified property for each item in the collection.
+         **/
+        pluck<V extends Collection<any>, K extends PropertyKey>(
+            collection: V,
+            propertyName: K
+        ): PropertyTypeOrAny<TypeOfCollection<V>, K>[];
 
         /**
         * Returns the maximum value in list.
@@ -676,34 +626,17 @@ declare module _ {
             iterator: keyof T): T[];
 
         /**
-        * Splits a collection into sets, grouped by the result of running each value through iterator.
-        * If iterator is a string instead of a function, groups by the property named by iterator on
-        * each of the values.
-        * @param list Groups this list.
-        * @param iterator Group iterator for each element within `list`, return the key to group the element by.
-        * @param context `this` object in `iterator`, optional.
-        * @return An object with the group names as properties where each property contains the grouped elements from `list`.
-        **/
-        groupBy<T>(
-            list: List<T>,
-            iterator: ListIterator<T, any>,
-            context?: any): Dictionary<T[]>;
-
-        /**
-        * @see groupBy
-        **/
-        groupBy<T>(
-            object: Dictionary<T>,
-            iterator: ObjectIterator<T, any>,
-            context?: any): Dictionary<T[]>;
-
-        /**
-        * @see groupBy
-        * @param iterator Property on each object to group them by.
-        **/
-        groupBy<T>(
-            collection: Collection<T>,
-            iterator: keyof T): Dictionary<T[]>;
+         * Splits a collection into sets, grouped by the result of running each value through iteratee.
+         * @param collection The collection to group.
+         * @param iteratee An iteratee that provides the value to group by for each item in the collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection.
+         **/
+        groupBy<V extends Collection<any>>(
+            collection: V,
+            iteratee: Iteratee<V, any>,
+            context?: any
+        ): Dictionary<TypeOfCollection<V>[]>;
 
         /**
         * Given a `list`, and an `iterator` function that returns a key for each element in the list (or a property name),
@@ -820,7 +753,7 @@ declare module _ {
         **/
         partition<T>(
             collection: Collection<T>,
-            iterator: Partial<T> | KeysOfUnion<T>): [T[], T[]];
+            iterator: Partial<T> | PropertyKey): [T[], T[]];
 
         /*********
         * Arrays *
@@ -913,12 +846,8 @@ declare module _ {
         * @param shallow If true then only flatten one level, optional, default = false.
         * @return `array` flattened.
         **/
-        flatten<T>(array: List<T>, shallow?: false): DeepFlattenedList<T>[];
-
-        /**
-        * @see flatten
-        **/
-        flatten<T>(array: List<T>, shallow: true): ShallowFlattenedList<T>[];
+        flatten<V extends List<any>>(list: V, shallow?: false): DeepestListItemOrSelf<TypeOfList<V>>[];
+        flatten<V extends List<any>>(list: V, shallow: true): ListItemOrSelf<TypeOfList<V>>[];
 
         /**
         * Returns a copy of the array with all instances of the values removed.
@@ -1068,7 +997,7 @@ declare module _ {
         **/
         findIndex<T>(
             array: List<T>,
-            predicate: ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>,
+            predicate: ListIterator<T, boolean> | Partial<T> | PropertyKey,
             context?: any): number;
 
         /**
@@ -1080,7 +1009,7 @@ declare module _ {
         **/
         findLastIndex<T>(
             array: List<T>,
-            predicate: ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>,
+            predicate: ListIterator<T, boolean> | Partial<T> | PropertyKey,
             context?: any): number;
 
         /**
@@ -4143,28 +4072,17 @@ declare module _ {
         forEach: Underscore<T, V>['each'];
 
         /**
-        * Wrapped type Collection<T>.
-        * @see map
-        **/
-        map<TResult>(iterator: CollectionIterator<T, TResult, V>, context?: any): TResult[];
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see map
-        **/
-        map<K extends KeysOfUnion<T>>(iterator: K): TypesOfUnionProperty<T, K>[];
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see map
-        **/
-        map(iterator: string): any[]
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see map
-        **/
-        map(iterator: Partial<T>): boolean[];
+         * Produces a new array of values by mapping each value in the wrapped collection through a transformation function
+         * (iteratee). For function iterators, each invocation of iterator is called with three arguments:
+         * (value, key, collection).
+         * @param iteratee Map iteratee for each element in the collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The mapped result.
+         **/
+        map<I extends Iteratee<V, any>>(
+            iteratee: I,
+            context?: any
+        ): IterateeResult<I, T>[];
 
         /**
         * @see map
@@ -4207,7 +4125,7 @@ declare module _ {
         /**
         * @see find
         **/
-        find(iterator: Partial<T> | KeysOfUnion<T>): T | undefined;
+        find(iterator: Partial<T> | PropertyKey): T | undefined;
 
         /**
         * @see find
@@ -4215,15 +4133,13 @@ declare module _ {
         detect: Underscore<T, V>['find'];
 
         /**
-        * Wrapped type Collection<T>.
-        * @see filter
-        **/
-        filter(iterator: CollectionIterator<T, boolean, V>, context?: any): T[];
-
-        /**
-        * @see filter
-        **/
-        filter(iterator: Partial<T> | KeysOfUnion<T>): T[];
+         * Looks through each value in the wrapped collection, returning an array of all the values that pass a truth
+         * test (iteratee).
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The filtered set of values.
+         **/
+        filter(iteratee: Iteratee<V, boolean>, context?: any): T[];
 
         /**
         * @see filter
@@ -4251,7 +4167,7 @@ declare module _ {
         /**
         * @see reject
         **/
-        reject(iterator: Partial<T> | KeysOfUnion<T>): T[];
+        reject(iterator: Partial<T> | PropertyKey): T[];
 
         /**
         * Wrapped type Collection<T>.
@@ -4262,7 +4178,7 @@ declare module _ {
         /**
         * @see every
         **/
-        every(iterator?: Partial<T> | KeysOfUnion<T>): boolean;
+        every(iterator?: Partial<T> | PropertyKey): boolean;
 
         /**
         * @see every
@@ -4278,7 +4194,7 @@ declare module _ {
         /**
         * @see some
         **/
-        some(iterator?: Partial<T> | KeysOfUnion<T>): boolean;
+        some(iterator?: Partial<T> | PropertyKey): boolean;
 
         /**
         * @see some
@@ -4310,11 +4226,14 @@ declare module _ {
         invoke(methodName: string, ...args: any[]): any[];
 
         /**
-        * Wrapped type Collection<T>.
-        * @see pluck
-        **/
-        pluck<K extends KeysOfUnion<T>>(propertyName: K): TypesOfUnionProperty<T, K>[];
-        pluck(propertyName: string): any[];
+         * A convenient version of what is perhaps the most common use-case for map: extracting a list of
+         * property values.
+         * @param propertyName The name of a specific property to retrieve from all items.
+         * @returns The set of values for the specified property for each item in the collection.
+         **/
+        pluck<K extends PropertyKey>(
+            propertyName: K
+        ): PropertyTypeOrAny<T, K>[];
 
         /**
         * Wrapped type Collection<T>.
@@ -4351,16 +4270,12 @@ declare module _ {
         sortBy(iterator: keyof T): T[];
 
         /**
-        * Wrapped type Collection<T>.
-        * @see groupBy
-        **/
-        groupBy(iterator: CollectionIterator<T, any, V>, context?: any): Dictionary<T[]>;
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see groupBy
-        **/
-        groupBy(iterator: keyof T): Dictionary<T[]>;
+         * Splits a collection into sets, grouped by the result of running each value through iteratee.
+         * @param iteratee An iteratee that provides the value to group by for each item in the collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection.
+         **/
+        groupBy(iteratee: Iteratee<V, any>, context?: any): Dictionary<T[]>;
 
         /**
         * Wrapped type Collection<T>.
@@ -4485,12 +4400,12 @@ declare module _ {
         * Wrapped type List<T>.
         * @see flatten
         **/
-        flatten(shallow?: false): DeepFlattenedList<T>[];
+        flatten(shallow?: false): DeepestListItemOrSelf<T>[];
 
         /**
         * @see flatten
         **/
-        flatten(shallow: true): ShallowFlattenedList<T>[];
+        flatten(shallow: true): ListItemOrSelf<T>[];
 
         /**
         * Wrapped type List<T>.
@@ -4508,7 +4423,7 @@ declare module _ {
         * Wrapped type List<T>.
         * @see partition
         **/
-        partition(iterator: Partial<T> | KeysOfUnion<T>): [T[], T[]];
+        partition(iterator: Partial<T> | PropertyKey): [T[], T[]];
 
         /**
         * Wrapped type List<T>.
@@ -4589,12 +4504,12 @@ declare module _ {
         /**
         * @see findIndex
         **/
-        findIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | KeysOfUnion<T>, context?: any): number;
+        findIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | PropertyKey, context?: any): number;
 
         /**
         * @see findLastIndex
         **/
-        findLastIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | KeysOfUnion<T>, context?: any): number;
+        findLastIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | PropertyKey, context?: any): number;
 
         /**
         * Wrapped type List<T>.
@@ -5077,28 +4992,17 @@ declare module _ {
         forEach: _Chain<T, V>['each'];
 
         /**
-        * Wrapped type Collection<T>.
-        * @see map
-        **/
-        map<TResult>(iterator: CollectionIterator<T, TResult, V>, context?: any):  _Chain<TResult, TResult[]>;
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see map
-        **/
-        map<K extends KeysOfUnion<T>>(iterator: K): _Chain<TypesOfUnionProperty<T, K>, TypesOfUnionProperty<T, K>[]>;
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see map
-        **/
-        map(iterator: string): _Chain<any, any[]>;
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see map
-        **/
-        map(iterator: Partial<T>): _Chain<boolean, boolean[]>;
+         * Produces a new array of values by mapping each value in the wrapped collection through a transformation function
+         * (iteratee). For function iteratees, each invocation of iteratee is called with three arguments:
+         * (value, key, collection).
+         * @param iterator Map iteratee for each element in the collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The mapped result in a chain wrapper.
+         **/
+        map<I extends _ChainIteratee<V, any, T>>(
+            iteratee: I,
+            context?: any
+        ): _Chain<IterateeResult<I, T>, IterateeResult<I, T>[]>;
 
         /**
         * @see map
@@ -5141,7 +5045,7 @@ declare module _ {
         /**
         * @see find
         **/
-        find(iterator: Partial<T> | KeysOfUnion<T>): _ChainSingle<T | undefined>;
+        find(iterator: Partial<T> | PropertyKey): _ChainSingle<T | undefined>;
 
         /**
         * @see find
@@ -5149,16 +5053,13 @@ declare module _ {
         detect: _Chain<T, V>['find'];
 
         /**
-        * Wrapped type Collection<T>.
-        * @see filter
-        **/
-        filter(iterator: CollectionIterator<T, boolean, V>, context?: any): _Chain<T, T[]>;
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see filter
-        **/
-        filter(iterator: Partial<T> | KeysOfUnion<T>): _Chain<T, T[]>;
+         * Looks through each value in the wrapped collection, returning an array of all the values that pass a truth
+         * test (iteratee).
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The filtered set of values in a chain wrapper.
+         **/
+        filter(iteratee: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
 
         /**
         * @see filter
@@ -5187,7 +5088,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see reject
         **/
-        reject(iterator: Partial<T> | KeysOfUnion<T>): _Chain<T, T[]>;
+        reject(iterator: Partial<T> | PropertyKey): _Chain<T, T[]>;
 
         /**
         * Wrapped type Collection<T>.
@@ -5199,7 +5100,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see every
         **/
-        every(iterator?: Partial<T> | KeysOfUnion<T>): _ChainSingle<boolean>;
+        every(iterator?: Partial<T> | PropertyKey): _ChainSingle<boolean>;
 
         /**
         * @see every
@@ -5216,7 +5117,7 @@ declare module _ {
         * Wrapped type Collection<T>.
         * @see some
         **/
-        some(iterator?: Partial<T> | KeysOfUnion<T>): _ChainSingle<boolean>;
+        some(iterator?: Partial<T> | PropertyKey): _ChainSingle<boolean>;
 
         /**
         * @see some
@@ -5248,11 +5149,14 @@ declare module _ {
         invoke(methodName: string, ...args: any[]): _Chain<any, any[]>;
 
         /**
-        * Wrapped type Collection<T>.
-        * @see pluck
-        **/
-        pluck<K extends KeysOfUnion<T>>(propertyName: K): _Chain<TypesOfUnionProperty<T, K>, TypesOfUnionProperty<T, K>[]>;
-        pluck(propertyName: string): _Chain<any, any[]>;
+         * A convenient version of what is perhaps the most common use-case for map: extracting a list of
+         * property values.
+         * @param propertyName The name of a specific property to retrieve from all items.
+         * @returns The set of values for the specified property for each item in the collection in a chain wrapper.
+         **/
+        pluck<K extends PropertyKey>(
+            propertyName: K
+        ): _Chain<PropertyTypeOrAny<T, K>, PropertyTypeOrAny<T, K>[]>;
 
         /**
         * Wrapped type Collection<T>.
@@ -5291,16 +5195,13 @@ declare module _ {
         sortBy(iterator: keyof T): _Chain<T, T[]>;
 
         /**
-        * Wrapped type Collection<T>.
-        * @see groupBy
-        **/
-        groupBy(iterator: CollectionIterator<T, any, V>, context?: any): _Chain<T[], Dictionary<T[]>>;
-
-        /**
-        * Wrapped type Collection<T>.
-        * @see groupBy
-        **/
-        groupBy(iterator: keyof T): _Chain<T[], Dictionary<T[]>>;
+         * Splits a collection into sets, grouped by the result of running each value through iteratee.
+         * @param iteratee An iteratee that provides the value to group by for each item in the collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection
+         * in a chain wrapper.
+         **/
+        groupBy(iterator: _ChainIteratee<V, any, T>, context?: any): _Chain<T[], Dictionary<T[]>>;
 
         /**
         * Wrapped type Collection<T>.
@@ -5425,12 +5326,12 @@ declare module _ {
         * Wrapped type List<T>.
         * @see flatten
         **/
-        flatten(shallow?: false): _Chain<DeepFlattenedList<T>, DeepFlattenedList<T>[]>;
+        flatten(shallow?: false): _Chain<DeepestListItemOrSelf<T>, DeepestListItemOrSelf<T>[]>;
 
         /**
         * @see flatten
         **/
-        flatten(shallow: true): _Chain<ShallowFlattenedList<T>, ShallowFlattenedList<T>[]>;
+        flatten(shallow: true): _Chain<ListItemOrSelf<T>, ListItemOrSelf<T>[]>;
 
         /**
         * Wrapped type List<T>.
@@ -5448,7 +5349,7 @@ declare module _ {
         * Wrapped type List<T>.
         * @see partition
         **/
-        partition(iterator: Partial<T> | KeysOfUnion<T>): _Chain<T[], [T[], T[]]>;
+        partition(iterator: Partial<T> | PropertyKey): _Chain<T[], [T[], T[]]>;
 
         /**
         * Wrapped type List<T>.
@@ -5528,12 +5429,12 @@ declare module _ {
         /**
         * @see findIndex
         **/
-        findIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | KeysOfUnion<T>, context?: any): _ChainSingle<number>;
+        findIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | PropertyKey, context?: any): _ChainSingle<number>;
 
         /**
         * @see findLastIndex
         **/
-        findLastIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | KeysOfUnion<T>, context?: any): _ChainSingle<number>;
+        findLastIndex(predicate: ListIterator<T, boolean, V> | Partial<T> | PropertyKey, context?: any): _ChainSingle<number>;
 
         /**
         * Wrapped type List<T>.
