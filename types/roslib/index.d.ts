@@ -1,4 +1,4 @@
-// Type definitions for roslib.js 1.0.1
+// Type definitions for roslib.js 1.1.0
 // Project: http://wiki.ros.org/roslibjs
 // Definitions by: Stefan Profanter <https://github.com/Pro>,
 //                 Cooper Benson <https://github.com/skycoop>,
@@ -17,6 +17,17 @@ export = ROSLIB;
 export as namespace ROSLIB;
 
 declare namespace ROSLIB {
+    interface Vector3Like {
+        x?: number | null;
+        y?: number | null;
+        z?: number | null;
+    }
+    interface QuaternionLike {
+        x?: number | null;
+        y?: number | null;
+        z?: number | null;
+        w?: number | null;
+    }
     export class Ros {
         /**
          * Manages connection to the server and all interactions with ROS.
@@ -469,10 +480,7 @@ declare namespace ROSLIB {
          *   * translation - the Vector3 describing the translation
          *   * rotation - the ROSLIB.Quaternion describing the rotation
          */
-        constructor(options?: {
-            translation?: ConstructorParameters<typeof Vector3>[0] | null;
-            rotation?: ConstructorParameters<typeof Quaternion>[0] | null;
-        });
+        constructor(options?: { translation?: Vector3Like | null; rotation?: QuaternionLike | null });
 
         // getters
         public translation: Vector3;
@@ -484,7 +492,7 @@ declare namespace ROSLIB {
         clone(): Transform;
     }
 
-    export class Vector3 {
+    export class Vector3 implements Vector3Like {
         /**
          * A 3D vector.
          *
@@ -527,7 +535,7 @@ declare namespace ROSLIB {
         subtract(v: Vector3): void;
     }
 
-    export class Quaternion {
+    export class Quaternion implements QuaternionLike {
         /**
          * A Quaternion.
          *
@@ -592,8 +600,8 @@ declare namespace ROSLIB {
          */
         constructor(
             options?: {
-                position?: ConstructorParameters<typeof Vector3>[0] | null;
-                orientation?: ConstructorParameters<typeof Quaternion>[0] | null;
+                position?: Vector3Like | null;
+                orientation?: QuaternionLike | null;
             } | null,
         );
 
