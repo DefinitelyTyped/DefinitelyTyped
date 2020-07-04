@@ -24,7 +24,7 @@ export interface RenderOptions<V extends Vue, S = {}> extends
 }
 
 export type ConfigurationCallback<V extends Vue> =
-  (vue: V, store: Store<any>, router: Router) => Partial<ThisTypedMountOptions<V>> | void;
+  (localVue: typeof Vue, store: Store<any>, router: Router) => Partial<ThisTypedMountOptions<V>> | void;
 
 export interface ComponentHarness extends BoundFunctions<typeof queries> {
   container: HTMLElement;

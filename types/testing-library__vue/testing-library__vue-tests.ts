@@ -50,6 +50,13 @@ const component = lib.render(SomeComponent, {
     ],
 });
 
+const ExamplePlugin: Vue.PluginFunction<never> = () => {};
+const componentWithConfigCallback = lib.render(SomeComponent, {}, (localVue, store, router) => {
+    localVue.use(ExamplePlugin);
+    store.replaceState({foo: 'bar'});
+    router.onError((error) => console.log(error.message));
+});
+
 component.container; // $ExpectType HTMLElement
 component.baseElement; // $ExpectType HTMLBodyElement
 component.debug(); // $ExpectType void
