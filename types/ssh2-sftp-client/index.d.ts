@@ -61,9 +61,9 @@ declare class sftp {
         remotePath: string,
         options?: ssh2Stream.TransferOptions,
     ): Promise<string>;
-    
+
     uploadDir(srcDir: string, destDir: string): Promise<string>;
-    
+
     downloadDir(srcDir: string, destDir: string): Promise<string>;
 
     end(): Promise<void>;
