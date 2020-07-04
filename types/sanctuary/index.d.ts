@@ -262,7 +262,7 @@ declare namespace Sanctuary {
     joinWith(p: string): (q: ReadonlyArray<string>) => string;
     elem<A>(p: A): (q: Foldable<A> | StrMap<A> | ReadonlyArray<A>) => boolean;
     find<A>(p: Predicate<A>): (q: ReadonlyArray<A> | StrMap<A> | Foldable<A>) => Maybe<A>;
-    foldMap<A, M>(t: TypeRep): (f: Fn<A, M>) => (g:Foldable<A>) => M;
+    foldMap<A, M>(t: TypeRep): (f: Fn<A, M>) => (g: Foldable<A>) => M;
     unfoldr<A, B>(f: Fn<B, Maybe<Pair<A, B>>>): (x: B) => A[];
     range(from: Integer): (to: Integer) => Integer[];
     groupBy<A>(f: Fn2<A, A, boolean>): (xs: ReadonlyArray<A>) => A[][];
