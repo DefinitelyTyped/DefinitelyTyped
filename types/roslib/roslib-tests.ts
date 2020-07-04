@@ -1,7 +1,7 @@
-import ROSLIB = require("roslib");
+import ROSLIB = require('roslib');
 
 var ros = new ROSLIB.Ros({
-    url: 'ws://localhost:9090'
+    url: 'ws://localhost:9090',
 });
 
 ros.on('connection', function () {
@@ -22,20 +22,20 @@ ros.on('close', function () {
 var cmdVel = new ROSLIB.Topic({
     ros: ros,
     name: '/cmd_vel',
-    messageType: 'geometry_msgs/Twist'
+    messageType: 'geometry_msgs/Twist',
 });
 
 var twist = new ROSLIB.Message({
     linear: {
         x: 0.1,
         y: 0.2,
-        z: 0.3
+        z: 0.3,
     },
     angular: {
         x: -0.1,
         y: -0.2,
-        z: -0.3
-    }
+        z: -0.3,
+    },
 });
 cmdVel.publish(twist);
 
@@ -45,13 +45,13 @@ cmdVel.publish(twist);
 var listener = new ROSLIB.Topic({
     ros: ros,
     name: '/listener',
-    messageType: 'std_msgs/String'
+    messageType: 'std_msgs/String',
 });
 
-let subscription_callback = function (message:ROSLIB.Message) {
+let subscription_callback = function (message: ROSLIB.Message) {
     console.log('Received message on ' + listener.name + ': ' + message);
     listener.unsubscribe();
-}
+};
 
 listener.subscribe(subscription_callback);
 listener.unsubscribe(subscription_callback);
@@ -62,19 +62,16 @@ listener.unsubscribe(subscription_callback);
 var addTwoIntsClient = new ROSLIB.Service({
     ros: ros,
     name: '/add_two_ints',
-    serviceType: 'rospy_tutorials/AddTwoInts'
+    serviceType: 'rospy_tutorials/AddTwoInts',
 });
 
 var request = new ROSLIB.ServiceRequest({
     a: 1,
-    b: 2
+    b: 2,
 });
 
 addTwoIntsClient.callService(request, function (result) {
-    console.log('Result for service call on '
-        + addTwoIntsClient.name
-        + ': '
-        + result.sum);
+    console.log('Result for service call on ' + addTwoIntsClient.name + ': ' + result.sum);
 });
 
 // Providing a service
@@ -83,24 +80,24 @@ addTwoIntsClient.callService(request, function (result) {
 var addTwoInts = new ROSLIB.Service({
     ros: ros,
     name: '/add_two_ints',
-    serviceType: 'beginner_tutorials/AddTwoInts'
+    serviceType: 'beginner_tutorials/AddTwoInts',
 });
 
 addTwoInts.advertise((req, resp) => {
-    resp.sum = req.a + req.b
+    resp.sum = req.a + req.b;
     return true;
 });
 
 // Getting and setting a param value
 // ---------------------------------
 
-ros.getParams(function (params:string[]) {
+ros.getParams(function (params: string[]) {
     console.log(params);
 });
 
 var maxVelX = new ROSLIB.Param({
     ros: ros,
-    name: 'max_vel_y'
+    name: 'max_vel_y',
 });
 
 maxVelX.set(0.8);
@@ -112,12 +109,12 @@ maxVelX.get(function (value) {
 // --------------------
 const tfClient = new ROSLIB.TFClient({
     ros: ros,
-    fixedFrame: '/world'
-})
+    fixedFrame: '/world',
+});
 const tfclient_callback = function (transform: ROSLIB.Transform) {
     console.log('Received transform: ' + transform);
     tfClient.unsubscribe('/transform');
-}
+};
 
 tfClient.subscribe('/transform', tfclient_callback);
 tfClient.unsubscribe('/transform', tfclient_callback);
