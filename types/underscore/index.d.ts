@@ -217,10 +217,12 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The mapped result.
          **/
-        map<V extends Collection<any>, I extends Iteratee<V, any>>(
+        map<V extends Collection<any>,
+            I extends Iteratee<V, any>>(
             collection: V,
             iteratee: I,
-            context?: any): IterateeResult<V, I>[];
+            context?: any
+        ): IterateeResult<V, I>[];
 
         /**
          * @see map
@@ -376,7 +378,8 @@ declare module _ {
         filter<V extends Collection<any>>(
             collection: V,
             iteratee: Iteratee<V, boolean>,
-            context?: any): TypeOfCollection<V>[];
+            context?: any
+        ): TypeOfCollection<V>[];
 
         /**
         * @see filter
@@ -574,7 +577,8 @@ declare module _ {
          **/
         pluck<T, K extends PropertyKey>(
             collection: Collection<T>,
-            propertyName: K): PropertyTypeOrAny<T, K>[];
+            propertyName: K
+        ): PropertyTypeOrAny<T, K>[];
 
         /**
         * Returns the maximum value in list.
@@ -674,7 +678,8 @@ declare module _ {
         groupBy<V extends Collection<any>>(
             collection: V,
             iteratee: Iteratee<V, any>,
-            context?: any): Dictionary<TypeOfCollection<V>[]>;
+            context?: any
+        ): Dictionary<TypeOfCollection<V>[]>;
 
         /**
         * Given a `list`, and an `iterator` function that returns a key for each element in the list (or a property name),
@@ -4142,7 +4147,8 @@ declare module _ {
          **/
         map<I extends Iteratee<V, any>>(
             iteratee: I,
-            context?: any): IterateeResult<V, I>[];
+            context?: any
+        ): IterateeResult<V, I>[];
 
         /**
          * @see map
@@ -4291,7 +4297,9 @@ declare module _ {
          * @param propertyName The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection.
          **/
-        pluck<K extends PropertyKey>(propertyName: K): PropertyTypeOrAny<T, K>[];
+        pluck<K extends PropertyKey>(
+            propertyName: K
+        ): PropertyTypeOrAny<T, K>[];
 
         /**
         * Wrapped type `number[]`.
@@ -5090,7 +5098,8 @@ declare module _ {
          **/
         map<I extends Iteratee<V, any>>(
             iteratee: I,
-            context?: any): _Chain<IterateeResult<V, I>, IterateeResult<V, I>[]>;
+            context?: any
+        ): _Chain<IterateeResult<V, I>, IterateeResult<V, I>[]>;
 
         /**
          * @see map
@@ -5239,7 +5248,9 @@ declare module _ {
          * @param propertyName The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection in a chain wrapper.
          **/
-        pluck<K extends PropertyKey>(propertyName: K): _Chain<PropertyTypeOrAny<T, K>, PropertyTypeOrAny<T, K>[]>;
+        pluck<K extends PropertyKey>(
+            propertyName: K
+        ): _Chain<PropertyTypeOrAny<T, K>, PropertyTypeOrAny<T, K>[]>;
 
         /**
         * Wrapped type `number[]`.
