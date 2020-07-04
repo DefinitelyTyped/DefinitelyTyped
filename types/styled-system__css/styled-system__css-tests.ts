@@ -1,4 +1,4 @@
-import css, {CssFunctionReturnType, Theme} from '@styled-system/css';
+import css, { CssFunctionReturnType, Theme } from '@styled-system/css';
 
 const theme = {
     colors: {
