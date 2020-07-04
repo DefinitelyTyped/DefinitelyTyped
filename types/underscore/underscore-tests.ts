@@ -730,7 +730,7 @@ interface IntersectingMixedTypeRecord {
 
 type IntersectingProperties = StringRecord | IntersectingMixedTypeRecord;
 
-const intersectingObjectPropertiesList: _.List<IntersectingProperties> = { 0: { a: 'a', b: 'b' }, 1: { a: true, c: 'c' }, length: 2 };
+const intersectingPropertiesList: _.List<IntersectingProperties> = { 0: { a: 'a', b: 'b' }, 1: { a: true, c: 'c' }, length: 2 };
 
 interface NonIntersectingStringRecord {
     onlyNonIntersectingStringRecord: string;
@@ -851,7 +851,7 @@ declare const extractChainTypes: ChainTypeExtractor;
 
     // property name iteratee with other types - lists
     _.map(stringRecordOrUndefinedList, stringRecordProperty); // $ExpectType any[]
-    _.map(intersectingObjectPropertiesList, stringRecordProperty); // $ExpectType (string | boolean)[]
+    _.map(intersectingPropertiesList, stringRecordProperty); // $ExpectType (string | boolean)[]
     _.map(nonIntersectingPropertiesList, stringRecordProperty); // $ExpectType any[]
 
     // property name iteratee - any (see #33479)
@@ -976,7 +976,7 @@ declare const extractChainTypes: ChainTypeExtractor;
 
     // property name iteratee with other types - lists
     _.pluck(stringRecordOrUndefinedList, stringRecordProperty); // $ExpectType any[]
-    _.pluck(intersectingObjectPropertiesList, stringRecordProperty); // $ExpectType (string | boolean)[]
+    _.pluck(intersectingPropertiesList, stringRecordProperty); // $ExpectType (string | boolean)[]
     _.pluck(nonIntersectingPropertiesList, stringRecordProperty) // $ExpectType any[]
     _.pluck(anyValue, stringRecordProperty); // $ExpectType any[]
 }
