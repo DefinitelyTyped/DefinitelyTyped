@@ -2,7 +2,6 @@
 // Project: https://github.com/vbarzokas/greek-utils
 // Definitions by: Dimitris Kirtsios <https://github.com/dimkirt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version 3.9
 
 export function sanitizeDiacritics(text: string, ignore?: string): string;
 
