@@ -57,7 +57,7 @@ declare namespace sanitize {
   interface IOptions {
     allowedAttributes?: { [index: string]: AllowedAttribute[] } | boolean;
     allowedStyles?:  { [index: string]: { [index: string]: RegExp[] } };
-    allowedClasses?: { [index: string]: string[] } | boolean;
+    allowedClasses?: { [index: string]: string[] | boolean };
     allowedIframeHostnames?: string[];
     allowIframeRelativeUrls?: boolean;
     allowedSchemes?: string[] | boolean;

@@ -51,7 +51,7 @@ class SingleDatePickerFullTest extends React.Component {
                     withPortal={false}
                     onDateChange={d => {}}
                     focused={false}
-                    reopenPickerOnClearDates={true}
+                    reopenPickerOnClearDate={true}
                     screenReaderInputMessage="arial-test"
                     withFullScreenPortal={true}
                     onFocusChange={arg => {}}

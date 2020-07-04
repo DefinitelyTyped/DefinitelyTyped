@@ -18,3 +18,5 @@ maxZoom.getMaxZoomAtLatLng({ lat: 0, lng: 0 }, result => {
     result.status; // $ExpectType MaxZoomStatus.ERROR
     result.zoom; // $ExpectError
 });
+
+export {};

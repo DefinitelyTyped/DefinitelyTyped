@@ -600,10 +600,16 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     _.intersection(list, list); // $ExpectType AbcObject[]
     _.intersection(list, list, list); // $ExpectType AbcObject[]
+    _.intersection(undefined, list); // $ExpectType AbcObject[]
+    _.intersection(null, list); // $ExpectType AbcObject[]
     _(list).intersection(list); // $ExpectType Collection<AbcObject>
     _(list).intersection(list, list); // $ExpectType Collection<AbcObject>
+    _(list).intersection(undefined); // $ExpectType Collection<AbcObject>
+    _(list).intersection(null); // $ExpectType Collection<AbcObject>
     _.chain(list).intersection(list); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).intersection(list, list); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).intersection(undefined); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).intersection(null); // $ExpectType CollectionChain<AbcObject>
     fp.intersection(list, list); // $ExpectType AbcObject[]
     fp.intersection(list)(list); // $ExpectType AbcObject[]
 }

@@ -7,6 +7,7 @@
 //                 Sandra Frischmuth <https://github.com/sanfrisc>
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 Henry Thasler <https://github.com/henrythasler>
+//                 Colin Doig <https://github.com/captain-igloo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1541,6 +1542,11 @@ export interface PanOptions {
 // This is not empty, it extends two interfaces into one...
 export interface ZoomPanOptions extends ZoomOptions, PanOptions {}
 
+export interface InvalidateSizeOptions extends ZoomPanOptions {
+    debounceMoveend?: boolean;
+    pan?: boolean;
+}
+
 export interface FitBoundsOptions extends ZoomOptions, PanOptions {
     paddingTopLeft?: PointExpression;
     paddingBottomRight?: PointExpression;
@@ -1741,7 +1747,7 @@ export class Map extends Evented {
     /**
      * Boolean for animate or advanced ZoomPanOptions
      */
-    invalidateSize(options?: boolean | ZoomPanOptions): this;
+    invalidateSize(options?: boolean | InvalidateSizeOptions): this;
     stop(): this;
     flyTo(latlng: LatLngExpression, zoom?: number, options?: ZoomPanOptions): this;
     flyToBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;

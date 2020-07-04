@@ -18,6 +18,10 @@ tree.getEntry('/').then(entry => {
     // Use entry
 });
 
+tree.diff(new Git.Tree()).then(diff => {
+    diff.patches();
+});
+
 // AnnotatedCommit Tests
 
 Git.AnnotatedCommit.fromFetchhead(repo, 'branch_name', 'remote_url', id).then(annotatedCommit => {

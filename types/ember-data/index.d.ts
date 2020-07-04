@@ -457,6 +457,10 @@ export namespace DS {
          */
         id: string;
         /**
+         * A reference to DS.Store service instance.
+         */
+        store: Store;
+        /**
          * When the record is in the `invalid` state this object will contain
          * any errors returned by the adapter. When present the errors hash
          * contains keys corresponding to the invalid property names
@@ -1055,7 +1059,7 @@ export namespace DS {
      * the individual data for a record, so that they can be bound to in your
      * Handlebars templates.
      */
-    class Store {
+    class Store extends Ember.Service {
         /**
          * The default adapter to use to communicate to a backend server or
          * other persistence layer. This will be overridden by an application

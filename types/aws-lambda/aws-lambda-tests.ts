@@ -16,6 +16,7 @@ declare let bool: boolean;
 declare let boolOrUndefined: boolean | undefined;
 declare let boolOrNumOrStr: boolean | number | string;
 declare let numOrUndefined: number | undefined;
+declare let strArrayOrUndefined: string[] | undefined;
 
 // handler.d.ts types
 declare let context: AWSLambda.Context;
