@@ -103,20 +103,17 @@ declare module _ {
     type Iteratee<V, R, T extends TypeOfCollection<V> = TypeOfCollection<V>> =
         undefined |
         CollectionIterator<T, R, V> |
-        keyof T |
-        string |
-        Array<string | number> |
+        PropertyKey |
+        Array<PropertyKey> |
         Partial<T>;
 
     type IterateeResult<V, I, T extends TypeOfCollection<V> = TypeOfCollection<V>> =
         I extends undefined ? T // default iteratee is _.identity
         : I extends CollectionIterator<T, infer R, V> ? R
         : I extends keyof T ? T[I]
-        : I extends string | Array<string | number> ? any
+        : I extends PropertyKey | Array<PropertyKey> ? any
         : I extends Partial<T> ? boolean
         : never;
-
-    type KeyOrPropertyName<T> = keyof T | string | number;
 
     type PropertyTypeOrAny<T, K> = K extends keyof T ? T[K] : any;
 
@@ -575,7 +572,7 @@ declare module _ {
          * @param propertyName The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection.
          **/
-        pluck<T, K extends KeyOrPropertyName<T>>(
+        pluck<T, K extends PropertyKey>(
             collection: Collection<T>,
             propertyName: K): PropertyTypeOrAny<T, K>[];
 
@@ -4294,7 +4291,7 @@ declare module _ {
          * @param propertyName The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection.
          **/
-        pluck<K extends KeyOrPropertyName<T>>(propertyName: K): PropertyTypeOrAny<T, K>[];
+        pluck<K extends PropertyKey>(propertyName: K): PropertyTypeOrAny<T, K>[];
 
         /**
         * Wrapped type `number[]`.
@@ -5242,7 +5239,7 @@ declare module _ {
          * @param propertyName The name of a specific property to retrieve from all items.
          * @returns The set of values for the specified property for each item in the collection in a chain wrapper.
          **/
-        pluck<K extends KeyOrPropertyName<T>>(propertyName: K): _Chain<PropertyTypeOrAny<T, K>, PropertyTypeOrAny<T, K>[]>;
+        pluck<K extends PropertyKey>(propertyName: K): _Chain<PropertyTypeOrAny<T, K>, PropertyTypeOrAny<T, K>[]>;
 
         /**
         * Wrapped type `number[]`.
