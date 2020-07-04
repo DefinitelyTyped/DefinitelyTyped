@@ -107,9 +107,9 @@ declare module _ {
         Array<PropertyKey> |
         Partial<T>;
 
-    type IterateeResult<V, I, T extends TypeOfCollection<V> = TypeOfCollection<V>> =
+    type IterateeResult<I, T> =
         I extends undefined ? T // default iteratee is _.identity
-        : I extends CollectionIterator<T, infer R, V> ? R
+        : I extends (...args: any[]) => infer R ? R
         : I extends keyof T ? T[I]
         : I extends PropertyKey | Array<PropertyKey> ? any
         : I extends Partial<T> ? boolean
@@ -217,12 +217,11 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The mapped result.
          **/
-        map<V extends Collection<any>,
-            I extends Iteratee<V, any>>(
+        map<V extends Collection<any>, I extends Iteratee<V, any>>(
             collection: V,
             iteratee: I,
             context?: any
-        ): IterateeResult<V, I>[];
+        ): IterateeResult<I, TypeOfCollection<V>>[];
 
         /**
          * @see map
@@ -4148,7 +4147,7 @@ declare module _ {
         map<I extends Iteratee<V, any>>(
             iteratee: I,
             context?: any
-        ): IterateeResult<V, I>[];
+        ): IterateeResult<I, TypeOfCollection<V>>[];
 
         /**
          * @see map
@@ -5099,7 +5098,7 @@ declare module _ {
         map<I extends Iteratee<V, any>>(
             iteratee: I,
             context?: any
-        ): _Chain<IterateeResult<V, I>, IterateeResult<V, I>[]>;
+        ): _Chain<IterateeResult<I, T>, IterateeResult<I, T>[]>;
 
         /**
          * @see map

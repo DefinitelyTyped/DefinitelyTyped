@@ -801,6 +801,14 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(simpleString).collect(stringListValueIterator, context); // $ExpectType number[]
     extractChainTypes(_.chain(simpleString).collect(stringListValueIterator, context)); // $ExpectType ChainType<number[], number>
 
+    // function iteratee - any
+    _.map(anyValue, stringRecordListValueIterator, context); // $ExpectType string[]
+    _(anyValue).map(stringRecordListValueIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(anyValue).map(stringRecordListValueIterator, context)); // $ExpectType ChainType<string[], string>
+    _.collect(anyValue, stringRecordListValueIterator, context); // $ExpectType string[]
+    _(anyValue).collect(stringRecordListValueIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(anyValue).collect(stringRecordListValueIterator, context)); // $ExpectType ChainType<string[], string>
+
     // partial object iteratee - lists
     _.map(stringRecordList, partialStringRecord); // $ExpectType boolean[]
     _(stringRecordList).map(partialStringRecord); // $ExpectType boolean[]
@@ -817,8 +825,13 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(stringRecordDictionary).collect(partialStringRecord); // $ExpectType boolean[]
     extractChainTypes(_.chain(stringRecordDictionary).collect(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
 
-    // partial object iteratee with type any (see #33479)
+    // partial object iteratee - any (see #33479)
     _.map(anyValue, partialStringRecord); // $ExpectType boolean[]
+    _(anyValue).map(partialStringRecord); // $ExpectType boolean[]
+    extractChainTypes(_.chain(anyValue).map(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
+    _.collect(anyValue, partialStringRecord); // $ExpectType boolean[]
+    _(anyValue).collect(partialStringRecord); // $ExpectType boolean[]
+    extractChainTypes(_.chain(anyValue).collect(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
 
     // property name iteratee with a non-nullable single type - lists
     _.map(stringRecordList, stringRecordProperty); // $ExpectType string[]
@@ -840,7 +853,14 @@ declare const extractChainTypes: ChainTypeExtractor;
     _.map(stringRecordOrUndefinedList, stringRecordProperty); // $ExpectType any[]
     _.map(intersectingObjectPropertiesList, stringRecordProperty); // $ExpectType (string | boolean)[]
     _.map(nonIntersectingPropertiesList, stringRecordProperty); // $ExpectType any[]
+
+    // property name iteratee - any (see #33479)
     _.map(anyValue, stringRecordProperty); // $ExpectType any[]
+    _(anyValue).map(stringRecordProperty); // $ExpectType any[]
+    extractChainTypes(_.chain(anyValue).map(stringRecordProperty)); // $ExpectType ChainType<any[], any>
+    _.collect(anyValue, stringRecordProperty); // $ExpectType any[]
+    _(anyValue).collect(stringRecordProperty); // $ExpectType any[]
+    extractChainTypes(_.chain(anyValue).collect(stringRecordProperty)); // $ExpectType ChainType<any[], any>
 
     // property path iteratee - lists
     _.map(stringRecordList, stringRecordPropertyPath); // $ExpectType any[]
@@ -857,6 +877,14 @@ declare const extractChainTypes: ChainTypeExtractor;
     _.collect(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType any[]
     _(stringRecordDictionary).collect(stringRecordPropertyPath); // $ExpectType any[]
     extractChainTypes(_.chain(stringRecordDictionary).collect(stringRecordPropertyPath)); // $ExpectType ChainType<any[], any>
+
+    // property path iteratee - any
+    _.map(anyValue, stringRecordPropertyPath); // $ExpectType any[]
+    _(anyValue).map(stringRecordPropertyPath); // $ExpectType any[]
+    extractChainTypes(_.chain(anyValue).map(stringRecordPropertyPath)); // $ExpectType ChainType<any[], any>
+    _.collect(anyValue, stringRecordPropertyPath); // $ExpectType any[]
+    _(anyValue).collect(stringRecordPropertyPath); // $ExpectType any[]
+    extractChainTypes(_.chain(anyValue).collect(stringRecordPropertyPath)); // $ExpectType ChainType<any[], any>
 }
 
 // filter, select
