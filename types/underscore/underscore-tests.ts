@@ -958,6 +958,16 @@ declare const extractChainTypes: ChainTypeExtractor;
     _.groupBy(stringRecordDictionary, stringRecordProperty); // $ExpectType Dictionary<StringRecord[]>
     _(stringRecordDictionary).groupBy(stringRecordProperty); // $ExpectType Dictionary<StringRecord[]>
     _.chain(stringRecordDictionary).groupBy(stringRecordProperty); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+
+    // property path iterator - lists
+    _.groupBy(stringRecordList, stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord[]>
+    _(stringRecordList).groupBy(stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord[]>
+    _.chain(stringRecordList).groupBy(stringRecordPropertyPath); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+
+    // property path iterator - dictionaries
+    _.groupBy(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord[]>
+    _(stringRecordDictionary).groupBy(stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord[]>
+    _.chain(stringRecordDictionary).groupBy(stringRecordPropertyPath); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
 }
 
 // Arrays
