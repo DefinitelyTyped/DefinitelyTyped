@@ -9,6 +9,7 @@ const args: any[] = [];
 const resCallback: (err: Error | null, res: any) => void = () => {};
 const numCallback: (err: Error | null, res: number) => void = () => {};
 const strCallback: (err: Error | null, res: string) => void = () => {};
+const nullableStrCallback: (err: Error | null, res: string | null) => void = () => {};
 const okCallback: (err: Error | null, res: 'OK') => void = () => {};
 const messageHandler: (channel: string, message: any) => void = () => {};
 
@@ -74,7 +75,7 @@ client.append(str, str, numCallback);
 client.bitcount(str, numCallback);
 client.bitcount(str, num, num, numCallback);
 client.set(str, str, okCallback);
-client.get(str, strCallback);
+client.get(str, nullableStrCallback);
 client.exists(str, numCallback);
 
 // Event handlers
