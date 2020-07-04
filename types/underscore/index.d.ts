@@ -107,6 +107,9 @@ declare module _ {
         Array<PropertyKey> |
         Partial<T>;
 
+    // temporary iteratee type for _Chain until _Chain return types have been fixed
+    type _ChainIteratee<V, R, T> = Iteratee<V extends Collection<T> ? V : T[], R>;
+
     type IterateeResult<I, T> =
         I extends undefined ? T // default iteratee is _.identity
         : I extends (...args: any[]) => infer R ? R
@@ -5095,7 +5098,7 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The mapped result in a chain wrapper.
          **/
-        map<I extends Iteratee<V, any>>(
+        map<I extends _ChainIteratee<V, any, T>>(
             iteratee: I,
             context?: any
         ): _Chain<IterateeResult<I, T>, IterateeResult<I, T>[]>;
@@ -5170,7 +5173,7 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The filtered set of values in a chain wrapper.
          **/
-        filter(iteratee: Iteratee<V, boolean>, context?: any): _Chain<T, T[]>;
+        filter(iteratee: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
 
         /**
          * @see filter
@@ -5306,7 +5309,7 @@ declare module _ {
          * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection
          * in a chain wrapper.
          **/
-        groupBy(iterator: Iteratee<V, any>, context?: any): _Chain<T[], Dictionary<T[]>>;
+        groupBy(iterator: _ChainIteratee<V, any, T>, context?: any): _Chain<T[], Dictionary<T[]>>;
 
         /**
         * Wrapped type `any[]`.
