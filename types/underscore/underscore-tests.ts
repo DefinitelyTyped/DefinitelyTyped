@@ -1178,6 +1178,7 @@ declare const extractChainTypes: ChainTypeExtractor;
 // isUndefined
 {
     _.isUndefined(anyValue) ? anyValue : neverValue; // $ExpectType undefined
+    _.isUndefined(maybeFunction) ? neverValue : maybeFunction; // $ExpectType () => void
     _(anyValue).isUndefined(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isUndefined()); // $ExpectType ChainType<boolean, never>
 }
