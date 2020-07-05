@@ -278,6 +278,7 @@ interface RaygunStatic {
      * Track Single Page Application route events.
      */
     trackEvent(type: "pageView", options: { path: string }): void;
+    trackEvent(type: "customTiming", options: { name: string; duration: number; }): void;
 
     /**
      * Records a manual breadcrumb with the given message and metadata passed.
@@ -360,6 +361,7 @@ interface RaygunV2 {
         ) => string | void
     ): void;
     (key: "trackEvent", value: { type: string; path: string }): void;
+    (key: "trackEvent", value: { type: string, name: string, duration: number }): void;
     (key: "apiKey" | "setVersion" | "setFilterScope", value: string): void;
     (
         key:
