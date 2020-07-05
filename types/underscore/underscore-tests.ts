@@ -754,6 +754,7 @@ const simpleNumber = 7;
 
 declare const mixedIterabilityValue: number | number[];
 declare const anyValue: any;
+declare const maybeFunction: (() => void) | undefined
 
 // avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
 // the types under test need to be refactored
@@ -1114,6 +1115,141 @@ declare const extractChainTypes: ChainTypeExtractor;
     _([{a: 'a'}, {a: 'b'}]).findLastIndex({ a: 'b' }); // $ExpectType number
     _.chain([1, 2, 3, 1, 2, 3]).findLastIndex(num => num % 2 === 0).value(); // $ExpectType number
     _.chain([{a: 'a'}, {a: 'b'}]).findLastIndex({ a: 'b' }).value(); // $ExpectType number
+}
+
+// Objects
+
+// isEqual
+{
+    _.isEqual(anyValue, anyValue); // $ExpectType boolean
+    _(anyValue).isEqual(anyValue); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isEqual(anyValue)); // $ExpectType ChainType<boolean, never>
+}
+
+// isEmpty
+{
+    _.isEmpty(anyValue); // $ExpectType boolean
+    _(anyValue).isEmpty(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isEmpty()); // $ExpectType ChainType<boolean, never>
+}
+
+// isMatch
+{
+    _.isMatch(anyValue, anyValue); // $ExpectType boolean
+    _(anyValue).isMatch(anyValue); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isMatch(anyValue)); // $ExpectType ChainType<boolean, never>
+}
+
+// isElement
+{
+    _.isElement(anyValue) ? anyValue : undefined; // $ExpectType Element | undefined
+    _(anyValue).isElement(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isElement()); // $ExpectType ChainType<boolean, never>
+}
+
+// isArray
+{
+    _.isArray(anyValue) ? anyValue : undefined; // $ExpectType any[] | undefined
+    _(anyValue).isArray(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isArray()); // $ExpectType ChainType<boolean, never>
+}
+
+// isSymbol
+{
+    _.isSymbol(anyValue) ? anyValue : undefined; // $ExpectType symbol | undefined
+    _(anyValue).isSymbol(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isSymbol()); // $ExpectType ChainType<boolean, never>
+}
+
+// isObject
+{
+    _.isObject(anyValue) ? anyValue : undefined; // $ExpectType object | undefined
+    _(anyValue).isObject(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isObject()); // $ExpectType ChainType<boolean, never>
+}
+
+// isArguments
+{
+    _.isArguments(anyValue) ? anyValue : undefined; // $ExpectType IArguments | undefined
+    _(anyValue).isArguments(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isArguments()); // $ExpectType ChainType<boolean, never>
+}
+
+// isFunction
+{
+    _.isFunction(maybeFunction) ? maybeFunction : null; // $ExpectType (() => void) | null
+    _(anyValue).isFunction(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isFunction()); // $ExpectType ChainType<boolean, never>
+}
+
+// isError
+{
+    _.isError(anyValue) ? anyValue : undefined; // $ExpectType Error | undefined
+    _(anyValue).isError(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isError()); // $ExpectType ChainType<boolean, never>
+}
+
+// isString
+{
+    _.isString(anyValue) ? anyValue : undefined; // $ExpectType string | undefined
+    _(anyValue).isString(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isString()); // $ExpectType ChainType<boolean, never>
+}
+
+// isNumber
+{
+    _.isNumber(anyValue) ? anyValue : undefined; // $ExpectType number | undefined
+    _(anyValue).isNumber(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isNumber()); // $ExpectType ChainType<boolean, never>
+}
+
+// isFinite
+{
+    _.isFinite(anyValue); // $ExpectType boolean
+    _(anyValue).isFinite(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isFinite()); // $ExpectType ChainType<boolean, never>
+}
+
+// isBoolean
+{
+    _.isBoolean(anyValue) ? anyValue : undefined; // $ExpectType boolean | undefined
+    _(anyValue).isBoolean(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isBoolean()); // $ExpectType ChainType<boolean, never>
+}
+
+// isDate
+{
+    _.isDate(anyValue) ? anyValue : undefined; // $ExpectType Date | undefined
+    _(anyValue).isDate(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isDate()); // $ExpectType ChainType<boolean, never>
+}
+
+// isRegExp
+{
+    _.isRegExp(anyValue) ? anyValue : undefined; // $ExpectType RegExp | undefined
+    _(anyValue).isRegExp(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isRegExp()); // $ExpectType ChainType<boolean, never>
+}
+
+// isNaN
+{
+    _.isNaN(anyValue); // $ExpectType boolean
+    _(anyValue).isNaN(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isNaN()); // $ExpectType ChainType<boolean, never>
+}
+
+// isNull
+{
+    _.isNull(anyValue) ? anyValue : undefined; // $ExpectType null | undefined
+    _(anyValue).isNull(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isNull()); // $ExpectType ChainType<boolean, never>
+}
+
+// isUndefined
+{
+    _.isUndefined(anyValue) ? anyValue : null; // $ExpectType null | undefined
+    _(anyValue).isUndefined(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isUndefined()); // $ExpectType ChainType<boolean, never>
 }
 
 // OOP Style
