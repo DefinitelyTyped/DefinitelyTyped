@@ -431,81 +431,10 @@ _.chain([1, 2, 3, 200])
 _.has({ a: 1, b: 2, c: 3 }, "b");
 
 var moe = { name: 'moe', luckyNumbers: [13, 27, 34] };
-var clone = { name: 'moe', luckyNumbers: [13, 27, 34] };
-moe == clone;
-_.isEqual(moe, clone);
-
-_.isEmpty([1, 2, 3]);
-_.isEmpty({});
-
-_.isElement($('body')[0]);
-
-(function () { return _.isArray(arguments); })();
-_.isArray([1, 2, 3]);
-
-_.isObject({});
-_.isObject(1);
 
 _.property('name')(moe);
 _.property(['name'])(moe);
 _.property(['luckyNumbers', 2])(moe)
-
-// (() => { return _.isArguments(arguments); })(1, 2, 3);
-_.isArguments([1, 2, 3]);
-
-_.isFunction(alert);
-
-_.isString("moe");
-
-_.isNumber(8.4 * 5);
-
-_.isFinite(-101);
-
-_.isFinite(-Infinity);
-
-_.isBoolean(null);
-
-_.isDate(new Date());
-
-_.isRegExp(/moe/);
-
-_.isNaN(NaN);
-_.isNaN(undefined);
-
-_.isNull(null);
-_.isNull(undefined);
-
-_.isUndefined((window).missingVariable);
-
-//////////////////////////////////// User Defined Guard tests
-
-function useElement(arg: Element) {};
-function useArguments(arg: IArguments) {};
-function useFunction(arg: Function) {};
-function useError(arg: Error) {};
-function useString(arg: String) {};
-function useNumber(arg: Number) {};
-function useBoolean(arg: Boolean) {};
-function useDate(arg: Date) {};
-function useRegExp(arg: RegExp) {};
-function useArray<T>(arg: T[]) {};
-function useSymbol(arg: symbol) {};
-
-var guardedType: {} = {};
-if(_.isElement(guardedType)) useElement(guardedType);
-if(_.isArray(guardedType)) useArray(guardedType);
-if(_.isArray<String>(guardedType)) useArray(guardedType);
-if(_.isArguments(guardedType)) useArguments(guardedType);
-if(_.isFunction(guardedType)) useFunction(guardedType);
-if(_.isError(guardedType)) useError(guardedType);
-if(_.isString(guardedType)) useString(guardedType);
-if(_.isNumber(guardedType)) useNumber(guardedType);
-if(_.isBoolean(guardedType)) useBoolean(guardedType);
-if(_.isDate(guardedType)) useDate(guardedType);
-if(_.isRegExp(guardedType)) useRegExp(guardedType);
-if(_.isSymbol(guardedType)) useSymbol(guardedType);
-
-///////////////////////////////////////////////////////////////////////////////////////
 
 var UncleMoe = { name: 'moe' };
 _.constant(UncleMoe)();
