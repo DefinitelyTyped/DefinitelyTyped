@@ -1,5 +1,5 @@
 import * as React from 'react';
-import FileIcon, { defaultStyles } from 'react-file-icon';
+import { FileIcon, defaultStyles } from 'react-file-icon';
 
 class TestFileIcon extends React.Component {
     render() {

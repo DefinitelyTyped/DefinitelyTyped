@@ -1,4 +1,4 @@
-// Type definitions for react-file-icon 0.2
+// Type definitions for react-file-icon 1.0.0
 // Project: https://github.com/pixelunion/react-file-icon#readme
 // Definitions by: njuro <https://github.com/njuro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,7 +11,6 @@ export type IconType =
     | 'audio'
     | 'binary'
     | 'code'
-    | 'code2'
     | 'compressed'
     | 'document'
     | 'drive'
@@ -25,7 +24,7 @@ export type IconType =
 
 export interface FileIconProps {
     color?: string;
-    extension: string;
+    extension?: string;
     fold?: boolean;
     foldColor?: string;
     glyphColor?: string;
@@ -36,7 +35,6 @@ export interface FileIconProps {
     labelTextStyle?: object;
     labelUppercase?: boolean;
     radius?: number;
-    size?: number;
     type?: IconType;
 }
 
@@ -150,6 +148,4 @@ export type DefaultExtensionType =
     | 'zipx';
 
 export const defaultStyles: Record<DefaultExtensionType, Partial<FileIconProps>>;
-
-declare const FileIcon: React.FunctionComponent<FileIconProps>;
-export default FileIcon;
+export const FileIcon: React.FunctionComponent<FileIconProps>;
