@@ -104,9 +104,9 @@ declare namespace Sanctuary {
     lte<A>(x: Ord<A>): (y: Ord<A>) => boolean;
     gt <A>(x: Ord<A>): (y: Ord<A>) => boolean;
     gte<A>(x: Ord<A>): (y: Ord<A>) => boolean;
-    min<A>(x: Ord<A>): (y: Ord<A>) => A;
-    max<A>(x: Ord<A>): (y: Ord<A>) => A;
-    clamp<A>(x: Ord<A>): (y: Ord<A>) => (z: Ord<A>) => Ord<A>;
+    min<A>(x: A): (y: A) => A;
+    max<A>(x: A): (y: A) => A;
+    clamp<A>(x: A): (y: A) => (z: A) => A;
     id<A>(p: TypeRep): Fn<A, A> | Category<any>;
     concat<A>(x: Semigroup<A>): (y: Semigroup<A>) => Semigroup<A>;
     concat<A>(x: ReadonlyArray<A>): (y: ReadonlyArray<A>) => A[];
@@ -120,7 +120,10 @@ declare namespace Sanctuary {
         (q: Functor<A>): Functor<B>;
     };
     bimap<A, B>(p: Fn<A, B>): <C, D>(q: Fn<C, D>) => (r: Bifunctor<A, C>) => Bifunctor<B, D>;
-    mapLeft<A, B, C>(p: Fn<A, B>): (q: Bifunctor<A, C>) =>  Bifunctor<B, C>;
+    mapLeft<A, B>(p: Fn<A, B>): {
+      <A, C>(q: Pair<A, C>): Pair<B, C>;
+      <A, C>(q: Either<A, C>): Either<B, C>;
+    };
     promap<A, B>(p: Fn<A, B>): <C, D>(q: Fn<C, D>) => {
       (r: Fn<B, C>): Fn<A, D>;
       (r: Profunctor<B, C>): Profunctor<A, D>;
@@ -158,7 +161,6 @@ declare namespace Sanctuary {
     duplicate<A>(comonad: Maybe<A>): Maybe<Maybe<A>>;
     duplicate<A, B>(comonad: Pair<A, B>): Pair<A, Pair<A, B>>;
     duplicate<A>(comonad: Comonad<A>): Comonad<Comonad<A>>;
-    anyPass<A>(p: ReadonlyArray<Predicate<A>>): Predicate<A>;
     extract<A>(comonad: Comonad<A>): A;
     contramap<A, B>(f: Fn<B, A>): {
       <X>(contravariant: Fn<A, X>): Fn<B, X>;
@@ -203,7 +205,7 @@ declare namespace Sanctuary {
     pipe<A, B, C, D, E>(fs: [Fn<A, B>, Fn<B, C>, Fn<C, D>, Fn<D, E>]): (x: A) => E;
     pipe<A, B, C, D, E, F>(fs: [Fn<A, B>, Fn<B, C>, Fn<C, D>, Fn<D, E>, Fn<E, F>]): (x: A) => F;
     pipe(fs: ReadonlyArray<Fn<any, any>>): (x: any) => any;
-    pipeK<A, B>(fs: [Fn<any, Chain<any>>]): (val: Chain<A>) => Chain<B>;
+    pipeK<B>(fs: ReadonlyArray<Fn<any, Chain<any>>>): <A>(chain_: Chain<A>) => Chain<B>;
     on<A, B, C>(p: Fn2<B, B, C>): (q: Fn<A, B>) => (r: A) => Fn<A, C>;
     //  TODO: Maybe
     isNothing(p: Maybe<any>): boolean;
@@ -231,7 +233,7 @@ declare namespace Sanctuary {
     or(p: boolean): (q: boolean) => boolean;
     not(p: boolean): boolean;
     complement<A>(p: Predicate<A>): Predicate<A>;
-    boolean<A>(p: A): (q: boolean) => A;
+    boolean<A>(p: A): (q: A) => (b: boolean) => A;
     ifElse<A, B>(p: Predicate<A>): (q: Fn<A, B>) => (r: Fn<A, B>) => Fn<A, B>;
     when<A>(p: Predicate<A>): (q: Fn<A, A>) => Fn<A, A>;
     unless<A>(p: Predicate<A>): (q: Fn<A, A>) => Fn<A, A>;
@@ -262,7 +264,8 @@ declare namespace Sanctuary {
     joinWith(p: string): (q: ReadonlyArray<string>) => string;
     elem<A>(p: A): (q: Foldable<A> | StrMap<A> | ReadonlyArray<A>) => boolean;
     find<A>(p: Predicate<A>): (q: ReadonlyArray<A> | StrMap<A> | Foldable<A>) => Maybe<A>;
-    foldMap<A, M>(t: TypeRep): (f: Fn<A, M>) => (g: Foldable<A>) => M;
+    intercalate<A>(p: A): (q: Foldable<A>) => A
+    foldMap<A, M>(t: TypeRep): <A, M>(f: Fn<A, M>) => <A>(g: Foldable<A>) => M;
     unfoldr<A, B>(f: Fn<B, Maybe<Pair<A, B>>>): (x: B) => A[];
     range(from: Integer): (to: Integer) => Integer[];
     groupBy<A>(f: Fn2<A, A, boolean>): (xs: ReadonlyArray<A>) => A[][];
@@ -274,8 +277,8 @@ declare namespace Sanctuary {
       (foldable: ReadonlyArray<A>): A[];
       (foldable: Foldable<A>): Foldable<A>;
     };
-    zip<A, B>(p: ReadonlyArray<A>): (q: ReadonlyArray<B>) => ReadonlyArray<Pair<A, B>>;
-    zipWith<A, B, C>(f: Fn2<A, B, C>): (p: ReadonlyArray<A>) => (q: ReadonlyArray<B>) => ReadonlyArray<C>;
+    zip<A>(p: ReadonlyArray<A>): <B>(q: ReadonlyArray<B>) => ReadonlyArray<Pair<A, B>>;
+    zipWith<A, B, C>(f: Fn2<A, B, C>): <A>(p: ReadonlyArray<A>) => <B>(q: ReadonlyArray<B>) => ReadonlyArray<C>;
     all<A>(p: Predicate<A>): (q: Foldable<A>) => boolean;
     any<A>(p: Predicate<A>): (q: Foldable<A>) => boolean;
     none<A>(p: Predicate<A>): (q: Foldable<A>) => boolean;
