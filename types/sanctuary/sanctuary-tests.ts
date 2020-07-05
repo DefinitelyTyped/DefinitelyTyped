@@ -48,7 +48,7 @@ S.swap(S.Pair(1)('a'));
 // $ExpectType string
 S.boolean('no')('yes')(false);
 
-// $ExpectType string
+// $ExpectType number
 S.clamp(0)(100)(42);
 
 // $ExpectType number
