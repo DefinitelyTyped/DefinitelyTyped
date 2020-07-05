@@ -124,11 +124,11 @@ declare module _ {
 
     type IterateePropertyShorthand = string | number;
 
-    interface MemoIterator<T, TResult, V> {
+    interface MemoIterator<T, TResult, V = List<T>> {
         (prev: TResult, curr: T, index: number, list: V): TResult;
     }
 
-    interface MemoObjectIterator<T, TResult, V> {
+    interface MemoObjectIterator<T, TResult, V = Dictionary<T>> {
         (prev: TResult, curr: T, key: string, object: V): TResult;
     }
 
