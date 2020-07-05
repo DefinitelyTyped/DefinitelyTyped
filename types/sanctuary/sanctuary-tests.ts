@@ -15,10 +15,10 @@ S.duplicate([1]);
 // $ExpectType Maybe<Maybe<number>>
 S.duplicate(S.Just(1));
 
-// $ExpectType readonly Pair<number, string>[]
+// $ExpectType readonly ReadonlyArray<Pair<number, string>>
 S.zip([1, 2, 3])(['a', 'a', 'a']);
 
-// $ExpectType readonly Maybe<number>[]
+// $ExpectType readonly ReadonlyArray<Maybe<number>>
 S.zipWith((a: number) => (b: number) => S.Just(a + b))(['a', 'b'])(['x', 'y', 'z']);
 
 // $ExpectType Pair<string, number>
