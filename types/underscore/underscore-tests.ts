@@ -683,6 +683,7 @@ const simpleNumber = 7;
 
 declare const mixedIterabilityValue: number | number[];
 declare const anyValue: any;
+declare const neverValue: never;
 declare const maybeFunction: (() => void) | undefined
 
 // avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
@@ -1071,63 +1072,63 @@ declare const extractChainTypes: ChainTypeExtractor;
 
 // isElement
 {
-    _.isElement(anyValue) ? anyValue : undefined; // $ExpectType Element | undefined
+    _.isElement(anyValue) ? anyValue : neverValue; // $ExpectType Element
     _(anyValue).isElement(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isElement()); // $ExpectType ChainType<boolean, never>
 }
 
 // isArray
 {
-    _.isArray(anyValue) ? anyValue : undefined; // $ExpectType any[] | undefined
+    _.isArray(anyValue) ? anyValue : neverValue; // $ExpectType any[]
     _(anyValue).isArray(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isArray()); // $ExpectType ChainType<boolean, never>
 }
 
 // isSymbol
 {
-    _.isSymbol(anyValue) ? anyValue : undefined; // $ExpectType symbol | undefined
+    _.isSymbol(anyValue) ? anyValue : neverValue; // $ExpectType symbol
     _(anyValue).isSymbol(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isSymbol()); // $ExpectType ChainType<boolean, never>
 }
 
 // isObject
 {
-    _.isObject(anyValue) ? anyValue : undefined; // $ExpectType object | undefined
+    _.isObject(anyValue) ? anyValue : neverValue; // $ExpectType object
     _(anyValue).isObject(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isObject()); // $ExpectType ChainType<boolean, never>
 }
 
 // isArguments
 {
-    _.isArguments(anyValue) ? anyValue : undefined; // $ExpectType IArguments | undefined
+    _.isArguments(anyValue) ? anyValue : neverValue; // $ExpectType IArguments
     _(anyValue).isArguments(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isArguments()); // $ExpectType ChainType<boolean, never>
 }
 
 // isFunction
 {
-    _.isFunction(maybeFunction) ? maybeFunction : null; // $ExpectType (() => void) | null
+    _.isFunction(maybeFunction) ? maybeFunction : neverValue; // $ExpectType () => void
     _(anyValue).isFunction(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isFunction()); // $ExpectType ChainType<boolean, never>
 }
 
 // isError
 {
-    _.isError(anyValue) ? anyValue : undefined; // $ExpectType Error | undefined
+    _.isError(anyValue) ? anyValue : neverValue; // $ExpectType Error
     _(anyValue).isError(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isError()); // $ExpectType ChainType<boolean, never>
 }
 
 // isString
 {
-    _.isString(anyValue) ? anyValue : undefined; // $ExpectType string | undefined
+    _.isString(anyValue) ? anyValue : neverValue; // $ExpectType string
     _(anyValue).isString(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isString()); // $ExpectType ChainType<boolean, never>
 }
 
 // isNumber
 {
-    _.isNumber(anyValue) ? anyValue : undefined; // $ExpectType number | undefined
+    _.isNumber(anyValue) ? anyValue : neverValue; // $ExpectType number
     _(anyValue).isNumber(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isNumber()); // $ExpectType ChainType<boolean, never>
 }
@@ -1141,21 +1142,21 @@ declare const extractChainTypes: ChainTypeExtractor;
 
 // isBoolean
 {
-    _.isBoolean(anyValue) ? anyValue : undefined; // $ExpectType boolean | undefined
+    _.isBoolean(anyValue) ? anyValue : neverValue; // $ExpectType boolean
     _(anyValue).isBoolean(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isBoolean()); // $ExpectType ChainType<boolean, never>
 }
 
 // isDate
 {
-    _.isDate(anyValue) ? anyValue : undefined; // $ExpectType Date | undefined
+    _.isDate(anyValue) ? anyValue : neverValue; // $ExpectType Date
     _(anyValue).isDate(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isDate()); // $ExpectType ChainType<boolean, never>
 }
 
 // isRegExp
 {
-    _.isRegExp(anyValue) ? anyValue : undefined; // $ExpectType RegExp | undefined
+    _.isRegExp(anyValue) ? anyValue : neverValue; // $ExpectType RegExp
     _(anyValue).isRegExp(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isRegExp()); // $ExpectType ChainType<boolean, never>
 }
@@ -1169,14 +1170,14 @@ declare const extractChainTypes: ChainTypeExtractor;
 
 // isNull
 {
-    _.isNull(anyValue) ? anyValue : undefined; // $ExpectType null | undefined
+    _.isNull(anyValue) ? anyValue : neverValue; // $ExpectType null
     _(anyValue).isNull(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isNull()); // $ExpectType ChainType<boolean, never>
 }
 
 // isUndefined
 {
-    _.isUndefined(anyValue) ? anyValue : null; // $ExpectType null | undefined
+    _.isUndefined(anyValue) ? anyValue : neverValue; // $ExpectType undefined
     _(anyValue).isUndefined(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isUndefined()); // $ExpectType ChainType<boolean, never>
 }
