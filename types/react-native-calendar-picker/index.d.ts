@@ -86,7 +86,12 @@ export type CustomDatesStylesFunc = (
     textStyle?: TextStyle;
 };
 
-export type CustomDayHeaderStylesFuncDateArg = { dayOfWeek: number; month: number; year: number };
+export interface CustomDayHeaderStylesFuncDateArg {
+    dayOfWeek: number;
+    month: number;
+    year: number;
+}
+
 export type CustomDayHeaderStylesFunc = (
     date: CustomDayHeaderStylesFuncDateArg,
 ) => {
