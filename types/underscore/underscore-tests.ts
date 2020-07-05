@@ -12,10 +12,10 @@ _.map({ one: 1, two: 2, three: 3 }, (value, key) => value * 3);
 let plucked: string[] = _.map([{key: 'apples'}, {key: 'oranges'}], 'key');
 
 //var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);    // https://typescript.codeplex.com/workitem/1960
-_.reduce([1, 2, 3], (memo, num) => memo + num, 0); // $ExpectType number
 _.reduce([1, 2, 3], (memo, num) => memo + num); // $ExpectType number
-_([1, 2, 3]).reduce((memo, num) => memo + num); // $ExpectType number
-_.chain([1, 2, 3]).reduce((memo, num) => memo + num).value(); // $ExpectType number
+_.reduce([1, 2, 3], (memo, num) => memo + num, 0); // $ExpectType number
+_([1, 2, 3]).reduce((memo, num) => memo + num, 0); // $ExpectType number
+_.chain([1, 2, 3]).reduce((memo, num) => memo + num, 0).value(); // $ExpectType number
 
 var list = [[0, 1], [2, 3], [4, 5]];
 //var flat = _.reduceRight(list, (a, b) => a.concat(b), []);    // https://typescript.codeplex.com/workitem/1960
