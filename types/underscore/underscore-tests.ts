@@ -229,20 +229,20 @@ let youngPeopleId: string[] = _.chain(usersData)
     .value();
 
 let usersTable: { age: number; name: string; id: string }[] = _.chain(usersData)
-    .map<{ age: number; name: string; id: string }>((p, k: string) => {
+    .map((p, k: string) => {
         return { id: k, ...p };
     })
     .value();
 
 // Test map function with _ChainOfArrays<>
 let usersTable_2 /*: { age: number; name: string; id: string }[][]*/ = _.chain(usersData)
-    .map<{ age: number; name: string; id: string }>((p, k: string) => {
+    .map((p, k: string) => {
         return [{ id: k, ...p }];
     })
     .value();
 
 let usersTable_3 /*: { score: number; fullName: string; login: string }[][]*/ = _.chain(usersTable)
-    .map<{ score: number; fullName: string; login: string }>(p => {
+    .map(p => {
         return [
             {
                 login: p.id,
@@ -681,14 +681,31 @@ _.chain([1, 2, 3, 4, 5, 6])
     .value();
 
 // common testing types and objects
+const context = {};
+
 interface StringRecord {
     a: string;
     b: string;
 }
 
+const stringRecordProperty = 'a';
+const stringRecordPropertyPath = ['a', 'length'];
+const partialStringRecord: Partial<StringRecord> = { a: 'b' };
+
 interface StringRecordAugmentedList extends _.List<StringRecord> {
     notAListProperty: boolean;
 }
+
+const stringRecordAugmentedList: StringRecordAugmentedList = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: { a: 'c', b: 'a' }, length: 3, notAListProperty: true };
+const stringRecordList: _.List<StringRecord> = stringRecordAugmentedList;
+declare const level2RecordList: _.List<_.List<StringRecord>>;
+declare const level3RecordList: _.List<_.List<_.List<StringRecord>>>;
+declare const level4RecordList: _.List<_.List<_.List<_.List<StringRecord>>>>;
+declare const maxLevel2RecordArray: (StringRecord | StringRecord[])[];
+declare const maxLevel3RecordArray: (StringRecord | StringRecord[] | StringRecord[][])[];
+
+const stringRecordListValueIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => value.a;
+const stringRecordListBooleanIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => value.a === 'b';
 
 interface StringRecordExplicitDictionary extends _.Dictionary<StringRecord> {
     a: StringRecord;
@@ -696,17 +713,47 @@ interface StringRecordExplicitDictionary extends _.Dictionary<StringRecord> {
     c: StringRecord;
 }
 
-const stringRecordArray: StringRecord[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'b' }, { a: 'c', b: 'a' }];
-const stringRecordAugmentedList: StringRecordAugmentedList = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: { a: 'c', b: 'a' }, length: 3, notAListProperty: true };
-const stringRecordList: _.List<StringRecord> = stringRecordAugmentedList;
 const stringRecordExplicitDictionary: StringRecordExplicitDictionary = { a: { a: 'a', b: 'c' }, b: { a: 'b', b: 'b' }, c: { a: 'c', b: 'a' } };
 const stringRecordDictionary: _.Dictionary<StringRecord> = stringRecordExplicitDictionary;
 
+const stringRecordDictionaryValueIterator = (element: StringRecord, key: string, dictionary: _.Dictionary<StringRecord>) => element.a;
+const stringRecordDictionaryBooleanIterator = (element: StringRecord, key: string, list: _.Dictionary<StringRecord>) => element.a === 'b';
+
+type StringRecordOrUndefined = StringRecord | undefined;
+
+const stringRecordOrUndefinedList: _.List<StringRecordOrUndefined> = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: undefined, length: 3 };
+
+interface IntersectingMixedTypeRecord {
+    a: boolean;
+    c: string;
+}
+
+type IntersectingProperties = StringRecord | IntersectingMixedTypeRecord;
+
+const intersectingPropertiesList: _.List<IntersectingProperties> = { 0: { a: 'a', b: 'b' }, 1: { a: true, c: 'c' }, length: 2 };
+
+interface NonIntersectingStringRecord {
+    onlyNonIntersectingStringRecord: string;
+}
+
+type NonIntersectingProperties = StringRecord | NonIntersectingStringRecord;
+
+const nonIntersectingPropertiesList: _.List<NonIntersectingProperties> = { 0: { a: 'a', b: 'c' }, 1: { onlyNonIntersectingStringRecord: 'b' }, length: 2 };
+declare const level2NonIntersectingPropertiesList: _.List<_.List<NonIntersectingProperties>>;
+
 const simpleString = 'abc';
+
+const simpleStringArray: string[] = ['a', 'c'];
+const simpleStringList: _.List<string> = { 0: 'a', 1: 'c', length: 2 };
+declare const level2StringList: _.List<_.List<string>>;
+
+const stringListValueIterator = (value: string, index: number, list: _.List<string>) => value.length;
+const stringListBooleanIterator = (value: string, index: number, list: _.List<string>) => value === 'b';
 
 const simpleNumber = 7;
 
 declare const mixedIterabilityValue: number | number[];
+declare const anyValue: any;
 
 // avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
 // the types under test need to be refactored
@@ -726,20 +773,331 @@ interface ChainTypeExtractor {
 
 declare const extractChainTypes: ChainTypeExtractor;
 
+// Collections
+
+// map, collect
+{
+    // function iteratee - lists
+    _.map(stringRecordList, stringRecordListValueIterator, context); // $ExpectType string[]
+    _(stringRecordList).map(stringRecordListValueIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(stringRecordList).map(stringRecordListValueIterator, context)); // $ExpectType ChainType<string[], string>
+    _.collect(stringRecordList, stringRecordListValueIterator, context); // $ExpectType string[]
+    _(stringRecordList).collect(stringRecordListValueIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(stringRecordList).collect(stringRecordListValueIterator, context)); // $ExpectType ChainType<string[], string>
+
+    // function iteratee - dictionaries
+    _.map(stringRecordDictionary, stringRecordDictionaryValueIterator, context); // $ExpectType string[]
+    _(stringRecordDictionary).map(stringRecordDictionaryValueIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(stringRecordDictionary).map(stringRecordDictionaryValueIterator, context)); // $ExpectType ChainType<string[], string>
+    _.collect(stringRecordDictionary, stringRecordDictionaryValueIterator, context); // $ExpectType string[]
+    _(stringRecordDictionary).collect(stringRecordDictionaryValueIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(stringRecordDictionary).collect(stringRecordDictionaryValueIterator, context)); // $ExpectType ChainType<string[], string>
+
+    // function iteratee - strings
+    _.map(simpleString, stringListValueIterator, context); // $ExpectType number[]
+    _(simpleString).map(stringListValueIterator, context); // $ExpectType number[]
+    extractChainTypes(_.chain(simpleString).map(stringListValueIterator, context)); // $ExpectType ChainType<number[], number>
+    _.collect(simpleString, stringListValueIterator, context); // $ExpectType number[]
+    _(simpleString).collect(stringListValueIterator, context); // $ExpectType number[]
+    extractChainTypes(_.chain(simpleString).collect(stringListValueIterator, context)); // $ExpectType ChainType<number[], number>
+
+    // function iteratee - any
+    _.map(anyValue, stringRecordListValueIterator, context); // $ExpectType string[]
+    _(anyValue).map(stringRecordListValueIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(anyValue).map(stringRecordListValueIterator, context)); // $ExpectType ChainType<string[], string>
+    _.collect(anyValue, stringRecordListValueIterator, context); // $ExpectType string[]
+    _(anyValue).collect(stringRecordListValueIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(anyValue).collect(stringRecordListValueIterator, context)); // $ExpectType ChainType<string[], string>
+
+    // partial object iteratee - lists
+    _.map(stringRecordList, partialStringRecord); // $ExpectType boolean[]
+    _(stringRecordList).map(partialStringRecord); // $ExpectType boolean[]
+    extractChainTypes(_.chain(stringRecordList).map(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
+    _.collect(stringRecordList, partialStringRecord); // $ExpectType boolean[]
+    _(stringRecordList).collect(partialStringRecord); // $ExpectType boolean[]
+    extractChainTypes(_.chain(stringRecordList).collect(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
+
+    // partial object iteratee - dictionaries
+    _.map(stringRecordDictionary, partialStringRecord); // $ExpectType boolean[]
+    _(stringRecordDictionary).map(partialStringRecord); // $ExpectType boolean[]
+    extractChainTypes(_.chain(stringRecordDictionary).map(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
+    _.collect(stringRecordDictionary, partialStringRecord); // $ExpectType boolean[]
+    _(stringRecordDictionary).collect(partialStringRecord); // $ExpectType boolean[]
+    extractChainTypes(_.chain(stringRecordDictionary).collect(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
+
+    // partial object iteratee - any (see #33479)
+    _.map(anyValue, partialStringRecord); // $ExpectType boolean[]
+    _(anyValue).map(partialStringRecord); // $ExpectType boolean[]
+    extractChainTypes(_.chain(anyValue).map(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
+    _.collect(anyValue, partialStringRecord); // $ExpectType boolean[]
+    _(anyValue).collect(partialStringRecord); // $ExpectType boolean[]
+    extractChainTypes(_.chain(anyValue).collect(partialStringRecord)); // $ExpectType ChainType<boolean[], boolean>
+
+    // property name iteratee with a non-nullable single type - lists
+    _.map(stringRecordList, stringRecordProperty); // $ExpectType string[]
+    _(stringRecordList).map(stringRecordProperty); // $ExpectType string[]
+    extractChainTypes(_.chain(stringRecordList).map(stringRecordProperty)); // $ExpectType ChainType<string[], string>
+    _.collect(stringRecordList, stringRecordProperty); // $ExpectType string[]
+    _(stringRecordList).collect(stringRecordProperty); // $ExpectType string[]
+    extractChainTypes(_.chain(stringRecordList).collect(stringRecordProperty)); // $ExpectType ChainType<string[], string>
+
+    // property name iteratee with a non-nullable single type - dictionaries
+    _.map(stringRecordDictionary, stringRecordProperty); // $ExpectType string[]
+    _(stringRecordDictionary).map(stringRecordProperty); // $ExpectType string[]
+    extractChainTypes(_.chain(stringRecordDictionary).map(stringRecordProperty)); // $ExpectType ChainType<string[], string>
+    _.collect(stringRecordDictionary, stringRecordProperty); // $ExpectType string[]
+    _(stringRecordDictionary).collect(stringRecordProperty); // $ExpectType string[]
+    extractChainTypes(_.chain(stringRecordDictionary).collect(stringRecordProperty)); // $ExpectType ChainType<string[], string>
+
+    // property name iteratee with other types - lists
+    _.map(stringRecordOrUndefinedList, stringRecordProperty); // $ExpectType any[]
+    _.map(intersectingPropertiesList, stringRecordProperty); // $ExpectType (string | boolean)[]
+    _.map(nonIntersectingPropertiesList, stringRecordProperty); // $ExpectType any[]
+
+    // property name iteratee - any (see #33479)
+    _.map(anyValue, stringRecordProperty); // $ExpectType any[]
+    _(anyValue).map(stringRecordProperty); // $ExpectType any[]
+    extractChainTypes(_.chain(anyValue).map(stringRecordProperty)); // $ExpectType ChainType<any[], any>
+    _.collect(anyValue, stringRecordProperty); // $ExpectType any[]
+    _(anyValue).collect(stringRecordProperty); // $ExpectType any[]
+    extractChainTypes(_.chain(anyValue).collect(stringRecordProperty)); // $ExpectType ChainType<any[], any>
+
+    // property path iteratee - lists
+    _.map(stringRecordList, stringRecordPropertyPath); // $ExpectType any[]
+    _(stringRecordList).map(stringRecordPropertyPath); // $ExpectType any[]
+    extractChainTypes(_.chain(stringRecordList).map(stringRecordPropertyPath)); // $ExpectType ChainType<any[], any>
+    _.collect(stringRecordList, stringRecordPropertyPath); // $ExpectType any[]
+    _(stringRecordList).collect(stringRecordPropertyPath); // $ExpectType any[]
+    extractChainTypes(_.chain(stringRecordList).collect(stringRecordPropertyPath)); // $ExpectType ChainType<any[], any>
+
+    // property path iteratee - dictionaries
+    _.map(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType any[]
+    _(stringRecordDictionary).map(stringRecordPropertyPath); // $ExpectType any[]
+    extractChainTypes(_.chain(stringRecordDictionary).map(stringRecordPropertyPath)); // $ExpectType ChainType<any[], any>
+    _.collect(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType any[]
+    _(stringRecordDictionary).collect(stringRecordPropertyPath); // $ExpectType any[]
+    extractChainTypes(_.chain(stringRecordDictionary).collect(stringRecordPropertyPath)); // $ExpectType ChainType<any[], any>
+
+    // property path iteratee - any
+    _.map(anyValue, stringRecordPropertyPath); // $ExpectType any[]
+    _(anyValue).map(stringRecordPropertyPath); // $ExpectType any[]
+    extractChainTypes(_.chain(anyValue).map(stringRecordPropertyPath)); // $ExpectType ChainType<any[], any>
+    _.collect(anyValue, stringRecordPropertyPath); // $ExpectType any[]
+    _(anyValue).collect(stringRecordPropertyPath); // $ExpectType any[]
+    extractChainTypes(_.chain(anyValue).collect(stringRecordPropertyPath)); // $ExpectType ChainType<any[], any>
+}
+
+// filter, select
+{
+    // function iteratee - lists
+    _.filter(stringRecordList, stringRecordListBooleanIterator, context); // $ExpectType StringRecord[]
+    _(stringRecordList).filter(stringRecordListBooleanIterator, context); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).filter(stringRecordListBooleanIterator, context)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.select(stringRecordList, stringRecordListBooleanIterator, context); // $ExpectType StringRecord[]
+    _(stringRecordList).select(stringRecordListBooleanIterator, context); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).select(stringRecordListBooleanIterator, context)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // function iteratee - dictionaries
+    _.filter(stringRecordDictionary, stringRecordDictionaryBooleanIterator, context); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).filter(stringRecordDictionaryBooleanIterator, context); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).filter(stringRecordDictionaryBooleanIterator, context)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.select(stringRecordDictionary, stringRecordDictionaryBooleanIterator, context); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).select(stringRecordDictionaryBooleanIterator, context); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).select(stringRecordDictionaryBooleanIterator, context)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // function iteratee - strings
+    _.filter(simpleString, stringListBooleanIterator, context); // $ExpectType string[]
+    _(simpleString).filter(stringListBooleanIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleString).filter(stringListBooleanIterator, context)); // $ExpectType ChainType<string[], string>
+    _.select(simpleString, stringListBooleanIterator, context); // $ExpectType string[]
+    _(simpleString).select(stringListBooleanIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleString).select(stringListBooleanIterator, context)); // $ExpectType ChainType<string[], string>
+
+    // partial object iteratee - lists
+    _.filter(stringRecordList, partialStringRecord); // $ExpectType StringRecord[]
+    _(stringRecordList).filter(partialStringRecord); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).filter(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.select(stringRecordList, partialStringRecord); // $ExpectType StringRecord[]
+    _(stringRecordList).select(partialStringRecord); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).select(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // partial object iteratee - dictionaries
+    _.filter(stringRecordDictionary, partialStringRecord); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).filter(partialStringRecord); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).filter(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.select(stringRecordDictionary, partialStringRecord); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).select(partialStringRecord); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).select(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // property name iteratee - lists
+    _.filter(stringRecordList, stringRecordProperty); // $ExpectType StringRecord[]
+    _(stringRecordList).filter(stringRecordProperty); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).filter(stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.select(stringRecordList, stringRecordProperty); // $ExpectType StringRecord[]
+    _(stringRecordList).select(stringRecordProperty); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).select(stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // property name iteratee - dictionaries
+    _.filter(stringRecordDictionary, stringRecordProperty); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).filter(stringRecordProperty); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).filter(stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.select(stringRecordDictionary, stringRecordProperty); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).select(stringRecordProperty); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).select(stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // property path iteratee - lists
+    _.filter(stringRecordList, stringRecordPropertyPath); // $ExpectType StringRecord[]
+    _(stringRecordList).filter(stringRecordPropertyPath); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).filter(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.select(stringRecordList, stringRecordPropertyPath); // $ExpectType StringRecord[]
+    _(stringRecordList).select(stringRecordPropertyPath); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).select(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // property path iteratee - dictionaries
+    _.filter(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).filter(stringRecordPropertyPath); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).filter(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.select(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).select(stringRecordPropertyPath); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).select(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
+}
+
+// pluck
+{
+    // property name iteratee with a non-nullable single type - lists
+    _.pluck(stringRecordList, stringRecordProperty); // $ExpectType string[]
+    _(stringRecordList).pluck(stringRecordProperty); // $ExpectType string[]
+    extractChainTypes(_.chain(stringRecordList).pluck(stringRecordProperty)); // $ExpectType ChainType<string[], string>
+
+    // property name iteratee with a non-nullable single type - dictionaries
+    _.pluck(stringRecordDictionary, stringRecordProperty); // $ExpectType string[]
+    _(stringRecordDictionary).pluck(stringRecordProperty); // $ExpectType string[]
+    extractChainTypes(_.chain(stringRecordDictionary).pluck(stringRecordProperty)); // $ExpectType ChainType<string[], string>
+
+    // property name iteratee with other types - lists
+    _.pluck(stringRecordOrUndefinedList, stringRecordProperty); // $ExpectType any[]
+    _.pluck(intersectingPropertiesList, stringRecordProperty); // $ExpectType (string | boolean)[]
+    _.pluck(nonIntersectingPropertiesList, stringRecordProperty) // $ExpectType any[]
+    _.pluck(anyValue, stringRecordProperty); // $ExpectType any[]
+}
+
+// groupBy
+{
+    // function iteratee - lists
+    _.groupBy(stringRecordList, stringRecordListValueIterator, context); // $ExpectType Dictionary<StringRecord[]>
+    _(stringRecordList).groupBy(stringRecordListValueIterator, context); // $ExpectType Dictionary<StringRecord[]>
+    _.chain(stringRecordList).groupBy(stringRecordListValueIterator, context); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+
+    // function iteratee - dictionaries
+    _.groupBy(stringRecordDictionary, stringRecordDictionaryValueIterator, context); // $ExpectType Dictionary<StringRecord[]>
+    _(stringRecordDictionary).groupBy(stringRecordDictionaryValueIterator, context); // $ExpectType Dictionary<StringRecord[]>
+    _.chain(stringRecordDictionary).groupBy(stringRecordDictionaryValueIterator, context); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+
+    // property name iteratee - lists
+    _.groupBy(stringRecordList, stringRecordProperty); // $ExpectType Dictionary<StringRecord[]>
+    _(stringRecordList).groupBy(stringRecordProperty); // $ExpectType Dictionary<StringRecord[]>
+    _.chain(stringRecordList).groupBy(stringRecordProperty); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+
+    // property name iteratee - dictionaries
+    _.groupBy(stringRecordDictionary, stringRecordProperty); // $ExpectType Dictionary<StringRecord[]>
+    _(stringRecordDictionary).groupBy(stringRecordProperty); // $ExpectType Dictionary<StringRecord[]>
+    _.chain(stringRecordDictionary).groupBy(stringRecordProperty); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+
+    // property path iteratee - lists
+    _.groupBy(stringRecordList, stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord[]>
+    _(stringRecordList).groupBy(stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord[]>
+    _.chain(stringRecordList).groupBy(stringRecordPropertyPath); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+
+    // property path iteratee - dictionaries
+    _.groupBy(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord[]>
+    _(stringRecordDictionary).groupBy(stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord[]>
+    _.chain(stringRecordDictionary).groupBy(stringRecordPropertyPath); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+}
+
 // Arrays
+
+// flatten
+{
+    // one dimension, deep
+    _.flatten(stringRecordList); // $ExpectType StringRecord[]
+    _(stringRecordList).flatten(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).flatten()); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // one dimension, shallow
+    _.flatten(stringRecordList, true); // $ExpectType StringRecord[]
+    _(stringRecordList).flatten(true); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).flatten(true)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // two dimensions, deep
+    _.flatten(level2RecordList); // $ExpectType StringRecord[]
+    _(level2RecordList).flatten(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(level2RecordList).flatten()); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // two dimensions, shallow
+    _.flatten(level2RecordList, true); // $ExpectType StringRecord[]
+    _(level2RecordList).flatten(true); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(level2RecordList).flatten(true)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // three dimensions, deep - this is where recursion gives up and results in any[]
+    _.flatten(level3RecordList); // $ExpectType any[]
+    _(level3RecordList).flatten(); // $ExpectType any[]
+    extractChainTypes(_.chain(level3RecordList).flatten()); // $ExpectType ChainType<any[], any>
+
+    // three dimensions, shallow - verify that we continue to not give up for lists that are three dimensions or higher
+    _.flatten(level3RecordList, true); // $ExpectType List<StringRecord>[]
+    _(level3RecordList).flatten(true); // $ExpectType List<StringRecord>[]
+    extractChainTypes(_.chain(level3RecordList).flatten(true)); // $ExpectType ChainType<List<StringRecord>[], List<StringRecord>>
+
+    // four dimensions, deep - verify that we continue to give for lists that are higher than three dimensions
+    _.flatten(level4RecordList); // $ExpectType any[]
+    _(level4RecordList).flatten(); // $ExpectType any[]
+    extractChainTypes(_.chain(level4RecordList).flatten()); // $ExpectType ChainType<any[], any>
+
+    // mixed dimensions, deep
+    _.flatten(maxLevel2RecordArray); // $ExpectType StringRecord[]
+    _(maxLevel2RecordArray).flatten(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(maxLevel2RecordArray).flatten()); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // mixed dimensions, shallow
+    _.flatten(maxLevel3RecordArray, true); // $ExpectType (StringRecord | StringRecord[])[]
+    _(maxLevel3RecordArray).flatten(true); // $ExpectType (StringRecord | StringRecord[])[]
+    extractChainTypes(_.chain(maxLevel3RecordArray).flatten(true)); // $ExpectType ChainType<(StringRecord | StringRecord[])[], StringRecord | StringRecord[]>
+
+    // string lists, deep
+    _.flatten(level2StringList); // $ExpectType string[]
+    _(level2StringList).flatten(); // $ExpectType string[]
+    extractChainTypes(_.chain(level2StringList).flatten()); // $ExpectType ChainType<string[], string>
+
+    // string lists, shallow
+    _.flatten(simpleStringArray, true); // $ExpectType string[]
+    _(simpleStringArray).flatten(true); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringArray).flatten(true)); // $ExpectType ChainType<string[], string>
+
+    _.flatten(simpleStringList, true); // $ExpectType string[]
+    _(simpleStringList).flatten(true); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringList).flatten(true)); // $ExpectType ChainType<string[], string>
+
+    // type unions, deep
+    _.flatten(level2NonIntersectingPropertiesList); // $ExpectType NonIntersectingProperties[]
+    _(level2NonIntersectingPropertiesList).flatten(); // $ExpectType NonIntersectingProperties[]
+    extractChainTypes(_.chain(level2NonIntersectingPropertiesList).flatten()); // $ExpectType ChainType<NonIntersectingProperties[], NonIntersectingProperties>
+
+    // type unions, shallow
+    _.flatten(level2NonIntersectingPropertiesList, true); // $ExpectType NonIntersectingProperties[]
+    _(level2NonIntersectingPropertiesList).flatten(true); // $ExpectType NonIntersectingProperties[]
+    extractChainTypes(_.chain(level2NonIntersectingPropertiesList).flatten(true)); // $ExpectType ChainType<NonIntersectingProperties[], NonIntersectingProperties>
+}
 
 // chunk
 {
     const length = 2;
 
-    _.chunk(stringRecordArray, length); // $ExpectType StringRecord[][]
-    _(stringRecordArray).chunk(length); // $ExpectType StringRecord[][]
-    extractChainTypes(_.chain(stringRecordArray).chunk(length)); // $ExpectType ChainType<StringRecord[][], StringRecord[]>
-
+    // lists
     _.chunk(stringRecordList, length); // $ExpectType StringRecord[][]
     _(stringRecordList).chunk(length); // $ExpectType StringRecord[][]
     extractChainTypes(_.chain(stringRecordList).chunk(length)); // $ExpectType ChainType<StringRecord[][], StringRecord[]>
 
+    // strings
     _.chunk(simpleString, length); // $ExpectType string[][]
     _(simpleString).chunk(length); // $ExpectType string[][]
     extractChainTypes(_.chain(simpleString).chunk(length)); // $ExpectType ChainType<string[][], string[]>
@@ -762,34 +1120,42 @@ declare const extractChainTypes: ChainTypeExtractor;
 
 // underscore
 {
-    extractUnderscoreTypes(_(stringRecordArray)); // $ExpectType UnderscoreType<StringRecord[], StringRecord>
-
+    // lists
     extractUnderscoreTypes(_(stringRecordAugmentedList)); // $ExpectType UnderscoreType<StringRecordAugmentedList, StringRecord>
     extractUnderscoreTypes(_(stringRecordList)); // $ExpectType UnderscoreType<List<StringRecord>, StringRecord>
 
+    // dictionaries
     extractUnderscoreTypes(_(stringRecordExplicitDictionary)); // $ExpectType UnderscoreType<StringRecordExplicitDictionary, StringRecord>
     extractUnderscoreTypes(_(stringRecordDictionary)); // $ExpectType UnderscoreType<Dictionary<StringRecord>, StringRecord>
 
+    // strings
     extractUnderscoreTypes(_(simpleString)); // $ExpectType UnderscoreType<string, string>
+
+    // non-collections
     extractUnderscoreTypes(_(simpleNumber)); // $ExpectType UnderscoreType<number, never>
 
+    // mixed non-collections and collections
     extractUnderscoreTypes(_(mixedIterabilityValue)); // $ExpectType UnderscoreType<number | number[], number>
 }
 
 // value
 // verify that the object type given to underscore is returned by value
 {
-    _(stringRecordArray).value(); // $ExpectType StringRecord[]
-
+    // lists
     _(stringRecordAugmentedList).value(); // $ExpectType StringRecordAugmentedList
     _(stringRecordList).value(); // $ExpectType List<StringRecord>
 
+    // dictionaries
     _(stringRecordExplicitDictionary).value(); // $ExpectType StringRecordExplicitDictionary
     _(stringRecordDictionary).value(); // $ExpectType Dictionary<StringRecord>
 
+    // strings
     _(simpleString).value(); // $ExpectType string
+
+    // non-collections
     _(simpleNumber).value(); // $ExpectType number
 
+    // mixed non-collections and collections
     _(mixedIterabilityValue).value(); // $ExpectType number | number[]
 }
 
@@ -799,27 +1165,27 @@ declare const extractChainTypes: ChainTypeExtractor;
 // verify that the right chain item and value types are yielded by calls to chain
 // these tests also check to make sure that _.chain() and _().chain() yield the same types
 {
-    extractChainTypes(_.chain(stringRecordArray)); // $ExpectType ChainType<StringRecord[], StringRecord>
-    extractChainTypes(_(stringRecordArray).chain()); // $ExpectType ChainType<StringRecord[], StringRecord>
-
+    // lists
     extractChainTypes(_.chain(stringRecordAugmentedList)); // $ExpectType ChainType<StringRecordAugmentedList, StringRecord>
     extractChainTypes(_(stringRecordAugmentedList).chain()); // $ExpectType ChainType<StringRecordAugmentedList, StringRecord>
-
     extractChainTypes(_.chain(stringRecordList)); // $ExpectType ChainType<List<StringRecord>, StringRecord>
     extractChainTypes(_(stringRecordList).chain()); // $ExpectType ChainType<List<StringRecord>, StringRecord>
 
+    // dictionaries
     extractChainTypes(_.chain(stringRecordExplicitDictionary)); // $ExpectType ChainType<StringRecordExplicitDictionary, StringRecord>
     extractChainTypes(_(stringRecordExplicitDictionary).chain()); // $ExpectType ChainType<StringRecordExplicitDictionary, StringRecord>
-
     extractChainTypes(_.chain(stringRecordDictionary)); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
     extractChainTypes(_(stringRecordDictionary).chain()); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
 
+    // strings
     extractChainTypes(_.chain(simpleString)); // $ExpectType ChainType<string, string>
     extractChainTypes(_(simpleString).chain()); // $ExpectType ChainType<string, string>
 
+    // non-collections
     extractChainTypes(_.chain(simpleNumber)); // $ExpectType ChainType<number, never>
     extractChainTypes(_(simpleNumber).chain()); // $ExpectType ChainType<number, never>
 
+    // mixed non-collections and collections
     extractChainTypes(_.chain(mixedIterabilityValue)); // $ExpectType ChainType<number | number[], number>
     extractChainTypes(_(mixedIterabilityValue).chain()); // $ExpectType ChainType<number | number[], number>
 }
@@ -827,16 +1193,20 @@ declare const extractChainTypes: ChainTypeExtractor;
 // value
 // verify that the object type given to chain is returned by value
 {
-    _.chain(stringRecordArray).value(); // $ExpectType StringRecord[]
-
+    // lists
     _.chain(stringRecordAugmentedList).value(); // $ExpectType StringRecordAugmentedList
     _.chain(stringRecordList).value(); // $ExpectType List<StringRecord>
 
+    // dictionaries
     _.chain(stringRecordExplicitDictionary).value(); // $ExpectType StringRecordExplicitDictionary
     _.chain(stringRecordDictionary).value(); // $ExpectType Dictionary<StringRecord>
 
+    // strings
     _.chain(simpleString).value(); // $ExpectType string
+
+    // non-collections
     _.chain(simpleNumber).value(); // $ExpectType number
 
+    // mixed non-collections and collections
     _.chain(mixedIterabilityValue).value(); // $ExpectType number | number[]
 }
