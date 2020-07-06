@@ -157,7 +157,7 @@ declare namespace Sanctuary {
       <A, B>   (f: Fn <A, ChainRec<Either<A, B>>>): (x: A) => ChainRec<B>;
     };
     extend<A, B>(f: Fn<Extend<A>, B>): (extend_: Extend<A>) => Extend<B>;
-    duplicate<A>(comonad: A[]): A[][];
+    duplicate<A>(comonad: ReadonlyArray<A>): ReadonlyArray<ReadonlyArray<A>>;
     duplicate<A>(comonad: Maybe<A>): Maybe<Maybe<A>>;
     duplicate<A, B>(comonad: Pair<A, B>): Pair<A, Pair<A, B>>;
     duplicate<A>(comonad: Comonad<A>): Comonad<Comonad<A>>;
@@ -217,7 +217,7 @@ declare namespace Sanctuary {
     maybe_<B>(p: Thunk<B>): <A>(q: Fn<A, B>) => (r: Maybe<A>) => B;
     justs<A>(p: ReadonlyArray<Maybe<A>>): A[];
     mapMaybe<A>(p: Fn<A, Maybe<any>>): (q: A[]) => A[];
-    encase<A, B>(p: Fn<A, B>): Fn<A, Maybe<B>>;
+    encase<E, A, B>(throwing: Fn2<E, A, B>): (a: A) => Either<E, B>;
     maybeToEither<A>(p: A): <B>(q: Maybe<B>) => Either<A, B>;
     //  TODO: Either
     isLeft(p: Either<any, any>): boolean;
