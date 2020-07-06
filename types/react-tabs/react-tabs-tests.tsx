@@ -28,26 +28,23 @@ class TestApp extends React.Component {
     private readonly tabsRef = React.createRef<Tabs>();
 
     render() {
-        return React.createElement(
-            Tabs,
-            {
-                onSelect: this.onSelect,
-                selectedIndex: 1,
-                defaultFocus: true,
-                name: 'Tabs',
-                autoFocus: true,
-                ref: this.tabsRef,
-            },
-            React.createElement(
-                TabList,
-                { className: 'test-class' },
-                React.createElement(Tab, { disabled: true }, 'Tab1'),
-                React.createElement(Tab, { selectedClassName: 'active' }, 'Tab2'),
-                React.createElement(Tab, {}, 'Tab3'),
-            ),
-            React.createElement(TabPanel, {}, React.createElement('h2', {}, 'Content1')),
-            React.createElement(TabPanel, {}, React.createElement('h2', {}, 'Content2')),
-            React.createElement(TabPanel, {}, React.createElement('h2', {}, 'Content3')),
+        return (
+            <Tabs onSelect={this.onSelect} selectedIndex={1} defaultFocus name="Tabs" autoFocus ref={this.tabsRef}>
+                <TabList className="test-class">
+                    <Tab disabled>Tab1</Tab>
+                    <Tab selectedClassName="active">Tab2</Tab>
+                    <Tab>Tab3</Tab>
+                    <TabPanel>
+                        <h2>Content1</h2>
+                    </TabPanel>
+                    <TabPanel>
+                        <h2>Content2</h2>
+                    </TabPanel>
+                    <TabPanel>
+                        <h2>Content3</h2>
+                    </TabPanel>
+                </TabList>
+            </Tabs>
         );
     }
 }
