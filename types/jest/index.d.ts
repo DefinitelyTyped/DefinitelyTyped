@@ -1099,7 +1099,7 @@ declare namespace jest {
      *  import { MyClass } from "./libary";
      *  jest.mock("./library");
      *
-     *  const mockedMyClass = MyClass as jest.MockedClass<MyClass>;
+     *  const mockedMyClass = MyClass as jest.MockedClass<typeof MyClass>;
      *
      *  expect(mockedMyClass.mock.calls[0][0]).toBe(42); // Constructor calls
      *  expect(mockedMyClass.prototype.myMethod.mock.calls[0][0]).toBe(42); // Method calls
