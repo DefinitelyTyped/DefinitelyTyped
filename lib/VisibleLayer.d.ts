@@ -5,10 +5,12 @@ declare module 'guacamole-client' {
    * Simple container for Guacamole.Layer, allowing layers to be easily
    * repositioned and nested. This allows certain operations to be accelerated
    * through DOM manipulation, rather than raster operations.
-   * @param width The width of the Layer, in pixels. The canvas element backing this Layer will be given this width.
-   * @param height The height of the Layer, in pixels. The canvas element backing this Layer will be given this height.
    */
   class VisibleLayer extends Layer {
+    /**
+     * @param width The width of the Layer, in pixels. The canvas element backing this Layer will be given this width.
+     * @param height The height of the Layer, in pixels. The canvas element backing this Layer will be given this height.
+     */
     constructor(width: number, height: number);
 
     /**
