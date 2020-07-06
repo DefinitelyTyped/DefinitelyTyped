@@ -1455,13 +1455,13 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
     onSubmitEditing?: (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => void;
 
     /**
-     * Callback that is called on new text input with the argument 
+     * Callback that is called on new text input with the argument
      *  `{ nativeEvent: { text, previousText, range: { start, end } } }`.
      *
      * This prop requires multiline={true} to be set.
      */
     onTextInput?: (e: NativeSyntheticEvent<TextInputTextInputEventData>) => void;
-    
+
     /**
      * Invoked on content scroll with
      *  `{ nativeEvent: { contentOffset: { x, y } } }`.
