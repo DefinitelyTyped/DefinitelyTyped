@@ -11,7 +11,7 @@ code = {
 
 minify(code);
 
-code = "function add(first, second) { return first + second; }";
+code = 'function add(first, second) { return first + second; }';
 minify(code, { toplevel: true });
 
 minify(code, {
@@ -27,7 +27,7 @@ const output = minify(code, {
     warnings: 'verbose',
     mangle: {
         properties: {
-            regex: /reg/
+            regex: /reg/,
         },
         toplevel: true,
     },
@@ -38,12 +38,15 @@ const output = minify(code, {
     compress: {
         arguments: true,
         global_defs: {
-            "@console.log": "alert"
+            '@console.log': 'alert',
         },
         passes: 2,
     },
     nameCache: {},
 });
+if (output.warnings) {
+    output.warnings.filter(x => x === 'Dropping unused variable');
+}
 
 const compressOptions = {
     booleans: true,
@@ -63,6 +66,8 @@ minify(code, {
     compress: compressOptions,
 });
 
-if (output.warnings) {
-    output.warnings.filter(x => x === 'Dropping unused variable');
-}
+minify(code, {
+    sourceMap: {
+        content: 'inline',
+    },
+});
