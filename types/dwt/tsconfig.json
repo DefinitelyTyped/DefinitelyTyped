@@ -19,7 +19,6 @@
     },
     "files": [
         "dwt-tests.ts",
-        "index.d.ts",
-        "LICENSE.txt"
+        "index.d.ts"
     ]
 }
