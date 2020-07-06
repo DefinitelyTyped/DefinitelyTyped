@@ -1,4 +1,4 @@
-// Type definitions for Date Range Picker 3.0
+// Type definitions for Date Range Picker 3.1
 // Project: http://www.daterangepicker.com/, https://github.com/dangrossman/daterangepicker
 // Definitions by: SirMartin <https://github.com/SirMartin>
 //                 Steven Masala <https://github.com/smasala>
