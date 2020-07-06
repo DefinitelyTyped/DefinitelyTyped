@@ -406,7 +406,6 @@ export interface ViewerConfig {
             iconClass?: string, // Example: 'icon-pageStart'
             sequence?: number,
             onButtonClick?: string // Example: onFirstPage'
-
         },
         // previousPage button
         previousPage?: {
@@ -416,7 +415,7 @@ export interface ViewerConfig {
             sequence?: number,
             onButtonClick?: string // Example: onPreviousPage'
         },
-        //pagination show
+        // pagination show
         pagination?: {
             visibility?: boolean,
             location?: string, // Example: 'pager'

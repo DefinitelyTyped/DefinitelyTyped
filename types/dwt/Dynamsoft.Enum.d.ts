@@ -1184,16 +1184,18 @@ export namespace DynamsoftEnums {
         TWSS_USLETTER = 3,
         /** 4 */
         TWSS_USLEGAL = 4,
-        /** Added 1.5
-         *  5
+        /**
+         * Added 1.5
+         * 5
          */
         TWSS_A5 = 5,
         /** 6 */
         TWSS_B4 = 6,
         /** 7 */
         TWSS_B6 = 7,
-        /** Added 1.7
-         *  9
+        /**
+         * Added 1.7
+         * 9
          */
         TWSS_USLEDGER = 9,
         /** 10 */
@@ -1210,8 +1212,9 @@ export namespace DynamsoftEnums {
         TWSS_C5 = 15,
         /** 16 */
         TWSS_C6 = 16,
-        /** Added 1.8
-         *  17
+        /**
+         * Added 1.8
+         * 17
          */
         TWSS_4A0 = 17,
         /** 18 */
@@ -1299,30 +1302,35 @@ export namespace DynamsoftEnums {
         /** 54. Added 2.1 */
         TWSS_MAXSIZE = 54
     }
-    /** Capabilities exist in many varieties but all have a Default Value, Current Value, and may have other values available that can be supported if selected.
-     *  To help categorize the supported values into clear structures, TWAIN defines four types of containers for capabilities =
-     *  TW_ONEVALUE, TW_ARRAY, TW_RANGE and TW_ENUMERATION.
+    /**
+     * Capabilities exist in many varieties but all have a Default Value, Current Value, and may have other values available that can be supported if selected.
+     * To help categorize the supported values into clear structures, TWAIN defines four types of containers for capabilities =
+     * TW_ONEVALUE, TW_ARRAY, TW_RANGE and TW_ENUMERATION.
      */
     enum EnumDWT_CapType {
         /** Nothing. */
         TWON_NONE = 0,
-        /** A rectangular array of values that describe a logical item. It is similar to the TW_ONEVALUE because the current and default values are the same and
-         *  there are no other values to select from. For example, a list of the names, such as the supported capabilities list returned by the CAP_SUPPORTEDCAPS
-         *  capability, would use this type of container.
+        /**
+         * A rectangular array of values that describe a logical item. It is similar to the TW_ONEVALUE because the current and default values are the same and
+         * there are no other values to select from. For example, a list of the names, such as the supported capabilities list returned by the CAP_SUPPORTEDCAPS
+         * capability, would use this type of container.
          */
         TWON_ARRAY = 3,
-        /** This is the most general type because it defines a list of values from which the Current Value can be chosen.
-         *  The values do not progress uniformly through a range and there is not a consistent step size between the values.
-         *  For example, if a Source's resolution options do not occur in even step sizes then an enumeration would be used (for example, 150, 400, and 600).
+        /**
+         * This is the most general type because it defines a list of values from which the Current Value can be chosen.
+         * The values do not progress uniformly through a range and there is not a consistent step size between the values.
+         * For example, if a Source's resolution options do not occur in even step sizes then an enumeration would be used (for example, 150, 400, and 600).
          */
         TWON_ENUMERATION = 4,
-        /** A single value whose current and default values are coincident. The range of available values for this type of capability is simply this single value.
-         *  For example, a capability that indicates the presence of a document feeder could be of this type.
+        /**
+         * A single value whose current and default values are coincident. The range of available values for this type of capability is simply this single value.
+         * For example, a capability that indicates the presence of a document feeder could be of this type.
          */
         TWON_ONEVALUE = 5,
-        /** Many capabilities allow users to select their current value from a range of regularly spaced values.
-         *  The capability can specify the minimum and maximum acceptable values and the incremental step size between the values.
-         *  For example, resolution might be supported from 100 to 600 in steps of 50 (100, 150, 200, ..., 550, 600).
+        /**
+         * Many capabilities allow users to select their current value from a range of regularly spaced values.
+         * The capability can specify the minimum and maximum acceptable values and the incremental step size between the values.
+         * For example, resolution might be supported from 100 to 600 in steps of 50 (100, 150, 200, ..., 550, 600).
          */
         TWON_RANGE = 6
     }
@@ -1495,8 +1503,9 @@ export namespace DynamsoftEnums {
         /** added 2.1  */
         TWMD_INVALID = 2
     }
-    /** For query the operation that are supported by the data source on a capability .
-     *  Application gets these through DG_CONTROL/DAT_CAPABILITY/MSG_QUERYSUPPORT
+    /**
+     * For query the operation that are supported by the data source on a capability .
+     * Application gets these through DG_CONTROL/DAT_CAPABILITY/MSG_QUERYSUPPORT
      */
     enum EnumDWT_MessageType {
         TWQC_GET = 1,
@@ -1588,8 +1597,9 @@ export namespace DynamsoftEnums {
     }
     /** ICAP_XFERMECH values. */
     enum EnumDWT_TransferMode {
-        /** Native transfers require the data to be transferred to a single large block of RAM. Therefore,
-         *  they always face the risk of having an inadequate amount of RAM available to perform the transfer successfully.
+        /**
+         * Native transfers require the data to be transferred to a single large block of RAM. Therefore,
+         * they always face the risk of having an inadequate amount of RAM available to perform the transfer successfully.
          */
         TWSX_NATIVE = 0,
         /** Disk File Mode Transfers. */

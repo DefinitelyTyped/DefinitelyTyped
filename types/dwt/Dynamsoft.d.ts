@@ -246,7 +246,13 @@ export interface WebTwainEnv {
      * @param successCallback A callback function that is executed if the request succeeds.
      * @param failureCallback A callback function that is executed if the request fails.
      */
-    CreateDWTObject(ContainerId: string, host: string, port: string | number, portSSL: string | number, successCallBack: (DWObject: WebTwain) => void, failureCallBack: (errorString: string) => void): void;
+    CreateDWTObject(
+        ContainerId: string,
+        host: string,
+        port: string | number,
+        portSSL: string | number,
+        successCallBack: (DWObject: WebTwain) => void,
+        failureCallBack: (errorString: string) => void): void;
     /**
      * Create a WebTwain instance with UI.
      * @param ContainerId Specify the HTML element (typically of the type HTMLDivElement) to hold the UI.
@@ -384,7 +390,8 @@ export interface WebTwainEnv {
     UseLocalService: boolean;
     ConnectToTheService: () => void;
     initQueue: any[];
-    /** The following Functions & Options are internal & ignored
+    /**
+     * The following Functions & Options are internal & ignored
      * ActiveXIntegerited, CheckConnectToTheService,
      * ContainerMap, Debug, DynamicContainers,
      * DynamicDWTMap, GetLocalServiceStatus,IfCheck64bitServiceFirst,
@@ -397,7 +404,7 @@ export interface WebTwainEnv {
      * OnWebTwainOldPluginNotAllowed, OnWebTwainOldPluginNotAllowed
      * Trial, UseDefaultInstallUI, ViewerJSIntegerited,
      * inited, _srcUseLocalService
-    */
+     */
 }
 export interface DisplayInfo {
     buttons: any;
@@ -447,7 +454,7 @@ export interface ManagerEnv {
  * Interface for a WebTwain profile.
  */
 export interface Container {
-    WebTwainId: string,
+    WebTwainId: string;
     ContainerId?: string;
     Width?: string | number;
     Height?: string | number;
@@ -455,12 +462,12 @@ export interface Container {
     bLocalService?: boolean;
 }
 export interface Product {
-    bActiveXEdition: boolean,
-    bChromeEdition: boolean,
-    bHTML5Edition: boolean,
-    bPluginEdition: boolean,
-    host: string,
-    name: string
+    bActiveXEdition: boolean;
+    bChromeEdition: boolean;
+    bHTML5Edition: boolean;
+    bPluginEdition: boolean;
+    host: string;
+    name: string;
 }
 declare const Dynamsoft: (typeof DynamsoftEnums & typeof DynamsoftStatic);
 export default Dynamsoft;

@@ -688,7 +688,7 @@ export interface ScanSetup {
          * Whether to show the indicator of the device.
          */
         bShowIndicator?: boolean,
-    },
+    };
     /**
      * The TWAIN transfer mode.
      */
@@ -922,16 +922,16 @@ export interface ScanSetup {
     };
 }
 export interface Status {
-    bScanCompleted?: boolean,
-    event?: string,
+    bScanCompleted?: boolean;
+    event?: string;
     result?: {
         currentPageNum?: number
-    }
+    };
 }
 export interface TiffTag {
-    tagIdentifier?: number,
-    content?: string,
-    useBase64Encoding?: boolean
+    tagIdentifier?: number;
+    content?: string
+    useBase64Encoding?: boolean;
 }
 /**
  * Detailed information about a specific capability,
@@ -963,19 +963,19 @@ export interface CapabilityDetails {
     query: string[];
     /**
      * The value type of the Capability. Value types include
-        TWTY_BOOL: 6
-        TWTY_FIX32: 7
-        TWTY_FRAME: 8
-        TWTY_INT8: 0
-        TWTY_INT16: 1
-        TWTY_INT32: 2
-        TWTY_STR32: 9
-        TWTY_STR64: 10
-        TWTY_STR128: 11
-        TWTY_STR255: 12
-        TWTY_UINT8: 3
-        TWTY_UINT16: 4
-        TWTY_int: 5
+     * TWTY_BOOL: 6
+     * TWTY_FIX32: 7
+     * TWTY_FRAME: 8
+     * TWTY_INT8: 0
+     * TWTY_INT16: 1
+     * TWTY_INT32: 2
+     * TWTY_STR32: 9
+     * TWTY_STR64: 10
+     * TWTY_STR128: 11
+     * TWTY_STR255: 12
+     * TWTY_UINT8: 3
+     * TWTY_UINT16: 4
+     * TWTY_int: 5
      */
     valueType: ValueAndLabel;
     /**
@@ -1001,7 +1001,7 @@ export interface Capabilities {
     /**
      * Specifies how to set capabilities
      */
-    capabilities: CapabilitySetup[]
+    capabilities: CapabilitySetup[];
 }
 export interface CapabilitySetup {
     /**
