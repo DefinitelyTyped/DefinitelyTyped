@@ -127,7 +127,7 @@ declare namespace daterangepicker {
         /**
          * Whether the picker appears below (default) or above the HTML element it's attached to
          */
-        drops?: 'down' | 'up';
+        drops?: 'down' | 'up' | 'auto';
         /**
          * CSS class names that will be added to all buttons in the picker
          */
