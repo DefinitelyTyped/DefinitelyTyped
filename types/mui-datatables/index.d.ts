@@ -545,7 +545,7 @@ export const DebounceTableSearch: React.Component<DebouncedMUIDataTableSearch>;
 
 // Plugins
 /**
- * Function that returns a function for the customSearchRender method. This plug-in allows you to create a debounced search which can be useful for server-side tables and tables with large data sets. 
+ * Function that returns a function for the customSearchRender method. This plug-in allows you to create a debounced search which can be useful for server-side tables and tables with large data sets.
  * {@link https://github.com/gregnb/mui-datatables/blob/master/examples/large-data-set/index.js Example}
  * @param debounceWait The amount of time to wait for each action - defaults to 200
  */
