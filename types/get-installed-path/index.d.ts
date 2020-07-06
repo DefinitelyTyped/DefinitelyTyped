@@ -9,5 +9,5 @@ export function getInstalledPathSync(name: string, opts?: Options): string;
 export interface Options {
     cwd?: string;
     local?: boolean;
-    paths?: string[];
+    paths?: readonly string[];
 }
