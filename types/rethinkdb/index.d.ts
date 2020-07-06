@@ -431,7 +431,7 @@ declare module "rethinkdb" {
         // Aggregate
         reduce(r: ReduceFunction<any>, base?: any): Expression<any>;
         count(): Expression<number>;
-        distinct(): Sequence;
+        distinct(opts?: { index: string }): Sequence;
         groupedMapReduce(group: ExpressionFunction<any>, map: ExpressionFunction<any>, reduce: ReduceFunction<any>, base?: any): Sequence;
         groupBy(...aggregators: Aggregator[]): Expression<Object>; // TODO: reduction object
         contains(prop: string): Expression<boolean>;
