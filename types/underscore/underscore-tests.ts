@@ -13,7 +13,8 @@ let plucked: string[] = _.map([{key: 'apples'}, {key: 'oranges'}], 'key');
 
 //var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);    // https://typescript.codeplex.com/workitem/1960
 _.reduce([1, 2, 3], (memo, num) => memo + num); // $ExpectType number | undefined
-_.reduce<_.Dictionary<string>, string | number>({ 'a': '1', 'b': '2', 'c': '3' }, (memo, numstr) => (+memo) + (+numstr)); // $ExpectType string | number | undefined
+_.reduce<_.Dictionary<string>, number>({ 'a': '1', 'b': '2', 'c': '3' }, (memo, numstr) => (+memo) + (+numstr)); // $ExpectType string | number | undefined
+_.reduce({ 'a': '1', 'b': '2', 'c': '3' }, (memo: string | number, numstr) => (+memo) + (+numstr)); // $ExpectType string | number | undefined
 _.reduce([1, 2, 3], (memo, num) => memo + num, 0); // $ExpectType number | undefined
 _([1, 2, 3]).reduce((memo, num) => memo + num, 0); // $ExpectType number | undefined
 _.chain([1, 2, 3]).reduce((memo, num) => memo + num, 0).value(); // $ExpectType number | undefined
