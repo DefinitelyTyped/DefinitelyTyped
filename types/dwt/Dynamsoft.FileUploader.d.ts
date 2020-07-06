@@ -1,130 +1,130 @@
 export interface FileUploader {
-  /**
-   * Initialize and create a FileUploader instance.
-   * @param URL Specify a path to retrieve the FileUploader library.
-   * @param successCallback A callback function that is executed if the request succeeds.
-   * @param failureCallback A callback function that is executed if the request fails.
-   * @argument uploadManager A FileUploader instance.
-   * @argument errorCode The error code.
-   * @argument errorString The error string.
-   */
-  Init(
-    URL: string,
-    successCallback: (
-      uploadManager: IUploadManager
-    ) => void,
-    failureCallback: (
-      errorCode: number,
-      errorString: string
-    ) => void
-  ): void;
+    /**
+     * Initialize and create a FileUploader instance.
+     * @param URL Specify a path to retrieve the FileUploader library.
+     * @param successCallback A callback function that is executed if the request succeeds.
+     * @param failureCallback A callback function that is executed if the request fails.
+     * @argument uploadManager A FileUploader instance.
+     * @argument errorCode The error code.
+     * @argument errorString The error string.
+     */
+    Init(
+        URL: string,
+        successCallback: (
+            uploadManager: UploadManager
+        ) => void,
+        failureCallback: (
+            errorCode: number,
+            errorString: string
+        ) => void
+    ): void;
 }
-export interface IUploadManager {
-  /**
-   * Create an upload job.
-   */
-  CreateJob(): IJob;
-  /**
-  * Start uploading (processing the specified job).
-  * @param job Specify the job.
-  */
-  Run(job: IJob): boolean;
-  /**
-   * Cancel a job.
-   * @param job Specify the job.
-   */
-  Cancel(job: IJob): boolean;
-  /**
-   * Cancel all jobs.
-   */
-  CancelAllUpload(): boolean;
+export interface UploadManager {
+    /**
+     * Create an upload job.
+     */
+    CreateJob(): Job;
+    /**
+    * Start uploading (processing the specified job).
+    * @param job Specify the job.
+    */
+    Run(job: Job): boolean;
+    /**
+     * Cancel a job.
+     * @param job Specify the job.
+     */
+    Cancel(job: Job): boolean;
+    /**
+     * Cancel all jobs.
+     */
+    CancelAllUpload(): boolean;
 }
-export interface IJob {
-  /**
-   * Specify the block size (in bytes). By default, it's 10240.
-   */
-  BlockSize: number;
-  /**
-   * Specify the file name.
-   */
-  FileName: string;
-  /**
-   * Specify the fields in the HTTP Post Form.
-   */
-  FormField: IFormField;
-  /**
-   * Specify custom HTTP Post request headers.
-   * Example: job.HttpHeader["Content-Type"] = "text/plain";
-   */
-  HttpHeader: object;
-  /**
-   * Return the Http version.
-   */
-  readonly HttpVersion: string;
-  /**
-   * A callback triggered when the job succeeds.
-   * @argument job Specify the job.
-   * @argument errorCode The error code.
-   * @argument errorString The error string.
-   */
-  OnRunFailure: (
-    job: IJob,
-    errorCode: number,
-    errorString: string
-  ) => void;
-  /**
-   * A callback triggered when the job succeeds.
-   * @argument job Specify the job.
-   */
-  OnRunSuccess: (job: IJob) => void;
-  /**
-   * A callback triggered multiple times during the upload.
-   * @argument job Specify the job.
-   * @argument percentage Return the percentage.
-   */
-  OnUploadTransferPercentage: (
-    job: IJob,
-    percentage: number
-  ) => void;
-  /**
-   * Specify the URL of the script to receive the upload.
-   */
-  ServerUrl: string;
-  /**
-   * Specify the main content of the job, i.e. the file(s).
-   */
-  SourceValue: ISourceValue;
-  /**
-   * Specify the number of threads (<=4) for the upload.
-   */
-  ThreadNum: number;
-  /**
-   * Return the version of the job.
-   */
-  readonly Version: number;
+export interface Job {
+    /**
+     * Specify the block size (in bytes). By default, it's 10240.
+     */
+    BlockSize: number;
+    /**
+     * Specify the file name.
+     */
+    FileName: string;
+    /**
+     * Specify the fields in the HTTP Post Form.
+     */
+    FormField: FormField;
+    /**
+     * Specify custom HTTP Post request headers.
+     * Example: job.HttpHeader["Content-Type"] = "text/plain";
+     */
+    HttpHeader: object;
+    /**
+     * Return the Http version.
+     */
+    readonly HttpVersion: string;
+    /**
+     * A callback triggered when the job succeeds.
+     * @argument job Specify the job.
+     * @argument errorCode The error code.
+     * @argument errorString The error string.
+     */
+    OnRunFailure: (
+        job: Job,
+        errorCode: number,
+        errorString: string
+    ) => void;
+    /**
+     * A callback triggered when the job succeeds.
+     * @argument job Specify the job.
+     */
+    OnRunSuccess: (job: Job) => void;
+    /**
+     * A callback triggered multiple times during the upload.
+     * @argument job Specify the job.
+     * @argument percentage Return the percentage.
+     */
+    OnUploadTransferPercentage: (
+        job: Job,
+        percentage: number
+    ) => void;
+    /**
+     * Specify the URL of the script to receive the upload.
+     */
+    ServerUrl: string;
+    /**
+     * Specify the main content of the job, i.e. the file(s).
+     */
+    SourceValue: SourceValue;
+    /**
+     * Specify the number of threads (<=4) for the upload.
+     */
+    ThreadNum: number;
+    /**
+     * Return the version of the job.
+     */
+    readonly Version: number;
 }
-export interface ISourceValue {
-  /**
-   * Specify the block size. By default, it's 10240.
-   * @param source A URL to specify the content of the file.
-   * Normally it's generated by {GenerateURLForUploadData()}
-   * @param name Specify the name of the file.
-   * @param key Specify the key of the file in the request. This key can be used to retrieve the file content in server-side scripts.
-   */
-  Add: (
-    source: string,
-    name: string,
-    key?: string
-  ) => void;
+export interface SourceValue {
+    /**
+     * Specify the block size. By default, it's 10240.
+     * @param source A URL to specify the content of the file.
+     * Normally it's generated by {GenerateURLForUploadData()}
+     * @param name Specify the name of the file.
+     * @param key Specify the key of the file in the request. This key can be used to retrieve the file content in server-side scripts.
+     */
+    Add: (
+        source: string,
+        name: string,
+        key?: string
+    ) => void;
 }
-export interface IFormField {
-  /**
-   * Specify the block size. By default, it's 10240.
-   * @param key Specify the key of the field.
-   * @param value Sepcify the value of the field.
-   */
-  Add: (
-    key: string,
-    value: string
-  ) => void;
+export interface FormField {
+    /**
+     * Specify the block size. By default, it's 10240.
+     * @param key Specify the key of the field.
+     * @param value Sepcify the value of the field.
+     */
+    Add: (
+        key: string,
+        value: string
+    ) => void;
 }
