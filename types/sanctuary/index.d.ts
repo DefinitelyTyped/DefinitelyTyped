@@ -96,7 +96,7 @@ declare namespace Sanctuary {
       version: NonNegativeInteger
     };
     is(typeRep: TypeRep): (x: any) => boolean;
-    // Showable
+    //  Showable
     show(x: any): string;
     //  Fantasy Land
     equals<A>(x: Setoid<A>): (y: Setoid<A>) => boolean;
