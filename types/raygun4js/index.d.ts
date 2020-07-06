@@ -1,6 +1,9 @@
 // Type definitions for raygun4js 2.13
 // Project: https://github.com/MindscapeHQ/raygun4js
-// Definitions by: Brian Surowiec <https://github.com/xt0rted>, Benjamin Harding <https://github.com/BenjaminHarding>, Taylor Lodge <https://github.com/UberMouse>
+// Definitions by: Krishna Kapadia <https://github.com/krishnakapadia>,
+//                 Benjamin Harding <https://github.com/BenjaminHarding>,
+//                 Taylor Lodge <https://github.com/UberMouse>,
+//                 Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -278,6 +281,7 @@ interface RaygunStatic {
      * Track Single Page Application route events.
      */
     trackEvent(type: "pageView", options: { path: string }): void;
+    trackEvent(type: "customTiming", options: { name: string; duration: number; }): void;
 
     /**
      * Records a manual breadcrumb with the given message and metadata passed.
@@ -359,7 +363,7 @@ interface RaygunV2 {
             options: any
         ) => string | void
     ): void;
-    (key: "trackEvent", value: { type: string; path: string }): void;
+    (key: "trackEvent", value: { type: string; path: string } | { type: string, name: string, duration: number }): void;
     (key: "apiKey" | "setVersion" | "setFilterScope", value: string): void;
     (
         key:
@@ -398,11 +402,11 @@ interface RaygunV2 {
         message:
             | string
             | {
-                  message: string;
-                  metadata: any;
-                  level: BreadcrumbLevel;
-                  location: string;
-              },
+                message: string;
+                metadata: any;
+                level: BreadcrumbLevel;
+                location: string;
+            },
         metadata: object
     ): void;
 }
