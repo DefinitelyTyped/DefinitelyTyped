@@ -152,12 +152,12 @@ declare namespace webpack {
     }
 
     type ConfigurationFactory = ((
-        env: string | Record<string, boolean | number | string>,
+        env: string | Record<string, boolean | number | string> | undefined,
         args: CliConfigOptions,
     ) => Configuration | Promise<Configuration>);
 
     type MultiConfigurationFactory = ((
-        env: string | Record<string, boolean | number | string>,
+        env: string | Record<string, boolean | number | string> | undefined,
         args: CliConfigOptions,
     ) => Configuration[] | Promise<Configuration[]>);
 
