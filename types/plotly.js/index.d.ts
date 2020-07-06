@@ -725,15 +725,16 @@ export interface PlotData {
     'marker.pad.r': number;
     mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none'
     | 'gauge' | 'number' | 'delta' | 'number+delta' | 'gauge+number' | 'gauge+number+delta' | 'gauge+delta';
+    histfunc: 'count' | 'sum' | 'avg' | 'min' | 'max';
     hoveron: 'points' | 'fills';
     hoverinfo: 'all' | 'name' | 'none' | 'skip' | 'text' |
     'x' | 'x+text' | 'x+name' |
     'x+y' | 'x+y+text' | 'x+y+name' |
     'x+y+z' | 'x+y+z+text' | 'x+y+z+name' |
-    'y+name' | 'y+x' | 'y+text' | 'y+x+text' | 'y+x+name' |
+    'y' | 'y+name' | 'y+x' | 'y+text' | 'y+x+text' | 'y+x+name' |
     'y+z' | 'y+z+text' | 'y+z+name' |
     'y+x+z' | 'y+x+z+text' | 'y+x+z+name' |
-    'z+x' | 'z+x+text' | 'z+x+name' |
+    'z' | 'z+x' | 'z+x+text' | 'z+x+name' |
     'z+y+x' | 'z+y+x+text' | 'z+y+x+name' |
     'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
     hoverlabel: Partial<HoverLabel>;
