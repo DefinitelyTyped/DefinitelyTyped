@@ -6,7 +6,7 @@ assert.equal(S.map(S.concat('@'))(['foo', 'bar', 'baz']), ['@foo', '@bar', '@baz
 assert.equal(S.reduce(S.add)(0)([1, 2, 3, 4, 5]), 15);
 assert.equal(S.flip(S.concat)('foo')('bar'), 'barfoo');
 
-// $ExpectType number[][]
+// $ExpectType (readonly number[])[]
 S.duplicate([1]);
 
 // $ExpectType Maybe<Maybe<number>>
