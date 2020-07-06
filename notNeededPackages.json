@@ -5701,6 +5701,12 @@
             "asOfVersion": "0.0.36"
         },
         {
+            "libraryName": "xml-formatter",
+            "typingsPackageName": "xml-formatter",
+            "sourceRepoURL": "https://github.com/chrisbottin/xml-formatter",
+            "asOfVersion": "2.1.1"
+        },
+        {
             "libraryName": "xml-js",
             "typingsPackageName": "xml-js",
             "sourceRepoURL": "https://github.com/nashwaan/xml-js",
