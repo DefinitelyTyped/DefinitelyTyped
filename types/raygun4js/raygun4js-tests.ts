@@ -1,7 +1,7 @@
 // V2 Api
 // Used in CommonJS-like environments
 
-import rg4js, { RaygunStatic } from 'raygun4js';
+import rg4js, { RaygunStatic, RaygunPayload } from 'raygun4js';
 
 rg4js("apiKey", "api-key");
 rg4js("enableCrashReporting", true);
@@ -69,7 +69,7 @@ client.setFilterScope('all');
 
 client.whitelistCrossOriginDomains(['domain1', 'domain2']);
 
-client.onBeforeSend(payload => {
+client.onBeforeSend((payload: RaygunPayload) => {
     payload.OccurredOn = new Date();
     return payload;
 });
@@ -82,7 +82,7 @@ client.onBeforeXHR(xhr => {
     console.log(xhr.response);
 });
 
-client.onAfterSend(xhr => {
+client.onAfterSend((xhr) => {
     console.log(xhr.response);
 });
 
