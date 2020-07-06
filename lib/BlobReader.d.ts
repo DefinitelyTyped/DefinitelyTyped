@@ -1,3 +1,7 @@
+/// <reference path="./InputStream.d.ts" />
+
+import { Mimetype } from './GuacCommon.d';
+
 declare module 'guacamole-client' {
   /**
    * A reader which automatically handles the given input stream, assembling all

@@ -96,7 +96,7 @@ declare module 'guacamole-client' {
       CLIENT_TOO_MANY: 0x031d;
     }>;
 
-    export type Code = typeof StatusCode[keyof typeof StatusCode];
+    export type Code = StatusCode[keyof StatusCode];
     export const Code: StatusCode &
       Readonly<{
         /**

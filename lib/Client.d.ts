@@ -1,5 +1,6 @@
 /// <reference path="./WebSocketTunnel.d.ts" />
 /// <reference path="./VisibleLayer.d.ts" />
+/// <reference path="./VideoPlayer.d.ts" />
 
 import { Mimetype } from './GuacCommon';
 

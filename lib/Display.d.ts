@@ -1,5 +1,7 @@
 /// <reference path="./Layer.d.ts" />
 
+import { Mimetype } from './GuacCommon.d';
+
 declare module 'guacamole-client' {
   export namespace Display {
     export type VisibleLayer = typeof VisibleLayer;
