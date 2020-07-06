@@ -8,16 +8,16 @@ declare module 'guacamole-client' {
    * stream is to be played back immediately.
    */
   export class AudioPlayer {
-   /**
-    * Returns a list of all mimetypes supported by any built-in
-    * Guacamole.AudioPlayer, in rough order of priority. Beware that only the core
-    * mimetypes themselves will be listed. Any mimetype parameters, even required
-    * ones, will not be included in the list. For example, "audio/L8" is a
-    * supported raw audio mimetype that is supported, but it is invalid without
-    * additional parameters. Something like "audio/L8;rate=44100" would be valid,
-    * however (see https://tools.ietf.org/html/rfc4856).
-    * @returns A list of all mimetypes supported by any built-in Guacamole.AudioPlayer, excluding any parameters.
-    */
+    /**
+     * Returns a list of all mimetypes supported by any built-in
+     * Guacamole.AudioPlayer, in rough order of priority. Beware that only the core
+     * mimetypes themselves will be listed. Any mimetype parameters, even required
+     * ones, will not be included in the list. For example, "audio/L8" is a
+     * supported raw audio mimetype that is supported, but it is invalid without
+     * additional parameters. Something like "audio/L8;rate=44100" would be valid,
+     * however (see https://tools.ietf.org/html/rfc4856).
+     * @returns A list of all mimetypes supported by any built-in Guacamole.AudioPlayer, excluding any parameters.
+     */
     static getSupportedTypes(): Mimetype[];
 
     /**
@@ -40,5 +40,4 @@ declare module 'guacamole-client' {
      */
     sync(): void;
   }
-
 }

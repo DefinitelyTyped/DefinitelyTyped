@@ -7,7 +7,7 @@ declare module 'guacamole-client' {
   /**
    * An object used by the Guacamole client to house arbitrarily-many named
    * input and output streams.
-   * 
+   *
    * @param client The client owning this object.
    * @param index The index of this object.
    */
@@ -43,7 +43,10 @@ declare module 'guacamole-client' {
      * and its mimetype as its two only arguments. If the onbody handler of
      * this object is overridden, this callback will not be invoked.
      */
-    requestInputStream(name: string, bodyCallback?: (stream: InputStream, mimetype: Mimetype) => void): void;
+    requestInputStream(
+      name: string,
+      bodyCallback?: (stream: InputStream, mimetype: Mimetype) => void
+    ): void;
 
     /**
      * Creates a new output stream associated with this object and having the
@@ -72,7 +75,7 @@ declare module 'guacamole-client' {
     /**
      * Called when this object is being undefined. Once undefined, no further
      * communication involving this object may occur.
-     * 
+     *
      * @event
      */
     onundefine: null | (() => void);

@@ -4,7 +4,7 @@ declare module 'guacamole-client' {
   /**
    * A writer which automatically writes to the given output stream with arbitrary
    * binary data, supplied as ArrayBuffers.
-   * 
+   *
    * @param stream The stream that data will be written
    */
   export class ArrayBufferWriter {

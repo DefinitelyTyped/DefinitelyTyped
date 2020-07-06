@@ -1,6 +1,14 @@
 {
   "name": "guacamole-client-typedefs",
-  "keywords": ["guacamole", "guacamole-client", "typescript", "typedefs", "d.ts", "typings", "apache"],
+  "keywords": [
+    "guacamole",
+    "guacamole-client",
+    "typescript",
+    "typedefs",
+    "d.ts",
+    "typings",
+    "apache"
+  ],
   "version": "0.0.7",
   "main": "",
   "repository": "git@github.com:KonstantinSimeonov/guacamole-client-typedefs.git",
@@ -8,6 +16,7 @@
   "license": "MIT",
   "devDependencies": {
     "guacamole-client": "^1.0.0",
+    "prettier": "^2.0.5",
     "typescript": "^3.9.5"
   }
 }

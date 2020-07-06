@@ -75,7 +75,7 @@ declare module 'guacamole-client' {
     /**
      * The state of every key, indexed by keysym. If a particular key is
      * pressed, the value of pressed for that keysym will be true. If a key
-     * is not currently pressed, it will not be defined. 
+     * is not currently pressed, it will not be defined.
      */
     pressed: { [keysym: number]: true };
 
@@ -84,7 +84,7 @@ declare module 'guacamole-client' {
      * repeat for the pressed key will start after a delay if that key is
      * not a modifier. The return value of this function depends on the
      * return value of the keydown event handler, if any.
-     * 
+     *
      * @param keysym The keysym of the key to press.
      * @return true if event should NOT be canceled, false otherwise.
      */

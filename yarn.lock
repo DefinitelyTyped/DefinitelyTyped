@@ -7,6 +7,11 @@ guacamole-client@^1.0.0:
   resolved "https://registry.yarnpkg.com/guacamole-client/-/guacamole-client-1.0.0.tgz#a0b4d8d3e0fd348baaa12c4a6ecd3e264790bbd9"
   integrity sha512-kiuKVbqPP5dbKRsoBKxx6q45aG/bHgFM6KFhH0dwfkEWbF8ed7wwzwnvY3FpbqIBAa643PRlIiCC848v4HGUIA==
 
+prettier@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.0.5.tgz#d6d56282455243f2f92cc1716692c08aa31522d4"
+  integrity sha512-7PtVymN48hGcO4fGjybyBSIWDsLU4H4XlvOHfq91pz9kkGlonzwTfYkaIEwiRg/dAJF9YlbsduBAgtYLi+8cFg==
+
 typescript@^3.9.5:
   version "3.9.5"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.5.tgz#586f0dba300cde8be52dd1ac4f7e1009c1b13f36"

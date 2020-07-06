@@ -1,16 +1,16 @@
 declare module 'guacamole-client' {
   export namespace Mouse {
     /**
-    * Simple container for properties describing the state of a mouse.
-    * 
-    * @param x The X position of the mouse pointer in pixels.
-    * @param y The Y position of the mouse pointer in pixels.
-    * @param left Whether the left mouse button is pressed. 
-    * @param middle Whether the middle mouse button is pressed. 
-    * @param right Whether the right mouse button is pressed. 
-    * @param up Whether the up mouse button is pressed (the fourth button, usually part of a scroll wheel). 
-    * @param down Whether the down mouse button is pressed (the fifth button, usually part of a scroll wheel). 
-    */
+     * Simple container for properties describing the state of a mouse.
+     *
+     * @param x The X position of the mouse pointer in pixels.
+     * @param y The Y position of the mouse pointer in pixels.
+     * @param left Whether the left mouse button is pressed.
+     * @param middle Whether the middle mouse button is pressed.
+     * @param right Whether the right mouse button is pressed.
+     * @param up Whether the up mouse button is pressed (the fourth button, usually part of a scroll wheel).
+     * @param down Whether the down mouse button is pressed (the fifth button, usually part of a scroll wheel).
+     */
     export class State {
       constructor(
         x: number,
@@ -21,57 +21,61 @@ declare module 'guacamole-client' {
         up: boolean,
         down: boolean
       );
-  
+
       /**
        * The current X position of the mouse pointer.
        */
       x: number;
-  
+
       /**
        * The current Y position of the mouse pointer.
        */
       y: number;
-  
+
       /**
        * Whether the left mouse button is currently pressed.
        */
       left: boolean;
-  
+
       /**
        * Whether the middle mouse button is currently pressed.
        */
       middle: boolean;
-  
+
       /**
        * Whether the right mouse button is currently pressed.
        */
       right: boolean;
-  
+
       /**
        * Whether the up mouse button is currently pressed. This is the fourth
        * mouse button, associated with upward scrolling of the mouse scroll
        * wheel.
        */
       up: boolean;
-  
+
       /**
-       * Whether the down mouse button is currently pressed. This is the fifth 
+       * Whether the down mouse button is currently pressed. This is the fifth
        * mouse button, associated with downward scrolling of the mouse scroll
        * wheel.
        */
       down: boolean;
-  
+
       /**
        * Updates the position represented within this state object by the given
        * element and clientX/clientY coordinates (commonly available within event
        * objects). Position is translated from clientX/clientY (relative to
        * viewport) to element-relative coordinates.
-       * 
+       *
        * @param element The element the coordinates should be relative to.
        * @param clientX The X coordinate to translate, viewport-relative.
        * @param clientY The Y coordinate to translate, viewport-relative.
        */
-      fromClientPosition(element: HTMLElement | HTMLDocument, clientX: number, clientY: number): Mouse.State;
+      fromClientPosition(
+        element: HTMLElement | HTMLDocument,
+        clientX: number,
+        clientY: number
+      ): Mouse.State;
     }
 
     class GuacTouchDevice {
@@ -137,7 +141,7 @@ declare module 'guacamole-client' {
 
     /**
      * Provides cross-browser relative touch event translation for a given element.
-     * 
+     *
      * Touch events are translated into mouse events as if the touches occurred
      * on a touchpad (drag to push the mouse pointer, tap to click).
      * @constructor
@@ -154,11 +158,10 @@ declare module 'guacamole-client' {
      * @param element The Element to use to provide touch events.
      */
     export class Touchscreen extends GuacTouchDevice {
-
-    /**
-     * The amount of time a press must be held for long press to be
-     * detected.
-     */
+      /**
+       * The amount of time a press must be held for long press to be
+       * detected.
+       */
       longPressThreshold: number;
     }
   }
@@ -168,7 +171,7 @@ declare module 'guacamole-client' {
    * the given element are automatically populated with handlers that translate
    * mouse events into a non-browser-specific event provided by the
    * Guacamole.Mouse instance.
-   * 
+   *
    * @param element The Element to use to provide mouse events.
    */
   export class Mouse {
@@ -202,7 +205,7 @@ declare module 'guacamole-client' {
     /**
      * Fired whenever the user moves the mouse over the element associated with
      * this Guacamole.Mouse.
-     * 
+     *
      * @event
      * @param state The current mouse state.
      */
@@ -211,7 +214,7 @@ declare module 'guacamole-client' {
     /**
      * Fired whenever the mouse leaves the boundaries of the element associated
      * with this Guacamole.Mouse.
-     * 
+     *
      * @event
      */
     onmouseout: null | (() => void);

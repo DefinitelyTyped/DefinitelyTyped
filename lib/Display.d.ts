@@ -53,7 +53,15 @@ declare module 'guacamole-client' {
      * @param endAngle The ending angle of the arc, in radians.
      * @param negative Whether the arc should be drawn in order of decreasing angle.
      */
-    arc(layer: Layer, x: number, y: number, radius: number, startAngle: number, endAngle: number, negative: boolean): void;
+    arc(
+      layer: Layer,
+      x: number,
+      y: number,
+      radius: number,
+      startAngle: number,
+      endAngle: number,
+      negative: boolean
+    ): void;
 
     /**
      * Starts a new path at the specified point.
@@ -65,7 +73,15 @@ declare module 'guacamole-client' {
      * @param x The X coordinate of the endpoint of the curve.
      * @param y The Y coordinate of the endpoint of the curve.
      */
-    curveTo(layer: Layer, cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
+    curveTo(
+      layer: Layer,
+      cp1x: number,
+      cp1y: number,
+      cp2x: number,
+      cp2y: number,
+      x: number,
+      y: number
+    ): void;
 
     /**
      * Closes the current path by connecting the end point with the start point (if any) with a straight line.
@@ -106,7 +122,16 @@ declare module 'guacamole-client' {
      * @param b The blue component of the color to fill.
      * @param a The alpha component of the color to fill.
      */
-    strokeColor(layer: Layer, cap: Layer.LineCap, join: Layer.LineJoin, thickness: number, r: number, g: number, b: number, a: number): void;
+    strokeColor(
+      layer: Layer,
+      cap: Layer.LineCap,
+      join: Layer.LineJoin,
+      thickness: number,
+      r: number,
+      g: number,
+      b: number,
+      a: number
+    ): void;
 
     /**
      * Fills the current path with the specified color. The current path
@@ -133,7 +158,13 @@ declare module 'guacamole-client' {
      * @param thickness The line thickness in pixels.
      * @param srcLayer The layer to use as a repeating pattern within the stroke.
      */
-    strokeLayer(layer: Layer, cap: Layer.LineCap, join: Layer.LineJoin, thickness: number, srcLayer: Layer): void;
+    strokeLayer(
+      layer: Layer,
+      cap: Layer.LineCap,
+      join: Layer.LineJoin,
+      thickness: number,
+      srcLayer: Layer
+    ): void;
 
     /**
      * Fills the current path with the image within the specified layer. The
@@ -174,7 +205,15 @@ declare module 'guacamole-client' {
      * @param e The fifth value in the affine transform's matrix.
      * @param f The sixth value in the affine transform's matrix.
      */
-    setTransform(layer: Layer, a: number, b: number, c: number, d: number, e: number, f: number): void;
+    setTransform(
+      layer: Layer,
+      a: number,
+      b: number,
+      c: number,
+      d: number,
+      e: number,
+      f: number
+    ): void;
 
     /**
      * Applies the given affine transform (defined with six values from the transform's matrix).
@@ -186,7 +225,15 @@ declare module 'guacamole-client' {
      * @param e The fifth value in the affine transform's matrix.
      * @param f The sixth value in the affine transform's matrix.
      */
-    transform(layer: Layer, a: number, b: number, c: number, d: number, e: number, f: number): void;
+    transform(
+      layer: Layer,
+      a: number,
+      b: number,
+      c: number,
+      d: number,
+      e: number,
+      f: number
+    ): void;
 
     /**
      * Sets the channel mask for future operations on this Layer.
@@ -227,7 +274,15 @@ declare module 'guacamole-client' {
      * @param e The fifth value in the affine transform's matrix.
      * @param f The sixth value in the affine transform's matrix.
      */
-    distort(layer: Layer, a: number, b: number, c: number, d: number, e: number, f: number): void;
+    distort(
+      layer: Layer,
+      a: number,
+      b: number,
+      c: number,
+      d: number,
+      e: number,
+      f: number
+    ): void;
 
     /**
      * Moves the upper-left corner of the given layer to the given X and Y
@@ -239,7 +294,13 @@ declare module 'guacamole-client' {
      * @param y The Y coordinate to move to.
      * @param z The Z coordinate to move to.
      */
-    move(layer: VisibleLayer, parent: VisibleLayer, x: number, y: number, z: number): void;
+    move(
+      layer: VisibleLayer,
+      parent: VisibleLayer,
+      x: number,
+      y: number,
+      z: number
+    ): void;
 
     /**
      * Sets the opacity of the given layer to the given value, where 255 is
@@ -338,7 +399,15 @@ declare module 'guacamole-client' {
      * @param srcw The width of the rectangle within the source layer's coordinate space to copy data from.
      * @param srch The height of the rectangle within the source layer's coordinate space to copy data from.
      */
-    setCursor(hotspotX: number, hotspotY: number, layer: Layer, srcx: number, srcy: number, srcw: number, srch: number): void;
+    setCursor(
+      hotspotX: number,
+      hotspotY: number,
+      layer: Layer,
+      srcx: number,
+      srcy: number,
+      srcw: number,
+      srch: number
+    ): void;
 
     /**
      * Sets whether the software-rendered cursor is shown. This cursor differs
@@ -456,7 +525,16 @@ declare module 'guacamole-client' {
      * @param x The destination X coordinate.
      * @param y The destination Y coordinate.
      */
-    put(srcLayer: Layer, srcx: number, srcy: number, srcw: number, srch: number, dstLayer: Layer, x: number, y: number): void;
+    put(
+      srcLayer: Layer,
+      srcx: number,
+      srcy: number,
+      srcw: number,
+      srch: number,
+      dstLayer: Layer,
+      x: number,
+      y: number
+    ): void;
 
     /**
      * Copy a rectangle of image data from one Layer to this Layer. This
@@ -477,7 +555,16 @@ declare module 'guacamole-client' {
      * @param x The destination X coordinate.
      * @param y The destination Y coordinate.
      */
-    copy(srcLayer: Layer, srcx: number, srcy: number, srcw: number, srch: number, dstLayer: Layer, x: number, y: number): void;
+    copy(
+      srcLayer: Layer,
+      srcx: number,
+      srcy: number,
+      srcw: number,
+      srch: number,
+      dstLayer: Layer,
+      x: number,
+      y: number
+    ): void;
 
     /**
      * Add the specified line to the current path.
@@ -506,5 +593,4 @@ declare module 'guacamole-client' {
      */
     oncursor: null | ((cursorCanvas: HTMLCanvasElement, x: number, y: number) => void);
   }
-
 }

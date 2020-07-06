@@ -17,15 +17,17 @@ declare module 'guacamole-client' {
       height: number;
       width: number;
       url?: string;
-    }
-    type ExportLayer = ExportLayerBase | (ExportLayerBase & {
-      x: number;
-      y: number;
-      z: number;
-      alpha: number;
-      matrix: unknown;
-      parent: unknown;
-    });
+    };
+    type ExportLayer =
+      | ExportLayerBase
+      | (ExportLayerBase & {
+          x: number;
+          y: number;
+          z: number;
+          alpha: number;
+          matrix: unknown;
+          parent: unknown;
+        });
 
     export type ExportedState = {
       currentState: State;
@@ -38,7 +40,7 @@ declare module 'guacamole-client' {
    * Guacamole protocol client. Given a Guacamole.Tunnel,
    * automatically handles incoming and outgoing Guacamole instructions via the
    * provided tunnel, updating its display using one or more canvas elements.
-   * 
+   *
    * @constructor
    * @param tunnel The tunnel to use to send and receive Guacamole instructions.
    */
@@ -114,7 +116,11 @@ declare module 'guacamole-client' {
      * @param name The defined name of an output stream within the given object.
      * @returns An output stream which will write blobs to the named output stream of the given object.
      */
-    createObjectOutputStream(index: number, mimetype: Mimetype, name: string): OutputStream;
+    createObjectOutputStream(
+      index: number,
+      mimetype: Mimetype,
+      name: string
+    ): OutputStream;
 
     /**
      * Allocates an available stream index and creates a new
@@ -143,7 +149,7 @@ declare module 'guacamole-client' {
      * Guacamole connection will be notified via an "end" instruction that the
      * stream is closed, and the index will be made available for reuse in
      * future streams.
-     * 
+     *
      * @param index The index of the stream to end.
      */
     endStream(index: number): void;
@@ -161,12 +167,11 @@ declare module 'guacamole-client' {
      */
     exportState(callback: (state: Client.ExportedState) => void): void;
 
-
     /**
      * Returns the underlying display of this Guacamole.Client. The display
      * contains an Element which can be added to the DOM, causing the
      * display to become visible.
-     * 
+     *
      * @return The underlying display of this Guacamole.Client.
      */
     getDisplay(): Display;
@@ -194,7 +199,7 @@ declare module 'guacamole-client' {
 
     /**
      * Acknowledge receipt of a blob on the stream with the given index.
-     * 
+     *
      * @param index The index of the stream associated with the received blob.
      * @param message A human-readable message describing the error or status.
      * @param code The error code, if any, or 0 for success.
@@ -203,7 +208,7 @@ declare module 'guacamole-client' {
 
     /**
      * Given the index of a file, writes a blob of data to that file.
-     * 
+     *
      * @param index The index of the file to write to.
      * @param data Base64-encoded data to write to the file.
      */
@@ -212,7 +217,7 @@ declare module 'guacamole-client' {
     /**
      * Sends a key event having the given properties as if the user
      * pressed or released a key.
-     * 
+     *
      * @param pressed Whether the key is pressed (true) or released (false).
      * @param keysym The keysym of the key being pressed or released.
      */
@@ -223,14 +228,14 @@ declare module 'guacamole-client' {
 
     /**
      * Sends a mouse event having the properties provided by the given mouse state.
-     * 
+     *
      * @param mouseState The state of the mouse to send in the mouse event.
      */
     sendMouseState(state: Client.State): void;
 
     /**
      * Sends the current size of the screen.
-     * 
+     *
      * @param {Number} width The width of the screen.
      * @param {Number} height The height of the screen.
      */
@@ -238,7 +243,7 @@ declare module 'guacamole-client' {
 
     /**
      * Fired whenever the state of this Guacamole.Client changes.
-     * 
+     *
      * @event
      * @param state The new state of the client.
      */
@@ -246,7 +251,7 @@ declare module 'guacamole-client' {
 
     /**
      * Fired when the remote client sends a name update.
-     * 
+     *
      * @event
      * @param name The new name of this client.
      */
@@ -255,7 +260,7 @@ declare module 'guacamole-client' {
     /**
      * Fired when an error is reported by the remote client, and the connection
      * is being closed.
-     * 
+     *
      * @event
      * @param status A status object which describes the error.
      */
@@ -273,7 +278,9 @@ declare module 'guacamole-client' {
      * has been initialied to play the data in the provided stream, or null
      * if the built-in audio players of the Guacamole client should be used.
      */
-    onaudio: null | ((audioStream: InputStream, mimetype: Mimetype) => AudioPlayer | null);
+    onaudio:
+      | null
+      | ((audioStream: InputStream, mimetype: Mimetype) => AudioPlayer | null);
 
     /**
      * Fired when a video stream is created. The stream provided to this event
@@ -292,7 +299,13 @@ declare module 'guacamole-client' {
      * has been initialied to play the data in the provided stream, or null
      * if the built-in video players of the Guacamole client should be used.
      */
-    onvideo: null | ((videoStream: InputStream, layer: VisibleLayer, mimetype: Mimetype) => VideoPlayer | null);
+    onvideo:
+      | null
+      | ((
+          videoStream: InputStream,
+          layer: VisibleLayer,
+          mimetype: Mimetype
+        ) => VideoPlayer | null);
 
     /**
      * Fired when the current value of a connection parameter is being exposed
@@ -303,11 +316,13 @@ declare module 'guacamole-client' {
      * @param mimetype The mimetype of the data which will be received.
      * @param name The name of the connection parameter whose value is being exposed.
      */
-    onargv: null | ((parameterStream: InputStream, mimetype: Mimetype, name: string) => void);
+    onargv:
+      | null
+      | ((parameterStream: InputStream, mimetype: Mimetype, name: string) => void);
 
     /**
      * Fired when the clipboard of the remote client is changing.
-     * 
+     *
      * @event
      * @param stream The stream that will receive clipboard data from the server.
      * @param mimetype The mimetype of the data which will be received.
@@ -317,7 +332,7 @@ declare module 'guacamole-client' {
     /**
      * Fired when a file stream is created. The stream provided to this event
      * handler will contain its own event handlers for received data.
-     * 
+     *
      * @event
      * @param stream The stream that will receive data from the server.
      * @param mimetype The mimetype of the file received.
@@ -339,7 +354,7 @@ declare module 'guacamole-client' {
     /**
      * Fired when a pipe stream is created. The stream provided to this event
      * handler will contain its own event handlers for received data;
-     * 
+     *
      * @event
      * @param stream The stream that will receive data from the server.
      * @param mimetype The mimetype of the data which will be received.
@@ -351,11 +366,10 @@ declare module 'guacamole-client' {
      * Fired whenever a sync instruction is received from the server, indicating
      * that the server is finished processing any input from the client and
      * has sent any results.
-     * 
+     *
      * @event
      * @param timestamp The timestamp associated with the sync instruction.
      */
     onsync: null | ((timestramp: number) => void);
-
   }
 }

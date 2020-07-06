@@ -13,25 +13,25 @@ declare module 'guacamole-client' {
      */
     export class Pixel {
       constructor(r: number, g: number, b: number, a: number);
-  
+
       /**
        * The red component of this pixel, where 0 is the minimum value,
        * and 255 is the maximum.
        */
       red: number;
-  
+
       /**
        * The green component of this pixel, where 0 is the minimum value,
        * and 255 is the maximum.
        */
       green: number;
-  
+
       /**
        * The blue component of this pixel, where 0 is the minimum value,
        * and 255 is the maximum.
        */
       blue: number;
-  
+
       /**
        * The alpha component of this pixel, where 0 is the minimum value,
        * and 255 is the maximum.
@@ -55,32 +55,32 @@ declare module 'guacamole-client' {
     /**
      * Channel mask for the composite operation "rout".
      */
-    static readonly ROUT  = 0x2;
+    static readonly ROUT = 0x2;
 
     /**
      * Channel mask for the composite operation "atop".
      */
-    static readonly ATOP  = 0x6;
+    static readonly ATOP = 0x6;
 
     /**
      * Channel mask for the composite operation "xor".
      */
-    static readonly XOR   = 0xA;
+    static readonly XOR = 0xa;
 
     /**
      * Channel mask for the composite operation "rover".
      */
-    static readonly ROVER = 0xB;
+    static readonly ROVER = 0xb;
 
     /**
      * Channel mask for the composite operation "over".
      */
-    static readonly OVER  = 0xE;
+    static readonly OVER = 0xe;
 
     /**
      * Channel mask for the composite operation "plus".
      */
-    static readonly PLUS  = 0xF;
+    static readonly PLUS = 0xf;
 
     /**
      * Channel mask for the composite operation "rin".
@@ -88,7 +88,7 @@ declare module 'guacamole-client' {
      * layer where the source layer is transparent, despite the definition of this
      * operation.
      */
-    static readonly RIN   = 0x1;
+    static readonly RIN = 0x1;
 
     /**
      * Channel mask for the composite operation "in".
@@ -96,7 +96,7 @@ declare module 'guacamole-client' {
      * layer where the source layer is transparent, despite the definition of this
      * operation.
      */
-    static readonly IN    = 0x4;
+    static readonly IN = 0x4;
 
     /**
      * Channel mask for the composite operation "out".
@@ -104,7 +104,7 @@ declare module 'guacamole-client' {
      * layer where the source layer is transparent, despite the definition of this
      * operation.
      */
-    static readonly OUT   = 0x8;
+    static readonly OUT = 0x8;
 
     /**
      * Channel mask for the composite operation "ratop".
@@ -120,7 +120,7 @@ declare module 'guacamole-client' {
      * layer where the source layer is transparent, despite the definition of this
      * operation.
      */
-    static readonly SRC   = 0xC;
+    static readonly SRC = 0xc;
 
     constructor(width: number, height: number);
     /**
@@ -156,7 +156,6 @@ declare module 'guacamole-client' {
      * @returns The canvas element backing this Layer.
      */
     getCanvas(): HTMLCanvasElement;
-
 
     /**
      * Returns a new canvas element containing the same image as this Layer.
@@ -203,7 +202,16 @@ declare module 'guacamole-client' {
      * @param {Function} transferFunction The transfer function to use to
      * transfer data from source to destination.
      */
-    transfer(srcLayer: Layer, srcx: number, srcy: number, srcw: number, srch: number, x: number, y: number, transferFunction: Function): void;
+    transfer(
+      srcLayer: Layer,
+      srcx: number,
+      srcy: number,
+      srcw: number,
+      srch: number,
+      x: number,
+      y: number,
+      transferFunction: Function
+    ): void;
 
     /**
      * Put a rectangle of image data from one Layer to this Layer directly
@@ -220,7 +228,15 @@ declare module 'guacamole-client' {
      * @param x The destination X coordinate.
      * @param y The destination Y coordinate.
      */
-    put(srcLayer: Layer, srcx: number, srcy: number, srcw: number, srch: number, x: number, y: number): void;
+    put(
+      srcLayer: Layer,
+      srcx: number,
+      srcy: number,
+      srcw: number,
+      srch: number,
+      x: number,
+      y: number
+    ): void;
 
     /**
      * Copy a rectangle of image data from one Layer to this Layer. This
@@ -240,7 +256,15 @@ declare module 'guacamole-client' {
      * @param x The destination X coordinate.
      * @param y The destination Y coordinate.
      */
-    copy(srcLayer: Layer, srcx: number, srcy: number, srcw: number, srch: number, x: number, y: number): void;
+    copy(
+      srcLayer: Layer,
+      srcx: number,
+      srcy: number,
+      srcw: number,
+      srch: number,
+      x: number,
+      y: number
+    ): void;
 
     distort(a: number, b: number, c: number, d: number, e: number, f: number): void;
 
@@ -354,7 +378,12 @@ declare module 'guacamole-client' {
      * @param b The blue component of the color to fill.
      * @param a The alpha component of the color to fill.
      */
-    strokeLayer(cap: Layer.LineCap, join: Layer.LineJoin, thickness: number, layer: Layer): void;
+    strokeLayer(
+      cap: Layer.LineCap,
+      join: Layer.LineJoin,
+      thickness: number,
+      layer: Layer
+    ): void;
 
     /**
      * Fills the current path with the image within the specified layer. The

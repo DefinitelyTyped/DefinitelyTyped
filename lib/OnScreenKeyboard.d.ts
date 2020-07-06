@@ -61,7 +61,7 @@ declare module 'guacamole-client' {
    *     The object whose identically-named properties will be used to initialize
    *     the properties of this layout.
    */
-  class Layout  {
+  class Layout {
     constructor(template: Layout);
     /**
      * The language of keyboard layout, such as "en_US". This property is for
@@ -136,7 +136,7 @@ declare module 'guacamole-client' {
 
     /**
      * Fired whenever the user presses a key on this Guacamole.OnScreenKeyboard.
-     * 
+     *
      * @event
      * @param keysym The keysym of the key being pressed.
      */

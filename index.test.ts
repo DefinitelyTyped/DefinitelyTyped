@@ -4,7 +4,7 @@ const layer = new Guacamole.Layer();
 
 new Guacamole.Mouse(document);
 
-const mouse = new Guacamole.Mouse({} as any as HTMLElement);
+const mouse = new Guacamole.Mouse(({} as any) as HTMLElement);
 const tunnel = new Guacamole.WebSocketTunnel('haha');
 
 // $ExpectError

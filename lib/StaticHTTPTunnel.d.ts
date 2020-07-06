@@ -14,6 +14,10 @@ declare module 'guacamole-client' {
    * headers to be sent in tunnel requests. By default, no extra headers will be added.
    */
   export class StaticHTTPTunnel extends Tunnel {
-    constructor(url: string, crossDomain?: boolean, extraTunnelHeaders?: Record<string, string>);
+    constructor(
+      url: string,
+      crossDomain?: boolean,
+      extraTunnelHeaders?: Record<string, string>
+    );
   }
 }
