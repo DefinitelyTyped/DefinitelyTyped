@@ -237,20 +237,6 @@ declare namespace NodeJS {
 
     interface ReadWriteStream extends ReadableStream, WritableStream { }
 
-    interface Domain extends EventEmitter {
-        run<T>(fn: (...args: any[]) => T, ...args: any[]): T;
-        add(emitter: EventEmitter | Timer): void;
-        remove(emitter: EventEmitter | Timer): void;
-        bind<T extends Function>(cb: T): T;
-        intercept<T extends Function>(cb: T): T;
-
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        on(event: string, listener: (...args: any[]) => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        removeListener(event: string, listener: (...args: any[]) => void): this;
-        removeAllListeners(event?: string): this;
-    }
-
     interface MemoryUsage {
         rss: number;
         heapTotal: number;
