@@ -433,7 +433,7 @@ export interface SourceMapOptions {
     names?: boolean;
     url?: string | 'inline';
     root?: string;
-    content?: RawSourceMap;
+    content?: RawSourceMap | 'inline';
 }
 
 export function minify(files: string | string[] | { [file: string]: string }, options?: MinifyOptions): MinifyOutput;
