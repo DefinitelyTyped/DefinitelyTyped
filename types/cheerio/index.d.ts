@@ -259,15 +259,14 @@ interface CheerioStatic extends CheerioSelector {
     // Document References
     // Cheerio https://github.com/cheeriojs/cheerio
     // JQuery http://api.jquery.com
-    xml(element?: Cheerio): string;
     root(): Cheerio;
     contains(container: CheerioElement, contained: CheerioElement): boolean;
     parseHTML(data: string, context?: Document, keepScripts?: boolean): Document[];
 
     html(options?: CheerioOptionsInterface): string;
-    html(selector: string, options?: CheerioOptionsInterface): string;
-    html(element: Cheerio, options?: CheerioOptionsInterface): string;
-    html(element: CheerioElement, options?: CheerioOptionsInterface): string;
+    html(dom: string | Cheerio | CheerioElement, options?: CheerioOptionsInterface): string;
+
+    xml(dom?: string | Cheerio | CheerioElement): string;
 }
 
 interface CheerioElement {
