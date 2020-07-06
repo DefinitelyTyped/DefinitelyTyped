@@ -2,16 +2,17 @@ declare module 'guacamole-client' {
   export namespace Mouse {
     /**
      * Simple container for properties describing the state of a mouse.
-     *
-     * @param x The X position of the mouse pointer in pixels.
-     * @param y The Y position of the mouse pointer in pixels.
-     * @param left Whether the left mouse button is pressed.
-     * @param middle Whether the middle mouse button is pressed.
-     * @param right Whether the right mouse button is pressed.
-     * @param up Whether the up mouse button is pressed (the fourth button, usually part of a scroll wheel).
-     * @param down Whether the down mouse button is pressed (the fifth button, usually part of a scroll wheel).
      */
     export class State {
+      /**
+       * @param x The X position of the mouse pointer in pixels.
+       * @param y The Y position of the mouse pointer in pixels.
+       * @param left Whether the left mouse button is pressed.
+       * @param middle Whether the middle mouse button is pressed.
+       * @param right Whether the right mouse button is pressed.
+       * @param up Whether the up mouse button is pressed (the fourth button, usually part of a scroll wheel).
+       * @param down Whether the down mouse button is pressed (the fifth button, usually part of a scroll wheel).
+       */
       constructor(
         x: number,
         y: number,
@@ -144,7 +145,6 @@ declare module 'guacamole-client' {
      *
      * Touch events are translated into mouse events as if the touches occurred
      * on a touchpad (drag to push the mouse pointer, tap to click).
-     * @constructor
      * @param element The Element to use to provide touch events.
      */
     export class Touchpad extends GuacTouchDevice {}
@@ -154,7 +154,6 @@ declare module 'guacamole-client' {
      * Touch events are translated into mouse events as if the touches occurred
      * on a touchscreen (tapping anywhere on the screen clicks at that point,
      * long-press to right-click).
-     * @constructor
      * @param element The Element to use to provide touch events.
      */
     export class Touchscreen extends GuacTouchDevice {
@@ -171,10 +170,11 @@ declare module 'guacamole-client' {
    * the given element are automatically populated with handlers that translate
    * mouse events into a non-browser-specific event provided by the
    * Guacamole.Mouse instance.
-   *
-   * @param element The Element to use to provide mouse events.
    */
   export class Mouse {
+    /**
+     * @param element The Element to use to provide mouse events.
+     */
     constructor(element: HTMLDocument | HTMLElement);
 
     /**

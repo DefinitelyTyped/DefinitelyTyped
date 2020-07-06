@@ -5,9 +5,11 @@ declare module 'guacamole-client' {
    * A reader which automatically handles the given input stream, returning
    * strictly received packets as array buffers. Note that this object will
    * overwrite any installed event handlers on the given Guacamole.InputStream.
-   * @param stream The stream that data will be read from.
    */
   export class ArrayBufferReader {
+  /**
+   * @param stream The stream that data will be read from.
+   */
     constructor(stream: InputStream);
 
     /**

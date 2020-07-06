@@ -26,3 +26,4 @@
 /// <reference path="./lib/RawAudioPlayer.d.ts" />
 /// <reference path="./lib/StringReader.d.ts" />
 /// <reference path="./lib/StringWriter.d.ts" />
+/// <reference path="./lib/IntegerPool.d.ts" />

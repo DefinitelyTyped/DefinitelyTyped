@@ -3,11 +3,12 @@
 declare module 'guacamole-client' {
   /**
    * Abstract stream which can receive data.
-   *
-   * @param client The client owning this stream.
-   * @param index The index of this stream.
    */
   export class OutputStream {
+    /**
+     * @param client The client owning this stream.
+     * @param index The index of this stream.
+     */
     constructor(client: Client, index: number);
 
     /**

@@ -8,8 +8,6 @@ declare module 'guacamole-client' {
    * Guacamole.OutputStream. It is up to implementations of this class to provide
    * some means of handling this Guacamole.OutputStream. Data produced by the
    * recorder is to be sent along the provided stream immediately.
-   *
-   * @constructor
    */
   export class AudioRecorder {
     /**

@@ -5,11 +5,11 @@ declare module 'guacamole-client' {
   /**
    * A writer which automatically writes to the given output stream with text
    * data.
-   *
-   * @constructor
-   * @param stream The stream that data will be written to.
    */
   export class StringWriter {
+    /**
+     * @param stream The stream that data will be written to.
+     */
     constructor(stream: OutputStream);
 
     /**

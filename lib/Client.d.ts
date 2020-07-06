@@ -18,6 +18,7 @@ declare module 'guacamole-client' {
       width: number;
       url?: string;
     };
+
     type ExportLayer =
       | ExportLayerBase
       | (ExportLayerBase & {
@@ -40,14 +41,12 @@ declare module 'guacamole-client' {
    * Guacamole protocol client. Given a Guacamole.Tunnel,
    * automatically handles incoming and outgoing Guacamole instructions via the
    * provided tunnel, updating its display using one or more canvas elements.
-   *
-   * @constructor
-   * @param tunnel The tunnel to use to send and receive Guacamole instructions.
    */
   export class Client {
+    /**
+     * @param tunnel The tunnel to use to send and receive Guacamole instructions.
+     */
     constructor(tunnel: WebSocketTunnel);
-
-    readonly tunnel: WebSocketTunnel;
 
     /**
      * Sends a disconnect instruction to the server and closes the tunnel.
@@ -221,10 +220,7 @@ declare module 'guacamole-client' {
      * @param pressed Whether the key is pressed (true) or released (false).
      * @param keysym The keysym of the key being pressed or released.
      */
-    sendKeyEvent(state: number, keysym: number): void;
-    // 1.0.0
-    // sendKeyEvent(pressed: boolean, keysym: number): void;
-    // 0.9.13
+    sendKeyEvent(pressed: boolean, keysym: number): void;
 
     /**
      * Sends a mouse event having the properties provided by the given mouse state.

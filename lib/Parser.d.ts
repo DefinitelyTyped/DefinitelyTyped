@@ -2,7 +2,6 @@ declare module 'guacamole-client' {
   /**
    * Simple Guacamole protocol parser that invokes an oninstruction event when
    * full instructions are available from data received via receive().
-   * @constructor
    */
   export class Parser {
     /**

@@ -6,7 +6,6 @@ declare module 'guacamole-client' {
    * by getElement(), may be used as a reliable source of keyboard-related events,
    * particularly composition and input events which may require a focused input
    * field to be dispatched at all.
-   * @constructor
    */
   export class InputSink {
     /**

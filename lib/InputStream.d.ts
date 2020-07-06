@@ -2,11 +2,14 @@ declare module 'guacamole-client' {
   /**
    * An input stream abstraction used by the Guacamole client to facilitate
    * transfer of files or other binary data.
-   * @param client The client owning this stream.
-   * @param index The index of this stream.
    */
   export class InputStream {
+    /**
+     * @param client The client owning this stream.
+     * @param index The index of this stream.
+     */
     constructor(client: Client, index: number);
+
     /**
      * The index of this stream.
      */

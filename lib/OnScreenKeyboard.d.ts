@@ -5,17 +5,17 @@ declare module 'guacamole-client' {
    * Guacamole.OnScreenKeyboard.Key, whether that key is explicitly defined or
    * implied, and may have multiple Guacamole.OnScreenKeyboard.Key if behavior
    * depends on modifier states.
-   * @constructor
-   * @param template
-   *     The object whose identically-named properties will be used to initialize
-   *     the properties of this key.
-   * @param [name]
-   *     The name to use instead of any name provided within the template, if
-   *     any. If omitted, the name within the template will be used, assuming the
-   *     template contains a name.
    */
   class Key {
+    /**
+     * @param template The object whose identically-named properties will be used to initialize
+     * the properties of this key.
+     * @param [name] The name to use instead of any name provided within the template, if
+     * any. If omitted, the name within the template will be used, assuming the
+     * template contains a name.
+     */
     constructor(template: Key, name?: string);
+
     /**
      * The unique name identifying this key within the keyboard layout.
      */

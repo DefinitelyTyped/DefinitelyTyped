@@ -4,10 +4,12 @@ declare module 'guacamole-client' {
    * received blobs into a single blob by appending them to each other in order.
    * Note that this object will overwrite any installed event handlers on the
    * given Guacamole.InputStream.
-   * @param stream The stream that data will be read from.
-   * @param mimetype The mimetype of the blob being built.
    */
   export class BlobReader {
+    /**
+     * @param stream The stream that data will be read from.
+     * @param mimetype The mimetype of the blob being built.
+     */
     constructor(stream: InputStream, mimetype: Mimetype);
 
     /**

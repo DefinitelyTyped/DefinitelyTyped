@@ -1,7 +1,6 @@
 declare module 'guacamole-client' {
   export namespace Status {
-    export type Code = typeof Code[keyof typeof Code];
-    export const Code: Readonly<{
+    type StatusCode = Readonly<{
       SUCCESS: 0x0000;
       /**
        * The requested operation is unsupported.
@@ -96,10 +95,52 @@ declare module 'guacamole-client' {
        */
       CLIENT_TOO_MANY: 0x031d;
     }>;
+
+    export type Code = typeof StatusCode[keyof typeof StatusCode];
+    export const Code: StatusCode &
+      Readonly<{
+        /**
+         * Returns the Guacamole protocol status code which most closely
+         * represents the given HTTP status code.
+         *
+         * @param {Number} status
+         *     The HTTP status code to translate into a Guacamole protocol status
+         *     code.
+         *
+         * @returns {Number}
+         *     The Guacamole protocol status code which most closely represents the
+         *     given HTTP status code.
+         */
+        fromHTTPCode(status: number): Code;
+
+        /**
+         * Returns the Guacamole protocol status code which most closely
+         * represents the given WebSocket status code.
+         *
+         * @param {Number} code
+         *     The WebSocket status code to translate into a Guacamole protocol
+         *     status code.
+         *
+         * @returns {Number}
+         *     The Guacamole protocol status code which most closely represents the
+         *     given WebSocket status code.
+         */
+        fromWebSocketCode(code: number): Code;
+      }>;
   }
 
+  /**
+   * A Guacamole status. Each Guacamole status consists of a status code, defined
+   * by the protocol, and an optional human-readable message, usually only
+   * included for debugging convenience.
+   */
   export class Status {
+    /**
+     * @param code The Guacamole status code, as defined by Guacamole.Status.Code.
+     * @param [message] An optional human-readable message.
+     */
     constructor(code: Status.Code, message?: string);
+
     readonly code: Status.Code;
     readonly message?: string;
   }

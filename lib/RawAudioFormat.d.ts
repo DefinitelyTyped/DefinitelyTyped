@@ -6,11 +6,6 @@ declare module 'guacamole-client' {
    * Guacamole.RawAudioPlayer and Guacamole.RawAudioRecorder. This object
    * describes the number of bytes per sample, the number of channels, and the
    * overall sample rate.
-   *
-   * @constructor
-   * @param template
-   *     The object whose properties should be copied into the corresponding
-   *     properties of the new Guacamole.RawAudioFormat.
    */
   export class RawAudioFormat {
     /**
@@ -26,6 +21,10 @@ declare module 'guacamole-client' {
      */
     static parse(mimetype: Mimetype): RawAudioFormat;
 
+    /**
+     * @param template The object whose properties should be copied into the corresponding
+     * properties of the new Guacamole.RawAudioFormat.
+     */
     constructor(template: RawAudioFormat);
 
     /**

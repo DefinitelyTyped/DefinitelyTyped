@@ -7,9 +7,11 @@ declare module 'guacamole-client' {
    * no instructions have been received. If an instruction has been
    * received, or no tunnels remain, the error is passed directly out
    * through the onerror handler (if defined).
-   * @param tunnelChain The tunnels to use, in order of priority.
    */
   export class ChainedTunnel extends Tunnel {
+    /**
+     * @param tunnelChain The tunnels to use, in order of priority.
+     */
     constructor(...tunnels: Tunnel[]);
   }
 }

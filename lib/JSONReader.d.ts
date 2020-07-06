@@ -9,8 +9,10 @@ declare module 'guacamole-client' {
    * @param stream The stream that JSON will be read from.
    */
   export class JSONReader {
+    /**
+     * @param stream The stream that JSON will be read from.
+     */
     constructor(stream: InputStream);
-    readonly stream: InputStream;
 
     /**
      * Fired once for every blob of data received.

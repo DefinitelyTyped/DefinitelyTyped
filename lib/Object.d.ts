@@ -7,9 +7,6 @@ declare module 'guacamole-client' {
   /**
    * An object used by the Guacamole client to house arbitrarily-many named
    * input and output streams.
-   *
-   * @param client The client owning this object.
-   * @param index The index of this object.
    */
   export class Object {
     /**
@@ -25,6 +22,10 @@ declare module 'guacamole-client' {
      */
     static readonly STREAM_INDEX_MIMETYPE: string;
 
+    /**
+     * @param client The client owning this object.
+     * @param index The index of this object.
+     */
     constructor(client: Client, index: number);
 
     /**

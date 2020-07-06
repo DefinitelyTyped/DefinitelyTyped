@@ -24,7 +24,7 @@ declare module 'guacamole-client' {
     export const State: TunnelState;
   }
 
-  export class Tunnel {
+  export abstract class Tunnel {
     receiveTimeout: number;
     state: Tunnel.State;
     uuid: string;

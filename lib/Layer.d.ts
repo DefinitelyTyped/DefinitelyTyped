@@ -6,12 +6,14 @@ declare module 'guacamole-client' {
     /**
      * Represents a single pixel of image data. All components have a minimum value
      * of 0 and a maximum value of 255.
-     * @param r The red component of this pixel.
-     * @param g The green component of this pixel.
-     * @param b The blue component of this pixel.
-     * @param a The alpha component of this pixel.
      */
     export class Pixel {
+      /**
+       * @param r The red component of this pixel.
+       * @param g The green component of this pixel.
+       * @param b The blue component of this pixel.
+       * @param a The alpha component of this pixel.
+       */
       constructor(r: number, g: number, b: number, a: number);
 
       /**
@@ -46,10 +48,6 @@ declare module 'guacamole-client' {
    * however unlike the canvas element itself, drawing operations on a Layer are
    * guaranteed to run in order, even if such an operation must wait for an image
    * to load before completing.
-   * @param width The width of the Layer, in pixels. The canvas element
-   * backing this Layer will be given this width.
-   * @param height The height of the Layer, in pixels. The canvas element
-   * backing this Layer will be given this height.
    */
   export class Layer {
     /**
@@ -122,7 +120,14 @@ declare module 'guacamole-client' {
      */
     static readonly SRC = 0xc;
 
+    /**
+     * @param width The width of the Layer, in pixels. The canvas element
+     * backing this Layer will be given this width.
+     * @param height The height of the Layer, in pixels. The canvas element
+     * backing this Layer will be given this height.
+     */
     constructor(width: number, height: number);
+
     /**
      * Set to true if this Layer should resize itself to accomodate the
      * dimensions of any drawing operation, and false (the default) otherwise.
@@ -139,6 +144,7 @@ declare module 'guacamole-client' {
      * @default false
      */
     autoresize: boolean;
+
     /**
      * The current width of this layer.
      */

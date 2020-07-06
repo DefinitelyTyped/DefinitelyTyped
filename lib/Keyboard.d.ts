@@ -42,12 +42,14 @@ declare module 'guacamole-client' {
    * Provides cross-browser and cross-keyboard keyboard for a specific element.
    * Browser and keyboard layout variation is abstracted away, providing events
    * which represent keys as their corresponding X11 keysym.
-   * @param element
-   * The Element to use to provide keyboard events. If omitted, at least one
-   * Element must be manually provided through the listenTo() function for
-   * the Guacamole.Keyboard instance to have any effect.
    */
   export class Keyboard {
+    /**
+     * @param element
+     * The Element to use to provide keyboard events. If omitted, at least one
+     * Element must be manually provided through the listenTo() function for
+     * the Guacamole.Keyboard instance to have any effect.
+     */
     constructor(element: HTMLDocument | HTMLElement);
 
     /**
