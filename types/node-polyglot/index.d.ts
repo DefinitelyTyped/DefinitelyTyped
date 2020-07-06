@@ -19,7 +19,7 @@ declare namespace Polyglot {
     }
 
     interface PluralRules {
-        pluralTypes: {[lang: string]: (n: number) => void};
+        pluralTypes: {[lang: string]: (n: number) => number};
         pluralTypeToLanguages: {[lang: string]: string[]};
     }
 
