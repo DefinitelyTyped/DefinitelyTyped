@@ -56,7 +56,6 @@
   "dependencies": {},
   "description": "TypeScript definitions for dwt",
   "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped#readme",
-  "license": "MIT",
   "main": "",
   "name": "@types/dwt",
   "repository": {
