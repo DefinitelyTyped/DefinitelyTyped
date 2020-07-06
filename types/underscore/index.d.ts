@@ -254,58 +254,30 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The reduced result.
          **/
-        reduce<V extends Collection<any>>(
+        reduce<V extends List<any>, TResult = TypeOfList<V>>(
             collection: V,
-            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TypeOfCollection<V>, V>,
+            iteratee: MemoIterator<TypeOfList<V>, TResult | TypeOfList<V>, V>,
             memo?: undefined,
             context?: any
-        ): TypeOfCollection<V>;
-
-        /**
-         * Also known as inject and foldl, reduce boils down a collection of values into a
-         * single value. Memo is the initial state of the reduction, and each successive
-         * step of it should be returned by iteratee. The iteratee is passed four arguments:
-         * the memo, then the value and index (or key) of the iteration, and finally a reference
-         * to the entire collection.
-         *
-         * If no memo is passed to the initial invocation of reduce, the iteratee is not invoked
-         * on the first element of the collection. The first element is instead passed as the memo
-         * in the invocation of the iteratee on the next element in the collection.
-         * @param collection Reduces the elements of this collection.
-         * @param iteratee Reduce iteratee function for each element in `collection`.
-         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
-         * @param context `this` object in `iteratee`, optional.
-         * @returns The reduced result.
-         **/
+        ): TResult | TypeOfList<V> | undefined;
+        reduce<V extends Dictionary<any>, TResult = TypeOfDictionary<V>>(
+            collection: V,
+            iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult | TypeOfDictionary<V>, V>,
+            memo?: undefined,
+            context?: any
+        ): TResult | TypeOfDictionary<V> | undefined;
         reduce<V extends List<any>, TResult>(
             collection: V,
-            iteratee: MemoIterator<TypeOfCollection<V>, TResult, V>,
+            iteratee: MemoIterator<TypeOfList<V>, TResult, V>,
             memo: TResult,
             context?: any
-        ): TResult;
-
-        /**
-         * Also known as inject and foldl, reduce boils down a collection of values into a
-         * single value. Memo is the initial state of the reduction, and each successive
-         * step of it should be returned by iteratee. The iteratee is passed four arguments:
-         * the memo, then the value and index (or key) of the iteration, and finally a reference
-         * to the entire collection.
-         *
-         * If no memo is passed to the initial invocation of reduce, the iteratee is not invoked
-         * on the first element of the collection. The first element is instead passed as the memo
-         * in the invocation of the iteratee on the next element in the collection.
-         * @param collection Reduces the elements of this collection.
-         * @param iteratee Reduce iteratee function for each element in `collection`.
-         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
-         * @param context `this` object in `iteratee`, optional.
-         * @returns The reduced result.
-         **/
+        ): TResult | undefined;
         reduce<V extends Dictionary<any>, TResult>(
             collection: V,
-            iteratee: MemoObjectIterator<TypeOfCollection<V>, TResult, V>,
+            iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult, V>,
             memo: TResult,
             context?: any
-        ): TResult;
+        ): TResult | undefined;
 
         /**
          * @see reduce
@@ -327,46 +299,30 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The reduced result.
          **/
-        reduceRight<V extends Collection<any>>(
+        reduceRight<V extends List<any>, TResult = TypeOfList<V>>(
             collection: V,
-            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TypeOfCollection<V>, V>,
+            iteratee: MemoIterator<TypeOfList<V>, TResult | TypeOfList<V>, V>,
             memo?: undefined,
             context?: any
-        ): TypeOfCollection<V>;
-
-        /**
-         * The right-associative version of reduce.
-         *
-         * This is not as useful in JavaScript as it would be in a language with lazy evaluation.
-         * @param collection Reduces the elements of this array.
-         * @param iteratee Reduce iteratee function for each element in `collection`.
-         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
-         * @param context `this` object in `iteratee`, optional.
-         * @returns The reduced result.
-         **/
+        ): TResult | TypeOfList<V> | undefined;
+        reduceRight<V extends Dictionary<any>, TResult = TypeOfDictionary<V>>(
+            collection: V,
+            iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult | TypeOfDictionary<V>, V>,
+            memo?: undefined,
+            context?: any
+        ): TResult | TypeOfDictionary<V> | undefined;
         reduceRight<V extends List<any>, TResult>(
             collection: V,
-            iteratee: MemoIterator<TypeOfCollection<V>, TResult, V>,
+            iteratee: MemoIterator<TypeOfList<V>, TResult, V>,
             memo: TResult,
             context?: any
-        ): TResult;
-
-        /**
-         * The right-associative version of reduce.
-         *
-         * This is not as useful in JavaScript as it would be in a language with lazy evaluation.
-         * @param collection Reduces the elements of this array.
-         * @param iteratee Reduce iteratee function for each element in `collection`.
-         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
-         * @param context `this` object in `iteratee`, optional.
-         * @returns The reduced result.
-         **/
+        ): TResult | undefined;
         reduceRight<V extends Dictionary<any>, TResult>(
             collection: V,
-            iteratee: MemoObjectIterator<TypeOfCollection<V>, TResult, V>,
+            iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult, V>,
             memo: TResult,
             context?: any
-        ): TResult;
+        ): TResult | undefined;
 
         /**
          * @see reduceRight
@@ -4242,24 +4198,15 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The reduced result.
          **/
-        reduce(iteratee: MemoCollectionIterator<T, T, V>, memo?: undefined, context?: any): T;
-
-        /**
-         * Also known as inject and foldl, reduce boils down a collection of wrapped values into a
-         * single value. Memo is the initial state of the reduction, and each successive
-         * step of it should be returned by iteratee. The iteratee is passed four arguments:
-         * the memo, then the value and index (or key) of the iteration, and finally a reference
-         * to the entire collection.
-         *
-         * If no memo is passed to the initial invocation of reduce, the iteratee is not invoked
-         * on the first element of the collection. The first element is instead passed as the memo
-         * in the invocation of the iteratee on the next element in the collection.
-         * @param iteratee Reduce iteratee function for each element in the wrapped collection.
-         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
-         * @param context `this` object in `iteratee`, optional.
-         * @returns The reduced result.
-         **/
-        reduce<TResult>(iteratee: MemoCollectionIterator<T, TResult, V>, memo: TResult, context?: any): TResult;
+        reduce<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>,
+            memo?: undefined,
+            context?: any
+        ): TResult | TypeOfCollection<V> | undefined;
+        reduce<TResult>(iteratee: MemoCollectionIterator<T, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): TResult | undefined;
 
         /**
         * @see reduce
@@ -4280,18 +4227,16 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The reduced result.
          **/
-        reduceRight(iteratee: MemoCollectionIterator<T, T, V>, memo?: undefined, context?: any): T;
-
-        /**
-         * The right-associative version of reduce.
-         *
-         * This is not as useful in JavaScript as it would be in a language with lazy evaluation.
-         * @param iteratee Reduce iteratee function for each element in the wrapped collection.
-         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
-         * @param context `this` object in `iteratee`, optional.
-         * @returns The reduced result.
-         **/
-        reduceRight<TResult>(iteratee: MemoCollectionIterator<T, TResult, V>, memo: TResult, context?: any): TResult;
+        reduceRight<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>,
+            memo?: undefined,
+            context?: any
+        ): TResult | TypeOfCollection<V> | undefined;
+        reduceRight<TResult>(
+            iteratee: MemoCollectionIterator<T, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): TResult | undefined;
 
         /**
         * @see reduceRight
@@ -5237,24 +5182,16 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The reduced result in a chain wraper.
          **/
-        reduce(iteratee: MemoCollectionIterator<T, T, V>, memo?: undefined, context?: any): _ChainSingle<T>;
-
-        /**
-         * Also known as inject and foldl, reduce boils down a collection of wrapped values into a
-         * single value. Memo is the initial state of the reduction, and each successive
-         * step of it should be returned by iteratee. The iteratee is passed four arguments:
-         * the memo, then the value and index (or key) of the iteration, and finally a reference
-         * to the entire collection.
-         *
-         * If no memo is passed to the initial invocation of reduce, the iteratee is not invoked
-         * on the first element of the collection. The first element is instead passed as the memo
-         * in the invocation of the iteratee on the next element in the collection.
-         * @param iteratee Reduce iteratee function for each element in `list`.
-         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
-         * @param context `this` object in `iteratee`, optional.
-         * @returns The reduced result in a chain wraper.
-         **/
-        reduce<TResult>(iteratee: MemoCollectionIterator<T, TResult, V>, memo: TResult, context?: any): _ChainSingle<TResult>;
+        reduce<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>,
+            memo?: undefined,
+            context?: any
+        ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
+        reduce<TResult>(
+            iteratee: MemoCollectionIterator<T, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): _ChainSingle<TResult | undefined>;
 
         /**
         * @see reduce
@@ -5275,18 +5212,16 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The reduced result in a chain wrapper.
          **/
-        reduceRight(iteratee: MemoCollectionIterator<T, T, V>, memo?: undefined, context?: any): _ChainSingle<T>;
-
-        /**
-         * The right-associative version of reduce.
-         *
-         * This is not as useful in JavaScript as it would be in a language with lazy evaluation.
-         * @param iteratee Reduce iteratee function for each element in the wrapped collection.
-         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
-         * @param context `this` object in `iteratee`, optional.
-         * @returns The reduced result in a chain wrapper.
-         **/
-        reduceRight<TResult>(iteratee: MemoCollectionIterator<T, TResult, V>, memo: TResult, context?: any): _ChainSingle<TResult>;
+        reduceRight<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>,
+            memo?: undefined,
+            context?: any
+        ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
+        reduceRight<TResult>(
+            iteratee: MemoCollectionIterator<T, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): _ChainSingle<TResult | undefined>;
 
         /**
         * @see reduceRight
