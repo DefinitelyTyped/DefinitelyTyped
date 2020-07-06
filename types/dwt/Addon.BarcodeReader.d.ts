@@ -60,7 +60,7 @@ export interface TextResult {
     /**
      * Detailed result information.
      */
-    detailedResult: any | null;
+    detailedResult: any;
     /**
      * The corresponding localization result.
      */

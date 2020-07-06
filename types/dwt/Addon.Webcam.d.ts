@@ -3,8 +3,8 @@ import { WebTwain } from "./WebTwain";
 
 export interface Webcam {
     /**
-    * Return whether the Webcam module has been installed.
-    */
+     * Return whether the Webcam module has been installed.
+     */
     IsModuleInstalled(): boolean;
     /**
      * Capture an image from the current camera.
@@ -172,7 +172,9 @@ export interface MediaType {
      * Return the current media type.
      */
     GetCurrent(): string;
-    //internal
+    /**
+     * internal use
+     */
     _resultlist: any;
 }
 export interface Resolution {

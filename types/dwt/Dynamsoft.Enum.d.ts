@@ -166,7 +166,7 @@ export declare namespace DynamsoftEnums {
         OCRFT_WHOLEWORD = 1,
         OCRFT_MATCHCASE = 2,
         OCRFT_FUZZYMATCH = 4
-        //OCRFT_BACKWARD= 8
+        // OCRFT_BACKWARD= 8
     }
     /** OCRPro Find Text Action */
     enum EnumDWT_OCRFindTextAction {
@@ -228,9 +228,12 @@ export declare namespace DynamsoftEnums {
     }
     /** Specifies video properties on a video capture device. */
     enum EnumDWT_VideoProperty {
-        /** Specifies the brightness, also called the black level. For NTSC, the value is expressed in IRE units * 100.
-         *  For non-NTSC sources, the units are arbitrary, with zero representing blanking and 10,000 representing pure white.
-         *  Values range from -10,000 to 10,000.
+        /**
+         * Specifies the brightness, also called the black level.
+         * For NTSC, the value is expressed in IRE units * 100.
+         * For non-NTSC sources, the units are arbitrary, with zero
+         * representing blanking and 10,000 representing pure white.
+         * Values range from -10,000 to 10,000.
          */
         VP_BRIGHTNESS = 0,
         /** Specifies the contrast, expressed as gain factor * 100. Values range from zero to 10,000. */
@@ -249,44 +252,52 @@ export declare namespace DynamsoftEnums {
         VP_WHITEBALANCE = 7,
         /** Specifies the backlight compensation setting. Possible values are 0 (off) and 1 (on). */
         VP_BACKLIGHTCOMPENSATION = 8,
-        /** Specifies the gain adjustment. Zero is normal. Positive values are brighter and negative values are darker.
-         *  The range of values depends on the device.
+        /**
+         * Specifies the gain adjustment. Zero is normal.
+         * Positive values are brighter and negative values are darker.
+         * The range of values depends on the device.
          */
         VP_GAIN = 9
     }
 
     /** Specifies a setting on a camera. */
     enum EnumDWT_CameraControlProperty {
-        /** Specifies the camera's pan setting, in degrees. Values range from -180 to +180, with the default set to zero.
-         *  Positive values are clockwise from the origin (the camera rotates clockwise when viewed from above),
-         *  and negative values are counterclockwise from the origin.
+        /**
+         * Specifies the camera's pan setting, in degrees.
+         * Values range from -180 to +180, with the default set to zero.
+         * Positive values are clockwise from the origin (the camera rotates clockwise when viewed from above),
+         * and negative values are counterclockwise from the origin.
          */
         CCP_PAN = 0,
-        /** Specifies the camera's tilt setting, in degrees. Values range from -180 to +180, with the default set to zero.
-         *  Positive values point the imaging plane up, and negative values point the imaging plane down.
+        /**
+         * Specifies the camera's tilt setting, in degrees. Values range from -180 to +180, with the default set to zero.
+         * Positive values point the imaging plane up, and negative values point the imaging plane down.
          */
         CCP_TILT = 1,
-        /** Specifies the camera's roll setting, in degrees. Values range from -180 to +180, with the default set to zero.
-         *  Positive values cause a clockwise rotation of the camera along the image-viewing axis, and negative values cause a counterclockwise rotation of the camera.
+        /**
+         * Specifies the camera's roll setting, in degrees. Values range from -180 to +180, with the default set to zero.
+         * Positive values cause a clockwise rotation of the camera along the image-viewing axis, and negative values cause a counterclockwise rotation of the camera.
          */
         CCP_ROLL = 2,
         /** Specifies the camera's zoom setting, in millimeters. Values range from 10 to 600, and the default is specific to the device. */
         CCP_ZOOM = 3,
-        /** Specifies the exposure setting, in log base 2 seconds. In other words, for values less than zero, the exposure time is 1/2^n seconds,
-         *  and for values zero or above, the exposure time is 2^n seconds. For example:
-         *  Value    Seconds
-         *  -3    1/8
-         *  -2    1/4
-         *  -1    1/2
-         *  0    1
-         *  1    2
-         *  2    4
+        /**
+         * Specifies the exposure setting, in log base 2 seconds. In other words, for values less than zero, the exposure time is 1/2^n seconds,
+         * and for values zero or above, the exposure time is 2^n seconds. For example:
+         * Value    Seconds
+         * -3    1/8
+         * -2    1/4
+         * -1    1/2
+         * 0    1
+         * 1    2
+         * 2    4
          */
         CCP_EXPOSURE = 4,
         /** Specifies the camera's iris setting, in units of fstop* 10. */
         CCP_IRIS = 5,
-        /** Specifies the camera's focus setting, as the distance to the optimally focused target, in millimeters.
-         *  The range and default value are specific to the device.
+        /**
+         * Specifies the camera's focus setting, as the distance to the optimally focused target, in millimeters.
+         * The range and default value are specific to the device.
          */
         CCP_FOCUS = 6
     }
@@ -305,17 +316,19 @@ export declare namespace DynamsoftEnums {
         CAP_NONE = 0,
         /** The application is willing to accept this number of images. */
         CAP_XFERCOUNT = 1,
-        /** Allows the application and Source to identify which compression schemes they have in
-         *  common for Buffered Memory and File transfers.
-         *  Note for File transfers:
-         *  Since only certain file formats support compression, this capability must be negotiated after
-         *  setting the desired file format with ICAP_IMAGEFILEFORMAT.
+        /**
+         * Allows the application and Source to identify which compression schemes they have in
+         * common for Buffered Memory and File transfers.
+         * Note for File transfers:
+         * Since only certain file formats support compression, this capability must be negotiated after
+         * setting the desired file format with ICAP_IMAGEFILEFORMAT.
          */
         ICAP_COMPRESSION = 256,
         /** The type of pixel data that a Source is capable of acquiring (for example, black and white, gray, RGB, etc.). */
         ICAP_PIXELTYPE = 257,
-        /** Unless a quantity is dimensionless or uses a specified unit of measure, ICAP_UNITS determines
-         *  the unit of measure for all quantities.
+        /**
+         * Unless a quantity is dimensionless or uses a specified unit of measure, ICAP_UNITS determines
+         * the unit of measure for all quantities.
          */
         ICAP_UNITS = 258,
         /** Allows the application and Source to identify which transfer mechanisms the source supports. */
@@ -324,123 +337,142 @@ export declare namespace DynamsoftEnums {
         CAP_AUTHOR = 4096,
         /** A general note about the acquired image. */
         CAP_CAPTION = 4097,
-        /** If TRUE, Source must acquire data from the document feeder acquire area and other feeder
-         *  capabilities can be used. If FALSE, Source must acquire data from the non-feeder acquire area
-         *  and no other feeder capabilities can be used.
+        /**
+         * If TRUE, Source must acquire data from the document feeder acquire area and other feeder
+         * capabilities can be used. If FALSE, Source must acquire data from the non-feeder acquire area
+         * and no other feeder capabilities can be used.
          */
         CAP_FEEDERENABLED = 4098,
         /** Reflect whether there are documents loaded in the Source's feeder. */
         CAP_FEEDERLOADED = 4099,
-        /** The date and time the image was acquired.
-         *  Stored in the form "YYYY/MM/DD HH:mm:SS.sss" where YYYY is the year, MM is the
-         *  numerical month, DD is the numerical day, HH is the hour, mm is the minute, SS is the second,
-         *  and sss is the millisecond.
+        /**
+         * The date and time the image was acquired.
+         * Stored in the form "YYYY/MM/DD HH:mm:SS.sss" where YYYY is the year, MM is the
+         * numerical month, DD is the numerical day, HH is the hour, mm is the minute, SS is the second,
+         * and sss is the millisecond.
          */
         CAP_TIMEDATE = 4100,
-        /** Returns a list of all the capabilities for which the Source will answer inquiries. Does not indicate
-         *  which capabilities the Source will allow to be set by the application. Some capabilities can only
-         *  be set if certain setup work has been done so the Source cannot globally answer which
-         *  capabilities are "set-able."
+        /**
+         * Returns a list of all the capabilities for which the Source will answer inquiries. Does not indicate
+         * which capabilities the Source will allow to be set by the application. Some capabilities can only
+         * be set if certain setup work has been done so the Source cannot globally answer which
+         * capabilities are "set-able."
          */
         CAP_SUPPORTEDCAPS = 4101,
         /** Allows the application and Source to negotiate capabilities to be used in States 5 and 6. */
         CAP_EXTENDEDCAPS = 4102,
-        /** If TRUE, the Source will automatically feed the next page from the document feeder after the
-         *  number of frames negotiated for capture from each page are acquired. CAP_FEEDERENABLED
-         *  must be TRUE to use this capability.
+        /**
+         * If TRUE, the Source will automatically feed the next page from the document feeder after the
+         * number of frames negotiated for capture from each page are acquired. CAP_FEEDERENABLED
+         * must be TRUE to use this capability.
          */
         CAP_AUTOFEED = 4103,
-        /** If TRUE, the Source will eject the current page being acquired from and will leave the feeder
-         *  acquire area empty.
-         *  If CAP_AUTOFEED is TRUE, a fresh page will be advanced.
-         *  CAP_FEEDERENABLED must equal TRUE to use this capability.
-         *  This capability must have been negotiated as an extended capability to be used in States 5 and 6.
+        /**
+         * If TRUE, the Source will eject the current page being acquired from and will leave the feeder
+         * acquire area empty.
+         * If CAP_AUTOFEED is TRUE, a fresh page will be advanced.
+         * CAP_FEEDERENABLED must equal TRUE to use this capability.
+         * This capability must have been negotiated as an extended capability to be used in States 5 and 6.
          */
         CAP_CLEARPAGE = 4104,
-        /** If TRUE, the Source will eject the current page and advance the next page in the document feeder
-         *  into the feeder acquire area.
-         *  If CAP_AUTOFEED is TRUE, the same action just described will occur and CAP_AUTOFEED will
-         *  remain active.
-         *  CAP_FEEDERENABLED must equal TRUE to use this capability.
-         *  This capability must have been negotiated as an extended capability to be used in States 5 and 6.
+        /**
+         * If TRUE, the Source will eject the current page and advance the next page in the document feeder
+         * into the feeder acquire area.
+         * If CAP_AUTOFEED is TRUE, the same action just described will occur and CAP_AUTOFEED will
+         * remain active.
+         * CAP_FEEDERENABLED must equal TRUE to use this capability.
+         * This capability must have been negotiated as an extended capability to be used in States 5 and 6.
          */
         CAP_FEEDPAGE = 4105,
-        /** If TRUE, the Source will return the current page to the input side of the document feeder and
-         *  feed the last page from the output side of the feeder back into the acquisition area.
-         *  If CAP_AUTOFEED is TRUE, automatic feeding will continue after all negotiated frames from this
-         *  page are acquired.
-         *  CAP_FEEDERENABLED must equal TRUE to use this capability.
-         *  This capability must have been negotiated as an extended capability to be used in States 5 and 6.
+        /**
+         * If TRUE, the Source will return the current page to the input side of the document feeder and
+         * feed the last page from the output side of the feeder back into the acquisition area.
+         * If CAP_AUTOFEED is TRUE, automatic feeding will continue after all negotiated frames from this
+         * page are acquired.
+         * CAP_FEEDERENABLED must equal TRUE to use this capability.
+         * This capability must have been negotiated as an extended capability to be used in States 5 and 6.
          */
         CAP_REWINDPAGE = 4106,
-        /** If TRUE, the Source will display a progress indicator during acquisition and transfer, regardless
-         *  of whether the Source's user interface is active. If FALSE, the progress indicator will be
-         *  suppressed if the Source's user interface is inactive.
-         *  The Source will continue to display device-specific instructions and error messages even with
-         *  the Source user interface and progress indicators turned off.
+        /**
+         * If TRUE, the Source will display a progress indicator during acquisition and transfer, regardless
+         * of whether the Source's user interface is active. If FALSE, the progress indicator will be
+         * suppressed if the Source's user interface is inactive.
+         * The Source will continue to display device-specific instructions and error messages even with
+         * the Source user interface and progress indicators turned off.
          */
         CAP_INDICATORS = 4107,
-        /** Returns a list of all the capabilities for which the Source will answer inquiries. Does not indicate
-         *  which capabilities the Source will allow to be set by the application. Some capabilities can only
-         *  be set if certain setup work has been done so the Source cannot globally answer which
-         *  capabilities are "set-able."
+        /**
+         * Returns a list of all the capabilities for which the Source will answer inquiries. Does not indicate
+         * which capabilities the Source will allow to be set by the application. Some capabilities can only
+         * be set if certain setup work has been done so the Source cannot globally answer which
+         * capabilities are "set-able."
          */
         CAP_SUPPORTEDCAPSEXT = 4108,
         /** This capability determines whether the device has a paper sensor that can detect documents on the ADF or Flatbed. */
         CAP_PAPERDETECTABLE = 4109,
-        /** If TRUE, indicates that this Source supports acquisition with the UI disabled; i.e.,
-         *  TW_USERINTERFACE's ShowUI field can be set to FALSE. If FALSE, indicates that this Source
-         *  can only support acquisition with the UI enabled.
+        /**
+         * If TRUE, indicates that this Source supports acquisition with the UI disabled; i.e.,
+         * TW_USERINTERFACE's ShowUI field can be set to FALSE. If FALSE, indicates that this Source
+         * can only support acquisition with the UI enabled.
          */
         CAP_UICONTROLLABLE = 4110,
-        /** If TRUE, the physical hardware (e.g., scanner, digital camera, image database, etc.) that
-         *  represents the image source is attached, powered on, and communicating.
+        /**
+         * If TRUE, the physical hardware (e.g., scanner, digital camera, image database, etc.) that
+         * represents the image source is attached, powered on, and communicating.
          */
         CAP_DEVICEONLINE = 4111,
-        /** This capability is intended to boost the performance of a Source. The fundamental assumption
-         *  behind AutoScan is that the device is able to capture the number of images indicated by the
-         *  value of CAP_XFERCOUNT without waiting for the Application to request the image transfers.
-         *  This is only possible if the device has internal buffers capable of caching the images it captures.
-         *  The default behavior is undefined, because some high volume devices are incapable of anything
-         *  but CAP_AUTOSCAN being equal to TRUE. However, if a Source supports FALSE, it should use it
-         *  as the mandatory default, since this best describes the behavior of pre-1.8 TWAIN Applications.
+        /**
+         * This capability is intended to boost the performance of a Source. The fundamental assumption
+         * behind AutoScan is that the device is able to capture the number of images indicated by the
+         * value of CAP_XFERCOUNT without waiting for the Application to request the image transfers.
+         * This is only possible if the device has internal buffers capable of caching the images it captures.
+         * The default behavior is undefined, because some high volume devices are incapable of anything
+         * but CAP_AUTOSCAN being equal to TRUE. However, if a Source supports FALSE, it should use it
+         * as the mandatory default, since this best describes the behavior of pre-1.8 TWAIN Applications.
          */
         CAP_AUTOSCAN = 4112,
-        /** Allows an application to request the delivery of thumbnail representations for the set of images
-         *  that are to be delivered.
-         *  Setting CAP_THUMBNAILSENABLED to TRUE turns on thumbnail mode. Images transferred
-         *  thereafter will be sent at thumbnail size (exact thumbnail size is determined by the Data Source).
-         *  Setting this capability to FALSE turns thumbnail mode off and returns full size images.
+        /**
+         * Allows an application to request the delivery of thumbnail representations for the set of images
+         * that are to be delivered.
+         * Setting CAP_THUMBNAILSENABLED to TRUE turns on thumbnail mode. Images transferred
+         * thereafter will be sent at thumbnail size (exact thumbnail size is determined by the Data Source).
+         * Setting this capability to FALSE turns thumbnail mode off and returns full size images.
          */
         CAP_THUMBNAILSENABLED = 4113,
-        /** This indicates whether the scanner supports duplex. If so, it further indicates whether one-path
-         *  or two-path duplex is supported.
+        /**
+         * This indicates whether the scanner supports duplex. If so, it further indicates whether one-path
+         * or two-path duplex is supported.
          */
         CAP_DUPLEX = 4114,
-        /** The user can set the duplex option to be TRUE or FALSE. If TRUE, the scanner scans both sides
-         *  of a paper; otherwise, the scanner will scan only one side of the image.
+        /**
+         * The user can set the duplex option to be TRUE or FALSE. If TRUE, the scanner scans both sides
+         * of a paper; otherwise, the scanner will scan only one side of the image.
          */
         CAP_DUPLEXENABLED = 4115,
         /** Allows an application to query a source to see if it implements the new user interface settings dialog.  */
         CAP_ENABLEDSUIONLY = 4116,
         CAP_CUSTOMDSDATA = 4117,
-        /** Allows the application to specify the starting endorser / imprinter number. All other endorser/
-         *  imprinter properties should be handled through the data source's user interface.
-         *  The user can set the starting number for the endorser.
+        /**
+         * Allows the application to specify the starting endorser / imprinter number. All other endorser/
+         * imprinter properties should be handled through the data source's user interface.
+         * The user can set the starting number for the endorser.
          */
         CAP_ENDORSER = 4118,
         /** Turns specific audible alarms on and off. */
         CAP_ALARMS = 4120,
-        /** The volume of a device's audible alarm. Note that this control affects the volume of all alarms;
-         *  no specific volume control for individual types of alarms is provided.
+        /**
+         * The volume of a device's audible alarm. Note that this control affects the volume of all alarms;
+         * no specific volume control for individual types of alarms is provided.
          */
         CAP_ALARMVOLUME = 4121,
-        /** The number of images to automatically capture. This does not refer to the number of images to
-         *  be sent to the Application, use CAP_XFERCOUNT for that.
+        /**
+         * The number of images to automatically capture. This does not refer to the number of images to
+         * be sent to the Application, use CAP_XFERCOUNT for that.
          */
         CAP_AUTOMATICCAPTURE = 4122,
-        /** For automatic capture, this value selects the number of milliseconds before the first picture is to
-         *  be taken, or the first image is to be scanned.
+        /**
+         * For automatic capture, this value selects the number of milliseconds before the first picture is to
+         * be taken, or the first image is to be scanned.
          */
         CAP_TIMEBEFOREFIRSTCAPTURE = 4123,
         /** For automatic capture, this value selects the milliseconds to wait between pictures taken, or images scanned. */
@@ -449,68 +481,77 @@ export declare namespace DynamsoftEnums {
         CAP_CLEARBUFFERS = 4125,
         /** Describes the number of pages that the scanner can buffer when CAP_AUTOSCAN is enabled. */
         CAP_MAXBATCHBUFFERS = 4126,
-        /** The date and time of the device's clock.
-         *  Managed in the form "YYYY/MM/DD HH:mm:SS:sss" where YYYY is the year, MM is the
-         *  numerical month, DD is the numerical day, HH is the hour, mm is the minute, SS is the second,
-         *  and sss is the millisecond.
+        /**
+         * The date and time of the device's clock.
+         * Managed in the form "YYYY/MM/DD HH:mm:SS:sss" where YYYY is the year, MM is the
+         * numerical month, DD is the numerical day, HH is the hour, mm is the minute, SS is the second,
+         * and sss is the millisecond.
          */
         CAP_DEVICETIMEDATE = 4127,
         /** CapGet() reports the kinds of power available to the device. CapGetCurrent() reports the current power supply in use. */
         CAP_POWERSUPPLY = 4128,
         /** This capability queries the Source for UI support for preview mode. If TRUE, the Source supports preview UI. */
         CAP_CAMERAPREVIEWUI = 4129,
-        /** A string containing the serial number of the currently selected device in the Source. Multiple
-         *  devices may all report the same serial number.
+        /**
+         * A string containing the serial number of the currently selected device in the Source. Multiple
+         * devices may all report the same serial number.
          */
         CAP_SERIALNUMBER = 4132,
-        /** CapGet() returns the current list of available printer devices, along with the one currently being used for negotiation.
-         *  CapSet() selects the current device for negotiation, and optionally constrains the list.
-         *  Top/Bottom refers to duplex devices, and indicates if the printer is writing on the top or the bottom of the sheet of paper.
-         *  Simplex devices use the top settings. Before/After indicates whether printing occurs before or after the sheet of paper has been scanned.
+        /**
+         * CapGet() returns the current list of available printer devices, along with the one currently being used for negotiation.
+         * CapSet() selects the current device for negotiation, and optionally constrains the list.
+         * Top/Bottom refers to duplex devices, and indicates if the printer is writing on the top or the bottom of the sheet of paper.
+         * Simplex devices use the top settings. Before/After indicates whether printing occurs before or after the sheet of paper has been scanned.
          */
         CAP_PRINTER = 4134,
         /** Turns the current CAP_PRINTER device on or off. */
         CAP_PRINTERENABLED = 4135,
         /** The User can set the starting number for the current CAP_PRINTER device. */
         CAP_PRINTERINDEX = 4136,
-        /** Specifies the appropriate current CAP_PRINTER device mode.
-         *  Note:
-         *  O TWPM_SINGLESTRING specifies that the printed text will consist of a single string.
-         *  O TWPM _MULTISTRING specifies that the printed text will consist of an enumerated list of
-         *  strings to be printed in order.
-         *  O TWPM _COMPOUNDSTRING specifies that the printed string will consist of a compound of a
-         *  String followed by a value followed by a suffix string.
+        /**
+         * Specifies the appropriate current CAP_PRINTER device mode.
+         * Note:
+         * O TWPM_SINGLESTRING specifies that the printed text will consist of a single string.
+         * O TWPM _MULTISTRING specifies that the printed text will consist of an enumerated list of
+         * strings to be printed in order.
+         * O TWPM _COMPOUNDSTRING specifies that the printed string will consist of a compound of a
+         * String followed by a value followed by a suffix string.
          */
         CAP_PRINTERMODE = 4137,
-        /** Specifies the string(s) that are to be used in the string component when the current
-         *  CAP_PRINTER device is enabled.
+        /**
+         * Specifies the string(s) that are to be used in the string component when the current
+         * CAP_PRINTER device is enabled.
          */
         CAP_PRINTERSTRING = 4138,
         /** Specifies the string that shall be used as the current CAP_PRINTER device's suffix. */
         CAP_PRINTERSUFFIX = 4139,
-        /** Allows Application and Source to identify which languages they have in common for the exchange of string data,
-         *  and to select the language of the internal UI. Since the TWLG_xxxx codes include language and country data, there is no separate
-         *  capability for selecting the country.
+        /**
+         * Allows Application and Source to identify which languages they have in common for the exchange of string data,
+         * and to select the language of the internal UI. Since the TWLG_xxxx codes include language and country data, there is no separate
+         * capability for selecting the country.
          */
         CAP_LANGUAGE = 4140,
-        /** Helps the Application determine any special actions it may need to take when negotiating
-         *  frames with the Source. Allowed values are listed in <see cref="TWCapFeederAlignment"/>.
-         *  TWFA_NONE: The alignment is free-floating. Applications should assume
-         *  that the origin for frames is on the left.
-         *  TWFA_LEFT: The alignment is to the left.
-         *  TWFA_CENTER: The alignment is centered. This means that the paper will
-         *  be fed in the middle of the ICAP_PHYSICALWIDTH of the
-         *  device. If this is set, then the Application should calculate
-         *  any frames with a left offset of zero.
-         *  TWFA_RIGHT: The alignment is to the right.
+        /**
+         * Helps the Application determine any special actions it may need to take when negotiating
+         * frames with the Source. Allowed values are listed in <see cref="TWCapFeederAlignment"/>.
+         * TWFA_NONE: The alignment is free-floating. Applications should assume
+         * that the origin for frames is on the left.
+         * TWFA_LEFT: The alignment is to the left.
+         * TWFA_CENTER: The alignment is centered. This means that the paper will
+         * be fed in the middle of the ICAP_PHYSICALWIDTH of the
+         * device. If this is set, then the Application should calculate
+         * any frames with a left offset of zero.
+         * TWFA_RIGHT: The alignment is to the right.
          */
         CAP_FEEDERALIGNMENT = 4141,
-        /** TWFO_FIRSTPAGEFIRST if the feeder starts with the top of the first page.
-         *  TWFO_LASTPAGEFIRST is the feeder starts with the top of the last page.
+        /**
+         * TWFO_FIRSTPAGEFIRST if the feeder starts with the top of the first page.
+         * TWFO_LASTPAGEFIRST is the feeder starts with the top of the last page.
          */
         CAP_FEEDERORDER = 4142,
-        /** Indicates whether the physical hardware (e.g. scanner, digital camera) is capable of acquiring
-         *  multiple images of the same page without changes to the physical registration of that page.
+        /**
+         * Indicates whether the physical hardware (e.g. scanner, digital camera) is capable of acquiring
+         * multiple images of the same page without changes to the physical registration of that page.
          */
         CAP_REACQUIREALLOWED = 4144,
         /** The minutes of battery power remaining to the device. */

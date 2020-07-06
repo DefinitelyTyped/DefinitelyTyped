@@ -11,9 +11,6 @@ export interface WebTwainAcquire extends WebTwainEdit {
      * @argument errorString The error string.
      */
     AcquireImage(
-        deviceConfiguration?: DeviceConfiguration
-    ): void;
-    AcquireImage(
         successCallBack?: () => void,
         failureCallBack?: (
             errorCode: number,
@@ -152,7 +149,9 @@ export interface WebTwainAcquire extends WebTwainEdit {
         fileFormat: Dynamsoft.EnumDWT_FileFormat | number
     ): boolean;
     /**
-     * Set the left, top, right, and bottom sides of the image layout rectangle for the current data source. The image layout rectangle defines a frame of the data source's scanning area to be acquired.
+     * Set the left, top, right, and bottom sides of the image layout
+     * rectangle for the current data source. The image layout rectangle
+     * defines a frame of the data source's scanning area to be acquired.
      * @param left Specify the rectangle (leftmost coordinate).
      * @param top Specify the rectangle (topmost coordinate).
      * @param right Specify the rectangle (rightmost coordinate).
@@ -385,22 +384,31 @@ export interface WebTwainAcquire extends WebTwainEdit {
      */
     Capability: Dynamsoft.EnumDWT_Cap;
     /**
-     * [Deprecation] Return or set the index (0-based) of a list to indicate the Current Value when the value of the CapType property is TWON_ENUMERATION. If the data type of the capability is String, the list is in CapItemsString property. For other data types, the list is in CapItems property. This is a runtime property.
+     * [Deprecation] Return or set the index (0-based) of
+     * a list to indicate the Current Value when the value of
+     * the CapType property is TWON_ENUMERATION. If the data type
+     * of the capability is String, the list is in CapItemsString property.
+     * For other data types, the list is in CapItems property. This is a runtime property.
      * [Alternative] Use getCapabilities() and setCapabilities() instead.
      */
     CapCurrentIndex: number;
     /**
-     * [Deprecation] Return or set the current value in a range when the value of the CapType property is TWON_RANGE. This is a runtime property.
+     * [Deprecation] Return or set the current value in a range when the
+     * value of the CapType property is TWON_RANGE. This is a runtime property.
      * [Alternative] Use getCapabilities() and setCapabilities() instead.
      */
     CapCurrentValue: number;
     /**
-     * [Deprecation] Return the index (0-based) of a list to indicate the Default Value when the value of the CapType property is TWON_ENUMERATION. If the data type of the capability is String, the list is in CapItemsString property. For other data types, the list is in CapItems property. This is a runtime, read-only property.
+     * [Deprecation] Return the index (0-based) of a list to indicate the
+     * Default Value when the value of the CapType property is TWON_ENUMERATION.
+     * If the data type of the capability is String, the list is in CapItemsString property.
+     *  For other data types, the list is in CapItems property. This is a runtime, read-only property.
      * [Alternative] Use getCapabilities() and setCapabilities() instead.
      */
     readonly CapDefaultIndex: number;
     /**
-     * [Deprecation] Return the default value in a range when the value of the CapType property is TWON_RANGE. This is a runtime, read-only property.
+     * [Deprecation] Return the default value in a range when the value of the
+     * CapType property is TWON_RANGE. This is a runtime, read-only property.
      * [Alternative] Use getCapabilities() and setCapabilities() instead.
      */
     CapDefaultValue: number;
@@ -410,41 +418,54 @@ export interface WebTwainAcquire extends WebTwainEdit {
      */
     CapDescription: string;
     /**
-     * [Deprecation] Return or set the maximum value in a range when the value of the CapType property is TWON_RANGE. This is a runtime property.
+     * [Deprecation] Return or set the maximum value in a range when the
+     * value of the CapType property is TWON_RANGE. This is a runtime property.
      * [Alternative] Use getCapabilities() and setCapabilities() instead.
      */
     CapMaxValue: number;
     /**
-     * [Deprecation] Return or set the minimum value in a range when the value of the CapType property is TWON_RANGE. This is a runtime property.
+     * [Deprecation] Return or set the minimum value in a range when the
+     * value of the CapType property is TWON_RANGE. This is a runtime property.
      * [Alternative] Use getCapabilities() and setCapabilities() instead.
      */
     CapMinValue: number;
     /**
-     * [Deprecation] Return or set how many items are in the list when the value of the CapType property is TWON_ARRAY or TWON_ENUMERATION. For String data type, the list is in CapItemsString property. For other data types, the list is in CapItems property. This is a runtime property.
+     * [Deprecation] Return or set how many items are in the list when the
+     *  value of the CapType property is TWON_ARRAY or TWON_ENUMERATION.
+     * For String data type, the list is in CapItemsString property.
+     * For other data types, the list is in CapItems property.
+     * This is a runtime property.
      * [Alternative] Use getCapabilities() and setCapabilities() instead.
      */
     CapNumItems: number;
     /**
-     * [Deprecation] Return or set the step size in a range when the value of the CapType property is TWON_RANGE. This is a runtime property.
+     * [Deprecation] Return or set the step size in a range when the value
+     * of the CapType property is TWON_RANGE. This is a runtime property.
      * [Alternative] Use getCapabilities() and setCapabilities() instead.
      */
     CapStepSize: number;
     /**
-     * [Deprecation] Return or set the type of capability container used to exchange capability information between application and source. This is a runtime property.
+     * [Deprecation] Return or set the type of capability container used
+     * to exchange capability information between application and source.
+     * This is a runtime property.
      */
     CapType: Dynamsoft.EnumDWT_CapType;
     /**
-     * [Deprecation] Return or set the value of the capability specified by Capability property when the value of the CapType property is TWON_ONEVALUE. This is a runtime property.
+     * [Deprecation] Return or set the value of the capability specified by
+     *  Capability property when the value of the CapType property is TWON_ONEVALUE.
+     * This is a runtime property.
      * [Alternative] Use getCapabilities() and setCapabilities() instead.
      */
     CapValue: number;
     /**
-     * [Deprecation] Return or set the string value for a capability when the value of the CapType property is TWON_ONEVALUE. This is a runtime property.
+     * [Deprecation] Return or set the string value for a capability when the
+     * value of the CapType property is TWON_ONEVALUE. This is a runtime property.
      * [Alternative] Use getCapabilities() and setCapabilities() instead.
      */
     CapValueString: string;
     /**
-     * [Deprecation] Return or set the value type for reading the value of a capability. This is a runtime property.
+     * [Deprecation] Return or set the value type for reading the value of a capability.
+     *  This is a runtime property.
      * [Alternative] Use getCapabilities() and setCapabilities() instead.
      */
     CapValueType: number;
@@ -459,7 +480,8 @@ export interface WebTwainAcquire extends WebTwainEdit {
      */
     CapGetCurrent(): boolean;
     /**
-     * [Deprecation] Return the Source's Default Value for the specified capability. This is the Source's preferred default value.
+     * [Deprecation] Return the Source's Default Value for the specified capability.
+     * This is the Source's preferred default value.
      * [Alternative] Use getCapabilities() and setCapabilities() instead.
      */
     CapGetDefault(): boolean;
@@ -506,12 +528,14 @@ export interface WebTwainAcquire extends WebTwainEdit {
      */
     CapIfSupported(messageType: Dynamsoft.EnumDWT_MessageType): boolean;
     /**
-     * [Deprecation] Changes the Current Value of the capability specified by Capability property back to its power-on value.
+     * [Deprecation] Changes the Current Value of the capability specified by
+     * Capability property back to its power-on value.
      * [Alternative] Use getCapabilities() and setCapabilities() instead.
      */
     CapReset(): boolean;
     /**
-     * [Deprecation] Sets the current capability using the container type specified by CapType property. The current capability is specified by Capability property.
+     * [Deprecation] Sets the current capability using the container type specified by
+     * CapType property. The current capability is specified by Capability property.
      * [Alternative] Use getCapabilities() and setCapabilities() instead.
      */
     CapSet(): boolean;
@@ -526,13 +550,15 @@ export interface WebTwainAcquire extends WebTwainEdit {
      */
     CapSetFrame(index: number, left: number, top: number, right: number, bottom: number): boolean;
     /**
-     * Get the cap item value of the capability specified by Capability property, when the value of the CapType property is TWON_ARRAY or TWON_ENUMERATION.
+     * Get the cap item value of the capability specified by Capability property,
+     * when the value of the CapType property is TWON_ARRAY or TWON_ENUMERATION.
      * [Alternative] Use getCapabilities() and setCapabilities() instead.
      * @param index Index is 0-based. It is the index of the cap item.
      */
     GetCapItems(index: number): number;
     /**
-     * Returns the cap item value of the capability specified by Capability property, when the value of the CapType property is TWON_ARRAY or TWON_ENUMERATION.
+     * Returns the cap item value of the capability specified by Capability property,
+     * when the value of the CapType property is TWON_ARRAY or TWON_ENUMERATION.
      * [Alternative] Use getCapabilities() and setCapabilities() instead.
      * @param index Index is 0-based. It is the index of the cap item.
      */
@@ -544,7 +570,8 @@ export interface WebTwainAcquire extends WebTwainEdit {
      */
     SetCapItems(index: number, newVal: number): void;
     /**
-     * [Deprecation] Set the cap item value of the capability specified by Capability property, when the value of the CapType property is TWON_ARRAY or TWON_ENUMERATION.
+     * [Deprecation] Set the cap item value of the capability specified by Capability property,
+     * when the value of the CapType property is TWON_ARRAY or TWON_ENUMERATION.
      * [Alternative] Use getCapabilities() and setCapabilities() instead.
      * @param index Index is 0-based. It is the index of the cap item.
      * @param newVal The new value to be set.

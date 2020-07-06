@@ -23,8 +23,8 @@ export interface PDF {
      */
     GetConvertMode(): number;
     /**
-    * Return whether the PDF module has been installed.
-    */
+     * Return whether the PDF module has been installed.
+     */
     IsModuleInstalled(): boolean;
     /**
      * Detect whether a local PDF file is text based or not.

@@ -3,7 +3,7 @@ import { WebTwain } from "./WebTwain";
 import { Settings } from "./Addon.OCRPro";
 import { FileUploader } from "./Dynamsoft.FileUploader";
 
-export declare namespace DynamsoftStatic {
+export namespace DynamsoftStatic {
     let Lib: DynamsoftLib;
     let MSG: Messages;
     let WebTwainEnv: WebTwainEnv;
@@ -62,7 +62,8 @@ export interface DynamsoftLib {
 
     dlgLoadingShowStatus: boolean;
     product: Product;
-    /** The following Functions & Options are internal & ignored
+    /**
+     * The following Functions & Options are internal & ignored
      *
      * Addon_Events, Addon_Sendback_Events, Attributes, BGR2RGB, BIO, DOM,
      * DynamicLoadAddonFuns, DynamicWebTwain, EnumMouseButton, Errors,
@@ -97,7 +98,8 @@ export interface DSLibDetect {
      */
     readonly ssl: boolean;
     readonly scriptLoaded: boolean;
-    /** The following Functions & Options are internal & ignored
+    /**
+     * The following Functions & Options are internal & ignored
      * OnCreatWS, OnDetectNext, StartWSByIPTimeoutId, StartWSTimeoutId,
      * aryReconnectSTwains, arySTwains, arySTwainsByIP, bFirst,
      * bNeedUpgradeEvent, bNoControlEvent, bOK, bPromptJSOrServerOutdated,
@@ -246,14 +248,14 @@ export interface WebTwainEnv {
      */
     CreateDWTObject(ContainerId: string, host: string, port: string | number, portSSL: string | number, successCallBack: (DWObject: WebTwain) => void, failureCallBack: (errorString: string) => void): void;
     /**
-       * Create a WebTwain instance with UI.
-       * @param ContainerId Specify the HTML element (typically of the type HTMLDivElement) to hold the UI.
-       * @param host Specify the host.
-       * @param port Specify the port.
-       * @param portSSL Specify the SSL port.
-       * @param successCallback A callback function that is executed if the request succeeds.
-       * @param failureCallback A callback function that is executed if the request fails.
-       */
+     * Create a WebTwain instance with UI.
+     * @param ContainerId Specify the HTML element (typically of the type HTMLDivElement) to hold the UI.
+     * @param host Specify the host.
+     * @param port Specify the port.
+     * @param portSSL Specify the SSL port.
+     * @param successCallback A callback function that is executed if the request succeeds.
+     * @param failureCallback A callback function that is executed if the request fails.
+     */
     CreateDWTObject(ContainerId: string, successCallBack: (DWObject: WebTwain) => void, failureCallBack: (errorString: string) => void): void;
     /**
      * Create a WebTwain instance without UI.

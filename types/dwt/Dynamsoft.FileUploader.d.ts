@@ -25,9 +25,9 @@ export interface UploadManager {
      */
     CreateJob(): Job;
     /**
-    * Start uploading (processing the specified job).
-    * @param job Specify the job.
-    */
+     * Start uploading (processing the specified job).
+     * @param job Specify the job.
+     */
     Run(job: Job): boolean;
     /**
      * Cancel a job.
