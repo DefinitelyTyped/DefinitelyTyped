@@ -1,4 +1,4 @@
-export declare namespace DynamsoftEnums {
+export namespace DynamsoftEnums {
     /** Barcode Format */
     enum EnumBarcodeFormat {
         BF_ALL = -32505857,
@@ -586,8 +586,9 @@ export declare namespace DynamsoftEnums {
         ICAP_CUSTHALFTONE = 4356,
         /** Specifies the exposure time used to capture the image, in seconds. */
         ICAP_EXPOSURETIME = 4357,
-        /** Describes the color characteristic of the subtractive filter applied to the image data. Multiple
-         *  filters may be applied to a single acquisition.
+        /**
+         * Describes the color characteristic of the subtractive filter applied to the image data.
+         * Multiple filters may be applied to a single acquisition.
          */
         ICAP_FILTER = 4358,
         /** Specifies whether or not the image was acquired using a flash. */
@@ -596,170 +597,197 @@ export declare namespace DynamsoftEnums {
         ICAP_GAMMA = 4360,
         /** A list of names of the halftone patterns available within the Source. */
         ICAP_HALFTONES = 4361,
-        /** Specifies which value in an image should be interpreted as the lightest "highlight." All values
-         *  "lighter" than this value will be clipped to this value. Whether lighter values are smaller or
-         *  larger can be determined by examining the Current value of ICAP_PIXELFLAVOR.
+        /**
+         * Specifies which value in an image should be interpreted as the lightest "highlight." All values
+         * "lighter" than this value will be clipped to this value. Whether lighter values are smaller or
+         * larger can be determined by examining the Current value of ICAP_PIXELFLAVOR.
          */
         ICAP_HIGHLIGHT = 4362,
-        /** Informs the application which file formats the Source can generate (CapGet()). Tells the Source which file formats the application can handle (CapSet()).
-         *  TWFF_TIFF Used for document
-         *  TWFF_PICT Native Macintosh
-         *  TWFF_BMP Native Microsoft
-         *  TWFF_XBM Used for document
-         *  TWFF_JFIF Wrapper for JPEG
-         *  TWFF_FPX FlashPix, used with digital
-         *  TWFF_TIFFMULTI Multi-page TIFF files
-         *  TWFF_PNG An image format standard intended for use on the web, replaces GIF
-         *  TWFF_SPIFF A standard from JPEG, intended to replace JFIF, also supports JBIG
-         *  TWFF_EXIF File format for use with digital cameras.
+        /**
+         * Informs the application which file formats the Source can generate (CapGet()). Tells the Source which file formats the application can handle (CapSet()).
+         * TWFF_TIFF Used for document
+         * TWFF_PICT Native Macintosh
+         * TWFF_BMP Native Microsoft
+         * TWFF_XBM Used for document
+         * TWFF_JFIF Wrapper for JPEG
+         * TWFF_FPX FlashPix, used with digital
+         * TWFF_TIFFMULTI Multi-page TIFF files
+         * TWFF_PNG An image format standard intended for use on the web, replaces GIF
+         * TWFF_SPIFF A standard from JPEG, intended to replace JFIF, also supports JBIG
+         * TWFF_EXIF File format for use with digital cameras.
          */
         ICAP_IMAGEFILEFORMAT = 4364,
         /** TRUE means the lamp is currently, or should be set to ON. Sources may not support CapSet() operations.  */
         ICAP_LAMPSTATE = 4365,
         /** Describes the general color characteristic of the light source used to acquire the image. */
         ICAP_LIGHTSOURCE = 4366,
-        /** Defines which edge of the "paper" the image's "top" is aligned with. This information is used to adjust the frames to match the
-         *  scanning orientation of the paper. For instance, if an ICAP_SUPPORTEDSIZE of TWSS_ISOA4 has been negotiated,
-         *  and ICAP_ORIENTATION is set to TWOR_LANDSCAPE, then the Source must rotate the frame it downloads to the scanner to reflect the
-         *  orientation of the paper. Please note that setting ICAP_ORIENTATION does not affect the values reported by ICAP_FRAMES;
-         *  it just causes the Source to use them in a different way. The upper-left of the image is defined as the location where both the primary and
-         *  secondary scans originate. (The X axis is the primary scan direction and the Y axis is the secondary scan direction.)
-         *  For a flatbed scanner, the light bar moves in the secondary scan direction. For a handheld scanner, the scanner is drug in the
-         *  secondary scan direction. For a digital camera, the secondary direction is the vertical axis when the viewed image is considered upright.
+        /**
+         * Defines which edge of the "paper" the image's "top" is aligned with. This information is used to adjust the frames to match the
+         * scanning orientation of the paper. For instance, if an ICAP_SUPPORTEDSIZE of TWSS_ISOA4 has been negotiated,
+         * and ICAP_ORIENTATION is set to TWOR_LANDSCAPE, then the Source must rotate the frame it downloads to the scanner to reflect the
+         * orientation of the paper. Please note that setting ICAP_ORIENTATION does not affect the values reported by ICAP_FRAMES;
+         * it just causes the Source to use them in a different way. The upper-left of the image is defined as the location where both the primary and
+         * secondary scans originate. (The X axis is the primary scan direction and the Y axis is the secondary scan direction.)
+         * For a flatbed scanner, the light bar moves in the secondary scan direction. For a handheld scanner, the scanner is drug in the
+         * secondary scan direction. For a digital camera, the secondary direction is the vertical axis when the viewed image is considered upright.
          */
         ICAP_ORIENTATION = 4368,
         /** The maximum physical width (X-axis) the Source can acquire (measured in units of ICAP_UNITS). */
         ICAP_PHYSICALWIDTH = 4369,
         /** The maximum physical height (Y-axis) the Source can acquire (measured in units of ICAP_UNITS). */
         ICAP_PHYSICALHEIGHT = 4370,
-        /** Specifies which value in an image should be interpreted as the darkest "shadow." All values
-         *  "darker" than this value will be clipped to this value.
+        /**
+         * Specifies which value in an image should be interpreted as the darkest "shadow." All values
+         * "darker" than this value will be clipped to this value.
          */
         ICAP_SHADOW = 4371,
         /** The list of frames the Source will acquire on each page. */
         ICAP_FRAMES = 4372,
-        /** The native optical resolution along the X-axis of the device being controlled by the Source. Most
-         *  devices will respond with a single value (TW_ONEVALUE).
-         *  This is NOT a list of all resolutions that can be generated by the device. Rather, this is the
-         *  resolution of the device's optics. Measured in units of pixels per unit as defined by
-         *  ICAP_UNITS (pixels per TWUN_PIXELS yields dimensionless data).
+        /**
+         * The native optical resolution along the X-axis of the device being controlled by the Source. Most
+         * devices will respond with a single value (TW_ONEVALUE).
+         * This is NOT a list of all resolutions that can be generated by the device. Rather, this is the
+         * resolution of the device's optics. Measured in units of pixels per unit as defined by
+         * ICAP_UNITS (pixels per TWUN_PIXELS yields dimensionless data).
          */
         ICAP_XNATIVERESOLUTION = 4374,
-        /** The native optical resolution along the Y-axis of the device being controlled by the Source.
-         *  Measured in units of pixels per unit as defined by ICAP_UNITS (pixels per TWUN_PIXELS
-         *  yields dimensionless data).
+        /**
+         * The native optical resolution along the Y-axis of the device being controlled by the Source.
+         * Measured in units of pixels per unit as defined by ICAP_UNITS (pixels per TWUN_PIXELS
+         * yields dimensionless data).
          */
         ICAP_YNATIVERESOLUTION = 4375,
-        /** All the X-axis resolutions the Source can provide.
-         *  Measured in units of pixels per unit as defined by ICAP_UNITS (pixels per TWUN_PIXELS
-         *  yields dimensionless data). That is, when the units are TWUN_PIXELS, both
-         *  ICAP_XRESOLUTION and ICAP_YRESOLUTION shall report 1 pixel/pixel. Some data sources
-         *  like to report the actual number of pixels that the device reports, but that response is more
-         *  appropriate in ICAP_PHYSICALHEIGHT and ICAP_PHYSICALWIDTH.
+        /**
+         * All the X-axis resolutions the Source can provide.
+         * Measured in units of pixels per unit as defined by ICAP_UNITS (pixels per TWUN_PIXELS
+         * yields dimensionless data). That is, when the units are TWUN_PIXELS, both
+         * ICAP_XRESOLUTION and ICAP_YRESOLUTION shall report 1 pixel/pixel. Some data sources
+         * like to report the actual number of pixels that the device reports, but that response is more
+         * appropriate in ICAP_PHYSICALHEIGHT and ICAP_PHYSICALWIDTH.
          */
         ICAP_XRESOLUTION = 4376,
-        /** All the Y-axis resolutions the Source can provide.
-         *  Measured in units of pixels per unit as defined by ICAP_UNITS (pixels per TWUN_PIXELS
-         *  yields dimensionless data). That is, when the units are TWUN_PIXELS, both
-         *  ICAP_XRESOLUTION and ICAP_YRESOLUTION shall report 1 pixel/pixel. Some data sources
-         *  like to report the actual number of pixels that the device reports, but that response is more
-         *  appropriate in ICAP_PHYSICALHEIGHT and ICAP_PHYSICALWIDTH.
+        /**
+         * All the Y-axis resolutions the Source can provide.
+         * Measured in units of pixels per unit as defined by ICAP_UNITS (pixels per TWUN_PIXELS
+         * yields dimensionless data). That is, when the units are TWUN_PIXELS, both
+         * ICAP_XRESOLUTION and ICAP_YRESOLUTION shall report 1 pixel/pixel. Some data sources
+         * like to report the actual number of pixels that the device reports, but that response is more
+         * appropriate in ICAP_PHYSICALHEIGHT and ICAP_PHYSICALWIDTH.
          */
         ICAP_YRESOLUTION = 4377,
-        /** The maximum number of frames the Source can provide or the application can accept per page.
-         *  This is a bounding capability only. It does not establish current or future behavior.
+        /**
+         * The maximum number of frames the Source can provide or the application can accept per page.
+         * This is a bounding capability only. It does not establish current or future behavior.
          */
         ICAP_MAXFRAMES = 4378,
         /** This is used with buffered memory transfers. If TRUE, Source can provide application with tiled image data. */
         ICAP_TILES = 4379,
-        /** Specifies how the bytes in an image are filled by the Source. TWBO_MSBFIRST indicates that the leftmost bit in the byte (usually bit 7) is
-         *  the byte's Most Significant Bit.
+        /**
+         * Specifies how the bytes in an image are filled by the Source. TWBO_MSBFIRST indicates that the leftmost bit in the byte (usually bit 7) is
+         * the byte's Most Significant Bit.
          */
         ICAP_BITORDER = 4380,
-        /** Used for CCITT Group 3 2-dimensional compression. The 'K' factor indicates how often the
-         *  new compression baseline should be re-established. A value of 2 or 4 is common in facsimile
-         *  communication. A value of zero in this field will indicate an infinite K factor—the baseline is
-         *  only calculated at the beginning of the transfer.
+        /**
+         * Used for CCITT Group 3 2-dimensional compression. The 'K' factor indicates how often the
+         * new compression baseline should be re-established. A value of 2 or 4 is common in facsimile
+         * communication. A value of zero in this field will indicate an infinite K factor—the baseline is
+         * only calculated at the beginning of the transfer.
          */
         ICAP_CCITTKFACTOR = 4381,
         /** Describes whether the image was captured transmissively or reflectively. */
         ICAP_LIGHTPATH = 4382,
         /** Sense of the pixel whose numeric value is zero (minimum data value).  */
         ICAP_PIXELFLAVOR = 4383,
-        /** Allows the application and Source to identify which color data formats are available. There are
-         *  two options, "planar" and "chunky."
+        /**
+         * Allows the application and Source to identify which color data formats are available. There are
+         * two options, "planar" and "chunky."
          */
         ICAP_PLANARCHUNKY = 4384,
-        /** How the Source can/should rotate the scanned image data prior to transfer. This doesn't use
-         *  ICAP_UNITS. It is always measured in degrees. Any applied value is additive with any
-         *  rotation specified in ICAP_ORIENTATION.
+        /**
+         * How the Source can/should rotate the scanned image data prior to transfer. This doesn't use
+         * ICAP_UNITS. It is always measured in degrees. Any applied value is additive with any
+         * rotation specified in ICAP_ORIENTATION.
          */
         ICAP_ROTATION = 4385,
-        /** For devices that support fixed frame sizes.
-         *  Defined sizes match typical page sizes. This specifies the size(s) the Source can/should use to acquire image data.
+        /**
+         * For devices that support fixed frame sizes.
+         * Defined sizes match typical page sizes. This specifies the size(s) the Source can/should use to acquire image data.
          */
         ICAP_SUPPORTEDSIZES = 4386,
-        /** Specifies the dividing line between black and white. This is the value the Source will use to
-         *  threshold, if needed, when ICAP_PIXELTYPE:TWPT_BW.
-         *  The value is normalized so there are no units of measure associated with this ICAP.
+        /**
+         * Specifies the dividing line between black and white. This is the value the Source will use to
+         * threshold, if needed, when ICAP_PIXELTYPE:TWPT_BW.
+         * The value is normalized so there are no units of measure associated with this ICAP.
          */
         ICAP_THRESHOLD = 4387,
-        /** All the X-axis scaling values available. A value of '1.0' is equivalent to 100% scaling. Do not use values less than or equal to zero. */
+        /**
+         * All the X-axis scaling values available. A value of '1.0' is equivalent to 100% scaling.
+         * Do not use values less than or equal to zero.
+         */
         ICAP_XSCALING = 4388,
-        /** All the Y-axis scaling values available. A value of '1.0' is equivalent to 100% scaling. Do not use values less than or equal to zero.
-         *  There are no units inherent with this data as it is normalized to 1.0 being "unscaled."
+        /**
+         * All the Y-axis scaling values available. A value of '1.0' is equivalent to 100% scaling. Do not use values less than or equal to zero.
+         * There are no units inherent with this data as it is normalized to 1.0 being "unscaled."
          */
         ICAP_YSCALING = 4389,
         /** Used for CCITT data compression only. Indicates the bit order representation of the stored compressed codes. */
         ICAP_BITORDERCODES = 4390,
-        /** Used only for CCITT data compression. Specifies whether the compressed codes' pixel "sense"
-         *  will be inverted from the Current value of ICAP_PIXELFLAVOR prior to transfer.
+        /**
+         * Used only for CCITT data compression. Specifies whether the compressed codes' pixel "sense"
+         * will be inverted from the Current value of ICAP_PIXELFLAVOR prior to transfer.
          */
         ICAP_PIXELFLAVORCODES = 4391,
-        /** Allows the application and Source to agree upon a common set of color descriptors that are
-         *  made available by the Source. This ICAP is only useful for JPEG-compressed buffered memory image transfers.
+        /**
+         * Allows the application and Source to agree upon a common set of color descriptors that are
+         * made available by the Source. This ICAP is only useful for JPEG-compressed buffered memory image transfers.
          */
         ICAP_JPEGPIXELTYPE = 4392,
         /** Used only with CCITT data compression. Specifies the minimum number of words of compressed codes (compressed data) to be transmitted per line. */
         ICAP_TIMEFILL = 4394,
-        /** Specifies the pixel bit depths for the Current value of ICAP_PIXELTYPE. For example, when
-         *  using ICAP_PIXELTYPE:TWPT_GRAY, this capability specifies whether this is 8-bit gray or 4-bit gray.
-         *  This depth applies to all the data channels (for instance, the R, G, and B channels will all have
-         *  this same bit depth for RGB data).
+        /**
+         * Specifies the pixel bit depths for the Current value of ICAP_PIXELTYPE. For example, when
+         * using ICAP_PIXELTYPE:TWPT_GRAY, this capability specifies whether this is 8-bit gray or 4-bit gray.
+         * This depth applies to all the data channels (for instance, the R, G, and B channels will all have
+         * this same bit depth for RGB data).
          */
         ICAP_BITDEPTH = 4395,
-        /** Specifies the Reduction Method the Source should use to reduce the bit depth of the data. Most
-         *  commonly used with ICAP_PIXELTYPE:TWPT_BW to reduce gray data to black and white.
+        /**
+         * Specifies the Reduction Method the Source should use to reduce the bit depth of the data. Most
+         * commonly used with ICAP_PIXELTYPE:TWPT_BW to reduce gray data to black and white.
          */
         ICAP_BITDEPTHREDUCTION = 4396,
-        /** If TRUE the Source will issue a MSG_XFERREADY before starting the scan.
-         *  Note: The Source may need to scan the image before initiating the transfer. This is the case if
-         *  the scanned image is rotated or merged with another scanned image.
+        /**
+         * If TRUE the Source will issue a MSG_XFERREADY before starting the scan.
+         * Note: The Source may need to scan the image before initiating the transfer.
+         * This is the case if the scanned image is rotated or merged with another scanned image.
          */
         ICAP_UNDEFINEDIMAGESIZE = 4397,
-        /** Allows the application to query the data source to see if it supports extended image attribute capabilities,
-         *  such as Barcode Recognition, Shaded Area Detection and Removal, Skew detection and Removal, and so on.
+        /**
+         * Allows the application to query the data source to see if it supports extended image attribute capabilities,
+         * such as Barcode Recognition, Shaded Area Detection and Removal, Skew detection and Removal, and so on.
          */
         ICAP_EXTIMAGEINFO = 4399,
         /** Allows the source to define the minimum height (Y-axis) that the source can acquire. */
         ICAP_MINIMUMHEIGHT = 4400,
         /** Allows the source to define theminimum width (X-axis) that the source can acquire. */
         ICAP_MINIMUMWIDTH = 4401,
-        /** Use this capability to have the Source discard blank images. The Application never sees these
-         *  images during the scanning session.
-         *  TWBP_DISABLE – this must be the default state for the Source. It indicates that all images will
-         *  be delivered to the Application, none of them will be discarded.
-         *  TWBP_AUTO – if this is used, then the Source will decide if an image is blank or not and discard
-         *  as appropriate.
-         *  If the specified value is a positive number in the range 0 to 231–1, then this capability will use it
-         *  as the byte size cutoff point to identify which images are to be discarded. If the size of the image
-         *  is less than or equal to this value, then it will be discarded. If the size of the image is greater
-         *  than this value, then it will be kept so that it can be transferred to the Application.
+        /**
+         * Use this capability to have the Source discard blank images. The Application never sees these
+         * images during the scanning session.
+         * TWBP_DISABLE – this must be the default state for the Source. It indicates that all images will
+         * be delivered to the Application, none of them will be discarded.
+         * TWBP_AUTO – if this is used, then the Source will decide if an image is blank or not and discard
+         * as appropriate.
+         * If the specified value is a positive number in the range 0 to 231–1, then this capability will use it
+         * as the byte size cutoff point to identify which images are to be discarded. If the size of the image
+         * is less than or equal to this value, then it will be discarded. If the size of the image is greater
+         * than this value, then it will be kept so that it can be transferred to the Application.
          */
         ICAP_AUTODISCARDBLANKPAGES = 4404,
-        /** Flip rotation is used to properly orient images that flip orientation every other image.
-         *  TWFR_BOOK The images to be scanned are viewed in book form, flipping each page from left to right or right to left.
-         *  TWFR_FANFOLD The images to be scanned are viewed in fanfold paper style, flipping each page up or down.
+        /**
+         * Flip rotation is used to properly orient images that flip orientation every other image.
+         * TWFR_BOOK The images to be scanned are viewed in book form, flipping each page from left to right or right to left.
+         * TWFR_FANFOLD The images to be scanned are viewed in fanfold paper style, flipping each page up or down.
          */
         ICAP_FLIPROTATION = 4406,
         /** Turns bar code detection on and off. */
@@ -792,26 +820,29 @@ export declare namespace DynamsoftEnums {
         ICAP_PATCHCODEMAXRETRIES = 4420,
         /** Restricts the total time spent on searching for a patch code on each page. */
         ICAP_PATCHCODETIMEOUT = 4421,
-        /** For devices that support flash. CapSet() selects the flash to be used (if any). CapGet() reports the current setting.
-         *  This capability replaces ICAP_FLASHUSED, which is only able to negotiate the flash being on or off.
+        /**
+         * For devices that support flash. CapSet() selects the flash to be used (if any). CapGet() reports the current setting.
+         * This capability replaces ICAP_FLASHUSED, which is only able to negotiate the flash being on or off.
          */
         ICAP_FLASHUSED2 = 4422,
         /** For devices that support image enhancement filtering. This capability selects the algorithm used to improve the quality of the image. */
         ICAP_IMAGEFILTER = 4423,
         /** For devices that support noise filtering. This capability selects the algorithm used to remove noise. */
         ICAP_NOISEFILTER = 4424,
-        /** Overscan is used to scan outside of the boundaries described by ICAP_FRAMES, and is used to help acquire image data that
-         *  may be lost because of skewing.
-         *  This is primarily of use for transport scanners which rely on edge detection to begin scanning.
-         *  If overscan is supported, then the device is capable of scanning in the inter-document gap to get the skewed image information.
+        /**
+         * Overscan is used to scan outside of the boundaries described by ICAP_FRAMES, and is used to help acquire image data that
+         * may be lost because of skewing.
+         * This is primarily of use for transport scanners which rely on edge detection to begin scanning.
+         * If overscan is supported, then the device is capable of scanning in the inter-document gap to get the skewed image information.
          */
         ICAP_OVERSCAN = 4425,
         /** Turns automatic border detection on and off. */
         ICAP_AUTOMATICBORDERDETECTION = 4432,
         /** Turns automatic deskew correction on and off. */
         ICAP_AUTOMATICDESKEW = 4433,
-        /** When TRUE this capability depends on intelligent features within the Source to automatically
-         *  rotate the image to the correct position.
+        /**
+         * When TRUE this capability depends on intelligent features within the Source to automatically
+         * rotate the image to the correct position.
          */
         ICAP_AUTOMATICROTATE = 4434,
         /** Added 1.9  */
@@ -858,8 +889,10 @@ export declare namespace DynamsoftEnums {
         TWFA_NONE = 0,
         /** The alignment is to the left. */
         TWFA_LEFT = 1,
-        /** The alignment is centered. This means that the paper will be fed in the middle of the ICAP_PHYSICALWIDTH of the
-         *  device. If this is set, then the Application should calculate any frames with a left offset of zero.
+        /**
+         * The alignment is centered. This means that the paper will be fed in the middle of
+         * the ICAP_PHYSICALWIDTH of the device. If this is set, then the Application should
+         * calculate any frames with a left offset of zero.
          */
         TWFA_CENTER = 2,
         /** The alignment is to the right. */

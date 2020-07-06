@@ -43,7 +43,10 @@ export interface WebTwainBuffer extends WebTwainIO {
      */
     GetImageHeight(index: number): number;
     /**
-     * Return the internal URL of the specified image. If width and height are not specified, you get the original image, otherwise you get the image with specified width or height while keeping the same aspect ratio. The returned string is like this 'dwt://dwt_trial_13000404/img?id=306159652&index=0&t=1502184632022'.
+     * Return the internal URL of the specified image. If width and height are not specified,
+     * you get the original image, otherwise you get the image with specified width or height
+     * while keeping the same aspect ratio. The returned string is like this
+     * 'dwt://dwt_trial_13000404/img?id=306159652&index=0&t=1502184632022'.
      * @param index Specify the image.
      * @param width the width of the image, it must be 150 or bigger
      * @param height the height of the image, it must be 150 or bigger
@@ -63,7 +66,9 @@ export interface WebTwainBuffer extends WebTwainIO {
      */
     GetImageSizeWithSpecifiedType(index: number, type: Dynamsoft.EnumDWT_ImageType | number): number;
     /**
-     * Return the direct URL of the specified image, if width or height is set to -1, you get the original image, otherwise you get the image with specified width or height while keeping the same aspect ratio.
+     * Return the direct URL of the specified image, if width or height is set to -1,
+     * you get the original image, otherwise you get the image with specified width or
+     * height while keeping the same aspect ratio.
      * @param index Specify the image.
      * @param width Specify the width.
      * @param height Specify the height.
@@ -227,11 +232,11 @@ export interface WebTwainBuffer extends WebTwainIO {
      */
     SetDefaultTag(tag: string): boolean;
     /**
-    * [Deprecation] You can use the method to select images programatically.
-    * [Alternative] Use SelectImages() or SelectAllImages() instead.
-    * @param indexOfIndices The index of an array that holds the indices of selected images.
-    * @param index The index of an image that you want to select.
-    */
+     * [Deprecation] You can use the method to select images programatically.
+     * [Alternative] Use SelectImages() or SelectAllImages() instead.
+     * @param indexOfIndices The index of an array that holds the indices of selected images.
+     * @param index The index of an image that you want to select.
+     */
     SetSelectedImageIndex(indexOfIndices: number, index: number): boolean;
     /**
      * Exchange the positions of two images.

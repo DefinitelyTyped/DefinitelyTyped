@@ -61,8 +61,8 @@ export interface WebTwainIO extends WebTwainUtil {
      */
     JPEGQuality: number;
     /**
-    * Return or set whether to insert or append images when they are scanned/loaded.
-    */
+     * Return or set whether to insert or append images when they are scanned/loaded.
+     */
     IfAppendImage: boolean;
     /**
      * Return or set whether to append to or replace an existing TIFF file with the same name.
@@ -366,7 +366,7 @@ export interface WebTwainIO extends WebTwainUtil {
         onServerReturnedSomething: (
             errorCode: number,
             errorString: string,
-            response: string,) => void,
+            response: string) => void
     ): void;
     /**
      * Download the specified file via a HTTP Get request.

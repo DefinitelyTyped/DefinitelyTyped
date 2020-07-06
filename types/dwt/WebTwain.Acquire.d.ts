@@ -614,7 +614,7 @@ export interface DeviceConfiguration {
     /**
      * How much extended information is retrieved. Only valid when {IfGetExtImageInfo} is true.
      */
-    extendedImageInfoQueryLevel?: number
+    extendedImageInfoQueryLevel?: number;
 }
 export interface SourceDetails {
     /**
@@ -648,7 +648,7 @@ export interface SourceDetails {
     /**
      * Supported Groups
      */
-    SupportedGroups?: number,
+    SupportedGroups?: number;
     /**
      * The version of the protocol based on which the data source is developed.
      */
@@ -670,15 +670,15 @@ export interface ScanSetup {
     /**
      * An id that specifies this specific setup.
      */
-    setupId?: string,
+    setupId?: string;
     /**
      * Whether to ignore or fail the acquistion when an exception is raised. Set "ignore" or "fail".
      */
-    exception?: string,
+    exception?: string;
     /**
      * The name of the data source (the scanner). If not set, the default data source is used.
      */
-    scanner?: string,
+    scanner?: string;
     ui?: {
         /**
          * Whether to show the UI of the device.
@@ -692,7 +692,7 @@ export interface ScanSetup {
     /**
      * The TWAIN transfer mode.
      */
-    transferMode?: Dynamsoft.EnumDWT_TransferMode | number,
+    transferMode?: Dynamsoft.EnumDWT_TransferMode | number;
     /**
      * Set how the transfer is done.
      */
@@ -714,15 +714,15 @@ export interface ScanSetup {
          * Specify the compression type of the file.
          */
         compressionType?: Dynamsoft.EnumDWT_CompressionType | number
-    }
+    };
     /**
      * Set where the scanned images are inserted.
      */
-    insertingIndex?: number,
+    insertingIndex?: number;
     /**
      * The profile is a base64 string, if present, it overrides settings and more settings.
      */
-    profile?: string,
+    profile?: string;
     /**
      * Basic settings.
      */
@@ -747,7 +747,7 @@ export interface ScanSetup {
          * Whether to enable duplex scan.
          */
         bDuplex?: boolean
-    },
+    };
     moreSettings?: {
         /**
          * "ignore" (default) or "fail".
@@ -806,11 +806,11 @@ export interface ScanSetup {
          * Whether to enable automatic brightness adjustment.
          */
         autoBright?: boolean
-    },
+    };
     /**
      * A callback triggered before the scan, after the scan and after each page has been transferred.
      */
-    funcScanStatus?: (status: Status) => void,
+    funcScanStatus?: (status: Status) => void;
     /**
      * Set up how the scanned images are outputted.
      */
@@ -919,7 +919,7 @@ export interface ScanSetup {
              */
             fileName?: string
         }
-    }
+    };
 }
 export interface Status {
     bScanCompleted?: boolean,

@@ -62,8 +62,8 @@ export interface WebTwainViewer extends WebTwainAcquire {
      */
     IfAutoScroll: boolean;
     /**
-      * Return or set whether to show the page numbers.
-      */
+     * Return or set whether to show the page numbers.
+     */
     ShowPageNumber: boolean;
     /**
      * Return or set the margin between images (in pixels).
@@ -80,7 +80,7 @@ export interface DynamsoftViewer {
      * Remove a built-in event handler.
      * @param eventName Specify the event.
      */
-    off(eventName: string);
+    off(eventName: string): boolean;
     /**
      * Set the view mode of the viewer.
      * @param columns Specify the number of images per row.
@@ -121,8 +121,8 @@ export interface DynamsoftViewer {
      */
     showFooter: boolean;
     /**
-      * Return or set whether to show the header of the viewer.
-      */
+     * Return or set whether to show the header of the viewer.
+     */
     showHeader: boolean;
     /**
      * Zoom in by 6/5.
@@ -250,7 +250,7 @@ export interface ViewerConfig {
             location?: string, // Example: 'header'
             sequence?: number
         }
-    },
+    };
     buttons?: {
         // loadImage button
         loadImage?: {
@@ -477,7 +477,7 @@ export interface ViewerConfig {
             sequence?: number,
             onButtonClick?: string // Example: onFullScreen'
         }
-    },
+    };
     tipsConfig?: {
         loadImage?: string, // Example 'loadImage'
         panelChange?: string, // Example 'panelChange'
@@ -506,7 +506,7 @@ export interface ViewerConfig {
         fitWidth?: string, // Example 'fitWidth'
         fullPage?: string, // Example 'fullPage'
         fullScreen?: string, // Example 'fullScreen'
-    },
+    };
     content?: {
         visibility?: boolean,
         besides?: {
@@ -521,7 +521,7 @@ export interface ViewerConfig {
             visibility?: boolean,
             displayName?: string // Example: 'All Images'
         }
-    },
+    };
     thumbnail?: {
         visibility?: boolean,
         iconClass?: string // Example: 'icon-thumbnail'
@@ -537,36 +537,36 @@ export interface ViewerConfig {
         showPageNumber?: boolean,
         showThumbnailControl?: boolean,
         mouseShape?: string // Example: 'pointer'
-    },
+    };
     tree?: {
         visibility?: boolean,
         iconClass?: string // Example: 'icon-tree',
         selectedColor?: string // Example: '#0000ff',
         goToThumbnail?: boolean
-    },
+    };
     tag?: {
         visibility?: boolean,
         iconClass?: string // Example: 'icon-tags',
         selectedColor?: string // Example: '#0000ff',
         goToThumbnail?: boolean,
         displayMode?: string // Example: ''// icon or text
-    },
+    };
     cropStyle?: {
         ratios?: any, // Example [[1, 1], [3, 2], [4, 3], [5, 4], [7, 5], [16, 9]],
         cropMask?: boolean,
         cropBar?: boolean
-    },
+    };
     buttonResize?: {
         ifResize?: boolean,
         maxSize?: number, // Example: 26,
         minSize?: number, // Example: 14
-    },
+    };
     skinColor?: {
         topMenuBackground?: string // Example: '#000000'
         asideBackground?: string // Example: '#ffffff'
         canvasBackground?: string // Example: 'rgba(67,66,70,1)'
         bottomMenuBackground?: string // Example: '#000000'
-    },
-    presetMode?: string // Example: 'basic'
-    theme?: string // Example: 'basic'
+    };
+    presetMode?: string; // Example: 'basic'
+    theme?: string; // Example: 'basic'
 }
