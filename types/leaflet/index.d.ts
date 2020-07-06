@@ -1628,7 +1628,7 @@ export interface LayersControlEvent extends LayerEvent {
 
 export interface TileEvent extends LeafletEvent {
     tile: HTMLImageElement;
-    coords: Point; // apparently not a normal point, since docs say it has z (zoom)
+    coords: Coords;
 }
 
 export interface TileErrorEvent extends TileEvent {
