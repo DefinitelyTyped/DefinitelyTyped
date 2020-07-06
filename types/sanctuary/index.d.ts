@@ -170,7 +170,7 @@ declare namespace Sanctuary {
       (m: ReadonlyArray<A>): A[];
       (m: Foldable<A>): Foldable<A>;
     };
-    reject <A>(pred: Predicate<A>): {
+    reject<A>(pred: Predicate<A>): {
       (m: ReadonlyArray<A>): A[];
       (m: Foldable<A>): Foldable<A>;
     };
