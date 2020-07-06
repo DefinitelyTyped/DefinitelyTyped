@@ -35,8 +35,9 @@ declare module "events" {
          */
         let captureRejections: boolean;
 
-        interface EventEmitter extends NodeJS.EventEmitter {
-        }
+        type Events = Record<string | symbol, (...args: any[]) => void>;
+
+        interface EventEmitter<E extends Events = Events> extends NodeJS.EventEmitter<E> {}
 
         class EventEmitter {
             constructor(options?: EventEmitterOptions);
