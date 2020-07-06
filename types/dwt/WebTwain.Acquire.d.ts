@@ -930,7 +930,7 @@ export interface Status {
 }
 export interface TiffTag {
     tagIdentifier?: number;
-    content?: string
+    content?: string;
     useBase64Encoding?: boolean;
 }
 /**
