@@ -384,56 +384,56 @@ declare class Pubnub {
         ): Promise<Pubnub.GetChannelMetadataResponse<Custom>>;
 
         // Memberships
-        getMemberships<ChannelCustom extends Pubnub.ObjectCustom, UUIDCustom extends Pubnub.ObjectCustom>(
-            callback: Callback<Pubnub.ManageMembershipsResponse<ChannelCustom, UUIDCustom>>,
+        getMemberships<ChannelCustom extends Pubnub.ObjectCustom>(
+            callback: Callback<Pubnub.ManageMembershipsResponse<ChannelCustom>>,
         ): void;
-        getMemberships<ChannelCustom extends Pubnub.ObjectCustom, UUIDCustom extends Pubnub.ObjectCustom>(
+        getMemberships<ChannelCustom extends Pubnub.ObjectCustom>(
             params?: Pubnub.GetMembershipsParametersv2,
-        ): Promise<Pubnub.ManageMembershipsResponse<ChannelCustom, UUIDCustom>>;
-        getMemberships<ChannelCustom extends Pubnub.ObjectCustom, UUIDCustom extends Pubnub.ObjectCustom>(
+        ): Promise<Pubnub.ManageMembershipsResponse<ChannelCustom>>;
+        getMemberships<ChannelCustom extends Pubnub.ObjectCustom>(
             params: Pubnub.GetMembershipsParametersv2,
-            callback: Callback<Pubnub.ManageMembershipsResponse<ChannelCustom, UUIDCustom>>,
+            callback: Callback<Pubnub.ManageMembershipsResponse<ChannelCustom>>,
         ): void;
 
-        setMemberships<ChannelCustom extends Pubnub.ObjectCustom, UUIDCustom extends Pubnub.ObjectCustom>(
+        setMemberships<ChannelCustom extends Pubnub.ObjectCustom>(
             params: Pubnub.SetMembershipsParameters<ChannelCustom>,
-            callback: Callback<Pubnub.ManageMembershipsResponse<ChannelCustom, UUIDCustom>>,
+            callback: Callback<Pubnub.ManageMembershipsResponse<ChannelCustom>>,
         ): void;
-        setMemberships<ChannelCustom extends Pubnub.ObjectCustom, UUIDCustom extends Pubnub.ObjectCustom>(
+        setMemberships<ChannelCustom extends Pubnub.ObjectCustom>(
             params: Pubnub.SetMembershipsParameters<ChannelCustom>,
-        ): Promise<Pubnub.ManageMembershipsResponse<ChannelCustom, UUIDCustom>>;
+        ): Promise<Pubnub.ManageMembershipsResponse<ChannelCustom>>;
 
-        removeMemberships<ChannelCustom extends Pubnub.ObjectCustom, UUIDCustom extends Pubnub.ObjectCustom>(
+        removeMemberships<ChannelCustom extends Pubnub.ObjectCustom>(
             params: Pubnub.RemoveMembershipsParameters,
-            callback: Callback<Pubnub.ManageMembershipsResponse<ChannelCustom, UUIDCustom>>,
+            callback: Callback<Pubnub.ManageMembershipsResponse<ChannelCustom>>,
         ): void;
-        removeMemberships<ChannelCustom extends Pubnub.ObjectCustom, UUIDCustom extends Pubnub.ObjectCustom>(
+        removeMemberships<ChannelCustom extends Pubnub.ObjectCustom>(
             params: Pubnub.RemoveMembershipsParameters,
-        ): Promise<Pubnub.ManageMembershipsResponse<ChannelCustom, UUIDCustom>>;
+        ): Promise<Pubnub.ManageMembershipsResponse<ChannelCustom>>;
 
-        getChannelMembers<UUIDCustom extends Pubnub.ObjectCustom, ChannelCustom extends Pubnub.ObjectCustom>(
+        getChannelMembers<UUIDCustom extends Pubnub.ObjectCustom>(
             params: Pubnub.GetChannelMembersParameters,
-            callback: Callback<Pubnub.ManageChannelMembersResponse<UUIDCustom, ChannelCustom>>,
+            callback: Callback<Pubnub.ManageChannelMembersResponse<UUIDCustom>>,
         ): void;
-        getChannelMembers<UUIDCustom extends Pubnub.ObjectCustom, ChannelCustom extends Pubnub.ObjectCustom>(
+        getChannelMembers<UUIDCustom extends Pubnub.ObjectCustom>(
             params: Pubnub.GetChannelMembersParameters,
-        ): Promise<Pubnub.ManageChannelMembersResponse<UUIDCustom, ChannelCustom>>;
+        ): Promise<Pubnub.ManageChannelMembersResponse<UUIDCustom>>;
 
-        setChannelMembers<UUIDCustom extends Pubnub.ObjectCustom, ChannelCustom extends Pubnub.ObjectCustom>(
+        setChannelMembers<UUIDCustom extends Pubnub.ObjectCustom>(
             params: Pubnub.SetChannelMembersParameters<UUIDCustom>,
-            callback: Callback<Pubnub.ManageChannelMembersResponse<UUIDCustom, ChannelCustom>>,
+            callback: Callback<Pubnub.ManageChannelMembersResponse<UUIDCustom>>,
         ): void;
-        setChannelMembers<UUIDCustom extends Pubnub.ObjectCustom, ChannelCustom extends Pubnub.ObjectCustom>(
+        setChannelMembers<UUIDCustom extends Pubnub.ObjectCustom>(
             params: Pubnub.SetChannelMembersParameters<UUIDCustom>,
-        ): Promise<Pubnub.ManageChannelMembersResponse<UUIDCustom, ChannelCustom>>;
+        ): Promise<Pubnub.ManageChannelMembersResponse<UUIDCustom>>;
 
-        removeChannelMembers<UUIDCustom extends Pubnub.ObjectCustom, ChannelCustom extends Pubnub.ObjectCustom>(
+        removeChannelMembers<UUIDCustom extends Pubnub.ObjectCustom>(
             params: Pubnub.RemoveChannelMembersParameters,
-            callback: Callback<Pubnub.ManageChannelMembersResponse<UUIDCustom, ChannelCustom>>,
+            callback: Callback<Pubnub.ManageChannelMembersResponse<UUIDCustom>>,
         ): void;
-        removeChannelMembers<UUIDCustom extends Pubnub.ObjectCustom, ChannelCustom extends Pubnub.ObjectCustom>(
+        removeChannelMembers<UUIDCustom extends Pubnub.ObjectCustom>(
             params: Pubnub.RemoveChannelMembersParameters,
-        ): Promise<Pubnub.ManageChannelMembersResponse<UUIDCustom, ChannelCustom>>;
+        ): Promise<Pubnub.ManageChannelMembersResponse<UUIDCustom>>;
     };
 
     // message actions
@@ -626,7 +626,8 @@ declare namespace Pubnub {
             type: 'uuid' | 'channel' | 'membership';
             data: object;
         };
-        subscription: string;
+        subscription: string | null;
+        publisher?: string;
         timetoken: number;
     }
 
@@ -1218,14 +1219,16 @@ declare namespace Pubnub {
 
     // Memberships
 
-    interface UUIDMembershipObject<UUIDCustom extends ObjectCustom, ChannelCustom extends ObjectCustom>
-        extends v2ObjectData<ChannelCustom> {
-        uuid: UUIDMetadataObject<UUIDCustom>;
+    interface UUIDMembershipObject<UUIDCustom extends ObjectCustom> {
+        uuid: UUIDMetadataObject<UUIDCustom> | { id: string };
+        eTag: string;
+        updated: string;
     }
 
-    interface ChannelMembershipObject<ChannelCustom extends ObjectCustom, UUIDCustom extends ObjectCustom>
-        extends v2ObjectData<UUIDCustom> {
-        channel: ChannelMetadataObject<ChannelCustom>;
+    interface ChannelMembershipObject<ChannelCustom extends ObjectCustom> {
+        channel: ChannelMetadataObject<ChannelCustom> | { id: string };
+        eTag: string;
+        updated: string;
     }
 
     interface UUIDMembersParameters {
@@ -1266,12 +1269,10 @@ declare namespace Pubnub {
 
     type ManageChannelMembersResponse<
         UUIDCustom extends ObjectCustom,
-        ChannelCustom extends ObjectCustom
-    > = PagedObjectsResponse<UUIDMembershipObject<UUIDCustom, ChannelCustom>>;
+        > = PagedObjectsResponse<UUIDMembershipObject<UUIDCustom>>;
     type ManageMembershipsResponse<
         ChannelCustom extends ObjectCustom,
-        UUIDCustom extends ObjectCustom
-    > = PagedObjectsResponse<ChannelMembershipObject<ChannelCustom, UUIDCustom>>;
+        > = PagedObjectsResponse<ChannelMembershipObject<ChannelCustom>>;
 
     interface GetMembershipsParametersv2 extends ChannelMembersParameters {
         uuid?: string;
