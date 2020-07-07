@@ -3818,7 +3818,7 @@ declare module _ {
          * to determine if they should be considered equal.
          * @param object Compare to `other`.
          * @param other Compare to `object`.
-         * @returns True if `object` is equal to `other`.
+         * @returns True if `object` should be considered equal to `other`.
          **/
         isEqual(object: any, other: any): boolean;
 
@@ -4850,7 +4850,7 @@ declare module _ {
          * Performs an optimized deep comparison between the wrapped object
          * and the provided object to determine if they should be considered equal.
          * @param other Compare to the wrapped object.
-         * @returns True if the wrapped object is equal to `other`.
+         * @returns True if the wrapped object should be considered equal to `other`.
          **/
         isEqual(other: any): boolean;
 
@@ -5815,7 +5815,7 @@ declare module _ {
          * Performs an optimized deep comparison between the wrapped object
          * and the provided object to determine if they should be considered equal.
          * @param other Compare to the wrapped object.
-         * @returns True if the wrapped object is equal to `other`.
+         * @returns True if the wrapped object should be considered equal to `other`.
          * The result will be wrapped in a chain wrapper.
          **/
         isEqual(other: any): _ChainSingle<boolean>;
