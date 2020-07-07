@@ -29,19 +29,6 @@ type Nullable<T> = {
     [P in keyof T]?: T[P] | null;
 };
 
-// SDK callbacks all accept Pubnub.PubnubStatus as the first argument
-type Callback<ResponseType> = (status: Pubnub.PubnubStatus, response: ResponseType) => void;
-type StatusCallback = (status: Pubnub.PubnubStatus) => void;
-interface ObjectsResponse<DataType> {
-    status: number;
-    data: DataType;
-}
-interface PagedObjectsResponse<DataType> extends ObjectsResponse<DataType[]> {
-    prev?: string;
-    next?: string;
-    totalCount?: number;
-}
-
 declare class Pubnub {
     constructor(config: Pubnub.PubnubConfig);
 
