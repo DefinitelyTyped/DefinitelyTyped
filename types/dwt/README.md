@@ -8,7 +8,7 @@ This package contains type definitions for [dwt](https://www.npmjs.com/package/d
 Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/dwt.
 
 ### Additional Details
- * Last updated: Mon, 6 July 2020 20:38:11 GMT
+ * Last updated: Tue, 7 July 2020 20:38:11 GMT
 
 # Credits
 These definitions were written by [Xiao Ling](https://github.com/yushulx), [Josh Hall](https://github.com/jbh), [Lincoln Hu](https://github.com/lincoln2018), [Tom Kent](https://github.com/Tom-Dynamsoft), and [Dave Sueltenfuss](https://github.com/dsueltenfuss).
