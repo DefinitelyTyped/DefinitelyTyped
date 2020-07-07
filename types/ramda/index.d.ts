@@ -178,8 +178,8 @@ export function apply<T, TResult>(fn: (arg0: T, ...args: readonly T[]) => TResul
 export function applySpec<Obj extends Record<string, (...args: readonly any[]) => any>>(
     obj: Obj
 ): (
-    ...args: Parameters<ValueOfRecord<Obj>>
-) => { [Key in keyof Obj]: ReturnType<Obj[Key]> };
+        ...args: Parameters<ValueOfRecord<Obj>>
+    ) => { [Key in keyof Obj]: ReturnType<Obj[Key]> };
 export function applySpec<T>(obj: any): (...args: readonly any[]) => T;
 
 /**
@@ -747,8 +747,12 @@ export function inc(n: number): number;
  * Given a string, this function checks for the string in another string or list and returns
  * a boolean.
  */
+export function includes(__: Placeholder, list: readonly string[] | string): (s: string) => boolean;
+export function includes<T>(__: Placeholder, list: readonly T[]): (target: T) => boolean;
+export function includes(__: Placeholder): (list: readonly string[] | string, s: string) => boolean;
+export function includes<T>(__: Placeholder): (list: readonly T[], target: T) => boolean;
 export function includes(s: string, list: readonly string[] | string): boolean;
-export function includes(s: string): (list: readonly string[] | string)  => boolean;
+export function includes(s: string): (list: readonly string[] | string) => boolean;
 export function includes<T>(target: T, list: readonly T[]): boolean;
 export function includes<T>(target: T): (list: readonly T[]) => boolean;
 
@@ -1006,7 +1010,7 @@ export function mapObjIndexed<T, TResult, TKey extends string>(
 ): Record<TKey, TResult>;
 export function mapObjIndexed<T, TResult, TKey extends string>(
     fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult
-): (obj: Record<TKey, T>) =>  Record<TKey, TResult>;
+): (obj: Record<TKey, T>) => Record<TKey, TResult>;
 export function mapObjIndexed<T, TResult>(
     fn: (value: T, key: string, obj?: {
         [key: string]: T
