@@ -149,9 +149,9 @@ export function mapValuesLimit<T, R, E = Error>(
     callback: AsyncResultObjectCallback<R, E>
     ): void;
 export function mapValuesLimit<T, R, E = Error>(
-	obj: Dictionary<T>,
-	limit: number,
-	iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void
+    obj: Dictionary<T>,
+    limit: number,
+    iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void
 ): Promise<R>;
 
 export function mapValues<T, R, E = Error>(obj: Dictionary<T>, iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void, callback: AsyncResultObjectCallback<R, E>): void;

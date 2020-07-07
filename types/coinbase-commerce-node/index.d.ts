@@ -66,7 +66,7 @@ type Timestamp = string;
 /**
  * Payment status.
  */
-type PaymentStatus = 'NEW' | 'PENDING' | 'CONFIRMED' | 'UNRESOLVED' | 'RESOLVED' | 'EXPIRED' | 'CANCELED';
+type PaymentStatus = 'NEW' | 'PENDING' | 'COMPLETED' | 'UNRESOLVED' | 'RESOLVED' | 'EXPIRED' | 'CANCELED';
 
 /**
  * Crypto pricing object.

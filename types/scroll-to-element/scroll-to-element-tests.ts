@@ -4,9 +4,9 @@ scrollToElement('#id');
 
 // with options
 scrollToElement('.className', {
-	offset: 0,
-	ease: 'out-bounce',
-	duration: 1500
+    offset: 0,
+    ease: 'out-bounce',
+    duration: 1500
 });
 
 // or if you already have a reference to the element

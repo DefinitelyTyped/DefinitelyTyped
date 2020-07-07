@@ -19,6 +19,7 @@ import * as net from 'net';
 import * as url from 'url';
 import * as zlib from 'zlib';
 import * as stream from 'stream';
+import { SecureContextOptions } from 'tls';
 
 // WebSocket socket.
 declare class WebSocket extends events.EventEmitter {
@@ -128,7 +129,7 @@ declare namespace WebSocket {
     type VerifyClientCallbackAsync = (info: { origin: string; secure: boolean; req: http.IncomingMessage }
         , callback: (res: boolean, code?: number, message?: string, headers?: http.OutgoingHttpHeaders) => void) => void;
 
-    interface ClientOptions {
+    interface ClientOptions extends SecureContextOptions {
         protocol?: string;
         followRedirects?: boolean;
         handshakeTimeout?: number;
@@ -143,12 +144,6 @@ declare namespace WebSocket {
         family?: number;
         checkServerIdentity?(servername: string, cert: CertMeta): boolean;
         rejectUnauthorized?: boolean;
-        passphrase?: string;
-        ciphers?: string;
-        cert?: CertMeta;
-        key?: CertMeta;
-        pfx?: string | Buffer;
-        ca?: CertMeta;
         maxPayload?: number;
     }
 
@@ -229,7 +224,7 @@ declare namespace WebSocket {
         close(cb?: (err?: Error) => void): void;
         handleUpgrade(request: http.IncomingMessage, socket: net.Socket,
             upgradeHead: Buffer, callback: (client: WebSocket) => void): void;
-        shouldHandle(request: http.IncomingMessage): boolean;
+        shouldHandle(request: http.IncomingMessage): boolean | Promise<boolean>;
 
         // Events
         on(event: 'connection', cb: (this: Server, socket: WebSocket, request: http.IncomingMessage) => void): this;

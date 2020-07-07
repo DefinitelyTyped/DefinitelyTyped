@@ -118,6 +118,14 @@ redis.zrem('myset', 'member').then(console.log);
 redis.zrem('myset', 'member', cbNumber);
 redis.zrem('myset', 'member', 'member2').then(console.log);
 redis.zrem('myset', 'member', 'member2', cbNumber);
+redis.zpopmin('myset', cb);
+redis.zpopmin('myset', 1, cb);
+redis.zpopmin('myset', 1).then(console.log);
+redis.zpopmin('myset').then(console.log);
+redis.zpopmax('myset', cb);
+redis.zpopmax('myset', 1, cb);
+redis.zpopmax('myset', 1).then(console.log);
+redis.zpopmax('myset').then(console.log);
 redis.sort('list').then(console.log);
 redis.sort('list', cb);
 redis.sort('list', 'LIMIT', 0, 10).then(console.log);
@@ -144,6 +152,7 @@ redis.hmset('foo', '1', '2').then(console.log);
 redis.hmset('foo', '1', ['1', 2]);
 redis.hmset('foo', { a: 'b', c: 4 }).then(console.log);
 redis.hmset('foo', { a: 'b', c: 4 }, cb);
+redis.hmset('foo', new Map<string, number>(), cb);
 
 // Test OverloadedHashCommand
 redis.mset('1', '2', '3', 4, '5', new Buffer([])).then(console.log);
@@ -154,6 +163,7 @@ redis.mset('1', '2').then(console.log);
 redis.mset('1', ['1', 2]);
 redis.mset({ a: 'b', c: 4 }).then(console.log);
 redis.mset({ a: 'b', c: 4 }, cbNumber);
+redis.mset(new Map<string, number>());
 redis.msetnx('1', '2', '3', 4, '5', new Buffer([])).then(console.log);
 redis.msetnx('1', '2', '3', 4, '5', new Buffer([]), cbNumber);
 redis.msetnx('1', '2', '3', 4).then(console.log);
@@ -162,6 +172,7 @@ redis.msetnx('1', '2').then(console.log);
 redis.msetnx('1', ['1', 2]);
 redis.msetnx({ a: 'b', c: 4 }).then(console.log);
 redis.msetnx({ a: 'b', c: 4 }, cbNumber);
+redis.msetnx(new Map<string, number>(), cbNumber);
 
 // Test OverloadedEvalCommand
 redis.eval('script', 2, 'foo', 'bar').then(console.log);
@@ -268,6 +279,7 @@ new Redis({
     port: 6379, // Redis port
     host: '127.0.0.1', // Redis host
     family: 4, // 4 (IPv4) or 6 (IPv6)
+    username: 'user',
     password: 'auth',
     db: 0,
     retryStrategy() {
@@ -518,11 +530,9 @@ cluster
     .then(result => console.log(result))
     .catch(reason => console.error(reason));
 cluster
-    .connect(() => {
-        console.log('connect');
-    })
+    .connect()
     .then(result => console.log(result))
-    .then(reason => console.error(reason));
+    .catch(reason => console.error(reason));
 
 cluster.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => {});
 cluster.getBuffer('key', (err, data) => {
@@ -650,3 +660,5 @@ redis.pipeline()
     .zremrangebylex('foo', '-', '+', (err: Error | null, res: number) => {
         // do something with res or err
     });
+
+const { port, host } =  redis.options;

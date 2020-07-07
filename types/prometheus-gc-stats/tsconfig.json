@@ -13,7 +13,7 @@
     "forceConsistentCasingInFileNames": true
   },
   "files": [
-		"index.d.ts",
-		"prometheus-gc-stats-tests.ts"
-	]
+        "index.d.ts",
+        "prometheus-gc-stats-tests.ts"
+    ]
 }

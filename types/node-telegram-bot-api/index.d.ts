@@ -1,4 +1,4 @@
-// Type definitions for node-telegram-bot-api 0.40
+// Type definitions for node-telegram-bot-api 0.50
 // Project: https://github.com/yagop/node-telegram-bot-api
 // Definitions by: Alex Muench <https://github.com/ammuench>
 //                 Agadar <https://github.com/agadar>
@@ -7,6 +7,7 @@
 //                 XC-Zhang <https://github.com/XC-Zhang>
 //                 AdityaThebe <https://github.com/adityathebe>
 //                 Michael Orlov <https://github.com/MiklerGM>
+//                 Alexander Ariutin <https://github.com/ariutin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -284,6 +285,10 @@ declare namespace TelegramBot {
 
     interface AnswerPreCheckoutQueryOptions {
         error_message?: string;
+    }
+
+    interface SendDiceOptions extends SendBasicOptions {
+        emoji?: string;
     }
 
     /// TELEGRAM TYPES ///
@@ -1007,6 +1012,11 @@ declare namespace TelegramBot {
     interface Metadata {
         type?: MessageType;
     }
+
+    interface BotCommand {
+        command: string;
+        description: string;
+    }
 }
 
 declare class TelegramBot extends EventEmitter {
@@ -1388,6 +1398,26 @@ declare class TelegramBot extends EventEmitter {
             'webhook_error' |
             'error'
     ): number;
+
+    setChatPermissions(
+        chatId: number | string,
+        chatPermissions: TelegramBot.ChatPermissions
+    ): Promise<boolean>;
+
+    sendDice(
+        chatId: number | string,
+        options?: TelegramBot.SendDiceOptions
+    ): Promise<TelegramBot.Message>;
+
+    setChatAdministratorCustomTitle(
+        chatId: number | string,
+        userId: string,
+        customTitle: string
+    ): Promise<boolean>;
+
+    getMyCommands(): Promise<TelegramBot.BotCommand[]>;
+
+    setMyCommands(commands: TelegramBot.BotCommand[]): Promise<boolean>;
 }
 
 export = TelegramBot;

@@ -376,6 +376,11 @@ declare namespace Backbone {
         findWhere(properties: any): TModel;
         modelId(attrs: any) : any
 
+        values(): Iterator<TModel>;
+        keys(): Iterator<any>;
+        entries(): Iterator<[any, TModel]>;
+        [Symbol.iterator](): Iterator<TModel>;
+
         private _prepareModel(attributes?: any, options?: any): any;
         private _removeReference(model: TModel): void;
         private _onModelEvent(event: string, model: TModel, collection: Collection<TModel>, options: any): void;

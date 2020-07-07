@@ -8,6 +8,9 @@ import { Plugin, Module, compilation } from 'webpack';
 
 export = CircularDependencyPlugin;
 
+/**
+ * Detect modules with circular dependencies when bundling with webpack.
+ */
 declare class CircularDependencyPlugin extends Plugin {
   constructor(options?: CircularDependencyPlugin.Options);
   // Not exposing `isCyclic` because it isn't meant to be public, I believe
@@ -15,15 +18,34 @@ declare class CircularDependencyPlugin extends Plugin {
 
 declare namespace CircularDependencyPlugin {
   interface Options {
+    /**
+     * @default false
+     */
     allowAsyncCycles?: boolean;
+    /**
+     * @default process.cwd()
+     */
     cwd?: string;
+    /**
+     * @default /$^/
+     */
     exclude?: RegExp;
+    /**
+     * @default /.*\/
+     */
+    include?: RegExp;
+    /**
+     * @default false
+     */
     failOnError?: boolean;
-    onDetected?: (x: {
+    /**
+     * @default false
+     */
+    onDetected?: false | ((x: {
       module: Module;
       paths: string[];
       compilation: compilation.Compilation;
-    }) => void;
+    }) => void);
     onEnd?: (x: { compilation: compilation.Compilation }) => void;
     onStart?: (x: { compilation: compilation.Compilation }) => void;
   }

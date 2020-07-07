@@ -1,7 +1,7 @@
 import getInferredName = require('es-abstract/helpers/getInferredName');
 
 if (getInferredName === null) {
-	throw new Error('Unsupported JavaScript engine');
+    throw new Error('Unsupported JavaScript engine');
 }
 
 getInferredName('foo'); // $ExpectType string

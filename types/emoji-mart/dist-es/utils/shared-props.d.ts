@@ -92,4 +92,6 @@ export interface PickerProps {
     notFound?(): React.Component;
     notFoundEmoji?: string;
     icons?: CustomIcons;
+    enableFrequentEmojiSort?: boolean;
+    useButton?: boolean;
 }

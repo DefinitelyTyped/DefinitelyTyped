@@ -94,9 +94,10 @@ import {
 
 {
     // getJSON
-    getJSON(new Response()); // $ExpectType Promise<any> | Promise<void>
+    getJSON(new Response()); // $ExpectType Promise<any>
     getJSON(); // $ExpectError
     getJSON(0); // $ExpectError
+    getJSON(new Response()).then((value: any) => value); // $ExpectType Promise<any>
 }
 
 {
@@ -139,6 +140,26 @@ import {
         }
         bailout(state: State) {
             return state.bailout;
+        }
+        method: 'GET';
+        types: ['REQ_TYPE', 'SUCCESS_TYPE', 'FAILURE_TYPE'];
+    }
+
+    class PromiseStateDrivenRSAACall implements RSAACall<State> {
+        endpoint(state: State) {
+            return Promise.resolve(state.path);
+        }
+        headers(state: State) {
+            return Promise.resolve(state.headers);
+        }
+        options(state: State) {
+            return Promise.resolve(state.options);
+        }
+        body(state: State) {
+            return Promise.resolve(state.body);
+        }
+        bailout(state: State) {
+            return Promise.resolve(state.bailout);
         }
         method: 'GET';
         types: ['REQ_TYPE', 'SUCCESS_TYPE', 'FAILURE_TYPE'];
@@ -198,6 +219,11 @@ import {
         payload: '', // $ExpectError
         meta: (action: RSAAAction, state: number) => '', // $ExpectError
     };
+    const requestDescriptor3: RSAARequestTypeDescriptor<number, number, number> = {
+        type: Symbol(),
+        payload: (action: RSAAAction, state: number) => Promise.resolve(state),
+        meta: (action: RSAAAction, state: number) => Promise.resolve(state),
+    };
 
     const successDescriptor0: RSAASuccessTypeDescriptor<number, number, number> = {
         type: '',
@@ -214,6 +240,11 @@ import {
         payload: '', // $ExpectError
         meta: (action: RSAAAction, state: number) => '', // $ExpectError
     };
+    const successDescriptor3: RSAASuccessTypeDescriptor<number, number, number> = {
+        type: Symbol(),
+        payload: (action: RSAAAction, state: number, res: Response) => Promise.resolve(state),
+        meta: (action: RSAAAction, state: number, res: Response) => Promise.resolve(state),
+    };
 
     const failureDescriptor0: RSAAFailureTypeDescriptor<number, number, number> = {
         type: '',
@@ -229,6 +260,11 @@ import {
         type: 0, // $ExpectError
         payload: '', // $ExpectError
         meta: (action: RSAAAction, state: number) => '', // $ExpectError
+    };
+    const failureDescriptor3: RSAAFailureTypeDescriptor<number, number, number> = {
+        type: Symbol(),
+        payload: (action: RSAAAction, state: number, res: Response) => Promise.resolve(state),
+        meta: (action: RSAAAction, state: number, res: Response) => Promise.resolve(state),
     };
 }
 

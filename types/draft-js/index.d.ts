@@ -550,7 +550,7 @@ declare namespace Draft {
              * a `ComposedText` object, not for use with `DraftEntity.get()`.
              */
             interface RawDraftEntityRange {
-                key: number;
+                key: string;
                 offset: number;
                 length: number;
             }
@@ -575,7 +575,7 @@ declare namespace Draft {
                 depth: number;
                 inlineStyleRanges: Array<RawDraftInlineStyleRange>;
                 entityRanges: Array<RawDraftEntityRange>;
-                data?: Object;
+                data?: { [key: string]: any };
             }
 
             /**

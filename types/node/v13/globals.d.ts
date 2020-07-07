@@ -141,7 +141,6 @@ interface RequireResolve extends NodeJS.RequireResolve {}
 interface NodeModule extends NodeJS.Module {}
 
 declare var process: NodeJS.Process;
-declare var global: NodeJS.Global;
 declare var console: Console;
 
 declare var __filename: string;
@@ -1100,6 +1099,12 @@ declare namespace NodeJS {
         id: string;
         filename: string;
         loaded: boolean;
+        /**
+         * @since 11.14.0
+         *
+         * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
+         */
+        path: string;
         parent: Module | null;
         children: Module[];
         paths: string[];

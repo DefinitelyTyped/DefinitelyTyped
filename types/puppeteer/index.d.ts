@@ -1,4 +1,4 @@
-// Type definitions for puppeteer 2.1
+// Type definitions for puppeteer 3.0
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
@@ -863,7 +863,7 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle<E>,
 
 /** The class represents a context for JavaScript execution. */
 export interface ExecutionContext extends JSEvalable {
-  queryObjects(prototypeHandle: JSHandle): JSHandle;
+  queryObjects(prototypeHandle: JSHandle): Promise<JSHandle>;
 }
 
 /** JSHandle represents an in-page JavaScript object. */
@@ -1280,7 +1280,7 @@ export interface FrameBase extends Evalable, JSEvalable {
 export interface Frame extends FrameBase {
   childFrames(): Frame[];
   /** Execution context associated with this frame. */
-  executionContext(): ExecutionContext;
+  executionContext(): Promise<ExecutionContext>;
   /** Returns `true` if the frame has been detached, or `false` otherwise. */
   isDetached(): boolean;
   /** Returns frame's name attribute as specified in the tag. */

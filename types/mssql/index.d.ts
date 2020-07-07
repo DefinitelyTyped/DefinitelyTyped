@@ -32,7 +32,7 @@ export interface ISqlTypeFactoryWithNoParams extends ISqlTypeFactory { (): ISqlT
 export interface ISqlTypeFactoryWithLength extends ISqlTypeFactory { (length?: number): ISqlTypeWithLength }
 export interface ISqlTypeFactoryWithScale extends ISqlTypeFactory { (scale?: number): ISqlTypeWithScale }
 export interface ISqlTypeFactoryWithPrecisionScale extends ISqlTypeFactory { (precision?: number, scale?: number): ISqlTypeWithPrecisionScale; }
-export interface ISqlTypeFactoryWithTvpType extends ISqlTypeFactory { (tvpType: any): ISqlTypeWithTvpType }
+export interface ISqlTypeFactoryWithTvpType extends ISqlTypeFactory { (tvpType?: any): ISqlTypeWithTvpType }
 
 
 export declare var VarChar: ISqlTypeFactoryWithLength;
@@ -163,6 +163,7 @@ export declare var ISOLATION_LEVEL: {
 export interface IOptions extends tds.ConnectionOptions {
     beforeConnect?: void;
     connectionString?: string;
+    enableArithAbort?: boolean;
     instanceName?: string;
     trustedConnection?: boolean;
     useUTC?: boolean;

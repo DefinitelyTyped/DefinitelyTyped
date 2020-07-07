@@ -794,6 +794,18 @@ describe("A spy", () => {
 
         expect(foo.setBar.calls.any()).toBe(false);
     });
+
+    it("can save arguments by value.", () => {
+        const arr = [1];
+        foo.setBar.calls.saveArgumentsByValue();
+
+        foo.setBar(arr);
+        arr.push(2);
+        foo.setBar(arr);
+
+        expect(foo.setBar.calls.argsFor(0)[0]).toEqual([1]);
+        expect(foo.setBar.calls.argsFor(1)[0]).toEqual([1, 2]);
+    });
 });
 
 describe("A spy, when created manually", () => {
@@ -1489,7 +1501,7 @@ describe('better typed spys', () => {
             spy.and.returnValue;
         });
         it('has a typed calls property', () => {
-            spy.calls.first().args; // $ExpectType [number, string]
+            spy.calls.first().args; // $ExpectType [number, string] || [num: number, str: string]
             spy.calls.first().returnValue; // $ExpectType string
         });
         it('has a typed callFake', () => {

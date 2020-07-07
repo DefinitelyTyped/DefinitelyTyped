@@ -48,7 +48,7 @@ declare class WaveSurfer extends Observer {
     getProgressColor(): string;
     getMute(): boolean;
     getVolume(): number;
-    getWaveColor(): string;
+    getWaveColor(): CanvasGradient | string;
     init(): WaveSurfer;
     initPlugin(name: string): WaveSurfer;
     isPlaying(): boolean;
@@ -74,7 +74,7 @@ declare class WaveSurfer extends Observer {
     setPlaybackRate(rate: number): void;
     setPlayEnd(position: number): void;
     setVolume(newVolume: number): void;
-    setWaveColor(color: string): void;
+    setWaveColor(color: string | CanvasGradient): void;
     setSinkId(deviceId: string): Promise<any>;
     skip(offset: number): void;
     skipBackward(seconds?: number): void;
@@ -189,7 +189,7 @@ declare namespace WaveSurfer {
         scrollParent?: boolean;
         skipLength?: number;
         splitChannels?: boolean;
-        waveColor?: string;
+        waveColor?: string | CanvasGradient;
         xhr?: XHROptions;
     }
 

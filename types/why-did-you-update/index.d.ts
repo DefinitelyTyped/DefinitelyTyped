@@ -14,9 +14,9 @@ declare module "why-did-you-update" {
         type: any;
     }
     
-	interface Options {
-		include?: RegExp;
-		exclude?: RegExp;
+    interface Options {
+        include?: RegExp;
+        exclude?: RegExp;
         groupByComment?: boolean;
         collapseComponentGroups?: boolean;
         notifier?: (
@@ -25,7 +25,7 @@ declare module "why-did-you-update" {
             displayName: string,
             diffs: Diffs[]
         ) => void;
-	}
+    }
     
-	export function whyDidYouUpdate(react: typeof React, options?: Options): void;
+    export function whyDidYouUpdate(react: typeof React, options?: Options): void;
 }

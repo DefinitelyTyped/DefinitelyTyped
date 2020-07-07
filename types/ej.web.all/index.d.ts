@@ -924,7 +924,7 @@ declare namespace ej {
     function parseFloat(value: string, radix?: any, culture?: string): number;
     function parseDate(value: string, format: string, culture?: string): Date;
     function getLocalizedConstants(controlName: string, culture?: string): any;
-	function findCulture(culture?: string): culture;
+    function findCulture(culture?: string): culture;
 
     interface globalize {
         addCulture(name: string, culture?: any): void;
@@ -934,7 +934,7 @@ declare namespace ej {
         parseFloat(value: string, radix?: any, culture?: string): number;
         parseDate(value: string, format: string, culture?: string): Date;
         getLocalizedConstants(controlName: string, culture?: string): any;
-		findCulture(culture?: string): culture;
+        findCulture(culture?: string): culture;
     }
     interface culture {
         name?: string;
@@ -16931,7 +16931,7 @@ declare namespace ej {
             autoHeight?: boolean;
 
             /** This API holds configuration setting for paste cleanup behavior.
-             * @Default {{ listConversion: false, cleanCSS: false,	removeStyles: false, cleanElements: false }}
+             * @Default {{ listConversion: false, cleanCSS: false,    removeStyles: false, cleanElements: false }}
              */
             pasteCleanupSettings?: PasteCleanupSettings;
 

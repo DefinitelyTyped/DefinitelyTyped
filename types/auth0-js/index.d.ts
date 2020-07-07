@@ -1,4 +1,4 @@
-// Type definitions for Auth0.js 9.12
+// Type definitions for Auth0.js 9.13
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
 //                 Matt Durrant <https://github.com/mdurrant>
@@ -536,7 +536,22 @@ export interface AuthOptions {
      */
     maxAge?: number;
     leeway?: number;
-    plugins?: any[];
+    jwksURI?: string;
+    overrides?: {
+      __tenant?: string;
+      __token_issuer?: string;
+      __jwks_uri?: string;
+    };
+    plugins?: any;
+    popupOrigin?: string;
+    protocol?: string;
+    response_type?: string;
+    state?: string;
+    tenant?: string;
+    universalLoginPage?: boolean;
+    _csrf?: string;
+    _intstate?: string;
+    _timesToRetryFailedRequests?: number;
     _disableDeprecationWarnings?: boolean;
     _sendTelemetry?: boolean;
     _telemetryInfo?: any;
@@ -944,10 +959,11 @@ export interface AuthorizeOptions {
     nonce?: string;
     scope?: string;
     audience?: string;
-	language?: string;
+    language?: string;
     login_hint?: string;
-	prompt?: string;
+    prompt?: string;
     mode?: "login" | "signUp";
+    screen_hint?: "signup";
     accessType?: string;
     approvalPrompt?: string;
     appState?: any;
@@ -955,8 +971,12 @@ export interface AuthorizeOptions {
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {
-	/**
-	 * optional parameter for auth0 to use postMessage to communicate between the silent callback and the SPA.
-	 */
-	usePostMessage?: boolean;
+    /**
+     * optional parameter for auth0 to use postMessage to communicate between the silent callback and the SPA.
+     */
+    usePostMessage?: boolean;
 }
+
+export const version: {
+    raw: string;
+};

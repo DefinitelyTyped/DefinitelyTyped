@@ -52,7 +52,8 @@ class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {
                     slidesPerScroll={3}
                     stopAutoPlayOnHover
                     value={value}
-                    rtl={false}>
+                    rtl={false}
+                    minDraggableOffset={12}>
                     <img alt="image-1"/>
                     <img alt="image-2"/>
                     <img alt="image-3"/>

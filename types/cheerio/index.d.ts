@@ -8,7 +8,6 @@
 //                 Chennakrishna <https://github.com/chennakrishna8>
 //                 AzSiAz <https://github.com/AzSiAz>
 //                 Ryo Ota <https://github.com/nwtgck>
-//                 Trevor Reed <https://github.com/trevorhreed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -299,8 +298,7 @@ interface CheerioAPI extends CheerioSelector, CheerioStatic {
 
 interface Document {}
 
-declare const cheerio: CheerioAPI;
-
 declare module 'cheerio' {
+    const cheerio: CheerioAPI;
     export = cheerio;
 }

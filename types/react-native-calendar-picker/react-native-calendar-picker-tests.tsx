@@ -61,6 +61,7 @@ const TestSimpleProps = () => (
         previousTitleStyle={{ fontSize: 10 }}
         nextTitleStyle={{ fontSize: 10 }}
         dayLabelsWrapper={{ flex: 1 }}
+        monthYearHeaderWrapperStyle={{ flex: 1 }}
     />
 );
 
