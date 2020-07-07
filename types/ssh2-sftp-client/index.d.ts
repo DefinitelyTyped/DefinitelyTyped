@@ -1,4 +1,4 @@
-// Type definitions for ssh2-sftp-client 4.1
+// Type definitions for ssh2-sftp-client 5.1
 // Project: https://github.com/theophilusx/ssh2-sftp-client
 // Definitions by: igrayson <https://github.com/igrayson>
 //                 Ascari Andrea <https://github.com/ascariandrea>
@@ -9,6 +9,7 @@
 //                 Lane Goldberg <https://github.com/builtbylane>
 //                 Lorenzo Adinolfi <https://github.com/loru88>
 //                 Sam Galizia <https://github.com/sgalizia>
+//                 Tom Xu <https://github.com/hengkx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as ssh2 from 'ssh2';
@@ -60,6 +61,10 @@ declare class sftp {
         remotePath: string,
         options?: ssh2Stream.TransferOptions,
     ): Promise<string>;
+
+    uploadDir(srcDir: string, destDir: string): Promise<string>;
+
+    downloadDir(srcDir: string, destDir: string): Promise<string>;
 
     end(): Promise<void>;
 

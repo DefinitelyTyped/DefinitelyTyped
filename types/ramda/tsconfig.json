@@ -191,6 +191,26 @@
         "test/reduceBy-tests.ts",
         "test/reduceRight-tests.ts",
         "test/reduceWhile-tests.ts",
-        "test/reject-tests.ts"
+        "test/reject-tests.ts",
+        "test/remove-tests.ts",
+        "test/repeat-tests.ts",
+        "test/replace-tests.ts",
+        "test/reverse-tests.ts",
+        "test/scan-tests.ts",
+        "test/set-tests.ts",
+        "test/slice-tests.ts",
+        "test/sort-tests.ts",
+        "test/sortBy-tests.ts",
+        "test/sortWith-tests.ts",
+        "test/splitAt-tests.ts",
+        "test/splitEvery-tests.ts",
+        "test/splitWhen-tests.ts",
+        "test/startsWith-tests.ts",
+        "test/subtract-tests.ts",
+        "test/sum-tests.ts",
+        "test/symmetricDifference-tests.ts",
+        "test/symmetricDifferenceWith-tests.ts",
+        "test/tail-tests.ts",
+        "test/take-tests.ts"
     ]
 }

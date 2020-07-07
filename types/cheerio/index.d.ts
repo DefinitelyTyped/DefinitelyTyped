@@ -299,8 +299,7 @@ interface CheerioAPI extends CheerioSelector, CheerioStatic {
 
 interface Document {}
 
-declare const cheerio: CheerioAPI;
-
 declare module 'cheerio' {
+    const cheerio: CheerioAPI;
     export = cheerio;
 }
