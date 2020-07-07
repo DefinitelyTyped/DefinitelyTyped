@@ -3823,7 +3823,7 @@ declare module _ {
         isEqual(object: any, other: any): boolean;
 
         /**
-         * Returns true if a collection contains no values.
+         * Returns true if `collection` contains no values.
          * For strings and array-like objects checks if the length property is 0.
          * @param collection The collection to check.
          * @returns True if `collection` has no elements.
@@ -3839,28 +3839,28 @@ declare module _ {
         isMatch(object: any, properties: any): boolean;
 
         /**
-         * Returns true if object is a DOM element.
+         * Returns true if `object` is a DOM element.
          * @param object The object to check.
          * @returns True if `object` is a DOM element, otherwise false.
          **/
         isElement(object: any): object is Element;
 
         /**
-         * Returns true if object is an Array.
+         * Returns true if `object` is an Array.
          * @param object The object to check.
          * @returns True if `object` is an Array, otherwise false.
          **/
         isArray(object: any): object is any[];
 
         /**
-         * Returns true if object is a Symbol.
+         * Returns true if `object` is a Symbol.
          * @param object The object to check.
          * @returns True if `object` is a Symbol, otherwise false.
          **/
         isSymbol(object: any): object is symbol;
 
         /**
-         * Returns true if object is an Object. Note that JavaScript arrays and functions are objects,
+         * Returns true if `object` is an Object. Note that JavaScript arrays and functions are objects,
          * while (normal) strings and numbers are not.
          * @param object The object to check.
          * @returns True if `object` is an Object, otherwise false.
@@ -3868,70 +3868,70 @@ declare module _ {
         isObject(object: any): object is object;
 
         /**
-         * Returns true if object is an Arguments object.
+         * Returns true if `object` is an Arguments object.
          * @param object The object to check.
          * @returns True if `object` is an Arguments object, otherwise false.
          **/
         isArguments(object: any): object is IArguments;
 
         /**
-         * Returns true if object is a Function.
+         * Returns true if `object` is a Function.
          * @param object The object to check.
          * @returns True if `object` is a Function, otherwise false.
          **/
         isFunction(object: any): object is Function;
 
         /**
-         * Returns true if object is an Error.
+         * Returns true if `object` is an Error.
          * @param object The object to check.
          * @returns True if `object` is a Error, otherwise false.
          **/
         isError(object: any): object is Error;
 
         /**
-         * Returns true if object is a String.
+         * Returns true if `object` is a String.
          * @param object The object to check.
          * @returns True if `object` is a String, otherwise false.
          **/
         isString(object: any): object is string;
 
         /**
-         * Returns true if object is a Number (including NaN).
+         * Returns true if `object` is a Number (including NaN).
          * @param object The object to check.
          * @returns True if `object` is a Number, otherwise false.
          **/
         isNumber(object: any): object is number;
 
         /**
-         * Returns true if object is a finite Number.
+         * Returns true if `object` is a finite Number.
          * @param object The object to check.
          * @returns True if `object` is a finite Number.
          **/
         isFinite(object: any): boolean;
 
         /**
-         * Returns true if object is a Boolean.
+         * Returns true if `object` is a Boolean.
          * @param object The object to check.
          * @returns True if `object` is a Boolean, otherwise false.
          **/
         isBoolean(object: any): object is boolean;
 
         /**
-         * Returns true if object is a Date.
+         * Returns true if `object` is a Date.
          * @param object The object to check.
          * @returns True if `object` is a Date, otherwise false.
          **/
         isDate(object: any): object is Date;
 
         /**
-         * Returns true if object is a RegExp.
+         * Returns true if `object` is a RegExp.
          * @param object The object to check.
          * @returns True if `object` is a RegExp, otherwise false.
          **/
         isRegExp(object: any): object is RegExp;
 
         /**
-         * Returns true if object is NaN.
+         * Returns true if `object` is NaN.
          * Note: this is not the same as the native isNaN function,
          * which will also return true if the variable is undefined.
          * @param object The object to check.
@@ -3940,14 +3940,14 @@ declare module _ {
         isNaN(object: any): boolean;
 
         /**
-         * Returns true if object is null.
+         * Returns true if `object` is null.
          * @param object The object to check.
          * @returns True if `object` is null, otherwise false.
          **/
         isNull(object: any): object is null;
 
         /**
-         * Returns true if object is undefined.
+         * Returns true if `object` is undefined.
          * @param object The object to check.
          * @returns True if `object` is undefined, otherwise false.
          **/
