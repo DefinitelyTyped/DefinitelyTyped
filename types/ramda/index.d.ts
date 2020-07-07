@@ -1305,6 +1305,7 @@ export function over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
  * Takes two arguments, fst and snd, and returns [fst, snd].
  */
 export function pair<F, S>(fst: F, snd: S): [F, S];
+export function pair<F>(fst: F): <S>(snd: S) => [F, S];
 
 /**
  * Takes a function `f` and a list of arguments, and returns a function `g`.
