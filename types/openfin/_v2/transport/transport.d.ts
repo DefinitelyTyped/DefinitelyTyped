@@ -1,7 +1,7 @@
 /// <reference types="node" />
+import { EventEmitter } from 'events';
 import { Wire, WireConstructor, READY_STATE, ExistingConnectConfig, ConnectConfig, InternalConnectConfig } from './wire';
 import { Identity } from '../identity';
-import { EventEmitter } from 'events';
 import { Environment } from '../environment/environment';
 import { RuntimeEvent } from '../api/events/base';
 import { EventAggregator } from '../api/events/eventAggregator';
@@ -19,7 +19,7 @@ declare class Transport extends EventEmitter {
     sendRaw: Wire['send'];
     eventAggregator: EventAggregator;
     protected messageHandlers: MessageHandler[];
-    constructor(wireType: WireConstructor, environment: Environment);
+    constructor(WireType: WireConstructor, environment: Environment);
     connectSync: (config: ConnectConfig) => void;
     getPort: () => string;
     shutdown(): Promise<void>;
@@ -38,16 +38,16 @@ interface Transport {
     sendAction(action: string, payload: {}, uncorrelated: boolean): Promise<Message<Payload>>;
     topicRefMap: Map<string, number>;
 }
-export declare class Message<T> {
+export interface Message<T> {
     action: string;
     payload: T;
     correlationId?: number;
 }
-export declare class EventMessage implements Message<RuntimeEvent> {
+export interface EventMessage extends Message<RuntimeEvent> {
     action: 'process-desktop-event';
     payload: RuntimeEvent;
 }
-export declare class NotificationEventMessage implements Message<NotificationEvent> {
+export interface NotificationEventMessage extends Message<NotificationEvent> {
     action: 'process-notification-event';
     payload: NotificationEvent;
 }
@@ -57,11 +57,11 @@ export interface NotificationEvent {
     };
     type: string | symbol;
 }
-export declare class Payload {
+export interface Payload {
     success: boolean;
     data: any;
 }
-export declare class AuthorizationPayload {
+export interface AuthorizationPayload {
     token: string;
     file: string;
 }

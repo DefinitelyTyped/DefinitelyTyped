@@ -11,6 +11,11 @@ rg4js('setUser', {
     firstName: "Robert",
     fullName: "Robert Raygun"
 });
+rg4js('trackEvent', {
+    type: 'customTiming',
+    name: 'testDuration',
+    duration: 100
+});
 
 try {
     throw new Error('oops');
@@ -92,3 +97,8 @@ client.disableAutoBreadcrumbs();
 client.enableAutoBreadcrumbs();
 
 client.recordBreadcrumb("Breadcrumb Message", { custom: "data" });
+
+client.trackEvent('customTiming', {
+    name: 'static-test-duration',
+    duration: 200
+});

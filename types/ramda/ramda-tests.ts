@@ -138,7 +138,6 @@ R.times(i, 5);
     }
 
     R.takeWhile(isNotFour, [1, 2, 3, 4]); // => [1, 2, 3]
-    R.take(2, [1, 2, 3, 4]); // => [1, 2]
 });
 (() => {
     function f(n: number): false | [number, number] {
@@ -156,88 +155,6 @@ R.times(i, 5);
 () => {
     const headLens = R.lensIndex(0);
     R.view(headLens, ["a", "b", "c"]);            // => 'a'
-    R.set(headLens, "x", ["a", "b", "c"]);        // => ['x', 'b', 'c']
-};
-
-() => {
-    R.remove(2, 3, [1, 2, 3, 4, 5, 6, 7, 8]); // => [1,2,6,7,8]
-    R.remove(2, 3)([1, 2, 3, 4, 5, 6, 7, 8]); // => [1,2,6,7,8]
-    R.remove(2)(3, [1, 2, 3, 4, 5, 6, 7, 8]); // => [1,2,6,7,8]
-};
-
-() => {
-    R.repeat("hi", 5); // => ['hi', 'hi', 'hi', 'hi', 'hi']
-    const obj          = {};
-    const repeatedObjs = R.repeat(obj, 5); // => [{}, {}, {}, {}, {}]
-    repeatedObjs[0] === repeatedObjs[1]; // => true
-};
-
-() => {
-    R.reverse([1, 2, 3]);  // => [3, 2, 1]
-    R.reverse([1, 2]);     // => [2, 1]
-    R.reverse([1]);        // => [1]
-    R.reverse([]);         // => []
-};
-
-() => {
-    R.reverse('abc');      // => 'cba'
-    R.reverse('ab');       // => 'ba'
-    R.reverse('a');        // => 'a'
-    R.reverse('');         // => ''
-};
-
-() => {
-    const numbers = [1, 2, 3, 4];
-    R.scan(R.multiply, 1, numbers); // => [1, 1, 2, 6, 24]
-    R.scan(R.multiply, 1)(numbers); // => [1, 1, 2, 6, 24]
-    R.scan(R.multiply)(1, numbers); // => [1, 1, 2, 6, 24]
-};
-
-() => {
-    const xs = R.range(0, 10);
-    R.slice(2, 5, xs); // => [2, 3, 4]
-    R.slice(2, 5)(xs); // => [2, 3, 4]
-    R.slice(2)(5, xs); // => [2, 3, 4]
-
-    const str = "Hello World";
-    R.slice(2, 5, str); // => 'llo'
-    R.slice(2, 5)(str); // => 'llo'
-    R.slice(2)(5, str); // => 'llo'
-};
-
-() => {
-    function diff(a: number, b: number) {
-        return a - b;
-    }
-
-    R.sort(diff, [4, 2, 7, 5]); // => [2, 4, 5, 7]
-    R.sort(diff)([4, 2, 7, 5]); // => [2, 4, 5, 7]
-};
-
-() => {
-    R.tail(["fi", "fo", "fum"]); // => ['fo', 'fum']
-    R.tail([1, 2, 3]); // => [2, 3]
-    R.tail("abc");  // => 'bc'
-    R.tail("");     // => ''
-};
-
-() => {
-    R.take(3, [1, 2, 3, 4, 5]); // => [1,2,3]
-
-    const members  = ["Paul Desmond", "Bob Bates", "Joe Dodge", "Ron Crotty", "Lloyd Davis", "Joe Morello", "Norman Bates",
-        "Eugene Wright", "Gerry Mulligan", "Jack Six", "Alan Dawson", "Darius Brubeck", "Chris Brubeck",
-        "Dan Brubeck", "Bobby Militello", "Michael Moore", "Randy Jones"];
-    const takeFive = R.take(5);
-
-    // $ExpectType string[]
-    takeFive(members); // => ["Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis"]
-};
-
-() => {
-    R.take(3, "Example"); // => "Exa"
-
-    const takeThree = R.take(3);
-    takeThree("Example"); // => "Exa"
 };
 
 () => {
@@ -396,21 +313,16 @@ R.times(i, 5);
     const xLens = R.lens(R.prop("x"), R.assoc("x"));
     R.view(xLens, {x: 1, y: 2});            // => 1
     R.view(xLens)({x: 1, y: 2});            // => 1
-    R.set(xLens, 4, {x: 1, y: 2});          // => {x: 4, y: 2}
-    R.set(xLens)(4, {x: 1, y: 2});          // => {x: 4, y: 2}
-    R.set(xLens, 4)({x: 1, y: 2});          // => {x: 4, y: 2}
 };
 
 () => {
     const headLens = R.lensIndex(0);
     R.view(headLens, ["a", "b", "c"]);            // => 'a'
-    R.set(headLens, "x", ["a", "b", "c"]);        // => ['x', 'b', 'c']
 };
 
 () => {
     const xLens = R.lensProp("x");
     R.view(xLens, {x: 1, y: 2});            // => 1
-    R.set(xLens, 4, {x: 1, y: 2});          // => {x: 4, y: 2}
 };
 
 () => {
@@ -418,7 +330,6 @@ R.times(i, 5);
     const testObj = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
 
     R.view(xyLens, testObj);            // => 2
-    R.set(xyLens, 4, testObj);          // => {x: [{y: 4, z: 3}, {y: 4, z: 5}]}
 };
 
 () => {
@@ -483,136 +394,6 @@ R.times(i, 5);
 
 () => {
     const a: number[] = R.without([1, 2], [1, 2, 1, 3, 4]); // => [3, 4]
-};
-
-() => {
-    const people = [
-        {name: 'Agy', age: 33}, {name: 'Bib', age: 15}, {name: 'Cari', age: 16}
-    ];
-
-    R.sortWith([R.ascend(R.prop('age')), R.descend(R.prop('name'))], people);
-};
-
-/*****************************************************************
- * Relation category
- */
-() => {
-    const sortByAgeDescending = R.sortBy(R.compose<{}, number, number>(R.negate, R.prop("age")));
-    const alice               = {
-        name: "ALICE",
-        age : 101
-    };
-    const bob                 = {
-        name: "Bob",
-        age : -10
-    };
-    const clara               = {
-        name: "clara",
-        age : 314.159
-    };
-    const people              = [clara, bob, alice];
-    sortByAgeDescending(people); // => [alice, bob, clara]
-};
-
-() => {
-    const sortByNameCaseInsensitive = R.sortBy(R.compose<Record<'name', string>, string, string>(R.toLower, R.prop("name")));
-    const alice                     = {
-        name: "ALICE",
-        age : 101
-    };
-    const bob                       = {
-        name: "Bob",
-        age : -10
-    };
-    const clara                     = {
-        name: "clara",
-        age : 314.159
-    };
-    const people                    = [clara, bob, alice];
-    sortByNameCaseInsensitive(people); // => [alice, bob, clara]
-};
-
-() => {
-    const a: number[][] = R.splitAt(1, [1, 2, 3]);        // => [[1], [2, 3]]
-    const b: number[][] = R.splitAt(1)([1, 2, 3]);        // => [[1], [2, 3]]
-    const c: string[]   = R.splitAt(5, "hello world");      // => ['hello', ' world']
-    const d: string[]   = R.splitAt(-1, "foobar");          // => ['fooba', 'r']
-    const e: string[]   = R.splitAt(-1)("foobar");          // => ['fooba', 'r']
-};
-
-() => {
-    const a: number[][] = R.splitEvery(3, [1, 2, 3, 4, 5, 6, 7]); // => [[1, 2, 3], [4, 5, 6], [7]]
-    const b: number[][] = R.splitEvery(3)([1, 2, 3, 4, 5, 6, 7]); // => [[1, 2, 3], [4, 5, 6], [7]]
-    const c: string[]   = R.splitEvery(3, 'foobarbaz'); // => ['foo', 'bar', 'baz']
-    const d: string[]   = R.splitEvery(3)('foobarbaz'); // => ['foo', 'bar', 'baz']
-};
-
-() => {
-    const a: number[][] = R.splitWhen(R.equals(2), [1, 2, 3, 1, 2, 3]);   // => [[1], [2, 3, 1, 2, 3]]
-    const b: number[][] = R.splitWhen(R.equals(2))([1, 2, 3, 1, 2, 3]);   // => [[1], [2, 3, 1, 2, 3]]
-};
-
-() => {
-    R.startsWith("a", "abc");   // => true
-    R.startsWith("a")("abc");   // => true
-    R.startsWith(1, [1, 2, 3]);   // => true
-    R.startsWith(1)([1, 2, 3]);   // => true
-    R.startsWith([1], [1, 2, 3]);   // => true
-    R.startsWith([1])([1, 2, 3]);   // => true
-};
-
-() => {
-    R.subtract(10, 8); // => 2
-
-    const complementaryAngle = R.subtract(90);
-    complementaryAngle(30); // => 60
-    complementaryAngle(72); // => 18
-};
-
-() => {
-    R.sum([2, 4, 6, 8, 100, 1]); // => 121
-};
-
-() => {
-    const a: number[] = R.symmetricDifference([1, 2, 3, 4], [7, 6, 5, 4, 3]); // => [1,2,7,6,5]
-    const b: number[] = R.symmetricDifference([7, 6, 5, 4, 3])([1, 2, 3, 4]); // => [7,6,5,1,2]
-};
-
-() => {
-    const eqA = R.eqBy(R.prop("a"));
-    const l1  = [{a: 1}, {a: 2}, {a: 3}, {a: 4}];
-    const l2  = [{a: 3}, {a: 4}, {a: 5}, {a: 6}];
-    R.symmetricDifferenceWith(eqA, l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
-    R.symmetricDifferenceWith(eqA)(l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
-    // const c: (a: any[]) => any[] = R.symmetricDifferenceWith(eqA)(l1); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
-};
-
-() => {
-    const eqL = R.eqBy<string, number>(s => s.length);
-    const l1 = ['bb', 'ccc', 'dddd'];
-    const l2 = ['aaa', 'bb', 'c'];
-    R.symmetricDifferenceWith(eqL, l1, l2); // => ['dddd', 'c']
-    R.symmetricDifferenceWith(eqL)(l1, l2); // => ['dddd', 'c']
-};
-
-/*****************************************************************
- * String category
- */
-() => {
-    R.replace("foo", "bar", "foo foo foo"); // => 'bar foo foo'
-    R.replace("foo", "bar")("foo foo foo"); // => 'bar foo foo'
-    R.replace("foo")("bar")("foo foo foo"); // => 'bar foo foo'
-    R.replace(/foo/, "bar", "foo foo foo"); // => 'bar foo foo'
-
-    // Use the "g" (global) flag to replace all occurrences:
-    R.replace(/foo/g, "bar", "foo foo foo"); // => 'bar bar bar'
-    R.replace(/foo/g, "bar")("foo foo foo"); // => 'bar bar bar'
-    R.replace(/foo/g)("bar")("foo foo foo"); // => 'bar bar bar'
-
-    // Using a function as the replacement value
-    R.replace(/([cfk])oo/g, (match, p1, offset) => `${p1}-${offset}`, "coo foo koo"); // => 'c0oo f4oo k8oo'
-    R.replace(/([cfk])oo/g, (match, p1, offset) => `${p1}-${offset}`)("coo foo koo"); // => 'c0oo f4oo k8oo'
-    R.replace(/([cfk])oo/g)((match, p1, offset) => `${p1}-${offset}`) ("coo foo koo"); // => 'c0oo f4oo k8oo'
 };
 
 () => {

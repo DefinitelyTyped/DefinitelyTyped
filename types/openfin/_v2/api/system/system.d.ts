@@ -20,7 +20,9 @@ import { DownloadPreloadOption, DownloadPreloadInfo } from './download-preload';
 import { ClearCacheOption } from './clearCacheOption';
 import { CrashReporterOption } from './crashReporterOption';
 import { SystemEvents } from '../events/system';
-interface ServiceIdentifier {
+import { InstalledApps } from './installedApps';
+import { CertifiedAppInfo } from './certifiedAppInfo';
+export interface ServiceIdentifier {
     name: string;
 }
 /**
@@ -76,12 +78,12 @@ interface ServiceIdentifier {
  * @property { Time } times The numbers of milliseconds the CPU has spent in different modes.
  */
 /**
-* CrashReporterOption interface
-* @typedef { object } CrashReporterOption
-* @property { boolean } diagnosticMode In diagnostic mode the crash reporter will send diagnostic logs to
-*  the OpenFin reporting service on runtime shutdown
-* @property { boolean } isRunning check if it's running
-*/
+ * CrashReporterOption interface
+ * @typedef { object } CrashReporterOption
+ * @property { boolean } diagnosticMode In diagnostic mode the crash reporter will send diagnostic logs to
+ *  the OpenFin reporting service on runtime shutdown
+ * @property { boolean } isRunning check if it's running
+ */
 /**
  * DipRect interface
  * @typedef { object } DipRect
@@ -185,11 +187,11 @@ interface ServiceIdentifier {
  * @property { string } date The unix time at which the log was created "Thu Jan 08 2015 14:40:30 GMT-0500 (Eastern Standard Time)"
  */
 /**
-* ManifestInfo interface
-* @typedef { object } ManifestInfo
-* @property { string } uuid The uuid of the application
-* @property { string } manifestUrl The runtime manifest URL
-*/
+ * ManifestInfo interface
+ * @typedef { object } ManifestInfo
+ * @property { string } uuid The uuid of the application
+ * @property { string } manifestUrl The runtime manifest URL
+ */
 /**
  * MonitorDetails interface
  * @typedef { object } MonitorDetails
@@ -326,16 +328,16 @@ interface ServiceIdentifier {
  * @property { object } [userAppConfigArgs] The user app configuration args
  */
 /**
-* ServiceIdentifier interface
-* @typedef { object } ServiceIdentifier
-* @property { string } name The name of the service
-*/
+ * ServiceIdentifier interface
+ * @typedef { object } ServiceIdentifier
+ * @property { string } name The name of the service
+ */
 /**
-* ServiceConfiguration interface
-* @typedef { object } ServiceConfiguration
-* @property { object } config The service configuration
-* @property { string } name The name of the service
-*/
+ * ServiceConfiguration interface
+ * @typedef { object } ServiceConfiguration
+ * @property { object } config The service configuration
+ * @property { string } name The name of the service
+ */
 /**
  * ShortCutConfig interface
  * @typedef { object } ShortCutConfig
@@ -397,6 +399,15 @@ interface ServiceIdentifier {
  * @property { Array<WindowDetail> } childWindows The array of child windows details
  * @property { WindowDetail } mainWindow The main window detail
  * @property { string } uuid The uuid of the application
+ */
+/**
+ * CertifiedAppInfo interface
+ * @typedef { object } CertifiedAppInfo
+ * @property { boolean } isRunning true if the app is running
+ * @property { boolean } [isOptedIntoCertfiedApp] true if the app has opted into certification
+ * @property { boolean } [isCertified] true if the app is certified
+ * @property { boolean } [isSSLCertified] true if the app manifest's SSL certificate is valid
+ * @property { boolean } [isPresentInAppDirectory] true if the app is present in the OpenFin app directory
  */
 /**
  * An object representing the core of OpenFin Runtime. Allows the developer
@@ -594,11 +605,18 @@ export default class System extends EmitterBase<SystemEvents> {
      */
     getFocusedExternalWindow(): Promise<Identity>;
     /**
+     * Returns information about the given app's certification status
+     * @return {Promise.<CertifiedAppInfo>}
+     * @tutorial System.isAppCertified
+     */
+    isAppCertified(manifestUrl: string): Promise<CertifiedAppInfo>;
+    /**
      * Returns an array of all the installed runtime versions in an object.
      * @return {Promise.<string[]>}
      * @tutorial System.getInstalledRuntimes
      */
     getInstalledRuntimes(): Promise<string[]>;
+    getInstalledApps(): Promise<InstalledApps>;
     /**
      * Retrieves the contents of the log with the specified filename.
      * @param { GetLogRequestType } options A object that id defined by the GetLogRequestType interface
@@ -744,19 +762,19 @@ export default class System extends EmitterBase<SystemEvents> {
      */
     downloadAsset(appAsset: AppAssetInfo, progressListener: (progress: RuntimeDownloadProgress) => void): Promise<void>;
     /**
-    * Downloads a version of the runtime.
-    * @param { RuntimeDownloadOptions } options - Download options.
-    * @param {Function} [progressListener] - called as the runtime is downloaded with progress information.
-    * @return {Promise.<void>}
-    * @tutorial System.downloadRuntime
-    */
+     * Downloads a version of the runtime.
+     * @param { RuntimeDownloadOptions } options - Download options.
+     * @param {Function} [progressListener] - called as the runtime is downloaded with progress information.
+     * @return {Promise.<void>}
+     * @tutorial System.downloadRuntime
+     */
     downloadRuntime(options: RuntimeDownloadOptions, progressListener: (progress: RuntimeDownloadProgress) => void): Promise<void>;
     /**
-    * Download preload scripts from given URLs
-    * @param {DownloadPreloadOption[]} scripts - URLs of preload scripts. See tutorial for more details.
-    * @return {Promise.Array<DownloadPreloadInfo>}
-    * @tutorial System.downloadPreloadScripts
-    */
+     * Download preload scripts from given URLs
+     * @param {DownloadPreloadOption[]} scripts - URLs of preload scripts. See tutorial for more details.
+     * @return {Promise.Array<DownloadPreloadInfo>}
+     * @tutorial System.downloadPreloadScripts
+     */
     downloadPreloadScripts(scripts: Array<DownloadPreloadOption>): Promise<Array<DownloadPreloadInfo>>;
     /**
      * Retrieves an array of data (name, ids, bounds) for all application windows.

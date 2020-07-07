@@ -1319,6 +1319,15 @@ export interface TextInputSubmitEditingEventData {
 }
 
 /**
+ * @see TextInputProps.onTextInput
+ */
+export interface TextInputTextInputEventData {
+    text: string;
+    previousText: string;
+    range: { start: number, end: number };
+}
+
+/**
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
  */
 export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputAndroidProps, AccessibilityProps {
@@ -1444,6 +1453,14 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
      * Callback that is called when the text input's submit button is pressed.
      */
     onSubmitEditing?: (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => void;
+
+    /**
+     * Callback that is called on new text input with the argument
+     *  `{ nativeEvent: { text, previousText, range: { start, end } } }`.
+     *
+     * This prop requires multiline={true} to be set.
+     */
+    onTextInput?: (e: NativeSyntheticEvent<TextInputTextInputEventData>) => void;
 
     /**
      * Invoked on content scroll with
