@@ -678,7 +678,7 @@ declare namespace Pubnub {
                 uuid: {
                     id: string;
                 };
-                custom: ObjectCustom | null;
+                custom: MembershipCustom | null;
                 updated: string;
                 eTag: string;
             };
