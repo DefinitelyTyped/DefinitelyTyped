@@ -3,7 +3,7 @@
 // tslint:disable:no-irregular-whitespace
 
 import Dynamsoft from 'dwt';
-import { DeviceConfiguration } from './WebTwain.Acquire';
+import { DeviceConfiguration } from 'dwt/WebTwain.Acquire';
 
 function Dynamsoft_OnReady() {
     const DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
