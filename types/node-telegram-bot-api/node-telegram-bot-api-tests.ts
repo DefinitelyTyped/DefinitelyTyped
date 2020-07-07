@@ -40,6 +40,7 @@ MyTelegramBot.sendVideo(1234, 'video/path', { caption: 'Foo', parse_mode: 'Markd
 MyTelegramBot.sendVideoNote(1234, 'video/path', { disable_notification: true });
 MyTelegramBot.sendVoice(1234, 'voice/path', { caption: 'Foo' });
 MyTelegramBot.sendVoice(1234, 'voice/path', { caption: 'Foo', parse_mode: 'HTML' });
+MyTelegramBot.sendAnimation(1234, 'animation/path', { caption: 'Foo', duration: 100, width: 200, height: 300 });
 MyTelegramBot.sendChatAction(1234, 'typing');
 MyTelegramBot.kickChatMember(1234, 'myUserID');
 MyTelegramBot.unbanChatMember(1234, 'myUserID');
@@ -64,7 +65,7 @@ MyTelegramBot.sendLocation(1234, 100, 200, { reply_to_message_id: 1234 });
 MyTelegramBot.editMessageLiveLocation(100, 200, { message_id: 1245 });
 MyTelegramBot.stopMessageLiveLocation({ message_id: 1245 });
 MyTelegramBot.sendVenue(1234, 100, 200, 'Venue Title', '123 Fake St.', { reply_to_message_id: 1234 });
-MyTelegramBot.sendContact(1234, '345-555-0192', 'John', { last_name: 'Smith' });
+MyTelegramBot.sendContact(1234, '345-555-0192', 'John', { last_name: 'Smith', vcard: 'vcard_data' });
 MyTelegramBot.getFile('My/File/ID');
 MyTelegramBot.getFileLink('My/File/ID');
 MyTelegramBot.getFileStream('My/File/ID');
