@@ -259,13 +259,13 @@ declare module _ {
             iteratee: MemoIterator<TypeOfList<V>, TResult, V>,
             memo: TResult,
             context?: any
-        ): TResult | undefined;
+        ): TResult;
         reduce<V extends Dictionary<any>, TResult>(
             collection: V,
             iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult, V>,
             memo: TResult,
             context?: any
-        ): TResult | undefined;
+        ): TResult;
         reduce<V extends List<any>, TResult = TypeOfList<V>>(
             collection: V,
             iteratee: MemoIterator<TypeOfList<V>, TResult | TypeOfList<V>, V>
@@ -300,13 +300,13 @@ declare module _ {
             iteratee: MemoIterator<TypeOfList<V>, TResult, V>,
             memo: TResult,
             context?: any
-        ): TResult | undefined;
+        ): TResult;
         reduceRight<V extends Dictionary<any>, TResult>(
             collection: V,
             iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult, V>,
             memo: TResult,
             context?: any
-        ): TResult | undefined;
+        ): TResult;
         reduceRight<V extends List<any>, TResult = TypeOfList<V>>(
             collection: V,
             iteratee: MemoIterator<TypeOfList<V>, TResult | TypeOfList<V>, V>
@@ -4193,7 +4193,7 @@ declare module _ {
         reduce<TResult>(iteratee: MemoCollectionIterator<T, TResult, V>,
             memo: TResult,
             context?: any
-        ): TResult | undefined;
+        ): TResult;
         reduce<TResult = TypeOfCollection<V>>(
             iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>
         ): TResult | TypeOfCollection<V> | undefined;
@@ -4221,7 +4221,7 @@ declare module _ {
             iteratee: MemoCollectionIterator<T, TResult, V>,
             memo: TResult,
             context?: any
-        ): TResult | undefined;
+        ): TResult;
         reduceRight<TResult = TypeOfCollection<V>>(
             iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>
         ): TResult | TypeOfCollection<V> | undefined;
@@ -5174,7 +5174,7 @@ declare module _ {
             iteratee: MemoCollectionIterator<T, TResult, V>,
             memo: TResult,
             context?: any
-        ): _ChainSingle<TResult | undefined>;
+        ): _ChainSingle<TResult>;
         reduce<TResult = TypeOfCollection<V>>(
             iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>
         ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
@@ -5202,7 +5202,7 @@ declare module _ {
             iteratee: MemoCollectionIterator<T, TResult, V>,
             memo: TResult,
             context?: any
-        ): _ChainSingle<TResult | undefined>;
+        ): _ChainSingle<TResult>;
         reduceRight<TResult = TypeOfCollection<V>>(
             iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>
         ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
