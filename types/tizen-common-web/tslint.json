@@ -1,6 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules":{
+        "max-line-length": false,
         "no-empty-interface": false,
         "interface-over-type-literal": false,
         "npm-naming": false
