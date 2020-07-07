@@ -3,6 +3,7 @@
 // tslint:disable:no-irregular-whitespace
 
 import Dynamsoft from 'dwt';
+import { DeviceConfiguration } from './WebTwain.Acquire';
 
 function Dynamsoft_OnReady() {
     const DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
@@ -23,7 +24,7 @@ function acquireImage() {
         DWObject.SelectSourceByIndex(0); // Use method SelectSourceByIndex to avoid the 'Select Source' dialog
         DWObject.OpenSource();
         DWObject.IfDisableSourceAfterAcquire = true; // Scanner source will be disabled/closed automatically after the scan.
-        DWObject.AcquireImage({}, () => { }, (errorCode: number, errorString: string) => { DWObject.CloseSource(); });
+        DWObject.AcquireImage({}, () => { }, (settings: DeviceConfiguration, errorCode: number, errorString: string) => { DWObject.CloseSource(); });
     }
 }
 
