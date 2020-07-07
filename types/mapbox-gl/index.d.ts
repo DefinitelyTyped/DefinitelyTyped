@@ -2046,7 +2046,7 @@ declare namespace mapboxgl {
         'text-field'?: string | StyleFunction | Expression;
         'text-font'?: string | string[] | Expression;
         'text-size'?: number | StyleFunction | Expression;
-        'text-max-width'?: number | Expression;
+        'text-max-width'?: number | StyleFunction | Expression;
         'text-line-height'?: number | Expression;
         'text-letter-spacing'?: number | Expression;
         'text-justify'?: 'left' | 'center' | 'right' | Expression;
