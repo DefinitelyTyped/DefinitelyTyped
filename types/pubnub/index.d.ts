@@ -667,7 +667,7 @@ declare namespace Pubnub {
         };
     }
 
-    interface SetMembershipEvent extends BaseObjectsEvent {
+    interface SetMembershipEvent<MembershipCustom extends ObjectCustom> extends BaseObjectsEvent {
         message: {
             event: 'set';
             type: 'membership';
@@ -678,7 +678,7 @@ declare namespace Pubnub {
                 uuid: {
                     id: string;
                 };
-                custom: null;
+                custom: ObjectCustom | null;
                 updated: string;
                 eTag: string;
             };
@@ -702,13 +702,14 @@ declare namespace Pubnub {
 
     type ObjectsEvent<
         UUIDCustom extends ObjectCustom = ObjectCustom,
-        ChannelCustom extends ObjectCustom = ObjectCustom
+        ChannelCustom extends ObjectCustom = ObjectCustom,
+        MembershipCustom extends ObjectCustom = ObjectCustom,
         > =
         SetUUIDMetadataEvent<UUIDCustom> |
         RemoveUUIDMetadataEvent |
         SetChannelMetadataEvent<ChannelCustom> |
         RemoveChannelMetadataEvent |
-        SetMembershipEvent |
+        SetMembershipEvent<MembershipCustom> |
         RemoveMembershipEvent;
 
     // publish
