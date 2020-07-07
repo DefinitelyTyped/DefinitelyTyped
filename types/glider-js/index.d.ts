@@ -182,8 +182,21 @@ declare namespace Glider {
     }
 
     interface Static<T extends HTMLElement = HTMLDivElement> {
-        ref: T;
-        options: Options;
+        animate_id: number;
+        arrows: object;
+        breakpoint: number;
+        containerWidth: number;
+        dots: HTMLElement;
+        ele: T;
+        isDrag: boolean;
+        itemWidth: number;
+        opt: Options;
+        page: number;
+        preventClick: boolean;
+        slide: number;
+        slides: HTMLCollection;
+        track: HTMLElement;
+        trackWidth: number;
 
         // tslint:disable-next-line no-misused-new
         new <T extends HTMLElement = HTMLDivElement>(ref: T, options: Options): Static<T>;
