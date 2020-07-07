@@ -3823,12 +3823,12 @@ declare module _ {
         isEqual(object: any, other: any): boolean;
 
         /**
-         * Returns true if an enumerable object contains no values (no enumerable own-properties).
+         * Returns true if a collection contains no values.
          * For strings and array-like objects checks if the length property is 0.
-         * @param object The object to check.
-         * @returns True if `object` is empty.
+         * @param collection The collection to check.
+         * @returns True if `collection` has no elements.
          **/
-        isEmpty(object: any): boolean;
+        isEmpty(collection: any): boolean;
 
         /**
          * Returns true if the keys and values in `properties` are contained in `object`.
@@ -4855,9 +4855,9 @@ declare module _ {
         isEqual(other: any): boolean;
 
         /**
-         * Returns true if an enumerable object contains no values (no enumerable own-properties).
+         * Returns true if the wrapped collection contains no values.
          * For strings and array-like objects checks if the length property is 0.
-         * @returns True if the wrapped object is empty.
+         * @returns True if the wrapped collection has no elements.
          **/
         isEmpty(): boolean;
 
@@ -5821,9 +5821,9 @@ declare module _ {
         isEqual(other: any): _ChainSingle<boolean>;
 
         /**
-         * Returns true if an enumerable object contains no values (no enumerable own-properties).
+         * Returns true if the wrapped collection contains no values.
          * For strings and array-like objects checks if the length property is 0.
-         * @returns True if the wrapped object is empty.
+         * @returns True if the wrapped collection has no elements.
          * The result will be wrapped in a chain wrapper.
          **/
         isEmpty(): _ChainSingle<boolean>;
