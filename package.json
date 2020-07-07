@@ -25,7 +25,6 @@
     "devDependencies": {
         "@definitelytyped/dtslint-runner": "latest",
         "danger": "^10.1.1",
-        "dts-gen": "^0.6.0",
         "dtslint": "latest",
         "prettier": "^2.0.2",
         "typescript": "next"
