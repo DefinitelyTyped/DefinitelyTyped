@@ -23,7 +23,6 @@
 //                 Nitesh Phadatare <https://github.com/minitesh>
 //                 Krantisinh Deshmukh <https://github.com/krantisinh>
 //                 Pierre-Antoine Mills <https://github.com/pirix-gh>
-//                 Brekk Bockrath <https://github.com/brekk>
 //                 Aram Kharazyan <https://github.com/nemo108>
 //                 Jituan Lin <https://github.com/jituanlin>
 //                 Philippe Mills <https://github.com/Philippe-mills>
