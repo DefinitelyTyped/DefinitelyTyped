@@ -3814,7 +3814,7 @@ declare module _ {
         propertyOf(object: object): (key: string | number | Array<string | number>) => any;
 
         /**
-         * Performs an optimized deep comparison between the two objects
+         * Performs an optimized deep comparison between `object` and `other`
          * to determine if they should be considered equal.
          * @param object Compare to `other`.
          * @param other Compare to `object`.
@@ -4848,7 +4848,7 @@ declare module _ {
 
         /**
          * Performs an optimized deep comparison between the wrapped object
-         * and the provided object to determine if they should be considered equal.
+         * and `other` to determine if they should be considered equal.
          * @param other Compare to the wrapped object.
          * @returns True if the wrapped object should be considered equal to `other`.
          **/
@@ -4862,7 +4862,7 @@ declare module _ {
         isEmpty(): boolean;
 
         /**
-         * Tells you if the keys and values in properties are contained in the wrapped object.
+         * Returns true if the keys and values in `properties` are contained in the wrapped object.
          * @param properties The properties to check for in the wrapped object.
          * @returns True if all keys and values in `properties` are also in the wrapped object.
          **/
@@ -5813,7 +5813,7 @@ declare module _ {
 
         /**
          * Performs an optimized deep comparison between the wrapped object
-         * and the provided object to determine if they should be considered equal.
+         * and `other` to determine if they should be considered equal.
          * @param other Compare to the wrapped object.
          * @returns True if the wrapped object should be considered equal to `other`.
          * The result will be wrapped in a chain wrapper.
@@ -5829,7 +5829,7 @@ declare module _ {
         isEmpty(): _ChainSingle<boolean>;
 
         /**
-         * Tells you if the keys and values in properties are contained in the wrapped object.
+         * Returns true if the keys and values in `properties` are contained in the wrapped object.
          * @param properties The properties to check for in the wrapped object.
          * @returns True if all keys and values in `properties` are also in the wrapped object.
          * The result will be wrapped in a chain wrapper.
