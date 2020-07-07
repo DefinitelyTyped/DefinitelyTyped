@@ -70,6 +70,34 @@ auth0.webAuth.authorize({
     prompt: 'login',
 });
 
+// handle additional options object
+auth0.webAuth.authorize(
+    {
+        state: 'state',
+        nonce: 'nonce',
+        scope: 'openid',
+        language: 'en',
+        prompt: 'login',
+    },
+    {
+        ephemeralSession: true,
+    },
+);
+
+// additional options with incorrect values
+auth0.webAuth.authorize(
+    {
+        state: 'state',
+        nonce: 'nonce',
+        scope: 'openid',
+        language: 'en',
+        prompt: 'login',
+    },
+    {
+        incorrectValue: true, // $ExpectError
+    },
+);
+
 auth0.webAuth.clearSession({ federated: false });
 auth0.webAuth.clearSession();
 
