@@ -254,18 +254,6 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The reduced result.
          **/
-        reduce<V extends List<any>, TResult = TypeOfList<V>>(
-            collection: V,
-            iteratee: MemoIterator<TypeOfList<V>, TResult | TypeOfList<V>, V>,
-            memo?: undefined,
-            context?: any
-        ): TResult | TypeOfList<V> | undefined;
-        reduce<V extends Dictionary<any>, TResult = TypeOfDictionary<V>>(
-            collection: V,
-            iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult | TypeOfDictionary<V>, V>,
-            memo?: undefined,
-            context?: any
-        ): TResult | TypeOfDictionary<V> | undefined;
         reduce<V extends List<any>, TResult>(
             collection: V,
             iteratee: MemoIterator<TypeOfList<V>, TResult, V>,
@@ -278,6 +266,14 @@ declare module _ {
             memo: TResult,
             context?: any
         ): TResult | undefined;
+        reduce<V extends List<any>, TResult = TypeOfList<V>>(
+            collection: V,
+            iteratee: MemoIterator<TypeOfList<V>, TResult | TypeOfList<V>, V>
+        ): TResult | TypeOfList<V> | undefined;
+        reduce<V extends Dictionary<any>, TResult = TypeOfDictionary<V>>(
+            collection: V,
+            iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult | TypeOfDictionary<V>, V>
+        ): TResult | TypeOfDictionary<V> | undefined;
 
         /**
          * @see reduce
@@ -299,18 +295,6 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The reduced result.
          **/
-        reduceRight<V extends List<any>, TResult = TypeOfList<V>>(
-            collection: V,
-            iteratee: MemoIterator<TypeOfList<V>, TResult | TypeOfList<V>, V>,
-            memo?: undefined,
-            context?: any
-        ): TResult | TypeOfList<V> | undefined;
-        reduceRight<V extends Dictionary<any>, TResult = TypeOfDictionary<V>>(
-            collection: V,
-            iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult | TypeOfDictionary<V>, V>,
-            memo?: undefined,
-            context?: any
-        ): TResult | TypeOfDictionary<V> | undefined;
         reduceRight<V extends List<any>, TResult>(
             collection: V,
             iteratee: MemoIterator<TypeOfList<V>, TResult, V>,
@@ -323,6 +307,14 @@ declare module _ {
             memo: TResult,
             context?: any
         ): TResult | undefined;
+        reduceRight<V extends List<any>, TResult = TypeOfList<V>>(
+            collection: V,
+            iteratee: MemoIterator<TypeOfList<V>, TResult | TypeOfList<V>, V>
+        ): TResult | TypeOfList<V> | undefined;
+        reduceRight<V extends Dictionary<any>, TResult = TypeOfDictionary<V>>(
+            collection: V,
+            iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult | TypeOfDictionary<V>, V>
+        ): TResult | TypeOfDictionary<V> | undefined;
 
         /**
          * @see reduceRight
@@ -4198,15 +4190,13 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The reduced result.
          **/
-        reduce<TResult = TypeOfCollection<V>>(
-            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>,
-            memo?: undefined,
-            context?: any
-        ): TResult | TypeOfCollection<V> | undefined;
         reduce<TResult>(iteratee: MemoCollectionIterator<T, TResult, V>,
             memo: TResult,
             context?: any
         ): TResult | undefined;
+        reduce<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>
+        ): TResult | TypeOfCollection<V> | undefined;
 
         /**
         * @see reduce
@@ -4227,16 +4217,14 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The reduced result.
          **/
-        reduceRight<TResult = TypeOfCollection<V>>(
-            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>,
-            memo?: undefined,
-            context?: any
-        ): TResult | TypeOfCollection<V> | undefined;
         reduceRight<TResult>(
             iteratee: MemoCollectionIterator<T, TResult, V>,
             memo: TResult,
             context?: any
         ): TResult | undefined;
+        reduceRight<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>
+        ): TResult | TypeOfCollection<V> | undefined;
 
         /**
         * @see reduceRight
@@ -5182,16 +5170,14 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The reduced result in a chain wraper.
          **/
-        reduce<TResult = TypeOfCollection<V>>(
-            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>,
-            memo?: undefined,
-            context?: any
-        ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
         reduce<TResult>(
             iteratee: MemoCollectionIterator<T, TResult, V>,
             memo: TResult,
             context?: any
         ): _ChainSingle<TResult | undefined>;
+        reduce<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>
+        ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
 
         /**
         * @see reduce
@@ -5212,16 +5198,14 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The reduced result in a chain wrapper.
          **/
-        reduceRight<TResult = TypeOfCollection<V>>(
-            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>,
-            memo?: undefined,
-            context?: any
-        ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
         reduceRight<TResult>(
             iteratee: MemoCollectionIterator<T, TResult, V>,
             memo: TResult,
             context?: any
         ): _ChainSingle<TResult | undefined>;
+        reduceRight<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>
+        ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
 
         /**
         * @see reduceRight

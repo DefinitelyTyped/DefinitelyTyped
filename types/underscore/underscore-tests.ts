@@ -964,23 +964,14 @@ declare const extractChainTypes: ChainTypeExtractor;
 
     // undefined memo and collection type result - strings
     _.reduce(simpleString, stringListSelfMemoIterator); // $ExpectType string | undefined
-    _.reduce(simpleString, stringListSelfMemoIterator, undefined, context); // $ExpectType string | undefined
     _(simpleString).reduce(stringListSelfMemoIterator); // $ExpectType string | undefined
-    _(simpleString).reduce(stringListSelfMemoIterator, undefined, context); // $ExpectType string | undefined
     extractChainTypes(_.chain(simpleString).reduce(stringListSelfMemoIterator)); // $ExpectType ChainType<string | undefined, string>
-    extractChainTypes(_.chain(simpleString).reduce(stringListSelfMemoIterator, undefined, context)); // $ExpectType ChainType<string | undefined, string>
     _.foldl(simpleString, stringListSelfMemoIterator); // $ExpectType string | undefined
-    _.foldl(simpleString, stringListSelfMemoIterator, undefined, context); // $ExpectType string | undefined
     _(simpleString).foldl(stringListSelfMemoIterator); // $ExpectType string | undefined
-    _(simpleString).foldl(stringListSelfMemoIterator, undefined, context); // $ExpectType string | undefined
     extractChainTypes(_.chain(simpleString).foldl(stringListSelfMemoIterator)); // $ExpectType ChainType<string | undefined, string>
-    extractChainTypes(_.chain(simpleString).foldl(stringListSelfMemoIterator, undefined, context)); // $ExpectType ChainType<string | undefined, string>
     _.inject(simpleString, stringListSelfMemoIterator); // $ExpectType string | undefined
-    _.inject(simpleString, stringListSelfMemoIterator, undefined, context); // $ExpectType string | undefined
     _(simpleString).inject(stringListSelfMemoIterator); // $ExpectType string | undefined
-    _(simpleString).inject(stringListSelfMemoIterator, undefined, context); // $ExpectType string | undefined
     extractChainTypes(_.chain(simpleString).inject(stringListSelfMemoIterator)); // $ExpectType ChainType<string | undefined, string>
-    extractChainTypes(_.chain(simpleString).inject(stringListSelfMemoIterator, undefined, context)); // $ExpectType ChainType<string | undefined, string>
 
     // constant primitive memo and type union result - lists
     _.reduce(stringRecordList, resultUnionPartialMemoIterator, stringMemo); // $ExpectType string | StringRecord | undefined
@@ -1065,17 +1056,11 @@ declare const extractChainTypes: ChainTypeExtractor;
 
     // undefined memo and collection type result - strings
     _.reduceRight(simpleString, stringListSelfMemoIterator); // $ExpectType string | undefined
-    _.reduceRight(simpleString, stringListSelfMemoIterator, undefined, context); // $ExpectType string | undefined
     _(simpleString).reduceRight(stringListSelfMemoIterator); // $ExpectType string | undefined
-    _(simpleString).reduceRight(stringListSelfMemoIterator, undefined, context); // $ExpectType string | undefined
     extractChainTypes(_.chain(simpleString).reduceRight(stringListSelfMemoIterator)); // $ExpectType ChainType<string | undefined, string>
-    extractChainTypes(_.chain(simpleString).reduceRight(stringListSelfMemoIterator, undefined, context)); // $ExpectType ChainType<string | undefined, string>
     _.foldr(simpleString, stringListSelfMemoIterator); // $ExpectType string | undefined
-    _.foldr(simpleString, stringListSelfMemoIterator, undefined, context); // $ExpectType string | undefined
     _(simpleString).foldr(stringListSelfMemoIterator); // $ExpectType string | undefined
-    _(simpleString).foldr(stringListSelfMemoIterator, undefined, context); // $ExpectType string | undefined
     extractChainTypes(_.chain(simpleString).foldr(stringListSelfMemoIterator)); // $ExpectType ChainType<string | undefined, string>
-    extractChainTypes(_.chain(simpleString).foldr(stringListSelfMemoIterator, undefined, context)); // $ExpectType ChainType<string | undefined, string>
 
     // constant primitive memo and type union result - lists
     _.reduceRight(stringRecordList, resultUnionPartialMemoIterator, stringMemo); // $ExpectType string | StringRecord | undefined
