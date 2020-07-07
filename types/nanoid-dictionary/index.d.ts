@@ -3,11 +3,7 @@
 // Definitions by: Shengjie Pan <https://github.com/kenelm007>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/* Lowercase English letters */
-export const lowercase: string;
-/* Uppercase English letters */
-export const uppercase: string;
-/* Numbers from 0 to 9 */
-export const numbers: string;
-/* Numbers and english alphabet without lookalikes */
-export const nolookalikes: string;
+export import lowercase = require('./lowercase');
+export import uppercase = require('./uppercase');
+export import numbers = require('./numbers');
+export import nolookalikes = require('./nolookalikes');
