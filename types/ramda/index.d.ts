@@ -817,14 +817,6 @@ export function intersection<T>(list1: readonly T[], list2: readonly T[]): T[];
 export function intersection<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
 
 /**
- * Combines two lists into a set (i.e. no duplicates) composed of those
- * elements common to both lists.  Duplication is determined according
- * to the value returned by applying the supplied predicate to two list
- * elements.
- */
-export function intersectionWith<T>(pred: (a: T, b: T) => boolean, list1: readonly T[], list2: readonly T[]): T[];
-
-/**
  * Creates a new list with the separator interposed between elements.
  */
 export function intersperse<T>(separator: T, list: readonly T[]): T[];
