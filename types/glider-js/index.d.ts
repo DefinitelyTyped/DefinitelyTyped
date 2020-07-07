@@ -8,7 +8,7 @@ declare namespace Glider {
     // Selectors are either results of querying document DOM or a string
     // Let's default to nullable Element to allow friction free migration
     // from JS to TS
-    type Selector<T> = T extends Element ? Element | null : string;
+    type Selector =  Element | string;
 
     type EasingFunction = (x: number, t: number, b: number, c: number, d: number) => number;
 
@@ -78,14 +78,14 @@ declare namespace Glider {
          * An object containing the prev/next arrow settings
          */
         arrows?: {
-            prev: Selector<HTMLElement | string>;
-            next: Selector<HTMLElement | string>;
+            prev: Selector | null;
+            next: Selector | null;
         };
 
         /**
          * An HTML element or selector containing the dot container
          */
-        dots?: Selector<HTMLElement | string>;
+        dots?: Selector | null;
 
         /**
          * If true, the list can be scrolled by click and dragging with the
