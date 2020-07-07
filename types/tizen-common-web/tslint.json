@@ -1,9 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules":{
-        "no-const-enum": false,
-        "max-line-length": false,
-        "strict-export-declare-modifiers": false,
         "no-empty-interface": false,
         "interface-over-type-literal": false,
         "npm-naming": false

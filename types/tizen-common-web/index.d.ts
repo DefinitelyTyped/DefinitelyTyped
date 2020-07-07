@@ -26,32 +26,32 @@ declare global {
     const tizen: Tizen;
     interface Window {
         tizen: Tizen;
-        WebAPIException: WebAPIException;
-        WebAPIError: WebAPIException;
+        WebAPIException: Tizen.WebAPIException;
+        WebAPIError: Tizen.WebAPIException;
     }
 }
 
 interface Tizen {
-    ApplicationControl: ApplicationControlConstructor;
-    ApplicationControlData: ApplicationControlDataConstructor;
-    AttributeFilter: AttributeFilterConstructor;
-    AttributeRangeFilter: AttributeRangeFilterConstructor;
-    CompositeFilter: CompositeFilterConstructor;
-    SortMode: SortModeConstructor;
-    SimpleCoordinates: SimpleCoordinatesConstructor;
-    Bundle: BundleConstructor;
-    filesystem: FilesystemManager;
-    application: ApplicationManager;
-    download: DownloadManager;
-    systeminfo: SystemInfoManager;
-    websetting: WebSettingManager;
-    tvaudiocontrol: TVAudioControlManager;
-    tvdisplaycontrol: TVDisplayControlManager;
-    tvinfo: TVInfoManager;
-    tvinputdevice: TVInputDeviceManager;
-    tvwindow: TVWindowManager;
-    DownloadRequest: DownloadRequestConstructor;
-    package: PackageManager;
+    ApplicationControl: Tizen.ApplicationControlConstructor;
+    ApplicationControlData: Tizen.ApplicationControlDataConstructor;
+    AttributeFilter: Tizen.AttributeFilterConstructor;
+    AttributeRangeFilter: Tizen.AttributeRangeFilterConstructor;
+    CompositeFilter: Tizen.CompositeFilterConstructor;
+    SortMode: Tizen.SortModeConstructor;
+    SimpleCoordinates: Tizen.SimpleCoordinatesConstructor;
+    Bundle: Tizen.BundleConstructor;
+    filesystem: Tizen.FilesystemManager;
+    application: Tizen.ApplicationManager;
+    download: Tizen.DownloadManager;
+    systeminfo: Tizen.SystemInfoManager;
+    websetting: Tizen.WebSettingManager;
+    tvaudiocontrol: Tizen.TVAudioControlManager;
+    tvdisplaycontrol: Tizen.TVDisplayControlManager;
+    tvinfo: Tizen.TVInfoManager;
+    tvinputdevice: Tizen.TVInputDeviceManager;
+    tvwindow: Tizen.TVWindowManager;
+    DownloadRequest: Tizen.DownloadRequestConstructor;
+    package: Tizen.PackageManager;
 }
 
 export = tizen;
