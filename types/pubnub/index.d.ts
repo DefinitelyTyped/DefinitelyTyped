@@ -24,6 +24,10 @@ interface PagedObjectsResponse<DataType> extends ObjectsResponse<DataType[]> {
     next?: string;
     totalCount?: number;
 }
+// partial but everything can be null (even with strictNullChecks)
+type Nullable<T> = {
+    [P in keyof T]?: T[P] | null;
+};
 
 declare class Pubnub {
     constructor(config: Pubnub.PubnubConfig);
@@ -619,7 +623,7 @@ declare namespace Pubnub {
         };
     }
 
-    interface ObjectsEvent {
+    interface BaseObjectsEvent {
         channel: string;
         message: {
             event: 'set' | 'delete';
@@ -630,6 +634,82 @@ declare namespace Pubnub {
         publisher?: string;
         timetoken: number;
     }
+
+    interface SetUUIDMetadataEvent<UUIDCustom extends ObjectCustom> extends BaseObjectsEvent {
+        message: {
+            event: 'set';
+            type: 'uuid';
+            data: UUIDMetadataObject<UUIDCustom>;
+        };
+    }
+
+    interface RemoveUUIDMetadataEvent extends BaseObjectsEvent {
+        message: {
+            event: 'delete';
+            type: 'uuid';
+            data: { id: string };
+        };
+    }
+
+    interface SetChannelMetadataEvent<ChannelCustom extends ObjectCustom> extends BaseObjectsEvent {
+        message: {
+            event: 'set';
+            type: 'channel';
+            data: ChannelMetadataObject<ChannelCustom>;
+        };
+    }
+
+    interface RemoveChannelMetadataEvent extends BaseObjectsEvent {
+        message: {
+            event: 'delete',
+            type: 'channel',
+            data: { id: string };
+        };
+    }
+
+    interface SetMembershipEvent extends BaseObjectsEvent {
+        message: {
+            event: 'set';
+            type: 'membership';
+            data: {
+                channel: {
+                    id: string;
+                };
+                uuid: {
+                    id: string;
+                };
+                custom: null;
+                updated: string;
+                eTag: string;
+            };
+        };
+    }
+
+    interface RemoveMembershipEvent extends BaseObjectsEvent {
+        message: {
+            event: 'delete';
+            type: 'membership';
+            data: {
+                channel: {
+                    id: string;
+                };
+                uuid: {
+                    id: string;
+                };
+            };
+        };
+    }
+
+    type ObjectsEvent<
+        UUIDCustom extends ObjectCustom = ObjectCustom,
+        ChannelCustom extends ObjectCustom = ObjectCustom
+        > =
+        SetUUIDMetadataEvent<UUIDCustom> |
+        RemoveUUIDMetadataEvent |
+        SetChannelMetadataEvent<ChannelCustom> |
+        RemoveChannelMetadataEvent |
+        SetMembershipEvent |
+        RemoveMembershipEvent;
 
     // publish
     interface PublishParameters {
@@ -1121,20 +1201,16 @@ declare namespace Pubnub {
     }
 
     // UUID metadata
-
-    interface UUIDMetadata<Custom extends ObjectCustom> extends v2ObjectParam<Custom> {
-        name?: string;
-        externalId?: string;
-        profileUrl?: string;
-        email?: string;
+    interface UUIDMetadataFields {
+        name: string;
+        externalId: string;
+        profileUrl: string;
+        email: string;
     }
 
-    interface UUIDMetadataObject<Custom extends ObjectCustom> extends v2ObjectData<Custom> {
-        name: string | null;
-        externalId: string | null;
-        profileUrl: string | null;
-        email: string | null;
-    }
+    interface UUIDMetadata<Custom extends ObjectCustom> extends v2ObjectParam<Custom>, Partial<UUIDMetadataFields> { }
+
+    interface UUIDMetadataObject<Custom extends ObjectCustom> extends v2ObjectData<Custom>, Nullable<UUIDMetadataFields> { }
 
     interface SetUUIDMetadataParameters<Custom extends ObjectCustom> {
         uuid?: string;
@@ -1179,18 +1255,18 @@ declare namespace Pubnub {
 
     // Channel Metadata
 
-    interface ChannelMetadataObject<Custom extends ObjectCustom> extends v2ObjectData<Custom> {
-        name: string | null;
-        description: string | null;
+    interface ChannelMetadataFields {
+        name: string;
+        description: string;
     }
+
+    interface ChannelMetadata<Custom extends ObjectCustom> extends v2ObjectParam<Custom>, Partial<ChannelMetadataFields> { }
+
+    interface ChannelMetadataObject<Custom extends ObjectCustom> extends v2ObjectData<Custom>, Nullable<ChannelMetadataFields> { }
 
     interface SetChannelMetadataParameters<Custom extends ObjectCustom> {
         channel: string;
-        data: {
-            name?: string;
-            description?: string;
-            custom?: Custom;
-        };
+        data: ChannelMetadata<Custom>;
         include?: {
             customFields?: boolean;
         };
