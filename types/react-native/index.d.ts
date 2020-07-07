@@ -40,6 +40,7 @@
 //                 Natsathorn Yuthakovit <https://github.com/natsathorn>
 //                 ConnectDotz <https://github.com/connectdotz>
 //                 Marcel Lasaj <https://github.com/TheWirv>
+//                 Alexey Molchan <https://github.com/alexeymolchan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1318,6 +1319,15 @@ export interface TextInputSubmitEditingEventData {
 }
 
 /**
+ * @see TextInputProps.onTextInput
+ */
+export interface TextInputTextInputEventData {
+    text: string;
+    previousText: string;
+    range: { start: number, end: number };
+}
+
+/**
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
  */
 export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputAndroidProps, AccessibilityProps {
@@ -1443,6 +1453,14 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
      * Callback that is called when the text input's submit button is pressed.
      */
     onSubmitEditing?: (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => void;
+
+    /**
+     * Callback that is called on new text input with the argument
+     *  `{ nativeEvent: { text, previousText, range: { start, end } } }`.
+     *
+     * This prop requires multiline={true} to be set.
+     */
+    onTextInput?: (e: NativeSyntheticEvent<TextInputTextInputEventData>) => void;
 
     /**
      * Invoked on content scroll with
@@ -4974,10 +4992,19 @@ export interface TouchableWithoutFeedbackPropsIOS {
     tvParallaxProperties?: TVParallaxProperties;
 }
 
+export interface TouchableWithoutFeedbackPropsAndroid {
+    /**
+     * If true, doesn't play a system sound on touch.
+     *
+     * @platform android
+     */
+    touchSoundDisabled?: boolean | null;
+}
+
 /**
  * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html#props
  */
-export interface TouchableWithoutFeedbackProps extends TouchableWithoutFeedbackPropsIOS, AccessibilityProps {
+export interface TouchableWithoutFeedbackProps extends TouchableWithoutFeedbackPropsIOS, TouchableWithoutFeedbackPropsAndroid, AccessibilityProps {
     /**
      * Delay in ms, from onPressIn, before onLongPress is called.
      */
@@ -4996,7 +5023,7 @@ export interface TouchableWithoutFeedbackProps extends TouchableWithoutFeedbackP
     /**
      * If true, disable all interactions for this component.
      */
-    disabled?: boolean;
+    disabled?: boolean | null;
 
     /**
      * This defines how far your touch can start away from the button.

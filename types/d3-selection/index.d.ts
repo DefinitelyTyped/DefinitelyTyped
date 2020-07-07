@@ -21,6 +21,11 @@
 export type BaseType = Element | EnterElement | Document | Window | null;
 
 /**
+ * KeyType serves as alias for valid types that d3 supports as key for data binding
+ */
+export type KeyType = string | number;
+
+/**
  * A helper interface which covers arguments like NodeListOf<T> or HTMLCollectionOf<T>
  * argument types
  */
@@ -747,7 +752,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * The datum for a given key is assigned to the element with the matching key. If multiple elements have the same key,
      * the duplicate elements are put into the exit selection; if multiple data have the same key, the duplicate data are put into the enter selection.
      */
-    data<NewDatum>(data: NewDatum[], key?: ValueFn<GElement | PElement, Datum | NewDatum, string>): Selection<GElement, NewDatum, PElement, PDatum>;
+    data<NewDatum>(data: NewDatum[], key?: ValueFn<GElement | PElement, Datum | NewDatum, KeyType>): Selection<GElement, NewDatum, PElement, PDatum>;
     /**
      * Joins the data returned by the specified value function with the selected elements, returning a new selection that it represents
      * the update selection: the elements successfully bound to data. Also defines the enter and exit selections on
@@ -780,7 +785,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * The datum for a given key is assigned to the element with the matching key. If multiple elements have the same key,
      * the duplicate elements are put into the exit selection; if multiple data have the same key, the duplicate data are put into the enter selection.
      */
-    data<NewDatum>(data: ValueFn<PElement, PDatum, NewDatum[]>, key?: ValueFn<GElement | PElement, Datum | NewDatum, string>): Selection<GElement, NewDatum, PElement, PDatum>;
+    data<NewDatum>(data: ValueFn<PElement, PDatum, NewDatum[]>, key?: ValueFn<GElement | PElement, Datum | NewDatum, KeyType>): Selection<GElement, NewDatum, PElement, PDatum>;
 
     /**
      * Appends, removes and reorders elements as necessary to match the data that was previously bound by `selection.data`, returning the merged enter and update selection.

@@ -1111,6 +1111,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "electron-packager",
+            "typingsPackageName": "electron-packager",
+            "sourceRepoURL": "https://github.com/electron/electron-packager",
+            "asOfVersion": "15.0.0"
+        },
+        {
             "libraryName": "electron-store",
             "typingsPackageName": "electron-store",
             "sourceRepoURL": "https://github.com/sindresorhus/electron-store",
@@ -3865,6 +3871,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "raygun",
+            "typingsPackageName": "raygun",
+            "sourceRepoURL": "https://github.com/MindscapeHQ/raygun4node",
+            "asOfVersion": "0.11.0"
+        },
+        {
             "libraryName": "rc-progress",
             "typingsPackageName": "rc-progress",
             "sourceRepoURL": "http://github.com/react-component/progress",
@@ -5587,6 +5599,12 @@
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "@wordpress/dependency-extraction-webpack-plugin",
+            "typingsPackageName": "wordpress__dependency-extraction-webpack-plugin",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.7.0"
+        },
+        {
             "libraryName": "@wordpress/dom-ready",
             "typingsPackageName": "wordpress__dom-ready",
             "sourceRepoURL": "https://github.com/WordPress/gutenberg",
@@ -5687,6 +5705,12 @@
             "typingsPackageName": "xlsx",
             "sourceRepoURL": "https://github.com/sheetjs/js-xlsx",
             "asOfVersion": "0.0.36"
+        },
+        {
+            "libraryName": "xml-formatter",
+            "typingsPackageName": "xml-formatter",
+            "sourceRepoURL": "https://github.com/chrisbottin/xml-formatter",
+            "asOfVersion": "2.1.1"
         },
         {
             "libraryName": "xml-js",

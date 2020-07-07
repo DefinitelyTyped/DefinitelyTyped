@@ -252,6 +252,7 @@ let autoComplete: Tabulator.AutoCompleteParams = {
     values: true, // create list of values from all values contained in this column,
     sortValuesList: 'asc', // sort the values by ascending order,
 };
+
 colDef.editorParams = autoComplete;
 
 colDef.editorParams = {
@@ -353,11 +354,6 @@ let options = <Tabulator.Options>{};
 options.keybindings = {
     navPrev: 'ctrl + 1',
     navNext: false,
-};
-
-options.downloadDataFormatter = data => {
-    //  data.forEach(function(row){
-    //    row.age = row.age >= 18 ? "adult" : "child";
 };
 
 options.downloadConfig = {
@@ -753,3 +749,107 @@ const filterVal = table.getHeaderFilterValue('name');
 table.recalc();
 const columns = table.getColumns(true);
 columns.forEach(col => col.getDefinition());
+
+// 4.7 updates
+
+table = new Tabulator('#example-table', {
+    movableRowsElementDrop: (e, element, row) => {},
+    downloadRowRange: 'selected',
+    layout: 'fitDataTable',
+    validationMode: 'highlight',
+    paginationSizeSelector: [10, 25, 50, 100, true],
+    groupHeader: (value, count, data, group) => {
+        return '';
+    },
+    groupHeaderPrint: (value, count, data, group) => {
+        return '';
+    },
+    groupHeaderClipboard: (value, count, data, group) => {
+        return '';
+    },
+    groupHeaderHtmlOutput: (value, count, data, group) => {
+        return '';
+    },
+    langs: {
+        en: {
+            pagination: {
+                all: 'All',
+                page_title: 'Show Page',
+            },
+        },
+    },
+    groupContextMenu: [
+        {
+            label: 'Hide Group',
+            action: (e, group) => {
+                group.hide();
+            },
+        },
+    ],
+});
+table.clearCellEdited();
+cell.clearEdited();
+table.getEditedCells();
+table.setFilter('colors', 'keywords', 'red green blue', { matchAll: true });
+row.addTreeChild({ name: 'Billy Bob', age: '12', gender: 'male', height: 1 }, true);
+column.isVisible();
+column.setWidth(true);
+table.getInvalidCells();
+cell.isValid();
+cell.clearValidation();
+table.clearCellValidation();
+table.validate();
+row.validate();
+column.validate();
+cell.validate();
+table.addColumn({
+    title: 'Example',
+    field: 'example',
+    validator: 'starts:bob',
+    titlePrint: 'Example',
+    titleHtmlOutput: 'User Age',
+});
+table.addColumn({
+    title: 'Example',
+    field: 'example',
+    formatter: 'datetime',
+    formatterParams: {
+        outputFormat: 'DD/MM/YY HH:ii',
+        timezone: 'America/Los_Angeles',
+    },
+});
+row.isFrozen();
+
+let autoComplete2: Tabulator.AutoCompleteParams = {
+    values: [
+        {
+            label: 'Steve Boberson',
+            value: 'steve',
+        },
+        {
+            label: 'Bob Jimmerson',
+            value: 'bob',
+        },
+        {
+            label: 'Jenny Jillerson',
+            value: 'jenny',
+        },
+        {
+            label: 'Jill Betterson',
+            value: 'jill',
+        },
+    ],
+};
+
+let select: Tabulator.SelectParams = {
+    multiselect: true,
+    values: [
+        {
+            label: 'Steve Boberson',
+            value: 'steve',
+            elementAttributes: {
+                class: 'primary-name',
+            },
+        },
+    ],
+};

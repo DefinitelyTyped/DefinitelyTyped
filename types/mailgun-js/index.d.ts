@@ -141,6 +141,15 @@ declare namespace Mailgun {
             vars?: object;
         }
 
+        interface MemberAddMultipleData {
+            members: Array<{
+                name?: string;
+                address: string;
+                subscribed?: boolean;
+            }>;
+            upsert?: boolean;
+        }
+
         interface MemberUpdateData {
             subscribed: boolean;
             name: string;
@@ -150,7 +159,7 @@ declare namespace Mailgun {
         interface Members {
             create(data: MemberCreateData, callback?: (err: Error, data: any) => void): Promise<any>;
 
-            add(data: MemberCreateData[], callback?: (err: Error, data: any) => void): Promise<any>;
+            add(data: MemberAddMultipleData, callback?: (err: Error, data: any) => void): Promise<any>;
 
             list(callback?: (err: Error, data: any) => void): Promise<any>;
         }

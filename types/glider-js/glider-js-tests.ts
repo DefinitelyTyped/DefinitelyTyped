@@ -37,10 +37,10 @@ glider.setOption(options, true);
 glider.updateControls();
 
 // $ExpectType HTMLDivElement
-glider.ref;
+glider.ele;
 
 // $ExpectType Options
-glider.options;
+glider.opt;
 
 document.querySelector('.glider')?.addEventListener('glider-add', event => {
     // $ExpectType GliderEvent<{ scroll: () => void; }>
