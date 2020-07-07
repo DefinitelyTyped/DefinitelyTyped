@@ -3831,7 +3831,7 @@ declare module _ {
         isEmpty(object: any): boolean;
 
         /**
-         * Tells you if the keys and values in properties are contained in object.
+         * Returns true if the keys and values in `properties` are contained in `object`.
          * @param object The object to check.
          * @param properties The properties to check for in `object`.
          * @returns True if all keys and values in `properties` are also in `object`.
