@@ -2593,6 +2593,8 @@ declare namespace chrome.enterprise.deviceAttributes {
 ////////////////////
 /**
  * Use the <code>chrome.enterprise.networkingAttributes</code> API to read information about your current network. Note: This API is only available to extensions force-installed by enterprise policy.
+ * Important: This API works only on Chrome OS.
+ * @since Chrome 85.
  */
 declare namespace chrome.enterprise.networkingAttributes {
   export interface NetworkDetails {
