@@ -5113,6 +5113,7 @@ declare namespace chrome.platformKeys {
      * The callback parameter should be a function that looks like this:
      * function(object publicKey, object privateKey) {...};
      * Optional parameter privateKey: Might be null if this extension does not have access to it.
+     * @since Chrome 85.
      */
     export function getKeyPairBySpki(publicKeySpkiDer: ArrayBuffer, parameters: Object, callback: (publicKey: CryptoKey, privateKey: CryptoKey | null) => void): void;
     /** An implementation of WebCrypto's  SubtleCrypto that allows crypto operations on keys of client certificates that are available to this extension. */
