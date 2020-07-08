@@ -247,7 +247,7 @@ export function call(fn: (...args: readonly any[]) => (...args: readonly any[]) 
  */
 export function chain<T, U>(fn: (n: T) => readonly U[], list: readonly T[]): U[];
 export function chain<T, U>(fn: (n: T) => readonly U[]): (list: readonly T[]) => U[];
-export function chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
+export function chain<X0, X1, R>(fn: (x0: X0) => (x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
 
 /**
  * Restricts a number to be within a range.
@@ -1369,8 +1369,8 @@ export function pathOr<T>(defaultValue: T): _.F.Curry<(a: Path, b: any) => T>;
 /**
  * Retrieves the values at given paths of an object.
  */
-export function paths<T>(paths: Path[], obj: any): Array<T|undefined>;
-export function paths<T>(paths: Path[]): (obj: any) => Array<T|undefined>;
+export function paths<T>(paths: Path[], obj: any): Array<T | undefined>;
+export function paths<T>(paths: Path[]): (obj: any) => Array<T | undefined>;
 
 /**
  * Returns true if the specified object property at given path satisfies the given predicate; false otherwise.
