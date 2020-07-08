@@ -1,6 +1,8 @@
-// Type definitions for miniprogtam-api-typings
+// Type definitions for miniprogtam-api-typings 2.11
 // Project: https://github.com/wechat-miniprogram/api-typings.git
-// Definitions by: Wechat Miniprogram <wx-miniprogram@qq.com>
+// Definitions by: Wechat Miniprogram <https://github.com/wechat-miniprogram>,
+//                SgLy <https://github.com/SgLy>,
+//                TtTRz <https://github.com/TtTRz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 declare namespace WechatMiniprogram {
