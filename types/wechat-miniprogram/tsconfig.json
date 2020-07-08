@@ -1,20 +1,14 @@
 {
   "compilerOptions": {
-    "strictNullChecks": false,
-    "noImplicitAny": false,
     "module": "commonjs",
     "target": "ES5",
-    "experimentalDecorators": true,
+    "noImplicitAny": true,
     "noImplicitThis": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "strictFunctionTypes": false,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
     "baseUrl": "../",
     "typeRoots": [
         "../"
-    ],
-    "lib": [
-      "es6"
     ],
     "types": [],
     "noEmit": true,
