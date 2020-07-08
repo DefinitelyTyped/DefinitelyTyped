@@ -141,5 +141,22 @@ completeAccessorDescriptor['[[Enumerable]]']; // $ExpectType boolean
 completeAccessorDescriptor['[[Get]]']; // $ExpectType (() => symbol) | undefined
 completeAccessorDescriptor['[[Set]]']; // $ExpectType ((value: symbol) => void) | undefined
 
+declare namespace testDefinePropertyOrThrow {
+    interface Foo {
+        bar: string;
+    }
+}
+
+function testDefinePropertyOrThrow(foo: testDefinePropertyOrThrow.Foo) {
+    ES2015.DefinePropertyOrThrow(foo, 'baz', {
+        '[[Configurable]]': true,
+        '[[Writable]]': true,
+        '[[Value]]'() {
+            this; // $ExpectType Foo
+            this.bar; // $ExpectType string
+        },
+    });
+}
+
 // Removed in ES2015:
 ES2015.CheckObjectCoercible; // $ExpectError

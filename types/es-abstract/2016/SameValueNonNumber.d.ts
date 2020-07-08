@@ -1,7 +1,4 @@
 /**
- * @param x
- * @param y
- *
  * @throws {TypeError} If `x` or `y` is a `number` or they're different types.
  */
 declare function SameValueNonNumber(

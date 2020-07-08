@@ -1,2 +1,2 @@
-declare function CanonicalNumericIndexString(value: unknown): number | undefined;
+declare function CanonicalNumericIndexString(value: string): number | undefined;
 export = CanonicalNumericIndexString;
