@@ -26,13 +26,12 @@
   },
   "files": [
     "index.d.ts",
-    "./wx/index.d.ts",
-    "./wx/lib.wx.api.d.ts",
-    "./wx/lib.wx.app.d.ts",
-    "./wx/lib.wx.behavior.d.ts",
-    "./wx/lib.wx.cloud.d.ts",
-    "./wx/lib.wx.component.d.ts",
-    "./wx/lib.wx.event.d.ts",
-    "./wx/lib.wx.page.d.ts",
+    "lib.wx.api.d.ts",
+    "lib.wx.app.d.ts",
+    "lib.wx.behavior.d.ts",
+    "lib.wx.cloud.d.ts",
+    "lib.wx.component.d.ts",
+    "lib.wx.event.d.ts",
+    "lib.wx.page.d.ts",
   ]
 }
