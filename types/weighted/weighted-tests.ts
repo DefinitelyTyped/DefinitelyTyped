@@ -1,10 +1,11 @@
-import * as weighted from 'weighted';
+import weighted, { select } from 'weighted';
 
 function testSet() {
     var options = ['Wake Up', 'Snooze Alarm'];
     var weights = [0.25, 0.75];
 
-    console.log('Decision:', weighted.select(options, weights));
+    console.log('Decision:', weighted(options, weights));
+    console.log('Decision:', select(options, weights));
 }
 
 function testObj() {
@@ -13,7 +14,8 @@ function testObj() {
         'Snooze Alarm': 0.75
     };
 
-    console.log('Decision:', weighted.select(options));
+    console.log('Decision:', weighted(options));
+    console.log('Decision:', select(options));
 }
 
 function testOverrideRand() {
@@ -25,5 +27,6 @@ function testOverrideRand() {
                   // guaranteed to be random.
     }
 
-    console.log('Decision:', weighted.select(options, weights, rand));
+    console.log('Decision:', weighted(options, weights, rand));
+    console.log('Decision:', select(options, weights, rand));
 }

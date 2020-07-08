@@ -261,3 +261,5 @@ const VisitorAliasTest: Visitor = {
 const hub = new Hub('file', { options: '' });
 // $ExpectType string | undefined
 hub.getCode();
+
+traverse.visitors.merge([{ Expression(path) { } }, { Expression(path) { } }]);

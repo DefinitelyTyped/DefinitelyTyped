@@ -386,7 +386,7 @@ declare namespace Autodesk {
             myData: any;
 
             downloadAecModelData(onFinished?: (data: any) => void): Promise<any>;
-            getAecModelData(node: BubbleNode): any;
+            static getAecModelData(node: BubbleNode): any;
             getFullPath(urn: string): string;
             getItemById(id: string): object;
             getMessages(itemId: string, excludeGlobal: boolean): object;

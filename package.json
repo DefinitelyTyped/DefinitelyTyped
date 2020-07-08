@@ -24,6 +24,8 @@
     },
     "devDependencies": {
         "@definitelytyped/dtslint-runner": "latest",
+        "@definitelytyped/definitions-parser": "latest",
+        "@definitelytyped/utils": "latest",
         "danger": "^10.1.1",
         "dtslint": "latest",
         "prettier": "^2.0.2",
