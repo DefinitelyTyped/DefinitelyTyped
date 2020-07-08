@@ -119,7 +119,7 @@ interface RaygunOptions {
     /**
      * Raygun4JS will track each window.performance.measure call as a custom timing entry. This enables developers to use a more native API for tracking performance timings.
      */
-    automaticPerformanceCustomTimings ?: boolean;
+    automaticPerformanceCustomTimings?: boolean;
 
     /**
      * RUM requests will be associated to this IP address when set.
