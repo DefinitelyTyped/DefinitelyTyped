@@ -1,4 +1,5 @@
 { 
+  "extend": "dtslint/dt.json",
   "extends": ["dtslint/dt.json"],
   "defaultSeverity": "error",
   "rules": {
