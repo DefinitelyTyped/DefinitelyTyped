@@ -14,9 +14,9 @@ declare namespace CADES_Common {
                                     T extends CAPICOM.PublicKey ? CAPICOM.PublicKeyAsync :
                                         T;
 
-	type PromisifiedFunction<T extends Function> = // tslint:disable-line ban-types
-		T extends (...args: infer A) => infer U ? (...args: { [K in keyof A]: Unpacked<A[K]> }) => Promise<Unpacked<U>> :
-		T;
+    type PromisifiedFunction<T extends Function> = // tslint:disable-line ban-types
+        T extends (...args: infer A) => infer U ? (...args: { [K in keyof A]: Unpacked<A[K]> }) => Promise<Unpacked<U>> :
+        T;
 
     type Async<T> = {
         readonly [K in keyof T]: T[K] extends Function ? PromisifiedFunction<T[K]> : // tslint:disable-line ban-types

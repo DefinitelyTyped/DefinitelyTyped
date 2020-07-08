@@ -10,6 +10,7 @@
 //                 Morgan Snyder <https://github.com/morgansierrasnyder>
 //                 Federico Giacomini <https://github.com/crocsx>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 George Melissourgos <https://github.com/DrMerfy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -915,7 +916,7 @@ declare namespace Cesium {
         projectPointOntoPlane(cartesian: Cartesian3, result?: Cartesian2): Cartesian2;
         projectPointsOntoPlane(cartesians: Cartesian3[], result?: Cartesian2[]): Cartesian2[];
         projectPointsOntoEllipsoid(cartesians: Cartesian2[], result?: Cartesian3[]): Cartesian3[];
-        static fromPoints(ellipsoid: Ellipsoid, cartesians: Cartesian3): EllipsoidTangentPlane;
+        static fromPoints(cartesians: Cartesian3[], ellipsoid?: Ellipsoid): EllipsoidTangentPlane;
     }
 
     class EllipsoidTerrainProvider extends TerrainProvider {
@@ -2134,7 +2135,7 @@ declare namespace Cesium {
         height?: Property;
         scaleByDistance?: Property;
         translucencyByDistance?: Property;
-        disableDepthTestDistance?: Property | number;
+        disableDepthTestDistance?: Property;
         pixelOffsetScaleByDistance?: Property;
         heightReference?: Property;
         constructor(options?: { image?: Property;
@@ -2424,8 +2425,8 @@ declare namespace Cesium {
 
     class EllipseGraphics {
         definitionChanged: Event;
-        semiMajorAxis: Property | number;
-        semiMinorAxis: Property | number;
+        semiMajorAxis: Property;
+        semiMinorAxis: Property;
         rotation: Property;
         show: Property;
         material: MaterialProperty | Color;
@@ -2702,7 +2703,7 @@ declare namespace Cesium {
 
     class LabelGraphics {
         definitionChanged: Event;
-        text: Property | string;
+        text: Property;
         font: string;
         style: Property;
         fillColor: Color;
@@ -2718,10 +2719,11 @@ declare namespace Cesium {
         show: Property;
         translucencyByDistance: Property;
         pixelOffsetScaleByDistance: Property;
+        distanceDisplayCondition?: Property;
         constructor(options?: {
             text?: Property | string;
             font?: string;
-            style?: Property;
+            style?: LabelStyle | Property;
             fillColor?: Color;
             outlineColor?: Color;
             outlineWidth?: number;
@@ -2731,14 +2733,14 @@ declare namespace Cesium {
             backgroundColor?: Property;
             backgroundPadding?: Property;
             horizontalOrigin?: Property;
-            verticalOrigin?: Property;
+            verticalOrigin?: VerticalOrigin | Property;
             eyeOffset?: Property;
-            pixelOffset?: Property;
+            pixelOffset?: Cartesian2 | Property;
             translucencyByDistance?: Property;
             pixelOffsetScaleByDistance?: Property;
             heightReference?: Property;
             scaleByDistance?: Property;
-            distanceDisplayCondition?: Property;
+            distanceDisplayCondition?: DistanceDisplayCondition | Property;
             disableDepthTestDistance?: Property | number;
         });
         clone(result?: LabelGraphics): LabelGraphics;
@@ -2877,8 +2879,8 @@ declare namespace Cesium {
         definitionChanged: Event;
         distanceDisplayCondition: Property;
         show: Property;
-        material: MaterialProperty | Color;
-        hierarchy: Property | Cartesian3[] | PolygonHierarchy;
+        material: MaterialProperty;
+        hierarchy: Property;
         height: Property;
         heightReference: Property;
         extrudedHeight: Property;
@@ -2954,8 +2956,8 @@ declare namespace Cesium {
         granularity: Property;
         shadows: Property;
         show: Property;
-        material: MaterialProperty | Color;
-        positions: Property | Cartesian3[];
+        material: MaterialProperty;
+        positions: Property;
         width: Property | number;
         zIndex: ConstantProperty;
         constructor(options?: {
@@ -3728,10 +3730,7 @@ declare namespace Cesium {
     class ClippingPlane {
         normal: Cartesian3;
         distance: number;
-        constructor(option: {
-            normal: Cartesian3;
-            distance: number;
-        })
+        constructor(normal: Cartesian3, distance: number);
 
         static clone(clippingPlane: ClippingPlane, result?: ClippingPlane): ClippingPlane;
         static fromPlane(plane: Plane, result?: ClippingPlane): ClippingPlane;
@@ -3748,7 +3747,7 @@ declare namespace Cesium {
         readonly length: number;
 
         constructor(options?: {
-            planes?: ClippingPlane;
+            planes?: ClippingPlane[];
             enabled?: boolean;
             modelMatrix?: Matrix4;
             unionClippingRegions?: boolean;
@@ -5921,6 +5920,7 @@ declare namespace Cesium {
     }
 
     namespace Transforms {
+        function fixedFrameToHeadingPitchRoll(transform: Matrix4, ellipsoid?: Ellipsoid, fixedFrameTransform?: LocalFrameToFixedFrame, result?: HeadingPitchRoll): HeadingPitchRoll;
         function eastNorthUpToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
         function northEastDownToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
         function northUpEastToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
@@ -5956,11 +5956,16 @@ declare namespace Cesium {
     }
 
     enum BingMapsStyle {
-        AERIAL,
-        AERIAL_WITH_LABELS,
-        ROAD,
-        ORDNANCE_SURVEY,
-        COLLINS_BART,
+        AERIAL = "Aerial",
+        AERIAL_WITH_LABELS = "AerialWithLabels",
+        AERIAL_WITH_LABELS_ON_DEMAND = "AerialWithLabelsOnDemand",
+        ROAD= "Road",
+        ROAD_ON_DEMAND= "RoadOnDemand",
+        CANVAS_DARK= "CanvasDark",
+        CANVAS_LIGHT= "CanvasLight",
+        CANVAS_GRAY= "CanvasGray",
+        ORDNANCE_SURVEY= "OrdnanceSurvey",
+        COLLINS_BART= "CollinsBart",
     }
 
     enum BlendEquation {

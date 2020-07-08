@@ -5,9 +5,9 @@ const dbus = DBus.getBus("system");
 dbus.getInterface("org.bluez", "/org/bluez/hci0", "org.bluez.Media1", (err, iface) => {});
 
 dbus.getInterface("org.bluez", "/org/bluez/hci0", "org.bluez.Adapter1", (err, iface) => {
-	if (!err) {
-		iface.setProperty("Powered", true, err => {});
-	}
+    if (!err) {
+        iface.setProperty("Powered", true, err => {});
+    }
 });
 
 dbus.disconnect();

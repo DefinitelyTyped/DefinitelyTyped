@@ -62,6 +62,148 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
     );
 }
 
+// Test connect(port: number, connectionListener: ConnectionListener) variant
+{
+    stompit.connect(
+        12345,
+        (error, client) => {
+            if (error) {
+                console.log("connect error " + error.message);
+                return;
+            }
+
+            const sendHeaders = {
+                destination: "/queue/test",
+                "content-type": "text/plain"
+            };
+
+            const frame = client.send(sendHeaders);
+            frame.write("hello");
+            frame.end();
+
+            const subscribeHeaders = {
+                destination: "/queue/test",
+                ack: "client-individual"
+            };
+
+            client.subscribe(subscribeHeaders, (error, message) => {
+                if (error) {
+                    console.log("subscribe error " + error.message);
+                    return;
+                }
+
+                message.readString("utf-8", (error, body) => {
+                    if (error) {
+                        console.log("read message error " + error.message);
+                        return;
+                    }
+
+                    console.log("received message: " + body);
+
+                    client.ack(message);
+
+                    client.disconnect();
+                });
+            });
+        }
+    );
+}
+
+// Test connect(host: string, connectionListener: ConnectionListener) variant
+{
+    stompit.connect(
+        'localhost',
+        (error, client) => {
+            if (error) {
+                console.log("connect error " + error.message);
+                return;
+            }
+
+            const sendHeaders = {
+                destination: "/queue/test",
+                "content-type": "text/plain"
+            };
+
+            const frame = client.send(sendHeaders);
+            frame.write("hello");
+            frame.end();
+
+            const subscribeHeaders = {
+                destination: "/queue/test",
+                ack: "client-individual"
+            };
+
+            client.subscribe(subscribeHeaders, (error, message) => {
+                if (error) {
+                    console.log("subscribe error " + error.message);
+                    return;
+                }
+
+                message.readString("utf-8", (error, body) => {
+                    if (error) {
+                        console.log("read message error " + error.message);
+                        return;
+                    }
+
+                    console.log("received message: " + body);
+
+                    client.ack(message);
+
+                    client.disconnect();
+                });
+            });
+        }
+    );
+}
+
+// Test connect(port: string, host: string, connectionListener: ConnectionListener) variant
+{
+    stompit.connect(
+        123456,
+        'localhost',
+        (error, client) => {
+            if (error) {
+                console.log("connect error " + error.message);
+                return;
+            }
+
+            const sendHeaders = {
+                destination: "/queue/test",
+                "content-type": "text/plain"
+            };
+
+            const frame = client.send(sendHeaders);
+            frame.write("hello");
+            frame.end();
+
+            const subscribeHeaders = {
+                destination: "/queue/test",
+                ack: "client-individual"
+            };
+
+            client.subscribe(subscribeHeaders, (error, message) => {
+                if (error) {
+                    console.log("subscribe error " + error.message);
+                    return;
+                }
+
+                message.readString("utf-8", (error, body) => {
+                    if (error) {
+                        console.log("read message error " + error.message);
+                        return;
+                    }
+
+                    console.log("received message: " + body);
+
+                    client.ack(message);
+
+                    client.disconnect();
+                });
+            });
+        }
+    );
+}
+
 // Adapted from examples folder
 
 // channel/consume_once.js

@@ -1,4 +1,4 @@
-import MUIDataTable, { MUIDataTableOptions, MUIDataTableTextLabels, MUIDataTableState, MUIDataTableColumn } from 'mui-datatables';
+import MUIDataTable, { MUIDataTableColumn, MUIDataTableOptions, MUIDataTableTextLabels } from 'mui-datatables';
 import * as React from 'react';
 
 interface Props extends MUIDataTableOptions {
@@ -8,7 +8,7 @@ interface Props extends MUIDataTableOptions {
     options?: MUIDataTableOptions;
 }
 
-const MuiCustomTable: React.FC<Props> = (props) => {
+const MuiCustomTable: React.FC<Props> = props => {
     const data: string[][] = props.data.map((asset: any) => Object.values(asset));
     const columns: MUIDataTableColumn[] = [
         {
@@ -20,7 +20,26 @@ const MuiCustomTable: React.FC<Props> = (props) => {
             label: 'Name',
             options: {
                 filterType: 'custom',
-                sortDirection: 'none'
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    return (
+                        <input
+                            type="text"
+                            value={value}
+                            name={`${tableMeta.columnData.name}-${tableMeta.rowIndex}`}
+                            onChange={event => updateValue(event.target.value)}
+                        />
+                    );
+                }
+            }
+        },
+        {
+            name: 'color',
+            label: 'Color',
+            options: {
+                filter: true,
+                customFilterListOptions: {
+                    render: (value: string) => value.toUpperCase()
+                }
             }
         },
         {
@@ -30,18 +49,16 @@ const MuiCustomTable: React.FC<Props> = (props) => {
     ];
 
     const TableOptions: MUIDataTableOptions = {
-        fixedHeaderOptions: {
-            xAxis: false,
-            yAxis: true
-        },
+        fixedHeader: true,
+        fixedSelectColumn: false,
         filterType: 'checkbox',
-        responsive: 'scrollFullHeight',
+        responsive: 'standard',
         selectableRows: 'none',
         elevation: 0,
         rowsPerPageOptions: [5, 10, 20, 25, 50, 100],
         downloadOptions: {
             filename: 'filename.csv',
-            separator: ',',
+            separator: ','
         },
         sortFilterList: false,
         customRowRender: (data, dataIndex, rowIndex) => {
@@ -69,72 +86,71 @@ const MuiCustomTable: React.FC<Props> = (props) => {
                 </span>
             );
         },
-        onTableChange: (action, tableState: MUIDataTableState) => {
-            switch (action) {
-                case 'sort':
-                    tableState.columns.forEach(c => {
-                        if (c.sort && (c.sortDirection === 'asc' || c.sortDirection === 'desc')) {
-                            console.log(`${c.sortDirection} sort set on ${c.name}`);
-                        }
-                    });
+        onRowsDelete: (rowsDeleted: {
+            lookup: { [dataIndex: number]: boolean };
+            data: Array<{ index: number; dataIndex: number }>;
+        }) => {
+            if (rowsDeleted.data[0].index === rowsDeleted.data[0].dataIndex && rowsDeleted.lookup[0]) {
+                console.log(`Data deleted on index ${rowsDeleted.data[0].dataIndex}`);
             }
         },
         textLabels: {
             body: {
                 noMatch: 'Sorry, no matching records found',
                 toolTip: 'Sort',
+                columnHeaderTooltip: column => (column.label ? `Sort on ${column.label}` : `Sort`)
             },
             pagination: {
                 next: 'Next Page',
                 previous: 'Previous Page',
                 rowsPerPage: 'Rows per page:',
-                displayRows: 'of',
+                displayRows: 'of'
             },
             toolbar: {
                 search: 'Search',
                 downloadCsv: 'Download CSV',
                 print: 'Print',
                 viewColumns: 'View Columns',
-                filterTable: 'Filter Table',
+                filterTable: 'Filter Table'
             },
             filter: {
                 all: 'All',
                 title: 'FILTERS',
-                reset: 'RESET',
+                reset: 'RESET'
             },
             viewColumns: {
                 title: 'Show Columns',
-                titleAria: 'Show/Hide Table Columns',
+                titleAria: 'Show/Hide Table Columns'
             },
             selectedRows: {
                 text: 'rows(s) selected',
                 delete: 'Delete',
-                deleteAria: 'Delete Selected Rows',
-            },
-        },
+                deleteAria: 'Delete Selected Rows'
+            }
+        }
     };
 
-    return (<MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions} />);
+    return <MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions} />;
 };
 
 const TableFruits = [
-    { id: 1, name: "Apple", amount: 1 },
-    { id: 2, name: "Pear", amount: 2 },
-    { id: 3, name: "Strawberry", amount: 5 },
-    { id: 4, name: "Banana", amount: 7 },
-    { id: 5, name: "Orange", amount: 9 },
+    { id: 1, name: 'Apple', color: 'Red', amount: 1 },
+    { id: 2, name: 'Pear', color: 'Green', amount: 2 },
+    { id: 3, name: 'Strawberry', color: 'Red', amount: 5 },
+    { id: 4, name: 'Banana', color: 'Yellow', amount: 7 },
+    { id: 5, name: 'Orange', color: 'Orange', amount: 9 }
 ];
 
 const options: MUIDataTableOptions = {
     filter: true,
     filterType: 'dropdown',
-    responsive: 'scrollMaxHeight',
+    responsive: 'standard',
     onDownload: (buildHead, buildBody, columns, data) => {
         if (data) {
             return buildHead(columns) + buildBody(data);
         }
         return false;
-    },
+    }
 };
 
 <MuiCustomTable title="Awesome Table" data={TableFruits} options={options} />;

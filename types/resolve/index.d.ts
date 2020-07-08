@@ -115,7 +115,7 @@ declare namespace resolve {
 
   export interface SyncOpts extends Opts {
     /** how to read files synchronously (defaults to fs.readFileSync) */
-    readFileSync?: (file: string, charset: string) => string | Buffer;
+    readFileSync?: (file: string, encoding: BufferEncoding) => string | Buffer;
     /** function to synchronously test whether a file exists */
     isFile?: (file: string) => boolean;
     /** function to synchronously test whether a directory exists */

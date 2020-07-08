@@ -1,5 +1,4 @@
 declare module "http" {
-    import * as events from "events";
     import * as stream from "stream";
     import { URL } from "url";
     import { Socket, Server as NetServer } from "net";
@@ -16,6 +15,8 @@ declare module "http" {
         'access-control-allow-origin'?: string;
         'access-control-expose-headers'?: string;
         'access-control-max-age'?: string;
+        'access-control-request-headers'?: string;
+        'access-control-request-method'?: string;
         'age'?: string;
         'allow'?: string;
         'alt-svc'?: string;
@@ -42,6 +43,7 @@ declare module "http" {
         'if-unmodified-since'?: string;
         'last-modified'?: string;
         'location'?: string;
+        'origin'?: string;
         'pragma'?: string;
         'proxy-authenticate'?: string;
         'proxy-authorization'?: string;
@@ -356,6 +358,7 @@ declare module "http" {
     class Agent {
         maxFreeSockets: number;
         maxSockets: number;
+        readonly freeSockets: NodeJS.ReadOnlyDict<Socket[]>;
         readonly sockets: NodeJS.ReadOnlyDict<Socket[]>;
         readonly requests: NodeJS.ReadOnlyDict<IncomingMessage[]>;
 

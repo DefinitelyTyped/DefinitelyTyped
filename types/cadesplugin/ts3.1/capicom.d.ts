@@ -1,83 +1,83 @@
 declare namespace CAPICOM {
-	interface EncodedData {
-		readonly Format: string;
+    interface EncodedData {
+        readonly Format: string;
 
-		Value(EncodingType?: CAPICOM_ENCODING_TYPE): string;
-	}
+        Value(EncodingType?: CAPICOM_ENCODING_TYPE): string;
+    }
 
-	interface OID {
-		FriendlyName: string;
-		Name: CAPICOM_OID;
-		Value: string;
-	}
+    interface OID {
+        FriendlyName: string;
+        Name: CAPICOM_OID;
+        Value: string;
+    }
 
-	interface PublicKey {
-		readonly Algorithm: OID;
-		readonly EncodedKey: EncodedData;
-		readonly EncodedParameters: EncodedData;
-		readonly Length: number;
-	}
+    interface PublicKey {
+        readonly Algorithm: OID;
+        readonly EncodedKey: EncodedData;
+        readonly EncodedParameters: EncodedData;
+        readonly Length: number;
+    }
 
-	interface Certificate {
-		readonly Version: number;
-		readonly Thumbprint: string;
-		readonly SubjectName: string;
-		readonly SerialNumber: string;
-		readonly IssuerName: string;
-		readonly ValidFromDate: CADES_Common.VarDate;
-		readonly ValidToDate: CADES_Common.VarDate;
+    interface Certificate {
+        readonly Version: number;
+        readonly Thumbprint: string;
+        readonly SubjectName: string;
+        readonly SerialNumber: string;
+        readonly IssuerName: string;
+        readonly ValidFromDate: CADES_Common.VarDate;
+        readonly ValidToDate: CADES_Common.VarDate;
 
-		HasPrivateKey(): boolean;
+        HasPrivateKey(): boolean;
 
-		GetInfo(infoType: CAPICOM_CERT_INFO_TYPE): string;
+        GetInfo(infoType: CAPICOM_CERT_INFO_TYPE): string;
 
-		IsValid(): CertificateStatus;
+        IsValid(): CertificateStatus;
 
-		Display(): void;
+        Display(): void;
 
-		PublicKey(): PublicKey;
+        PublicKey(): PublicKey;
 
-		Export(EncodingType: CADES_Common.ValuesOf<CAPICOM_ENCODING_TYPE>): string;
-	}
+        Export(EncodingType: CADES_Common.ValuesOf<CAPICOM_ENCODING_TYPE>): string;
+    }
 
-	interface CertificateStatus {
-		Result: boolean;
-	}
+    interface CertificateStatus {
+        Result: boolean;
+    }
 
-	interface Certificates {
-		readonly Count: number;
+    interface Certificates {
+        readonly Count: number;
 
-		Item(index: number): Certificate;
+        Item(index: number): Certificate;
 
-		Find(findType: CADES_Common.ValuesOf<CAPICOM_CERTIFICATE_FIND_TYPE>, varCriteria?: any, bFindValidOnly?: boolean): Certificates;
+        Find(findType: CADES_Common.ValuesOf<CAPICOM_CERTIFICATE_FIND_TYPE>, varCriteria?: any, bFindValidOnly?: boolean): Certificates;
 
-		Select(title?: string, displayString?: string, bMultiSelect?: boolean): Certificates;
-	}
+        Select(title?: string, displayString?: string, bMultiSelect?: boolean): Certificates;
+    }
 
-	interface Store {
-		readonly Certificates: Certificates;
-		readonly Location: CADES_Common.ValuesOf<CAPICOM_STORE_LOCATION>;
-		readonly Name: string;
+    interface Store {
+        readonly Certificates: Certificates;
+        readonly Location: CADES_Common.ValuesOf<CAPICOM_STORE_LOCATION>;
+        readonly Name: string;
 
-		Open(location?: CADES_Common.ValuesOf<CAPICOM_STORE_LOCATION>, name?: CADES_Common.ValuesOf<CAPICOM_STORE_NAME>, openMode?: CADES_Common.ValuesOf<CAPICOM_STORE_OPEN_MODE>): void;
+        Open(location?: CADES_Common.ValuesOf<CAPICOM_STORE_LOCATION>, name?: CADES_Common.ValuesOf<CAPICOM_STORE_NAME>, openMode?: CADES_Common.ValuesOf<CAPICOM_STORE_OPEN_MODE>): void;
 
-		Close(): void;
+        Close(): void;
 
-		Delete(): boolean;
+        Delete(): boolean;
 
-		Import(encodedStore: string): void;
-	}
+        Import(encodedStore: string): void;
+    }
 
-	interface Signers {
-		readonly Count: number;
+    interface Signers {
+        readonly Count: number;
 
-		Item(index: number): Signer;
-	}
+        Item(index: number): Signer;
+    }
 
-	interface Signer {
-		Certificate: Certificate;
-		Options: CAPICOM_CERTIFICATE_INCLUDE_OPTION;
+    interface Signer {
+        Certificate: Certificate;
+        Options: CAPICOM_CERTIFICATE_INCLUDE_OPTION;
 
-		Load(fileName: string, password?: string): void;
-	}
+        Load(fileName: string, password?: string): void;
+    }
 }

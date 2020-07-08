@@ -121,7 +121,7 @@ declare namespace helmet {
         setAllHeaders?: boolean;
         disableAndroid?: boolean;
         browserSniff?: boolean;
-        directives?: IHelmetContentSecurityPolicyDirectives;
+        directives: IHelmetContentSecurityPolicyDirectives;
         loose?: boolean;
     }
 

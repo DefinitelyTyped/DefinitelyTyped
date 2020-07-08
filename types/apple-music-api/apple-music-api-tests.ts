@@ -476,3 +476,121 @@ const AlbumResponse: AppleMusicApi.AlbumResponse = {
         },
     ],
 };
+
+const PlaylistResponse: AppleMusicApi.PlaylistResponse = {
+    data: [
+        {
+            id: 'pl.faeb447ec5a341ef83e7e65189bd1c63',
+            type: 'playlists',
+            href: '/v1/catalog/us/playlists/pl.faeb447ec5a341ef83e7e65189bd1c63',
+            attributes: {
+                artwork: {
+                    width: 4320,
+                    height: 1080,
+                    url:
+                        'https://is1-ssl.mzstatic.com/image/thumb/Features113/v4/7f/44/7f/7f447ffc-f8d8-381c-9d8f-2952522439b9/source/{w}x{h}cc.jpeg',
+                    bgColor: '454545',
+                    textColor1: 'fbd8db',
+                    textColor2: 'f3b5b4',
+                    textColor3: 'd7babd',
+                    textColor4: 'd09f9e',
+                },
+                isChart: false,
+                url: 'https://music.apple.com/us/playlist/vol-de-nuit/pl.faeb447ec5a341ef83e7e65189bd1c63',
+                lastModifiedDate: '2020-05-15T08:56:01Z',
+                name: 'Vol de nuit',
+                playlistType: 'editorial',
+                curatorName: 'Apple Music',
+                playParams: { id: 'pl.faeb447ec5a341ef83e7e65189bd1c63', kind: 'playlist' },
+                description: {
+                    standard:
+                        // tslint:disable-next-line:max-line-length
+                        'Reflective indie, dreamlike folk, sophisticated jazz funk, muted electronics—take a journey through late-night sounds and understated grooves, current and past, with this distraction-free soundtrack tailor-made for reading relaxing, or just getting your work done. Our editors regularly update this playlist with new music. If you hear something you like, add it to your library.',
+                    short: 'A journey through late-night sounds and understated grooves.',
+                },
+            },
+            relationships: {
+                curator: {
+                    href: '/v1/catalog/us/playlists/pl.faeb447ec5a341ef83e7e65189bd1c63/curator',
+                    data: [],
+                },
+                tracks: {
+                    href: '/v1/catalog/us/playlists/pl.faeb447ec5a341ef83e7e65189bd1c63/tracks',
+                    next: '/v1/catalog/us/playlists/pl.faeb447ec5a341ef83e7e65189bd1c63/tracks?offset=100',
+                    data: [
+                        {
+                            id: '1508383997',
+                            type: 'songs',
+                            href: '/v1/catalog/us/songs/1508383997',
+                            attributes: {
+                                previews: [
+                                    {
+                                        url:
+                                            'https://audio-ssl.itunes.apple.com/itunes-assets/Music6/v4/d0/fb/ac/d0fbac69-1a09-9e09-99d7-0ce20dca9a31/mzaf_3801033891693354111.plus.aac.p.m4a',
+                                    },
+                                ],
+
+                                artwork: {
+                                    width: 1404,
+                                    height: 1404,
+                                    url:
+                                        'https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/49/a0/19/49a019b1-f683-cce1-de4d-6c42490fbfa9/00724353822859.rgb.jpg/{w}x{h}bb.jpeg',
+                                    bgColor: '4f403d',
+                                    textColor1: 'edd8b7',
+                                    textColor2: 'e3cbb2',
+                                    textColor3: 'cdba9f',
+                                    textColor4: 'c6af9b',
+                                },
+
+                                artistName: 'James Blake',
+                                url: 'https://music.apple.com/us/album/youre-too-precious/1508383774?i=1508383997',
+                                discNumber: 1,
+                                genreNames: ['Pop'],
+                                durationInMillis: 223900,
+                                releaseDate: '2020-04-24',
+                                name: "You're Too Precious",
+                                isrc: 'GBUM72001738',
+                                hasLyrics: true,
+                                albumName: "You're Too Precious - Single",
+                                playParams: { id: '12345', kind: 'song' },
+                                trackNumber: 1,
+                                composerName: 'James Blake & Dominic Maker',
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    ],
+};
+
+const ArtistResponse: AppleMusicApi.ArtistResponse = {
+    data: [
+        {
+            id: '367955316',
+            type: 'artists',
+            href: '/v1/catalog/us/artists/367955316',
+            attributes: {
+                editorialNotes: {
+                    short: 'short note',
+                    standard: 'elaborated, standard-length note',
+                },
+                genreNames: ['Jazz', 'Rock'],
+                name: 'artist name',
+                url: 'artist/url',
+            },
+            relationships: {
+                albums: {
+                    data: [
+                        {
+                            id: '897072740',
+                            type: 'albums',
+                            href: '/v1/catalog/us/albums/897072740',
+                        },
+                    ],
+                    href: '/v1/catalog/us/songs/897072750/albums',
+                },
+            },
+        },
+    ],
+};

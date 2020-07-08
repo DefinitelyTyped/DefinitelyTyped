@@ -15,6 +15,7 @@
         "semicolon": false,
         "space-before-function-paren": false,
         "space-within-parens": false,
-        "strict-export-declare-modifiers": false
+        "strict-export-declare-modifiers": false,
+        "npm-naming": [true,{"mode":"code","errors":[["NeedsExportEquals",false]]}]
     }
 }

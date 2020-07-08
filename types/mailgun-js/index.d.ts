@@ -117,7 +117,7 @@ declare namespace Mailgun {
 
         type SendTemplateData = SendData & {
             template: string;
-            [templateVariable: string]: string;
+            [templateVariable: string]: any;
         };
 
         interface BatchSendRecipientVars {
@@ -141,6 +141,15 @@ declare namespace Mailgun {
             vars?: object;
         }
 
+        interface MemberAddMultipleData {
+            members: Array<{
+                name?: string;
+                address: string;
+                subscribed?: boolean;
+            }>;
+            upsert?: boolean;
+        }
+
         interface MemberUpdateData {
             subscribed: boolean;
             name: string;
@@ -148,24 +157,15 @@ declare namespace Mailgun {
         }
 
         interface Members {
-            create(
-                data: MemberCreateData,
-                callback?: (err: Error, data: any) => void
-            ): Promise<any>;
+            create(data: MemberCreateData, callback?: (err: Error, data: any) => void): Promise<any>;
 
-            add(
-                data: MemberCreateData[],
-                callback?: (err: Error, data: any) => void
-            ): Promise<any>;
+            add(data: MemberAddMultipleData, callback?: (err: Error, data: any) => void): Promise<any>;
 
             list(callback?: (err: Error, data: any) => void): Promise<any>;
         }
 
         interface Member {
-            update(
-                data: MemberUpdateData,
-                callback?: (err: Error, data: any) => void
-            ): Promise<any>;
+            update(data: MemberUpdateData, callback?: (err: Error, data: any) => void): Promise<any>;
         }
     }
 
@@ -179,11 +179,11 @@ declare namespace Mailgun {
 
         interface ValidationOptionsPublic {
             api_key?: string;
-            mailbox_verification?: boolean | "true" | "false";
+            mailbox_verification?: boolean | 'true' | 'false';
         }
 
         interface ValidationOptionsPrivate {
-            mailbox_verification?: boolean | "true" | "false";
+            mailbox_verification?: boolean | 'true' | 'false';
         }
 
         interface ValidateResponse {
@@ -192,7 +192,7 @@ declare namespace Mailgun {
             is_disposable_address: boolean;
             is_role_address: boolean;
             is_valid: boolean;
-            mailbox_verification: "true" | "false" | "unknown" | null;
+            mailbox_verification: 'true' | 'false' | 'unknown' | null;
             parts: {
                 display_name: string | null;
                 domain: string;
@@ -205,24 +205,42 @@ declare namespace Mailgun {
         messages(): Messages;
         lists(list: string): Lists;
         Attachment: new (params: AttachmentParams) => Attachment;
-        validateWebhook(
-            bodyTimestamp: number,
-            bodyToken: string,
-            bodySignature: string
-        ): boolean;
+        validateWebhook(bodyTimestamp: number, bodyToken: string, bodySignature: string): boolean;
 
         parse(addressList: string[], callback?: validation.ValidationCallback): Promise<validation.ParseResponse>;
 
         validate(address: string, callback: validation.ValidationCallback): void;
-        validate(address: string, opts: validation.ValidationOptionsPublic, callback: validation.ValidationCallback): void;
+        validate(
+            address: string,
+            opts: validation.ValidationOptionsPublic,
+            callback: validation.ValidationCallback,
+        ): void;
         // tslint:disable-next-line unified-signatures
         validate(address: string, isPrivate: boolean, callback: validation.ValidationCallback): void;
-        validate(address: string, isPrivate: false, opts: validation.ValidationOptionsPublic, callback: validation.ValidationCallback): void;
-        validate(address: string, isPrivate: true, opts: validation.ValidationOptionsPrivate, callback: validation.ValidationCallback): void;
+        validate(
+            address: string,
+            isPrivate: false,
+            opts: validation.ValidationOptionsPublic,
+            callback: validation.ValidationCallback,
+        ): void;
+        validate(
+            address: string,
+            isPrivate: true,
+            opts: validation.ValidationOptionsPrivate,
+            callback: validation.ValidationCallback,
+        ): void;
 
         validate(address: string, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
-        validate(address: string, isPrivate: false, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
-        validate(address: string, isPrivate: true, opts?: validation.ValidationOptionsPrivate): Promise<validation.ValidateResponse>;
+        validate(
+            address: string,
+            isPrivate: false,
+            opts?: validation.ValidationOptionsPublic,
+        ): Promise<validation.ValidateResponse>;
+        validate(
+            address: string,
+            isPrivate: true,
+            opts?: validation.ValidationOptionsPrivate,
+        ): Promise<validation.ValidateResponse>;
 
         // Generic requests
         get: MailgunRequest;
@@ -240,7 +258,7 @@ declare namespace Mailgun {
     interface Messages {
         send(
             data: messages.SendData | messages.BatchData | messages.SendTemplateData,
-            callback?: (error: Error, body: messages.SendResponse) => void
+            callback?: (error: Error, body: messages.SendResponse) => void,
         ): Promise<messages.SendResponse>;
     }
 }

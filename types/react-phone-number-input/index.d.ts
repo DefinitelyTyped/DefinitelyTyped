@@ -4,6 +4,7 @@
 //                 Adrien Etienne <https://github.com/AdrienEtienne>
 //                 Jonathan Fleckenstein <https://github.com/fleck>
 //                 James Lismore <https://github.com/jlismore>
+//                 Dragoș Străinu <https://github.com/strdr4605>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -31,6 +32,20 @@ export function isPossiblePhoneNumber(value: string): boolean;
  * Validates a phone number value
  */
 export function isValidPhoneNumber(value?: string): boolean;
+
+export function parsePhoneNumber(input: string): PhoneNumber | undefined;
+
+/**
+ * @see https://github.com/catamphetamine/libphonenumber-js#phonenumber
+ */
+export interface PhoneNumber {
+    number: string;
+    countryCallingCode: string;
+    nationalNumber: string;
+    country?: string;
+    ext?: string;
+    carrierCode?: string;
+}
 
 /**
  * This is simply an alias for getCountryCallingCode() from libphonenumber-js

@@ -440,6 +440,7 @@ export interface Features {
     intl: boolean;
     intlTokens: boolean;
     zones: boolean;
+    relative: boolean;
 }
 
 export namespace Info {

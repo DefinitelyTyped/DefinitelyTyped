@@ -84,6 +84,28 @@ const papaStream: NodeJS.ReadWriteStream = Papa.parse(Papa.NODE_STREAM_INPUT);
 
 readable.pipe(papaStream);
 
+// generic
+Papa.parse<string>("a,b,c", {
+    step: function(a) {
+        a.data[0]
+    }
+})
+
+Papa.parse<string>("a,b,c", {
+    chunk: function(a) {
+        a.data[0]
+    }
+})
+
+Papa.parse<[string, string, string]>("a,b,c", {
+    complete: function(a) {
+        a.data[0][0]
+        a.data[0][1]
+        a.data[0][2]
+    }
+})
+
+
 /**
  * Unparsing
  */

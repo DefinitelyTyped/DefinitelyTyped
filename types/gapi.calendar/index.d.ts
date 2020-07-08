@@ -588,7 +588,7 @@ declare namespace gapi.client.calendar {
       timeZone?: string;
     };
 
-    // 	Whether the end time is actually unspecified. An end time is still provided for compatibility reasons, even if this attribute is set to True.
+    //     Whether the end time is actually unspecified. An end time is still provided for compatibility reasons, even if this attribute is set to True.
     // The default is False.
     endTimeUnspecified?: boolean;
 

@@ -70,8 +70,10 @@ function contentSecurityPolicyTest() {
 
     function reportUriCb(req: express.Request, res: express.Response) { return '/some-uri'; }
     function reportOnlyCb(req: express.Request, res: express.Response) { return false; }
-
-    app.use(helmet.contentSecurityPolicy({}));
+    app.use(helmet.contentSecurityPolicy({})); // $ExpectError
+    app.use(helmet.contentSecurityPolicy({ directives: {
+        imgSrc: ['self']
+    } }));
     app.use(helmet.contentSecurityPolicy(config));
     app.use(helmet.contentSecurityPolicy({
         directives: {

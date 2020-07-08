@@ -11,8 +11,8 @@ const openMap = open.distanceFunction(8);
 const openMask = openMap.threshold(10).erode(22, 22);
 const boxes = openMask.invert().connectedComponents(8);
 boxes.forEach((box) => {
-	const boxImage = barcodes.crop(
-		// Do something useful with our image.
-		box.x, box.y,
-		box.width, box.height);
+    const boxImage = barcodes.crop(
+        // Do something useful with our image.
+        box.x, box.y,
+        box.width, box.height);
 });

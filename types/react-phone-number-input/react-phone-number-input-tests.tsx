@@ -1,5 +1,7 @@
 import * as React from 'react';
-import PhoneInput from 'react-phone-number-input';
+import PhoneInput, { parsePhoneNumber, PhoneNumber } from 'react-phone-number-input';
+
+const phoneNumber: PhoneNumber | undefined = parsePhoneNumber('+12025550112');
 
 const test1 = (
     <PhoneInput

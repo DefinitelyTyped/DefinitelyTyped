@@ -26,6 +26,10 @@ let adapterOptions: ioBroker.AdapterOptions = {
     objectChange: objectChangeHandler,
     message: messageHandler,
     unload: unloadHandler,
+    error: (err) => {
+        console.log(err);
+        return true;
+    },
 };
 
 function readyHandler() {}
@@ -210,6 +214,8 @@ adapter.setObject('id', {
         read: true,
         write: false,
         role: 'some role',
+        def: [],
+        defAck: false,
     },
     native: {},
     protectedNative: ['none'],
@@ -307,6 +313,9 @@ adapter.unsubscribeObjects('*');
 adapter.unsubscribeStates('*');
 adapter.unsubscribeForeignObjects('*');
 adapter.unsubscribeForeignStates('*');
+
+adapter.encrypt("top secret").toLocaleLowerCase();
+adapter.decrypt("garbled nonsense").toLocaleLowerCase();
 
 adapter.log.info('msg');
 adapter.log.debug('msg');

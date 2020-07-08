@@ -7,6 +7,9 @@
 //                 Peter <https://github.com/pwrnrd>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
 //                 Johannes Schneider <https://github.com/neshanjo>
+//                 Meng Bernie Sung <https://github.com/MengRS>
+//                 Léo Haddad Carneiro <https://github.com/Scoup>
+//                 Isabela Morais <https://github.com/isabela-morais>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -300,6 +303,7 @@ export interface Client {
   token_endpoint_auth_method?: string;
   client_metadata?: any;
   mobile?: any;
+  initiate_login_uri?: string;
 }
 
 export interface ResourceServer {
@@ -377,6 +381,33 @@ export type ClientGrant = Partial<CreateClientGrant> & {
    */
   id?: string;
 };
+
+export interface GetClientGrantsOptions {
+  /** @default 10 */
+  per_page?: number;
+  /** @default 0 */
+  page?: number;
+  /**
+   * The audience.
+   */
+  audience?: string;
+  /**
+   * The id of the client (application).
+   */
+  client_id?: string;
+}
+
+export interface GetClientGrantsOptionsPaged extends GetClientGrantsOptions {
+  /**
+   * true if a query summary must be included in the result, false otherwise
+   * @default false
+   */
+  include_totals?: boolean;
+}
+
+export interface ClientGrantPage extends Page {
+  client_grants: ClientGrant[]
+}
 
 export interface CreateClientGrant {
   /**
@@ -573,6 +604,7 @@ export interface ResetPasswordEmailOptions {
 
 export interface ClientCredentialsGrantOptions {
   audience: string;
+  scope?: string;
 }
 
 export interface PasswordGrantOptions {
@@ -591,6 +623,8 @@ export interface TokenResponse {
     access_token: string;
     token_type: string;
     expires_in: number;
+    scope?: string;
+    id_token?: string;
 }
 
 export interface ObjectWithId {
@@ -926,6 +960,10 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   // Client Grants
   getClientGrants(): Promise<ClientGrant[]>;
   getClientGrants(cb: (err: Error, data: ClientGrant[]) => void): void;
+  getClientGrants(params: GetClientGrantsOptions): Promise<ClientGrant[]>;
+  getClientGrants(params: GetClientGrantsOptions, cb: (err: Error, data: ClientGrant[]) => void): void;
+  getClientGrants(params: GetClientGrantsOptionsPaged): Promise<ClientGrantPage>;
+  getClientGrants(params: GetClientGrantsOptionsPaged, cb: (err: Error, data: ClientGrantPage) => void): void;
 
   createClientGrant(data: CreateClientGrant): Promise<ClientGrant>;
   createClientGrant(data: CreateClientGrant, cb: (err: Error, data: ClientGrant) => void): void;

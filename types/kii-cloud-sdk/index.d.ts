@@ -699,13 +699,13 @@ declare namespace KiiCloud {
          *     // example to use callbacks directly
          *     var acl = . . .; // a KiiACL object
          *     acl.listACLEntries({
-         *     	success: function(theACL, theEntries) {
-         *     		// do something
-         *     	},
+         *         success: function(theACL, theEntries) {
+         *             // do something
+         *         },
          *
-         *     	failure: function(theACL, anErrorString) {
-         *     		// do something with the error response
-         *     	}
+         *         failure: function(theACL, anErrorString) {
+         *             // do something with the error response
+         *         }
          *     });
          *
          *     // example to use Promise
@@ -719,7 +719,7 @@ declare namespace KiiCloud {
          *         function(error) { // reject callback function
          *             var theACL = error.target;
          *             var anErrorString = error.message;
-         *         		// do something with the error response
+         *                 // do something with the error response
          *     });
          */
         listACLEntries(
@@ -1102,7 +1102,7 @@ declare namespace KiiCloud {
     /**
      * Represent an anonymous user for setting the ACL of an object. This will include anyone using the application but have not signed up or authenticated as registered user.
      *
-     * 	When retrieving ACL from an object, test for this class to determine the subject type.
+     *     When retrieving ACL from an object, test for this class to determine the subject type.
      */
     class KiiAnonymousUser {
         /**
@@ -1114,7 +1114,7 @@ declare namespace KiiCloud {
     /**
      * Represent any authenticated user for setting the ACL of an object. This will include anyone using the application who has registered and authenticated in the current session.
      *
-     * 	When retrieving ACL from an object, test for this class to determine the subject type. Example:
+     *     When retrieving ACL from an object, test for this class to determine the subject type. Example:
      */
     class KiiAnyAuthenticatedUser {
         /**
@@ -2049,8 +2049,8 @@ declare namespace KiiCloud {
          * @return A KiiACL object associated with this KiiObject
          *
          * @example
-         *     	var bucket = . . .; // a KiiBucket
-         *     	var acl = bucket.acl();
+         *         var bucket = . . .; // a KiiBucket
+         *         var acl = bucket.acl();
          */
         acl(): KiiACL;
 
@@ -3446,8 +3446,8 @@ declare namespace KiiCloud {
          * @return A KiiACL object associated with this KiiObject
          *
          * @example
-         *     	var obj = . . .; // a KiiObject
-         *     	var acl = obj.objectACL();
+         *         var obj = . . .; // a KiiObject
+         *         var acl = obj.objectACL();
          */
         objectACL(): KiiACL;
 
