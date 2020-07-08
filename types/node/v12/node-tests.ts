@@ -764,7 +764,7 @@ import moduleModule = require('module');
     const m2: Module = new Module.Module("moduleId");
     const b: string[] = Module.builtinModules;
     let paths: string[] = module.paths;
-    const path = module.path;
+    const path: string = module.path;
     paths = m1.paths;
 
     const customRequire1 = moduleModule.createRequireFromPath('./test');
