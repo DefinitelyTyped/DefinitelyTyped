@@ -4196,15 +4196,29 @@ declare namespace chrome.input.ime {
     export function updateMenuItems(parameters: MenuItemParameters, callback?: () => void): void;
     /**
      * Shows/Hides an assistive window with the given properties.
-     * @param {{
-     *   contextID: number,
-     *   properties: !chrome.input.ime.AssistiveWindowProperties
-     * }} parameters
+     * @param parameters
      * @param callback Called when the operation completes.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function(boolean success) {...};
      */
-    export function setAssistiveWindowProperties(parameters: object, callback?: (success: boolean) => void): void;
+    export function setAssistiveWindowProperties(parameters: {
+            contextID: number,
+            properties: chrome.input.ime.AssistiveWindowProperties
+        }, callback?: (success: boolean) => void): void;
+    /**
+     * Highlights/Unhighlights a button in an assistive window.
+     * @param parameters
+     * @param callback Called when the operation completes. On failure, chrome.runtime.lastError is set.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
+     */
+    export function setAssistiveWindowButtonHighlighted(parameters: {
+            contextID: number,
+            buttonID: chrome.input.ime.AssistiveWindowButton,
+            windowType: chrome.input.ime.AssistiveWindowType,
+            announceString?: string,
+            highlighted: boolean
+        }, callback?: () => void): void;
     /**
      * Sets the properties of the candidate window. This fails if the extension doesn't own the active IME
      * @param callback Called when the operation completes.
