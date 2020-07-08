@@ -14,6 +14,8 @@ export * from './lib/AudioPlayer';
 export * from './lib/DataURIReader';
 export * from './lib/WebSocketTunnel';
 export * from './lib/StaticHTTPTunnel';
+export * from './lib/HTTPTunnel';
+export * from './lib/ChainedTunnel';
 export * from './lib/Layer';
 export * from './lib/VisibleLayer';
 export * from './lib/JSONReader';
