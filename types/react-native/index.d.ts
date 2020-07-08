@@ -7543,11 +7543,12 @@ export interface LogBoxStatic {
     /**
      * Silence any logs that match the given strings or regexes.
      */
-    ignoreLogs(patterns: string | RegExp): void;
+    ignoreLogs(patterns: (string | RegExp)[]): void;
 
     /**
-     * Turn off error or warning notifications.
+     * Toggle error and warning notifications
      * Note: this only disables notifications, uncaught errors will still open a full screen LogBox.
+     * @param value whether to ignore logs or not
      */
     ignoreAllLogs(value: boolean): void;
 

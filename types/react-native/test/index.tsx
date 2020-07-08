@@ -100,6 +100,7 @@ import {
     Pressable,
     VirtualizedList,
     ListRenderItemInfo,
+    LogBox,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -517,6 +518,11 @@ const getInitialUrlTest = () =>
             val.indexOf('val is now a string');
         }
     });
+
+LogBox.ignoreAllLogs(true);
+LogBox.ignoreLogs(['someString', /^aRegex/]);
+LogBox.install();
+LogBox.uninstall();
 
 class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
     eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -1115,10 +1121,10 @@ const VirtualizedListTest = () => {
     const DATA = [1, 2, 3];
 
     const getItem = (data: number[], index: number) => {
-        return  {
-            title: `Item ${data[index]}`
+        return {
+            title: `Item ${data[index]}`,
         };
-    }
+    };
 
     const getItemCount = (data: number[]) => data.length;
 
@@ -1131,7 +1137,7 @@ const VirtualizedListTest = () => {
             getItem={getItem}
         />
     );
-}
+};
 
 // DevSettings
 DevSettings.addMenuItem('alert', () => {
