@@ -1414,7 +1414,7 @@ export interface TextInputSubmitEditingEventData {
 export interface TextInputTextInputEventData {
     text: string;
     previousText: string;
-    range: { start: number, end: number };
+    range: { start: number; end: number };
 }
 
 /**
@@ -5094,7 +5094,10 @@ export interface TouchableWithoutFeedbackPropsAndroid {
 /**
  * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html#props
  */
-export interface TouchableWithoutFeedbackProps extends TouchableWithoutFeedbackPropsIOS, TouchableWithoutFeedbackPropsAndroid, AccessibilityProps {
+export interface TouchableWithoutFeedbackProps
+    extends TouchableWithoutFeedbackPropsIOS,
+        TouchableWithoutFeedbackPropsAndroid,
+        AccessibilityProps {
     /**
      * Delay in ms, from onPressIn, before onLongPress is called.
      */
@@ -7601,9 +7604,9 @@ export interface LogBoxStatic {
     /**
      * Toggle error and warning notifications
      * Note: this only disables notifications, uncaught errors will still open a full screen LogBox.
-     * @param value whether to ignore logs or not
+     * @param ignore whether to ignore logs or not
      */
-    ignoreAllLogs(value: boolean): void;
+    ignoreAllLogs(ignore: boolean): void;
 
     install(): void;
     uninstall(): void;
