@@ -1093,7 +1093,7 @@ declare const extractChainTypes: ChainTypeExtractor;
 
 // isObject
 {
-    _.isObject(anyValue) ? anyValue : neverValue; // $ExpectType object
+    _.isObject(anyValue); // $ExpectType boolean
     _(anyValue).isObject(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isObject()); // $ExpectType ChainType<boolean, never>
 }

@@ -3865,7 +3865,7 @@ declare module _ {
          * @param object The object to check.
          * @returns True if `object` is an Object, otherwise false.
          **/
-        isObject(object: any): object is object;
+        isObject(object: any): boolean;
 
         /**
          * Returns true if `object` is an Arguments object.
