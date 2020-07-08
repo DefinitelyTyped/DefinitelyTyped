@@ -1,11 +1,10 @@
-/// <reference path="OutputStream.d.ts" />
-
-declare module 'guacamole-client' {
-  /**
-   * A writer which automatically writes to the given output stream with the
-   * contents of provided Blob objects.
-   */
-  export class BlobWriter {
+import { OutputStream } from './OutputStream';
+import { Status } from './Status';
+/**
+ * A writer which automatically writes to the given output stream with the
+ * contents of provided Blob objects.
+ */
+export class BlobWriter {
     /**
      * @param stream The stream that data will be written to.
      */
@@ -54,5 +53,4 @@ declare module 'guacamole-client' {
      * @param blob The blob that was sent.
      */
     oncomplete: null | ((blob: Blob) => void);
-  }
 }

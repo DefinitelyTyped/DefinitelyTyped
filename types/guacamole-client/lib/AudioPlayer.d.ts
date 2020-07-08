@@ -1,13 +1,13 @@
 import { Mimetype } from './GuacCommon';
+import { InputStream } from './InputStream';
 
-declare module 'guacamole-client' {
-  /**
-   * Abstract audio player which accepts, queues and plays back arbitrary audio
-   * data. It is up to implementations of this class to provide some means of
-   * handling a provided Guacamole.InputStream. Data received along the provided
-   * stream is to be played back immediately.
-   */
-  export class AudioPlayer {
+/**
+ * Abstract audio player which accepts, queues and plays back arbitrary audio
+ * data. It is up to implementations of this class to provide some means of
+ * handling a provided Guacamole.InputStream. Data received along the provided
+ * stream is to be played back immediately.
+ */
+export class AudioPlayer {
     /**
      * Returns a list of all mimetypes supported by any built-in
      * Guacamole.AudioPlayer, in rough order of priority. Beware that only the core
@@ -39,5 +39,4 @@ declare module 'guacamole-client' {
      * considered latency.
      */
     sync(): void;
-  }
 }

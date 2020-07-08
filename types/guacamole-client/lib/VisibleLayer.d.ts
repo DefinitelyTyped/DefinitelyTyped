@@ -1,12 +1,13 @@
-/// <reference path="./Layer.d.ts" />
+import { Layer } from './Layer';
 
-declare module 'guacamole-client' {
-  /**
-   * Simple container for Guacamole.Layer, allowing layers to be easily
-   * repositioned and nested. This allows certain operations to be accelerated
-   * through DOM manipulation, rather than raster operations.
-   */
-  class VisibleLayer extends Layer {
+export {};
+
+/**
+ * Simple container for Guacamole.Layer, allowing layers to be easily
+ * repositioned and nested. This allows certain operations to be accelerated
+ * through DOM manipulation, rather than raster operations.
+ */
+export class VisibleLayer extends Layer {
     /**
      * @param width The width of the Layer, in pixels. The canvas element backing this Layer will be given this width.
      * @param height The height of the Layer, in pixels. The canvas element backing this Layer will be given this height.
@@ -22,20 +23,17 @@ declare module 'guacamole-client' {
     /**
      * X coordinate of the upper-left corner of this layer container within
      * its parent, in pixels.
-     * @default 0
      */
     x: number;
 
     /**
      * Y coordinate of the upper-left corner of this layer container within
      * its parent, in pixels.
-     * @default 0
      */
     y: number;
 
     /**
      * Z stacking order of this layer relative to other sibling layers.
-     * @default 0
      */
     z: number;
 
@@ -44,20 +42,17 @@ declare module 'guacamole-client' {
      * corresponds to a value from the transformation matrix, with the first
      * three values being the first row, and the last three values being the
      * second row. There are six values total.
-     * @default [1, 0, 0, 1, 0, 0]
      */
     matrix: [number, number, number, number, number, number];
 
     /**
      * The parent layer container of this layer, if any.
-     * @default null
      */
     parent: VisibleLayer | null;
 
     /**
      * Set of all children of this layer, indexed by layer index. This object
      * will have one property per child.
-     * @default {}
      */
     children: Record<number, VisibleLayer | undefined>;
 
@@ -110,5 +105,4 @@ declare module 'guacamole-client' {
      * @param f The sixth value in the affine transform's matrix.
      */
     distort(a: number, b: number, c: number, d: number, e: number, f: number): void;
-  }
 }

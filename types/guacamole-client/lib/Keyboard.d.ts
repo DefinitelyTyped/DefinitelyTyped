@@ -1,49 +1,51 @@
-declare module 'guacamole-client' {
-  export namespace Keyboard {
+export {};
+
+export namespace Keyboard {
+    export {};
     /**
      * The state of all supported keyboard modifiers.
      */
     export class ModifierState {
-      /**
-       * Returns the modifier state applicable to the keyboard event given.
-       * @param event The keyboard event to read.
-       * @returns The current state of keyboard modifiers.
-       */
-      static fromKeyboardEvent(event: KeyboardEvent): ModifierState;
+        /**
+         * Returns the modifier state applicable to the keyboard event given.
+         * @param event The keyboard event to read.
+         * @returns The current state of keyboard modifiers.
+         */
+        static fromKeyboardEvent(event: KeyboardEvent): ModifierState;
 
-      /**
-       * Whether shift is currently pressed.
-       */
-      shift: boolean;
+        /**
+         * Whether shift is currently pressed.
+         */
+        shift: boolean;
 
-      /**
-       * Whether ctrl is currently pressed.
-       */
-      ctrl: boolean;
+        /**
+         * Whether ctrl is currently pressed.
+         */
+        ctrl: boolean;
 
-      /**
-       * Whether alt is currently pressed.
-       */
-      alt: boolean;
+        /**
+         * Whether alt is currently pressed.
+         */
+        alt: boolean;
 
-      /**
-       * Whether meta (apple key) is currently pressed.
-       */
-      meta: boolean;
+        /**
+         * Whether meta (apple key) is currently pressed.
+         */
+        meta: boolean;
 
-      /**
-       * Whether hyper (windows key) is currently pressed.
-       */
-      hyper: boolean;
+        /**
+         * Whether hyper (windows key) is currently pressed.
+         */
+        hyper: boolean;
     }
-  }
+}
 
-  /**
-   * Provides cross-browser and cross-keyboard keyboard for a specific element.
-   * Browser and keyboard layout variation is abstracted away, providing events
-   * which represent keys as their corresponding X11 keysym.
-   */
-  export class Keyboard {
+/**
+ * Provides cross-browser and cross-keyboard keyboard for a specific element.
+ * Browser and keyboard layout variation is abstracted away, providing events
+ * which represent keys as their corresponding X11 keysym.
+ */
+export class Keyboard {
     /**
      * @param element
      * The Element to use to provide keyboard events. If omitted, at least one
@@ -122,5 +124,4 @@ declare module 'guacamole-client' {
      * The Element to attach event listeners to for the sake of handling key or input events.
      */
     listenTo(element: HTMLElement | HTMLDocument): void;
-  }
 }

@@ -1,13 +1,12 @@
-/// <reference path="./OutputStream.d.ts" />
-
 import { TypedArray } from './GuacCommon.d';
+import { OutputStream } from './OutputStream';
+import { Status } from './Status';
 
-declare module 'guacamole-client' {
-  /**
-   * A writer which automatically writes to the given output stream with arbitrary
-   * binary data, supplied as ArrayBuffers.
-   */
-  export class ArrayBufferWriter {
+/**
+ * A writer which automatically writes to the given output stream with arbitrary
+ * binary data, supplied as ArrayBuffers.
+ */
+export class ArrayBufferWriter {
     /**
      * The default maximum blob length for new Guacamole.ArrayBufferWriter
      * instances.
@@ -48,5 +47,4 @@ declare module 'guacamole-client' {
      * @param status The status of the operation.
      */
     onack: null | ((status: Status) => void);
-  }
 }

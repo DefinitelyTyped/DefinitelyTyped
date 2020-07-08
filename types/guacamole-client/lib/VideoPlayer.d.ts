@@ -1,9 +1,8 @@
-/// <reference path="./InputStream.d.ts" />
-
+import { InputStream } from './InputStream';
 import { Mimetype } from './GuacCommon';
+import { VisibleLayer } from './VisibleLayer';
 
-declare module 'guacamole-client' {
-  export class VideoPlayer {
+export class VideoPlayer {
     /**
      * Determines whether the given mimetype is supported by any built-in
      * implementation of Guacamole.VideoPlayer, and thus will be properly handled
@@ -38,11 +37,7 @@ declare module 'guacamole-client' {
      * reading from the given stream, or null if support for the given mimetype
      * is absent.
      */
-    static getInstance(
-      stream: InputStream,
-      layer: VisibleLayer,
-      mimetype: MimeType
-    ): VideoPlayer | null;
+    static getInstance(stream: InputStream, layer: VisibleLayer, mimetype: MimeType): VideoPlayer | null;
 
     /**
      * Notifies this Guacamole.VideoPlayer that all video up to the current
@@ -51,5 +46,4 @@ declare module 'guacamole-client' {
      * considered latency.
      */
     sync(): void;
-  }
 }

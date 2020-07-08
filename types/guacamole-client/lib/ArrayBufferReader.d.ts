@@ -1,15 +1,14 @@
-/// <reference path="./InputStream.d.ts" />
+import { InputStream } from './InputStream.d';
 
-declare module 'guacamole-client' {
-  /**
-   * A reader which automatically handles the given input stream, returning
-   * strictly received packets as array buffers. Note that this object will
-   * overwrite any installed event handlers on the given Guacamole.InputStream.
-   */
-  export class ArrayBufferReader {
-  /**
-   * @param stream The stream that data will be read from.
-   */
+/**
+ * A reader which automatically handles the given input stream, returning
+ * strictly received packets as array buffers. Note that this object will
+ * overwrite any installed event handlers on the given Guacamole.InputStream.
+ */
+export class ArrayBufferReader {
+    /**
+     * @param stream The stream that data will be read from.
+     */
     constructor(stream: InputStream);
 
     /**
@@ -24,5 +23,4 @@ declare module 'guacamole-client' {
      * @event
      */
     onend: null | (() => void);
-  }
 }

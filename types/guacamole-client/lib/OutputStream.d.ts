@@ -1,10 +1,10 @@
-/// <reference path="./Status.d.ts" />
+import { Status } from './Status';
+import { Client } from './Client';
 
-declare module 'guacamole-client' {
-  /**
-   * Abstract stream which can receive data.
-   */
-  export class OutputStream {
+/**
+ * Abstract stream which can receive data.
+ */
+export class OutputStream {
     /**
      * @param client The client owning this stream.
      * @param index The index of this stream.
@@ -34,5 +34,4 @@ declare module 'guacamole-client' {
      * @param status The status of the operation.
      */
     onack: null | ((status: Status) => void);
-  }
 }

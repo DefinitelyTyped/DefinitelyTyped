@@ -1,14 +1,13 @@
-/// <reference path="./InputStream.d.ts" />
-/// <reference path="./OutputStream.d.ts" />
-
 import { Mimetype } from './GuacCommon';
+import { OutputStream } from './OutputStream';
+import { InputStream } from './InputStream';
+import { Client } from './Client';
 
-declare module 'guacamole-client' {
-  /**
-   * An object used by the Guacamole client to house arbitrarily-many named
-   * input and output streams.
-   */
-  export class Object {
+/**
+ * An object used by the Guacamole client to house arbitrarily-many named
+ * input and output streams.
+ */
+export class Object {
     /**
      * The reserved name denoting the root stream of any object. The contents of
      * the root stream MUST be a JSON map of stream name to mimetype.
@@ -44,10 +43,7 @@ declare module 'guacamole-client' {
      * and its mimetype as its two only arguments. If the onbody handler of
      * this object is overridden, this callback will not be invoked.
      */
-    requestInputStream(
-      name: string,
-      bodyCallback?: (stream: InputStream, mimetype: Mimetype) => void
-    ): void;
+    requestInputStream(name: string, bodyCallback?: (stream: InputStream, mimetype: Mimetype) => void): void;
 
     /**
      * Creates a new output stream associated with this object and having the
@@ -80,5 +76,4 @@ declare module 'guacamole-client' {
      * @event
      */
     onundefine: null | (() => void);
-  }
 }

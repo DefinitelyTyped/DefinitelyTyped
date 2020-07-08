@@ -1,12 +1,11 @@
-/// <reference path="./InputStream.d.ts" />
+import { InputStream } from './InputStream';
 
-declare module 'guacamole-client' {
-  /**
-   * A reader which automatically handles the given input stream, returning
-   * strictly text data. Note that this object will overwrite any installed event
-   * handlers on the given Guacamole.InputStream.
-   */
-  export class StringReader {
+/**
+ * A reader which automatically handles the given input stream, returning
+ * strictly text data. Note that this object will overwrite any installed event
+ * handlers on the given Guacamole.InputStream.
+ */
+export class StringReader {
     /**
      * @param stream The stream that data will be read from.
      */
@@ -25,5 +24,4 @@ declare module 'guacamole-client' {
      * @event
      */
     onend: null | (() => void);
-  }
 }

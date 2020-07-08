@@ -1,12 +1,11 @@
-/// <reference path="./OutputStream.d.ts" />
-/// <reference path="./Status.d.ts" />
+import { Status } from './Status';
+import { OutputStream } from './OutputStream';
 
-declare module 'guacamole-client' {
-  /**
-   * A writer which automatically writes to the given output stream with text
-   * data.
-   */
-  export class StringWriter {
+/**
+ * A writer which automatically writes to the given output stream with text
+ * data.
+ */
+export class StringWriter {
     /**
      * @param stream The stream that data will be written to.
      */
@@ -27,8 +26,7 @@ declare module 'guacamole-client' {
     /**
      * Fired for received data, if acknowledged by the server.
      * @event
-     * @param {Guacamole.Status} status The status of the operation.
+     * @param status The status of the operation.
      */
     onack: null | ((status: Status) => void);
-  }
 }

@@ -1,13 +1,12 @@
 import { Mimetype } from './GuacCommon.d';
 
-declare module 'guacamole-client' {
-  /**
-   * A description of the format of raw PCM audio, such as that used by
-   * Guacamole.RawAudioPlayer and Guacamole.RawAudioRecorder. This object
-   * describes the number of bytes per sample, the number of channels, and the
-   * overall sample rate.
-   */
-  export class RawAudioFormat {
+/**
+ * A description of the format of raw PCM audio, such as that used by
+ * Guacamole.RawAudioPlayer and Guacamole.RawAudioRecorder. This object
+ * describes the number of bytes per sample, the number of channels, and the
+ * overall sample rate.
+ */
+export class RawAudioFormat {
     /**
      * Parses the given mimetype, returning a new Guacamole.RawAudioFormat
      * which describes the type of raw audio data represented by that mimetype. If
@@ -43,5 +42,4 @@ declare module 'guacamole-client' {
      * The number of samples per second, per channel.
      */
     rate: number;
-  }
 }

@@ -1,15 +1,13 @@
-/// <reference path="OutputStream.d.ts" />
-/// <reference path="AudioPlayer.d.ts" />
-
 import { Mimetype } from './GuacCommon.d';
+import { AudioRecorder } from './AudioRecorder.d';
+import { OutputStream } from './OutputStream.d';
 
-declare module 'guacamole-client' {
-  /**
-   * Implementation of Guacamole.AudioRecorder providing support for raw PCM
-   * format audio. This recorder relies only on the Web Audio API and does not
-   * require any browser-level support for its audio formats.
-   */
-  export class RawAudioRecorder extends AudioRecorder {
+/**
+ * Implementation of Guacamole.AudioRecorder providing support for raw PCM
+ * format audio. This recorder relies only on the Web Audio API and does not
+ * require any browser-level support for its audio formats.
+ */
+export class RawAudioRecorder extends AudioRecorder {
     static isSupportedType: typeof AudioRecorder['isSupportedType'];
 
     /**
@@ -27,13 +25,12 @@ declare module 'guacamole-client' {
      */
     static getSupportedTypes(): string[];
 
-   /** 
-   * @param stream The Guacamole.OutputStream to write audio data to.
-   *
-   * @param mimetype The mimetype of the audio data to send along the provided stream, which
-   * must be a "audio/L8" or "audio/L16" mimetype with necessary parameters,
-   * such as: "audio/L16;rate=44100,channels=2".
-   */
+    /**
+     * @param stream The Guacamole.OutputStream to write audio data to.
+     *
+     * @param mimetype The mimetype of the audio data to send along the provided stream, which
+     * must be a "audio/L8" or "audio/L16" mimetype with necessary parameters,
+     * such as: "audio/L16;rate=44100,channels=2".
+     */
     constructor(stream: OutputStream, mimetype: Mimetype);
-  }
 }

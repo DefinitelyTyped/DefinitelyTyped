@@ -1,12 +1,10 @@
-declare module 'gucamole-client' {
-  /**
-   * Integer pool which returns consistently increasing integers while integers
-   * are in use, and previously-used integers when possible.
-   */
-  export class IntegerPool {
+/**
+ * Integer pool which returns consistently increasing integers while integers
+ * are in use, and previously-used integers when possible.
+ */
+export class IntegerPool {
     /**
      * The next integer to return if no more integers remain.
-     * @default 0
      */
     next_int: number;
 
@@ -24,5 +22,4 @@ declare module 'gucamole-client' {
      * @param integer The integer to free.
      */
     free(integer: number): void;
-  }
 }

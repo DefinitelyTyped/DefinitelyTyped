@@ -1,15 +1,13 @@
-/// <reference path="./InputStream.d.ts" />
+import { Mimetype } from './GuacCommon';
+import { InputStream } from './InputStream';
 
-import { Mimetype } from './GuacCommon.d';
-
-declare module 'guacamole-client' {
-  /**
-   * A reader which automatically handles the given input stream, assembling all
-   * received blobs into a single blob by appending them to each other in order.
-   * Note that this object will overwrite any installed event handlers on the
-   * given Guacamole.InputStream.
-   */
-  export class BlobReader {
+/**
+ * A reader which automatically handles the given input stream, assembling all
+ * received blobs into a single blob by appending them to each other in order.
+ * Note that this object will overwrite any installed event handlers on the
+ * given Guacamole.InputStream.
+ */
+export class BlobReader {
     /**
      * @param stream The stream that data will be read from.
      * @param mimetype The mimetype of the blob being built.
@@ -40,5 +38,4 @@ declare module 'guacamole-client' {
      * @event
      */
     onend: null | (() => void);
-  }
 }

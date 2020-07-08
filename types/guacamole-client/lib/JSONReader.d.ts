@@ -1,14 +1,13 @@
-/// <reference path="./InputStream.d.ts" />
+import { InputStream } from './InputStream';
 
-declare module 'guacamole-client' {
-  /**
-   * A reader which automatically handles the given input stream, assembling all
-   * received blobs into a JavaScript object by appending them to each other, in
-   * order, and decoding the result as JSON. Note that this object will overwrite
-   * any installed event handlers on the given Guacamole.InputStream.
-   * @param stream The stream that JSON will be read from.
-   */
-  export class JSONReader {
+/**
+ * A reader which automatically handles the given input stream, assembling all
+ * received blobs into a JavaScript object by appending them to each other, in
+ * order, and decoding the result as JSON. Note that this object will overwrite
+ * any installed event handlers on the given Guacamole.InputStream.
+ * @param stream The stream that JSON will be read from.
+ */
+export class JSONReader {
     /**
      * @param stream The stream that JSON will be read from.
      */
@@ -36,5 +35,4 @@ declare module 'guacamole-client' {
      * @return The contents of this Guacamole.JSONReader, as parsed from the JSON contents of the input stream.
      */
     getJSON(): object;
-  }
 }

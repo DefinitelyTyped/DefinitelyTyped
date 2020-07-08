@@ -6,7 +6,7 @@
     "isolatedModules": true,
     "strict": true,
     "esModuleInterop": true,
-    "lib": ["DOM"]
+    "lib": ["DOM", "ES6", "ES7"]
   },
   "files": ["./guacamole-client.d.ts", "./index.test.ts"],
   "types": ["typePatches"]

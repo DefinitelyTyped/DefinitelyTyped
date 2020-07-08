@@ -1,20 +1,22 @@
-/// <reference path="./Layer.d.ts" />
-
+import { Layer } from './Layer';
+import { VisibleLayer } from './VisibleLayer';
 import { Mimetype } from './GuacCommon.d';
 
-declare module 'guacamole-client' {
-  export namespace Display {
-    export type VisibleLayer = typeof VisibleLayer;
-  }
+export {};
 
-  /**
-   * The Guacamole display. The display does not deal with the Guacamole
-   * protocol, and instead implements a set of graphical operations which
-   * embody the set of operations present in the protocol. The order operations
-   * are executed is guaranteed to be in the same order as their corresponding
-   * functions are called.
-   */
-  export class Display {
+export namespace Display {
+    export {};
+    export type VisibleLayer = typeof VisibleLayer;
+}
+
+/**
+ * The Guacamole display. The display does not deal with the Guacamole
+ * protocol, and instead implements a set of graphical operations which
+ * embody the set of operations present in the protocol. The order operations
+ * are executed is guaranteed to be in the same order as their corresponding
+ * functions are called.
+ */
+export class Display {
     /**
      * The X coordinate of the hotspot of the mouse cursor. The hotspot is
      * the relative location within the image of the mouse cursor at which
@@ -56,13 +58,13 @@ declare module 'guacamole-client' {
      * @param negative Whether the arc should be drawn in order of decreasing angle.
      */
     arc(
-      layer: Layer,
-      x: number,
-      y: number,
-      radius: number,
-      startAngle: number,
-      endAngle: number,
-      negative: boolean
+        layer: Layer,
+        x: number,
+        y: number,
+        radius: number,
+        startAngle: number,
+        endAngle: number,
+        negative: boolean,
     ): void;
 
     /**
@@ -75,15 +77,7 @@ declare module 'guacamole-client' {
      * @param x The X coordinate of the endpoint of the curve.
      * @param y The Y coordinate of the endpoint of the curve.
      */
-    curveTo(
-      layer: Layer,
-      cp1x: number,
-      cp1y: number,
-      cp2x: number,
-      cp2y: number,
-      x: number,
-      y: number
-    ): void;
+    curveTo(layer: Layer, cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
 
     /**
      * Closes the current path by connecting the end point with the start point (if any) with a straight line.
@@ -125,14 +119,14 @@ declare module 'guacamole-client' {
      * @param a The alpha component of the color to fill.
      */
     strokeColor(
-      layer: Layer,
-      cap: Layer.LineCap,
-      join: Layer.LineJoin,
-      thickness: number,
-      r: number,
-      g: number,
-      b: number,
-      a: number
+        layer: Layer,
+        cap: Layer.LineCap,
+        join: Layer.LineJoin,
+        thickness: number,
+        r: number,
+        g: number,
+        b: number,
+        a: number,
     ): void;
 
     /**
@@ -160,13 +154,7 @@ declare module 'guacamole-client' {
      * @param thickness The line thickness in pixels.
      * @param srcLayer The layer to use as a repeating pattern within the stroke.
      */
-    strokeLayer(
-      layer: Layer,
-      cap: Layer.LineCap,
-      join: Layer.LineJoin,
-      thickness: number,
-      srcLayer: Layer
-    ): void;
+    strokeLayer(layer: Layer, cap: Layer.LineCap, join: Layer.LineJoin, thickness: number, srcLayer: Layer): void;
 
     /**
      * Fills the current path with the image within the specified layer. The
@@ -207,15 +195,7 @@ declare module 'guacamole-client' {
      * @param e The fifth value in the affine transform's matrix.
      * @param f The sixth value in the affine transform's matrix.
      */
-    setTransform(
-      layer: Layer,
-      a: number,
-      b: number,
-      c: number,
-      d: number,
-      e: number,
-      f: number
-    ): void;
+    setTransform(layer: Layer, a: number, b: number, c: number, d: number, e: number, f: number): void;
 
     /**
      * Applies the given affine transform (defined with six values from the transform's matrix).
@@ -227,15 +207,7 @@ declare module 'guacamole-client' {
      * @param e The fifth value in the affine transform's matrix.
      * @param f The sixth value in the affine transform's matrix.
      */
-    transform(
-      layer: Layer,
-      a: number,
-      b: number,
-      c: number,
-      d: number,
-      e: number,
-      f: number
-    ): void;
+    transform(layer: Layer, a: number, b: number, c: number, d: number, e: number, f: number): void;
 
     /**
      * Sets the channel mask for future operations on this Layer.
@@ -276,15 +248,7 @@ declare module 'guacamole-client' {
      * @param e The fifth value in the affine transform's matrix.
      * @param f The sixth value in the affine transform's matrix.
      */
-    distort(
-      layer: Layer,
-      a: number,
-      b: number,
-      c: number,
-      d: number,
-      e: number,
-      f: number
-    ): void;
+    distort(layer: Layer, a: number, b: number, c: number, d: number, e: number, f: number): void;
 
     /**
      * Moves the upper-left corner of the given layer to the given X and Y
@@ -296,13 +260,7 @@ declare module 'guacamole-client' {
      * @param y The Y coordinate to move to.
      * @param z The Z coordinate to move to.
      */
-    move(
-      layer: VisibleLayer,
-      parent: VisibleLayer,
-      x: number,
-      y: number,
-      z: number
-    ): void;
+    move(layer: VisibleLayer, parent: VisibleLayer, x: number, y: number, z: number): void;
 
     /**
      * Sets the opacity of the given layer to the given value, where 255 is
@@ -316,7 +274,7 @@ declare module 'guacamole-client' {
      * Sets the scale of the client display element such that it renders at
      * a relatively smaller or larger size, without affecting the true
      * resolution of the display.
-     * @param {Number} scale The scale to resize to, where 1.0 is normal size (1:1 scale).
+     * @param scale The scale to resize to, where 1.0 is normal size (1:1 scale).
      */
     scale(scale: number): void;
 
@@ -402,13 +360,13 @@ declare module 'guacamole-client' {
      * @param srch The height of the rectangle within the source layer's coordinate space to copy data from.
      */
     setCursor(
-      hotspotX: number,
-      hotspotY: number,
-      layer: Layer,
-      srcx: number,
-      srcy: number,
-      srcw: number,
-      srch: number
+        hotspotX: number,
+        hotspotY: number,
+        layer: Layer,
+        srcx: number,
+        srcy: number,
+        srcw: number,
+        srch: number,
     ): void;
 
     /**
@@ -441,10 +399,10 @@ declare module 'guacamole-client' {
     /**
      * Draws the specified image at the given coordinates. The image specified
      * must already be loaded.
-     * @param {Guacamole.Layer} layer The layer to draw upon.
-     * @param {Number} x The destination X coordinate.
-     * @param {Number} y The destination Y coordinate.
-     * @param {Image} image The image to draw. Note that this is an Image object - not a URL.
+     * @param layer The layer to draw upon.
+     * @param x The destination X coordinate.
+     * @param y The destination Y coordinate.
+     * @param image The image to draw. Note that this is an Image object - not a URL.
      */
     drawImage(layer: Layer, x: number, y: number, image: HTMLImageElement): void;
 
@@ -500,15 +458,15 @@ declare module 'guacamole-client' {
      * transfer data from source to destination.
      */
     transfer(
-      srcLayer: Layer,
-      srcx: number,
-      srcy: number,
-      srcw: number,
-      srch: number,
-      dstLayer: Layer,
-      x: number,
-      y: number,
-      transferFunction: Function
+        srcLayer: Layer,
+        srcx: number,
+        srcy: number,
+        srcw: number,
+        srch: number,
+        dstLayer: Layer,
+        x: number,
+        y: number,
+        transferFunction: Function,
     ): void;
 
     /**
@@ -528,14 +486,14 @@ declare module 'guacamole-client' {
      * @param y The destination Y coordinate.
      */
     put(
-      srcLayer: Layer,
-      srcx: number,
-      srcy: number,
-      srcw: number,
-      srch: number,
-      dstLayer: Layer,
-      x: number,
-      y: number
+        srcLayer: Layer,
+        srcx: number,
+        srcy: number,
+        srcw: number,
+        srch: number,
+        dstLayer: Layer,
+        x: number,
+        y: number,
     ): void;
 
     /**
@@ -558,14 +516,14 @@ declare module 'guacamole-client' {
      * @param y The destination Y coordinate.
      */
     copy(
-      srcLayer: Layer,
-      srcx: number,
-      srcy: number,
-      srcw: number,
-      srch: number,
-      dstLayer: Layer,
-      x: number,
-      y: number
+        srcLayer: Layer,
+        srcx: number,
+        srcy: number,
+        srcw: number,
+        srch: number,
+        dstLayer: Layer,
+        x: number,
+        y: number,
     ): void;
 
     /**
@@ -594,5 +552,4 @@ declare module 'guacamole-client' {
      * @param y The Y-coordinate of the cursor hotspot.
      */
     oncursor: null | ((cursorCanvas: HTMLCanvasElement, x: number, y: number) => void);
-  }
 }

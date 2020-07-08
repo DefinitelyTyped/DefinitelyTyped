@@ -1,13 +1,11 @@
-/// <reference path="./Tunnel.d.ts" />
+import { Tunnel } from './Tunnel';
 
-declare module 'guacamole-client' {
-  /**
-   * Guacamole Tunnel implemented over WebSocket via XMLHttpRequest.
-   */
-  export class WebSocketTunnel extends Tunnel {
+/**
+ * Guacamole Tunnel implemented over WebSocket via XMLHttpRequest.
+ */
+export class WebSocketTunnel extends Tunnel {
     /**
      * @param tunnelURL The URL of the WebSocket tunneling service.
      */
     constructor(tunnelURL: string);
-  }
 }

@@ -1,12 +1,13 @@
-declare module 'guacamole-client' {
-  /**
-   * Represents a single key, or a single possible behavior of a key. Each key
-   * on the on-screen keyboard must have at least one associated
-   * Guacamole.OnScreenKeyboard.Key, whether that key is explicitly defined or
-   * implied, and may have multiple Guacamole.OnScreenKeyboard.Key if behavior
-   * depends on modifier states.
-   */
-  class Key {
+export {};
+
+/**
+ * Represents a single key, or a single possible behavior of a key. Each key
+ * on the on-screen keyboard must have at least one associated
+ * Guacamole.OnScreenKeyboard.Key, whether that key is explicitly defined or
+ * implied, and may have multiple Guacamole.OnScreenKeyboard.Key if behavior
+ * depends on modifier states.
+ */
+declare class Key {
     /**
      * @param template The object whose identically-named properties will be used to initialize
      * the properties of this key.
@@ -51,17 +52,16 @@ declare module 'guacamole-client' {
      * no modifiers.
      */
     requires: string[];
-  }
+}
 
-  /**
-   * Represents an entire on-screen keyboard layout, including all available
-   * keys, their behaviors, and their relative position and sizing.
-   * @constructor
-   * @param {Guacamole.OnScreenKeyboard.Layout|Object} template
-   *     The object whose identically-named properties will be used to initialize
-   *     the properties of this layout.
-   */
-  class Layout {
+/**
+ * Represents an entire on-screen keyboard layout, including all available
+ * keys, their behaviors, and their relative position and sizing.
+ * @param template
+ *     The object whose identically-named properties will be used to initialize
+ *     the properties of this layout.
+ */
+declare class Layout {
     constructor(template: Layout);
     /**
      * The language of keyboard layout, such as "en_US". This property is for
@@ -110,27 +110,26 @@ declare module 'guacamole-client' {
      * key will default to 1.
      */
     keyWidths: Record<string, number>;
-  }
+}
 
-  export namespace OnScreenKeyboard {
+export namespace OnScreenKeyboard {
+    export {};
     export type Key = typeof Key;
     export type Layout = typeof Layout;
-  }
+}
 
-  /**
-   * Dynamic on-screen keyboard. Given the layout object for an on-screen
-   * keyboard, this object will construct a clickable on-screen keyboard with its
-   * own key events.
-   * @constructor
-   * @param layout The layout of the on-screen keyboard to display.
-   */
-  export class OnScreenKeyboard {
+/**
+ * Dynamic on-screen keyboard. Given the layout object for an on-screen
+ * keyboard, this object will construct a clickable on-screen keyboard with its
+ * own key events.
+ * @param layout The layout of the on-screen keyboard to display.
+ */
+export class OnScreenKeyboard {
     constructor(layout: Layout);
 
     /**
      * The number of mousemove events to require before re-enabling mouse
      * event handling after receiving a touch event.
-     * @default 3
      */
     touchMouseThreshold: number;
 
@@ -173,5 +172,4 @@ declare module 'guacamole-client' {
      * may correspond to multiple keys due to the effect of modifiers.
      */
     keys: Record<string, Key[]>;
-  }
 }

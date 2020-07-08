@@ -1,10 +1,9 @@
-/// <reference path="./Tunnel.d.ts" />
+import { Tunnel } from './Tunnel';
 
-declare module 'guacamole-client' {
-  /**
-   * Guacamole Tunnel implemented over HTTP via XMLHttpRequest.
-   */
-  export class HTTPTunnel extends Tunnel {
+/**
+ * Guacamole Tunnel implemented over HTTP via XMLHttpRequest.
+ */
+export class HTTPTunnel extends Tunnel {
     /**
      * @param tunnelURL The URL of the HTTP tunneling service.
      * @param [crossDomain=false] Whether tunnel requests will be cross-domain, and thus must use CORS
@@ -14,5 +13,4 @@ declare module 'guacamole-client' {
      * headers to be sent in tunnel requests. By default, no extra headers will be added.
      */
     constructor(tunnelURL: string, crossDomain?: boolean, extraTunnelHeaders?: boolean);
-  }
 }

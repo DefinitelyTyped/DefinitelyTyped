@@ -1,49 +1,56 @@
-/// <reference path="./WebSocketTunnel.d.ts" />
-/// <reference path="./VisibleLayer.d.ts" />
-/// <reference path="./VideoPlayer.d.ts" />
-
 import { Mimetype } from './GuacCommon';
+import { WebSocketTunnel } from './WebSocketTunnel';
+import { OutputStream } from './OutputStream';
+import { InputStream } from './InputStream';
+import { Status } from './Status';
+import { Display } from './Display';
+import { AudioPlayer } from './AudioPlayer';
+import { VideoPlayer } from './VideoPlayer';
+import { VisibleLayer } from './VisibleLayer';
+import * as Guacamole from './Object';
 
-declare module 'guacamole-client' {
-  export namespace Client {
+export {};
+
+export namespace Client {
+    export {};
     export type State =
-      | 0 // IDLE
-      | 1 // CONNECTING
-      | 2 // WAITING
-      | 3 // CONNECTED
-      | 4 //  DISCONNECTING
-      | 5; // DISCONNECTED
+        | 0 // IDLE
+        | 1 // CONNECTING
+        | 2 // WAITING
+        | 3 // CONNECTED
+        | 4 //  DISCONNECTING
+        | 5; // DISCONNECTED
 
-    type ExportLayerBase = {
-      height: number;
-      width: number;
-      url?: string;
-    };
+    interface ExportLayerBase {
+        height: number;
+        width: number;
+        url?: string;
+    }
 
     type ExportLayer =
-      | ExportLayerBase
-      | (ExportLayerBase & {
-          x: number;
-          y: number;
-          z: number;
-          alpha: number;
-          matrix: unknown;
-          parent: unknown;
-        });
+        | ExportLayerBase
+        | (ExportLayerBase & {
+              x: number;
+              y: number;
+              z: number;
+              alpha: number;
+              matrix: unknown;
+              parent: unknown;
+          });
 
-    export type ExportedState = {
-      currentState: State;
-      currentTimestamp: number;
-      layers: { [key: number]: ExportLayer };
-    };
-  }
+    export interface ExportedState {
+        currentState: State;
+        currentTimestamp: number;
+        layers: { [key: number]: ExportLayer };
+    }
+}
 
-  /**
-   * Guacamole protocol client. Given a Guacamole.Tunnel,
-   * automatically handles incoming and outgoing Guacamole instructions via the
-   * provided tunnel, updating its display using one or more canvas elements.
-   */
-  export class Client {
+/**
+ * Guacamole protocol client. Given a Guacamole.Tunnel,
+ * automatically handles incoming and outgoing Guacamole instructions via the
+ * provided tunnel, updating its display using one or more canvas elements.
+ */
+export class Client {
     /**
      * @param tunnel The tunnel to use to send and receive Guacamole instructions.
      */
@@ -116,11 +123,7 @@ declare module 'guacamole-client' {
      * @param name The defined name of an output stream within the given object.
      * @returns An output stream which will write blobs to the named output stream of the given object.
      */
-    createObjectOutputStream(
-      index: number,
-      mimetype: Mimetype,
-      name: string
-    ): OutputStream;
+    createObjectOutputStream(index: number, mimetype: Mimetype, name: string): OutputStream;
 
     /**
      * Allocates an available stream index and creates a new
@@ -233,8 +236,8 @@ declare module 'guacamole-client' {
     /**
      * Sends the current size of the screen.
      *
-     * @param {Number} width The width of the screen.
-     * @param {Number} height The height of the screen.
+     * @param width The width of the screen.
+     * @param height The height of the screen.
      */
     sendSize(width: number, height: number): void;
 
@@ -275,9 +278,7 @@ declare module 'guacamole-client' {
      * has been initialied to play the data in the provided stream, or null
      * if the built-in audio players of the Guacamole client should be used.
      */
-    onaudio:
-      | null
-      | ((audioStream: InputStream, mimetype: Mimetype) => AudioPlayer | null);
+    onaudio: null | ((audioStream: InputStream, mimetype: Mimetype) => AudioPlayer | null);
 
     /**
      * Fired when a video stream is created. The stream provided to this event
@@ -296,13 +297,7 @@ declare module 'guacamole-client' {
      * has been initialied to play the data in the provided stream, or null
      * if the built-in video players of the Guacamole client should be used.
      */
-    onvideo:
-      | null
-      | ((
-          videoStream: InputStream,
-          layer: VisibleLayer,
-          mimetype: Mimetype
-        ) => VideoPlayer | null);
+    onvideo: null | ((videoStream: InputStream, layer: VisibleLayer, mimetype: Mimetype) => VideoPlayer | null);
 
     /**
      * Fired when the current value of a connection parameter is being exposed
@@ -313,9 +308,7 @@ declare module 'guacamole-client' {
      * @param mimetype The mimetype of the data which will be received.
      * @param name The name of the connection parameter whose value is being exposed.
      */
-    onargv:
-      | null
-      | ((parameterStream: InputStream, mimetype: Mimetype, name: string) => void);
+    onargv: null | ((parameterStream: InputStream, mimetype: Mimetype, name: string) => void);
 
     /**
      * Fired when the clipboard of the remote client is changing.
@@ -346,7 +339,7 @@ declare module 'guacamole-client' {
      * @param object The created filesystem object.
      * @param name The name of the filesystem.
      */
-    onfilesystem: null | ((object: Object, name: string) => void);
+    onfilesystem: null | ((object: Guacamole.Object, name: string) => void);
 
     /**
      * Fired when a pipe stream is created. The stream provided to this event
@@ -368,5 +361,4 @@ declare module 'guacamole-client' {
      * @param timestamp The timestamp associated with the sync instruction.
      */
     onsync: null | ((timestramp: number) => void);
-  }
 }

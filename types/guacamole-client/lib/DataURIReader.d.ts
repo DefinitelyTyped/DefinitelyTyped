@@ -1,11 +1,11 @@
-declare module 'guacamole-client' {
-  /**
-   * A reader which automatically handles the given input stream, returning
-   * received blobs as a single data URI built over the course of the stream.
-   * Note that this object will overwrite any installed event handlers on the
-   * given Guacamole.InputStream.
-   */
-  export class DataURIReader {
+import { InputStream } from './InputStream';
+/**
+ * A reader which automatically handles the given input stream, returning
+ * received blobs as a single data URI built over the course of the stream.
+ * Note that this object will overwrite any installed event handlers on the
+ * given Guacamole.InputStream.
+ */
+export class DataURIReader {
     /**
      * @param stream The stream that data will be read from.
      */
@@ -23,5 +23,4 @@ declare module 'guacamole-client' {
      * @event
      */
     onend: null | (() => void);
-  }
 }

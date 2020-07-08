@@ -1,15 +1,13 @@
-/// <reference path="./OutputStream.d.ts" />
-
 import { Mimetype } from './GuacCommon.d';
+import { OutputStream } from './OutputStream';
 
-declare module 'guacamole-client' {
-  /**
-   * Abstract audio recorder which streams arbitrary audio data to an underlying
-   * Guacamole.OutputStream. It is up to implementations of this class to provide
-   * some means of handling this Guacamole.OutputStream. Data produced by the
-   * recorder is to be sent along the provided stream immediately.
-   */
-  export class AudioRecorder {
+/**
+ * Abstract audio recorder which streams arbitrary audio data to an underlying
+ * Guacamole.OutputStream. It is up to implementations of this class to provide
+ * some means of handling this Guacamole.OutputStream. Data produced by the
+ * recorder is to be sent along the provided stream immediately.
+ */
+export class AudioRecorder {
     /**
      * Determines whether the given mimetype is supported by any built-in
      * implementation of Guacamole.AudioRecorder, and thus will be properly handled
@@ -68,5 +66,4 @@ declare module 'guacamole-client' {
      * @event
      */
     onerror: null | (() => void);
-  }
 }

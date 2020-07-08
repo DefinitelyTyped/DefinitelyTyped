@@ -8,8 +8,6 @@ declare const srch: number;
 declare const x: number;
 declare const y: number;
 
-declare const useCb: <T>() => (t: T) => void;
-
 // $ExpectError
 const layer = new Guacamole.Layer();
 
@@ -18,11 +16,11 @@ l2.arc(1, 2, 3, 4, 5, true as boolean | undefined);
 l2.arc(1, 2, 3, 4, 5);
 // $ExpectError
 l2.arc(1 as number | null, 2, 3, 4, 5);
-l2.copy(srcLayer, srcx, srcy, srcw, srch, x, y)
+l2.copy(srcLayer, srcx, srcy, srcw, srch, x, y);
 // $ExpectError
 l2.copy({}, 1, 2, 3, 4, 5, 5);
 l2.pop();
-l2.put(srcLayer, srcx, srcy, srcw, srch, x, y)
+l2.put(srcLayer, srcx, srcy, srcw, srch, x, y);
 const c: HTMLCanvasElement = l2.toCanvas();
 l2.lineTo(x, y);
 l2.moveTo(x, y);
@@ -38,16 +36,21 @@ const tunnel = new Guacamole.WebSocketTunnel('haha');
 tunnel.connect('123');
 // $ExpectError
 tunnel.connect({});
-tunnel.onerror = status => console.log(status.code * 1, status.message?.trim());
+tunnel.onerror = status => console.log(
+  status.code * 1,
+  // $ExpectError
+  status.message.trim(),
+  status.message && status.message.trim()
+);
 const tis: boolean = tunnel.isConnected();
 tunnel.state === Guacamole.Tunnel.State.CONNECTING;
 // $ExpectError
-tunnel.state === 5;
+const z = tunnel.state === 5;
 tunnel.uuid.substr(0);
 // $ExpectError
 tunnel.sendMessage();
 tunnel.sendMessage(1);
-tunnel.oninstruction = (code, args) => (code.trim(), args.map);
+tunnel.oninstruction = (code, args) => [code.trim(), args.map];
 tunnel.onstatechange = state => state === Guacamole.Tunnel.State.OPEN;
 tunnel.onerror = s => s.code === Guacamole.Status.Code.fromHTTPCode(500);
 tunnel.disconnect();
@@ -80,7 +83,7 @@ client.onerror = (status: Guacamole.Status) => {
 };
 client.onerror = null;
 // $ExpectError
-client.endStream(1);
+client.endStream();
 
 const d = new Guacamole.Display();
 d.getDefaultLayer().resize(1, 2);

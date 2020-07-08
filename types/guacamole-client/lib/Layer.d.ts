@@ -1,84 +1,84 @@
-declare module 'guacamole-client' {
-  export namespace Layer {
-    type LineCap = 'round' | 'square' | 'butt';
-    type LineJoin = 'round' | 'bevel' | 'mitter';
+export namespace Layer {
+    export {};
+    export type LineCap = 'round' | 'square' | 'butt';
+    export type LineJoin = 'round' | 'bevel' | 'mitter';
 
     /**
      * Represents a single pixel of image data. All components have a minimum value
      * of 0 and a maximum value of 255.
      */
     export class Pixel {
-      /**
-       * @param r The red component of this pixel.
-       * @param g The green component of this pixel.
-       * @param b The blue component of this pixel.
-       * @param a The alpha component of this pixel.
-       */
-      constructor(r: number, g: number, b: number, a: number);
+        /**
+         * @param r The red component of this pixel.
+         * @param g The green component of this pixel.
+         * @param b The blue component of this pixel.
+         * @param a The alpha component of this pixel.
+         */
+        constructor(r: number, g: number, b: number, a: number);
 
-      /**
-       * The red component of this pixel, where 0 is the minimum value,
-       * and 255 is the maximum.
-       */
-      red: number;
+        /**
+         * The red component of this pixel, where 0 is the minimum value,
+         * and 255 is the maximum.
+         */
+        red: number;
 
-      /**
-       * The green component of this pixel, where 0 is the minimum value,
-       * and 255 is the maximum.
-       */
-      green: number;
+        /**
+         * The green component of this pixel, where 0 is the minimum value,
+         * and 255 is the maximum.
+         */
+        green: number;
 
-      /**
-       * The blue component of this pixel, where 0 is the minimum value,
-       * and 255 is the maximum.
-       */
-      blue: number;
+        /**
+         * The blue component of this pixel, where 0 is the minimum value,
+         * and 255 is the maximum.
+         */
+        blue: number;
 
-      /**
-       * The alpha component of this pixel, where 0 is the minimum value,
-       * and 255 is the maximum.
-       */
-      alpha: number;
+        /**
+         * The alpha component of this pixel, where 0 is the minimum value,
+         * and 255 is the maximum.
+         */
+        alpha: number;
     }
-  }
+}
 
-  /**
-   * Abstract ordered drawing surface. Each Layer contains a canvas element and
-   * provides simple drawing instructions for drawing to that canvas element,
-   * however unlike the canvas element itself, drawing operations on a Layer are
-   * guaranteed to run in order, even if such an operation must wait for an image
-   * to load before completing.
-   */
-  export class Layer {
+/**
+ * Abstract ordered drawing surface. Each Layer contains a canvas element and
+ * provides simple drawing instructions for drawing to that canvas element,
+ * however unlike the canvas element itself, drawing operations on a Layer are
+ * guaranteed to run in order, even if such an operation must wait for an image
+ * to load before completing.
+ */
+export class Layer {
     /**
      * Channel mask for the composite operation "rout".
      */
-    static readonly ROUT = 0x2;
+    static readonly ROUT: 0x2;
 
     /**
      * Channel mask for the composite operation "atop".
      */
-    static readonly ATOP = 0x6;
+    static readonly ATOP: 0x6;
 
     /**
      * Channel mask for the composite operation "xor".
      */
-    static readonly XOR = 0xa;
+    static readonly XOR: 0xa;
 
     /**
      * Channel mask for the composite operation "rover".
      */
-    static readonly ROVER = 0xb;
+    static readonly ROVER: 0xb;
 
     /**
      * Channel mask for the composite operation "over".
      */
-    static readonly OVER = 0xe;
+    static readonly OVER: 0xe;
 
     /**
      * Channel mask for the composite operation "plus".
      */
-    static readonly PLUS = 0xf;
+    static readonly PLUS: 0xf;
 
     /**
      * Channel mask for the composite operation "rin".
@@ -86,7 +86,7 @@ declare module 'guacamole-client' {
      * layer where the source layer is transparent, despite the definition of this
      * operation.
      */
-    static readonly RIN = 0x1;
+    static readonly RIN: 0x1;
 
     /**
      * Channel mask for the composite operation "in".
@@ -94,7 +94,7 @@ declare module 'guacamole-client' {
      * layer where the source layer is transparent, despite the definition of this
      * operation.
      */
-    static readonly IN = 0x4;
+    static readonly IN: 0x4;
 
     /**
      * Channel mask for the composite operation "out".
@@ -102,7 +102,7 @@ declare module 'guacamole-client' {
      * layer where the source layer is transparent, despite the definition of this
      * operation.
      */
-    static readonly OUT = 0x8;
+    static readonly OUT: 0x8;
 
     /**
      * Channel mask for the composite operation "ratop".
@@ -110,7 +110,7 @@ declare module 'guacamole-client' {
      * layer where the source layer is transparent, despite the definition of this
      * operation.
      */
-    static readonly RATOP = 0x9;
+    static readonly RATOP: 0x9;
 
     /**
      * Channel mask for the composite operation "src".
@@ -118,7 +118,7 @@ declare module 'guacamole-client' {
      * layer where the source layer is transparent, despite the definition of this
      * operation.
      */
-    static readonly SRC = 0xc;
+    static readonly SRC: 0xc;
 
     /**
      * @param width The width of the Layer, in pixels. The canvas element
@@ -141,7 +141,6 @@ declare module 'guacamole-client' {
      * layer.sync(function() {
      *     layer.autosize = true;
      * });
-     * @default false
      */
     autoresize: boolean;
 
@@ -192,31 +191,31 @@ declare module 'guacamole-client' {
     /**
      * Transfer a rectangle of image data from one Layer to this Layer using the
      * specified transfer function.
-     * @param {Guacamole.Layer} srcLayer The Layer to copy image data from.
-     * @param {Number} srcx The X coordinate of the upper-left corner of the
+     * @param srcLayer The Layer to copy image data from.
+     * @param srcx The X coordinate of the upper-left corner of the
      *                      rectangle within the source Layer's coordinate
      *                      space to copy data from.
-     * @param {Number} srcy The Y coordinate of the upper-left corner of the
+     * @param srcy The Y coordinate of the upper-left corner of the
      *                      rectangle within the source Layer's coordinate
      *                      space to copy data from.
-     * @param {Number} srcw The width of the rectangle within the source Layer's
+     * @param srcw The width of the rectangle within the source Layer's
      *                      coordinate space to copy data from.
-     * @param {Number} srch The height of the rectangle within the source
+     * @param srch The height of the rectangle within the source
      *                      Layer's coordinate space to copy data from.
-     * @param {Number} x The destination X coordinate.
-     * @param {Number} y The destination Y coordinate.
-     * @param {Function} transferFunction The transfer function to use to
+     * @param x The destination X coordinate.
+     * @param y The destination Y coordinate.
+     * @param transferFunction The transfer function to use to
      * transfer data from source to destination.
      */
     transfer(
-      srcLayer: Layer,
-      srcx: number,
-      srcy: number,
-      srcw: number,
-      srch: number,
-      x: number,
-      y: number,
-      transferFunction: Function
+        srcLayer: Layer,
+        srcx: number,
+        srcy: number,
+        srcw: number,
+        srch: number,
+        x: number,
+        y: number,
+        transferFunction: Function,
     ): void;
 
     /**
@@ -234,15 +233,7 @@ declare module 'guacamole-client' {
      * @param x The destination X coordinate.
      * @param y The destination Y coordinate.
      */
-    put(
-      srcLayer: Layer,
-      srcx: number,
-      srcy: number,
-      srcw: number,
-      srch: number,
-      x: number,
-      y: number
-    ): void;
+    put(srcLayer: Layer, srcx: number, srcy: number, srcw: number, srch: number, x: number, y: number): void;
 
     /**
      * Copy a rectangle of image data from one Layer to this Layer. This
@@ -262,15 +253,7 @@ declare module 'guacamole-client' {
      * @param x The destination X coordinate.
      * @param y The destination Y coordinate.
      */
-    copy(
-      srcLayer: Layer,
-      srcx: number,
-      srcy: number,
-      srcw: number,
-      srch: number,
-      x: number,
-      y: number
-    ): void;
+    copy(srcLayer: Layer, srcx: number, srcy: number, srcw: number, srch: number, x: number, y: number): void;
 
     distort(a: number, b: number, c: number, d: number, e: number, f: number): void;
 
@@ -310,14 +293,14 @@ declare module 'guacamole-client' {
 
     /**
      * Add the specified arc to the current path.
-     * @param {Number} x The X coordinate of the center of the circle which
+     * @param x The X coordinate of the center of the circle which
      *                   will contain the arc.
-     * @param {Number} y The Y coordinate of the center of the circle which
+     * @param y The Y coordinate of the center of the circle which
      *                   will contain the arc.
-     * @param {Number} radius The radius of the circle.
-     * @param {Number} startAngle The starting angle of the arc, in radians.
-     * @param {Number} endAngle The ending angle of the arc, in radians.
-     * @param {Boolean} negative Whether the arc should be drawn in order of
+     * @param radius The radius of the circle.
+     * @param startAngle The starting angle of the arc, in radians.
+     * @param endAngle The ending angle of the arc, in radians.
+     * @param negative Whether the arc should be drawn in order of
      *                           decreasing angle.
      */
     arc: CanvasRenderingContext2D['arc'];
@@ -350,13 +333,13 @@ declare module 'guacamole-client' {
      * @param a The alpha component of the color to fill.
      */
     strokeColor(
-      cap: Layer.LineCap,
-      join: Layer.LineJoin,
-      thickness: number,
-      r: number,
-      g: number,
-      b: number,
-      a: number
+        cap: Layer.LineCap,
+        join: Layer.LineJoin,
+        thickness: number,
+        r: number,
+        g: number,
+        b: number,
+        a: number,
     ): void;
 
     /**
@@ -384,12 +367,7 @@ declare module 'guacamole-client' {
      * @param b The blue component of the color to fill.
      * @param a The alpha component of the color to fill.
      */
-    strokeLayer(
-      cap: Layer.LineCap,
-      join: Layer.LineJoin,
-      thickness: number,
-      layer: Layer
-    ): void;
+    strokeLayer(cap: Layer.LineCap, join: Layer.LineJoin, thickness: number, layer: Layer): void;
 
     /**
      * Fills the current path with the image within the specified layer. The
@@ -446,7 +424,7 @@ declare module 'guacamole-client' {
      * with a single bit representing each of four channels (in order): source
      * image where destination transparent, source where destination opaque,
      * destination where source transparent, and destination where source opaque.
-     * @param {Number} mask The channel mask for future operations on this Layer.
+     * @param mask The channel mask for future operations on this Layer.
      */
     setChannelMask(mask: number): void;
 
@@ -458,5 +436,4 @@ declare module 'guacamole-client' {
      * @param limit The miter limit for stroke operations using the miter join.
      */
     setMiterLimit(limit: number): void;
-  }
 }
