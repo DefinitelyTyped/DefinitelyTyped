@@ -16,6 +16,7 @@ rg4js('trackEvent', {
     name: 'testDuration',
     duration: 100
 });
+rg4js('endSession');
 
 try {
     throw new Error('oops');
@@ -31,7 +32,7 @@ const client: RaygunStatic = Raygun.noConflict();
 const newClient: RaygunStatic = client.constructNewRaygun();
 
 client.init('api-key');
-client.init('api-key', { allowInsecureSubmissions: true, disablePulse: false });
+client.init('api-key', { allowInsecureSubmissions: true, disablePulse: false, captureMissingRequests: true, clientIp: "test", automaticPerformanceCustomTimings: true });
 client.init('api-key', { allowInsecureSubmissions: true, disablePulse: false }, { some: 'data' });
 
 client.withCustomData({ some: 'data' });
