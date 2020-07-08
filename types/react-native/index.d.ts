@@ -61,7 +61,7 @@
 
 import * as React from 'react';
 
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 type Constructor<T> = new (...args: any[]) => T;
 
@@ -472,10 +472,15 @@ export interface PressableStateCallbackType {
     pressed: boolean;
 }
 
-export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style'> {
+export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
     /**
-    * Called when a single tap gesture is detected.
-    */
+     * Called when this view's layout changes.
+     */
+    onLayout?: (event: LayoutChangeEvent) => void;
+
+    /**
+     * Called when a single tap gesture is detected.
+     */
     onPress?: (event: GestureResponderEvent) => void;
 
     /**
@@ -484,8 +489,8 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
     onPressIn?: (event: GestureResponderEvent) => void;
 
     /**
-    * Called when a touch is released before `onPress`.
-    */
+     * Called when a touch is released before `onPress`.
+     */
     onPressOut?: (event: GestureResponderEvent) => void;
 
     /**
@@ -497,7 +502,7 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
      * Either children or a render prop that receives a boolean reflecting whether
      * the component is currently pressed.
      */
-    children: React.ReactNode | ((state: PressableStateCallbackType) => React.ReactNode),
+    children: React.ReactNode | ((state: PressableStateCallbackType) => React.ReactNode);
 
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
@@ -510,10 +515,15 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
     disabled?: boolean;
 
     /**
+     * Additional distance outside of this view in which a press is detected.
+     */
+    hitSlop?: Insets | number;
+
+    /**
      * Additional distance outside of this view in which a touch is considered a
      * press before `onPressOut` is triggered.
      */
-    pressRectOffset?: number;
+    pressRetentionOffset?: Insets | number;
 
     /**
      * If true, doesn't play system sound on touch.
@@ -524,6 +534,11 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
      * Enables the Android ripple effect and configures its color.
      */
     android_ripple?: RippleBackgroundPropType;
+
+    /**
+     * Identifier used to find this view in tests.
+     */
+    testID?: string;
 
     /**
      * Used only for documentation or testing (e.g. snapshot testing).
