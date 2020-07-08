@@ -215,7 +215,7 @@ export class Layer {
         srch: number,
         x: number,
         y: number,
-        transferFunction: Function,
+        transferFunction: (srcPixel: Layer.Pixel, dstPixel: Layer.Pixel) => void,
     ): void;
 
     /**

@@ -466,7 +466,7 @@ export class Display {
         dstLayer: Layer,
         x: number,
         y: number,
-        transferFunction: Function,
+        transferFunction: (srcPixel: Layer.Pixel, dstPixel: Layer.Pixel) => void,
     ): void;
 
     /**
