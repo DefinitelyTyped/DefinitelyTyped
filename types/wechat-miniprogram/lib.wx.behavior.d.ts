@@ -1,4 +1,3 @@
-
 declare namespace WechatMiniprogram {
     namespace Behavior {
         type Instance<

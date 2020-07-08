@@ -1,4 +1,3 @@
-
 declare namespace WechatMiniprogram {
     interface AccessFailCallbackResult {
         /** 错误信息

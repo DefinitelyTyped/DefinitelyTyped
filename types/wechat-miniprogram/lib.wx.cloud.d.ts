@@ -1,12 +1,3 @@
-
-/////////////////////
-///// WX Cloud Apis
-/////////////////////
-
-/**
- * Common interfaces and types
- */
-
 interface IAPIError {
     errMsg: string
 }

@@ -1,21 +1,24 @@
 {
   "compilerOptions": {
-      "module": "commonjs",
-      "lib": [
-          "es6",
-          "dom"
-      ],
-      "noImplicitAny": true,
-      "noImplicitThis": true,
-      "strictNullChecks": true,
-      "strictFunctionTypes": true,
-      "baseUrl": "../",
-      "typeRoots": [
-          "../"
-      ],
-      "types": [],
-      "noEmit": true,
-      "forceConsistentCasingInFileNames": true
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "module": "commonjs",
+    "target": "ES5",
+    "experimentalDecorators": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "strictFunctionTypes": false,
+    "baseUrl": "../",
+    "typeRoots": [
+        "../"
+    ],
+    "lib": [
+      "es6"
+    ],
+    "types": [],
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true
   },
   "files": [
     "index.d.ts",
@@ -25,6 +28,6 @@
     "lib.wx.cloud.d.ts",
     "lib.wx.component.d.ts",
     "lib.wx.event.d.ts",
-    "lib.wx.page.d.ts",
+    "lib.wx.page.d.ts"
   ]
 }

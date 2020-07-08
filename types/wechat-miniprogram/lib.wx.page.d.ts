@@ -1,4 +1,3 @@
-
 declare namespace WechatMiniprogram {
     namespace Page {
         type Instance<
