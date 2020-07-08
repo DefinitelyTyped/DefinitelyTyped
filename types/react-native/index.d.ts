@@ -9543,7 +9543,7 @@ declare global {
         groupEnd(): void;
         group(label?: string): void;
         /**
-         * @deprecated Use LogBox.ignoreAllLogs() instead
+         * @deprecated Use LogBox.ignoreAllLogs(disable) instead
          */
         disableYellowBox: boolean;
         /**
