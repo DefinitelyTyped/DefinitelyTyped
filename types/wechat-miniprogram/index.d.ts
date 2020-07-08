@@ -1,6 +1,7 @@
 // Type definitions for wechat-miniprogram 2.11.0
+// Project: https://github.com/wechat-miniprogram/api-typings.git
 // Definitions by: Wechat Miniprogram <wx-miniprogram@qq.com>
-// Definitions: https://github.com/wechat-miniprogram/api-typings.git
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./lib.wx.app.d.ts" />
 /// <reference path="./lib.wx.page.d.ts" />
