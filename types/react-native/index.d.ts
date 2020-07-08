@@ -7539,6 +7539,22 @@ export interface LinkingStatic extends NativeEventEmitter {
     sendIntent(action: string, extras?: Array<{ key: string; value: string | number | boolean }>): Promise<void>;
 }
 
+export interface LogBoxStatic {
+    /**
+     * Silence any logs that match the given strings or regexes.
+     */
+    ignoreLogs(patterns: string | RegExp): void;
+
+    /**
+     * Turn off error or warning notifications.
+     * Note: this only disables notifications, uncaught errors will still open a full screen LogBox.
+     */
+    ignoreAllLogs(value: boolean): void;
+
+    install(): void;
+    uninstall(): void;
+}
+
 export interface PanResponderGestureState {
     /**
      *  ID of the gestureState- persisted as long as there at least one touch on
@@ -9237,6 +9253,9 @@ export type LayoutAnimation = LayoutAnimationStatic;
 export const Linking: LinkingStatic;
 export type Linking = LinkingStatic;
 
+export const LogBox: LogBoxStatic;
+export type LogBox = LogBoxStatic;
+
 export const PanResponder: PanResponderStatic;
 export type PanResponder = PanResponderStatic;
 
@@ -9355,7 +9374,7 @@ export const YellowBox: React.ComponentClass<any, any> & { ignoreWarnings: (warn
 
 /**
  * LogBox is enabled by default so there is no need to call unstable_enableLogBox() anymore. This is a no op and will be removed in the next version.
- * @depcreated
+ * @deprecated
  */
 export function unstable_enableLogBox(): void;
 
@@ -9419,7 +9438,13 @@ declare global {
         groupCollapsed(label?: string): void;
         groupEnd(): void;
         group(label?: string): void;
+        /**
+         * @deprecated Use LogBox.ignoreAllLogs() instead
+         */
         disableYellowBox: boolean;
+        /**
+         * @deprecated Use LogBox.ignoreLogs(patterns) instead
+         */
         ignoredYellowBox: string[];
     }
 
