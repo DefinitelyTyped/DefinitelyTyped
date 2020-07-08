@@ -2,6 +2,13 @@ import { InputStream } from './InputStream';
 import { Mimetype } from './GuacCommon';
 import { VisibleLayer } from './VisibleLayer';
 
+/**
+ * Abstract video player which accepts, queues and plays back arbitrary video
+ * data. It is up to implementations of this class to provide some means of
+ * handling a provided Guacamole.InputStream and rendering the received data to
+ * the provided Guacamole.Display.VisibleLayer. Data received along the
+ * provided stream is to be played back immediately.
+ */
 export class VideoPlayer {
     /**
      * Determines whether the given mimetype is supported by any built-in

@@ -46,7 +46,11 @@ const tis: boolean = tunnel.isConnected();
 tunnel.state === Guacamole.Tunnel.State.CONNECTING;
 // $ExpectError
 const z = tunnel.state === 5;
+
+// $ExpectError
 tunnel.uuid.substr(0);
+tunnel.uuid && tunnel.uuid.substr(0);
+
 // $ExpectError
 tunnel.sendMessage();
 tunnel.sendMessage(1);
