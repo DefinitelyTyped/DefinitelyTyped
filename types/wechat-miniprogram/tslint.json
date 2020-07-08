@@ -1,6 +1,5 @@
 { 
   "extends": ["dtslint/dt.json"],
-  "defaultSeverity": "error",
   "rules": {
     "adjacent-overload-signatures": true,
     "align": {
@@ -161,7 +160,5 @@
       "array-simple"
     ],
     "object-literal-shorthand": true
-  },
-  "jsRules": {},
-  "rulesDirectory": []
+  }
 }
