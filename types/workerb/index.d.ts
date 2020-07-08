@@ -3,41 +3,6 @@
 // Definitions by: praveen-me <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-export as namespace myLib;
-
-/*~ If this module has methods, declare them as functions like so.
- */
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
-
-/*~ You can declare types that are available via importing the module */
-export interface someType {
-    name: string;
-    length: number;
-    extras?: string[];
-}
-
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
-
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
- */
-export namespace subProp {
-    /*~ For example, given this definition, someone could write:
-     *~   import { subProp } from 'yourModule';
-     *~   subProp.foo();
-     *~ or
-     *~   import * as yourMod from 'yourModule';
-     *~   yourMod.subProp.foo();
-     */
-    function foo(): void;
-}
-
 export interface QueryOptions {
     /**
      * Allows to select an element with different methods:
@@ -60,15 +25,34 @@ export interface QueryOptions {
 }
 
 export interface ClickQueryOptions extends QueryOptions {
+    /**
+     *  A boolean to indicate if script runner should expect the page to reload. If set to true, the script execution will pause after executing the click. It will resume after the page reloads. The default value is false.
+     */
     expectReload?: boolean;
 }
 
+export interface SelectQueryOptions extends QueryOptions {
+    /**
+     * Specify if the provided value is a label or value of the option needs to be selected. The default value is label.
+     */
+    selectBy: string;
+}
+
 export interface APIResponse {
+    /**
+     * A string that has the response returned by the remote server.
+     */
     response: string;
+    /**
+     * A number that is the Status Code returned by the remote server.
+     */
     status: number;
 }
 
 export interface EventConfig {
+    /**
+     * A string value used to the specify the type of the event.
+     */
     eventType:
         | 'keydown'
         | 'keyup'
@@ -79,6 +63,9 @@ export interface EventConfig {
         | 'mouseout'
         | 'mouseover'
         | 'mouseup';
+    /**
+     * An object used to specify the event properties. For key related event types, KeyboardEvent is supported. For mouse related event types, MouseEvent is supported.
+     */
     eventProps?: MouseEvent | KeyboardEvent;
 }
 
@@ -86,24 +73,121 @@ export interface EventConfig {
 export declare let args: string[];
 export declare let options: any;
 
-// methods
+/**
+ * The open function opens a link in the same browser window.
+ *
+ * @param url  A string that specifies the link to open
+ *
+ * @returns undefined
+ */
 export declare function open(url: string): undefined;
 
+/**
+ * The click function performs a mouse click on a target element. The element can be specified using different query methods.
+ *
+ * @param query A string used to identify the target element in the DOM.
+ * @param options An optional object used to control what the click function does.
+ *
+ * @returns undefined
+ */
 export declare function click(query: string, options?: ClickQueryOptions): undefined;
 
+/**
+ * The notify function can be used to display a message to the user.
+ *
+ * @param message A string used to specify the text to be displayed.
+ * @param type A string used to specify the type of the notification. Either error or success.
+ * @param timeout A number used to specify the duration for which the notification will be displayed.
+ *
+ * @returns undefined
+ */
 export declare function notify(message: string, type: 'error' | 'success', timeout: number): undefined;
 
+/**
+ * The type function writes a given string to a target input field. The input field can be specified using different query methods.
+ *
+ * @param text A string that should be written to a target input field.
+ * @param query A string used to identify the target element in the DOM.
+ * @param options An optional object used to control what the click function does.
+ *
+ * @returns undefined
+ */
 export declare function type(text: string, query: string, options?: QueryOptions): undefined;
 
+/**
+ * The download can be used to download data as part of the script
+ *
+ * @param filename A string that specifies the name of the file.
+ * @param content A string that specifies the contents of the file. For non-text formats, the content can be passed as base-64 encoded string.
+ * @param contentType A string that specifies the contentType of the file.  It can be either
+'text' for text files or any valid mime type e.g 'text/plain;charset=utf-8'
+ *
+ * @returns undefined
+ */
 export declare function download(filename: string, content: string, contentType: string): undefined;
 
-export declare function event(query: string, eventConfig: EventConfig, options: QueryOptions): undefined;
+/**
+ * The event function generates an event on a target element.
+ *
+ * @param query A string value used to identify the target element in the DOM.
+ * @param eventConfig An object used to specify the event.
+ * @param options An optional object used to control what the event function does.
+ *
+ * @returns undefined
+ */
+export declare function event(query: string, eventConfig: EventConfig, options?: QueryOptions): undefined;
 
-export declare function prompt(text: string): string | null;
-export declare function log(text: any, color: string): undefined;
+/**
+ * The prompt function opens a prompt to query user for input.
+ *
+ * @param label A string that specifies the message to show on the prompt
+ *
+ * @returns A string that has the user input.
+ */
+export declare function prompt(label: string): string;
+
+/**
+ * The log function can be used to print messages to the browser console.
+ *
+ * @param value Any value needed to be logged.
+ * @param color An optional string used to specify the color of the text.
+ *
+ * @returns undefined
+ */
+export declare function log(value: any, color?: string): undefined;
+
+/**
+ * The read function returns a text from a target element.
+ *
+ * @param query A string used to identify the target element in the DOM.
+ * @param options An optional object used to control what the read function does
+ *
+ * @returns A string which is either the text inside an element or in case of input the value of the input.
+ */
 export declare function read(query: string, options?: QueryOptions): string;
+
+/**
+ * The readAll function returns texts of all target elements which match the query.
+ *
+ * @param query  A string used to identify the target elements in the DOM. The query is run using a query selector. All elements satisfying the query are returned.
+ * @param options  An optional object used to control what the read function does.
+ *
+ * @returns The array of values read.
+ */
 export declare function readAll(query: string, options?: QueryOptions): Array<any>;
 
+/**
+ * The readTable function returns the content of a target table.
+ *
+ * @param query A string used to identify the target element in the DOM.
+ * @param options An optional object used to control what the click function does.
+ *
+ * @returns An object
+ *
+ * * header: An array of strings which contains the heading for columns
+ *
+ * * rows: An array of objects where each key corresponds to a header from the 'header' array. If column header is not identified, the key will be 'column{index}'.
+ */
 export declare function readTable(
     query: string,
     options?: QueryOptions,
@@ -112,27 +196,132 @@ export declare function readTable(
     rows: Array<object>;
 };
 
+/**
+ * The readURL function returns the URL of the webpage in the active tab.
+ *
+ * @returns A string which is the URL of the webpage in the active tab.
+ */
 export declare function readUrl(): string;
 
+/**
+ * The runInTab function runs the specified function in a new tab and returns the result to the current tab.
+ *
+ * @param task A Function which specifies the code that should be run in the new tab.
+ * @param keepOpen  A boolean Keep the tab open after executing the function.
+ *
+ * @returns A string which is stringified version of the value returned by the passed function.
+ */
 export declare function runInTab(task: () => any, keepOpen: boolean): string;
 
+/**
+ * Select value on a particular a DOM element.
+ *
+ * @param value The string value that you want to select.
+ * @param query A string used to identify the target element in the DOM.
+ * @param options An optional object used to control what the click function does
+ *
+ * @returns undefined
+ */
+export declare function select(value: string, query: string, options?: SelectQueryOptions): undefined;
+
+/**
+ * The submit function generates an the 'enter' keypress event on a target form element. This can result in the submission of the parent form.
+ *
+ * @param query A string used to identify the target element in the DOM.
+ * @param options An optional object used to control what the click function does
+ *
+ * @returns undefined
+ */
 export declare function submit(query: string, options?: ClickQueryOptions): undefined;
 
+/**
+ * The tab function opens a link in a new tab in the browser.
+ *
+ * @param url  A string that specifies the link to open
+ *
+ * @returns undefined
+ */
 export declare function tab(url: string): undefined;
 
+/**
+ * The getAttribute function can be used to get an attribute value of a target element.
+ *
+ * @param attributes  A string or an array of Strings used to specify the attribute(s) for which the value should be returned.
+ * @param query A string value used to identify the target element in the DOM.
+ * @param options An optional object used to control what the click function does.
+ *
+ * @returns An array of objects. Each object corresponds to each element in the DOM that satisfied the query and it has the attribute name & values as properties for that element.
+ */
 export declare function getAttribute(
     attributes: string | Array<string>,
     query: string,
-    options: QueryOptions,
+    options?: QueryOptions,
 ): Array<object>;
 
+/**
+ * The logging function is used to enable and disable debug messages logging.
+ *
+ * @param state A string with either 'on' or 'off' as a value to either enable or disable logging.
+ *
+ * @returns undefined
+ */
 export declare function logging(state: 'on' | 'off'): undefined;
 
-// api methods
+/**
+ * The httpGet function can be used to make http get requests.
+ *
+ * @param url A string used to specify the URL where delete request is made.
+ * @param headers An optional object used to specify the headers for the request.
+ *
+ * @returns An object
+ *
+ * * response: A string that has the response returned by the remote server.
+ *
+ * * status: A number that is the Status Code returned by the remote server.
+ */
 export declare function httpGet(url: string, headers?: object): APIResponse;
 
+/**
+ * The httpDelete function can be used to make http delete requests.
+ *
+ * @param url A string used to specify the URL where delete request is made.
+ * @param data A string used to specify the payload for the request.
+ * @param headers An optional object used to specify the headers for the request.
+ *
+ * @returns An object
+ *
+ * * response: A string that has the response returned by the remote server.
+ *
+ * * status: A number that is the Status Code returned by the remote server.
+ */
 export declare function httpDelete(url: string, data?: any, headers?: object): APIResponse;
 
+/**
+ * The httpPost function can be used to make http post requests.
+ *
+ * @param url A string used to specify the URL where delete request is made.
+ * @param data A string used to specify the payload for the request.
+ * @param headers An optional object used to specify the headers for the request.
+ *
+ * @returns An object
+ *
+ * * response: A string that has the response returned by the remote server.
+ *
+ * * status: A number that is the Status Code returned by the remote server.
+ */
 export declare function httpPost(url: string, data?: any, headers?: object): APIResponse;
 
+/**
+ * The httpPut function can be used to make http put requests.
+ *
+ * @param url A string used to specify the URL where delete request is made.
+ * @param data A string used to specify the payload for the request.
+ * @param headers An optional object used to specify the headers for the request.
+ *
+ * @returns An object
+ *
+ * * response: A string that has the response returned by the remote server.
+ *
+ * * status: A number that is the Status Code returned by the remote server.
+ */
 export declare function httpPut(url: string, data?: any, headers?: object): APIResponse;
