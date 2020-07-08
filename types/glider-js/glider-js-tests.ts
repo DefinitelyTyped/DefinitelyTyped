@@ -7,6 +7,7 @@ const options: Glider.Options = {
         prev: '.glider-prev',
         next: document.querySelector('.glider-next'),
     },
+    eventPropagate: true,
 };
 
 // Options.dots
