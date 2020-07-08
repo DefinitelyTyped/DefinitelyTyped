@@ -21,13 +21,6 @@
     "forceConsistentCasingInFileNames": true
   },
   "files": [
-    "index.d.ts",
-    "lib.wx.api.d.ts",
-    "lib.wx.app.d.ts",
-    "lib.wx.behavior.d.ts",
-    "lib.wx.cloud.d.ts",
-    "lib.wx.component.d.ts",
-    "lib.wx.event.d.ts",
-    "lib.wx.page.d.ts"
+    "index.d.ts"
   ]
 }
