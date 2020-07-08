@@ -1,4 +1,6 @@
-declare namespace Tizen {
+declare module 'package' {
+    import { ErrorCallback } from 'tizen';
+    import { ApplicationId } from 'application';
     /**
      * A unique ID for an installed package.
      */

@@ -11,7 +11,7 @@
  *
  * For more information on the Tizen features, see [Tizen Guide](/application/web/guides/index).
  */
-declare namespace Tizen {
+declare module 'tizen' {
     /**
      * Representation of raw data as a sequence of values in range 0 - 255.
      * @since 5.5

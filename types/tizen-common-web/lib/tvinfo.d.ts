@@ -1,4 +1,4 @@
-declare namespace Tizen {
+declare module 'tvinfo' {
     type CaptionValue = CaptionStateUnion &
         CaptionModeUnion &
         CaptionFontSizeUnion &

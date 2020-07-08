@@ -1,4 +1,5 @@
-declare namespace Tizen {
+declare module 'systeminfo' {
+    import { ErrorCallback } from 'tizen';
     /**
      * An object containing the various options for fetching the properties requested.
      *

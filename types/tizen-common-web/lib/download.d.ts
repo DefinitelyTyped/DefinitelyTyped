@@ -18,7 +18,8 @@
  * DownloadNetworkType `ALL` can be available on a ethernet-enabled device. To guarantee that the download application runs on a device with the ethernet network feature, declare the following feature requirements in the config file:
  */
 
-declare namespace Tizen {
+declare module 'download' {
+    import { WebAPIError } from 'tizen';
     /**
      * A set of HTTP header fields.
      *

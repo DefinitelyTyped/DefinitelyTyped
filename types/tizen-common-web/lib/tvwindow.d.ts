@@ -1,4 +1,6 @@
-declare namespace Tizen {
+declare module 'tvwindow' {
+    import { ErrorCallback, SuccessCallback } from 'tizen';
+    import { SystemInfoVideoSourceInfo } from 'systeminfo';
     /**
      * This API provides a way to embed a video source in a Tizen Web Application running on a device associated with the TV.
      * It allows an available video source to be selected and shown on or hidden from the display in a Tizen Web Application.

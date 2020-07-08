@@ -1,4 +1,5 @@
-declare namespace Tizen {
+declare module 'websetting' {
+    import { ErrorCallback, SuccessCallback } from 'tizen';
     /**
      * This Web Setting API defines a set of APIs that manages the setting states of the Web view in your Web application.
      * @since 2.2

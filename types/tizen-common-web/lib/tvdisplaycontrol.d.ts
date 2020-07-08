@@ -1,4 +1,5 @@
-declare namespace Tizen {
+declare module 'tvdisplaycontrol' {
+    import { ErrorCallback } from 'tizen';
     /**
      * This API provides interfaces for managing stereoscopic 3D effects
      * for television signals.

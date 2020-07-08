@@ -1,4 +1,4 @@
-declare namespace Tizen {
+declare module 'tvaudiocontrol' {
     /**
      * An enumerator to indicate the audio output mode.
      *

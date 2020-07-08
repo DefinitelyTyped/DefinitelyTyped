@@ -1,4 +1,5 @@
-declare namespace Tizen {
+declare module 'filesystem' {
+    import { ErrorCallback, SuccessCallback } from 'tizen';
     /**
      * String, which points to file or directory.
      * In methods available since Tizen 5.0, checking or accessing files or directories may be granted only through a valid path.

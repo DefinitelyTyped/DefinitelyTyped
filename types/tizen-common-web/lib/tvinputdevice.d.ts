@@ -1,4 +1,5 @@
-declare namespace Tizen {
+declare module 'tvinputdevice' {
+    import { ErrorCallback, SuccessCallback } from 'tizen';
     /**
      * Name which identifies the key
      * Name of the key may be, for example:

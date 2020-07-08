@@ -20,38 +20,59 @@
 /// <reference path="./lib/tizen.d.ts" />
 /// <reference path="./lib/package.d.ts" />
 
+import {
+    WebAPIException,
+    AttributeFilterConstructor,
+    AttributeRangeFilterConstructor,
+    CompositeFilterConstructor,
+    SortModeConstructor,
+    SimpleCoordinatesConstructor,
+    BundleConstructor,
+} from 'tizen';
+import { ApplicationControlConstructor, ApplicationControlDataConstructor, ApplicationManager } from 'application';
+import { FilesystemManager } from 'filesystem';
+import { DownloadManager, DownloadRequestConstructor } from 'download';
+import { SystemInfoManager } from 'systeminfo';
+import { WebSettingManager } from 'websetting';
+import { TVAudioControlManager } from 'tvaudiocontrol';
+import { TVDisplayControlManager } from 'tvdisplaycontrol';
+import { TVInputDeviceManager } from 'tvinputdevice';
+import { TVWindowManager } from 'tvwindow';
+import { PackageManager } from 'package';
+import { TVInfoManager } from 'tvinfo';
+
 declare const tizen: Tizen;
 
 declare global {
     const tizen: Tizen;
     interface Window {
         tizen: Tizen;
-        WebAPIException: Tizen.WebAPIException;
-        WebAPIError: Tizen.WebAPIException;
+        WebAPIException: WebAPIException;
+        WebAPIError: WebAPIException;
     }
 }
 
 interface Tizen {
-    ApplicationControl: Tizen.ApplicationControlConstructor;
-    ApplicationControlData: Tizen.ApplicationControlDataConstructor;
-    AttributeFilter: Tizen.AttributeFilterConstructor;
-    AttributeRangeFilter: Tizen.AttributeRangeFilterConstructor;
-    CompositeFilter: Tizen.CompositeFilterConstructor;
-    SortMode: Tizen.SortModeConstructor;
-    SimpleCoordinates: Tizen.SimpleCoordinatesConstructor;
-    Bundle: Tizen.BundleConstructor;
-    filesystem: Tizen.FilesystemManager;
-    application: Tizen.ApplicationManager;
-    download: Tizen.DownloadManager;
-    systeminfo: Tizen.SystemInfoManager;
-    websetting: Tizen.WebSettingManager;
-    tvaudiocontrol: Tizen.TVAudioControlManager;
-    tvdisplaycontrol: Tizen.TVDisplayControlManager;
-    tvinfo: Tizen.TVInfoManager;
-    tvinputdevice: Tizen.TVInputDeviceManager;
-    tvwindow: Tizen.TVWindowManager;
-    DownloadRequest: Tizen.DownloadRequestConstructor;
-    package: Tizen.PackageManager;
+    ApplicationControl: ApplicationControlConstructor;
+    ApplicationControlData: ApplicationControlDataConstructor;
+    AttributeFilter: AttributeFilterConstructor;
+    AttributeRangeFilter: AttributeRangeFilterConstructor;
+    CompositeFilter: CompositeFilterConstructor;
+    SortMode: SortModeConstructor;
+    SimpleCoordinates: SimpleCoordinatesConstructor;
+    Bundle: BundleConstructor;
+    filesystem: FilesystemManager;
+    application: ApplicationManager;
+    download: DownloadManager;
+    systeminfo: SystemInfoManager;
+    websetting: WebSettingManager;
+    tvaudiocontrol: TVAudioControlManager;
+    tvdisplaycontrol: TVDisplayControlManager;
+    tvinfo: TVInfoManager;
+    tvinputdevice: TVInputDeviceManager;
+    tvwindow: TVWindowManager;
+    DownloadRequest: DownloadRequestConstructor;
+    package: PackageManager;
 }
 
 export = tizen;

@@ -23,7 +23,9 @@
  * @defAPIFeature http://tizen.org/feature/battery
  * To guarantee the running of the application on a device which has battery, declare the following feature requirement in the config file:
  */
-declare namespace Tizen {
+declare module 'application' {
+    import { ErrorCallback, SuccessCallback } from 'tizen';
+    import { PackageId } from 'package';
     /**
      * The unique ID for an installed application.
      */
