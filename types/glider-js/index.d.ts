@@ -119,12 +119,6 @@ declare namespace Glider {
         itemWidth?: number;
 
         /**
-         * Whether or not Glider.js events should bubble (useful for binding
-         * events to all carousels)
-         */
-        propagateEvent?: boolean;
-
-        /**
          * If true, Glider.js will lock to the nearest slide on resizing of
          * the window
          */
