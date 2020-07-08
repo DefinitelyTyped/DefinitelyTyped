@@ -1,5 +1,5 @@
 { 
-  "extends": ["dtslint/dtslint.json"],
+  "extends": ["dtslint/dtslint.json", "dtslint/dt.json"],
   "defaultSeverity": "error",
   "rules": {
     "adjacent-overload-signatures": true,
