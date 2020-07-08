@@ -684,7 +684,7 @@ const simpleNumber = 7;
 declare const mixedIterabilityValue: number | number[];
 declare const anyValue: any;
 declare const neverValue: never;
-declare const maybeFunction: (() => void) | undefined
+declare const maybeFunction: (() => void) | undefined;
 
 // avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
 // the types under test need to be refactored
