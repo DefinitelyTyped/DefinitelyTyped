@@ -22,9 +22,9 @@ declare module 'koa' {
     }
 }
 
-declare function koaCash(opts?: cash.Options): Koa.Middleware;
+declare function koaCash(opts?: koaCash.Options): Koa.Middleware;
 
-declare namespace cash {
+declare namespace koaCash {
     interface Options {
         /**
          * Default max age (in milliseconds) for the cache if not set via `await ctx.cashed(maxAge)`.
