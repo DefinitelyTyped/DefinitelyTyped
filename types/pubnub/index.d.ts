@@ -424,11 +424,11 @@ declare class Pubnub {
         ): Promise<Pubnub.ManageChannelMembersResponse<MembershipCustom, UUIDCustom>>;
 
         setChannelMembers<MembershipCustom extends Pubnub.ObjectCustom, UUIDCustom extends Pubnub.ObjectCustom>(
-            params: Pubnub.SetChannelMembersParameters<UUIDCustom>,
+            params: Pubnub.SetChannelMembersParameters<MembershipCustom>,
             callback: Callback<Pubnub.ManageChannelMembersResponse<MembershipCustom, UUIDCustom>>,
         ): void;
         setChannelMembers<MembershipCustom extends Pubnub.ObjectCustom, UUIDCustom extends Pubnub.ObjectCustom>(
-            params: Pubnub.SetChannelMembersParameters<UUIDCustom>,
+            params: Pubnub.SetChannelMembersParameters<MembershipCustom>,
         ): Promise<Pubnub.ManageChannelMembersResponse<MembershipCustom, UUIDCustom>>;
 
         removeChannelMembers<MembershipCustom extends Pubnub.ObjectCustom, UUIDCustom extends Pubnub.ObjectCustom>(
