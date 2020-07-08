@@ -5894,6 +5894,27 @@ interface PlatformWebStatic extends PlatformStatic {
 }
 
 /**
+ * Select native platform color
+ * The color must match the string that exists on the native platform
+ *
+ * @see https://reactnative.dev/docs/platformcolor#example
+ */
+export function PlatformColor(color: string): string;
+
+type DynamicColorIOSTuple = {
+    light: string;
+    dark: string;
+};
+
+/**
+ * Specify color to display depending on the current system appearance settings
+ *
+ * @param tuple Colors you want to use for "light mode" and "dark mode"
+ * @platform ios
+ */
+export function DynamicColorIOS(tuple: DynamicColorIOSTuple): string;
+
+/**
  * Deprecated - subclass NativeEventEmitter to create granular event modules instead of
  * adding all event listeners directly to RCTDeviceEventEmitter.
  */

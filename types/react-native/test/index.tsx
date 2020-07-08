@@ -88,6 +88,8 @@ import {
     Keyboard,
     PermissionsAndroid,
     Platform,
+    PlatformColor,
+    DynamicColorIOS,
     ProgressBarAndroid,
     PushNotificationIOS,
     AccessibilityInfo,
@@ -1062,6 +1064,13 @@ Platform.select({ android: 1 }); // $ExpectType number | undefined
 Platform.select({ android: 1, ios: 2, default: 0 }); // $ExpectType number
 Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5 }); // $ExpectType number
 Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5, default: 0 }); // $ExpectType number
+
+PlatformColor('?attr/colorControlNormal'); // $ExpectType string
+
+DynamicColorIOS({
+    dark: 'lightskyblue',
+    light: 'midnightblue',
+}); // $ExpectType string
 
 // ProgressBarAndroid
 const ProgressBarAndroidTest = () => {
