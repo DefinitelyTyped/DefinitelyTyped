@@ -1467,7 +1467,9 @@ export namespace DynamsoftEnums {
         /** A file format from Adobe. */
         IT_PDF = 4,
         /** All supported formats which are bmp, jpg, tif, png and pdf */
-        IT_ALL = 5
+        IT_ALL = 5,
+        IT_MULTIPAGE_PDF = 7,
+        IT_MULTIPAGE_TIF = 8
     }
     enum EnumDWT_InitMsg {
         Info = 1,
