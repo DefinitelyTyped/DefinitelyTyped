@@ -863,7 +863,7 @@ export interface TextStyleAndroid extends ViewStyle {
 
 // @see https://facebook.github.io/react-native/docs/text.html#style
 export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
-    color?: string;
+    color: ColorValue;
     fontFamily?: string;
     fontSize?: number;
     fontStyle?: 'normal' | 'italic';
@@ -1304,7 +1304,7 @@ export interface TextInputAndroidProps {
     /**
      * The color of the textInput underline.
      */
-    underlineColorAndroid?: string;
+    underlineColorAndroid?: ColorValue;
 
     /**
      * Vertically align text when `multiline` is set to true
@@ -2850,7 +2850,7 @@ export interface ActivityIndicatorProps extends ViewProps {
     /**
      * The foreground color of the spinner (default is gray).
      */
-    color?: string;
+    color?: ColorValue;
 
     /**
      * Whether the indicator should hide when not animating (true by default).
@@ -2884,7 +2884,7 @@ export interface ActivityIndicatorIOSProps extends ViewProps {
     /**
      * The foreground color of the spinner (default is gray).
      */
-    color?: string;
+    color: ColorValue;
 
     /**
      * Whether the indicator should hide when not animating (true by default).
@@ -3104,7 +3104,7 @@ export class PickerIOSItem extends React.Component<PickerIOSItemProps> {}
  */
 export interface PickerItemProps {
     testID?: string;
-    color?: string;
+    color: ColorValue;
     label: string;
     value?: any;
 }
@@ -3253,7 +3253,7 @@ export interface ProgressBarAndroidProps extends ViewProps {
     /**
      * Color of the progress bar.
      */
-    color?: string;
+    color: ColorValue;
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -3334,7 +3334,7 @@ export interface RefreshControlPropsAndroid extends ViewProps {
     /**
      * The colors (at least one) that will be used to draw the refresh indicator.
      */
-    colors?: string[];
+    colors?: ColorValue[];
 
     /**
      * Whether the pull to refresh functionality is enabled.
@@ -5341,7 +5341,7 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
      * @param color The ripple color
      * @param borderless If the ripple can render outside it's bounds
      */
-    static Ripple(color: string, borderless?: boolean): RippleBackgroundPropType;
+    static Ripple(color: ColorValue, borderless?: boolean): RippleBackgroundPropType;
     static canUseNativeForeground(): boolean;
 }
 
@@ -7333,7 +7333,7 @@ export interface BackHandlerStatic {
 export interface ButtonProps {
     title: string;
     onPress: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
-    color?: string;
+    color: ColorValue;
     accessibilityLabel?: string;
     disabled?: boolean;
 
@@ -8142,7 +8142,7 @@ export class StatusBar extends React.Component<StatusBarProps> {
      * @param color Background color.
      * @param animated Animate the style change.
      */
-    static setBackgroundColor: (color: string, animated?: boolean) => void;
+    static setBackgroundColor: (color: ColorValue, animated?: boolean) => void;
 
     /**
      * Control the translucency of the status bar
@@ -8445,7 +8445,7 @@ export interface SwitchProps extends SwitchPropsIOS {
      *
      * Color when false and color when true
      */
-    trackColor?: { false: string; true: string };
+    trackColor?: { false: ColorValue; true: ColorValue };
 
     /**
      * If true the user won't be able to toggle the switch.
