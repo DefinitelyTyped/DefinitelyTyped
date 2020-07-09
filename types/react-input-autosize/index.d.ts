@@ -1,4 +1,4 @@
-// Type definitions for react-input-autosize 2.2.2
+// Type definitions for react-input-autosize 2.2
 // Project: https://github.com/JedWatson/react-input-autosize#readme
 // Definitions by: Jason Unger <https://github.com/jsonunger>
 //                 Frank Li <https://github.com/franklixuefei>
