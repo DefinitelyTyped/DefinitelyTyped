@@ -1100,6 +1100,7 @@ declare const extractChainTypes: ChainTypeExtractor;
         anyValue.propertyName; // $ExpectType any
         anyValue[3]; // $ExpectType any
         _.map(anyValue, i => i); // $ExpectType any[]
+        _.isFunction(anyValue) ? anyValue : neverValue; // $ExpectType Function
     }
 
     _.isObject(stringy) ? stringy : neverValue // $ExpectType StringRecord
