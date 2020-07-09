@@ -685,6 +685,8 @@ declare const mixedIterabilityValue: number | number[];
 declare const anyValue: any;
 declare const neverValue: never;
 declare const maybeFunction: (() => void) | undefined;
+declare const maybeStringArray: string[] | undefined;
+declare const stringy: StringRecord | string;
 
 // avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
 // the types under test need to be refactored
@@ -1093,7 +1095,18 @@ declare const extractChainTypes: ChainTypeExtractor;
 
 // isObject
 {
-    _.isObject(anyValue); // $ExpectType boolean
+    if (_.isObject(anyValue)) {
+        anyValue; // $ExpectType Dictionary<any> & object
+        anyValue.propertyName; // $ExpectType any
+        anyValue[3]; // $ExpectType any
+        _.map(anyValue, i => i); // $ExpectType any[]
+    }
+
+    _.isObject(stringy) ? stringy : neverValue // $ExpectType StringRecord
+    _.isObject(maybeStringArray) ? maybeStringArray : neverValue; // $ExpectType string[]
+    _.isObject(maybeFunction) ? maybeFunction : neverValue; // $ExpectType () => void
+    _.isObject(simpleString) ? simpleString : neverValue; // $ExpectType never
+
     _(anyValue).isObject(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isObject()); // $ExpectType ChainType<boolean, never>
 }
