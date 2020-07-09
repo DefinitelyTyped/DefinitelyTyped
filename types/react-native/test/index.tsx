@@ -186,15 +186,6 @@ const stylesAlt = StyleSheet.create({
     },
 });
 
-// const stylesDynamicColor = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         backgroundColor: DynamicColorIOS({light: '#ffffff', dark: '#eeeeee'}),
-//     },
-// });
-
 StyleSheet.setStyleAttributePreprocessor('fontFamily', (family: string) => family);
 
 const welcomeFontSize = StyleSheet.flatten(styles.welcome).fontSize;
@@ -1178,8 +1169,30 @@ StyleSheet.create({
             android: {
                 color: PlatformColor('?attr/colorControlNormal'),
             },
-            // default: { color: 'black' },
+            default: { color: PlatformColor('?attr/colorControlNormal') },
         }),
+    },
+});
+
+// PlatformColor in style colors
+StyleSheet.create({
+    labelCell: {
+        flex: 1,
+        alignItems: 'stretch',
+        color: PlatformColor('test'),
+        backgroundColor: PlatformColor('test'),
+        borderBottomColor: PlatformColor('test'),
+        borderColor: PlatformColor('test'),
+        borderEndColor: PlatformColor('test'),
+        borderLeftColor: PlatformColor('test'),
+        borderRightColor: PlatformColor('test'),
+        borderStartColor: PlatformColor('test'),
+        borderTopColor: PlatformColor('test'),
+        overlayColor: PlatformColor('test'),
+        shadowColor: PlatformColor('test'),
+        textDecorationColor: PlatformColor('test'),
+        textShadowColor: PlatformColor('test'),
+        tintColor: PlatformColor('test'),
     },
 });
 

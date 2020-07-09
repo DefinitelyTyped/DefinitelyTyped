@@ -863,7 +863,7 @@ export interface TextStyleAndroid extends ViewStyle {
 
 // @see https://facebook.github.io/react-native/docs/text.html#style
 export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
-    color: ColorValue;
+    color?: ColorValue;
     fontFamily?: string;
     fontSize?: number;
     fontStyle?: 'normal' | 'italic';
@@ -2884,7 +2884,7 @@ export interface ActivityIndicatorIOSProps extends ViewProps {
     /**
      * The foreground color of the spinner (default is gray).
      */
-    color: ColorValue;
+    color?: ColorValue;
 
     /**
      * Whether the indicator should hide when not animating (true by default).
@@ -3104,7 +3104,7 @@ export class PickerIOSItem extends React.Component<PickerIOSItemProps> {}
  */
 export interface PickerItemProps {
     testID?: string;
-    color: ColorValue;
+    color?: ColorValue;
     label: string;
     value?: any;
 }
@@ -3253,7 +3253,7 @@ export interface ProgressBarAndroidProps extends ViewProps {
     /**
      * Color of the progress bar.
      */
-    color: ColorValue;
+    color?: ColorValue;
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -5911,14 +5911,14 @@ interface PlatformWebStatic extends PlatformStatic {
     OS: 'web';
 }
 
-// This needs to be any for now as setting it to the actual recursive type
-// Means the TS version needs to be updated, which causes the deps to fail
-// type ColorValue = any;
-type ColorValue = null | string | NativeColorValueIOS | NativeColorValueAndroid;
+export type ColorValue = null | string | NativeColorValueIOS | NativeColorValueAndroid;
+
 type ProcessedColorValueIOS = number | NativeColorValueIOS;
+
 type NativeColorValueAndroid = {
     resource_paths?: string[];
 };
+
 type NativeColorValueIOS = {
     semantic?: string[];
     dynamic?: {
@@ -7333,7 +7333,7 @@ export interface BackHandlerStatic {
 export interface ButtonProps {
     title: string;
     onPress: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
-    color: ColorValue;
+    color?: ColorValue;
     accessibilityLabel?: string;
     disabled?: boolean;
 
