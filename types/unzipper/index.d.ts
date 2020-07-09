@@ -116,6 +116,7 @@ export interface ParseOptions {
     verbose?: boolean;
     path?: string;
     concurrency?: number;
+    forceStream?: boolean;
 }
 
 export type ParseStream = PullStream & {

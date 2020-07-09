@@ -70,9 +70,10 @@ function contentSecurityPolicyTest() {
 
     function reportUriCb(req: express.Request, res: express.Response) { return '/some-uri'; }
     function reportOnlyCb(req: express.Request, res: express.Response) { return false; }
-
-    app.use(helmet.contentSecurityPolicy());
-    app.use(helmet.contentSecurityPolicy({}));
+    app.use(helmet.contentSecurityPolicy({})); // $ExpectError
+    app.use(helmet.contentSecurityPolicy({ directives: {
+        imgSrc: ['self']
+    } }));
     app.use(helmet.contentSecurityPolicy(config));
     app.use(helmet.contentSecurityPolicy({
         directives: {
@@ -233,7 +234,8 @@ function noSniffTest() {
  * @summary Test for {@see helmet#referrerPolicy} function.
  */
 function referrerPolicyTest() {
-    app.use(helmet.referrerPolicy({ policy: 'same-origin' }))
+    app.use(helmet.referrerPolicy({ policy: 'same-origin' }));
+    app.use(helmet.referrerPolicy({ policy: ['no-referrer', 'origin', 'strict-origin', 'strict-origin-when-cross-origin'] }));
 }
 
 /**

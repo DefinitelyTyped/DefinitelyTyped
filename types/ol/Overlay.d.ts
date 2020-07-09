@@ -1,5 +1,5 @@
 import { Coordinate } from './coordinate';
-import { EventsKey } from './events';
+import { EventsKey, ListenerFunction } from './events';
 import BaseEvent from './events/Event';
 import { Extent } from './extent';
 import BaseObject, { ObjectEvent } from './Object';
@@ -16,10 +16,15 @@ export interface Options {
     positioning?: OverlayPositioning;
     stopEvent?: boolean;
     insertFirst?: boolean;
-    autoPan?: boolean;
+    autoPan?: PanIntoViewOptions | boolean;
     autoPanAnimation?: PanOptions;
     autoPanMargin?: number;
+    autoPanOptions?: PanIntoViewOptions;
     className?: string;
+}
+export interface PanIntoViewOptions {
+    animation?: PanOptions;
+    margin?: number;
 }
 export interface PanOptions {
     duration?: number;
@@ -27,9 +32,7 @@ export interface PanOptions {
 }
 export default class Overlay extends BaseObject {
     constructor(options: Options);
-    protected autoPan: boolean;
-    protected autoPanAnimation: PanOptions;
-    protected autoPanMargin: number;
+    protected autoPan: PanIntoViewOptions | false;
     protected element: HTMLElement;
     protected id: number | string;
     protected insertFirst: boolean;
@@ -43,7 +46,7 @@ export default class Overlay extends BaseObject {
     protected handleOffsetChanged(): void;
     protected handlePositionChanged(): void;
     protected handlePositioningChanged(): void;
-    protected panIntoView(): void;
+    protected performAutoPan(): void;
     protected render(): void;
     protected setVisible(visible: boolean): void;
     protected updatePixelPosition(): void;
@@ -55,14 +58,15 @@ export default class Overlay extends BaseObject {
     getOptions(): Options;
     getPosition(): Coordinate;
     getPositioning(): OverlayPositioning;
+    panIntoView(panIntoViewOptions: PanIntoViewOptions | undefined): void;
     setElement(element: HTMLElement | undefined): void;
     setMap(map: PluggableMap | undefined): void;
     setOffset(offset: number[]): void;
     setPosition(position: Coordinate | undefined): void;
     setPositioning(positioning: OverlayPositioning): void;
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'change', listener: (evt: BaseEvent) => void): void;

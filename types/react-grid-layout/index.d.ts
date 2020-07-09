@@ -238,7 +238,7 @@ declare namespace ReactGridLayout {
         /**
          * Calls when some element has been dropped
          */
-        onDrop?(elemParams: { x: number, y: number, e: Event }): void;
+        onDrop?(elemParams: { x: number, y: number, w: number, h: number, e: Event }): void;
     }
 
     interface ReactGridLayoutProps extends CoreProps {
@@ -342,6 +342,6 @@ declare namespace ReactGridLayout {
     }
 
     function WidthProvider<P>(
-        component: React.ComponentClass<P>
+        component: React.ComponentClass<P> | React.FunctionComponent<P>
     ): React.ComponentClass<P & WidthProviderProps>;
 }

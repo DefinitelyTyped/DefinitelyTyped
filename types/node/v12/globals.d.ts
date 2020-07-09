@@ -164,7 +164,6 @@ interface ImportMeta {
  *                                               *
  ------------------------------------------------*/
 declare var process: NodeJS.Process;
-declare var global: NodeJS.Global;
 declare var console: Console;
 
 declare var __filename: string;
@@ -229,6 +228,12 @@ interface NodeModule {
     loaded: boolean;
     parent: NodeModule | null;
     children: NodeModule[];
+    /**
+     * @since 11.14.0
+     *
+     * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
+     */
+    path: string;
     paths: string[];
 }
 
@@ -894,7 +899,7 @@ declare namespace NodeJS {
                 visibility: string;
             };
         };
-        kill(pid: number, signal?: string | number): void;
+        kill(pid: number, signal?: string | number): true;
         pid: number;
         ppid: number;
         title: string;

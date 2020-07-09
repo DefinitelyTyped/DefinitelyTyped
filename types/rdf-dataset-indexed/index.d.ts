@@ -3,8 +3,9 @@
 // Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { BaseQuad, DataFactory, DatasetCore, DatasetCoreFactory, Quad } from 'rdf-js';
+import { BaseQuad, DataFactory, DatasetCoreFactory, Quad } from 'rdf-js';
+import { DatasetIndexed } from './dataset';
 
-declare function datasetFactory<Q extends BaseQuad = Quad>(quads?: Q[], dataFactory?: DataFactory<Q> & DatasetCoreFactory<Q>): DatasetCore<Q, BaseQuad>;
+declare function datasetFactory<Q extends BaseQuad = Quad>(quads?: Q[], dataFactory?: DataFactory<Q> & DatasetCoreFactory<Q>): DatasetIndexed<Q>;
 
 export = datasetFactory;

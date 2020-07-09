@@ -1,21 +1,6 @@
 import * as yup from 'yup';
-
 // tslint:disable-next-line:no-duplicate-imports
-import {
-    reach,
-    isSchema,
-    date,
-    Schema,
-    ObjectSchema,
-    ValidationError,
-    MixedSchema,
-    SchemaDescription,
-    TestOptions,
-    ValidateOptions,
-    NumberSchema,
-    TestContext,
-    LocaleObject,
-} from 'yup';
+import { isSchema, LocaleObject, MixedSchema, NumberSchema, ObjectSchema, reach, Schema, SchemaDescription, TestContext, TestOptions, ValidateOptions, ValidationError } from 'yup';
 
 // reach function
 const schema1 = yup.object().shape({
@@ -73,14 +58,14 @@ const fieldsTestSchema = yup.object().shape({
   d: yup.date(),
   a: yup.array(),
   o: yup.object()
-});
-const stringField: Schema<string> = fieldsTestSchema.fields.s;
-const numberField: Schema<number> = fieldsTestSchema.fields.n;
+}).defined();
+const stringField: Schema<string | undefined> = fieldsTestSchema.fields.s;
+const numberField: Schema<number | undefined> = fieldsTestSchema.fields.n;
 const mixedField: Schema<any> = fieldsTestSchema.fields.m;
-const booleanField: Schema<boolean> = fieldsTestSchema.fields.b;
-const dateField: Schema<Date> = fieldsTestSchema.fields.d;
-const arrayField: Schema<any[]> = fieldsTestSchema.fields.a;
-const objectField: Schema<object> = fieldsTestSchema.fields.o;
+const booleanField: Schema<boolean | undefined> = fieldsTestSchema.fields.b;
+const dateField: Schema<Date | undefined> = fieldsTestSchema.fields.d;
+const arrayField: Schema<any[] | undefined> = fieldsTestSchema.fields.a;
+const objectField: Schema<object | undefined> = fieldsTestSchema.fields.o;
 
 const renderable = yup.lazy(value => {
     switch (typeof value) {
@@ -127,7 +112,9 @@ error.type = [];
 error.errors = ['error'];
 
 // mixed
-let mixed: MixedSchema = yup.mixed();
+let mixed: MixedSchema = yup.mixed(); // $ExpectType MixedSchema<{} | null | undefined>
+mixed.type;
+mixed.defined(); // $ExpectType MixedSchema<{} | null>
 mixed.clone();
 mixed.label('label');
 mixed.meta({ meta: 'value' });
@@ -156,8 +143,12 @@ mixed.nullable(true);
 mixed.nullable();
 mixed.required();
 mixed.required('Foo');
+mixed.nullable().required(); // $ExpectType MixedSchema<{}>
 mixed.required(() => 'Foo');
-mixed.notRequired(); // $ExpectType MixedSchema<any>
+mixed.defined();
+mixed.notRequired(); // $ExpectType MixedSchema<{} | null | undefined>
+mixed.optional(); // $ExpectType MixedSchema<{} | null | undefined>
+mixed.required().optional(); // $ExpectType MixedSchema<{} | undefined>
 mixed.typeError('type error');
 mixed.typeError(() => 'type error');
 mixed.oneOf(['hello', 'world'], 'message');
@@ -165,6 +156,8 @@ mixed.oneOf(['hello', 'world'], () => 'message');
 mixed.oneOf(['hello', 'world'], ({ values }) => `one of ${values}`);
 // $ExpectError
 mixed.oneOf(['hello', 'world'], ({ random }) => `one of ${random}`);
+mixed.oneOf(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1 | undefined>
+mixed.equals(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1 | undefined>
 mixed.notOneOf(['hello', 'world'], 'message');
 mixed.notOneOf(['hello', 'world'], () => 'message');
 mixed.when('isBig', {
@@ -198,7 +191,30 @@ mixed.test({
     message: '${path} must be less than 5 characters',
     test: value => value == null || value.length <= 5,
 });
-mixed.test('with-promise', 'It contains invalid value', value => new Promise(resolve => true));
+// $ExpectType MixedSchema<Set<any>>
+mixed.test(
+    'is-function',
+    // tslint:disable-next-line:no-invalid-template-strings
+    "${path} is not a function",
+    (value): value is Set<any> => value instanceof Set,
+);
+// $ExpectType MixedSchema<Set<any>>
+mixed.test({
+    name: 'is-function',
+    exclusive: true,
+    // tslint:disable-next-line:no-invalid-template-strings
+    message: '${path} is not a function',
+    test: (value): value is Set<any> => value instanceof Set,
+});
+// Name is required for exclusive tests:
+// $ExpectError
+mixed.test({
+    exclusive: true,
+    // tslint:disable-next-line:no-invalid-template-strings
+    message: '${path} must be less than 5 characters',
+    test: value => value == null || value.length <= 5,
+});
+mixed.test('with-promise', 'It contains invalid value', value => new Promise<boolean>(resolve => resolve(true)));
 const testContext = function(this: TestContext) {
     // $ExpectType string
     this.path;
@@ -231,9 +247,12 @@ mixed.test({
     test: value => !!value,
 });
 
+yup.mixed().oneOf(['hello', 1, null] as const).nullable(); // $ExpectType MixedSchema<"hello" | 1 | null | undefined>
+yup.mixed().nullable().oneOf(['hello', 1, null] as const); // $ExpectType MixedSchema<"hello" | 1 | null | undefined>
+
 // mixed with concat
-yup.object({ name: yup.string() }).concat(yup.object({ when: yup.date() })); // $ExpectType ObjectSchema<{ name: string; } & { when: Date; }>
-yup.mixed<string>().concat(yup.date()); // $ExpectType MixedSchema<string | Date>
+yup.object({ name: yup.string().defined() }).defined().concat(yup.object({ when: yup.date().defined() }).defined()); // $ExpectType ObjectSchema<{ name: string; } & { when: Date; }>
+yup.mixed<string>().defined().concat(yup.date().defined()); // $ExpectType MixedSchema<string | Date>
 
 // Async ValidationError
 const asyncValidationErrorTest = (includeParams: boolean) =>
@@ -266,7 +285,7 @@ mixed.test({ test: syncValidationErrorTest(true) });
 mixed.test({ test: syncValidationErrorTest(false) });
 
 yup.string().transform(function(this, value: any, originalvalue: any) {
-    return this.isType(value) && value !== null ? value.toUpperCase() : value;
+    return this.isType(value) && value !== null && value !== undefined ? value.toUpperCase() : value;
 });
 
 // Extending Schema Types
@@ -283,8 +302,8 @@ mixed = new ExtendsMixed2();
 /**
  * Creating new Types
  */
-class DateSchema extends yup.date {
-    isWednesday(message?: string): DateSchema {
+class CustomDateSchema extends yup.date {
+    isWednesday(message?: string): CustomDateSchema {
         return this.clone().test({
             name: 'Wednesday',
             // tslint:disable-next-line:no-invalid-template-strings
@@ -295,58 +314,70 @@ class DateSchema extends yup.date {
 }
 yup.object()
     .shape({
-        startDate: new DateSchema().isWednesday().required(),
+        startDate: new CustomDateSchema().isWednesday().required(),
     })
     .isValidSync({
         startDate: '2017-11-29',
     });
 
 // String schema
-const strSchema = yup.string(); // $ExpectType StringSchema<string>
-strSchema.isValid('hello'); // => true
-strSchema.required();
-strSchema.required('req');
-strSchema.required(() => 'req');
-strSchema.length(5, 'message');
-strSchema.length(5, () => 'message');
-strSchema.length(5, ({ length }) => `must be ${length}`);
+function strSchemaTests(strSchema: yup.StringSchema) {
+    strSchema.type;
+    strSchema.isValid('hello'); // => true
+    strSchema.required();
+    strSchema.required('req');
+    strSchema.required(() => 'req');
+    strSchema.length(5, 'message');
+    strSchema.length(5, () => 'message');
+    strSchema.length(5, ({ length }) => `must be ${length}`);
+    // $ExpectError
+    strSchema.length(5, ({ min }) => `must be ${min}`);
+    strSchema.min(5, 'message');
+    strSchema.min(5, () => 'message');
+    strSchema.min(5, ({ min }) => `more than ${min}`);
+    // $ExpectError
+    strSchema.min(5, ({ max }) => `more than ${max}`);
+    strSchema.max(5, 'message');
+    strSchema.max(5, () => 'message');
+    strSchema.max(5, ({ max }) => `less than ${max}`);
+    // $ExpectError
+    strSchema.max(5, ({ min }) => `less than ${min}`);
+    strSchema.matches(/(hi|bye)/);
+    strSchema.matches(/(hi|bye)/, 'invalid');
+    strSchema.matches(/(hi|bye)/, () => 'invalid');
+    strSchema.matches(/(hi|bye)/, ({ regex }) => `Does not match ${regex}`);
+    strSchema.email();
+    strSchema.email('invalid');
+    strSchema.email(() => 'invalid');
+    strSchema.email(({ regex }) => `Does not match ${regex}`);
+    strSchema.url();
+    strSchema.url('bad url');
+    strSchema.url(() => 'bad url');
+    strSchema.url(({ regex }) => `Does not match ${regex}`);
+    strSchema.ensure();
+    strSchema.trim();
+    strSchema.trim('trimmed');
+    strSchema.trim(() => 'trimmed');
+    strSchema.lowercase();
+    strSchema.lowercase('lower');
+    strSchema.lowercase(() => 'lower');
+    strSchema.uppercase();
+    strSchema.uppercase('upper');
+    strSchema.uppercase(() => 'upper');
+    strSchema.defined();
+}
+
+const strSchema = yup.string(); // $ExpectType StringSchema<string | undefined>
+strSchema.oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world" | undefined>
+strSchema.required().oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world">
+strSchemaTests(strSchema);
+
 // $ExpectError
-strSchema.length(5, ({ min }) => `must be ${min}`);
-strSchema.min(5, 'message');
-strSchema.min(5, () => 'message');
-strSchema.min(5, ({ min }) => `more than ${min}`);
-// $ExpectError
-strSchema.min(5, ({ max }) => `more than ${max}`);
-strSchema.max(5, 'message');
-strSchema.max(5, () => 'message');
-strSchema.max(5, ({ max }) => `less than ${max}`);
-// $ExpectError
-strSchema.max(5, ({ min }) => `less than ${min}`);
-strSchema.matches(/(hi|bye)/);
-strSchema.matches(/(hi|bye)/, 'invalid');
-strSchema.matches(/(hi|bye)/, () => 'invalid');
-strSchema.matches(/(hi|bye)/, ({ regex }) => `Does not match ${regex}`);
-strSchema.email();
-strSchema.email('invalid');
-strSchema.email(() => 'invalid');
-strSchema.email(({ regex }) => `Does not match ${regex}`);
-strSchema.url();
-strSchema.url('bad url');
-strSchema.url(() => 'bad url');
-strSchema.url(({ regex }) => `Does not match ${regex}`);
-strSchema.ensure();
-strSchema.trim();
-strSchema.trim('trimmed');
-strSchema.trim(() => 'trimmed');
-strSchema.lowercase();
-strSchema.lowercase('lower');
-strSchema.lowercase(() => 'lower');
-strSchema.uppercase();
-strSchema.uppercase('upper');
-strSchema.uppercase(() => 'upper');
+yup.string<123>();
 
 // Number schema
-const numSchema = yup.number(); // $ExpectType NumberSchema<number>
+const numSchema = yup.number(); // $ExpectType NumberSchema<number | undefined>
+numSchema.type;
 numSchema.isValid(10); // => true
 numSchema.min(5);
 numSchema.min(5, 'message');
@@ -381,13 +412,23 @@ numSchema
     .validate(5, { strict: true })
     .then(value => value)
     .catch(err => err);
+numSchema.oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined>
+numSchema.equals([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined>
+numSchema.required().oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2>
+numSchema.defined();
 
 // Boolean Schema
-const boolSchema = yup.boolean();
+const boolSchema = yup.boolean(); // $ExpectType BooleanSchema<boolean | undefined>
+boolSchema.type;
 boolSchema.isValid(true); // => true
+boolSchema.oneOf([true] as const); // $ExpectType BooleanSchema<true | undefined>
+boolSchema.equals([true] as const); // $ExpectType BooleanSchema<true | undefined>
+boolSchema.required().oneOf([true] as const); // $ExpectType BooleanSchema<true>
+boolSchema.defined();
 
 // Date Schema
-const dateSchema = yup.date();
+const dateSchema = yup.date(); // $ExpectType DateSchema<Date | undefined>
+dateSchema.type;
 dateSchema.isValid(new Date()); // => true
 dateSchema.min(new Date());
 dateSchema.min('2017-11-12');
@@ -399,9 +440,20 @@ dateSchema.max('2017-11-12');
 dateSchema.max(new Date(), 'message');
 dateSchema.max('2017-11-12', 'message');
 dateSchema.max('2017-11-12', () => 'message');
+dateSchema.oneOf([new Date()] as const); // $ExpectType DateSchema<Date | undefined>
+dateSchema.equals([new Date()] as const); // $ExpectType DateSchema<Date | undefined>
+dateSchema.required().oneOf([new Date()] as const); // $ExpectType DateSchema<Date>
 
 // Array Schema
-const arrSchema = yup.array().of(yup.number().min(2));
+const arrSchema = yup.array().of(yup.number().defined().min(2));
+arrSchema.type;
+arrSchema.innerType;
+arrSchema.notRequired().innerType;
+arrSchema.optional().innerType;
+arrSchema.nullable().innerType;
+arrSchema.notRequired().nullable().innerType;
+arrSchema.optional().nullable().innerType;
+arrSchema.innerType.type;
 arrSchema.isValid([2, 3]); // => true
 arrSchema.isValid([1, -24]); // => false
 arrSchema.required();
@@ -415,21 +467,24 @@ arrSchema.min(5);
 arrSchema.min(5, 'min');
 arrSchema.min(5, () => 'min');
 arrSchema.compact((value, index, array) => value === array[index]);
+arrSchema.oneOf([]); // $ExpectType NotRequiredArraySchema<number>
+arrSchema.equals([]); // $ExpectType NotRequiredArraySchema<number>
+arrSchema.defined();
 
-const arrOfObjSchema = yup.array().of(
-    yup.object().shape({
-        field: yup.number(),
+const arrOfObjSchema = yup.array().defined().of(
+    yup.object().defined().shape({
+        field: yup.number().defined(),
     }),
 );
 arrOfObjSchema.compact((value, index, array) => {
     return value.field > 10 && array[index].field > 10;
 });
 
-const arr = yup.array();
+const arr = yup.array().defined();
 const top = (<T>(x?: T): T => x!)();
 const validArr: yup.ArraySchema<typeof top> = arr;
-yup.array(yup.string()); // $ExpectType ArraySchema<string>
-yup.array().of(yup.string()); // $ExpectType ArraySchema<string>
+yup.array(yup.string().defined()); // $ExpectType NotRequiredArraySchema<string>
+yup.array().of(yup.string().defined()); // $ExpectType NotRequiredArraySchema<string>
 
 // Object Schema
 const objSchema = yup.object().shape({
@@ -449,16 +504,26 @@ yup.object().shape({
 yup.object({
     num: yup.number(),
 });
-
+objSchema.type;
 objSchema.from('prop', 'myProp');
 objSchema.from('prop', 'myProp', true);
 objSchema.noUnknown();
 objSchema.noUnknown(true);
 objSchema.noUnknown(true, 'message');
 objSchema.noUnknown(true, () => 'message');
+objSchema.unknown();
 objSchema.transformKeys(key => key.toUpperCase());
 objSchema.camelCase();
+objSchema.snakeCase();
 objSchema.constantCase();
+interface LiteralExampleObject {
+    name: "John Doe";
+    age: 35;
+    email: "john@example.com";
+    website: "example.com";
+}
+objSchema.oneOf([{name: "John Doe", age: 35, email: "john@example.com", website: "example.com"}] as LiteralExampleObject[]); // $ExpectType ObjectSchema<LiteralExampleObject>
+objSchema.defined();
 
 const description: SchemaDescription = {
     type: 'type',
@@ -634,8 +699,8 @@ const typedSchema = yup.object<MyInterface>({
             testField: yup.string().required(),
         })
         .required(),
-    arrayField: yup.array(yup.string()).required(), // $ExpectType ArraySchema<string>
-});
+    arrayField: yup.array(yup.string().defined()).required(), // $ExpectType ArraySchema<string>
+}).defined();
 
 const testObject: MyInterface = {
     stringField: 'test1',
@@ -673,14 +738,14 @@ const expectedAbc: ExpectedABC = {
 const actualAbc: yup.Shape<AB, BC> = expectedAbc;
 
 const definitionAB: yup.ObjectSchemaDefinition<AB> = {
-    a: yup.string(),
-    b: yup.number(),
+    a: yup.string().defined(),
+    b: yup.number().defined(),
 };
 const definitionBC: yup.ObjectSchemaDefinition<BC> = {
-    b: yup.string(),
-    c: yup.number(),
+    b: yup.string().defined(),
+    c: yup.number().defined(),
 };
-const combinedSchema = yup.object(definitionAB).shape(definitionBC); // $ExpectType ObjectSchema<Shape<AB, BC>>
+const combinedSchema = yup.object(definitionAB).defined().shape(definitionBC); // $ExpectType ObjectSchema<{ a: string; b: string; } & BC>
 
 // $ExpectError
 yup.object<MyInterface>({
@@ -690,7 +755,7 @@ yup.object<MyInterface>({
             testField: yup.string().required(),
         })
         .required(),
-    arrayField: yup.array(yup.string()).required(),
+    arrayField: yup.array(yup.string().defined()).required(),
 });
 
 // $ExpectError
@@ -701,14 +766,14 @@ yup.object<MyInterface>({ stringField: yup.number().required(),
             testField: yup.string().required(),
         })
         .required(),
-    arrayField: yup.array(yup.string()).required(),
+    arrayField: yup.array(yup.string().defined()).required(),
 });
 
 // $ExpectError
 yup.object<MyInterface>({
     stringField: yup.string().required(),
     numberField: yup.number().required(),
-    arrayField: yup.array(yup.string()).required(),
+    arrayField: yup.array(yup.string().defined()).required(),
 });
 
 // $ExpectError
@@ -719,7 +784,7 @@ yup.object<MyInterface>({ subFields: yup
         .required(),
     stringField: yup.string().required(),
     numberField: yup.number().required(),
-    arrayField: yup.array(yup.string()).required(),
+    arrayField: yup.array(yup.string().defined()).required(),
 });
 
 enum Gender {
@@ -728,8 +793,8 @@ enum Gender {
 }
 
 const personSchema = yup.object({
-    firstName: yup.string(), // $ExpectType StringSchema<string>
-    gender: yup.mixed<Gender>().oneOf([Gender.Male, Gender.Female]),
+    firstName: yup.string().defined(), // $ExpectType StringSchema<string>
+    gender: yup.mixed<Gender>().defined().oneOf([Gender.Male, Gender.Female]),
     email: yup
         .string()
         .nullable()
@@ -740,7 +805,7 @@ const personSchema = yup.object({
         .nullable()
         .notRequired()
         .min(new Date(1900, 0, 1)),
-    canBeNull: yup.string().nullable(true), // $ExpectType StringSchema<string | null>
+    canBeNull: yup.string().defined().nullable(true), // $ExpectType StringSchema<string | null>
     isAlive: yup
         .boolean()
         .nullable()
@@ -756,7 +821,15 @@ const personSchema = yup.object({
         .nullable()
         .notRequired()
         .min(1),
-});
+    friends: yup
+        .mixed()
+        .test(
+            "is-Set",
+            // tslint:disable-next-line:no-invalid-template-strings
+            "${path} must be a Set of strings",
+            (value): value is undefined | null | Set<string> =>
+                value === null || value === undefined || (value instanceof Set && Array.from(value.values()).every(el => typeof el === "string")))
+}).defined();
 
 type Person = yup.InferType<typeof personSchema>;
 // Equivalent to:
@@ -769,6 +842,7 @@ type Person = yup.InferType<typeof personSchema>;
 //     isAlive: boolean | null | undefined;
 //     mustBeAString: string;
 //     children?: string[] | null | undefined;
+//     friends?: Set<string> | null | undefined;
 // }
 
 const minimalPerson: Person = {
@@ -796,6 +870,7 @@ person.isAlive = true;
 person.isAlive = undefined;
 person.children = ['1', '2', '3'];
 person.children = undefined;
+person.friends = new Set(["Amy", "Beth"]);
 
 // $ExpectError
 person.gender = 1;
@@ -807,6 +882,10 @@ person.firstName = undefined;
 person.mustBeAString = null;
 // $ExpectError
 person.mustBeAString = undefined;
+// $ExpectError
+person.friends = new Set([1, 2, 3]);
+// $ExpectError
+person.friends = ["Amy", "Beth"];
 
 const castPerson = personSchema.cast({});
 castPerson.firstName = '';
@@ -842,11 +921,75 @@ function wrapper<T>(b: boolean, msx: MixedSchema<T>): MixedSchema<T> {
     return msx.nullable(b);
 }
 
-const resultingSchema1 = wrapper<string | number>(false, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number>
-const resultingSchema2 = wrapper<string | number>(true, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number | null>
+const resultingSchema1 = wrapper<string | number | undefined>(false, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number | undefined>
+const resultingSchema2 = wrapper<string | number | undefined>(true, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number | null | undefined>
 
-const arrayOfStringsSchema = yup.array().of(yup.string());
+const arrayOfStringsSchema = yup.array().of(yup.string().defined()).defined();
 type ArrayOfStrings = yup.InferType<typeof arrayOfStringsSchema>;
 function returnTheArray(data: ArrayOfStrings): any[] {
-  return data;
+    return data;
 }
+
+const topLevelStringNullable = yup.string().nullable();
+const topLevelStringNullableExample: yup.InferType<typeof topLevelStringNullable> = null;
+
+const topLevelObjectNullable = yup.object().nullable();
+const topLevelObjectNullableExample: yup.InferType<typeof topLevelObjectNullable> = null;
+
+const topLevelArrayNullable = yup.array().nullable();
+const topLevelArrayNullableExample: yup.InferType<typeof topLevelArrayNullable> = null;
+
+const nestedNullableShape = yup.object().shape({
+    foo: yup.object().nullable().shape<{}>({})
+});
+const nestedNullableShapeExample: yup.InferType<typeof nestedNullableShape> = {
+    foo: null
+};
+
+const nestedShapeNullable = yup.object().shape({
+    foo: yup.object().shape({}).nullable()
+});
+const nestedShapeNullableExample: yup.InferType<typeof nestedShapeNullable> = {
+    foo: null
+};
+
+const nestedArrayNullable = yup.object().shape({
+    foo: yup.array().nullable()
+});
+const nestedArrayNullableExample: yup.InferType<typeof nestedArrayNullable> = {
+    foo: null
+};
+
+const arrayOfOptional = yup.array().of(
+  yup.object({ bar: yup.string() }),
+).defined();
+const arrayOfOptionalExample: yup.InferType<typeof arrayOfOptional> = [{}];
+
+// augment locale
+declare module './index' {
+    interface StringLocale {
+        chineseMobilePhoneNumber?: TestOptionsMessage;
+    }
+
+    interface StringSchema<T extends string | null | undefined = string | undefined> extends Schema<T> {
+        chineseMobilePhoneNumber(message?: StringLocale['chineseMobilePhoneNumber']): StringSchema<T>;
+    }
+}
+yup.setLocale({
+    string: {
+        // tslint:disable-next-line:no-invalid-template-strings
+        chineseMobilePhoneNumber: '${path} must be a Chinese mobile phone number',
+    },
+});
+yup.addMethod(
+    yup.string,
+    'chineseMobilePhoneNumber',
+    function(this: yup.MixedSchema<any>, message: string) {
+        return this.test(
+            'chineseMobilePhoneNumber',
+            message,
+            () => true,
+        );
+    },
+);
+yup.string().chineseMobilePhoneNumber('please input a Chinese mobile phone number');

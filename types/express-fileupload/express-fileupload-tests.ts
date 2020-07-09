@@ -6,8 +6,6 @@ type UploadedFile = fileUpload.UploadedFile;
 
 const app: express.Express = express();
 
-app.use(fileUpload({ debug: true }));
-
 function isUploadedFile(file: UploadedFile | UploadedFile[]): file is UploadedFile {
     return typeof file === 'object' && (file as UploadedFile).name !== undefined;
 }
@@ -34,6 +32,7 @@ const uploadHandler: RequestHandler = (req: Request, res: Response, next: NextFu
 };
 
 app.post('/upload', uploadHandler);
+app.use(fileUpload({ debug: true }));
 app.use(fileUpload({ safeFileNames: /\\/g }));
 app.use(fileUpload({ safeFileNames: true }));
 app.use(fileUpload({ safeFileNames: true, preserveExtension: true }));
@@ -54,4 +53,5 @@ app.use(
     }),
 );
 app.use(fileUpload({ useTempFiles: true, tempFileDir: 'temp2/' }));
-app.use(fileUpload({ parseNested: true }));
+app.use(fileUpload({ limitHandler: true }));
+app.use(fileUpload({ uploadTimeout: 6000 }));

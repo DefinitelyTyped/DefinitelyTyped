@@ -21,12 +21,18 @@ export type XrplTransactionType = "Payment"
     | "SignerListSet"
     | "TrustSet"
     | "EnableAmendment"
+    | "AccountDelete"
     | "SetFee";
 
 export type XummCancelReason = "ALREADY_CANCELLED"
     | "ALREADY_RESOLVED"
     | "ALREADY_OPENED"
     | "ALREADY_EXPIRED";
+
+export type XummTransactionApprovalType = "PIN"
+    | "BIOMETRIC"
+    | "PASSPHRASE"
+    | "OTHER";
 
 export type XummQrQuality = "m" | "q" | "h";
 
@@ -56,6 +62,8 @@ export interface XummPayloadMeta {
     expired: boolean;
     pushed: boolean;
     app_opened: boolean;
+    immutable?: boolean;
+    forceAccount?: boolean;
     return_url_app: string | null;
     return_url_web: string | null;
 }
@@ -65,6 +73,8 @@ export interface XummPayloadBodyBase {
         submit?: boolean;
         multisign?: boolean;
         expire?: number;
+        immutable?: boolean;
+        forceAccount?: boolean;
         return_url?: {
             app?: string;
             web?: string;
@@ -120,10 +130,12 @@ export interface XummGetPayloadResponse {
         hex: string | null;
         txid: string | null;
         resolved_at: string | null;
+        dispatched_nodetype: string | null;
         dispatched_to: string | null;
         dispatched_result: string | null;
         multisign_account: string | null;
         account: string | null;
+        approved_with?: XummTransactionApprovalType;
     };
     custom_meta: XummCustomMeta;
 }

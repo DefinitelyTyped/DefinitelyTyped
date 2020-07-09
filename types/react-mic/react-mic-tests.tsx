@@ -10,8 +10,13 @@ class ReactMicTest extends React.Component {
                 className="sound-wave"
                 onStop={data => console.log(data)}
                 onData={data => console.log(data)}
+                mimeType="audio/wav"
                 strokeColor="#000000"
                 backgroundColor="#FF4081"
+                channelCount={1}
+                echoCancellation
+                autoGainControl
+                noiseSuppression
             />
         );
     }

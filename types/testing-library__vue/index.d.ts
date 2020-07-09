@@ -2,7 +2,7 @@
 // Project: https://github.com/testing-library/vue-testing-library
 // Definitions by: Tim Yates <https://github.com/cimbul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.3
 import { ThisTypedMountOptions, VueClass } from '@vue/test-utils';
 import Vue from 'vue';
 import { Store, StoreOptions } from 'vuex';

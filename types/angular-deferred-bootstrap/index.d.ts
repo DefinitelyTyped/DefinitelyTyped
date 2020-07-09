@@ -9,13 +9,13 @@
 declare var deferredBootstrapper: angular.IDeferredBootstrapperStatic;
 
 declare module angular {
-	interface IDeferredBootstrapperStatic {
-		bootstrap(configParam: IConfigParam): ng.IPromise<boolean>
-	}
+    interface IDeferredBootstrapperStatic {
+        bootstrap(configParam: IConfigParam): ng.IPromise<boolean>
+    }
 
-	interface IConfigParam {
-		element?: Node,
-		module?: string,
-		resolve: any
-	}
+    interface IConfigParam {
+        element?: Node,
+        module?: string,
+        resolve: any
+    }
 }

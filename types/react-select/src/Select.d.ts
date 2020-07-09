@@ -166,7 +166,7 @@ export interface Props<OptionType extends OptionTypeBase = { label: string; valu
   /* Handle blur events on the control */
   onBlur?: FocusEventHandler;
   /* Handle change events on the select */
-  onChange?: (value: ValueType<OptionType>, action: ActionMeta) => void;
+  onChange?: (value: ValueType<OptionType>, action: ActionMeta<OptionType>) => void;
   /* Handle focus events on the control */
   onFocus?: FocusEventHandler;
   /* Handle change events on the input */

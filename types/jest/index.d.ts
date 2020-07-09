@@ -1,4 +1,4 @@
-// Type definitions for Jest 25.1
+// Type definitions for Jest 26.0
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -18,7 +18,6 @@
 //                 Sebastian Sebald <https://github.com/sebald>
 //                 Andy <https://github.com/andys8>
 //                 Antoine Brault <https://github.com/antoinebrault>
-//                 Jeroen Claassens <https://github.com/favna>
 //                 Gregor Stamać <https://github.com/gstamac>
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Alex Bolenok <https://github.com/quassnoi>
@@ -26,8 +25,11 @@
 //                 Tony Hallett <https://github.com/tonyhallett>
 //                 Jason Yu <https://github.com/ycmjason>
 //                 Devansh Jethmalani <https://github.com/devanshj>
+//                 Pawel Fajfer <https://github.com/pawfa>
+//                 Regev Brody <https://github.com/regevbr>
+//                 Mark Skelton <https://github.com/mskelton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.1
 
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
@@ -129,6 +131,26 @@ declare namespace jest {
      */
     function getTimerCount(): number;
     /**
+     * Set the current system time used by fake timers. Simulates a user
+     * changing the system clock while your program is running. It affects the
+     * current time but it does not in itself cause e.g. timers to fire; they
+     * will fire exactly as they would have done without the call to
+     * jest.setSystemTime().
+     *
+     * > Note: This function is only available when using modern fake timers
+     * > implementation
+     */
+    function setSystemTime(now?: number | Date): void;
+    /**
+     * When mocking time, Date.now() will also be mocked. If you for some
+     * reason need access to the real current time, you can invoke this
+     * function.
+     *
+     * > Note: This function is only available when using modern fake timers
+     * > implementation
+     */
+    function getRealSystemTime(): number;
+    /**
      * Indicates that the module system should never return a mocked version
      * of the specified module, including all of the specificied module's dependencies.
      */
@@ -174,12 +196,12 @@ declare namespace jest {
      * Returns the actual module instead of a mock, bypassing all checks on
      * whether the module should receive a mock implementation or not.
      */
-    function requireActual(moduleName: string): any;
+    function requireActual<TModule = any>(moduleName: string): TModule;
     /**
      * Returns a mock module instead of the actual module, bypassing all checks
      * on whether the module should be required normally or not.
      */
-    function requireMock(moduleName: string): any;
+    function requireMock<TModule = any>(moduleName: string): TModule;
     /**
      * Resets the module registry - the cache of all required modules. This is
      * useful to isolate modules where local state might conflict between tests.
@@ -297,7 +319,7 @@ declare namespace jest {
     /**
      * Instructs Jest to use fake versions of the standard timer functions.
      */
-    function useFakeTimers(): typeof jest;
+    function useFakeTimers(implementation?: 'modern' | 'legacy'): typeof jest;
     /**
      * Instructs Jest to use the real versions of the standard timer functions.
      */
@@ -805,6 +827,7 @@ declare namespace jest {
         /**
          * Used when you want to check that an item is in a list.
          * For testing the items in the list, this uses `===`, a strict equality check.
+         * It can also check whether a string is a substring of another string.
          *
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
@@ -1076,7 +1099,7 @@ declare namespace jest {
      *  import { MyClass } from "./libary";
      *  jest.mock("./library");
      *
-     *  const mockedMyClass = MyClass as jest.MockedClass<MyClass>;
+     *  const mockedMyClass = MyClass as jest.MockedClass<typeof MyClass>;
      *
      *  expect(mockedMyClass.mock.calls[0][0]).toBe(42); // Constructor calls
      *  expect(mockedMyClass.prototype.myMethod.mock.calls[0][0]).toBe(42); // Method calls
@@ -1123,7 +1146,7 @@ declare namespace jest {
          * You should therefore avoid assigning mockFn.mock to other variables, temporary or not, to make sure you
          * don't access stale data.
          */
-        mockClear(): void;
+        mockClear(): this;
         /**
          * Resets all information stored in the mock, including any initial implementation and mock name given.
          *
@@ -1133,7 +1156,7 @@ declare namespace jest {
          * You should therefore avoid assigning mockFn.mock to other variables, temporary or not, to make sure you
          * don't access stale data.
          */
-        mockReset(): void;
+        mockReset(): this;
         /**
          * Does everything that `mockFn.mockReset()` does, and also restores the original (non-mocked) implementation.
          *
@@ -1146,6 +1169,10 @@ declare namespace jest {
          * to restore mocks automatically between tests.
          */
         mockRestore(): void;
+        /**
+         * Returns the function that was set as the implementation of the mock (using mockImplementation).
+         */
+        getMockImplementation(): (...args: Y) => T | undefined;
         /**
          * Accepts a function that should be used as the implementation of the mock. The mock itself will still record
          * all calls that go into and instances that come from itself – the only difference is that the implementation

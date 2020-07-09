@@ -38,14 +38,14 @@ export interface GlobalTimers<TTimerId extends TimerId> {
      * @param args   Any extra arguments to pass to the callback.
      * @returns Time identifier for cancellation.
      */
-    setTimeout: (callback: () => void, timeout: number, ...args: any[]) => TTimerId;
+    setTimeout: (callback: (...args: any[]) => void, timeout: number, ...args: any[]) => TTimerId;
 
     /**
      * Clears a timer, as long as it was created using setTimeout.
      *
      * @param id   Timer ID or object.
      */
-    clearTimeout: (id: TimerId) => void;
+    clearTimeout: (id: TTimerId) => void;
 
     /**
      * Schedules a callback to be fired every time timeout milliseconds have ticked by.
@@ -55,7 +55,7 @@ export interface GlobalTimers<TTimerId extends TimerId> {
      * @param args   Any extra arguments to pass to the callback.
      * @returns Time identifier for cancellation.
      */
-    setInterval: (callback: () => void, timeout: number, ...args: any[]) => TTimerId;
+    setInterval: (callback: (...args: any[]) => void, timeout: number, ...args: any[]) => TTimerId;
 
     /**
      * Clears a timer, as long as it was created using setInterval.
@@ -68,10 +68,11 @@ export interface GlobalTimers<TTimerId extends TimerId> {
      * Schedules the callback to be fired once 0 milliseconds have ticked by.
      *
      * @param callback   Callback to be fired.
+     * @param args   Any extra arguments to pass to the callback.
      * @remarks You'll still have to call clock.tick() for the callback to fire.
      * @remarks If called during a tick the callback won't fire until 1 millisecond has ticked by.
      */
-    setImmediate: (callback: () => void) => TTimerId;
+    setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => TTimerId;
 
     /**
      * Clears a timer, as long as it was created using setImmediate.
@@ -166,22 +167,25 @@ export interface FakeClock<TTimerId extends TimerId> extends GlobalTimers<TTimer
 
     /**
      * Advances the clock to the the moment of the first scheduled timer, firing it.
+     * @returns Fake milliseconds since the unix epoch.
      */
-    next: () => void;
+    next: () => number;
 
     /**
      * Advances the clock to the the moment of the first scheduled timer, firing it.
      *
      * Also breaks the event loop, allowing any scheduled promise callbacks to execute _before_ running the timers.
+     * @returns Fake milliseconds since the unix epoch.
      */
-    nextAsync: () => Promise<void>;
+    nextAsync: () => Promise<number>;
 
     /**
      * Advance the clock, firing callbacks if necessary.
      *
      * @param time   How many ticks to advance by.
+     * @returns Fake milliseconds since the unix epoch.
      */
-    tick: (time: number | string) => void;
+    tick: (time: number | string) => number;
 
     /**
      * Advance the clock, firing callbacks if necessary.
@@ -189,8 +193,9 @@ export interface FakeClock<TTimerId extends TimerId> extends GlobalTimers<TTimer
      * Also breaks the event loop, allowing any scheduled promise callbacks to execute _before_ running the timers.
      *
      * @param time   How many ticks to advance by.
+     * @returns Fake milliseconds since the unix epoch.
      */
-    tickAsync: (time: number | string) => Promise<void>;
+    tickAsync: (time: number | string) => Promise<number>;
 
     /**
      * Removes all timers and tick without firing them and restore now to its original value.
@@ -201,8 +206,9 @@ export interface FakeClock<TTimerId extends TimerId> extends GlobalTimers<TTimer
      * Runs all pending timers until there are none remaining.
      *
      * @remarks  If new timers are added while it is executing they will be run as well.
+     * @returns Fake milliseconds since the unix epoch.
      */
-    runAll: () => void;
+    runAll: () => number;
 
     /**
      * Runs all pending timers until there are none remaining.
@@ -210,27 +216,31 @@ export interface FakeClock<TTimerId extends TimerId> extends GlobalTimers<TTimer
      * Also breaks the event loop, allowing any scheduled promise callbacks to execute _before_ running the timers.
      *
      * @remarks  If new timers are added while it is executing they will be run as well.
+     * @returns Fake milliseconds since the unix epoch.
      */
-    runAllAsync: () => Promise<void>;
+    runAllAsync: () => Promise<number>;
 
     /**
      * Advanced the clock to the next animation frame while firing all scheduled callbacks.
+     * @returns Fake milliseconds since the unix epoch.
      */
-    runToFrame: () => void;
+    runToFrame: () => number;
 
     /**
      * Takes note of the last scheduled timer when it is run, and advances the clock to
      * that time firing callbacks as necessary.
+     * @returns Fake milliseconds since the unix epoch.
      */
-    runToLast: () => void;
+    runToLast: () => number;
 
     /**
      * Takes note of the last scheduled timer when it is run, and advances the clock to
      * that time firing callbacks as necessary.
      *
      * Also breaks the event loop, allowing any scheduled promise callbacks to execute _before_ running the timers.
+     * @returns Fake milliseconds since the unix epoch.
      */
-    runToLastAsync: () => Promise<void>;
+    runToLastAsync: () => Promise<number>;
 
     /**
      * Simulates a user changing the system clock.
@@ -273,7 +283,7 @@ export type NodeClock = FakeClock<NodeTimer> & {
     /**
      * Simulates process.nextTick().
      */
-    nextTick: (callback: () => void) => void;
+    nextTick: (callback: (...args: any[]) => void, ...args: any[]) => void;
 
     /**
      * Run all pending microtasks scheduled with nextTick.
@@ -353,8 +363,7 @@ export interface FakeTimerInstallOpts {
 /**
  * Creates a clock and installs it globally.
  *
- * @param now   Current time for the clock, as with FakeTimers.createClock().
- * @param toFake   Names of methods that should be faked.
+ * @param [opts]   Options for the fake timer.
  */
 export function install(opts?: FakeTimerInstallOpts): InstalledClock;
 

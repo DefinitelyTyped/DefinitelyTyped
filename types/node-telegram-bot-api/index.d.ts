@@ -1,4 +1,4 @@
-// Type definitions for node-telegram-bot-api 0.40
+// Type definitions for node-telegram-bot-api 0.50
 // Project: https://github.com/yagop/node-telegram-bot-api
 // Definitions by: Alex Muench <https://github.com/ammuench>
 //                 Agadar <https://github.com/agadar>
@@ -6,6 +6,8 @@
 //                 Kallu609 <https://github.com/Kallu609>
 //                 XC-Zhang <https://github.com/XC-Zhang>
 //                 AdityaThebe <https://github.com/adityathebe>
+//                 Michael Orlov <https://github.com/MiklerGM>
+//                 Alexander Ariutin <https://github.com/ariutin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -143,17 +145,28 @@ declare namespace TelegramBot {
     }
 
     interface SendPhotoOptions extends SendBasicOptions {
+        parse_mode?: ParseMode;
         caption?: string;
     }
 
     interface SendAudioOptions extends SendBasicOptions {
+        parse_mode?: ParseMode;
         caption?: string;
         duration?: number;
         performer?: string;
         title?: string;
     }
 
+    interface SendAnimationOptions extends SendBasicOptions {
+        parse_mode?: ParseMode;
+        caption?: string;
+        duration?: number;
+        width?: number;
+        height?: number;
+    }
+
     interface SendDocumentOptions extends SendBasicOptions {
+        parse_mode?: ParseMode;
         caption?: string;
     }
 
@@ -165,6 +178,7 @@ declare namespace TelegramBot {
     type SendStickerOptions = SendBasicOptions;
 
     interface SendVideoOptions extends SendBasicOptions {
+        parse_mode?: ParseMode;
         duration?: number;
         width?: number;
         height?: number;
@@ -172,6 +186,7 @@ declare namespace TelegramBot {
     }
 
     interface SendVoiceOptions extends SendBasicOptions {
+        parse_mode?: ParseMode;
         caption?: string;
         duration?: number;
     }
@@ -193,6 +208,7 @@ declare namespace TelegramBot {
 
     interface SendContactOptions extends SendBasicOptions {
         last_name?: string;
+        vcard?: string;
     }
 
     type SendGameOptions = SendBasicOptions;
@@ -278,6 +294,10 @@ declare namespace TelegramBot {
 
     interface AnswerPreCheckoutQueryOptions {
         error_message?: string;
+    }
+
+    interface SendDiceOptions extends SendBasicOptions {
+        emoji?: string;
     }
 
     /// TELEGRAM TYPES ///
@@ -1001,6 +1021,11 @@ declare namespace TelegramBot {
     interface Metadata {
         type?: MessageType;
     }
+
+    interface BotCommand {
+        command: string;
+        description: string;
+    }
 }
 
 declare class TelegramBot extends EventEmitter {
@@ -1039,6 +1064,8 @@ declare class TelegramBot extends EventEmitter {
     sendPhoto(chatId: number | string, photo: string | Stream | Buffer, options?: TelegramBot.SendPhotoOptions): Promise<TelegramBot.Message>;
 
     sendAudio(chatId: number | string, audio: string | Stream | Buffer, options?: TelegramBot.SendAudioOptions): Promise<TelegramBot.Message>;
+
+    sendAnimation(chatId: number | string, animation: string | Stream | Buffer, options?: TelegramBot.SendAnimationOptions): Promise<TelegramBot.Message>;
 
     sendDocument(chatId: number | string, doc: string | Stream | Buffer, options?: TelegramBot.SendDocumentOptions, fileOpts?: any): Promise<TelegramBot.Message>;
 
@@ -1382,6 +1409,26 @@ declare class TelegramBot extends EventEmitter {
             'webhook_error' |
             'error'
     ): number;
+
+    setChatPermissions(
+        chatId: number | string,
+        chatPermissions: TelegramBot.ChatPermissions
+    ): Promise<boolean>;
+
+    sendDice(
+        chatId: number | string,
+        options?: TelegramBot.SendDiceOptions
+    ): Promise<TelegramBot.Message>;
+
+    setChatAdministratorCustomTitle(
+        chatId: number | string,
+        userId: string,
+        customTitle: string
+    ): Promise<boolean>;
+
+    getMyCommands(): Promise<TelegramBot.BotCommand[]>;
+
+    setMyCommands(commands: TelegramBot.BotCommand[]): Promise<boolean>;
 }
 
 export = TelegramBot;

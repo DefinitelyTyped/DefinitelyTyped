@@ -42,6 +42,7 @@ export class Server {
     on(when: 'clientConnected' | 'clientDisconnecting' | 'clientDisconnected', callback: (client: Client) => void): void;
     on(when: 'subscribed' | 'unsubscribed', callback: (topic: string, client: Client) => void): void;
     on(when: 'published', callback: (packet: Packet, client: Client) => void): void;
+    on(when: 'ready', callback: () => void): void;
     once(when: string, callback: () => void): void;
     toString(): string;
     subscribe(topic: string, callback: () => void, done: () => void): void;

@@ -1,8 +1,9 @@
-// Type definitions for sanctuary 0.14
+// Type definitions for sanctuary 3.0
 // Project: https://github.com/sanctuary-js/sanctuary#readme
 // Definitions by: David Chambers <https://github.com/davidchambers>
 //                 Juan J. Jimenez-Anca <https://github.com/cortopy>
 //                 Ken Aguilar <https://github.com/piq9117>
+//                 Leonardo Farroco <https://github.com/lfarroco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var S: Sanctuary.Environment;
@@ -11,7 +12,9 @@ export as namespace S;
 
 type Nullable<A> = A | null;
 
-type Pair<A, B> = [A, B];
+interface Pair<A, B> {
+  '@@type': 'sanctuary/Pair';
+}
 
 type Thunk<A> = () => A;
 
@@ -30,15 +33,11 @@ type Predicate<A> = (a: A) => boolean;
 interface StrMap<A> { [k: string]: A; }
 
 interface Maybe<A> {
-  constructor: {
-    '@@type': 'sanctuary/Maybe';
-  };
+  '@@type': 'sanctuary/Maybe';
 }
 
 interface Either<A, B> {
-  constructor: {
-    '@@type': 'sanctuary/Either';
-  };
+  '@@type': 'sanctuary/Either';
 }
 
 type ValidNumber            = number;
@@ -166,12 +165,22 @@ declare namespace Sanctuary {
       (m: ReadonlyArray<A>): A[];
       (m: Foldable<A>): Foldable<A>;
     };
+    reject <A>(pred: Predicate<A>): {
+      (m: ReadonlyArray<A>): A[];
+      (m: Foldable<A>): Foldable<A>;
+    };
     takeWhile<A>(pred: Predicate<A>): (foldable: Foldable<A>) => Foldable<A>;
     dropWhile<A>(pred: Predicate<A>): (foldable: Foldable<A>) => Foldable<A>;
     //  Combinator
     I<A>(x: A): A;
     K<A>(x: A): (y: any) => A;
     T<A>(x: A): <B>(f: Fn<A, B>) => B;
+    // Pair
+    Pair<A>(a: A): <B>(b: B) => Pair<A, B>;
+    pair<A, B, C>(f: Fn2<A, B, C>): (p: Pair<A, B>) => C;
+    fst<A, B>(p: Pair<A, B>): A;
+    snd<A, B>(p: Pair<A, B>): B;
+    swap<A, B>(p: Pair<A, B>): Pair<B, A>;
     //  Function
     curry2<A, B, C>(f: Fn2_<A, B, C>): Fn2<A, B, C>;
     curry3<A, B, C, D>(f: Fn3_<A, B, C, D>): Fn3<A, B, C, D>;
@@ -224,8 +233,6 @@ declare namespace Sanctuary {
     ifElse<A, B>(p: Predicate<A>): (q: Fn<A, B>) => (r: Fn<A, B>) => Fn<A, B>;
     when<A>(p: Predicate<A>): (q: Fn<A, A>) => Fn<A, A>;
     unless<A>(p: Predicate<A>): (q: Fn<A, A>) => Fn<A, A>;
-    allPass<A>(p: ReadonlyArray<Predicate<A>>): Predicate<A>;
-    anyPass<A>(p: ReadonlyArray<Predicate<A>>): Predicate<A>;
     //  List
     slice(p: Integer): (q: Integer) => ListToMaybeList;
     at(p: Integer): {
@@ -269,6 +276,9 @@ declare namespace Sanctuary {
       (foldable: ReadonlyArray<A>): A[];
       (foldable: Foldable<A>): Foldable<A>;
     };
+    all<A>(p: Predicate<A>): (foldable: Foldable<A>) => boolean;
+    any<A>(p: Predicate<A>): (foldable: Foldable<A>) => boolean;
+    none<A>(p: Predicate<A>): (foldable: Foldable<A>) => boolean;
     //  Object
     prop(p: string): (q: any) => any;
     props(p: ReadonlyArray<string>): (q: any) => any;

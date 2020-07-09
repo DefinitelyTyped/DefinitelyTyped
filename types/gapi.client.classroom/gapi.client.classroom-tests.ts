@@ -137,22 +137,50 @@ gapi.load('client', () => {
             updateTime: "Test string",
         });
         /**
-         * Returns a list of announcements that the requester is permitted to view.
-         *
-         * Course students may only view `PUBLISHED` announcements. Course teachers
-         * and domain administrators may view all announcements.
+         * Creates an alias for a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create the
+         * alias or for access errors.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         * &#42; `ALREADY_EXISTS` if the alias already exists.
+         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
+         * requesting user or course (for example, if a user not in a domain
+         * attempts to access a domain-scoped alias).
          */
-        await gapi.client.classroom.courses.announcements.list({
-            announcementStates: "Test string",
+        await gapi.client.classroom.courses.aliases.create({
             courseId: "Test string",
-            orderBy: "Test string",
+        }, {
+            alias: "Test string",
+        });
+        /**
+         * Deletes an alias of a course.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to remove the
+         * alias or for access errors.
+         * &#42; `NOT_FOUND` if the alias does not exist.
+         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
+         * requesting user or course (for example, if a user not in a domain
+         * attempts to delete a domain-scoped alias).
+         */
+        await gapi.client.classroom.courses.aliases.delete({
+            alias: "Test string",
+            courseId: "Test string",
+        });
+        /**
+         * Returns a list of aliases for a course.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * course or for access errors.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         */
+        await gapi.client.classroom.courses.aliases.list({
+            courseId: "Test string",
             pageSize: 42,
             pageToken: "Test string",
         });
@@ -215,6 +243,60 @@ gapi.load('client', () => {
             state: "Test string",
             text: "Test string",
             updateTime: "Test string",
+        });
+        /**
+         * Deletes an announcement.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding announcement item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding announcement, if the requesting user is not permitted
+         * to delete the requested course or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested announcement has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.announcements.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns an announcement.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or announcement, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or announcement does not exist.
+         */
+        await gapi.client.classroom.courses.announcements.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of announcements that the requester is permitted to view.
+         *
+         * Course students may only view `PUBLISHED` announcements. Course teachers
+         * and domain administrators may view all announcements.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.announcements.list({
+            announcementStates: "Test string",
+            courseId: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
         });
         /**
          * Modifies assignee mode and options of an announcement.
@@ -303,279 +385,99 @@ gapi.load('client', () => {
             updateTime: "Test string",
         });
         /**
-         * Returns an announcement.
+         * Creates course work.
          *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or announcement, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or announcement does not exist.
-         */
-        await gapi.client.classroom.courses.announcements.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Deletes an announcement.
-         *
-         * This request must be made by the Developer Console project of the
+         * The resulting course work (and corresponding student submissions) are
+         * associated with the Developer Console project of the
          * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding announcement item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding announcement, if the requesting user is not permitted
-         * to delete the requested course or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested announcement has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.announcements.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Deletes a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to delete
-         * students of this course or for access errors.
-         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
-         * course does not exist.
-         */
-        await gapi.client.classroom.courses.students.delete({
-            courseId: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to view
-         * students of this course or for access errors.
-         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
-         * course does not exist.
-         */
-        await gapi.client.classroom.courses.students.get({
-            courseId: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a list of students of this course that the requester
-         * is permitted to view.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `NOT_FOUND` if the course does not exist.
-         * &#42; `PERMISSION_DENIED` for access errors.
-         */
-        await gapi.client.classroom.courses.students.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Adds a user as a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create
-         * students in this course or for access errors.
-         * &#42; `NOT_FOUND` if the requested course ID does not exist.
-         * &#42; `FAILED_PRECONDITION` if the requested user's account is disabled,
-         * for the following request errors:
-         * &#42; CourseMemberLimitReached
-         * &#42; CourseNotModifiable
-         * &#42; UserGroupsMembershipLimitReached
-         * &#42; `ALREADY_EXISTS` if the user is already a student or teacher in the
-         * course.
-         */
-        await gapi.client.classroom.courses.students.create({
-            courseId: "Test string",
-            enrollmentCode: "Test string",
-        }, {
-            courseId: "Test string",
-            profile: {
-                emailAddress: "Test string",
-                id: "Test string",
-                name: {
-                    familyName: "Test string",
-                    fullName: "Test string",
-                    givenName: "Test string",
-                },
-                permissions: [
-                    {
-                        permission: "Test string",
-                    }                ],
-                photoUrl: "Test string",
-                verifiedTeacher: true,
-            },
-            studentWorkFolder: {
-                alternateLink: "Test string",
-                id: "Test string",
-                title: "Test string",
-            },
-            userId: "Test string",
-        });
-        /**
-         * Creates a topic.
+         * make the request. Classroom API requests to modify course work and student
+         * submissions must be made with an OAuth client ID from the associated
+         * Developer Console project.
          *
          * This method returns the following error codes:
          *
          * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, create a topic in the requested course,
-         * or for access errors.
+         * requested course, create course work in the requested course, share a
+         * Drive attachment, or for access errors.
          * &#42; `INVALID_ARGUMENT` if the request is malformed.
          * &#42; `NOT_FOUND` if the requested course does not exist.
+         * &#42; `FAILED_PRECONDITION` for the following request error:
+         * &#42; AttachmentNotVisible
          */
-        await gapi.client.classroom.courses.topics.create({
+        await gapi.client.classroom.courses.courseWork.create({
             courseId: "Test string",
         }, {
-            courseId: "Test string",
-            name: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-        });
-        /**
-         * Deletes a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not allowed to delete the
-         * requested topic or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested topic has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course or topic exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.topics.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding topic or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or topic does not exist
-         */
-        await gapi.client.classroom.courses.topics.patch({
-            courseId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            courseId: "Test string",
-            name: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-        });
-        /**
-         * Returns a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or topic, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or topic does not exist.
-         */
-        await gapi.client.classroom.courses.topics.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns the list of topics that the requester is permitted to view.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.topics.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Creates an alias for a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create the
-         * alias or for access errors.
-         * &#42; `NOT_FOUND` if the course does not exist.
-         * &#42; `ALREADY_EXISTS` if the alias already exists.
-         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
-         * requesting user or course (for example, if a user not in a domain
-         * attempts to access a domain-scoped alias).
-         */
-        await gapi.client.classroom.courses.aliases.create({
-            courseId: "Test string",
-        }, {
-            alias: "Test string",
-        });
-        /**
-         * Deletes an alias of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to remove the
-         * alias or for access errors.
-         * &#42; `NOT_FOUND` if the alias does not exist.
-         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
-         * requesting user or course (for example, if a user not in a domain
-         * attempts to delete a domain-scoped alias).
-         */
-        await gapi.client.classroom.courses.aliases.delete({
-            alias: "Test string",
-            courseId: "Test string",
-        });
-        /**
-         * Returns a list of aliases for a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * course or for access errors.
-         * &#42; `NOT_FOUND` if the course does not exist.
-         */
-        await gapi.client.classroom.courses.aliases.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Modifies assignee mode and options of a coursework.
-         *
-         * Only a teacher of the course that contains the coursework may
-         * call this method.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.modifyAssignees({
-            courseId: "Test string",
-            id: "Test string",
-        }, {
+            alternateLink: "Test string",
             assigneeMode: "Test string",
-            modifyIndividualStudentsOptions: {
-                addStudentIds: [
-                    "Test string"                ],
-                removeStudentIds: [
+            assignment: {
+                studentWorkFolder: {
+                    alternateLink: "Test string",
+                    id: "Test string",
+                    title: "Test string",
+                },
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            dueDate: {
+                day: 42,
+                month: 42,
+                year: 42,
+            },
+            dueTime: {
+                hours: 42,
+                minutes: 42,
+                nanos: 42,
+                seconds: 42,
+            },
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
                     "Test string"                ],
             },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            maxPoints: 42,
+            multipleChoiceQuestion: {
+                choices: [
+                    "Test string"                ],
+            },
+            scheduledTime: "Test string",
+            state: "Test string",
+            submissionModificationMode: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+            workType: "Test string",
         });
         /**
          * Returns a student submission.
@@ -591,6 +493,83 @@ gapi.load('client', () => {
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
         });
         /**
          * Updates one or more fields of a student submission.
@@ -682,6 +661,35 @@ gapi.load('client', () => {
             userId: "Test string",
         });
         /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
          * Returns a student submission.
          *
          * Returning a student submission transfers ownership of attached Drive
@@ -706,35 +714,6 @@ gapi.load('client', () => {
          * does not exist.
          */
         await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
@@ -767,6 +746,66 @@ gapi.load('client', () => {
             courseWorkId: "Test string",
             id: "Test string",
         }, {
+        });
+        /**
+         * Deletes a course work.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the requesting user is not permitted
+         * to delete the requested course or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested course work has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.courseWork.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
         });
         /**
          * Modifies attachments of student submission.
@@ -821,6 +860,211 @@ gapi.load('client', () => {
                 }            ],
         });
         /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns course work.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
          * Returns a list of student submissions that the requester is permitted to
          * view, factoring in the OAuth scopes of the request.
          * `-` may be specified as the `course_work_id` to include student
@@ -844,6 +1088,815 @@ gapi.load('client', () => {
             pageToken: "Test string",
             states: "Test string",
             userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a list of course work that the requester is permitted to view.
+         *
+         * Course students may only view `PUBLISHED` course work. Course teachers
+         * and domain administrators may view all course work.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.list({
+            courseId: "Test string",
+            courseWorkStates: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Modifies assignee mode and options of a coursework.
+         *
+         * Only a teacher of the course that contains the coursework may
+         * call this method.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.modifyAssignees({
+            courseId: "Test string",
+            id: "Test string",
+        }, {
+            assigneeMode: "Test string",
+            modifyIndividualStudentsOptions: {
+                addStudentIds: [
+                    "Test string"                ],
+                removeStudentIds: [
+                    "Test string"                ],
+            },
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
         });
         /**
          * Updates one or more fields of a course work.
@@ -960,180 +2013,29 @@ gapi.load('client', () => {
             id: "Test string",
         });
         /**
-         * Updates one or more fields of a student submission.
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
          *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
          * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
             courseId: "Test string",
             courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
             userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
         });
         /**
          * Modifies attachments of student submission.
@@ -1186,60 +2088,6 @@ gapi.load('client', () => {
                         title: "Test string",
                     },
                 }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns course work.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
         });
         /**
          * Updates one or more fields of a student submission.
@@ -1331,6 +2179,35 @@ gapi.load('client', () => {
             userId: "Test string",
         });
         /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
          * Returns a student submission.
          *
          * Returning a student submission transfers ownership of attached Drive
@@ -1355,35 +2232,6 @@ gapi.load('client', () => {
          * does not exist.
          */
         await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
@@ -1418,1020 +2266,89 @@ gapi.load('client', () => {
         }, {
         });
         /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Adds a user as a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create
+         * students in this course or for access errors.
+         * &#42; `NOT_FOUND` if the requested course ID does not exist.
+         * &#42; `FAILED_PRECONDITION` if the requested user's account is disabled,
+         * for the following request errors:
+         * &#42; CourseMemberLimitReached
+         * &#42; CourseNotModifiable
+         * &#42; UserGroupsMembershipLimitReached
+         * &#42; `ALREADY_EXISTS` if the user is already a student or teacher in the
+         * course.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+        await gapi.client.classroom.courses.students.create({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
+            enrollmentCode: "Test string",
         }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Deletes a course work.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the requesting user is not permitted
-         * to delete the requested course or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested course work has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.courseWork.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a list of course work that the requester is permitted to view.
-         *
-         * Course students may only view `PUBLISHED` course work. Course teachers
-         * and domain administrators may view all course work.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.list({
-            courseId: "Test string",
-            courseWorkStates: "Test string",
-            orderBy: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Creates course work.
-         *
-         * The resulting course work (and corresponding student submissions) are
-         * associated with the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * make the request. Classroom API requests to modify course work and student
-         * submissions must be made with an OAuth client ID from the associated
-         * Developer Console project.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, create course work in the requested course, share a
-         * Drive attachment, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         * &#42; `FAILED_PRECONDITION` for the following request error:
-         * &#42; AttachmentNotVisible
-         */
-        await gapi.client.classroom.courses.courseWork.create({
-            courseId: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assigneeMode: "Test string",
-            assignment: {
-                studentWorkFolder: {
-                    alternateLink: "Test string",
-                    id: "Test string",
-                    title: "Test string",
+            profile: {
+                emailAddress: "Test string",
+                id: "Test string",
+                name: {
+                    familyName: "Test string",
+                    fullName: "Test string",
+                    givenName: "Test string",
                 },
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            creationTime: "Test string",
-            creatorUserId: "Test string",
-            description: "Test string",
-            dueDate: {
-                day: 42,
-                month: 42,
-                year: 42,
-            },
-            dueTime: {
-                hours: 42,
-                minutes: 42,
-                nanos: 42,
-                seconds: 42,
-            },
-            id: "Test string",
-            individualStudentsOptions: {
-                studentIds: [
-                    "Test string"                ],
-            },
-            materials: [
-                {
-                    driveFile: {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        shareMode: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youtubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-            maxPoints: 42,
-            multipleChoiceQuestion: {
-                choices: [
-                    "Test string"                ],
-            },
-            scheduledTime: "Test string",
-            state: "Test string",
-            submissionModificationMode: "Test string",
-            title: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-            workType: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
+                permissions: [
                     {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
+                        permission: "Test string",
                     }                ],
+                photoUrl: "Test string",
+                verifiedTeacher: true,
             },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
+            studentWorkFolder: {
+                alternateLink: "Test string",
+                id: "Test string",
+                title: "Test string",
             },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
             userId: "Test string",
         });
         /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Deletes a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to delete
+         * students of this course or for access errors.
+         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
+         * course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+        await gapi.client.classroom.courses.students.delete({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
+            userId: "Test string",
         });
         /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Returns a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to view
+         * students of this course or for access errors.
+         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
+         * course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+        await gapi.client.classroom.courses.students.get({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
+            userId: "Test string",
         });
         /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Returns a list of students of this course that the requester
+         * is permitted to view.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         * &#42; `PERMISSION_DENIED` for access errors.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+        await gapi.client.classroom.courses.students.list({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
             pageSize: 42,
             pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
         });
         /**
          * Creates a teacher of a course.
@@ -2514,6 +2431,89 @@ gapi.load('client', () => {
             courseId: "Test string",
             pageSize: 42,
             pageToken: "Test string",
+        });
+        /**
+         * Creates a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, create a topic in the requested course,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.topics.create({
+            courseId: "Test string",
+        }, {
+            courseId: "Test string",
+            name: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+        });
+        /**
+         * Deletes a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not allowed to delete the
+         * requested topic or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested topic has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course or topic exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.topics.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or topic, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or topic does not exist.
+         */
+        await gapi.client.classroom.courses.topics.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns the list of topics that the requester is permitted to view.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.topics.list({
+            courseId: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Updates one or more fields of a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding topic or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or topic does not exist
+         */
+        await gapi.client.classroom.courses.topics.patch({
+            courseId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            courseId: "Test string",
+            name: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
         });
         /**
          * Deletes a course.
@@ -2528,22 +2528,50 @@ gapi.load('client', () => {
             id: "Test string",
         });
         /**
-         * Returns a list of announcements that the requester is permitted to view.
-         *
-         * Course students may only view `PUBLISHED` announcements. Course teachers
-         * and domain administrators may view all announcements.
+         * Creates an alias for a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create the
+         * alias or for access errors.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         * &#42; `ALREADY_EXISTS` if the alias already exists.
+         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
+         * requesting user or course (for example, if a user not in a domain
+         * attempts to access a domain-scoped alias).
          */
-        await gapi.client.classroom.courses.announcements.list({
-            announcementStates: "Test string",
+        await gapi.client.classroom.courses.aliases.create({
             courseId: "Test string",
-            orderBy: "Test string",
+        }, {
+            alias: "Test string",
+        });
+        /**
+         * Deletes an alias of a course.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to remove the
+         * alias or for access errors.
+         * &#42; `NOT_FOUND` if the alias does not exist.
+         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
+         * requesting user or course (for example, if a user not in a domain
+         * attempts to delete a domain-scoped alias).
+         */
+        await gapi.client.classroom.courses.aliases.delete({
+            alias: "Test string",
+            courseId: "Test string",
+        });
+        /**
+         * Returns a list of aliases for a course.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * course or for access errors.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         */
+        await gapi.client.classroom.courses.aliases.list({
+            courseId: "Test string",
             pageSize: 42,
             pageToken: "Test string",
         });
@@ -2606,6 +2634,60 @@ gapi.load('client', () => {
             state: "Test string",
             text: "Test string",
             updateTime: "Test string",
+        });
+        /**
+         * Deletes an announcement.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding announcement item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding announcement, if the requesting user is not permitted
+         * to delete the requested course or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested announcement has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.announcements.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns an announcement.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or announcement, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or announcement does not exist.
+         */
+        await gapi.client.classroom.courses.announcements.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of announcements that the requester is permitted to view.
+         *
+         * Course students may only view `PUBLISHED` announcements. Course teachers
+         * and domain administrators may view all announcements.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.announcements.list({
+            announcementStates: "Test string",
+            courseId: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
         });
         /**
          * Modifies assignee mode and options of an announcement.
@@ -2694,279 +2776,99 @@ gapi.load('client', () => {
             updateTime: "Test string",
         });
         /**
-         * Returns an announcement.
+         * Creates course work.
          *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or announcement, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or announcement does not exist.
-         */
-        await gapi.client.classroom.courses.announcements.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Deletes an announcement.
-         *
-         * This request must be made by the Developer Console project of the
+         * The resulting course work (and corresponding student submissions) are
+         * associated with the Developer Console project of the
          * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding announcement item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding announcement, if the requesting user is not permitted
-         * to delete the requested course or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested announcement has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.announcements.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Deletes a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to delete
-         * students of this course or for access errors.
-         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
-         * course does not exist.
-         */
-        await gapi.client.classroom.courses.students.delete({
-            courseId: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to view
-         * students of this course or for access errors.
-         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
-         * course does not exist.
-         */
-        await gapi.client.classroom.courses.students.get({
-            courseId: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a list of students of this course that the requester
-         * is permitted to view.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `NOT_FOUND` if the course does not exist.
-         * &#42; `PERMISSION_DENIED` for access errors.
-         */
-        await gapi.client.classroom.courses.students.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Adds a user as a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create
-         * students in this course or for access errors.
-         * &#42; `NOT_FOUND` if the requested course ID does not exist.
-         * &#42; `FAILED_PRECONDITION` if the requested user's account is disabled,
-         * for the following request errors:
-         * &#42; CourseMemberLimitReached
-         * &#42; CourseNotModifiable
-         * &#42; UserGroupsMembershipLimitReached
-         * &#42; `ALREADY_EXISTS` if the user is already a student or teacher in the
-         * course.
-         */
-        await gapi.client.classroom.courses.students.create({
-            courseId: "Test string",
-            enrollmentCode: "Test string",
-        }, {
-            courseId: "Test string",
-            profile: {
-                emailAddress: "Test string",
-                id: "Test string",
-                name: {
-                    familyName: "Test string",
-                    fullName: "Test string",
-                    givenName: "Test string",
-                },
-                permissions: [
-                    {
-                        permission: "Test string",
-                    }                ],
-                photoUrl: "Test string",
-                verifiedTeacher: true,
-            },
-            studentWorkFolder: {
-                alternateLink: "Test string",
-                id: "Test string",
-                title: "Test string",
-            },
-            userId: "Test string",
-        });
-        /**
-         * Creates a topic.
+         * make the request. Classroom API requests to modify course work and student
+         * submissions must be made with an OAuth client ID from the associated
+         * Developer Console project.
          *
          * This method returns the following error codes:
          *
          * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, create a topic in the requested course,
-         * or for access errors.
+         * requested course, create course work in the requested course, share a
+         * Drive attachment, or for access errors.
          * &#42; `INVALID_ARGUMENT` if the request is malformed.
          * &#42; `NOT_FOUND` if the requested course does not exist.
+         * &#42; `FAILED_PRECONDITION` for the following request error:
+         * &#42; AttachmentNotVisible
          */
-        await gapi.client.classroom.courses.topics.create({
+        await gapi.client.classroom.courses.courseWork.create({
             courseId: "Test string",
         }, {
-            courseId: "Test string",
-            name: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-        });
-        /**
-         * Deletes a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not allowed to delete the
-         * requested topic or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested topic has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course or topic exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.topics.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding topic or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or topic does not exist
-         */
-        await gapi.client.classroom.courses.topics.patch({
-            courseId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            courseId: "Test string",
-            name: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-        });
-        /**
-         * Returns a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or topic, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or topic does not exist.
-         */
-        await gapi.client.classroom.courses.topics.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns the list of topics that the requester is permitted to view.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.topics.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Creates an alias for a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create the
-         * alias or for access errors.
-         * &#42; `NOT_FOUND` if the course does not exist.
-         * &#42; `ALREADY_EXISTS` if the alias already exists.
-         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
-         * requesting user or course (for example, if a user not in a domain
-         * attempts to access a domain-scoped alias).
-         */
-        await gapi.client.classroom.courses.aliases.create({
-            courseId: "Test string",
-        }, {
-            alias: "Test string",
-        });
-        /**
-         * Deletes an alias of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to remove the
-         * alias or for access errors.
-         * &#42; `NOT_FOUND` if the alias does not exist.
-         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
-         * requesting user or course (for example, if a user not in a domain
-         * attempts to delete a domain-scoped alias).
-         */
-        await gapi.client.classroom.courses.aliases.delete({
-            alias: "Test string",
-            courseId: "Test string",
-        });
-        /**
-         * Returns a list of aliases for a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * course or for access errors.
-         * &#42; `NOT_FOUND` if the course does not exist.
-         */
-        await gapi.client.classroom.courses.aliases.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Modifies assignee mode and options of a coursework.
-         *
-         * Only a teacher of the course that contains the coursework may
-         * call this method.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.modifyAssignees({
-            courseId: "Test string",
-            id: "Test string",
-        }, {
+            alternateLink: "Test string",
             assigneeMode: "Test string",
-            modifyIndividualStudentsOptions: {
-                addStudentIds: [
-                    "Test string"                ],
-                removeStudentIds: [
+            assignment: {
+                studentWorkFolder: {
+                    alternateLink: "Test string",
+                    id: "Test string",
+                    title: "Test string",
+                },
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            dueDate: {
+                day: 42,
+                month: 42,
+                year: 42,
+            },
+            dueTime: {
+                hours: 42,
+                minutes: 42,
+                nanos: 42,
+                seconds: 42,
+            },
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
                     "Test string"                ],
             },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            maxPoints: 42,
+            multipleChoiceQuestion: {
+                choices: [
+                    "Test string"                ],
+            },
+            scheduledTime: "Test string",
+            state: "Test string",
+            submissionModificationMode: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+            workType: "Test string",
         });
         /**
          * Returns a student submission.
@@ -2982,6 +2884,83 @@ gapi.load('client', () => {
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
         });
         /**
          * Updates one or more fields of a student submission.
@@ -3073,6 +3052,35 @@ gapi.load('client', () => {
             userId: "Test string",
         });
         /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
          * Returns a student submission.
          *
          * Returning a student submission transfers ownership of attached Drive
@@ -3097,35 +3105,6 @@ gapi.load('client', () => {
          * does not exist.
          */
         await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
@@ -3158,6 +3137,66 @@ gapi.load('client', () => {
             courseWorkId: "Test string",
             id: "Test string",
         }, {
+        });
+        /**
+         * Deletes a course work.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the requesting user is not permitted
+         * to delete the requested course or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested course work has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.courseWork.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
         });
         /**
          * Modifies attachments of student submission.
@@ -3212,6 +3251,211 @@ gapi.load('client', () => {
                 }            ],
         });
         /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns course work.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
          * Returns a list of student submissions that the requester is permitted to
          * view, factoring in the OAuth scopes of the request.
          * `-` may be specified as the `course_work_id` to include student
@@ -3235,6 +3479,815 @@ gapi.load('client', () => {
             pageToken: "Test string",
             states: "Test string",
             userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a list of course work that the requester is permitted to view.
+         *
+         * Course students may only view `PUBLISHED` course work. Course teachers
+         * and domain administrators may view all course work.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.list({
+            courseId: "Test string",
+            courseWorkStates: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Modifies assignee mode and options of a coursework.
+         *
+         * Only a teacher of the course that contains the coursework may
+         * call this method.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.modifyAssignees({
+            courseId: "Test string",
+            id: "Test string",
+        }, {
+            assigneeMode: "Test string",
+            modifyIndividualStudentsOptions: {
+                addStudentIds: [
+                    "Test string"                ],
+                removeStudentIds: [
+                    "Test string"                ],
+            },
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
         });
         /**
          * Updates one or more fields of a course work.
@@ -3351,180 +4404,29 @@ gapi.load('client', () => {
             id: "Test string",
         });
         /**
-         * Updates one or more fields of a student submission.
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
          *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
          * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
             courseId: "Test string",
             courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
             userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
         });
         /**
          * Modifies attachments of student submission.
@@ -3577,60 +4479,6 @@ gapi.load('client', () => {
                         title: "Test string",
                     },
                 }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns course work.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
         });
         /**
          * Updates one or more fields of a student submission.
@@ -3722,6 +4570,35 @@ gapi.load('client', () => {
             userId: "Test string",
         });
         /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
          * Returns a student submission.
          *
          * Returning a student submission transfers ownership of attached Drive
@@ -3746,35 +4623,6 @@ gapi.load('client', () => {
          * does not exist.
          */
         await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
@@ -3809,1020 +4657,89 @@ gapi.load('client', () => {
         }, {
         });
         /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Adds a user as a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create
+         * students in this course or for access errors.
+         * &#42; `NOT_FOUND` if the requested course ID does not exist.
+         * &#42; `FAILED_PRECONDITION` if the requested user's account is disabled,
+         * for the following request errors:
+         * &#42; CourseMemberLimitReached
+         * &#42; CourseNotModifiable
+         * &#42; UserGroupsMembershipLimitReached
+         * &#42; `ALREADY_EXISTS` if the user is already a student or teacher in the
+         * course.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+        await gapi.client.classroom.courses.students.create({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
+            enrollmentCode: "Test string",
         }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Deletes a course work.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the requesting user is not permitted
-         * to delete the requested course or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested course work has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.courseWork.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a list of course work that the requester is permitted to view.
-         *
-         * Course students may only view `PUBLISHED` course work. Course teachers
-         * and domain administrators may view all course work.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.list({
-            courseId: "Test string",
-            courseWorkStates: "Test string",
-            orderBy: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Creates course work.
-         *
-         * The resulting course work (and corresponding student submissions) are
-         * associated with the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * make the request. Classroom API requests to modify course work and student
-         * submissions must be made with an OAuth client ID from the associated
-         * Developer Console project.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, create course work in the requested course, share a
-         * Drive attachment, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         * &#42; `FAILED_PRECONDITION` for the following request error:
-         * &#42; AttachmentNotVisible
-         */
-        await gapi.client.classroom.courses.courseWork.create({
-            courseId: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assigneeMode: "Test string",
-            assignment: {
-                studentWorkFolder: {
-                    alternateLink: "Test string",
-                    id: "Test string",
-                    title: "Test string",
+            profile: {
+                emailAddress: "Test string",
+                id: "Test string",
+                name: {
+                    familyName: "Test string",
+                    fullName: "Test string",
+                    givenName: "Test string",
                 },
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            creationTime: "Test string",
-            creatorUserId: "Test string",
-            description: "Test string",
-            dueDate: {
-                day: 42,
-                month: 42,
-                year: 42,
-            },
-            dueTime: {
-                hours: 42,
-                minutes: 42,
-                nanos: 42,
-                seconds: 42,
-            },
-            id: "Test string",
-            individualStudentsOptions: {
-                studentIds: [
-                    "Test string"                ],
-            },
-            materials: [
-                {
-                    driveFile: {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        shareMode: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youtubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-            maxPoints: 42,
-            multipleChoiceQuestion: {
-                choices: [
-                    "Test string"                ],
-            },
-            scheduledTime: "Test string",
-            state: "Test string",
-            submissionModificationMode: "Test string",
-            title: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-            workType: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
+                permissions: [
                     {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
+                        permission: "Test string",
                     }                ],
+                photoUrl: "Test string",
+                verifiedTeacher: true,
             },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
+            studentWorkFolder: {
+                alternateLink: "Test string",
+                id: "Test string",
+                title: "Test string",
             },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
             userId: "Test string",
         });
         /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Deletes a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to delete
+         * students of this course or for access errors.
+         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
+         * course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+        await gapi.client.classroom.courses.students.delete({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
+            userId: "Test string",
         });
         /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Returns a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to view
+         * students of this course or for access errors.
+         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
+         * course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+        await gapi.client.classroom.courses.students.get({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
+            userId: "Test string",
         });
         /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Returns a list of students of this course that the requester
+         * is permitted to view.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         * &#42; `PERMISSION_DENIED` for access errors.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+        await gapi.client.classroom.courses.students.list({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
             pageSize: 42,
             pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
         });
         /**
          * Creates a teacher of a course.
@@ -4905,6 +4822,89 @@ gapi.load('client', () => {
             courseId: "Test string",
             pageSize: 42,
             pageToken: "Test string",
+        });
+        /**
+         * Creates a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, create a topic in the requested course,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.topics.create({
+            courseId: "Test string",
+        }, {
+            courseId: "Test string",
+            name: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+        });
+        /**
+         * Deletes a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not allowed to delete the
+         * requested topic or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested topic has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course or topic exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.topics.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or topic, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or topic does not exist.
+         */
+        await gapi.client.classroom.courses.topics.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns the list of topics that the requester is permitted to view.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.topics.list({
+            courseId: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Updates one or more fields of a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding topic or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or topic does not exist
+         */
+        await gapi.client.classroom.courses.topics.patch({
+            courseId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            courseId: "Test string",
+            name: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
         });
         /**
          * Returns a course.
@@ -4919,22 +4919,50 @@ gapi.load('client', () => {
             id: "Test string",
         });
         /**
-         * Returns a list of announcements that the requester is permitted to view.
-         *
-         * Course students may only view `PUBLISHED` announcements. Course teachers
-         * and domain administrators may view all announcements.
+         * Creates an alias for a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create the
+         * alias or for access errors.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         * &#42; `ALREADY_EXISTS` if the alias already exists.
+         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
+         * requesting user or course (for example, if a user not in a domain
+         * attempts to access a domain-scoped alias).
          */
-        await gapi.client.classroom.courses.announcements.list({
-            announcementStates: "Test string",
+        await gapi.client.classroom.courses.aliases.create({
             courseId: "Test string",
-            orderBy: "Test string",
+        }, {
+            alias: "Test string",
+        });
+        /**
+         * Deletes an alias of a course.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to remove the
+         * alias or for access errors.
+         * &#42; `NOT_FOUND` if the alias does not exist.
+         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
+         * requesting user or course (for example, if a user not in a domain
+         * attempts to delete a domain-scoped alias).
+         */
+        await gapi.client.classroom.courses.aliases.delete({
+            alias: "Test string",
+            courseId: "Test string",
+        });
+        /**
+         * Returns a list of aliases for a course.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * course or for access errors.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         */
+        await gapi.client.classroom.courses.aliases.list({
+            courseId: "Test string",
             pageSize: 42,
             pageToken: "Test string",
         });
@@ -4997,6 +5025,60 @@ gapi.load('client', () => {
             state: "Test string",
             text: "Test string",
             updateTime: "Test string",
+        });
+        /**
+         * Deletes an announcement.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding announcement item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding announcement, if the requesting user is not permitted
+         * to delete the requested course or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested announcement has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.announcements.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns an announcement.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or announcement, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or announcement does not exist.
+         */
+        await gapi.client.classroom.courses.announcements.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of announcements that the requester is permitted to view.
+         *
+         * Course students may only view `PUBLISHED` announcements. Course teachers
+         * and domain administrators may view all announcements.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.announcements.list({
+            announcementStates: "Test string",
+            courseId: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
         });
         /**
          * Modifies assignee mode and options of an announcement.
@@ -5085,279 +5167,99 @@ gapi.load('client', () => {
             updateTime: "Test string",
         });
         /**
-         * Returns an announcement.
+         * Creates course work.
          *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or announcement, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or announcement does not exist.
-         */
-        await gapi.client.classroom.courses.announcements.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Deletes an announcement.
-         *
-         * This request must be made by the Developer Console project of the
+         * The resulting course work (and corresponding student submissions) are
+         * associated with the Developer Console project of the
          * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding announcement item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding announcement, if the requesting user is not permitted
-         * to delete the requested course or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested announcement has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.announcements.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Deletes a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to delete
-         * students of this course or for access errors.
-         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
-         * course does not exist.
-         */
-        await gapi.client.classroom.courses.students.delete({
-            courseId: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to view
-         * students of this course or for access errors.
-         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
-         * course does not exist.
-         */
-        await gapi.client.classroom.courses.students.get({
-            courseId: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a list of students of this course that the requester
-         * is permitted to view.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `NOT_FOUND` if the course does not exist.
-         * &#42; `PERMISSION_DENIED` for access errors.
-         */
-        await gapi.client.classroom.courses.students.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Adds a user as a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create
-         * students in this course or for access errors.
-         * &#42; `NOT_FOUND` if the requested course ID does not exist.
-         * &#42; `FAILED_PRECONDITION` if the requested user's account is disabled,
-         * for the following request errors:
-         * &#42; CourseMemberLimitReached
-         * &#42; CourseNotModifiable
-         * &#42; UserGroupsMembershipLimitReached
-         * &#42; `ALREADY_EXISTS` if the user is already a student or teacher in the
-         * course.
-         */
-        await gapi.client.classroom.courses.students.create({
-            courseId: "Test string",
-            enrollmentCode: "Test string",
-        }, {
-            courseId: "Test string",
-            profile: {
-                emailAddress: "Test string",
-                id: "Test string",
-                name: {
-                    familyName: "Test string",
-                    fullName: "Test string",
-                    givenName: "Test string",
-                },
-                permissions: [
-                    {
-                        permission: "Test string",
-                    }                ],
-                photoUrl: "Test string",
-                verifiedTeacher: true,
-            },
-            studentWorkFolder: {
-                alternateLink: "Test string",
-                id: "Test string",
-                title: "Test string",
-            },
-            userId: "Test string",
-        });
-        /**
-         * Creates a topic.
+         * make the request. Classroom API requests to modify course work and student
+         * submissions must be made with an OAuth client ID from the associated
+         * Developer Console project.
          *
          * This method returns the following error codes:
          *
          * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, create a topic in the requested course,
-         * or for access errors.
+         * requested course, create course work in the requested course, share a
+         * Drive attachment, or for access errors.
          * &#42; `INVALID_ARGUMENT` if the request is malformed.
          * &#42; `NOT_FOUND` if the requested course does not exist.
+         * &#42; `FAILED_PRECONDITION` for the following request error:
+         * &#42; AttachmentNotVisible
          */
-        await gapi.client.classroom.courses.topics.create({
+        await gapi.client.classroom.courses.courseWork.create({
             courseId: "Test string",
         }, {
-            courseId: "Test string",
-            name: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-        });
-        /**
-         * Deletes a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not allowed to delete the
-         * requested topic or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested topic has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course or topic exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.topics.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding topic or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or topic does not exist
-         */
-        await gapi.client.classroom.courses.topics.patch({
-            courseId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            courseId: "Test string",
-            name: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-        });
-        /**
-         * Returns a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or topic, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or topic does not exist.
-         */
-        await gapi.client.classroom.courses.topics.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns the list of topics that the requester is permitted to view.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.topics.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Creates an alias for a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create the
-         * alias or for access errors.
-         * &#42; `NOT_FOUND` if the course does not exist.
-         * &#42; `ALREADY_EXISTS` if the alias already exists.
-         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
-         * requesting user or course (for example, if a user not in a domain
-         * attempts to access a domain-scoped alias).
-         */
-        await gapi.client.classroom.courses.aliases.create({
-            courseId: "Test string",
-        }, {
-            alias: "Test string",
-        });
-        /**
-         * Deletes an alias of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to remove the
-         * alias or for access errors.
-         * &#42; `NOT_FOUND` if the alias does not exist.
-         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
-         * requesting user or course (for example, if a user not in a domain
-         * attempts to delete a domain-scoped alias).
-         */
-        await gapi.client.classroom.courses.aliases.delete({
-            alias: "Test string",
-            courseId: "Test string",
-        });
-        /**
-         * Returns a list of aliases for a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * course or for access errors.
-         * &#42; `NOT_FOUND` if the course does not exist.
-         */
-        await gapi.client.classroom.courses.aliases.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Modifies assignee mode and options of a coursework.
-         *
-         * Only a teacher of the course that contains the coursework may
-         * call this method.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.modifyAssignees({
-            courseId: "Test string",
-            id: "Test string",
-        }, {
+            alternateLink: "Test string",
             assigneeMode: "Test string",
-            modifyIndividualStudentsOptions: {
-                addStudentIds: [
-                    "Test string"                ],
-                removeStudentIds: [
+            assignment: {
+                studentWorkFolder: {
+                    alternateLink: "Test string",
+                    id: "Test string",
+                    title: "Test string",
+                },
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            dueDate: {
+                day: 42,
+                month: 42,
+                year: 42,
+            },
+            dueTime: {
+                hours: 42,
+                minutes: 42,
+                nanos: 42,
+                seconds: 42,
+            },
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
                     "Test string"                ],
             },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            maxPoints: 42,
+            multipleChoiceQuestion: {
+                choices: [
+                    "Test string"                ],
+            },
+            scheduledTime: "Test string",
+            state: "Test string",
+            submissionModificationMode: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+            workType: "Test string",
         });
         /**
          * Returns a student submission.
@@ -5373,6 +5275,83 @@ gapi.load('client', () => {
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
         });
         /**
          * Updates one or more fields of a student submission.
@@ -5464,6 +5443,35 @@ gapi.load('client', () => {
             userId: "Test string",
         });
         /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
          * Returns a student submission.
          *
          * Returning a student submission transfers ownership of attached Drive
@@ -5488,35 +5496,6 @@ gapi.load('client', () => {
          * does not exist.
          */
         await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
@@ -5549,6 +5528,66 @@ gapi.load('client', () => {
             courseWorkId: "Test string",
             id: "Test string",
         }, {
+        });
+        /**
+         * Deletes a course work.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the requesting user is not permitted
+         * to delete the requested course or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested course work has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.courseWork.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
         });
         /**
          * Modifies attachments of student submission.
@@ -5603,6 +5642,211 @@ gapi.load('client', () => {
                 }            ],
         });
         /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns course work.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
          * Returns a list of student submissions that the requester is permitted to
          * view, factoring in the OAuth scopes of the request.
          * `-` may be specified as the `course_work_id` to include student
@@ -5626,6 +5870,815 @@ gapi.load('client', () => {
             pageToken: "Test string",
             states: "Test string",
             userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a list of course work that the requester is permitted to view.
+         *
+         * Course students may only view `PUBLISHED` course work. Course teachers
+         * and domain administrators may view all course work.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.list({
+            courseId: "Test string",
+            courseWorkStates: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Modifies assignee mode and options of a coursework.
+         *
+         * Only a teacher of the course that contains the coursework may
+         * call this method.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.modifyAssignees({
+            courseId: "Test string",
+            id: "Test string",
+        }, {
+            assigneeMode: "Test string",
+            modifyIndividualStudentsOptions: {
+                addStudentIds: [
+                    "Test string"                ],
+                removeStudentIds: [
+                    "Test string"                ],
+            },
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
         });
         /**
          * Updates one or more fields of a course work.
@@ -5742,180 +6795,29 @@ gapi.load('client', () => {
             id: "Test string",
         });
         /**
-         * Updates one or more fields of a student submission.
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
          *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
          * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
             courseId: "Test string",
             courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
             userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
         });
         /**
          * Modifies attachments of student submission.
@@ -5968,60 +6870,6 @@ gapi.load('client', () => {
                         title: "Test string",
                     },
                 }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns course work.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
         });
         /**
          * Updates one or more fields of a student submission.
@@ -6113,6 +6961,35 @@ gapi.load('client', () => {
             userId: "Test string",
         });
         /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
          * Returns a student submission.
          *
          * Returning a student submission transfers ownership of attached Drive
@@ -6137,35 +7014,6 @@ gapi.load('client', () => {
          * does not exist.
          */
         await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
@@ -6200,1020 +7048,89 @@ gapi.load('client', () => {
         }, {
         });
         /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Adds a user as a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create
+         * students in this course or for access errors.
+         * &#42; `NOT_FOUND` if the requested course ID does not exist.
+         * &#42; `FAILED_PRECONDITION` if the requested user's account is disabled,
+         * for the following request errors:
+         * &#42; CourseMemberLimitReached
+         * &#42; CourseNotModifiable
+         * &#42; UserGroupsMembershipLimitReached
+         * &#42; `ALREADY_EXISTS` if the user is already a student or teacher in the
+         * course.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+        await gapi.client.classroom.courses.students.create({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
+            enrollmentCode: "Test string",
         }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Deletes a course work.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the requesting user is not permitted
-         * to delete the requested course or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested course work has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.courseWork.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a list of course work that the requester is permitted to view.
-         *
-         * Course students may only view `PUBLISHED` course work. Course teachers
-         * and domain administrators may view all course work.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.list({
-            courseId: "Test string",
-            courseWorkStates: "Test string",
-            orderBy: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Creates course work.
-         *
-         * The resulting course work (and corresponding student submissions) are
-         * associated with the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * make the request. Classroom API requests to modify course work and student
-         * submissions must be made with an OAuth client ID from the associated
-         * Developer Console project.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, create course work in the requested course, share a
-         * Drive attachment, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         * &#42; `FAILED_PRECONDITION` for the following request error:
-         * &#42; AttachmentNotVisible
-         */
-        await gapi.client.classroom.courses.courseWork.create({
-            courseId: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assigneeMode: "Test string",
-            assignment: {
-                studentWorkFolder: {
-                    alternateLink: "Test string",
-                    id: "Test string",
-                    title: "Test string",
+            profile: {
+                emailAddress: "Test string",
+                id: "Test string",
+                name: {
+                    familyName: "Test string",
+                    fullName: "Test string",
+                    givenName: "Test string",
                 },
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            creationTime: "Test string",
-            creatorUserId: "Test string",
-            description: "Test string",
-            dueDate: {
-                day: 42,
-                month: 42,
-                year: 42,
-            },
-            dueTime: {
-                hours: 42,
-                minutes: 42,
-                nanos: 42,
-                seconds: 42,
-            },
-            id: "Test string",
-            individualStudentsOptions: {
-                studentIds: [
-                    "Test string"                ],
-            },
-            materials: [
-                {
-                    driveFile: {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        shareMode: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youtubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-            maxPoints: 42,
-            multipleChoiceQuestion: {
-                choices: [
-                    "Test string"                ],
-            },
-            scheduledTime: "Test string",
-            state: "Test string",
-            submissionModificationMode: "Test string",
-            title: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-            workType: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
+                permissions: [
                     {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
+                        permission: "Test string",
                     }                ],
+                photoUrl: "Test string",
+                verifiedTeacher: true,
             },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
+            studentWorkFolder: {
+                alternateLink: "Test string",
+                id: "Test string",
+                title: "Test string",
             },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
             userId: "Test string",
         });
         /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Deletes a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to delete
+         * students of this course or for access errors.
+         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
+         * course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+        await gapi.client.classroom.courses.students.delete({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
+            userId: "Test string",
         });
         /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Returns a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to view
+         * students of this course or for access errors.
+         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
+         * course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+        await gapi.client.classroom.courses.students.get({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
+            userId: "Test string",
         });
         /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Returns a list of students of this course that the requester
+         * is permitted to view.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         * &#42; `PERMISSION_DENIED` for access errors.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+        await gapi.client.classroom.courses.students.list({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
             pageSize: 42,
             pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
         });
         /**
          * Creates a teacher of a course.
@@ -7296,6 +7213,89 @@ gapi.load('client', () => {
             courseId: "Test string",
             pageSize: 42,
             pageToken: "Test string",
+        });
+        /**
+         * Creates a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, create a topic in the requested course,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.topics.create({
+            courseId: "Test string",
+        }, {
+            courseId: "Test string",
+            name: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+        });
+        /**
+         * Deletes a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not allowed to delete the
+         * requested topic or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested topic has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course or topic exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.topics.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or topic, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or topic does not exist.
+         */
+        await gapi.client.classroom.courses.topics.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns the list of topics that the requester is permitted to view.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.topics.list({
+            courseId: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Updates one or more fields of a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding topic or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or topic does not exist
+         */
+        await gapi.client.classroom.courses.topics.patch({
+            courseId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            courseId: "Test string",
+            name: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
         });
         /**
          * Returns a list of courses that the requesting user is permitted to view,
@@ -7316,22 +7316,50 @@ gapi.load('client', () => {
             teacherId: "Test string",
         });
         /**
-         * Returns a list of announcements that the requester is permitted to view.
-         *
-         * Course students may only view `PUBLISHED` announcements. Course teachers
-         * and domain administrators may view all announcements.
+         * Creates an alias for a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create the
+         * alias or for access errors.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         * &#42; `ALREADY_EXISTS` if the alias already exists.
+         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
+         * requesting user or course (for example, if a user not in a domain
+         * attempts to access a domain-scoped alias).
          */
-        await gapi.client.classroom.courses.announcements.list({
-            announcementStates: "Test string",
+        await gapi.client.classroom.courses.aliases.create({
             courseId: "Test string",
-            orderBy: "Test string",
+        }, {
+            alias: "Test string",
+        });
+        /**
+         * Deletes an alias of a course.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to remove the
+         * alias or for access errors.
+         * &#42; `NOT_FOUND` if the alias does not exist.
+         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
+         * requesting user or course (for example, if a user not in a domain
+         * attempts to delete a domain-scoped alias).
+         */
+        await gapi.client.classroom.courses.aliases.delete({
+            alias: "Test string",
+            courseId: "Test string",
+        });
+        /**
+         * Returns a list of aliases for a course.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * course or for access errors.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         */
+        await gapi.client.classroom.courses.aliases.list({
+            courseId: "Test string",
             pageSize: 42,
             pageToken: "Test string",
         });
@@ -7394,6 +7422,60 @@ gapi.load('client', () => {
             state: "Test string",
             text: "Test string",
             updateTime: "Test string",
+        });
+        /**
+         * Deletes an announcement.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding announcement item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding announcement, if the requesting user is not permitted
+         * to delete the requested course or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested announcement has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.announcements.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns an announcement.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or announcement, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or announcement does not exist.
+         */
+        await gapi.client.classroom.courses.announcements.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of announcements that the requester is permitted to view.
+         *
+         * Course students may only view `PUBLISHED` announcements. Course teachers
+         * and domain administrators may view all announcements.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.announcements.list({
+            announcementStates: "Test string",
+            courseId: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
         });
         /**
          * Modifies assignee mode and options of an announcement.
@@ -7482,279 +7564,99 @@ gapi.load('client', () => {
             updateTime: "Test string",
         });
         /**
-         * Returns an announcement.
+         * Creates course work.
          *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or announcement, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or announcement does not exist.
-         */
-        await gapi.client.classroom.courses.announcements.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Deletes an announcement.
-         *
-         * This request must be made by the Developer Console project of the
+         * The resulting course work (and corresponding student submissions) are
+         * associated with the Developer Console project of the
          * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding announcement item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding announcement, if the requesting user is not permitted
-         * to delete the requested course or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested announcement has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.announcements.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Deletes a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to delete
-         * students of this course or for access errors.
-         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
-         * course does not exist.
-         */
-        await gapi.client.classroom.courses.students.delete({
-            courseId: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to view
-         * students of this course or for access errors.
-         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
-         * course does not exist.
-         */
-        await gapi.client.classroom.courses.students.get({
-            courseId: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a list of students of this course that the requester
-         * is permitted to view.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `NOT_FOUND` if the course does not exist.
-         * &#42; `PERMISSION_DENIED` for access errors.
-         */
-        await gapi.client.classroom.courses.students.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Adds a user as a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create
-         * students in this course or for access errors.
-         * &#42; `NOT_FOUND` if the requested course ID does not exist.
-         * &#42; `FAILED_PRECONDITION` if the requested user's account is disabled,
-         * for the following request errors:
-         * &#42; CourseMemberLimitReached
-         * &#42; CourseNotModifiable
-         * &#42; UserGroupsMembershipLimitReached
-         * &#42; `ALREADY_EXISTS` if the user is already a student or teacher in the
-         * course.
-         */
-        await gapi.client.classroom.courses.students.create({
-            courseId: "Test string",
-            enrollmentCode: "Test string",
-        }, {
-            courseId: "Test string",
-            profile: {
-                emailAddress: "Test string",
-                id: "Test string",
-                name: {
-                    familyName: "Test string",
-                    fullName: "Test string",
-                    givenName: "Test string",
-                },
-                permissions: [
-                    {
-                        permission: "Test string",
-                    }                ],
-                photoUrl: "Test string",
-                verifiedTeacher: true,
-            },
-            studentWorkFolder: {
-                alternateLink: "Test string",
-                id: "Test string",
-                title: "Test string",
-            },
-            userId: "Test string",
-        });
-        /**
-         * Creates a topic.
+         * make the request. Classroom API requests to modify course work and student
+         * submissions must be made with an OAuth client ID from the associated
+         * Developer Console project.
          *
          * This method returns the following error codes:
          *
          * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, create a topic in the requested course,
-         * or for access errors.
+         * requested course, create course work in the requested course, share a
+         * Drive attachment, or for access errors.
          * &#42; `INVALID_ARGUMENT` if the request is malformed.
          * &#42; `NOT_FOUND` if the requested course does not exist.
+         * &#42; `FAILED_PRECONDITION` for the following request error:
+         * &#42; AttachmentNotVisible
          */
-        await gapi.client.classroom.courses.topics.create({
+        await gapi.client.classroom.courses.courseWork.create({
             courseId: "Test string",
         }, {
-            courseId: "Test string",
-            name: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-        });
-        /**
-         * Deletes a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not allowed to delete the
-         * requested topic or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested topic has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course or topic exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.topics.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding topic or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or topic does not exist
-         */
-        await gapi.client.classroom.courses.topics.patch({
-            courseId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            courseId: "Test string",
-            name: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-        });
-        /**
-         * Returns a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or topic, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or topic does not exist.
-         */
-        await gapi.client.classroom.courses.topics.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns the list of topics that the requester is permitted to view.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.topics.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Creates an alias for a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create the
-         * alias or for access errors.
-         * &#42; `NOT_FOUND` if the course does not exist.
-         * &#42; `ALREADY_EXISTS` if the alias already exists.
-         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
-         * requesting user or course (for example, if a user not in a domain
-         * attempts to access a domain-scoped alias).
-         */
-        await gapi.client.classroom.courses.aliases.create({
-            courseId: "Test string",
-        }, {
-            alias: "Test string",
-        });
-        /**
-         * Deletes an alias of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to remove the
-         * alias or for access errors.
-         * &#42; `NOT_FOUND` if the alias does not exist.
-         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
-         * requesting user or course (for example, if a user not in a domain
-         * attempts to delete a domain-scoped alias).
-         */
-        await gapi.client.classroom.courses.aliases.delete({
-            alias: "Test string",
-            courseId: "Test string",
-        });
-        /**
-         * Returns a list of aliases for a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * course or for access errors.
-         * &#42; `NOT_FOUND` if the course does not exist.
-         */
-        await gapi.client.classroom.courses.aliases.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Modifies assignee mode and options of a coursework.
-         *
-         * Only a teacher of the course that contains the coursework may
-         * call this method.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.modifyAssignees({
-            courseId: "Test string",
-            id: "Test string",
-        }, {
+            alternateLink: "Test string",
             assigneeMode: "Test string",
-            modifyIndividualStudentsOptions: {
-                addStudentIds: [
-                    "Test string"                ],
-                removeStudentIds: [
+            assignment: {
+                studentWorkFolder: {
+                    alternateLink: "Test string",
+                    id: "Test string",
+                    title: "Test string",
+                },
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            dueDate: {
+                day: 42,
+                month: 42,
+                year: 42,
+            },
+            dueTime: {
+                hours: 42,
+                minutes: 42,
+                nanos: 42,
+                seconds: 42,
+            },
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
                     "Test string"                ],
             },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            maxPoints: 42,
+            multipleChoiceQuestion: {
+                choices: [
+                    "Test string"                ],
+            },
+            scheduledTime: "Test string",
+            state: "Test string",
+            submissionModificationMode: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+            workType: "Test string",
         });
         /**
          * Returns a student submission.
@@ -7770,6 +7672,83 @@ gapi.load('client', () => {
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
         });
         /**
          * Updates one or more fields of a student submission.
@@ -7861,6 +7840,35 @@ gapi.load('client', () => {
             userId: "Test string",
         });
         /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
          * Returns a student submission.
          *
          * Returning a student submission transfers ownership of attached Drive
@@ -7885,35 +7893,6 @@ gapi.load('client', () => {
          * does not exist.
          */
         await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
@@ -7946,6 +7925,66 @@ gapi.load('client', () => {
             courseWorkId: "Test string",
             id: "Test string",
         }, {
+        });
+        /**
+         * Deletes a course work.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the requesting user is not permitted
+         * to delete the requested course or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested course work has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.courseWork.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
         });
         /**
          * Modifies attachments of student submission.
@@ -8000,6 +8039,211 @@ gapi.load('client', () => {
                 }            ],
         });
         /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns course work.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
          * Returns a list of student submissions that the requester is permitted to
          * view, factoring in the OAuth scopes of the request.
          * `-` may be specified as the `course_work_id` to include student
@@ -8023,6 +8267,815 @@ gapi.load('client', () => {
             pageToken: "Test string",
             states: "Test string",
             userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a list of course work that the requester is permitted to view.
+         *
+         * Course students may only view `PUBLISHED` course work. Course teachers
+         * and domain administrators may view all course work.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.list({
+            courseId: "Test string",
+            courseWorkStates: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Modifies assignee mode and options of a coursework.
+         *
+         * Only a teacher of the course that contains the coursework may
+         * call this method.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.modifyAssignees({
+            courseId: "Test string",
+            id: "Test string",
+        }, {
+            assigneeMode: "Test string",
+            modifyIndividualStudentsOptions: {
+                addStudentIds: [
+                    "Test string"                ],
+                removeStudentIds: [
+                    "Test string"                ],
+            },
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
         });
         /**
          * Updates one or more fields of a course work.
@@ -8139,180 +9192,29 @@ gapi.load('client', () => {
             id: "Test string",
         });
         /**
-         * Updates one or more fields of a student submission.
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
          *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
          * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
             courseId: "Test string",
             courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
             userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
         });
         /**
          * Modifies attachments of student submission.
@@ -8365,60 +9267,6 @@ gapi.load('client', () => {
                         title: "Test string",
                     },
                 }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns course work.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
         });
         /**
          * Updates one or more fields of a student submission.
@@ -8510,6 +9358,35 @@ gapi.load('client', () => {
             userId: "Test string",
         });
         /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
          * Returns a student submission.
          *
          * Returning a student submission transfers ownership of attached Drive
@@ -8534,35 +9411,6 @@ gapi.load('client', () => {
          * does not exist.
          */
         await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
@@ -8597,1020 +9445,89 @@ gapi.load('client', () => {
         }, {
         });
         /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Adds a user as a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create
+         * students in this course or for access errors.
+         * &#42; `NOT_FOUND` if the requested course ID does not exist.
+         * &#42; `FAILED_PRECONDITION` if the requested user's account is disabled,
+         * for the following request errors:
+         * &#42; CourseMemberLimitReached
+         * &#42; CourseNotModifiable
+         * &#42; UserGroupsMembershipLimitReached
+         * &#42; `ALREADY_EXISTS` if the user is already a student or teacher in the
+         * course.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+        await gapi.client.classroom.courses.students.create({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
+            enrollmentCode: "Test string",
         }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Deletes a course work.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the requesting user is not permitted
-         * to delete the requested course or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested course work has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.courseWork.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a list of course work that the requester is permitted to view.
-         *
-         * Course students may only view `PUBLISHED` course work. Course teachers
-         * and domain administrators may view all course work.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.list({
-            courseId: "Test string",
-            courseWorkStates: "Test string",
-            orderBy: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Creates course work.
-         *
-         * The resulting course work (and corresponding student submissions) are
-         * associated with the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * make the request. Classroom API requests to modify course work and student
-         * submissions must be made with an OAuth client ID from the associated
-         * Developer Console project.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, create course work in the requested course, share a
-         * Drive attachment, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         * &#42; `FAILED_PRECONDITION` for the following request error:
-         * &#42; AttachmentNotVisible
-         */
-        await gapi.client.classroom.courses.courseWork.create({
-            courseId: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assigneeMode: "Test string",
-            assignment: {
-                studentWorkFolder: {
-                    alternateLink: "Test string",
-                    id: "Test string",
-                    title: "Test string",
+            profile: {
+                emailAddress: "Test string",
+                id: "Test string",
+                name: {
+                    familyName: "Test string",
+                    fullName: "Test string",
+                    givenName: "Test string",
                 },
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            creationTime: "Test string",
-            creatorUserId: "Test string",
-            description: "Test string",
-            dueDate: {
-                day: 42,
-                month: 42,
-                year: 42,
-            },
-            dueTime: {
-                hours: 42,
-                minutes: 42,
-                nanos: 42,
-                seconds: 42,
-            },
-            id: "Test string",
-            individualStudentsOptions: {
-                studentIds: [
-                    "Test string"                ],
-            },
-            materials: [
-                {
-                    driveFile: {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        shareMode: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youtubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-            maxPoints: 42,
-            multipleChoiceQuestion: {
-                choices: [
-                    "Test string"                ],
-            },
-            scheduledTime: "Test string",
-            state: "Test string",
-            submissionModificationMode: "Test string",
-            title: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-            workType: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
+                permissions: [
                     {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
+                        permission: "Test string",
                     }                ],
+                photoUrl: "Test string",
+                verifiedTeacher: true,
             },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
+            studentWorkFolder: {
+                alternateLink: "Test string",
+                id: "Test string",
+                title: "Test string",
             },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
             userId: "Test string",
         });
         /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Deletes a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to delete
+         * students of this course or for access errors.
+         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
+         * course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+        await gapi.client.classroom.courses.students.delete({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
+            userId: "Test string",
         });
         /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Returns a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to view
+         * students of this course or for access errors.
+         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
+         * course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+        await gapi.client.classroom.courses.students.get({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
+            userId: "Test string",
         });
         /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Returns a list of students of this course that the requester
+         * is permitted to view.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         * &#42; `PERMISSION_DENIED` for access errors.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+        await gapi.client.classroom.courses.students.list({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
             pageSize: 42,
             pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
         });
         /**
          * Creates a teacher of a course.
@@ -9693,6 +9610,89 @@ gapi.load('client', () => {
             courseId: "Test string",
             pageSize: 42,
             pageToken: "Test string",
+        });
+        /**
+         * Creates a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, create a topic in the requested course,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.topics.create({
+            courseId: "Test string",
+        }, {
+            courseId: "Test string",
+            name: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+        });
+        /**
+         * Deletes a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not allowed to delete the
+         * requested topic or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested topic has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course or topic exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.topics.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or topic, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or topic does not exist.
+         */
+        await gapi.client.classroom.courses.topics.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns the list of topics that the requester is permitted to view.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.topics.list({
+            courseId: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Updates one or more fields of a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding topic or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or topic does not exist
+         */
+        await gapi.client.classroom.courses.topics.patch({
+            courseId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            courseId: "Test string",
+            name: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
         });
         /**
          * Updates one or more fields in a course.
@@ -9764,22 +9764,50 @@ gapi.load('client', () => {
             updateTime: "Test string",
         });
         /**
-         * Returns a list of announcements that the requester is permitted to view.
-         *
-         * Course students may only view `PUBLISHED` announcements. Course teachers
-         * and domain administrators may view all announcements.
+         * Creates an alias for a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create the
+         * alias or for access errors.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         * &#42; `ALREADY_EXISTS` if the alias already exists.
+         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
+         * requesting user or course (for example, if a user not in a domain
+         * attempts to access a domain-scoped alias).
          */
-        await gapi.client.classroom.courses.announcements.list({
-            announcementStates: "Test string",
+        await gapi.client.classroom.courses.aliases.create({
             courseId: "Test string",
-            orderBy: "Test string",
+        }, {
+            alias: "Test string",
+        });
+        /**
+         * Deletes an alias of a course.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to remove the
+         * alias or for access errors.
+         * &#42; `NOT_FOUND` if the alias does not exist.
+         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
+         * requesting user or course (for example, if a user not in a domain
+         * attempts to delete a domain-scoped alias).
+         */
+        await gapi.client.classroom.courses.aliases.delete({
+            alias: "Test string",
+            courseId: "Test string",
+        });
+        /**
+         * Returns a list of aliases for a course.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * course or for access errors.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         */
+        await gapi.client.classroom.courses.aliases.list({
+            courseId: "Test string",
             pageSize: 42,
             pageToken: "Test string",
         });
@@ -9842,6 +9870,60 @@ gapi.load('client', () => {
             state: "Test string",
             text: "Test string",
             updateTime: "Test string",
+        });
+        /**
+         * Deletes an announcement.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding announcement item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding announcement, if the requesting user is not permitted
+         * to delete the requested course or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested announcement has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.announcements.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns an announcement.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or announcement, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or announcement does not exist.
+         */
+        await gapi.client.classroom.courses.announcements.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of announcements that the requester is permitted to view.
+         *
+         * Course students may only view `PUBLISHED` announcements. Course teachers
+         * and domain administrators may view all announcements.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.announcements.list({
+            announcementStates: "Test string",
+            courseId: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
         });
         /**
          * Modifies assignee mode and options of an announcement.
@@ -9930,279 +10012,99 @@ gapi.load('client', () => {
             updateTime: "Test string",
         });
         /**
-         * Returns an announcement.
+         * Creates course work.
          *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or announcement, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or announcement does not exist.
-         */
-        await gapi.client.classroom.courses.announcements.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Deletes an announcement.
-         *
-         * This request must be made by the Developer Console project of the
+         * The resulting course work (and corresponding student submissions) are
+         * associated with the Developer Console project of the
          * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding announcement item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding announcement, if the requesting user is not permitted
-         * to delete the requested course or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested announcement has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.announcements.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Deletes a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to delete
-         * students of this course or for access errors.
-         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
-         * course does not exist.
-         */
-        await gapi.client.classroom.courses.students.delete({
-            courseId: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to view
-         * students of this course or for access errors.
-         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
-         * course does not exist.
-         */
-        await gapi.client.classroom.courses.students.get({
-            courseId: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a list of students of this course that the requester
-         * is permitted to view.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `NOT_FOUND` if the course does not exist.
-         * &#42; `PERMISSION_DENIED` for access errors.
-         */
-        await gapi.client.classroom.courses.students.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Adds a user as a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create
-         * students in this course or for access errors.
-         * &#42; `NOT_FOUND` if the requested course ID does not exist.
-         * &#42; `FAILED_PRECONDITION` if the requested user's account is disabled,
-         * for the following request errors:
-         * &#42; CourseMemberLimitReached
-         * &#42; CourseNotModifiable
-         * &#42; UserGroupsMembershipLimitReached
-         * &#42; `ALREADY_EXISTS` if the user is already a student or teacher in the
-         * course.
-         */
-        await gapi.client.classroom.courses.students.create({
-            courseId: "Test string",
-            enrollmentCode: "Test string",
-        }, {
-            courseId: "Test string",
-            profile: {
-                emailAddress: "Test string",
-                id: "Test string",
-                name: {
-                    familyName: "Test string",
-                    fullName: "Test string",
-                    givenName: "Test string",
-                },
-                permissions: [
-                    {
-                        permission: "Test string",
-                    }                ],
-                photoUrl: "Test string",
-                verifiedTeacher: true,
-            },
-            studentWorkFolder: {
-                alternateLink: "Test string",
-                id: "Test string",
-                title: "Test string",
-            },
-            userId: "Test string",
-        });
-        /**
-         * Creates a topic.
+         * make the request. Classroom API requests to modify course work and student
+         * submissions must be made with an OAuth client ID from the associated
+         * Developer Console project.
          *
          * This method returns the following error codes:
          *
          * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, create a topic in the requested course,
-         * or for access errors.
+         * requested course, create course work in the requested course, share a
+         * Drive attachment, or for access errors.
          * &#42; `INVALID_ARGUMENT` if the request is malformed.
          * &#42; `NOT_FOUND` if the requested course does not exist.
+         * &#42; `FAILED_PRECONDITION` for the following request error:
+         * &#42; AttachmentNotVisible
          */
-        await gapi.client.classroom.courses.topics.create({
+        await gapi.client.classroom.courses.courseWork.create({
             courseId: "Test string",
         }, {
-            courseId: "Test string",
-            name: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-        });
-        /**
-         * Deletes a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not allowed to delete the
-         * requested topic or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested topic has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course or topic exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.topics.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding topic or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or topic does not exist
-         */
-        await gapi.client.classroom.courses.topics.patch({
-            courseId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            courseId: "Test string",
-            name: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-        });
-        /**
-         * Returns a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or topic, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or topic does not exist.
-         */
-        await gapi.client.classroom.courses.topics.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns the list of topics that the requester is permitted to view.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.topics.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Creates an alias for a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create the
-         * alias or for access errors.
-         * &#42; `NOT_FOUND` if the course does not exist.
-         * &#42; `ALREADY_EXISTS` if the alias already exists.
-         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
-         * requesting user or course (for example, if a user not in a domain
-         * attempts to access a domain-scoped alias).
-         */
-        await gapi.client.classroom.courses.aliases.create({
-            courseId: "Test string",
-        }, {
-            alias: "Test string",
-        });
-        /**
-         * Deletes an alias of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to remove the
-         * alias or for access errors.
-         * &#42; `NOT_FOUND` if the alias does not exist.
-         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
-         * requesting user or course (for example, if a user not in a domain
-         * attempts to delete a domain-scoped alias).
-         */
-        await gapi.client.classroom.courses.aliases.delete({
-            alias: "Test string",
-            courseId: "Test string",
-        });
-        /**
-         * Returns a list of aliases for a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * course or for access errors.
-         * &#42; `NOT_FOUND` if the course does not exist.
-         */
-        await gapi.client.classroom.courses.aliases.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Modifies assignee mode and options of a coursework.
-         *
-         * Only a teacher of the course that contains the coursework may
-         * call this method.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.modifyAssignees({
-            courseId: "Test string",
-            id: "Test string",
-        }, {
+            alternateLink: "Test string",
             assigneeMode: "Test string",
-            modifyIndividualStudentsOptions: {
-                addStudentIds: [
-                    "Test string"                ],
-                removeStudentIds: [
+            assignment: {
+                studentWorkFolder: {
+                    alternateLink: "Test string",
+                    id: "Test string",
+                    title: "Test string",
+                },
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            dueDate: {
+                day: 42,
+                month: 42,
+                year: 42,
+            },
+            dueTime: {
+                hours: 42,
+                minutes: 42,
+                nanos: 42,
+                seconds: 42,
+            },
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
                     "Test string"                ],
             },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            maxPoints: 42,
+            multipleChoiceQuestion: {
+                choices: [
+                    "Test string"                ],
+            },
+            scheduledTime: "Test string",
+            state: "Test string",
+            submissionModificationMode: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+            workType: "Test string",
         });
         /**
          * Returns a student submission.
@@ -10218,6 +10120,83 @@ gapi.load('client', () => {
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
         });
         /**
          * Updates one or more fields of a student submission.
@@ -10309,6 +10288,35 @@ gapi.load('client', () => {
             userId: "Test string",
         });
         /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
          * Returns a student submission.
          *
          * Returning a student submission transfers ownership of attached Drive
@@ -10333,35 +10341,6 @@ gapi.load('client', () => {
          * does not exist.
          */
         await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
@@ -10394,6 +10373,66 @@ gapi.load('client', () => {
             courseWorkId: "Test string",
             id: "Test string",
         }, {
+        });
+        /**
+         * Deletes a course work.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the requesting user is not permitted
+         * to delete the requested course or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested course work has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.courseWork.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
         });
         /**
          * Modifies attachments of student submission.
@@ -10448,6 +10487,211 @@ gapi.load('client', () => {
                 }            ],
         });
         /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns course work.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
          * Returns a list of student submissions that the requester is permitted to
          * view, factoring in the OAuth scopes of the request.
          * `-` may be specified as the `course_work_id` to include student
@@ -10471,6 +10715,815 @@ gapi.load('client', () => {
             pageToken: "Test string",
             states: "Test string",
             userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a list of course work that the requester is permitted to view.
+         *
+         * Course students may only view `PUBLISHED` course work. Course teachers
+         * and domain administrators may view all course work.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.list({
+            courseId: "Test string",
+            courseWorkStates: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Modifies assignee mode and options of a coursework.
+         *
+         * Only a teacher of the course that contains the coursework may
+         * call this method.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.modifyAssignees({
+            courseId: "Test string",
+            id: "Test string",
+        }, {
+            assigneeMode: "Test string",
+            modifyIndividualStudentsOptions: {
+                addStudentIds: [
+                    "Test string"                ],
+                removeStudentIds: [
+                    "Test string"                ],
+            },
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
         });
         /**
          * Updates one or more fields of a course work.
@@ -10587,180 +11640,29 @@ gapi.load('client', () => {
             id: "Test string",
         });
         /**
-         * Updates one or more fields of a student submission.
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
          *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
          * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
             courseId: "Test string",
             courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
             userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
         });
         /**
          * Modifies attachments of student submission.
@@ -10813,60 +11715,6 @@ gapi.load('client', () => {
                         title: "Test string",
                     },
                 }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns course work.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
         });
         /**
          * Updates one or more fields of a student submission.
@@ -10958,6 +11806,35 @@ gapi.load('client', () => {
             userId: "Test string",
         });
         /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
          * Returns a student submission.
          *
          * Returning a student submission transfers ownership of attached Drive
@@ -10982,35 +11859,6 @@ gapi.load('client', () => {
          * does not exist.
          */
         await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
@@ -11045,1020 +11893,89 @@ gapi.load('client', () => {
         }, {
         });
         /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Adds a user as a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create
+         * students in this course or for access errors.
+         * &#42; `NOT_FOUND` if the requested course ID does not exist.
+         * &#42; `FAILED_PRECONDITION` if the requested user's account is disabled,
+         * for the following request errors:
+         * &#42; CourseMemberLimitReached
+         * &#42; CourseNotModifiable
+         * &#42; UserGroupsMembershipLimitReached
+         * &#42; `ALREADY_EXISTS` if the user is already a student or teacher in the
+         * course.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+        await gapi.client.classroom.courses.students.create({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
+            enrollmentCode: "Test string",
         }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Deletes a course work.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the requesting user is not permitted
-         * to delete the requested course or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested course work has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.courseWork.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a list of course work that the requester is permitted to view.
-         *
-         * Course students may only view `PUBLISHED` course work. Course teachers
-         * and domain administrators may view all course work.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.list({
-            courseId: "Test string",
-            courseWorkStates: "Test string",
-            orderBy: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Creates course work.
-         *
-         * The resulting course work (and corresponding student submissions) are
-         * associated with the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * make the request. Classroom API requests to modify course work and student
-         * submissions must be made with an OAuth client ID from the associated
-         * Developer Console project.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, create course work in the requested course, share a
-         * Drive attachment, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         * &#42; `FAILED_PRECONDITION` for the following request error:
-         * &#42; AttachmentNotVisible
-         */
-        await gapi.client.classroom.courses.courseWork.create({
-            courseId: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assigneeMode: "Test string",
-            assignment: {
-                studentWorkFolder: {
-                    alternateLink: "Test string",
-                    id: "Test string",
-                    title: "Test string",
+            profile: {
+                emailAddress: "Test string",
+                id: "Test string",
+                name: {
+                    familyName: "Test string",
+                    fullName: "Test string",
+                    givenName: "Test string",
                 },
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            creationTime: "Test string",
-            creatorUserId: "Test string",
-            description: "Test string",
-            dueDate: {
-                day: 42,
-                month: 42,
-                year: 42,
-            },
-            dueTime: {
-                hours: 42,
-                minutes: 42,
-                nanos: 42,
-                seconds: 42,
-            },
-            id: "Test string",
-            individualStudentsOptions: {
-                studentIds: [
-                    "Test string"                ],
-            },
-            materials: [
-                {
-                    driveFile: {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        shareMode: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youtubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-            maxPoints: 42,
-            multipleChoiceQuestion: {
-                choices: [
-                    "Test string"                ],
-            },
-            scheduledTime: "Test string",
-            state: "Test string",
-            submissionModificationMode: "Test string",
-            title: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-            workType: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
+                permissions: [
                     {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
+                        permission: "Test string",
                     }                ],
+                photoUrl: "Test string",
+                verifiedTeacher: true,
             },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
+            studentWorkFolder: {
+                alternateLink: "Test string",
+                id: "Test string",
+                title: "Test string",
             },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
             userId: "Test string",
         });
         /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Deletes a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to delete
+         * students of this course or for access errors.
+         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
+         * course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+        await gapi.client.classroom.courses.students.delete({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
+            userId: "Test string",
         });
         /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Returns a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to view
+         * students of this course or for access errors.
+         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
+         * course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+        await gapi.client.classroom.courses.students.get({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
+            userId: "Test string",
         });
         /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Returns a list of students of this course that the requester
+         * is permitted to view.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         * &#42; `PERMISSION_DENIED` for access errors.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+        await gapi.client.classroom.courses.students.list({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
             pageSize: 42,
             pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
         });
         /**
          * Creates a teacher of a course.
@@ -12141,6 +12058,89 @@ gapi.load('client', () => {
             courseId: "Test string",
             pageSize: 42,
             pageToken: "Test string",
+        });
+        /**
+         * Creates a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, create a topic in the requested course,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.topics.create({
+            courseId: "Test string",
+        }, {
+            courseId: "Test string",
+            name: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+        });
+        /**
+         * Deletes a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not allowed to delete the
+         * requested topic or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested topic has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course or topic exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.topics.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or topic, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or topic does not exist.
+         */
+        await gapi.client.classroom.courses.topics.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns the list of topics that the requester is permitted to view.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.topics.list({
+            courseId: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Updates one or more fields of a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding topic or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or topic does not exist
+         */
+        await gapi.client.classroom.courses.topics.patch({
+            courseId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            courseId: "Test string",
+            name: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
         });
         /**
          * Updates a course.
@@ -12209,22 +12209,50 @@ gapi.load('client', () => {
             updateTime: "Test string",
         });
         /**
-         * Returns a list of announcements that the requester is permitted to view.
-         *
-         * Course students may only view `PUBLISHED` announcements. Course teachers
-         * and domain administrators may view all announcements.
+         * Creates an alias for a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create the
+         * alias or for access errors.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         * &#42; `ALREADY_EXISTS` if the alias already exists.
+         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
+         * requesting user or course (for example, if a user not in a domain
+         * attempts to access a domain-scoped alias).
          */
-        await gapi.client.classroom.courses.announcements.list({
-            announcementStates: "Test string",
+        await gapi.client.classroom.courses.aliases.create({
             courseId: "Test string",
-            orderBy: "Test string",
+        }, {
+            alias: "Test string",
+        });
+        /**
+         * Deletes an alias of a course.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to remove the
+         * alias or for access errors.
+         * &#42; `NOT_FOUND` if the alias does not exist.
+         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
+         * requesting user or course (for example, if a user not in a domain
+         * attempts to delete a domain-scoped alias).
+         */
+        await gapi.client.classroom.courses.aliases.delete({
+            alias: "Test string",
+            courseId: "Test string",
+        });
+        /**
+         * Returns a list of aliases for a course.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * course or for access errors.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         */
+        await gapi.client.classroom.courses.aliases.list({
+            courseId: "Test string",
             pageSize: 42,
             pageToken: "Test string",
         });
@@ -12287,6 +12315,60 @@ gapi.load('client', () => {
             state: "Test string",
             text: "Test string",
             updateTime: "Test string",
+        });
+        /**
+         * Deletes an announcement.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding announcement item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding announcement, if the requesting user is not permitted
+         * to delete the requested course or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested announcement has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.announcements.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns an announcement.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or announcement, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or announcement does not exist.
+         */
+        await gapi.client.classroom.courses.announcements.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of announcements that the requester is permitted to view.
+         *
+         * Course students may only view `PUBLISHED` announcements. Course teachers
+         * and domain administrators may view all announcements.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.announcements.list({
+            announcementStates: "Test string",
+            courseId: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
         });
         /**
          * Modifies assignee mode and options of an announcement.
@@ -12375,279 +12457,99 @@ gapi.load('client', () => {
             updateTime: "Test string",
         });
         /**
-         * Returns an announcement.
+         * Creates course work.
          *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or announcement, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or announcement does not exist.
-         */
-        await gapi.client.classroom.courses.announcements.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Deletes an announcement.
-         *
-         * This request must be made by the Developer Console project of the
+         * The resulting course work (and corresponding student submissions) are
+         * associated with the Developer Console project of the
          * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding announcement item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding announcement, if the requesting user is not permitted
-         * to delete the requested course or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested announcement has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.announcements.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Deletes a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to delete
-         * students of this course or for access errors.
-         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
-         * course does not exist.
-         */
-        await gapi.client.classroom.courses.students.delete({
-            courseId: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to view
-         * students of this course or for access errors.
-         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
-         * course does not exist.
-         */
-        await gapi.client.classroom.courses.students.get({
-            courseId: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a list of students of this course that the requester
-         * is permitted to view.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `NOT_FOUND` if the course does not exist.
-         * &#42; `PERMISSION_DENIED` for access errors.
-         */
-        await gapi.client.classroom.courses.students.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Adds a user as a student of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create
-         * students in this course or for access errors.
-         * &#42; `NOT_FOUND` if the requested course ID does not exist.
-         * &#42; `FAILED_PRECONDITION` if the requested user's account is disabled,
-         * for the following request errors:
-         * &#42; CourseMemberLimitReached
-         * &#42; CourseNotModifiable
-         * &#42; UserGroupsMembershipLimitReached
-         * &#42; `ALREADY_EXISTS` if the user is already a student or teacher in the
-         * course.
-         */
-        await gapi.client.classroom.courses.students.create({
-            courseId: "Test string",
-            enrollmentCode: "Test string",
-        }, {
-            courseId: "Test string",
-            profile: {
-                emailAddress: "Test string",
-                id: "Test string",
-                name: {
-                    familyName: "Test string",
-                    fullName: "Test string",
-                    givenName: "Test string",
-                },
-                permissions: [
-                    {
-                        permission: "Test string",
-                    }                ],
-                photoUrl: "Test string",
-                verifiedTeacher: true,
-            },
-            studentWorkFolder: {
-                alternateLink: "Test string",
-                id: "Test string",
-                title: "Test string",
-            },
-            userId: "Test string",
-        });
-        /**
-         * Creates a topic.
+         * make the request. Classroom API requests to modify course work and student
+         * submissions must be made with an OAuth client ID from the associated
+         * Developer Console project.
          *
          * This method returns the following error codes:
          *
          * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, create a topic in the requested course,
-         * or for access errors.
+         * requested course, create course work in the requested course, share a
+         * Drive attachment, or for access errors.
          * &#42; `INVALID_ARGUMENT` if the request is malformed.
          * &#42; `NOT_FOUND` if the requested course does not exist.
+         * &#42; `FAILED_PRECONDITION` for the following request error:
+         * &#42; AttachmentNotVisible
          */
-        await gapi.client.classroom.courses.topics.create({
+        await gapi.client.classroom.courses.courseWork.create({
             courseId: "Test string",
         }, {
-            courseId: "Test string",
-            name: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-        });
-        /**
-         * Deletes a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not allowed to delete the
-         * requested topic or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested topic has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course or topic exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.topics.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding topic or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or topic does not exist
-         */
-        await gapi.client.classroom.courses.topics.patch({
-            courseId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            courseId: "Test string",
-            name: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-        });
-        /**
-         * Returns a topic.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or topic, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or topic does not exist.
-         */
-        await gapi.client.classroom.courses.topics.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns the list of topics that the requester is permitted to view.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.topics.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Creates an alias for a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create the
-         * alias or for access errors.
-         * &#42; `NOT_FOUND` if the course does not exist.
-         * &#42; `ALREADY_EXISTS` if the alias already exists.
-         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
-         * requesting user or course (for example, if a user not in a domain
-         * attempts to access a domain-scoped alias).
-         */
-        await gapi.client.classroom.courses.aliases.create({
-            courseId: "Test string",
-        }, {
-            alias: "Test string",
-        });
-        /**
-         * Deletes an alias of a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to remove the
-         * alias or for access errors.
-         * &#42; `NOT_FOUND` if the alias does not exist.
-         * &#42; `FAILED_PRECONDITION` if the alias requested does not make sense for the
-         * requesting user or course (for example, if a user not in a domain
-         * attempts to delete a domain-scoped alias).
-         */
-        await gapi.client.classroom.courses.aliases.delete({
-            alias: "Test string",
-            courseId: "Test string",
-        });
-        /**
-         * Returns a list of aliases for a course.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * course or for access errors.
-         * &#42; `NOT_FOUND` if the course does not exist.
-         */
-        await gapi.client.classroom.courses.aliases.list({
-            courseId: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Modifies assignee mode and options of a coursework.
-         *
-         * Only a teacher of the course that contains the coursework may
-         * call this method.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.modifyAssignees({
-            courseId: "Test string",
-            id: "Test string",
-        }, {
+            alternateLink: "Test string",
             assigneeMode: "Test string",
-            modifyIndividualStudentsOptions: {
-                addStudentIds: [
-                    "Test string"                ],
-                removeStudentIds: [
+            assignment: {
+                studentWorkFolder: {
+                    alternateLink: "Test string",
+                    id: "Test string",
+                    title: "Test string",
+                },
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            dueDate: {
+                day: 42,
+                month: 42,
+                year: 42,
+            },
+            dueTime: {
+                hours: 42,
+                minutes: 42,
+                nanos: 42,
+                seconds: 42,
+            },
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
                     "Test string"                ],
             },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            maxPoints: 42,
+            multipleChoiceQuestion: {
+                choices: [
+                    "Test string"                ],
+            },
+            scheduledTime: "Test string",
+            state: "Test string",
+            submissionModificationMode: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+            workType: "Test string",
         });
         /**
          * Returns a student submission.
@@ -12663,6 +12565,83 @@ gapi.load('client', () => {
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
         });
         /**
          * Updates one or more fields of a student submission.
@@ -12754,6 +12733,35 @@ gapi.load('client', () => {
             userId: "Test string",
         });
         /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
          * Returns a student submission.
          *
          * Returning a student submission transfers ownership of attached Drive
@@ -12778,35 +12786,6 @@ gapi.load('client', () => {
          * does not exist.
          */
         await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
@@ -12839,6 +12818,66 @@ gapi.load('client', () => {
             courseWorkId: "Test string",
             id: "Test string",
         }, {
+        });
+        /**
+         * Deletes a course work.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the requesting user is not permitted
+         * to delete the requested course or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested course work has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.courseWork.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
         });
         /**
          * Modifies attachments of student submission.
@@ -12893,6 +12932,211 @@ gapi.load('client', () => {
                 }            ],
         });
         /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns course work.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
          * Returns a list of student submissions that the requester is permitted to
          * view, factoring in the OAuth scopes of the request.
          * `-` may be specified as the `course_work_id` to include student
@@ -12916,6 +13160,815 @@ gapi.load('client', () => {
             pageToken: "Test string",
             states: "Test string",
             userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a list of course work that the requester is permitted to view.
+         *
+         * Course students may only view `PUBLISHED` course work. Course teachers
+         * and domain administrators may view all course work.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.list({
+            courseId: "Test string",
+            courseWorkStates: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Modifies assignee mode and options of a coursework.
+         *
+         * Only a teacher of the course that contains the coursework may
+         * call this method.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.modifyAssignees({
+            courseId: "Test string",
+            id: "Test string",
+        }, {
+            assigneeMode: "Test string",
+            modifyIndividualStudentsOptions: {
+                addStudentIds: [
+                    "Test string"                ],
+                removeStudentIds: [
+                    "Test string"                ],
+            },
+        });
+        /**
+         * Returns a student submission.
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, course work, or student submission or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
+         *
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Modifies attachments of student submission.
+         *
+         * Attachments may only be added to student submissions belonging to course
+         * work objects with a `workType` of `ASSIGNMENT`.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, if the user is not permitted to modify
+         * attachments on the requested student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+            addAttachments: [
+                {
+                    driveFile: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youTubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+        });
+        /**
+         * Updates one or more fields of a student submission.
+         *
+         * See google.classroom.v1.StudentSubmission for details
+         * of which fields may be updated and who may change them.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding course work, if the user is not permitted to make the
+         * requested modification to the student submission, or for
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assignedGrade: 42,
+            assignmentSubmission: {
+                attachments: [
+                    {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        form: {
+                            formUrl: "Test string",
+                            responseUrl: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        link: {
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                            url: "Test string",
+                        },
+                        youTubeVideo: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                    }                ],
+            },
+            associatedWithDeveloper: true,
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            courseWorkType: "Test string",
+            creationTime: "Test string",
+            draftGrade: 42,
+            id: "Test string",
+            late: true,
+            multipleChoiceSubmission: {
+                answer: "Test string",
+            },
+            shortAnswerSubmission: {
+                answer: "Test string",
+            },
+            state: "Test string",
+            submissionHistory: [
+                {
+                    gradeHistory: {
+                        actorUserId: "Test string",
+                        gradeChangeType: "Test string",
+                        gradeTimestamp: "Test string",
+                        maxPoints: 42,
+                        pointsEarned: 42,
+                    },
+                    stateHistory: {
+                        actorUserId: "Test string",
+                        state: "Test string",
+                        stateTimestamp: "Test string",
+                    },
+                }            ],
+            updateTime: "Test string",
+            userId: "Test string",
+        });
+        /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Returns a student submission.
+         *
+         * Returning a student submission transfers ownership of attached Drive
+         * files to the student and may also update the submission state.
+         * Unlike the Classroom application, returning a student submission does not
+         * set assignedGrade to the draftGrade value.
+         *
+         * Only a teacher of the course that contains the requested student submission
+         * may call this method.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, return the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
+         * Turns in a student submission.
+         *
+         * Turning in a student submission transfers ownership of attached Drive
+         * files to the teacher and may also update the submission state.
+         *
+         * This may only be called by the student that owns the specified student
+         * submission.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, turn in the requested student submission,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
         });
         /**
          * Updates one or more fields of a course work.
@@ -13032,180 +14085,29 @@ gapi.load('client', () => {
             id: "Test string",
         });
         /**
-         * Updates one or more fields of a student submission.
+         * Returns a list of student submissions that the requester is permitted to
+         * view, factoring in the OAuth scopes of the request.
+         * `-` may be specified as the `course_work_id` to include student
+         * submissions for multiple course work items.
          *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Course students may only view their own work. Course teachers
+         * and domain administrators may view all student submissions.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, or for access errors.
          * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
             courseId: "Test string",
             courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
+            late: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
             userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
         });
         /**
          * Modifies attachments of student submission.
@@ -13258,60 +14160,6 @@ gapi.load('client', () => {
                         title: "Test string",
                     },
                 }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns course work.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course or course work does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.get({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
         });
         /**
          * Updates one or more fields of a student submission.
@@ -13403,6 +14251,35 @@ gapi.load('client', () => {
             userId: "Test string",
         });
         /**
+         * Reclaims a student submission on behalf of the student that owns it.
+         *
+         * Reclaiming a student submission transfers ownership of attached Drive
+         * files to the student and updates the submission state.
+         *
+         * Only the student that owns the requested student submission may call this
+         * method, and only for a student submission that has been turned in.
+         *
+         * This request must be made by the Developer Console project of the
+         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+         * create the corresponding course work item.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or course work, unsubmit the requested student submission,
+         * or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
+         * does not exist.
+         */
+        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+            courseId: "Test string",
+            courseWorkId: "Test string",
+            id: "Test string",
+        }, {
+        });
+        /**
          * Returns a student submission.
          *
          * Returning a student submission transfers ownership of attached Drive
@@ -13427,35 +14304,6 @@ gapi.load('client', () => {
          * does not exist.
          */
         await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
             courseId: "Test string",
             courseWorkId: "Test string",
             id: "Test string",
@@ -13490,1020 +14338,89 @@ gapi.load('client', () => {
         }, {
         });
         /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Adds a user as a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to create
+         * students in this course or for access errors.
+         * &#42; `NOT_FOUND` if the requested course ID does not exist.
+         * &#42; `FAILED_PRECONDITION` if the requested user's account is disabled,
+         * for the following request errors:
+         * &#42; CourseMemberLimitReached
+         * &#42; CourseNotModifiable
+         * &#42; UserGroupsMembershipLimitReached
+         * &#42; `ALREADY_EXISTS` if the user is already a student or teacher in the
+         * course.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
+        await gapi.client.classroom.courses.students.create({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
+            enrollmentCode: "Test string",
         }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Deletes a course work.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the requesting user is not permitted
-         * to delete the requested course or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the requested course work has already been
-         * deleted.
-         * &#42; `NOT_FOUND` if no course exists with the requested ID.
-         */
-        await gapi.client.classroom.courses.courseWork.delete({
-            courseId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a list of course work that the requester is permitted to view.
-         *
-         * Course students may only view `PUBLISHED` course work. Course teachers
-         * and domain administrators may view all course work.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
-         * the requested course or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.list({
-            courseId: "Test string",
-            courseWorkStates: "Test string",
-            orderBy: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
-                    {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                    }                ],
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
-            },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
-        });
-        /**
-         * Creates course work.
-         *
-         * The resulting course work (and corresponding student submissions) are
-         * associated with the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * make the request. Classroom API requests to modify course work and student
-         * submissions must be made with an OAuth client ID from the associated
-         * Developer Console project.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, create course work in the requested course, share a
-         * Drive attachment, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         * &#42; `FAILED_PRECONDITION` for the following request error:
-         * &#42; AttachmentNotVisible
-         */
-        await gapi.client.classroom.courses.courseWork.create({
-            courseId: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assigneeMode: "Test string",
-            assignment: {
-                studentWorkFolder: {
-                    alternateLink: "Test string",
-                    id: "Test string",
-                    title: "Test string",
+            profile: {
+                emailAddress: "Test string",
+                id: "Test string",
+                name: {
+                    familyName: "Test string",
+                    fullName: "Test string",
+                    givenName: "Test string",
                 },
-            },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            creationTime: "Test string",
-            creatorUserId: "Test string",
-            description: "Test string",
-            dueDate: {
-                day: 42,
-                month: 42,
-                year: 42,
-            },
-            dueTime: {
-                hours: 42,
-                minutes: 42,
-                nanos: 42,
-                seconds: 42,
-            },
-            id: "Test string",
-            individualStudentsOptions: {
-                studentIds: [
-                    "Test string"                ],
-            },
-            materials: [
-                {
-                    driveFile: {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        shareMode: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youtubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-            maxPoints: 42,
-            multipleChoiceQuestion: {
-                choices: [
-                    "Test string"                ],
-            },
-            scheduledTime: "Test string",
-            state: "Test string",
-            submissionModificationMode: "Test string",
-            title: "Test string",
-            topicId: "Test string",
-            updateTime: "Test string",
-            workType: "Test string",
-        });
-        /**
-         * Returns a student submission.
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course, course work, or student submission or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.get({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        });
-        /**
-         * Updates one or more fields of a student submission.
-         *
-         * See google.classroom.v1.StudentSubmission for details
-         * of which fields may be updated and who may change them.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
-         * the corresponding course work, if the user is not permitted to make the
-         * requested modification to the student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.patch({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-            updateMask: "Test string",
-        }, {
-            alternateLink: "Test string",
-            assignedGrade: 42,
-            assignmentSubmission: {
-                attachments: [
+                permissions: [
                     {
-                        driveFile: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        form: {
-                            formUrl: "Test string",
-                            responseUrl: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
-                        link: {
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                            url: "Test string",
-                        },
-                        youTubeVideo: {
-                            alternateLink: "Test string",
-                            id: "Test string",
-                            thumbnailUrl: "Test string",
-                            title: "Test string",
-                        },
+                        permission: "Test string",
                     }                ],
+                photoUrl: "Test string",
+                verifiedTeacher: true,
             },
-            associatedWithDeveloper: true,
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            courseWorkType: "Test string",
-            creationTime: "Test string",
-            draftGrade: 42,
-            id: "Test string",
-            late: true,
-            multipleChoiceSubmission: {
-                answer: "Test string",
+            studentWorkFolder: {
+                alternateLink: "Test string",
+                id: "Test string",
+                title: "Test string",
             },
-            shortAnswerSubmission: {
-                answer: "Test string",
-            },
-            state: "Test string",
-            submissionHistory: [
-                {
-                    gradeHistory: {
-                        actorUserId: "Test string",
-                        gradeChangeType: "Test string",
-                        gradeTimestamp: "Test string",
-                        maxPoints: 42,
-                        pointsEarned: 42,
-                    },
-                    stateHistory: {
-                        actorUserId: "Test string",
-                        state: "Test string",
-                        stateTimestamp: "Test string",
-                    },
-                }            ],
-            updateTime: "Test string",
             userId: "Test string",
         });
         /**
-         * Returns a student submission.
-         *
-         * Returning a student submission transfers ownership of attached Drive
-         * files to the student and may also update the submission state.
-         * Unlike the Classroom application, returning a student submission does not
-         * set assignedGrade to the draftGrade value.
-         *
-         * Only a teacher of the course that contains the requested student submission
-         * may call this method.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Deletes a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, return the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to delete
+         * students of this course or for access errors.
+         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
+         * course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.return({
+        await gapi.client.classroom.courses.students.delete({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
+            userId: "Test string",
         });
         /**
-         * Reclaims a student submission on behalf of the student that owns it.
-         *
-         * Reclaiming a student submission transfers ownership of attached Drive
-         * files to the student and updates the submission state.
-         *
-         * Only the student that owns the requested student submission may call this
-         * method, and only for a student submission that has been turned in.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Returns a student of a course.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, unsubmit the requested student submission,
-         * or for access errors.
-         * &#42; `FAILED_PRECONDITION` if the student submission has not been turned in.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to view
+         * students of this course or for access errors.
+         * &#42; `NOT_FOUND` if no student of this course has the requested ID or if the
+         * course does not exist.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.reclaim({
+        await gapi.client.classroom.courses.students.get({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
+            userId: "Test string",
         });
         /**
-         * Turns in a student submission.
-         *
-         * Turning in a student submission transfers ownership of attached Drive
-         * files to the teacher and may also update the submission state.
-         *
-         * This may only be called by the student that owns the specified student
-         * submission.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
+         * Returns a list of students of this course that the requester
+         * is permitted to view.
          *
          * This method returns the following error codes:
          *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, turn in the requested student submission,
-         * or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
+         * &#42; `NOT_FOUND` if the course does not exist.
+         * &#42; `PERMISSION_DENIED` for access errors.
          */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.turnIn({
+        await gapi.client.classroom.courses.students.list({
             courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-        });
-        /**
-         * Modifies attachments of student submission.
-         *
-         * Attachments may only be added to student submissions belonging to course
-         * work objects with a `workType` of `ASSIGNMENT`.
-         *
-         * This request must be made by the Developer Console project of the
-         * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-         * create the corresponding course work item.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, if the user is not permitted to modify
-         * attachments on the requested student submission, or for
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course, course work, or student submission
-         * does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            id: "Test string",
-        }, {
-            addAttachments: [
-                {
-                    driveFile: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    form: {
-                        formUrl: "Test string",
-                        responseUrl: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                    link: {
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                        url: "Test string",
-                    },
-                    youTubeVideo: {
-                        alternateLink: "Test string",
-                        id: "Test string",
-                        thumbnailUrl: "Test string",
-                        title: "Test string",
-                    },
-                }            ],
-        });
-        /**
-         * Returns a list of student submissions that the requester is permitted to
-         * view, factoring in the OAuth scopes of the request.
-         * `-` may be specified as the `course_work_id` to include student
-         * submissions for multiple course work items.
-         *
-         * Course students may only view their own work. Course teachers
-         * and domain administrators may view all student submissions.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
-         * requested course or course work, or for access errors.
-         * &#42; `INVALID_ARGUMENT` if the request is malformed.
-         * &#42; `NOT_FOUND` if the requested course does not exist.
-         */
-        await gapi.client.classroom.courses.courseWork.studentSubmissions.list({
-            courseId: "Test string",
-            courseWorkId: "Test string",
-            late: "Test string",
             pageSize: 42,
             pageToken: "Test string",
-            states: "Test string",
-            userId: "Test string",
         });
         /**
          * Creates a teacher of a course.
@@ -14586,6 +14503,89 @@ gapi.load('client', () => {
             courseId: "Test string",
             pageSize: 42,
             pageToken: "Test string",
+        });
+        /**
+         * Creates a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course, create a topic in the requested course,
+         * or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.topics.create({
+            courseId: "Test string",
+        }, {
+            courseId: "Test string",
+            name: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+        });
+        /**
+         * Deletes a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not allowed to delete the
+         * requested topic or for access errors.
+         * &#42; `FAILED_PRECONDITION` if the requested topic has already been
+         * deleted.
+         * &#42; `NOT_FOUND` if no course or topic exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.topics.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access the
+         * requested course or topic, or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or topic does not exist.
+         */
+        await gapi.client.classroom.courses.topics.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns the list of topics that the requester is permitted to view.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to access
+         * the requested course or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.topics.list({
+            courseId: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Updates one or more fields of a topic.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting developer project did not create
+         * the corresponding topic or for access errors.
+         * &#42; `INVALID_ARGUMENT` if the request is malformed.
+         * &#42; `NOT_FOUND` if the requested course or topic does not exist
+         */
+        await gapi.client.classroom.courses.topics.patch({
+            courseId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            courseId: "Test string",
+            name: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
         });
         /**
          * Accepts an invitation, removing it and adding the invited user to the
@@ -14738,82 +14738,6 @@ gapi.load('client', () => {
             userId: "Test string",
         });
         /**
-         * Returns a list of guardian invitations that the requesting user is
-         * permitted to view, filtered by the parameters provided.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if a `student_id` is specified, and the requesting
-         * user is not permitted to view guardian invitations for that student, if
-         * `"-"` is specified as the `student_id` and the user is not a domain
-         * administrator, if guardians are not enabled for the domain in question,
-         * or for other access errors.
-         * &#42; `INVALID_ARGUMENT` if a `student_id` is specified, but its format cannot
-         * be recognized (it is not an email address, nor a `student_id` from the
-         * API, nor the literal string `me`). May also be returned if an invalid
-         * `page_token` or `state` is provided.
-         * &#42; `NOT_FOUND` if a `student_id` is specified, and its format can be
-         * recognized, but Classroom has no record of that student.
-         */
-        await gapi.client.classroom.userProfiles.guardianInvitations.list({
-            invitedEmailAddress: "Test string",
-            pageSize: 42,
-            pageToken: "Test string",
-            states: "Test string",
-            studentId: "Test string",
-        });
-        /**
-         * Returns a specific guardian invitation.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to view
-         * guardian invitations for the student identified by the `student_id`, if
-         * guardians are not enabled for the domain in question, or for other
-         * access errors.
-         * &#42; `INVALID_ARGUMENT` if a `student_id` is specified, but its format cannot
-         * be recognized (it is not an email address, nor a `student_id` from the
-         * API, nor the literal string `me`).
-         * &#42; `NOT_FOUND` if Classroom cannot find any record of the given student or
-         * `invitation_id`. May also be returned if the student exists, but the
-         * requesting user does not have access to see that student.
-         */
-        await gapi.client.classroom.userProfiles.guardianInvitations.get({
-            invitationId: "Test string",
-            studentId: "Test string",
-        });
-        /**
-         * Modifies a guardian invitation.
-         *
-         * Currently, the only valid modification is to change the `state` from
-         * `PENDING` to `COMPLETE`. This has the effect of withdrawing the invitation.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if the current user does not have permission to
-         * manage guardians, if guardians are not enabled for the domain in question
-         * or for other access errors.
-         * &#42; `FAILED_PRECONDITION` if the guardian link is not in the `PENDING` state.
-         * &#42; `INVALID_ARGUMENT` if the format of the student ID provided
-         * cannot be recognized (it is not an email address, nor a `user_id` from
-         * this API), or if the passed `GuardianInvitation` has a `state` other than
-         * `COMPLETE`, or if it modifies fields other than `state`.
-         * &#42; `NOT_FOUND` if the student ID provided is a valid student ID, but
-         * Classroom has no record of that student, or if the `id` field does not
-         * refer to a guardian invitation known to Classroom.
-         */
-        await gapi.client.classroom.userProfiles.guardianInvitations.patch({
-            invitationId: "Test string",
-            studentId: "Test string",
-            updateMask: "Test string",
-        }, {
-            creationTime: "Test string",
-            invitationId: "Test string",
-            invitedEmailAddress: "Test string",
-            state: "Test string",
-            studentId: "Test string",
-        });
-        /**
          * Creates a guardian invitation, and sends an email to the guardian asking
          * them to confirm that they are the student's guardian.
          *
@@ -14855,6 +14779,127 @@ gapi.load('client', () => {
             studentId: "Test string",
         });
         /**
+         * Returns a specific guardian invitation.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the requesting user is not permitted to view
+         * guardian invitations for the student identified by the `student_id`, if
+         * guardians are not enabled for the domain in question, or for other
+         * access errors.
+         * &#42; `INVALID_ARGUMENT` if a `student_id` is specified, but its format cannot
+         * be recognized (it is not an email address, nor a `student_id` from the
+         * API, nor the literal string `me`).
+         * &#42; `NOT_FOUND` if Classroom cannot find any record of the given student or
+         * `invitation_id`. May also be returned if the student exists, but the
+         * requesting user does not have access to see that student.
+         */
+        await gapi.client.classroom.userProfiles.guardianInvitations.get({
+            invitationId: "Test string",
+            studentId: "Test string",
+        });
+        /**
+         * Returns a list of guardian invitations that the requesting user is
+         * permitted to view, filtered by the parameters provided.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if a `student_id` is specified, and the requesting
+         * user is not permitted to view guardian invitations for that student, if
+         * `"-"` is specified as the `student_id` and the user is not a domain
+         * administrator, if guardians are not enabled for the domain in question,
+         * or for other access errors.
+         * &#42; `INVALID_ARGUMENT` if a `student_id` is specified, but its format cannot
+         * be recognized (it is not an email address, nor a `student_id` from the
+         * API, nor the literal string `me`). May also be returned if an invalid
+         * `page_token` or `state` is provided.
+         * &#42; `NOT_FOUND` if a `student_id` is specified, and its format can be
+         * recognized, but Classroom has no record of that student.
+         */
+        await gapi.client.classroom.userProfiles.guardianInvitations.list({
+            invitedEmailAddress: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+            states: "Test string",
+            studentId: "Test string",
+        });
+        /**
+         * Modifies a guardian invitation.
+         *
+         * Currently, the only valid modification is to change the `state` from
+         * `PENDING` to `COMPLETE`. This has the effect of withdrawing the invitation.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if the current user does not have permission to
+         * manage guardians, if guardians are not enabled for the domain in question
+         * or for other access errors.
+         * &#42; `FAILED_PRECONDITION` if the guardian link is not in the `PENDING` state.
+         * &#42; `INVALID_ARGUMENT` if the format of the student ID provided
+         * cannot be recognized (it is not an email address, nor a `user_id` from
+         * this API), or if the passed `GuardianInvitation` has a `state` other than
+         * `COMPLETE`, or if it modifies fields other than `state`.
+         * &#42; `NOT_FOUND` if the student ID provided is a valid student ID, but
+         * Classroom has no record of that student, or if the `id` field does not
+         * refer to a guardian invitation known to Classroom.
+         */
+        await gapi.client.classroom.userProfiles.guardianInvitations.patch({
+            invitationId: "Test string",
+            studentId: "Test string",
+            updateMask: "Test string",
+        }, {
+            creationTime: "Test string",
+            invitationId: "Test string",
+            invitedEmailAddress: "Test string",
+            state: "Test string",
+            studentId: "Test string",
+        });
+        /**
+         * Deletes a guardian.
+         *
+         * The guardian will no longer receive guardian notifications and the guardian
+         * will no longer be accessible via the API.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if no user that matches the provided `student_id`
+         * is visible to the requesting user, if the requesting user is not
+         * permitted to manage guardians for the student identified by the
+         * `student_id`, if guardians are not enabled for the domain in question,
+         * or for other access errors.
+         * &#42; `INVALID_ARGUMENT` if a `student_id` is specified, but its format cannot
+         * be recognized (it is not an email address, nor a `student_id` from the
+         * API).
+         * &#42; `NOT_FOUND` if the requesting user is permitted to modify guardians for
+         * the requested `student_id`, but no `Guardian` record exists for that
+         * student with the provided `guardian_id`.
+         */
+        await gapi.client.classroom.userProfiles.guardians.delete({
+            guardianId: "Test string",
+            studentId: "Test string",
+        });
+        /**
+         * Returns a specific guardian.
+         *
+         * This method returns the following error codes:
+         *
+         * &#42; `PERMISSION_DENIED` if no user that matches the provided `student_id`
+         * is visible to the requesting user, if the requesting user is not
+         * permitted to view guardian information for the student identified by the
+         * `student_id`, if guardians are not enabled for the domain in question,
+         * or for other access errors.
+         * &#42; `INVALID_ARGUMENT` if a `student_id` is specified, but its format cannot
+         * be recognized (it is not an email address, nor a `student_id` from the
+         * API, nor the literal string `me`).
+         * &#42; `NOT_FOUND` if the requesting user is permitted to view guardians for
+         * the requested `student_id`, but no `Guardian` record exists for that
+         * student that matches the provided `guardian_id`.
+         */
+        await gapi.client.classroom.userProfiles.guardians.get({
+            guardianId: "Test string",
+            studentId: "Test string",
+        });
+        /**
          * Returns a list of guardians that the requesting user is permitted to
          * view, restricted to those that match the request.
          *
@@ -14880,51 +14925,6 @@ gapi.load('client', () => {
             invitedEmailAddress: "Test string",
             pageSize: 42,
             pageToken: "Test string",
-            studentId: "Test string",
-        });
-        /**
-         * Returns a specific guardian.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if no user that matches the provided `student_id`
-         * is visible to the requesting user, if the requesting user is not
-         * permitted to view guardian information for the student identified by the
-         * `student_id`, if guardians are not enabled for the domain in question,
-         * or for other access errors.
-         * &#42; `INVALID_ARGUMENT` if a `student_id` is specified, but its format cannot
-         * be recognized (it is not an email address, nor a `student_id` from the
-         * API, nor the literal string `me`).
-         * &#42; `NOT_FOUND` if the requesting user is permitted to view guardians for
-         * the requested `student_id`, but no `Guardian` record exists for that
-         * student that matches the provided `guardian_id`.
-         */
-        await gapi.client.classroom.userProfiles.guardians.get({
-            guardianId: "Test string",
-            studentId: "Test string",
-        });
-        /**
-         * Deletes a guardian.
-         *
-         * The guardian will no longer receive guardian notifications and the guardian
-         * will no longer be accessible via the API.
-         *
-         * This method returns the following error codes:
-         *
-         * &#42; `PERMISSION_DENIED` if no user that matches the provided `student_id`
-         * is visible to the requesting user, if the requesting user is not
-         * permitted to manage guardians for the student identified by the
-         * `student_id`, if guardians are not enabled for the domain in question,
-         * or for other access errors.
-         * &#42; `INVALID_ARGUMENT` if a `student_id` is specified, but its format cannot
-         * be recognized (it is not an email address, nor a `student_id` from the
-         * API).
-         * &#42; `NOT_FOUND` if the requesting user is permitted to modify guardians for
-         * the requested `student_id`, but no `Guardian` record exists for that
-         * student with the provided `guardian_id`.
-         */
-        await gapi.client.classroom.userProfiles.guardians.delete({
-            guardianId: "Test string",
             studentId: "Test string",
         });
     }

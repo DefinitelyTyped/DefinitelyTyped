@@ -3,7 +3,7 @@
 // Definitions by: Richard Natal <https://github.com/Bigous>
 //                 Connor Fitzgerald <https://github.com/connorjayfitzgerald>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.5
 
 /// <reference types="node" />
 
@@ -592,7 +592,7 @@ declare namespace OracleDB {
      *
      * @see https://oracle.github.io/node-oracledb/doc/api.html#executebindParams
      */
-    type BindParameters = Record<string, BindParameter | string | number | Date | DBObject | Buffer | null | undefined> | BindParameter[] | any[];
+    type BindParameters = Record<string, BindParameter | string | number | Date | DBObject_IN<any> | Buffer | null | undefined> | BindParameter[] | any[];
 
     interface CloseConnectionOptions {
         /**
@@ -925,21 +925,21 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
          * @since 4.0
          */
-        getDbObjectClass(className: string): Promise<DBObjectClass>;
-        getDbObjectClass(
+        getDbObjectClass<T>(className: string): Promise<DBObjectClass<T>>;
+        getDbObjectClass<T>(
             className: string,
-            callback: (error: DBError, dbObject: DBObjectClass) => void
+            callback: (error: DBError, dbObject: DBObjectClass<T>) => void
         ): void;
 
-        getQueue(name: string, options?: GetAdvancedQueueOptions): Promise<AdvancedQueue>;
-        getQueue(
+        getQueue<T>(name: string, options?: GetAdvancedQueueOptions): Promise<AdvancedQueue<T>>;
+        getQueue<T>(
             name: string,
-            callback: (error: DBError, queue: AdvancedQueue) => void
+            callback: (error: DBError, queue: AdvancedQueue<T>) => void
         ): void;
-        getQueue(
+        getQueue<T>(
             name: string,
             options: GetAdvancedQueueOptions,
-            callback: (error: DBError, queue: AdvancedQueue) => void
+            callback: (error: DBError, queue: AdvancedQueue<T>) => void
         ): void;
 
         /**
@@ -1207,11 +1207,11 @@ declare namespace OracleDB {
     /**
      * Result of connection.getStatementInfo().
      */
-    interface StatementInfo {
+    interface StatementInfo<T = {}> {
         /** Array of strings corresponding to the unique names of the bind variables used in the SQL statement. */
         bindNames?: string[];
         /** Extended metadata properties. */
-        metaData?: Array<Metadata>;
+        metaData?: Array<Metadata<T>>;
         /** One of the SQL Statement Type Constants. */
         statementType?: number;
     }
@@ -1572,7 +1572,7 @@ declare namespace OracleDB {
     /**
      * Included in the result of a query execution to describe details of the columns involved.
      */
-    interface Metadata {
+    interface Metadata<T> {
         /**
          * The column name follows Oracle’s standard name-casing rules. It will commonly be uppercase,
          * since most applications create tables using unquoted, case-insensitive names.
@@ -1593,7 +1593,7 @@ declare namespace OracleDB {
         /**
          * The class associated with the database type. This is only set if the database type is an object type.
          */
-        dbTypeClass?: DBObjectClass;
+        dbTypeClass?: DBObjectClass<T>;
         /**
          * Name of the database type, such as “NUMBER” or “VARCHAR2”. For object types, this will be the object name.
          */
@@ -1788,7 +1788,7 @@ declare namespace OracleDB {
      */
     interface GetPooledConnectionOptions {
         /** Database user to retrieve the connection for. */
-        user: string;
+        user?: string;
         /** Password of the specified user. */
         password?: string;
         /** Optionally set the connection tag. */
@@ -1962,7 +1962,7 @@ declare namespace OracleDB {
      * @see https://oracle.github.io/node-oracledb/doc/api.html#aq
      * @since 4.0
      */
-    interface AdvancedQueue {
+    interface AdvancedQueue<T> {
         /** Contains the name of the queue specified in the connection.getQueue() call. */
         readonly name: string;
         /** Options to use when dequeuing messages. Attributes can be set before each queue.deqOne() or queue.deqMany(). */
@@ -1976,7 +1976,7 @@ declare namespace OracleDB {
          * 
          * This is defined only if payloadType has the value oracledb.DB_TYPE_OBJECT.
          */
-        readonly payloadTypeClass?: DBObjectClass;
+        readonly payloadTypeClass?: DBObjectClass<T>;
         /** Either the string “RAW” or the name of the Oracle Database object type identified when the queue was created. */
         readonly payloadTypeName: string;
 
@@ -1985,14 +1985,14 @@ declare namespace OracleDB {
          * 
          * @param maxMessages Maximum number of messages to dequeue.
          */
-        deqMany(maxMessages: number): Promise<AdvancedQueueMessage[]>;
-        deqMany(maxMessages: number, callback: (error: DBError, messages: AdvancedQueueMessage[]) => void): void;
+        deqMany(maxMessages: number): Promise<AdvancedQueueMessage<T>[]>;
+        deqMany(maxMessages: number, callback: (error: DBError, messages: AdvancedQueueMessage<T>[]) => void): void;
 
         /**
          * Dequeues a single message. Depending on the dequeue options, the message may also be returned as undefined if no message is available.
          */
-        deqOne(): Promise<AdvancedQueueMessage | undefined>;
-        deqOne(callback: (error: DBError, message?: AdvancedQueueMessage) => void): void;
+        deqOne(): Promise<AdvancedQueueMessage<T> | undefined>;
+        deqOne(callback: (error: DBError, message?: AdvancedQueueMessage<T>) => void): void;
 
         /**
          * Enqueues multiple messages.
@@ -2003,19 +2003,19 @@ declare namespace OracleDB {
          * 
          * @param messages Messages to enqueue.
          */
-        enqMany(messages: EnqueueMessage[]): Promise<void>;
-        enqMany(messages: EnqueueMessage[], callback: (error: DBError) => void): void;
+        enqMany(messages: EnqueueMessage<T>[]): Promise<void>;
+        enqMany(messages: EnqueueMessage<T>[], callback: (error: DBError) => void): void;
 
         /**
          * Enqueues a single message.
          * 
          * @param message 
          */
-        enqOne(message: EnqueueMessage): Promise<void>;
-        enqOne(message: EnqueueMessage, callback: (error: DBError) => void): void;
+        enqOne(message: EnqueueMessage<T>): Promise<void>;
+        enqOne(message: EnqueueMessage<T>, callback: (error: DBError) => void): void;
     }
 
-    type EnqueueMessage = string | Buffer | DBObject | {
+    type EnqueueMessage<T> = string | Buffer | DBObject_IN<T> | {
         /** Correlation that was used during enqueue. */
         correlation: string;
         /** Number of seconds the message was delayed before it could be dequeued. */
@@ -2027,7 +2027,7 @@ declare namespace OracleDB {
         /** Contains the payload of the message, with type depending on the value of queue.payloadType.
          * Note that enqueued Strings are returned as UTF-8 encoded Buffers.
          */
-        payload: Buffer | DBObject;
+        payload: string | Buffer | DBObject_IN<T>;
         /** Priority of the message when it was enqueued. */
         priority: number;
     }
@@ -2036,13 +2036,29 @@ declare namespace OracleDB {
      * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
      * @since 4.0
      */
-    interface DBObjectClass { new(data: Record<string, any>): DBObject }
-    
+    interface DBObjectClass<T> { new(data?: T): DBObject_IN<T> }
+
     /**
      * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
      * @since 4.0
      */
-    class DBObject {
+    type DBObject_IN<T> = {
+        [P in keyof T]: T[P]
+    } & BaseDBObject<T>;
+
+    /**
+     * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
+     * @since 4.0
+     */
+    type DBObject_OUT<T> = {
+        [P in keyof T]: DBObject_OUT<T[P]>
+    } & BaseDBObject<T>;
+
+    /**
+     * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
+     * @since 4.0
+     */
+    interface BaseDBObject<T> {
         /**
          * When dbObject.isCollection is false, this will be an object containing attributes corresponding to the Oracle Database object attributes. 
          */
@@ -2052,11 +2068,11 @@ declare namespace OracleDB {
             /** Type, such as 'VARCHAR2' or 'NUMBER'. */
             typeName: string;
             /** Set if the value of type is a DBObject. */
-            typeClass?: DBObjectClass;
+            typeClass?: DBObjectClass<T>;
         }>;
         /** When dbObject.isCollection is true, this will be one of the DB_TYPE constants. */
         readonly elementType: number;
-        readonly elementTypeClass: DBObjectClass;
+        readonly elementTypeClass: DBObjectClass<T>;
         /** When dbObject.isCollection is true, this will have the name of the element type, such as “VARCHAR2” or “NUMBER”. */
         readonly elementTypeName: string;
         /** The fully qualified name of the Oracle Database object or collection. */
@@ -2070,16 +2086,14 @@ declare namespace OracleDB {
         /** Schema owning the Oracle Database object or collection. */
         readonly schema: string;
 
-        [key: string]: any;
-
         /**
          * Add the given value to the end of the collection.
          */
-        append(value: any): void;	
+        append(value: T): void;
         /**
          * Deletes the value from collection at the given index.
          */
-        deleteElement(index: number): void;	
+        deleteElement(index: number): void;
         /**
          * Return the value associated with the given index.
          */
@@ -2090,8 +2104,8 @@ declare namespace OracleDB {
         getFirstIndex(): number;
         /**
          * Returns a JavaScript array containing the ‘index’ keys.
-         */	
-        getKeys(): string[];
+         */
+        getKeys(): T extends string | number ? number[] : (keyof T)[]
         /**
          * To obtain the last index for later use to obtain a value.
          */
@@ -2111,11 +2125,11 @@ declare namespace OracleDB {
         /**
          * To set the given value at the position of the given index.
          */
-        setElement(index: number, value: any): void;
+        setElement(index: number, value: T): void;
         /**
          * Returns an array of element values as a JavaScript array in key order.
-         */	
-        getValues(): any[];
+         */
+        getValues(): T[];
         /**
          * Trims the specified number of elements from the end of the collection.
          */
@@ -2127,7 +2141,7 @@ declare namespace OracleDB {
      * 
      * @since 4.0
      */
-    interface AdvancedQueueMessage {
+    interface AdvancedQueueMessage<T> {
         /** Correlation that was used during enqueue. */
         correlation: string;
         /** Number of seconds the message was delayed before it could be dequeued. */
@@ -2147,7 +2161,7 @@ declare namespace OracleDB {
         /** Contains the payload of the message, with type depending on the value of queue.payloadType.
          * Note that enqueued Strings are returned as UTF-8 encoded Buffers.
          */
-        payload: Buffer | DBObject;
+        payload: Buffer | DBObject_OUT<T>;
         /** Priority of the message when it was enqueued. */
         priority: number;
         /** State of the message. It can be any one of the AQ_MSG_STATE constants. */
@@ -2219,7 +2233,7 @@ declare namespace OracleDB {
          * Each column’s name is always given. If the oracledb.extendedMetaData or execute() option extendedMetaData
          * are true then additional information is included.
          */
-        metaData?: Metadata[];
+        metaData?: Metadata<T>[];
         /**
          * This contains the output values of OUT and IN OUT binds. If bindParams is passed as an array,
          * then outBinds is returned as an array. If bindParams is passed as an object,
@@ -2311,7 +2325,7 @@ declare namespace OracleDB {
          * Each column’s name is always given. If the oracledb.extendedMetaData or execute() option
          * extendedMetaData are true then additional information is included.
          */
-        readonly metaData: Metadata[];
+        readonly metaData: Metadata<T>[];
 
         /**
          * Closes a ResultSet. Applications should always call this at the end of fetch or when no more rows are needed.

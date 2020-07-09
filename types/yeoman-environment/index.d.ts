@@ -75,7 +75,7 @@ declare class Environment<
 
     register(name: string, namespace?: string): string;
 
-    registerStub(Generator: Generator, namespace: string): this;
+    registerStub(generator: typeof Generator, namespace: string): this;
 
     resolveModulePath(moduleId: string): string;
 

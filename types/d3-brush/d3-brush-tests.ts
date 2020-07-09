@@ -57,6 +57,12 @@ brush = brush.filter(function(d, i, group) {
 let filterFn: (this: SVGGElement, d: BrushDatum, index: number, group: SVGGElement[]) => boolean;
 filterFn = brush.filter();
 
+// keyModifiers() ----------------------------------------------------------------
+
+// chainable
+brush = brush.keyModifiers(true);
+const keyModifiers: boolean = brush.keyModifiers();
+
 // handleSize() ----------------------------------------------------------------
 
 // chainable
@@ -177,5 +183,5 @@ const e: d3Brush.D3BrushEvent<BrushDatum> = event;
 
 const target: d3Brush.BrushBehavior<BrushDatum> = e.target;
 const type: 'start' | 'brush' | 'end' | string = e.type;
-const brushSelection: d3Brush.BrushSelection = e.selection;
+const brushSelection: d3Brush.BrushSelection | null = e.selection;
 const sourceEvent: any = e.sourceEvent;

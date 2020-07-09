@@ -20,7 +20,7 @@ import {
     Decoration,
     Annotation
 } from "slate";
-import { List } from "immutable";
+import { List, Set } from "immutable";
 
 const data = Data.create({ foo: "bar " });
 
@@ -240,6 +240,7 @@ editor
 .insertNodeByKey("a", 0, inline)
 .insertNodeByPath(List([0]), 0, inline)
 .insertText("A bit of rich text, followed by...")
+.insertText("A bit of marked text", Set.of(Mark.create('bold')))
 .insertTextAtRange(range, "More text")
 .insertTextByKey("a", 0, "text")
 .insertTextByPath(List([0]), 0, "text")
@@ -403,6 +404,7 @@ editor
 .setInlinesAtRange(range, "paragraph")
 .setMarkByKey('a', 0, 2, { type: 'bold', data: { thing: 'value' } }, { data: { thing: false } })
 .setNodeByKey("a", "paragraph")
+.setNodeByKey("a", { data: Data.create({}) })
 .setNodeByPath(List([0]), "paragraph")
 .setReadOnly(true)
 .setValue(value)

@@ -1,5 +1,5 @@
 import { BlankNode, DataFactory, Dataset, DatasetCore, DatasetCoreFactory, DatasetFactory, DefaultGraph, Literal,
-  NamedNode, Quad, BaseQuad, Sink, Source, Store, Stream, Triple, Term, Variable, Quad_Graph } from "rdf-js";
+  NamedNode, Quad, BaseQuad, Sink, Source, Store, Stream, Term, Variable, Quad_Graph } from "rdf-js";
 import { EventEmitter } from "events";
 
 function test_terms() {
@@ -16,6 +16,14 @@ function test_terms() {
     let namedNodeEqual: boolean = namedNode.equals(someTerm);
     namedNodeEqual = namedNode.equals(null);
     namedNodeEqual = namedNode.equals(undefined);
+
+    const namedNodeConstant: NamedNode<'http://example.org'> = <any> {};
+    const constantIri: 'http://example.org' = namedNodeConstant.value;
+    // $ExpectError
+    const otherConstantIri: 'http://not-example.org' = namedNodeConstant.value;
+    // $ExpectError
+    const otherNamedNodeConstant: NamedNode<'http://not-example.org'> = namedNodeConstant;
+    const regularNamedNode: NamedNode = namedNodeConstant;
 
     const blankNode: BlankNode = <any> {};
     const termType2: string = blankNode.termType;
@@ -55,14 +63,6 @@ function test_quads() {
     const o1: Term = quad.object;
     const g1: Term = quad.graph;
     quad.equals(quad);
-
-    const triple: Triple = quad;
-    const s2: Term = triple.subject;
-    const p2: Term = triple.predicate;
-    const o2: Term = triple.object;
-    const g2: Term = triple.graph;
-    triple.equals(quad);
-    quad.equals(triple);
 }
 
 function test_datafactory() {
@@ -80,7 +80,6 @@ function test_datafactory() {
     const variable: Variable = dataFactory.variable ? dataFactory.variable('v1') : <any> {};
 
     const term: NamedNode = <any> {};
-    const triple: Quad = dataFactory.triple(term, term, term);
     interface QuadBnode extends BaseQuad {
       subject: Term;
       predicate: Term;
@@ -95,7 +94,7 @@ function test_datafactory() {
 
 function test_stream() {
     const stream: Stream = <any> {};
-    const quad: Quad = stream.read();
+    const quad: Quad | null = stream.read();
 
     const term: Term = <any> {};
     const source: Source = <any> {};

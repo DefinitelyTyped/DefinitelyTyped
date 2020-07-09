@@ -143,7 +143,7 @@ declare namespace Autosuggest {
          */
         getSuggestionValue: GetSuggestionValue<TSuggestion>;
         /**
-         * 	Set it to true if you'd like Autosuggest to automatically highlight the first suggestion.
+         *     Set it to true if you'd like Autosuggest to automatically highlight the first suggestion.
          */
         highlightFirstSuggestion?: boolean;
         /**

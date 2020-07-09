@@ -1,5 +1,5 @@
 import Collection from '../Collection';
-import { EventsKey } from '../events';
+import { EventsKey, ListenerFunction } from '../events';
 import { Condition } from '../events/condition';
 import BaseEvent from '../events/Event';
 import Feature, { FeatureLike } from '../Feature';
@@ -9,7 +9,7 @@ import VectorLayer from '../layer/Vector';
 import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
 import Source from '../source/Source';
-import { StyleFunction, StyleLike } from '../style/Style';
+import Style, { StyleFunction, StyleLike } from '../style/Style';
 import Interaction from './Interaction';
 
 export type FilterFunction = (p0: FeatureLike, p1: Layer<Source>) => boolean;
@@ -33,10 +33,11 @@ export default class Select extends Interaction {
     getFeatures(): Collection<Feature<Geometry>>;
     getHitTolerance(): number;
     getLayer(feature: FeatureLike): VectorLayer;
+    getStyle(): Style | Style[] | StyleFunction;
     setHitTolerance(hitTolerance: number): void;
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'change', listener: (evt: BaseEvent) => void): void;

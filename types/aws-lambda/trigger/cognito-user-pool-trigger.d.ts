@@ -57,7 +57,8 @@ export interface CognitoUserPoolTriggerEvent {
                 | 'SMS_MFA'
                 | 'DEVICE_SRP_AUTH'
                 | 'DEVICE_PASSWORD_VERIFIER'
-                | 'ADMIN_NO_SRP_AUTH';
+                | 'ADMIN_NO_SRP_AUTH'
+                | 'SRP_A';
             challengeResult: boolean;
             challengeMetadata?: string;
         }>;
@@ -65,6 +66,8 @@ export interface CognitoUserPoolTriggerEvent {
         privateChallengeParameters?: { [key: string]: string };
         challengeAnswer?: string;
         password?: string;
+        clientMetadata?: { [key: string]: string };
+        userNotFound?: boolean;
     };
     response: {
         autoConfirmUser?: boolean;

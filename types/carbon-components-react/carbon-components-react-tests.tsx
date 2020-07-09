@@ -1,23 +1,40 @@
 import * as React from 'react';
 import {
     AccordionItem,
+    Button,
+    Column,
     DataTable,
     DataTableCustomRenderProps,
     DataTableHeader,
     DataTableRow,
+    DatePickerInput,
     Dropdown,
+    HeaderContainer,
+    HeaderMenu,
+    HeaderMenuItem,
     FileUploader,
     NumberInput,
+    Row,
+    SecondaryButton,
     Slider,
     Tab,
     Table,
     TableBatchActions,
     TableHeader,
     TableRow,
+    Tag,
     TileGroup,
     TooltipDefinition,
     TextArea,
     TextInput,
+    FileUploaderDropContainer,
+    FileUploaderItem,
+    MultiSelect,
+    Tabs,
+    SideNav,
+    SideNavItem,
+    SideNavItems,
+    ButtonRenderIconRenderProps,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
@@ -39,11 +56,93 @@ const accordionItemTwo = (
     </AccordionItem>
 );
 
+//
+// Button
+//
+
+const buttonDefaultT1 = (
+    <Button onClick={(event) => event.preventDefault()}>Basic Button</Button>
+);
+
+const buttonRef = React.useRef<HTMLButtonElement>(null);
+const SimpleButtonIcon = () => <div/>;
+const buttonDefaultT2 = (
+    <Button
+        kind="danger"
+        onClick={(event) => {
+            event.preventDefault();
+        }}
+        renderIcon={SimpleButtonIcon}
+        ref={buttonRef}
+        type="reset"
+    >
+        Reset
+    </Button>
+);
+
+const buttonIconT1 = (
+    <Button renderIcon={SimpleButtonIcon}>With Render Icon</Button>
+);
+// TODO: find a way to make this fail because someProp is required by the component but it will never be provided.
+const IconWithProps: React.FC<{ someProp: number, anotherProp?: string }> = () => <div/>;
+const buttonIconT2 = (
+    <Button renderIcon={IconWithProps}>With Render Icon</Button>
+);
+
+const buttonIconT3 = (
+    <Button renderIcon={({ className }: ButtonRenderIconRenderProps) => <div className={className}/>}>Anon Icon Render</Button>
+);
+
+const anchorRef = React.useRef<HTMLAnchorElement>(null);
+const buttonAnchorT1 = (
+    <Button href="https://github.com/DefinitelyTyped/DefinitelyTyped" asdf={"asdf"} target="_blank" ref={anchorRef}>Anchor Link</Button>
+);
+
+const spanRef = React.useRef<HTMLSpanElement>(null);
+const buttonIntrinsicT1 = (
+    <Button
+        as="span"
+        kind="danger"
+        onClick={(event) => {
+            event.preventDefault();
+        }}
+        ref={spanRef}
+    >
+        Reset
+    </Button>
+);
+
+const ButtonCustomRenderComp1: React.FC<{ someProp: number, anotherProp?: string }> = () => <div/>;
+
+const buttonCustomRenderT1 = (
+    <Button
+        as={ButtonCustomRenderComp1}
+        kind="danger"
+        someProp={5}
+        anotherProp="test"
+    >
+        Custom Render
+    </Button>
+);
+
+//
+// SecondaryButton
+//
+const secondaryButtonT1 = (
+    <SecondaryButton onClick={(event) => event.preventDefault()}>Secondary</SecondaryButton>
+);
+const secondaryButtonT2 = (
+    <SecondaryButton as="span" onClick={(event) => event.preventDefault()}>Secondary</SecondaryButton>
+);
+const secondaryButtonT3 = (
+    <SecondaryButton as={ButtonCustomRenderComp1} someProp={6}>Secondary</SecondaryButton>
+)
+
 interface Row1 extends DataTableRow {
     rowProp: string;
 }
 
-type Header1Key = "h1" | "h2" | "h3";
+type Header1Key = 'h1' | 'h2' | 'h3';
 interface Header1 extends DataTableHeader<Header1Key> {
     headerProp: number;
 }
@@ -115,8 +214,8 @@ const t2 = (
             props.selectRow('qwerty');
             props.sortBy('h3');
 
-            props.rows.forEach((denormalizedRow) => {
-                denormalizedRow.cells.forEach((cell) => {
+            props.rows.forEach(denormalizedRow => {
+                denormalizedRow.cells.forEach(cell => {
                     let cellId = cell.id;
                     let cellHeaderKey = cell.info.header;
                 });
@@ -148,25 +247,21 @@ const t4 = (
         headers={[headerData1]}
         rows={[rowData1]}
         render={data => {
-            let table = (<Table {...data.getTableProps()}>Content</Table>);
+            let table = <Table {...data.getTableProps()}>Content</Table>;
             let header = (
-                <TableHeader {...data.getHeaderProps({ header: headerData1, randomAttr: "asdf" })}>
+                <TableHeader {...data.getHeaderProps({ header: headerData1, randomAttr: 'asdf' })}>
                     {headerData1.header}
                 </TableHeader>
             );
             let header2 = (
-                <TableHeader {...data.getHeaderProps<ExtraStuff>({ header: headerData1, extra1: "test" })}>
+                <TableHeader {...data.getHeaderProps<ExtraStuff>({ header: headerData1, extra1: 'test' })}>
                     {headerData1.header}
                 </TableHeader>
             );
             let rowProps = data.getRowProps({ row: rowData1, extra1: 'qwerty', ...rowData1 });
-            let row = (
-                <TableRow {...rowProps}>
-                    Content
-                </TableRow>
-            );
+            let row = <TableRow {...rowProps}>Content</TableRow>;
             let batchActions = (
-                <TableBatchActions {...data.getBatchActionProps({ spellCheck: true, randomAttr: "Asdf" })}>
+                <TableBatchActions {...data.getBatchActionProps({ spellCheck: true, randomAttr: 'Asdf' })}>
                     Content
                 </TableBatchActions>
             );
@@ -182,12 +277,12 @@ interface T5RowType extends DataTableRow {
     col2: number;
 }
 const t5RowItems: T5RowType[] = [
-    { id: "row0", col1: 0, col2: 0},
-    { id: "row1", col1: 1, col2: 1},
+    { id: 'row0', col1: 0, col2: 0 },
+    { id: 'row1', col1: 1, col2: 1 },
 ];
 const t5Headers: DataTableHeader[] = [
-    {key: 'col1', header: 'First column'},
-    {key: 'col2', header: 'Second column'}
+    { key: 'col1', header: 'First column' },
+    { key: 'col2', header: 'Second column' },
 ];
 const t5 = (
     <DataTable
@@ -198,13 +293,9 @@ const t5 = (
                 <DataTable.Table {...renderProps.getTableProps()}>
                     <DataTable.TableHead>
                         <DataTable.TableRow>
-                            <DataTable.TableSelectAll
-                                {...renderProps.getSelectionProps()}
-                            />
+                            <DataTable.TableSelectAll {...renderProps.getSelectionProps()} />
                             {renderProps.headers.map(header => (
-                                <DataTable.TableHeader
-                                    {...renderProps.getHeaderProps({ header })}
-                                >
+                                <DataTable.TableHeader {...renderProps.getHeaderProps({ header })}>
                                     {header.header}
                                 </DataTable.TableHeader>
                             ))}
@@ -215,13 +306,9 @@ const t5 = (
                         {renderProps.rows.map(row => (
                             <React.Fragment key={row.id}>
                                 <DataTable.TableRow {...renderProps.getRowProps({ row })}>
-                                    <DataTable.TableSelectRow
-                                        {...renderProps.getSelectionProps({ row })}
-                                    />
+                                    <DataTable.TableSelectRow {...renderProps.getSelectionProps({ row })} />
                                     {row.cells.map(cell => (
-                                        <DataTable.TableCell key={cell.id}>
-                                            {cell.value}
-                                        </DataTable.TableCell>
+                                        <DataTable.TableCell key={cell.id}>{cell.value}</DataTable.TableCell>
                                     ))}
                                     <DataTable.TableCell key={`options${row.id}`} />
                                 </DataTable.TableRow>
@@ -236,59 +323,120 @@ const t5 = (
 
 // UIShell - Link
 interface TestCompProps {
-    someProp: number,
+    someProp: number;
 }
 
 class TestComp1 extends React.Component<TestCompProps> {
     render() {
-        return (<div/>);
+        return <div />;
     }
 }
 
-const TestComp2 = (props: TestCompProps) => (<div/>);
+const TestComp2 = (props: TestCompProps) => <div />;
 
-const uisLinkT1 = (
-    <Link href="#test">Test</Link>
-);
-const uisLinkT2 = (
-    <Link<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src"/>
-);
+const uisLinkT1 = <Link href="#test">Test</Link>;
+const uisLinkT2 = <Link<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src" />;
 const uisLinkT3 = (
-    <Link<TestCompProps> element={TestComp1} someProp={2}>ASDF</Link>
+    <Link<TestCompProps> element={TestComp1} someProp={2}>
+        ASDF
+    </Link>
 );
 const uisLinkT4 = (
-    <Link<TestCompProps> element={TestComp2} someProp={2}>ASDF</Link>
+    <Link<TestCompProps> element={TestComp2} someProp={2}>
+        ASDF
+    </Link>
 );
 
+// UI Shell - HeaderContainer
+const uisHeaderContainerAnonRender = (
+    <HeaderContainer
+        render={({ isSideNavExpanded, onClickSideNavExpand }) => (
+            <button disabled={isSideNavExpanded} onClick={onClickSideNavExpand}>
+                Expand
+            </button>
+        )}
+    />
+);
+
+const HeaderCompRender1: React.FC<{ someProp: number }> = () => <div />;
+const HeaderCompRender2: React.FC<{ someProp?: number }> = () => <div />;
+
+/*
+ * TODO: this should be a fail case but the priority is to correctly type the anonymous render as that's likely how it
+ *  will be used.
+ */
+const uisHeaderContainerCompRenderNotMatchingRequiredProps = <HeaderContainer render={HeaderCompRender1} />;
+
+const uisHeaderContainerCompRenderNotMatchingOptionalProps = <HeaderContainer render={HeaderCompRender2} />;
+
+// UI Shell - HeaderMenu
+
+const uisHeaderMenuAnonRender = (
+    <HeaderMenu menuLinkName="test" renderMenuContent={() => <div />}>
+        <div />
+    </HeaderMenu>
+);
+
+/*
+ * TODO: this should be a fail case but the priority is to correctly type the anonymous render as that's likely how it
+ *  will be used.
+ */
+const uisHeaderMenuCompRenderNotMatchingRequiredProps = (
+    <HeaderMenu menuLinkName="test" renderMenuContent={HeaderCompRender1} />
+);
+
+const uisHeaderMenuCompRenderNotMatchingOptionalProps = (
+    <HeaderMenu menuLinkName="test" renderMenuContent={HeaderCompRender2} />
+);
+
+//
+// HeaderMenuItem
+//
+
+const uisHeaderMenuItemRequiredChild = (
+    <HeaderMenuItem>Required Child</HeaderMenuItem>
+);
+
+//
+// UIShell Link
+//
+
 interface TestCompPropsOverwrite {
-    element?: "overwriteTest", // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
-    someProp: string,
+    element?: 'overwriteTest'; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
+    someProp: string;
 }
 
-const TestComp3 = (props: TestCompPropsOverwrite) => (<div/>);
+const TestComp3 = (props: TestCompPropsOverwrite) => <div />;
 
 const uisLinkT5 = (
-    <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">Testing Overwrite</Link>
+    <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">
+        Testing Overwrite
+    </Link>
+);
+
+// DatePickerInput
+const datePickerInputWithHideLabel = (
+    <DatePickerInput hideLabel={true} id="my-date-picker-input" labelText="my-label-text" />
 );
 
 // Dropdown
 const dropdownItemCanBeElement = (
     <Dropdown
         id="my-dropdown"
-        items={["val1", "val2", "val3"]}
+        items={['val1', 'val2', 'val3']}
         label="label"
         titleText=""
         ariaLabel=""
         selectedItem="val2"
-        itemToElement={(item) => (<div>This is my rich content</div>)}
-        itemToString={item => "Selected: " + item}
+        itemToElement={item => <div>This is my rich content</div>}
+        itemToString={item => 'Selected: ' + item}
     />
 );
 
 // TileGroup
 // Value nor name can be undefined
-let value: string|number = 5;
-let name = "old name";
+let value: string | number = 5;
+let name = 'old name';
 const tileGroupA = (
     <TileGroup
         name="my-tile-group-name"
@@ -300,107 +448,179 @@ const tileGroupA = (
 );
 
 // TooltipDefinition
-const tooltipDefHasAlign = (
-    <TooltipDefinition tooltipText="my text" align="end" />
-);
+const tooltipDefHasAlign = <TooltipDefinition tooltipText="my text" align="end" />;
 
-const tooltipDefHasTriggerClassName = (
-    <TooltipDefinition tooltipText="my text" triggerClassName="my-class-name" />
-);
+const tooltipDefHasTriggerClassName = <TooltipDefinition tooltipText="my text" triggerClassName="my-class-name" />;
 
 // Tabs
-const tabCanBeDisabled = (
-    <Tab
-        handleTabAnchorFocus={() => {}}
-        handleTabClick={() => {}}
-        handleTabKeyDown={() => {}}
-        href="#"
-        tabIndex={0}
-        disabled
-    />
+
+const tabsBasicExample = (
+    <Tabs selected={1} onSelectionChange={idx => {}}>
+        <Tab>Tab 1</Tab>
+        <Tab>Tab 2</Tab>
+    </Tabs>
 );
+
+const tabsRenderContentExample = (
+    <Tabs>
+        <Tab
+            renderContent={props => {
+                const { 'aria-hidden': ariaHidden, className, hidden, id, selected } = props;
+                return hidden ? null : (
+                    <div id={id} className={className} aria-hidden={ariaHidden}>
+                        Selected: {selected}
+                    </div>
+                );
+            }}
+        >
+            Render Content Tab
+        </Tab>
+    </Tabs>
+);
+
+const tabCanBeDisabled = <Tab href="#" disabled />;
 
 // Slider
-const SliderHasOnChange = (
-    <Slider
-        max={0}
-        min={10}
-        value={5}
-        onChange={(newValue) => newValue.value}
-    />
-);
+const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue => newValue.value} />;
+
+// Tag
+const ChipTagFilterUndef = <Tag />;
+
+const ChipTagFalse = <Tag filter={false} />;
+
+const FilterTag = <Tag filter onClose={() => {}} />;
 
 // TextArea
-const textAreaWithDefaultRef = (
-    <TextArea labelText=""/>
-);
+const textAreaWithDefaultRef = <TextArea labelText="" />;
 
 const HtmlTextAreaRef = React.createRef<HTMLTextAreaElement>();
-const textAreaWithRef = (
-    <TextArea
-        ref={HtmlTextAreaRef}
-        labelText=""
-    />
-);
+const textAreaWithRef = <TextArea ref={HtmlTextAreaRef} labelText="" />;
 
 // TextInput
-const inputWithoutRef = (
-    <TextInput
-        id="my-id"
-        labelText=""
-    />
-);
+const inputWithoutRef = <TextInput id="my-id" labelText="" />;
 
-const passwordInputWithoutRef = (
-    <TextInput.PasswordInput
-        id="my-id"
-        labelText=""
-    />
-);
+const passwordInputWithoutRef = <TextInput.PasswordInput id="my-id" labelText="" />;
 
-const controlledPasswordInputWithoutRef = (
-    <TextInput.ControlledPasswordInput
-        id="my-id"
-        labelText=""
-    />
-);
+const controlledPasswordInputWithoutRef = <TextInput.ControlledPasswordInput id="my-id" labelText="" />;
 
 const inputRef = React.createRef<HTMLInputElement>();
-const inputWithRef = (
-    <TextInput
-        id="my-id"
-        ref={inputRef}
-        labelText=""
-    />
-);
+const inputWithRef = <TextInput id="my-id" ref={inputRef} labelText="" />;
 
-const passwordInputWithRef = (
-    <TextInput.PasswordInput
-        id="my-id"
-        ref={inputRef}
-        labelText=""
-    />
-);
+const passwordInputWithRef = <TextInput.PasswordInput id="my-id" ref={inputRef} labelText="" />;
 
-const controlledPasswordInputWithRef = (
-    <TextInput.ControlledPasswordInput
-        id="my-id"
-        ref={inputRef}
-        labelText=""
-    />
-);
+const controlledPasswordInputWithRef = <TextInput.ControlledPasswordInput id="my-id" ref={inputRef} labelText="" />;
 
 // NumberInput
-const numberInput = (
-    <NumberInput
-        id="my-id"
-        value={12}
+const numberInput = <NumberInput id="my-id" value={12} />;
+
+// FileUploader
+const fileUploaderHasOnChange = <FileUploader onChange={e => {}} />;
+
+const fileUploaderDropContainer = (
+    <FileUploaderDropContainer
+        accept={['image/jpeg', 'image/png']}
+        labelText="Drag and drop files here or click to upload"
+        multiple
+        name=""
+        onAddFiles={(event, content) => {}}
+        onChange={event => {}}
+        role=""
+        tabIndex={0}
     />
 );
 
-// FileUploader
-const fileUploaderHasOnChange = (
-    <FileUploader
-        onChange={(e) => {} }
+const fileUploaderItem = (
+    <FileUploaderItem
+        errorBody="500kb max file size. Select a new file and try again."
+        errorSubject="File size exceeds limit"
+        iconDescription="Clear file"
+        name="README.md"
+        onDelete={(event, content) => {}}
+        status="edit"
+        uuid="id1"
     />
 );
+
+const multiSelect = (
+    <MultiSelect
+        id="clusters"
+        initialSelectedItems={['one']}
+        items={['one', 'two']}
+        light
+        titleText="Choose an item"
+        itemToString={item => item}
+        onChange={({ selectedItems }) => {}}
+    />
+);
+
+const multiSelectFilterable = (
+    <MultiSelect.Filterable
+        id="clusters"
+        initialSelectedItems={['one']}
+        items={['one', 'two']}
+        light
+        placeholder="Filter"
+        titleText="Choose an item"
+        itemToString={item => item}
+        onChange={({ selectedItems }) => {}}
+    />
+);
+
+// Grid
+
+const GridCustomRenderComp1: React.FC<{ someProp: number }> = () => <div />;
+
+// Grid: Row
+const rowDefaultT1 = <Row onClick={(event: React.MouseEvent<HTMLDivElement>) => {}}>Contents</Row>;
+
+const rowDefaultT2 = (
+    <Row as={undefined} onClick={(event: React.MouseEvent<HTMLDivElement>) => {}}>
+        Contents
+    </Row>
+);
+
+const rowCustomIntrinsic = (
+    <Row as="li" onClick={(event: React.MouseEvent<HTMLLIElement>) => {}}>
+        Contents
+    </Row>
+);
+
+const rowCustomComp1 = (
+    <Row as={GridCustomRenderComp1} someProp={5} condensed>
+        Content
+    </Row>
+);
+
+// Grid: Column
+const columnDefaultT1 = (
+    <Column onClick={(event: React.MouseEvent<HTMLDivElement>) => {}} lg={{ offset: 4 }}>
+        Contents
+    </Column>
+);
+
+const columnDefaultT2 = (
+    <Column as={undefined} onClick={(event: React.MouseEvent<HTMLDivElement>) => {}}>
+        Contents
+    </Column>
+);
+
+const columnCustomIntrinsic = (
+    <Column as="li" onClick={(event: React.MouseEvent<HTMLLIElement>) => {}}>
+        Contents
+    </Column>
+);
+
+const columnCustomComp1 = (
+    <Column as={GridCustomRenderComp1} someProp={5} xlg={5} sm={2}>
+        Content
+    </Column>
+);
+
+// SideNav
+const sideNavChildren = (
+    <SideNav>
+        <SideNavItems>
+            <SideNavItem>Test</SideNavItem>
+        </SideNavItems>
+    </SideNav>
+)

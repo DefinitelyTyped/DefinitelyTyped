@@ -226,9 +226,16 @@ type Expression =
     LogicalExpression | MemberExpression | ConditionalExpression |
     CallExpression | NewExpression | SequenceExpression | TemplateLiteral |
     TaggedTemplateExpression | ClassExpression | MetaProperty | Identifier |
-    AwaitExpression;
+    AwaitExpression | ImportExpression | ChainExpression;
 
 export interface BaseExpression extends BaseNode { }
+
+type ChainElement = SimpleCallExpression | MemberExpression;
+
+export interface ChainExpression extends BaseExpression {
+  type: "ChainExpression";
+  expression: ChainElement;
+}
 
 export interface ThisExpression extends BaseExpression {
   type: "ThisExpression";
@@ -241,7 +248,7 @@ export interface ArrayExpression extends BaseExpression {
 
 export interface ObjectExpression extends BaseExpression {
   type: "ObjectExpression";
-  properties: Array<Property>;
+  properties: Array<Property | SpreadElement>;
 }
 
 export interface Property extends BaseNode {
@@ -315,6 +322,7 @@ export type CallExpression = SimpleCallExpression | NewExpression;
 
 export interface SimpleCallExpression extends BaseCallExpression {
   type: "CallExpression";
+  optional: boolean;
 }
 
 export interface NewExpression extends BaseCallExpression {
@@ -326,6 +334,7 @@ export interface MemberExpression extends BaseExpression, BasePattern {
   object: Expression | Super;
   property: Expression;
   computed: boolean;
+  optional: boolean;
 }
 
 export type Pattern =
@@ -377,7 +386,7 @@ export type BinaryOperator =
     ">>" | ">>>" | "+" | "-" | "*" | "/" | "%" | "**" | "|" | "^" | "&" | "in" |
     "instanceof";
 
-export type LogicalOperator = "||" | "&&";
+export type LogicalOperator = "||" | "&&" | "??";
 
 export type AssignmentOperator =
     "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "**=" | "<<=" | ">>=" | ">>>=" |
@@ -387,6 +396,7 @@ export type UpdateOperator = "++" | "--";
 
 export interface ForOfStatement extends BaseForXStatement {
   type: "ForOfStatement";
+  await: boolean;
 }
 
 export interface Super extends BaseNode {
@@ -439,7 +449,7 @@ export interface AssignmentProperty extends Property {
 
 export interface ObjectPattern extends BasePattern {
   type: "ObjectPattern";
-  properties: Array<AssignmentProperty>;
+  properties: Array<AssignmentProperty | RestElement>;
 }
 
 export interface ArrayPattern extends BasePattern {
@@ -516,6 +526,11 @@ export interface ImportDeclaration extends BaseModuleDeclaration {
 export interface ImportSpecifier extends BaseModuleSpecifier {
   type: "ImportSpecifier";
   imported: Identifier;
+}
+
+export interface ImportExpression extends BaseExpression {
+  type: "ImportExpression";
+  source: Expression;
 }
 
 export interface ImportDefaultSpecifier extends BaseModuleSpecifier {

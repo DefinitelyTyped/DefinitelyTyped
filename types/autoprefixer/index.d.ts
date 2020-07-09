@@ -30,9 +30,21 @@ declare namespace autoprefixer {
         grid?: false | 'autoplace' | 'no-autoplace';
         /** custom usage statistics for > 10% in my stats browsers query */
         stats?: Stats;
-        /** @deprecated Replace Autoprefixer `browsers` option to `Browserslist` config */
+        /** @deprecated 'Change `browser` option to `overrideBrowserslist` in Autoprefixer */
+        browser?: string;
+        /**
+         * @deprecated Replace Autoprefixer `browsers` option to Browserslist config.
+         * Use `browserslist` key in `package.json` or `.browserslistrc` file.
+         */
         browsers?: string[] | string;
-        /** list of queries for target browsers */
+        /** @deprecated Change `browserslist` option to `overrideBrowserslist` in Autoprefixer */
+        browserslist?: string[] | string;
+        /**
+         * list of queries for target browsers.
+         * Try to not use it.
+         * The best practice is to use `.browserslistrc` config or `browserslist` key in `package.json`
+         * to share target browsers with Babel, ESLint and Stylelint
+         */
         overrideBrowserslist?: BrowserslistTarget;
         /** do not raise error on unknown browser version in `Browserslist` config. */
         ignoreUnknownVersions?: boolean;

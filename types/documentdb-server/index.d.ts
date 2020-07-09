@@ -157,13 +157,13 @@ interface ICollection extends IQueryAPI {
         options?: ICreateOptions,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
 
-	/**
-	 * Create a document under the collection.
-	 * @param collectionLink resource link of the collection under which the document will be created
-	 * @param body of the document. The "id" property is required and will be generated automatically if not provided (this behaviour can be overriden using the CreateOptions). Any other properties can be added.
-	 * @param optional create options
-	 * @param optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
-	 */
+    /**
+     * Create a document under the collection.
+     * @param collectionLink resource link of the collection under which the document will be created
+     * @param body of the document. The "id" property is required and will be generated automatically if not provided (this behaviour can be overriden using the CreateOptions). Any other properties can be added.
+     * @param optional create options
+     * @param optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
+     */
     createDocument(collectionLink: string,
         body: Object,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
@@ -172,24 +172,24 @@ interface ICollection extends IQueryAPI {
         options?: ICreateOptions,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
 
-	/**
-	 * Delete an attachment.
-	 * @param attachmentLink resource link of the attachment to be deleted
-	 * @param options optional delete options.
-	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
-	 */
+    /**
+     * Delete an attachment.
+     * @param attachmentLink resource link of the attachment to be deleted
+     * @param options optional delete options.
+     * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
+     */
     deleteAttachment(attachmentLink: string,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
     deleteAttachment(attachmentLink: string,
         options?: IDeleteOptions,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
 
-	/**
-	 * Delete a document.
-	 * @param documentLink resource link of the document to delete
-	 * @param options optional delete options
-	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
-	 */
+    /**
+     * Delete a document.
+     * @param documentLink resource link of the document to delete
+     * @param options optional delete options
+     * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
+     */
     deleteDocument(documentLink: string,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
     deleteDocument(documentLink: string,
@@ -202,13 +202,13 @@ interface ICollection extends IQueryAPI {
     /** Get self link of current collection. */
     getSelfLink(): string;
 
-	/**
-	 * Execute a SQL query on the attachments for the document.
-	 * @param documentLink resource link of the document whose attachments are being queried
-	 * @param query SQL query string. This can also be a JSON object to pass in a parameterized query along with the values.
-	 * @param options optional query options
-	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
-	 */
+    /**
+     * Execute a SQL query on the attachments for the document.
+     * @param documentLink resource link of the document whose attachments are being queried
+     * @param query SQL query string. This can also be a JSON object to pass in a parameterized query along with the values.
+     * @param options optional query options
+     * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
+     */
     queryAttachments(documentLink: string,
         query: string | IParameterizedQuery,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
@@ -217,13 +217,13 @@ interface ICollection extends IQueryAPI {
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
 
-	/**
-	 * Execute a SQL query on the documents of the collection.
-	 * @param collectionLink resource link of the collection whose documents are being queried
-	 * @param filterQuery SQL query string. This can also be a JSON object to pass in a parameterized query along with the values.
-	 * @param options optional query options.
-	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
-	 */
+    /**
+     * Execute a SQL query on the documents of the collection.
+     * @param collectionLink resource link of the collection whose documents are being queried
+     * @param filterQuery SQL query string. This can also be a JSON object to pass in a parameterized query along with the values.
+     * @param options optional query options.
+     * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
+     */
     queryDocuments(collectionLink: string,
         filterQuery: string,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
@@ -253,36 +253,36 @@ interface ICollection extends IQueryAPI {
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): boolean;
 
-	/**
-	 * Read an Attachment.
-	 * @param attachmenLink resource link of the attachment to read
-	 * @param options optional read options
-	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
-	 */
+    /**
+     * Read an Attachment.
+     * @param attachmenLink resource link of the attachment to read
+     * @param options optional read options
+     * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
+     */
     readAttachment(attachmenLink: string,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
     readAttachment(attachmenLink: string,
         options?: IReadOptions,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
 
-	/**
-	 * Get all attachments for the document.
-	 * @param documentLink resource link of the document whose attachments are being read
-	 * @param options optional read feed options
-	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
-	 */
+    /**
+     * Get all attachments for the document.
+     * @param documentLink resource link of the document whose attachments are being read
+     * @param options optional read feed options
+     * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
+     */
     readAttachments(documentLink: string,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
     readAttachments(documentLink: string,
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
 
-	/**
-	 * Read a document.
-	 * @param documentLink resource link of the document to read
-	 * @param options optional read options
-	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
-	 */
+    /**
+     * Read a document.
+     * @param documentLink resource link of the document to read
+     * @param options optional read options
+     * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
+     */
     readDocument(documentLink: string,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
     readDocument(documentLink: string,
@@ -292,12 +292,12 @@ interface ICollection extends IQueryAPI {
         options?: IReadOptions,
         callback?: (error: IRequestCallbackError, resources: T, options: IRequestCallbackOptions) => void): boolean;
 
-	/**
-	 * Get all documents for the collection.
-	 * @param collectionLink resource link of the collection whose documents are being read
-	 * @param options optional read feed options
-	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
-	 */
+    /**
+     * Get all documents for the collection.
+     * @param collectionLink resource link of the collection whose documents are being read
+     * @param options optional read feed options
+     * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
+     */
     readDocuments(collectionLink: string,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
     readDocuments(collectionLink: string,
@@ -307,13 +307,13 @@ interface ICollection extends IQueryAPI {
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): boolean;
 
-	/**
-	 * Replace an attachment.
-	 * @param attachmentLink resource link of the attachment to be replaced
-	 * @param attachment new attachment body
-	 * @param options optional replace options
-	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
-	 */
+    /**
+     * Replace an attachment.
+     * @param attachmentLink resource link of the attachment to be replaced
+     * @param attachment new attachment body
+     * @param options optional replace options
+     * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
+     */
     replaceAttachment(attachmentLink: string,
         attachment: Object,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
@@ -322,13 +322,13 @@ interface ICollection extends IQueryAPI {
         options?: IReplaceOptions,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
 
-	/**
-	 * Replace a document.
-	 * @param documentLink resource link of the document
-	 * @param document new document body
-	 * @param options optional replace options
-	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
-	 */
+    /**
+     * Replace a document.
+     * @param documentLink resource link of the document
+     * @param document new document body
+     * @param options optional replace options
+     * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
+     */
     replaceDocument(documentLink: string,
         document: Object,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
@@ -337,13 +337,13 @@ interface ICollection extends IQueryAPI {
         options?: IReplaceOptions,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
     
-	/**
-	 * Upsert an attachment for the document.
-	 * @param documentLink resource link of the document under which the attachment will be upserted
-	 * @param body metadata that defines the attachment media like media, contentType. It can include any other properties as part of the metadata.
-	 * @param options optional upsert options
-	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
-	 */
+    /**
+     * Upsert an attachment for the document.
+     * @param documentLink resource link of the document under which the attachment will be upserted
+     * @param body metadata that defines the attachment media like media, contentType. It can include any other properties as part of the metadata.
+     * @param options optional upsert options
+     * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
+     */
     upsertAttachment(documentLink: string,
         body: Object,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
@@ -353,12 +353,12 @@ interface ICollection extends IQueryAPI {
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
 
     /**
-	 * Upsert a document under the collection.
-	 * @param collectionLink resource link of the collection under which the document will be upserted
-	 * @param body body of the document. The "id" property is required and will be generated automatically if not provided (this behaviour can be overriden using the UpsertOptions). Any other properties can be added.
-	 * @param options optional upsert options
-	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
-	 */
+     * Upsert a document under the collection.
+     * @param collectionLink resource link of the collection under which the document will be upserted
+     * @param body body of the document. The "id" property is required and will be generated automatically if not provided (this behaviour can be overriden using the UpsertOptions). Any other properties can be added.
+     * @param options optional upsert options
+     * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
+     */
     upsertDocument(collectionLink: string,
         body: Object,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
@@ -378,10 +378,10 @@ interface ICreateOptions {
 
 /** Options associated with a delete operation. */
 interface IDeleteOptions {
-	/**
-	 * The entity tag associated with the resource.
-	 * This is matched with the persisted resource before deletion.
-	 */
+    /**
+     * The entity tag associated with the resource.
+     * This is matched with the persisted resource before deletion.
+     */
     etag?: string;
 }
 
@@ -405,10 +405,10 @@ interface IFeedCallbackOptions {
 
 /** Options associated with a read feed or query operation. */
 interface IFeedOptions {
-	/**
-	 * Max number of items to be returned in the enumeration operation.
-	 * Value is 100 by default
-	 */
+    /**
+     * Max number of items to be returned in the enumeration operation.
+     * Value is 100 by default
+     */
     pageSize?: number;
     /** Opaque token for continuing the enumeration. */
     continuation?: string;
@@ -437,10 +437,10 @@ interface IReadOptions {
 interface IReplaceOptions {
     /** Specifies indexing directives. */
     indexAction?: string;
-	/**
-	 * The entity tag associated with the resource.
-	 * This is matched with the persisted resource before deletion.
-	 */
+    /**
+     * The entity tag associated with the resource.
+     * This is matched with the persisted resource before deletion.
+     */
     etag?: string;
 }
 
@@ -485,34 +485,34 @@ interface IDocumentMeta extends Object {
  * For stored procedures, the request contains information about the request sent to execute the stored procedure.
  */
 interface IRequest {
-	/**
-	 * Gets the request body.
-	 */
+    /**
+     * Gets the request body.
+     */
     getBody(): Object;
     getBody<T>(): T;
     /**
      * Gets the OperationType for the request with a pre-trigger or post-trigger.
      */
     getOperationType(): "Create" | "Replace" | "Upsert" | "Delete";
-	/**
-	 * Gets a specified request header value.
-	 * @param key the name of the header to retrieve
-	 */
+    /**
+     * Gets a specified request header value.
+     * @param key the name of the header to retrieve
+     */
     getValue(key: string): string;
-	/**
-	 * Sets the request body.
-	 * Note: this can be only used in a pre-trigger to overwrite the existing request body.
-	 * The overwritten request body will then be used in the operation associated with this pre-trigger.
-	 * @param value the value to set in the request body
-	 */
+    /**
+     * Sets the request body.
+     * Note: this can be only used in a pre-trigger to overwrite the existing request body.
+     * The overwritten request body will then be used in the operation associated with this pre-trigger.
+     * @param value the value to set in the request body
+     */
     setBody(value: string): void;
     setBody(value: Object): void;
-	/**
-	 * Sets a specified request header value.
-	 * Note: this method cannot be used to create new headers.
-	 * @param key the name of the header
-	 * @param value the value of the header
-	 */
+    /**
+     * Sets a specified request header value.
+     * Note: this method cannot be used to create new headers.
+     * @param key the name of the header
+     * @param value the value of the header
+     */
     setValue(key: string, value: string): void;
 }
 
@@ -525,40 +525,40 @@ interface IRequest {
  * Note: this object not available in pre-triggers
  */
 interface IResponse {
-	/**
-	 * Gets the response body.
-	 */
+    /**
+     * Gets the response body.
+     */
     getBody(): Object;
     getBody<T>(): T;
-	/**
-	 * Gets a maximum quota allowed for the resource associated with a post-trigger
-	 * Note: this method is only available in post-triggers
-	 */
+    /**
+     * Gets a maximum quota allowed for the resource associated with a post-trigger
+     * Note: this method is only available in post-triggers
+     */
     getMaxResourceQuota(): string;
-	/**
-	 * Gets a current quota usage for the resource associated with a post-trigger
-	 * Note: this method is only available in post-triggers
-	 */
+    /**
+     * Gets a current quota usage for the resource associated with a post-trigger
+     * Note: this method is only available in post-triggers
+     */
     getResourceQuotaCurrentUsage(): string;
-	/**
-	 * Gets a specified response header value.
-	 * @param key the name of the header to retrieve
-	 */
+    /**
+     * Gets a specified response header value.
+     * @param key the name of the header to retrieve
+     */
     getValue(key: string): string;
-	/**
-	 * Sets the response body.
-	 * Note: This cannot be done in pre-triggers.
-	 * In post-triggers, the response body is already set with the requested resource and will be overwritten with this call.
-	 * In stored procedures, this call can be used to set the response message body as output to the calling client.
-	 */
+    /**
+     * Sets the response body.
+     * Note: This cannot be done in pre-triggers.
+     * In post-triggers, the response body is already set with the requested resource and will be overwritten with this call.
+     * In stored procedures, this call can be used to set the response message body as output to the calling client.
+     */
     setBody(value: string): void;
     setBody(value: Object): void;
-	/**
-	 * Sets a specified response header value.
-	 * Note: this method cannot be used to create new headers.
-	 * @param key the name of the header
-	 * @param value the value of the header
-	 */
+    /**
+     * Sets a specified response header value.
+     * Note: this method cannot be used to create new headers.
+     * @param key the name of the header
+     * @param value the value of the header
+     */
     getValue(key: string, value: string): void;
 
     appendBody(value: string): void;

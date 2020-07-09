@@ -21,6 +21,7 @@ const event: SQSEvent = {
             receiptHandle: 'AQEBJQ+/u6NsnT5t8Q/VbVxgdUl4TMKZ5FqhksRdIQvLBhwNvADoBxYSOVeCBXdnS9P+',
             body: '{"foo":"bar"}',
             attributes: {
+                AWSTraceHeader: 'Root=1-5e58e4c3-71b539e3d6bd4aa29600bf67;Sampled=1',
                 ApproximateReceiveCount: '3',
                 SentTimestamp: '1529104986221',
                 SenderId: '594035263019',

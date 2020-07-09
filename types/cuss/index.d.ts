@@ -1,6 +1,6 @@
-// Type definitions for cuss 1.18
+// Type definitions for cuss 1.20
 // Project: https://github.com/words/cuss#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** how likely it is to be used as either profanity or clean text */

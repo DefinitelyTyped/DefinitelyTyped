@@ -18,7 +18,7 @@ declare namespace detective {
         /**
          * Give some source body 'src', return 'found' DetectiveResults
          */
-		find(src: string, opts?: Options): DetectiveResults;
+        find(src: string, opts?: Options): DetectiveResults;
     }
 
     interface Options {

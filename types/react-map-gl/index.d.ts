@@ -1,5 +1,5 @@
 // Type definitions for react-map-gl 5.2
-// Project: https://github.com/uber/react-map-gl#readme
+// Project: https://github.com/visgl/react-map-gl#readme
 // Definitions by: Robert Imig <https://github.com/rimig>
 //                 Fabio Berta <https://github.com/fnberta>
 //                 Sander Siim <https://github.com/sandersiim>
@@ -7,6 +7,7 @@
 //                 Arman Safikhani <https://github.com/Arman92>
 //                 William Chiu <https://github.com/chiuhow>
 //                 David Baumgold <https://github.com/singingwolfboy>
+//                 Ilja Reznik <https://github.com/ireznik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -48,6 +49,7 @@ export interface MapboxProps extends Partial<ViewState> {
     container?: object;
     gl?: object;
     mapboxApiAccessToken?: string;
+    mapboxApiUrl?: string;
     attributionControl?: boolean;
     preserveDrawingBuffer?: boolean;
     reuseMaps?: boolean;
@@ -202,7 +204,7 @@ export class MapController implements BaseMapController {
     updateViewport(newMapState: MapState, extraProps: any, extraState: ExtraState): void;
 }
 
-export interface PointerEvent {
+export interface PointerEvent extends MouseEvent {
     type: string;
     point: [number, number];
     lngLat: [number, number];
@@ -223,15 +225,20 @@ export enum TRANSITION_EVENTS {
 
 export class TransitionInterpolator {}
 
+export interface LinearInterpolatorProps {
+    transitionProps?: string[];
+    around?: number[];
+}
+
 export class LinearInterpolator extends TransitionInterpolator {
-    constructor(transitionProps?: string[]);
+    constructor(transitionProps?: LinearInterpolatorProps | string[]);
 }
 
 export interface FlyToInterpolatorProps {
     curve?: number;
     speed?: number;
     screenSpeed?: number;
-    maxDuraiton?: number;
+    maxDuration?: number;
 }
 
 export class FlyToInterpolator extends TransitionInterpolator {
@@ -464,7 +471,7 @@ export interface SourceProps {
     tiles?: string[];
     tileSize?: number;
     bounds?: number[];
-    schema?: 'xyz' | 'tms';
+    scheme?: 'xyz' | 'tms';
     minzoom?: number;
     maxzoom?: number;
     attribution?: string;

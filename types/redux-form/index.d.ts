@@ -11,7 +11,6 @@
 //                 Kamil Wojcik <https://github.com/smifun>
 //                 Mohamed Shaaban <https://github.com/mshaaban088>
 //                 Ethan Setnik <https://github.com/esetnik>
-//                 Walter Barbagallo <https://github.com/bwlt>
 //                 Kota Marusue <https://github.com/mrsekut>
 //                 Adam Bouqdib <https://github.com/abemedia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

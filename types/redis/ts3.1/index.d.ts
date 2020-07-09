@@ -10,7 +10,7 @@ export interface RetryStrategyOptions {
     attempt: number;
 }
 
-export type RetryStrategy = (options: RetryStrategyOptions) => number | Error;
+export type RetryStrategy = (options: RetryStrategyOptions) => number | Error | unknown;
 
 export interface ClientOpts {
     host?: string;
@@ -427,8 +427,8 @@ export interface Commands<R> {
     /**
      * Get the value of a key.
      */
-    get(key: string, cb?: Callback<string>): R;
-    GET(key: string, cb?: Callback<string>): R;
+    get(key: string, cb?: Callback<string | null>): R;
+    GET(key: string, cb?: Callback<string | null>): R;
 
     /**
      * Returns the bit value at offset in the string value stored at key.
@@ -505,8 +505,8 @@ export interface Commands<R> {
     /**
      * Set the string value of a hash field.
      */
-    hset(key: string, field: string, value: string, cb?: Callback<number>): R;
-    HSET(key: string, field: string, value: string, cb?: Callback<number>): R;
+    hset: OverloadedSetCommand<string, number, R>;
+    HSET: OverloadedSetCommand<string, number, R>;
 
     /**
      * Set the value of a hash field, only if the field does not exist.
@@ -979,6 +979,14 @@ export interface Commands<R> {
     TYPE(key: string, cb?: Callback<string>): R;
 
     /**
+     * Deletes a key in a non-blocking manner.
+     * Very similar to DEL, but actual memory reclamation
+     * happens in a different thread, making this non-blocking.
+     */
+    unlink: OverloadedCommand<string, number, R>;
+    UNLINK: OverloadedCommand<string, number, R>;
+
+    /**
      * Forget about all watched keys.
      */
     unwatch(cb?: Callback<'OK'>): R;
@@ -1167,7 +1175,7 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     connected: boolean;
     command_queue_length: number;
     offline_queue_length: number;
-    retry_delay: number;
+    retry_delay: number | Error;
     retry_backoff: number;
     command_queue: any[];
     offline_queue: any[];
@@ -1230,9 +1238,19 @@ export function createClient(options?: ClientOpts): RedisClient;
 
 export function print(err: Error | null, reply: any): void;
 
-export class RedisError extends Error { }
-export class ReplyError extends RedisError { }
-export class AbortError extends RedisError { }
+export class RedisError extends Error {
+    name: string;
+}
+export class ReplyError extends RedisError {
+    command: string;
+    args?: unknown[];
+    code: string;
+}
+export class AbortError extends RedisError {
+    command: string;
+    args?: unknown[];
+    code?: string;
+}
 export class ParserError extends RedisError {
     offset: number;
     buffer: Buffer;

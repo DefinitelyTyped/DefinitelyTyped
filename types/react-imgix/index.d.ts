@@ -235,7 +235,7 @@ export namespace PublicConfigAPI {
   function enableWarning(name: Warnings): void;
 }
 
-interface BackgroundProps {
+export interface BackgroundProps {
   src: string;
   imgixParams?: ImigixParams;
   className?: string;

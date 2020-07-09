@@ -1,4 +1,4 @@
-// Type definitions for prettier 1.19
+// Type definitions for prettier 2.0
 // Project: https://github.com/prettier/prettier, https://prettier.io
 // Definitions by: Ika <https://github.com/ikatyang>,
 //                 Ifiok Jr. <https://github.com/ifiokjr>,
@@ -24,12 +24,11 @@ export interface FastPath<T = any> {
 
 export type BuiltInParser = (text: string, options?: any) => AST;
 export type BuiltInParserName =
-    | 'babylon' // deprecated
     | 'babel'
     | 'babel-flow'
+    | 'babel-ts'
     | 'flow'
     | 'typescript'
-    | 'postcss' // deprecated
     | 'css'
     | 'less'
     | 'scss'
@@ -51,34 +50,42 @@ export interface Options extends Partial<RequiredOptions> {}
 export interface RequiredOptions extends doc.printer.Options {
     /**
      * Print semicolons at the ends of statements.
+     * @default true
      */
     semi: boolean;
     /**
      * Use single quotes instead of double quotes.
+     * @default false
      */
     singleQuote: boolean;
     /**
      * Use single quotes in JSX.
+     * @default false
      */
     jsxSingleQuote: boolean;
     /**
      * Print trailing commas wherever possible.
+     * @default 'es5'
      */
     trailingComma: 'none' | 'es5' | 'all';
     /**
      * Print spaces between brackets in object literals.
+     * @default true
      */
     bracketSpacing: boolean;
     /**
      * Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
+     * @default false
      */
     jsxBracketSameLine: boolean;
     /**
      * Format only a segment of a file.
+     * @default 0
      */
     rangeStart: number;
     /**
      * Format only a segment of a file.
+     * @default Infinity
      */
     rangeEnd: number;
     /**
@@ -92,6 +99,7 @@ export interface RequiredOptions extends doc.printer.Options {
     /**
      * Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file.
      * This is very useful when gradually transitioning large, unformatted codebases to prettier.
+     * @default false
      */
     requirePragma: boolean;
     /**
@@ -99,19 +107,18 @@ export interface RequiredOptions extends doc.printer.Options {
      * the file has been formatted with prettier. This works well when used in tandem with
      * the --require-pragma option. If there is already a docblock at the top of
      * the file then this option will add a newline to it with the @format marker.
+     * @default false
      */
     insertPragma: boolean;
     /**
      * By default, Prettier will wrap markdown text as-is since some services use a linebreak-sensitive renderer.
      * In some cases you may want to rely on editor/viewer soft wrapping instead, so this option allows you to opt out.
+     * @default 'preserve'
      */
-    proseWrap:
-        | boolean // deprecated
-        | 'always'
-        | 'never'
-        | 'preserve';
+    proseWrap: 'always' | 'never' | 'preserve';
     /**
      * Include parentheses around a sole arrow function parameter.
+     * @default 'always'
      */
     arrowParens: 'avoid' | 'always';
     /**
@@ -120,18 +127,22 @@ export interface RequiredOptions extends doc.printer.Options {
     plugins: Array<string | Plugin>;
     /**
      * How to handle whitespaces in HTML.
+     * @default 'css'
      */
     htmlWhitespaceSensitivity: 'css' | 'strict' | 'ignore';
     /**
      * Which end of line characters to apply.
+     * @default 'lf'
      */
     endOfLine: 'auto' | 'lf' | 'crlf' | 'cr';
     /**
      * Change when properties in objects are quoted.
+     * @default 'as-needed'
      */
     quoteProps: 'as-needed' | 'consistent' | 'preserve';
     /**
      * Whether or not to indent the code inside <script> and <style> tags in Vue files.
+     * @default false
      */
     vueIndentScriptAndStyle: boolean;
 }
@@ -160,11 +171,7 @@ export interface Parser {
 }
 
 export interface Printer {
-    print(
-        path: FastPath,
-        options: ParserOptions,
-        print: (path: FastPath) => Doc,
-    ): Doc;
+    print(path: FastPath, options: ParserOptions, print: (path: FastPath) => Doc): Doc;
     embed?: (
         path: FastPath,
         print: (path: FastPath) => Doc,
@@ -184,8 +191,20 @@ export interface Printer {
     printComments?: (path: FastPath, print: (path: FastPath) => Doc, options: ParserOptions, needsSemi: boolean) => Doc;
     handleComments?: {
         ownLine?: (commentNode: any, text: string, options: ParserOptions, ast: any, isLastComment: boolean) => boolean;
-        endOfLine?: (commentNode: any, text: string, options: ParserOptions, ast: any, isLastComment: boolean) => boolean;
-        remaining?: (commentNode: any, text: string, options: ParserOptions, ast: any, isLastComment: boolean) => boolean;
+        endOfLine?: (
+            commentNode: any,
+            text: string,
+            options: ParserOptions,
+            ast: any,
+            isLastComment: boolean,
+        ) => boolean;
+        remaining?: (
+            commentNode: any,
+            text: string,
+            options: ParserOptions,
+            ast: any,
+            isLastComment: boolean,
+        ) => boolean;
     };
 }
 
@@ -305,6 +324,7 @@ export interface SupportOptionDefault {
 }
 
 export interface SupportOption {
+    name: string;
     since?: string;
     type: 'int' | 'boolean' | 'choice' | 'path';
     array?: boolean;
@@ -363,11 +383,9 @@ export namespace getFileInfo {
 }
 
 /**
- * Returns an object representing the parsers, languages and file types Prettier supports.
- * If `version` is provided (e.g. `"1.5.0"`), information for that version will be returned,
- * otherwise information for the current version will be returned.
+ * Returns an object representing the parsers, languages and file types Prettier supports for the current version.
  */
-export function getSupportInfo(version?: string): SupportInfo;
+export function getSupportInfo(): SupportInfo;
 
 /**
  * `version` field in `package.json`
@@ -376,8 +394,9 @@ export const version: string;
 
 // https://github.com/prettier/prettier/blob/master/src/common/util-shared.js
 export namespace util {
-    function isNextLineEmpty(text: string, node: any, options: ParserOptions): boolean;
+    function isNextLineEmpty(text: string, node: any, locEnd: (node: any) => number): boolean;
     function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
+    function isPreviousLineEmpty(text: string, node: any, locStart: (node: any) => number): boolean;
     function getNextNonSpaceNonCommentCharacterIndex(text: string, node: any, options: ParserOptions): number;
     function makeString(rawContent: string, enclosingQuote: "'" | '"', unescapeUnnecessaryEscapes: boolean): string;
     function addLeadingComment(node: any, commentNode: any): void;
@@ -399,7 +418,9 @@ export namespace doc {
             | Indent
             | Line
             | LineSuffix
-            | LineSuffixBoundary;
+            | LineSuffixBoundary
+            | Trim
+            | Cursor;
 
         interface Align {
             type: 'align';
@@ -455,6 +476,15 @@ export namespace doc {
             type: 'line-suffix-boundary';
         }
 
+        interface Trim {
+            type: 'trim';
+        }
+
+        interface Cursor {
+            type: 'cursor';
+            placeholder: symbol;
+        }
+
         function addAlignmentToDoc(doc: Doc, size: number, tabWidth: number): Doc;
         function align(n: Align['n'], contents: Doc): Align;
         const breakParent: BreakParent;
@@ -474,12 +504,17 @@ export namespace doc {
         const literalline: Concat;
         function markAsRoot(contents: Doc): Align;
         const softline: Line;
+        const trim: Trim;
+        const cursor: Cursor;
     }
     namespace debug {
         function printDocToDebug(doc: Doc): string;
     }
     namespace printer {
-        function printDocToString(doc: Doc, options: Options): {
+        function printDocToString(
+            doc: Doc,
+            options: Options,
+        ): {
             formatted: string;
             cursorNodeStart?: number;
             cursorNodeText?: string;
@@ -487,14 +522,17 @@ export namespace doc {
         interface Options {
             /**
              * Specify the line length that the printer will wrap on.
+             * @default 80
              */
             printWidth: number;
             /**
              * Specify the number of spaces per indentation-level.
+             * @default 2
              */
             tabWidth: number;
             /**
              * Indent lines with tabs instead of spaces
+             * @default false
              */
             useTabs: boolean;
         }
@@ -503,7 +541,12 @@ export namespace doc {
         function isEmpty(doc: Doc): boolean;
         function isLineNext(doc: Doc): boolean;
         function willBreak(doc: Doc): boolean;
-        function traverseDoc(doc: Doc, onEnter?: (doc: Doc) => void | boolean, onExit?: (doc: Doc) => void, shouldTraverseConditionalGroups?: boolean): void;
+        function traverseDoc(
+            doc: Doc,
+            onEnter?: (doc: Doc) => void | boolean,
+            onExit?: (doc: Doc) => void,
+            shouldTraverseConditionalGroups?: boolean,
+        ): void;
         function mapDoc<T>(doc: Doc, callback: (doc: Doc) => T): T;
         function propagateBreaks(doc: Doc): void;
         function removeLines(doc: Doc): Doc;

@@ -8,11 +8,11 @@ declare namespace Context {
     }
 }
 
-declare class Context<D extends DatasetCore, T extends Term> implements Context.Context<D, T> {
+interface Context<D extends DatasetCore, T extends Term> extends Context.Context<D, T> {}
+
+// tslint:disable-next-line no-unnecessary-class
+declare class Context<D extends DatasetCore, T extends Term> {
     constructor(dataset: D, graph: Quad_Graph | undefined, value: any);
-    dataset: D;
-    graph?: Quad_Graph;
-    term: T;
 }
 
 export = Context;

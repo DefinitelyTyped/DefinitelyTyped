@@ -340,6 +340,65 @@ const AttrsWithOnlyNewProps = styled.h2.attrs({ as: "h1" })`
 
 const AttrsInputExtra = styled(AttrsInput).attrs({ autoComplete: "off" })``;
 <AttrsInputExtra />;
+/**
+ * withConfig
+ */
+
+/**
+ * shouldForwardProp
+ */
+
+// $ExpectError
+const WithConfig = styled("div").withConfig()`
+    color: red;
+`;
+
+styled("div").withConfig({})`
+    color: red;
+`;
+
+styled("div").withConfig<{ myProp: boolean }>({
+    shouldForwardProp: (prop, defaultValidatorFn) => prop === "myProp",
+})<{ otherProp: string }>`
+    color: red;
+    ${p => {
+        // $ExpectType boolean
+        p.myProp;
+        return css``;
+    }}
+    ${p => {
+        // $ExpectType string
+        p.otherProp;
+        return css``;
+    }}
+`;
+
+styled("input").withConfig({
+    shouldForwardProp: (prop) => prop === "disabled",
+})`
+    color: red;
+`;
+
+styled('div').withConfig({
+    shouldForwardProp: (prop, defaultValidatorFn) => ['filterThis'].indexOf(prop) !== -1,
+})`
+    color: red;
+`;
+
+styled('div').withConfig({
+    shouldForwardProp: (prop, defaultValidatorFn) => defaultValidatorFn(prop),
+})`
+    color: red;
+`;
+
+styled("div").withConfig<{ test: boolean }>({
+    // $ExpectError
+    shouldForwardProp: (prop, defaultValidatorFn) => prop === "invalidProp" && true,
+})`
+   color: red;
+   ${p => p.test && css``}
+   ${p => p.invalidProp && css``} // $ExpectError
+`;
 
 /**
  * component type

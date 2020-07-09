@@ -33,7 +33,7 @@ export interface WithVirtualizeProps {
     onChangeIndex: OnChangeIndexCallback;
     onTransitionEnd?: OnTransitionEndCallback;
     overscanSlideAfter?: number;
-    overscanSliedBefore?: number;
+    overscanSlideBefore?: number;
     slideCount?: number;
     children?: React.ReactNode;
     slideRenderer: SlideRendererCallback;

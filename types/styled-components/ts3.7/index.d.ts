@@ -127,6 +127,12 @@ type ForwardRefExoticBase<P> = Pick<
     keyof React.ForwardRefExoticComponent<any>
 >;
 
+// Config to be used with withConfig
+export interface StyledConfig<O extends object = {}> {
+    // TODO: Add all types from the original StyledComponentWrapperProperties
+    shouldForwardProp?: (prop: keyof O, defaultValidatorFn: ((prop: keyof O) => boolean)) => boolean;
+}
+
 // extracts React defaultProps
 type ReactDefaultProps<C> = C extends { defaultProps: infer D; } ? D : never;
 
@@ -224,6 +230,8 @@ export interface ThemedStyledFunction<
     >(
         attrs: Attrs<StyledComponentPropsWithRef<C> & U, NewA, T>
     ): ThemedStyledFunction<C, T, O & NewA, A | keyof NewA>;
+
+    withConfig: <Props extends O = O>(config: StyledConfig<StyledComponentPropsWithRef<C> & Props>) => ThemedStyledFunction<C, T, Props, A>;
 }
 
 export type StyledFunction<
@@ -236,21 +244,18 @@ type ThemedStyledComponentFactories<T extends object> = {
 
 export type StyledComponentInnerComponent<
     C extends React.ComponentType<any>
-> = C extends
-    | StyledComponent<infer I, any, any, any>
-    | StyledComponent<infer I, any, any>
-    ? I
-    : C;
+> = C extends StyledComponent<infer I, any, any, any> ? I :
+    C extends StyledComponent<infer I, any, any> ? I :
+    C;
 export type StyledComponentPropsWithRef<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
 > = C extends AnyStyledComponent
     ? React.ComponentPropsWithRef<StyledComponentInnerComponent<C>>
     : React.ComponentPropsWithRef<C>;
-export type StyledComponentInnerOtherProps<C extends AnyStyledComponent> = C extends
-    | StyledComponent<any, any, infer O, any>
-    | StyledComponent<any, any, infer O>
-    ? O
-    : never;
+export type StyledComponentInnerOtherProps<C extends AnyStyledComponent> =
+    C extends StyledComponent<any, any, infer O, any> ? O :
+    C extends StyledComponent<any, any, infer O> ? O :
+    never;
 export type StyledComponentInnerAttrs<
     C extends AnyStyledComponent
 > = C extends StyledComponent<any, any, any, infer A> ? A : never;

@@ -17,7 +17,7 @@ const theme = {
     },
     zIndicies: {
         base: 100,
-    }
+    },
 };
 
 export const themeWithVariants: Theme = {
@@ -246,3 +246,17 @@ css({
 css({
     zIndex: 'base',
 })(theme);
+
+// ignores null
+css(null);
+
+css({
+    label: 'foo',
+    button: {
+        label: 'bar',
+        color: 'blue',
+    },
+    '> *': {
+        label: 'baz',
+    },
+});

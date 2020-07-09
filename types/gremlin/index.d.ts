@@ -1,6 +1,8 @@
 // Type definitions for gremlin 3.4
 // Project: https://tinkerpop.apache.org/
-// Definitions by: matt-sungwook <https://github.com/matt-sungwook>, keith1024 <https://github.com/keith1024>
+// Definitions by: matt-sungwook <https://github.com/matt-sungwook>
+//                 keith1024 <https://github.com/keith1024>
+//                 Paulo Soares <https://github.com/7jpsan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export {
@@ -45,6 +47,8 @@ declare namespace driver {
     open(): Promise<void>;
     submit(bytecode: Bytecode): Promise<any>;
     close(): Promise<void>;
+    addListener(event: string | symbol, handler: (...args: any[]) => void): void;
+    removeListener(event: string | symbol, handler: (...args: any[]) => void): void;
   }
 
   class Client {
@@ -119,14 +123,15 @@ declare namespace process {
     static startingWith(...args: any[]): TextP;
   }
 
-  class Traversal {
+  class Traversal implements AsyncIterableIterator<any> {
     constructor(graph: Nullable<Graph>, traversalStrategies: Nullable<TraversalStrategies>, bytecode: Bytecode);
-    // [asyncIteratorSymbol: symbol | SymbolConstructor](): Traversal; // How can I implement this?
     getBytecode(): Bytecode;
-    toList(): Promise<Traverser[]>;
+    hasNext(): Promise<boolean>;
     iterate(): Promise<void>;
-    next(): Promise<{ value: any; done: boolean; }>;
+    next(): Promise<IteratorResult<any>>;
+    toList(): Promise<Traverser[]>;
     toString(): string;
+    [Symbol.asyncIterator](): AsyncIterableIterator<any>;
   }
 
   class TraversalSideEffects {}

@@ -4,6 +4,7 @@
 //                 Ron Buckton <https://github.com/rbuckton>
 //                 Will Boyce <https://github.com/wrboyce>
 //                 Lucas Motta <https://github.com/lucasmotta>
+//                 Tom Xu <https://github.com/hengkx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -1060,22 +1061,22 @@ export interface Session extends events.EventEmitter {
     /**
      * Emitted when the client has requested an interactive shell.
      */
-    on(event: "shell", listener: (accept: SessionAcceptReject, reject: SessionAcceptReject) => void): this;
+    on(event: "shell", listener: (accept: () => ServerChannel, reject: SessionAcceptReject) => void): this;
 
     /**
      * Emitted when the client has requested execution of a command string.
      */
-    on(event: "exec", listener: (accept: SessionAcceptReject, reject: SessionAcceptReject, info: ExecInfo) => void): this;
+    on(event: "exec", listener: (accept: () => ServerChannel, reject: SessionAcceptReject, info: ExecInfo) => void): this;
 
     /**
      * Emitted when the client has requested the SFTP subsystem.
      */
-    on(event: "sftp", listener: (accept: SessionAcceptReject, reject: SessionAcceptReject) => void): this;
+    on(event: "sftp", listener: (accept: () => SFTPStream, reject: SessionAcceptReject) => void): this;
 
     /**
      * Emitted when the client has requested an arbitrary subsystem.
      */
-    on(event: "subsystem", listener: (accept: SessionAcceptReject, reject: SessionAcceptReject, info: SubsystemInfo) => void): this;
+    on(event: "subsystem", listener: (accept: () => ServerChannel, reject: SessionAcceptReject, info: SubsystemInfo) => void): this;
 
     /**
      * Emitted when the session has closed.
@@ -1453,6 +1454,14 @@ export interface SFTPWrapper extends events.EventEmitter {
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
     stat(path: string, callback: (err: any, stats: Stats) => void): boolean;
+
+    /**
+     * (Client-only)
+     * `path` exists.
+     *
+     * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+     */
+    exists(path: string, callback: (err: any) => void): boolean;
 
     /**
      * (Client-only)

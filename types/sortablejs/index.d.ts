@@ -30,7 +30,7 @@ declare class Sortable {
      */
     constructor(element: HTMLElement, options: Sortable.Options);
 
-    static active: Sortable;
+    static active: Sortable | null;
     static utils: Sortable.Utils;
 
     /**
@@ -49,6 +49,18 @@ declare class Sortable {
      * @param options Sortable options object.
      */
     static create(element: HTMLElement, options?: Sortable.Options): Sortable;
+
+    /** The element being dragged. */
+    static dragged: HTMLElement | null;
+
+    /** The ghost element.*/
+    static ghost: HTMLElement | null;
+
+    /** The clone element. */
+    static clone: HTMLElement | null;
+
+    /** Get the Sortable instance on an element. */
+    static get(element: HTMLElement): Sortable | undefined;
 
     /**
      * Options getter/setter
@@ -182,11 +194,11 @@ declare namespace Sortable {
         /**
          * ability to move from the list. clone — copy the item, rather than move.
          */
-        pull?: PullResult | ((to: Sortable, from: Sortable) => PullResult);
+        pull?: PullResult | ((to: Sortable, from: Sortable, dragEl: HTMLElement, event: SortableEvent) => PullResult);
         /**
          * whether elements can be added from other lists, or an array of group names from which elements can be taken.
          */
-        put?: PutResult | ((to: Sortable) => PullResult);
+        put?: PutResult | ((to: Sortable, from: Sortable, dragEl: HTMLElement, event: SortableEvent) => PutResult);
         /**
          * a canonical version of pull, created by Sortable
          */

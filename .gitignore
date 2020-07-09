@@ -57,3 +57,6 @@ yarn.lock
 shrinkwrap.yaml
 pnpm-lock.yaml
 pnpm-debug.log
+
+# Output of 'npm pack'
+*.tgz
