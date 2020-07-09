@@ -1,4 +1,4 @@
-import ObjectsToCsv from 'objects-to-csv';
+import ObjectsToCsv = require('objects-to-csv');
 
 const SAMPLE_ASCII = [
     { code: 'HK', name: 'Hong Kong' },

@@ -3,7 +3,7 @@
 // Definitions by: Tom Plant <https://github.com/pl4nty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default class {
+declare class ObjectsToCsv {
     /**
      * Creates a new instance of the object array to csv converter.
      */
@@ -16,12 +16,12 @@ export default class {
 
     /**
      * Saves the CSV file to the specified file.
-     * @param {string} filename - The path and filename of the new CSV file.
-     * @param {object} options - The options for writing to disk.
-     * @param {boolean} [options.append] - Whether to append to file. Default is overwrite (false).
-     * @param {boolean} [options.bom] - Append the BOM mark so that Excel shows
-     * @param {boolean} [options.allColumns] - Whether to check all items for column names or only the first.  Default is the first.
-     * @returns {Promise<string>} - Data converted to a CSV string.
+     * @param filename The path and filename of the new CSV file.
+     * @param options The options for writing to disk.
+     * @param options.append Whether to append to file. Default is overwrite (false).
+     * @param options.bom Append the BOM mark so that Excel shows
+     * @param options.allColumns Whether to check all items for column names or only the first.  Default is the first.
+     * @returns Data converted to a CSV string.
      */
     toDisk(
         filename: string,
@@ -34,22 +34,22 @@ export default class {
 
     /**
      * Returns the CSV file as string.
-     * @param {boolean} header - If false, omit the first row containing the
+     * @param header - If false, omit the first row containing the
      * column names.
-     * @param {boolean} allColumns - Whether to check all items for column names.
+     * @param allColumns - Whether to check all items for column names.
      *   Uses only the first item if false.
      */
     toString(header?: boolean, allColumns?: boolean): Promise<string>;
 
     /**
      * Private method to run the actual conversion of array of objects to CSV data.
-     * @param {object[]} data
-     * @param {boolean} header - Whether the first line should contain column headers.
-     * @param {boolean} allColumns - Whether to check all items for column names.
+     * @param data Data to be converted.
+     * @param header Whether the first line should contain column headers.
+     * @param allColumns Whether to check all items for column names.
      *   Uses only the first item if false.
-     * @returns {Promise<string>} - Data converted to a CSV string.
+     * @returns Data converted to a CSV string.
      */
     convert(data: object[], header?: boolean, allColumns?: boolean): Promise<string>;
 }
 
-export as namespace ObjectsToCsv;
+export = ObjectsToCsv;
