@@ -4,6 +4,7 @@
         "max-line-length": false,
         "no-empty-interface": false,
         "interface-over-type-literal": false,
-        "npm-naming": false
+        "npm-naming": false,
+        "no-single-declare-module": false
     }
 }
