@@ -477,11 +477,6 @@ export interface PressableStateCallbackType {
 
 export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
     /**
-     * Called when this view's layout changes.
-     */
-    onLayout?: (event: LayoutChangeEvent) => void;
-
-    /**
      * Called when a single tap gesture is detected.
      */
     onPress?: (event: GestureResponderEvent) => void;
@@ -537,11 +532,6 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
      * Enables the Android ripple effect and configures its color.
      */
     android_ripple?: RippleBackgroundPropType;
-
-    /**
-     * Identifier used to find this view in tests.
-     */
-    testID?: string;
 
     /**
      * Used only for documentation or testing (e.g. snapshot testing).
