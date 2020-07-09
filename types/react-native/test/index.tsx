@@ -370,11 +370,43 @@ export class PressableTest extends React.Component {
 
     render() {
         return (
-            <Pressable onPress={this.onPressButton}>
-                <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
-                    <Text style={{ margin: 30 }}>Button</Text>
-                </View>
-            </Pressable>
+            <>
+                <Pressable onPress={this.onPressButton} style={{ backgroundColor: 'blue' }}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </Pressable>
+                {/* Style function */}
+                <Pressable
+                    onPress={this.onPressButton}
+                    style={state => ({
+                        backgroundColor: state.pressed ? 'red' : 'blue',
+                    })}
+                >
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </Pressable>
+                {/* Children function */}
+                <Pressable
+                    onPress={this.onPressButton}
+                    style={state => ({
+                        backgroundColor: state.pressed ? 'red' : 'blue',
+                    })}
+                >
+                    {state =>
+                        state.pressed ? (
+                            <View>
+                                <Text>Pressed</Text>
+                            </View>
+                        ) : (
+                            <View>
+                                <Text>Not Pressed</Text>
+                            </View>
+                        )
+                    }
+                </Pressable>
+            </>
         );
     }
 }
