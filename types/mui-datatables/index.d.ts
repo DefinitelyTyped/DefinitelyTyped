@@ -46,7 +46,7 @@ export interface MUIDataTableState {
     rowsPerPage: number;
     rowsPerPageOptions: number[];
     searchText: string | null;
-    searchProps: null | React.HTMLAttributes<HTMLInputElement>;
+    searchProps: React.HTMLAttributes<HTMLInputElement> | null;
     selectedRows: MUIDataTableStateRows;
     showResponsive: boolean;
     sortOrder: MUISortOptions;
