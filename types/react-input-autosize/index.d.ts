@@ -15,6 +15,7 @@ export interface AutosizeInputProps extends React.InputHTMLAttributes<HTMLInputE
     onAutosize?: (inputWidth: string | number) => void;
     placeholderIsMinWidth?: boolean;
     extraWidth?: string | number;
+    injectStyles?: boolean;
 }
 
 declare class AutosizeInput extends React.Component<AutosizeInputProps> {
