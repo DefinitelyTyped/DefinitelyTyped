@@ -186,6 +186,15 @@ const stylesAlt = StyleSheet.create({
     },
 });
 
+// const stylesDynamicColor = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//         backgroundColor: DynamicColorIOS({light: '#ffffff', dark: '#eeeeee'}),
+//     },
+// });
+
 StyleSheet.setStyleAttributePreprocessor('fontFamily', (family: string) => family);
 
 const welcomeFontSize = StyleSheet.flatten(styles.welcome).fontSize;
@@ -1169,7 +1178,7 @@ StyleSheet.create({
             android: {
                 color: PlatformColor('?attr/colorControlNormal'),
             },
-            default: { color: 'black' },
+            // default: { color: 'black' },
         }),
     },
 });
