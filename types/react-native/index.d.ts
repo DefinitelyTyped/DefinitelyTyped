@@ -2110,7 +2110,7 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
 }
 
 export type AccessibilityActionInfo = Readonly<{
-    name: AccessibilityActionName;
+    name: AccessibilityActionName | string;
     label?: string;
 }>;
 
