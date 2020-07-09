@@ -33,6 +33,7 @@ export interface MUIDataTableStateRows {
 export interface MUIDataTableState {
     activeColumn: string | null;
     announceText: string | null;
+    columnOrder: Array<Number>;
     columns: MUIDataTableColumnState[];
     count: number;
     data: any[];
@@ -41,11 +42,14 @@ export interface MUIDataTableState {
     filterData: any[];
     filterList: string[][];
     page: number;
+    previousSelectedRow: null | { index: Number; dataIndex: Number };
     rowsPerPage: number;
     rowsPerPageOptions: number[];
     searchText: string | null;
+    searchProps: null | React.HTMLAttributes<HTMLInputElement>;
     selectedRows: MUIDataTableStateRows;
     showResponsive: boolean;
+    sortOrder: MUISortOptions;
 }
 
 export interface MUIDataTableMeta {
@@ -196,7 +200,7 @@ export interface MUIDataTableIsRowCheck {
         {
             index: number;
             dataIndex: number;
-        }
+        },
     ];
 }
 
