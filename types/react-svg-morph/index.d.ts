@@ -16,7 +16,7 @@ export interface MorphReplaceProps {
     easing?: (props: any) => number;
 }
 
-export interface MorphReplaceResizeProps {
+export interface MorphTransitionProps {
     width?: number;
     height?: number;
     viewBox?: string;
@@ -30,4 +30,8 @@ export interface MorphReplaceResizeProps {
 
 export const MorphReplace: React.ComponentClass<MorphReplaceProps>;
 
-export const MorphReplaceResize: React.ComponentClass<MorphReplaceResizeProps>;
+export const MorphReplaceResize: React.ComponentClass<MorphReplaceProps>;
+
+export const MorphTransition: React.ComponentClass<MorphTransitionProps>;
+
+export const MorphTransitionResize: React.ComponentClass<MorphTransitionProps>;
