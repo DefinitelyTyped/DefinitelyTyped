@@ -2,7 +2,7 @@
  * @throws {TypeError} If `x` or `y` is a `number` or they're different types.
  */
 declare function SameValueNonNumber(
-    x: object | null | undefined | string | boolean | symbol,
-    y: object | null | undefined | string | boolean | symbol,
+    x: string | boolean | symbol | object | null | undefined,
+    y: string | boolean | symbol | object | null | undefined,
 ): boolean;
 export = SameValueNonNumber;
