@@ -33,7 +33,7 @@ export interface MUIDataTableStateRows {
 export interface MUIDataTableState {
     activeColumn: string | null;
     announceText: string | null;
-    columnOrder: Array<Number>;
+    columnOrder: number[];
     columns: MUIDataTableColumnState[];
     count: number;
     data: any[];
@@ -42,7 +42,7 @@ export interface MUIDataTableState {
     filterData: any[];
     filterList: string[][];
     page: number;
-    previousSelectedRow: null | { index: Number; dataIndex: Number };
+    previousSelectedRow: null | { index: number; dataIndex: number };
     rowsPerPage: number;
     rowsPerPageOptions: number[];
     searchText: string | null;
