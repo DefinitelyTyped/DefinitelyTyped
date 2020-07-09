@@ -1147,10 +1147,31 @@ Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5 }); // $Expec
 Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5, default: 0 }); // $ExpectType number
 
 PlatformColor('?attr/colorControlNormal');
+PlatformColor('?attr/colorControlNormal', '?attr/colorAccent', 'another');
 
 DynamicColorIOS({
     dark: 'lightskyblue',
     light: 'midnightblue',
+});
+
+DynamicColorIOS({
+    dark: 'lightskyblue',
+    light: PlatformColor('labelColor'),
+});
+
+// Test PlatformColor inside Platform select with stylesheet
+StyleSheet.create({
+    labelCell: {
+        flex: 1,
+        alignItems: 'stretch',
+        ...Platform.select({
+            ios: { color: DynamicColorIOS({ dark: 'lightskyblue', light: PlatformColor('labelColor') }) },
+            android: {
+                color: PlatformColor('?attr/colorControlNormal'),
+            },
+            default: { color: 'black' },
+        }),
+    },
 });
 
 // ProgressBarAndroid

@@ -5911,17 +5911,13 @@ interface PlatformWebStatic extends PlatformStatic {
     OS: 'web';
 }
 
-/**
- * Select native platform color
- * The color must match the string that exists on the native platform
- *
- * @see https://reactnative.dev/docs/platformcolor#example
- */
-export function PlatformColor(color: string): string;
+// This needs to be any for now as setting it to the actual recursive type
+// Means the TS version needs to be updated, which causes the deps to fail
+type ColorValue = any;
 
 type DynamicColorIOSTuple = {
-    light: string;
-    dark: string;
+    light: ColorValue;
+    dark: ColorValue;
 };
 
 /**
@@ -5930,7 +5926,15 @@ type DynamicColorIOSTuple = {
  * @param tuple Colors you want to use for "light mode" and "dark mode"
  * @platform ios
  */
-export function DynamicColorIOS(tuple: DynamicColorIOSTuple): string;
+export function DynamicColorIOS(tuple: DynamicColorIOSTuple): ColorValue;
+
+/**
+ * Select native platform color
+ * The color must match the string that exists on the native platform
+ *
+ * @see https://reactnative.dev/docs/platformcolor#example
+ */
+export function PlatformColor(...colors: string[]): ColorValue;
 
 /**
  * Deprecated - subclass NativeEventEmitter to create granular event modules instead of
