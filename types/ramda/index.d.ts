@@ -29,7 +29,7 @@
 //                 Saul Mirone <https://github.com/Saul-Mirone>
 //                 Nicholai Nissen <https://github.com/Nicholaiii>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.7
 
 import * as _ from "ts-toolbelt";
 import {
