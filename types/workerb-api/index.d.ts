@@ -41,6 +41,7 @@ export interface ClickQueryOptions extends QueryOptions {
      * * by_regex - finds the target element by regex.
      * * by_id - finds the target element by id
      * * by_xpath - finds the target element by an [xpath](https://developer.mozilla.org/en-US/docs/Web/XPath) query
+     * * by_query_selector - finds the target element using a query selector
      *
      */
     method?: clickQueryMethods;
@@ -60,7 +61,8 @@ export interface GetAttributeQueryOptions extends QueryOptions {
      * * by_regex - finds the target element by regex.
      * * by_id - finds the target element by id
      * * by_xpath - finds the target element by an [xpath](https://developer.mozilla.org/en-US/docs/Web/XPath) query
-     *
+     * * by_query_selector - finds the target element using a query selector
+     * * by_query_selector_all - finds all the elements using a query selector
      */
     method?: getAttributeQueryMethods;
 }
@@ -73,7 +75,7 @@ export interface SelectQueryOptions extends QueryOptions {
      * * by_regex - finds the target element by regex.
      * * by_id - finds the target element by id
      * * by_xpath - finds the target element by an [xpath](https://developer.mozilla.org/en-US/docs/Web/XPath) query
-     *
+     * * by_query_selector finds - the target element using a query selector
      */
     method?: clickQueryMethods;
 
@@ -91,7 +93,9 @@ export interface TypeQueryInterface extends QueryOptions {
      * * by_regex - finds the target element by regex.
      * * by_id - finds the target element by id
      * * by_xpath - finds the target element by an [xpath](https://developer.mozilla.org/en-US/docs/Web/XPath) query
-     *
+     * * by_query_selector - finds the target element using a query selector
+     * * by_label - finds the target input using a label.
+     * * by_placeholder - finds the target input using a placeholder.
      */
     method?: typeQueryMethods;
 }
