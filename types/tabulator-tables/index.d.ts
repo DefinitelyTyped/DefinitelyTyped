@@ -295,6 +295,14 @@ declare namespace Tabulator {
         column: string;
         dir: SortDirection;
     }
+    interface SorterFromTable {
+        /** The column component for the sorted column. */
+        column: ColumnComponent;
+        /** A string of the field name for the sorted column. */
+        field: string;
+        /** A string of either `asc` or `desc` indicating the direction of sort. */
+        dir: SortDirection;
+    }
     interface OptionsData {
         /** A unique index value should be present for each row of data if you want to be able to programatically alter that data at a later point, this should be either numeric or a string. By default Tabulator will look for this value in the id field for the data. If you wish to use a different field as the index, set this using the index option parameter. */
         index?: number | string;
@@ -2040,7 +2048,8 @@ declare class Tabulator {
     setHeight: (height: number | string) => void;
     /** You can trigger sorting using the setSort function */
     setSort: (sortList: string | Tabulator.Sorter[], dir?: Tabulator.SortDirection) => void;
-    getSorters: () => void;
+    /** Retrieves the details of the currently sorted column. */
+    getSorters: () => Tabulator.SorterFromTable[];
     /** To remove all sorting from the table, call the clearSort function. */
     clearSort: () => void;
     /** To set a filter you need to call the setFilter method, passing the field you wish to filter, the comparison type and the value to filter for.
