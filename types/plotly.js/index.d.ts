@@ -49,6 +49,7 @@ export interface PlotScatterDataPoint {
 export interface PlotDatum {
     curveNumber: number;
     data: PlotData;
+    customdata: Datum;
     pointIndex: number;
     pointNumber: number;
     x: Datum;
