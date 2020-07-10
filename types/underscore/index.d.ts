@@ -350,7 +350,7 @@ declare module _ {
          * @param collection The collection to filter.
          * @param iteratee The truth test to apply.
          * @param context `this` object in `iteratee`, optional.
-         * @returns The set of values for which the truth test passes.
+         * @returns The set of values that pass the truth test.
          **/
         filter<V extends Collection<any>>(
             collection: V,
@@ -385,12 +385,12 @@ declare module _ {
             properties: U): T | undefined;
 
         /**
-         * Returns the values in `collection` without the elements that the truth test (iteratee) passes.
+         * Returns the values in `collection` without the elements that pass a truth test (iteratee).
          * The opposite of filter.
          * @param collection The collection to filter.
          * @param iteratee The truth test to apply.
          * @param context `this` object in `iteratee`, optional.
-         * @return The set of values for which the truth test fails.
+         * @return The set of values that fail the truth test.
          **/
         reject<V extends Collection<any>>(
             collection: V,
@@ -4196,7 +4196,7 @@ declare module _ {
          * test (iteratee).
          * @param iteratee The truth test to apply.
          * @param context `this` object in `iteratee`, optional.
-         * @returns The set of values for which the truth test passes.
+         * @returns The set of values that pass the truth test.
          **/
         filter(iteratee?: Iteratee<V, boolean>, context?: any): T[];
 
@@ -4218,11 +4218,11 @@ declare module _ {
         findWhere<U extends {}>(properties: U): T | undefined;
 
         /**
-         * Returns the values in the wrapped collection without the elements that the truth test (iteratee) passes.
+         * Returns the values in the wrapped collection without the elements that pass a truth test (iteratee).
          * The opposite of filter.
          * @param iteratee The truth test to apply.
          * @param context `this` object in `iteratee`, optional.
-         * @return The set of values for which the truth test fails.
+         * @return The set of values that fail the truth test.
          **/
         reject(iteratee?: Iteratee<V, boolean>, context?: any): T[];
 
@@ -5173,7 +5173,7 @@ declare module _ {
          * test (iteratee).
          * @param iteratee The truth test to apply.
          * @param context `this` object in `iteratee`, optional.
-         * @returns The set of values for which the truth test passes in a chain wrapper.
+         * @returns The set of values that pass a truth test in a chain wrapper.
          **/
         filter(iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
 
@@ -5195,11 +5195,11 @@ declare module _ {
         findWhere<U extends {}>(properties: U): _ChainSingle<T>;
 
         /**
-         * Returns the values in the wrapped collection without the elements that the truth test (iteratee) passes.
+         * Returns the values in the wrapped collection without the elements that pass a truth test (iteratee).
          * The opposite of filter.
          * @param iteratee The truth test to apply.
          * @param context `this` object in `iteratee`, optional.
-         * @return The set of values for which the truth test fails in a chain wrapper.
+         * @return The set of values that fail the truth test in a chain wrapper.
          **/
         reject(iteratee?: _ChainIteratee<V, boolean, T>, context?: any): _Chain<T, T[]>;
 
