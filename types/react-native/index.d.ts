@@ -471,7 +471,7 @@ export interface Insets {
     right?: number;
 }
 
-export interface PressableStateCallbackType {
+export type PressableStateCallbackType = Readonly<{
     pressed: boolean;
 }
 
@@ -479,22 +479,22 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
     /**
      * Called when a single tap gesture is detected.
      */
-    onPress?: (event: GestureResponderEvent) => void;
+    onPress?: null | (event: GestureResponderEvent) => void;
 
     /**
      * Called when a touch is engaged before `onPress`.
      */
-    onPressIn?: (event: GestureResponderEvent) => void;
+    onPressIn?: null | (event: GestureResponderEvent) => void;
 
     /**
      * Called when a touch is released before `onPress`.
      */
-    onPressOut?: (event: GestureResponderEvent) => void;
+    onPressOut?: null | (event: GestureResponderEvent) => void;
 
     /**
      * Called when a long-tap gesture is detected.
      */
-    onLongPress?: (event: GestureResponderEvent) => void;
+    onLongPress?: null | (event: GestureResponderEvent) => void;
 
     /**
      * Either children or a render prop that receives a boolean reflecting whether
@@ -505,38 +505,38 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
      */
-    delayLongPress?: number;
+    delayLongPress?: null | number;
 
     /**
      * Whether the press behavior is disabled.
      */
-    disabled?: boolean;
+    disabled?: null | boolean;
 
     /**
      * Additional distance outside of this view in which a press is detected.
      */
-    hitSlop?: Insets | number;
+    hitSlop?: null | Insets | number;
 
     /**
      * Additional distance outside of this view in which a touch is considered a
      * press before `onPressOut` is triggered.
      */
-    pressRetentionOffset?: Insets | number;
+    pressRetentionOffset?: null | Insets | number;
 
     /**
      * If true, doesn't play system sound on touch.
      */
-    android_disableSound?: boolean;
+    android_disableSound?: null | boolean;
 
     /**
      * Enables the Android ripple effect and configures its color.
      */
-    android_ripple?: RippleBackgroundPropType;
+    android_ripple?: null | RippleBackgroundPropType;
 
     /**
      * Used only for documentation or testing (e.g. snapshot testing).
      */
-    testOnly_pressed?: boolean;
+    testOnly_pressed?: null | boolean;
 
     /**
      * Either view styles or a function that receives a boolean reflecting whether
