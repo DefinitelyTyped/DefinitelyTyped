@@ -1290,7 +1290,7 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
      * Resets the given vector layer's style to the original GeoJSON style,
      * useful for resetting style after hover events.
      */
-    resetStyle(layer: Layer): Layer;
+    resetStyle(layer?: Layer): Layer;
 
     /**
      * Same as FeatureGroup's setStyle method, but style-functions are also
