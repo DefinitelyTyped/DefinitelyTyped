@@ -3,7 +3,7 @@
 // Definitions by: Peter Munyao <https://github.com/petekmunz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export class Mpesa {
+declare class Mpesa {
     constructor(config: ConfigOptions);
 
     accountBalance(shortCode: string, idType: string, queueUrl: string, resultUrl: string, remarks?: string, initiator?: string, commandId?: string): Promise<void>;
@@ -32,7 +32,7 @@ export class Mpesa {
         occasion?: string, initiator?: string, receiverIdType?: string, commandId?: string): Promise<void>;
 }
 
-export interface ConfigOptions {
+interface ConfigOptions {
     consumerKey: string;
     consumerSecret: string;
     enviroment?: string;
@@ -43,3 +43,5 @@ export interface ConfigOptions {
     securityCredential?: string;
     certPath?: string;
 }
+
+export = Mpesa;

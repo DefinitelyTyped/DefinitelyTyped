@@ -1,4 +1,4 @@
-import { Mpesa } from 'mpesa-node';
+import Mpesa = require('mpesa-node');
 
 const mpesaClient = new Mpesa({ consumerKey: 'test', consumerSecret: 'test' });
 
