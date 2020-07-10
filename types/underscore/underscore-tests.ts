@@ -1472,6 +1472,12 @@ declare const extractChainTypes: ChainTypeExtractor;
 
     // mixed non-collections and collections
     extractUnderscoreTypes(_(mixedIterabilityValue)); // $ExpectType UnderscoreType<number | number[], number>
+
+    // any
+    extractUnderscoreTypes(_(anyValue)); // $ExpectType UnderscoreType<any, any>
+
+    // never
+    extractUnderscoreTypes(_(neverValue)); // $ExpectType UnderscoreType<never, never>
 }
 
 // value
@@ -1493,6 +1499,12 @@ declare const extractChainTypes: ChainTypeExtractor;
 
     // mixed non-collections and collections
     _(mixedIterabilityValue).value(); // $ExpectType number | number[]
+
+    // any
+    _(anyValue).value(); // $ExpectType any
+
+    // never
+    _(neverValue).value(); // $ExpectType never
 }
 
 // Chaining
@@ -1524,6 +1536,14 @@ declare const extractChainTypes: ChainTypeExtractor;
     // mixed non-collections and collections
     extractChainTypes(_.chain(mixedIterabilityValue)); // $ExpectType ChainType<number | number[], number>
     extractChainTypes(_(mixedIterabilityValue).chain()); // $ExpectType ChainType<number | number[], number>
+
+    // any
+    extractChainTypes(_.chain(anyValue)); // $ExpectType ChainType<any, any>
+    extractChainTypes(_(anyValue).chain()); // $ExpectType ChainType<any, any>
+
+    // never
+    extractChainTypes(_.chain(neverValue)); // $ExpectType ChainType<never, never>
+    extractChainTypes(_(neverValue).chain()); // $ExpectType ChainType<never, never>
 }
 
 // value
@@ -1545,4 +1565,10 @@ declare const extractChainTypes: ChainTypeExtractor;
 
     // mixed non-collections and collections
     _.chain(mixedIterabilityValue).value(); // $ExpectType number | number[]
+
+    // any
+    _.chain(anyValue).value(); // $ExpectType any
+
+    // never
+    _.chain(neverValue).value(); // $ExpectType never
 }
