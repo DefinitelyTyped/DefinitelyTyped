@@ -322,70 +322,26 @@ declare module _ {
         foldr: UnderscoreStatic['reduceRight'];
 
         /**
-        * Looks through each value in the list, returning the first one that passes a truth
-        * test (iterator). The function returns as soon as it finds an acceptable element,
-        * and doesn't traverse the entire list.
-        * @param list Searches for a value in this list.
-        * @param iterator Search iterator function for each element in `list`.
-        * @param context `this` object in `iterator`, optional.
-        * @return The first acceptable found element in `list`, if nothing is found undefined/null is returned.
-        **/
-        find<T>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, boolean>,
-            context?: any): T | undefined;
+         * Looks through each value in the collection, returning the first one that passes a
+         * truth test (iteratee), or undefined if no value passes the test. The function
+         * returns as soon as it finds an acceptable element, and doesn't traverse the entire
+         * collection.
+         * @param collection Searches for a value in this collection.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @return The first element in `collection` that passes the truth test or undefined
+         * if no elements pass.
+         **/
+        find<V extends Collection<any>>(
+            collection: V,
+            iteratee: Iteratee<V, boolean>,
+            context?: any
+        ): TypeOfCollection<V> | undefined;
 
         /**
-        * @see _.find
-        **/
-        find<T>(
-            object: _.Dictionary<T>,
-            iterator: _.ObjectIterator<T, boolean>,
-            context?: any): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        find<T, U extends {}>(
-            object: _.List<T> | _.Dictionary<T>,
-            iterator: U): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        find<T>(
-            object: _.List<T> | _.Dictionary<T>,
-            iterator: string): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        detect<T>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, boolean>,
-            context?: any): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        detect<T>(
-            object: _.Dictionary<T>,
-            iterator: _.ObjectIterator<T, boolean>,
-            context?: any): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        detect<T, U extends {}>(
-            object: _.List<T> | _.Dictionary<T>,
-            iterator: U): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        detect<T>(
-            object: _.List<T> | _.Dictionary<T>,
-            iterator: string): T | undefined;
+         * @see find
+         **/
+        detect: UnderscoreStatic['find'];
 
         /**
          * Looks through each value in the collection, returning an array of all the values that pass a truth
@@ -393,7 +349,7 @@ declare module _ {
          * @param collection The collection to filter.
          * @param iteratee The truth test to apply.
          * @param context `this` object in `iteratee`, optional.
-         * @returns The filtered set of values.
+         * @returns The set of values for which the truth test passes.
          **/
         filter<V extends Collection<any>>(
             collection: V,
@@ -428,26 +384,18 @@ declare module _ {
             properties: U): T | undefined;
 
         /**
-        * Returns the values in list without the elements that the truth test (iterator) passes.
-        * The opposite of filter.
-        * Return all the elements for which a truth test fails.
-        * @param list Reject elements within this list.
-        * @param iterator Reject iterator function for each element in `list`.
-        * @param context `this` object in `iterator`, optional.
-        * @return The rejected list of elements.
-        **/
-        reject<T>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, boolean>,
-            context?: any): T[];
-
-        /**
-        * @see _.reject
-        **/
-        reject<T>(
-            object: _.Dictionary<T>,
-            iterator: _.ObjectIterator<T, boolean>,
-            context?: any): T[];
+         * Returns the values in `collection` without the elements that the truth test (iteratee) passes.
+         * The opposite of filter.
+         * @param collection The collection to filter.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @return The set of values for which the truth test fails.
+         **/
+        reject<V extends Collection<any>>(
+            collection: V,
+            iteratee: Iteratee<V, boolean>,
+            context?: any
+        ): TypeOfCollection<V>[];
 
         /**
         * Returns true if all of the values in the list pass the iterator truth test. Delegates to the
@@ -4226,42 +4174,28 @@ declare module _ {
         foldr: Underscore<T, V>['reduceRight'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.find
-        **/
-        find<T>(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): T | undefined;
+         * Looks through each value in the wrapped collection, returning the first one that passes a
+         * truth test (iteratee), or undefined if no value passes the test. The function
+         * returns as soon as it finds an acceptable element, and doesn't traverse the entire
+         * collection.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @return The first element in the wrapped collection that passes the truth test or undefined
+         * if no elements pass.
+         **/
+        find(iterator: Iteratee<V, boolean>, context?: any): T | undefined;
 
         /**
-        * @see _.find
-        **/
-        find<T, U extends {}>(interator: U): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        find<T>(interator: string): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        detect<T>(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        detect<T, U extends {}>(interator?: U): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        detect<T>(interator?: string): T | undefined;
+         * @see find
+         **/
+        detect: Underscore<T, V>['find'];
 
         /**
          * Looks through each value in the wrapped collection, returning an array of all the values that pass a truth
          * test (iteratee).
          * @param iteratee The truth test to apply.
          * @param context `this` object in `iteratee`, optional.
-         * @returns The filtered set of values.
+         * @returns The set of values for which the truth test passes.
          **/
         filter(iteratee: Iteratee<V, boolean>, context?: any): T[];
 
@@ -4283,10 +4217,13 @@ declare module _ {
         findWhere<U extends {}>(properties: U): T | undefined;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.reject
-        **/
-        reject(iterator: _.ListIterator<T, boolean>, context?: any): T[];
+         * Returns the values in the wrapped collection without the elements that the truth test (iteratee) passes.
+         * The opposite of filter.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @return The set of values for which the truth test fails.
+         **/
+        reject(iterator: Iteratee<V, boolean>, context?: any): T[];
 
         /**
         * Wrapped type `any[]`.
@@ -5214,42 +5151,28 @@ declare module _ {
         foldr: _Chain<T, V>['reduceRight'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.find
-        **/
-        find<T>(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
+         * Looks through each value in the wrapped collection, returning the first one that passes a
+         * truth test (iteratee), or undefined if no value passes the test. The function
+         * returns as soon as it finds an acceptable element, and doesn't traverse the entire
+         * collection.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @return A chain wrapper containing the first element in the wrapped collection that passes
+         * the truth test or undefined if no elements pass.
+         **/
+        find(iterator: _ChainIteratee<V, boolean, T>, context?: any): _ChainSingle<T | undefined>;
 
         /**
-        * @see _.find
-        **/
-        find<T, U extends {}>(interator: U): _ChainSingle<T | undefined>;
-
-        /**
-        * @see _.find
-        **/
-        find<T>(interator: string): _ChainSingle<T | undefined>;
-
-        /**
-        * @see _.find
-        **/
-        detect<T>(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
-
-        /**
-        * @see _.find
-        **/
-        detect<T, U extends {}>(interator: U): _ChainSingle<T | undefined>;
-
-        /**
-        * @see _.find
-        **/
-        detect<T>(interator: string): _ChainSingle<T | undefined>;
+         * @see find
+         **/
+        detect: _Chain<T, V>['find'];
 
         /**
          * Looks through each value in the wrapped collection, returning an array of all the values that pass a truth
          * test (iteratee).
          * @param iteratee The truth test to apply.
          * @param context `this` object in `iteratee`, optional.
-         * @returns The filtered set of values in a chain wrapper.
+         * @returns The set of values for which the truth test passes in a chain wrapper.
          **/
         filter(iteratee: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
 
@@ -5271,10 +5194,13 @@ declare module _ {
         findWhere<U extends {}>(properties: U): _ChainSingle<T>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.reject
-        **/
-        reject(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+         * Returns the values in the wrapped collection without the elements that the truth test (iteratee) passes.
+         * The opposite of filter.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @return The set of values for which the truth test fails in a chain wrapper.
+         **/
+        reject(iterator: _ChainIteratee<V, boolean, T>, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
