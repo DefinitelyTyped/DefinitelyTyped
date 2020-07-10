@@ -6,7 +6,7 @@
 //                 souppower <https://github.com/souppower>
 //                 Byron "Byrekt" Mitchell <https://github.com/byrekt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.3
 
 import * as React from 'react';
 
@@ -33,6 +33,7 @@ export interface MUIDataTableStateRows {
 export interface MUIDataTableState {
     activeColumn: string | null;
     announceText: string | null;
+    columnOrder: number[];
     columns: MUIDataTableColumnState[];
     count: number;
     data: any[];
@@ -41,11 +42,14 @@ export interface MUIDataTableState {
     filterData: any[];
     filterList: string[][];
     page: number;
+    previousSelectedRow: null | { index: number; dataIndex: number };
     rowsPerPage: number;
     rowsPerPageOptions: number[];
     searchText: string | null;
+    searchProps: React.HTMLAttributes<HTMLInputElement> | null;
     selectedRows: MUIDataTableStateRows;
     showResponsive: boolean;
+    sortOrder: MUISortOptions;
 }
 
 export interface MUIDataTableMeta {
