@@ -812,7 +812,7 @@ export class ImageTest extends React.Component {
                     console.log(`Image is in ${status} cache`);
                 }
             });
-        
+
         Image.getSize(uri, (width, height) => console.log(width, height));
         Image.getSize(uri, (width, height) => console.log(width, height), (error) => console.error(error));
         Image.getSizeWithHeaders(uri, headers, (width, height) => console.log(width, height));
