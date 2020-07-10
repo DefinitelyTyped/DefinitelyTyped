@@ -3,15 +3,17 @@
 // Definitions by: praveen-me <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type clickQueryMethods = 'by_text' | 'by_regex' | 'by_id' | 'by_xpath' | 'by_query_selector';
-type getAttributeQueryMethods =
+export type clickQueryMethods = 'by_text' | 'by_regex' | 'by_id' | 'by_xpath' | 'by_query_selector';
+
+export type getAttributeQueryMethods =
     | 'by_text'
     | 'by_regex'
     | 'by_id'
     | 'by_xpath'
     | 'by_query_selector'
     | 'by_query_selector_all';
-type typeQueryMethods =
+
+export type typeQueryMethods =
     | 'by_text'
     | 'by_regex'
     | 'by_id'
