@@ -65,9 +65,9 @@ readTable('#table', {
     numberOfTries: 10,
 });
 
-readUrl('https://google.com');
+readUrl();
 
-runInTab(function () {
+runInTab(() => {
     open('https://cnn.com');
     click('#searchInput', { method: 'by_query_selector' });
     type('steve jobs', '#searchInput', { method: 'by_query_selector' });
