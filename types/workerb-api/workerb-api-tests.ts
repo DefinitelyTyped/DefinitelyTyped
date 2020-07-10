@@ -20,7 +20,7 @@ import {
     tab,
     logging,
     httpPut,
-} from 'workerb';
+} from 'workerb-api';
 
 open('https://google.com');
 
