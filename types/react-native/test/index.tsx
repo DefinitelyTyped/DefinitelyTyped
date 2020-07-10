@@ -1160,6 +1160,36 @@ DynamicColorIOS({
     light: PlatformColor('labelColor'),
 });
 
+// Test you cannot set internals of ColorValue directly
+const OpaqueTest1 = () => (
+    <View
+        // $ExpectError
+        style={{
+            backgroundColor: {
+                resource_paths: ['?attr/colorControlNormal'],
+            },
+        }}
+    />
+);
+
+const OpaqueTest2 = () => (
+    <View
+        // $ExpectError
+        style={{
+            backgroundColor: {
+                semantic: 'string',
+                dynamic: {
+                    light: 'light',
+                    dark: 'dark',
+                },
+            },
+        }}
+    />
+);
+
+// Test you cannot ammend opaque type
+PlatformColor('?attr/colorControlNormal').resource_paths.push('foo'); // $ExpectError
+
 // Test PlatformColor inside Platform select with stylesheet
 StyleSheet.create({
     labelCell: {
@@ -1170,8 +1200,30 @@ StyleSheet.create({
             android: {
                 color: PlatformColor('?attr/colorControlNormal'),
             },
-            default: { color: 'black' },
+            default: { color: PlatformColor('?attr/colorControlNormal') },
         }),
+    },
+});
+
+// PlatformColor in style colors
+StyleSheet.create({
+    labelCell: {
+        flex: 1,
+        alignItems: 'stretch',
+        color: PlatformColor('test'),
+        backgroundColor: PlatformColor('test'),
+        borderBottomColor: PlatformColor('test'),
+        borderColor: PlatformColor('test'),
+        borderEndColor: PlatformColor('test'),
+        borderLeftColor: PlatformColor('test'),
+        borderRightColor: PlatformColor('test'),
+        borderStartColor: PlatformColor('test'),
+        borderTopColor: PlatformColor('test'),
+        overlayColor: PlatformColor('test'),
+        shadowColor: PlatformColor('test'),
+        textDecorationColor: PlatformColor('test'),
+        textShadowColor: PlatformColor('test'),
+        tintColor: PlatformColor('test'),
     },
 });
 
