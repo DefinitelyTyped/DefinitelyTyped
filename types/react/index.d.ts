@@ -1979,7 +1979,7 @@ declare namespace React {
 
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
         open?: boolean;
-        onToggle?: MouseEventHandler<T>;
+        onToggle?: ReactEventHandler<T>;
     }
 
     interface DelHTMLAttributes<T> extends HTMLAttributes<T> {
