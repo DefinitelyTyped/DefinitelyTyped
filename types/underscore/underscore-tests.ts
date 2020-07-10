@@ -1150,7 +1150,7 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(simpleString).reject(stringListBooleanIterator, context); // $ExpectType string[]
     extractChainTypes(_.chain(simpleString).reject(stringListBooleanIterator, context)); // $ExpectType ChainType<string[], string>
 
-    // function iteratee - any - filter
+    // function iteratee - any
     _.reject(anyValue, stringRecordPartialBooleanIterator, context); // $ExpectType any[]
     _(anyValue).reject(stringRecordPartialBooleanIterator, context); // $ExpectType any[]
     extractChainTypes(_.chain(anyValue).reject(stringRecordPartialBooleanIterator, context)); // $ExpectType ChainType<any[], any>
