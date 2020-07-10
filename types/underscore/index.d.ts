@@ -358,8 +358,8 @@ declare module _ {
         ): TypeOfCollection<V>[];
 
         /**
-        * @see filter
-        **/
+         * @see filter
+         **/
         select: UnderscoreStatic['filter'];
 
         /**
@@ -4141,13 +4141,13 @@ declare module _ {
         ): TResult | TypeOfCollection<V> | undefined;
 
         /**
-        * @see reduce
-        **/
+         * @see reduce
+         **/
         inject: Underscore<T, V>['reduce'];
 
         /**
-        * @see reduce
-        **/
+         * @see reduce
+         **/
         foldl: Underscore<T, V>['reduce'];
 
         /**
@@ -4169,8 +4169,8 @@ declare module _ {
         ): TResult | TypeOfCollection<V> | undefined;
 
         /**
-        * @see reduceRight
-        **/
+         * @see reduceRight
+         **/
         foldr: Underscore<T, V>['reduceRight'];
 
         /**
@@ -4200,8 +4200,8 @@ declare module _ {
         filter(iteratee: Iteratee<V, boolean>, context?: any): T[];
 
         /**
-        * @see filter
-        **/
+         * @see filter
+         **/
         select: Underscore<T, V>['filter'];
 
         /**
@@ -5118,13 +5118,13 @@ declare module _ {
         ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
 
         /**
-        * @see reduce
-        **/
+         * @see reduce
+         **/
         inject: _Chain<T, V>['reduce'];
 
         /**
-        * @see reduce
-        **/
+         * @see reduce
+         **/
         foldl: _Chain<T, V>['reduce'];
 
         /**
@@ -5146,8 +5146,8 @@ declare module _ {
         ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
 
         /**
-        * @see reduceRight
-        **/
+         * @see reduceRight
+         **/
         foldr: _Chain<T, V>['reduceRight'];
 
         /**
