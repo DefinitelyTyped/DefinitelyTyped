@@ -208,10 +208,10 @@ declare namespace IORedis {
             expiryMode?: string | any[],
             time?: number | string,
             setMode?: number | string,
-        ): Promise<Ok>;
+        ): Promise<Ok | null>;
 
         set(key: KeyType, value: ValueType, callback: Callback<Ok>): void;
-        set(key: KeyType, value: ValueType, setMode: string | any[], callback: Callback<Ok>): void;
+        set(key: KeyType, value: ValueType, setMode: string | any[], callback: Callback<Ok | null>): void;
         set(key: KeyType, value: ValueType, expiryMode: string, time: number | string, callback: Callback<Ok>): void;
         set(
             key: KeyType,
@@ -219,7 +219,7 @@ declare namespace IORedis {
             expiryMode: string,
             time: number | string,
             setMode: number | string,
-            callback: Callback<Ok>,
+            callback: Callback<Ok | null>,
         ): void;
 
         setBuffer(
