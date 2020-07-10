@@ -7600,7 +7600,7 @@ export interface LogBoxStatic {
      * Note: this only disables notifications, uncaught errors will still open a full screen LogBox.
      * @param ignore whether to ignore logs or not
      */
-    ignoreAllLogs(ignore: boolean): void;
+    ignoreAllLogs(ignore?: boolean): void;
 
     install(): void;
     uninstall(): void;
