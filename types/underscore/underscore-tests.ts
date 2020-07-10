@@ -1040,9 +1040,9 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(stringRecordDictionary).detect(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecordOrUndefined, never>
 
     // identity iteratee - dictionaries - find
-    _.find(stringRecordDictionary, stringRecordProperty); // $ExpectType StringRecordOrUndefined
-    _(stringRecordDictionary).find(stringRecordProperty); // $ExpectType StringRecordOrUndefined
-    extractChainTypes(_.chain(stringRecordDictionary).find(stringRecordProperty)); // $ExpectType ChainType<StringRecordOrUndefined, never>
+    _.find(stringRecordDictionary); // $ExpectType StringRecordOrUndefined
+    _(stringRecordDictionary).find(); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordDictionary).find()); // $ExpectType ChainType<StringRecordOrUndefined, never>
 
     // identity iteratee - lists - detect
     _.detect(stringRecordList); // $ExpectType StringRecordOrUndefined
@@ -1123,9 +1123,9 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(stringRecordDictionary).select(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
 
     // identity iteratee - dictionaries - filter
-    _.filter(stringRecordDictionary, stringRecordProperty); // $ExpectType StringRecord[]
-    _(stringRecordDictionary).filter(stringRecordProperty); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(stringRecordDictionary).filter(stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.filter(stringRecordDictionary); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).filter(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).filter()); // $ExpectType ChainType<StringRecord[], StringRecord>
 
     // identity iteratee - lists - select
     _.select(stringRecordList); // $ExpectType StringRecord[]
