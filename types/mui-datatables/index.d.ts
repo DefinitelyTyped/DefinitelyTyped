@@ -200,7 +200,7 @@ export interface MUIDataTableIsRowCheck {
         {
             index: number;
             dataIndex: number;
-        },
+        }
     ];
 }
 
