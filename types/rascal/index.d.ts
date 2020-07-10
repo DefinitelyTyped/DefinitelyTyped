@@ -499,7 +499,7 @@ export class Vhost extends EventEmitter {
 
 declare function createBroker(config: BrokerConfig, components: any, next: any, ...args: any[]): any;
 
-declare function createBrokerAsPromised(config: BrokerConfig, components: any): Promise<BrokerAsPromised>;
+declare function createBrokerAsPromised(config: BrokerConfig, components?: unknown): Promise<BrokerAsPromised>;
 
 declare function withDefaultConfig(config: BrokerConfig): BrokerConfig;
 

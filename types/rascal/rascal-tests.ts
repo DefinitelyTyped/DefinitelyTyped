@@ -1,4 +1,13 @@
-import { Broker, BrokerAsPromised, BrokerConfig, AckOrNack, withDefaultConfig, PublicationSession, SubscriptionSession } from 'rascal';
+import {
+    Broker,
+    BrokerAsPromised,
+    BrokerConfig,
+    AckOrNack,
+    withDefaultConfig,
+    PublicationSession,
+    SubscriptionSession,
+    createBrokerAsPromised,
+} from 'rascal';
 import { Message } from 'amqplib';
 
 const config: BrokerConfig = {
@@ -92,3 +101,10 @@ Broker.create(config, (err, broker) => {
             .on('error', console.error);
     });
 });
+
+{
+    // $ExpectType Promise<BrokerAsPromised>
+    const b1 = createBrokerAsPromised(config);
+    // $ExpectType Promise<BrokerAsPromised>
+    const b2 = createBrokerAsPromised(config, {});
+}
