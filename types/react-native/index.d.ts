@@ -3091,6 +3091,7 @@ export class DrawerLayoutAndroid extends DrawerLayoutAndroidBase {
 export interface PickerIOSItemProps {
     value?: string | number;
     label?: string;
+    textColor?: ProcessedColorValue;
 }
 
 /**
