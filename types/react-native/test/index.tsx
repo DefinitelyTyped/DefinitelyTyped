@@ -1159,6 +1159,33 @@ DynamicColorIOS({
     light: PlatformColor('labelColor'),
 });
 
+// Test you cannot set internals of ColorValue directly
+const OpaqueTest1 = () => (
+    <View
+        // $ExpectError
+        style={{
+            backgroundColor: {
+                resource_paths: ['?attr/colorControlNormal'],
+            },
+        }}
+    />
+);
+
+const OpaqueTest2 = () => (
+    <View
+        // $ExpectError
+        style={{
+            backgroundColor: {
+                semantic: 'string',
+                dynamic: {
+                    light: 'light',
+                    dark: 'dark',
+                },
+            },
+        }}
+    />
+);
+
 // Test PlatformColor inside Platform select with stylesheet
 StyleSheet.create({
     labelCell: {

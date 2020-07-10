@@ -65,6 +65,7 @@
 import * as React from 'react';
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+type Opaque<K, T> = T & { __TYPE__: K };
 
 type Constructor<T> = new (...args: any[]) => T;
 
@@ -5911,21 +5912,27 @@ interface PlatformWebStatic extends PlatformStatic {
     OS: 'web';
 }
 
-export type ColorValue = null | string | NativeColorValueIOS | NativeColorValueAndroid;
+type ColorValue = null | string | NativeColorValueIOS | NativeColorValueAndroid;
 
 type ProcessedColorValueIOS = number | NativeColorValueIOS;
 
-type NativeColorValueAndroid = {
-    resource_paths?: string[];
-};
+type NativeColorValueAndroid = Opaque<
+    '__NativeColorValueAndroid__',
+    {
+        resource_paths?: string[];
+    }
+>;
 
-type NativeColorValueIOS = {
-    semantic?: string[];
-    dynamic?: {
-        light?: ColorValue | ProcessedColorValueIOS;
-        dark?: ColorValue | ProcessedColorValueIOS;
-    };
-};
+type NativeColorValueIOS = Opaque<
+    '__NativeColorValueIOS__',
+    {
+        semantic?: string[];
+        dynamic?: {
+            light?: ColorValue | ProcessedColorValueIOS;
+            dark?: ColorValue | ProcessedColorValueIOS;
+        };
+    }
+>;
 
 type DynamicColorIOSTuple = {
     light: ColorValue;
