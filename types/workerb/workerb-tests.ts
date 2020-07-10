@@ -22,21 +22,21 @@ import {
     httpPut,
 } from 'workerb';
 
-open('https://google.com'); // should pass
+open('https://google.com');
 
 click('#div', {
     method: 'by_query_selector',
     retryDuration: 10,
     expectReload: true,
     numberOfTries: 10,
-}); // should pass
+});
 
-notify('Workerb is cool.', 'success', 200); // should pass
+notify('Workerb is cool.', 'success', 200);
 
 type('Some text', '#form-input', {
     numberOfTries: 10,
     method: 'by_label',
-}); // should pass
+});
 
 download('Download Pdf', '.download', '.pdf');
 
