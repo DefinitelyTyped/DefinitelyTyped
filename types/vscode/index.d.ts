@@ -1,4 +1,4 @@
-// Type definitions for Visual Studio Code 1.46
+// Type definitions for Visual Studio Code 1.47
 // Project: https://github.com/microsoft/vscode
 // Definitions by: Visual Studio Code Team, Microsoft <https://github.com/Microsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.46 Extension API
+ * Type Definition for Visual Studio Code 1.47 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -1395,7 +1395,7 @@ declare module 'vscode' {
          * the `skipEncoding`-argument: `uri.toString(true)`.
          *
          * @param skipEncoding Do not percentage-encode the result, defaults to `false`. Note that
-         *    the `#` and `?` characters occurring in the path will always be encoded.
+         *	the `#` and `?` characters occurring in the path will always be encoded.
          * @returns A string representation of this Uri.
          */
         toString(skipEncoding?: boolean): string;
@@ -1735,12 +1735,20 @@ declare module 'vscode' {
          * like "TypeScript", and an array of extensions, e.g.
          * ```ts
          * {
-         *     'Images': ['png', 'jpg']
-         *     'TypeScript': ['ts', 'tsx']
+         * 	'Images': ['png', 'jpg']
+         * 	'TypeScript': ['ts', 'tsx']
          * }
          * ```
          */
         filters?: { [name: string]: string[] };
+
+        /**
+         * Dialog title.
+         *
+         * This parameter might be ignored, as not all operating systems display a title on open dialogs
+         * (for example, macOS).
+         */
+        title?: string;
     }
 
     /**
@@ -1762,12 +1770,20 @@ declare module 'vscode' {
          * like "TypeScript", and an array of extensions, e.g.
          * ```ts
          * {
-         *     'Images': ['png', 'jpg']
-         *     'TypeScript': ['ts', 'tsx']
+         * 	'Images': ['png', 'jpg']
+         * 	'TypeScript': ['ts', 'tsx']
          * }
          * ```
          */
         filters?: { [name: string]: string[] };
+
+        /**
+         * Dialog title.
+         *
+         * This parameter might be ignored, as not all operating systems display a title on save dialogs
+         * (for example, macOS).
+         */
+        title?: string;
     }
 
     /**
@@ -1960,23 +1976,23 @@ declare module 'vscode' {
      *
      * ```ts
      * let a: HoverProvider = {
-     *     provideHover(doc, pos, token): ProviderResult<Hover> {
-     *         return new Hover('Hello World');
-     *     }
+     * 	provideHover(doc, pos, token): ProviderResult<Hover> {
+     * 		return new Hover('Hello World');
+     * 	}
      * }
      *
      * let b: HoverProvider = {
-     *     provideHover(doc, pos, token): ProviderResult<Hover> {
-     *         return new Promise(resolve => {
-     *             resolve(new Hover('Hello World'));
-     *          });
-     *     }
+     * 	provideHover(doc, pos, token): ProviderResult<Hover> {
+     * 		return new Promise(resolve => {
+     * 			resolve(new Hover('Hello World'));
+     * 	 	});
+     * 	}
      * }
      *
      * let c: HoverProvider = {
-     *     provideHover(doc, pos, token): ProviderResult<Hover> {
-     *         return; // undefined
-     *     }
+     * 	provideHover(doc, pos, token): ProviderResult<Hover> {
+     * 		return; // undefined
+     * 	}
      * }
      * ```
      */
@@ -2239,6 +2255,40 @@ declare module 'vscode' {
          * such as `[CodeActionKind.Refactor.Extract.append('function'), CodeActionKind.Refactor.Extract.append('constant'), ...]`.
          */
         readonly providedCodeActionKinds?: ReadonlyArray<CodeActionKind>;
+
+        /**
+         * Static documentation for a class of code actions.
+         *
+         * Documentation from the provider is shown in the code actions menu if either:
+         *
+         * - Code actions of `kind` are requested by VS Code. In this case, VS Code will show the documentation that
+         *   most closely matches the requested code action kind. For example, if a provider has documentation for
+         *   both `Refactor` and `RefactorExtract`, when the user requests code actions for `RefactorExtract`,
+         *   VS Code will use the documentation for `RefactorExtract` instead of the documentation for `Refactor`.
+         *
+         * - Any code actions of `kind` are returned by the provider.
+         *
+         * At most one documentation entry will be shown per provider.
+         */
+        readonly documentation?: ReadonlyArray<{
+            /**
+             * The kind of the code action being documented.
+             *
+             * If the kind is generic, such as `CodeActionKind.Refactor`, the documentation will be shown whenever any
+             * refactorings are returned. If the kind if more specific, such as `CodeActionKind.RefactorExtract`, the
+             * documentation will only be shown when extract refactoring code actions are returned.
+             */
+            readonly kind: CodeActionKind;
+
+            /**
+             * Command that displays the documentation to the user.
+             *
+             * This can display the documentation directly in VS Code or open a website using [`env.openExternal`](#env.openExternal);
+             *
+             * The title of this documentation code action is taken from [`Command.title`](#Command.title)
+             */
+            readonly command: Command;
+        }>;
     }
 
     /**
@@ -2281,7 +2331,7 @@ declare module 'vscode' {
      * A code lens provider adds [commands](#Command) to source text. The commands will be shown
      * as dedicated horizontal lines in between the source text.
      */
-    export interface CodeLensProvider<T = CodeLens> {
+    export interface CodeLensProvider<T extends CodeLens = CodeLens> {
 
         /**
          * An optional event to signal that the code lenses from this provider have changed.
@@ -2424,6 +2474,11 @@ declare module 'vscode' {
          * markdown supports links that execute commands, e.g. `[Run it](command:myCommandId)`.
          */
         isTrusted?: boolean;
+
+        /**
+         * Indicates that this markdown string can contain [ThemeIcons](#ThemeIcon), e.g. `$(zap)`.
+         */
+        readonly supportThemeIcons?: boolean;
 
         /**
          * Creates a new markdown string with the given value.
@@ -2808,7 +2863,7 @@ declare module 'vscode' {
      * The workspace symbol provider interface defines the contract between extensions and
      * the [symbol search](https://code.visualstudio.com/docs/editor/editingevolved#_open-symbol-by-name)-feature.
      */
-    export interface WorkspaceSymbolProvider<T = SymbolInformation> {
+    export interface WorkspaceSymbolProvider<T extends SymbolInformation = SymbolInformation> {
 
         /**
          * Project-wide search for a symbol matching the given query string.
@@ -3867,7 +3922,7 @@ declare module 'vscode' {
      * Represents a collection of [completion items](#CompletionItem) to be presented
      * in the editor.
      */
-    export class CompletionList<T = CompletionItem> {
+    export class CompletionList<T extends CompletionItem = CompletionItem> {
 
         /**
          * This list is not complete. Further typing should result in recomputing
@@ -3940,7 +3995,7 @@ declare module 'vscode' {
      * Providers are asked for completions either explicitly by a user gesture or -depending on the configuration-
      * implicitly when typing words or trigger characters.
      */
-    export interface CompletionItemProvider<T = CompletionItem> {
+    export interface CompletionItemProvider<T extends CompletionItem = CompletionItem> {
 
         /**
          * Provide completion items for the given position and document.
@@ -4015,7 +4070,7 @@ declare module 'vscode' {
      * The document link provider defines the contract between extensions and feature of showing
      * links in the editor.
      */
-    export interface DocumentLinkProvider<T = DocumentLink> {
+    export interface DocumentLinkProvider<T extends DocumentLink = DocumentLink> {
 
         /**
          * Provide links for the given document. Note that the editor ships with a default provider that detects
@@ -4763,19 +4818,19 @@ declare module 'vscode' {
          * @param section Configuration name, supports _dotted_ names.
          * @param value The new value.
          * @param configurationTarget The [configuration target](#ConfigurationTarget) or a boolean value.
-         *    - If `true` updates [Global settings](#ConfigurationTarget.Global).
-         *    - If `false` updates [Workspace settings](#ConfigurationTarget.Workspace).
-         *    - If `undefined` or `null` updates to [Workspace folder settings](#ConfigurationTarget.WorkspaceFolder) if configuration is resource specific,
-         *     otherwise to [Workspace settings](#ConfigurationTarget.Workspace).
+         *	- If `true` updates [Global settings](#ConfigurationTarget.Global).
+         *	- If `false` updates [Workspace settings](#ConfigurationTarget.Workspace).
+         *	- If `undefined` or `null` updates to [Workspace folder settings](#ConfigurationTarget.WorkspaceFolder) if configuration is resource specific,
+         * 	otherwise to [Workspace settings](#ConfigurationTarget.Workspace).
          * @param overrideInLanguage Whether to update the value in the scope of requested languageId or not.
-         *    - If `true` updates the value under the requested languageId.
-         *    - If `undefined` updates the value under the requested languageId only if the configuration is defined for the language.
+         *	- If `true` updates the value under the requested languageId.
+         *	- If `undefined` updates the value under the requested languageId only if the configuration is defined for the language.
          * @throws error while updating
-         *    - configuration which is not registered.
-         *    - window configuration to workspace folder
-         *    - configuration to workspace or workspace folder when no workspace is opened.
-         *    - configuration to workspace folder when there is no workspace folder settings.
-         *    - configuration to workspace folder when [WorkspaceConfiguration](#WorkspaceConfiguration) is not scoped to a resource.
+         *	- configuration which is not registered.
+         *	- window configuration to workspace folder
+         *	- configuration to workspace or workspace folder when no workspace is opened.
+         *	- configuration to workspace folder when there is no workspace folder settings.
+         *	- configuration to workspace folder when [WorkspaceConfiguration](#WorkspaceConfiguration) is not scoped to a resource.
          */
         update(section: string, value: any, configurationTarget?: ConfigurationTarget | boolean, overrideInLanguage?: boolean): Thenable<void>;
 
@@ -5195,6 +5250,24 @@ declare module 'vscode' {
     }
 
     /**
+     * Accessibility information which controls screen reader behavior.
+     */
+    export interface AccessibilityInformation {
+        /**
+         * Label to be read out by a screen reader once the item has focus.
+         */
+        label: string;
+
+        /**
+         * Role of the widget which defines how a screen reader interacts with it.
+         * The role should be set in special cases when for example a tree-like element behaves like a checkbox.
+         * If role is not specified VS Code will pick the appropriate role automatically.
+         * More about aria roles can be found here https://w3c.github.io/aria/#widget_roles
+         */
+        role?: string;
+    }
+
+    /**
      * Represents the alignment of status bar items.
      */
     export enum StatusBarAlignment {
@@ -5258,6 +5331,11 @@ declare module 'vscode' {
         command: string | Command | undefined;
 
         /**
+         * Accessibility information used when screen reader interacts with this StatusBar item
+         */
+        accessibilityInformation?: AccessibilityInformation;
+
+        /**
          * Shows the entry in the status bar.
          */
         show(): void;
@@ -5317,7 +5395,7 @@ declare module 'vscode' {
          * ```typescript
          * window.onDidCloseTerminal(t => {
          *   if (t.exitStatus && t.exitStatus.code) {
-         *       vscode.window.showInformationMessage(`Exit code: ${t.exitStatus.code}`);
+         *   	vscode.window.showInformationMessage(`Exit code: ${t.exitStatus.code}`);
          *   }
          * });
          * ```
@@ -5427,6 +5505,30 @@ declare module 'vscode' {
     }
 
     /**
+     * The ExtensionMode is provided on the `ExtensionContext` and indicates the
+     * mode the specific extension is running in.
+     */
+    export enum ExtensionMode {
+        /**
+         * The extension is installed normally (for example, from the marketplace
+         * or VSIX) in VS Code.
+         */
+        Production = 1,
+
+        /**
+         * The extension is running from an `--extensionDevelopmentPath` provided
+         * when launching VS Code.
+         */
+        Development = 2,
+
+        /**
+         * The extension is running from an `--extensionTestsPath` and
+         * the extension host is running unit tests.
+         */
+        Test = 3,
+    }
+
+    /**
      * An extension context is a collection of utilities private to an
      * extension.
      *
@@ -5503,6 +5605,13 @@ declare module 'vscode' {
          * the parent directory is guaranteed to be existent.
          */
         readonly logPath: string;
+
+        /**
+         * The mode the extension is running in. This is specific to the current
+         * extension. One extension may be in `ExtensionMode.Development` while
+         * other extensions in the host run in `ExtensionMode.Release`.
+         */
+        readonly extensionMode: ExtensionMode;
     }
 
     /**
@@ -6047,7 +6156,7 @@ declare module 'vscode' {
      * A task provider allows to add tasks to the task service.
      * A task provider is registered via #tasks.registerTaskProvider.
      */
-    export interface TaskProvider<T = Task> {
+    export interface TaskProvider<T extends Task = Task> {
         /**
          * Provides tasks.
          * @param token A cancellation token.
@@ -7389,18 +7498,18 @@ declare module 'vscode' {
      * register a command handler with the identifier `extension.sayHello`.
      * ```javascript
      * commands.registerCommand('extension.sayHello', () => {
-     *     window.showInformationMessage('Hello World!');
+     * 	window.showInformationMessage('Hello World!');
      * });
      * ```
      * Second, bind the command identifier to a title under which it will show in the palette (`package.json`).
      * ```json
      * {
-     *     "contributes": {
-     *         "commands": [{
-     *             "command": "extension.sayHello",
-     *             "title": "Hello World"
-     *         }]
-     *     }
+     * 	"contributes": {
+     * 		"commands": [{
+     * 			"command": "extension.sayHello",
+     * 			"title": "Hello World"
+     * 		}]
+     * 	}
      * }
      * ```
      */
@@ -8302,20 +8411,27 @@ declare module 'vscode' {
          * For example, a tree item is given a context value as `folder`. When contributing actions to `view/item/context`
          * using `menus` extension point, you can specify context value for key `viewItem` in `when` expression like `viewItem == folder`.
          * ```
-         *    "contributes": {
-         *        "menus": {
-         *            "view/item/context": [
-         *                {
-         *                    "command": "extension.deleteFolder",
-         *                    "when": "viewItem == folder"
-         *                }
-         *            ]
-         *        }
-         *    }
+         *	"contributes": {
+         *		"menus": {
+         *			"view/item/context": [
+         *				{
+         *					"command": "extension.deleteFolder",
+         *					"when": "viewItem == folder"
+         *				}
+         *			]
+         *		}
+         *	}
          * ```
          * This will show action `extension.deleteFolder` only for items with `contextValue` is `folder`.
          */
         contextValue?: string;
+
+        /**
+         * Accessibility information used when screen reader interacts with this tree item.
+         * Generally, a TreeItem has no need to set the `role` of the accessibilityInformation;
+         * however, there are cases where a TreeItem is not displayed in a tree-like way where setting the `role` may make sense.
+         */
+        accessibilityInformation?: AccessibilityInformation;
 
         /**
          * @param label A human-readable string describing this item
@@ -8419,8 +8535,9 @@ declare module 'vscode' {
     interface Pseudoterminal {
         /**
          * An event that when fired will write data to the terminal. Unlike
-         * [Terminal.sendText](#Terminal.sendText) which sends text to the underlying _process_
-         * (the pty "slave"), this will write the text to the terminal itself (the pty "master").
+         * [Terminal.sendText](#Terminal.sendText) which sends text to the underlying child
+         * pseudo-device (the child), this will write the text to parent pseudo-device (the
+         * _terminal_ itself).
          *
          * Note writing `\n` will just move the cursor down 1 row, you need to write `\r` as well
          * to move the cursor to the left-most cell.
@@ -9085,11 +9202,11 @@ declare module 'vscode' {
          *
          * ```ts
          * workspace.onWillSaveTextDocument(event => {
-         *     // async, will *throw* an error
-         *     setTimeout(() => event.waitUntil(promise));
+         * 	// async, will *throw* an error
+         * 	setTimeout(() => event.waitUntil(promise));
          *
-         *     // sync, OK
-         *     event.waitUntil(promise);
+         * 	// sync, OK
+         * 	event.waitUntil(promise);
          * })
          * ```
          *
@@ -9129,11 +9246,11 @@ declare module 'vscode' {
          *
          * ```ts
          * workspace.onWillCreateFiles(event => {
-         *     // async, will *throw* an error
-         *     setTimeout(() => event.waitUntil(promise));
+         * 	// async, will *throw* an error
+         * 	setTimeout(() => event.waitUntil(promise));
          *
-         *     // sync, OK
-         *     event.waitUntil(promise);
+         * 	// sync, OK
+         * 	event.waitUntil(promise);
          * })
          * ```
          *
@@ -9184,11 +9301,11 @@ declare module 'vscode' {
          *
          * ```ts
          * workspace.onWillCreateFiles(event => {
-         *     // async, will *throw* an error
-         *     setTimeout(() => event.waitUntil(promise));
+         * 	// async, will *throw* an error
+         * 	setTimeout(() => event.waitUntil(promise));
          *
-         *     // sync, OK
-         *     event.waitUntil(promise);
+         * 	// sync, OK
+         * 	event.waitUntil(promise);
          * })
          * ```
          *
@@ -9239,11 +9356,11 @@ declare module 'vscode' {
          *
          * ```ts
          * workspace.onWillCreateFiles(event => {
-         *     // async, will *throw* an error
-         *     setTimeout(() => event.waitUntil(promise));
+         * 	// async, will *throw* an error
+         * 	setTimeout(() => event.waitUntil(promise));
          *
-         *     // sync, OK
-         *     event.waitUntil(promise);
+         * 	// sync, OK
+         * 	event.waitUntil(promise);
          * })
          * ```
          *
@@ -9289,7 +9406,7 @@ declare module 'vscode' {
 
     /**
      * A workspace folder is one of potentially many roots opened by the editor. All workspace folders
-     * are equal which means there is no notion of an active or master workspace folder.
+     * are equal which means there is no notion of an active or primary workspace folder.
      */
     export interface WorkspaceFolder {
 
@@ -9776,9 +9893,9 @@ declare module 'vscode' {
      *
      * ```javascript
      * languages.registerHoverProvider('javascript', {
-     *     provideHover(document, position, token) {
-     *         return new Hover('I am a hover!');
-     *     }
+     * 	provideHover(document, position, token) {
+     * 		return new Hover('I am a hover!');
+     * 	}
      * });
      * ```
      *
@@ -10923,7 +11040,7 @@ declare module 'vscode' {
      */
     export enum DebugConfigurationProviderTriggerKind {
         /**
-         * `DebugConfigurationProvider.provideDebugConfigurations` is called to provide the initial debug configurations for a newly created launch.json.
+         *	`DebugConfigurationProvider.provideDebugConfigurations` is called to provide the initial debug configurations for a newly created launch.json.
          */
         Initial = 1,
         /**
@@ -11066,16 +11183,16 @@ declare module 'vscode' {
      *
      * ```javascript
      * export function activate(context: vscode.ExtensionContext) {
-     *     let api = {
-     *         sum(a, b) {
-     *             return a + b;
-     *         },
-     *         mul(a, b) {
-     *             return a * b;
-     *         }
-     *     };
-     *     // 'export' public api-surface
-     *     return api;
+     * 	let api = {
+     * 		sum(a, b) {
+     * 			return a + b;
+     * 		},
+     * 		mul(a, b) {
+     * 			return a * b;
+     * 		}
+     * 	};
+     * 	// 'export' public api-surface
+     * 	return api;
      * }
      * ```
      * When depending on the API of another extension add an `extensionDependencies`-entry
@@ -11182,16 +11299,16 @@ declare module 'vscode' {
          * For example, a comment thread is given a context value as `editable`. When contributing actions to `comments/commentThread/title`
          * using `menus` extension point, you can specify context value for key `commentThread` in `when` expression like `commentThread == editable`.
          * ```
-         *    "contributes": {
-         *        "menus": {
-         *            "comments/commentThread/title": [
-         *                {
-         *                    "command": "extension.deleteCommentThread",
-         *                    "when": "commentThread == editable"
-         *                }
-         *            ]
-         *        }
-         *    }
+         *	"contributes": {
+         *		"menus": {
+         *			"comments/commentThread/title": [
+         *				{
+         *					"command": "extension.deleteCommentThread",
+         *					"when": "commentThread == editable"
+         *				}
+         *			]
+         *		}
+         *	}
          * ```
          * This will show action `extension.deleteCommentThread` only for comment threads with `contextValue` is `editable`.
          */
@@ -11274,16 +11391,16 @@ declare module 'vscode' {
          * For example, a comment is given a context value as `editable`. When contributing actions to `comments/comment/title`
          * using `menus` extension point, you can specify context value for key `comment` in `when` expression like `comment == editable`.
          * ```json
-         *    "contributes": {
-         *        "menus": {
-         *            "comments/comment/title": [
-         *                {
-         *                    "command": "extension.deleteComment",
-         *                    "when": "comment == editable"
-         *                }
-         *            ]
-         *        }
-         *    }
+         *	"contributes": {
+         *		"menus": {
+         *			"comments/comment/title": [
+         *				{
+         *					"command": "extension.deleteComment",
+         *					"when": "comment == editable"
+         *				}
+         *			]
+         *		}
+         *	}
          * ```
          * This will show action `extension.deleteComment` only for comments with `contextValue` is `editable`.
          */
