@@ -9194,15 +9194,15 @@ export class LocationsApi {
   /**
    * Creates a location.
    */
-    createLocation(body: Location) : Promise<CreateLocationResponse>;
+    createLocation(body: Location): Promise<CreateLocationResponse>;
   /**
    * Retrieves details of a location.
    */
-    retrieveLocation(locationId: string) : Promise<RetrieveLocationResponse>;
+    retrieveLocation(locationId: string): Promise<RetrieveLocationResponse>;
   /**
    * Updates a location.
    */
-    updateLocation(locationId: string, body: Location) : Promise<UpdateLocationResponse>
+    updateLocation(locationId: string, body: Location): Promise<UpdateLocationResponse>
 }
 
 // @todo describe methods
