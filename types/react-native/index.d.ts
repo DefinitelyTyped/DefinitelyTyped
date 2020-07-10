@@ -66,9 +66,6 @@ import * as React from 'react';
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-declare const OpaqueValue: unique symbol;
-type Opaque<K> = typeof OpaqueValue & { __TYPE__: K };
-
 type Constructor<T> = new (...args: any[]) => T;
 
 export type MeasureOnSuccessCallback = (
@@ -5914,13 +5911,9 @@ interface PlatformWebStatic extends PlatformStatic {
     OS: 'web';
 }
 
-type ColorValue = null | string | NativeColorValueIOS | NativeColorValueAndroid;
+declare const OpaqueColorValue: unique symbol;
 
-type ProcessedColorValueIOS = number | NativeColorValueIOS;
-
-type NativeColorValueAndroid = Opaque<'__NativeColorValueAndroid__'>;
-
-type NativeColorValueIOS = Opaque<'__NativeColorValueIOS__'>;
+export type ColorValue = string | typeof OpaqueColorValue;
 
 type DynamicColorIOSTuple = {
     light: ColorValue;
