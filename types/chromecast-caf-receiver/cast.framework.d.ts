@@ -31,6 +31,11 @@ export enum ContentProtection {
 }
 
 /**
+ * Version of CAF receiver SDK.
+ */
+export const VERSION: string;
+
+/**
  * Manages text tracks.
  */
 export class TextTracksManager {
