@@ -1,11 +1,14 @@
 import type { Intrinsics } from '../GetIntrinsic';
 
-declare function GetPrototypeFromConstructor<K extends keyof Intrinsics>(
-    constructor: new (...args: any) => any,
+// tslint:disable-next-line: ban-types
+type TypedProto<P> = { readonly prototype?: P } & Omit<Function, 'prototype'>;
+
+declare function GetPrototypeFromConstructor<P, K extends keyof Intrinsics>(
+    constructor: TypedProto<P>,
     intrinsicDefaultProto: K,
-): {} | Intrinsics[K];
-declare function GetPrototypeFromConstructor(
-    constructor: new (...args: any) => any,
+): P extends object ? P : Intrinsics[K];
+declare function GetPrototypeFromConstructor<P>(
+    constructor: TypedProto<P>,
     intrinsicDefaultProto: string,
-): any;
+): P extends object ? P : object;
 export = GetPrototypeFromConstructor;
