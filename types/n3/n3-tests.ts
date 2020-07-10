@@ -152,6 +152,12 @@ function test_doc_from_triple_stream_to_rdf_stream() {
     streamWriter.pipe(process.stdout);
 }
 
+function test_doc_streamwriter_import() {
+    const quadStream: RDF.Stream = {} as any;
+    const streamWriter: N3.StreamWriter = new N3.StreamWriter({ prefixes: { c: N3.DataFactory.namedNode('http://example.org/cartoons#') } });
+    streamWriter.import(quadStream);
+}
+
 function test_doc_blank_nodes_and_lists() {
     const writer: N3.Writer = new N3.Writer({
         prefixes: {
