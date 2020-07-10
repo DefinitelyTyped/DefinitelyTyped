@@ -69,6 +69,7 @@ const config: BrokerConfig = {
     }
 })();
 
+// $ExpectType void
 Broker.create(config, (err, broker) => {
     if (err) throw err;
 
