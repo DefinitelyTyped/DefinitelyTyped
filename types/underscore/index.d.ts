@@ -335,7 +335,7 @@ declare module _ {
          **/
         find<V extends Collection<any>>(
             collection: V,
-            iteratee: Iteratee<V, boolean>,
+            iteratee?: Iteratee<V, boolean>,
             context?: any
         ): TypeOfCollection<V> | undefined;
 
@@ -354,7 +354,7 @@ declare module _ {
          **/
         filter<V extends Collection<any>>(
             collection: V,
-            iteratee: Iteratee<V, boolean>,
+            iteratee?: Iteratee<V, boolean>,
             context?: any
         ): TypeOfCollection<V>[];
 
@@ -394,7 +394,7 @@ declare module _ {
          **/
         reject<V extends Collection<any>>(
             collection: V,
-            iteratee: Iteratee<V, boolean>,
+            iteratee?: Iteratee<V, boolean>,
             context?: any
         ): TypeOfCollection<V>[];
 
@@ -4184,7 +4184,7 @@ declare module _ {
          * @return The first element in the wrapped collection that passes the truth test or undefined
          * if no elements pass.
          **/
-        find(iterator: Iteratee<V, boolean>, context?: any): T | undefined;
+        find(iteratee?: Iteratee<V, boolean>, context?: any): T | undefined;
 
         /**
          * @see find
@@ -4198,7 +4198,7 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The set of values for which the truth test passes.
          **/
-        filter(iteratee: Iteratee<V, boolean>, context?: any): T[];
+        filter(iteratee?: Iteratee<V, boolean>, context?: any): T[];
 
         /**
          * @see filter
@@ -4224,7 +4224,7 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @return The set of values for which the truth test fails.
          **/
-        reject(iterator: Iteratee<V, boolean>, context?: any): T[];
+        reject(iteratee?: Iteratee<V, boolean>, context?: any): T[];
 
         /**
         * Wrapped type `any[]`.
@@ -5161,7 +5161,7 @@ declare module _ {
          * @return A chain wrapper containing the first element in the wrapped collection that passes
          * the truth test or undefined if no elements pass.
          **/
-        find(iterator: _ChainIteratee<V, boolean, T>, context?: any): _ChainSingle<T | undefined>;
+        find(iteratee?: _ChainIteratee<V, boolean, T>, context?: any): _ChainSingle<T | undefined>;
 
         /**
          * @see find
@@ -5175,7 +5175,7 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The set of values for which the truth test passes in a chain wrapper.
          **/
-        filter(iteratee: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
+        filter(iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
 
         /**
          * @see filter
@@ -5201,7 +5201,7 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @return The set of values for which the truth test fails in a chain wrapper.
          **/
-        reject(iterator: _ChainIteratee<V, boolean, T>, context?: any): _Chain<T, T[]>;
+        reject(iteratee?: _ChainIteratee<V, boolean, T>, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
