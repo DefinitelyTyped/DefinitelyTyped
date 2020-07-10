@@ -692,6 +692,7 @@ declare namespace NodeJS {
         destroy(error?: Error): void;
     }
     interface ReadStream extends Socket {
+        readonly readableFlowing: boolean | null;
         readonly readableHighWaterMark: number;
         readonly readableLength: number;
         isRaw?: boolean;
