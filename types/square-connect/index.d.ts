@@ -9202,7 +9202,7 @@ export class LocationsApi {
   /**
    * Updates a location.
    */
-    updateLocation(locationId: string, body: Location): Promise<UpdateLocationResponse>
+    updateLocation(locationId: string, body: Location): Promise<UpdateLocationResponse>;
 }
 
 // @todo describe methods
