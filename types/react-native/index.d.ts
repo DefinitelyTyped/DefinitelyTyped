@@ -65,7 +65,9 @@
 import * as React from 'react';
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-type Opaque<K, T> = T & { __TYPE__: K };
+
+declare const OpaqueValue: unique symbol;
+type Opaque<K> = typeof OpaqueValue & { __TYPE__: K };
 
 type Constructor<T> = new (...args: any[]) => T;
 
@@ -5916,23 +5918,9 @@ type ColorValue = null | string | NativeColorValueIOS | NativeColorValueAndroid;
 
 type ProcessedColorValueIOS = number | NativeColorValueIOS;
 
-type NativeColorValueAndroid = Opaque<
-    '__NativeColorValueAndroid__',
-    {
-        resource_paths?: string[];
-    }
->;
+type NativeColorValueAndroid = Opaque<'__NativeColorValueAndroid__'>;
 
-type NativeColorValueIOS = Opaque<
-    '__NativeColorValueIOS__',
-    {
-        semantic?: string[];
-        dynamic?: {
-            light?: ColorValue | ProcessedColorValueIOS;
-            dark?: ColorValue | ProcessedColorValueIOS;
-        };
-    }
->;
+type NativeColorValueIOS = Opaque<'__NativeColorValueIOS__'>;
 
 type DynamicColorIOSTuple = {
     light: ColorValue;
