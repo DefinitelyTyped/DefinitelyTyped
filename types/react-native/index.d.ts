@@ -473,28 +473,28 @@ export interface Insets {
 
 export type PressableStateCallbackType = Readonly<{
     pressed: boolean;
-}
+}>;
 
 export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
     /**
      * Called when a single tap gesture is detected.
      */
-    onPress?: null | (event: GestureResponderEvent) => void;
+    onPress?: null | ((event: GestureResponderEvent) => void);
 
     /**
      * Called when a touch is engaged before `onPress`.
      */
-    onPressIn?: null | (event: GestureResponderEvent) => void;
+    onPressIn?: null | ((event: GestureResponderEvent) => void);
 
     /**
      * Called when a touch is released before `onPress`.
      */
-    onPressOut?: null | (event: GestureResponderEvent) => void;
+    onPressOut?: null | ((event: GestureResponderEvent) => void);
 
     /**
      * Called when a long-tap gesture is detected.
      */
-    onLongPress?: null | (event: GestureResponderEvent) => void;
+    onLongPress?: null | ((event: GestureResponderEvent) => void);
 
     /**
      * Either children or a render prop that receives a boolean reflecting whether

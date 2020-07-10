@@ -562,6 +562,7 @@ const getInitialUrlTest = () =>
         }
     });
 
+LogBox.ignoreAllLogs();
 LogBox.ignoreAllLogs(true);
 LogBox.ignoreLogs(['someString', /^aRegex/]);
 LogBox.install();
