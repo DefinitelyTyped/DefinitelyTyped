@@ -103,13 +103,3 @@ class CCWithAProp extends React.Component<{ a: string }> {}
 connect(badMapStateToProps)(CCWithAProp);
 // Doesn't actually check types, just prop names.
 connect(okayMapStateToProps)(CCWithAProp);
-
-// Check typing on parameter of "mapStateToProps"
-const mapStateToProps1 = () => ({});
-connect(mapStateToProps1);
-const mapStateToProps2 = (props: {}) => ({});
-connect(mapStateToProps2);
-const mapStateToProps3 = (props: { extra: string }) => ({});
-connect(mapStateToProps3);
-const mapStateToProps4 = (props: { extra: string }) => ({ extra: 5 });
-connect(mapStateToProps4);

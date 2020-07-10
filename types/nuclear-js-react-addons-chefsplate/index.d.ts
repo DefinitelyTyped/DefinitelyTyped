@@ -53,6 +53,7 @@ interface ComponentConnector<TNeedsProps, TInjectedPropNames extends string | nu
  */
 declare function connect<TNeedsProps, TInjectedPropNames extends string | number | symbol>(
     mapStateToProps: MapStateToProps<TInjectedPropNames>,
+    // tslint:disable-next-line no-unnecessary-generics
 ): ComponentConnector<TNeedsProps, TInjectedPropNames>;
 
 /**
