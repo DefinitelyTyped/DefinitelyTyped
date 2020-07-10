@@ -124,7 +124,7 @@ export interface EventConfig {
     /**
      * An object used to specify the event properties. For key related event types, KeyboardEvent is supported. For mouse related event types, MouseEvent is supported.
      */
-    eventProps?: MouseEvent | KeyboardEvent;
+    eventProps?: object;
 }
 
 // global variables

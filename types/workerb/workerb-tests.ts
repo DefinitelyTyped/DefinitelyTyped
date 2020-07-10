@@ -44,6 +44,9 @@ event(
     '#div',
     {
         eventType: 'keydown',
+        eventProps: {
+            keyCode: 76,
+        },
     },
     { method: 'by_query_selector', numberOfTries: 10 },
 );
