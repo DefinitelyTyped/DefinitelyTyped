@@ -2,6 +2,7 @@
 // Project: https://github.com/josdejong/workerpool
 // Definitions by: Alorel <https://github.com/Alorel>
 //                 Seulgi Kim <https://github.com/sgkim126>
+//                 Emily M Klassen <https://github.com/forivall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -66,7 +67,7 @@ export class Promise<T, E = Error> {
     readonly pending: boolean;
 
     always<TT>(handler: () => Promise<TT>): Promise<TT>;
-    then<TT, EE = Error>(result: (r: T) => TT, err?: (r: E) => EE): Promise<TT, EE>;
+    then<TT, TE = never>(result: (r: T) => TT, err?: (r: E) => TE): Promise<TT | TE, any>;
     catch<TT>(err: (error: E) => TT): Promise<T | TT>;
     cancel(): this;
     timeout(delay: number): this;
