@@ -1168,3 +1168,31 @@ DevSettings.addMenuItem('alert', () => {
 });
 DevSettings.reload();
 DevSettings.reload('reload with reason');
+
+// Accessibility custom actions
+const AccessibilityCustomActionsTest = () => {
+    return (
+        <View
+            accessible={true}
+            accessibilityActions={[
+                // should support custom defined actions
+                { name: 'cut', label: 'cut' },
+                { name: 'copy', label: 'copy' },
+                { name: 'paste', label: 'paste' },
+            ]}
+            onAccessibilityAction={event => {
+                switch (event.nativeEvent.actionName) {
+                    case 'cut':
+                        Alert.alert('Alert', 'cut action success');
+                        break;
+                    case 'copy':
+                        Alert.alert('Alert', 'copy action success');
+                        break;
+                    case 'paste':
+                        Alert.alert('Alert', 'paste action success');
+                        break;
+                }
+            }}
+        />
+    );
+};
