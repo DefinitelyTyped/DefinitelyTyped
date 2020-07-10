@@ -5912,8 +5912,9 @@ interface PlatformWebStatic extends PlatformStatic {
 }
 
 declare const OpaqueColorValue: unique symbol;
+type OpaqueColorValue = typeof OpaqueColorValue;
 
-export type ColorValue = string | typeof OpaqueColorValue;
+export type ColorValue = string | OpaqueColorValue;
 
 type DynamicColorIOSTuple = {
     light: ColorValue;
@@ -5926,7 +5927,7 @@ type DynamicColorIOSTuple = {
  * @param tuple Colors you want to use for "light mode" and "dark mode"
  * @platform ios
  */
-export function DynamicColorIOS(tuple: DynamicColorIOSTuple): ColorValue;
+export function DynamicColorIOS(tuple: DynamicColorIOSTuple): OpaqueColorValue;
 
 /**
  * Select native platform color
@@ -5934,7 +5935,7 @@ export function DynamicColorIOS(tuple: DynamicColorIOSTuple): ColorValue;
  *
  * @see https://reactnative.dev/docs/platformcolor#example
  */
-export function PlatformColor(...colors: string[]): ColorValue;
+export function PlatformColor(...colors: string[]): OpaqueColorValue;
 
 /**
  * Deprecated - subclass NativeEventEmitter to create granular event modules instead of

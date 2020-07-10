@@ -103,6 +103,7 @@ import {
     VirtualizedList,
     ListRenderItemInfo,
     LogBox,
+    ColorValue,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -1189,6 +1190,8 @@ const OpaqueTest2 = () => (
 
 // Test you cannot ammend opaque type
 PlatformColor('?attr/colorControlNormal').resource_paths.push('foo'); // $ExpectError
+
+const someColorProp: ColorValue = PlatformColor('test');
 
 // Test PlatformColor inside Platform select with stylesheet
 StyleSheet.create({
