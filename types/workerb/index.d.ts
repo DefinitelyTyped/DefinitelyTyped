@@ -3,17 +3,24 @@
 // Definitions by: praveen-me <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+type clickQueryMethods = 'by_text' | 'by_regex' | 'by_id' | 'by_xpath' | 'by_query_selector';
+type getAttributeQueryMethods =
+    | 'by_text'
+    | 'by_regex'
+    | 'by_id'
+    | 'by_xpath'
+    | 'by_query_selector'
+    | 'by_query_selector_all';
+type typeQueryMethods =
+    | 'by_text'
+    | 'by_regex'
+    | 'by_id'
+    | 'by_xpath'
+    | 'by_query_selector'
+    | 'by_label'
+    | 'by_placeholder';
+
 export interface QueryOptions {
-    /**
-     * Allows to select an element with different methods:
-     *
-     * * by_text - finds the target element by text value.
-     * * by_regex - finds the target element by regex.
-     * * by_id - finds the target element by id
-     * * by_xpath - finds the target element by an [xpath](https://developer.mozilla.org/en-US/docs/Web/XPath) query
-     *
-     */
-    method?: 'by_text' | 'by_regex' | 'by_id' | 'by_xpath' | 'by_query_selector';
     /**
      *  A number which specifies after how many milliseconds the runtime will try to find the target element. The default value is 200.
      */
@@ -26,16 +33,64 @@ export interface QueryOptions {
 
 export interface ClickQueryOptions extends QueryOptions {
     /**
+     * Allows to select an element with different methods:
+     *
+     * * by_text - finds the target element by text value.
+     * * by_regex - finds the target element by regex.
+     * * by_id - finds the target element by id
+     * * by_xpath - finds the target element by an [xpath](https://developer.mozilla.org/en-US/docs/Web/XPath) query
+     *
+     */
+    method?: clickQueryMethods;
+
+    /**
      *  A boolean to indicate if script runner should expect the page to reload. If set to true, the script execution will pause after executing the click. It will resume after the page reloads. The default value is false.
      */
     expectReload?: boolean;
 }
 
+export interface GetAttributeQueryOptions extends QueryOptions {
+    /**
+     * Allows to select an element with different methods:
+     *
+     * * by_text - finds the target element by text value.
+     * * by_regex - finds the target element by regex.
+     * * by_id - finds the target element by id
+     * * by_xpath - finds the target element by an [xpath](https://developer.mozilla.org/en-US/docs/Web/XPath) query
+     *
+     */
+    method?: getAttributeQueryMethods;
+}
+
 export interface SelectQueryOptions extends QueryOptions {
+    /**
+     * Allows to select an element with different methods:
+     *
+     * * by_text - finds the target element by text value.
+     * * by_regex - finds the target element by regex.
+     * * by_id - finds the target element by id
+     * * by_xpath - finds the target element by an [xpath](https://developer.mozilla.org/en-US/docs/Web/XPath) query
+     *
+     */
+    method?: clickQueryMethods;
+
     /**
      * Specify if the provided value is a label or value of the option needs to be selected. The default value is label.
      */
     selectBy: string;
+}
+
+export interface TypeQueryInterface extends QueryOptions {
+    /**
+     * Allows to select an element with different methods:
+     *
+     * * by_text - finds the target element by text value.
+     * * by_regex - finds the target element by regex.
+     * * by_id - finds the target element by id
+     * * by_xpath - finds the target element by an [xpath](https://developer.mozilla.org/en-US/docs/Web/XPath) query
+     *
+     */
+    method?: typeQueryMethods;
 }
 
 export interface APIResponse {
@@ -112,7 +167,7 @@ export declare function notify(message: string, type: 'error' | 'success', timeo
  *
  * @returns undefined
  */
-export declare function type(text: string, query: string, options?: QueryOptions): undefined;
+export declare function type(text: string, query: string, options?: TypeQueryInterface): undefined;
 
 /**
  * The download can be used to download data as part of the script
@@ -135,7 +190,7 @@ export declare function download(filename: string, content: string, contentType:
  *
  * @returns undefined
  */
-export declare function event(query: string, eventConfig: EventConfig, options?: QueryOptions): undefined;
+export declare function event(query: string, eventConfig: EventConfig, options?: ClickQueryOptions): undefined;
 
 /**
  * The prompt function opens a prompt to query user for input.
@@ -164,7 +219,7 @@ export declare function log(value: any, color?: string): undefined;
  *
  * @returns A string which is either the text inside an element or in case of input the value of the input.
  */
-export declare function read(query: string, options?: QueryOptions): string;
+export declare function read(query: string, options?: ClickQueryOptions): string;
 
 /**
  * The readAll function returns texts of all target elements which match the query.
@@ -190,7 +245,7 @@ export declare function readAll(query: string, options?: QueryOptions): Array<an
  */
 export declare function readTable(
     query: string,
-    options?: QueryOptions,
+    options?: ClickQueryOptions,
 ): {
     header: Array<string>;
     rows: Array<object>;
@@ -255,7 +310,7 @@ export declare function tab(url: string): undefined;
 export declare function getAttribute(
     attributes: string | Array<string>,
     query: string,
-    options?: QueryOptions,
+    options?: GetAttributeQueryOptions,
 ): Array<object>;
 
 /**
