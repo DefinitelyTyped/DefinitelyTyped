@@ -18,6 +18,7 @@ declare module "stream" {
 
         class Readable extends Stream implements NodeJS.ReadableStream {
             readable: boolean;
+            readonly readableFlowing: boolean | null;
             readonly readableHighWaterMark: number;
             readonly readableLength: number;
             constructor(opts?: ReadableOptions);
