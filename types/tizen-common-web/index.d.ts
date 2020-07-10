@@ -7,18 +7,18 @@
 //                 Hyojin Kim <https://github.com/prozanne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./lib/filesystem.d.ts" />
-/// <reference path="./lib/application.d.ts" />
-/// <reference path="./lib/download.d.ts" />
-/// <reference path="./lib/systeminfo.d.ts" />
-/// <reference path="./lib/websetting.d.ts" />
-/// <reference path="./lib/tvaudiocontrol.d.ts" />
-/// <reference path="./lib/tvdisplaycontrol.d.ts" />
-/// <reference path="./lib/tvinfo.d.ts" />
-/// <reference path="./lib/tvinputdevice.d.ts" />
-/// <reference path="./lib/tvwindow.d.ts" />
-/// <reference path="./lib/tizen.d.ts" />
-/// <reference path="./lib/package.d.ts" />
+/// <reference path="./filesystem.d.ts" />
+/// <reference path="./application.d.ts" />
+/// <reference path="./download.d.ts" />
+/// <reference path="./systeminfo.d.ts" />
+/// <reference path="./websetting.d.ts" />
+/// <reference path="./tvaudiocontrol.d.ts" />
+/// <reference path="./tvdisplaycontrol.d.ts" />
+/// <reference path="./tvinfo.d.ts" />
+/// <reference path="./tvinputdevice.d.ts" />
+/// <reference path="./tvwindow.d.ts" />
+/// <reference path="./tizen.d.ts" />
+/// <reference path="./package.d.ts" />
 
 import {
     WebAPIException,
