@@ -3830,150 +3830,144 @@ declare module _ {
         propertyOf(object: object): (key: string | number | Array<string | number>) => any;
 
         /**
-        * Performs an optimized deep comparison between the two objects,
-        * to determine if they should be considered equal.
-        * @param object Compare to `other`.
-        * @param other Compare to `object`.
-        * @return True if `object` is equal to `other`.
-        **/
+         * Performs an optimized deep comparison between `object` and `other`
+         * to determine if they should be considered equal.
+         * @param object Compare to `other`.
+         * @param other Compare to `object`.
+         * @returns True if `object` should be considered equal to `other`.
+         **/
         isEqual(object: any, other: any): boolean;
 
         /**
-        * Returns true if object contains no values.
-        * @param object Check if this object has no properties or values.
-        * @return True if `object` is empty.
-        **/
-        isEmpty(object: any): boolean;
+         * Returns true if `collection` contains no values.
+         * For strings and array-like objects checks if the length property is 0.
+         * @param collection The collection to check.
+         * @returns True if `collection` has no elements.
+         **/
+        isEmpty(collection: any): boolean;
 
         /**
-        * Returns true if the keys and values in `properties` matches with the `object` properties.
-        * @param object Object to be compared with `properties`.
-        * @param properties Properties be compared with `object`
-        * @return True if `object` has matching keys and values, otherwise false.
-        **/
+         * Returns true if the keys and values in `properties` are contained in `object`.
+         * @param object The object to check.
+         * @param properties The properties to check for in `object`.
+         * @returns True if all keys and values in `properties` are also in `object`.
+         **/
         isMatch(object: any, properties: any): boolean;
 
         /**
-        * Returns true if object is a DOM element.
-        * @param object Check if this object is a DOM element.
-        * @return True if `object` is a DOM element, otherwise false.
-        **/
+         * Returns true if `object` is a DOM element.
+         * @param object The object to check.
+         * @returns True if `object` is a DOM element, otherwise false.
+         **/
         isElement(object: any): object is Element;
 
         /**
-        * Returns true if object is an Array.
-        * @param object Check if this object is an Array.
-        * @return True if `object` is an Array, otherwise false.
-        **/
+         * Returns true if `object` is an Array.
+         * @param object The object to check.
+         * @returns True if `object` is an Array, otherwise false.
+         **/
         isArray(object: any): object is any[];
 
         /**
-        * Returns true if object is an Array.
-        * @param object Check if this object is an Array.
-        * @return True if `object` is an Array, otherwise false.
-        **/
-        isArray<T>(object: any): object is T[];
-
-        /**
-         * Returns true if object is a Symbol.
-         * @param object Check if this object is a Symbol.
-         * @return True if `object` is a Symbol, otherwise false.
+         * Returns true if `object` is a Symbol.
+         * @param object The object to check.
+         * @returns True if `object` is a Symbol, otherwise false.
          **/
         isSymbol(object: any): object is symbol;
 
         /**
-        * Returns true if value is an Object. Note that JavaScript arrays and functions are objects,
-        * while (normal) strings and numbers are not.
-        * @param object Check if this object is an Object.
-        * @return True of `object` is an Object, otherwise false.
-        **/
-        isObject(object: any): boolean;
+         * Returns true if `object` is an Object. Note that JavaScript arrays and functions are objects,
+         * while (normal) strings and numbers are not.
+         * @param object The object to check.
+         * @returns True if `object` is an Object, otherwise false.
+         **/
+        isObject(object: any): object is Dictionary<any> & object;
 
         /**
-        * Returns true if object is an Arguments object.
-        * @param object Check if this object is an Arguments object.
-        * @return True if `object` is an Arguments object, otherwise false.
-        **/
+         * Returns true if `object` is an Arguments object.
+         * @param object The object to check.
+         * @returns True if `object` is an Arguments object, otherwise false.
+         **/
         isArguments(object: any): object is IArguments;
 
         /**
-        * Returns true if object is a Function.
-        * @param object Check if this object is a Function.
-        * @return True if `object` is a Function, otherwise false.
-        **/
+         * Returns true if `object` is a Function.
+         * @param object The object to check.
+         * @returns True if `object` is a Function, otherwise false.
+         **/
         isFunction(object: any): object is Function;
 
         /**
-        * Returns true if object inherits from an Error.
-        * @param object Check if this object is an Error.
-        * @return True if `object` is a Error, otherwise false.
-        **/
+         * Returns true if `object` is an Error.
+         * @param object The object to check.
+         * @returns True if `object` is a Error, otherwise false.
+         **/
         isError(object: any): object is Error;
 
         /**
-        * Returns true if object is a String.
-        * @param object Check if this object is a String.
-        * @return True if `object` is a String, otherwise false.
-        **/
+         * Returns true if `object` is a String.
+         * @param object The object to check.
+         * @returns True if `object` is a String, otherwise false.
+         **/
         isString(object: any): object is string;
 
         /**
-        * Returns true if object is a Number (including NaN).
-        * @param object Check if this object is a Number.
-        * @return True if `object` is a Number, otherwise false.
-        **/
+         * Returns true if `object` is a Number (including NaN).
+         * @param object The object to check.
+         * @returns True if `object` is a Number, otherwise false.
+         **/
         isNumber(object: any): object is number;
 
         /**
-        * Returns true if object is a finite Number.
-        * @param object Check if this object is a finite Number.
-        * @return True if `object` is a finite Number.
-        **/
+         * Returns true if `object` is a finite Number.
+         * @param object The object to check.
+         * @returns True if `object` is a finite Number.
+         **/
         isFinite(object: any): boolean;
 
         /**
-        * Returns true if object is either true or false.
-        * @param object Check if this object is a bool.
-        * @return True if `object` is a bool, otherwise false.
-        **/
+         * Returns true if `object` is a Boolean.
+         * @param object The object to check.
+         * @returns True if `object` is a Boolean, otherwise false.
+         **/
         isBoolean(object: any): object is boolean;
 
         /**
-        * Returns true if object is a Date.
-        * @param object Check if this object is a Date.
-        * @return True if `object` is a Date, otherwise false.
-        **/
+         * Returns true if `object` is a Date.
+         * @param object The object to check.
+         * @returns True if `object` is a Date, otherwise false.
+         **/
         isDate(object: any): object is Date;
 
         /**
-        * Returns true if object is a RegExp.
-        * @param object Check if this object is a RegExp.
-        * @return True if `object` is a RegExp, otherwise false.
-        **/
+         * Returns true if `object` is a RegExp.
+         * @param object The object to check.
+         * @returns True if `object` is a RegExp, otherwise false.
+         **/
         isRegExp(object: any): object is RegExp;
 
         /**
-        * Returns true if object is NaN.
-        * Note: this is not the same as the native isNaN function,
-        * which will also return true if the variable is undefined.
-        * @param object Check if this object is NaN.
-        * @return True if `object` is NaN, otherwise false.
-        **/
+         * Returns true if `object` is NaN.
+         * Note: this is not the same as the native isNaN function,
+         * which will also return true if the variable is undefined.
+         * @param object The object to check.
+         * @returns True if `object` is NaN, otherwise false.
+         **/
         isNaN(object: any): boolean;
 
         /**
-        * Returns true if the value of object is null.
-        * @param object Check if this object is null.
-        * @return True if `object` is null, otherwise false.
-        **/
-        isNull(object: any): boolean;
+         * Returns true if `object` is null.
+         * @param object The object to check.
+         * @returns True if `object` is null, otherwise false.
+         **/
+        isNull(object: any): object is null;
 
         /**
-        * Returns true if value is undefined.
-        * @param object Check if this object is undefined.
-        * @return True if `object` is undefined, otherwise false.
-        **/
-        isUndefined(value: any): boolean;
+         * Returns true if `object` is undefined.
+         * @param object The object to check.
+         * @returns True if `object` is undefined, otherwise false.
+         **/
+        isUndefined(object: any): object is undefined;
 
         /* *********
         * Utility *
@@ -4898,117 +4892,124 @@ declare module _ {
         propertyOf(): (key: string) => any;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isEqual
-        **/
+         * Performs an optimized deep comparison between the wrapped object
+         * and `other` to determine if they should be considered equal.
+         * @param other Compare to the wrapped object.
+         * @returns True if the wrapped object should be considered equal to `other`.
+         **/
         isEqual(other: any): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isEmpty
-        **/
+         * Returns true if the wrapped collection contains no values.
+         * For strings and array-like objects checks if the length property is 0.
+         * @returns True if the wrapped collection has no elements.
+         **/
         isEmpty(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isMatch
-        **/
-        isMatch(): boolean;
+         * Returns true if the keys and values in `properties` are contained in the wrapped object.
+         * @param properties The properties to check for in the wrapped object.
+         * @returns True if all keys and values in `properties` are also in the wrapped object.
+         **/
+        isMatch(properties: any): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isElement
-        **/
+         * Returns true if the wrapped object is a DOM element.
+         * @returns True if the wrapped object is a DOM element, otherwise false.
+         **/
         isElement(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isArray
-        **/
+         * Returns true if the wrapped object is an Array.
+         * @returns True if the wrapped object is an Array, otherwise false.
+         **/
         isArray(): boolean;
 
         /**
-         * Wrapped type `object`.
-         * @see _.isSymbol
+         * Returns true if the wrapped object is a Symbol.
+         * @returns True if the wrapped object is a Symbol, otherwise false.
          **/
         isSymbol(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isObject
-        **/
+         * Returns true if the wrapped object is an Object. Note that JavaScript arrays
+         * and functions are objects, while (normal) strings and numbers are not.
+         * @returns True if the wrapped object is an Object, otherwise false.
+         **/
         isObject(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isArguments
-        **/
+         * Returns true if the wrapped object is an Arguments object.
+         * @returns True if the wrapped object is an Arguments object, otherwise false.
+         **/
         isArguments(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isFunction
-        **/
+         * Returns true if the wrapped object is a Function.
+         * @returns True if the wrapped object is a Function, otherwise false.
+         **/
         isFunction(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isError
-        **/
+         * Returns true if the wrapped object is a Error.
+         * @returns True if the wrapped object is a Error, otherwise false.
+         **/
         isError(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isString
-        **/
+         * Returns true if the wrapped object is a String.
+         * @returns True if the wrapped object is a String, otherwise false.
+         **/
         isString(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isNumber
-        **/
+         * Returns true if the wrapped object is a Number (including NaN).
+         * @returns True if the wrapped object is a Number, otherwise false.
+         **/
         isNumber(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isFinite
-        **/
+         * Returns true if the wrapped object is a finite Number.
+         * @returns True if the wrapped object is a finite Number.
+         **/
         isFinite(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isBoolean
-        **/
+         * Returns true if the wrapped object is a Boolean.
+         * @returns True if the wrapped object is a Boolean, otherwise false.
+         **/
         isBoolean(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isDate
-        **/
+         * Returns true if the wrapped object is a Date.
+         * @returns True if the wrapped object is a Date, otherwise false.
+         **/
         isDate(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isRegExp
-        **/
+         * Returns true if the wrapped object is a RegExp.
+         * @returns True if the wrapped object is a RegExp, otherwise false.
+         **/
         isRegExp(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isNaN
-        **/
+         * Returns true if the wrapped object is NaN.
+         * Note: this is not the same as the native isNaN function,
+         * which will also return true if the variable is undefined.
+         * @returns True if the wrapped object is NaN, otherwise false.
+         **/
         isNaN(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isNull
-        **/
+         * Returns true if the wrapped object is null.
+         * @returns True if the wrapped object is null, otherwise false.
+         **/
         isNull(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isUndefined
-        **/
+         * Returns true if the wrapped object is undefined.
+         * @returns True if the wrapped object is undefined, otherwise false.
+         **/
         isUndefined(): boolean;
 
         /********* *
@@ -5886,118 +5887,144 @@ declare module _ {
         propertyOf(): _Chain<T>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isEqual
-        **/
-        isEqual(other: any): _Chain<T>;
+         * Performs an optimized deep comparison between the wrapped object
+         * and `other` to determine if they should be considered equal.
+         * @param other Compare to the wrapped object.
+         * @returns True if the wrapped object should be considered equal to `other`.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isEqual(other: any): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isEmpty
-        **/
-        isEmpty(): _Chain<T>;
+         * Returns true if the wrapped collection contains no values.
+         * For strings and array-like objects checks if the length property is 0.
+         * @returns True if the wrapped collection has no elements.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isEmpty(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isMatch
-        **/
-        isMatch(): _Chain<T>;
+         * Returns true if the keys and values in `properties` are contained in the wrapped object.
+         * @param properties The properties to check for in the wrapped object.
+         * @returns True if all keys and values in `properties` are also in the wrapped object.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isMatch(properties: any): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isElement
-        **/
-        isElement(): _Chain<T>;
+         * Returns true if the wrapped object is a DOM element.
+         * @returns True if the wrapped object is a DOM element, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isElement(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isArray
-        **/
-        isArray(): _Chain<T>;
+         * Returns true if the wrapped object is an Array.
+         * @returns True if the wrapped object is an Array, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isArray(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isSymbol
-        **/
-        isSymbol(): _Chain<T>;
+         * Returns true if the wrapped object is a Symbol.
+         * @returns True if the wrapped object is a Symbol, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isSymbol(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isObject
-        **/
-        isObject(): _Chain<T>;
+         * Returns true if the wrapped object is an Object. Note that JavaScript arrays
+         * and functions are objects, while (normal) strings and numbers are not.
+         * @returns True if the wrapped object is an Object, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isObject(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isArguments
-        **/
-        isArguments(): _Chain<T>;
+         * Returns true if the wrapped object is an Arguments object.
+         * @returns True if the wrapped object is an Arguments object, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isArguments(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isFunction
-        **/
-        isFunction(): _Chain<T>;
+         * Returns true if the wrapped object is a Function.
+         * @returns True if the wrapped object is a Function, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isFunction(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isError
-        **/
-        isError(): _Chain<T>;
+         * Returns true if the wrapped object is a Error.
+         * @returns True if the wrapped object is a Error, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isError(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isString
-        **/
-        isString(): _Chain<T>;
+         * Returns true if the wrapped object is a String.
+         * @returns True if the wrapped object is a String, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isString(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isNumber
-        **/
-        isNumber(): _Chain<T>;
+         * Returns true if the wrapped object is a Number (including NaN).
+         * @returns True if the wrapped object is a Number, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isNumber(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isFinite
-        **/
-        isFinite(): _Chain<T>;
+         * Returns true if the wrapped object is a finite Number.
+         * @returns True if the wrapped object is a finite Number.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isFinite(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isBoolean
-        **/
-        isBoolean(): _Chain<T>;
+         * Returns true if the wrapped object is a Boolean.
+         * @returns True if the wrapped object is a Boolean, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isBoolean(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isDate
-        **/
-        isDate(): _Chain<T>;
+         * Returns true if the wrapped object is a Date.
+         * @returns True if the wrapped object is a Date, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isDate(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isRegExp
-        **/
-        isRegExp(): _Chain<T>;
+         * Returns true if the wrapped object is a RegExp.
+         * @returns True if the wrapped object is a RegExp, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isRegExp(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isNaN
-        **/
-        isNaN(): _Chain<T>;
+         * Returns true if the wrapped object is NaN.
+         * Note: this is not the same as the native isNaN function,
+         * which will also return true if the variable is undefined.
+         * @returns True if the wrapped object is NaN, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isNaN(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isNull
-        **/
-        isNull(): _Chain<T>;
+         * Returns true if the wrapped object is null.
+         * @returns True if the wrapped object is null, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isNull(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isUndefined
-        **/
-        isUndefined(): _Chain<T>;
+         * Returns true if the wrapped object is undefined.
+         * @returns True if the wrapped object is undefined, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isUndefined(): _ChainSingle<boolean>;
 
         /********* *
          * Utility *

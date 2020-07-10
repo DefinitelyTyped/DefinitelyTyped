@@ -434,81 +434,10 @@ _.chain([1, 2, 3, 200])
 _.has({ a: 1, b: 2, c: 3 }, "b");
 
 var moe = { name: 'moe', luckyNumbers: [13, 27, 34] };
-var clone = { name: 'moe', luckyNumbers: [13, 27, 34] };
-moe == clone;
-_.isEqual(moe, clone);
-
-_.isEmpty([1, 2, 3]);
-_.isEmpty({});
-
-_.isElement($('body')[0]);
-
-(function () { return _.isArray(arguments); })();
-_.isArray([1, 2, 3]);
-
-_.isObject({});
-_.isObject(1);
 
 _.property('name')(moe);
 _.property(['name'])(moe);
 _.property(['luckyNumbers', 2])(moe)
-
-// (() => { return _.isArguments(arguments); })(1, 2, 3);
-_.isArguments([1, 2, 3]);
-
-_.isFunction(alert);
-
-_.isString("moe");
-
-_.isNumber(8.4 * 5);
-
-_.isFinite(-101);
-
-_.isFinite(-Infinity);
-
-_.isBoolean(null);
-
-_.isDate(new Date());
-
-_.isRegExp(/moe/);
-
-_.isNaN(NaN);
-_.isNaN(undefined);
-
-_.isNull(null);
-_.isNull(undefined);
-
-_.isUndefined((window).missingVariable);
-
-//////////////////////////////////// User Defined Guard tests
-
-function useElement(arg: Element) {};
-function useArguments(arg: IArguments) {};
-function useFunction(arg: Function) {};
-function useError(arg: Error) {};
-function useString(arg: String) {};
-function useNumber(arg: Number) {};
-function useBoolean(arg: Boolean) {};
-function useDate(arg: Date) {};
-function useRegExp(arg: RegExp) {};
-function useArray<T>(arg: T[]) {};
-function useSymbol(arg: symbol) {};
-
-var guardedType: {} = {};
-if(_.isElement(guardedType)) useElement(guardedType);
-if(_.isArray(guardedType)) useArray(guardedType);
-if(_.isArray<String>(guardedType)) useArray(guardedType);
-if(_.isArguments(guardedType)) useArguments(guardedType);
-if(_.isFunction(guardedType)) useFunction(guardedType);
-if(_.isError(guardedType)) useError(guardedType);
-if(_.isString(guardedType)) useString(guardedType);
-if(_.isNumber(guardedType)) useNumber(guardedType);
-if(_.isBoolean(guardedType)) useBoolean(guardedType);
-if(_.isDate(guardedType)) useDate(guardedType);
-if(_.isRegExp(guardedType)) useRegExp(guardedType);
-if(_.isSymbol(guardedType)) useSymbol(guardedType);
-
-///////////////////////////////////////////////////////////////////////////////////////
 
 var UncleMoe = { name: 'moe' };
 _.constant(UncleMoe)();
@@ -764,6 +693,10 @@ const simpleNumber = 7;
 
 declare const mixedIterabilityValue: number | number[];
 declare const anyValue: any;
+declare const neverValue: never;
+declare const maybeFunction: (() => void) | undefined;
+declare const maybeStringArray: string[] | undefined;
+declare const stringy: StringRecord | string;
 
 // avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
 // the types under test need to be refactored
@@ -1405,6 +1338,154 @@ declare const extractChainTypes: ChainTypeExtractor;
     _([{a: 'a'}, {a: 'b'}]).findLastIndex({ a: 'b' }); // $ExpectType number
     _.chain([1, 2, 3, 1, 2, 3]).findLastIndex(num => num % 2 === 0).value(); // $ExpectType number
     _.chain([{a: 'a'}, {a: 'b'}]).findLastIndex({ a: 'b' }).value(); // $ExpectType number
+}
+
+// Objects
+
+// isEqual
+{
+    _.isEqual(anyValue, anyValue); // $ExpectType boolean
+    _(anyValue).isEqual(anyValue); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isEqual(anyValue)); // $ExpectType ChainType<boolean, never>
+}
+
+// isEmpty
+{
+    _.isEmpty(anyValue); // $ExpectType boolean
+    _(anyValue).isEmpty(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isEmpty()); // $ExpectType ChainType<boolean, never>
+}
+
+// isMatch
+{
+    _.isMatch(anyValue, anyValue); // $ExpectType boolean
+    _(anyValue).isMatch(anyValue); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isMatch(anyValue)); // $ExpectType ChainType<boolean, never>
+}
+
+// isElement
+{
+    _.isElement(anyValue) ? anyValue : neverValue; // $ExpectType Element
+    _(anyValue).isElement(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isElement()); // $ExpectType ChainType<boolean, never>
+}
+
+// isArray
+{
+    _.isArray(anyValue) ? anyValue : neverValue; // $ExpectType any[]
+    _(anyValue).isArray(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isArray()); // $ExpectType ChainType<boolean, never>
+}
+
+// isSymbol
+{
+    _.isSymbol(anyValue) ? anyValue : neverValue; // $ExpectType symbol
+    _(anyValue).isSymbol(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isSymbol()); // $ExpectType ChainType<boolean, never>
+}
+
+// isObject
+{
+    if (_.isObject(anyValue)) {
+        anyValue; // $ExpectType Dictionary<any> & object
+        anyValue.propertyName; // $ExpectType any
+        anyValue[3]; // $ExpectType any
+        _.map(anyValue, i => i); // $ExpectType any[]
+        _.isFunction(anyValue) ? anyValue : neverValue; // $ExpectType Function
+    }
+
+    _.isObject(stringy) ? stringy : neverValue // $ExpectType StringRecord
+    _.isObject(maybeStringArray) ? maybeStringArray : neverValue; // $ExpectType string[]
+    _.isObject(maybeFunction) ? maybeFunction : neverValue; // $ExpectType () => void
+    _.isObject(simpleString) ? simpleString : neverValue; // $ExpectType never
+
+    _(anyValue).isObject(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isObject()); // $ExpectType ChainType<boolean, never>
+}
+
+// isArguments
+{
+    _.isArguments(anyValue) ? anyValue : neverValue; // $ExpectType IArguments
+    _(anyValue).isArguments(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isArguments()); // $ExpectType ChainType<boolean, never>
+}
+
+// isFunction
+{
+    _.isFunction(maybeFunction) ? maybeFunction : neverValue; // $ExpectType () => void
+    _(anyValue).isFunction(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isFunction()); // $ExpectType ChainType<boolean, never>
+}
+
+// isError
+{
+    _.isError(anyValue) ? anyValue : neverValue; // $ExpectType Error
+    _(anyValue).isError(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isError()); // $ExpectType ChainType<boolean, never>
+}
+
+// isString
+{
+    _.isString(anyValue) ? anyValue : neverValue; // $ExpectType string
+    _(anyValue).isString(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isString()); // $ExpectType ChainType<boolean, never>
+}
+
+// isNumber
+{
+    _.isNumber(anyValue) ? anyValue : neverValue; // $ExpectType number
+    _(anyValue).isNumber(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isNumber()); // $ExpectType ChainType<boolean, never>
+}
+
+// isFinite
+{
+    _.isFinite(anyValue); // $ExpectType boolean
+    _(anyValue).isFinite(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isFinite()); // $ExpectType ChainType<boolean, never>
+}
+
+// isBoolean
+{
+    _.isBoolean(anyValue) ? anyValue : neverValue; // $ExpectType boolean
+    _(anyValue).isBoolean(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isBoolean()); // $ExpectType ChainType<boolean, never>
+}
+
+// isDate
+{
+    _.isDate(anyValue) ? anyValue : neverValue; // $ExpectType Date
+    _(anyValue).isDate(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isDate()); // $ExpectType ChainType<boolean, never>
+}
+
+// isRegExp
+{
+    _.isRegExp(anyValue) ? anyValue : neverValue; // $ExpectType RegExp
+    _(anyValue).isRegExp(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isRegExp()); // $ExpectType ChainType<boolean, never>
+}
+
+// isNaN
+{
+    _.isNaN(anyValue); // $ExpectType boolean
+    _(anyValue).isNaN(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isNaN()); // $ExpectType ChainType<boolean, never>
+}
+
+// isNull
+{
+    _.isNull(anyValue) ? anyValue : neverValue; // $ExpectType null
+    _(anyValue).isNull(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isNull()); // $ExpectType ChainType<boolean, never>
+}
+
+// isUndefined
+{
+    _.isUndefined(anyValue) ? anyValue : neverValue; // $ExpectType undefined
+    _.isUndefined(maybeFunction) ? neverValue : maybeFunction; // $ExpectType () => void
+    _(anyValue).isUndefined(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isUndefined()); // $ExpectType ChainType<boolean, never>
 }
 
 // OOP Style
