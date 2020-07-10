@@ -2,6 +2,7 @@ declare const $: any;
 declare const window: any;
 declare const alert: (msg: string) => any;
 declare const console: {log: any};
+declare const anyValue: any;
 
 _.VERSION; // $ExpectType string
 _.each([1, 2, 3], (num) => alert(num.toString()));
@@ -478,6 +479,13 @@ _.chain([1, 2, 3, 4, 5, 6])
     .reduce((aggregate, n) => aggregate + n, 0)
     .value();
 
+// $ExpectType any
+_.chain(anyValue)
+    .filter(i => i.filterBoolean)
+    .reject(i => i.rejectBoolean)
+    .find(i => i.findBooleanFunction())
+    .value();
+
 // common testing types and objects
 const context = {};
 
@@ -558,7 +566,6 @@ declare const resultUnionStringListMemoIterator: (prev: string | number, value: 
 const simpleNumber = 7;
 
 declare const mixedIterabilityValue: number | number[];
-declare const anyValue: any;
 declare const neverValue: never;
 declare const maybeFunction: (() => void) | undefined;
 declare const maybeStringArray: string[] | undefined;

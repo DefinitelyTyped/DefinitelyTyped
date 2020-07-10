@@ -144,6 +144,7 @@ declare module _ {
     type TypeOfCollection<V> =
         V extends List<infer T> ? T
         : V extends Dictionary<infer T> ? T
+        : V extends never ? any
         : never;
 
     type ListItemOrSelf<T> = T extends List<infer TItem> ? TItem : T;
