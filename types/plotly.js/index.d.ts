@@ -502,12 +502,8 @@ export interface Axis {
      * Individual pieces can override this.
      */
     color: Color;
-    /**
-     * title as string are @deprecated
-     */
     title: string | Partial<DataTitle>;
     /**
-     * @deprecated
      * Former `titlefont` is now the sub-attribute `font` of `title`.
      * To customize title font properties, please use `title.font` now.
      */
@@ -779,9 +775,6 @@ export interface LayoutAxis extends Axis {
     rangeslider: Partial<RangeSlider>;
     rangeselector: Partial<RangeSelector>;
     automargin: boolean;
-    /**
-     * @deprecated
-     */
     autotick: boolean;
     angle: any;
 }
