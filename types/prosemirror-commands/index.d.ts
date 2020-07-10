@@ -12,11 +12,19 @@ import { MarkType, Node as ProsemirrorNode, NodeType, Schema } from 'prosemirror
 import { EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
+/**
+ * A command function takes an editor state, *optionally* a `dispatch`
+ * function that it can use to dispatch a transaction and optionally
+ * an `EditorView` instance. It should return a boolean that indicates
+ * whether it could perform any action. When no `dispatch` callback is
+ * passed, the command should do a 'dry run', determining whether it is
+ * applicable, but not actually doing anything.
+ */
 export interface Command<S extends Schema = any> {
   (
     state: EditorState<S>,
-    dispatch: (tr: Transaction<S>) => void,
-    view: EditorView<S>
+    dispatch?: (tr: Transaction<S>) => void,
+    view?: EditorView<S>
   ): boolean;
 }
 
@@ -218,11 +226,7 @@ export function autoJoin<S extends Schema = any>(
  * Combine a number of command functions into a single function (which
  * calls them one by one until one returns true).
  */
-export function chainCommands<S extends Schema = any>(
-  ...commands: Array<
-    (p1: EditorState<S>, p2?: (tr: Transaction<S>) => void, p3?: EditorView<S>) => boolean
-    >
-): (p1: EditorState<S>, p2?: (tr: Transaction<S>) => void, p3?: EditorView<S>) => boolean;
+export function chainCommands<S extends Schema = any>(...commands: Array<Command<S>>): Command<S>;
 /**
  * A basic keymap containing bindings not specific to any schema.
  * Binds the following keys (when multiple commands are listed, they
