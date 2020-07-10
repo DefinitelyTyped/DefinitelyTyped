@@ -28,13 +28,13 @@ interface MapStateToProps<TInjectedPropNames extends string | number | symbol> {
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
 // render. Also adds new prop requirements from TNeedsProps.
-interface ComponentConnector<TNeedsProps, TInjectedPropNames extends string | number | symbol> {
+interface ComponentConnector<TInjectedPropNames extends string | number | symbol> {
     // Use "= any" so that if component prop type cannot be inferred (e.g.
     // if using "createReactClass", then we'll end up with
     // ComponentClass<any>, instead of ComponentClass<{}>.
     <P extends { [keyName in TInjectedPropNames]?: any } = any>(
         component: React.ComponentType<P>,
-    ): React.ComponentClass<StrictOmit<P, TInjectedPropNames> & TNeedsProps>;
+    ): React.ComponentClass<StrictOmit<P, TInjectedPropNames>>;
 }
 
 /**
@@ -48,13 +48,11 @@ interface ComponentConnector<TNeedsProps, TInjectedPropNames extends string | nu
  * returns a new, connected component class that wraps the component you
  * passed in.
  *
- * @template TNeedsProps Prop types of component being connected
  * @template TInjectedPropNames Names of props injected by `mapStateToProps`.
  */
-declare function connect<TNeedsProps, TInjectedPropNames extends string | number | symbol>(
+declare function connect<TInjectedPropNames extends string | number | symbol>(
     mapStateToProps: MapStateToProps<TInjectedPropNames>,
-    // tslint:disable-next-line no-unnecessary-generics
-): ComponentConnector<TNeedsProps, TInjectedPropNames>;
+): ComponentConnector<TInjectedPropNames>;
 
 /**
  * Container component allowing a reactor to be exposed via context.
