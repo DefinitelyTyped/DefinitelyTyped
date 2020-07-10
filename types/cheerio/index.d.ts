@@ -15,7 +15,7 @@
 
 declare type AttrFunction = (el: CheerioElement, i: number, currentValue: string) => any;
 
-interface Cheerio {
+export interface Cheerio {
     // Document References
     // Cheerio https://github.com/cheeriojs/cheerio
     // JQuery http://api.jquery.com
@@ -223,7 +223,7 @@ interface Cheerio {
     toArray(): CheerioElement[];
 }
 
-interface CheerioOptionsInterface {
+export interface CheerioOptionsInterface {
     // Document References
     // Cheerio https://github.com/cheeriojs/cheerio
     // HTMLParser2 https://github.com/fb55/htmlparser2/wiki/Parser-options
@@ -242,7 +242,7 @@ interface CheerioOptionsInterface {
     _useHtmlParser2?: boolean;
 }
 
-interface CheerioSelector {
+export interface CheerioSelector {
     (selector: string): Cheerio;
     (selector: string, context: string): Cheerio;
     (selector: string, context: CheerioElement): Cheerio;
@@ -255,7 +255,7 @@ interface CheerioSelector {
     (selector: any): Cheerio;
 }
 
-interface CheerioStatic extends CheerioSelector {
+export interface CheerioStatic extends CheerioSelector {
     // Document References
     // Cheerio https://github.com/cheeriojs/cheerio
     // JQuery http://api.jquery.com
@@ -269,7 +269,7 @@ interface CheerioStatic extends CheerioSelector {
     xml(dom?: string | Cheerio | CheerioElement): string;
 }
 
-interface CheerioElement {
+export interface CheerioElement {
     // Document References
     // Node Console
     tagName: string;
