@@ -921,8 +921,8 @@ declare namespace IORedis {
 
     interface Redis extends EventEmitter, Commander, Commands {
         Promise: typeof Promise;
-        options: RedisOptions;
-        status: string;
+        readonly options: RedisOptions;
+        readonly status: string;
         connect(callback?: () => void): Promise<void>;
         disconnect(): void;
         duplicate(): Redis;
@@ -1400,6 +1400,8 @@ declare namespace IORedis {
     type Ok = 'OK';
 
     interface Cluster extends EventEmitter, Commander, Commands {
+        readonly options: ClusterOptions;
+        readonly status: string;
         connect(): Promise<void>;
         disconnect(): void;
         nodes(role?: NodeRole): Redis[];
