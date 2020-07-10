@@ -6,7 +6,7 @@
 //                 souppower <https://github.com/souppower>
 //                 Byron "Byrekt" Mitchell <https://github.com/byrekt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.3
 
 import * as React from 'react';
 
