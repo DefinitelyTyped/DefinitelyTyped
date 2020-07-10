@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Component } from 'react';
-import { ViewProps, NativeSyntheticEvent } from 'react-native';
+import { ViewProps, NativeSyntheticEvent, ProcessedColorValue } from 'react-native';
 
 export type EasingType =
     | 'Linear'
@@ -36,9 +36,9 @@ export type EasingType =
     | 'EaseOutBounce'
     | 'EaseInOutBounce';
 /**
- * use `processColor` from `react-native` to generate the corrsponding number from a color (named, hex, rgba, etc.).
+ * use `processColor` from `react-native` to generate the corresponding number from a color (named, hex, rgba, etc.).
  */
-export type Color = number;
+export type Color = ProcessedColorValue | null | undefined;
 
 export type ValueFormatter = ('largeValue' | 'percent' | 'date') | string | string[];
 
@@ -209,7 +209,7 @@ export interface ChartBase extends ViewProps {
 export interface BarLineChartBase extends ChartBase {
     maxHighlightDistance?: number;
     drawGridBackground?: boolean;
-    gridBackgroundColor?: number;
+    gridBackgroundColor?: Color;
 
     drawBorders?: boolean;
     borderColor?: Color;
@@ -557,9 +557,12 @@ export interface RadarChartProps extends PieRadarChartBase {
 
 export class RadarChart extends Component<RadarChartProps> {}
 
-export interface ScatterDatasetConfig extends CommonDatasetConfig, BarLineScatterCandleBubbleConfig, LineScatterCandleRadarConfig {
+export interface ScatterDatasetConfig
+    extends CommonDatasetConfig,
+        BarLineScatterCandleBubbleConfig,
+        LineScatterCandleRadarConfig {
     scatterShapeSize?: number;
-    scatterShape?: "SQUARE" | "CIRCLE" | "TRIANGLE" | "CROSS" | "X";
+    scatterShape?: 'SQUARE' | 'CIRCLE' | 'TRIANGLE' | 'CROSS' | 'X';
     scatterShapeHoleColor?: Color;
     scatterShapeHoleRadius?: number;
 }
@@ -589,7 +592,7 @@ export interface CombinedData {
 }
 
 export interface CombinedChartProps extends BarLineChartBase {
-    drawOrder?: Array<("BAR" | "BUBBLE" | "LINE" | "CANDLE" | "SCATTER")>;
+    drawOrder?: Array<'BAR' | 'BUBBLE' | 'LINE' | 'CANDLE' | 'SCATTER'>;
     drawValueAboveBar?: boolean;
     highlightFullBarEnabled?: boolean;
     drawBarShadow?: boolean;

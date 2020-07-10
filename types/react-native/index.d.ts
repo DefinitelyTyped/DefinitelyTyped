@@ -5916,7 +5916,7 @@ type OpaqueColorValue = typeof OpaqueColorValue;
 
 export type ColorValue = string | OpaqueColorValue;
 
-type ProcessedColorValue = number | OpaqueColorValue;
+export type ProcessedColorValue = number | OpaqueColorValue;
 
 type DynamicColorIOSTuple = {
     light: ColorValue;
@@ -9467,7 +9467,7 @@ export function findNodeHandle(
     componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>,
 ): null | number;
 
-export function processColor(color: any): ProcessedColorValue;
+export function processColor(color?: number | ColorValue): ProcessedColorValue | null | undefined;
 
 export const YellowBox: React.ComponentClass<any, any> & { ignoreWarnings: (warnings: string[]) => void };
 
