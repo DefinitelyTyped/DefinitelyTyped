@@ -545,9 +545,8 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
     style?: StyleProp<ViewStyle> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>);
 }
 
-declare class PressableComponent extends React.Component<PressableProps> {}
-declare const PressableBase: Constructor<NativeMethodsMixinType> & typeof PressableComponent;
-export class Pressable extends PressableBase {}
+// TODO use React.AbstractComponent when available
+export const Pressable: React.FunctionComponent<PressableProps>;
 
 /**
  * //FIXME: need to find documentation on which component is a TTouchable and can implement that interface
