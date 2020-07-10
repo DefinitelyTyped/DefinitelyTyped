@@ -5915,6 +5915,8 @@ type OpaqueColorValue = typeof OpaqueColorValue;
 
 export type ColorValue = string | OpaqueColorValue;
 
+type ProcessedColorValue = number | OpaqueColorValue;
+
 type DynamicColorIOSTuple = {
     light: ColorValue;
     dark: ColorValue;
@@ -6895,7 +6897,7 @@ export interface ActionSheetIOSOptions {
     destructiveButtonIndex?: number;
     message?: string;
     anchor?: number;
-    tintColor?: ColorValue;
+    tintColor?: ColorValue | ProcessedColorValue;
 }
 
 export interface ShareActionSheetIOSOptions {
@@ -9464,7 +9466,7 @@ export function findNodeHandle(
     componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>,
 ): null | number;
 
-export function processColor(color: any): number;
+export function processColor(color: any): ProcessedColorValue;
 
 export const YellowBox: React.ComponentClass<any, any> & { ignoreWarnings: (warnings: string[]) => void };
 
