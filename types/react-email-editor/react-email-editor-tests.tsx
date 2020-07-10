@@ -122,6 +122,11 @@ class App extends React.Component {
               imageEditor: false,
               undoRedo: true,
             },
+            translations: {
+              en: {
+                'custom.key': 'Custom translation',
+              },
+            },
           }}
           tools={TOOLS_CONFIG}
           appearance={{
