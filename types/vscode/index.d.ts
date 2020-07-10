@@ -1395,7 +1395,7 @@ declare module 'vscode' {
          * the `skipEncoding`-argument: `uri.toString(true)`.
          *
          * @param skipEncoding Do not percentage-encode the result, defaults to `false`. Note that
-         *	the `#` and `?` characters occurring in the path will always be encoded.
+         * the `#` and `?` characters occurring in the path will always be encoded.
          * @returns A string representation of this Uri.
          */
         toString(skipEncoding?: boolean): string;
