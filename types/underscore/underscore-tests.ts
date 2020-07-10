@@ -512,6 +512,7 @@ declare const maxLevel3RecordArray: (StringRecord | StringRecord[] | StringRecor
 
 const stringRecordListValueIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => value.a;
 const stringRecordListBooleanIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => value.a === 'b';
+const stringRecordPartialBooleanIterator = (value: StringRecord) => value.a === 'b';
 declare const stringRecordPartialMemoIterator: (prev: string, value: StringRecord) => string;
 declare const stringRecordListMemoIterator: (prev: string, value: StringRecord, index: number, list: _.List<StringRecord>) => string;
 declare const resultUnionPartialMemoIterator: (prev: string | StringRecord, value: StringRecord) => string | StringRecord;
@@ -998,6 +999,16 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(simpleString).detect(stringListBooleanIterator, context); // $ExpectType string | undefined
     extractChainTypes(_.chain(simpleString).detect(stringListBooleanIterator, context)); // $ExpectType ChainType<string | undefined, string>
 
+    // function iteratee - any - find
+    _.find(anyValue, stringRecordPartialBooleanIterator, context); // $ExpectType any
+    _(anyValue).find(stringRecordPartialBooleanIterator, context); // $ExpectType any
+    extractChainTypes(_.chain(anyValue).find(stringRecordPartialBooleanIterator, context)); // $ExpectType ChainType<any, any>
+
+    // function iteratee - any - detect
+    _.detect(anyValue, stringRecordPartialBooleanIterator, context); // $ExpectType any
+    _(anyValue).detect(stringRecordPartialBooleanIterator, context); // $ExpectType any
+    extractChainTypes(_.chain(anyValue).detect(stringRecordPartialBooleanIterator, context)); // $ExpectType ChainType<any, any>
+
     // partial object iteratee - lists - find
     _.find(stringRecordList, partialStringRecord); // $ExpectType StringRecordOrUndefined
     _(stringRecordList).find(partialStringRecord); // $ExpectType StringRecordOrUndefined
@@ -1071,6 +1082,16 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(simpleString).select(stringListBooleanIterator, context); // $ExpectType string[]
     extractChainTypes(_.chain(simpleString).select(stringListBooleanIterator, context)); // $ExpectType ChainType<string[], string>
 
+    // function iteratee - any - filter
+    _.filter(anyValue, stringRecordPartialBooleanIterator, context); // $ExpectType any[]
+    _(anyValue).filter(stringRecordPartialBooleanIterator, context); // $ExpectType any[]
+    extractChainTypes(_.chain(anyValue).filter(stringRecordPartialBooleanIterator, context)); // $ExpectType ChainType<any[], any>
+
+    // function iteratee - any - select
+    _.select(anyValue, stringRecordPartialBooleanIterator, context); // $ExpectType any[]
+    _(anyValue).select(stringRecordPartialBooleanIterator, context); // $ExpectType any[]
+    extractChainTypes(_.chain(anyValue).select(stringRecordPartialBooleanIterator, context)); // $ExpectType ChainType<any[], any>
+
     // partial object iteratee - lists - filter
     _.filter(stringRecordList, partialStringRecord); // $ExpectType StringRecord[]
     _(stringRecordList).filter(partialStringRecord); // $ExpectType StringRecord[]
@@ -1128,6 +1149,11 @@ declare const extractChainTypes: ChainTypeExtractor;
     _.reject(simpleString, stringListBooleanIterator, context); // $ExpectType string[]
     _(simpleString).reject(stringListBooleanIterator, context); // $ExpectType string[]
     extractChainTypes(_.chain(simpleString).reject(stringListBooleanIterator, context)); // $ExpectType ChainType<string[], string>
+
+    // function iteratee - any - filter
+    _.reject(anyValue, stringRecordPartialBooleanIterator, context); // $ExpectType any[]
+    _(anyValue).reject(stringRecordPartialBooleanIterator, context); // $ExpectType any[]
+    extractChainTypes(_.chain(anyValue).reject(stringRecordPartialBooleanIterator, context)); // $ExpectType ChainType<any[], any>
 
     // partial object iteratee - lists
     _.reject(stringRecordList, partialStringRecord); // $ExpectType StringRecord[]
