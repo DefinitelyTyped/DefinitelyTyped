@@ -9301,7 +9301,7 @@ export class OrdersApi {
      * To pay for an order, please refer to the [Pay for Orders](/orders-api/pay-for-orders) guide.
      * To learn more about the Orders API, see the [Orders API Overview](/orders-api/what-it-does).
      */
-    updateOrder(body: UpdateOrderRequest): Promise<UpdateOrderResponse>;
+    updateOrder(locationId: string, orderId: string, body: UpdateOrderRequest): Promise<UpdateOrderResponse>;
 }
 
 export class PaymentsApi {
