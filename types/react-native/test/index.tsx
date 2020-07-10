@@ -1186,6 +1186,9 @@ const OpaqueTest2 = () => (
     />
 );
 
+// Test you cannot ammend opaque type
+PlatformColor('?attr/colorControlNormal').resource_paths.push('foo'); // $ExpectError
+
 // Test PlatformColor inside Platform select with stylesheet
 StyleSheet.create({
     labelCell: {
