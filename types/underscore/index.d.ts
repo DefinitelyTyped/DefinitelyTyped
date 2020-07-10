@@ -142,9 +142,9 @@ declare module _ {
     type TypeOfDictionary<V> = V extends Dictionary<infer T> ? T : never;
 
     type TypeOfCollection<V> =
-        V extends List<infer T> ? T
+        V extends never ? any
+        : V extends List<infer T> ? T
         : V extends Dictionary<infer T> ? T
-        : V extends never ? any
         : never;
 
     type ListItemOrSelf<T> = T extends List<infer TItem> ? TItem : T;
