@@ -6,13 +6,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+type Truthy<T> = T extends null | undefined | false | '' | 0 ? never : T;
+
 /**
  * @param status the status code
  * @param msg the message of the error, defaulting to node's text for that status code
  * @param opts custom properties to attach to the error object
  */
-declare function assert(value: any, status?: number, msg?: string, opts?: {}): void;
-declare function assert(value: any, status?: number, opts?: {}): void;
+declare function assert<T>(value: T, status?: number, msg?: string, opts?: {}): asserts value is Truthy<T>;
+declare function assert<T>(value: T, status?: number, opts?: {}): asserts value is Truthy<T>;
 
 declare namespace assert {
     /**

@@ -24,3 +24,14 @@ try {
     console.log((err as HttpError).message);
     console.log((err as HttpError).expose);
 }
+
+interface Resource {
+    id: string
+}
+
+let resource: Resource | undefined;
+
+httpAssert(resource);
+
+// TS knows resource is not undefined and it can be safely used
+resource.id;
