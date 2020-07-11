@@ -104,8 +104,8 @@ declare namespace Sanctuary {
     lte<A>(x: Ord<A>): (y: Ord<A>) => boolean;
     gt <A>(x: Ord<A>): (y: Ord<A>) => boolean;
     gte<A>(x: Ord<A>): (y: Ord<A>) => boolean;
-    min<A>(x: A): (y: A) => A;
-    max<A>(x: A): (y: A) => A;
+    min<A>(x:Ord<A>): (y: Ord<A>) => A;
+    max<A>(x: A): <A>(y: A) => A;
     clamp<A>(x: A): (y: A) => (z: A) => A;
     id<A>(p: TypeRep): Fn<A, A> | Category<any>;
     concat<A>(x: Semigroup<A>): (y: Semigroup<A>) => Semigroup<A>;
@@ -123,6 +123,7 @@ declare namespace Sanctuary {
     mapLeft<A, B>(p: Fn<A, B>): {
       <A, C>(q: Pair<A, C>): Pair<B, C>;
       <A, C>(q: Either<A, C>): Either<B, C>;
+      <A, C>(q: Bifunctor<A, C>): Bifunctor<B, C>;
     };
     promap<A, B>(p: Fn<A, B>): <C, D>(q: Fn<C, D>) => {
       (r: Fn<B, C>): Fn<A, D>;
@@ -217,7 +218,7 @@ declare namespace Sanctuary {
     maybe_<B>(p: Thunk<B>): <A>(q: Fn<A, B>) => (r: Maybe<A>) => B;
     justs<A>(p: ReadonlyArray<Maybe<A>>): A[];
     mapMaybe<A>(p: Fn<A, Maybe<any>>): (q: A[]) => A[];
-    encase<E, A, B>(throwing: Fn2<E, A, B>): (a: A) => Either<E, B>;
+    encase<E, A, B>(throwing: Fn<A, B>): (a: A) => Either<E, B>;
     maybeToEither<A>(p: A): <B>(q: Maybe<B>) => Either<A, B>;
     //  TODO: Either
     isLeft(p: Either<any, any>): boolean;
