@@ -9191,6 +9191,18 @@ export class LocationsApi {
      * [`Location`](#type-location) objects returned by this endpoint correspond to that `location_id` parameter.
      */
     listLocations(): Promise<ListLocationsResponse>;
+  /**
+   * Creates a location.
+   */
+    createLocation(body: Location): Promise<CreateLocationResponse>;
+  /**
+   * Retrieves details of a location.
+   */
+    retrieveLocation(locationId: string): Promise<RetrieveLocationResponse>;
+  /**
+   * Updates a location.
+   */
+    updateLocation(locationId: string, body: Location): Promise<UpdateLocationResponse>;
 }
 
 // @todo describe methods
