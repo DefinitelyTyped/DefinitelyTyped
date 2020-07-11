@@ -564,7 +564,12 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface ListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> { }
+    interface ListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> {
+        /**
+         * A value indicating whether choices in a list should be looped.
+         */
+        loop?: boolean;
+    }
 
     /**
      * Provides options for a question for the `ListPrompt`.
