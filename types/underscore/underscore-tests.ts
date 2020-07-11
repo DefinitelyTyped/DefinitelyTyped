@@ -2,6 +2,7 @@ declare const $: any;
 declare const window: any;
 declare const alert: (msg: string) => any;
 declare const console: {log: any};
+declare const anyValue: any;
 
 _.VERSION; // $ExpectType string
 _.each([1, 2, 3], (num) => alert(num.toString()));
@@ -22,140 +23,6 @@ _.chain([1, 2, 3]).reduce((memo, num) => memo + num, 0).value(); // $ExpectType 
 var list = [[0, 1], [2, 3], [4, 5]];
 //var flat = _.reduceRight(list, (a, b) => a.concat(b), []);    // https://typescript.codeplex.com/workitem/1960
 var flat = _.reduceRight(list, (a, b) => a.concat(b), [] as number[]);
-
-namespace TestFind {
-    let array: {a: string}[] = [{a: 'a'}, {a: 'b'}];
-    let list: _.List<{a: string}> = {0: {a: 'a'}, 1: {a: 'b'}, length: 2};
-    let dict: _.Dictionary<{a: string}> = {a: {a: 'a'}, b: {a: 'b'}};
-    let context = {};
-
-    {
-        let iterator = (value: {a: string}, index: number, list: _.List<{a: string}>) => value.a === 'b';
-        let result: {a: string} | undefined;
-
-        result = _.find<{a: string}>(array, iterator);
-        result = _.find<{a: string}>(array, iterator, context);
-        result = _.find<{a: string}, {a: string}>(array, {a: 'b'});
-        result = _.find<{a: string}>(array, 'a');
-
-        result = _(array).find<{a: string}>(iterator);
-        result = _(array).find<{a: string}>(iterator, context);
-        result = _(array).find<{a: string}, {a: string}>({a: 'b'});
-        result = _(array).find<{a: string}>('a');
-
-        result = _(array).chain().find<{a: string}>(iterator).value();
-        result = _(array).chain().find<{a: string}>(iterator, context).value();
-        result = _(array).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
-        result = _(array).chain().find<{a: string}>('a').value();
-
-        result = _.find<{a: string}>(list, iterator);
-        result = _.find<{a: string}>(list, iterator, context);
-        result = _.find<{a: string}, {a: string}>(list, {a: 'b'});
-        result = _.find<{a: string}>(list, 'a');
-
-        result = _(list).find<{a: string}>(iterator);
-        result = _(list).find<{a: string}>(iterator, context);
-        result = _(list).find<{a: string}, {a: string}>({a: 'b'});
-        result = _(list).find<{a: string}>('a');
-
-        result = _(list).chain().find<{a: string}>(iterator).value();
-        result = _(list).chain().find<{a: string}>(iterator, context).value();
-        result = _(list).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
-        result = _(list).chain().find<{a: string}>('a').value();
-
-        result = _.detect<{a: string}>(array, iterator);
-        result = _.detect<{a: string}>(array, iterator, context);
-        result = _.detect<{a: string}, {a: string}>(array, {a: 'b'});
-        result = _.detect<{a: string}>(array, 'a');
-
-        result = _(array).detect<{a: string}>(iterator);
-        result = _(array).detect<{a: string}>(iterator, context);
-        result = _(array).detect<{a: string}, {a: string}>({a: 'b'});
-        result = _(array).detect<{a: string}>('a');
-
-        result = _(array).chain().detect<{a: string}>(iterator).value();
-        result = _(array).chain().detect<{a: string}>(iterator, context).value();
-        result = _(array).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
-        result = _(array).chain().detect<{a: string}>('a').value();
-
-        result = _.detect<{a: string}>(list, iterator);
-        result = _.detect<{a: string}>(list, iterator, context);
-        result = _.detect<{a: string}, {a: string}>(list, {a: 'b'});
-        result = _.detect<{a: string}>(list, 'a');
-
-        result = _(list).detect<{a: string}>(iterator);
-        result = _(list).detect<{a: string}>(iterator, context);
-        result = _(list).detect<{a: string}, {a: string}>({a: 'b'});
-        result = _(list).detect<{a: string}>('a');
-
-        result = _(list).chain().detect<{a: string}>(iterator).value();
-        result = _(list).chain().detect<{a: string}>(iterator, context).value();
-        result = _(list).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
-        result = _(list).chain().detect<{a: string}>('a').value();
-    }
-
-    {
-        let iterator = (element: {a: string}, key: string, list: _.Dictionary<{a: string}>) => element.a === 'b';
-        let result: {a: string} | undefined;
-
-        result = _.find<{a: string}>(dict, iterator);
-        result = _.find<{a: string}>(dict, iterator, context);
-        result = _.find<{a: string}, {a: string}>(dict, {a: 'b'});
-        result = _.find<{a: string}>(dict, 'a');
-
-        result = _(dict).find<{a: string}>(iterator);
-        result = _(dict).find<{a: string}>(iterator, context);
-        result = _(dict).find<{a: string}, {a: string}>({a: 'b'});
-        result = _(dict).find<{a: string}>('a');
-
-        result = _(dict).chain().find<{a: string}>(iterator).value();
-        result = _(dict).chain().find<{a: string}>(iterator, context).value();
-        result = _(dict).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
-        result = _(dict).chain().find<{a: string}>('a').value();
-
-        result = _.detect<{a: string}>(dict, iterator);
-        result = _.detect<{a: string}>(dict, iterator, context);
-        result = _.detect<{a: string}, {a: string}>(dict, {a: 'b'});
-        result = _.detect<{a: string}>(dict, 'a');
-
-        result = _(dict).detect<{a: string}>(iterator);
-        result = _(dict).detect<{a: string}>(iterator, context);
-        result = _(dict).detect<{a: string}, {a: string}>({a: 'b'});
-        result = _(dict).detect<{a: string}>('a');
-
-        result = _(dict).chain().detect<{a: string}>(iterator).value();
-        result = _(dict).chain().detect<{a: string}>(iterator, context).value();
-        result = _(dict).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
-        result = _(dict).chain().detect<{a: string}>('a').value();
-    }
-
-    {
-        let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
-        let result: string | undefined;
-
-        result = _.find<string>('abc', iterator);
-        result = _.find<string>('abc', iterator, context);
-
-        result = _('abc').find<string>(iterator);
-        result = _('abc').find<string>(iterator, context);
-
-        result = _('abc').chain().find<string>(iterator).value();
-        result = _('abc').chain().find<string>(iterator, context).value();
-
-        result = _.detect<string>('abc', iterator);
-        result = _.detect<string>('abc', iterator, context);
-
-        result = _('abc').detect<string>(iterator);
-        result = _('abc').detect<string>(iterator, context);
-
-        result = _('abc').chain().detect<string>(iterator).value();
-        result = _('abc').chain().detect<string>(iterator, context).value();
-    }
-
-    {
-        _(list).map(x => x.a);
-    }
-}
 
 var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
@@ -612,6 +479,13 @@ _.chain([1, 2, 3, 4, 5, 6])
     .reduce((aggregate, n) => aggregate + n, 0)
     .value();
 
+// $ExpectType any
+_.chain(anyValue)
+    .filter(i => i.filterBoolean)
+    .reject(i => i.rejectBoolean)
+    .find(i => i.findBooleanFunction())
+    .value();
+
 // common testing types and objects
 const context = {};
 
@@ -638,6 +512,7 @@ declare const maxLevel3RecordArray: (StringRecord | StringRecord[] | StringRecor
 
 const stringRecordListValueIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => value.a;
 const stringRecordListBooleanIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => value.a === 'b';
+const stringRecordPartialBooleanIterator = (value: StringRecord) => value.a === 'b';
 declare const stringRecordPartialMemoIterator: (prev: string, value: StringRecord) => string;
 declare const stringRecordListMemoIterator: (prev: string, value: StringRecord, index: number, list: _.List<StringRecord>) => string;
 declare const resultUnionPartialMemoIterator: (prev: string | StringRecord, value: StringRecord) => string | StringRecord;
@@ -692,7 +567,6 @@ declare const resultUnionStringListMemoIterator: (prev: string | number, value: 
 const simpleNumber = 7;
 
 declare const mixedIterabilityValue: number | number[];
-declare const anyValue: any;
 declare const neverValue: never;
 declare const maybeFunction: (() => void) | undefined;
 declare const maybeStringArray: string[] | undefined;
@@ -1093,6 +967,89 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(simpleString).foldr(resultUnionStringListMemoIterator)); // $ExpectType ChainType<string | number | undefined, string>
 }
 
+// find, detect
+{
+    // function iteratee - lists - find
+    _.find(stringRecordList, stringRecordListBooleanIterator, context); // $ExpectType StringRecordOrUndefined
+    _(stringRecordList).find(stringRecordListBooleanIterator, context); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordList).find(stringRecordListBooleanIterator, context)); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // function iteratee - lists - detect
+    _.detect(stringRecordList, stringRecordListBooleanIterator, context); // $ExpectType StringRecordOrUndefined
+    _(stringRecordList).detect(stringRecordListBooleanIterator, context); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordList).detect(stringRecordListBooleanIterator, context)); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // function iteratee - dictionaries - find
+    _.find(stringRecordDictionary, stringRecordDictionaryBooleanIterator, context); // $ExpectType StringRecordOrUndefined
+    _(stringRecordDictionary).find(stringRecordDictionaryBooleanIterator, context); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordDictionary).find(stringRecordDictionaryBooleanIterator, context)); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // function iteratee - dictionaries - detect
+    _.detect(stringRecordDictionary, stringRecordDictionaryBooleanIterator, context); // $ExpectType StringRecordOrUndefined
+    _(stringRecordDictionary).detect(stringRecordDictionaryBooleanIterator, context); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordDictionary).detect(stringRecordDictionaryBooleanIterator, context)); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // function iteratee - strings - find
+    _.find(simpleString, stringListBooleanIterator, context); // $ExpectType string | undefined
+    _(simpleString).find(stringListBooleanIterator, context); // $ExpectType string | undefined
+    extractChainTypes(_.chain(simpleString).find(stringListBooleanIterator, context)); // $ExpectType ChainType<string | undefined, string>
+
+    // function iteratee - strings - detect
+    _.detect(simpleString, stringListBooleanIterator, context); // $ExpectType string | undefined
+    _(simpleString).detect(stringListBooleanIterator, context); // $ExpectType string | undefined
+    extractChainTypes(_.chain(simpleString).detect(stringListBooleanIterator, context)); // $ExpectType ChainType<string | undefined, string>
+
+    // function iteratee - any - find
+    _.find(anyValue, stringRecordPartialBooleanIterator, context); // $ExpectType any
+    _(anyValue).find(stringRecordPartialBooleanIterator, context); // $ExpectType any
+    extractChainTypes(_.chain(anyValue).find(stringRecordPartialBooleanIterator, context)); // $ExpectType ChainType<any, any>
+
+    // function iteratee - any - detect
+    _.detect(anyValue, stringRecordPartialBooleanIterator, context); // $ExpectType any
+    _(anyValue).detect(stringRecordPartialBooleanIterator, context); // $ExpectType any
+    extractChainTypes(_.chain(anyValue).detect(stringRecordPartialBooleanIterator, context)); // $ExpectType ChainType<any, any>
+
+    // partial object iteratee - lists - find
+    _.find(stringRecordList, partialStringRecord); // $ExpectType StringRecordOrUndefined
+    _(stringRecordList).find(partialStringRecord); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordList).find(partialStringRecord)); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // partial object iteratee - dictionaries - detect
+    _.detect(stringRecordDictionary, partialStringRecord); // $ExpectType StringRecordOrUndefined
+    _(stringRecordDictionary).detect(partialStringRecord); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordDictionary).detect(partialStringRecord)); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // property name iteratee - dictionaries - find
+    _.find(stringRecordDictionary, stringRecordProperty); // $ExpectType StringRecordOrUndefined
+    _(stringRecordDictionary).find(stringRecordProperty); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordDictionary).find(stringRecordProperty)); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // property name iteratee - lists - detect
+    _.detect(stringRecordList, stringRecordProperty); // $ExpectType StringRecordOrUndefined
+    _(stringRecordList).detect(stringRecordProperty); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordList).detect(stringRecordProperty)); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // property path iteratee - lists - find
+    _.find(stringRecordList, stringRecordPropertyPath); // $ExpectType StringRecordOrUndefined
+    _(stringRecordList).find(stringRecordPropertyPath); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordList).find(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // property path iteratee - dictionaries - detect
+    _.detect(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType StringRecordOrUndefined
+    _(stringRecordDictionary).detect(stringRecordPropertyPath); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordDictionary).detect(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // identity iteratee - dictionaries - find
+    _.find(stringRecordDictionary); // $ExpectType StringRecordOrUndefined
+    _(stringRecordDictionary).find(); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordDictionary).find()); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // identity iteratee - lists - detect
+    _.detect(stringRecordList); // $ExpectType StringRecordOrUndefined
+    _(stringRecordList).detect(); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordList).detect()); // $ExpectType ChainType<StringRecordOrUndefined, never>
+}
+
 // filter, select
 {
     // function iteratee - lists - filter
@@ -1125,65 +1082,98 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(simpleString).select(stringListBooleanIterator, context); // $ExpectType string[]
     extractChainTypes(_.chain(simpleString).select(stringListBooleanIterator, context)); // $ExpectType ChainType<string[], string>
 
+    // function iteratee - any - filter
+    _.filter(anyValue, stringRecordPartialBooleanIterator, context); // $ExpectType any[]
+    _(anyValue).filter(stringRecordPartialBooleanIterator, context); // $ExpectType any[]
+    extractChainTypes(_.chain(anyValue).filter(stringRecordPartialBooleanIterator, context)); // $ExpectType ChainType<any[], any>
+
+    // function iteratee - any - select
+    _.select(anyValue, stringRecordPartialBooleanIterator, context); // $ExpectType any[]
+    _(anyValue).select(stringRecordPartialBooleanIterator, context); // $ExpectType any[]
+    extractChainTypes(_.chain(anyValue).select(stringRecordPartialBooleanIterator, context)); // $ExpectType ChainType<any[], any>
+
     // partial object iteratee - lists - filter
     _.filter(stringRecordList, partialStringRecord); // $ExpectType StringRecord[]
     _(stringRecordList).filter(partialStringRecord); // $ExpectType StringRecord[]
     extractChainTypes(_.chain(stringRecordList).filter(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
-
-    // partial object iteratee - lists - select
-    _.select(stringRecordList, partialStringRecord); // $ExpectType StringRecord[]
-    _(stringRecordList).select(partialStringRecord); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(stringRecordList).select(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
-
-    // partial object iteratee - dictionaries - filter
-    _.filter(stringRecordDictionary, partialStringRecord); // $ExpectType StringRecord[]
-    _(stringRecordDictionary).filter(partialStringRecord); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(stringRecordDictionary).filter(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
 
     // partial object iteratee - dictionaries - select
     _.select(stringRecordDictionary, partialStringRecord); // $ExpectType StringRecord[]
     _(stringRecordDictionary).select(partialStringRecord); // $ExpectType StringRecord[]
     extractChainTypes(_.chain(stringRecordDictionary).select(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
 
-    // property name iteratee - lists - filter
-    _.filter(stringRecordList, stringRecordProperty); // $ExpectType StringRecord[]
-    _(stringRecordList).filter(stringRecordProperty); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(stringRecordList).filter(stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    // property name iteratee - dictionaries - filter
+    _.filter(stringRecordDictionary, stringRecordProperty); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).filter(stringRecordProperty); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).filter(stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
 
     // property name iteratee - lists - select
     _.select(stringRecordList, stringRecordProperty); // $ExpectType StringRecord[]
     _(stringRecordList).select(stringRecordProperty); // $ExpectType StringRecord[]
     extractChainTypes(_.chain(stringRecordList).select(stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
 
-    // property name iteratee - dictionaries - filter
-    _.filter(stringRecordDictionary, stringRecordProperty); // $ExpectType StringRecord[]
-    _(stringRecordDictionary).filter(stringRecordProperty); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(stringRecordDictionary).filter(stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
-
-    // property name iteratee - dictionaries - select
-    _.select(stringRecordDictionary, stringRecordProperty); // $ExpectType StringRecord[]
-    _(stringRecordDictionary).select(stringRecordProperty); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(stringRecordDictionary).select(stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
-
     // property path iteratee - lists - filter
     _.filter(stringRecordList, stringRecordPropertyPath); // $ExpectType StringRecord[]
     _(stringRecordList).filter(stringRecordPropertyPath); // $ExpectType StringRecord[]
     extractChainTypes(_.chain(stringRecordList).filter(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
 
-    // property path iteratee - lists - select
-    _.select(stringRecordList, stringRecordPropertyPath); // $ExpectType StringRecord[]
-    _(stringRecordList).select(stringRecordPropertyPath); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(stringRecordList).select(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
-
-    // property path iteratee - dictionaries - filter
-    _.filter(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType StringRecord[]
-    _(stringRecordDictionary).filter(stringRecordPropertyPath); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(stringRecordDictionary).filter(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
-
     // property path iteratee - dictionaries - select
     _.select(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType StringRecord[]
     _(stringRecordDictionary).select(stringRecordPropertyPath); // $ExpectType StringRecord[]
     extractChainTypes(_.chain(stringRecordDictionary).select(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // identity iteratee - dictionaries - filter
+    _.filter(stringRecordDictionary); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).filter(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).filter()); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // identity iteratee - lists - select
+    _.select(stringRecordList); // $ExpectType StringRecord[]
+    _(stringRecordList).select(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).select()); // $ExpectType ChainType<StringRecord[], StringRecord>
+}
+
+// reject
+{
+    // function iteratee - lists
+    _.reject(stringRecordList, stringRecordListBooleanIterator, context); // $ExpectType StringRecord[]
+    _(stringRecordList).reject(stringRecordListBooleanIterator, context); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).reject(stringRecordListBooleanIterator, context)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // function iteratee - dictionaries
+    _.reject(stringRecordDictionary, stringRecordDictionaryBooleanIterator, context); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).reject(stringRecordDictionaryBooleanIterator, context); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).reject(stringRecordDictionaryBooleanIterator, context)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // function iteratee - strings
+    _.reject(simpleString, stringListBooleanIterator, context); // $ExpectType string[]
+    _(simpleString).reject(stringListBooleanIterator, context); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleString).reject(stringListBooleanIterator, context)); // $ExpectType ChainType<string[], string>
+
+    // function iteratee - any
+    _.reject(anyValue, stringRecordPartialBooleanIterator, context); // $ExpectType any[]
+    _(anyValue).reject(stringRecordPartialBooleanIterator, context); // $ExpectType any[]
+    extractChainTypes(_.chain(anyValue).reject(stringRecordPartialBooleanIterator, context)); // $ExpectType ChainType<any[], any>
+
+    // partial object iteratee - lists
+    _.reject(stringRecordList, partialStringRecord); // $ExpectType StringRecord[]
+    _(stringRecordList).reject(partialStringRecord); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).reject(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // property name iteratee - dictionaries
+    _.reject(stringRecordDictionary, stringRecordProperty); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).reject(stringRecordProperty); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).reject(stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // property path iteratee - lists
+    _.reject(stringRecordList, stringRecordPropertyPath); // $ExpectType StringRecord[]
+    _(stringRecordList).reject(stringRecordPropertyPath); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).reject(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // identity iteratee - dictionaries
+    _.reject(stringRecordDictionary); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).reject(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).reject()); // $ExpectType ChainType<StringRecord[], StringRecord>
 }
 
 // pluck
@@ -1508,6 +1498,12 @@ declare const extractChainTypes: ChainTypeExtractor;
 
     // mixed non-collections and collections
     extractUnderscoreTypes(_(mixedIterabilityValue)); // $ExpectType UnderscoreType<number | number[], number>
+
+    // any
+    extractUnderscoreTypes(_(anyValue)); // $ExpectType UnderscoreType<any, any>
+
+    // never
+    extractUnderscoreTypes(_(neverValue)); // $ExpectType UnderscoreType<never, never>
 }
 
 // value
@@ -1529,6 +1525,12 @@ declare const extractChainTypes: ChainTypeExtractor;
 
     // mixed non-collections and collections
     _(mixedIterabilityValue).value(); // $ExpectType number | number[]
+
+    // any
+    _(anyValue).value(); // $ExpectType any
+
+    // never
+    _(neverValue).value(); // $ExpectType never
 }
 
 // Chaining
@@ -1560,6 +1562,14 @@ declare const extractChainTypes: ChainTypeExtractor;
     // mixed non-collections and collections
     extractChainTypes(_.chain(mixedIterabilityValue)); // $ExpectType ChainType<number | number[], number>
     extractChainTypes(_(mixedIterabilityValue).chain()); // $ExpectType ChainType<number | number[], number>
+
+    // any
+    extractChainTypes(_.chain(anyValue)); // $ExpectType ChainType<any, any>
+    extractChainTypes(_(anyValue).chain()); // $ExpectType ChainType<any, any>
+
+    // never
+    extractChainTypes(_.chain(neverValue)); // $ExpectType ChainType<never, never>
+    extractChainTypes(_(neverValue).chain()); // $ExpectType ChainType<never, never>
 }
 
 // value
@@ -1581,4 +1591,10 @@ declare const extractChainTypes: ChainTypeExtractor;
 
     // mixed non-collections and collections
     _.chain(mixedIterabilityValue).value(); // $ExpectType number | number[]
+
+    // any
+    _.chain(anyValue).value(); // $ExpectType any
+
+    // never
+    _.chain(neverValue).value(); // $ExpectType never
 }
