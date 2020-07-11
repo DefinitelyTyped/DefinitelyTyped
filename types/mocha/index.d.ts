@@ -2203,6 +2203,7 @@ declare namespace Mocha {
         forbidPending?: boolean;
         noHighlighting?: boolean;
         allowUncaught?: boolean;
+        fullTrace?: boolean;
     }
 
     interface MochaInstanceOptions extends MochaOptions {
@@ -2615,16 +2616,7 @@ interface BrowserMocha extends Mocha {
      *
      * - _Only supported in the browser._
      */
-    setup(opts?: Mocha.Interface | MochaSetupOptions): this;
-}
-
-/**
- * Options to pass to `mocha.setup` in the browser.
- */
-interface MochaSetupOptions extends Mocha.MochaOptions {
-    /** @deprecated This is not used by Mocha. Use `files` instead. */
-    require?: string[];
-    fullTrace?: boolean;
+    setup(opts?: Mocha.Interface | Mocha.MochaOptions): this;
 }
 
 // #endregion Browser augmentations

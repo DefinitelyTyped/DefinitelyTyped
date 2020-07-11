@@ -776,11 +776,6 @@ function test_browser_mocha_setup_reporter_string_option() {
     mocha.setup({ reporter: 'html' });
 }
 
-function test_browser_mocha_setup_require_stringArray_option() {
-    // $ExpectType BrowserMocha
-    mocha.setup({ require: ['ts-node/register'] });
-}
-
 function test_browser_mocha_setup_reporter_function_option() {
     // $ExpectType BrowserMocha
     mocha.setup({ reporter: class extends LocalMocha.reporters.Base { } });
@@ -815,8 +810,7 @@ function test_browser_mocha_setup_all_options() {
         globals: ['mocha'],
         reporter: 'html',
         bail: true,
-        grep: 'test',
-        require: ['ts-node/register'] // TODO: It doesn't appear this is actually supported. Should it be removed?
+        grep: 'test'
     });
 }
 
