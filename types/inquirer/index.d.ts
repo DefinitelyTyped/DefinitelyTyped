@@ -279,8 +279,11 @@ declare namespace inquirer {
          *
          * @param input
          * The answer provided by the user.
+         *
+         * @param answers
+         * The answers provided by the user.
          */
-        filter?(input: any): any;
+        filter?(input: any, answers: T): any;
 
         /**
          * A value indicating whether the question should be prompted.
