@@ -598,7 +598,7 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface RawListQuestion<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> {
+    interface RawListQuestion<T extends Answers = Answers> extends RawListQuestionOptions<T> {
         /**
          * @inheritdoc
          */
