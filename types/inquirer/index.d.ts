@@ -28,13 +28,13 @@ import "./lib/prompts/list";
 import "./lib/prompts/number";
 import "./lib/prompts/password";
 import "./lib/prompts/rawlist";
-import BottomBar = require("./lib/ui/bottom-bar");
-import PromptUI = require("./lib/ui/prompt");
 import "./lib/utils/events";
 import "./lib/utils/paginator";
 import "./lib/utils/readline";
 import "./lib/utils/screen-manager";
 import "./lib/utils/utils";
+import BottomBar = require("./lib/ui/bottom-bar");
+import PromptUI = require("./lib/ui/prompt");
 
 /**
  * Represents a union which preserves autocompletion.
