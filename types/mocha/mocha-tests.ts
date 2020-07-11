@@ -837,6 +837,10 @@ function testLoadFilesAsync() {
     mocha.loadFilesAsync();
 }
 
+function testParallelMode() {
+    mocha.parallelMode();
+}
+
 function test_constructor_slow_option() {
     const m: Mocha = new LocalMocha({ slow: 25 });
 }
@@ -885,6 +889,14 @@ function test_constructor_grep_regex_literal_option() {
     const m: Mocha = new LocalMocha({ grep: /(expect|should)/i });
 }
 
+function test_constructor_parallel_option() {
+    const m: Mocha = new LocalMocha({ parallel: true });
+}
+
+function test_constructor_jobs_option() {
+    const m: Mocha = new LocalMocha({ jobs: 4 });
+}
+
 function test_constructor_all_options() {
     const m: Mocha = new LocalMocha({
         slow: 25,
@@ -894,7 +906,9 @@ function test_constructor_all_options() {
         reporter: 'html',
         bail: true,
         ignoreLeaks: true,
-        grep: 'test'
+        grep: 'test',
+        parallel: true,
+        jobs: 4
     });
 }
 

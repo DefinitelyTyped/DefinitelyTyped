@@ -244,6 +244,16 @@ declare class Mocha {
      * @see https://mochajs.org/api/mocha#loadFiles
      */
     protected loadFiles(fn?: () => void): void;
+
+    /**
+     * Toggles parallel mode.
+     *
+     * Must be run before calling `run`. Changes the `Runner` class to
+     * use; also enables lazy file loading if not already done so.
+     *
+     * @see https://mochajs.org/api/mocha#parallelMode
+     */
+    parallelMode(enabled?: boolean): this;
 }
 
 declare namespace Mocha {
@@ -2283,6 +2293,12 @@ declare namespace Mocha {
 
         /** Do not show diffs at all. */
         hideDiff?: boolean;
+
+        /** Run job in parallel */
+        parallel?: boolean;
+
+        /** Max number of worker processes for parallel runs */
+        jobs?: number;
 
         asyncOnly?: boolean;
         delay?: boolean;
