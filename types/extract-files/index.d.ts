@@ -4,19 +4,6 @@
 //                 Alex K <https://github.com/lynxtaa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type ExtractableFileMatcher = (value: any) => boolean;
-
-export const isExtractableFile: ExtractableFileMatcher;
-
-export function extractFiles<T>(
-    value: T,
-    path?: string,
-    isExtractableFile?: ExtractableFileMatcher,
-): {
-    clone: T;
-    files: Map<any, string[]>;
-};
-
 export interface ReactNativeFileOptions {
     uri: string;
     type?: string;
@@ -30,3 +17,16 @@ export class ReactNativeFile {
 
     constructor(options: ReactNativeFileOptions);
 }
+
+export type ExtractableFile = File | Blob | ReactNativeFile;
+
+export function isExtractableFile(value: any): value is ExtractableFile;
+
+export function extractFiles<TFile = ExtractableFile>(
+    value: any,
+    path?: string,
+    isExtractableFile?: (value: any) => value is TFile,
+): {
+    clone: any;
+    files: Map<TFile, string[]>;
+};
