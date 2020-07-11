@@ -1277,54 +1277,6 @@ function test_suite_events(suite: LocalMocha.Suite) {
     });
 }
 
-function test_backcompat_Suite(suite: Mocha.Suite, iSuite: Mocha.ISuite, iSuiteContext: Mocha.ISuiteCallbackContext, iTest: Mocha.ITest, iContext: Mocha.IContext) {
-    iSuite = suite;
-    iSuiteContext = suite;
-    suite.addTest(iTest);
-    suite.addSuite(iSuite);
-    LocalMocha.Suite.create(iSuite, string);
-    new LocalMocha.Suite(string, iContext);
-}
-
-function test_backcompat_Runner(runner: Mocha.Runner, iRunner: Mocha.IRunner, iSuite: Mocha.ISuite) {
-    iRunner = runner;
-    runner.grepTotal(iSuite);
-}
-
-function test_backcompat_Runnable(runnable: Mocha.Runnable, iRunnable: Mocha.IRunnable) {
-    iRunnable = runnable;
-}
-
-function test_backcompat_Test(test: Mocha.Test, iTest: Mocha.ITest) {
-    iTest = test;
-}
-
-function test_backcompat_Hook(hook: Mocha.Hook, iHook: Mocha.IHook) {
-    iHook = hook;
-}
-
-function test_backcompat_Context(context: Mocha.Context, iContext: Mocha.IContext,
-    iHookContext: Mocha.IHookCallbackContext, iBeforeAfterContext: Mocha.IBeforeAndAfterContext,
-    iTestContext: Mocha.ITestCallbackContext, iRunnable: Mocha.IRunnable) {
-    iContext = context;
-    iHookContext = context;
-    iBeforeAfterContext = context;
-    iTestContext = context;
-    context.runnable(iRunnable);
-}
-
-function test_backcompat_Base(iRunner: Mocha.IRunner) {
-    new LocalMocha.reporters.Base(iRunner);
-}
-
-function test_backcompat_XUnit(iRunner: Mocha.IRunner) {
-    new LocalMocha.reporters.XUnit(iRunner);
-}
-
-function test_backcompat_Progress(iRunner: Mocha.IRunner) {
-    new LocalMocha.reporters.Progress(iRunner);
-}
-
 import common = require("mocha/lib/interfaces/common");
 
 function test_interfaces_common(suites: Mocha.Suite[], context: Mocha.MochaGlobals, localMocha: Mocha,
