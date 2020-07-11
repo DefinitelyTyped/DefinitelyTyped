@@ -218,7 +218,6 @@ declare namespace Sanctuary {
     maybe_<B>(p: Thunk<B>): <A>(q: Fn<A, B>) => (r: Maybe<A>) => B;
     justs<A>(p: ReadonlyArray<Maybe<A>>): A[];
     mapMaybe<A>(p: Fn<A, Maybe<any>>): (q: A[]) => A[];
-    encase<E, A, B>(throwing: Fn<A, B>): (a: A) => Either<E, B>;
     maybeToEither<A>(p: A): <B>(q: Maybe<B>) => Either<A, B>;
     //  TODO: Either
     isLeft(p: Either<any, any>): boolean;
@@ -228,6 +227,7 @@ declare namespace Sanctuary {
     lefts<A>(p: ReadonlyArray<Either<A, any>>): A[];
     rights<B>(p: ReadonlyArray<Either<any, B>>): B[];
     tagBy<A>(p: Predicate<A>): (q: A) => Either<A, A>;
+    encase<E, A, B>(throwing: Fn<A, B>): (a: A) => Either<E, B>;
     eitherToMaybe<B>(p: Either<any, B>): Maybe<B>;
     //  Logic
     and(p: boolean): (q: boolean) => boolean;
