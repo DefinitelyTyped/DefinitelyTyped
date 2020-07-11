@@ -99,11 +99,11 @@ declare namespace Sanctuary {
     //  Showable
     show(x: any): string;
     //  Fantasy Land
-    equals<A>(x: Setoid<A>): (y: Setoid<A>) => boolean;
-    lt <A>(x: Ord<A>): (y: Ord<A>) => boolean;
-    lte<A>(x: Ord<A>): (y: Ord<A>) => boolean;
-    gt <A>(x: Ord<A>): (y: Ord<A>) => boolean;
-    gte<A>(x: Ord<A>): (y: Ord<A>) => boolean;
+    equals<A>(x: A): (y: A) => boolean;
+    lt <A>(x: A): (y: A) => boolean;
+    lte<A>(x: A): (y: A) => boolean;
+    gt <A>(x: A): (y: A) => boolean;
+    gte<A>(x: A): (y: A) => boolean;
     min<A>(x: A): (y: A) => A;
     max<A>(x: A): (y: A) => A;
     clamp<A>(x: A): (y: A) => (z: A) => A;
@@ -129,7 +129,7 @@ declare namespace Sanctuary {
       (r: Fn<B, C>): Fn<A, D>;
       (r: Profunctor<B, C>): Profunctor<A, D>;
     };
-    alt<A>(x: Alt<A>): (y: Alt<A>) => Alt<A>;
+    alt<A>(x: A): (y: A) => A;
     zero(p: TypeRep): Plus<any>;
     reduce<A, B>(p: Fn2<B, A, B>): (q: B) => (r: ReadonlyArray<A> | StrMap<A> | Maybe<A> | Either<any, A> | Foldable<A>) => B;
     traverse(typeRep: TypeRep): <A, B>(f: Fn<A, Applicative<B>>) => (traversable: Traversable<A>) => Applicative<Traversable<B>>;
@@ -208,9 +208,9 @@ declare namespace Sanctuary {
     pipe(fs: ReadonlyArray<Fn<any, any>>): (x: any) => any;
     pipeK<B>(fs: ReadonlyArray<Fn<any, Chain<any>>>): <A>(chain_: Chain<A>) => Chain<B>;
     on<A, B, C>(p: Fn2<B, B, C>): (q: Fn<A, B>) => (r: A) => Fn<A, C>;
-    //  TODO: Maybe
-    isNothing(p: Maybe<any>): boolean;
-    isJust(p: Maybe<any>): boolean;
+    //  Maybe
+    isNothing<A>(p: Maybe<A>): boolean;
+    isJust<A>(p: Maybe<A>): boolean;
     fromMaybe<A>(p: A): (q: Maybe<A>) => A;
     fromMaybe_<A>(p: Thunk<A>): (q: Maybe<A>) => A;
     maybeToNullable<A>(p: Maybe<A>): Nullable<A>;
@@ -219,7 +219,7 @@ declare namespace Sanctuary {
     justs<A>(p: ReadonlyArray<Maybe<A>>): A[];
     mapMaybe<A>(p: Fn<A, Maybe<any>>): (q: A[]) => A[];
     maybeToEither<A>(p: A): <B>(q: Maybe<B>) => Either<A, B>;
-    //  TODO: Either
+    // Either
     isLeft(p: Either<any, any>): boolean;
     isRight(p: Either<any, any>): boolean;
     fromEither<B>(p: B): (q: Either<any, B>) => B;
