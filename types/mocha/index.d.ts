@@ -211,6 +211,15 @@ declare class Mocha {
     protected loadFiles(fn?: () => void): void;
 
     /**
+     * Unloads `files` from Node's `require` cache.
+     *
+     * This allows required files to be "freshly" reloaded, providing the ability
+     * to reuse a Mocha instance programmatically.
+     * Note: does not clear ESM module files from the cache
+     */
+    unloadFiles(): this;
+
+    /**
      * Toggles parallel mode.
      *
      * Must be run before calling `run`. Changes the `Runner` class to

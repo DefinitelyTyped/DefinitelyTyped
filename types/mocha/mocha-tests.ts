@@ -822,6 +822,10 @@ function testParallelMode() {
     mocha.parallelMode();
 }
 
+function testUnloadFiles() {
+    mocha.unloadFiles();
+}
+
 function test_constructor_slow_option() {
     const m: Mocha = new LocalMocha({ slow: 25 });
 }
