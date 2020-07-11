@@ -123,6 +123,7 @@ declare namespace Sanctuary {
     mapLeft<A, B>(p: Fn<A, B>): {
       <A, C>(q: Pair<A, C>): Pair<B, C>;
       <A, C>(q: Either<A, C>): Either<B, C>;
+      <A, C>(q: Bifunctor<A, C>): Bifunctor<B, C>;
     };
     promap<A, B>(p: Fn<A, B>): <C, D>(q: Fn<C, D>) => {
       (r: Fn<B, C>): Fn<A, D>;
