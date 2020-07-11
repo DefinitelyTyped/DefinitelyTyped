@@ -25,13 +25,16 @@ try {
     console.log((err as HttpError).expose);
 }
 
+/**
+ * Test `asserts` annotation
+ */
 interface Resource {
-    id: string
+    id: string;
 }
+function getResource(): Resource | undefined { return undefined; }
 
-let resource: Resource | undefined;
-
+const resource: Resource | undefined = getResource();
 httpAssert(resource);
 
 // TS knows resource is not undefined and it can be safely used
-resource.id;
+console.log(resource.id);

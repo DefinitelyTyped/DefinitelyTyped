@@ -4,7 +4,8 @@
 //                 Peter Squicciarini <https://github.com/stripedpajamas>
 //                 Alex Bulanov <https://github.com/sapfear>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
+// Minimum TypeScript Version: 3.7
 
 type Truthy<T> = T extends null | undefined | false | '' | 0 ? never : T;
 
