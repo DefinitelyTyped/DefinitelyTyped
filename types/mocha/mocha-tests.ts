@@ -695,12 +695,6 @@ function test_Context(ctx: LocalMocha.Context, runnable: LocalMocha.Runnable) {
     // $ExpectType never
     ctx.skip(); // throws
 
-    // $ExpectType boolean
-    ctx.enableTimeouts();
-
-    // $ExpectType Context
-    ctx.enableTimeouts(boolean);
-
     // $ExpectType number
     ctx.retries();
 
@@ -736,8 +730,7 @@ function test_Context(ctx: LocalMocha.Context, runnable: LocalMocha.Runnable) {
     // $ExpectType any
     ctx["extended"];
 
-    ctx.enableTimeouts(boolean)
-        .retries(number)
+    ctx.retries(number)
         .runnable(runnable)
         .slow(number)
         .timeout(number)
@@ -798,11 +791,6 @@ function test_browser_mocha_setup_bail_option() {
     mocha.setup({ bail: false });
 }
 
-function test_browser_mocha_setup_ignore_leaks_option() {
-    // $ExpectType BrowserMocha
-    mocha.setup({ ignoreLeaks: false });
-}
-
 function test_browser_mocha_setup_grep_string_option() {
     // $ExpectType BrowserMocha
     mocha.setup({ grep: "describe" });
@@ -827,7 +815,6 @@ function test_browser_mocha_setup_all_options() {
         globals: ['mocha'],
         reporter: 'html',
         bail: true,
-        ignoreLeaks: true,
         grep: 'test',
         require: ['ts-node/register'] // TODO: It doesn't appear this is actually supported. Should it be removed?
     });
@@ -873,10 +860,6 @@ function test_constructor_bail_option() {
     const m: Mocha = new LocalMocha({ bail: false });
 }
 
-function test_constructor_ignore_leaks_option() {
-    const m: Mocha = new LocalMocha({ ignoreLeaks: false });
-}
-
 function test_constructor_grep_string_option() {
     const m: Mocha = new LocalMocha({ grep: "describe" });
 }
@@ -905,7 +888,6 @@ function test_constructor_all_options() {
         globals: ['mocha'],
         reporter: 'html',
         bail: true,
-        ignoreLeaks: true,
         grep: 'test',
         parallel: true,
         jobs: 4
@@ -972,16 +954,12 @@ function test_require_fluentParams() {
         .grep('[a-z]*')
         .grep(/[a-z]*/)
         .invert()
-        .ignoreLeaks(true)
         .checkLeaks()
         .growl()
         .globals('foo')
         .globals(['bar', 'zap'])
-        .useColors(true)
-        .useInlineDiffs(true)
         .timeout(500)
         .slow(100)
-        .enableTimeouts(true)
         .asyncOnly()
         .noHighlighting()
         .run();

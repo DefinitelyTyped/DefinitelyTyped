@@ -1,4 +1,4 @@
-// Type definitions for mocha 7.0
+// Type definitions for mocha 8.0
 // Project: https://mochajs.org
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 //                 otiai10 <https://github.com/otiai10>
@@ -91,13 +91,6 @@ declare class Mocha {
     invert(): this;
 
     /**
-     * Ignore global leaks.
-     *
-     * @see https://mochajs.org/api/mocha#ignoreLeaks
-     */
-    ignoreLeaks(ignore: boolean): this;
-
-    /**
      * Enable global leak checking.
      *
      * @see https://mochajs.org/api/mocha#checkLeaks
@@ -126,27 +119,6 @@ declare class Mocha {
     globals(globals: string | ReadonlyArray<string>): this;
 
     /**
-     * Emit color output.
-     *
-     * @see https://mochajs.org/api/mocha#useColors
-     */
-    useColors(colors: boolean): this;
-
-    /**
-     * Use inline diffs rather than +/-.
-     *
-     * @see https://mochajs.org/api/mocha#useInlineDiffs
-     */
-    useInlineDiffs(inlineDiffs: boolean): this;
-
-    /**
-     * Do not show diffs at all.
-     *
-     * @see https://mochajs.org/api/mocha#hideDiff
-     */
-    hideDiff(hideDiff: boolean): this;
-
-    /**
      * Set the timeout in milliseconds.
      *
      * @see https://mochajs.org/api/mocha#timeout
@@ -166,13 +138,6 @@ declare class Mocha {
      * @see https://mochajs.org/api/mocha#slow
      */
     slow(slow: string | number): this;
-
-    /**
-     * Enable timeouts.
-     *
-     * @see https://mochajs.org/api/mocha#enableTimeouts
-     */
-    enableTimeouts(enabled?: boolean): this;
 
     /**
      * Makes all tests async (accepting a callback)
@@ -1101,7 +1066,6 @@ declare namespace Mocha {
      */
     class Runnable {
         private _slow;
-        private _enableTimeouts;
         private _retries;
         private _currentRetry;
         private _timeout;
@@ -1152,20 +1116,6 @@ declare namespace Mocha {
          * @see https://mochajs.org/api/Runnable.html#slow
          */
         slow(ms: string | number): this;
-
-        /**
-         * Get whether timeouts are enabled.
-         *
-         * @see https://mochajs.org/api/Runnable.html#enableTimeouts
-         */
-        enableTimeouts(): boolean;
-
-        /**
-         * Set whether timeouts are enabled.
-         *
-         * @see https://mochajs.org/api/Runnable.html#enableTimeouts
-         */
-        enableTimeouts(enabled: boolean): this;
 
         /**
          * Halt and mark as pending.
@@ -1325,16 +1275,6 @@ declare namespace Mocha {
          * Set test timeout.
          */
         timeout(ms: string | number): this;
-
-        /**
-         * Get whether timeouts are enabled.
-         */
-        enableTimeouts(): boolean;
-
-        /**
-         * Set whether timeouts are enabled.
-         */
-        enableTimeouts(enabled: boolean): this;
 
         /**
          * Get test slowness threshold.
@@ -1749,7 +1689,6 @@ declare namespace Mocha {
         private _afterEach;
         private _afterAll;
         private _timeout;
-        private _enableTimeouts;
         private _slow;
         private _bail;
         private _retries;
@@ -1817,20 +1756,6 @@ declare namespace Mocha {
          * @see https://mochajs.org/api/Mocha.Suite.html#retries
          */
         retries(n: string | number): this;
-
-        /**
-         * Get whether timeouts are enabled.
-         *
-         * @see https://mochajs.org/api/Mocha.Suite.html#enableTimeouts
-         */
-        enableTimeouts(): boolean;
-
-        /**
-         * Set whether timeouts are `enabled`.
-         *
-         * @see https://mochajs.org/api/Mocha.Suite.html#enableTimeouts
-         */
-        enableTimeouts(enabled: boolean): this;
 
         /**
          * Get slow `ms`.
@@ -2255,8 +2180,6 @@ declare namespace Mocha {
         /** timeout in milliseconds or time string like '1s'. */
         timeout?: number | string;
 
-        enableTimeouts?: boolean;
-
         /** number of times to retry failed tests. */
         retries?: number;
 
@@ -2522,9 +2445,6 @@ declare namespace Mocha {
         timeout(): number;
         /** @deprecated `.timeout()` returns `this` in `Mocha.Context`. */
         timeout(timeout: number): IContext;
-        /** @deprecated `.enableTimeouts()` has additional overloads in `Mocha.Context`. */
-        /** @deprecated `.enableTimeouts()` returns `this` in `Mocha.Context`. */
-        enableTimeouts(enableTimeouts: boolean): IContext;
         /** @deprecated `.slow()` has additional overloads in `Mocha.Context`. */
         /** @deprecated `.slow()` returns `this` in `Mocha.Context`. */
         slow(slow: number): IContext;
