@@ -15,11 +15,10 @@
 // TypeScript Version: 3.3
 import { Interface as ReadlineInterface } from "readline";
 import { Observable } from "rxjs";
-import { ThroughStream } from "through";
 import Choice = require("./lib/objects/choice");
 import Choices = require("./lib/objects/choices");
 import Separator = require("./lib/objects/separator");
-import Prompt = require("./lib/prompts/base");
+import "./lib/prompts/base";
 import "./lib/prompts/checkbox";
 import "./lib/prompts/confirm";
 import "./lib/prompts/editor";
@@ -32,9 +31,9 @@ import "./lib/prompts/rawlist";
 import BottomBar = require("./lib/ui/bottom-bar");
 import PromptUI = require("./lib/ui/prompt");
 import "./lib/utils/events";
-import Paginator = require("./lib/utils/paginator");
+import "./lib/utils/paginator";
 import "./lib/utils/readline";
-import ScreenManager = require("./lib/utils/screen-manager");
+import "./lib/utils/screen-manager";
 import "./lib/utils/utils";
 
 /**
