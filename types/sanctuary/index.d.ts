@@ -104,8 +104,8 @@ declare namespace Sanctuary {
     lte<A>(x: Ord<A>): (y: Ord<A>) => boolean;
     gt <A>(x: Ord<A>): (y: Ord<A>) => boolean;
     gte<A>(x: Ord<A>): (y: Ord<A>) => boolean;
-    min<A>(x:Ord<A>): (y: Ord<A>) => A;
-    max<A>(x: A): <A>(y: A) => A;
+    min<A>(x: A): (y: A) => A;
+    max<A>(x: A): (y: A) => A;
     clamp<A>(x: A): (y: A) => (z: A) => A;
     id<A>(p: TypeRep): Fn<A, A> | Category<any>;
     concat<A>(x: Semigroup<A>): (y: Semigroup<A>) => Semigroup<A>;
