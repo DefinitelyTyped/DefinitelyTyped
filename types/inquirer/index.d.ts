@@ -746,6 +746,11 @@ declare namespace inquirer {
     type DistinctQuestion<T extends Answers = Answers> = QuestionMap<T>[keyof QuestionMap<T>];
 
     /**
+     * Indicates the type of a question
+     */
+    type QuestionTypeName = DistinctQuestion["type"];
+
+    /**
      * Represents a collection of questions.
      *
      * @template T
