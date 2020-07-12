@@ -187,7 +187,7 @@ declare namespace TelegramBot {
         close_date?: number;
         is_closed?: boolean;
     }
-    
+
     interface StopPollOptions {
         reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
     }
