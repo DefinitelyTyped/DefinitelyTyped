@@ -85,6 +85,10 @@ declare class Chart {
         disableCSSInjection: boolean
     };
 
+    static scaleService: {
+        updateScaleDefaults: (type: Chart.ScaleType, updates: Chart.ChartScales) => void;
+    };
+
     // Tooltip Static Options
     static Tooltip: Chart.ChartTooltipsStaticConfiguration;
 
