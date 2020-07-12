@@ -24,7 +24,7 @@ export type RangedSelectFunction = (rangedDate: RangedSelection) => void;
 export type DateSelectFunction = (date: Date) => void;
 
 export interface ReactInfiniteCalendarProps {
-    selected?: DateType | false | { start: DateType; end: DateType };
+    selected?: DateType | false | { start: DateType; end: DateType } | DateType[];
     width?: number | 'auto' | '100%';
     height?: number | 'auto';
     min?: DateType;
@@ -83,7 +83,7 @@ export interface ReactInfiniteCalendarProps {
     autoFocus?: boolean;
     tabIndex?: number;
     Component?: CalendarClass;
-    interpolateSelection?: (date: Date, selected: Date[]) => Date[];
+    interpolateSelection?: (component: CalendarClass) => CalendarClass;
 }
 
 export class Calendar extends React.Component<ReactInfiniteCalendarProps> {}
