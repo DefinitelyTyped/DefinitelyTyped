@@ -1144,6 +1144,11 @@ declare const extractChainTypes: ChainTypeExtractor;
     _.where(stringRecordDictionary, partialStringRecord); // $ExpectType StringRecord[]
     _(stringRecordDictionary).where(partialStringRecord); // $ExpectType StringRecord[]
     extractChainTypes(_.chain(stringRecordDictionary).where(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // any
+    _.where(anyValue, partialStringRecord); // $ExpectType any[]
+    _(anyValue).where(partialStringRecord); // $ExpectType any[]
+    extractChainTypes(_.chain(anyValue).where(partialStringRecord)); // $ExpectType ChainType<any[], any>
 }
 
 // findWhere
@@ -1157,6 +1162,11 @@ declare const extractChainTypes: ChainTypeExtractor;
     _.findWhere(stringRecordDictionary, partialStringRecord); // $ExpectType StringRecord | undefined
     _(stringRecordDictionary).findWhere(partialStringRecord); // $ExpectType StringRecord | undefined
     extractChainTypes(_.chain(stringRecordDictionary).findWhere(partialStringRecord)); // $ExpectType ChainType<StringRecord | undefined, never>
+
+    // any
+    _.findWhere(anyValue, partialStringRecord); // $ExpectType any
+    _(anyValue).findWhere(partialStringRecord); // $ExpectType any
+    extractChainTypes(_.chain(anyValue).findWhere(partialStringRecord)); // $ExpectType ChainType<any, any>
 }
 
 // reject
