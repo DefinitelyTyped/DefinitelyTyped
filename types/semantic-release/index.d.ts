@@ -284,7 +284,7 @@ declare namespace SemanticRelease {
          *
          * Required for pre-release branches.
          */
-        prerelease?: string;
+        prerelease?: string | boolean;
     };
 
     /**
