@@ -486,6 +486,28 @@ _.chain(anyValue)
     .find(i => i.findBooleanFunction())
     .value();
 
+// verify that inline partial objects can be provided without error to where and findWhere for a union type collection
+// where no types in the union share the same property names
+declare const nonIntersectinglTypeUnion: _.Dictionary<{ one: string; } | { two: number; }>;
+
+// $ExpectType { one: string; } | { two: number; } | undefined
+_.chain(nonIntersectinglTypeUnion)
+    .sample(5)
+    .where({ one: 'one' })
+    .findWhere({ two: 2 })
+    .value();
+
+// verify that both types can be provided without error to where and findWhere for a union type collection where
+// two properties in the union have different types
+declare const overlappingTypeUnion: _.Dictionary<{ same: string; } | { same: number; }>;
+
+// $ExpectType { same: string; } | { same: number; } | undefined
+_.chain(overlappingTypeUnion)
+    .where({ same: 0 })
+    .shuffle()
+    .findWhere({ same: 'no' })
+    .value();
+
 // common testing types and objects
 const context = {};
 
