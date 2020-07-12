@@ -1,4 +1,4 @@
-// Type definitions for braintree-web-drop-in 1.18
+// Type definitions for braintree-web-drop-in 1.22
 // Project: https://github.com/braintree/braintree-web-dropin
 // Definitions by: Saoud Rizwan <https://github.com/saoudrizwan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -87,17 +87,35 @@ export interface venmoCreateOptions {
 
 // Dropin
 
+export interface PaymentMethodRequestablePayload {
+    type: "CreditCard" | "PayPalAccount";
+    paymentMethodIsSelected: boolean;
+}
+
+export interface PaymentOptionSelectedPayload {
+    paymentOption: "card" | "paypal" | "paypalCredit";
+}
+
 export interface Dropin {
     clearSelectedPaymentMethod(): void;
     isPaymentMethodRequestable(): boolean;
     on(event: "noPaymentMethodRequestable", handler: () => void): void;
     on(
         event: "paymentMethodRequestable",
-        handler: (payload: { type: "CreditCard" | "PayPalAccount"; paymentMethodIsSelected: boolean }) => void
+        handler: (payload: PaymentMethodRequestablePayload) => void
     ): void;
     on(
         event: "paymentOptionSelected",
-        handler: (payload: { paymentOption: "card" | "paypal" | "paypalCredit" }) => void
+        handler: (payload: PaymentOptionSelectedPayload) => void
+    ): void;
+    off(event: "noPaymentMethodRequestable", handler: () => void): void;
+    off(
+        event: "paymentMethodRequestable",
+        handler: (payload: PaymentMethodRequestablePayload) => void
+    ): void;
+    off(
+        event: "paymentOptionSelected",
+        handler: (payload: PaymentOptionSelectedPayload) => void
     ): void;
     requestPaymentMethod(callback: (error: object | null, payload: PaymentMethodPayload | undefined) => void): void;
     requestPaymentMethod(): Promise<PaymentMethodPayload>;
