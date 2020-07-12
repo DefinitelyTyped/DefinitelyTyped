@@ -8,6 +8,7 @@
 //                 AdityaThebe <https://github.com/adityathebe>
 //                 Michael Orlov <https://github.com/MiklerGM>
 //                 Alexander Ariutin <https://github.com/ariutin>
+//                 XieJiSS <https://github.com/XieJiSS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
