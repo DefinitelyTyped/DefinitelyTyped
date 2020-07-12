@@ -34,6 +34,7 @@ MyTelegramBot.sendAudio(1234, 'audio/path', { caption: 'Foo' });
 MyTelegramBot.sendAudio(1234, 'audio/path', { caption: 'Foo', parse_mode: 'Markdown' });
 MyTelegramBot.sendDocument(1234, 'doc/path', { caption: 'Foo' }, { fileOption: true });
 MyTelegramBot.sendDocument(1234, 'doc/path', { caption: 'Foo', parse_mode: 'HTML' }, { fileOption: true });
+MyTelegramBot.sendPoll(1234, 'question', ['answer1', 'answer2'], { type: 'regular' });
 MyTelegramBot.sendSticker(1234, 'sticker/path', { reply_to_message_id: 5678 });
 MyTelegramBot.sendVideo(1234, 'video/path', { caption: 'Foo' });
 MyTelegramBot.sendVideo(1234, 'video/path', { caption: 'Foo', parse_mode: 'MarkdownV2' });
