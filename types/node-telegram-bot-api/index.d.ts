@@ -1102,7 +1102,7 @@ declare class TelegramBot extends EventEmitter {
 
     sendMediaGroup(chatId: number | string, media: ReadonlyArray<TelegramBot.InputMedia>, options?: TelegramBot.SendMediaGroupOptions): Promise<TelegramBot.Message>;
 
-    sendPoll(chatId: number | string, question: string, pollOptions: string[], options?: TelegramBot.SendPollOptions): Promise<TelegramBot.Message>;
+    sendPoll(chatId: number | string, question: string, pollOptions: ReadonlyArray<string>, options?: TelegramBot.SendPollOptions): Promise<TelegramBot.Message>;
 
     // `messageId` was referred to as `pollId` in `node-telegram-bot-api/src/telegram.js`,
     // but actually `pollId` is another thing, and I believe that's a mistake.
