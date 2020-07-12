@@ -1136,9 +1136,9 @@ declare const extractChainTypes: ChainTypeExtractor;
 // where
 {
     // non-intersecting type union - lists
-    _.where(nonIntersectingPropertiesList, partialStringRecord); // $ExpectType StringRecord[]
-    _(nonIntersectingPropertiesList).where(partialStringRecord); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(nonIntersectingPropertiesList).where(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.where(nonIntersectingPropertiesList, partialStringRecord); // $ExpectType NonIntersectingProperties[]
+    _(nonIntersectingPropertiesList).where(partialStringRecord); // $ExpectType NonIntersectingProperties[]
+    extractChainTypes(_.chain(nonIntersectingPropertiesList).where(partialStringRecord)); // $ExpectType ChainType<NonIntersectingProperties[], NonIntersectingProperties>
 
     // simple type - dictionaries
     _.where(stringRecordDictionary, partialStringRecord); // $ExpectType StringRecord[]
@@ -1154,14 +1154,14 @@ declare const extractChainTypes: ChainTypeExtractor;
 // findWhere
 {
     // non-intersecting type union - lists
-    _.findWhere(nonIntersectingPropertiesList, partialStringRecord); // $ExpectType StringRecord | undefined
-    _(nonIntersectingPropertiesList).findWhere(partialStringRecord); // $ExpectType StringRecord | undefined
-    extractChainTypes(_.chain(nonIntersectingPropertiesList).findWhere(partialStringRecord)); // $ExpectType ChainType<StringRecord | undefined, never>
+    _.findWhere(nonIntersectingPropertiesList, partialStringRecord); // $ExpectType StringRecord | NonIntersectingStringRecord | undefined
+    _(nonIntersectingPropertiesList).findWhere(partialStringRecord); // $ExpectType StringRecord | NonIntersectingStringRecord | undefined
+    extractChainTypes(_.chain(nonIntersectingPropertiesList).findWhere(partialStringRecord)); // $ExpectType ChainType<StringRecord | NonIntersectingStringRecord | undefined, never>
 
     // simple type - dictionaries
-    _.findWhere(stringRecordDictionary, partialStringRecord); // $ExpectType StringRecord | undefined
-    _(stringRecordDictionary).findWhere(partialStringRecord); // $ExpectType StringRecord | undefined
-    extractChainTypes(_.chain(stringRecordDictionary).findWhere(partialStringRecord)); // $ExpectType ChainType<StringRecord | undefined, never>
+    _.findWhere(stringRecordDictionary, partialStringRecord); // $ExpectType StringRecordOrUndefined
+    _(stringRecordDictionary).findWhere(partialStringRecord); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordDictionary).findWhere(partialStringRecord)); // $ExpectType ChainType<StringRecordOrUndefined, never>
 
     // any
     _.findWhere(anyValue, partialStringRecord); // $ExpectType any
@@ -1285,14 +1285,14 @@ declare const extractChainTypes: ChainTypeExtractor;
 // sample
 {
     // without n - lists
-    _.sample(stringRecordList); // $ExpectType StringRecord | undefined
-    _(stringRecordList).sample(); // $ExpectType StringRecord | undefined
-    extractChainTypes(_.chain(stringRecordList).sample()); // $ExpectType ChainType<StringRecord | undefined, never>
+    _.sample(stringRecordList); // $ExpectType StringRecordOrUndefined
+    _(stringRecordList).sample(); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordList).sample()); // $ExpectType ChainType<StringRecordOrUndefined, never>
 
     // without n - dictionaries
-    _.sample(stringRecordDictionary); // $ExpectType StringRecord | undefined
-    _(stringRecordDictionary).sample(); // $ExpectType StringRecord | undefined
-    extractChainTypes(_.chain(stringRecordDictionary).sample()); // $ExpectType ChainType<StringRecord | undefined, never>
+    _.sample(stringRecordDictionary); // $ExpectType StringRecordOrUndefined
+    _(stringRecordDictionary).sample(); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordDictionary).sample()); // $ExpectType ChainType<StringRecordOrUndefined, never>
 
     // without n - strings
     _.sample(simpleString); // $ExpectType string | undefined

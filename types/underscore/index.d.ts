@@ -5354,12 +5354,6 @@ declare module _ {
         countBy(iterator: string, context?: any): _Chain<T>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.shuffle
-        **/
-        shuffle(): _Chain<T>;
-
-        /**
          * Returns a shuffled copy of the wrapped collection, using a version of the Fisher-Yates shuffle.
          * @return A shuffled copy of the wrapped collection in a chain wrapper.
          **/
