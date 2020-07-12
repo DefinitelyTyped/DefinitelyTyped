@@ -175,6 +175,18 @@ declare namespace TelegramBot {
         reply_to_message_id?: number;
     }
 
+    interface SendPollOptions extends SendBasicOptions {
+        is_anonymous?: boolean;
+        type?: string;
+        allows_multiple_answers?: boolean;
+        correct_option_id?: number;
+        explanation?: string;
+        explanation_parse_mode?: ParseMode;
+        open_period?: number;
+        close_date?: number;
+        is_closed?: boolean;
+    }
+
     type SendStickerOptions = SendBasicOptions;
 
     interface SendVideoOptions extends SendBasicOptions {
@@ -647,6 +659,8 @@ declare namespace TelegramBot {
         set_name?: string;
         mask_position?: MaskPosition;
         file_size?: number;
+        file_unique_id?: string;
+        is_animated?: boolean;
     }
 
     interface StickerSet {
@@ -1067,9 +1081,13 @@ declare class TelegramBot extends EventEmitter {
 
     sendAnimation(chatId: number | string, animation: string | Stream | Buffer, options?: TelegramBot.SendAnimationOptions): Promise<TelegramBot.Message>;
 
+    sendDice(chatId: number | string, options?: TelegramBot.SendDiceOptions): Promise<TelegramBot.Message>;
+
     sendDocument(chatId: number | string, doc: string | Stream | Buffer, options?: TelegramBot.SendDocumentOptions, fileOpts?: any): Promise<TelegramBot.Message>;
 
     sendMediaGroup(chatId: number | string, media: ReadonlyArray<TelegramBot.InputMedia>, options?: TelegramBot.SendMediaGroupOptions): Promise<TelegramBot.Message>;
+
+    sendPoll(chatId: number | string, question: string, pollOptions: string[], options?: TelegramBot.SendPollOptions): Promise<TelegramBot.Message>;
 
     sendSticker(chatId: number | string, sticker: string | Stream | Buffer, options?: TelegramBot.SendStickerOptions): Promise<TelegramBot.Message>;
 
@@ -1414,11 +1432,6 @@ declare class TelegramBot extends EventEmitter {
         chatId: number | string,
         chatPermissions: TelegramBot.ChatPermissions
     ): Promise<boolean>;
-
-    sendDice(
-        chatId: number | string,
-        options?: TelegramBot.SendDiceOptions
-    ): Promise<TelegramBot.Message>;
 
     setChatAdministratorCustomTitle(
         chatId: number | string,
