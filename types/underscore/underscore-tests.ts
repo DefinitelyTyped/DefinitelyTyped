@@ -619,7 +619,7 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(simpleString).map(stringListValueIterator, context); // $ExpectType number[]
     extractChainTypes(_.chain(simpleString).map(stringListValueIterator, context)); // $ExpectType ChainType<number[], number>
 
-    // function iteratee - collect
+    // function iteratee - strings - collect
     _.collect(simpleString, stringListValueIterator, context); // $ExpectType number[]
     _(simpleString).collect(stringListValueIterator, context); // $ExpectType number[]
     extractChainTypes(_.chain(simpleString).collect(stringListValueIterator, context)); // $ExpectType ChainType<number[], number>
