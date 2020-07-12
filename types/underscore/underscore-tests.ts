@@ -1133,6 +1133,32 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(stringRecordList).select()); // $ExpectType ChainType<StringRecord[], StringRecord>
 }
 
+// where
+{
+    // non-intersecting type union - lists
+    _.where(nonIntersectingPropertiesList, partialStringRecord); // $ExpectType StringRecord[]
+    _(nonIntersectingPropertiesList).where(partialStringRecord); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(nonIntersectingPropertiesList).where(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // simple type - dictionaries
+    _.where(stringRecordDictionary, partialStringRecord); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).where(partialStringRecord); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).where(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
+}
+
+// findWhere
+{
+    // non-intersecting type union - lists
+    _.findWhere(nonIntersectingPropertiesList, partialStringRecord); // $ExpectType StringRecord | undefined
+    _(nonIntersectingPropertiesList).findWhere(partialStringRecord); // $ExpectType StringRecord | undefined
+    extractChainTypes(_.chain(nonIntersectingPropertiesList).findWhere(partialStringRecord)); // $ExpectType ChainType<StringRecord | undefined, never>
+
+    // simple type - dictionaries
+    _.findWhere(stringRecordDictionary, partialStringRecord); // $ExpectType StringRecord | undefined
+    _(stringRecordDictionary).findWhere(partialStringRecord); // $ExpectType StringRecord | undefined
+    extractChainTypes(_.chain(stringRecordDictionary).findWhere(partialStringRecord)); // $ExpectType ChainType<StringRecord | undefined, never>
+}
+
 // reject
 {
     // function iteratee - lists
@@ -1226,6 +1252,57 @@ declare const extractChainTypes: ChainTypeExtractor;
     _.groupBy(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord[]>
     _(stringRecordDictionary).groupBy(stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord[]>
     _.chain(stringRecordDictionary).groupBy(stringRecordPropertyPath); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+}
+
+// shuffle
+{
+    // lists
+    _.shuffle(stringRecordList); // $ExpectType StringRecord[]
+    _(stringRecordList).shuffle(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).shuffle()); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // dictionaries
+    _.shuffle(stringRecordDictionary); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).shuffle(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).shuffle()); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // strings
+    _.shuffle(simpleString); // $ExpectType string[]
+    _(simpleString).shuffle(); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleString).shuffle()); // $ExpectType ChainType<string[], string>
+}
+
+// sample
+{
+    // without n - lists
+    _.sample(stringRecordList); // $ExpectType StringRecord | undefined
+    _(stringRecordList).sample(); // $ExpectType StringRecord | undefined
+    extractChainTypes(_.chain(stringRecordList).sample()); // $ExpectType ChainType<StringRecord | undefined, never>
+
+    // without n - dictionaries
+    _.sample(stringRecordDictionary); // $ExpectType StringRecord | undefined
+    _(stringRecordDictionary).sample(); // $ExpectType StringRecord | undefined
+    extractChainTypes(_.chain(stringRecordDictionary).sample()); // $ExpectType ChainType<StringRecord | undefined, never>
+
+    // without n - strings
+    _.sample(simpleString); // $ExpectType string | undefined
+    _(simpleString).sample(); // $ExpectType string | undefined
+    extractChainTypes(_.chain(simpleString).sample()); // $ExpectType ChainType<string | undefined, string>
+
+    // with n - lists
+    _.sample(stringRecordList, simpleNumber); // $ExpectType StringRecord[]
+    _(stringRecordList).sample(simpleNumber); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).sample(simpleNumber)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // with n - dictionaries
+    _.sample(stringRecordDictionary, simpleNumber); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).sample(simpleNumber); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).sample(simpleNumber)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // with n - strings
+    _.sample(simpleString, simpleNumber); // $ExpectType string[]
+    _(simpleString).sample(simpleNumber); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleString).sample(simpleNumber)); // $ExpectType ChainType<string[], string>
 }
 
 // Arrays
