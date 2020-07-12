@@ -174,12 +174,18 @@ declare module "process" {
                 /**
                  * Can also be a tty.WriteStream, not typed due to limitations.
                  */
-                stdout: WriteStream;
+                stdout: WriteStream & {
+                    fd: 1;
+                };
                 /**
                  * Can also be a tty.WriteStream, not typed due to limitations.
                  */
-                stderr: WriteStream;
-                stdin: ReadStream;
+                stderr: WriteStream & {
+                    fd: 2;
+                };
+                stdin: ReadStream & {
+                    fd: 0;
+                };
                 openStdin(): Socket;
                 argv: string[];
                 argv0: string;
