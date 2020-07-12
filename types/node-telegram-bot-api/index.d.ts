@@ -186,6 +186,10 @@ declare namespace TelegramBot {
         close_date?: number;
         is_closed?: boolean;
     }
+    
+    interface StopPollOptions {
+        reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
+    }
 
     type SendStickerOptions = SendBasicOptions;
 
@@ -537,6 +541,12 @@ declare namespace TelegramBot {
         foursquare_type?: string;
     }
 
+    interface PollAnswer {
+        poll_id: string;
+        user: User;
+        option_ids: number[];
+    }
+
     interface PollOption {
         text: string;
         voter_count: number;
@@ -547,6 +557,10 @@ declare namespace TelegramBot {
         question: string;
         options: PollOption[];
         is_closed: boolean;
+        is_anonymous: boolean;
+        allows_multiple_answers: boolean;
+        type: string;
+        total_voter_count: number;
     }
 
     interface UserProfilePhotos {
@@ -1089,6 +1103,11 @@ declare class TelegramBot extends EventEmitter {
 
     sendPoll(chatId: number | string, question: string, pollOptions: string[], options?: TelegramBot.SendPollOptions): Promise<TelegramBot.Message>;
 
+    // `messageId` was referred to as `pollId` in `node-telegram-bot-api/src/telegram.js`,
+    // but actually `pollId` is another thing, and I believe that's a mistake.
+    // see https://core.telegram.org/bots/api#stoppoll for more info.
+    stopPoll(chatId: number | string, messageId: number, options?: TelegramBot.StopPollOptions): Promise<TelegramBot.Poll>;
+
     sendSticker(chatId: number | string, sticker: string | Stream | Buffer, options?: TelegramBot.SendStickerOptions): Promise<TelegramBot.Message>;
 
     sendVideo(chatId: number | string, video: string | Stream | Buffer, options?: TelegramBot.SendVideoOptions): Promise<TelegramBot.Message>;
@@ -1216,6 +1235,8 @@ declare class TelegramBot extends EventEmitter {
 
     on(event: 'inline_query', listener: (query: TelegramBot.InlineQuery) => void): this;
 
+    on(event: 'poll_answer', listener: (answer: TelegramBot.PollAnswer) => void): this;
+
     on(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
     on(
@@ -1234,6 +1255,8 @@ declare class TelegramBot extends EventEmitter {
     once(event: 'callback_query', listener: (query: TelegramBot.CallbackQuery) => void): this;
 
     once(event: 'inline_query', listener: (query: TelegramBot.InlineQuery) => void): this;
+
+    once(event: 'poll_answer', listener: (answer: TelegramBot.PollAnswer) => void): this;
 
     once(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
@@ -1254,6 +1277,8 @@ declare class TelegramBot extends EventEmitter {
 
     prependListener(event: 'inline_query', listener: (query: TelegramBot.InlineQuery) => void): this;
 
+    prependListener(event: 'poll_answer', listener: (answer: TelegramBot.PollAnswer) => void): this;
+
     prependListener(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
     prependListener(
@@ -1272,6 +1297,8 @@ declare class TelegramBot extends EventEmitter {
     prependOnceListener(event: 'callback_query', listener: (query: TelegramBot.CallbackQuery) => void): this;
 
     prependOnceListener(event: 'inline_query', listener: (query: TelegramBot.InlineQuery) => void): this;
+
+    prependOnceListener(event: 'poll_answer', listener: (answer: TelegramBot.PollAnswer) => void): this;
 
     prependOnceListener(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
@@ -1292,6 +1319,8 @@ declare class TelegramBot extends EventEmitter {
 
     removeListener(event: 'inline_query', listener: (query: TelegramBot.InlineQuery) => void): this;
 
+    removeListener(event: 'poll_answer', listener: (answer: TelegramBot.PollAnswer) => void): this;
+
     removeListener(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
     removeListener(
@@ -1310,6 +1339,8 @@ declare class TelegramBot extends EventEmitter {
     off(event: 'callback_query', listener: (query: TelegramBot.CallbackQuery) => void): this;
 
     off(event: 'inline_query', listener: (query: TelegramBot.InlineQuery) => void): this;
+
+    off(event: 'poll_answer', listener: (answer: TelegramBot.PollAnswer) => void): this;
 
     off(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
@@ -1330,6 +1361,7 @@ declare class TelegramBot extends EventEmitter {
             'message' |
             'callback_query' |
             'inline_query' |
+            'poll_answer' |
             'chosen_inline_result' |
             'channel_post' |
             'edited_message' |
@@ -1351,6 +1383,7 @@ declare class TelegramBot extends EventEmitter {
             'message' |
             'callback_query' |
             'inline_query' |
+            'poll_answer' |
             'chosen_inline_result' |
             'channel_post' |
             'edited_message' |
@@ -1372,6 +1405,7 @@ declare class TelegramBot extends EventEmitter {
             'message' |
             'callback_query' |
             'inline_query' |
+            'poll_answer' |
             'chosen_inline_result' |
             'channel_post' |
             'edited_message' |
@@ -1392,6 +1426,7 @@ declare class TelegramBot extends EventEmitter {
         'message' |
         'callback_query' |
         'inline_query' |
+        'poll_answer' |
         'chosen_inline_result' |
         'channel_post' |
         'edited_message' |
@@ -1413,6 +1448,7 @@ declare class TelegramBot extends EventEmitter {
             'message' |
             'callback_query' |
             'inline_query' |
+            'poll_answer' |
             'chosen_inline_result' |
             'channel_post' |
             'edited_message' |
