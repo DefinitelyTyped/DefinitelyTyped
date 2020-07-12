@@ -2381,6 +2381,11 @@ declare namespace Interceptor {
      * Reverts the previously replaced function at `target`.
      */
     function revert(target: NativePointerValue): void;
+
+    /**
+     * Ensure any pending changes have been committed to memory.
+     */
+    function flush(): void;
 }
 
 declare class InvocationListener {
