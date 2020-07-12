@@ -145,7 +145,7 @@ export class Body {
     body: NodeJS.ReadableStream;
     bodyUsed: boolean;
     buffer(): Promise<Buffer>;
-    json(): Promise<any>;
+    json<T = any>(): Promise<T>;
     size: number;
     text(): Promise<string>;
     textConverted(): Promise<string>;
