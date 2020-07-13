@@ -486,7 +486,7 @@ _.chain(anyValue)
     .find(i => i.findBooleanFunction())
     .value();
 
-// verify that inline partial objects can be provided without error to where and findWhere for a union type collection
+// verify that partial objects can be provided without error to where and findWhere for a union type collection
 // where no types in the union share the same property names
 declare const nonIntersectinglTypeUnion: _.Dictionary<{ one: string; } | { two: number; }>;
 
