@@ -1,27 +1,3 @@
-import {
-    open,
-    click,
-    download,
-    event,
-    getAttribute,
-    httpDelete,
-    httpGet,
-    httpPost,
-    readTable,
-    readUrl,
-    select,
-    notify,
-    type,
-    log,
-    read,
-    readAll,
-    runInTab,
-    submit,
-    tab,
-    logging,
-    httpPut,
-} from 'workerb-api';
-
 open('https://google.com');
 
 click('#div', {
