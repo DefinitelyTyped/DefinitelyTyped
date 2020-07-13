@@ -120,12 +120,12 @@ declare function Lexx(xml: string, options?: Lexx.Options): Lexx.Token[];
 
 export default Lexx;
 
-// export function onQuestionElement(xml: string, i: number, inElement: boolean): [number, boolean, Lexx.Token];
-// export function onAttribute(xml: string, i: number, inElement: boolean): [number, boolean, Lexx.Token];
-// export function onEndTag(xml: string, i: number): [number, boolean];
-// export function onClose(xml: string, i: number, inElement: boolean): [number, boolean, Lexx.Token];
-// export function onElement(xml: string, i: number, inElement: boolean): [number, boolean, Lexx.Token];
-// export function onExclamation(xml: string, i: number, inElement: boolean): [number, boolean, Lexx.Token];
-// export function onShorthandCDATA(xml: string, i: number, inElement: boolean): [number, boolean, Lexx.Token];
-// export function onText(xml: string, i: number, jsx?: boolean): [number, boolean, Lexx.Token];
-// export function onBlackhole(xml: string, i: number, inElement: boolean, untilToken: Lexx.Token): [number, boolean, Lexx.Token];
+export function onQuestionElement(xml: string, i: number, inElement: boolean): [number, boolean, Lexx.Token];
+export function onAttribute(xml: string, i: number, inElement: boolean): [number, boolean, Lexx.Token];
+export function onEndTag(xml: string, i: number): [number, boolean];
+export function onClose(xml: string, i: number, inElement: boolean): [number, boolean, Lexx.Token];
+export function onElement(xml: string, i: number, inElement: boolean): [number, boolean, Lexx.Token];
+export function onExclamation(xml: string, i: number, inElement: boolean): [number, boolean, Lexx.Token];
+export function onShorthandCDATA(xml: string, i: number, inElement: boolean): [number, boolean, Lexx.Token];
+export function onText(xml: string, i: number, jsx?: boolean): [number, boolean, Lexx.Token];
+export function onBlackhole(xml: string, i: number, inElement: boolean, untilToken: Lexx.Token): [number, boolean, Lexx.Token];
