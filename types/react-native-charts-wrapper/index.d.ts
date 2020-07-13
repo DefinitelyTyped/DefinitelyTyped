@@ -82,6 +82,18 @@ export interface ChartLegend {
     };
 }
 
+export interface AxisLimitLine {
+    limit: number;
+    label?: string;
+    lineColor?: Color;
+    lineWidth?: number;
+    valueTextColor?: Color;
+    valueFont?: string;
+    labelPosition?: 'LEFT_TOP' | 'LEFT_BOTTOM' | 'RIGHT_TOP' | 'RIGHT_BOTTOM';
+    lineDashPhase?: number;
+    lineDashLengths?: number[];
+}
+
 export interface Axis {
     enabled?: boolean;
     drawLabels?: boolean;
@@ -103,17 +115,7 @@ export interface Axis {
         phase?: number;
     };
 
-    limitLines?: Array<{
-        limit: number;
-        label?: string;
-        lineColor?: Color;
-        lineWidth?: number;
-        valueTextColor?: Color;
-        valueFont?: string;
-        labelPosition?: 'LEFT_TOP' | 'LEFT_BOTTOM' | 'RIGHT_TOP' | 'RIGHT_BOTTOM';
-        lineDashPhase?: number;
-        lineDashLengths?: number[];
-    }>;
+    limitLines?: AxisLimitLine[];
     drawLimitLinesBehindData?: boolean;
 
     axisMaximum?: number;
