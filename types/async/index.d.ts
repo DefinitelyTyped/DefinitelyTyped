@@ -239,7 +239,7 @@ export interface RetryOptions {
 export function retry<T, E = Error>(
     opts?: number | RetryOptions,
     task?: (callback: AsyncResultCallback<T, E>, results: any) => void,
-): Promise<void>;
+): Promise<T>;
 export function retry<T, E = Error>(
     opts?: number | RetryOptions,
     task?: (callback: AsyncResultCallback<T, E>, results: any) => void,
