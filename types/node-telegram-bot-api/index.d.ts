@@ -189,7 +189,7 @@ declare namespace TelegramBot {
     }
 
     interface StopPollOptions {
-        reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
+        reply_markup?: InlineKeyboardMarkup;
     }
 
     type SendStickerOptions = SendBasicOptions;
@@ -542,6 +542,8 @@ declare namespace TelegramBot {
         foursquare_type?: string;
     }
 
+    type PollType = "regular" | "quiz";
+
     interface PollAnswer {
         poll_id: string;
         user: User;
@@ -560,7 +562,7 @@ declare namespace TelegramBot {
         is_closed: boolean;
         is_anonymous: boolean;
         allows_multiple_answers: boolean;
-        type: string;
+        type: PollType;
         total_voter_count: number;
     }
 
@@ -667,6 +669,8 @@ declare namespace TelegramBot {
 
     interface Sticker {
         file_id: string;
+        file_unique_id: string;
+        is_animated: boolean;
         width: number;
         height: number;
         thumb?: PhotoSize;
@@ -674,8 +678,6 @@ declare namespace TelegramBot {
         set_name?: string;
         mask_position?: MaskPosition;
         file_size?: number;
-        file_unique_id?: string;
-        is_animated?: boolean;
     }
 
     interface StickerSet {
@@ -1216,6 +1218,8 @@ declare class TelegramBot extends EventEmitter {
     addListener(event: 'callback_query', listener: (query: TelegramBot.CallbackQuery) => void): this;
 
     addListener(event: 'inline_query', listener: (query: TelegramBot.InlineQuery) => void): this;
+
+    addListener(event: 'poll_answer', listener: (answer: TelegramBot.PollAnswer) => void): this;
 
     addListener(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
