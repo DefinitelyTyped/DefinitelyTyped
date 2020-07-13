@@ -3,6 +3,7 @@
 // Definitions by: Fred Eisele <https://github.com/phreed>
 //                 Ruben Taelman <https://github.com/rubensworks>
 //                 Laurens Rietveld <https://github.com/LaurensRietveld>
+//                 Joachim Van Herwegen <https://github.com/joachimvh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -169,7 +170,7 @@ export class Writer<Q extends RDF.BaseQuad = RDF.Quad> {
     list(triple: Array<Q['object']>): Quad_Object[];
 }
 
-export class StreamWriter<Q extends RDF.BaseQuad = Quad> extends stream.Transform implements RDF.Sink<RDF.Stream<Q>, EventEmitter> {
+export class StreamWriter<Q extends RDF.BaseQuad = RDF.Quad> extends stream.Transform implements RDF.Sink<RDF.Stream<Q>, EventEmitter> {
   constructor(options?: WriterOptions);
   constructor(fd: any, options?: WriterOptions);
   import(stream: RDF.Stream<Q>): EventEmitter;

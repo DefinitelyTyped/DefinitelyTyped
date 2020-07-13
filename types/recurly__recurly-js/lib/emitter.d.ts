@@ -1,4 +1,5 @@
 type Listener = (...args: any[]) => void;
+
 interface Emitter<Event = string> {
   on(event: Event, listener: Listener): Emitter<Event>;
   once(event: Event, listener: Listener): Emitter<Event>;
@@ -9,5 +10,5 @@ interface Emitter<Event = string> {
 }
 
 export {
-    Emitter
+  Emitter
 };

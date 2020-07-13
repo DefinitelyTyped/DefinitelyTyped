@@ -704,6 +704,8 @@ namespace Parse {
             skip?: number;
             // Sort documentation https://docs.mongodb.com/v3.2/reference/operator/aggregation/sort/#pipe._S_sort
             sort?: { [key: string]: 1 | -1 };
+            // Sample documentation: https://docs.mongodb.com/v3.2/reference/operator/aggregation/sample/
+            sample?: { size: number };
         }
 
         // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText

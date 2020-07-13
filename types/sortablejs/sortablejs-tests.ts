@@ -77,6 +77,8 @@ simpleList.innerHTML = Array.apply(null, new Array(10))
 
 Sortable.create(simpleList, {});
 
+Sortable.version; // $ExpectType string
+
 simpleList.innerHTML = Array.apply(null, new Array(100))
     .map(function(value: any, iterator: number) {
         return '<div class="list-group-item">item ' + (iterator + 1) + '</div>';

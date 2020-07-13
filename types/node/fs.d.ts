@@ -1727,7 +1727,7 @@ declare module "fs" {
 
     /**
      * Asynchronously tests whether or not the given path exists by checking with the file system.
-     * @deprecated
+     * @deprecated since v1.0.0 Use `fs.stat()` or `fs.access()` instead
      * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */

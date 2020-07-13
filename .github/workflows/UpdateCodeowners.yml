@@ -12,6 +12,7 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
 
     steps:
       - uses: actions/checkout@v2

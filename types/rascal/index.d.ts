@@ -2,6 +2,7 @@
 // Project: https://guidesmiths.github.io/rascal/
 // Definitions by: ethan <https://github.com/zijin-m>
 //                 MartinTechy <https://github.com/MartinTechy>
+//                 Nikita Volodin <https://github.com/qlonik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -10,7 +11,7 @@
 import { EventEmitter } from 'events';
 import { Message, Options, Connection, Channel } from 'amqplib';
 
-interface BindingConfig {
+export interface BindingConfig {
     source?: string;
     destination?: string;
     destinationType?: 'queue' | 'exchange';
@@ -19,20 +20,20 @@ interface BindingConfig {
     options?: any;
 }
 
-interface QueueConfig {
+export interface QueueConfig {
     assert?: boolean;
     check?: boolean;
     options?: Options.AssertQueue;
 }
 
-interface ExchangeConfig {
+export interface ExchangeConfig {
     assert?: boolean;
     check?: boolean;
     type?: 'direct' | 'fanout' | 'headers' | 'topic';
     options?: Options.AssertExchange;
 }
 
-interface ConnectionAttributes {
+export interface ConnectionAttributes {
     slashes?: boolean;
     protocol?: string;
     hostname?: string;
@@ -57,7 +58,7 @@ interface ConnectionAttributes {
     };
 }
 
-interface RetryConfig {
+export interface RetryConfig {
     factor?: number;
     max?: number;
     min?: number;
@@ -65,12 +66,12 @@ interface RetryConfig {
     delay?: number;
 }
 
-interface ConnectionConfig extends ConnectionAttributes {
+export interface ConnectionConfig extends ConnectionAttributes {
     retry?: RetryConfig;
     management?: ConnectionAttributes;
 }
 
-interface ChannelPoolConfig {
+export interface ChannelPoolConfig {
     autostart?: boolean;
     evictionRunIntervalMillis?: number;
     idleTimeoutMillis?: number;
@@ -79,7 +80,7 @@ interface ChannelPoolConfig {
     testOnBorrow?: boolean;
 }
 
-interface VhostConfig {
+export interface VhostConfig {
     check?: boolean;
     assert?: boolean;
     namespace?: string | boolean;
@@ -113,7 +114,7 @@ interface VhostConfig {
     };
 }
 
-interface PublicationConfig {
+export interface PublicationConfig {
     vhost?: string;
     exchange?: string;
     queue?: string;
@@ -125,13 +126,13 @@ interface PublicationConfig {
     encryption?: string;
 }
 
-interface Encryption {
+export interface Encryption {
     key: string;
     algorithm: string;
     ivLength: number;
 }
 
-interface Redelivery {
+export interface Redelivery {
     counters?: {
         [key: string]: {
             type: 'stub' | 'inMemory' | 'inMemoryCluster';
@@ -140,7 +141,7 @@ interface Redelivery {
     };
 }
 
-interface Recovery {
+export interface Recovery {
     strategy: 'ack' | 'nack' | 'republish' | 'forward';
     defer?: number;
     attempts?: number;
@@ -151,7 +152,7 @@ interface Recovery {
     immediateNack?: boolean;
 }
 
-interface SubscriptionConfig {
+export interface SubscriptionConfig {
     vhost?: string;
     queue?: string;
     contentType?: string;
