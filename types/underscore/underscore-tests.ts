@@ -486,7 +486,7 @@ _.chain(anyValue)
     .find(i => i.findBooleanFunction())
     .value();
 
-// $ExpectType { valueProperty: string }[]
+// $ExpectType { valueProperty: string; } | undefined
 _.chain([
     {
         group: 'a',
@@ -507,7 +507,8 @@ _.chain([
     .filter(i => i.length >= 2)
     .flatten()
     .where({ subGroup: 2 })
-    .map(i => i.value)
+    .pluck('value')
+    .sample()
     .value();
 
 // verify that partial objects can be provided without error to where and findWhere for a union type collection
