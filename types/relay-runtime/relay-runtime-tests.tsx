@@ -14,6 +14,7 @@ import {
     commitLocalUpdate,
     ReaderFragment,
     isPromise,
+    __internal,
 } from 'relay-runtime';
 
 const source = new RecordSource();
