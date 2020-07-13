@@ -1,3 +1,4 @@
+// Type definitions for workerb-api 1.0
 // Project: https://workerb.io/
 // Definitions by: workerB <https://github.com/workerb-io>
 //                Saurabh Garg <https://github.com/s-garg>
