@@ -7,7 +7,7 @@
 //                  danduh <https://github.com/danduh>,
 //                  ChristianBoehlke <https://github.com/ChristianBoehlke>,
 //                  divyun <https://github.com/divyun>
-//                  mohitpubnub <https://github.com/mohitpubnub>
+//                  elviswolcot <https://github.com/elviswolcott>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // @see https://www.pubnub.com/docs/web-javascript/api-reference-configuration
 // TypeScript Version: 3.5
