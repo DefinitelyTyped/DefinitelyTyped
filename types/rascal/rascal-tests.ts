@@ -190,3 +190,21 @@ Broker.create(config, (err, broker) => {
         });
     });
 }
+
+{
+    Broker.create(config, (err, broker) => {
+        broker.publish('demo_publication', 'Hello World!', (err, publication) => {
+            publication
+                .on('error', (err, msgId) => {
+                    err; // $ExpectType Error
+                    msgId; // $ExpectType string
+                })
+                .on('return', msg => {
+                    msg; // $ExpectType Message
+                })
+                .on('success', msgId => {
+                    msgId; // $ExpectType string
+                });
+        });
+    });
+}

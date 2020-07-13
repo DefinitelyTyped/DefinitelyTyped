@@ -476,6 +476,10 @@ export class PublicationSession extends EventEmitter {
     abort(): void;
     isAborted(): boolean;
     emitPaused(): void;
+
+    on(event: 'error', cb: (err: Error, messageId: string) => void): this;
+    on(event: 'success', cb: (messageId: string) => void): this;
+    on(event: 'return', cb: (message: Message) => void): this;
 }
 
 export class Vhost extends EventEmitter {
