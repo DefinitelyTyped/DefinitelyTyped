@@ -137,3 +137,31 @@ Broker.create(config, (err, broker) => {
         broker; // $ExpectType Broker
     });
 }
+
+{
+    Broker.create(config, (err, broker) => {
+        broker.subscribeAll((err, res) => {
+            err; // $ExpectType Error
+            res; // $ExpectType SubscriptionSession[]
+        });
+        broker.subscribeAll(
+            x => {
+                x; // $ExpectType SubscriptionConfig
+                return true;
+            },
+            (err, res) => {
+                err; // $ExpectType Error
+                res; // $ExpectType SubscriptionSession[]
+            },
+        );
+    });
+
+    (async () => {
+        const b = await BrokerAsPromised.create(config);
+        // $ExpectType SubscriptionSession[]
+        const res = await b.subscribeAll(x => {
+            x; // $ExpectType SubscriptionConfig
+            return true;
+        });
+    })();
+}

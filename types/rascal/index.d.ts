@@ -433,7 +433,7 @@ declare class BrokerAsPromised extends EventEmitter {
     forward(name: string, message: any, overrides?: PublicationConfig | string): Promise<PublicationSession>;
     unsubscribeAll(): Promise<void>;
     subscribe(name: string, overrides?: SubscriptionConfig): Promise<SubscriptionSession>;
-    subscribeAll(filter?: string): Promise<SubscriptionSession[]>;
+    subscribeAll(filter?: (config: SubscriptionConfig) => boolean): Promise<SubscriptionSession[]>;
 }
 
 declare class Broker extends EventEmitter {
@@ -466,7 +466,10 @@ declare class Broker extends EventEmitter {
         next: (err: Error, subscription: SubscriptionSession) => void,
     ): void;
     subscribeAll(next: (err: Error, results: SubscriptionSession[]) => void): void;
-    subscribeAll(filter: string, next?: (err: Error, results: SubscriptionSession[]) => void): void;
+    subscribeAll(
+        filter: (config: SubscriptionConfig) => boolean,
+        next: (err: Error, results: SubscriptionSession[]) => void,
+    ): void;
     unsubscribeAll(next: (err?: Error) => void): void;
 }
 
