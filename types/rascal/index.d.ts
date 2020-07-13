@@ -497,7 +497,12 @@ export class Vhost extends EventEmitter {
     isPaused(): boolean;
 }
 
-declare function createBroker(config: BrokerConfig, components: any, next: any, ...args: any[]): any;
+declare function createBroker(config: BrokerConfig, next: (err: Error | null, broker: Broker) => void): void;
+declare function createBroker(
+    config: BrokerConfig,
+    components: unknown,
+    next: (err: Error | null, broker: Broker) => void,
+): void;
 
 declare function createBrokerAsPromised(config: BrokerConfig, components?: unknown): Promise<BrokerAsPromised>;
 

@@ -7,6 +7,7 @@ import {
     PublicationSession,
     SubscriptionSession,
     createBrokerAsPromised,
+    createBroker,
 } from 'rascal';
 import { Message } from 'amqplib';
 
@@ -107,4 +108,18 @@ Broker.create(config, (err, broker) => {
     const b1 = createBrokerAsPromised(config);
     // $ExpectType Promise<BrokerAsPromised>
     const b2 = createBrokerAsPromised(config, {});
+}
+
+{
+    // $ExpectType void
+    createBroker(config, (err, broker) => {
+        err; // $ExpectType Error | null
+        broker; // $ExpectType Broker
+    });
+
+    // $ExpectType void
+    createBroker(config, {}, (err, broker) => {
+        err; // $ExpectType Error | null
+        broker; // $ExpectType Broker
+    });
 }
