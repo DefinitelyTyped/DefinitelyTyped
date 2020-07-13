@@ -486,6 +486,30 @@ _.chain(anyValue)
     .find(i => i.findBooleanFunction())
     .value();
 
+// $ExpectType { valueProperty: string }[]
+_.chain([
+    {
+        group: 'a',
+        subGroup: 1,
+        value: { valueProperty: 'first' }
+    },
+    {
+        group: 'b',
+        subGroup: 2,
+        value: { valueProperty: 'second' }
+    },
+    {
+        group: 'b',
+        subGroup: 3,
+        value: { valueProperty: 'third' }
+    }])
+    .groupBy(i => i.group)
+    .filter(i => i.length >= 2)
+    .flatten()
+    .where({ subGroup: 2 })
+    .map(i => i.value)
+    .value();
+
 // verify that partial objects can be provided without error to where and findWhere for a union type collection
 // where no types in the union share the same property names
 declare const nonIntersectinglTypeUnion: _.Dictionary<{ one: string; } | { two: number; }>;
