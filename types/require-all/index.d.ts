@@ -4,15 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Options {
-    dirname: string,
-    filter?:  ((name: string, path: string) => string) | RegExp,
-    excludeDirs?: RegExp,
-    map?: (name: string, path: string) => string,
-    resolve?: (module: any) => any,
-    recursive?: true | false,
-  }
-
-declare module 'require-all' {
-    function rall(options: Options) : {[key: string]: any};
-    export = rall;
+    dirname: string;
+    filter?: ((name: string, path: string) => string) | RegExp;
+    excludeDirs?: RegExp;
+    map?: (name: string, path: string) => string;
+    resolve?: (module: any) => any;
+    recursive?: true | false;
 }
+
+declare function requireAll(options: Options): {[key: string]: any};
+
+export = requireAll;
