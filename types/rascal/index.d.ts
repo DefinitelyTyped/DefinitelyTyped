@@ -436,41 +436,39 @@ declare class BrokerAsPromised extends EventEmitter {
     subscribeAll(filter?: (config: SubscriptionConfig) => boolean): Promise<SubscriptionSession[]>;
 }
 
+type Cb<E, A> = (...x: [E, never] | [null, A]) => void;
+type ErrorCb = (x: Error | null) => void;
+type CreateCb = (...x: [Error, Broker] | [null, Broker]) => void;
+type ConnectCb = (...x: [Error, null] | [Error, Connection] | [null, Connection]) => void;
+
 declare class Broker extends EventEmitter {
     readonly config: BrokerConfig;
-    static create(config: BrokerConfig, next: (err: Error | null, broker: Broker) => void): void;
-    static create(config: BrokerConfig, components: unknown, next: (err: Error | null, broker: Broker) => void): void;
-    connect(name: string, next: (err?: Error, connection?: Connection) => void): void;
-    nuke(next: (err?: Error) => void): void;
-    purge(next: (err?: Error) => void): void;
-    shutdown(next: (err?: Error) => void): void;
-    bounce(next: (err?: Error) => void): void;
-    publish(name: string, message: any, next: (err: Error, publication: PublicationSession) => void): void;
+    static create(config: BrokerConfig, next: CreateCb): void;
+    static create(config: BrokerConfig, components: unknown, next: CreateCb): void;
+    connect(name: string, next: ConnectCb): void;
+    nuke(next: ErrorCb): void;
+    purge(next: ErrorCb): void;
+    shutdown(next: ErrorCb): void;
+    bounce(next: ErrorCb): void;
+    publish(name: string, message: any, next: Cb<Error, PublicationSession>): void;
     publish(
         name: string,
         message: any,
         overrides: PublicationConfig | string,
-        next: (err: Error, publication: PublicationSession) => void,
+        next: Cb<Error, PublicationSession>,
     ): void;
-    forward(name: string, message: any, next: (err: Error, publication: PublicationSession) => void): void;
+    forward(name: string, message: any, next: Cb<Error, PublicationSession>): void;
     forward(
         name: string,
         message: any,
         overrides: PublicationConfig | string,
-        next: (err: Error, publication: PublicationSession) => void,
+        next: Cb<Error, PublicationSession>,
     ): void;
-    subscribe(name: string, next: (err: Error, subscription: SubscriptionSession) => void): void;
-    subscribe(
-        name: string,
-        overrides: SubscriptionConfig | string,
-        next: (err: Error, subscription: SubscriptionSession) => void,
-    ): void;
-    subscribeAll(next: (err: Error, results: SubscriptionSession[]) => void): void;
-    subscribeAll(
-        filter: (config: SubscriptionConfig) => boolean,
-        next: (err: Error, results: SubscriptionSession[]) => void,
-    ): void;
-    unsubscribeAll(next: (err?: Error) => void): void;
+    subscribe(name: string, next: Cb<Error, SubscriptionSession>): void;
+    subscribe(name: string, overrides: SubscriptionConfig | string, next: Cb<Error, SubscriptionSession>): void;
+    subscribeAll(next: Cb<Error, SubscriptionSession[]>): void;
+    subscribeAll(filter: (config: SubscriptionConfig) => boolean, next: Cb<Error, SubscriptionSession[]>): void;
+    unsubscribeAll(next: ErrorCb): void;
 }
 
 export class PublicationSession extends EventEmitter {
@@ -500,12 +498,8 @@ export class Vhost extends EventEmitter {
     isPaused(): boolean;
 }
 
-declare function createBroker(config: BrokerConfig, next: (err: Error | null, broker: Broker) => void): void;
-declare function createBroker(
-    config: BrokerConfig,
-    components: unknown,
-    next: (err: Error | null, broker: Broker) => void,
-): void;
+declare function createBroker(config: BrokerConfig, next: CreateCb): void;
+declare function createBroker(config: BrokerConfig, components: unknown, next: CreateCb): void;
 
 declare function createBrokerAsPromised(config: BrokerConfig, components?: unknown): Promise<BrokerAsPromised>;
 

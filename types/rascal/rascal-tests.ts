@@ -141,7 +141,7 @@ Broker.create(config, (err, broker) => {
 {
     Broker.create(config, (err, broker) => {
         broker.subscribeAll((err, res) => {
-            err; // $ExpectType Error
+            err; // $ExpectType Error | null
             res; // $ExpectType SubscriptionSession[]
         });
         broker.subscribeAll(
@@ -150,7 +150,7 @@ Broker.create(config, (err, broker) => {
                 return true;
             },
             (err, res) => {
-                err; // $ExpectType Error
+                err; // $ExpectType Error | null
                 res; // $ExpectType SubscriptionSession[]
             },
         );
@@ -164,4 +164,29 @@ Broker.create(config, (err, broker) => {
             return true;
         });
     })();
+}
+
+{
+    Broker.create(config, (err, broker) => {
+        if (err !== null) {
+            err; // $ExpectType Error
+            return;
+        }
+
+        err; // $ExpectType null
+        broker; // $ExpectType Broker
+
+        broker.connect('/', (err, conn) => {
+            err; // $ExpectType Error | null
+            conn; // $ExpectType Connection | null
+        });
+
+        broker.connect('/', (...x) => {
+            if (x[0] === null) {
+                const y = x[1]; // $ExpectType Connection
+            } else {
+                const y = x[1]; // $ExpectType Connection | null
+            }
+        });
+    });
 }
