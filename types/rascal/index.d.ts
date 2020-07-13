@@ -4,7 +4,7 @@
 //                 MartinTechy <https://github.com/MartinTechy>
 //                 Nikita Volodin <https://github.com/qlonik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.4
 
 /// <reference types="node" />
 
