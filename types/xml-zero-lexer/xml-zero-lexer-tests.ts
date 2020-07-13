@@ -22,7 +22,7 @@ xml.substring(tokens[1][1], tokens[1][2]);
 // would return "his divine shadow"
 
 for (let index = 0; index < NodeTypeKeys.length; index++) {
-	const NodeTypeKey = NodeTypeKeys[index];
-	const NodeType = NodeTypes[NodeTypeKey];
-	NodeType === index; // true
+    const NodeTypeKey = NodeTypeKeys[index];
+    const NodeType = NodeTypes[NodeTypeKey];
+    NodeType === index; // true
 }
