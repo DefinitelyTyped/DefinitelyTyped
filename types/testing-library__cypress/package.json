@@ -1,7 +1,12 @@
 {
     "private": true,
     "dependencies": {
-        "@testing-library/dom": "^7.11.0",
+        "@testing-library/dom": "^7.11.0"
+    },
+    "devDependencies": {
+        "cypress": "*"
+    },
+    "peerDependencies": {
         "cypress": "*"
     }
 }
