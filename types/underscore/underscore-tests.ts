@@ -531,7 +531,7 @@ _.chain(nonIntersectinglTypeUnion)
 // two properties in the union have different types
 declare const overlappingTypeUnion: _.Dictionary<{ same: string; } | { same: number; }>;
 
-// $ExpectType ({ one: string; } | { two: number; })[]
+// $ExpectType ({ same: string; } | { same: number; })[]
 _.chain(overlappingTypeUnion)
     .where({ same: 0 })
     .shuffle()
