@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Component } from 'react';
-import { ViewProps, NativeSyntheticEvent, ProcessedColorValue } from 'react-native';
+import { ViewProps, NativeSyntheticEvent, processColor } from 'react-native';
 
 export type EasingType =
     | 'Linear'
@@ -36,9 +36,9 @@ export type EasingType =
     | 'EaseOutBounce'
     | 'EaseInOutBounce';
 /**
- * use `processColor` from `react-native` to generate the corresponding number from a color (named, hex, rgba, etc.).
+ * use `processColor` from `react-native` to generate the corresponding color value from a color (named, hex, rgba, etc.).
  */
-export type Color = ProcessedColorValue | null | undefined;
+export type Color = ReturnType<typeof processColor>;
 
 export type ValueFormatter = ('largeValue' | 'percent' | 'date') | string | string[];
 
