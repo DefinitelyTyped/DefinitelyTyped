@@ -490,10 +490,15 @@ _.chain(anyValue)
 // where no types in the union share the same property names
 declare const nonIntersectinglTypeUnion: _.Dictionary<{ one: string; } | { two: number; }>;
 
+// $ExpectType ({ one: string; } | { two: number; })[]
+_.chain(nonIntersectinglTypeUnion)
+    .where({ one: 'one' })
+    .sample(5)
+    .value();
+
 // $ExpectType { one: string; } | { two: number; } | undefined
 _.chain(nonIntersectinglTypeUnion)
     .sample(5)
-    .where({ one: 'one' })
     .findWhere({ two: 2 })
     .value();
 
@@ -501,9 +506,14 @@ _.chain(nonIntersectinglTypeUnion)
 // two properties in the union have different types
 declare const overlappingTypeUnion: _.Dictionary<{ same: string; } | { same: number; }>;
 
-// $ExpectType { same: string; } | { same: number; } | undefined
+// $ExpectType ({ one: string; } | { two: number; })[]
 _.chain(overlappingTypeUnion)
     .where({ same: 0 })
+    .shuffle()
+    .value();
+
+// $ExpectType { same: string; } | { same: number; } | undefined
+_.chain(overlappingTypeUnion)
     .shuffle()
     .findWhere({ same: 'no' })
     .value();
