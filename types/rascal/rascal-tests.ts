@@ -55,7 +55,6 @@ const config: BrokerConfig = {
         const subscription = await broker.subscribe('demo_subscription');
         await broker.subscribe('s1', { prefetch: 10, retry: false });
         await subscription.cancel();
-        subscription.isCancelled();
         subscription
             .on('message', (message, content, ackOrNack) => {
                 ackOrNack();
@@ -158,7 +157,7 @@ Broker.create(config, (err, broker) => {
 
     (async () => {
         const b = await BrokerAsPromised.create(config);
-        // $ExpectType SubscriptionSession[]
+        // $ExpectType SubscriberSessionAsPromised[]
         const res = await b.subscribeAll(x => {
             x; // $ExpectType SubscriptionConfig
             return true;

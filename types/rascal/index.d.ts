@@ -408,10 +408,10 @@ declare const testConfig: {
 
 type AckOrNack = (err?: Error, recovery?: Recovery | Recovery[]) => void;
 
-export class SubscriptionSession extends EventEmitter {
+export class SubscriberSessionAsPromised extends EventEmitter {
     name: string;
-    isCancelled(): boolean;
     cancel(): Promise<void>;
+
     on(event: 'message', listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => void): this;
     on(event: 'error' | 'cancelled', listener: (err: Error) => void): this;
     on(
@@ -432,8 +432,21 @@ declare class BrokerAsPromised extends EventEmitter {
     publish(name: string, message: any, overrides?: PublicationConfig | string): Promise<PublicationSession>;
     forward(name: string, message: any, overrides?: PublicationConfig | string): Promise<PublicationSession>;
     unsubscribeAll(): Promise<void>;
-    subscribe(name: string, overrides?: SubscriptionConfig): Promise<SubscriptionSession>;
-    subscribeAll(filter?: (config: SubscriptionConfig) => boolean): Promise<SubscriptionSession[]>;
+    subscribe(name: string, overrides?: SubscriptionConfig): Promise<SubscriberSessionAsPromised>;
+    subscribeAll(filter?: (config: SubscriptionConfig) => boolean): Promise<SubscriberSessionAsPromised[]>;
+}
+
+export class SubscriptionSession extends EventEmitter {
+    name: string;
+    isCancelled(): boolean;
+    cancel(next: ErrorCb): void;
+
+    on(event: 'message', listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => void): this;
+    on(event: 'error' | 'cancelled', listener: (err: Error) => void): this;
+    on(
+        event: 'invalid_content' | 'redeliveries_exceeded' | 'redeliveries_error',
+        listener: (err: Error, message: Message, ackOrNackFn: AckOrNack) => void,
+    ): this;
 }
 
 type Cb<E, A> = (...x: [E, never] | [null, A]) => void;
