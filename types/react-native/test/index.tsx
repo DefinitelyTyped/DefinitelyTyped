@@ -800,6 +800,7 @@ class StatusBarTest extends React.Component {
 export class ImageTest extends React.Component {
     componentDidMount(): void {
         const uri = 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png';
+        const headers = { Authorization: 'Bearer test' };
         const image: ImageResolvedAssetSource = Image.resolveAssetSource({ uri });
         console.log(image.width, image.height, image.scale, image.uri);
 
@@ -811,6 +812,11 @@ export class ImageTest extends React.Component {
                     console.log(`Image is in ${status} cache`);
                 }
             });
+
+        Image.getSize(uri, (width, height) => console.log(width, height));
+        Image.getSize(uri, (width, height) => console.log(width, height), (error) => console.error(error));
+        Image.getSizeWithHeaders(uri, headers, (width, height) => console.log(width, height));
+        Image.getSizeWithHeaders(uri, headers, (width, height) => console.log(width, height), (error) => console.error(error));
     }
 
     handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
