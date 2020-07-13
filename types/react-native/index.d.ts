@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.62
+// Type definitions for react-native 0.63
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -41,6 +41,7 @@
 //                 ConnectDotz <https://github.com/connectdotz>
 //                 Marcel Lasaj <https://github.com/TheWirv>
 //                 Alexey Molchan <https://github.com/alexeymolchan>
+//                 Alex Brazier <https://github.com/alexbrazier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -63,6 +64,8 @@
 /// <reference path="LaunchScreen.d.ts" />
 
 import * as React from 'react';
+
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 type Constructor<T> = new (...args: any[]) => T;
 
@@ -469,6 +472,83 @@ export interface Insets {
     right?: number;
 }
 
+export type PressableStateCallbackType = Readonly<{
+    pressed: boolean;
+}>;
+
+export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
+    /**
+     * Called when a single tap gesture is detected.
+     */
+    onPress?: null | ((event: GestureResponderEvent) => void);
+
+    /**
+     * Called when a touch is engaged before `onPress`.
+     */
+    onPressIn?: null | ((event: GestureResponderEvent) => void);
+
+    /**
+     * Called when a touch is released before `onPress`.
+     */
+    onPressOut?: null | ((event: GestureResponderEvent) => void);
+
+    /**
+     * Called when a long-tap gesture is detected.
+     */
+    onLongPress?: null | ((event: GestureResponderEvent) => void);
+
+    /**
+     * Either children or a render prop that receives a boolean reflecting whether
+     * the component is currently pressed.
+     */
+    children: React.ReactNode | ((state: PressableStateCallbackType) => React.ReactNode);
+
+    /**
+     * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
+     */
+    delayLongPress?: null | number;
+
+    /**
+     * Whether the press behavior is disabled.
+     */
+    disabled?: null | boolean;
+
+    /**
+     * Additional distance outside of this view in which a press is detected.
+     */
+    hitSlop?: null | Insets | number;
+
+    /**
+     * Additional distance outside of this view in which a touch is considered a
+     * press before `onPressOut` is triggered.
+     */
+    pressRetentionOffset?: null | Insets | number;
+
+    /**
+     * If true, doesn't play system sound on touch.
+     */
+    android_disableSound?: null | boolean;
+
+    /**
+     * Enables the Android ripple effect and configures its color.
+     */
+    android_ripple?: null | RippleBackgroundPropType;
+
+    /**
+     * Used only for documentation or testing (e.g. snapshot testing).
+     */
+    testOnly_pressed?: null | boolean;
+
+    /**
+     * Either view styles or a function that receives a boolean reflecting whether
+     * the component is currently pressed and returns view styles.
+     */
+    style?: StyleProp<ViewStyle> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>);
+}
+
+// TODO use React.AbstractComponent when available
+export const Pressable: React.FunctionComponent<PressableProps>;
+
 /**
  * //FIXME: need to find documentation on which component is a TTouchable and can implement that interface
  * @see React.DOMAtributes
@@ -656,7 +736,7 @@ export interface ShadowPropTypesIOSStatic {
      * Sets the drop shadow color
      * @platform ios
      */
-    shadowColor: string;
+    shadowColor: ColorValue;
 
     /**
      * Sets the drop shadow offset
@@ -771,7 +851,7 @@ export type FontVariant = 'small-caps' | 'oldstyle-nums' | 'lining-nums' | 'tabu
 export interface TextStyleIOS extends ViewStyle {
     fontVariant?: FontVariant[];
     letterSpacing?: number;
-    textDecorationColor?: string;
+    textDecorationColor?: ColorValue;
     textDecorationStyle?: 'solid' | 'double' | 'dotted' | 'dashed';
     writingDirection?: 'auto' | 'ltr' | 'rtl';
 }
@@ -783,7 +863,7 @@ export interface TextStyleAndroid extends ViewStyle {
 
 // @see https://facebook.github.io/react-native/docs/text.html#style
 export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
-    color?: string;
+    color?: ColorValue;
     fontFamily?: string;
     fontSize?: number;
     fontStyle?: 'normal' | 'italic';
@@ -798,8 +878,8 @@ export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
     textAlign?: 'auto' | 'left' | 'right' | 'center' | 'justify';
     textDecorationLine?: 'none' | 'underline' | 'line-through' | 'underline line-through';
     textDecorationStyle?: 'solid' | 'double' | 'dotted' | 'dashed';
-    textDecorationColor?: string;
-    textShadowColor?: string;
+    textDecorationColor?: ColorValue;
+    textShadowColor?: ColorValue;
     textShadowOffset?: { width: number; height: number };
     textShadowRadius?: number;
     textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase';
@@ -833,7 +913,7 @@ export interface TextPropsAndroid {
     /**
      * The highlight color of the text.
      */
-    selectionColor?: string;
+    selectionColor?: ColorValue;
 
     /**
      * Set text break strategy on Android API Level 23+
@@ -1224,7 +1304,7 @@ export interface TextInputAndroidProps {
     /**
      * The color of the textInput underline.
      */
-    underlineColorAndroid?: string;
+    underlineColorAndroid?: ColorValue;
 
     /**
      * Vertically align text when `multiline` is set to true
@@ -1324,7 +1404,7 @@ export interface TextInputSubmitEditingEventData {
 export interface TextInputTextInputEventData {
     text: string;
     previousText: string;
-    range: { start: number, end: number };
+    range: { start: number; end: number };
 }
 
 /**
@@ -1489,7 +1569,7 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
     /**
      * The text color of the placeholder string
      */
-    placeholderTextColor?: string;
+    placeholderTextColor?: ColorValue;
 
     /**
      * enum('default', 'go', 'google', 'join', 'next', 'route', 'search', 'send', 'yahoo', 'done', 'emergency-call')
@@ -1517,7 +1597,7 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
     /**
      * The highlight (and cursor on ios) color of the text input
      */
-    selectionColor?: string;
+    selectionColor?: ColorValue;
 
     /**
      * Styles
@@ -1706,7 +1786,7 @@ export interface ToolbarAndroidProps extends ViewProps {
     /**
      * Sets the toolbar subtitle color.
      */
-    subtitleColor?: string;
+    subtitleColor?: ColorValue;
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -1721,7 +1801,7 @@ export interface ToolbarAndroidProps extends ViewProps {
     /**
      * Sets the toolbar title color.
      */
-    titleColor?: string;
+    titleColor?: ColorValue;
 }
 
 /**
@@ -1875,23 +1955,23 @@ export interface GestureResponderHandlers {
  */
 export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     backfaceVisibility?: 'visible' | 'hidden';
-    backgroundColor?: string;
-    borderBottomColor?: string;
+    backgroundColor?: ColorValue;
+    borderBottomColor?: ColorValue;
     borderBottomEndRadius?: number;
     borderBottomLeftRadius?: number;
     borderBottomRightRadius?: number;
     borderBottomStartRadius?: number;
     borderBottomWidth?: number;
-    borderColor?: string;
-    borderEndColor?: string;
-    borderLeftColor?: string;
+    borderColor?: ColorValue;
+    borderEndColor?: ColorValue;
+    borderLeftColor?: ColorValue;
     borderLeftWidth?: number;
     borderRadius?: number;
-    borderRightColor?: string;
+    borderRightColor?: ColorValue;
     borderRightWidth?: number;
-    borderStartColor?: string;
+    borderStartColor?: ColorValue;
     borderStyle?: 'solid' | 'dotted' | 'dashed';
-    borderTopColor?: string;
+    borderTopColor?: ColorValue;
     borderTopEndRadius?: number;
     borderTopLeftRadius?: number;
     borderTopRightRadius?: number;
@@ -2572,7 +2652,7 @@ export interface SegmentedControlIOSProps extends ViewProps {
     /**
      * Accent color of the control.
      */
-    tintColor?: string;
+    tintColor?: ColorValue;
 
     /**
      * The labels for the control's segment buttons, in order.
@@ -2600,7 +2680,7 @@ export class SafeAreaView extends SafeAreaViewBase {}
 export class InputAccessoryView extends React.Component<InputAccessoryViewProps> {}
 
 export interface InputAccessoryViewProps {
-    backgroundColor?: string;
+    backgroundColor?: ColorValue;
 
     /**
      * An ID which is used to associate this InputAccessoryView to specified TextInput(s).
@@ -2645,7 +2725,7 @@ export interface NavigatorIOSProps {
     /**
      * The default background color of the navigation bar.
      */
-    barTintColor?: string;
+    barTintColor?: ColorValue;
 
     /**
      * NavigatorIOS uses "route" objects to identify child views, their props, and navigation bar configuration.
@@ -2685,12 +2765,12 @@ export interface NavigatorIOSProps {
     /**
      * The color used for buttons in the navigation bar
      */
-    tintColor?: string;
+    tintColor?: ColorValue;
 
     /**
      * The text color of the navigation bar title
      */
-    titleTextColor?: string;
+    titleTextColor?: ColorValue;
 
     /**
      * A Boolean value that indicates whether the navigation bar is translucent
@@ -2770,7 +2850,7 @@ export interface ActivityIndicatorProps extends ViewProps {
     /**
      * The foreground color of the spinner (default is gray).
      */
-    color?: string;
+    color?: ColorValue;
 
     /**
      * Whether the indicator should hide when not animating (true by default).
@@ -2804,7 +2884,7 @@ export interface ActivityIndicatorIOSProps extends ViewProps {
     /**
      * The foreground color of the spinner (default is gray).
      */
-    color?: string;
+    color?: ColorValue;
 
     /**
      * Whether the indicator should hide when not animating (true by default).
@@ -2903,7 +2983,7 @@ export interface DrawerLayoutAndroidProps extends ViewProps {
      *   </DrawerLayoutAndroid>
      *);
      */
-    drawerBackgroundColor?: string;
+    drawerBackgroundColor?: ColorValue;
 
     /**
      * Specifies the lock mode of the drawer. The drawer can be locked
@@ -2979,7 +3059,7 @@ export interface DrawerLayoutAndroidProps extends ViewProps {
      * the status bar to allow it to open over the status bar. It will
      * only have an effect on API 21+.
      */
-    statusBarBackgroundColor?: string;
+    statusBarBackgroundColor?: ColorValue;
 }
 
 interface DrawerPosition {
@@ -3012,6 +3092,7 @@ export class DrawerLayoutAndroid extends DrawerLayoutAndroidBase {
 export interface PickerIOSItemProps {
     value?: string | number;
     label?: string;
+    textColor?: ProcessedColorValue;
 }
 
 /**
@@ -3024,7 +3105,7 @@ export class PickerIOSItem extends React.Component<PickerIOSItemProps> {}
  */
 export interface PickerItemProps {
     testID?: string;
-    color?: string;
+    color?: ColorValue;
     label: string;
     value?: any;
 }
@@ -3173,7 +3254,7 @@ export interface ProgressBarAndroidProps extends ViewProps {
     /**
      * Color of the progress bar.
      */
-    color?: string;
+    color?: ColorValue;
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -3206,12 +3287,12 @@ export interface ProgressViewIOSProps extends ViewProps {
     /**
      * The tint color of the progress bar itself.
      */
-    progressTintColor?: string;
+    progressTintColor?: ColorValue;
 
     /**
      * The tint color of the progress bar track.
      */
-    trackTintColor?: string;
+    trackTintColor?: ColorValue;
 
     /**
      * A stretchable image to display as the progress bar.
@@ -3237,7 +3318,7 @@ export interface RefreshControlPropsIOS extends ViewProps {
     /**
      * The color of the refresh indicator.
      */
-    tintColor?: string;
+    tintColor?: ColorValue;
 
     /**
      * The title displayed under the refresh indicator.
@@ -3247,14 +3328,14 @@ export interface RefreshControlPropsIOS extends ViewProps {
     /**
      * Title color.
      */
-    titleColor?: string;
+    titleColor?: ColorValue;
 }
 
 export interface RefreshControlPropsAndroid extends ViewProps {
     /**
      * The colors (at least one) that will be used to draw the refresh indicator.
      */
-    colors?: string[];
+    colors?: ColorValue[];
 
     /**
      * Whether the pull to refresh functionality is enabled.
@@ -3264,7 +3345,7 @@ export interface RefreshControlPropsAndroid extends ViewProps {
     /**
      * The background color of the refresh indicator.
      */
-    progressBackgroundColor?: string;
+    progressBackgroundColor?: ColorValue;
 
     /**
      * Size of the refresh indicator, see RefreshControl.SIZE.
@@ -3350,7 +3431,7 @@ export interface SliderPropsAndroid extends ViewProps {
     /**
      * Color of the foreground switch grip.
      */
-    thumbTintColor?: string;
+    thumbTintColor?: ColorValue;
 }
 
 export interface SliderPropsIOS extends ViewProps {
@@ -3390,7 +3471,7 @@ export interface SliderProps extends SliderPropsIOS, SliderPropsAndroid {
      * The color used for the track to the right of the button.
      * Overrides the default blue gradient image.
      */
-    maximumTrackTintColor?: string;
+    maximumTrackTintColor?: ColorValue;
 
     /**
      * Initial maximum value of the slider. Default value is 1.
@@ -3401,7 +3482,7 @@ export interface SliderProps extends SliderPropsIOS, SliderPropsAndroid {
      * The color used for the track to the left of the button.
      * Overrides the default blue gradient image.
      */
-    minimumTrackTintColor?: string;
+    minimumTrackTintColor?: ColorValue;
 
     /**
      * Initial minimum value of the slider. Default value is 0.
@@ -3469,7 +3550,7 @@ export interface SwitchIOSProps extends ViewProps {
     /**
      * Background color when the switch is turned on.
      */
-    onTintColor?: string;
+    onTintColor?: ColorValue;
 
     /**
      * Callback that is called when the user toggles the switch.
@@ -3479,12 +3560,12 @@ export interface SwitchIOSProps extends ViewProps {
     /**
      * Background color for the switch round button.
      */
-    thumbTintColor?: string;
+    thumbTintColor?: ColorValue;
 
     /**
      * Background color when the switch is turned off.
      */
-    tintColor?: string;
+    tintColor?: ColorValue;
 
     /**
      * The value of the switch, if true the switch will be turned on. Default value is false.
@@ -3540,7 +3621,7 @@ export interface ImageResizeModeStatic {
 }
 
 export interface ShadowStyleIOS {
-    shadowColor?: string;
+    shadowColor?: ColorValue;
     shadowOffset?: { width: number; height: number };
     shadowOpacity?: number;
     shadowRadius?: number;
@@ -3556,15 +3637,15 @@ export interface ImageStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     backfaceVisibility?: 'visible' | 'hidden';
     borderBottomLeftRadius?: number;
     borderBottomRightRadius?: number;
-    backgroundColor?: string;
-    borderColor?: string;
+    backgroundColor?: ColorValue;
+    borderColor?: ColorValue;
     borderWidth?: number;
     borderRadius?: number;
     borderTopLeftRadius?: number;
     borderTopRightRadius?: number;
     overflow?: 'visible' | 'hidden';
-    overlayColor?: string;
-    tintColor?: string;
+    overlayColor?: ColorValue;
+    tintColor?: ColorValue;
     opacity?: number;
 }
 
@@ -5005,7 +5086,10 @@ export interface TouchableWithoutFeedbackPropsAndroid {
 /**
  * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html#props
  */
-export interface TouchableWithoutFeedbackProps extends TouchableWithoutFeedbackPropsIOS, TouchableWithoutFeedbackPropsAndroid, AccessibilityProps {
+export interface TouchableWithoutFeedbackProps
+    extends TouchableWithoutFeedbackPropsIOS,
+        TouchableWithoutFeedbackPropsAndroid,
+        AccessibilityProps {
     /**
      * Delay in ms, from onPressIn, before onLongPress is called.
      */
@@ -5129,7 +5213,7 @@ export interface TouchableHighlightProps extends TouchableWithoutFeedbackProps {
     /**
      * The color of the underlay that will show through when the touch is active.
      */
-    underlayColor?: string;
+    underlayColor?: ColorValue;
 }
 
 /**
@@ -5191,6 +5275,7 @@ interface RippleBackgroundPropType extends BaseBackgroundPropType {
     type: 'RippleAndroid';
     color?: number;
     borderless?: boolean;
+    radius?: number;
 }
 
 interface ThemeAttributeBackgroundPropType extends BaseBackgroundPropType {
@@ -5258,7 +5343,7 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
      * @param color The ripple color
      * @param borderless If the ripple can render outside it's bounds
      */
-    static Ripple(color: string, borderless?: boolean): RippleBackgroundPropType;
+    static Ripple(color: ColorValue, borderless?: boolean): RippleBackgroundPropType;
     static canUseNativeForeground(): boolean;
 }
 
@@ -5626,7 +5711,7 @@ export interface TabBarIOSItemProps extends ViewProps {
     /**
      * Background color for the badge. Available since iOS 10.
      */
-    badgeColor?: string;
+    badgeColor?: ColorValue;
 
     /**
      * A custom icon for the tab. It is ignored when a system icon is defined.
@@ -5696,7 +5781,7 @@ export interface TabBarIOSProps extends ViewProps {
     /**
      * Background color of the tab bar
      */
-    barTintColor?: string;
+    barTintColor?: ColorValue;
 
     /**
      * Specifies tab bar item positioning. Available values are:
@@ -5712,7 +5797,7 @@ export interface TabBarIOSProps extends ViewProps {
     /**
      * Color of the currently selected tab icon
      */
-    tintColor?: string;
+    tintColor?: ColorValue;
 
     /**
      * A Boolean value that indicates whether the tab bar is translucent
@@ -5722,12 +5807,12 @@ export interface TabBarIOSProps extends ViewProps {
     /**
      * Color of text on unselected tabs
      */
-    unselectedTintColor?: string;
+    unselectedTintColor?: ColorValue;
 
     /**
      * Color of unselected tab icons. Available since iOS 10.
      */
-    unselectedItemTintColor?: string;
+    unselectedItemTintColor?: ColorValue;
 }
 
 export class TabBarIOS extends React.Component<TabBarIOSProps> {
@@ -5827,6 +5912,34 @@ interface PlatformWindowsOSStatic extends PlatformStatic {
 interface PlatformWebStatic extends PlatformStatic {
     OS: 'web';
 }
+
+declare const OpaqueColorValue: unique symbol;
+type OpaqueColorValue = typeof OpaqueColorValue;
+
+export type ColorValue = string | OpaqueColorValue;
+
+export type ProcessedColorValue = number | OpaqueColorValue;
+
+type DynamicColorIOSTuple = {
+    light: ColorValue;
+    dark: ColorValue;
+};
+
+/**
+ * Specify color to display depending on the current system appearance settings
+ *
+ * @param tuple Colors you want to use for "light mode" and "dark mode"
+ * @platform ios
+ */
+export function DynamicColorIOS(tuple: DynamicColorIOSTuple): OpaqueColorValue;
+
+/**
+ * Select native platform color
+ * The color must match the string that exists on the native platform
+ *
+ * @see https://reactnative.dev/docs/platformcolor#example
+ */
+export function PlatformColor(...colors: string[]): OpaqueColorValue;
 
 /**
  * Deprecated - subclass NativeEventEmitter to create granular event modules instead of
@@ -6400,7 +6513,7 @@ export interface ScrollViewPropsAndroid {
      * unnecessary overdraw. This is an advanced optimization that is not
      * needed in the general case.
      */
-    endFillColor?: string;
+    endFillColor?: ColorValue;
 
     /**
      * Tag used to log scroll performance on this scroll view. Will force
@@ -6787,7 +6900,7 @@ export interface ActionSheetIOSOptions {
     destructiveButtonIndex?: number;
     message?: string;
     anchor?: number;
-    tintColor?: string;
+    tintColor?: ColorValue | ProcessedColorValue;
 }
 
 export interface ShareActionSheetIOSOptions {
@@ -6849,7 +6962,7 @@ export type ShareContent =
 export type ShareOptions = {
     dialogTitle?: string;
     excludedActivityTypes?: Array<string>;
-    tintColor?: string;
+    tintColor?: ColorValue;
     subject?: string;
 };
 
@@ -7213,7 +7326,7 @@ export interface BackHandlerStatic {
 export interface ButtonProps {
     title: string;
     onPress: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
-    color?: string;
+    color?: ColorValue;
     accessibilityLabel?: string;
     disabled?: boolean;
 
@@ -7479,6 +7592,23 @@ export interface LinkingStatic extends NativeEventEmitter {
      * opening an SMS app with a message draft in place, and more.  See https://developer.android.com/reference/kotlin/android/content/Intent?hl=en
      */
     sendIntent(action: string, extras?: Array<{ key: string; value: string | number | boolean }>): Promise<void>;
+}
+
+export interface LogBoxStatic {
+    /**
+     * Silence any logs that match the given strings or regexes.
+     */
+    ignoreLogs(patterns: (string | RegExp)[]): void;
+
+    /**
+     * Toggle error and warning notifications
+     * Note: this only disables notifications, uncaught errors will still open a full screen LogBox.
+     * @param ignore whether to ignore logs or not
+     */
+    ignoreAllLogs(ignore?: boolean): void;
+
+    install(): void;
+    uninstall(): void;
 }
 
 export interface PanResponderGestureState {
@@ -7949,7 +8079,7 @@ export interface StatusBarPropsAndroid {
      *
      * @platform android
      */
-    backgroundColor?: string;
+    backgroundColor?: ColorValue;
 
     /**
      * If the status bar is translucent. When translucent is set to true,
@@ -8005,7 +8135,7 @@ export class StatusBar extends React.Component<StatusBarProps> {
      * @param color Background color.
      * @param animated Animate the style change.
      */
-    static setBackgroundColor: (color: string, animated?: boolean) => void;
+    static setBackgroundColor: (color: ColorValue, animated?: boolean) => void;
 
     /**
      * Control the translucency of the status bar
@@ -8280,35 +8410,35 @@ export interface SwitchPropsIOS extends ViewProps {
      *
      * @deprecated use trackColor instead
      */
-    onTintColor?: string;
+    onTintColor?: ColorValue;
 
     /**
      * Color of the foreground switch grip.
      *
      * @deprecated use thumbColor instead
      */
-    thumbTintColor?: string;
+    thumbTintColor?: ColorValue;
 
     /**
      * Background color when the switch is turned off.
      *
      * @deprecated use trackColor instead
      */
-    tintColor?: string;
+    tintColor?: ColorValue;
 }
 
 export interface SwitchProps extends SwitchPropsIOS {
     /**
      * Color of the foreground switch grip.
      */
-    thumbColor?: string;
+    thumbColor?: ColorValue;
 
     /**
      * Custom colors for the switch track
      *
      * Color when false and color when true
      */
-    trackColor?: { false: string; true: string };
+    trackColor?: { false: ColorValue; true: ColorValue };
 
     /**
      * If true the user won't be able to toggle the switch.
@@ -8336,7 +8466,7 @@ export interface SwitchProps extends SwitchPropsIOS {
      * On iOS, custom color for the background.
      * Can be seen when the switch value is false or when the switch is disabled.
      */
-    ios_backgroundColor?: string;
+    ios_backgroundColor?: ColorValue;
 
     style?: StyleProp<ViewStyle>;
 }
@@ -9224,6 +9354,9 @@ export type LayoutAnimation = LayoutAnimationStatic;
 export const Linking: LinkingStatic;
 export type Linking = LinkingStatic;
 
+export const LogBox: LogBoxStatic;
+export type LogBox = LogBoxStatic;
+
 export const PanResponder: PanResponderStatic;
 export type PanResponder = PanResponderStatic;
 
@@ -9336,13 +9469,13 @@ export function findNodeHandle(
     componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>,
 ): null | number;
 
-export function processColor(color: any): number;
+export function processColor(color?: number | ColorValue): ProcessedColorValue | null | undefined;
 
 export const YellowBox: React.ComponentClass<any, any> & { ignoreWarnings: (warnings: string[]) => void };
 
 /**
  * LogBox is enabled by default so there is no need to call unstable_enableLogBox() anymore. This is a no op and will be removed in the next version.
- * @depcreated
+ * @deprecated
  */
 export function unstable_enableLogBox(): void;
 
@@ -9408,7 +9541,13 @@ declare global {
         groupCollapsed(label?: string): void;
         groupEnd(): void;
         group(label?: string): void;
+        /**
+         * @deprecated Use LogBox.ignoreAllLogs(disable) instead
+         */
         disableYellowBox: boolean;
+        /**
+         * @deprecated Use LogBox.ignoreLogs(patterns) instead
+         */
         ignoredYellowBox: string[];
     }
 
