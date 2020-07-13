@@ -438,8 +438,8 @@ declare class BrokerAsPromised extends EventEmitter {
 
 declare class Broker extends EventEmitter {
     readonly config: BrokerConfig;
-    static create(config: BrokerConfig, next: (err: Error, broker: Broker) => void): void;
-    static create(config: BrokerConfig, components: any, next: (err?: Error, broker?: Broker) => void): void;
+    static create(config: BrokerConfig, next: (err: Error | null, broker: Broker) => void): void;
+    static create(config: BrokerConfig, components: unknown, next: (err: Error | null, broker: Broker) => void): void;
     connect(name: string, next: (err?: Error, connection?: Connection) => void): void;
     nuke(next: (err?: Error) => void): void;
     purge(next: (err?: Error) => void): void;

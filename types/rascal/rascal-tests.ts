@@ -123,3 +123,17 @@ Broker.create(config, (err, broker) => {
         broker; // $ExpectType Broker
     });
 }
+
+{
+    // $ExpectType void
+    Broker.create(config, (err, broker) => {
+        err; // $ExpectType Error | null
+        broker; // $ExpectType Broker
+    });
+
+    // $ExpectType void
+    Broker.create(config, {}, (err, broker) => {
+        err; // $ExpectType Error | null
+        broker; // $ExpectType Broker
+    });
+}
