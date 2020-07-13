@@ -415,7 +415,7 @@ export class SubscriptionSession extends EventEmitter {
     on(event: 'message', listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => void): this;
     on(event: 'error' | 'cancelled', listener: (err: Error) => void): this;
     on(
-        event: 'invalid_content' | 'redeliveries_exceeded' | 'redeliveries_error' | 'redeliveries_error',
+        event: 'invalid_content' | 'redeliveries_exceeded' | 'redeliveries_error',
         listener: (err: Error, message: Message, ackOrNackFn: AckOrNack) => void,
     ): this;
 }
