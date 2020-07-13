@@ -5912,7 +5912,7 @@ interface PlatformWebStatic extends PlatformStatic {
     OS: 'web';
 }
 
-declare const OpaqueColorValue: symbol;
+declare const OpaqueColorValue: unique symbol;
 type OpaqueColorValue = typeof OpaqueColorValue;
 
 export type ColorValue = string | OpaqueColorValue;
