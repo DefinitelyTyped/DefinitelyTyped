@@ -1,6 +1,6 @@
 // Type definitions for workerb-api 1.0
 // Project: https://github.com/workerb-io (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: praveen-me <https://github.com/praveen-me>
+// Definitions by: Praveen Kumar Saini <https://github.com/praveen-me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare type clickQueryMethods = 'by_text' | 'by_regex' | 'by_id' | 'by_xpath' | 'by_query_selector';
