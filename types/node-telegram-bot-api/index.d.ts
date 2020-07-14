@@ -178,7 +178,7 @@ declare namespace TelegramBot {
 
     interface SendPollOptions extends SendBasicOptions {
         is_anonymous?: boolean;
-        type?: string;
+        type?: PollType;
         allows_multiple_answers?: boolean;
         correct_option_id?: number;
         explanation?: string;
