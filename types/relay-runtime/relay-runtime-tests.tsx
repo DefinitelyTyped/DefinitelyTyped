@@ -265,6 +265,7 @@ const node: ConcreteRequest = (function () {
             operationKind: 'query',
             name: 'FooQuery',
             id: null,
+            cacheID: null,
             text: 'query FooQuery {\n  __typename\n}\n',
             metadata: {},
         },
