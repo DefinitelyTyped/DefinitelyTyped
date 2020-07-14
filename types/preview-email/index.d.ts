@@ -52,7 +52,7 @@ declare namespace previewEmail {
     /**
      * a function to build preview url from file path
      */
-    interface UlrTransform {
+    interface UrlTransform {
         (path: string): string;
     }
 }
