@@ -16240,7 +16240,7 @@ declare namespace Office {
          */
         persistent?: Boolean;
         /**
-         * Specifies actions for the message. Limit: 2 actions. This limit doesn't include "Dismiss" which is available by default.
+         * Specifies actions for the message. Limit: 2 actions. This limit doesn't count the "Dismiss" action as it's included by default.
          * Only applicable when the type is `InsightMessage`.
          * Specifying this property for an unsupported type or including too many actions throws an error.
          *
