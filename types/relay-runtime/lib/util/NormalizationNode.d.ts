@@ -1,7 +1,5 @@
 export type NormalizationArgument = NormalizationLiteral | NormalizationVariable;
 
-export type NormalizationArgumentDefinition = NormalizationLocalArgument | NormalizationRootArgument;
-
 export interface NormalizationDefer {
     readonly if: string | null;
     readonly kind: 'Defer';
@@ -106,7 +104,6 @@ export interface NormalizationConnection {
 export interface NormalizationLocalArgumentDefinition {
     kind: string;
     name: string;
-    type: string;
     defaultValue: any;
 }
 
@@ -115,19 +112,6 @@ export interface NormalizationModuleImport {
     documentName: string;
     fragmentPropName: string;
     fragmentName: string;
-}
-
-export interface NormalizationLocalArgument {
-    readonly kind: string; // 'LocalArgument';
-    readonly name: string;
-    readonly type: string;
-    readonly defaultValue: unknown;
-}
-
-export interface NormalizationRootArgument {
-    readonly kind: string; // 'RootArgument';
-    readonly name: string;
-    readonly type: string | null | undefined;
 }
 
 export interface NormalizationCondition {
