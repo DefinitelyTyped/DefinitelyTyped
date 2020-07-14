@@ -1,11 +1,13 @@
 // Type definitions for workerb-api 1.0
-// Project: https://github.com/workerb-io (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: praveen-me <https://github.com/praveen-me>
+// Project: https://workerb.io/
+// Definitions by: workerB <https://github.com/workerb-io>
+//                Saurabh Garg <https://github.com/s-garg>
+//                Praveen Kumar Saini <https://github.com/praveen-me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type clickQueryMethods = 'by_text' | 'by_regex' | 'by_id' | 'by_xpath' | 'by_query_selector';
+declare type clickQueryMethods = 'by_text' | 'by_regex' | 'by_id' | 'by_xpath' | 'by_query_selector';
 
-export type getAttributeQueryMethods =
+declare type getAttributeQueryMethods =
     | 'by_text'
     | 'by_regex'
     | 'by_id'
@@ -13,7 +15,7 @@ export type getAttributeQueryMethods =
     | 'by_query_selector'
     | 'by_query_selector_all';
 
-export type typeQueryMethods =
+declare type typeQueryMethods =
     | 'by_text'
     | 'by_regex'
     | 'by_id'
@@ -22,7 +24,7 @@ export type typeQueryMethods =
     | 'by_label'
     | 'by_placeholder';
 
-export interface QueryOptions {
+declare interface QueryOptions {
     /**
      *  A number which specifies after how many milliseconds the runtime will try to find the target element. The default value is 200.
      */
@@ -33,7 +35,7 @@ export interface QueryOptions {
     numberOfTries?: number;
 }
 
-export interface ClickQueryOptions extends QueryOptions {
+declare interface ClickQueryOptions extends QueryOptions {
     /**
      * Allows to select an element with different methods:
      *
@@ -53,7 +55,7 @@ export interface ClickQueryOptions extends QueryOptions {
     expectReload?: boolean;
 }
 
-export interface GetAttributeQueryOptions extends QueryOptions {
+declare interface GetAttributeQueryOptions extends QueryOptions {
     /**
      * Allows to select an element with different methods:
      *
@@ -67,7 +69,7 @@ export interface GetAttributeQueryOptions extends QueryOptions {
     method?: getAttributeQueryMethods;
 }
 
-export interface SelectQueryOptions extends QueryOptions {
+declare interface SelectQueryOptions extends QueryOptions {
     /**
      * Allows to select an element with different methods:
      *
@@ -85,7 +87,7 @@ export interface SelectQueryOptions extends QueryOptions {
     selectBy: string;
 }
 
-export interface TypeQueryInterface extends QueryOptions {
+declare interface TypeQueryInterface extends QueryOptions {
     /**
      * Allows to select an element with different methods:
      *
@@ -100,7 +102,7 @@ export interface TypeQueryInterface extends QueryOptions {
     method?: typeQueryMethods;
 }
 
-export interface APIResponse {
+declare interface APIResponse {
     /**
      * A string that has the response returned by the remote server.
      */
@@ -111,7 +113,7 @@ export interface APIResponse {
     status: number;
 }
 
-export interface EventConfig {
+declare interface EventConfig {
     /**
      * A string value used to the specify the type of the event.
      */
@@ -132,8 +134,8 @@ export interface EventConfig {
 }
 
 // global variables
-export let args: string[];
-export let options: any;
+declare let args: string[];
+declare let options: any;
 
 /**
  * The open function opens a link in the same browser window.
@@ -142,7 +144,7 @@ export let options: any;
  *
  * @returns undefined
  */
-export function open(url: string): undefined;
+declare function open(url: string): undefined;
 
 /**
  * The click function performs a mouse click on a target element. The element can be specified using different query methods.
@@ -152,7 +154,7 @@ export function open(url: string): undefined;
  *
  * @returns undefined
  */
-export function click(query: string, options?: ClickQueryOptions): undefined;
+declare function click(query: string, options?: ClickQueryOptions): undefined;
 
 /**
  * The notify function can be used to display a message to the user.
@@ -163,7 +165,7 @@ export function click(query: string, options?: ClickQueryOptions): undefined;
  *
  * @returns undefined
  */
-export function notify(message: string, type: 'error' | 'success', timeout: number): undefined;
+declare function notify(message: string, type: 'error' | 'success', timeout: number): undefined;
 
 /**
  * The type function writes a given string to a target input field. The input field can be specified using different query methods.
@@ -174,7 +176,7 @@ export function notify(message: string, type: 'error' | 'success', timeout: numb
  *
  * @returns undefined
  */
-export function type(text: string, query: string, options?: TypeQueryInterface): undefined;
+declare function type(text: string, query: string, options?: TypeQueryInterface): undefined;
 
 /**
  * The download can be used to download data as part of the script
@@ -186,7 +188,7 @@ export function type(text: string, query: string, options?: TypeQueryInterface):
  *
  * @returns undefined
  */
-export function download(filename: string, content: string, contentType: string): undefined;
+declare function download(filename: string, content: string, contentType: string): undefined;
 
 /**
  * The event function generates an event on a target element.
@@ -197,7 +199,7 @@ export function download(filename: string, content: string, contentType: string)
  *
  * @returns undefined
  */
-export function event(query: string, eventConfig: EventConfig, options?: ClickQueryOptions): undefined;
+declare function event(query: string, eventConfig: EventConfig, options?: ClickQueryOptions): undefined;
 
 /**
  * The prompt function opens a prompt to query user for input.
@@ -206,7 +208,7 @@ export function event(query: string, eventConfig: EventConfig, options?: ClickQu
  *
  * @returns A string that has the user input.
  */
-export function prompt(label: string): string;
+declare function prompt(label: string): string;
 
 /**
  * The log function can be used to print messages to the browser console.
@@ -216,7 +218,7 @@ export function prompt(label: string): string;
  *
  * @returns undefined
  */
-export function log(value: any, color?: string): undefined;
+declare function log(value: any, color?: string): undefined;
 
 /**
  * The read function returns a text from a target element.
@@ -226,7 +228,7 @@ export function log(value: any, color?: string): undefined;
  *
  * @returns A string which is either the text inside an element or in case of input the value of the input.
  */
-export function read(query: string, options?: ClickQueryOptions): string;
+declare function read(query: string, options?: ClickQueryOptions): string;
 
 /**
  * The readAll function returns texts of all target elements which match the query.
@@ -236,7 +238,7 @@ export function read(query: string, options?: ClickQueryOptions): string;
  *
  * @returns The array of values read.
  */
-export function readAll(query: string, options?: QueryOptions): any[];
+declare function readAll(query: string, options?: QueryOptions): any[];
 
 /**
  * The readTable function returns the content of a target table.
@@ -250,7 +252,7 @@ export function readAll(query: string, options?: QueryOptions): any[];
  *
  * * rows: An array of objects where each key corresponds to a header from the 'header' array. If column header is not identified, the key will be 'column{index}'.
  */
-export function readTable(
+declare function readTable(
     query: string,
     options?: ClickQueryOptions,
 ): {
@@ -263,7 +265,7 @@ export function readTable(
  *
  * @returns A string which is the URL of the webpage in the active tab.
  */
-export function readUrl(): string;
+declare function readUrl(): string;
 
 /**
  * The runInTab function runs the specified function in a new tab and returns the result to the current tab.
@@ -273,7 +275,7 @@ export function readUrl(): string;
  *
  * @returns A string which is stringified version of the value returned by the passed function.
  */
-export function runInTab(task: () => any, keepOpen: boolean): string;
+declare function runInTab(task: () => any, keepOpen: boolean): string;
 
 /**
  * Select value on a particular a DOM element.
@@ -284,7 +286,7 @@ export function runInTab(task: () => any, keepOpen: boolean): string;
  *
  * @returns undefined
  */
-export function select(value: string, query: string, options?: SelectQueryOptions): undefined;
+declare function select(value: string, query: string, options?: SelectQueryOptions): undefined;
 
 /**
  * The submit function generates an the 'enter' keypress event on a target form element. This can result in the submission of the parent form.
@@ -294,7 +296,7 @@ export function select(value: string, query: string, options?: SelectQueryOption
  *
  * @returns undefined
  */
-export function submit(query: string, options?: ClickQueryOptions): undefined;
+declare function submit(query: string, options?: ClickQueryOptions): undefined;
 
 /**
  * The tab function opens a link in a new tab in the browser.
@@ -303,7 +305,7 @@ export function submit(query: string, options?: ClickQueryOptions): undefined;
  *
  * @returns undefined
  */
-export function tab(url: string): undefined;
+declare function tab(url: string): undefined;
 
 /**
  * The getAttribute function can be used to get an attribute value of a target element.
@@ -314,7 +316,7 @@ export function tab(url: string): undefined;
  *
  * @returns An array of objects. Each object corresponds to each element in the DOM that satisfied the query and it has the attribute name & values as properties for that element.
  */
-export function getAttribute(
+declare function getAttribute(
     attributes: string | string[],
     query: string,
     options?: GetAttributeQueryOptions,
@@ -327,7 +329,7 @@ export function getAttribute(
  *
  * @returns undefined
  */
-export function logging(state: 'on' | 'off'): undefined;
+declare function logging(state: 'on' | 'off'): undefined;
 
 /**
  * The httpGet function can be used to make http get requests.
@@ -341,7 +343,7 @@ export function logging(state: 'on' | 'off'): undefined;
  *
  * * status: A number that is the Status Code returned by the remote server.
  */
-export function httpGet(url: string, headers?: object): APIResponse;
+declare function httpGet(url: string, headers?: object): APIResponse;
 
 /**
  * The httpDelete function can be used to make http delete requests.
@@ -356,7 +358,7 @@ export function httpGet(url: string, headers?: object): APIResponse;
  *
  * * status: A number that is the Status Code returned by the remote server.
  */
-export function httpDelete(url: string, data?: any, headers?: object): APIResponse;
+declare function httpDelete(url: string, data?: any, headers?: object): APIResponse;
 
 /**
  * The httpPost function can be used to make http post requests.
@@ -371,7 +373,7 @@ export function httpDelete(url: string, data?: any, headers?: object): APIRespon
  *
  * * status: A number that is the Status Code returned by the remote server.
  */
-export function httpPost(url: string, data?: any, headers?: object): APIResponse;
+declare function httpPost(url: string, data?: any, headers?: object): APIResponse;
 
 /**
  * The httpPut function can be used to make http put requests.
@@ -386,4 +388,4 @@ export function httpPost(url: string, data?: any, headers?: object): APIResponse
  *
  * * status: A number that is the Status Code returned by the remote server.
  */
-export function httpPut(url: string, data?: any, headers?: object): APIResponse;
+declare function httpPut(url: string, data?: any, headers?: object): APIResponse;
