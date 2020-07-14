@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import {AbstractLevelDOWN} from 'abstract-leveldown';
-import {EventEmitter} from 'events';
+import { AbstractLevelDOWN } from 'abstract-leveldown';
+import { EventEmitter } from 'events';
 import * as r from 'rdf-js';
 
 export = quadstore;
@@ -17,10 +17,9 @@ type IndexOptions = quadstore.IndexOptions;
 type StreamOptions = quadstore.StreamOptions;
 
 declare class quadstore<CK extends string = 'graph', TermType = string, Q = Quad<TermType, CK>> extends EventEmitter {
-
     boundary: string;
     separator: string;
-    
+
     constructor(db: AbstractLevelDOWN, opts?: {contextKey?: CK});
 
     close(cb?: (err: any) => void): void;
@@ -63,18 +62,19 @@ declare class quadstore<CK extends string = 'graph', TermType = string, Q = Quad
 }
 
 declare namespace quadstore {
-
-    export type MatchTerms<TermType = string, CK extends string = 'graph'> = {
+    type MatchTerms<TermType = string, CK extends string = 'graph'> = {
         subject?: TermType;
         predicate?: TermType;
         object?: TermType;
     } & {[key in CK]?: TermType};
-    
-    export type Quad<TermType = string, CK extends string = 'graph'> = {
+
+    interface Triple<TermType = string> {
         subject: TermType;
         predicate: TermType;
         object: TermType;
-    } & {[key in CK]: string};
+    }
+
+    type Quad<TermType = string, CK extends string = 'graph'> = Triple<TermType> & {[key in CK]: string};
 
     interface IndexOptions {
         lt?: string;
@@ -91,7 +91,6 @@ declare namespace quadstore {
     }
 
     class RdfStore<Q extends r.BaseQuad = r.Quad> extends quadstore<'graph', Q, r.Term> {
-        
         constructor(abstractLevelDOWN: AbstractLevelDOWN, opts: any);
 
         deleteGraph(graph: r.Quad_Graph): EventEmitter;
@@ -105,6 +104,4 @@ declare namespace quadstore {
 
     namespace RdfStore {
     }
-
 }
-

@@ -1,74 +1,36 @@
-import Quadstore from 'quadstore';
-import levelup from 'levelup';
-import MemDown from 'memdown';
-import {Parser} from 'n3';
+import Quadstore = require('quadstore');
+import { Triple } from 'quadstore';
 import { AbstractLevelDOWN } from 'abstract-leveldown';
-import 'mocha'; // https://stackoverflow.com/a/47794385/2487330
-import {expect} from 'chai';
 
-const tomAndJerry = `PREFIX c: <http://example.org/cartoons#>
-                     c:Tom a c:Cat.
-                     c:Jerry a c:Mouse;
-                             c:smarterThan c:Tom.`;
+const triples = [
+    {
+        subject: 'http://example.org/cartoons#Tom',
+        predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+        object: 'http://example.org/cartoons#Cat'
+    },
+    {
+        subject: 'http://example.org/cartoons#Jerry',
+        predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+        object: 'http://example.org/cartoons#Mouse'
+    },
+    {
+        subject: 'http://example.org/cartoons#Jerry',
+        predicate: 'http://example.org/cartoons#smarterThan',
+        object: 'http://example.org/cartoons#Tom'
+    }
+];
 
-async function createStore() {
-    const db: AbstractLevelDOWN = await new Promise((resolve, reject) => {
-        levelup(new MemDown(), (err, db) => {
-            if (err) reject(err);
-            resolve(db);
-        });
-    });
-    return new Quadstore(db);
-}
+const createQuads = (triples: Triple[], graph: string) => triples.map(t => ({...t, graph}));
 
-async function loadTomAndJerry(store: Quadstore, graph?: string) {
-    const parser = new Parser();
-    const rdfQuads = parser.parse(tomAndJerry);
-    const stringQuads = rdfQuads.map(q => ({
-        subject: q.subject.value,
-        predicate: q.predicate.value,
-        object: q.object.value,
-        graph: graph || q.graph.value
-    }));
-    return store.put(stringQuads);
-}
+const graph = 'http://default.graph/';
 
-describe('Test basic QuadStore functionality', function() {
-    let quadstore: Quadstore;
-    const graph = 'http://default.graph/';
+const createQuadstore = (db: AbstractLevelDOWN) => new Quadstore(db);
 
-    before(async function() {
-        quadstore = await createStore();
-        await loadTomAndJerry(quadstore, graph);
-    });
+const defaultQuads = createQuads(triples, 'http://default.graph');
 
-    it('Should insert and retrieve data', async function() {
-        const results = await quadstore.get({});
-        expect(results.length).to.eq(3);
-    });
+const db: AbstractLevelDOWN = <AbstractLevelDOWN> <unknown> undefined;
+const quadstore: Quadstore = createQuadstore(db);
 
-    it('Should match records correctly', async function() {
-        const results = await quadstore.get({subject: 'http://example.org/cartoons#Jerry'});
-        expect(results.length).to.eq(2);
-    });
+quadstore.put(defaultQuads);
 
-    it('Should insert data only once', async function() {
-        await loadTomAndJerry(quadstore, graph);
-        const results = await quadstore.get({});
-        expect(results.length).to.eq(3);
-    });
-
-    it('Should delete specific data', async function() {
-        const p = 'http://example.org/cartoons#';
-        await quadstore.del([{subject: p + 'Jerry', predicate: p + 'smarterThan', object: p + 'Tom', graph}]);
-        const results = await quadstore.get({});
-        expect(results.length).to.eq(2);
-    });
-
-    it('Should delete matching data', async function() {
-        const p = 'http://example.org/cartoons#';
-        await quadstore.del({subject: p + 'Jerry'});
-        const results = await quadstore.get({});
-        expect(results.length).to.eq(1);
-    });
-});
+quadstore.get({subject: 'http://example.org/cartoons#Jerry'});
