@@ -41,7 +41,7 @@ declare namespace previewEmail {
          * - this is where you can customize the opened path to handle WSL to Windows transformation or build a http url if dir is served.
          * @default (path) => 'file://[file path]'
          */
-        urlTransform?: UlrTransform;
+        urlTransform?: UrlTransform;
     }
 
     interface OpenOptions {
