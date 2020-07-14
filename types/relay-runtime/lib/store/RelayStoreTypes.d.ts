@@ -46,6 +46,7 @@ export interface SelectorData {
 export interface SingularReaderSelector {
     readonly kind: string;
     readonly dataID: DataID;
+    readonly isWithinUnmatchedTypeRefinement: boolean;
     readonly node: ReaderFragment;
     readonly owner: RequestDescriptor;
     readonly variables: Variables;
