@@ -8303,7 +8303,7 @@ declare namespace Office {
              */
             ErrorMessage = "errorMessage",
             /**
-             * The notification message is a actionable informational message.
+             * The notification message is an actionable informational message.
              *
              * [Api set: Mailbox Preview]
              */
