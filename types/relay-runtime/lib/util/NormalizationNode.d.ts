@@ -43,7 +43,7 @@ export interface NormalizationMatchField {
 export interface NormalizationOperation {
     readonly kind: string; // 'Operation';
     readonly name: string;
-    readonly argumentDefinitions: ReadonlyArray<NormalizationLocalArgument>;
+    readonly argumentDefinitions: ReadonlyArray<NormalizationLocalArgumentDefinition>;
     readonly selections: ReadonlyArray<NormalizationSelection>;
 }
 
