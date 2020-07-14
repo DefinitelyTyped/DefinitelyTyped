@@ -503,8 +503,8 @@ _.chain([
         subGroup: 3,
         value: { valueProperty: 'third' }
     }])
-    .groupBy(i => i.group)
-    .filter(i => i.length >= 2)
+    .groupBy(v => v.group)
+    .filter(g => g.length >= 2)
     .flatten()
     .where({ subGroup: 2 })
     .pluck('value')
