@@ -240,7 +240,35 @@ nodeRequire.requireMock('moduleName');
 
 /* Top-level jest namespace functions */
 
+interface FakeModule {
+    import1: { property: string };
+    import2: { method(): void };
+}
+
+interface FakeModuleWithDefault {
+    default: { property: number };
+    import1: { property: string };
+}
+
+type FakeRequiredFunction = () => string;
+
 const customMatcherFactories: jasmine.CustomMatcherFactories = {};
+
+const fakeImportModuleTypePartial = {
+    import1: { property: 'Hello World' },
+};
+
+const fakeImportModuleWithDefault = {
+    __esModule: true,
+    default: { property: 42 },
+};
+
+const fakeImportModuleNoDefaultProvided = {
+    __esModule: false,
+    import2: { method() {} }
+};
+
+const fakeFunction = jest.fn<ReturnType<FakeRequiredFunction>, Parameters<FakeRequiredFunction>>();
 
 jest.addMatchers(customMatcherFactories)
     .addMatchers({})
@@ -258,12 +286,22 @@ jest.addMatchers(customMatcherFactories)
     .doMock('moduleName', jest.fn())
     .doMock('moduleName', jest.fn(), {})
     .doMock('moduleName', jest.fn(), { virtual: true })
+    .doMock<FakeRequiredFunction>('moduleName', () => fakeFunction)
+    .doMock<FakeModule>('moduleName', () => fakeImportModuleTypePartial)
+    .doMock<FakeModule>('moduleName', () => fakeImportModuleTypePartial, { virtual: true })
+    .doMock<FakeModuleWithDefault>('moduleName', () => fakeImportModuleWithDefault)
+    .doMock<FakeModuleWithDefault>('moduleName', () => fakeImportModuleNoDefaultProvided)
     .dontMock('moduleName')
     .enableAutomock()
     .mock('moduleName')
     .mock('moduleName', jest.fn())
     .mock('moduleName', jest.fn(), {})
     .mock('moduleName', jest.fn(), { virtual: true })
+    .mock<FakeRequiredFunction>('moduleName', () => fakeFunction)
+    .mock<FakeModule>('moduleName', () => fakeImportModuleTypePartial)
+    .mock<FakeModule>('moduleName', () => fakeImportModuleTypePartial, { virtual: true })
+    .mock<FakeModuleWithDefault>('moduleName', () => fakeImportModuleWithDefault)
+    .mock<FakeModuleWithDefault>('moduleName', () => fakeImportModuleNoDefaultProvided)
     .resetModuleRegistry()
     .resetModules()
     .isolateModules(() => {})
