@@ -7885,6 +7885,15 @@ declare namespace Office {
 declare namespace Office {
     namespace MailboxEnums {
         /**
+         * Specifies the type of Action.
+         *
+         * [Api set: Mailbox Preview]
+         */
+        enum ActionType {
+            ExecuteFunction = "ExecuteFunction",
+            ShowTaskPane = "ShowTaskpane"
+        }
+        /**
          * Specifies the sensitivity type of an appointment.
          *
          * [Api set: Mailbox Preview]
@@ -8293,7 +8302,13 @@ declare namespace Office {
             /**
              * The notification message is an error message.
              */
-            ErrorMessage = "errorMessage"
+            ErrorMessage = "errorMessage",
+            /**
+             * The notification message is a actionable informational message.
+             *
+             * [Api set: Mailbox Preview]
+             */
+            InsightMessage = "insightMessage"
         }
         /**
          * Specifies an item's type.
