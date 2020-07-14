@@ -476,6 +476,12 @@ export type PressableStateCallbackType = Readonly<{
     pressed: boolean;
 }>;
 
+export interface PressableAndroidRippleConfig {
+    color?: null | ColorValue;
+    borderless?: null | boolean;
+    radius?: null | number;
+}
+
 export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
     /**
      * Called when a single tap gesture is detected.
@@ -532,7 +538,7 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
     /**
      * Enables the Android ripple effect and configures its color.
      */
-    android_ripple?: null | RippleBackgroundPropType;
+    android_ripple?: null | PressableAndroidRippleConfig;
 
     /**
      * Used only for documentation or testing (e.g. snapshot testing).
@@ -3956,7 +3962,12 @@ declare class ImageComponent extends React.Component<ImageProps> {}
 declare const ImageBase: Constructor<NativeMethodsMixinType> & typeof ImageComponent;
 export class Image extends ImageBase {
     static getSize(uri: string, success: (width: number, height: number) => void, failure?: (error: any) => void): any;
-    static getSizeWithHeaders(uri: string, headers: {[index: string]: string}, success: (width: number, height: number) => void, failure?: (error: any) => void): any;
+    static getSizeWithHeaders(
+        uri: string,
+        headers: { [index: string]: string },
+        success: (width: number, height: number) => void,
+        failure?: (error: any) => void,
+    ): any;
     static prefetch(url: string): any;
     static abortPrefetch?(requestId: number): void;
     static queryCache?(urls: string[]): Promise<{ [url: string]: 'memory' | 'disk' | 'disk/memory' }>;
@@ -5273,7 +5284,7 @@ interface BaseBackgroundPropType {
 
 interface RippleBackgroundPropType extends BaseBackgroundPropType {
     type: 'RippleAndroid';
-    color?: number;
+    color?: ColorValue;
     borderless?: boolean;
     radius?: number;
 }
