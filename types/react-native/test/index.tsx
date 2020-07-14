@@ -407,6 +407,20 @@ export class PressableTest extends React.Component {
                         )
                     }
                 </Pressable>
+                {/* Android Ripple */}
+                <Pressable
+                    android_ripple={{
+                        borderless: true,
+                        color: 'green',
+                        radius: 20,
+                    }}
+                    onPress={this.onPressButton}
+                    style={{ backgroundColor: 'blue' }}
+                >
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </Pressable>
             </>
         );
     }
