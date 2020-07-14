@@ -102,6 +102,7 @@ MyTelegramBot.answerPreCheckoutQuery('preCheckoutQueryId', true, { error_message
 MyTelegramBot.addListener('message', (message: TelegramBot.Message, { type }) => { });
 MyTelegramBot.addListener('callback_query', (query: TelegramBot.CallbackQuery) => { });
 MyTelegramBot.addListener('inline_query', (query: TelegramBot.InlineQuery) => { });
+MyTelegramBot.addListener('poll_answer', (answer: TelegramBot.PollAnswer) => { });
 MyTelegramBot.addListener('chosen_inline_result', (result: TelegramBot.ChosenInlineResult) => { });
 MyTelegramBot.addListener('channel_post', (message: TelegramBot.Message) => { });
 MyTelegramBot.addListener('shipping_query', (query: TelegramBot.ShippingQuery) => { });
