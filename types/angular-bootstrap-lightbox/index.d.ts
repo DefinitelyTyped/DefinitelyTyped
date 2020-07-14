@@ -43,7 +43,7 @@ declare namespace angular.bootstrap.lightbox {
         openModal(
             images:ILightboxImageInfo[],
             index:number,
-            modalParams?: any, // angular.ui.bootstrap.IModalSettings
+            modalParams?: { [key: string]: any }, // angular.ui.bootstrap.IModalSettings
         ):void;
     }
 
