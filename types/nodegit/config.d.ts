@@ -27,7 +27,7 @@ export class ConfigEntry {
 }
 
 export class Config {
-    static findGlobal(): Promise<Buf>;
+    static findGlobal(): Promise<string>; // the docs says it's a buff but it's actually a string
     static findProgramdata(): Promise<Buf>;
     static findSystem(): Promise<Buf>;
     static findXdg(): Promise<Buf>;
