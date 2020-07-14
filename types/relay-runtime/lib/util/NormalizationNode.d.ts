@@ -55,13 +55,21 @@ export interface NormalizationScalarField {
     readonly storageKey: string | null | undefined;
 }
 
+export interface NormalizationTypeDiscriminator {
+    readonly kind: string; // 'TypeDiscriminator';
+    readonly abstractKey: string;
+}
+
 export type NormalizationSelection =
     | NormalizationCondition
     | NormalizationClientExtension
+    | NormalizationDefer
     | NormalizationField
     | NormalizationHandle
     | NormalizationInlineFragment
-    | NormalizationMatchField;
+    | NormalizationModuleImport
+    | NormalizationStream
+    | NormalizationTypeDiscriminator;
 
 export interface NormalizationSplitOperation {
     readonly kind: string; // 'SplitOperation';
@@ -151,6 +159,7 @@ export interface NormalizationInlineFragment {
 
 export type NormalizationSelectableNode =
     | NormalizationDefer
+    | NormalizationLinkedField
     | NormalizationOperation
     | NormalizationSplitOperation
     | NormalizationStream;
