@@ -125,7 +125,6 @@ export interface ReaderListValue {
 export interface ReaderLocalArgument {
     readonly kind: string; // 'LocalArgument';
     readonly name: string;
-    readonly type: string;
     readonly defaultValue: unknown;
 }
 
