@@ -477,9 +477,9 @@ export type PressableStateCallbackType = Readonly<{
 }>;
 
 export interface PressableAndroidRippleConfig {
-    color?: ColorValue;
-    borderless?: boolean;
-    radius?: number;
+    color?: null | ColorValue;
+    borderless?: null | boolean;
+    radius?: null | number;
 }
 
 export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
