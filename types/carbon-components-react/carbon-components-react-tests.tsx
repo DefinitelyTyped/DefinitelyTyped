@@ -251,12 +251,12 @@ const t4 = (
                 <TableHeader {...data.getHeaderProps({ header, randomAttr: 'asdf' })}>{header.header}</TableHeader>
             ));
             data.headers.map(header => (
-                <TableHeader key={header.key} {...data.getHeaderProps<ExtraStuff>({ header, extra1: 'test' })}>
+                <TableHeader {...data.getHeaderProps<ExtraStuff>({ header, extra1: 'test' })}>
                     {header.header}
                 </TableHeader>
             ));
             data.rows.map(row => (
-                <TableRow key={row.id} {...data.getRowProps({ row, extra1: 'qwerty' })}>
+                <TableRow {...data.getRowProps({ row, extra1: 'qwerty' })}>
                     {row.cells.map(cell => (
                         <TableCell key={cell.id}>{cell.value}</TableCell>
                     ))}
