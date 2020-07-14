@@ -7890,7 +7890,13 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          */
         enum ActionType {
+            /**
+             * The `ExecuteFunction` action.
+             */
             ExecuteFunction = "ExecuteFunction",
+            /**
+             * The `ShowTaskpane` action.
+             */
             ShowTaskPane = "ShowTaskpane"
         }
         /**
@@ -7911,21 +7917,18 @@ declare namespace Office {
              * [Api set: Mailbox Preview]
              */
             Normal = "normal",
-
             /**
              * Treat the item as personal.
              *
              * [Api set: Mailbox Preview]
              */
             Personal = "personal",
-
             /**
              * Treat the item as private.
              *
              * [Api set: Mailbox Preview]
              */
             Private = "private",
-
             /**
              * Treat the item as confidential.
              *
@@ -7947,17 +7950,14 @@ declare namespace Office {
              * The content of the attachment is returned as a base64-encoded string.
              */
             Base64 = "base64",
-
             /**
              * The content of the attachment is returned as a string representing a URL.
              */
             Url = "url",
-
             /**
              * The content of the attachment is returned as a string representing an .eml formatted file.
              */
             Eml = "eml",
-
             /**
              * The content of the attachment is returned as a string representing an .icalendar formatted file.
              */
@@ -7977,7 +7977,6 @@ declare namespace Office {
              * An attachment was added to the item.
              */
             Added = "added",
-
             /**
              * An attachment was removed from the item.
              */
