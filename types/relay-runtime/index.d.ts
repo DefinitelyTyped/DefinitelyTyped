@@ -192,6 +192,17 @@ export { RelayFeatureFlags } from './lib/util/RelayFeatureFlags';
 export { default as deepFreeze } from './lib/util/deepFreeze';
 export { default as isPromise } from './lib/util/isPromise';
 
+import * as fetchQueryInternal from './lib/query/fetchQueryInternal';
+
+interface Internal {
+    fetchQuery: typeof fetchQueryInternal.fetchQuery;
+    fetchQueryDeduped: typeof fetchQueryInternal.fetchQueryDeduped;
+    getPromiseForActiveRequest: typeof fetchQueryInternal.getPromiseForActiveRequest;
+    getObservableForActiveRequest: typeof fetchQueryInternal.getObservableForActiveRequest;
+}
+
+export const __internal: Internal;
+
 /**
  * relay-compiler-language-typescript support for fragment references
  */
