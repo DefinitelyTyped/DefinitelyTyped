@@ -854,7 +854,8 @@ declare module _ {
          * Returns a copy of `list` with all instances of `values` removed.
          * @param list The list to exclude `values` from.
          * @param values The values to exclude from `list`.
-         * @return An array that contains all elements of `list` except for `values`.
+         * @return An array that contains all elements of `list` except for
+         * `values`.
          **/
         without<V extends List<any>>(
             list: V,
@@ -888,12 +889,16 @@ declare module _ {
             ...others: _.List<T>[]): T[];
 
         /**
-         * Produces a duplicate-free version of `list`, using === to test object equality. If you know in
-         * advance that `list` is sorted, passing true for isSorted will run a much faster algorithm. If
-         * you want to compute unique items based on a transformation, pass an iteratee function.
+         * Produces a duplicate-free version of `list`, using === to test
+         * object equality. If you know in advance that `list` is sorted,
+         * passing true for isSorted will run a much faster algorithm. If you
+         * want to compute unique items based on a transformation, pass an
+         * iteratee function.
          * @param list The list to remove duplicates from.
-         * @param isSorted True if `list` is already sorted, optional, default = false.
-         * @param iteratee Transform the elements of `list` before comparisons for uniqueness.
+         * @param isSorted True if `list` is already sorted, optional,
+         * default = false.
+         * @param iteratee Transform the elements of `list` before comparisons
+         * for uniqueness.
          * @param context 'this' object in `iteratee`, optional.
          * @return An array containing only the unique elements in `list`.
          **/
@@ -1025,12 +1030,15 @@ declare module _ {
             context?: any): number;
 
         /**
-         * Uses a binary search to determine the index at which the value should be inserted into `list` in order
-         * to maintain `list`'s sorted order. If an iteratee is provided, it will be used to compute the sort ranking
-         * of each value, including the value you pass.
+         * Uses a binary search to determine the lowest index at which the
+         * value should be inserted into `list` in order to maintain `list`'s
+         * sorted order. If an iteratee is provided, it will be used to compute
+         * the sort ranking of each value, including the value you pass.
          * @param list A sorted list.
-         * @param value The value to determine an insert index for to mainain the sorting in `list`.
-         * @param iteratee Iteratee to compute the sort ranking of each element including `value`, optional.
+         * @param value The value to determine an insert index for to mainain
+         * the sorting in `list`.
+         * @param iteratee Iteratee to compute the sort ranking of each
+         * element including `value`, optional.
          * @param context `this` object in `iteratee`, optional.
          * @return The index where `value` should be inserted into `list`.
          **/
@@ -4464,9 +4472,11 @@ declare module _ {
         flatten(shallow: true): ListItemOrSelf<T>[];
 
         /**
-         * Returns a copy of the wrapped list with all instances of `values` removed.
+         * Returns a copy of the wrapped list with all instances of `values`
+         * removed.
          * @param values The values to exclude from the wrapped list.
-         * @return An array that contains all elements of the wrapped list except for `values`.
+         * @return An array that contains all elements of the wrapped list
+         * except for `values`.
          **/
         without(...values: T[]): T[];
 
@@ -4495,13 +4505,18 @@ declare module _ {
         difference(...others: _.List<T>[]): T[];
 
         /**
-         * Produces a duplicate-free version of the wrapped list, using === to test object equality. If you know in
-         * advance that the wrapped list is sorted, passing true for isSorted will run a much faster algorithm. If
-         * you want to compute unique items based on a transformation, pass an iteratee function.
-         * @param isSorted True if the wrapped list is already sorted, optional, default = false.
-         * @param iteratee Transform the elements of the wrapped list before comparisons for uniqueness.
+         * Produces a duplicate-free version of the wrapped list, using === to
+         * test object equality. If you know in advance that the wrapped list
+         * is sorted, passing true for isSorted will run a much faster
+         * algorithm. If you want to compute unique items based on a
+         * transformation, pass an iteratee function.
+         * @param isSorted True if the wrapped list is already sorted,
+         * optional, default = false.
+         * @param iteratee Transform the elements of the wrapped list before
+         * comparisons for uniqueness.
          * @param context 'this' object in `iteratee`, optional.
-         * @return An array containing only the unique elements in the wrapped list.
+         * @return An array containing only the unique elements in the wrapped
+         * list.
          **/
         uniq(isSorted?: boolean, iteratee?: Iteratee<V, any>, cotext?: any): T[];
         uniq(iteratee?: Iteratee<V, any>, context?: any): T[];
@@ -4562,13 +4577,18 @@ declare module _ {
         findLastIndex(predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
 
         /**
-         * Uses a binary search to determine the index at which the value should be inserted into the wrapped list in order
-         * to maintain the wrapped list's sorted order. If an iteratee is provided, it will be used to compute the sort ranking
-         * of each value, including the value you pass.
-         * @param value The value to determine an insert index for to mainain the sorting in the wrapped list.
-         * @param iteratee Iteratee to compute the sort ranking of each element including `value`, optional.
+         * Uses a binary search to determine the lowest index at which the
+         * value should be inserted into the wrapped list in order to maintain
+         * the wrapped list's sorted order. If an iteratee is provided, it will
+         * be used to compute the sort ranking of each value, including the
+         * value you pass.
+         * @param value The value to determine an insert index for to mainain
+         * the sorting in the wrapped list.
+         * @param iteratee Iteratee to compute the sort ranking of each
+         * element including `value`, optional.
          * @param context `this` object in `iteratee`, optional.
-         * @return The index where `value` should be inserted into the wrapped list.
+         * @return The index where `value` should be inserted into the wrapped
+         * list.
          **/
         sortedIndex(value: T, iteratee?: Iteratee<V, any>, context?: any): number;
 
@@ -5443,9 +5463,11 @@ declare module _ {
         flatten(shallow: true): _Chain<ListItemOrSelf<T>, ListItemOrSelf<T>[]>;
 
         /**
-         * Returns a copy of the wrapped list with all instances of `values` removed.
+         * Returns a copy of the wrapped list with all instances of `values`
+         * removed.
          * @param values The values to exclude from the wrapped list.
-         * @return A chain wrapper around an array that contains all elements of the wrapped list except for `values`.
+         * @return A chain wrapper around an array that contains all elements
+         * of the wrapped list except for `values`.
          **/
         without(...values: T[]): _Chain<T, T[]>;
 
@@ -5474,20 +5496,20 @@ declare module _ {
         difference(...others: _.List<T>[]): _Chain<T>;
 
         /**
-         * Produces a duplicate-free version of the wrapped list, using === to test object equality. If you know in
-         * advance that the wrapped list is sorted, passing true for isSorted will run a much faster algorithm. If
-         * you want to compute unique items based on a transformation, pass an iteratee function.
-         * @param isSorted True if the wrapped list is already sorted, optional, default = false.
-         * @param iteratee Transform the elements of the wrapped list before comparisons for uniqueness.
+         * Produces a duplicate-free version of the wrapped list, using === to
+         * test object equality. If you know in advance that the wrapped list
+         * is sorted, passing true for isSorted will run a much faster
+         * algorithm. If you want to compute unique items based on a
+         * transformation, pass an iteratee function.
+         * @param isSorted True if the wrapped list is already sorted,
+         * optional, default = false.
+         * @param iteratee Transform the elements of the wrapped list before
+         * comparisons for uniqueness.
          * @param context 'this' object in `iteratee`, optional.
-         * @return A chain wrapper around an array containing only the unique elements in the wrapped list.
+         * @return A chain wrapper around an array containing only the unique
+         * elements in the wrapped list.
          **/
         uniq(isSorted?: boolean, iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
-
-        /**
-        * Wrapped type List<T>.
-        * @see uniq
-        **/
         uniq(iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
 
         /**
@@ -5547,13 +5569,18 @@ declare module _ {
         findLastIndex(predicate: _.ListIterator<T, boolean> | {}, context?: any): _ChainSingle<number>;
 
         /**
-         * Uses a binary search to determine the index at which the value should be inserted into the wrapped list in order
-         * to maintain the wrapped list's sorted order. If an iteratee is provided, it will be used to compute the sort ranking
-         * of each value, including the value you pass.
-         * @param value The value to determine an insert index for to mainain the sorting in the wrapped list.
-         * @param iteratee Iteratee to compute the sort ranking of each element including `value`, optional.
+         * Uses a binary search to determine the lowest index at which the
+         * value should be inserted into the wrapped list in order to maintain
+         * the wrapped list's sorted order. If an iteratee is provided, it
+         * will be used to compute the sort ranking of each value, including
+         * the value you pass.
+         * @param value The value to determine an insert index for to mainain
+         * the sorting in the wrapped list.
+         * @param iteratee Iteratee to compute the sort ranking of each element
+         * including `value`, optional.
          * @param context `this` object in `iteratee`, optional.
-         * @return A chain wrapper around the index where `value` should be inserted into the wrapped list.
+         * @return A chain wrapper around the index where `value` should be
+         * inserted into the wrapped list.
          **/
         sortedIndex(value: T, iteratee?: _ChainIteratee<V, any, T>, context?: any): _ChainSingle<number>;
 
