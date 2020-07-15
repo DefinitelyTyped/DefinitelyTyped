@@ -475,6 +475,12 @@
             "asOfVersion": "2.8.1"
         },
         {
+            "libraryName": "card-validator",
+            "typingsPackageName": "card-validator",
+            "sourceRepoURL": "https://github.com/braintree/card-validator",
+            "asOfVersion": "7.0.1"
+        },
+        {
             "libraryName": "cash-dom",
             "typingsPackageName": "cash",
             "sourceRepoURL": "https://github.com/fabiospampinato/cash",
