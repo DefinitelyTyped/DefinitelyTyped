@@ -817,6 +817,12 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "credit-card-type",
+            "typingsPackageName": "credit-card-type",
+            "sourceRepoURL": "https://github.com/braintree/credit-card-type",
+            "asOfVersion": "9.0.0"
+        },
+        {
             "libraryName": "cropperjs",
             "typingsPackageName": "cropperjs",
             "sourceRepoURL": "https://github.com/fengyuanchen/cropperjs",
