@@ -279,7 +279,6 @@ mixpanel.people.delete_user();
 mixpanel.init('YOUR PROJECT TOKEN', {
     ignore_dnt: true,
 });
-//@ts-ignore
 mixpanel.set_group('test', ['some-value'], response => {
     console.log('response :>> ', response);
 });

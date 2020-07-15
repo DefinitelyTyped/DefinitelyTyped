@@ -126,96 +126,52 @@ export interface People {
 
 export interface Group {
     /**
-   * Remove a property from a group. The value will be ignored if doesn't exist.
-   * @example
-   * mixpanel.get_group('company', 'mixpanel').remove('Location', 'London');
-   * @param {string} list_name Name of the property.
-   * @param {string} value Value to remove from the given group property
-   * @param {Function} [callback] If provided, the callback will be called after the tracking event
-
-   */
-    remove(list_name: string, value: string, callback?: () => void): Group;
+     * Remove a property from a group. The value will be ignored if doesn't exist.
+     */
+    remove(list_name: string, value: string, callback?: Callback): Group;
 
     /**
      * Set properties on a group.
-     * @example
-     * mixpanel.get_group('company', 'mixpanel').set('Location', '405 Howard');
-     *
-     * // or set multiple properties at once
-     * mixpanel.get_group('company', 'mixpanel').set({
-     * 'Location': '405 Howard',
-     * 'Founded' : 2009,
-     * });
-     * // properties can be strings, integers, dates, or lists
-     * @param {string|Object} prop If a string, this is the name of the property. If an object, this is an associative array of names and values.
-     * @param {string} [to] A value to set on the given property name
-     * @param {Function} [callback] If provided, the callback will be called after the tracking event
      */
     set<Prop extends string | { [key: string]: string }>(
         prop: Prop,
         to?: Prop extends string ? string : undefined,
-        callback?: () => void,
+        callback?: Callback,
     ): Group;
 
     /**
      * Set properties on a group, only if they do not yet exist. This will not overwrite previous group property values, unlike group.set().
-     * @example
-     * mixpanel.get_group('company', 'mixpanel').set_once('Location', '405 Howard');
-     * // or set multiple properties at once
-     * mixpanel.get_group('company', 'mixpanel').set_once({
-     * 'Location': '405 Howard',
-     * 'Founded' : 2009,
-     * });
-     * // properties can be strings, integers, lists or dates
-     * @param {string|Object} prop If a string, this is the name of the property. If an object, this is an associative array of names and values..
-     * @param {string} [to] A value to set on the given property name
-     * @param {Function} [callback] If provided, the callback will be called after the tracking event
      */
     setOnce<Prop extends string | { [key: string]: string | number | Date | string[] }>(
         prop: Prop,
         to?: Prop extends string ? string : undefined,
-        callback?: () => void,
+        callback?: Callback,
     ): Group;
 
     /**
      * Merge a given list with a list-valued group property, excluding duplicate values.
-     * @example
-     * // merge a value to a list, creating it if needed
-     * mixpanel.get_group('company', 'mixpanel').union('Location', ['San Francisco', 'London']);
-     * @param {string} list_name Name of the property.
-     * @param {string} values Values to merge with the given property
-     * @param {Function} [callback] If provided, the callback will be called after the tracking event
      */
     union<Prop extends string | { [key: string]: string }>(
         prop: Prop,
         to?: Prop extends string ? string : undefined,
-        callback?: () => void,
+        callback?: Callback,
     ): Group;
 
     /**
      * Unset properties on a group permanently.
-     * @example
-     * mixpanel.get_group('company', 'mixpanel').unset('Founded');
-     * @param {string} prop Name of the property.
-     * @param {Function} [callback] If provided, the callback will be called after the tracking event
      */
     unset<Prop extends string | { [key: string]: string }>(
         prop: Prop,
         to?: Prop extends string ? string : undefined,
-        callback?: () => void,
+        callback?: Callback,
     ): void;
 }
 
 export interface Mixpanel {
     /**
      * Add a new group for this user.
-     * @example
-     * mixpanel.add_group('company', 'mixpanel')
-     * @param {string} group_key Group key
-     * @param {string} group_id A valid Mixpanel property type
-     * @param {Function} [callback] If provided, the callback will be called after tracking the event.
      */
-    add_group(group_key: string, group_id: string, callback?: () => void): void;
+    add_group(group_key: string, group_id: string, callback?: Callback): void;
     alias(alias: string, original?: string): void;
     clear_opt_in_out_tracking(options?: Partial<ClearOptOutInOutOptions>): void;
     disable(events?: string[]): void;
@@ -223,10 +179,6 @@ export interface Mixpanel {
     get_distinct_id(): any;
     /**
      * Look up reference to a Mixpanel group
-     * @example
-     * mixpanel.get_group(group_key, group_id)
-     * @param {string} group_key Group key
-     * @param {string} group_id A valid Mixpanel property type
      */
     get_group(group_key: string, group_id: string): Group;
     get_property(property_name: string): any;
@@ -241,26 +193,14 @@ export interface Mixpanel {
     register_once(props: Dict, default_value?: any, days?: number): void;
     /**
      * Remove a group from this user.
-     * @example
-     * mixpanel.remove_group('company', 'mixpanel')
-     * @param {string} group_key Group key
-     * @param {string} group_ids A valid Mixpanel property type
-     * @param {Function} [callback] If provided, the callback will be called after tracking the event.
      */
-    remove_group(group_key: string, group_ids: string | string[] | number | number[], callback?: () => void): void;
+    remove_group(group_key: string, group_ids: string | string[] | number | number[], callback?: Callback): void;
     reset(): void;
     set_config(config: Partial<Config>): void;
     /**
      * Register the current user into one/many groups.
-     * @example
-     * mixpanel.set_group('company', ['mixpanel', 'google']) // an array of IDs
-     * mixpanel.set_group('company', 'mixpanel')
-     * mixpanel.set_group('company', 128746312)
-     * @param {string} group_key Group key
-     * @param {string} group_ids A valid Mixpanel property type
-     * @param {Function} [callback] If provided, the callback will be called after tracking the event.
      */
-    set_group(group_key: string, group_ids: string | string[] | number | number[], callback?: () => void): void;
+    set_group(group_key: string, group_ids: string | string[] | number | number[], callback?: Callback): void;
     time_event(event_name: string): void;
     track(
         event_name: string,
@@ -274,7 +214,7 @@ export interface Mixpanel {
     people: People;
 }
 
-export function add_group(group_key: string, group_id: string, callback?: () => void): void;
+export function add_group(group_key: string, group_id: string, callback?: Callback): void;
 export function alias(alias: string, original?: string): void;
 export function clear_opt_in_out_tracking(options?: Partial<ClearOptOutInOutOptions>): void;
 export function disable(events?: string[]): void;
@@ -294,7 +234,7 @@ export function register_once(props: Dict, default_value?: any, days?: number): 
 export function remove_group(
     group_key: string,
     group_ids: string | string[] | number | number[],
-    callback?: () => void,
+    callback?: Callback,
 ): void;
 export function reset(): void;
 export function set_config(config: Partial<Config>): void;
@@ -307,7 +247,7 @@ export function set_config(config: Partial<Config>): void;
 export function set_group(
     group_key: string,
     group_ids: string | string[] | number | number[],
-    callback?: () => void,
+    callback?: Callback,
 ): void;
 export function time_event(event_name: string): void;
 export function track(
