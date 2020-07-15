@@ -139,6 +139,7 @@ function handlerProvider(handle: any) {
 }
 
 function storeUpdater(store: RecordSourceSelectorProxy) {
+    store.invalidateStore();
     const mutationPayload = store.getRootField('sendConversationMessage');
     const newMessageEdge = mutationPayload!.getLinkedRecord('messageEdge');
     const conversationStore = store.get('a-conversation-id');
@@ -170,6 +171,7 @@ function passToHelper(edge: RecordProxy<MessageEdge>) {
 }
 
 function storeUpdaterWithTypes(store: RecordSourceSelectorProxy<SendConversationMessageMutationResponse>) {
+    store.invalidateStore();
     const mutationPayload = store.getRootField('sendConversationMessage');
     const newMessageEdge = mutationPayload.getLinkedRecord('messageEdge');
     const id = newMessageEdge.getValue('id');
