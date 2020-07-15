@@ -127,22 +127,18 @@ export interface People {
 
 export interface Group {
     remove(list_name: string, value: string, callback?: Callback): Group;
-    set<Prop extends string | { [key: string]: string }>(
+    set<Prop extends string | Dict>(
         prop: Prop,
         to?: Prop extends string ? string : undefined,
         callback?: Callback,
     ): Group;
-    setOnce<Prop extends string | { [key: string]: string | number | Date | string[] }>(
+    setOnce<Prop extends string | Dict>(
         prop: Prop,
         to?: Prop extends string ? string : undefined,
         callback?: Callback,
     ): Group;
     union(prop: string, values: Array<string | number>, callback?: Callback): Group;
-    unset<Prop extends string | { [key: string]: string }>(
-        prop: Prop,
-        to?: Prop extends string ? string : undefined,
-        callback?: Callback,
-    ): void;
+    unset(prop: string, callback?: Callback): void;
 }
 
 export interface Mixpanel {
