@@ -381,7 +381,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Renders the component to static markup and returns a Cheerio wrapper around the result.
      */
-    render(): Cheerio;
+    render(): cheerio.Cheerio;
 
     /**
      * Returns the type of the current node of this wrapper. If it's a composite component, this will be the
