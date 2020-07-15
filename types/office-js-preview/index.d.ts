@@ -7885,19 +7885,15 @@ declare namespace Office {
 declare namespace Office {
     namespace MailboxEnums {
         /**
-         * Specifies the type of Action.
+         * Specifies the type of action in a notification message.
          *
          * [Api set: Mailbox Preview]
          */
         enum ActionType {
             /**
-             * The `ExecuteFunction` action.
+             * The `showTaskPane` action.
              */
-            ExecuteFunction = "ExecuteFunction",
-            /**
-             * The `ShowTaskpane` action.
-             */
-            ShowTaskPane = "ShowTaskpane"
+            ShowTaskPane = "showTaskPane"
         }
         /**
          * Specifies the sensitivity type of an appointment.
