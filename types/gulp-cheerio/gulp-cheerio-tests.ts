@@ -85,5 +85,5 @@ cheerio({
 });
 
 cheerio({
-    cheerio: require('../cheerio/cheerio.d.ts') // special version of `cheerio`
+    cheerio: require('../cheerio/cheerio.d.ts')
 });
