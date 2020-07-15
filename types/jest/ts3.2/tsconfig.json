@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["dom", "es6", "esnext", "es2020"],
+        "noImplicitAny": true,
+        "noImplicitThis": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": ["../../"],
+        "target": "esnext",
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "jest-tests.ts"
+    ]
+}

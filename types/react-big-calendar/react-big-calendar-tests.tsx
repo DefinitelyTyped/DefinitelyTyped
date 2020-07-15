@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import {
     Calendar,
     CalendarProps,
@@ -17,9 +17,9 @@ import {
     EventProps,
     EventWrapperProps,
     NavigateAction,
-    Culture
-} from "react-big-calendar";
-import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
+    Culture, DayLayoutAlgorithm, DayLayoutFunction,
+} from 'react-big-calendar';
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
 // Don't want to add this as a dependency, because it is only used for tests.
 declare const globalize: any;
@@ -198,7 +198,7 @@ class CalendarResource {
                         const end = slotInfo.end;
                         return true;
                     }}
-                    dayLayoutAlgorithm="overlap"
+                    dayLayoutAlgorithm={customLayoutAlgorithm}
                     views={['day']}
                     toolbar={true}
                     popup={true}
@@ -334,6 +334,18 @@ const customGroupSlotPropGetter = () => {
     };
 };
 
+const customLayoutAlgorithm: DayLayoutFunction<CalendarEvent> = (args: {
+    events: CalendarEvent[],
+    minimumStartDifference: any,
+    slotMetrics: any,
+    accessors: any,
+}) => {
+    // This is where the events would get styled in an actual algorithm, but for TS test we just want to confirm it returns
+    return args.events.map(e => {
+        return { event: e, style: {} };
+    });
+};
+
 function Event(props: EventProps<CalendarEvent>) {
     return (
         <span>
@@ -361,4 +373,28 @@ class Toolbar extends React.Component<ToolbarProps> {
             </div>
         );
     }
+}
+
+// test OnRangeChange return types
+{
+    interface Props {
+        localizer: DateLocalizer;
+    }
+    const Basic = ({ localizer }: Props) => (
+        <Calendar
+            events={getEvents()}
+            views={allViews}
+            step={60}
+            showMultiDayTimes
+            defaultDate={new Date(2015, 3, 1)}
+            localizer={localizer}
+            onRangeChange={(range, view) => {
+                console.log('onRangeChange fired, range: %O, view: %O', range, view);
+            }}
+        />
+    );
+
+    const localizer = momentLocalizer(moment);
+
+    ReactDOM.render(<Basic localizer={localizer} />, document.body);
 }

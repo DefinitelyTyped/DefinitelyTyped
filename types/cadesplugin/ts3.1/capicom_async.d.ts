@@ -1,19 +1,19 @@
 declare namespace CAPICOM {
-	interface CertificateAsync extends CADES_Common.Async<Certificate> {
-	}
+    interface CertificateAsync extends CADES_Common.Async<Certificate> {
+    }
 
-	interface CertificatesAsync extends CADES_Common.Async<Certificates> {
-	}
+    interface CertificatesAsync extends CADES_Common.Async<Certificates> {
+    }
 
-	interface StoreAsync extends CADES_Common.Async<Store> {
-	}
+    interface StoreAsync extends CADES_Common.Async<Store> {
+    }
 
-	interface EncodedDataAsync extends CADES_Common.Async<EncodedData> {
-	}
+    interface EncodedDataAsync extends CADES_Common.Async<EncodedData> {
+    }
 
-	interface OIDAsync extends CADES_Common.Async<OID> {
-	}
+    interface OIDAsync extends CADES_Common.Async<OID> {
+    }
 
-	interface PublicKeyAsync extends CADES_Common.Async<PublicKey> {
-	}
+    interface PublicKeyAsync extends CADES_Common.Async<PublicKey> {
+    }
 }

@@ -89,7 +89,6 @@ es/innerJoin.d.ts
 es/insertAll.d.ts
 es/insert.d.ts
 es/intersection.d.ts
-es/intersectionWith.d.ts
 es/intersperse.d.ts
 es/into.d.ts
 es/invert.d.ts
@@ -343,7 +342,6 @@ src/innerJoin.d.ts
 src/insertAll.d.ts
 src/insert.d.ts
 src/intersection.d.ts
-src/intersectionWith.d.ts
 src/intersperse.d.ts
 src/into.d.ts
 src/invert.d.ts

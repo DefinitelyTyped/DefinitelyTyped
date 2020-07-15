@@ -205,7 +205,7 @@ var finalUrl: string        = syncResult.finalUrl;
 var readyState: number      = syncResult.readyState;
 var responseHeaders: string = syncResult.responseHeaders;
 var responseText: string    = syncResult.responseText;
-(function() { var status: number = syncResult.status; })();		// conflict with state defined in lib.d.ts
+(function() { var status: number = syncResult.status; })();        // conflict with state defined in lib.d.ts
 var statusText: string      = syncResult.statusText;
 
 //// Asynchronous

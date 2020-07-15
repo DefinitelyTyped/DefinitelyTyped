@@ -5,12 +5,12 @@ var env: jjv.Env = jjv();
 var je: jjve.Env = jjve(env);
 
 var schema = {
-	type: 'object',
-	properties: {
-		ok: {
-			type: 'boolean',
-		},
-	},
+    type: 'object',
+    properties: {
+        ok: {
+            type: 'boolean',
+        },
+    },
 };
 
 var data = { ok: 1 };
@@ -18,14 +18,14 @@ var data = { ok: 1 };
 var result = env.validate(schema, data);
 
 if (result) {
-	var errors = je(schema, data, result);
-	console.log(JSON.stringify(errors, null, 4));
+    var errors = je(schema, data, result);
+    console.log(JSON.stringify(errors, null, 4));
 }
 
 errors.forEach(error =>
-	console.log(
-		'code: %s, message: %s, data: %s, path: %s',
-		error.code,
-		error.message,
-		error.data,
-		error.path));
+    console.log(
+        'code: %s, message: %s, data: %s, path: %s',
+        error.code,
+        error.message,
+        error.data,
+        error.path));

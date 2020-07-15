@@ -19,6 +19,8 @@
     },
     "files": [
         "index.d.ts",
+        "test/reference/info-window-tests.ts",
+        "test/reference/max-zoom-tests.ts",
         "googlemaps-tests.ts"
     ]
 }

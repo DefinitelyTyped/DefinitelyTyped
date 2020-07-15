@@ -1,6 +1,6 @@
-// Type definitions for find-unused-sass-variables 1.0
+// Type definitions for find-unused-sass-variables 2.0
 // Project: https://github.com/XhmikosR/find-unused-sass-variables#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

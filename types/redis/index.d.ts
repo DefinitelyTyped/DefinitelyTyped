@@ -482,14 +482,14 @@ export interface Commands<R> {
     /**
      * Get the value of a hash field.
      */
-    hget(key: string, field: string, cb?: Callback<string>): R;
-    HGET(key: string, field: string, cb?: Callback<string>): R;
+    hget(key: string, field: string, cb?: Callback<string | null>): R;
+    HGET(key: string, field: string, cb?: Callback<string | null>): R;
 
     /**
      * Get all fields and values in a hash.
      */
-    hgetall(key: string, cb?: Callback<{ [key: string]: string }>): R;
-    HGETALL(key: string, cb?: Callback<{ [key: string]: string }>): R;
+    hgetall(key: string, cb?: Callback<{ [key: string]: string } | null>): R;
+    HGETALL(key: string, cb?: Callback<{ [key: string]: string } | null>): R;
 
     /**
      * Increment the integer value of a hash field by the given number.
@@ -524,8 +524,8 @@ export interface Commands<R> {
     /**
      * Set the string value of a hash field.
      */
-    hset(key: string, field: string, value: string, cb?: Callback<number>): R;
-    HSET(key: string, field: string, value: string, cb?: Callback<number>): R;
+    hset: OverloadedSetCommand<string, number, R>;
+    HSET: OverloadedSetCommand<string, number, R>;
 
     /**
      * Set the value of a hash field, only if the field does not exist.
@@ -996,6 +996,14 @@ export interface Commands<R> {
      */
     type(key: string, cb?: Callback<string>): R;
     TYPE(key: string, cb?: Callback<string>): R;
+
+    /**
+     * Deletes a key in a non-blocking manner.
+     * Very similar to DEL, but actual memory reclamation
+     * happens in a different thread, making this non-blocking.
+     */
+    unlink: OverloadedCommand<string, number, R>;
+    UNLINK: OverloadedCommand<string, number, R>;
 
     /**
      * Forget about all watched keys.

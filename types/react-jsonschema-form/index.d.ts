@@ -40,6 +40,7 @@ declare module 'react-jsonschema-form' {
         onBlur?: (id: string, value: boolean | number | string | null) => void;
         onChange?: (e: IChangeEvent<T>, es?: ErrorSchema) => any;
         onError?: (e: any) => any;
+        onFocus?: (id: string, value: boolean | number | string | null) => void;
         onSubmit?: (e: ISubmitEvent<T>) => any;
         liveValidate?: boolean;
         FieldTemplate?: React.StatelessComponent<FieldTemplateProps>;

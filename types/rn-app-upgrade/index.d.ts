@@ -11,9 +11,9 @@ import { EmitterSubscription } from 'react-native';
  * @param version  本地版本
  */
 export function checkUpdate(appId: string, version: string): Promise<{
-	code: number;
-	msg: string;
-	version?: undefined;
+    code: number;
+    msg: string;
+    version?: undefined;
 }>;
 /**
  * 根据appid打开苹果商店 iOS only

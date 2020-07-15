@@ -322,6 +322,11 @@ declare const RESOURCE_ESSENCE: RESOURCE_ESSENCE;
 declare const RESOURCES_ALL: ResourceConstant[];
 
 declare const SUBSCRIPTION_TOKEN: SUBSCRIPTION_TOKEN;
+declare const CPU_UNLOCK: CPU_UNLOCK;
+declare const PIXEL: PIXEL;
+declare const ACCESS_KEY: ACCESS_KEY;
+
+declare const PIXEL_CPU_COST: 5000;
 
 declare const CONTROLLER_LEVELS: { [level: number]: number };
 declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, { [level: number]: number }>;
@@ -736,12 +741,15 @@ declare const BOOSTS: {
     };
 };
 
+declare const INTERSHARD_RESOURCES: [SUBSCRIPTION_TOKEN, CPU_UNLOCK, PIXEL, ACCESS_KEY];
+
 declare const COMMODITIES: Record<
     CommodityConstant | MineralConstant | RESOURCE_GHODIUM,
     {
+        level?: number;
         amount: number;
         cooldown: number;
-        components: Record<DepositConstant | CommodityConstant | MineralConstant | RESOURCE_GHODIUM, number>;
+        components: Record<DepositConstant | CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM, number>;
     }
 >;
 
@@ -1518,7 +1526,7 @@ interface Game {
      */
     powerCreeps: { [creepName: string]: PowerCreep };
     /**
-     * An object with your global resources that are bound to the account, like subscription tokens. Each object key is a resource constant, values are resources amounts.
+     * An object with your global resources that are bound to the account, like pixels or cpu unlocks. Each object key is a resource constant, values are resources amounts.
      */
     resources: { [key: string]: any };
     /**
@@ -1651,6 +1659,15 @@ interface CPU {
      * An object with limits for each shard with shard names as keys. You can use `setShardLimits` method to re-assign them.
      */
     shardLimits: CPUShardLimits;
+    /**
+     * Whether full CPU is currently unlocked for your account.
+     */
+    unlocked: boolean;
+    /**
+     * The time in milliseconds since UNIX epoch time until full CPU is unlocked for your account.
+     * This property is not defined when full CPU is not unlocked for your account or it's unlocked with a subscription.
+     */
+    unlockedTime: number | undefined;
 
     /**
      * Get amount of CPU time used from the beginning of the current game tick. Always returns 0 in the Simulation mode.
@@ -1684,6 +1701,17 @@ interface CPU {
      * Player code execution stops immediately.
      */
     halt?(): never;
+    /**
+     * Generate 1 pixel resource unit for 5000 CPU from your bucket.
+     */
+    generatePixel(): OK | ERR_NOT_ENOUGH_RESOURCES;
+
+    /**
+     * Unlock full CPU for your account for additional 24 hours.
+     * This method will consume 1 CPU unlock bound to your account (See `Game.resources`).
+     * If full CPU is not currently unlocked for your account, it may take some time (up to 5 minutes) before unlock is applied to your account.
+     */
+    unlock(): OK | ERR_NOT_ENOUGH_RESOURCES | ERR_FULL;
 }
 
 interface HeapStatistics {
@@ -1873,7 +1901,7 @@ interface FindPathOpts {
      * @param costMatrix The current CostMatrix
      * @returns The new CostMatrix to use
      */
-    costCallback?(roomName: string, costMatrix: CostMatrix): boolean | CostMatrix;
+    costCallback?(roomName: string, costMatrix: CostMatrix): void | CostMatrix;
 
     /**
      * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search. This option
@@ -2500,6 +2528,9 @@ type RESOURCE_EMANATION = "emanation";
 type RESOURCE_ESSENCE = "essence";
 
 type SUBSCRIPTION_TOKEN = "token";
+type CPU_UNLOCK = "cpuUnlock";
+type PIXEL = "pixel";
+type ACCESS_KEY = "accessKey";
 
 type TOMBSTONE_DECAY_PER_PART = 5;
 
@@ -4609,29 +4640,29 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
      * @param resource The type of the resource.
      * @returns Returns capacity number, or `null` in case of an invalid `resource` for this store type.
      */
-    getCapacity<R extends ResourceConstant | undefined>(
+    getCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
     ): UNLIMITED_STORE extends true
         ? null
-        : (undefined extends R
-              ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null)
-              : (R extends POSSIBLE_RESOURCES ? number : null));
+        : R extends undefined
+        ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null)
+        : (R extends POSSIBLE_RESOURCES ? number : null);
     /**
      * Returns the capacity used by the specified resource, or total used capacity for general purpose stores if `resource` is undefined.
      * @param resource The type of the resource.
      * @returns Returns used capacity number, or `null` in case of a not valid `resource` for this store type.
      */
-    getUsedCapacity<R extends ResourceConstant | undefined>(
+    getUsedCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): undefined extends R ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
+    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
     /**
      * Returns free capacity for the store. For a limited store, it returns the capacity available for the specified resource if `resource` is defined and valid for this store.
      * @param resource The type of the resource.
      * @returns Returns available capacity number, or `null` in case of an invalid `resource` for this store type.
      */
-    getFreeCapacity<R extends ResourceConstant | undefined>(
+    getFreeCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): undefined extends R ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
+    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
 }
 
 type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = StoreBase<POSSIBLE_RESOURCES, UNLIMITED_STORE> &
@@ -4716,7 +4747,7 @@ interface OwnedStructure<T extends StructureConstant = StructureConstant> extend
     /**
      * Whether this is your own structure. Walls and roads don't have this property as they are considered neutral structures.
      */
-    my: T extends STRUCTURE_CONTROLLER ? boolean | undefined : boolean;
+    my: boolean;
     /**
      * An object with the structure’s owner info (if present) containing the following properties: username
      */
@@ -5057,10 +5088,10 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
     store: Store<RESOURCE_ENERGY, false>;
 
     /**
-     * Remotely attack any creep in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
+     * Remotely attack any creep or structure in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
      * @param target The target creep.
      */
-    attack(target: AnyCreep): ScreepsReturnCode;
+    attack(target: AnyCreep | Structure): ScreepsReturnCode;
     /**
      * Remotely heal any creep in the room. Consumes 10 energy units per tick. Heal power depends on the distance to the target: from 400 hits at range 10 to 200 hits at range 40.
      * @param target The target creep.
@@ -5331,7 +5362,7 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
      * Produces the specified commodity.
      * All ingredients should be available in the factory store.
      */
-    produce(resource: CommodityConstant | MineralConstant | RESOURCE_GHODIUM): ScreepsReturnCode;
+    produce(resource: CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM): ScreepsReturnCode;
 }
 
 interface StructureFactoryConstructor extends _Constructor<StructureFactory>, _ConstructorById<StructureFactory> {}

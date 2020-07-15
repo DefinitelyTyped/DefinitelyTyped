@@ -1,4 +1,4 @@
-import { connect, UpdateQuery } from 'mongodb';
+import { connect, ObjectID, UpdateQuery } from 'mongodb';
 import { connectionString } from '../index';
 
 // collection.bulkWrite tests
@@ -15,6 +15,7 @@ async function run() {
 
     // test with collection type
     interface TestSchema {
+        _id: ObjectID;
         stringField: string;
         numberField: number;
         optionalNumberField?: number;
@@ -27,6 +28,7 @@ async function run() {
     const collectionType = db.collection<TestSchema>('test.update');
 
     const testDocument: TestSchema = {
+        _id: new ObjectID(),
         stringField: 'foo',
         numberField: 123,
         dateField: new Date(),
@@ -37,6 +39,7 @@ async function run() {
         },
         subInterfaceArray: [],
     };
+    const { _id, ...testDocumentWithoutId } = testDocument;
 
     // insertOne
 
@@ -44,6 +47,13 @@ async function run() {
         {
             insertOne: {
                 document: testDocument
+            }
+        }
+    ]);
+    collectionType.bulkWrite([
+        {
+            insertOne: {
+                document: testDocumentWithoutId
             }
         }
     ]);
@@ -99,6 +109,13 @@ async function run() {
         // $ExpectError
         { updateOne: { filter: { stringField: 'foo' }, update: { $set: { numberField: 'bar' } } } }
     ]);
+    collectionType.bulkWrite([
+        // The following code is written all on one line due to
+        // the difference of error lines reported by TS <3.9 and >=3.9
+        // prettier-ignore
+        // $ExpectError
+        { updateOne: { filter: { stringField: 'foo' }, update: { 'dot.notation': true } } }
+    ]);
 
     // updateMany
 
@@ -143,6 +160,13 @@ async function run() {
         // prettier-ignore
         // $ExpectError
         { updateMany: { filter: { stringField: 'foo' }, update: { $set: { numberField: 'bar' } } } }
+    ]);
+    collectionType.bulkWrite([
+        // The following code is written all on one line due to
+        // the difference of error lines reported by TS <3.9 and >=3.9
+        // prettier-ignore
+        // $ExpectError
+        { updateMany: { filter: { stringField: 'foo' }, update: { 'dot.notation': true } } }
     ]);
 
     // replaceOne
