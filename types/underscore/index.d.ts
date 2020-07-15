@@ -364,25 +364,30 @@ declare module _ {
         select: UnderscoreStatic['filter'];
 
         /**
-        * Looks through each value in the list, returning an array of all the values that contain all
-        * of the key-value pairs listed in properties.
-        * @param list List to match elements again `properties`.
-        * @param properties The properties to check for on each element within `list`.
-        * @return The elements within `list` that contain the required `properties`.
-        **/
-        where<T, U extends {}>(
-            list: _.List<T>,
-            properties: U): T[];
+         * Looks through each value in the collection, returning an array of all the values that matches the
+         * key-value pairs listed in `properties`.
+         * @param collection The collection in which to find elements that match `properties`.
+         * @param properties The properties to check for on the elements within `collection`.
+         * @return The elements in `collection` that match `properties`.
+         **/
+        where<V extends Collection<any>>(
+            collection: V,
+            properties: Partial<TypeOfCollection<V>>
+        ): TypeOfCollection<V>[];
 
         /**
-        * Looks through the list and returns the first value that matches all of the key-value pairs listed in properties.
-        * @param list Search through this list's elements for the first object with all `properties`.
-        * @param properties Properties to look for on the elements within `list`.
-        * @return The first element in `list` that has all `properties`.
-        **/
-        findWhere<T, U extends {}>(
-            list: _.List<T>,
-            properties: U): T | undefined;
+         * Looks through the collection and returns the first value that matches all of the key-value
+         * pairs listed in `properties`.
+         * If no match is found, or if list is empty, undefined will be returned.
+         * @param collection The collection in which to find an element that matches `properties`.
+         * @param properties The properties to check for on the elements within `collection`.
+         * @return The first element in `collection` that matches `properties` or undefined if
+         * no match is found.
+         **/
+        findWhere<V extends Collection<any>>(
+            collection: V,
+            properties: Partial<TypeOfCollection<V>>
+        ): TypeOfCollection<V> | undefined;
 
         /**
          * Returns the values in `collection` without the elements that pass a truth test (iteratee).
@@ -692,23 +697,21 @@ declare module _ {
             context?: any): _.Dictionary<number>;
 
         /**
-        * Returns a shuffled copy of the list, using a version of the Fisher-Yates shuffle.
-        * @param list List to shuffle.
-        * @return Shuffled copy of `list`.
-        **/
-        shuffle<T>(list: _.Collection<T>): T[];
+         * Returns a shuffled copy of the collection, using a version of the Fisher-Yates shuffle.
+         * @param collection The collection to shuffle.
+         * @return A shuffled copy of `collection`.
+         **/
+        shuffle<V extends Collection<any>>(collection: V): TypeOfCollection<V>[];
 
         /**
-        * Produce a random sample from the `list`.  Pass a number to return `n` random elements from the list.  Otherwise a single random item will be returned.
-        * @param list List to sample.
-        * @return Random sample of `n` elements in `list`.
-        **/
-        sample<T>(list: _.Collection<T>, n: number): T[];
-
-        /**
-        * @see _.sample
-        **/
-        sample<T>(list: _.Collection<T>): T;
+         * Produce a random sample from the collection. Pass a number to return `n` random elements from the collection.
+         * Otherwise a single random item will be returned.
+         * @param collection The collection to sample.
+         * @param n The number of elements to sample from the collection.
+         * @return A random sample of `n` elements from `collection` or a single element if `n` is not specified.
+         **/
+        sample<V extends Collection<any>>(collection: V, n: number): TypeOfCollection<V>[];
+        sample<V extends Collection<any>>(collection: V): TypeOfCollection<V> | undefined;
 
         /**
         * Converts the list (anything that can be iterated over), into a real Array. Useful for transmuting
@@ -4206,16 +4209,22 @@ declare module _ {
         select: Underscore<T, V>['filter'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.where
-        **/
-        where<U extends {}>(properties: U): T[];
+         * Looks through each value in the wrapped collection, returning an array of all the values that matches the
+         * key-value pairs listed in `properties`.
+         * @param properties The properties to check for on the elements within the wrapped collection.
+         * @return The elements in the wrapped collection that match `properties`.
+         **/
+        where(properties: Partial<T>): T[];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.findWhere
-        **/
-        findWhere<U extends {}>(properties: U): T | undefined;
+         * Looks through the wrapped collection and returns the first value that matches all of the key-value
+         * pairs listed in `properties`.
+         * If no match is found, or if list is empty, undefined will be returned.
+         * @param properties The properties to check for on the elements within the wrapped collection.
+         * @return The first element in the wrapped collection that matches `properties` or undefined if
+         * no match is found.
+         **/
+        findWhere(properties: Partial<T>): T | undefined;
 
         /**
          * Returns the values in the wrapped collection without the elements that pass a truth test (iteratee).
@@ -4363,21 +4372,19 @@ declare module _ {
         countBy(iterator: string, context?: any): _.Dictionary<number>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.shuffle
-        **/
+         * Returns a shuffled copy of the wrapped collection, using a version of the Fisher-Yates shuffle.
+         * @return A shuffled copy of the wrapped collection.
+         **/
         shuffle(): T[];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.sample
-        **/
-        sample<T>(n: number): T[];
-
-        /**
-        * @see _.sample
-        **/
-        sample<T>(): T;
+         * Produce a random sample from the wrapped collection. Pass a number to return `n` random elements from the
+         * wrapped collection. Otherwise a single random item will be returned.
+         * @param n The number of elements to sample from the wrapped collection.
+         * @return A random sample of `n` elements from the wrapped collection or a single element if `n` is not specified.
+         **/
+        sample(n: number): T[];
+        sample(): T | undefined;
 
         /**
         * Wrapped type `any`.
@@ -5183,16 +5190,22 @@ declare module _ {
         select: _Chain<T, V>['filter'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.where
-        **/
-        where<U extends {}>(properties: U): _Chain<T>;
+         * Looks through each value in the wrapped collection, returning an array of all the values that matches the
+         * key-value pairs listed in `properties`.
+         * @param properties The properties to check for on the elements within the wrapped collection.
+         * @return The elements in the wrapped collection that match `properties` in a chain wrapper.
+         **/
+        where(properties: Partial<T>): _Chain<T, T[]>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.findWhere
-        **/
-        findWhere<U extends {}>(properties: U): _ChainSingle<T>;
+         * Looks through the wrapped collection and returns the first value that matches all of the key-value
+         * pairs listed in `properties`.
+         * If no match is found, or if list is empty, undefined will be returned.
+         * @param properties The properties to check for on the elements within the wrapped collection.
+         * @return The first element in the wrapped collection that matches `properties` or undefined if
+         * no match is found. The result will be wrapped in a chain wrapper.
+         **/
+        findWhere(properties: Partial<T>): _ChainSingle<T | undefined>;
 
         /**
          * Returns the values in the wrapped collection without the elements that pass a truth test (iteratee).
@@ -5341,21 +5354,20 @@ declare module _ {
         countBy(iterator: string, context?: any): _Chain<T>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.shuffle
-        **/
-        shuffle(): _Chain<T>;
+         * Returns a shuffled copy of the wrapped collection, using a version of the Fisher-Yates shuffle.
+         * @return A shuffled copy of the wrapped collection in a chain wrapper.
+         **/
+        shuffle(): _Chain<T, T[]>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.sample
-        **/
-        sample<T>(n: number): _Chain<T>;
-
-        /**
-        * @see _.sample
-        **/
-        sample<T>(): _Chain<T>;
+         * Produce a random sample from the wrapped collection. Pass a number to return `n` random elements from the
+         * wrapped collection. Otherwise a single random item will be returned.
+         * @param n The number of elements to sample from the wrapped collection.
+         * @return A random sample of `n` elements from the wrapped collection or a single element if `n` is not specified.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        sample(n: number): _Chain<T, T[]>;
+        sample(): _ChainSingle<T | undefined>;
 
         /**
         * Wrapped type `any`.

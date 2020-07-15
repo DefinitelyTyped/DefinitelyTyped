@@ -486,6 +486,63 @@ _.chain(anyValue)
     .find(i => i.findBooleanFunction())
     .value();
 
+// $ExpectType { valueProperty: string; } | undefined
+_.chain([
+    {
+        group: 'a',
+        subGroup: 1,
+        value: { valueProperty: 'first' }
+    },
+    {
+        group: 'b',
+        subGroup: 2,
+        value: { valueProperty: 'second' }
+    },
+    {
+        group: 'b',
+        subGroup: 3,
+        value: { valueProperty: 'third' }
+    }])
+    .groupBy(v => v.group)
+    .filter(g => g.length >= 2)
+    .flatten()
+    .where({ subGroup: 2 })
+    .pluck('value')
+    .sample()
+    .value();
+
+// verify that partial objects can be provided without error to where and findWhere for a union type collection
+// where no types in the union share the same property names
+declare const nonIntersectinglTypeUnion: _.Dictionary<{ one: string; } | { two: number; }>;
+
+// $ExpectType ({ one: string; } | { two: number; })[]
+_.chain(nonIntersectinglTypeUnion)
+    .where({ one: 'one' })
+    .sample(5)
+    .value();
+
+// $ExpectType { one: string; } | { two: number; } | undefined
+_.chain(nonIntersectinglTypeUnion)
+    .sample(5)
+    .findWhere({ two: 2 })
+    .value();
+
+// verify that both types can be provided without error to where and findWhere for a union type collection where
+// two properties in the union have different types
+declare const overlappingTypeUnion: _.Dictionary<{ same: string; } | { same: number; }>;
+
+// $ExpectType ({ same: string; } | { same: number; })[]
+_.chain(overlappingTypeUnion)
+    .where({ same: 0 })
+    .shuffle()
+    .value();
+
+// $ExpectType { same: string; } | { same: number; } | undefined
+_.chain(overlappingTypeUnion)
+    .shuffle()
+    .findWhere({ same: 'no' })
+    .value();
+
 // common testing types and objects
 const context = {};
 
@@ -619,7 +676,7 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(simpleString).map(stringListValueIterator, context); // $ExpectType number[]
     extractChainTypes(_.chain(simpleString).map(stringListValueIterator, context)); // $ExpectType ChainType<number[], number>
 
-    // function iteratee - collect
+    // function iteratee - strings - collect
     _.collect(simpleString, stringListValueIterator, context); // $ExpectType number[]
     _(simpleString).collect(stringListValueIterator, context); // $ExpectType number[]
     extractChainTypes(_.chain(simpleString).collect(stringListValueIterator, context)); // $ExpectType ChainType<number[], number>
@@ -1133,6 +1190,42 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(stringRecordList).select()); // $ExpectType ChainType<StringRecord[], StringRecord>
 }
 
+// where
+{
+    // non-intersecting type union - lists
+    _.where(nonIntersectingPropertiesList, partialStringRecord); // $ExpectType NonIntersectingProperties[]
+    _(nonIntersectingPropertiesList).where(partialStringRecord); // $ExpectType NonIntersectingProperties[]
+    extractChainTypes(_.chain(nonIntersectingPropertiesList).where(partialStringRecord)); // $ExpectType ChainType<NonIntersectingProperties[], NonIntersectingProperties>
+
+    // simple type - dictionaries
+    _.where(stringRecordDictionary, partialStringRecord); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).where(partialStringRecord); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).where(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // any
+    _.where(anyValue, partialStringRecord); // $ExpectType any[]
+    _(anyValue).where(partialStringRecord); // $ExpectType any[]
+    extractChainTypes(_.chain(anyValue).where(partialStringRecord)); // $ExpectType ChainType<any[], any>
+}
+
+// findWhere
+{
+    // non-intersecting type union - lists
+    _.findWhere(nonIntersectingPropertiesList, partialStringRecord); // $ExpectType StringRecord | NonIntersectingStringRecord | undefined
+    _(nonIntersectingPropertiesList).findWhere(partialStringRecord); // $ExpectType StringRecord | NonIntersectingStringRecord | undefined
+    extractChainTypes(_.chain(nonIntersectingPropertiesList).findWhere(partialStringRecord)); // $ExpectType ChainType<StringRecord | NonIntersectingStringRecord | undefined, never>
+
+    // simple type - dictionaries
+    _.findWhere(stringRecordDictionary, partialStringRecord); // $ExpectType StringRecordOrUndefined
+    _(stringRecordDictionary).findWhere(partialStringRecord); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordDictionary).findWhere(partialStringRecord)); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // any
+    _.findWhere(anyValue, partialStringRecord); // $ExpectType any
+    _(anyValue).findWhere(partialStringRecord); // $ExpectType any
+    extractChainTypes(_.chain(anyValue).findWhere(partialStringRecord)); // $ExpectType ChainType<any, any>
+}
+
 // reject
 {
     // function iteratee - lists
@@ -1226,6 +1319,57 @@ declare const extractChainTypes: ChainTypeExtractor;
     _.groupBy(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord[]>
     _(stringRecordDictionary).groupBy(stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord[]>
     _.chain(stringRecordDictionary).groupBy(stringRecordPropertyPath); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+}
+
+// shuffle
+{
+    // lists
+    _.shuffle(stringRecordList); // $ExpectType StringRecord[]
+    _(stringRecordList).shuffle(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).shuffle()); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // dictionaries
+    _.shuffle(stringRecordDictionary); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).shuffle(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).shuffle()); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // strings
+    _.shuffle(simpleString); // $ExpectType string[]
+    _(simpleString).shuffle(); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleString).shuffle()); // $ExpectType ChainType<string[], string>
+}
+
+// sample
+{
+    // without n - lists
+    _.sample(stringRecordList); // $ExpectType StringRecordOrUndefined
+    _(stringRecordList).sample(); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordList).sample()); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // without n - dictionaries
+    _.sample(stringRecordDictionary); // $ExpectType StringRecordOrUndefined
+    _(stringRecordDictionary).sample(); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordDictionary).sample()); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // without n - strings
+    _.sample(simpleString); // $ExpectType string | undefined
+    _(simpleString).sample(); // $ExpectType string | undefined
+    extractChainTypes(_.chain(simpleString).sample()); // $ExpectType ChainType<string | undefined, string>
+
+    // with n - lists
+    _.sample(stringRecordList, simpleNumber); // $ExpectType StringRecord[]
+    _(stringRecordList).sample(simpleNumber); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).sample(simpleNumber)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // with n - dictionaries
+    _.sample(stringRecordDictionary, simpleNumber); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).sample(simpleNumber); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).sample(simpleNumber)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // with n - strings
+    _.sample(simpleString, simpleNumber); // $ExpectType string[]
+    _(simpleString).sample(simpleNumber); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleString).sample(simpleNumber)); // $ExpectType ChainType<string[], string>
 }
 
 // Arrays
