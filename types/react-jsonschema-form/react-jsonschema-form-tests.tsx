@@ -206,7 +206,7 @@ export const withThemeExample = () => {
         noValidate: false,
         noHtml5Validate: false,
     });
-    const forwardedRef = React.useRef<Form<any>>(null)
+    const forwardedRef = React.useRef<Form<any>>(null);
 
     return <Form schema={schema} ref={forwardedRef} />;
 };
