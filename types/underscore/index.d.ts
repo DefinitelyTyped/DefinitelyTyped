@@ -179,45 +179,26 @@ declare module _ {
         ************* */
 
         /**
-        * Iterates over a list of elements, yielding each in turn to an iterator function. The iterator is
-        * bound to the context object, if one is passed. Each invocation of iterator is called with three
-        * arguments: (element, index, list). If list is a JavaScript object, iterator's arguments will be
-        * (value, key, object). Delegates to the native forEach function if it exists.
-        * @param list Iterates over this list of elements.
-        * @param iterator Iterator function for each element `list`.
-        * @param context 'this' object in `iterator`, optional.
-        **/
-        each<T>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, void>,
-            context?: any): _.List<T>;
+         * Iterates over a collection of elements, yielding each in turn to an
+         * iteratee. The iteratee is bound to the context object, if one is
+         * passed. If iteratee is a function, Each invocation is called with
+         * three arguments: (value, key, collection).
+         * @param collection The collection of elements to iterate over.
+         * @param iteratee The iteratee to call for each element in
+         * `collection`.
+         * @param context 'this' object in `iteratee`, optional.
+         * @returns The original collection.
+         **/
+        each<V extends Collection<any>>(
+            collection: V,
+            iteratee: CollectionIterator<TypeOfCollection<V>, void, V>,
+            context?: any
+        ): V;
 
         /**
-        * @see _.each
-        * @param object Iterates over properties of this object.
-        * @param iterator Iterator function for each property on `object`.
-        * @param context 'this' object in `iterator`, optional.
-        **/
-        each<T>(
-            object: _.Dictionary<T>,
-            iterator: _.ObjectIterator<T, void>,
-            context?: any): _.Dictionary<T>;
-
-        /**
-        * @see _.each
-        **/
-        forEach<T>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, void>,
-            context?: any): _.List<T>;
-
-        /**
-        * @see _.each
-        **/
-        forEach<T>(
-            object: _.Dictionary<T>,
-            iterator: _.ObjectIterator<T, void>,
-            context?: any): _.Dictionary<T>;
+         * @see each
+         **/
+        forEach: UnderscoreStatic['each'];
 
         /**
          * Produces a new array of values by mapping each value in the collection through a transformation function
@@ -714,12 +695,12 @@ declare module _ {
         sample<V extends Collection<any>>(collection: V): TypeOfCollection<V> | undefined;
 
         /**
-        * Converts the list (anything that can be iterated over), into a real Array. Useful for transmuting
-        * the arguments object.
-        * @param list object to transform into an array.
-        * @return `list` as an array.
-        **/
-        toArray<T>(list: _.Collection<T>): T[];
+         * Creates a real Array from the collection (anything that can be
+         * iterated over). Useful for transmuting the arguments object.
+         * @param collection The collection to transform into an array.
+         * @returns An array containing the elements of `collection`.
+         **/
+        toArray<V extends Collection<any>>(collection: V): TypeOfCollection<V>[];
 
         /**
         * Return the number of values in the list.
@@ -729,17 +710,21 @@ declare module _ {
         size<T>(list: _.Collection<T>): number;
 
         /**
-        * Split array into two arrays:
-        * one whose elements all satisfy predicate and one whose elements all do not satisfy predicate.
-        * @param array Array to split in two.
-        * @param iterator Filter iterator function for each element in `array`.
-        * @param context `this` object in `iterator`, optional.
-        * @return Array where Array[0] are the elements in `array` that satisfies the predicate, and Array[1] the elements that did not.
-        **/
-        partition<T>(
-            array: Array<T>,
-            iterator: _.ListIterator<T, boolean>,
-            context?: any): T[][];
+         * Splits `collection` into two arrays: one whose elements all satisfy
+         * `iteratee` and one whose elements all do not satisfy `iteratee`.
+         * @param collection The collection to partition.
+         * @param iteratee The iteratee that defines the partitioning scheme
+         * for each element in `collection`.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns An array composed of two elements, where the first element
+         * contains the elements in `collection` that satisfied the predicate
+         * and the second element contains the elements that did not.
+         **/
+        partition<V extends Collection<any>>(
+            list: V,
+            iteratee: Iteratee<V, boolean>,
+            context?: any
+        ): [TypeOfCollection<V>[], TypeOfCollection<V>[]];
 
         /*********
         * Arrays *
@@ -4078,25 +4063,21 @@ declare module _ {
         ************* */
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.each
-        **/
-        each(iterator: _.ListIterator<T, void>, context?: any): _.List<T>;
+         * Iterates over the wrapped collection of elements, yielding each in
+         * turn to an iteratee. The iteratee is bound to the context object, if
+         * one is passed. If iteratee is a function, Each invocation is called
+         * with three arguments: (value, key, collection).
+         * @param iteratee The iteratee to call for each element in the wrapped
+         * collection.
+         * @param context 'this' object in `iteratee`, optional.
+         * @returns The originally wrapped collection.
+         **/
+        each(iteratee: CollectionIterator<T, void, V>, context?: any): V;
 
         /**
-        * @see _.each
-        **/
-        each(iterator: _.ObjectIterator<T, void>, context?: any): _.List<T>;
-
-        /**
-        * @see _.each
-        **/
-        forEach(iterator: _.ListIterator<T, void>, context?: any): _.List<T>;
-
-        /**
-        * @see _.each
-        **/
-        forEach(iterator: _.ObjectIterator<T, void>, context?: any): _.List<T>;
+         * @see each
+         **/
+        forEach: Underscore<T, V>['each'];
 
         /**
          * Produces a new array of values by mapping each value in the wrapped collection through a transformation function
@@ -4382,9 +4363,10 @@ declare module _ {
         sample(): T | undefined;
 
         /**
-        * Wrapped type `any`.
-        * @see _.toArray
-        **/
+         * Creates a real Array from the wrapped collection (anything that can
+         * be iterated over). Useful for transmuting the arguments object.
+         * @returns An array containing the elements of the wrapped collection.
+         **/
         toArray(): T[];
 
         /**
@@ -4392,6 +4374,19 @@ declare module _ {
         * @see _.size
         **/
         size(): number;
+
+        /**
+         * Splits the wrapped collection into two arrays: one whose elements
+         * all satisfy `iteratee` and one whose elements all do not satisfy
+         * `iteratee`.
+         * @param iteratee The iteratee that defines the partitioning scheme
+         * for each element in the wrapped collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns An array composed of two elements, where the first element
+         * contains the elements in the wrapped collection that satisfied the
+         * predicate and the second element contains the elements that did not.
+         **/
+        partition(iteratee: Iteratee<V, boolean>, context?: any): [T[], T[]];
 
         /*********
         * Arrays *
@@ -4486,12 +4481,6 @@ declare module _ {
          * except for `values`.
          **/
         without(...values: T[]): T[];
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.partition
-        **/
-        partition(iterator: _.ListIterator<T, boolean>, context?: any): T[][];
 
         /**
         * Wrapped type `any[][]`.
@@ -5071,25 +5060,21 @@ declare module _ {
         ************* */
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.each
-        **/
-        each(iterator: _.ListIterator<T, void>, context?: any): _Chain<T>;
+         * Iterates over the wrapped collection of elements, yielding each in
+         * turn to an iteratee. The iteratee is bound to the context object, if
+         * one is passed. If iteratee is a function, Each invocation is called
+         * with three arguments: (value, key, collection).
+         * @param iteratee The iteratee to call for each element in the wrapped
+         * collection.
+         * @param context 'this' object in `iteratee`, optional.
+         * @returns A chain wrapper around the originally wrapped collection.
+         **/
+        each(iteratee: CollectionIterator<T, void, V>, context?: any): _Chain<T, V>;
 
         /**
-        * @see _.each
+        * @see each
         **/
-        each(iterator: _.ObjectIterator<T, void>, context?: any): _Chain<T>;
-
-        /**
-        * @see _.each
-        **/
-        forEach(iterator: _.ListIterator<T, void>, context?: any): _Chain<T>;
-
-        /**
-        * @see _.each
-        **/
-        forEach(iterator: _.ObjectIterator<T, void>, context?: any): _Chain<T>;
+        forEach: _Chain<T, V>['each'];
 
         /**
          * Produces a new array of values by mapping each value in the wrapped collection through a transformation function
@@ -5378,16 +5363,32 @@ declare module _ {
         sample(): _ChainSingle<T | undefined>;
 
         /**
-        * Wrapped type `any`.
-        * @see _.toArray
-        **/
-        toArray(): _Chain<T>;
+         * Creates a real Array from the wrapped collection (anything that can
+         * be iterated over). Useful for transmuting the arguments object.
+         * @returns A chain wrapper around an array containing the elements
+         * of the wrapped collection.
+         **/
+        toArray(): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any`.
         * @see _.size
         **/
         size(): _ChainSingle<number>;
+
+        /**
+         * Splits the wrapped collection into two arrays: one whose elements
+         * all satisfy `iteratee` and one whose elements all do not satisfy
+         * `iteratee`.
+         * @param iteratee The iteratee that defines the partitioning scheme
+         * for each element in the wrapped collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A chain wrapper around an array composed of two elements,
+         * where the first element contains the elements in the wrapped
+         * collection that satisfied the predicate and the second element
+         * contains the elements that did not.
+         **/
+        partition(iteratee: _ChainIteratee<V, boolean, T>, context?: any): _Chain<T[], [T[], T[]]>;
 
         /*********
         * Arrays *
@@ -5482,12 +5483,6 @@ declare module _ {
          * of the wrapped list except for `values`.
          **/
         without(...values: T[]): _Chain<T, T[]>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.partition
-        **/
-        partition(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T[]>;
 
         /**
         * Wrapped type `any[][]`.
