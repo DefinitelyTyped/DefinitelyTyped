@@ -729,7 +729,7 @@ export function mount<P, S>(node: ReactElement<P>, options?: MountRendererProps)
 /**
  * Render react components to static HTML and analyze the resulting HTML structure.
  */
-export function render<P, S>(node: ReactElement<P>, options?: any): Cheerio;
+export function render<P, S>(node: ReactElement<P>, options?: any): cheerio.Cheerio;
 
 // See https://github.com/airbnb/enzyme/blob/v3.10.0/packages/enzyme/src/EnzymeAdapter.js
 export class EnzymeAdapter {
