@@ -281,4 +281,9 @@ mixpanel.init('YOUR PROJECT TOKEN', {
 });
 mixpanel.set_group('test', ['some-value'], response => {
     console.log('response :>> ', response);
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
 });
