@@ -12,4 +12,4 @@ declare namespace formUrlEncoded {
 }
 
 declare function formUrlEncoded(data: any, opts?: formUrlEncoded.FormEncodedOptions): string;
-export = formUrlEncoded;
+export default formUrlEncoded;
