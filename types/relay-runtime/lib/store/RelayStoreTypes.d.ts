@@ -358,6 +358,7 @@ export interface RecordProxy<T = {}> {
     ): RecordProxy<T>;
     setValue<K extends keyof T>(value: T[K], name: K, args?: Variables | null): RecordProxy<T>;
     setValue(value: Primitive | Primitive[], name: string, args?: Variables | null): RecordProxy;
+    invalidateRecord(): void;
 }
 
 export interface ReadOnlyRecordProxy {
