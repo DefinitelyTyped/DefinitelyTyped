@@ -1,4 +1,4 @@
-// Type definitions for react-sortable-tree 0.3
+// Type definitions for react-sortable-tree 2.7
 // Project: https://frontend-collective.github.io/react-sortable-tree
 // Definitions by: Wouter Hardeman <https://github.com/wouterhardeman>
 //                 Jovica Zoric <https://github.com/jzoric>
@@ -9,12 +9,11 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { ListProps, Index } from 'react-virtualized';
+import { ListProps } from 'react-virtualized';
 import {
     ConnectDragSource,
     ConnectDragPreview,
-    ConnectDropTarget,
-    DragSourceMonitor
+    ConnectDropTarget
 } from 'react-dnd';
 
 export * from './utils/tree-data-utils';
