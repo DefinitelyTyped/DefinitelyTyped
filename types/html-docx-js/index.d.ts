@@ -1,6 +1,6 @@
 // Type definitions for html-docx-js 0.3
 // Project: https://github.com/evidenceprime/html-docx-js#readme
-// Definitions by: Jacob Fischer <https://github.com/me>
+// Definitions by: Jacob Fischer <https://github.com/JacobFischer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
