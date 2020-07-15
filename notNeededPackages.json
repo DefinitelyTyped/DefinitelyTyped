@@ -403,6 +403,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "@braintree/sanitize-url",
+            "typingsPackageName": "braintree__sanitize-url",
+            "sourceRepoURL": "https://github.com/braintree/sanitize-url",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "broccoli-plugin",
             "typingsPackageName": "broccoli-plugin",
             "sourceRepoURL": "https://github.com/broccolijs/broccoli-plugin",
