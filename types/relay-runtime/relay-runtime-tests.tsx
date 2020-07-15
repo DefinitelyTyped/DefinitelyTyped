@@ -298,13 +298,11 @@ const nodeFragment: ReaderFragment = {
             defaultValue: null,
             kind: 'LocalArgument',
             name: 'latArg',
-            type: 'String',
         },
         {
             defaultValue: null,
             kind: 'LocalArgument',
             name: 'lonArg',
-            type: 'String',
         },
     ],
     kind: 'Fragment',
