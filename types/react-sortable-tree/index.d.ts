@@ -184,7 +184,7 @@ interface ThemeTreeProps {
     reactVirtualizedListProps?: Partial<ListProps>;
     scaffoldBlockPxWidth?: number;
     slideRegionSize?: number;
-    rowHeight?: ((info: Index) => number) | number;
+    rowHeight?: ((info: TreeIndex & TreeNode & TreePath) => number) | number;
     nodeContentRenderer?: NodeRenderer;
     placeholderRenderer?: PlaceholderRenderer;
 }

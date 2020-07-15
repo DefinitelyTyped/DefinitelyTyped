@@ -14,7 +14,10 @@ import SortableTree, {
     SortableTreeWithoutDndContext,
     ThemeProps,
     TreeItem,
-    getTreeFromFlatData
+    getTreeFromFlatData,
+    TreeIndex,
+    TreeNode,
+    TreePath
 } from "react-sortable-tree";
 import { ListProps, ListRowRenderer } from "react-virtualized";
 
@@ -100,6 +103,13 @@ class Test extends React.Component {
                     onChange={(treeData: TreeItem[]) => {}}
                     style={{ width: "100px" }}
                     shouldCopyOnOutsideDrop={() => false}
+                />
+                <SortableTree
+                    treeData={treeData}
+                    onChange={(data: TreeItem[]) => {}}
+                    rowHeight={({ treeIndex, node, path }: TreeIndex & TreeNode & TreePath): number =>
+                        treeIndex + node.key + path.length
+                    }
                 />
                 <span>{maybeNode ? maybeNode.node.title : ""}</span>
             </div>
