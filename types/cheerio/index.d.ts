@@ -248,7 +248,7 @@ declare namespace cheerio {
         toArray(): CheerioElement[];
     }
 
-    interface CheerioOptions {
+    interface CheerioParserOptions {
         // Document References
         // Cheerio https://github.com/cheeriojs/cheerio
         // HTMLParser2 https://github.com/fb55/htmlparser2/wiki/Parser-options
@@ -288,15 +288,15 @@ declare namespace cheerio {
         contains(container: CheerioElement, contained: CheerioElement): boolean;
         parseHTML(data: string, context?: Document, keepScripts?: boolean): Document[];
 
-        html(options?: CheerioOptions): string;
-        html(dom: string | Cheerio | CheerioElement, options?: CheerioOptions): string;
+        html(options?: CheerioParserOptions): string;
+        html(dom: string | Cheerio | CheerioElement, options?: CheerioParserOptions): string;
 
         xml(dom?: string | Cheerio | CheerioElement): string;
     }
 
     interface CheerioAPI extends CheerioRoot {
-        load(html: string | Buffer, options?: CheerioOptions): CheerioRoot;
-        load(element: CheerioElement, options?: CheerioOptions): CheerioRoot;
+        load(html: string | Buffer, options?: CheerioParserOptions): CheerioRoot;
+        load(element: CheerioElement, options?: CheerioParserOptions): CheerioRoot;
     }
 }
 

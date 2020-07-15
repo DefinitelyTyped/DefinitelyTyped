@@ -22,7 +22,7 @@ declare namespace gulpCheerio {
 
     interface Option {
         run?: Callback;
-        parserOptions?: cheerio.CheerioOptions;
+        parserOptions?: cheerio.CheerioParserOptions;
         cheerio?: cheerio.CheerioRoot;
     }
 }
