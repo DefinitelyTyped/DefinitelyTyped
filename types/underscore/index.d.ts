@@ -854,14 +854,16 @@ declare module _ {
         flatten<V extends List<any>>(list: V, shallow: true): ListItemOrSelf<TypeOfList<V>>[];
 
         /**
-        * Returns a copy of the array with all instances of the values removed.
-        * @param array The array to remove `values` from.
-        * @param values The values to remove from `array`.
-        * @return Copy of `array` without `values`.
-        **/
-        without<T>(
-            array: _.List<T>,
-            ...values: T[]): T[];
+         * Returns a copy of `list` with all instances of `values` removed.
+         * @param list The list to exclude `values` from.
+         * @param values The values to exclude from `list`.
+         * @return An array that contains all elements of `list` except for
+         * `values`.
+         **/
+        without<V extends List<any>>(
+            list: V,
+            ...values: TypeOfList<V>[]
+        ): TypeOfList<V>[];
 
         /**
         * Computes the union of the passed-in arrays: the list of unique items, in order, that are
@@ -890,45 +892,35 @@ declare module _ {
             ...others: _.List<T>[]): T[];
 
         /**
-        * Produces a duplicate-free version of the array, using === to test object equality. If you know in
-        * advance that the array is sorted, passing true for isSorted will run a much faster algorithm. If
-        * you want to compute unique items based on a transformation, pass an iterator function.
-        * @param array Array to remove duplicates from.
-        * @param isSorted True if `array` is already sorted, optional, default = false.
-        * @param iterator Transform the elements of `array` before comparisons for uniqueness.
-        * @param context 'this' object in `iterator`, optional.
-        * @return Copy of `array` where all elements are unique.
-        **/
-        uniq<T, TSort>(
-            array: _.List<T>,
+         * Produces a duplicate-free version of `list`, using === to test
+         * object equality. If you know in advance that `list` is sorted,
+         * passing true for isSorted will run a much faster algorithm. If you
+         * want to compute unique items based on a transformation, pass an
+         * iteratee function.
+         * @param list The list to remove duplicates from.
+         * @param isSorted True if `list` is already sorted, optional,
+         * default = false.
+         * @param iteratee Transform the elements of `list` before comparisons
+         * for uniqueness.
+         * @param context 'this' object in `iteratee`, optional.
+         * @return An array containing only the unique elements in `list`.
+         **/
+        uniq<V extends List<any>>(
+            list: V,
             isSorted?: boolean,
-            iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand,
-            context?: any): T[];
+            iteratee?: Iteratee<V, any>,
+            context?: any
+        ): TypeOfList<V>[];
+        uniq<V extends List<any>>(
+            list: V,
+            iteratee?: Iteratee<V, any>,
+            context?: any
+        ): TypeOfList<V>[];
 
         /**
-        * @see _.uniq
-        **/
-        uniq<T, TSort>(
-            array: _.List<T>,
-            iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand,
-            context?: any): T[];
-
-        /**
-        * @see _.uniq
-        **/
-        unique<T, TSort>(
-            array: _.List<T>,
-            iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand,
-            context?: any): T[];
-
-        /**
-        * @see _.uniq
-        **/
-        unique<T, TSort>(
-            array: _.List<T>,
-            isSorted?: boolean,
-            iterator?: _.ListIterator<T, TSort>  | _.IterateePropertyShorthand,
-            context?: any): T[];
+         * @see uniq
+         **/
+        unique: UnderscoreStatic['uniq'];
 
         /**
         * Merges together the values of each of the arrays with the values at the corresponding position.
@@ -1041,19 +1033,22 @@ declare module _ {
             context?: any): number;
 
         /**
-        * Uses a binary search to determine the index at which the value should be inserted into the list in order
-        * to maintain the list's sorted order. If an iterator is passed, it will be used to compute the sort ranking
-        * of each value, including the value you pass.
-        * @param list The sorted list.
-        * @param value The value to determine its index within `list`.
-        * @param iterator Iterator to compute the sort ranking of each value, optional.
-        * @param context `this` object in `iterator`, optional.
-        * @return The index where `value` should be inserted into `list`.
-        **/
-        sortedIndex<T, TSort>(
-            list: _.List<T>,
-            value: T,
-            iterator?: ((x: T) => TSort) | string,
+         * Uses a binary search to determine the lowest index at which the
+         * value should be inserted into `list` in order to maintain `list`'s
+         * sorted order. If an iteratee is provided, it will be used to compute
+         * the sort ranking of each value, including the value you pass.
+         * @param list A sorted list.
+         * @param value The value to determine an insert index for to mainain
+         * the sorting in `list`.
+         * @param iteratee Iteratee to compute the sort ranking of each
+         * element including `value`, optional.
+         * @param context `this` object in `iteratee`, optional.
+         * @return The index where `value` should be inserted into `list`.
+         **/
+        sortedIndex<V extends List<any>>(
+            list: V,
+            value: TypeOfList<V>,
+            iteratee?: Iteratee<V, any>,
             context?: any
         ): number;
 
@@ -4484,9 +4479,12 @@ declare module _ {
         flatten(shallow: true): ListItemOrSelf<T>[];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.without
-        **/
+         * Returns a copy of the wrapped list with all instances of `values`
+         * removed.
+         * @param values The values to exclude from the wrapped list.
+         * @return An array that contains all elements of the wrapped list
+         * except for `values`.
+         **/
         without(...values: T[]): T[];
 
         /**
@@ -4514,26 +4512,26 @@ declare module _ {
         difference(...others: _.List<T>[]): T[];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.uniq
-        **/
-        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any> |  _.IterateePropertyShorthand): T[];
+         * Produces a duplicate-free version of the wrapped list, using === to
+         * test object equality. If you know in advance that the wrapped list
+         * is sorted, passing true for isSorted will run a much faster
+         * algorithm. If you want to compute unique items based on a
+         * transformation, pass an iteratee function.
+         * @param isSorted True if the wrapped list is already sorted,
+         * optional, default = false.
+         * @param iteratee Transform the elements of the wrapped list before
+         * comparisons for uniqueness.
+         * @param context 'this' object in `iteratee`, optional.
+         * @return An array containing only the unique elements in the wrapped
+         * list.
+         **/
+        uniq(isSorted?: boolean, iteratee?: Iteratee<V, any>, cotext?: any): T[];
+        uniq(iteratee?: Iteratee<V, any>, context?: any): T[];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.uniq
+        * @see uniq
         **/
-        uniq<TSort>(iterator?: _.ListIterator<T, TSort>, context?: any): T[];
-
-        /**
-        * @see _.uniq
-        **/
-        unique<TSort>(isSorted?: boolean, iterator?: _.ListIterator<T, TSort>): T[];
-
-        /**
-        * @see _.uniq
-        **/
-        unique<TSort>(iterator?: _.ListIterator<T, TSort>, context?: any): T[];
+        unique: Underscore<T, V>['uniq'];
 
         /**
         * Wrapped type `any[][]`.
@@ -4586,10 +4584,20 @@ declare module _ {
         findLastIndex(predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.sortedIndex
-        **/
-        sortedIndex(value: T, iterator?: (x: T) => any, context?: any): number;
+         * Uses a binary search to determine the lowest index at which the
+         * value should be inserted into the wrapped list in order to maintain
+         * the wrapped list's sorted order. If an iteratee is provided, it will
+         * be used to compute the sort ranking of each value, including the
+         * value you pass.
+         * @param value The value to determine an insert index for to mainain
+         * the sorting in the wrapped list.
+         * @param iteratee Iteratee to compute the sort ranking of each
+         * element including `value`, optional.
+         * @param context `this` object in `iteratee`, optional.
+         * @return The index where `value` should be inserted into the wrapped
+         * list.
+         **/
+        sortedIndex(value: T, iteratee?: Iteratee<V, any>, context?: any): number;
 
         /**
         * Wrapped type `number`.
@@ -5467,9 +5475,12 @@ declare module _ {
         flatten(shallow: true): _Chain<ListItemOrSelf<T>, ListItemOrSelf<T>[]>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.without
-        **/
+         * Returns a copy of the wrapped list with all instances of `values`
+         * removed.
+         * @param values The values to exclude from the wrapped list.
+         * @return A chain wrapper around an array that contains all elements
+         * of the wrapped list except for `values`.
+         **/
         without(...values: T[]): _Chain<T, T[]>;
 
         /**
@@ -5497,26 +5508,27 @@ declare module _ {
         difference(...others: _.List<T>[]): _Chain<T>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.uniq
-        **/
-        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand): _Chain<T>;
+         * Produces a duplicate-free version of the wrapped list, using === to
+         * test object equality. If you know in advance that the wrapped list
+         * is sorted, passing true for isSorted will run a much faster
+         * algorithm. If you want to compute unique items based on a
+         * transformation, pass an iteratee function.
+         * @param isSorted True if the wrapped list is already sorted,
+         * optional, default = false.
+         * @param iteratee Transform the elements of the wrapped list before
+         * comparisons for uniqueness.
+         * @param context 'this' object in `iteratee`, optional.
+         * @return A chain wrapper around an array containing only the unique
+         * elements in the wrapped list.
+         **/
+        uniq(isSorted?: boolean, iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
+        uniq(iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.uniq
+        * Wrapped type List<T>.
+        * @see uniq
         **/
-        uniq<TSort>(iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand, context?: any): _Chain<T>;
-
-        /**
-        * @see _.uniq
-        **/
-        unique<TSort>(isSorted?: boolean, iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand): _Chain<T>;
-
-        /**
-        * @see _.uniq
-        **/
-        unique<TSort>(iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand, context?: any): _Chain<T>;
+        unique: _Chain<T, V>['uniq'];
 
         /**
         * Wrapped type `any[][]`.
@@ -5569,10 +5581,20 @@ declare module _ {
         findLastIndex(predicate: _.ListIterator<T, boolean> | {}, context?: any): _ChainSingle<number>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.sortedIndex
-        **/
-        sortedIndex(value: T, iterator?: (x: T) => any, context?: any): _ChainSingle<number>;
+         * Uses a binary search to determine the lowest index at which the
+         * value should be inserted into the wrapped list in order to maintain
+         * the wrapped list's sorted order. If an iteratee is provided, it
+         * will be used to compute the sort ranking of each value, including
+         * the value you pass.
+         * @param value The value to determine an insert index for to mainain
+         * the sorting in the wrapped list.
+         * @param iteratee Iteratee to compute the sort ranking of each element
+         * including `value`, optional.
+         * @param context `this` object in `iteratee`, optional.
+         * @return A chain wrapper around the index where `value` should be
+         * inserted into the wrapped list.
+         **/
+        sortedIndex(value: T, iteratee?: _ChainIteratee<V, any, T>, context?: any): _ChainSingle<number>;
 
         /**
         * Wrapped type `number`.

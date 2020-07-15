@@ -1446,6 +1446,134 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(level2NonIntersectingPropertiesList).flatten(true)); // $ExpectType ChainType<NonIntersectingProperties[], NonIntersectingProperties>
 }
 
+// without
+{
+    // lists
+    _.without(stringRecordList, stringRecordList[0], stringRecordList[1]); // $ExpectType StringRecord[]
+    _(stringRecordList).without(stringRecordList[0], stringRecordList[1]); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).without(stringRecordList[0], stringRecordList[1])); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // strings
+    _.without(simpleString, simpleString[0], simpleString[1]); // $ExpectType string[]
+    _(simpleString).without(simpleString[0], simpleString[1]); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleString).without(simpleString[0], simpleString[1])); // $ExpectType ChainType<string[], string>
+}
+
+// uniq, unique
+{
+    // not sorted - identity iteratee - uniq
+    _.uniq(stringRecordList); // $ExpectType StringRecord[]
+    _(stringRecordList).uniq(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).uniq()); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // not sorted - identity iteratee - unique
+    _.unique(stringRecordList); // $ExpectType StringRecord[]
+    _(stringRecordList).unique(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).unique()); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // not sorted - function iteratee - uniq
+    _.uniq(stringRecordList, stringRecordListValueIterator); // $ExpectType StringRecord[]
+    _.uniq(stringRecordList, stringRecordListValueIterator, context); // $ExpectType StringRecord[]
+    _(stringRecordList).uniq(stringRecordListValueIterator); // $ExpectType StringRecord[]
+    _(stringRecordList).uniq(stringRecordListValueIterator, context); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).uniq(stringRecordListValueIterator)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    extractChainTypes(_.chain(stringRecordList).uniq(stringRecordListValueIterator, context)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // not sorted - function iteratee - unique
+    _.unique(stringRecordList, stringRecordListValueIterator); // $ExpectType StringRecord[]
+    _.unique(stringRecordList, stringRecordListValueIterator, context); // $ExpectType StringRecord[]
+    _(stringRecordList).unique(stringRecordListValueIterator); // $ExpectType StringRecord[]
+    _(stringRecordList).unique(stringRecordListValueIterator, context); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).unique(stringRecordListValueIterator)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    extractChainTypes(_.chain(stringRecordList).unique(stringRecordListValueIterator, context)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // not sorted - partial object iteratee - uniq
+    _.uniq(stringRecordList, partialStringRecord); // $ExpectType StringRecord[]
+    _(stringRecordList).uniq(partialStringRecord); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).uniq(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // not sorted - partial object iteratee - unique
+    _.unique(stringRecordList, partialStringRecord); // $ExpectType StringRecord[]
+    _(stringRecordList).unique(partialStringRecord); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).unique(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // not sorted - property name iteratee - uniq
+    _.uniq(stringRecordList, stringRecordProperty); // $ExpectType StringRecord[]
+    _(stringRecordList).uniq(stringRecordProperty); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).uniq(stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // not sorted - property name iteratee - unique
+    _.unique(stringRecordList, stringRecordProperty); // $ExpectType StringRecord[]
+    _(stringRecordList).unique(stringRecordProperty); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).unique(stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // not sorted - property path iteratee - uniq
+    _.uniq(stringRecordList, stringRecordPropertyPath); // $ExpectType StringRecord[]
+    _(stringRecordList).uniq(stringRecordPropertyPath); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).uniq(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // not sorted - property path iteratee - unique
+    _.unique(stringRecordList, stringRecordPropertyPath); // $ExpectType StringRecord[]
+    _(stringRecordList).unique(stringRecordPropertyPath); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).unique(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // sorted - identity iteratee - uniq
+    _.uniq(stringRecordList, true); // $ExpectType StringRecord[]
+    _(stringRecordList).uniq(true); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).uniq(true)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // sorted - identity iteratee - unique
+    _.unique(stringRecordList, true); // $ExpectType StringRecord[]
+    _(stringRecordList).unique(true); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).unique(true)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // sorted - function iteratee - uniq
+    _.uniq(stringRecordList, true, stringRecordListValueIterator); // $ExpectType StringRecord[]
+    _.uniq(stringRecordList, true, stringRecordListValueIterator, context); // $ExpectType StringRecord[]
+    _(stringRecordList).uniq(true, stringRecordListValueIterator); // $ExpectType StringRecord[]
+    _(stringRecordList).uniq(true, stringRecordListValueIterator, context); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).uniq(true, stringRecordListValueIterator)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    extractChainTypes(_.chain(stringRecordList).uniq(true, stringRecordListValueIterator, context)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // sorted - function iteratee - unique
+    _.unique(stringRecordList, true, stringRecordListValueIterator); // $ExpectType StringRecord[]
+    _.unique(stringRecordList, true, stringRecordListValueIterator, context); // $ExpectType StringRecord[]
+    _(stringRecordList).unique(true, stringRecordListValueIterator); // $ExpectType StringRecord[]
+    _(stringRecordList).unique(true, stringRecordListValueIterator, context); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).unique(true, stringRecordListValueIterator)); // $ExpectType ChainType<StringRecord[], StringRecord>
+    extractChainTypes(_.chain(stringRecordList).unique(true, stringRecordListValueIterator, context)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // sorted - partial object iteratee - uniq
+    _.uniq(stringRecordList, true, partialStringRecord); // $ExpectType StringRecord[]
+    _(stringRecordList).uniq(true, partialStringRecord); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).uniq(true, partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // sorted - partial object iteratee - unique
+    _.unique(stringRecordList, true, partialStringRecord); // $ExpectType StringRecord[]
+    _(stringRecordList).unique(true, partialStringRecord); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).unique(true, partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // sorted - property name iteratee - uniq
+    _.uniq(stringRecordList, true, stringRecordProperty); // $ExpectType StringRecord[]
+    _(stringRecordList).uniq(true, stringRecordProperty); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).uniq(true, stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // sorted - property name iteratee - unique
+    _.unique(stringRecordList, true, stringRecordProperty); // $ExpectType StringRecord[]
+    _(stringRecordList).unique(true, stringRecordProperty); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).unique(true, stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // sorted - property path iteratee - uniq
+    _.uniq(stringRecordList, true, stringRecordPropertyPath); // $ExpectType StringRecord[]
+    _(stringRecordList).uniq(true, stringRecordPropertyPath); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).uniq(true, stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // sorted - property path iteratee - unique
+    _.unique(stringRecordList, true, stringRecordPropertyPath); // $ExpectType StringRecord[]
+    _(stringRecordList).unique(true, stringRecordPropertyPath); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).unique(true, stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
+}
+
 // chunk
 {
     const length = 2;
@@ -1459,6 +1587,37 @@ declare const extractChainTypes: ChainTypeExtractor;
     _.chunk(simpleString, length); // $ExpectType string[][]
     _(simpleString).chunk(length); // $ExpectType string[][]
     extractChainTypes(_.chain(simpleString).chunk(length)); // $ExpectType ChainType<string[][], string[]>
+}
+
+// sortedIndex
+{
+    // identity iteratee
+    _.sortedIndex(simpleStringList, simpleString); // $ExpectType number
+    _(simpleStringList).sortedIndex(simpleString); // $ExpectType number
+    extractChainTypes(_.chain(simpleStringList).sortedIndex(simpleString)); // $ExpectType ChainType<number, never>
+
+    // function iteratee
+    _.sortedIndex(stringRecordList, stringRecordList[0], stringRecordListValueIterator); // $ExpectType number
+    _.sortedIndex(stringRecordList, stringRecordList[0], stringRecordListValueIterator, context); // $ExpectType number
+    _(stringRecordList).sortedIndex(stringRecordList[0], stringRecordListValueIterator); // $ExpectType number
+    _(stringRecordList).sortedIndex(stringRecordList[0], stringRecordListValueIterator, context); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).sortedIndex(stringRecordList[0], stringRecordListValueIterator)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(stringRecordList).sortedIndex(stringRecordList[0], stringRecordListValueIterator, context)); // $ExpectType ChainType<number, never>
+
+    // partial object iteratee
+    _.sortedIndex(stringRecordList, stringRecordList[0], partialStringRecord); // $ExpectType number
+    _(stringRecordList).sortedIndex(stringRecordList[0], partialStringRecord); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).sortedIndex(stringRecordList[0], partialStringRecord)); // $ExpectType ChainType<number, never>
+
+    // property name iteratee
+    _.sortedIndex(stringRecordList, stringRecordList[0], stringRecordProperty); // $ExpectType number
+    _(stringRecordList).sortedIndex(stringRecordList[0], stringRecordProperty); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).sortedIndex(stringRecordList[0], stringRecordProperty)); // $ExpectType ChainType<number, never>
+
+    // property path iteratee
+    _.sortedIndex(stringRecordList, stringRecordList[0], stringRecordPropertyPath); // $ExpectType number
+    _(stringRecordList).sortedIndex(stringRecordList[0], stringRecordPropertyPath); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).sortedIndex(stringRecordList[0], stringRecordPropertyPath)); // $ExpectType ChainType<number, never>
 }
 
 // findIndex and findLastIndex
