@@ -137,11 +137,7 @@ export interface Group {
         to?: Prop extends string ? string : undefined,
         callback?: Callback,
     ): Group;
-    union<Prop extends string | { [key: string]: string }>(
-        prop: Prop,
-        to?: Prop extends string ? string : undefined,
-        callback?: Callback,
-    ): Group;
+    union(prop: string, values: (string | number)[], callback?: Callback): Group;
     unset<Prop extends string | { [key: string]: string }>(
         prop: Prop,
         to?: Prop extends string ? string : undefined,
@@ -222,6 +218,7 @@ export function track(
 ): void;
 export function track_forms(query: Query, event_name: string, properties?: Dict | (() => void)): void;
 export function track_links(query: Query, event_name: string, properties?: Dict | (() => void)): void;
+export function track_with_groups(event_name: string, properties: Dict, groups: Dict, callback?: Callback): void;
 export function unregister(property: string): void;
 export const people: People;
 

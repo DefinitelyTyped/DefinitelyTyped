@@ -279,11 +279,108 @@ mixpanel.people.delete_user();
 mixpanel.init('YOUR PROJECT TOKEN', {
     ignore_dnt: true,
 });
+mixpanel.add_group('test', 'id');
+mixpanel.get_group('test', 'id');
+mixpanel.remove_group('test', 'id');
 mixpanel.set_group('test', ['some-value'], response => {
-    console.log('response :>> ', response);
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
     } else if (response.status === 0 && response.error.includes('bad')) {
     }
 });
+mixpanel.get_group('test', 'id').set('prop', 'value', response => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
+mixpanel.get_group('test', 'id').set(
+    {
+        name: 'Name',
+    },
+    undefined,
+    response => {
+        if (response === 1) {
+        } else if (response === 0) {
+        } else if (response.status === 1 && response.error === null) {
+        } else if (response.status === 0 && response.error.includes('bad')) {
+        }
+    },
+);
+mixpanel.get_group('test', 'id').setOnce('prop', 'value', response => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
+mixpanel.get_group('test', 'id').remove('prop', 'value', response => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
+mixpanel.get_group('test', 'id').union('prop', ['value'], response => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
+mixpanel.get_group('test', 'id').unset('prop', 'value', response => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
+
+const x = {
+    'mixpanel-browser': [
+        {
+            fileName: '/Users/dwilt/Documents/GitHub/DefinitelyTyped/types/mixpanel-browser/index.d.ts',
+            ruleName: 'npm-naming',
+            message:
+                "The declaration doesn't match the JavaScript module 'mixpanel-browser'. Reason:\nThe JavaScript module exports a property named 'config', which is missing from the declaration module.",
+        },
+        {
+            fileName: '/Users/dwilt/Documents/GitHub/DefinitelyTyped/types/mixpanel-browser/index.d.ts',
+            ruleName: 'npm-naming',
+            message:
+                "The declaration doesn't match the JavaScript module 'mixpanel-browser'. Reason:\nThe JavaScript module exports a property named 'persistence', which is missing from the declaration module.",
+        },
+        {
+            fileName: '/Users/dwilt/Documents/GitHub/DefinitelyTyped/types/mixpanel-browser/index.d.ts',
+            ruleName: 'npm-naming',
+            message:
+                "The declaration doesn't match the JavaScript module 'mixpanel-browser'. Reason:\nThe JavaScript module exports a property named 'cookie', which is missing from the declaration module.",
+        },
+        {
+            fileName: '/Users/dwilt/Documents/GitHub/DefinitelyTyped/types/mixpanel-browser/index.d.ts',
+            ruleName: 'npm-naming',
+            message:
+                "The declaration doesn't match the JavaScript module 'mixpanel-browser'. Reason:\nThe JavaScript module exports a property named 'track_with_groups', which is missing from the declaration module.",
+        },
+        {
+            fileName: '/Users/dwilt/Documents/GitHub/DefinitelyTyped/types/mixpanel-browser/index.d.ts',
+            ruleName: 'npm-naming',
+            message:
+                "The declaration doesn't match the JavaScript module 'mixpanel-browser'. Reason:\nThe JavaScript module exports a property named 'track_pageview', which is missing from the declaration module.",
+        },
+        {
+            fileName: '/Users/dwilt/Documents/GitHub/DefinitelyTyped/types/mixpanel-browser/index.d.ts',
+            ruleName: 'npm-naming',
+            message:
+                "The declaration doesn't match the JavaScript module 'mixpanel-browser'. Reason:\nThe JavaScript module exports a property named 'name_tag', which is missing from the declaration module.",
+        },
+        {
+            fileName: '/Users/dwilt/Documents/GitHub/DefinitelyTyped/types/mixpanel-browser/index.d.ts',
+            ruleName: 'npm-naming',
+            message:
+                "The declaration doesn't match the JavaScript module 'mixpanel-browser'. Reason:\nThe JavaScript module exports a property named 'toString', which is missing from the declaration module.",
+        },
+    ],
+};
