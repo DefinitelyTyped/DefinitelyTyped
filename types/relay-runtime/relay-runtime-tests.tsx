@@ -142,6 +142,7 @@ function storeUpdater(store: RecordSourceSelectorProxy) {
     const mutationPayload = store.getRootField('sendConversationMessage');
     const newMessageEdge = mutationPayload!.getLinkedRecord('messageEdge');
     const conversationStore = store.get('a-conversation-id');
+    conversationStore!.invalidateRecord();
     const connection = ConnectionHandler.getConnection(conversationStore!, 'Messages_messages');
     if (connection) {
         ConnectionHandler.insertEdgeBefore(connection, newMessageEdge!);
@@ -173,6 +174,7 @@ function storeUpdaterWithTypes(store: RecordSourceSelectorProxy<SendConversation
     const newMessageEdge = mutationPayload.getLinkedRecord('messageEdge');
     const id = newMessageEdge.getValue('id');
     const conversationStore = store.get<TConversation>(id);
+    conversationStore!.invalidateRecord();
     const connection = ConnectionHandler.getConnection(conversationStore!, 'Messages_messages');
     if (connection) {
         ConnectionHandler.insertEdgeBefore(connection, newMessageEdge);
