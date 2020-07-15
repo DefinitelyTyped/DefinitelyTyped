@@ -96,6 +96,7 @@ class FullAPIExample extends React.Component<BigCalendarProps<CalendarEvent>> {
                 dayPropGetter={customDayPropGetter}
                 slotPropGetter={customSlotPropGetter}
                 defaultDate={new Date()}
+                style={{ height: 500 }}
             />
         );
     }

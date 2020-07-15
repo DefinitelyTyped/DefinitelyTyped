@@ -4,6 +4,7 @@
 //                 Austin Turner <https://github.com/paustint>
 //                 Krzysztof Bezrąk <https://github.com/pikpok>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Chris Vandenberg <https://github.com/altruisticsoftware>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -182,6 +183,7 @@ export interface BigCalendarProps<T extends Event = Event> extends React.Props<B
     defaultDate?: Date;
     className?: string;
     elementProps?: React.HTMLAttributes<HTMLElement>;
+    style?: React.CSSProperties;
 }
 
 export default class BigCalendar<T extends Event = Event> extends React.Component<BigCalendarProps<T>> {
