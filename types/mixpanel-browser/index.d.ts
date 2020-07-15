@@ -137,7 +137,7 @@ export interface Group {
         to?: Prop extends string ? string : undefined,
         callback?: Callback,
     ): Group;
-    union(prop: string, values: Array<string | number>, callback?: Callback): Group;
+    union(list_name: string, values: Array<string | number>, callback?: Callback): Group;
     unset(prop: string, callback?: Callback): void;
 }
 

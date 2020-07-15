@@ -330,13 +330,7 @@ mixpanel.get_group('test', 'id').union('prop', ['value'], response => {
     } else if (response.status === 0 && response.error.includes('bad')) {
     }
 });
-mixpanel.get_group('test', 'id').unset('prop', 'value', response => {
-    if (response === 1) {
-    } else if (response === 0) {
-    } else if (response.status === 1 && response.error === null) {
-    } else if (response.status === 0 && response.error.includes('bad')) {
-    }
-});
+mixpanel.get_group('test', 'id').unset('prop');
 mixpanel.track_with_groups('event', { name: 'Name' }, { group: ['value'] }, response => {
     if (response === 1) {
     } else if (response === 0) {
