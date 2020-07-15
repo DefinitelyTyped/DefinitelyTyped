@@ -277,7 +277,7 @@ declare module 'react-jsonschema-form' {
 
     export function withTheme<T = any>(
         themeProps: ThemeProps<T>,
-    ): React.ComponentClass<FormProps<T>> | React.StatelessComponent<FormProps<T>>;
+    ): React.ForwardRefExoticComponent<React.PropsWithoutRef<FormProps<T>> & React.RefAttributes<Form<T>>>;
 
     export type AddButtonProps = {
         className: string;
