@@ -20,8 +20,8 @@
 import * as Koa from "koa";
 
 declare module "koa" {
-    interface Request {
-        body?: any;
+    interface Request<M> {
+        body?: M;
         rawBody: string;
     }
 }
