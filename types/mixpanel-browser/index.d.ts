@@ -125,41 +125,22 @@ export interface People {
 }
 
 export interface Group {
-    /**
-     * Remove a property from a group. The value will be ignored if doesn't exist.
-     */
     remove(list_name: string, value: string, callback?: Callback): Group;
-
-    /**
-     * Set properties on a group.
-     */
     set<Prop extends string | { [key: string]: string }>(
         prop: Prop,
         to?: Prop extends string ? string : undefined,
         callback?: Callback,
     ): Group;
-
-    /**
-     * Set properties on a group, only if they do not yet exist. This will not overwrite previous group property values, unlike group.set().
-     */
     setOnce<Prop extends string | { [key: string]: string | number | Date | string[] }>(
         prop: Prop,
         to?: Prop extends string ? string : undefined,
         callback?: Callback,
     ): Group;
-
-    /**
-     * Merge a given list with a list-valued group property, excluding duplicate values.
-     */
     union<Prop extends string | { [key: string]: string }>(
         prop: Prop,
         to?: Prop extends string ? string : undefined,
         callback?: Callback,
     ): Group;
-
-    /**
-     * Unset properties on a group permanently.
-     */
     unset<Prop extends string | { [key: string]: string }>(
         prop: Prop,
         to?: Prop extends string ? string : undefined,
@@ -168,18 +149,12 @@ export interface Group {
 }
 
 export interface Mixpanel {
-    /**
-     * Add a new group for this user.
-     */
     add_group(group_key: string, group_id: string, callback?: Callback): void;
     alias(alias: string, original?: string): void;
     clear_opt_in_out_tracking(options?: Partial<ClearOptOutInOutOptions>): void;
     disable(events?: string[]): void;
     get_config(prop_name?: string): any;
     get_distinct_id(): any;
-    /**
-     * Look up reference to a Mixpanel group
-     */
     get_group(group_key: string, group_id: string): Group;
     get_property(property_name: string): any;
     has_opted_in_tracking(options?: Partial<HasOptedInOutOptions>): boolean;
@@ -191,15 +166,9 @@ export interface Mixpanel {
     push(item: PushItem): void;
     register(props: Dict, days?: number): void;
     register_once(props: Dict, default_value?: any, days?: number): void;
-    /**
-     * Remove a group from this user.
-     */
     remove_group(group_key: string, group_ids: string | string[] | number | number[], callback?: Callback): void;
     reset(): void;
     set_config(config: Partial<Config>): void;
-    /**
-     * Register the current user into one/many groups.
-     */
     set_group(group_key: string, group_ids: string | string[] | number | number[], callback?: Callback): void;
     time_event(event_name: string): void;
     track(
@@ -238,12 +207,6 @@ export function remove_group(
 ): void;
 export function reset(): void;
 export function set_config(config: Partial<Config>): void;
-/**
- * does soemthing
- * @param group_key
- * @param group_ids
- * @param callback
- */
 export function set_group(
     group_key: string,
     group_ids: string | string[] | number | number[],
