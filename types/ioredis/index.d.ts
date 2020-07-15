@@ -931,9 +931,9 @@ declare namespace IORedis {
     }
 
     interface Pipeline {
-        readonly redis: Redis;
+        readonly redis: Redis | Cluster;
         readonly isCluster: boolean;
-        readonly options: RedisOptions;
+        readonly options: RedisOptions | ClusterOptions;
         readonly length: number;
 
         bitcount(key: KeyType, callback?: Callback<number>): Pipeline;
