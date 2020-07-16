@@ -18,15 +18,15 @@
         "compile-scripts": "tsc -p scripts",
         "not-needed": "node scripts/not-needed.js",
         "update-codeowners": "node scripts/update-codeowners.js",
-        "test": "node node_modules/@definitelytyped/dtslint-runner/dist/index.js --path .",
+        "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed",
         "lint": "dtslint types",
         "prettier": "prettier"
     },
     "devDependencies": {
-        "@definitelytyped/dtslint-runner": "latest",
         "danger": "^10.1.1",
         "dtslint": "latest",
         "prettier": "^2.0.2",
+        "types-publisher": "github:Microsoft/types-publisher#production"
     },
     "husky": {
         "hooks": {
@@ -34,5 +34,5 @@
             "pre-commit": "npm uninstall husky"
         }
     },
-	"dependencies": {}
+    "dependencies": {}
 }
