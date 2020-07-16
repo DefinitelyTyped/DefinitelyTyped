@@ -67,9 +67,15 @@ val = dot.pick('some.nested.value', newObj, true);
 
 // shorthand
 val = dot.remove('some.nested.value', newObj);
+val = dot.remove(['some.nested.value'], newObj)
 
 // or use the alias `del`
 val = dot.del('some.nested.value', newObj);
+val = dot.del(['some.nested.value'], newObj);
+
+// delete and get value of the deleted attribute
+val = dot.delete('some.nested.value', newObj)
+val = dot.delete(['some.nested.value'], newObj)
 
 // convert object to dot object
 var result = {};
@@ -95,15 +101,3 @@ dot.keepArray = true
 var keepArrayResult = dot.dot(objWithArray)
 console.log('Default:', defaultResult)
 console.log('KeepArray:', keepArrayResult)
-
-
-// Delete value from an object using dot notation
-var objWithArray = {
-  author: 'John Doe',
-  books: ['A', 'B', 'C'],
-  about: {
-    hometown: 'Sampang, Jawa Timur',
-    skils: ['HTML', 'CSS', 'JS', 'TS']
-  }
-}
-var author = dot.delete('author', objWithArray)

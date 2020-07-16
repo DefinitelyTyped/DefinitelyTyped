@@ -64,20 +64,20 @@ declare namespace DotObject {
          *
          * Remove value from an object using dot notation.
          *
-         * @param {String} path
+         * @param {String | Array<String>} path
          * @param {Object} obj
          * @return {Mixed} The removed value
          */
-        del(path: string, obj: any): any;
+        del(path: string | string[], obj: any): any;
         /**
          *
          * Delete value from an object using dot notation.
          *
-         * @param {String} path
+         * @param {String | Array<String>} path
          * @param {Object} obj
          * @return {any} The removed value
          */
-        delete(path: string, obj: any): any;
+        delete(path: string | string[], obj: any): any;
         /**
          *
          * Keep array
@@ -153,11 +153,11 @@ declare namespace DotObject {
          *
          * Remove value from an object using dot notation.
          *
-         * @param {String} path
+         * @param {String | Array<String>} path
          * @param {Object} obj
          * @return {Mixed} The removed value
          */
-        remove(path: string, obj: any): any;
+        remove(path: string | string[], obj: any): any;
         /**
          *
          * Replace/create with a string
