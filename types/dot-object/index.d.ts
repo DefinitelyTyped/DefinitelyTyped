@@ -71,6 +71,38 @@ declare namespace DotObject {
         del(path: string, obj: any): any;
         /**
          *
+         * Delete value from an object using dot notation.
+         *
+         * @param {String} path
+         * @param {Object} obj
+         * @return {any} The removed value
+         */
+        delete(path: string, obj: any): any;
+        /**
+         *
+         * Keep array
+         *
+         * example:
+         *
+         * var obj = {
+         *   "id": "my-id",
+         *   "other": [1, 2, 3]
+         *   "some": {
+         *     "array": ["A", "B"]
+         *   }
+         * }
+         *
+         * if the keepArray property is true:
+         *
+         * {
+         *   "id": "my-id",
+         *   "other": [1, 2, 3],
+         *   "some.array": ["A", "B"]
+         * }
+         */
+        keepArray: boolean;
+        /**
+         *
          * Move a property from one place to the other.
          *
          * If the source path does not exist (undefined)
@@ -186,29 +218,6 @@ declare namespace DotObject {
          * @param {Array} mods modifiers for the target
          */
         transform(recipe: any, obj: any, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): void;
-        /**
-         *
-         * Keep array
-         *
-         * example:
-         *
-         * var obj = {
-         *   "id": "my-id",
-         *   "other": [1, 2, 3]
-         *   "some": {
-         *     "array": ["A", "B"]
-         *   }
-         * }
-         *
-         * if the keepArray property is true:
-         *
-         * {
-         *   "id": "my-id",
-         *   "other": [1, 2, 3],
-         *   "some.array": ["A", "B"]
-         * }
-         */
-        keepArray: boolean;
     }
 }
 
