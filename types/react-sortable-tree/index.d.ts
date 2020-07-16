@@ -1,4 +1,4 @@
-// Type definitions for react-sortable-tree 2.7
+// Type definitions for react-sortable-tree 0.3
 // Project: https://frontend-collective.github.io/react-sortable-tree
 // Definitions by: Wouter Hardeman <https://github.com/wouterhardeman>
 //                 Jovica Zoric <https://github.com/jzoric>
@@ -9,7 +9,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { ListProps } from 'react-virtualized';
+import { ListProps, Index } from 'react-virtualized';
 import {
     ConnectDragSource,
     ConnectDragPreview,
@@ -183,7 +183,7 @@ interface ThemeTreeProps {
     reactVirtualizedListProps?: Partial<ListProps>;
     scaffoldBlockPxWidth?: number;
     slideRegionSize?: number;
-    rowHeight?: ((info: TreeIndex & TreeNode & TreePath) => number) | number;
+    rowHeight?: ((info: NodeData & Index) => number) | number;
     nodeContentRenderer?: NodeRenderer;
     placeholderRenderer?: PlaceholderRenderer;
 }

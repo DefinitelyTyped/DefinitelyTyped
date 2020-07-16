@@ -14,12 +14,9 @@ import SortableTree, {
     SortableTreeWithoutDndContext,
     ThemeProps,
     TreeItem,
-    getTreeFromFlatData,
-    TreeIndex,
-    TreeNode,
-    TreePath
+    getTreeFromFlatData
 } from "react-sortable-tree";
-import { ListProps, ListRowRenderer } from "react-virtualized";
+import { ListProps, ListRowRenderer, Index } from "react-virtualized";
 
 class PlaceholderRenderer extends React.Component<PlaceholderRendererProps> {
     render() {
@@ -107,7 +104,7 @@ class Test extends React.Component {
                 <SortableTree
                     treeData={treeData}
                     onChange={(data: TreeItem[]) => {}}
-                    rowHeight={({ treeIndex, node, path }: TreeIndex & TreeNode & TreePath): number =>
+                    rowHeight={({ treeIndex, node, path }: NodeData & Index): number =>
                         treeIndex + node.key + path.length
                     }
                 />
