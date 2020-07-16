@@ -95,3 +95,15 @@ dot.keepArray = true
 var keepArrayResult = dot.dot(objWithArray)
 console.log('Default:', defaultResult)
 console.log('KeepArray:', keepArrayResult)
+
+
+// Delete value from an object using dot notation
+var objWithArray = {
+  author: 'John Doe',
+  books: ['A', 'B', 'C'],
+  about: {
+    hometown: 'Sampang, Jawa Timur',
+    skils: ['HTML', 'CSS', 'JS', 'TS']
+  }
+}
+var author = dot.delete('author', objWithArray)
