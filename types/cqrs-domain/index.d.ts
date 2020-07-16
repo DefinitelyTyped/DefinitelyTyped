@@ -252,7 +252,7 @@ declare namespace Domain {
 
     /**
      * @param data is the command data
-     * @callback callback is optional, if not defined as function argument you can throw errors or return errors here (sync way)
+     * @param callback is optional, if not defined as function argument you can throw errors or return errors here (sync way)
      */
     type preLoadConditionHandler = (data: any, callback?: (err: string | Error) => string | Error) => void | string | Error;
 
@@ -295,7 +295,7 @@ declare namespace Domain {
     /**
      * @param data is the command data
      * @param aggregate is the aggregate object
-     * @callback callback is optional, if not defined as function argument you can throw errors or return errors here (sync way)
+     * @param callback is optional, if not defined as function argument you can throw errors or return errors here (sync way)
      */
     type preConditionHandler = (data: any, aggregate: AggregateModel, callback?: (err: string | Error) => string | Error) => void | string | Error;
 

@@ -1,7 +1,8 @@
 import {
     describeComponent, describeModel, describeModule,
     setResolver, setupAcceptanceTest, setupComponentTest,
-    setupModelTest, setupTest
+    setupModelTest, setupTest, setupRenderingTest,
+    setupApplicationTest
 } from 'ember-mocha';
 import { describe, it, beforeEach, afterEach, before, after } from 'mocha';
 import chai = require('chai');
@@ -96,8 +97,6 @@ describeModule('component:x-foo', 'TestModule callbacks', function() {
 });
 
 describe('setupTest', function() {
-    setupTest();
-
     setupTest('service:ajax');
 
     setupTest('service:ajax', {
@@ -193,3 +192,62 @@ it('can calculate the result', function(assert) {
 it.skip('disabled test');
 
 it.skip('disabled test', function() { });
+
+// New testing APIs of ember-mocha 0.14
+
+describe('setupTest', function() {
+    setupTest();
+
+    setupTest({ resolver: Ember.DefaultResolver.create() });
+
+    const hooks = setupTest();
+    hooks.beforeEach(function() {
+        this.owner.lookup('service:foo');
+    });
+    hooks.afterEach(function() {
+        this.owner.factoryFor('service:foo');
+    });
+
+    setupRenderingTest();
+
+    setupRenderingTest({ resolver: Ember.DefaultResolver.create() });
+
+    const hooks2 = setupRenderingTest();
+    hooks2.beforeEach(function() {
+        this.owner.lookup('service:foo');
+    });
+
+    hooks2.afterEach(function() {
+        this.owner.factoryFor('service:foo');
+    });
+
+    setupApplicationTest();
+
+    setupApplicationTest({ resolver: Ember.DefaultResolver.create() });
+
+    const hooks3 = setupApplicationTest();
+    hooks3.beforeEach(function() {
+        this.owner.lookup('service:foo');
+    });
+
+    hooks3.afterEach(function() {
+        this.owner.factoryFor('service:foo');
+    });
+
+    it('test', function() {
+    });
+});
+
+describe('rendering test', function() {
+    setupRenderingTest();
+
+    it('renders', async function() {
+        // setup the outer context
+        this.set('value', 'cat');
+
+        // render the component
+        await this.render(hbs`{{ x-foo value=value}}`);
+
+        chai.expect(this.element.querySelector('div>.value')!.textContent!.trim()).to.equal('cat', 'The component shows the correct value');
+    });
+});

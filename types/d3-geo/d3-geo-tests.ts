@@ -371,6 +371,7 @@ const gnomonicRaw: d3Geo.GeoRawProjection = d3Geo.geoGnomonicRaw();
 const mercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoMercatorRaw();
 const orthographicRaw: d3Geo.GeoRawProjection = d3Geo.geoOrthographicRaw();
 const stereographicRaw: d3Geo.GeoRawProjection = d3Geo.geoStereographicRaw();
+const equalEarthRaw: d3Geo.GeoRawProjection = d3Geo.geoEqualEarthRaw();
 const transverseMercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoTransverseMercatorRaw();
 const naturalEarth1Raw: d3Geo.GeoRawProjection = d3Geo.geoNaturalEarth1Raw();
 
@@ -398,6 +399,7 @@ const gnomonic: d3Geo.GeoProjection = d3Geo.geoGnomonic();
 const mercator: d3Geo.GeoProjection = d3Geo.geoMercator();
 const orthographic: d3Geo.GeoProjection = d3Geo.geoOrthographic();
 const stereographic: d3Geo.GeoProjection = d3Geo.geoStereographic();
+const equalEarth: d3Geo.GeoProjection = d3Geo.geoEqualEarth();
 const transverseMercator: d3Geo.GeoProjection = d3Geo.geoTransverseMercator();
 const naturalEarth1: d3Geo.GeoProjection = d3Geo.geoNaturalEarth1();
 

@@ -7,7 +7,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "experimentalDecorators": true,
         "baseUrl": "../",
@@ -24,9 +24,6 @@
             ],
             "hapi": [
                 "hapi/v16"
-            ],
-            "inert": [
-                "inert/v4"
             ]
         },
         "noEmit": true,

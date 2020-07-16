@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+/// <reference types="node" />
+
 import { IncomingMessage, ServerResponse, Server } from 'http';
 
 export type RequestHandler = (req: IncomingMessage, res: ServerResponse) => any;
@@ -19,8 +21,8 @@ export function sendError(req: IncomingMessage, res: ServerResponse, info: { sta
 
 export function createError(code: number, msg: string, orig?: Error): Error & { statusCode: number, originalError?: Error };
 
-export function buffer(req: IncomingMessage, info?: { limit?: string, encoding?: string }): Promise<Buffer | string>;
+export function buffer(req: IncomingMessage, info?: { limit?: string | number, encoding?: string }): Promise<Buffer | string>;
 
-export function text(req: IncomingMessage, info?: { limit?: string, encoding?: string }): Promise<string>;
+export function text(req: IncomingMessage, info?: { limit?: string | number, encoding?: string }): Promise<string>;
 
-export function json(req: IncomingMessage, info?: { limit?: string, encoding?: string }): Promise<object>;
+export function json(req: IncomingMessage, info?: { limit?: string | number, encoding?: string }): Promise<object>;

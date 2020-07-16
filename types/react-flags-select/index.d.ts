@@ -2,7 +2,7 @@
 // Project: https://github.com/ekwonye-richard/react-flags-select#readme
 // Definitions by: Artur Sianiuk <https://github.com/senukartur>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { Component } from 'react';
 

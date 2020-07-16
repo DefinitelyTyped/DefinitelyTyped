@@ -2,7 +2,7 @@
 // Project: https://github.com/littlebits/react-popover
 // Definitions by: Jakub Řičař <https://github.com/jacoporicare>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
@@ -32,7 +32,7 @@ declare namespace Popover {
         tipSize?: number;
         className?: string;
         style?: React.CSSProperties;
-        target?: React.ReactElement<any>;
+        target?: React.ReactElement;
         appendTarget?: Element;
     }
 }

@@ -230,8 +230,8 @@ export default class AmAngularGauge extends AmChart {
     /**
      * Gauge face image-pattern.
      * Example: {"url":"../amcharts/patterns/black/pattern1.png", "width":4, "height":4}
-     * fontFamily	String	Verdana	Font family.
-     * fontSize	Number	11	Font size.
+     * fontFamily    String    Verdana    Font family.
+     * fontSize    Number    11    Font size.
      */
     facePattern: object;
 
@@ -440,7 +440,7 @@ export default class AmAngularGauge extends AmChart {
 
     /**
      * Charts will use SVG icons (some are loaded from images folder and some are drawn inline)
-     * if browser supports SVG. his makes icons look good on retina displays on all resolutions.
+     * if browser supports SVG. This makes icons look good on retina displays on all resolutions.
      * @default true
      */
     svgIcons: boolean;
@@ -478,7 +478,7 @@ export default class AmAngularGauge extends AmChart {
 
     /**
      * If you set it to 200 (milliseconds) or so, the chart will fire clickGraphItem or clickSlice (AmSlicedChart)
-     * or clickMapObject only if user holds his/her finger for 0.2 seconds (200 ms) on the
+     * or clickMapObject only if user holds their finger for 0.2 seconds (200 ms) on the
      * column/bullet/slice/map object.
      * @default 0
      */

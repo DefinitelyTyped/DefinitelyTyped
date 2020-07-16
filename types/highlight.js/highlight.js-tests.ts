@@ -1,8 +1,8 @@
 /*
-	highlight.js definition by Niklas Mollenhauer
-	Last Update: 10.09.2013
-	Source Code: https://github.com/isagalaev/highlight.js
-	Project Page: http://softwaremaniacs.org/soft/highlight/en/
+    highlight.js definition by Niklas Mollenhauer
+    Last Update: 10.09.2013
+    Source Code: https://github.com/isagalaev/highlight.js
+    Project Page: http://softwaremaniacs.org/soft/highlight/en/
 */
 
 import * as hljs from 'highlight.js';

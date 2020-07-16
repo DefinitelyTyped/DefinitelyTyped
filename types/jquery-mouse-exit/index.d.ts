@@ -18,6 +18,6 @@ export type FocusElements = Partial<{
 declare global {
     interface JQuery {
         mouseExit(options?: Options): JQuery;
-        on(event: 'mouseExit', handler: ((event: JQuery.Event<HTMLElement>, data: FocusElements) => void)): JQuery;
+        on(event: 'mouseExit', handler: ((event: JQuery.TriggeredEvent<HTMLElement>, data: FocusElements) => void)): JQuery;
     }
 }

@@ -5,6 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
+import { EventEmitter } from 'events';
+
 export interface SpawnWith {
     customFds: number[];
     setsid: boolean;
@@ -25,7 +27,7 @@ export interface Options {
     sourceDir?: string;
     watch?: boolean;
     watchIgnoreDotFiles?: boolean;
-    watchIgnorePatters?: string[];
+    watchIgnorePatterns?: string[];
     watchDirectory?: string;
     spawnWith?: SpawnWith;
     env?: NodeJS.ProcessEnv;
@@ -41,7 +43,7 @@ export function kill(pid: number, killTree?: boolean, signal?: string, callback?
 export function checkProcess(pid: number): boolean;
 export const version: string;
 
-export class Monitor extends NodeJS.EventEmitter {
+export class Monitor extends EventEmitter {
     /**
      * @param script - Location of the target script to run.
      * @param [options] - Configuration for this instance.

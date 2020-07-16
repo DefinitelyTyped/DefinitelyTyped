@@ -1134,7 +1134,7 @@ namespace CSR {
                 }
 
                 if (!vm.value) {
-                    vm.value = ko.observable<any>();
+                    vm.value = ko.observable();
                 }
 
                 vm.value.subscribe(v => { _myData.updateControlValue(fieldName, v); });
@@ -1882,7 +1882,7 @@ namespace MySP {
     export class ClientContextPromise extends SP.ClientContext {
         /** To use this function, you must ensure that jQuery and CSOMPromise js files are loaded to the page */
         executeQueryPromise(): JQueryPromise<any> {
-            const deferred = jQuery.Deferred<any>();
+            const deferred = jQuery.Deferred();
             this.executeQueryAsync(function done(sender, args) {
                 deferred.resolve(sender, args);
             },
@@ -1977,7 +1977,7 @@ namespace _ {
     // then add the term sets that belong to that group under the div that was clicked.
     function showTermSets(groupID: SP.Guid) {
         // First thing is to remnove the divs under the group DIV to ensure we have a clean place to write to.
-        // The reason we don't clear them all is becuase we want to retain the text node of the
+        // The reason we don't clear them all is because we want to retain the text node of the
         // group div. I.E. that's why we use "parentDiv.childNodes.length>1" as our loop
         // controller.
         const parentDiv = document.getElementById(groupID.toString());
@@ -1995,7 +1995,7 @@ namespace _ {
         context.executeQueryPromise()
             .then(
             () => {
-                // The group is now available becuase this is the
+                // The group is now available because this is the
                 // success callback. So now we'll load and populate the
                 // term set collection. We have to do this before we can
                 // iterate through the collection, so we can do this
@@ -2005,7 +2005,7 @@ namespace _ {
                 return context.executeQueryPromise();
             })
             .then(() => {
-                // The term sets are now available becuase this is the
+                // The term sets are now available because this is the
                 // success callback. So now we'll iterate through the collection
                 // and create the clickable div. Also note how we create a
                 // click event handler for each div on-the-fly, and that we pass in the
@@ -2038,7 +2038,7 @@ namespace _ {
     // do is retrieve a reference to the term set with the same ID as the div, and
     // then add the term  that belong to that term set under the div that was clicked.
 
-    function showTerms(event: JQuery.Event, groupID: SP.Guid, termSetID: SP.Guid) {
+    function showTerms(event: JQuery.ClickEvent, groupID: SP.Guid, termSetID: SP.Guid) {
         // First, cancel the bubble so that the group div click handler does not also fire
         // because that removes all term set divs and we don't want that here.
         event.originalEvent.cancelBubble = true;
@@ -2062,7 +2062,7 @@ namespace _ {
         context
             .executeQueryPromise()
             .then(() => {
-                // The group is now available becuase this is the
+                // The group is now available because this is the
                 // success callback. So now we'll load and populate the
                 // term set collection. We have to do this before we can
                 // iterate through the collection, so we can do this
@@ -2301,11 +2301,11 @@ namespace SampleReputation {
         for (const row of  rows) {
             const item = new MyItem(row);
             result += '\
-			    <li>' + item.title + '\
-					<a style="cursor: pointer;" onclick="SampleReputation.setLike(' + item.id + ', \'' + ctx.listId + '\')" >\
-						<span id="likesCountText' + item.id + '">' + getLikeText(item.isLikedByCurrentUser) + '</span><span id="likesCount' + item.id + '">' + item.likesCount + '</span>\
-					</a>\
-			    </li>';
+                <li>' + item.title + '\
+                    <a style="cursor: pointer;" onclick="SampleReputation.setLike(' + item.id + ', \'' + ctx.listId + '\')" >\
+                        <span id="likesCountText' + item.id + '">' + getLikeText(item.isLikedByCurrentUser) + '</span><span id="likesCount' + item.id + '">' + item.likesCount + '</span>\
+                    </a>\
+                </li>';
         }
         return result;
     }

@@ -19,14 +19,22 @@ server.start();
 server.inject('/').then(res => console.log(res.result));
 
 declare module 'hapi' {
-	interface ApplicationState {
-		injectState?: number;
-	}
+    interface ApplicationState {
+        injectState?: number;
+    }
 }
 
 server.inject({
-	url: "test",
-	app: {
-		injectState: 1
-	}
+    auth: {
+        strategy: 'test',
+        credentials: {
+            user: {
+                a: 1,
+            },
+        },
+    },
+    url: "test",
+    app: {
+        injectState: 1
+    }
 });

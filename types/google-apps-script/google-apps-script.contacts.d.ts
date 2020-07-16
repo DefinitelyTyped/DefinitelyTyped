@@ -1,31 +1,31 @@
-// Type definitions for Google Apps Script 2017-05-12
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Contacts {
+  namespace Contacts {
     /**
      * Address field in a contact.
      */
-    export interface AddressField {
+    interface AddressField {
       deleteAddressField(): void;
       getAddress(): string;
-      getLabel(): Object;
+      getLabel(): Field | ExtendedField | string;
       isPrimary(): boolean;
       setAddress(address: string): AddressField;
       setAsPrimary(): AddressField;
       setLabel(field: Field): AddressField;
       setLabel(label: string): AddressField;
     }
-
     /**
      * Company field in a Contact.
      */
-    export interface CompanyField {
+    interface CompanyField {
       deleteCompanyField(): void;
       getCompanyName(): string;
       getJobTitle(): string;
@@ -34,51 +34,50 @@ declare namespace GoogleAppsScript {
       setCompanyName(company: string): CompanyField;
       setJobTitle(title: string): CompanyField;
     }
-
     /**
      * A Contact contains the name, address, and various contact details of a contact.
      */
-    export interface Contact {
-      addAddress(label: Object, address: string): AddressField;
+    interface Contact {
+      addAddress(label: typeof ContactsApp.Field | string, address: string): AddressField;
       addCompany(company: string, title: string): CompanyField;
-      addCustomField(label: Object, content: Object): CustomField;
-      addDate(label: Object, month: Base.Month, day: Integer, year: Integer): DateField;
-      addEmail(label: Object, address: string): EmailField;
-      addIM(label: Object, address: string): IMField;
-      addPhone(label: Object, number: string): PhoneField;
+      addCustomField(label: typeof ContactsApp.ExtendedField | string, content: any): CustomField;
+      addDate(label: typeof ContactsApp.Field | string, month: Base.Month, day: Integer, year: Integer): DateField;
+      addEmail(label: typeof ContactsApp.Field | string, address: string): EmailField;
+      addIM(label: typeof ContactsApp.Field | string, address: string): IMField;
+      addPhone(label: typeof ContactsApp.Field | string, number: string): PhoneField;
       addToGroup(group: ContactGroup): Contact;
-      addUrl(label: Object, url: string): UrlField;
+      addUrl(label: typeof ContactsApp.Field | string, url: string): UrlField;
       deleteContact(): void;
       getAddresses(): AddressField[];
-      getAddresses(label: Object): AddressField[];
+      getAddresses(label: typeof ContactsApp.Field | string): AddressField[];
       getCompanies(): CompanyField[];
       getContactGroups(): ContactGroup[];
       getCustomFields(): CustomField[];
-      getCustomFields(label: Object): CustomField[];
+      getCustomFields(label: typeof ContactsApp.ExtendedField | string): CustomField[];
       getDates(): DateField[];
-      getDates(label: Object): DateField[];
+      getDates(label: typeof ContactsApp.Field | string): DateField[];
       getEmails(): EmailField[];
-      getEmails(label: Object): EmailField[];
+      getEmails(label: typeof ContactsApp.Field | string): EmailField[];
       getFamilyName(): string;
       getFullName(): string;
       getGivenName(): string;
       getIMs(): IMField[];
-      getIMs(label: Object): IMField[];
+      getIMs(label: typeof ContactsApp.Field | string): IMField[];
       getId(): string;
       getInitials(): string;
-      getLastUpdated(): Date;
+      getLastUpdated(): Base.Date;
       getMaidenName(): string;
       getMiddleName(): string;
       getNickname(): string;
       getNotes(): string;
       getPhones(): PhoneField[];
-      getPhones(label: Object): PhoneField[];
+      getPhones(label: typeof ContactsApp.Field | string): PhoneField[];
       getPrefix(): string;
       getPrimaryEmail(): string;
       getShortName(): string;
       getSuffix(): string;
       getUrls(): UrlField[];
-      getUrls(label: Object): UrlField[];
+      getUrls(label: typeof ContactsApp.Field | string): UrlField[];
       removeFromGroup(group: ContactGroup): Contact;
       setFamilyName(familyName: string): Contact;
       setFullName(fullName: string): Contact;
@@ -91,34 +90,33 @@ declare namespace GoogleAppsScript {
       setPrefix(prefix: string): Contact;
       setShortName(shortName: string): Contact;
       setSuffix(suffix: string): Contact;
-      getEmailAddresses(): string[];
-      getHomeAddress(): string;
-      getHomeFax(): string;
-      getHomePhone(): string;
-      getMobilePhone(): string;
-      getPager(): string;
-      getUserDefinedField(key: string): string;
-      getUserDefinedFields(): Object;
-      getWorkAddress(): string;
-      getWorkFax(): string;
-      getWorkPhone(): string;
-      setHomeAddress(addr: string): void;
-      setHomeFax(phone: string): void;
-      setHomePhone(phone: string): void;
-      setMobilePhone(phone: string): void;
-      setPager(phone: string): void;
-      setPrimaryEmail(primaryEmail: string): void;
-      setUserDefinedField(key: string, value: string): void;
-      setUserDefinedFields(o: Object): void;
-      setWorkAddress(addr: string): void;
-      setWorkFax(phone: string): void;
-      setWorkPhone(phone: string): void;
+      /** @deprecated DO NOT USE */ getEmailAddresses(): string[];
+      /** @deprecated DO NOT USE */ getHomeAddress(): string;
+      /** @deprecated DO NOT USE */ getHomeFax(): string;
+      /** @deprecated DO NOT USE */ getHomePhone(): string;
+      /** @deprecated DO NOT USE */ getMobilePhone(): string;
+      /** @deprecated DO NOT USE */ getPager(): string;
+      /** @deprecated DO NOT USE */ getUserDefinedField(key: string): string;
+      /** @deprecated DO NOT USE */ getUserDefinedFields(): object;
+      /** @deprecated DO NOT USE */ getWorkAddress(): string;
+      /** @deprecated DO NOT USE */ getWorkFax(): string;
+      /** @deprecated DO NOT USE */ getWorkPhone(): string;
+      /** @deprecated DO NOT USE */ setHomeAddress(addr: string): void;
+      /** @deprecated DO NOT USE */ setHomeFax(phone: string): void;
+      /** @deprecated DO NOT USE */ setHomePhone(phone: string): void;
+      /** @deprecated DO NOT USE */ setMobilePhone(phone: string): void;
+      /** @deprecated DO NOT USE */ setPager(phone: string): void;
+      /** @deprecated DO NOT USE */ setPrimaryEmail(primaryEmail: string): void;
+      /** @deprecated DO NOT USE */ setUserDefinedField(key: string, value: string): void;
+      /** @deprecated DO NOT USE */ setUserDefinedFields(o: object): void;
+      /** @deprecated DO NOT USE */ setWorkAddress(addr: string): void;
+      /** @deprecated DO NOT USE */ setWorkFax(phone: string): void;
+      /** @deprecated DO NOT USE */ setWorkPhone(phone: string): void;
     }
-
     /**
      * A ContactGroup is is a group of contacts.
      */
-    export interface ContactGroup {
+    interface ContactGroup {
       addContact(contact: Contact): ContactGroup;
       deleteGroup(): void;
       getContacts(): Contact[];
@@ -127,15 +125,14 @@ declare namespace GoogleAppsScript {
       isSystemGroup(): boolean;
       removeContact(contact: Contact): ContactGroup;
       setName(name: string): ContactGroup;
-      getGroupName(): string;
-      setGroupName(name: string): void;
+      /** @deprecated DO NOT USE */ getGroupName(): string;
+      /** @deprecated DO NOT USE */ setGroupName(name: string): void;
     }
-
     /**
      * This class allows users to access their own Google Contacts and create, remove, and update
-     *  contacts listed therein.
+     * contacts listed therein.
      */
-    export interface ContactsApp {
+    interface ContactsApp {
       ExtendedField: typeof ExtendedField;
       Field: typeof Field;
       Gender: typeof Gender;
@@ -156,7 +153,7 @@ declare namespace GoogleAppsScript {
       getContactsByAddress(query: string, label: Field): Contact[];
       getContactsByAddress(query: string, label: string): Contact[];
       getContactsByCompany(query: string): Contact[];
-      getContactsByCustomField(query: Object, label: ExtendedField): Contact[];
+      getContactsByCustomField(query: typeof ContactsApp.ExtendedField | string, label: ExtendedField): Contact[];
       getContactsByDate(month: Base.Month, day: Integer, label: Field): Contact[];
       getContactsByDate(month: Base.Month, day: Integer, year: Integer, label: Field): Contact[];
       getContactsByDate(month: Base.Month, day: Integer, year: Integer, label: string): Contact[];
@@ -178,35 +175,32 @@ declare namespace GoogleAppsScript {
       getContactsByUrl(query: string): Contact[];
       getContactsByUrl(query: string, label: Field): Contact[];
       getContactsByUrl(query: string, label: string): Contact[];
-      findByEmailAddress(email: string): Contact;
-      findContactGroup(name: string): ContactGroup;
-      getAllContacts(): Contact[];
+      /** @deprecated DO NOT USE */ findByEmailAddress(email: string): Contact;
+      /** @deprecated DO NOT USE */ findContactGroup(name: string): ContactGroup;
+      /** @deprecated DO NOT USE */ getAllContacts(): Contact[];
     }
-
     /**
      * A custom field in a Contact.
      */
-    export interface CustomField {
+    interface CustomField {
       deleteCustomField(): void;
-      getLabel(): Object;
-      getValue(): Object;
+      getLabel(): Field | ExtendedField | string;
+      getValue(): any;
       setLabel(field: ExtendedField): CustomField;
       setLabel(label: string): CustomField;
-      setValue(value: Object): CustomField;
+      setValue(value: any): CustomField;
     }
-
     /**
      * A date field in a Contact.
      *
      * This class is only used by the Contacts service, and dates used elsewhere in App Script use
-     *  JavaScript's standard
-     *
-     *  Date object.
+     * JavaScript's standard
+     * Date object.
      */
-    export interface DateField {
+    interface DateField {
       deleteDateField(): void;
       getDay(): Integer;
-      getLabel(): Object;
+      getLabel(): Field | ExtendedField | string;
       getMonth(): Base.Month;
       getYear(): Integer;
       setDate(month: Base.Month, day: Integer): DateField;
@@ -214,15 +208,14 @@ declare namespace GoogleAppsScript {
       setLabel(label: Field): DateField;
       setLabel(label: string): DateField;
     }
-
     /**
      * An email field in a Contact.
      */
-    export interface EmailField {
+    interface EmailField {
       deleteEmailField(): void;
       getAddress(): string;
       getDisplayName(): string;
-      getLabel(): Object;
+      getLabel(): Field | ExtendedField | string;
       isPrimary(): boolean;
       setAddress(address: string): EmailField;
       setAsPrimary(): EmailField;
@@ -230,42 +223,38 @@ declare namespace GoogleAppsScript {
       setLabel(field: Field): EmailField;
       setLabel(label: string): EmailField;
     }
-
     /**
      * An enum for extended contacts fields.
      */
-    export enum ExtendedField { HOBBY, MILEAGE, LANGUAGE, GENDER, BILLING_INFORMATION, DIRECTORY_SERVER, SENSITIVITY, PRIORITY, HOME, WORK, USER, OTHER }
-
+    enum ExtendedField { HOBBY, MILEAGE, LANGUAGE, GENDER, BILLING_INFORMATION, DIRECTORY_SERVER, SENSITIVITY, PRIORITY, HOME, WORK, USER, OTHER }
     /**
      * An enum for contacts fields.
      */
-    export enum Field { FULL_NAME, GIVEN_NAME, MIDDLE_NAME, FAMILY_NAME, MAIDEN_NAME, NICKNAME, SHORT_NAME, INITIALS, PREFIX, SUFFIX, HOME_EMAIL, WORK_EMAIL, BIRTHDAY, ANNIVERSARY, HOME_ADDRESS, WORK_ADDRESS, ASSISTANT_PHONE, CALLBACK_PHONE, MAIN_PHONE, PAGER, HOME_FAX, WORK_FAX, HOME_PHONE, WORK_PHONE, MOBILE_PHONE, GOOGLE_VOICE, NOTES, GOOGLE_TALK, AIM, YAHOO, SKYPE, QQ, MSN, ICQ, JABBER, BLOG, FTP, PROFILE, HOME_PAGE, WORK_WEBSITE, HOME_WEBSITE, JOB_TITLE, COMPANY }
-
+    enum Field { FULL_NAME, GIVEN_NAME, MIDDLE_NAME, FAMILY_NAME, MAIDEN_NAME, NICKNAME, SHORT_NAME, INITIALS, PREFIX, SUFFIX, HOME_EMAIL, WORK_EMAIL, BIRTHDAY, ANNIVERSARY, HOME_ADDRESS, WORK_ADDRESS, ASSISTANT_PHONE, CALLBACK_PHONE, MAIN_PHONE, PAGER, HOME_FAX, WORK_FAX, HOME_PHONE, WORK_PHONE, MOBILE_PHONE, GOOGLE_VOICE, NOTES, GOOGLE_TALK, AIM, YAHOO, SKYPE, QQ, MSN, ICQ, JABBER, BLOG, FTP, PROFILE, HOME_PAGE, WORK_WEBSITE, HOME_WEBSITE, JOB_TITLE, COMPANY }
     /**
      * An enum for contact gender.
      */
-    export enum Gender { MALE, FEMALE }
-
+    enum Gender { MALE, FEMALE }
     /**
      * An instant messaging field in a Contact.
      */
-    export interface IMField {
+    // tslint:disable-next-line: interface-name
+    interface IMField {
       deleteIMField(): void;
       getAddress(): string;
-      getLabel(): Object;
+      getLabel(): Field | ExtendedField | string;
       isPrimary(): boolean;
       setAddress(address: string): IMField;
       setAsPrimary(): IMField;
       setLabel(field: Field): IMField;
       setLabel(label: string): IMField;
     }
-
     /**
      * A phone number field in a Contact.
      */
-    export interface PhoneField {
+    interface PhoneField {
       deletePhoneField(): void;
-      getLabel(): Object;
+      getLabel(): Field | ExtendedField | string;
       getPhoneNumber(): string;
       isPrimary(): boolean;
       setAsPrimary(): PhoneField;
@@ -273,31 +262,27 @@ declare namespace GoogleAppsScript {
       setLabel(label: string): PhoneField;
       setPhoneNumber(number: string): PhoneField;
     }
-
     /**
      * An enum for contact priority.
      */
-    export enum Priority { HIGH, LOW, NORMAL }
-
+    enum Priority { HIGH, LOW, NORMAL }
     /**
      * An enum for contact sensitivity.
      */
-    export enum Sensitivity { CONFIDENTIAL, NORMAL, PERSONAL, PRIVATE }
-
+    enum Sensitivity { CONFIDENTIAL, NORMAL, PERSONAL, PRIVATE }
     /**
      * A URL field in a Contact.
      */
-    export interface UrlField {
+    interface UrlField {
       deleteUrlField(): void;
       getAddress(): string;
-      getLabel(): Object;
+      getLabel(): Field | ExtendedField | string;
       isPrimary(): boolean;
       setAddress(address: string): UrlField;
       setAsPrimary(): UrlField;
       setLabel(field: Field): UrlField;
       setLabel(label: string): UrlField;
     }
-
   }
 }
 

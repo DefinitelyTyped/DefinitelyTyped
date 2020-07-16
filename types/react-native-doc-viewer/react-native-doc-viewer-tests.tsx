@@ -102,17 +102,17 @@ export default class DocViewerExample extends React.Component {
       <View>
         <Text>Doc Viewer React Native</Text>
         <Button
-          onPress={this.handlePress.bind(this)}
+          onPress={this.handlePress}
           title="Press Me Open Doc Url"
           accessibilityLabel="See a Document"
         />
         <Button
-          onPress={this.handlePressBinaryinUrl.bind(this)}
+          onPress={this.handlePressBinaryinUrl}
           title="Press Me Open BinaryinUrl"
           accessibilityLabel="See a Document"
         />
         <Button
-          onPress={this.handlePressb64.bind(this)}
+          onPress={this.handlePressb64}
           title="Press Me Open Base64 String"
           accessibilityLabel="See a Document"
         />

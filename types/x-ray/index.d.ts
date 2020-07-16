@@ -2,7 +2,7 @@
 // Project: https://github.com/lapwinglabs/x-ray#readme
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.3
 
 /// <reference types="node" />
 
@@ -31,6 +31,8 @@ declare namespace XRay {
     }
     type Selector = ScalarSelector | SelectorArray;
 
+    type AbortHandler = (data: unknown[], url: string) => boolean;
+
     interface Instance extends XRayCrawler.Instance {
         (
             source: string,
@@ -53,7 +55,7 @@ declare namespace XRay {
     interface InstanceInvocation {
         (callback: Callback): void;
         (source: string, callback: Callback): void;
-        abort(): this;
+        abort(arg: AbortHandler): this;
         paginate(selector: Selector): this;
         limit(n: number): this;
         stream(): NodeJS.ReadStream;

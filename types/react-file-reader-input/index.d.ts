@@ -1,8 +1,10 @@
-// Type definitions for react-file-reader-input 1.1
-// Project: https://www.npmjs.com/package/react-file-reader-input
-// Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>, Ali Taheri <https://github.com/alitaheri>
+// Type definitions for react-file-reader-input 2.0
+// Project: https://github.com/ngokevin/react-file-reader-input
+// Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>,
+//                 Ali Taheri <https://github.com/alitaheri>,
+//                 bjoluc <https://github.com/bjoluc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 3.5
 
 import * as React from 'react';
 
@@ -13,7 +15,7 @@ declare namespace FileInput {
     type Format = 'buffer' | 'binary' | 'url' | 'text';
     type Result = [ProgressEvent, File];
 
-    interface Props {
+    interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
         /**
          * what format the `FileReader` should read the file as
          * (i.e., `'buffer'`, `'binary'`, `'url'`, `'text'`).
@@ -23,7 +25,7 @@ declare namespace FileInput {
         as?: Format;
 
         /**
-         * Callback function called when the files are choosen by the user.
+         * Callback function called when the files are chosen by the user.
          *
          * Results will be an array of arrays, the size of which depending
          * on how many files were selected.
@@ -40,7 +42,7 @@ declare namespace FileInput {
          * @param event The event that triggered file changes
          * @param results The array of files
          */
-        onChange(event: React.SyntheticEvent<any>, results: Result[]): void;
+        onChange(event: React.ChangeEvent<HTMLInputElement>, results: Result[]): void;
     }
 }
 

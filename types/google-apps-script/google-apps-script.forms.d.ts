@@ -1,43 +1,108 @@
-// Type definitions for Google Apps Script 2017-05-12
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Forms {
+  namespace Forms {
     /**
      * An enum representing the supported types of image alignment. Alignment types can be accessed from
-     *  FormApp.Alignment.
+     * FormApp.Alignment.
      *
-     *      // Open a form by ID and add a new image item with alignment
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var img = UrlFetchApp.fetch('https://www.google.com/images/srpr/logo4w.png');
-     *      form.addImageItem()
-     *          .setImage(img)
-     *          .setAlignment(FormApp.Alignment.CENTER);
+     *     // Open a form by ID and add a new image item with alignment
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var img = UrlFetchApp.fetch('https://www.google.com/images/srpr/logo4w.png');
+     *     form.addImageItem()
+     *         .setImage(img)
+     *         .setAlignment(FormApp.Alignment.CENTER);
      */
-    export enum Alignment { LEFT, CENTER, RIGHT }
-
+    enum Alignment { LEFT, CENTER, RIGHT }
     /**
-     * A question item that allows the respondent to select one or more checkboxes, as well
-     *  as an optional "other" field. Items can be accessed or created from a Form. When used in
-     *  a quiz, these items are autograded.
+     * A question item, presented as a grid of columns and rows, that allows the respondent to select
+     * multiple choices per row from a sequence of checkboxes. Items can be accessed or created from a
+     * Form.
      *
-     *      // Open a form by ID and add a new checkbox item.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var item = form.addCheckboxItem();
-     *      item.setTitle('What condiments would you like on your hot dog?')
-     *          .setChoices([
-     *                item.createChoice('Ketchup'),
-     *                item.createChoice('Mustard'),
-     *                item.createChoice('Relish')
-     *          ])
-     *          .showOtherOption(true);
+     *     // Open a form by ID and add a new checkgox grid item.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var item = form.addCheckboxGridItem();
+     *     item.setTitle('Where did you celebrate New Years?')
+     *       .setRows(['New York', 'San Francisco', 'London'])
+     *       .setColumns(['2014', '2015', '2016', '2017']);
      */
-    export interface CheckboxItem {
+    interface CheckboxGridItem {
+      clearValidation(): CheckboxGridItem;
+      createResponse(responses: string[][]): ItemResponse;
+      duplicate(): CheckboxGridItem;
+      getColumns(): string[];
+      getHelpText(): string;
+      getId(): Integer;
+      getIndex(): Integer;
+      getRows(): string[];
+      getTitle(): string;
+      getType(): ItemType;
+      isRequired(): boolean;
+      setColumns(columns: string[]): CheckboxGridItem;
+      setHelpText(text: string): CheckboxGridItem;
+      setRequired(enabled: boolean): CheckboxGridItem;
+      setRows(rows: string[]): CheckboxGridItem;
+      setTitle(title: string): CheckboxGridItem;
+      setValidation(validation: CheckboxGridValidation): CheckboxGridItem;
+    }
+    /**
+     * A DataValidation for a CheckboxGridItem.
+     *
+     *     // Add a checkbox grid item to a form and require one response per column.
+     *     var checkboxGridItem = form.addCheckboxGridItem();
+     *     checkboxGridItem.setTitle('Where did you celebrate New Years?')
+     *       .setRows(['New York', 'San Francisco', 'London'])
+     *       .setColumns(['2014', '2015', '2016', '2017']);
+     *     var checkboxGridValidation = FormApp.createCheckboxGridValidation()
+     *       .setHelpText(“Select one item per column.”)
+     *       .requireLimitOneResponsePerColumn()
+     *       .build();
+     *     checkboxGridItem.setValidation(checkboxGridValidation);
+     */
+    // tslint:disable-next-line: no-empty-interface
+    interface CheckboxGridValidation {
+    }
+    /**
+     * A DataValidationBuilder for a CheckboxGridValidation.
+     *
+     *     // Add a checkbox grid item to a form and restrict it to one response per column.
+     *     var checkboxGridItem = form.addCheckboxGridItem();
+     *     checkboxGridItem.setTitle('Where did you celebrate New Years?')
+     *       .setRows(['New York', 'San Francisco', 'London'])
+     *       .setColumns(['2014', '2015', '2016', '2017']);
+     *     var checkboxGridValidation = FormApp.createcheckboxGridValidation()
+     *       .setHelpText(“Select one item per column.”)
+     *       .requireLimitOneResponsePerColumn()
+     *       .build();
+     *     checkboxGridItem.setValidation(checkboxGridValidation);
+     */
+    interface CheckboxGridValidationBuilder {
+      requireLimitOneResponsePerColumn(): CheckboxGridValidationBuilder;
+    }
+    /**
+     * A question item that allows the respondent to select one or more checkboxes, as well as an
+     * optional "other" field. Items can be accessed or created from a Form. When used in a
+     * quiz, these items are autograded.
+     *
+     *     // Open a form by ID and add a new checkbox item.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var item = form.addCheckboxItem();
+     *     item.setTitle('What condiments would you like on your hot dog?')
+     *         .setChoices([
+     *               item.createChoice('Ketchup'),
+     *               item.createChoice('Mustard'),
+     *               item.createChoice('Relish')
+     *         ])
+     *         .showOtherOption(true);
+     */
+    interface CheckboxItem {
       clearValidation(): CheckboxItem;
       createChoice(value: string): Choice;
       createChoice(value: string, isCorrect: boolean): Choice;
@@ -65,129 +130,90 @@ declare namespace GoogleAppsScript {
       setValidation(validation: CheckboxValidation): CheckboxItem;
       showOtherOption(enabled: boolean): CheckboxItem;
     }
-
     /**
      * A DataValidation for a CheckboxItem.
      *
-     *      // Add a checkBox item to a form and require exactly two selections.
-     *      var checkBoxItem = form.addCheckboxItem();
-     *      checkBoxItem.setTitle('What two condiments would you like on your hot dog?');
-     *      checkBoxItem.setChoices([
-     *        checkBoxItem.createChoice('Ketchup'),
-     *        checkBoxItem.createChoice('Mustard'),
-     *        checkBoxItem.createChoice('Relish')
-     *      ]);
-     *      var checkBoxValidation = FormApp.createCheckboxValidation()
-     *        .setHelpText(“Select two condiments.”)
-     *        .requireSelectExactly(2)
-     *        .build();
-     *      checkBoxItem.setValidation(checkBoxValidation);
+     *     // Add a checkBox item to a form and require exactly two selections.
+     *     var checkBoxItem = form.addCheckboxItem();
+     *     checkBoxItem.setTitle('What two condiments would you like on your hot dog?');
+     *     checkBoxItem.setChoices([
+     *       checkBoxItem.createChoice('Ketchup'),
+     *       checkBoxItem.createChoice('Mustard'),
+     *       checkBoxItem.createChoice('Relish')
+     *     ]);
+     *     var checkBoxValidation = FormApp.createCheckboxValidation()
+     *       .setHelpText(“Select two condiments.”)
+     *       .requireSelectExactly(2)
+     *       .build();
+     *     checkBoxItem.setValidation(checkBoxValidation);
      */
-    export interface CheckboxValidation {
-      getHelpText(): string;
+    interface CheckboxValidation {
+      requireSelectAtLeast(number: Integer): CheckboxValidation;
+      requireSelectAtMost(number: Integer): CheckboxValidation;
+      requireSelectExactly(number: Integer): CheckboxValidation;
     }
-
     /**
      * A DataValidationBuilder for a CheckboxValidation.
      *
-     *      // Add a checkBox item to a form and require exactly two selections.
-     *      var checkBoxItem = form.addCheckboxItem();
-     *      checkBoxItem.setTitle('What two condiments would you like on your hot dog?');
-     *      checkBoxItem.setChoices([
-     *        checkBoxItem.createChoice('Ketchup'),
-     *        checkBoxItem.createChoice('Mustard'),
-     *        checkBoxItem.createChoice('Relish')
-     *      ]);
-     *      var checkBoxValidation = FormApp.createCheckboxValidation()
-     *        .setHelpText(“Select two condiments.”)
-     *        .requireSelectExactly(2)
-     *        .build();
-     *      checkBoxItem.setValidation(checkBoxValidation);
+     *     // Add a checkBox item to a form and require exactly two selections.
+     *     var checkBoxItem = form.addCheckboxItem();
+     *     checkBoxItem.setTitle('What two condiments would you like on your hot dog?');
+     *     checkBoxItem.setChoices([
+     *       checkBoxItem.createChoice('Ketchup'),
+     *       checkBoxItem.createChoice('Mustard'),
+     *       checkBoxItem.createChoice('Relish')
+     *     ]);
+     *     var checkBoxValidation = FormApp.createCheckboxValidation()
+     *       .setHelpText(“Select two condiments.”)
+     *       .requireSelectExactly(2)
+     *       .build();
+     *     checkBoxItem.setValidation(checkBoxValidation);
      */
-    export interface CheckboxValidationBuilder {
-      build(): CheckboxValidation;
-      copy(): CheckboxValidationBuilder;
+    interface CheckboxValidationBuilder {
       requireSelectAtLeast(number: Integer): CheckboxValidationBuilder;
       requireSelectAtMost(number: Integer): CheckboxValidationBuilder;
       requireSelectExactly(number: Integer): CheckboxValidationBuilder;
-      setHelpText(text: string): CheckboxValidationBuilder;
     }
-
     /**
-     * A single choice associated with a type of Item that supports choices, like
-     *  CheckboxItem, ListItem, or MultipleChoiceItem.
+     * A single choice associated with a type of Item that supports choices, like CheckboxItem, ListItem, or MultipleChoiceItem.
      *
-     *      // Create a new form and add a multiple-choice item.
-     *      var form = FormApp.create('Form Name');
-     *      var item = form.addMultipleChoiceItem();
-     *      item.setTitle('Do you prefer cats or dogs?')
-     *          .setChoices([
-     *              item.createChoice('Cats', FormApp.PageNavigationType.CONTINUE),
-     *              item.createChoice('Dogs', FormApp.PageNavigationType.RESTART)
-     *          ]);
+     *     // Create a new form and add a multiple-choice item.
+     *     var form = FormApp.create('Form Name');
+     *     var item = form.addMultipleChoiceItem();
+     *     item.setTitle('Do you prefer cats or dogs?')
+     *         .setChoices([
+     *             item.createChoice('Cats', FormApp.PageNavigationType.CONTINUE),
+     *             item.createChoice('Dogs', FormApp.PageNavigationType.RESTART)
+     *         ]);
      *
-     *      // Add another page because navigation has no effect on the last page.
-     *      form.addPageBreakItem().setTitle('You chose well!');
+     *     // Add another page because navigation has no effect on the last page.
+     *     form.addPageBreakItem().setTitle('You chose well!');
      *
-     *      // Log the navigation types that each choice results in.
-     *      var choices = item.getChoices();
-     *      for (var i = 0; i < choices.length; i++) {
-     *      Logger.log('If the respondent chooses "%s", the form will %s.',
-     *                 choices[i].getValue(),
-     *                 choices[i].getPageNavigationType());
-     *      }
+     *     // Log the navigation types that each choice results in.
+     *     var choices = item.getChoices();
+     *     for (var i = 0; i < choices.length; i++) {
+     *     Logger.log('If the respondent chooses "%s", the form will %s.',
+     *                choices[i].getValue(),
+     *                choices[i].getPageNavigationType());
+     *     }
      */
-    export interface Choice {
+    interface Choice {
       getGotoPage(): PageBreakItem;
       getPageNavigationType(): PageNavigationType;
       getValue(): string;
       isCorrectAnswer(): boolean;
     }
-
     /**
-     * The base DataValidation that contains properties common to all validations, such as help text.
-     *  Validations can be added to certain Form items.
+     * A question item that allows the respondent to indicate a date. Items can be accessed or created
+     * from a Form. When used in a quiz, these items are graded.
      *
-     *      // Add a text item to a form and require it to be a number within a range.
-     *      var textItem = form.addTextItem().setTitle('Pick a number between 1 and 100?');
-     *      var textValidation = FormApp.createTextValidation()
-     *        .setHelpText(“Input was not a number between 1 and 100.”)
-     *        .requireNumberBetween(1, 100);
-     *      textItem.setValidation(textValidation);
+     *     // Open a form by ID and add a new date item.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var item = form.addDateItem();
+     *     item.setTitle('When were you born?');
      */
-    export interface DataValidation {
-      getHelpText(): string;
-    }
-
-    /**
-     * The base DataValidationBuilder that contains setters for properties common to all validations,
-     *  such as help text. Used to build DataValadation objects.
-     *
-     *      // Add a text item to a form and require it to be a number within a range.
-     *      var textItem = form.addTextItem().setTitle('Pick a number between 1 and 100?');
-     *      var textValidation = FormApp.createTextValidation()
-     *        .setHelpText(“Input was not a number between 1 and 100.”)
-     *        .requireNumberBetween(1, 100)
-     *        .build();
-     *      textItem.setValidation(textValidation);
-     */
-    export interface DataValidationBuilder {
-      build(): DataValidation;
-      copy(): DataValidationBuilder;
-      setHelpText(text: string): DataValidationBuilder;
-    }
-
-    /**
-     * A question item that allows the respondent to indicate a date. Items can be accessed or
-     *  created from a Form. When used in a quiz, these items are graded.
-     *
-     *      // Open a form by ID and add a new date item.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var item = form.addDateItem();
-     *      item.setTitle('When were you born?');
-     */
-    export interface DateItem {
-      createResponse(response: Date): ItemResponse;
+    interface DateItem {
+      createResponse(response: Base.Date): ItemResponse;
       duplicate(): DateItem;
       getGeneralFeedback(): QuizFeedback;
       getHelpText(): string;
@@ -205,18 +231,17 @@ declare namespace GoogleAppsScript {
       setRequired(enabled: boolean): DateItem;
       setTitle(title: string): DateItem;
     }
-
     /**
-     * A question item that allows the respondent to indicate a date and time. Items can be
-     *  accessed or created from a Form. When used in a quiz, these items are graded.
+     * A question item that allows the respondent to indicate a date and time. Items can be accessed or
+     * created from a Form. When used in a quiz, these items are graded.
      *
-     *      // Open a form by ID and add a new date-time item.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var item = form.addDateTimeItem();
-     *      item.setTitle('When do you want to meet?');
+     *     // Open a form by ID and add a new date-time item.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var item = form.addDateTimeItem();
+     *     item.setTitle('When do you want to meet?');
      */
-    export interface DateTimeItem {
-      createResponse(response: Date): ItemResponse;
+    interface DateTimeItem {
+      createResponse(response: Base.Date): ItemResponse;
       duplicate(): DateTimeItem;
       getGeneralFeedback(): QuizFeedback;
       getHelpText(): string;
@@ -234,33 +259,29 @@ declare namespace GoogleAppsScript {
       setRequired(enabled: boolean): DateTimeItem;
       setTitle(title: string): DateTimeItem;
     }
-
     /**
      * An enum representing the supported types of form-response destinations. All forms, including
-     *  those that do not have a destination set explicitly,
-     *  save
-     *  a copy of responses in the form's response store. Destination types can be accessed from
-     *  FormApp.DestinationType.
+     * those that do not have a destination set explicitly, save a copy of responses in the form's
+     * response store. Destination types can be accessed from FormApp.DestinationType.
      *
-     *      // Open a form by ID and create a new spreadsheet.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var ss = SpreadsheetApp.create('Spreadsheet Name');
+     *     // Open a form by ID and create a new spreadsheet.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var ss = SpreadsheetApp.create('Spreadsheet Name');
      *
-     *      // Update the form's response destination.
-     *      form.setDestination(FormApp.DestinationType.SPREADSHEET, ss.getId());
+     *     // Update the form's response destination.
+     *     form.setDestination(FormApp.DestinationType.SPREADSHEET, ss.getId());
      */
-    export enum DestinationType { SPREADSHEET }
-
+    enum DestinationType { SPREADSHEET }
     /**
-     * A question item that allows the respondent to indicate a length of time. Items can be
-     *  accessed or created from a Form. When used in a quiz, these items are graded.
+     * A question item that allows the respondent to indicate a length of time. Items can be accessed or
+     * created from a Form. When used in a quiz, these items are graded.
      *
-     *      // Open a form by ID and add a new duration item.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var item = form.addDurationItem();
-     *      item.setTitle('How long can you hold your breath?');
+     *     // Open a form by ID and add a new duration item.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var item = form.addDurationItem();
+     *     item.setTitle('How long can you hold your breath?');
      */
-    export interface DurationItem {
+    interface DurationItem {
       createResponse(hours: Integer, minutes: Integer, seconds: Integer): ItemResponse;
       duplicate(): DurationItem;
       getGeneralFeedback(): QuizFeedback;
@@ -277,46 +298,43 @@ declare namespace GoogleAppsScript {
       setRequired(enabled: boolean): DurationItem;
       setTitle(title: string): DurationItem;
     }
-
     /**
-     * An enum representing the supported types of feedback. Feedback types can be accessed from
-     *  FormApp.FeedbackType.
+     * An enum representing the supported types of feedback. Feedback types can be accessed from FormApp.FeedbackType.
      *
-     *      // Open a form by ID and add a new list item.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var item = form.addListItem();
-     *      item.setTitle('Do you prefer cats or dogs?');
-     *      // Set "Dogs" as the correct answer to this question.
-     *      item.setChoices([
-     *        item.createChoice('Dogs', true),
-     *        item.createChoice('Cats', false)]);
-     *      // Add feedback which will be shown for correct responses; ie "Dogs".
-     *      item.setFeedbackForCorrect(
-     *          FormApp.createFeedback().setDisplayText("Dogs rule, cats drool.").build());
+     *     // Open a form by ID and add a new list item.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var item = form.addListItem();
+     *     item.setTitle('Do you prefer cats or dogs?');
+     *     // Set "Dogs" as the correct answer to this question.
+     *     item.setChoices([
+     *       item.createChoice('Dogs', true),
+     *       item.createChoice('Cats', false)]);
+     *     // Add feedback which will be shown for correct responses; ie "Dogs".
+     *     item.setFeedbackForCorrect(
+     *         FormApp.createFeedback().setDisplayText("Dogs rule, cats drool.").build());
      */
-    export enum FeedbackType { CORRECT, INCORRECT, GENERAL }
-
+    enum FeedbackType { CORRECT, INCORRECT, GENERAL }
     /**
-     * A form that contains overall properties and items.  Properties include title, settings, and
-     *  where responses are stored.  Items include question items like checkboxes or radio items, while
-     *  layout items refer to things like page breaks. Forms can be accessed or created from
-     *  FormApp.
+     * A form that contains overall properties and items. Properties include title, settings, and where
+     * responses are stored. Items include question items like checkboxes or radio items, while layout
+     * items refer to things like page breaks. Forms can be accessed or created from FormApp.
      *
-     *      // Open a form by ID and create a new spreadsheet.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var ss = SpreadsheetApp.create('Spreadsheet Name');
+     *     // Open a form by ID and create a new spreadsheet.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var ss = SpreadsheetApp.create('Spreadsheet Name');
      *
-     *      // Update form properties via chaining.
-     *      form.setTitle('Form Name')
-     *          .setDescription('Description of form')
-     *          .setConfirmationMessage('Thanks for responding!')
-     *          .setAllowResponseEdits(true)
-     *          .setAcceptingResponses(false);
+     *     // Update form properties via chaining.
+     *     form.setTitle('Form Name')
+     *         .setDescription('Description of form')
+     *         .setConfirmationMessage('Thanks for responding!')
+     *         .setAllowResponseEdits(true)
+     *         .setAcceptingResponses(false);
      *
-     *      // Update the form's response destination.
-     *      form.setDestination(FormApp.DestinationType.SPREADSHEET, ss.getId());
+     *     // Update the form's response destination.
+     *     form.setDestination(FormApp.DestinationType.SPREADSHEET, ss.getId());
      */
-    export interface Form {
+    interface Form {
+      addCheckboxGridItem(): CheckboxGridItem;
       addCheckboxItem(): CheckboxItem;
       addDateItem(): DateItem;
       addDateTimeItem(): DateTimeItem;
@@ -341,6 +359,7 @@ declare namespace GoogleAppsScript {
       deleteAllResponses(): Form;
       deleteItem(index: Integer): void;
       deleteItem(item: Item): void;
+      deleteResponse(responseId: string): Form;
       getConfirmationMessage(): string;
       getCustomClosedFormMessage(): string;
       getDescription(): string;
@@ -355,7 +374,7 @@ declare namespace GoogleAppsScript {
       getPublishedUrl(): string;
       getResponse(responseId: string): FormResponse;
       getResponses(): FormResponse[];
-      getResponses(timestamp: Date): FormResponse[];
+      getResponses(timestamp: Base.Date): FormResponse[];
       getShuffleQuestions(): boolean;
       getSummaryUrl(): string;
       getTitle(): string;
@@ -389,23 +408,23 @@ declare namespace GoogleAppsScript {
       shortenFormUrl(url: string): string;
       submitGrades(responses: FormResponse[]): Form;
     }
-
     /**
      * Allows a script to open an existing Form or create a new one.
      *
-     *      // Open a form by ID.
-     *      var existingForm = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     // Open a form by ID.
+     *     var existingForm = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *
-     *      // Create and open a form.
-     *      var newForm = FormApp.create('Form Name');
+     *     // Create and open a form.
+     *     var newForm = FormApp.create('Form Name');
      */
-    export interface FormApp {
+    interface FormApp {
       Alignment: typeof Alignment;
       DestinationType: typeof DestinationType;
       FeedbackType: typeof FeedbackType;
       ItemType: typeof ItemType;
       PageNavigationType: typeof PageNavigationType;
       create(title: string): Form;
+      createCheckboxGridValidation(): CheckboxGridValidationBuilder;
       createCheckboxValidation(): CheckboxValidationBuilder;
       createFeedback(): QuizFeedbackBuilder;
       createGridValidation(): GridValidationBuilder;
@@ -416,30 +435,28 @@ declare namespace GoogleAppsScript {
       openById(id: string): Form;
       openByUrl(url: string): Form;
     }
-
     /**
-     * A response to the form as a whole. A FormResponse can be used in three ways: to
-     *  access the answers submitted by a respondent (see getItemResponses()), to
-     *  programmatically submit a response to the form (see withItemResponse(response) and
-     *  submit()), and to generate a URL for the form which pre-fills fields using the
-     *  provided answers. FormResponses can be created or accessed from a Form.
+     * A response to the form as a whole. A FormResponse can be used in three ways: to access
+     * the answers submitted by a respondent (see getItemResponses()), to programmatically
+     * submit a response to the form (see withItemResponse(response) and submit()), and to generate a URL for the form which pre-fills fields using the provided
+     * answers. FormResponses can be created or accessed from a Form.
      *
-     *      // Open a form by ID and log the responses to each question.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var formResponses = form.getResponses();
-     *      for (var i = 0; i < formResponses.length; i++) {
-     *        var formResponse = formResponses[i];
-     *        var itemResponses = formResponse.getItemResponses();
-     *        for (var j = 0; j < itemResponses.length; j++) {
-     *          var itemResponse = itemResponses[j];
-     *          Logger.log('Response #%s to the question "%s" was "%s"',
-     *              (i + 1).toString(),
-     *              itemResponse.getItem().getTitle(),
-     *              itemResponse.getResponse());
-     *        }
-     *      }
+     *     // Open a form by ID and log the responses to each question.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var formResponses = form.getResponses();
+     *     for (var i = 0; i < formResponses.length; i++) {
+     *       var formResponse = formResponses[i];
+     *       var itemResponses = formResponse.getItemResponses();
+     *       for (var j = 0; j < itemResponses.length; j++) {
+     *         var itemResponse = itemResponses[j];
+     *         Logger.log('Response #%s to the question "%s" was "%s"',
+     *             (i + 1).toString(),
+     *             itemResponse.getItem().getTitle(),
+     *             itemResponse.getResponse());
+     *       }
+     *     }
      */
-    export interface FormResponse {
+    interface FormResponse {
       getEditResponseUrl(): string;
       getGradableItemResponses(): ItemResponse[];
       getGradableResponseForItem(item: Item): ItemResponse;
@@ -447,26 +464,25 @@ declare namespace GoogleAppsScript {
       getItemResponses(): ItemResponse[];
       getRespondentEmail(): string;
       getResponseForItem(item: Item): ItemResponse;
-      getTimestamp(): Date;
+      getTimestamp(): Base.Date;
       submit(): FormResponse;
       toPrefilledUrl(): string;
       withItemGrade(gradedResponse: ItemResponse): FormResponse;
       withItemResponse(response: ItemResponse): FormResponse;
     }
-
     /**
      * A question item, presented as a grid of columns and rows, that allows the respondent to select
-     *  one choice per row from a sequence of radio buttons. Items can be accessed or created from a
-     *   Form.
+     * one choice per row from a sequence of radio buttons. Items can be accessed or created from a
+     * Form.
      *
-     *      // Open a form by ID and add a new grid item.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var item = form.addGridItem();
-     *      item.setTitle('Rate your interests')
-     *          .setRows(['Cars', 'Computers', 'Celebrities'])
-     *          .setColumns(['Boring', 'So-so', 'Interesting']);
+     *     // Open a form by ID and add a new grid item.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var item = form.addGridItem();
+     *     item.setTitle('Rate your interests')
+     *         .setRows(['Cars', 'Computers', 'Celebrities'])
+     *         .setColumns(['Boring', 'So-so', 'Interesting']);
      */
-    export interface GridItem {
+    interface GridItem {
       clearValidation(): GridItem;
       createResponse(responses: string[]): ItemResponse;
       duplicate(): GridItem;
@@ -485,58 +501,52 @@ declare namespace GoogleAppsScript {
       setTitle(title: string): GridItem;
       setValidation(validation: GridValidation): GridItem;
     }
-
     /**
      * A DataValidation for a GridItem.
      *
-     *      // Add a grid item to a form and require one response per column.
-     *      var gridItem = form.addGridItem();
-     *      gridItem.setTitle('Rate your interests')
-     *        .setRows(['Cars', 'Computers', 'Celebrities'])
-     *        .setColumns(['Boring', 'So-so', 'Interesting']);
-     *      var gridValidation = FormApp.createGridValidation()
-     *        .setHelpText(“Select one item per column.”)
-     *        .requireLimitOneResponsePerColumn()
-     *        .build();
-     *      gridItem.setValidation(gridValidation);
+     *     // Add a grid item to a form and require one response per column.
+     *     var gridItem = form.addGridItem();
+     *     gridItem.setTitle('Rate your interests')
+     *       .setRows(['Cars', 'Computers', 'Celebrities'])
+     *       .setColumns(['Boring', 'So-so', 'Interesting']);
+     *     var gridValidation = FormApp.createGridValidation()
+     *       .setHelpText(“Select one item per column.”)
+     *       .requireLimitOneResponsePerColumn()
+     *       .build();
+     *     gridItem.setValidation(gridValidation);
      */
-    export interface GridValidation {
-      getHelpText(): string;
+    // tslint:disable-next-line: no-empty-interface
+    interface GridValidation {
     }
-
     /**
      * A DataValidationBuilder for a GridValidation.
      *
-     *      // Add a grid item to a form and require one response per column.
-     *      var gridItem = form.addGridItem();
-     *      gridItem.setTitle('Rate your interests')
-     *        .setRows(['Cars', 'Computers', 'Celebrities'])
-     *        .setColumns(['Boring', 'So-so', 'Interesting']);
-     *      var gridValidation = FormApp.createGridValidation()
-     *        .setHelpText(“Select one item per column.”)
-     *        .requireLimitOneResponsePerColumn()
-     *        .build();
-     *      gridItem.setValidation(gridValidation);
+     *     // Add a grid item to a form and require one response per column.
+     *     var gridItem = form.addGridItem();
+     *     gridItem.setTitle('Rate your interests')
+     *       .setRows(['Cars', 'Computers', 'Celebrities'])
+     *       .setColumns(['Boring', 'So-so', 'Interesting']);
+     *     var gridValidation = FormApp.createGridValidation()
+     *       .setHelpText(“Select one item per column.”)
+     *       .requireLimitOneResponsePerColumn()
+     *       .build();
+     *     gridItem.setValidation(gridValidation);
      */
-    export interface GridValidationBuilder {
-      build(): GridValidation;
-      copy(): GridValidationBuilder;
+    interface GridValidationBuilder {
       requireLimitOneResponsePerColumn(): GridValidationBuilder;
-      setHelpText(text: string): GridValidationBuilder;
     }
-
     /**
      * A layout item that displays an image. Items can be accessed or created from a Form.
      *
-     *      // Open a form by ID and add a new image item
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var img = UrlFetchApp.fetch('https://www.google.com/images/srpr/logo4w.png');
-     *      form.addImageItem()
-     *          .setTitle('Google')
-     *          .setHelpText('Google Logo') // The help text is the image description
-     *          .setImage(img);
+     *     // Open a form by ID and add a new image item
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var img = UrlFetchApp.fetch('https://www.google.com/images/srpr/logo4w.png');
+     *     form.addImageItem()
+     *         .setTitle('Google')
+     *         .setHelpText('Google Logo') // The help text is the image description
+     *         .setImage(img);
      */
-    export interface ImageItem {
+    interface ImageItem {
       duplicate(): ImageItem;
       getAlignment(): Alignment;
       getHelpText(): string;
@@ -552,30 +562,33 @@ declare namespace GoogleAppsScript {
       setTitle(title: string): ImageItem;
       setWidth(width: Integer): ImageItem;
     }
-
     /**
      * A generic form item that contains properties common to all items, such as title and help text.
-     *  Items can be accessed or created from a Form.
+     * Items can be accessed or created from a Form.
      *
-     *  To operate on type-specific properties, use getType() to check the item's
-     *  ItemType, then cast the item to the
-     *  appropriate class using a method like asCheckboxItem().
+     * To operate on type-specific properties, use getType() to check the item's ItemType, then cast the item to the
+     * appropriate class using a method like asCheckboxItem().
      *
-     *      // Create a new form and add a text item.
-     *      var form = FormApp.create('Form Name');
-     *      form.addTextItem();
+     *     // Create a new form and add a text item.
+     *     var form = FormApp.create('Form Name');
+     *     form.addTextItem();
      *
-     *      // Access the text item as a generic item.
-     *      var items = form.getItems();
-     *      var item = items[0];
+     *     // Access the text item as a generic item.
+     *     var items = form.getItems();
+     *     var item = items[0];
      *
-     *      // Cast the generic item to the text-item class.
-     *      if (item.getType() == 'TEXT') {
-     *        var textItem = item.asTextItem();
-     *        textItem.setRequired(false);
-     *      }
+     *     // Cast the generic item to the text-item class.
+     *     if (item.getType() == 'TEXT') {
+     *       var textItem = item.asTextItem();
+     *       textItem.setRequired(false);
+     *     }
+     *
+     * Implementing classes
+     *
+     * NameBrief description
      */
-    export interface Item {
+    interface Item {
+      asCheckboxGridItem(): CheckboxGridItem;
       asCheckboxItem(): CheckboxItem;
       asDateItem(): DateItem;
       asDateTimeItem(): DateTimeItem;
@@ -600,66 +613,60 @@ declare namespace GoogleAppsScript {
       setHelpText(text: string): Item;
       setTitle(title: string): Item;
     }
-
     /**
-     * A response to one question item within a form. Item responses can be accessed from
-     *  FormResponse and created from any Item that asks the respondent to answer a
-     *  question.
+     * A response to one question item within a form. Item responses can be accessed from FormResponse and created from any Item that asks the respondent to answer a question.
      *
-     *      // Open a form by ID and log the responses to each question.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var formResponses = form.getResponses();
-     *      for (var i = 0; i < formResponses.length; i++) {
-     *        var formResponse = formResponses[i];
-     *        var itemResponses = formResponse.getItemResponses();
-     *        for (var j = 0; j < itemResponses.length; j++) {
-     *          var itemResponse = itemResponses[j];
-     *          Logger.log('Response #%s to the question "%s" was "%s"',
-     *              (i + 1).toString(),
-     *              itemResponse.getItem().getTitle(),
-     *              itemResponse.getResponse());
-     *        }
-     *      }
+     *     // Open a form by ID and log the responses to each question.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var formResponses = form.getResponses();
+     *     for (var i = 0; i < formResponses.length; i++) {
+     *       var formResponse = formResponses[i];
+     *       var itemResponses = formResponse.getItemResponses();
+     *       for (var j = 0; j < itemResponses.length; j++) {
+     *         var itemResponse = itemResponses[j];
+     *         Logger.log('Response #%s to the question "%s" was "%s"',
+     *             (i + 1).toString(),
+     *             itemResponse.getItem().getTitle(),
+     *             itemResponse.getResponse());
+     *       }
+     *     }
      */
-    export interface ItemResponse {
-      getFeedback(): Object;
+    interface ItemResponse {
+      getFeedback(): QuizFeedback;
       getItem(): Item;
-      getResponse(): Object;
-      getScore(): Object;
-      setFeedback(feedback: Object): ItemResponse;
-      setScore(score: Object): ItemResponse;
+      getResponse(): string[][] | string[] | string;
+      getScore(): number;
+      setFeedback(feedback: any): ItemResponse;
+      setScore(score: any): ItemResponse;
     }
-
     /**
-     * An enum representing the supported types of form items. Item types can be accessed from
-     *  FormApp.ItemType.
+     * An enum representing the supported types of form items. Item types can be accessed from FormApp.ItemType.
      *
-     *      // Open a form by ID and add a new section header.
-     *      var form = FormApp.create('Form Name');
-     *      var item = form.addSectionHeaderItem();
-     *      item.setTitle('Title of new section');
+     *     // Open a form by ID and add a new section header.
+     *     var form = FormApp.create('Form Name');
+     *     var item = form.addSectionHeaderItem();
+     *     item.setTitle('Title of new section');
      *
-     *      // Check the item type.
-     *      if (item.getType() == FormApp.ItemType.SECTION_HEADER) {
-     *        item.setHelpText('Description of new section.');
-     *      }
+     *     // Check the item type.
+     *     if (item.getType() == FormApp.ItemType.SECTION_HEADER) {
+     *       item.setHelpText('Description of new section.');
+     *     }
      */
-    export enum ItemType { CHECKBOX, DATE, DATETIME, DURATION, GRID, IMAGE, LIST, MULTIPLE_CHOICE, PAGE_BREAK, PARAGRAPH_TEXT, SCALE, SECTION_HEADER, TEXT, TIME }
-
+    enum ItemType { CHECKBOX, CHECKBOX_GRID, DATE, DATETIME, DURATION, GRID, IMAGE, LIST, MULTIPLE_CHOICE, PAGE_BREAK, PARAGRAPH_TEXT, SCALE, SECTION_HEADER, TEXT, TIME, VIDEO }
     /**
      * A question item that allows the respondent to select one choice from a drop-down list. Items can
-     *  be accessed or created from a Form.
+     * be accessed or created from a Form.
      *
-     *      // Open a form by ID and add a new list item.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var item = form.addListItem();
-     *      item.setTitle('Do you prefer cats or dogs?')
-     *          .setChoices([
-     *              item.createChoice('Cats'),
-     *              item.createChoice('Dogs')
-     *          ]);
+     *     // Open a form by ID and add a new list item.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var item = form.addListItem();
+     *     item.setTitle('Do you prefer cats or dogs?')
+     *         .setChoices([
+     *             item.createChoice('Cats'),
+     *             item.createChoice('Dogs')
+     *         ]);
      */
-    export interface ListItem {
+    interface ListItem {
       createChoice(value: string): Choice;
       createChoice(value: string, isCorrect: boolean): Choice;
       createChoice(value: string, navigationItem: PageBreakItem): Choice;
@@ -685,23 +692,22 @@ declare namespace GoogleAppsScript {
       setRequired(enabled: boolean): ListItem;
       setTitle(title: string): ListItem;
     }
-
     /**
-     * A question item that allows the respondent to select one choice from a list of radio
-     *  buttons or an optional "other" field. Items can be accessed or created from a Form.
-     *  When used in a quiz, these items are autograded.
+     * A question item that allows the respondent to select one choice from a list of radio buttons or
+     * an optional "other" field. Items can be accessed or created from a Form. When used in a
+     * quiz, these items are autograded.
      *
-     *      // Open a form by ID and add a new multiple choice item.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var item = form.addMultipleChoiceItem();
-     *      item.setTitle('Do you prefer cats or dogs?')
-     *          .setChoices([
-     *              item.createChoice('Cats'),
-     *              item.createChoice('Dogs')
-     *           ])
-     *          .showOtherOption(true);
+     *     // Open a form by ID and add a new multiple choice item.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var item = form.addMultipleChoiceItem();
+     *     item.setTitle('Do you prefer cats or dogs?')
+     *         .setChoices([
+     *             item.createChoice('Cats'),
+     *             item.createChoice('Dogs')
+     *          ])
+     *         .showOtherOption(true);
      */
-    export interface MultipleChoiceItem {
+    interface MultipleChoiceItem {
       createChoice(value: string): Choice;
       createChoice(value: string, isCorrect: boolean): Choice;
       createChoice(value: string, navigationItem: PageBreakItem): Choice;
@@ -729,21 +735,19 @@ declare namespace GoogleAppsScript {
       setTitle(title: string): MultipleChoiceItem;
       showOtherOption(enabled: boolean): MultipleChoiceItem;
     }
-
     /**
-     * A layout item that marks the start of a page. Items can be accessed or
-     *  created from a Form.
+     * A layout item that marks the start of a page. Items can be accessed or created from a Form.
      *
-     *      // Create a form and add three page-break items.
-     *      var form = FormApp.create('Form Name');
-     *      var pageTwo = form.addPageBreakItem().setTitle('Page Two');
-     *      var pageThree = form.addPageBreakItem().setTitle('Page Three');
+     *     // Create a form and add three page-break items.
+     *     var form = FormApp.create('Form Name');
+     *     var pageTwo = form.addPageBreakItem().setTitle('Page Two');
+     *     var pageThree = form.addPageBreakItem().setTitle('Page Three');
      *
-     *      // Make the first two pages navigate elsewhere upon completion.
-     *      pageTwo.setGoToPage(pageThree); // At end of page one (start of page two), jump to page three
-     *      pageThree.setGoToPage(FormApp.PageNavigationType.RESTART); // At end of page two, restart form
+     *     // Make the first two pages navigate elsewhere upon completion.
+     *     pageTwo.setGoToPage(pageThree); // At end of page one (start of page two), jump to page three
+     *     pageThree.setGoToPage(FormApp.PageNavigationType.RESTART); // At end of page two, restart form
      */
-    export interface PageBreakItem {
+    interface PageBreakItem {
       duplicate(): PageBreakItem;
       getGoToPage(): PageBreakItem;
       getHelpText(): string;
@@ -757,45 +761,44 @@ declare namespace GoogleAppsScript {
       setHelpText(text: string): PageBreakItem;
       setTitle(title: string): PageBreakItem;
     }
-
     /**
      * An enum representing the supported types of page navigation. Page navigation types can be
-     *  accessed from FormApp.PageNavigationType.
+     * accessed from FormApp.PageNavigationType.
      *
      * The page navigation occurs after the respondent completes a page that contains the option, and
-     *  only if the respondent chose that option. If the respondent chose multiple options with
-     *  page-navigation instructions on the same page, only the last navigation option has any effect.
-     *  Page navigation also has no effect on the last page of a form.
+     * only if the respondent chose that option. If the respondent chose multiple options with
+     * page-navigation instructions on the same page, only the last navigation option has any effect.
+     * Page navigation also has no effect on the last page of a form.
+     *
      * Choices that use page navigation cannot be combined in the same item with choices that do not
-     *  use page navigation.
+     * use page navigation.
      *
-     *      // Create a form and add a new multiple-choice item and a page-break item.
-     *      var form = FormApp.create('Form Name');
-     *      var item = form.addMultipleChoiceItem();
-     *      var pageBreak = form.addPageBreakItem();
+     *     // Create a form and add a new multiple-choice item and a page-break item.
+     *     var form = FormApp.create('Form Name');
+     *     var item = form.addMultipleChoiceItem();
+     *     var pageBreak = form.addPageBreakItem();
      *
-     *      // Set some choices with go-to-page logic.
-     *      var rightChoice = item.createChoice('Vanilla', FormApp.PageNavigationType.SUBMIT);
-     *      var wrongChoice = item.createChoice('Chocolate', FormApp.PageNavigationType.RESTART);
+     *     // Set some choices with go-to-page logic.
+     *     var rightChoice = item.createChoice('Vanilla', FormApp.PageNavigationType.SUBMIT);
+     *     var wrongChoice = item.createChoice('Chocolate', FormApp.PageNavigationType.RESTART);
      *
-     *      // For GO_TO_PAGE, just pass in the page break item. For CONTINUE (normally the default), pass in
-     *      // CONTINUE explicitly because page navigation cannot be mixed with non-navigation choices.
-     *      var iffyChoice = item.createChoice('Peanut', pageBreak);
-     *      var otherChoice = item.createChoice('Strawberry', FormApp.PageNavigationType.CONTINUE);
-     *      item.setChoices([rightChoice, wrongChoice, iffyChoice, otherChoice]);
+     *     // For GO_TO_PAGE, just pass in the page break item. For CONTINUE (normally the default), pass in
+     *     // CONTINUE explicitly because page navigation cannot be mixed with non-navigation choices.
+     *     var iffyChoice = item.createChoice('Peanut', pageBreak);
+     *     var otherChoice = item.createChoice('Strawberry', FormApp.PageNavigationType.CONTINUE);
+     *     item.setChoices([rightChoice, wrongChoice, iffyChoice, otherChoice]);
      */
-    export enum PageNavigationType { CONTINUE, GO_TO_PAGE, RESTART, SUBMIT }
-
+    enum PageNavigationType { CONTINUE, GO_TO_PAGE, RESTART, SUBMIT }
     /**
-     * A question item that allows the respondent to enter a block of text. Items can be
-     *  accessed or created from a Form. When used in a quiz, these items are graded.
+     * A question item that allows the respondent to enter a block of text. Items can be accessed or
+     * created from a Form. When used in a quiz, these items are graded.
      *
-     *      // Open a form by ID and add a new paragraph text item.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var item = form.addParagraphTextItem();
-     *      item.setTitle('What is your address?');
+     *     // Open a form by ID and add a new paragraph text item.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var item = form.addParagraphTextItem();
+     *     item.setTitle('What is your address?');
      */
-    export interface ParagraphTextItem {
+    interface ParagraphTextItem {
       clearValidation(): ParagraphTextItem;
       createResponse(response: string): ItemResponse;
       duplicate(): ParagraphTextItem;
@@ -814,97 +817,89 @@ declare namespace GoogleAppsScript {
       setTitle(title: string): ParagraphTextItem;
       setValidation(validation: ParagraphTextValidation): ParagraphTextItem;
     }
-
     /**
      * A DataValidation for a ParagraphTextItem.
      *
-     *      // Add a paragraph text item to a form and require the answer to be at least 100 characters.
-     *      var paragraphTextItem = form.addParagraphTextItem().setTitle('Describe yourself:');
-     *      var paragraphtextValidation = FormApp.createParagraphTextValidation()
-     *        .setHelpText(“Answer must be more than 100 characters.”)
-     *        .requireTextLengthGreatherThan(100);
-     *      paragraphTextItem.setValidation(paragraphtextValidation);
+     *     // Add a paragraph text item to a form and require the answer to be at least 100 characters.
+     *     var paragraphTextItem = form.addParagraphTextItem().setTitle('Describe yourself:');
+     *     var paragraphtextValidation = FormApp.createParagraphTextValidation()
+     *       .setHelpText(“Answer must be more than 100 characters.”)
+     *       .requireTextLengthGreatherThan(100);
+     *     paragraphTextItem.setValidation(paragraphtextValidation);
      */
-    export interface ParagraphTextValidation {
-      getHelpText(): string;
+    // tslint:disable-next-line: no-empty-interface
+    interface ParagraphTextValidation {
     }
-
     /**
      * A DataValidationBuilder for a ParagraphTextValidation.
      *
-     *      // Add a paragraph text item to a form and require the answer to be at least 100 characters.
-     *      var paragraphTextItem = form.addParagraphTextItem().setTitle('Describe yourself:');
-     *      var paragraphtextValidation = FormApp.createParagraphTextValidation()
-     *        .setHelpText(“Answer must be more than 100 characters.”)
-     *        .requireTextLengthGreatherThan(100);
-     *      paragraphTextItem.setValidation(paragraphtextValidation);
+     *     // Add a paragraph text item to a form and require the answer to be at least 100 characters.
+     *     var paragraphTextItem = form.addParagraphTextItem().setTitle('Describe yourself:');
+     *     var paragraphtextValidation = FormApp.createParagraphTextValidation()
+     *       .setHelpText(“Answer must be more than 100 characters.”)
+     *       .requireTextLengthGreatherThan(100);
+     *     paragraphTextItem.setValidation(paragraphtextValidation);
      */
-    export interface ParagraphTextValidationBuilder {
-      build(): ParagraphTextValidation;
-      copy(): ParagraphTextValidationBuilder;
+    interface ParagraphTextValidationBuilder {
       requireTextContainsPattern(pattern: string): ParagraphTextValidationBuilder;
       requireTextDoesNotContainPattern(pattern: string): ParagraphTextValidationBuilder;
       requireTextDoesNotMatchPattern(pattern: string): ParagraphTextValidationBuilder;
       requireTextLengthGreaterThanOrEqualTo(number: Integer): ParagraphTextValidationBuilder;
       requireTextLengthLessThanOrEqualTo(number: Integer): ParagraphTextValidationBuilder;
       requireTextMatchesPattern(pattern: string): ParagraphTextValidationBuilder;
-      setHelpText(text: string): ParagraphTextValidationBuilder;
     }
-
     /**
      * The bean implementation of a Feedback, which contains properties common to all feedback, such as
-     *  display text or links.
+     * display text or links.
      *
-     *  Feedback can be added to gradeable Form items.
+     * Feedback can be added to gradeable Form items.
      *
-     *      // Setting feedback which should be automatically shown when a user responds to a question
-     *      // incorrectly.
-     *      var textItem = form.addTextItem().setTitle('Re-hydrating dried fruit is an example of what?');
-     *      var feedback = FormApp.createFeedback()
-     *        .setDisplayText(
-     *            “Good answer, but not quite right.  Please review chapter 4 before next time.”)
-     *        .addLink("http://wikipedia.com/osmosis");
-     *      textItem.setFeedbackForIncorrect(feedback);
+     *     // Setting feedback which should be automatically shown when a user responds to a question
+     *     // incorrectly.
+     *     var textItem = form.addTextItem().setTitle('Re-hydrating dried fruit is an example of what?');
+     *     var feedback = FormApp.createFeedback()
+     *       .setDisplayText(
+     *           “Good answer, but not quite right.  Please review chapter 4 before next time.”)
+     *       .addLink("http://wikipedia.com/osmosis");
+     *     textItem.setFeedbackForIncorrect(feedback);
      */
-    export interface QuizFeedback {
+    interface QuizFeedback {
       getLinkUrls(): string[];
       getText(): string;
     }
-
     /**
-     * The base FeedbackBuilder that contains setters for properties common to all feedback,
-     *  such as display text. Used to build Feedback objects.
+     * The base FeedbackBuilder that contains setters for properties common to all feedback, such as
+     * display text. Used to build Feedback objects.
      *
-     *      // Open a form by ID and add a new list item.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var item = form.addListItem();
-     *      item.setTitle('Do you prefer cats or dogs?');
-     *      item.setChoices([
-     *        item.createChoice('Dogs', true),
-     *        item.createChoice('Cats', false)]);
-     *      // Add feedback which will be shown for correct responses; ie "Dogs".
-     *      item.setFeedbackForCorrect(FormApp.createFeedback().setText("Dogs rule, cats drool.").build());
+     *     // Open a form by ID and add a new list item.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var item = form.addListItem();
+     *     item.setTitle('Do you prefer cats or dogs?');
+     *     item.setChoices([
+     *       item.createChoice('Dogs', true),
+     *       item.createChoice('Cats', false)]);
+     *     // Add feedback which will be shown for correct responses; ie "Dogs".
+     *     item.setFeedbackForCorrect(FormApp.createFeedback().setText("Dogs rule, cats drool.").build());
      */
-    export interface QuizFeedbackBuilder {
+    interface QuizFeedbackBuilder {
       addLink(url: string): QuizFeedbackBuilder;
       addLink(url: string, displayText: string): QuizFeedbackBuilder;
       build(): QuizFeedback;
       copy(): QuizFeedbackBuilder;
       setText(text: string): QuizFeedbackBuilder;
     }
-
     /**
-     * A question item that allows the respondent to choose one option from a numbered sequence
-     *  of radio buttons. Items can be accessed or created from a Form. When used in a quiz,
-     *  these items are graded.
+     * A question item that allows the respondent to choose one option from a numbered sequence of radio
+     * buttons. Items can be accessed or created from a Form. When used in a quiz, these items
+     * are graded.
      *
-     *      // Open a form by ID and add a new scale item.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var item = form.addScaleItem();
-     *      item.setTitle('Pick a number between 1 and 10')
-     *          .setBounds(1, 10);
+     *     // Open a form by ID and add a new scale item.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var item = form.addScaleItem();
+     *     item.setTitle('Pick a number between 1 and 10')
+     *         .setBounds(1, 10);
      */
-    export interface ScaleItem {
+    interface ScaleItem {
       createResponse(response: Integer): ItemResponse;
       duplicate(): ScaleItem;
       getGeneralFeedback(): QuizFeedback;
@@ -927,17 +922,16 @@ declare namespace GoogleAppsScript {
       setRequired(enabled: boolean): ScaleItem;
       setTitle(title: string): ScaleItem;
     }
-
     /**
      * A layout item that visually indicates the start of a section. Items can be accessed or created
-     *  from a Form.
+     * from a Form.
      *
-     *      // Open a form by ID and add a new section header.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var item = form.addSectionHeaderItem();
-     *      item.setTitle('Title of new section');
+     *     // Open a form by ID and add a new section header.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var item = form.addSectionHeaderItem();
+     *     item.setTitle('Title of new section');
      */
-    export interface SectionHeaderItem {
+    interface SectionHeaderItem {
       duplicate(): SectionHeaderItem;
       getHelpText(): string;
       getId(): Integer;
@@ -947,17 +941,16 @@ declare namespace GoogleAppsScript {
       setHelpText(text: string): SectionHeaderItem;
       setTitle(title: string): SectionHeaderItem;
     }
-
     /**
-     * A question item that allows the respondent to enter a single line of text. Items can be
-     *  accessed or created from a Form. When used in a quiz, these items are graded.
+     * A question item that allows the respondent to enter a single line of text. Items can be accessed
+     * or created from a Form. When used in a quiz, these items are graded.
      *
-     *      // Open a form by ID and add a new text item.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var item = form.addTextItem();
-     *      item.setTitle('What is your name?');
+     *     // Open a form by ID and add a new text item.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var item = form.addTextItem();
+     *     item.setTitle('What is your name?');
      */
-    export interface TextItem {
+    interface TextItem {
       clearValidation(): TextItem;
       createResponse(response: string): ItemResponse;
       duplicate(): TextItem;
@@ -976,44 +969,40 @@ declare namespace GoogleAppsScript {
       setTitle(title: string): TextItem;
       setValidation(validation: TextValidation): TextItem;
     }
-
     /**
      * A DataValidation for a TextItem.
      *
-     *      // Add a text item to a form and require it to be a number within a range.
-     *      var textItem = form.addTextItem().setTitle('Pick a number between 1 and 100?');
-     *      var textValidation = FormApp.createTextValidation()
-     *        .setHelpText(“Input was not a number between 1 and 100.”)
-     *        .requireNumberBetween(1, 100)
-     *        .build();
-     *      textItem.setValidation(textValidation);
+     *     // Add a text item to a form and require it to be a number within a range.
+     *     var textItem = form.addTextItem().setTitle('Pick a number between 1 and 100?');
+     *     var textValidation = FormApp.createTextValidation()
+     *       .setHelpText(“Input was not a number between 1 and 100.”)
+     *       .requireNumberBetween(1, 100)
+     *       .build();
+     *     textItem.setValidation(textValidation);
      */
-    export interface TextValidation {
-      getHelpText(): string;
+    // tslint:disable-next-line: no-empty-interface
+    interface TextValidation {
     }
-
     /**
      * A DataValidationBuilder for a TextValidation.
      *
-     *      // Add a text item to a form and require it to be a number within a range.
-     *      var textItem = form.addTextItem().setTitle('Pick a number between 1 and 100?');
-     *      var textValidation = FormApp.createTextValidation()
-     *        .setHelpText(“Input was not a number between 1 and 100.”)
-     *        .requireNumberBetween(1, 100);
-     *      textItem.setValidation(textValidation);
+     *     // Add a text item to a form and require it to be a number within a range.
+     *     var textItem = form.addTextItem().setTitle('Pick a number between 1 and 100?');
+     *     var textValidation = FormApp.createTextValidation()
+     *       .setHelpText(“Input was not a number between 1 and 100.”)
+     *       .requireNumberBetween(1, 100);
+     *     textItem.setValidation(textValidation);
      */
-    export interface TextValidationBuilder {
-      build(): TextValidation;
-      copy(): TextValidationBuilder;
+    interface TextValidationBuilder {
       requireNumber(): TextValidationBuilder;
-      requireNumberBetween(start: Number, end: Number): TextValidationBuilder;
-      requireNumberEqualTo(number: Number): TextValidationBuilder;
-      requireNumberGreaterThan(number: Number): TextValidationBuilder;
-      requireNumberGreaterThanOrEqualTo(number: Number): TextValidationBuilder;
-      requireNumberLessThan(number: Number): TextValidationBuilder;
-      requireNumberLessThanOrEqualTo(number: Number): TextValidationBuilder;
-      requireNumberNotBetween(start: Number, end: Number): TextValidationBuilder;
-      requireNumberNotEqualTo(number: Number): TextValidationBuilder;
+      requireNumberBetween(start: number, end: number): TextValidationBuilder;
+      requireNumberEqualTo(number: number): TextValidationBuilder;
+      requireNumberGreaterThan(number: number): TextValidationBuilder;
+      requireNumberGreaterThanOrEqualTo(number: number): TextValidationBuilder;
+      requireNumberLessThan(number: number): TextValidationBuilder;
+      requireNumberLessThanOrEqualTo(number: number): TextValidationBuilder;
+      requireNumberNotBetween(start: number, end: number): TextValidationBuilder;
+      requireNumberNotEqualTo(number: number): TextValidationBuilder;
       requireTextContainsPattern(pattern: string): TextValidationBuilder;
       requireTextDoesNotContainPattern(pattern: string): TextValidationBuilder;
       requireTextDoesNotMatchPattern(pattern: string): TextValidationBuilder;
@@ -1023,19 +1012,17 @@ declare namespace GoogleAppsScript {
       requireTextLengthLessThanOrEqualTo(number: Integer): TextValidationBuilder;
       requireTextMatchesPattern(pattern: string): TextValidationBuilder;
       requireWholeNumber(): TextValidationBuilder;
-      setHelpText(text: string): TextValidationBuilder;
     }
-
     /**
-     * A question item that allows the respondent to indicate a time of day. Items can be
-     *  accessed or created from a Form. When used in a quiz, these items are graded.
+     * A question item that allows the respondent to indicate a time of day. Items can be accessed or
+     * created from a Form. When used in a quiz, these items are graded.
      *
-     *      // Open a form by ID and add a new time item.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var item = form.addTimeItem();
-     *      item.setTitle('What time do you usually wake up in the morning?');
+     *     // Open a form by ID and add a new time item.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var item = form.addTimeItem();
+     *     item.setTitle('What time do you usually wake up in the morning?');
      */
-    export interface TimeItem {
+    interface TimeItem {
       createResponse(hour: Integer, minute: Integer): ItemResponse;
       duplicate(): TimeItem;
       getGeneralFeedback(): QuizFeedback;
@@ -1052,29 +1039,28 @@ declare namespace GoogleAppsScript {
       setRequired(enabled: boolean): TimeItem;
       setTitle(title: string): TimeItem;
     }
-
     /**
      * A layout item that displays a video. Items can be accessed or created from a Form.
      *
-     *      // Open a form by ID and add three new video items, using a long URL,
-     *      // a short URL, and a video ID.
-     *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      form.addVideoItem()
-     *          .setTitle('Video Title')
-     *          .setHelpText('Video Caption')
-     *          .setVideoUrl('www.youtube.com/watch?v=1234abcdxyz');
+     *     // Open a form by ID and add three new video items, using a long URL,
+     *     // a short URL, and a video ID.
+     *     var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     form.addVideoItem()
+     *         .setTitle('Video Title')
+     *         .setHelpText('Video Caption')
+     *         .setVideoUrl('www.youtube.com/watch?v=1234abcdxyz');
      *
-     *      form.addVideoItem()
-     *          .setTitle('Video Title')
-     *          .setHelpText('Video Caption')
-     *          .setVideoUrl('youtu.be/1234abcdxyz');
+     *     form.addVideoItem()
+     *         .setTitle('Video Title')
+     *         .setHelpText('Video Caption')
+     *         .setVideoUrl('youtu.be/1234abcdxyz');
      *
-     *      form.addVideoItem()
-     *          .setTitle('Video Title')
-     *          .setHelpText('Video Caption')
-     *          .setVideoUrl('1234abcdxyz');
+     *     form.addVideoItem()
+     *         .setTitle('Video Title')
+     *         .setHelpText('Video Caption')
+     *         .setVideoUrl('1234abcdxyz');
      */
-    export interface VideoItem {
+    interface VideoItem {
       duplicate(): VideoItem;
       getAlignment(): Alignment;
       getHelpText(): string;
@@ -1089,7 +1075,6 @@ declare namespace GoogleAppsScript {
       setVideoUrl(youtubeUrl: string): VideoItem;
       setWidth(width: Integer): VideoItem;
     }
-
   }
 }
 

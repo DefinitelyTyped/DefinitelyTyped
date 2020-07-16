@@ -23,6 +23,9 @@ export interface TwixFormatOptions {
     allDay?: any; // boolean | string
     explicitAllDay?: boolean;
     lastNightEndsAt?: number;
+    hideTime?: boolean;
+    hideDate?: boolean;
+    hideYear?: boolean;
 }
 
 export interface TwixParseAndFormatOptions extends TwixFormatOptions {
@@ -61,8 +64,8 @@ export interface Twix {
     overlaps(other: Twix): boolean;
     engulfs(other: Twix): boolean;
     equals(other: Twix): boolean;
-        union(other: Twix): Twix;
-        intersection(other: Twix): Twix;
+    union(other: Twix): Twix;
+    intersection(other: Twix): Twix;
 
     xor(other: Twix): Twix[];
     difference(other: Twix): Twix[];

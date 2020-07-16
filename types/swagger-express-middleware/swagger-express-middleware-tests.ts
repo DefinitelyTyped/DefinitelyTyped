@@ -4,7 +4,9 @@ import SwaggerExpressMiddleware = require("swagger-express-middleware");
 let app = express();
 let router = express.Router();
 
-SwaggerExpressMiddleware("PetStore.yaml", app, (err: any, middleware: SwaggerExpressMiddleware.SwaggerMiddleware) => {
+SwaggerExpressMiddleware("PetStore.yaml", app, (err: any, 
+                                                middleware: SwaggerExpressMiddleware.SwaggerMiddleware,
+                                                api: SwaggerExpressMiddleware.SwaggerObject) => {
     let filesOptions: SwaggerExpressMiddleware.FilesOptions = {
         useBasePath: false,
         apiPath: "/api-docs/",
@@ -29,6 +31,20 @@ SwaggerExpressMiddleware("PetStore.yaml", app, (err: any, middleware: SwaggerExp
         }
 
     }
+
+    // Demonstrates use of the swagger basePath, it is available from the third argument of the callback
+    // Complile and run this sample, then do a GET from http://localhost:8000/api/pets
+    // If for instance you create version 2 of your API, but in this new version "GET pets" implementation
+    // does not change, you only need to change the basePath to "/api/v2" in the
+    // swagger YAML file, and this method will still be called.
+    app.get(`${api.basePath}/pets`, (req, res, next) => {
+      res.json(
+        [
+          { id: 'pet_1', name: 'Itchy' },
+          { id: 'pet_2', name: 'Scratchy' }
+        ]
+      );
+    });
 
     app.use(
         middleware.metadata(router),
@@ -991,4 +1007,3 @@ let uberApiDefinition: SwaggerExpressMiddleware.SwaggerObject =
       }
     }
   }
-

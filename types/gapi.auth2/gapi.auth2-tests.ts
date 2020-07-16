@@ -24,7 +24,8 @@ function test_getAuthInstance() {
 function test_signIn() {
   gapi.auth2.getAuthInstance().signIn({
     scope: 'email profile',
-    prompt: 'content'
+    prompt: 'content',
+    login_hint: 'example@example.com'
   });
 }
 
@@ -34,6 +35,7 @@ function test_signInOptionsBuild() {
   options.setFetchBasicProfile(true);
   options.setPrompt('select_account');
   options.setScope('profile').setScope('email');
+  options.setLoginHint('example@example.com');
   gapi.auth2.getAuthInstance().signIn(options);
 }
 
@@ -55,8 +57,8 @@ function test_render() {
   const success = (googleUser: gapi.auth2.GoogleUser): void => {
     console.log(googleUser);
   };
-  const failure = (): void => {
-    console.log('Failure callback');
+  const failure = (reason: { error: string }): void => {
+    console.log(`Failure callback: ${reason.error}`);
   };
 
   gapi.signin2.render('testId', {
@@ -144,7 +146,8 @@ function handleSignoutClick(event: MouseEvent) {
 // Load the API and make an API call.  Display the results on the screen.
 function makeApiCall() {
   gapi.client.people.people.get({
-    resourceName: 'people/me'
+    resourceName: 'people/me',
+    personFields: 'names'
   }).then((resp) => {
     const p = document.createElement('p');
     const name = resp.result.names[0].givenName;

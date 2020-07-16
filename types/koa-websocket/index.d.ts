@@ -2,40 +2,52 @@
 // Project: https://github.com/kudos/koa-websocket
 // Definitions by: Maël Lavault <https://github.com/moimael>
 //                 Jaco Greeff <https://github.com/jacogr>
+//                 Martin Ždila <https://github.com/zdila>
+//                 Eunchong Yu <https://github.com/Kroisse>
+//                 Christopher N. Katoyi-Kaba <https://github.com/Christopher2K>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import Koa = require('koa');
+import compose = require('koa-compose');
 import * as ws from 'ws';
 import * as http from 'http';
 import * as https from 'https';
 
-declare namespace KoaWebsocket {
-    type ConnectionHandler = (socket: ws) => void;
-
-    type Middleware = (this: MiddlewareContext, context: Koa.Context, next: () => Promise<any>) => any;
-
-    interface MiddlewareContext extends Koa.Context {
+declare module "koa" {
+    interface Context {
         websocket: ws;
         path: string;
     }
+}
 
-    class Server {
-        app: Koa;
-        middleware: Koa.Middleware[];
+declare namespace KoaWebsocket {
+    type Middleware<StateT, CustomT> = compose.Middleware<MiddlewareContext<StateT> & CustomT>;
 
-        constructor(app: Koa);
-
-        listen(options: ws.ServerOptions): ws.Server;
-        onConnection(handler: ConnectionHandler): void;
-        use(middleware: Middleware): this;
+    interface MiddlewareContext<StateT> extends Koa.Context {
+        // Limitation: Declaration merging cannot overwrap existing properties.
+        // That's why this property is here, not in the merged declaration above.
+        app: App;
+        state: StateT;
     }
 
-    interface App extends Koa {
-        ws: Server;
+    class Server<StateT = any, CustomT = {}> {
+        app: App<StateT, CustomT>;
+        middleware: Array<Middleware<StateT, CustomT>>;
+        server?: ws.Server;
+
+        constructor(app: Koa<StateT, CustomT>);
+
+        listen(options: ws.ServerOptions): ws.Server;
+        onConnection(socket: ws, request: http.IncomingMessage): void;
+        use(middleware: Middleware<StateT, CustomT>): this;
+    }
+
+    interface App<StateT = any, CustomT = {}> extends Koa<StateT, CustomT> {
+        ws: Server<StateT, CustomT>;
     }
 }
 
-declare function websockets(app: Koa): KoaWebsocket.App;
+declare function KoaWebsocket<StateT = any, CustomT = {}>(app: Koa<StateT, CustomT>, wsOptions?: ws.ServerOptions, httpsOptions?: https.ServerOptions): KoaWebsocket.App<StateT, CustomT>;
 
-export = websockets;
+export = KoaWebsocket;

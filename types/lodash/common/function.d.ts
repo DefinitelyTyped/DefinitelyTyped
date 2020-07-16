@@ -801,10 +801,11 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * Creates a function that memoizes the result of func. If resolver is provided it determines the cache key for
-         * storing the result based on the arguments provided to the memoized function. By default, the first argument
-         * provided to the memoized function is coerced to a string and used as the cache key. The func is invoked with
-         * the this binding of the memoized function.
+         * Creates a function that memoizes the result of `func`. If `resolver` is
+         * provided, it determines the cache key for storing the result based on the
+         * arguments provided to the memoized function. By default, the first argument
+         * provided to the memoized function is used as the map cache key. The `func`
+         * is invoked with the `this` binding of the memoized function.
          *
          * @param func The function to have its output memoized.
          * @param resolver The function to resolve the cache key.
@@ -840,14 +841,30 @@ declare module "../index" {
          * @param predicate The predicate to negate.
          * @return Returns the new function.
          */
-        negate<T extends (...args: any[]) => any>(predicate: T): T;
+        negate(predicate: () => boolean): () => boolean;
+        negate<A1>(predicate: (a1: A1) => boolean): (a1: A1) => boolean;
+        negate<A1, A2>(predicate: (a1: A1, a2: A2) => boolean): (a1: A1, a2: A2) => boolean;
+        negate(predicate: (...args: any[]) => any): (...args: any[]) => boolean;
     }
 
-    interface LoDashWrapper<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.negate
          */
-        negate(): this;
+        negate(this: LoDashImplicitWrapper<() => boolean>): LoDashImplicitWrapper<() => boolean>;
+        negate<A1>(this: LoDashImplicitWrapper<(a1: A1) => boolean>): LoDashImplicitWrapper<(a1: A1) => boolean>;
+        negate<A1, A2>(this: LoDashImplicitWrapper<(a1: A1, a2: A2) => boolean>): LoDashImplicitWrapper<(a1: A1, a2: A2) => boolean>;
+        negate(this: LoDashImplicitWrapper<(...args: any[]) => any>): LoDashImplicitWrapper<(...args: any[]) => boolean>;
+    }
+
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.negate
+         */
+        negate(this: LoDashExplicitWrapper<() => boolean>): LoDashExplicitWrapper<() => boolean>;
+        negate<A1>(this: LoDashExplicitWrapper<(a1: A1) => boolean>): LoDashExplicitWrapper<(a1: A1) => boolean>;
+        negate<A1, A2>(this: LoDashExplicitWrapper<(a1: A1, a2: A2) => boolean>): LoDashExplicitWrapper<(a1: A1, a2: A2) => boolean>;
+        negate(this: LoDashExplicitWrapper<(...args: any[]) => any>): LoDashExplicitWrapper<(...args: any[]) => boolean>;
     }
 
     // once

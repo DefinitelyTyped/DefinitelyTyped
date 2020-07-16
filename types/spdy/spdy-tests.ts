@@ -58,7 +58,7 @@ describe('SPDY Client', () => {
         server.listen(fixtures.port, () => {
           agent = spdy.createAgent({
                                      rejectUnauthorized: false,
-                                     port: <number> fixtures.port,
+                                     port: fixtures.port as number,
                                      spdy: {
                                        plain,
                                        protocol: plain ? npn : null,

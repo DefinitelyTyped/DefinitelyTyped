@@ -20,9 +20,6 @@
     },
     "files": [
         "cleave.js-tests.tsx",
-        "index.d.ts",
-        "options/creditCard.d.ts",
-        "options/index.d.ts",
-        "react/index.d.ts"
+        "index.d.ts"
     ]
 }

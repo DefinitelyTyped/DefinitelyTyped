@@ -3,7 +3,11 @@
         "index.d.ts",
         "test/index.ts",
         "test/tsx.tsx",
-        "test/cssProperties.tsx"
+        "test/cssProperties.tsx",
+        "test/elementAttributes.tsx",
+        "test/managedAttributes.tsx",
+        "test/hooks.tsx",
+        "test/experimental.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -11,9 +15,9 @@
             "es6"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
+        "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

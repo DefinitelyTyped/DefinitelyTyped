@@ -1,10 +1,11 @@
 // Type definitions for cookie-session 2.0
 // Project: https://github.com/expressjs/cookie-session
-// Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>
+// Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>, Jason Cordial <https://github.com/btomw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.9
 
 /// <reference types="express" />
+/// <reference types="keygrip" />
 
 declare namespace Express {
     interface Request extends CookieSessionInterfaces.CookieSessionRequest {}
@@ -15,12 +16,12 @@ declare namespace CookieSessionInterfaces {
         /**
          * The name of the cookie to set, defaults to session.
          */
-        name: string;
+        name?: string;
 
         /**
          * The list of keys to use to sign & verify cookie values. Set cookies are always signed with keys[0], while the other keys are valid for verification, allowing for key rotation.
          */
-        keys?: Array<string>;
+        keys?: Array<string> | import('keygrip');
 
         /**
          * A string which will be used as single key if keys is not provided.
@@ -46,6 +47,11 @@ declare namespace CookieSessionInterfaces {
          * a string indicating the domain of the cookie (no default).
          */
         domain?: string;
+
+        /**
+         * a boolean or string indicating whether the cookie is a "same site" cookie (false by default). This can be set to 'strict', 'lax', 'none', or true (which maps to 'strict').
+         */
+        sameSite?: "strict" | "lax" | "none" | boolean;
 
         /**
          * a boolean indicating whether the cookie is only to be sent over HTTPS (false by default for HTTP, true by default for HTTPS).
@@ -78,17 +84,17 @@ declare namespace CookieSessionInterfaces {
         /**
          * Is true if the session has been changed during the request.
          */
-        isChanged: boolean;
+        isChanged?: boolean;
 
         /**
          * Is true if the session is new.
          */
-        isNew: boolean;
+        isNew?: boolean;
 
         /**
          * Determine if the session has been populated with data or is empty.
          */
-        isPopulated: boolean;
+        isPopulated?: boolean;
 
         [propertyName: string]: any;
     }
@@ -97,7 +103,7 @@ declare namespace CookieSessionInterfaces {
         /**
          * Represents the session for the given request.
          */
-        session: CookieSessionObject;
+        session: CookieSessionObject | null;
 
         /**
          * Represents the session options for the current request. These options are a shallow clone of what was provided at middleware construction and can be altered to change cookie setting behavior on a per-request basis.

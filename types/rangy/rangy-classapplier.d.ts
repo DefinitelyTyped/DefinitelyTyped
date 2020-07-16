@@ -3,7 +3,7 @@
 // Definitions by: Maxime Kjaer <https://github.com/MaximeKjaer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="index.d.ts"/>
+/// <reference path="index.d.ts"/>
 
 interface RangyStatic {
     createClassApplier(theClass: string, options?: RangyClassApplierOptions, tagNames?: string|string[]): RangyClassApplier;

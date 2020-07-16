@@ -6,7 +6,21 @@ let player: Player ;
 
 player = new Player('handstick', {
     id: 19231868,
-    width: 640
+    width: 640,
+
+    // Use default values for settings, to test typings
+    autopause: true,
+    autoplay: false,
+    background: false,
+    byline: true,
+    color: '#00adef',
+    loop: false,
+    muted: false,
+    playsinline: true,
+    portrait: true,
+    speed: false,
+    title: true,
+    transparent: true
 });
 
 const onPlay = (data: any) => {
@@ -281,12 +295,33 @@ player.getPaused().then((paused) => {
     // an error occurred
 });
 
+player.getPlaybackRate().then((playbackRate) => {
+   // playbackRate = a numeric value of the current playback rate
+}).catch((error) => {
+    // an error occurred
+});
+
+player.setPlaybackRate(0.5).then((playbackRate) => {
+    // playback rate was set
+}).catch((error) => {
+    switch (error.name) {
+        case 'RangeError':
+            // the playback rate was less than 0.5 or greater than 2
+            break;
+
+        default:
+            // some other error occurred
+            break;
+    }
+});
+
 player.getTextTracks().then((tracks) => {
     // tracks = an array of track objects
     tracks.forEach((track) => {
         console.log(track.label);
         console.log(track.kind);
         console.log(track.language);
+        console.log(track.mode);
     });
 }).catch((error) => {
     // an error occurred
@@ -362,6 +397,30 @@ player.setVolume(0.5).then((volume) => {
     }
 });
 
+player.getSeeking().then((seeking) => {
+    // seeking = whether the player is seeking or not
+}).catch((error) => {
+    // an error occurred
+});
+
+player.getBuffered().then((buffered) => {
+    // buffered = an array of the buffered video time ranges.
+}).catch((error) => {
+    // an error occurred
+});
+
+player.getPlayed().then((played) => {
+    // played = array values of the played video time ranges.
+}).catch((error) => {
+    // an error occurred
+});
+
+player.getSeekable().then((seekable) => {
+    // seekable = array values of the seekable video time ranges.
+}).catch((error) => {
+    // an error occurred
+});
+
 // EVENTS
 
 player.on('play', (data) => {
@@ -435,6 +494,26 @@ player.on('volumechange', (data) => {
     // data is an object containing properties specific to that event
     console.log(data.volume);
 });
+
+player.on('playbackratechange', (data) => {
+   // data is an object containing properties specific to that event
+   console.log(data.playbackRate);
+});
+
+player.on('bufferstart', (data) => {
+   // no associated data with this event
+});
+
+player.on('bufferend', (data) => {
+   // no associated data with this event
+});
+
+player.on('seeking', (data) => {
+    // data is an object containing properties specific to that event
+    console.log(data.duration); // 61.857
+    console.log(data.percent);  // 0.485
+    console.log(data.seconds);  // 30
+ });
 
 player.on('error', (data) => {
     // data is an object containing properties specific to that event

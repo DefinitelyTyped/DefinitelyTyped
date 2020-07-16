@@ -9,8 +9,14 @@
             "react": [
                 "react/v15"
             ],
+            "react-dom": [
+                "react-dom/v15"
+            ],
             "react-test-renderer": [
                 "react-test-renderer/v15"
+            ],
+            "react-test-renderer/*": [
+                "react-test-renderer/v15/*"
             ]
         },
         "noImplicitAny": true,
@@ -27,7 +33,6 @@
     },
     "files": [
         "index.d.ts",
-        "shallow/index.d.ts",
         "react-test-renderer-tests.ts"
     ]
 }

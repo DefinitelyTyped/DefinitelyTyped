@@ -17,12 +17,7 @@
         "strictFunctionTypes": true
     },
     "files": [
-        "format.d.ts",
-        "generate.d.ts",
         "index.d.ts",
-        "nanoid-tests.ts",
-        "random-browser.d.ts",
-        "random.d.ts",
-        "url.d.ts"
+        "nanoid-tests.ts"
     ]
 }

@@ -1,6 +1,6 @@
-// Type definitions for java 0.7.2
+// Type definitions for java 0.9.1
 // Project: https://github.com/joeferner/node-java
-// Definitions by: Jim Lloyd <https://github.com/jimlloyd>, Kentaro Teramoto <https://github.com/hrl7>
+// Definitions by: Jim Lloyd <https://github.com/jimlloyd>, Kentaro Teramoto <https://github.com/hrl7>, Matthieu Dartiguenave <https://github.com/darti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -39,8 +39,8 @@ declare namespace NodeJavaCore {
     asyncOptions: AsyncOptions;
     nativeBindingLocation: string;
 
-    callMethod(instance: any, className: string, methodName: string, args: any[], callback: Callback<any>): void;
-    callMethodSync(instance: any, className: string, methodName: string, ...args: any[]): any;
+    callMethod(instance: any, methodName: string, args: any[], callback: Callback<any>): void;
+    callMethodSync(instance: any, methodName: string, ...args: any[]): any;
     callStaticMethod(className: string, methodName: string, ...args: Array<any|Callback<any>>): void;
     callStaticMethodSync(className: string, methodName: string, ...args: any[]): any;
     getStaticFieldValue(className: string, fieldName: string): any;

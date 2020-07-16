@@ -1,7 +1,7 @@
 // Type definitions for libphonenumber v7.4.3
 // Project: https://github.com/googlei18n/libphonenumber, https://github.com/seegno/google-libphonenumber
 // Definitions by: Leon Yu <https://github.com/leonyu>
-//		   Roman Jurkov <https://github.com/winfinit>
+//           Roman Jurkov <https://github.com/winfinit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace libphonenumber {
@@ -124,6 +124,8 @@ declare namespace libphonenumber {
         getNddPrefixForRegion(regionCode?: string, stripNonDigits?: boolean): string | undefined;
         getNumberType(phoneNumber: PhoneNumber): PhoneNumberType;
         getCountryCodeForRegion(supportedRegion:string):string;
+        getExampleNumber(regionCode: string): PhoneNumber;
+        getExampleNumberForType(regionCode: string, type: PhoneNumberType): PhoneNumber;
         getRegionCodeForCountryCode(countryCallingCode: number): string;
         getRegionCodeForNumber(phoneNumber: PhoneNumber): string | undefined;
         getSupportedRegions():string [];
@@ -143,6 +145,7 @@ declare namespace libphonenumber {
         parseAndKeepRawInput(number: string, regionCode?: string): PhoneNumber;
         truncateTooLongNumber(number: PhoneNumber): boolean;
         isNumberMatch(firstNumber: string | PhoneNumber, secondNumber: string | PhoneNumber): PhoneNumberUtil.MatchType;
+        getLengthOfGeographicalAreaCode(number: PhoneNumber): number;
     }
 
     export class AsYouTypeFormatter {

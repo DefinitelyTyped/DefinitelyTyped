@@ -17,7 +17,7 @@ const Main = () => <h2>Main</h2>;
 
 const Sandwiches = () => <h2>Sandwiches</h2>;
 
-interface PropsWithRoutes extends RouteComponentProps<{}> {
+interface PropsWithRoutes extends RouteComponentProps {
   routes: MyRouteProps[];
 }
 

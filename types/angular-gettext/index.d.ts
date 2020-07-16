@@ -1,4 +1,4 @@
-// Type definitions for angular-gettext v2.1.0
+// Type definitions for angular-gettext v2.1.1
 // Project: https://angular-gettext.rocketeer.be/
 // Definitions by: Ákos Lukács <https://github.com/AkosLukacs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -66,7 +66,7 @@ declare module 'angular' {
       getString(string: string, scope?: any, context?: string): string;
 
       /** Translate a plural string with the given context. */
-      getPlural(n: number, string: string, stringPlural: string, context?: any): string;
+      getPlural(n: number, string: string, stringPlural: string, scope?: any, context?: string): string;
 
       /** Load a set of translation strings from a given URL.This should be a JSON catalog generated with grunt-angular-gettext. More details https://angular-gettext.rocketeer.be/dev-guide/lazy-loading/ */
       loadRemote(url: string): ng.IHttpPromise<any>;

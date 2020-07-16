@@ -5,6 +5,7 @@
 
 /// <reference types="node" />
 import * as stream from 'stream';
+import { EventEmitter } from 'events';
 
 /**
  * encode from JS Object to MessagePack
@@ -84,7 +85,9 @@ export interface Encoder {
   end(chunk: any): void;
 }
 
-export interface Decoder {
+export function Decoder(options?: DecoderOptions): Decoder;
+
+export interface Decoder extends EventEmitter {
   bufferish: any;
   offset: number;
   fetch(): void;

@@ -1,6 +1,7 @@
-// Type definitions for Google Apps Script 2018-02-14
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -8,225 +9,227 @@
 /// <reference path="google-apps-script.spreadsheet.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Slides {
+  namespace Slides {
     /**
      * A 3x3 matrix used to transform source coordinates (x1, y1) into destination coordinates (x2, y2)
-     *  according to matrix multiplication:
+     * according to matrix multiplication:
      *
-     *      [ x2 ]   [ scaleX shearX translateX ] [ x1 ]
-     *      [ y2 ] = [ shearY scaleY translateY ] [ y1 ]
-     *      [ 1  ]   [   0      0        1      ] [ 1  ]
+     *     [ x2 ]   [ scaleX shearX translateX ] [ x1 ]
+     *     [ y2 ] = [ shearY scaleY translateY ] [ y1 ]
+     *     [ 1  ]   [   0      0        1      ] [ 1  ]
      *
      * After transformation,
      *
-     *      x2 = scaleX * x1 + shearX * y1 + translateX
-     *      y2 = scaleY * y1 + shearY * x1 + translateY
+     *     x2 = scaleX * x1 + shearX * y1 + translateX
+     *     y2 = scaleY * y1 + shearY * x1 + translateY
      */
-    export interface AffineTransform {
-      getScaleX(): Number;
-      getScaleY(): Number;
-      getShearX(): Number;
-      getShearY(): Number;
-      getTranslateX(): Number;
-      getTranslateY(): Number;
+    interface AffineTransform {
+      getScaleX(): number;
+      getScaleY(): number;
+      getShearX(): number;
+      getShearY(): number;
+      getTranslateX(): number;
+      getTranslateY(): number;
       toBuilder(): AffineTransformBuilder;
     }
-
     /**
      * A builder for AffineTransform objects. Defaults to the identity transform.
      *
      * Call AffineTransformBuilder#build() to get the AffineTransform object.
      *
-     *      var transform =
-     *          SlidesApp.newAffineTransformBuilder().setScaleX(2.0).setShearY(1.1).build();
+     *     var transform =
+     *         SlidesApp.newAffineTransformBuilder().setScaleX(2.0).setShearY(1.1).build();
      *
-     *      The resulting transform matrix is
-     *        [ 2.0   0.0   0.0 ]
-     *        [ 1.1   1.0   0.0 ]
-     *        [  0     0     1  ]
+     *     The resulting transform matrix is
+     *       [ 2.0   0.0   0.0 ]
+     *       [ 1.1   1.0   0.0 ]
+     *       [  0     0     1  ]
      */
-    export interface AffineTransformBuilder {
+    interface AffineTransformBuilder {
       build(): AffineTransform;
-      setScaleX(scaleX: Number): AffineTransformBuilder;
-      setScaleY(scaleY: Number): AffineTransformBuilder;
-      setShearX(shearX: Number): AffineTransformBuilder;
-      setShearY(shearY: Number): AffineTransformBuilder;
-      setTranslateX(translateX: Number): AffineTransformBuilder;
-      setTranslateY(translateY: Number): AffineTransformBuilder;
+      setScaleX(scaleX: number): AffineTransformBuilder;
+      setScaleY(scaleY: number): AffineTransformBuilder;
+      setShearX(shearX: number): AffineTransformBuilder;
+      setShearY(shearY: number): AffineTransformBuilder;
+      setTranslateX(translateX: number): AffineTransformBuilder;
+      setTranslateY(translateY: number): AffineTransformBuilder;
     }
-
     /**
      * The alignment position to apply.
      */
-    export enum AlignmentPosition { CENTER, HORIZONTAL_CENTER, VERTICAL_CENTER }
-
+    enum AlignmentPosition { CENTER, HORIZONTAL_CENTER, VERTICAL_CENTER }
     /**
      * The kinds of start and end forms with which linear geometry can be rendered.
      *
      * Some values are based on the "ST_LineEndType" simple type described in section 20.1.10.33 of
-     *  of "Office Open XML File Formats - Fundamentals and Markup Language Reference", part 1 of ECMA-376 4th
-     *  edition.
+     * of "Office Open XML File Formats - Fundamentals and Markup Language Reference", part 1 of ECMA-376 4th
+     * edition.
      */
-    export enum ArrowStyle { UNSUPPORTED, NONE, STEALTH_ARROW, FILL_ARROW, FILL_CIRCLE, FILL_SQUARE, FILL_DIAMOND, OPEN_ARROW, OPEN_CIRCLE, OPEN_SQUARE, OPEN_DIAMOND }
-
+    enum ArrowStyle { UNSUPPORTED, NONE, STEALTH_ARROW, FILL_ARROW, FILL_CIRCLE, FILL_SQUARE, FILL_DIAMOND, OPEN_ARROW, OPEN_CIRCLE, OPEN_SQUARE, OPEN_DIAMOND }
     /**
      * An element of text that is dynamically replaced with content that can change over time, such as a
-     *  slide number.
+     * slide number.
      */
-    export interface AutoText {
+    interface AutoText {
       getAutoTextType(): AutoTextType;
       getIndex(): Integer;
       getRange(): TextRange;
     }
-
     /**
      * The types of auto text.
      */
-    export enum AutoTextType { UNSUPPORTED, SLIDE_NUMBER }
-
+    enum AutoTextType { UNSUPPORTED, SLIDE_NUMBER }
     /**
      * Describes the border around an element.
      */
-    export interface Border {
+    interface Border {
       getDashStyle(): DashStyle;
       getLineFill(): LineFill;
-      getWeight(): Number;
+      getWeight(): number;
       isVisible(): boolean;
       setDashStyle(style: DashStyle): Border;
       setTransparent(): Border;
-      setWeight(points: Number): Border;
+      setWeight(points: number): Border;
     }
-
     /**
      * The table cell merge states.
      */
-    export enum CellMergeState { NORMAL, HEAD, MERGED }
-
+    enum CellMergeState { NORMAL, HEAD, MERGED }
     /**
      * An opaque color
      */
-    export interface Color {
-      asRgbColor(): RgbColor;
+    interface Color {
+      asRgbColor(): Base.RgbColor;
       asThemeColor(): ThemeColor;
-      getColorType(): ColorType;
+      getColorType(): Base.ColorType;
     }
-
     /**
      * A color scheme defines a mapping from members of ThemeColorType to the actual colors used
-     *  to render them.
+     * to render them.
      */
-    export interface ColorScheme {
+    interface ColorScheme {
       getConcreteColor(theme: ThemeColorType): Color;
       getThemeColors(): ThemeColorType[];
+      setConcreteColor(type: ThemeColorType, color: Color): ColorScheme;
+      setConcreteColor(type: ThemeColorType, red: Integer, green: Integer, blue: Integer): ColorScheme;
+      setConcreteColor(type: ThemeColorType, hexColor: string): ColorScheme;
     }
-
     /**
-     * The types of Colors
+     * The connection site on a PageElement that can connect to a connector.
      */
-    export enum ColorType { UNSUPPORTED, RGB, THEME }
-
+    interface ConnectionSite {
+      getIndex(): Integer;
+      getPageElement(): PageElement;
+    }
     /**
      * The content alignments for a Shape or TableCell. The supported alignments
-     *  correspond to predefined text anchoring types from the ECMA-376 standard.
+     * correspond to predefined text anchoring types from the ECMA-376 standard.
      *
      * More information on those alignments can be found in the description of
-     *  the ST_TextAnchoringType simple type in section 20.1.10.59 of "Office Open XML File
-     *  Formats - Fundamentals and Markup Language Reference", part 1 of ECMA-376 4th
-     *  edition.
+     * the ST_TextAnchoringType simple type in section 20.1.10.59 of "Office Open XML File
+     * Formats - Fundamentals and Markup Language Reference", part 1 of ECMA-376 4th
+     * edition.
      */
-    export enum ContentAlignment { UNSUPPORTED, TOP, MIDDLE, BOTTOM }
-
+    enum ContentAlignment { UNSUPPORTED, TOP, MIDDLE, BOTTOM }
     /**
      * The kinds of dashes with which linear geometry can be rendered. These values are based on the
-     *  "ST_PresetLineDashVal" simple type described in section 20.1.10.48 of "Office Open XML File
-     *  Formats - Fundamentals and Markup Language Reference", part 1 of ECMA-376 4th
-     *  edition.
+     * "ST_PresetLineDashVal" simple type described in section 20.1.10.48 of "Office Open XML File
+     * Formats - Fundamentals and Markup Language Reference", part 1 of ECMA-376 4th
+     * edition.
      */
-    export enum DashStyle { UNSUPPORTED, SOLID, DOT, DASH, DASH_DOT, LONG_DASH, LONG_DASH_DOT }
-
+    enum DashStyle { UNSUPPORTED, SOLID, DOT, DASH, DASH_DOT, LONG_DASH, LONG_DASH_DOT }
     /**
      * Describes the page element's background
      */
-    export interface Fill {
+    interface Fill {
       getSolidFill(): SolidFill;
       getType(): FillType;
       isVisible(): boolean;
       setSolidFill(color: Color): void;
-      setSolidFill(color: Color, alpha: Number): void;
+      setSolidFill(color: Color, alpha: number): void;
       setSolidFill(red: Integer, green: Integer, blue: Integer): void;
-      setSolidFill(red: Integer, green: Integer, blue: Integer, alpha: Number): void;
+      setSolidFill(red: Integer, green: Integer, blue: Integer, alpha: number): void;
       setSolidFill(hexString: string): void;
-      setSolidFill(hexString: string, alpha: Number): void;
+      setSolidFill(hexString: string, alpha: number): void;
       setSolidFill(color: ThemeColorType): void;
-      setSolidFill(color: ThemeColorType, alpha: Number): void;
+      setSolidFill(color: ThemeColorType, alpha: number): void;
       setTransparent(): void;
     }
-
     /**
      * The kinds of fill.
      */
-    export enum FillType { UNSUPPORTED, NONE, SOLID }
-
+    enum FillType { UNSUPPORTED, NONE, SOLID }
     /**
      * A collection of PageElements joined as a single unit.
      */
-    export interface Group {
+    interface Group {
       alignOnPage(alignmentPosition: AlignmentPosition): Group;
+      bringForward(): Group;
+      bringToFront(): Group;
       duplicate(): PageElement;
       getChildren(): PageElement[];
+      getConnectionSites(): ConnectionSite[];
       getDescription(): string;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
       getObjectId(): string;
       getPageElementType(): PageElementType;
       getParentGroup(): Group;
       getParentPage(): Page;
-      getRotation(): Number;
+      getRotation(): number;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
-      getWidth(): Number;
+      getWidth(): number;
       preconcatenateTransform(transform: AffineTransform): Group;
       remove(): void;
-      scaleHeight(ratio: Number): Group;
-      scaleWidth(ratio: Number): Group;
+      scaleHeight(ratio: number): Group;
+      scaleWidth(ratio: number): Group;
       select(): void;
       select(replace: boolean): void;
-      setHeight(height: Number): Group;
-      setLeft(left: Number): Group;
-      setRotation(angle: Number): Group;
-      setTop(top: Number): Group;
+      sendBackward(): Group;
+      sendToBack(): Group;
+      setDescription(description: string): Group;
+      setHeight(height: number): Group;
+      setLeft(left: number): Group;
+      setRotation(angle: number): Group;
+      setTitle(title: string): Group;
+      setTop(top: number): Group;
       setTransform(transform: AffineTransform): Group;
-      setWidth(width: Number): Group;
+      setWidth(width: number): Group;
       ungroup(): void;
     }
-
     /**
      * A PageElement representing an image.
      */
-    export interface Image {
+    interface Image {
       alignOnPage(alignmentPosition: AlignmentPosition): Image;
+      bringForward(): Image;
+      bringToFront(): Image;
       duplicate(): PageElement;
+      getAs(contentType: string): Base.Blob;
+      getBlob(): Base.Blob;
       getBorder(): Border;
+      getConnectionSites(): ConnectionSite[];
       getContentUrl(): string;
       getDescription(): string;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
       getLink(): Link;
       getObjectId(): string;
       getPageElementType(): PageElementType;
       getParentGroup(): Group;
       getParentPage(): Page;
-      getRotation(): Number;
+      getRotation(): number;
       getSourceUrl(): string;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
-      getWidth(): Number;
+      getWidth(): number;
       preconcatenateTransform(transform: AffineTransform): Image;
       remove(): void;
       removeLink(): void;
@@ -234,29 +237,32 @@ declare namespace GoogleAppsScript {
       replace(blobSource: Base.BlobSource, crop: boolean): Image;
       replace(imageUrl: string): Image;
       replace(imageUrl: string, crop: boolean): Image;
-      scaleHeight(ratio: Number): Image;
-      scaleWidth(ratio: Number): Image;
+      scaleHeight(ratio: number): Image;
+      scaleWidth(ratio: number): Image;
       select(): void;
       select(replace: boolean): void;
-      setHeight(height: Number): Image;
-      setLeft(left: Number): Image;
+      sendBackward(): Image;
+      sendToBack(): Image;
+      setDescription(description: string): Image;
+      setHeight(height: number): Image;
+      setLeft(left: number): Image;
       setLinkSlide(slideIndex: Integer): Link;
       setLinkSlide(slide: Slide): Link;
       setLinkSlide(slidePosition: SlidePosition): Link;
       setLinkUrl(url: string): Link;
-      setRotation(angle: Number): Image;
-      setTop(top: Number): Image;
+      setRotation(angle: number): Image;
+      setTitle(title: string): Image;
+      setTop(top: number): Image;
       setTransform(transform: AffineTransform): Image;
-      setWidth(width: Number): Image;
+      setWidth(width: number): Image;
     }
-
     /**
      * A layout in a presentation.
      *
      * Each layout serves as a template for slides that inherit from it, determining how content on
-     *  those slides is arranged and styled.
+     * those slides is arranged and styled.
      */
-    export interface Layout {
+    interface Layout {
       getBackground(): PageBackground;
       getColorScheme(): ColorScheme;
       getGroups(): Group[];
@@ -265,6 +271,7 @@ declare namespace GoogleAppsScript {
       getLines(): Line[];
       getMaster(): Master;
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPageType(): PageType;
       getPlaceholder(placeholderType: PlaceholderType): PageElement;
@@ -278,26 +285,29 @@ declare namespace GoogleAppsScript {
       group(pageElements: PageElement[]): Group;
       insertGroup(group: Group): Group;
       insertImage(blobSource: Base.BlobSource): Image;
-      insertImage(blobSource: Base.BlobSource, left: Number, top: Number, width: Number, height: Number): Image;
+      insertImage(blobSource: Base.BlobSource, left: number, top: number, width: number, height: number): Image;
       insertImage(image: Image): Image;
       insertImage(imageUrl: string): Image;
-      insertImage(imageUrl: string, left: Number, top: Number, width: Number, height: Number): Image;
+      insertImage(imageUrl: string, left: number, top: number, width: number, height: number): Image;
       insertLine(line: Line): Line;
-      insertLine(lineCategory: LineCategory, startLeft: Number, startTop: Number, endLeft: Number, endTop: Number): Line;
+      insertLine(lineCategory: LineCategory, startConnectionSite: ConnectionSite, endConnectionSite: ConnectionSite): Line;
+      insertLine(lineCategory: LineCategory, startLeft: number, startTop: number, endLeft: number, endTop: number): Line;
       insertPageElement(pageElement: PageElement): PageElement;
       insertShape(shape: Shape): Shape;
       insertShape(shapeType: ShapeType): Shape;
-      insertShape(shapeType: ShapeType, left: Number, top: Number, width: Number, height: Number): Shape;
+      insertShape(shapeType: ShapeType, left: number, top: number, width: number, height: number): Shape;
       insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart): SheetsChart;
-      insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart, left: Number, top: Number, width: Number, height: Number): SheetsChart;
+      insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart, left: number, top: number, width: number, height: number): SheetsChart;
       insertSheetsChart(sheetsChart: SheetsChart): SheetsChart;
       insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart): Image;
-      insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart, left: Number, top: Number, width: Number, height: Number): Image;
+      insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart, left: number, top: number, width: number, height: number): Image;
       insertTable(numRows: Integer, numColumns: Integer): Table;
-      insertTable(numRows: Integer, numColumns: Integer, left: Number, top: Number, width: Number, height: Number): Table;
+      insertTable(numRows: Integer, numColumns: Integer, left: number, top: number, width: number, height: number): Table;
       insertTable(table: Table): Table;
+      insertTextBox(text: string): Shape;
+      insertTextBox(text: string, left: number, top: number, width: number, height: number): Shape;
       insertVideo(videoUrl: string): Video;
-      insertVideo(videoUrl: string, left: Number, top: Number, width: Number, height: Number): Video;
+      insertVideo(videoUrl: string, left: number, top: number, width: number, height: number): Video;
       insertVideo(video: Video): Video;
       insertWordArt(wordArt: WordArt): WordArt;
       remove(): void;
@@ -305,21 +315,25 @@ declare namespace GoogleAppsScript {
       replaceAllText(findText: string, replaceText: string, matchCase: boolean): Integer;
       selectAsCurrentPage(): void;
     }
-
     /**
      * A PageElement representing a line.
      */
-    export interface Line {
+    interface Line {
       alignOnPage(alignmentPosition: AlignmentPosition): Line;
+      bringForward(): Line;
+      bringToFront(): Line;
       duplicate(): PageElement;
+      getConnectionSites(): ConnectionSite[];
       getDashStyle(): DashStyle;
       getDescription(): string;
       getEnd(): Point;
       getEndArrow(): ArrowStyle;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getEndConnection(): ConnectionSite;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
+      getLineCategory(): LineCategory;
       getLineFill(): LineFill;
       getLineType(): LineType;
       getLink(): Link;
@@ -327,83 +341,88 @@ declare namespace GoogleAppsScript {
       getPageElementType(): PageElementType;
       getParentGroup(): Group;
       getParentPage(): Page;
-      getRotation(): Number;
+      getRotation(): number;
       getStart(): Point;
       getStartArrow(): ArrowStyle;
+      getStartConnection(): ConnectionSite;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
-      getWeight(): Number;
-      getWidth(): Number;
+      getWeight(): number;
+      getWidth(): number;
+      isConnector(): boolean;
       preconcatenateTransform(transform: AffineTransform): Line;
       remove(): void;
       removeLink(): void;
-      scaleHeight(ratio: Number): Line;
-      scaleWidth(ratio: Number): Line;
+      reroute(): Line;
+      scaleHeight(ratio: number): Line;
+      scaleWidth(ratio: number): Line;
       select(): void;
       select(replace: boolean): void;
+      sendBackward(): Line;
+      sendToBack(): Line;
       setDashStyle(style: DashStyle): Line;
-      setEnd(left: Number, top: Number): Line;
+      setDescription(description: string): Line;
+      setEnd(left: number, top: number): Line;
       setEnd(point: Point): Line;
       setEndArrow(style: ArrowStyle): Line;
-      setHeight(height: Number): Line;
-      setLeft(left: Number): Line;
+      setEndConnection(connectionSite: ConnectionSite): Line;
+      setHeight(height: number): Line;
+      setLeft(left: number): Line;
+      setLineCategory(lineCategory: LineCategory): Line;
       setLinkSlide(slideIndex: Integer): Link;
       setLinkSlide(slide: Slide): Link;
       setLinkSlide(slidePosition: SlidePosition): Link;
       setLinkUrl(url: string): Link;
-      setRotation(angle: Number): Line;
-      setStart(left: Number, top: Number): Line;
+      setRotation(angle: number): Line;
+      setStart(left: number, top: number): Line;
       setStart(point: Point): Line;
       setStartArrow(style: ArrowStyle): Line;
-      setTop(top: Number): Line;
+      setStartConnection(connectionSite: ConnectionSite): Line;
+      setTitle(title: string): Line;
+      setTop(top: number): Line;
       setTransform(transform: AffineTransform): Line;
-      setWeight(points: Number): Line;
-      setWidth(width: Number): Line;
+      setWeight(points: number): Line;
+      setWidth(width: number): Line;
     }
-
     /**
      * The line category.
      *
      * The exact LineType created is determined based on the category and how it's routed to
-     *  connect to other page elements.
+     * connect to other page elements.
      */
-    export enum LineCategory { STRAIGHT, BENT, CURVED }
-
+    enum LineCategory { UNSUPPORTED, STRAIGHT, BENT, CURVED }
     /**
      * Describes the fill of a line or outline
      */
-    export interface LineFill {
+    interface LineFill {
       getFillType(): LineFillType;
       getSolidFill(): SolidFill;
       setSolidFill(color: Color): void;
-      setSolidFill(color: Color, alpha: Number): void;
+      setSolidFill(color: Color, alpha: number): void;
       setSolidFill(red: Integer, green: Integer, blue: Integer): void;
-      setSolidFill(red: Integer, green: Integer, blue: Integer, alpha: Number): void;
+      setSolidFill(red: Integer, green: Integer, blue: Integer, alpha: number): void;
       setSolidFill(hexString: string): void;
-      setSolidFill(hexString: string, alpha: Number): void;
+      setSolidFill(hexString: string, alpha: number): void;
       setSolidFill(color: ThemeColorType): void;
-      setSolidFill(color: ThemeColorType, alpha: Number): void;
+      setSolidFill(color: ThemeColorType, alpha: number): void;
     }
-
     /**
      * The kinds of line fill.
      */
-    export enum LineFillType { UNSUPPORTED, NONE, SOLID }
-
+    enum LineFillType { UNSUPPORTED, NONE, SOLID }
     /**
      * The line types.
      *
      * Derived from a subset of the values of the "ST_ShapeType" simple type in section 20.1.10.55 of
-     *  "Office Open XML File Formats - Fundamentals and Markup Language Reference", part 1 of ECMA-376 4th
-     *  edition.
+     * "Office Open XML File Formats - Fundamentals and Markup Language Reference", part 1 of ECMA-376 4th
+     * edition.
      */
-    export enum LineType { UNSUPPORTED, STRAIGHT_CONNECTOR_1, BENT_CONNECTOR_2, BENT_CONNECTOR_3, BENT_CONNECTOR_4, BENT_CONNECTOR_5, CURVED_CONNECTOR_2, CURVED_CONNECTOR_3, CURVED_CONNECTOR_4, CURVED_CONNECTOR_5 }
-
+    enum LineType { UNSUPPORTED, STRAIGHT_CONNECTOR_1, BENT_CONNECTOR_2, BENT_CONNECTOR_3, BENT_CONNECTOR_4, BENT_CONNECTOR_5, CURVED_CONNECTOR_2, CURVED_CONNECTOR_3, CURVED_CONNECTOR_4, CURVED_CONNECTOR_5, STRAIGHT_LINE }
     /**
      * A hypertext link.
      */
-    export interface Link {
+    interface Link {
       getLinkType(): LinkType;
       getLinkedSlide(): Slide;
       getSlideId(): string;
@@ -411,20 +430,17 @@ declare namespace GoogleAppsScript {
       getSlidePosition(): SlidePosition;
       getUrl(): string;
     }
-
     /**
      * The types of a Link.
      */
-    export enum LinkType { UNSUPPORTED, URL, SLIDE_POSITION, SLIDE_ID, SLIDE_INDEX }
-
+    enum LinkType { UNSUPPORTED, URL, SLIDE_POSITION, SLIDE_ID, SLIDE_INDEX }
     /**
      * A list in the text.
      */
-    export interface List {
+    interface List {
       getListId(): string;
       getListParagraphs(): Paragraph[];
     }
-
     /**
      * Preset patterns of glyphs for lists in text.
      *
@@ -457,21 +473,20 @@ declare namespace GoogleAppsScript {
      * DIGIT: A number, like '1', '2', or '3'.
      *
      * ZERODIGIT: A number where single digit numbers are prefixed with a zero, like '01', '02',
-     *        or '03'. Numbers with more than one digit are not prefixed a zero.
+     *       or '03'. Numbers with more than one digit are not prefixed a zero.
      *
      * ROMAN: A lowercase roman numeral, like 'i', 'ii', or 'iii'.
      *
      * UPPERROMAN: A uppercase roman numeral, like 'I', 'II', or 'III'.
      *
      * LEFTTRIANGLE: A triangle pointing left, ◄, corresponding to a Unicode U+25c4 code
-     *        point
+     *       point
      */
-    export enum ListPreset { DISC_CIRCLE_SQUARE, DIAMONDX_ARROW3D_SQUARE, CHECKBOX, ARROW_DIAMOND_DISC, STAR_CIRCLE_SQUARE, ARROW3D_CIRCLE_SQUARE, LEFTTRIANGLE_DIAMOND_DISC, DIAMONDX_HOLLOWDIAMOND_SQUARE, DIAMOND_CIRCLE_SQUARE, DIGIT_ALPHA_ROMAN, DIGIT_ALPHA_ROMAN_PARENS, DIGIT_NESTED, UPPERALPHA_ALPHA_ROMAN, UPPERROMAN_UPPERALPHA_DIGIT, ZERODIGIT_ALPHA_ROMAN }
-
+    enum ListPreset { DISC_CIRCLE_SQUARE, DIAMONDX_ARROW3D_SQUARE, CHECKBOX, ARROW_DIAMOND_DISC, STAR_CIRCLE_SQUARE, ARROW3D_CIRCLE_SQUARE, LEFTTRIANGLE_DIAMOND_DISC, DIAMONDX_HOLLOWDIAMOND_SQUARE, DIAMOND_CIRCLE_SQUARE, DIGIT_ALPHA_ROMAN, DIGIT_ALPHA_ROMAN_PARENS, DIGIT_NESTED, UPPERALPHA_ALPHA_ROMAN, UPPERROMAN_UPPERALPHA_DIGIT, ZERODIGIT_ALPHA_ROMAN }
     /**
      * The list styling for a range of text.
      */
-    export interface ListStyle {
+    interface ListStyle {
       applyListPreset(listPreset: ListPreset): ListStyle;
       getGlyph(): string;
       getList(): List;
@@ -479,22 +494,21 @@ declare namespace GoogleAppsScript {
       isInList(): boolean;
       removeFromList(): ListStyle;
     }
-
     /**
      * A master in a presentation.
      *
      * Masters contains all common page elements and the common properties for a set of layouts. They
-     *  serve three purposes:
+     * serve three purposes:
      *
      * Placeholder shapes on a master contain the default text styles and shape properties of all
-     *        placeholder shapes on pages that use that master.
+     *       placeholder shapes on pages that use that master.
      *
      * The properties of a master page define the common page properties inherited by its layouts.
      *
      * Any other shapes on the master slide appear on all slides using that master, regardless of
-     *        their layout.
+     *       their layout.
      */
-    export interface Master {
+    interface Master {
       getBackground(): PageBackground;
       getColorScheme(): ColorScheme;
       getGroups(): Group[];
@@ -502,6 +516,7 @@ declare namespace GoogleAppsScript {
       getLayouts(): Layout[];
       getLines(): Line[];
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPageType(): PageType;
       getPlaceholder(placeholderType: PlaceholderType): PageElement;
@@ -515,26 +530,29 @@ declare namespace GoogleAppsScript {
       group(pageElements: PageElement[]): Group;
       insertGroup(group: Group): Group;
       insertImage(blobSource: Base.BlobSource): Image;
-      insertImage(blobSource: Base.BlobSource, left: Number, top: Number, width: Number, height: Number): Image;
+      insertImage(blobSource: Base.BlobSource, left: number, top: number, width: number, height: number): Image;
       insertImage(image: Image): Image;
       insertImage(imageUrl: string): Image;
-      insertImage(imageUrl: string, left: Number, top: Number, width: Number, height: Number): Image;
+      insertImage(imageUrl: string, left: number, top: number, width: number, height: number): Image;
       insertLine(line: Line): Line;
-      insertLine(lineCategory: LineCategory, startLeft: Number, startTop: Number, endLeft: Number, endTop: Number): Line;
+      insertLine(lineCategory: LineCategory, startConnectionSite: ConnectionSite, endConnectionSite: ConnectionSite): Line;
+      insertLine(lineCategory: LineCategory, startLeft: number, startTop: number, endLeft: number, endTop: number): Line;
       insertPageElement(pageElement: PageElement): PageElement;
       insertShape(shape: Shape): Shape;
       insertShape(shapeType: ShapeType): Shape;
-      insertShape(shapeType: ShapeType, left: Number, top: Number, width: Number, height: Number): Shape;
+      insertShape(shapeType: ShapeType, left: number, top: number, width: number, height: number): Shape;
       insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart): SheetsChart;
-      insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart, left: Number, top: Number, width: Number, height: Number): SheetsChart;
+      insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart, left: number, top: number, width: number, height: number): SheetsChart;
       insertSheetsChart(sheetsChart: SheetsChart): SheetsChart;
       insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart): Image;
-      insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart, left: Number, top: Number, width: Number, height: Number): Image;
+      insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart, left: number, top: number, width: number, height: number): Image;
       insertTable(numRows: Integer, numColumns: Integer): Table;
-      insertTable(numRows: Integer, numColumns: Integer, left: Number, top: Number, width: Number, height: Number): Table;
+      insertTable(numRows: Integer, numColumns: Integer, left: number, top: number, width: number, height: number): Table;
       insertTable(table: Table): Table;
+      insertTextBox(text: string): Shape;
+      insertTextBox(text: string, left: number, top: number, width: number, height: number): Shape;
       insertVideo(videoUrl: string): Video;
-      insertVideo(videoUrl: string, left: Number, top: Number, width: Number, height: Number): Video;
+      insertVideo(videoUrl: string, left: number, top: number, width: number, height: number): Video;
       insertVideo(video: Video): Video;
       insertWordArt(wordArt: WordArt): WordArt;
       remove(): void;
@@ -542,18 +560,18 @@ declare namespace GoogleAppsScript {
       replaceAllText(findText: string, replaceText: string, matchCase: boolean): Integer;
       selectAsCurrentPage(): void;
     }
-
     /**
      * A notes master in a presentation.
      *
      * Notes masters define the default text styles and page elements for all notes pages. Notes
-     *  masters are read-only.
+     * masters are read-only.
      */
-    export interface NotesMaster {
+    interface NotesMaster {
       getGroups(): Group[];
       getImages(): Image[];
       getLines(): Line[];
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPlaceholder(placeholderType: PlaceholderType): PageElement;
       getPlaceholder(placeholderType: PlaceholderType, placeholderIndex: Integer): PageElement;
@@ -564,19 +582,19 @@ declare namespace GoogleAppsScript {
       getVideos(): Video[];
       getWordArts(): WordArt[];
     }
-
     /**
      * A notes page in a presentation.
      *
      * These pages contain the content for presentation handouts, including a a shape that contains
-     *  the slide's speaker notes. Each slide has one corresponding notes page. Only the text in the
-     *  speaker notes shape can be modified.
+     * the slide's speaker notes. Each slide has one corresponding notes page. Only the text in the
+     * speaker notes shape can be modified.
      */
-    export interface NotesPage {
+    interface NotesPage {
       getGroups(): Group[];
       getImages(): Image[];
       getLines(): Line[];
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPlaceholder(placeholderType: PlaceholderType): PageElement;
       getPlaceholder(placeholderType: PlaceholderType, placeholderIndex: Integer): PageElement;
@@ -590,11 +608,10 @@ declare namespace GoogleAppsScript {
       replaceAllText(findText: string, replaceText: string): Integer;
       replaceAllText(findText: string, replaceText: string, matchCase: boolean): Integer;
     }
-
     /**
      * A page in a presentation.
      */
-    export interface Page {
+    interface Page {
       asLayout(): Layout;
       asMaster(): Master;
       asSlide(): Slide;
@@ -604,6 +621,7 @@ declare namespace GoogleAppsScript {
       getImages(): Image[];
       getLines(): Line[];
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPageType(): PageType;
       getPlaceholder(placeholderType: PlaceholderType): PageElement;
@@ -617,26 +635,29 @@ declare namespace GoogleAppsScript {
       group(pageElements: PageElement[]): Group;
       insertGroup(group: Group): Group;
       insertImage(blobSource: Base.BlobSource): Image;
-      insertImage(blobSource: Base.BlobSource, left: Number, top: Number, width: Number, height: Number): Image;
+      insertImage(blobSource: Base.BlobSource, left: number, top: number, width: number, height: number): Image;
       insertImage(image: Image): Image;
       insertImage(imageUrl: string): Image;
-      insertImage(imageUrl: string, left: Number, top: Number, width: Number, height: Number): Image;
+      insertImage(imageUrl: string, left: number, top: number, width: number, height: number): Image;
       insertLine(line: Line): Line;
-      insertLine(lineCategory: LineCategory, startLeft: Number, startTop: Number, endLeft: Number, endTop: Number): Line;
+      insertLine(lineCategory: LineCategory, startConnectionSite: ConnectionSite, endConnectionSite: ConnectionSite): Line;
+      insertLine(lineCategory: LineCategory, startLeft: number, startTop: number, endLeft: number, endTop: number): Line;
       insertPageElement(pageElement: PageElement): PageElement;
       insertShape(shape: Shape): Shape;
       insertShape(shapeType: ShapeType): Shape;
-      insertShape(shapeType: ShapeType, left: Number, top: Number, width: Number, height: Number): Shape;
+      insertShape(shapeType: ShapeType, left: number, top: number, width: number, height: number): Shape;
       insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart): SheetsChart;
-      insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart, left: Number, top: Number, width: Number, height: Number): SheetsChart;
+      insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart, left: number, top: number, width: number, height: number): SheetsChart;
       insertSheetsChart(sheetsChart: SheetsChart): SheetsChart;
       insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart): Image;
-      insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart, left: Number, top: Number, width: Number, height: Number): Image;
+      insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart, left: number, top: number, width: number, height: number): Image;
       insertTable(numRows: Integer, numColumns: Integer): Table;
-      insertTable(numRows: Integer, numColumns: Integer, left: Number, top: Number, width: Number, height: Number): Table;
+      insertTable(numRows: Integer, numColumns: Integer, left: number, top: number, width: number, height: number): Table;
       insertTable(table: Table): Table;
+      insertTextBox(text: string): Shape;
+      insertTextBox(text: string, left: number, top: number, width: number, height: number): Shape;
       insertVideo(videoUrl: string): Video;
-      insertVideo(videoUrl: string, left: Number, top: Number, width: Number, height: Number): Video;
+      insertVideo(videoUrl: string, left: number, top: number, width: number, height: number): Video;
       insertVideo(video: Video): Video;
       insertWordArt(wordArt: WordArt): WordArt;
       remove(): void;
@@ -644,11 +665,10 @@ declare namespace GoogleAppsScript {
       replaceAllText(findText: string, replaceText: string, matchCase: boolean): Integer;
       selectAsCurrentPage(): void;
     }
-
     /**
      * Describes the page's background
      */
-    export interface PageBackground {
+    interface PageBackground {
       getPictureFill(): PictureFill;
       getSolidFill(): SolidFill;
       getType(): PageBackgroundType;
@@ -656,25 +676,23 @@ declare namespace GoogleAppsScript {
       setPictureFill(blobSource: Base.BlobSource): void;
       setPictureFill(imageUrl: string): void;
       setSolidFill(color: Color): void;
-      setSolidFill(color: Color, alpha: Number): void;
+      setSolidFill(color: Color, alpha: number): void;
       setSolidFill(red: Integer, green: Integer, blue: Integer): void;
-      setSolidFill(red: Integer, green: Integer, blue: Integer, alpha: Number): void;
+      setSolidFill(red: Integer, green: Integer, blue: Integer, alpha: number): void;
       setSolidFill(hexString: string): void;
-      setSolidFill(hexString: string, alpha: Number): void;
+      setSolidFill(hexString: string, alpha: number): void;
       setSolidFill(color: ThemeColorType): void;
-      setSolidFill(color: ThemeColorType, alpha: Number): void;
+      setSolidFill(color: ThemeColorType, alpha: number): void;
       setTransparent(): void;
     }
-
     /**
      * The kinds of page backgrounds.
      */
-    export enum PageBackgroundType { UNSUPPORTED, NONE, SOLID, PICTURE }
-
+    enum PageBackgroundType { UNSUPPORTED, NONE, SOLID, PICTURE }
     /**
      * A visual element rendered on a page.
      */
-    export interface PageElement {
+    interface PageElement {
       alignOnPage(alignmentPosition: AlignmentPosition): PageElement;
       asGroup(): Group;
       asImage(): Image;
@@ -684,157 +702,157 @@ declare namespace GoogleAppsScript {
       asTable(): Table;
       asVideo(): Video;
       asWordArt(): WordArt;
+      bringForward(): PageElement;
+      bringToFront(): PageElement;
       duplicate(): PageElement;
+      getConnectionSites(): ConnectionSite[];
       getDescription(): string;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
       getObjectId(): string;
       getPageElementType(): PageElementType;
       getParentGroup(): Group;
       getParentPage(): Page;
-      getRotation(): Number;
+      getRotation(): number;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
-      getWidth(): Number;
+      getWidth(): number;
       preconcatenateTransform(transform: AffineTransform): PageElement;
       remove(): void;
-      scaleHeight(ratio: Number): PageElement;
-      scaleWidth(ratio: Number): PageElement;
+      scaleHeight(ratio: number): PageElement;
+      scaleWidth(ratio: number): PageElement;
       select(): void;
       select(replace: boolean): void;
-      setHeight(height: Number): PageElement;
-      setLeft(left: Number): PageElement;
-      setRotation(angle: Number): PageElement;
-      setTop(top: Number): PageElement;
+      sendBackward(): PageElement;
+      sendToBack(): PageElement;
+      setDescription(description: string): PageElement;
+      setHeight(height: number): PageElement;
+      setLeft(left: number): PageElement;
+      setRotation(angle: number): PageElement;
+      setTitle(title: string): PageElement;
+      setTop(top: number): PageElement;
       setTransform(transform: AffineTransform): PageElement;
-      setWidth(width: Number): PageElement;
+      setWidth(width: number): PageElement;
     }
-
     /**
      * A collection of one or more PageElement instances.
      */
-    export interface PageElementRange {
+    interface PageElementRange {
       getPageElements(): PageElement[];
     }
-
     /**
      * The page element type.
      */
-    export enum PageElementType { UNSUPPORTED, SHAPE, IMAGE, VIDEO, TABLE, GROUP, LINE, WORD_ART, SHEETS_CHART }
-
+    enum PageElementType { UNSUPPORTED, SHAPE, IMAGE, VIDEO, TABLE, GROUP, LINE, WORD_ART, SHEETS_CHART }
     /**
      * A collection of one or more Page instances.
      */
-    export interface PageRange {
+    interface PageRange {
       getPages(): Page[];
     }
-
     /**
      * The page types.
      */
-    export enum PageType { UNSUPPORTED, SLIDE, LAYOUT, MASTER }
-
+    enum PageType { UNSUPPORTED, SLIDE, LAYOUT, MASTER }
     /**
      * A segment of text terminated by a newline character.
      */
-    export interface Paragraph {
+    interface Paragraph {
       getIndex(): Integer;
       getRange(): TextRange;
     }
-
     /**
      * The types of text alignment for a paragraph.
      */
-    export enum ParagraphAlignment { UNSUPPORTED, START, CENTER, END, JUSTIFIED }
-
+    enum ParagraphAlignment { UNSUPPORTED, START, CENTER, END, JUSTIFIED }
     /**
      * The styles of text that apply to entire paragraphs.
      *
      * Read methods in this class return null if the corresponding TextRange spans
-     *  multiple paragraphs, and those paragraphs have different values for the read method being called.
-     *  To avoid this, query for paragraph styles using the TextRange returned by the Paragraph.getRange() method.
+     * multiple paragraphs, and those paragraphs have different values for the read method being called.
+     * To avoid this, query for paragraph styles using the TextRange returned by the Paragraph.getRange() method.
      */
-    export interface ParagraphStyle {
-      getIndentEnd(): Number;
-      getIndentFirstLine(): Number;
-      getIndentStart(): Number;
-      getLineSpacing(): Number;
+    interface ParagraphStyle {
+      getIndentEnd(): number;
+      getIndentFirstLine(): number;
+      getIndentStart(): number;
+      getLineSpacing(): number;
       getParagraphAlignment(): ParagraphAlignment;
-      getSpaceAbove(): Number;
-      getSpaceBelow(): Number;
+      getSpaceAbove(): number;
+      getSpaceBelow(): number;
       getSpacingMode(): SpacingMode;
       getTextDirection(): TextDirection;
-      setIndentEnd(indent: Number): ParagraphStyle;
-      setIndentFirstLine(indent: Number): ParagraphStyle;
-      setIndentStart(indent: Number): ParagraphStyle;
-      setLineSpacing(spacing: Number): ParagraphStyle;
+      setIndentEnd(indent: number): ParagraphStyle;
+      setIndentFirstLine(indent: number): ParagraphStyle;
+      setIndentStart(indent: number): ParagraphStyle;
+      setLineSpacing(spacing: number): ParagraphStyle;
       setParagraphAlignment(alignment: ParagraphAlignment): ParagraphStyle;
-      setSpaceAbove(space: Number): ParagraphStyle;
-      setSpaceBelow(space: Number): ParagraphStyle;
+      setSpaceAbove(space: number): ParagraphStyle;
+      setSpaceBelow(space: number): ParagraphStyle;
       setSpacingMode(mode: SpacingMode): ParagraphStyle;
       setTextDirection(direction: TextDirection): ParagraphStyle;
     }
-
     /**
      * A fill that renders an image that's stretched to the dimensions of its container.
      */
-    export interface PictureFill {
+    interface PictureFill {
+      getAs(contentType: string): Base.Blob;
+      getBlob(): Base.Blob;
       getContentUrl(): string;
       getSourceUrl(): string;
     }
-
     /**
      * The placeholder types. Many of these placeholder types correspond to placeholder IDs from the
-     *  ECMA-376 standard. More information on those shapes can be found in the description of the
-     *  "ST_PlaceholderType" type in section 19.7.10 of "Office Open XML File Formats - Fundamentals and
-     *  Markup Language Reference", part 1 of ECMA-376 5th
-     *  edition.
+     * ECMA-376 standard. More information on those shapes can be found in the description of the
+     * "ST_PlaceholderType" type in section 19.7.10 of "Office Open XML File Formats - Fundamentals and
+     * Markup Language Reference", part 1 of ECMA-376 5th
+     * edition.
      */
-    export enum PlaceholderType { UNSUPPORTED, NONE, BODY, CHART, CLIP_ART, CENTERED_TITLE, DIAGRAM, DATE_AND_TIME, FOOTER, HEADER, MEDIA, OBJECT, PICTURE, SLIDE_NUMBER, SUBTITLE, TABLE, TITLE, SLIDE_IMAGE }
-
+    enum PlaceholderType { UNSUPPORTED, NONE, BODY, CHART, CLIP_ART, CENTERED_TITLE, DIAGRAM, DATE_AND_TIME, FOOTER, HEADER, MEDIA, OBJECT, PICTURE, SLIDE_NUMBER, SUBTITLE, TABLE, TITLE, SLIDE_IMAGE }
     /**
      * A point representing a location.
      */
-    export interface Point {
-      getX(): Number;
-      getY(): Number;
+    interface Point {
+      getX(): number;
+      getY(): number;
     }
-
     /**
      * Predefined layouts. These are commonly found layouts in presentations. However, there is no
-     *  guarantee that these layouts are present in the current master as they could have been deleted or
-     *  not part of the used theme. Additionally, the placeholders on each layout may have been changed.
+     * guarantee that these layouts are present in the current master as they could have been deleted or
+     * not part of the used theme. Additionally, the placeholders on each layout may have been changed.
      */
-    export enum PredefinedLayout { UNSUPPORTED, BLANK, CAPTION_ONLY, TITLE, TITLE_AND_BODY, TITLE_AND_TWO_COLUMNS, TITLE_ONLY, SECTION_HEADER, SECTION_TITLE_AND_DESCRIPTION, ONE_COLUMN_TEXT, MAIN_POINT, BIG_NUMBER }
-
+    enum PredefinedLayout { UNSUPPORTED, BLANK, CAPTION_ONLY, TITLE, TITLE_AND_BODY, TITLE_AND_TWO_COLUMNS, TITLE_ONLY, SECTION_HEADER, SECTION_TITLE_AND_DESCRIPTION, ONE_COLUMN_TEXT, MAIN_POINT, BIG_NUMBER }
     /**
      * A presentation.
      */
-    export interface Presentation {
+    interface Presentation {
       addEditor(emailAddress: string): Presentation;
       addEditor(user: Base.User): Presentation;
-      addEditors(emailAddresses: String[]): Presentation;
+      addEditors(emailAddresses: string[]): Presentation;
       addViewer(emailAddress: string): Presentation;
       addViewer(user: Base.User): Presentation;
-      addViewers(emailAddresses: String[]): Presentation;
+      addViewers(emailAddresses: string[]): Presentation;
       appendSlide(): Slide;
       appendSlide(layout: Layout): Slide;
       appendSlide(predefinedLayout: PredefinedLayout): Slide;
       appendSlide(slide: Slide): Slide;
+      appendSlide(slide: Slide, linkingMode: SlideLinkingMode): Slide;
       getEditors(): Base.User[];
       getId(): string;
       getLayouts(): Layout[];
       getMasters(): Master[];
       getName(): string;
       getNotesMaster(): NotesMaster;
-      getNotesPageHeight(): Number;
-      getNotesPageWidth(): Number;
-      getPageHeight(): Number;
-      getPageWidth(): Number;
+      getNotesPageHeight(): number;
+      getNotesPageWidth(): number;
+      getPageElementById(id: string): PageElement;
+      getPageHeight(): number;
+      getPageWidth(): number;
       getSelection(): Selection;
+      getSlideById(id: string): Slide;
       getSlides(): Slide[];
       getUrl(): string;
       getViewers(): Base.User[];
@@ -842,6 +860,7 @@ declare namespace GoogleAppsScript {
       insertSlide(insertionIndex: Integer, layout: Layout): Slide;
       insertSlide(insertionIndex: Integer, predefinedLayout: PredefinedLayout): Slide;
       insertSlide(insertionIndex: Integer, slide: Slide): Slide;
+      insertSlide(insertionIndex: Integer, slide: Slide, linkingMode: SlideLinkingMode): Slide;
       removeEditor(emailAddress: string): Presentation;
       removeEditor(user: Base.User): Presentation;
       removeViewer(emailAddress: string): Presentation;
@@ -851,27 +870,15 @@ declare namespace GoogleAppsScript {
       saveAndClose(): void;
       setName(name: string): void;
     }
-
-    /**
-     * A color defined by red, green, blue color channels.
-     */
-    export interface RgbColor {
-      asHexString(): string;
-      getBlue(): Integer;
-      getColorType(): ColorType;
-      getGreen(): Integer;
-      getRed(): Integer;
-    }
-
     /**
      * The user's selection in the active presentation.
      *
-     *      var selection = SlidesApp.getActivePresentation().getSelection();
-     *      var currentPage = selection.getCurrentPage();
-     *      var selectionType = selection.getSelectionType();
-     *      }
+     *     var selection = SlidesApp.getActivePresentation().getSelection();
+     *     var currentPage = selection.getCurrentPage();
+     *     var selectionType = selection.getSelectionType();
+     *     }
      */
-    export interface Selection {
+    interface Selection {
       getCurrentPage(): Page;
       getPageElementRange(): PageElementRange;
       getPageRange(): PageRange;
@@ -879,33 +886,34 @@ declare namespace GoogleAppsScript {
       getTableCellRange(): TableCellRange;
       getTextRange(): TextRange;
     }
-
     /**
      * Type of Selection.
      *
      * The SelectionType represents the most specific type of one or more objects that are
-     *  selected. As an example if one or more TableCell instances are selected in a Table, the selection type is SelectionType.TABLE_CELL. The TableCellRange can be
-     *  retrieved by using the Selection.getTableCellRange. The Table can be retrieved by
-     *  using the Selection.getPageElementRange and the Page can be retrieved from the
-     *  Selection.getCurrentPage.
+     * selected. As an example if one or more TableCell instances are selected in a Table, the selection type is SelectionType.TABLE_CELL. The TableCellRange can be
+     * retrieved by using the Selection.getTableCellRange. The Table can be retrieved by
+     * using the Selection.getPageElementRange and the Page can be retrieved from the
+     * Selection.getCurrentPage.
      */
-    export enum SelectionType { UNSUPPORTED, NONE, TEXT, TABLE_CELL, PAGE, PAGE_ELEMENT, CURRENT_PAGE }
-
+    enum SelectionType { UNSUPPORTED, NONE, TEXT, TABLE_CELL, PAGE, PAGE_ELEMENT, CURRENT_PAGE }
     /**
      * A PageElement representing a generic shape that does not have a more specific
-     *  classification. Includes text boxes, rectangles, and other predefined shapes.
+     * classification. Includes text boxes, rectangles, and other predefined shapes.
      */
-    export interface Shape {
+    interface Shape {
       alignOnPage(alignmentPosition: AlignmentPosition): Shape;
+      bringForward(): Shape;
+      bringToFront(): Shape;
       duplicate(): PageElement;
       getBorder(): Border;
+      getConnectionSites(): ConnectionSite[];
       getContentAlignment(): ContentAlignment;
       getDescription(): string;
       getFill(): Fill;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
       getLink(): Link;
       getObjectId(): string;
       getPageElementType(): PageElementType;
@@ -914,13 +922,13 @@ declare namespace GoogleAppsScript {
       getParentPlaceholder(): PageElement;
       getPlaceholderIndex(): Integer;
       getPlaceholderType(): PlaceholderType;
-      getRotation(): Number;
+      getRotation(): number;
       getShapeType(): ShapeType;
       getText(): TextRange;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
-      getWidth(): Number;
+      getWidth(): number;
       preconcatenateTransform(transform: AffineTransform): Shape;
       remove(): void;
       removeLink(): void;
@@ -930,89 +938,96 @@ declare namespace GoogleAppsScript {
       replaceWithImage(imageUrl: string, crop: boolean): Image;
       replaceWithSheetsChart(sourceChart: Spreadsheet.EmbeddedChart): SheetsChart;
       replaceWithSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart): Image;
-      scaleHeight(ratio: Number): Shape;
-      scaleWidth(ratio: Number): Shape;
+      scaleHeight(ratio: number): Shape;
+      scaleWidth(ratio: number): Shape;
       select(): void;
       select(replace: boolean): void;
+      sendBackward(): Shape;
+      sendToBack(): Shape;
       setContentAlignment(contentAlignment: ContentAlignment): Shape;
-      setHeight(height: Number): Shape;
-      setLeft(left: Number): Shape;
+      setDescription(description: string): Shape;
+      setHeight(height: number): Shape;
+      setLeft(left: number): Shape;
       setLinkSlide(slideIndex: Integer): Link;
       setLinkSlide(slide: Slide): Link;
       setLinkSlide(slidePosition: SlidePosition): Link;
       setLinkUrl(url: string): Link;
-      setRotation(angle: Number): Shape;
-      setTop(top: Number): Shape;
+      setRotation(angle: number): Shape;
+      setTitle(title: string): Shape;
+      setTop(top: number): Shape;
       setTransform(transform: AffineTransform): Shape;
-      setWidth(width: Number): Shape;
+      setWidth(width: number): Shape;
     }
-
     /**
      * The shape types. Many of these shapes correspond to predefined shapes from the ECMA-376 standard.
-     *  More information on those shapes can be found in the description of the "ST_ShapeType" simple
-     *  type in section 20.1.10.55 of "Office Open XML File Formats - Fundamentals and Markup Language
-     *  Reference", part 1 of ECMA-376 4th
-     *  edition.
+     * More information on those shapes can be found in the description of the "ST_ShapeType" simple
+     * type in section 20.1.10.55 of "Office Open XML File Formats - Fundamentals and Markup Language
+     * Reference", part 1 of ECMA-376 4th
+     * edition.
      */
-    export enum ShapeType { UNSUPPORTED, TEXT_BOX, RECTANGLE, ROUND_RECTANGLE, ELLIPSE, ARC, BENT_ARROW, BENT_UP_ARROW, BEVEL, BLOCK_ARC, BRACE_PAIR, BRACKET_PAIR, CAN, CHEVRON, CHORD, CLOUD, CORNER, CUBE, CURVED_DOWN_ARROW, CURVED_LEFT_ARROW, CURVED_RIGHT_ARROW, CURVED_UP_ARROW, DECAGON, DIAGONAL_STRIPE, DIAMOND, DODECAGON, DONUT, DOUBLE_WAVE, DOWN_ARROW, DOWN_ARROW_CALLOUT, FOLDED_CORNER, FRAME, HALF_FRAME, HEART, HEPTAGON, HEXAGON, HOME_PLATE, HORIZONTAL_SCROLL, IRREGULAR_SEAL_1, IRREGULAR_SEAL_2, LEFT_ARROW, LEFT_ARROW_CALLOUT, LEFT_BRACE, LEFT_BRACKET, LEFT_RIGHT_ARROW, LEFT_RIGHT_ARROW_CALLOUT, LEFT_RIGHT_UP_ARROW, LEFT_UP_ARROW, LIGHTNING_BOLT, MATH_DIVIDE, MATH_EQUAL, MATH_MINUS, MATH_MULTIPLY, MATH_NOT_EQUAL, MATH_PLUS, MOON, NO_SMOKING, NOTCHED_RIGHT_ARROW, OCTAGON, PARALLELOGRAM, PENTAGON, PIE, PLAQUE, PLUS, QUAD_ARROW, QUAD_ARROW_CALLOUT, RIBBON, RIBBON_2, RIGHT_ARROW, RIGHT_ARROW_CALLOUT, RIGHT_BRACE, RIGHT_BRACKET, ROUND_1_RECTANGLE, ROUND_2_DIAGONAL_RECTANGLE, ROUND_2_SAME_RECTANGLE, RIGHT_TRIANGLE, SMILEY_FACE, SNIP_1_RECTANGLE, SNIP_2_DIAGONAL_RECTANGLE, SNIP_2_SAME_RECTANGLE, SNIP_ROUND_RECTANGLE, STAR_10, STAR_12, STAR_16, STAR_24, STAR_32, STAR_4, STAR_5, STAR_6, STAR_7, STAR_8, STRIPED_RIGHT_ARROW, SUN, TRAPEZOID, TRIANGLE, UP_ARROW, UP_ARROW_CALLOUT, UP_DOWN_ARROW, UTURN_ARROW, VERTICAL_SCROLL, WAVE, WEDGE_ELLIPSE_CALLOUT, WEDGE_RECTANGLE_CALLOUT, WEDGE_ROUND_RECTANGLE_CALLOUT, FLOW_CHART_ALTERNATE_PROCESS, FLOW_CHART_COLLATE, FLOW_CHART_CONNECTOR, FLOW_CHART_DECISION, FLOW_CHART_DELAY, FLOW_CHART_DISPLAY, FLOW_CHART_DOCUMENT, FLOW_CHART_EXTRACT, FLOW_CHART_INPUT_OUTPUT, FLOW_CHART_INTERNAL_STORAGE, FLOW_CHART_MAGNETIC_DISK, FLOW_CHART_MAGNETIC_DRUM, FLOW_CHART_MAGNETIC_TAPE, FLOW_CHART_MANUAL_INPUT, FLOW_CHART_MANUAL_OPERATION, FLOW_CHART_MERGE, FLOW_CHART_MULTIDOCUMENT, FLOW_CHART_OFFLINE_STORAGE, FLOW_CHART_OFFPAGE_CONNECTOR, FLOW_CHART_ONLINE_STORAGE, FLOW_CHART_OR, FLOW_CHART_PREDEFINED_PROCESS, FLOW_CHART_PREPARATION, FLOW_CHART_PROCESS, FLOW_CHART_PUNCHED_CARD, FLOW_CHART_PUNCHED_TAPE, FLOW_CHART_SORT, FLOW_CHART_SUMMING_JUNCTION, FLOW_CHART_TERMINATOR, ARROW_EAST, ARROW_NORTH_EAST, ARROW_NORTH, SPEECH, STARBURST, TEARDROP, ELLIPSE_RIBBON, ELLIPSE_RIBBON_2, CLOUD_CALLOUT, CUSTOM }
-
+    enum ShapeType { UNSUPPORTED, TEXT_BOX, RECTANGLE, ROUND_RECTANGLE, ELLIPSE, ARC, BENT_ARROW, BENT_UP_ARROW, BEVEL, BLOCK_ARC, BRACE_PAIR, BRACKET_PAIR, CAN, CHEVRON, CHORD, CLOUD, CORNER, CUBE, CURVED_DOWN_ARROW, CURVED_LEFT_ARROW, CURVED_RIGHT_ARROW, CURVED_UP_ARROW, DECAGON, DIAGONAL_STRIPE, DIAMOND, DODECAGON, DONUT, DOUBLE_WAVE, DOWN_ARROW, DOWN_ARROW_CALLOUT, FOLDED_CORNER, FRAME, HALF_FRAME, HEART, HEPTAGON, HEXAGON, HOME_PLATE, HORIZONTAL_SCROLL, IRREGULAR_SEAL_1, IRREGULAR_SEAL_2, LEFT_ARROW, LEFT_ARROW_CALLOUT, LEFT_BRACE, LEFT_BRACKET, LEFT_RIGHT_ARROW, LEFT_RIGHT_ARROW_CALLOUT, LEFT_RIGHT_UP_ARROW, LEFT_UP_ARROW, LIGHTNING_BOLT, MATH_DIVIDE, MATH_EQUAL, MATH_MINUS, MATH_MULTIPLY, MATH_NOT_EQUAL, MATH_PLUS, MOON, NO_SMOKING, NOTCHED_RIGHT_ARROW, OCTAGON, PARALLELOGRAM, PENTAGON, PIE, PLAQUE, PLUS, QUAD_ARROW, QUAD_ARROW_CALLOUT, RIBBON, RIBBON_2, RIGHT_ARROW, RIGHT_ARROW_CALLOUT, RIGHT_BRACE, RIGHT_BRACKET, ROUND_1_RECTANGLE, ROUND_2_DIAGONAL_RECTANGLE, ROUND_2_SAME_RECTANGLE, RIGHT_TRIANGLE, SMILEY_FACE, SNIP_1_RECTANGLE, SNIP_2_DIAGONAL_RECTANGLE, SNIP_2_SAME_RECTANGLE, SNIP_ROUND_RECTANGLE, STAR_10, STAR_12, STAR_16, STAR_24, STAR_32, STAR_4, STAR_5, STAR_6, STAR_7, STAR_8, STRIPED_RIGHT_ARROW, SUN, TRAPEZOID, TRIANGLE, UP_ARROW, UP_ARROW_CALLOUT, UP_DOWN_ARROW, UTURN_ARROW, VERTICAL_SCROLL, WAVE, WEDGE_ELLIPSE_CALLOUT, WEDGE_RECTANGLE_CALLOUT, WEDGE_ROUND_RECTANGLE_CALLOUT, FLOW_CHART_ALTERNATE_PROCESS, FLOW_CHART_COLLATE, FLOW_CHART_CONNECTOR, FLOW_CHART_DECISION, FLOW_CHART_DELAY, FLOW_CHART_DISPLAY, FLOW_CHART_DOCUMENT, FLOW_CHART_EXTRACT, FLOW_CHART_INPUT_OUTPUT, FLOW_CHART_INTERNAL_STORAGE, FLOW_CHART_MAGNETIC_DISK, FLOW_CHART_MAGNETIC_DRUM, FLOW_CHART_MAGNETIC_TAPE, FLOW_CHART_MANUAL_INPUT, FLOW_CHART_MANUAL_OPERATION, FLOW_CHART_MERGE, FLOW_CHART_MULTIDOCUMENT, FLOW_CHART_OFFLINE_STORAGE, FLOW_CHART_OFFPAGE_CONNECTOR, FLOW_CHART_ONLINE_STORAGE, FLOW_CHART_OR, FLOW_CHART_PREDEFINED_PROCESS, FLOW_CHART_PREPARATION, FLOW_CHART_PROCESS, FLOW_CHART_PUNCHED_CARD, FLOW_CHART_PUNCHED_TAPE, FLOW_CHART_SORT, FLOW_CHART_SUMMING_JUNCTION, FLOW_CHART_TERMINATOR, ARROW_EAST, ARROW_NORTH_EAST, ARROW_NORTH, SPEECH, STARBURST, TEARDROP, ELLIPSE_RIBBON, ELLIPSE_RIBBON_2, CLOUD_CALLOUT, CUSTOM }
     /**
      * A PageElement representing a linked chart embedded from Google Sheets.
      */
-    export interface SheetsChart {
+    interface SheetsChart {
       alignOnPage(alignmentPosition: AlignmentPosition): SheetsChart;
       asImage(): Image;
+      bringForward(): SheetsChart;
+      bringToFront(): SheetsChart;
       duplicate(): PageElement;
       getChartId(): Integer;
+      getConnectionSites(): ConnectionSite[];
       getDescription(): string;
       getEmbedType(): SheetsChartEmbedType;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
       getLink(): Link;
       getObjectId(): string;
       getPageElementType(): PageElementType;
       getParentGroup(): Group;
       getParentPage(): Page;
-      getRotation(): Number;
+      getRotation(): number;
       getSpreadsheetId(): string;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
-      getWidth(): Number;
+      getWidth(): number;
       preconcatenateTransform(transform: AffineTransform): SheetsChart;
       refresh(): void;
       remove(): void;
       removeLink(): void;
-      scaleHeight(ratio: Number): SheetsChart;
-      scaleWidth(ratio: Number): SheetsChart;
+      scaleHeight(ratio: number): SheetsChart;
+      scaleWidth(ratio: number): SheetsChart;
       select(): void;
       select(replace: boolean): void;
-      setHeight(height: Number): SheetsChart;
-      setLeft(left: Number): SheetsChart;
+      sendBackward(): SheetsChart;
+      sendToBack(): SheetsChart;
+      setDescription(description: string): SheetsChart;
+      setHeight(height: number): SheetsChart;
+      setLeft(left: number): SheetsChart;
       setLinkSlide(slideIndex: Integer): Link;
       setLinkSlide(slide: Slide): Link;
       setLinkSlide(slidePosition: SlidePosition): Link;
       setLinkUrl(url: string): Link;
-      setRotation(angle: Number): SheetsChart;
-      setTop(top: Number): SheetsChart;
+      setRotation(angle: number): SheetsChart;
+      setTitle(title: string): SheetsChart;
+      setTop(top: number): SheetsChart;
       setTransform(transform: AffineTransform): SheetsChart;
-      setWidth(width: Number): SheetsChart;
+      setWidth(width: number): SheetsChart;
     }
-
     /**
      * The Sheets chart's embed type.
      */
-    export enum SheetsChartEmbedType { UNSUPPORTED, IMAGE }
-
+    enum SheetsChartEmbedType { UNSUPPORTED, IMAGE }
     /**
      * A slide in a presentation.
      *
      * These pages contain the content you are presenting to your audience. Most slides are based on
-     *  a master and a layout. You can specify which layout to use for each slide when it is created.
+     * a master and a layout. You can specify which layout to use for each slide when it is created.
      */
-    export interface Slide {
+    interface Slide {
       duplicate(): Slide;
       getBackground(): PageBackground;
       getColorScheme(): ColorScheme;
@@ -1022,6 +1037,7 @@ declare namespace GoogleAppsScript {
       getLines(): Line[];
       getNotesPage(): NotesPage;
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPageType(): PageType;
       getPlaceholder(placeholderType: PlaceholderType): PageElement;
@@ -1029,61 +1045,71 @@ declare namespace GoogleAppsScript {
       getPlaceholders(): PageElement[];
       getShapes(): Shape[];
       getSheetsCharts(): SheetsChart[];
+      getSlideLinkingMode(): SlideLinkingMode;
+      getSourcePresentationId(): string;
+      getSourceSlideObjectId(): string;
       getTables(): Table[];
       getVideos(): Video[];
       getWordArts(): WordArt[];
       group(pageElements: PageElement[]): Group;
       insertGroup(group: Group): Group;
       insertImage(blobSource: Base.BlobSource): Image;
-      insertImage(blobSource: Base.BlobSource, left: Number, top: Number, width: Number, height: Number): Image;
+      insertImage(blobSource: Base.BlobSource, left: number, top: number, width: number, height: number): Image;
       insertImage(image: Image): Image;
       insertImage(imageUrl: string): Image;
-      insertImage(imageUrl: string, left: Number, top: Number, width: Number, height: Number): Image;
+      insertImage(imageUrl: string, left: number, top: number, width: number, height: number): Image;
       insertLine(line: Line): Line;
-      insertLine(lineCategory: LineCategory, startLeft: Number, startTop: Number, endLeft: Number, endTop: Number): Line;
+      insertLine(lineCategory: LineCategory, startConnectionSite: ConnectionSite, endConnectionSite: ConnectionSite): Line;
+      insertLine(lineCategory: LineCategory, startLeft: number, startTop: number, endLeft: number, endTop: number): Line;
       insertPageElement(pageElement: PageElement): PageElement;
       insertShape(shape: Shape): Shape;
       insertShape(shapeType: ShapeType): Shape;
-      insertShape(shapeType: ShapeType, left: Number, top: Number, width: Number, height: Number): Shape;
+      insertShape(shapeType: ShapeType, left: number, top: number, width: number, height: number): Shape;
       insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart): SheetsChart;
-      insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart, left: Number, top: Number, width: Number, height: Number): SheetsChart;
+      insertSheetsChart(sourceChart: Spreadsheet.EmbeddedChart, left: number, top: number, width: number, height: number): SheetsChart;
       insertSheetsChart(sheetsChart: SheetsChart): SheetsChart;
       insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart): Image;
-      insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart, left: Number, top: Number, width: Number, height: Number): Image;
+      insertSheetsChartAsImage(sourceChart: Spreadsheet.EmbeddedChart, left: number, top: number, width: number, height: number): Image;
       insertTable(numRows: Integer, numColumns: Integer): Table;
-      insertTable(numRows: Integer, numColumns: Integer, left: Number, top: Number, width: Number, height: Number): Table;
+      insertTable(numRows: Integer, numColumns: Integer, left: number, top: number, width: number, height: number): Table;
       insertTable(table: Table): Table;
+      insertTextBox(text: string): Shape;
+      insertTextBox(text: string, left: number, top: number, width: number, height: number): Shape;
       insertVideo(videoUrl: string): Video;
-      insertVideo(videoUrl: string, left: Number, top: Number, width: Number, height: Number): Video;
+      insertVideo(videoUrl: string, left: number, top: number, width: number, height: number): Video;
       insertVideo(video: Video): Video;
       insertWordArt(wordArt: WordArt): WordArt;
       move(index: Integer): void;
+      refreshSlide(): void;
       remove(): void;
       replaceAllText(findText: string, replaceText: string): Integer;
       replaceAllText(findText: string, replaceText: string, matchCase: boolean): Integer;
       selectAsCurrentPage(): void;
+      unlink(): void;
     }
-
+    /**
+     * The mode of links between slides.
+     */
+    enum SlideLinkingMode { UNSUPPORTED, LINKED, NOT_LINKED }
     /**
      * The relative position of a Slide.
      */
-    export enum SlidePosition { NEXT_SLIDE, PREVIOUS_SLIDE, FIRST_SLIDE, LAST_SLIDE }
-
+    enum SlidePosition { NEXT_SLIDE, PREVIOUS_SLIDE, FIRST_SLIDE, LAST_SLIDE }
     /**
      * Creates and opens Presentations that can be edited.
      *
-     *      // Open a presentation by ID.
-     *      var preso = SlidesApp.openById('PRESENTATION_ID_GOES_HERE');
+     *     // Open a presentation by ID.
+     *     var preso = SlidesApp.openById('PRESENTATION_ID_GOES_HERE');
      *
-     *      // Create and open a presentation.
-     *      preso = SlidesApp.create('Presentation Name');
+     *     // Create and open a presentation.
+     *     preso = SlidesApp.create('Presentation Name');
      */
-    export interface SlidesApp {
+    interface SlidesApp {
       AlignmentPosition: typeof AlignmentPosition;
       ArrowStyle: typeof ArrowStyle;
       AutoTextType: typeof AutoTextType;
       CellMergeState: typeof CellMergeState;
-      ColorType: typeof ColorType;
+      ColorType: typeof Base.ColorType;
       ContentAlignment: typeof ContentAlignment;
       DashStyle: typeof DashStyle;
       FillType: typeof FillType;
@@ -1101,6 +1127,7 @@ declare namespace GoogleAppsScript {
       SelectionType: typeof SelectionType;
       ShapeType: typeof ShapeType;
       SheetsChartEmbedType: typeof SheetsChartEmbedType;
+      SlideLinkingMode: typeof SlideLinkingMode;
       SlidePosition: typeof SlidePosition;
       SpacingMode: typeof SpacingMode;
       TextBaselineOffset: typeof TextBaselineOffset;
@@ -1114,70 +1141,73 @@ declare namespace GoogleAppsScript {
       openById(id: string): Presentation;
       openByUrl(url: string): Presentation;
     }
-
     /**
      * A solid color fill.
      *
      * SolidFill objects are detached and immutable, so do not reflect changes made after
-     *  they have been created.
+     * they have been created.
      */
-    export interface SolidFill {
-      getAlpha(): Number;
+    interface SolidFill {
+      getAlpha(): number;
       getColor(): Color;
     }
-
     /**
      * The different modes for paragraph spacing.
      */
-    export enum SpacingMode { UNSUPPORTED, NEVER_COLLAPSE, COLLAPSE_LISTS }
-
+    enum SpacingMode { UNSUPPORTED, NEVER_COLLAPSE, COLLAPSE_LISTS }
     /**
      * A PageElement representing a table.
      */
-    export interface Table {
+    interface Table {
       alignOnPage(alignmentPosition: AlignmentPosition): Table;
       appendColumn(): TableColumn;
       appendRow(): TableRow;
+      bringForward(): Table;
+      bringToFront(): Table;
       duplicate(): PageElement;
       getCell(rowIndex: Integer, columnIndex: Integer): TableCell;
       getColumn(columnIndex: Integer): TableColumn;
+      getConnectionSites(): ConnectionSite[];
       getDescription(): string;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
       getNumColumns(): Integer;
       getNumRows(): Integer;
       getObjectId(): string;
       getPageElementType(): PageElementType;
       getParentGroup(): Group;
       getParentPage(): Page;
-      getRotation(): Number;
+      getRotation(): number;
       getRow(rowIndex: Integer): TableRow;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
-      getWidth(): Number;
+      getWidth(): number;
       insertColumn(index: Integer): TableColumn;
       insertRow(index: Integer): TableRow;
       preconcatenateTransform(transform: AffineTransform): Table;
       remove(): void;
-      scaleHeight(ratio: Number): Table;
-      scaleWidth(ratio: Number): Table;
+      scaleHeight(ratio: number): Table;
+      scaleWidth(ratio: number): Table;
       select(): void;
       select(replace: boolean): void;
-      setHeight(height: Number): Table;
-      setLeft(left: Number): Table;
-      setRotation(angle: Number): Table;
-      setTop(top: Number): Table;
+      sendBackward(): Table;
+      sendToBack(): Table;
+      setDescription(description: string): Table;
+      setHeight(height: number): Table;
+      setLeft(left: number): Table;
+      setRotation(angle: number): Table;
+      setTitle(title: string): Table;
+      setTop(top: number): Table;
       setTransform(transform: AffineTransform): Table;
-      setWidth(width: Number): Table;
+      setWidth(width: number): Table;
     }
-
     /**
      * A cell in a table.
      */
-    export interface TableCell {
+    interface TableCell {
       getColumnIndex(): Integer;
       getColumnSpan(): Integer;
       getContentAlignment(): ContentAlignment;
@@ -1192,53 +1222,47 @@ declare namespace GoogleAppsScript {
       getText(): TextRange;
       setContentAlignment(contentAlignment: ContentAlignment): TableCell;
     }
-
     /**
      * A collection of one or more TableCell instances.
      */
-    export interface TableCellRange {
+    interface TableCellRange {
       getTableCells(): TableCell[];
     }
-
     /**
      * A column in a table. A column consists of a list of table cells. A column is identified by the
-     *  column index.
+     * column index.
      */
-    export interface TableColumn {
+    interface TableColumn {
       getCell(cellIndex: Integer): TableCell;
       getIndex(): Integer;
       getNumCells(): Integer;
       getParentTable(): Table;
-      getWidth(): Number;
+      getWidth(): number;
       remove(): void;
     }
-
     /**
      * A row in a table. A row consists of a list of table cells. A row is identified by the row index.
      */
-    export interface TableRow {
+    interface TableRow {
       getCell(cellIndex: Integer): TableCell;
       getIndex(): Integer;
-      getMinimumHeight(): Number;
+      getMinimumHeight(): number;
       getNumCells(): Integer;
       getParentTable(): Table;
       remove(): void;
     }
-
     /**
      * The text vertical offset from its normal position.
      */
-    export enum TextBaselineOffset { UNSUPPORTED, NONE, SUPERSCRIPT, SUBSCRIPT }
-
+    enum TextBaselineOffset { UNSUPPORTED, NONE, SUPERSCRIPT, SUBSCRIPT }
     /**
      * The directions text can flow in.
      */
-    export enum TextDirection { UNSUPPORTED, LEFT_TO_RIGHT, RIGHT_TO_LEFT }
-
+    enum TextDirection { UNSUPPORTED, LEFT_TO_RIGHT, RIGHT_TO_LEFT }
     /**
      * A segment of the text contents of a Shape or a TableCell.
      */
-    export interface TextRange {
+    interface TextRange {
       appendParagraph(text: string): Paragraph;
       appendRange(textRange: TextRange): TextRange;
       appendRange(textRange: TextRange, matchSourceFormatting: boolean): TextRange;
@@ -1271,19 +1295,18 @@ declare namespace GoogleAppsScript {
       select(): void;
       setText(newText: string): TextRange;
     }
-
     /**
      * The style of text.
      *
      * Read methods in this class return null if the corresponding TextRange spans
-     *  multiple text runs, and those runs have different values for the read method being called. To
-     *  avoid this, query for text styles using the TextRanges returned by the TextRange.getRuns() method.
+     * multiple text runs, and those runs have different values for the read method being called. To
+     * avoid this, query for text styles using the TextRanges returned by the TextRange.getRuns() method.
      */
-    export interface TextStyle {
+    interface TextStyle {
       getBackgroundColor(): Color;
       getBaselineOffset(): TextBaselineOffset;
       getFontFamily(): string;
-      getFontSize(): Number;
+      getFontSize(): number;
       getFontWeight(): Integer;
       getForegroundColor(): Color;
       getLink(): Link;
@@ -1304,7 +1327,7 @@ declare namespace GoogleAppsScript {
       setBold(bold: boolean): TextStyle;
       setFontFamily(fontFamily: string): TextStyle;
       setFontFamilyAndWeight(fontFamily: string, fontWeight: Integer): TextStyle;
-      setFontSize(fontSize: Number): TextStyle;
+      setFontSize(fontSize: number): TextStyle;
       setForegroundColor(foregroundColor: Color): TextStyle;
       setForegroundColor(red: Integer, green: Integer, blue: Integer): TextStyle;
       setForegroundColor(hexColor: string): TextStyle;
@@ -1318,105 +1341,113 @@ declare namespace GoogleAppsScript {
       setStrikethrough(strikethrough: boolean): TextStyle;
       setUnderline(underline: boolean): TextStyle;
     }
-
     /**
      * A color that refers to an entry in the page's ColorScheme.
      */
-    export interface ThemeColor {
-      getColorType(): ColorType;
+    interface ThemeColor {
+      getColorType(): Base.ColorType;
       getThemeColorType(): ThemeColorType;
     }
-
     /**
      * The name of an entry in the page's color scheme.
      */
-    export enum ThemeColorType { UNSUPPORTED, DARK1, LIGHT1, DARK2, LIGHT2, ACCENT1, ACCENT2, ACCENT3, ACCENT4, ACCENT5, ACCENT6, HYPERLINK, FOLLOWED_HYPERLINK }
-
+    enum ThemeColorType { UNSUPPORTED, DARK1, LIGHT1, DARK2, LIGHT2, ACCENT1, ACCENT2, ACCENT3, ACCENT4, ACCENT5, ACCENT6, HYPERLINK, FOLLOWED_HYPERLINK }
     /**
      * A PageElement representing a video.
      */
-    export interface Video {
+    interface Video {
       alignOnPage(alignmentPosition: AlignmentPosition): Video;
+      bringForward(): Video;
+      bringToFront(): Video;
       duplicate(): PageElement;
       getBorder(): Border;
+      getConnectionSites(): ConnectionSite[];
       getDescription(): string;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
       getObjectId(): string;
       getPageElementType(): PageElementType;
       getParentGroup(): Group;
       getParentPage(): Page;
-      getRotation(): Number;
+      getRotation(): number;
       getSource(): VideoSourceType;
       getThumbnailUrl(): string;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
       getUrl(): string;
       getVideoId(): string;
-      getWidth(): Number;
+      getWidth(): number;
       preconcatenateTransform(transform: AffineTransform): Video;
       remove(): void;
-      scaleHeight(ratio: Number): Video;
-      scaleWidth(ratio: Number): Video;
+      scaleHeight(ratio: number): Video;
+      scaleWidth(ratio: number): Video;
       select(): void;
       select(replace: boolean): void;
-      setHeight(height: Number): Video;
-      setLeft(left: Number): Video;
-      setRotation(angle: Number): Video;
-      setTop(top: Number): Video;
+      sendBackward(): Video;
+      sendToBack(): Video;
+      setDescription(description: string): Video;
+      setHeight(height: number): Video;
+      setLeft(left: number): Video;
+      setRotation(angle: number): Video;
+      setTitle(title: string): Video;
+      setTop(top: number): Video;
       setTransform(transform: AffineTransform): Video;
-      setWidth(width: Number): Video;
+      setWidth(width: number): Video;
     }
-
     /**
      * The video source types.
      */
-    export enum VideoSourceType { UNSUPPORTED, YOUTUBE }
-
+    enum VideoSourceType { UNSUPPORTED, YOUTUBE }
     /**
      * A PageElement representing word art.
      */
-    export interface WordArt {
+    interface WordArt {
       alignOnPage(alignmentPosition: AlignmentPosition): WordArt;
+      bringForward(): WordArt;
+      bringToFront(): WordArt;
       duplicate(): PageElement;
+      getConnectionSites(): ConnectionSite[];
       getDescription(): string;
-      getHeight(): Number;
-      getInherentHeight(): Number;
-      getInherentWidth(): Number;
-      getLeft(): Number;
+      getHeight(): number;
+      getInherentHeight(): number;
+      getInherentWidth(): number;
+      getLeft(): number;
       getLink(): Link;
       getObjectId(): string;
       getPageElementType(): PageElementType;
       getParentGroup(): Group;
       getParentPage(): Page;
       getRenderedText(): string;
-      getRotation(): Number;
+      getRotation(): number;
       getTitle(): string;
-      getTop(): Number;
+      getTop(): number;
       getTransform(): AffineTransform;
-      getWidth(): Number;
+      getWidth(): number;
       preconcatenateTransform(transform: AffineTransform): WordArt;
       remove(): void;
       removeLink(): void;
-      scaleHeight(ratio: Number): WordArt;
-      scaleWidth(ratio: Number): WordArt;
+      scaleHeight(ratio: number): WordArt;
+      scaleWidth(ratio: number): WordArt;
       select(): void;
       select(replace: boolean): void;
-      setHeight(height: Number): WordArt;
-      setLeft(left: Number): WordArt;
+      sendBackward(): WordArt;
+      sendToBack(): WordArt;
+      setDescription(description: string): WordArt;
+      setHeight(height: number): WordArt;
+      setLeft(left: number): WordArt;
       setLinkSlide(slideIndex: Integer): Link;
       setLinkSlide(slide: Slide): Link;
       setLinkSlide(slidePosition: SlidePosition): Link;
       setLinkUrl(url: string): Link;
-      setRotation(angle: Number): WordArt;
-      setTop(top: Number): WordArt;
+      setRotation(angle: number): WordArt;
+      setTitle(title: string): WordArt;
+      setTop(top: number): WordArt;
       setTransform(transform: AffineTransform): WordArt;
-      setWidth(width: Number): WordArt;
+      setWidth(width: number): WordArt;
     }
-
   }
 }
 

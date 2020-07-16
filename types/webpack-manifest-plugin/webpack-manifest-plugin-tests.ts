@@ -10,18 +10,17 @@ const options: WebpackManifestPlugin.Options = {
     },
     publicPath: 'prod',
     writeToFileEmit: false,
-    filter: (file) => file.isInitial,
-    map: (file) => {
+    filter: file => file.isInitial,
+    map: file => {
         if (file.name) {
             file.name = path.join(path.dirname(file.path), file.name);
-            return file;
         }
+        return file;
     },
-    reduce: (manifest, { name, path }) => {
-        if (name) {
-            return { ...manifest, [name]: path };
-        }
-    },
+    sort: (a, b) => a.path.localeCompare(b.path),
+    generate: (seed, files) =>
+        files.reduce((manifest, { name, path }) => (name ? { ...manifest, [name]: path } : manifest), seed),
+    serialize: manifest => JSON.stringify(manifest, null, 2),
 };
 
 const c: Configuration = {

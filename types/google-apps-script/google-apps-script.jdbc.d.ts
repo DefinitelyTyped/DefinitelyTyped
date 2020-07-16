@@ -1,24 +1,56 @@
-// Type definitions for Google Apps Script 2017-05-12
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module JDBC {
+  namespace JDBC {
+    /** JdbcAdvancedParameters */
+    interface CloudSqlAdvancedParameters {
+      /** connection timeout in seconds */
+      connectTimeoutSeconds?: Integer;
+      /** the database to connect to */
+      database?: string;
+      /** the name of a Google SQL Service instance */
+      instance?: string;
+      /** the user's password */
+      password?: string;
+      /** query timeout in seconds */
+      queryTimeoutSeconds?: Integer;
+      /** the username to pass to the database */
+      user?: string;
+    }
+    /** JdbcAdvancedParameters */
+    interface ConnectionAdvancedParameters {
+      /** the database to connect to */
+      databaseName?: string;
+      /** the user's password */
+      password?: string;
+      /** whether or not the connection should comply with JDBC rules when converting time zones. The default is false. */
+      useJDBCCompliantTimeZoneShift?: boolean;
+      /** the username to pass to the database */
+      user?: string;
+      /** the server's SSL certificate */
+      _serverSslCertificate?: string;
+      /** the client's SSL certificate */
+      _clientSslCertificate?: string;
+      /** the client's SSL key */
+      _clientSslKey?: string;
+    }
     /**
      * The JDBC service allows scripts to connect to Google Cloud SQL, MySQL,
-     *  Microsoft SQL Server, and Oracle databases. For more information, see the
-     *  guide to JDBC.
+     * Microsoft SQL Server, and Oracle databases. For more information, see the guide to JDBC.
      */
-    export interface Jdbc {
+    interface Jdbc {
       getCloudSqlConnection(url: string): JdbcConnection;
-      getCloudSqlConnection(url: string, info: Object): JdbcConnection;
+      getCloudSqlConnection(url: string, info: CloudSqlAdvancedParameters): JdbcConnection;
       getCloudSqlConnection(url: string, userName: string, password: string): JdbcConnection;
       getConnection(url: string): JdbcConnection;
-      getConnection(url: string, info: Object): JdbcConnection;
+      getConnection(url: string, info: ConnectionAdvancedParameters): JdbcConnection;
       getConnection(url: string, userName: string, password: string): JdbcConnection;
       newDate(milliseconds: Integer): JdbcDate;
       newTime(milliseconds: Integer): JdbcTime;
@@ -27,24 +59,24 @@ declare namespace GoogleAppsScript {
       parseTime(time: string): JdbcTime;
       parseTimestamp(timestamp: string): JdbcTimestamp;
     }
-
     /**
-     * A JDBC Array. For documentation of this class, see java.sql.Array.
+     * A JDBC Array. For documentation of this class, see java.sql.Array
+     * .
      */
-    export interface JdbcArray {
+    interface JdbcArray {
       free(): void;
-      getArray(): Object;
-      getArray(index: Integer, count: Integer): Object;
+      getArray(): any;
+      getArray(index: Integer, count: Integer): any;
       getBaseType(): Integer;
       getBaseTypeName(): string;
       getResultSet(): JdbcResultSet;
       getResultSet(index: Integer, count: Integer): JdbcResultSet;
     }
-
     /**
-     * A JDBC Blob. For documentation of this class, see java.sql.Blob.
+     * A JDBC Blob. For documentation of this class, see java.sql.Blob
+     * .
      */
-    export interface JdbcBlob {
+    interface JdbcBlob {
       free(): void;
       getAppsScriptBlob(): Base.Blob;
       getAs(contentType: string): Base.Blob;
@@ -58,15 +90,11 @@ declare namespace GoogleAppsScript {
       setBytes(position: Integer, bytes: Byte[], offset: Integer, length: Integer): Integer;
       truncate(length: Integer): void;
     }
-
     /**
      * A JDBC CallableStatement. For documentation of this class, see
-     *  java.sql.CallableStatement.
-     * See also
-     *
-     *  CallableStatement
+     * java.sql.CallableStatement.
      */
-    export interface JdbcCallableStatement {
+    interface JdbcCallableStatement {
       addBatch(): void;
       addBatch(sql: string): void;
       cancel(): void;
@@ -106,12 +134,12 @@ declare namespace GoogleAppsScript {
       getDate(parameterIndex: Integer, timeZone: string): JdbcDate;
       getDate(parameterName: string): JdbcDate;
       getDate(parameterName: string, timeZone: string): JdbcDate;
-      getDouble(parameterIndex: Integer): Number;
-      getDouble(parameterName: string): Number;
+      getDouble(parameterIndex: Integer): number;
+      getDouble(parameterName: string): number;
       getFetchDirection(): Integer;
       getFetchSize(): Integer;
-      getFloat(parameterIndex: Integer): Number;
-      getFloat(parameterName: string): Number;
+      getFloat(parameterIndex: Integer): number;
+      getFloat(parameterName: string): number;
       getGeneratedKeys(): JdbcResultSet;
       getInt(parameterIndex: Integer): Integer;
       getInt(parameterName: string): Integer;
@@ -126,8 +154,8 @@ declare namespace GoogleAppsScript {
       getNClob(parameterName: string): JdbcClob;
       getNString(parameterIndex: Integer): string;
       getNString(parameterName: string): string;
-      getObject(parameterIndex: Integer): Object;
-      getObject(parameterName: string): Object;
+      getObject(parameterIndex: Integer): any;
+      getObject(parameterName: string): any;
       getParameterMetaData(): JdbcParameterMetaData;
       getQueryTimeout(): Integer;
       getRef(parameterIndex: Integer): JdbcRef;
@@ -182,13 +210,13 @@ declare namespace GoogleAppsScript {
       setDate(parameterIndex: Integer, x: JdbcDate, timeZone: string): void;
       setDate(parameterName: string, x: JdbcDate): void;
       setDate(parameterName: string, x: JdbcDate, timeZone: string): void;
-      setDouble(parameterIndex: Integer, x: Number): void;
-      setDouble(parameterName: string, x: Number): void;
+      setDouble(parameterIndex: Integer, x: number): void;
+      setDouble(parameterName: string, x: number): void;
       setEscapeProcessing(enable: boolean): void;
       setFetchDirection(direction: Integer): void;
       setFetchSize(rows: Integer): void;
-      setFloat(parameterIndex: Integer, x: Number): void;
-      setFloat(parameterName: string, x: Number): void;
+      setFloat(parameterIndex: Integer, x: number): void;
+      setFloat(parameterName: string, x: number): void;
       setInt(parameterIndex: Integer, x: Integer): void;
       setInt(parameterName: string, x: Integer): void;
       setLong(parameterIndex: Integer, x: Integer): void;
@@ -203,12 +231,12 @@ declare namespace GoogleAppsScript {
       setNull(parameterIndex: Integer, sqlType: Integer, typeName: string): void;
       setNull(parameterName: string, sqlType: Integer): void;
       setNull(parameterName: string, sqlType: Integer, typeName: string): void;
-      setObject(index: Integer, x: Object): void;
-      setObject(parameterIndex: Integer, x: Object, targetSqlType: Integer): void;
-      setObject(parameterIndex: Integer, x: Object, targetSqlType: Integer, scaleOrLength: Integer): void;
-      setObject(parameterName: string, x: Object): void;
-      setObject(parameterName: string, x: Object, targetSqlType: Integer): void;
-      setObject(parameterName: string, x: Object, targetSqlType: Integer, scale: Integer): void;
+      setObject(index: Integer, x: any): void;
+      setObject(parameterIndex: Integer, x: any, targetSqlType: Integer): void;
+      setObject(parameterIndex: Integer, x: any, targetSqlType: Integer, scaleOrLength: Integer): void;
+      setObject(parameterName: string, x: any): void;
+      setObject(parameterName: string, x: any, targetSqlType: Integer): void;
+      setObject(parameterName: string, x: any, targetSqlType: Integer, scale: Integer): void;
       setPoolable(poolable: boolean): void;
       setQueryTimeout(seconds: Integer): void;
       setRef(parameterIndex: Integer, x: JdbcRef): void;
@@ -232,11 +260,11 @@ declare namespace GoogleAppsScript {
       setURL(parameterName: string, val: string): void;
       wasNull(): boolean;
     }
-
     /**
-     * A JDBC Clob. For documentation of this class, see java.sql.Clob.
+     * A JDBC Clob. For documentation of this class, see java.sql.Clob
+     * .
      */
-    export interface JdbcClob {
+    interface JdbcClob {
       free(): void;
       getAppsScriptBlob(): Base.Blob;
       getAs(contentType: string): Base.Blob;
@@ -250,15 +278,15 @@ declare namespace GoogleAppsScript {
       setString(position: Integer, value: string, offset: Integer, len: Integer): Integer;
       truncate(length: Integer): void;
     }
-
     /**
-     * A JDBC Connection. For documentation of this class, see java.sql.Connection.
+     * A JDBC Connection. For documentation of this class, see
+     * java.sql.Connection.
      */
-    export interface JdbcConnection {
+    interface JdbcConnection {
       clearWarnings(): void;
       close(): void;
       commit(): void;
-      createArrayOf(typeName: string, elements: Object[]): JdbcArray;
+      createArrayOf(typeName: string, elements: any[]): JdbcArray;
       createBlob(): JdbcBlob;
       createClob(): JdbcClob;
       createNClob(): JdbcClob;
@@ -266,7 +294,7 @@ declare namespace GoogleAppsScript {
       createStatement(): JdbcStatement;
       createStatement(resultSetType: Integer, resultSetConcurrency: Integer): JdbcStatement;
       createStatement(resultSetType: Integer, resultSetConcurrency: Integer, resultSetHoldability: Integer): JdbcStatement;
-      createStruct(typeName: string, attributes: Object[]): JdbcStruct;
+      createStruct(typeName: string, attributes: any[]): JdbcStruct;
       getAutoCommit(): boolean;
       getCatalog(): string;
       getHoldability(): Integer;
@@ -297,12 +325,11 @@ declare namespace GoogleAppsScript {
       setSavepoint(name: string): JdbcSavepoint;
       setTransactionIsolation(level: Integer): void;
     }
-
     /**
-     * A JDBC DatabaseMetaData. For documentation of this class, see
-     *  java.sql.DatabaseMetaData.
+     * A JDBC database metadata object. For documentation of this class, see
+     * java.sql.DatabaseMetaData.
      */
-    export interface JdbcDatabaseMetaData {
+    interface JdbcDatabaseMetaData {
       allProceduresAreCallable(): boolean;
       allTablesAreSelectable(): boolean;
       autoCommitFailureClosesAllResultSets(): boolean;
@@ -476,11 +503,11 @@ declare namespace GoogleAppsScript {
       usesLocalFilePerTable(): boolean;
       usesLocalFiles(): boolean;
     }
-
     /**
-     * A JDBC Date. For documentation of this class, see java.sql.Date.
+     * A JDBC Date. For documentation of this class, see java.sql.Date
+     * .
      */
-    export interface JdbcDate {
+    interface JdbcDate {
       after(when: JdbcDate): boolean;
       before(when: JdbcDate): boolean;
       getDate(): Integer;
@@ -492,12 +519,11 @@ declare namespace GoogleAppsScript {
       setTime(milliseconds: Integer): void;
       setYear(year: Integer): void;
     }
-
     /**
      * A JDBC ParameterMetaData. For documentation of this class, see
-     *  java.sql.ParameterMetaData.
+     * java.sql.ParameterMetaData.
      */
-    export interface JdbcParameterMetaData {
+    interface JdbcParameterMetaData {
       getParameterClassName(param: Integer): string;
       getParameterCount(): Integer;
       getParameterMode(param: Integer): Integer;
@@ -508,12 +534,11 @@ declare namespace GoogleAppsScript {
       isNullable(param: Integer): Integer;
       isSigned(param: Integer): boolean;
     }
-
     /**
      * A JDBC PreparedStatement. For documentation of this class, see
-     *  java.sql.PreparedStatement.
+     * java.sql.PreparedStatement.
      */
-    export interface JdbcPreparedStatement {
+    interface JdbcPreparedStatement {
       addBatch(): void;
       addBatch(sql: string): void;
       cancel(): void;
@@ -563,11 +588,11 @@ declare namespace GoogleAppsScript {
       setCursorName(name: string): void;
       setDate(parameterIndex: Integer, x: JdbcDate): void;
       setDate(parameterIndex: Integer, x: JdbcDate, timeZone: string): void;
-      setDouble(parameterIndex: Integer, x: Number): void;
+      setDouble(parameterIndex: Integer, x: number): void;
       setEscapeProcessing(enable: boolean): void;
       setFetchDirection(direction: Integer): void;
       setFetchSize(rows: Integer): void;
-      setFloat(parameterIndex: Integer, x: Number): void;
+      setFloat(parameterIndex: Integer, x: number): void;
       setInt(parameterIndex: Integer, x: Integer): void;
       setLong(parameterIndex: Integer, x: Integer): void;
       setMaxFieldSize(max: Integer): void;
@@ -576,9 +601,9 @@ declare namespace GoogleAppsScript {
       setNString(parameterIndex: Integer, x: string): void;
       setNull(parameterIndex: Integer, sqlType: Integer): void;
       setNull(parameterIndex: Integer, sqlType: Integer, typeName: string): void;
-      setObject(index: Integer, x: Object): void;
-      setObject(parameterIndex: Integer, x: Object, targetSqlType: Integer): void;
-      setObject(parameterIndex: Integer, x: Object, targetSqlType: Integer, scaleOrLength: Integer): void;
+      setObject(index: Integer, x: any): void;
+      setObject(parameterIndex: Integer, x: any, targetSqlType: Integer): void;
+      setObject(parameterIndex: Integer, x: any, targetSqlType: Integer, scaleOrLength: Integer): void;
       setPoolable(poolable: boolean): void;
       setQueryTimeout(seconds: Integer): void;
       setRef(parameterIndex: Integer, x: JdbcRef): void;
@@ -592,20 +617,19 @@ declare namespace GoogleAppsScript {
       setTimestamp(parameterIndex: Integer, x: JdbcTimestamp, timeZone: string): void;
       setURL(parameterIndex: Integer, x: string): void;
     }
-
     /**
      * A JDBC Ref. For documentation of this class, see java.sql.Ref.
      */
-    export interface JdbcRef {
+    interface JdbcRef {
       getBaseTypeName(): string;
-      getObject(): Object;
-      setObject(object: Object): void;
+      getObject(): any;
+      setObject(object: any): void;
     }
-
     /**
-     * A JDBC ResultSet. For documentation of this class, see java.sql.ResultSet.
+     * A JDBC ResultSet. For documentation of this class, see java.sql.ResultSet
+     * .
      */
-    export interface JdbcResultSet {
+    interface JdbcResultSet {
       absolute(row: Integer): boolean;
       afterLast(): void;
       beforeFirst(): void;
@@ -635,12 +659,12 @@ declare namespace GoogleAppsScript {
       getDate(columnIndex: Integer, timeZone: string): JdbcDate;
       getDate(columnLabel: string): JdbcDate;
       getDate(columnLabel: string, timeZone: string): JdbcDate;
-      getDouble(columnIndex: Integer): Number;
-      getDouble(columnLabel: string): Number;
+      getDouble(columnIndex: Integer): number;
+      getDouble(columnLabel: string): number;
       getFetchDirection(): Integer;
       getFetchSize(): Integer;
-      getFloat(columnIndex: Integer): Number;
-      getFloat(columnLabel: string): Number;
+      getFloat(columnIndex: Integer): number;
+      getFloat(columnLabel: string): number;
       getHoldability(): Integer;
       getInt(columnIndex: Integer): Integer;
       getInt(columnLabel: string): Integer;
@@ -651,8 +675,8 @@ declare namespace GoogleAppsScript {
       getNClob(columnLabel: string): JdbcClob;
       getNString(columnIndex: Integer): string;
       getNString(columnLabel: string): string;
-      getObject(columnIndex: Integer): Object;
-      getObject(columnLabel: string): Object;
+      getObject(columnIndex: Integer): any;
+      getObject(columnLabel: string): any;
       getRef(columnIndex: Integer): JdbcRef;
       getRef(columnLabel: string): JdbcRef;
       getRow(): Integer;
@@ -711,10 +735,10 @@ declare namespace GoogleAppsScript {
       updateClob(columnLabel: string, x: JdbcClob): void;
       updateDate(columnIndex: Integer, x: JdbcDate): void;
       updateDate(columnLabel: string, x: JdbcDate): void;
-      updateDouble(columnIndex: Integer, x: Number): void;
-      updateDouble(columnLabel: string, x: Number): void;
-      updateFloat(columnIndex: Integer, x: Number): void;
-      updateFloat(columnLabel: string, x: Number): void;
+      updateDouble(columnIndex: Integer, x: number): void;
+      updateDouble(columnLabel: string, x: number): void;
+      updateFloat(columnIndex: Integer, x: number): void;
+      updateFloat(columnLabel: string, x: number): void;
       updateInt(columnIndex: Integer, x: Integer): void;
       updateInt(columnLabel: string, x: Integer): void;
       updateLong(columnIndex: Integer, x: Integer): void;
@@ -725,10 +749,10 @@ declare namespace GoogleAppsScript {
       updateNString(columnLabel: string, x: string): void;
       updateNull(columnIndex: Integer): void;
       updateNull(columnLabel: string): void;
-      updateObject(columnIndex: Integer, x: Object): void;
-      updateObject(columnIndex: Integer, x: Object, scaleOrLength: Integer): void;
-      updateObject(columnLabel: string, x: Object): void;
-      updateObject(columnLabel: string, x: Object, scaleOrLength: Integer): void;
+      updateObject(columnIndex: Integer, x: any): void;
+      updateObject(columnIndex: Integer, x: any, scaleOrLength: Integer): void;
+      updateObject(columnLabel: string, x: any): void;
+      updateObject(columnLabel: string, x: any, scaleOrLength: Integer): void;
       updateRef(columnIndex: Integer, x: JdbcRef): void;
       updateRef(columnLabel: string, x: JdbcRef): void;
       updateRow(): void;
@@ -746,12 +770,11 @@ declare namespace GoogleAppsScript {
       updateTimestamp(columnLabel: string, x: JdbcTimestamp): void;
       wasNull(): boolean;
     }
-
     /**
      * A JDBC ResultSetMetaData. For documentation of this class, see
-     *  java.sql.ResultSetMetaData.
+     * java.sql.ResultSetMetaData.
      */
-    export interface JdbcResultSetMetaData {
+    interface JdbcResultSetMetaData {
       getCatalogName(column: Integer): string;
       getColumnClassName(column: Integer): string;
       getColumnCount(): Integer;
@@ -774,38 +797,35 @@ declare namespace GoogleAppsScript {
       isSigned(column: Integer): boolean;
       isWritable(column: Integer): boolean;
     }
-
     /**
-     * A JDBC RowId. For documentation of this class, see java.sql.RowId.
+     * A JDBC RowId. For documentation of this class, see java.sql.RowId
+     * .
      */
-    export interface JdbcRowId {
+    interface JdbcRowId {
       getBytes(): Byte[];
     }
-
     /**
-     * A JDBC SQLXML. For documentation of this class, see java.sql.SQLXML.
+     * A JDBC SQLXML. For documentation of this class, see java.sql.SQLXML
+     * .
      */
-    export interface JdbcSQLXML {
+    interface JdbcSQLXML {
       free(): void;
       getString(): string;
       setString(value: string): void;
     }
-
     /**
-     * A JDBC Savepoint. For documentation of this class, see java.sql.Savepoint.
-     * See also
-     *
-     * Savepoint
+     * A JDBC Savepoint. For documentation of this class, see java.sql.Savepoint
+     * .
      */
-    export interface JdbcSavepoint {
+    interface JdbcSavepoint {
       getSavepointId(): Integer;
       getSavepointName(): string;
     }
-
     /**
-     * A JDBC Statement. For documentation of this class, see java.sql.Statement.
+     * A JDBC Statement. For documentation of this class, see java.sql.Statement
+     * .
      */
-    export interface JdbcStatement {
+    interface JdbcStatement {
       addBatch(sql: string): void;
       cancel(): void;
       clearBatch(): void;
@@ -847,19 +867,19 @@ declare namespace GoogleAppsScript {
       setPoolable(poolable: boolean): void;
       setQueryTimeout(seconds: Integer): void;
     }
-
     /**
-     * A JDBC Struct. For documentation of this class, see java.sql.Struct.
+     * A JDBC Struct. For documentation of this class, see java.sql.Struct
+     * .
      */
-    export interface JdbcStruct {
-      getAttributes(): Object[];
+    interface JdbcStruct {
+      getAttributes(): any[];
       getSQLTypeName(): string;
     }
-
     /**
-     * A JDBC Time. For documentation of this class, see java.sql.Time.
+     * A JDBC Time. For documentation of this class, see java.sql.Time
+     * .
      */
-    export interface JdbcTime {
+    interface JdbcTime {
       after(when: JdbcTime): boolean;
       before(when: JdbcTime): boolean;
       getHours(): Integer;
@@ -871,11 +891,11 @@ declare namespace GoogleAppsScript {
       setSeconds(seconds: Integer): void;
       setTime(milliseconds: Integer): void;
     }
-
     /**
-     * A JDBC Timestamp. For documentation of this class, see java.sql.Timestamp.
+     * A JDBC Timestamp. For documentation of this class, see java.sql.Timestamp
+     * .
      */
-    export interface JdbcTimestamp {
+    interface JdbcTimestamp {
       after(when: JdbcTimestamp): boolean;
       before(when: JdbcTimestamp): boolean;
       getDate(): Integer;
@@ -895,7 +915,6 @@ declare namespace GoogleAppsScript {
       setTime(milliseconds: Integer): void;
       setYear(year: Integer): void;
     }
-
   }
 }
 

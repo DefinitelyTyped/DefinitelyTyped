@@ -142,7 +142,7 @@ const streamToArray = (array: number[]): Writable =>
     // include Writable
 
     const out1: number[] = [];
-    const chain = new Chain([(x: number) => 2 * x], streamToArray(out1));
+    const chain = new Chain([(x: number) => 2 * x, streamToArray(out1)]);
     const out2: number[] = [];
 
     streamFromArray([1, 2, 3]).pipe(chain);
@@ -153,7 +153,7 @@ const streamToArray = (array: number[]): Writable =>
     // include Readable and Writable
 
     const out1: number[] = [];
-    const chain = new Chain([streamFromArray([1, 2, 3]), (x: number) => 2 * x], streamToArray(out1));
+    const chain = new Chain([streamFromArray([1, 2, 3]), (x: number) => 2 * x, streamToArray(out1)]);
     const out2: number[] = [];
 
     chain.on('data', value => out2.push(+value));

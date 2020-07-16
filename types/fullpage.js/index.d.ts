@@ -205,7 +205,7 @@ interface FullPageJsOptions {
     animateAnchor?: boolean;
 
     /**
-     * (default true) Defines whether to push the state of the site to the browser's history. When set to true each section/slide of the site will act as a new page and the back and forward buttons of the browser will scroll the sections/slides to reach the previous or next state of the site. When set to false, the URL will keep changing but will have no effect ont he browser's history. This option is automatically turned off when using autoScrolling:false.
+     * (default true) Defines whether to push the state of the site to the browser's history. When set to true each section/slide of the site will act as a new page and the back and forward buttons of the browser will scroll the sections/slides to reach the previous or next state of the site. When set to false, the URL will keep changing but will have no effect on the browser's history. This option is automatically turned off when using autoScrolling:false.
      */
     recordHistory?: boolean;
 
@@ -244,12 +244,12 @@ interface FullPageJsOptions {
     fixedElements?: string;
 
     /**
-     *  (default 0) A normal scroll (autoScrolling:false) will be used under the defined width in pixels. A class fp-responsive is added to the body tag in case the user wants to use it for his own responsive CSS. For example, if set to 900, whenever the browser's width is less than 900 the plugin will scroll like a normal site.
+     *  (default 0) A normal scroll (autoScrolling:false) will be used under the defined width in pixels. A class fp-responsive is added to the body tag in case the user wants to use it for their own responsive CSS. For example, if set to 900, whenever the browser's width is less than 900 the plugin will scroll like a normal site.
      */
     responsiveWidth?: number;
 
     /**
-     * (default 0) A normal scroll (autoScrolling:false) will be used under the defined height in pixels. A class fp-responsive is added to the body tag in case the user wants to use it for his own responsive CSS. For example, if set to 900, whenever the browser's height is less than 900 the plugin will scroll like a normal site.
+     * (default 0) A normal scroll (autoScrolling:false) will be used under the defined height in pixels. A class fp-responsive is added to the body tag in case the user wants to use it for their own responsive CSS. For example, if set to 900, whenever the browser's height is less than 900 the plugin will scroll like a normal site.
      */
     responsiveHeight?: number;
 
@@ -271,6 +271,30 @@ interface FullPageJsOptions {
         percentage?: number,
         property?: string,
     };
+
+    /**
+     * Extension of fullpage.js. Defines whether or not to use the cards effect on sections/slides
+     * @default false
+     */
+    cards?: boolean;
+
+    /**
+     * Allows you to configure the parameters for the cards effect when using the option `cards:true`
+     */
+    cardsOptions?: {
+        /**
+         * @default 100
+         */
+        perspective?: number;
+        /**
+         * @default true
+         */
+        fadeContent?: boolean;
+        /**
+         * @default true
+         */
+        fadeBackground?: boolean;
+    }
 
     /**
      * Lazy loading is active by default which means it will lazy load any media element containing the attribute data-src as detailed in the Lazy Loading docs . If you want to use any other lazy loading library you can disable this fullpage.js feature.

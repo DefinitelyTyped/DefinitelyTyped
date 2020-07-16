@@ -109,7 +109,7 @@ function test_swipey() {
         var canvas = <HTMLCanvasElement>$('canvas')[0];
         var context = canvas.getContext('2d');
         var iOS = (/iphone|ipad/i).test(navigator.userAgent);
-        var pointers = new Map<string, any>();
+        var pointers = new Map();
         // handle resizing / rotating of the viewport
         var width, height;
         $(window).bind(viewporter.ACTIVE ? 'viewportchange' : 'resize', function () {
@@ -133,7 +133,7 @@ function test_swipey() {
         });
 
         $('canvas').bind(iOS ? 'touchmove' : 'mousemove', function (e) {
-			var touches = iOS ? (<any>e.originalEvent).changedTouches : [e.originalEvent];
+            var touches = iOS ? (<any>e.originalEvent).changedTouches : [e.originalEvent];
             var identifier;
             for (var i = 0; i < touches.length; i++) {
                 identifier = touches[i].identifier || 'mouse';
@@ -145,7 +145,7 @@ function test_swipey() {
         });
 
         $('canvas').bind(iOS ? 'touchend' : 'mouseup', function (e) {
-			var touches = iOS ? (<any>e.originalEvent).changedTouches : [e.originalEvent];
+            var touches = iOS ? (<any>e.originalEvent).changedTouches : [e.originalEvent];
             var identifier;
             for (var i = 0; i < touches.length; i++) {
                 identifier = touches[i].identifier || 'mouse';

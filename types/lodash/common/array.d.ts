@@ -1128,7 +1128,7 @@ declare module "../index" {
          * @param arrays The arrays to inspect.
          * @return Returns the new array of shared values.
          */
-        intersection<T>(...arrays: Array<List<T>>): T[];
+        intersection<T>(...arrays: Array<List<T> | null | undefined>): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -1137,7 +1137,7 @@ declare module "../index" {
          */
         intersection<T>(
             this: LoDashImplicitWrapper<List<T>>,
-            ...arrays: Array<List<T>>
+            ...arrays: Array<List<T> | null | undefined>
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -1147,7 +1147,7 @@ declare module "../index" {
          */
         intersection<T>(
             this: LoDashExplicitWrapper<List<T>>,
-            ...arrays: Array<List<T>>
+            ...arrays: Array<List<T> | null | undefined >
         ): LoDashExplicitWrapper<T[]>;
     }
 
@@ -1205,6 +1205,11 @@ declare module "../index" {
             array?: List<T> | null,
             ...values: Array<List<T>>
         ): T[];
+
+        /**
+         * @see _.intersectionBy
+         */
+        intersectionBy<T>(...values: Array<List<T> | ValueIteratee<T>>): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -1240,10 +1245,10 @@ declare module "../index" {
         /**
          * @see _.intersectionBy
          */
-        intersectionBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T>>
-        ): LoDashImplicitWrapper<T[]>;
+        intersectionBy<T1, T2>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            ...values: Array<List<T2> | ValueIteratee<T1 | T2>>
+        ): LoDashImplicitWrapper<T1[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -1279,10 +1284,10 @@ declare module "../index" {
         /**
          * @see _.intersectionBy
          */
-        intersectionBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T>>
-        ): LoDashExplicitWrapper<T[]>;
+        intersectionBy<T1, T2>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            ...values: Array<List<T2> | ValueIteratee<T1 | T2>>
+        ): LoDashExplicitWrapper<T1[]>;
     }
 
     // intersectionWith
@@ -1336,7 +1341,7 @@ declare module "../index" {
          */
         intersectionWith<T>(
             array?: List<T> | null,
-            ...values: Array<List<T>>
+            ...values: Array<List<T> | Comparator2<T, never>>
         ): T[];
     }
 

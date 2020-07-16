@@ -78,6 +78,12 @@ function test_jquery() {
   $('#container').imagesLoaded(function() {
     console.log('images have loaded');
   });
+  $('#container').imagesLoaded({ background: true }, function() {
+    console.log('images have loaded');
+  });
+  $('#container').imagesLoaded({ background: '.item' }, function() {
+    console.log('images have loaded');
+  });
 }
 
 function test_jquery_deferred() {

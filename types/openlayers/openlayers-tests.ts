@@ -74,6 +74,7 @@ const style = new ol.style.Style();
 const styleArray: ol.style.Style[] = [];
 const styleFunction: ol.StyleFunction = (feature, resolution) => style;
 let styleRegularShape: ol.style.RegularShape;
+let styleStroke: ol.style.Stroke;
 const tilegrid = new ol.tilegrid.TileGrid({resolutions: numberArray});
 const transformFn: ol.TransformFunction = (array, out, dimension) => numberArray;
 let units: ol.proj.Units;
@@ -174,7 +175,7 @@ loadingStrategy = ol.loadingstrategy.tile(tilegrid);
 // ol.geom.Circle
 //
 booleanValue = circle.intersectsExtent(extent);
-circle = <ol.geom.Circle> circle.transform(projectionLike, projectionLike);
+circle = circle.transform(projectionLike, projectionLike) as ol.geom.Circle;
 
 //
 //
@@ -411,11 +412,20 @@ feature.setGeometry(geometry);
 feature.setGeometryName(stringValue);
 feature.setId(stringValue);
 feature.setId(numberValue);
+feature.setStyle(null);
 feature.setStyle(style);
 feature.setStyle(styleArray);
 feature.setStyle(featureStyleFunction);
 feature.setStyle(styleFunction);
 feature.setProperties(object);
+const nullStyleFunction = (feature: (ol.Feature|ol.render.Feature), resolution: number): null => {
+    return null;
+};
+const nullFeatureStyleFunction = (resolution: number): null => {
+  return null;
+};
+feature.setStyle(nullStyleFunction);
+feature.setStyle(nullFeatureStyleFunction);
 
 //
 // ol.View
@@ -570,6 +580,10 @@ const vectorLayer: ol.layer.Vector = new ol.layer.Vector({
     source: new ol.source.Vector(),
     zIndex: -1
 });
+
+vectorLayer.setStyle(nullStyleFunction);
+vectorLayer.setStyle(null);
+vectorLayer.setStyle(undefined);
 
 //
 // ol.layer.VectorTile
@@ -988,20 +1002,24 @@ let draw: ol.interaction.Draw = new ol.interaction.Draw({
     geometryName: stringValue,
     condition: ol.events.condition.never,
     freehandCondition: ol.events.condition.never,
-    wrapX: booleanValue
+    wrapX: booleanValue,
+    stopClick: booleanValue
 });
 draw = new ol.interaction.Draw({
     type: "Point",
-    style: styleArray
+    style: styleArray,
+    stopClick: booleanValue
 });
 draw = new ol.interaction.Draw({
     type: "Point",
-    style: styleFunction
+    style: styleFunction,
+    stopClick: booleanValue
 });
 const styleFunctionAsStyle = (feature: ol.Feature, resolution: number): ol.style.Style => style;
 draw = new ol.interaction.Draw({
     type: "Point",
-    style: styleFunctionAsStyle
+    style: styleFunctionAsStyle,
+    stopClick: booleanValue
 });
 ol.interaction.Draw.createBox();
 ol.interaction.Draw.createRegularPolygon();
@@ -1015,8 +1033,21 @@ ol.interaction.defaults({
 const styleFunctionAsArray = (feature: ol.Feature, resolution: number): ol.style.Style[] => styleArray;
 draw = new ol.interaction.Draw({
     type: "Point",
-    style: styleFunctionAsArray
+    style: styleFunctionAsArray,
+    stopClick: booleanValue
 });
+
+const itExtent = new ol.interaction.Extent({
+    extent: [10, 10, 20 , 20],
+    boxStyle: style,
+    pixelTolerance: 10,
+    pointerStyle: style,
+    wrapX: true
+});
+
+itExtent.setMap(map);
+itExtent.getExtent();
+itExtent.setExtent([20, 20, 30, 30]);
 
 const dragbox: ol.interaction.DragBox = new ol.interaction.DragBox({
     className: stringValue,
@@ -1109,6 +1140,35 @@ styleRegularShape = new ol.style.RegularShape({
     fill: new ol.style.Fill({ color: 'red' }),
     points: 4,
 });
+
+//
+// ol.style.Stroke
+//
+
+styleStroke = new ol.style.Stroke();
+styleStroke.setColor('#FF0000');
+styleStroke.setColor('red');
+styleStroke.setColor('#CCC');
+styleStroke.setColor('rgb(255, 255, 255)');
+styleStroke.setColor('rgb(255, 255, 255, 0.7)');
+styleStroke.setLineCap('butt');
+styleStroke.setLineCap('round');
+styleStroke.setLineCap('square');
+styleStroke.setLineJoin('bevel');
+styleStroke.setLineJoin('round');
+styleStroke.setLineJoin('miter');
+styleStroke.setLineDash([10, 5]);
+styleStroke.setLineDashOffset(10);
+styleStroke.setMiterLimit(20);
+styleStroke.setWidth(5);
+
+const strokeColor: ol.Color|ol.ColorLike = styleStroke.getColor();
+const strokeLineCap: string = styleStroke.getLineCap();
+const strokeLineJoin: string = styleStroke.getLineJoin();
+const strokeLineDash: number[] = styleStroke.getLineDash();
+const strokeLineDashOffset: number = styleStroke.getLineDashOffset();
+const strokeMiterLimit: number = styleStroke.getMiterLimit();
+const strokeWidth: number = styleStroke.getWidth();
 
 //
 // ol.proj

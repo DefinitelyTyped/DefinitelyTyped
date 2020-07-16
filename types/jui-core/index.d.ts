@@ -53,7 +53,7 @@ export interface UtilBase {
     /**
      * use QuickSort
      */
-    sort(array: any[]): UtilQuickSort;
+    sort(array: any[]): (array: number[], isClone: boolean) => this;
 
     /**
      * caculate callback runtime
@@ -418,13 +418,13 @@ export interface UtilColor {
     /**
      * get color scale
      *
-     * 		var c = color.scale().domain('#FF0000', '#00FF00');
+     *         var c = color.scale().domain('#FF0000', '#00FF00');
      *
-     * 		// get middle color
-     * 		c(0.5)   ==  #808000
+     *         // get middle color
+     *         c(0.5)   ==  #808000
      *
-     * 		// get middle color list
-     * 		c.ticks(20);  // return array ,    [startColor, ......, endColor ]
+     *         // get middle color list
+     *         c.ticks(20);  // return array ,    [startColor, ......, endColor ]
      *
      * @returns scale function
      */
@@ -433,7 +433,7 @@ export interface UtilColor {
     /**
      * create color map
      *
-     * 		var colorList = color.map(['#352a87', '#0f5cdd', '#00b5a6', '#ffc337', '#fdff00'], count)
+     *         var colorList = color.map(['#352a87', '#0f5cdd', '#00b5a6', '#ffc337', '#fdff00'], count)
      *
      * @param count  a divide number
      * @returns converted color list
@@ -443,9 +443,9 @@ export interface UtilColor {
     /**
      * parse string to rgb color
      *
-     * 		color.rgb("#FF0000") === { r : 255, g : 0, b : 0 }
+     *         color.rgb("#FF0000") === { r : 255, g : 0, b : 0 }
      *
-     * 		color.rgb("rgb(255, 0, 0)") == { r : 255, g : 0, b : }
+     *         color.rgb("rgb(255, 0, 0)") == { r : 255, g : 0, b : }
      *
      * @param str color string
      * @returns  rgb object
@@ -455,18 +455,18 @@ export interface UtilColor {
     /**
      * convert hsv to rgb
      *
-     * 		color.HSVtoRGB(0,0,1) === #FFFFF === { r : 255, g : 0, b : 0 }
+     *         color.HSVtoRGB(0,0,1) === #FFFFF === { r : 255, g : 0, b : 0 }
      *
      * @param H  hue color number  (min : 0, max : 360)
      * @param S  Saturation number  (min : 0, max : 1)
-     * @param V  Value number 		(min : 0, max : 1 )
+     * @param V  Value number         (min : 0, max : 1 )
      */
     HSVtoRGB(H: number, S: number, V: number): any;
 
     /**
      * convert rgb to hsv
      *
-     * 		color.RGBtoHSV(0, 0, 255) === { h : 240, s : 1, v : 1 } === '#FFFF00'
+     *         color.RGBtoHSV(0, 0, 255) === { h : 240, s : 1, v : 1 } === '#FFFF00'
      *
      * @param R  red color value
      * @param G  green color value
@@ -509,7 +509,7 @@ export interface UtilMath {
     /**
      * 2d rotate
      *
-     * @param radian	roate 할 radian
+     * @param radian    roate 할 radian
      * @return return.x  변환된 x
      * @return return.y  변환된 y
      *
@@ -537,8 +537,8 @@ export interface UtilMath {
     /**
      * a, b 의 중간값 계산을 위한 callback 함수 만들기
      *
-     * @param a	first value
-     * @param b 	second value
+     * @param a    first value
+     * @param b     second value
      */
     interpolateNumber(a: number, b: number): () => void;
 
@@ -577,5 +577,3 @@ export interface UtilScaleOrdinal extends Function {
     rangeBands(interval: number, padding?: number, outerPadding?: number): () => void;
     invert(x: number): number;
 }
-
-export type UtilQuickSort = (array: number[], isClone: boolean) => this;

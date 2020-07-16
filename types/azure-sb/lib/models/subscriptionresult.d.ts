@@ -14,8 +14,6 @@
 // limitations under the License.
 //
 
-import { Azure } from 'azure-sb';
-
 export namespace Azure.ServiceBus.Results {
     export interface SubscriptionProperties {
         LockDuration: string;

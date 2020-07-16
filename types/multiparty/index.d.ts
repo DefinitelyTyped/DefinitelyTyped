@@ -19,6 +19,13 @@ export declare class Form extends events.EventEmitter {
      * @param callback
      */
     parse(request: http.IncomingMessage, callback?: (error: Error, fields: any, files: any) => any): void;
+
+    on(event: "part", listener: (part: Part) => void): this;
+    on(event: "close", listener: () => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "progress", listener: (bytesReceived: number, bytesExpected: number) => void): this;
+    on(event: "field", listener: (name: string, value: string) => void): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
 export interface File {
@@ -29,7 +36,7 @@ export interface File {
     /**
      * the filename that the user reports for the file
      */
-    originalFileName: string;
+    originalFilename: string;
     /**
      * the absolute path of the uploaded file on disk
      */
@@ -44,7 +51,7 @@ export interface File {
     size: number;
 }
 
-interface Part extends stream.Readable {
+export interface Part extends stream.Readable {
     /**
      * the headers for this part. For example, you may be interested in content-type
      */

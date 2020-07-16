@@ -1,59 +1,17 @@
-// Type definitions for react-sketchapp 0.12
+// Type definitions for react-sketchapp 3.0
 // Project: https://github.com/airbnb/react-sketchapp
 // Definitions by: Rico Kahler <https://github.com/ricokahler>
 //                 DomiR <https://github.com/DomiR>
+//                 Sascha Zarhuber <https://github.com/saschazar21>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
+import { Color, ResizeConstraints, SketchContext, SketchShadow } from './types';
 
 declare global {
     const context: SketchContext;
 }
-
-// sketch interfaces taken from
-// https://github.com/airbnb/react-sketchapp/blob/v0.12.1/src/types.js
-export interface SketchPage { name: () => any; }
-export interface SketchAssetCollection {
-    colors: () => any[];
-    gradients: () => any[];
-}
-export interface SketchSharedStyleContainer {
-    setObjects: (objects: any[]) => void;
-    addSharedStyleWithName_firstInstance: (name: string, ins: any) => void;
-}
-export interface SketchDocumentData {
-    layerStyles: () => void;
-    layerTextStyles: () => SketchSharedStyleContainer;
-    layerSymbols: () => void;
-    assets: () => SketchAssetCollection;
-}
-export interface SketchDocument {
-    documentData: () => SketchDocumentData;
-    pages: () => SketchPage[];
-    addBlankPage: () => SketchPage;
-    currentPage: () => SketchPage;
-}
-export interface SketchContext { document: SketchDocument; }
-
-/**
- * Returns the top-level rendered Sketch object or an array of Sketch objects if you use
- * components.
- * @param element Top-level React component that defines your Sketch document.
- * @param container The element to render into - will be replaced. Should either be a Sketch Group
- * or Page Object.
- * @return The top-most rendered native Sketch layer.
- */
-export function render(element: JSX.Element, container?: any): any;
-
-/**
- * Returns a Sketch JSON object for further consumption - doesn't add to the page.
- * @return The top-most Sketch layer as JSON.
- */
-export function renderToJSON(element: JSX.Element): any;
-
-// https://github.com/airbnb/react-sketchapp/blob/v0.12.1/src/types.js#L59
-export type Color = string | number;
 
 /**
  * The [`StyleSheet` api uses numbers as IDs][0] to pull registered styles. The component props
@@ -68,7 +26,7 @@ export type StyleReference = number;
  */
 export interface Style {
     shadowColor?: Color;
-    shadowOffset?: { width?: number, height?: number };
+    shadowOffset?: { width?: number; height?: number };
     shadowOpacity?: number;
     shadowRadius?: number;
     width?: number;
@@ -140,7 +98,7 @@ export interface TextStyle extends Style {
     fontStyle?: 'normal' | 'italic';
     fontWeight?: string;
     textDecorationLine?: 'none' | 'underline' | 'double' | 'line-through';
-    textShadowOffset?: { width: number, height: number };
+    textShadowOffset?: { width: number; height: number };
     textShadowRadius?: number;
     textShadowColor?: Color;
     letterSpacing?: number;
@@ -148,6 +106,33 @@ export interface TextStyle extends Style {
     textAlign?: 'auto' | 'left' | 'right' | 'center' | 'justify';
     writingDirection?: 'auto' | 'ltr' | 'rtl';
 }
+
+/**
+ * DocumentProps, a Document does not take any props but children
+ */
+export interface DocumentProps {
+    children?: Array<React.ReactElement<PageProps, any>> | React.ReactElement<PageProps, any>;
+}
+
+/**
+ * Document, a wrapper for a Sketch document, may contain Pages as children
+ * http://airbnb.io/react-sketchapp/docs/API.html#document
+ */
+export class Document extends React.Component<DocumentProps, any> {}
+
+/**
+ * PageProps, a Page takes optionally a name and children as props
+ */
+export interface PageProps {
+    name?: string;
+    children?: React.ReactNode[] | React.ReactNode;
+}
+
+/**
+ * Page, a wrapper for a Sketch page, may contain Artboards as children
+ * http://airbnb.io/react-sketchapp/docs/API.html#page
+ */
+export class Page extends React.Component<PageProps, any> {}
 
 // wanted to type these as classes because they are implemented as classes and typing them this
 // way gives you typings like `Artboard.prototype`
@@ -158,24 +143,24 @@ export interface ArtboardProps {
      * The name to be displayed in the Sketch Layer List
      */
     name?: string;
-    children?: any;
+    children?: React.ReactNode[] | React.ReactNode;
     style?: Style | StyleReference;
 }
 /**
  * Wrapper for Sketch's Artboards.
  */
-export class Artboard extends React.Component<ArtboardProps, any> { }
+export class Artboard extends React.Component<ArtboardProps, any> {}
 
 // Image
 export type ImageSource = string | { src: string };
 export type ResizeMode = 'contain' | 'cover' | 'stretch' | 'center' | 'repeat' | 'none';
 export interface ImageProps {
-    children?: any;
+    children?: React.ReactNode[] | React.ReactNode;
     source?: ImageSource;
     style?: Style | StyleReference;
     resizeMode: ResizeMode;
 }
-export class Image extends React.Component<ImageProps, any> { }
+export class Image extends React.Component<ImageProps, any> {}
 
 // RedBox
 export interface RedBoxProps {
@@ -186,7 +171,7 @@ export interface RedBoxProps {
  * A red box / 'red screen of death' error handler. Thanks to
  * [commissure/redbox-react.](https://github.com/commissure/redbox-react)
  */
-export class RedBox extends React.Component<RedBoxProps, any> { }
+export class RedBox extends React.Component<RedBoxProps, any> {}
 
 // Text
 export interface TextProps {
@@ -195,16 +180,18 @@ export interface TextProps {
     style?: TextStyle | StyleReference;
 }
 /** Text primitives */
-export class Text extends React.Component<TextProps, any> { }
+export class Text extends React.Component<TextProps, any> {}
 
 // View
 export interface ViewProps {
     name?: string;
-    children?: any;
+    children?: React.ReactNode[] | React.ReactNode;
     style?: Style | StyleReference;
+    resizingConstraint?: ResizeConstraints;
+    shadows?: SketchShadow[];
 }
 /** View primitives */
-export class View extends React.Component<ViewProps, any> { }
+export class View extends React.Component<ViewProps, any> {}
 
 export const StyleSheet: {
     hairlineWidth: 1;
@@ -212,21 +199,19 @@ export const StyleSheet: {
     /**
      * Create an optimized `StyleSheet` reference from a style object.
      */
-    create: <T extends { [key: string]: Style | TextStyle }>(t: T) => {
-        [P in keyof T]: StyleReference
-    };
+    create: <T extends { [key: string]: Style | TextStyle }>(t: T) => { [P in keyof T]: StyleReference };
     /**
      * Flatten an array of style objects into one aggregated object, or look up the definition for a
      * registered stylesheet.
      */
     flatten: (
-        input: Array<Style | TextStyle | StyleReference> | StyleReference | undefined | Style
-    ) => Style | TextStyle, // returns the expanded style or expanded style reference which conforms
+        input: Array<Style | TextStyle | StyleReference> | StyleReference | undefined | Style,
+    ) => Style | TextStyle; // returns the expanded style or expanded style reference which conforms
     // to the `Style | TextStyle` interface
     /**
      * resolve one style
      */
-    resolve: (style: Style | TextStyle) => { style: Style | TextStyle }
+    resolve: (style: Style | TextStyle) => { style: Style | TextStyle };
 };
 
 /**
@@ -238,26 +223,26 @@ export const TextStyles: {
      * The primary interface to TextStyles. Call this before rendering.
      */
     create: (
-        options: { context: SketchContext, clearExistingStyles?: boolean },
+        options: { context: SketchContext; clearExistingStyles?: boolean },
         styles: { [key: string]: TextStyle },
-    ) => any,
+    ) => any;
     /**
      * Find a stored native Sketch style object for a given JavaScript style object. You probably
      * don't need to use this.
      */
-    resolve: (style: TextStyle) => any,
+    resolve: (style: TextStyle) => any;
     /**
      * Find a stored style by name.
      */
-    get: (name: string) => TextStyle | undefined,
+    get: (name: string) => TextStyle | undefined;
     /**
      * Find all of the registered styles. You probably don't need to use this.
      */
-    styles: { [key: string]: TextStyle | undefined },
+    styles: { [key: string]: TextStyle | undefined };
     /**
      * Reset the registered styles.
      */
-    clear: () => void,
+    clear: () => void;
 };
 
 // Symbols
@@ -269,7 +254,7 @@ export const TextStyles: {
  */
 export function makeSymbol<P>(
     node: React.ComponentClass<P> | ((props: P) => JSX.Element),
-    name?: string
+    name?: string,
 ): React.ComponentClass<P & { overrides?: { [key: string]: any } }>;
 
 /**
@@ -278,7 +263,13 @@ export function makeSymbol<P>(
 export function injectSymbols(context: SketchContext): void;
 
 export const Platform: {
-    OS: 'sketch',
-    Version: 1,
-    select: (obj: any) => any
+    OS: 'sketch';
+    Version: 1;
+    select: (obj: any) => any;
 };
+
+// render functions from render.d.ts
+export { render, renderToJSON } from './render';
+
+// Svg, similar to https://github.com/react-native-community/react-native-svg
+export { default as Svg, SvgProps } from './lib/components/Svg';

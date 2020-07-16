@@ -1,19 +1,27 @@
 // Type definitions for combined-stream 1.0
 // Project: https://github.com/felixge/node-combined-stream
-// Definitions by: Felix Geisendörfer <https://github.com/felixge>, Tomek Łaziuk <https://github.com/tlaziuk>
+// Definitions by: Felix Geisendörfer <https://github.com/felixge>, Tomek Łaziuk <https://github.com/tlaziuk>, Kon Pik <https://github.com/konpikwastaken>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-import { Stream } from "stream";
+import { Stream } from 'stream';
 
-declare class CombinedStream extends Stream implements CombinedStream.Options {
+type Appendable = NodeJS.ReadableStream | NodeJS.WritableStream | Buffer | string | NextFunction;
+type NextFunction = (next: (stream: Appendable) => any) => any;
+
+interface Options {
+    maxDataSize?: number;
+    pauseStreams?: boolean;
+}
+
+declare class CombinedStream extends Stream implements Options {
     readonly writable: boolean;
     readonly readable: boolean;
     readonly dataSize: number;
     maxDataSize: number;
     pauseStreams: boolean;
-    append(stream: NodeJS.ReadableStream | NodeJS.WritableStream | Buffer | string): this;
+    append(stream: Appendable): this;
     write(data: any): void;
     pause(): void;
     resume(): void;
@@ -34,23 +42,15 @@ declare class CombinedStream extends Stream implements CombinedStream.Options {
     _emitError(error: Error): void;
 
     // events
-    on(event: "close" | "end" | "resume" | "pause", cb: () => void): this;
-    on(event: "error", cb: (err: Error) => void): this;
-    on(event: "data", cb: (data: any) => void): this;
-    once(event: "close" | "end" | "resume" | "pause", cb: () => void): this;
-    once(event: "error", cb: (err: Error) => void): this;
-    once(event: "data", cb: (data: any) => void): this;
-}
+    on(event: 'close' | 'end' | 'resume' | 'pause', cb: () => void): this;
+    on(event: 'error', cb: (err: Error) => void): this;
+    on(event: 'data', cb: (data: any) => void): this;
+    once(event: 'close' | 'end' | 'resume' | 'pause', cb: () => void): this;
+    once(event: 'error', cb: (err: Error) => void): this;
+    once(event: 'data', cb: (data: any) => void): this;
 
-declare namespace CombinedStream {
-    interface Options {
-        maxDataSize?: number;
-        pauseStreams?: boolean;
-    }
-
-    function create(options?: Options): CombinedStream;
-
-    function isStreamLike(stream: any): stream is Stream;
+    static create(options?: Options): CombinedStream;
+    static isStreamLike(stream: any): stream is Stream;
 }
 
 export = CombinedStream;

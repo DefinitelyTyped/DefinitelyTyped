@@ -32,9 +32,9 @@ declare namespace Clusterize {
     }
 
     interface Callbacks {
-        clusterWillChange?(cb: () => void): void;
-        clusterChanged?(cb: () => void): void;
-        scrollingProgress?(cb: (progress: number) => void): void;
+        clusterWillChange?: () => void;
+        clusterChanged?: () => void;
+        scrollingProgress?: (progress: number) => void;
     }
 }
 

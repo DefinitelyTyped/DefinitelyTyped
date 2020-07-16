@@ -25,6 +25,8 @@ opts.ref = strVal;
 
 opts.nocreate = boolVal;
 
+opts.closeAfter = boolVal;
+
 let str: string;
 // touch API tests
 touch(strVal, (e) => console.log(e));

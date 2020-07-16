@@ -7,7 +7,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -19,11 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "slick.autotooltips.d.ts",
-        "slick.checkboxselectcolumn.d.ts",
-        "slick.columnpicker.d.ts",
-        "slick.headerbuttons.d.ts",
-        "slick.rowselectionmodel.d.ts",
         "test/index.ts",
         "test/slick.autotooltips.ts",
         "test/slick.checkboxselectcolumn.ts"

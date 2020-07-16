@@ -2,7 +2,7 @@
 // Project: https://github.com/hankbao/electron-notify
 // Definitions by: Daniel Pereira <https://github.com/djpereira>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 /// <reference types="electron" />
 

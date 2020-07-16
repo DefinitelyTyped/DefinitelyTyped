@@ -12,22 +12,22 @@ const db = low(adapterSync);
 
 const write: DbSchema = db.defaults({ posts: [] }).write();
 
-const result: Post[] = db
+const result: ArrayLike<Post> = db
   .get("posts")
   .push({ title: "hello", views: 123 })
   .value();
 
-// $ExpectType Post | undefined
+// $ExpectType Post
 db.get("posts")
   .find({ id: 123 })
   .value();
-// $ExpectType Post | undefined
+// $ExpectType Post & Promise<Post>
 db.get("posts")
   .find({ id: 123 })
   .write();
 
 low(adapterAsync).then(dbAsync => {
-  const writeAction: Promise<Post> = dbAsync
+    const writeAction: Promise<Post> = dbAsync
     .get("posts")
     .push({ title: "async hello" })
     .last()
@@ -44,7 +44,7 @@ low(adapterAsync).then(dbAsync => {
     .find({})
     .value();
 
-  const tuple: Promise<[boolean, number] | undefined> = dbAsync
+  const tuple: ArrayLike<boolean | number> & Promise<ArrayLike<boolean | number>> = dbAsync
     .get("posts")
     .first()
     .get("tuple")
@@ -82,12 +82,12 @@ async () => {
     .defaults({ posts: [{ name: "baz" }] })
     .write();
 
-  const result: Promise<ExampleSchema["posts"]> = dbAsync
+  const result: ArrayLike<{ name: string }> & Promise<ArrayLike<{ name: string }>> = dbAsync
     .get("posts")
     .push({ name: "hello" })
     .write();
 
-  const resultSync: ExampleSchema["posts"] = dbSync
+  const resultSync: ArrayLike<{ name: string }> & Promise<ArrayLike<{ name: string }>> = dbSync
     .get("posts")
     .push({ name: "hello" })
     .write();
@@ -105,10 +105,10 @@ async () => {
     .write();
 };
 
-declare const lodashChain: _.LoDashExplicitWrapper<ExampleSchema>;
+declare const lodashChain: _.ObjectChain<ExampleSchema>;
 
 // let's also ensure we didn't break lodash.chain through extension
-const weDidNotBreakLodash: ExampleSchema["posts"] = lodashChain
+const weDidNotBreakLodash: ArrayLike<{ name: string }> = lodashChain
   .get("posts")
   .sortBy("")
   .value();

@@ -1,6 +1,6 @@
 // Type definitions for CrossFilter
 // Project: https://github.com/square/crossfilter
-// Definitions by: Schmulik Raskin <https://github.com/schmuli>, Izaak Baker <https://github.com/iebaker>, Einar Norðfjörð <https://github.com/nordfjord>
+// Definitions by: Schmulik Raskin <https://github.com/schmuli>, Izaak Baker <https://github.com/iebaker>, Einar Norðfjörð <https://github.com/nordfjord>, Tijmen Wildervanck <https://github.com/TijmenW>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace CrossFilter {
@@ -73,7 +73,7 @@ declare namespace CrossFilter {
 
     export interface Group<T, TKey, TValue> {
         top(k: number): Grouping<TKey, TValue>[];
-        all(): Grouping<TKey, TValue>[];
+        all(): ReadonlyArray<Grouping<TKey, TValue>>;
         reduce<TGroup>(add: (p: TGroup, v: T) => TGroup, remove: (p: TGroup, v: T) => TGroup, initial: () => TGroup): Group<T, TKey, TGroup>;
         reduceCount(): Group<T, TKey, number>;
         reduceSum<TGroup>(value: (data: T) => TGroup): Group<T, TKey, TGroup>;
@@ -103,16 +103,15 @@ declare namespace CrossFilter {
         top(k: number): T[];
         bottom(k: number): T[];
         dispose(): void;
-		group(): Group<T, TDimension, TDimension>;
+        group(): Group<T, TDimension, TDimension>;
         group<TGroup>(groupValue: (data: TDimension) => TGroup): Group<T, TDimension, TGroup>;
         groupAll(): GroupAll<T, T>;
         groupAll<TValue>(): GroupAll<T, TValue>;
     }
 }
 
-declare var crossfilter: CrossFilter.CrossFilterStatic;
 declare module "crossfilter" {
     var crossfilter: CrossFilter.CrossFilterStatic;
-    export = crossfilter;    	
+    export = crossfilter;        
 }
 

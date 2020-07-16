@@ -2,12 +2,13 @@
 // Project: https://github.com/gaearon/react-document-title
 // Definitions by: Cleve Littlefield <https://github.com/cleverguy25>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
 interface DocumentTitleProps {
     title: string;
+    children?: React.ReactChild | null;
 }
 
 declare class DocumentTitle extends React.Component<DocumentTitleProps, any> {

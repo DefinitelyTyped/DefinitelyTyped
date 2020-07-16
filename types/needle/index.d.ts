@@ -1,6 +1,9 @@
 // Type definitions for needle 2.0
 // Project: https://github.com/tomas/needle
-// Definitions by: San Chen <https://github.com/bigsan>, Niklas Mollenhauer <https://github.com/nikeee>, Matanel Sindilevich <https://github.com/sindilevich>
+// Definitions by: San Chen <https://github.com/bigsan>,
+//                 Niklas Mollenhauer <https://github.com/nikeee>,
+//                 Matanel Sindilevich <https://github.com/sindilevich>,
+//                 Bryan Spears <https://github.com/bryanspears>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -20,7 +23,7 @@ declare namespace core {
 
     type ReadableStream = NodeJS.ReadableStream;
 
-    type NeedleCallback = (error: Error, response: NeedleResponse, body: any) => void;
+    type NeedleCallback = (error: Error | null, response: NeedleResponse, body: any) => void;
 
     interface Cookies {
         [name: string]: any;
@@ -240,11 +243,12 @@ declare function needle(method: core.NeedleReadonlyHttpVerbs, url: string, optio
 declare function needle(method: core.NeedleHttpVerbs, url: string, data: core.BodyData, options?: core.NeedleOptions): Promise<core.NeedleResponse>;
 
 declare namespace needle {
-    type BodyData = core.BodyData;
-    type NeedleCallback = core.NeedleCallback;
-    type NeedleHttpVerbs = core.NeedleHttpVerbs;
+    export type BodyData = core.BodyData;
+    export type NeedleCallback = core.NeedleCallback;
+    export type NeedleHttpVerbs = core.NeedleHttpVerbs;
     export type NeedleOptions = core.NeedleOptions;
-    type ReadableStream = core.ReadableStream;
+    export type NeedleResponse = core.NeedleResponse;
+    export type ReadableStream = core.ReadableStream;
 
     /**
      * Lets override the defaults for all future requests.

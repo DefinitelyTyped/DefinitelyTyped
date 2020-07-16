@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODOs
         "align": false,
         "dt-header": false,
         "eofline": false,

@@ -139,4 +139,11 @@ module('foo service', function(hooks) {
     setupTest(hooks);
 });
 
+// RFC-232 equivalent of https://github.com/ember-engines/ember-engines#unitintegration-testing-for-in-repo-engines
+module('engine foo component', function(hooks) {
+    setupTest(hooks, {
+        resolver: Ember.Resolver.create()
+    });
+});
+
 start();

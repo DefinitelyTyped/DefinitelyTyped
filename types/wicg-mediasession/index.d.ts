@@ -1,4 +1,4 @@
-// Type definitions for Media Session API 1.0
+// Type definitions for non-npm package Media Session API 1.0
 // Project: https://wicg.github.io/mediasession/
 // Definitions by: Julien CROUZET <https://github.com/jucrouzet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,7 +13,7 @@ interface Window {
 
 type MediaSessionPlaybackState = 'none' | 'paused' | 'playing';
 
-type MediaSessionAction = 'play' | 'pause' | 'seekbackward' | 'seekforward' | 'previoustrack' | 'nexttrack';
+type MediaSessionAction = 'play' | 'pause' | 'seekbackward' | 'seekforward' | 'seekto' | 'previoustrack' | 'nexttrack' | 'skipad' | 'stop';
 
 interface MediaSession {
   // Current media session playback state.

@@ -3,7 +3,7 @@
 // Definitions by: bryn austin bellomy <https://github.com/brynbellomy>
 //                 plylrnsdy <https://github.com/plylrnsdy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.1
 
 import { EscapeCode } from './escape-code';
 

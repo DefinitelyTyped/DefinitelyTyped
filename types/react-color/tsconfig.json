@@ -22,26 +22,6 @@
     },
     "files": [
         "index.d.ts",
-        "lib/components/alpha/Alpha.d.ts",
-        "lib/components/block/Block.d.ts",
-        "lib/components/chrome/Chrome.d.ts",
-        "lib/components/circle/Circle.d.ts",
-        "lib/components/common/Alpha.d.ts",
-        "lib/components/common/Checkboard.d.ts",
-        "lib/components/common/ColorWrap.d.ts",
-        "lib/components/common/EditableInput.d.ts",
-        "lib/components/common/Hue.d.ts",
-        "lib/components/common/index.d.ts",
-        "lib/components/common/Saturation.d.ts",
-        "lib/components/compact/Compact.d.ts",
-        "lib/components/github/Github.d.ts",
-        "lib/components/hue/Hue.d.ts",
-        "lib/components/material/Material.d.ts",
-        "lib/components/photoshop/Photoshop.d.ts",
-        "lib/components/sketch/Sketch.d.ts",
-        "lib/components/slider/Slider.d.ts",
-        "lib/components/swatches/Swatches.d.ts",
-        "lib/components/twitter/Twitter.d.ts",
         "react-color-tests.tsx"
     ]
 }

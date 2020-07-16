@@ -1,4 +1,4 @@
-// Type definitions for Google Cloud User Accounts API vm_alpha 0.0
+// Type definitions for non-npm package Google Cloud User Accounts API vm_alpha 0.0
 // Project: https://cloud.google.com/compute/docs/access/user-accounts/api/latest/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "express-rate-limit": ">=3.4.0"
+    }
+}

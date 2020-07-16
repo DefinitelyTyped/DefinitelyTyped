@@ -36,7 +36,7 @@ grids.forEach((gridControl: Xrm.Page.GridControl) => {
 
 /// Demonstrate generic overload vs typecast
 
-const lookupAttribute = <Xrm.Page.LookupControl> Xrm.Page.getControl("customerid");
+const lookupAttribute = Xrm.Page.getControl("customerid") as Xrm.Page.LookupControl;
 const lookupAttribute2 = Xrm.Page.getControl<Xrm.Page.LookupControl>("customerid");
 
 /// Demonstrate ES6 String literal syntax
@@ -197,3 +197,11 @@ Xrm.WebApi.retrieveMultipleRecords("contact", `?fetchXml=<fetch version='1.0' ma
     </fetch>`).then((response) => {
         console.log("Query Returned : " + response.entities.length);
     });
+
+// Demonstrate add/removeTabStateChange
+const contextHandler = (context: Xrm.Page.EventContext) => {
+    context.getEventSource();
+};
+
+Xrm.Page.ui.tabs.get("tabName").addTabStateChange(contextHandler);
+Xrm.Page.ui.tabs.get("tabName").removeTabStateChange(contextHandler);

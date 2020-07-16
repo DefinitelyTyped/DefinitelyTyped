@@ -14,6 +14,12 @@ const cb5 = new ClipboardJS(".btn", {
     action: elem => "copy",
     target: elem => null
 });
+const cb6 = new ClipboardJS(".btn", {
+    action: elem => "copy",
+    text: trigger => trigger.getAttribute('aria-label'),
+    target: trigger => trigger.nextElementSibling,
+    container: document.getElementById('modal')
+});
 
 cb1.destroy();
 ClipboardJS.isSupported();

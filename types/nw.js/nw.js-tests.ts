@@ -164,7 +164,7 @@ nw.Screen.chooseDesktopMedia( ["window", "screen"],
                 maxWidth: 1920,
                 maxHeight: 1080
             },
-            optional: <any[]>[]
+            optional: [] as any[]
         };
         //navigator.webkitGetUserMedia( { audio: false, video: constraint }, success_func, fallback_func );
     }

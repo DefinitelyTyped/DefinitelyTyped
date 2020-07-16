@@ -5,6 +5,8 @@ function test_serialize(): void {
 
     retVal = cookie.serialize('foo', 'bar');
     retVal = cookie.serialize('foo', 'bar', { httpOnly: true });
+    retVal = cookie.serialize('foo', 'bar', { sameSite: 'none' });
+    retVal = cookie.serialize('foo', 'bar', { sameSite: 'lax' });
 }
 
 function test_parse(): void {
@@ -22,10 +24,11 @@ function test_options(): void {
         maxAge: 200,
         domain: 'example.com',
         secure: false,
-        httpOnly: false
+        httpOnly: false,
+        sameSite: 'strict',
     };
 
     const parseOptios: cookie.CookieParseOptions = {
-        decode: (x: string) => x
+        decode: (x: string) => x,
     };
 }

@@ -2,7 +2,7 @@
 // Project: https://github.com/vayser/react-js-pagination
 // Definitions by: Ernesto Cruz <https://github.com/netoisc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -12,10 +12,10 @@ export interface ReactJsPaginationProps {
     activePage: number;
     itemsCountPerPage?: number;
     pageRangeDisplayed?: number;
-    prevPageText?: string| React.ReactElement<any>;
-    nextPageText?: string | React.ReactElement<any>;
-    lastPageText?: string | React.ReactElement<any>;
-    firstPageText?: string | React.ReactElement<any>;
+    prevPageText?: string| React.ReactElement;
+    nextPageText?: string | React.ReactElement;
+    lastPageText?: string | React.ReactElement;
+    firstPageText?: string | React.ReactElement;
     disabledClass?: string;
     hideDisabled?: boolean;
     hideNavigation?: boolean;
@@ -33,7 +33,7 @@ export interface ReactJsPaginationProps {
     linkClassNext?: string;
     linkClassLast?: string;
     hideFirstLastPages?: boolean;
-    getPageUrl?(): string;
+    getPageUrl?: (pageNumber: number) => string;
 }
 declare const Pagination: React.ClassicComponentClass<ReactJsPaginationProps>;
 

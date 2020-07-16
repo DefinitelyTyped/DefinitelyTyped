@@ -9,7 +9,7 @@ angular
             showOnPageHidden: false,
         });
     }])
-	.controller('AppController', ['desktopNotification', (desktopNotification: angular.desktopNotification.IDesktopNotificationService) => {
+    .controller('AppController', ['desktopNotification', (desktopNotification: angular.desktopNotification.IDesktopNotificationService) => {
         // Check support and permission
         const isNotificationSupported = desktopNotification.isSupported();
         const currentNotificationPermission = desktopNotification.currentPermission();
@@ -37,4 +37,4 @@ angular
             () => {
                 // No permission granted
             });
-	}]);
+    }]);

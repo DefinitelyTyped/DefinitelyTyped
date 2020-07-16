@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import {
     ActionButton,
     Avatar,
-    ThemeProvider,
+    ThemeContext,
     COLOR,
     Badge,
     Button,
@@ -12,7 +12,9 @@ import {
     Dialog,
     DialogDefaultActions,
     BottomNavigation,
-    Toolbar
+    Toolbar,
+    IconToggle,
+    getTheme
 } from 'react-native-material-ui';
 
 const theme = {
@@ -24,8 +26,8 @@ const theme = {
 };
 
 const Example = () =>
-    <ThemeProvider uiTheme={theme}>
-        <View>
+    <ThemeContext.Provider value={getTheme(theme)}>
+        <View testID="viewTestID">
             <ActionButton style={{ positionContainer: { marginBottom: 3 }}} />
             <ActionButton icon="done" />
 
@@ -36,16 +38,23 @@ const Example = () =>
             <Avatar icon="mic" size={75} />
 
             <Badge />
+            <Badge text="3" />
+            <Badge icon="grade" />
+            <Badge icon={{ name: 'grade', color: 'blue', size: 10 }} />
+            <Badge size={10} />
 
-            <Button text="I'm a button" />
+            <IconToggle testID="iconToggleTestID" name="anIconToggle" />
+            <Button testID="buttonTestID" text="I'm a button" />
 
             <Card>
-                <Text>Hello world!</Text>
+                <ThemeContext.Consumer>
+                    {theme => <Text>Hello world!</Text> }
+                </ThemeContext.Consumer>
             </Card>
 
             <Checkbox label="Select me" value="chicken" onCheck={a => console.log(a)}/>
         </View>
-    </ThemeProvider>;
+    </ThemeContext.Provider>;
 
 const DialogExample = () =>
     <Dialog>
@@ -74,8 +83,9 @@ class BottomNavigationExample extends React.Component<null, {active: string}> {
 
     render() {
         return (
-            <BottomNavigation active={this.state.active} hidden={false} >
+            <BottomNavigation active={this.state.active} hidden={false}>
                 <BottomNavigation.Action
+                    testID="bottomNavActionTestID"
                     key="today"
                     icon="today"
                     label="Today"

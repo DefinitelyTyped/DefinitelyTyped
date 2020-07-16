@@ -1,12 +1,22 @@
 // Type definitions for D3JS d3-hexbin module 0.2
 // Project: https://github.com/d3/d3-hexbin/
-// Definitions by: UNCOVER TRUTH Inc. <https://github.com/uncovertruth>, Tom Wanzek <https://github.com/tomwanzek>
+// Definitions by: UNCOVER TRUTH Inc. <https://github.com/uncovertruth>
+//                 Tom Wanzek <https://github.com/tomwanzek>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-// Last module patch version validated against: 0.2.1
+// Last module patch version validated against: 0.2.2
 
 export interface HexbinBin<T> extends Array<T> {
+    /**
+     * The x-coordinate of the center of the associated bin’s hexagon.
+     */
     x: number;
+
+    /**
+     * The y-coordinate of the center of the associated bin’s hexagon.
+     */
     y: number;
 }
 
@@ -15,7 +25,7 @@ export interface Hexbin<T> {
      * Bins the specified array of points, returning an array of hexagonal bins.
      * For each point in the specified points array, the x- and y-accessors are
      * invoked to compute the x- and y-coordinates of the point, which is then
-     * used to determine which hexagonal bin to add the point.
+     * used to assign the point to a hexagonal bin.
      * If either the x- or y-coordinate is NaN, the point is ignored and will
      * not be in any of the returned bins.
      */
@@ -47,49 +57,34 @@ export interface Hexbin<T> {
     mesh(): string;
 
     /**
-     * If x is specified, sets the x-coordinate accessor to the specified
-     * function and returns this hexbin generator.
+     * Sets the x-coordinate accessor to the specified function and returns this hexbin generator.
      *
      * The x-coordinate accessor is used by hexbin to compute the x-coordinate
      * of each point. The default value assumes each point is specified as
      * a two-element array of numbers [x, y].
      */
-    x(x: (d: T) => number): Hexbin<T>;
+    x(x: (d: T) => number): this;
 
     /**
-     * If x is not specified, returns the current x-coordinate accessor,
-     *
-     * which defaults to:
-     *
-     *   function x(d) {
-     *     return d[0];
-     *   }
+     * Returns the current x-coordinate accessor, which defaults to: `x(d) => d[0]`.
      *
      * The x-coordinate accessor is used by hexbin to compute the x-coordinate
      * of each point. The default value assumes each point is specified as
      * a two-element array of numbers [x, y].
-     *
      */
     x(): (d: T) => number;
 
     /**
-     * If y is specified, sets the y-coordinate accessor to the specified
-     * function and returns this hexbin generator.
+     * Sets the y-coordinate accessor to the specified function and returns this hexbin generator.
      *
      * The y-coordinate accessor is used by hexbin to compute the y-coordinate
      * of each point. The default value assumes each point is specified as
      * a two-element array of numbers [x, y].
      */
-    y(y: (d: T) => number): Hexbin<T>;
+    y(y: (d: T) => number): this;
 
     /**
-     * If y is not specified, returns the current y-coordinate accessor,
-     *
-     * which defaults to:
-     *
-     *   function y(d) {
-     *     return d[1];
-     *   }
+     * Returns the current y-coordinate accessor, which defaults to: `y(d) => d[1]`.
      *
      * The y-coordinate accessor is used by hexbin to compute the y-coordinate
      * of each point. The default value assumes each point is specified as
@@ -98,18 +93,16 @@ export interface Hexbin<T> {
     y(): (d: T) => number;
 
     /**
-     * If radius is specified, sets the radius of the hexagon to
-     * the specified number.
+     * Sets the radius of the hexagon to the specified number.
      *
      * The hexagons are pointy-topped (rather than flat-topped);
      * the width of each hexagon is radius × 2 × sin(π / 3)
      * and the height of each hexagon radius × 3 / 2.
      */
-    radius(radius: number): Hexbin<T>;
+    radius(radius: number): this;
 
     /**
-     * If radius is not specified, returns the current radius,
-     * which defaults to 1.
+     * Returns the current radius, which defaults to 1.
      *
      * The hexagons are pointy-topped (rather than flat-topped);
      * the width of each hexagon is radius × 2 × sin(π / 3)
@@ -118,23 +111,42 @@ export interface Hexbin<T> {
     radius(): number;
 
     /**
-     * If extent is specified, sets the hexbin generator’s extent to the
-     * specified bounds [[x0, y0], [x1, y1]] and returns the hexbin generator.
+     * Sets the hexbin generator’s extent to the specified bounds
+     * `[[x0, y0], [x1, y1]]` and returns the hexbin generator.
      */
-    extent(extent: [[number, number], [number, number]]): Hexbin<T>;
+    extent(extent: [[number, number], [number, number]]): this;
 
     /**
-     * If extent is not specified, returns the generator’s current
-     * extent [[x0, y0], [x1, y1]], where x0 and y0 are the lower bounds and
-     * x1 and y1 are the upper bounds.
+     * Returns the generator’s current extent `[[x0, y0], [x1, y1]]`,
+     * where `x0` and `y0` are the lower bounds and `x1` and `y1` are the upper bounds.
      *
-     * The extent defaults to [[0, 0], [1, 1]].
+     * The extent defaults to `[[0, 0], [1, 1]]`.
      */
     extent(): [[number, number], [number, number]];
+
+    /**
+     * Sets the extent to the specified bounds `[[0, 0], [dx, dy]]` and returns the hexbin generator.
+     *
+     * This is a convenience method for setting the extent.
+     */
+    size(size: [number, number]): this;
+
+    /**
+     * Returns the generator’s current size `[x1 - x0, y1 - y0]`,
+     * where `x0` and `y0` are the lower bounds and `x1` and `y1` are the upper bounds.
+     *
+     * The size defaults to [1, 1].
+     */
+    size(): [number, number];
 }
 
 /**
- * Constructs a new default hexbin generator.
+ * Creates a new hexbin generator with default radius, extent, x- and y- accessors.
+ * The x- and y-accessors may have to be set to correspond to the data type provided
+ * by the generic.
+ *
+ * The generic refers to the type of the data for the corresponding element.
+ * Without specifying a generic the layout is assumed to be based on data represented
+ * by a two-dimensional coordinate `[number, number]` for x- and y-coordinate, respectively.
  */
-export function hexbin(): Hexbin<[number, number]>;
-export function hexbin<T>(): Hexbin<T>;
+export function hexbin<T = [number, number]>(): Hexbin<T>;

@@ -56,7 +56,27 @@ board.on('ready', function(){
     var esc = new five.ESC(11);
 
     // Set to top speed. (this can be physically dangerous, you've been warned.)
-    esc.max();
+    esc.throttle(100);
+
+    // other options for creating an ESC instance
+    esc = new five.ESC({
+      device: 'FORWARD_REVERSE',
+      pin: 11,
+      pwmRange: [800, 1800],
+    });
+
+    // set a percentage value between 0 and 100
+    esc.throttle(25);
+
+    // set a micro-second
+    esc.throttle(1500);
+
+    // create a collection of ESC instances
+    var escs = new five.ESCs([11, 12]);
+
+    escs.throttle(80);
+
+    escs.forEach(item => item.brake());
 
 
     var gyro = new five.Gyro({
@@ -154,6 +174,11 @@ board.on('ready', function(){
             brake: 11
         }
     });
+
+    var motors = new five.Motors([
+       { controller: 'PCA9685', pins: { pwm: 4, dir: 6 }},
+       { controller: 'PCA9685', pins: { pwm: 5, dir: 7 }}
+    ]);
 
     var piezo = new five.Piezo(3);
 

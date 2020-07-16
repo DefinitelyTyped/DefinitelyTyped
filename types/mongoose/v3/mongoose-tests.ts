@@ -155,7 +155,7 @@ Model.save((err: any, res: IActor, numberAffected: number) => {});
 Model.create({ type: 'jelly bean' }, { type: 'snickers' }, (err: any, res1: IActor, res2: IActor) => {});
 Model.create({ type: 'jawbreaker' });
 Model.create({ type: 'muffin' }).then(function (res) {
-	res.name;
+    res.name;
 });
 Model.distinct('url', { clicks: {$gt: 100}}, (err: any, result: IActor[]) => {});
 Model.distinct('url');
@@ -225,11 +225,11 @@ Model.find({ type: 'iphone' }, (err: any, res: IActor[]) => {
   var promise = Model.populate(res, opts);
   promise.then(console.log).end();
 });
-Model.populate({ name: 'Test A' }, { path: 'weapon', model: 'Weapon' }, (err: any, user: IActor) => {});
+Model.populate({ name: 'Test A' }, { path: 'weapon', model: 'Weapon' }, (err: any, user: { name: string }) => {});
 Model.populate([
   { name: 'User hoge' },
   { name: 'User fuga' },
-], { path: 'weapon' }, (err: any, users: IActor[]) => {});
+], { path: 'weapon' }, (err: any, users: { name: string }[]) => {});
 
 Model.remove({ title: 'baby born from alien father' }, (err: any) => {});
 var query2 = Model.remove({ _id: 'id' });
@@ -388,3 +388,26 @@ var eq = id.equals(id2);
 var kitty1 = new Kitty({});
 var kitty2 = new Kitty({});
 var kittyEq = kitty1._id.equals(kitty2._id);
+
+// plugins
+interface PluginOption {
+    modelName: string;
+    timestamp: string;
+}
+
+function logger(modelName: string, timestamp: string) {
+    // call special logger with options
+}
+
+function AwesomeLoggerPlugin(schema: mongoose.Schema, options?: PluginOption) {
+    if (options) {
+        schema.pre('save', function (next: Function) {
+            logger(options.modelName, options.timestamp)
+        })
+    }
+}
+
+new mongoose.Schema({})
+    .plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
+mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})

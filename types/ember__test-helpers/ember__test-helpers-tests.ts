@@ -11,6 +11,7 @@ import {
     blur,
     triggerEvent,
     triggerKeyEvent,
+    typeIn,
     fillIn,
     render,
     find,
@@ -46,14 +47,15 @@ test('DOM interactions', async () => {
     await fillIn('.message', 'content');
 
     const messageElement = find('.message')!;
-    await click(messageElement);
-    await doubleClick(messageElement);
-    await tap(messageElement);
+    await click(messageElement, { metaKey: true });
+    await doubleClick(messageElement, { metaKey: true });
+    await tap(messageElement, { clientX: 13, clientY: 17 });
     await focus(messageElement);
     await blur(messageElement);
     await triggerEvent(messageElement, 'custom-event');
     await triggerKeyEvent(messageElement, 'keydown', 'Enter', { ctrlKey: true });
     await fillIn(messageElement, 'content');
+    await typeIn(messageElement, 'content');
 
     const allMessages = findAll('.message');
     for (const element of allMessages) {
@@ -88,6 +90,7 @@ test('wait helpers', async (assert) => {
     const {
         hasPendingRequests,
         hasPendingTimers,
+        hasPendingTransitions,
         hasPendingWaiters,
         hasRunLoop,
         pendingRequestCount

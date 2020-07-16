@@ -2,7 +2,7 @@
 // Project: https://github.com/nodets/node-mysql-wrapper
 // Definitions by: Makis Maropoulos <https://github.com/kataras>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 ///<reference path="./my-meteor.d.ts" />
 
@@ -604,7 +604,7 @@ declare class Connection extends EventEmitter {
 
 declare class Table<T>  {
     /** Private keywords here are useless but I put them.
-     * If the developer wants to see the properties of the Table class, he/she just comes here.
+     * If the developer wants to see the properties of the Table class, they just come here.
     */
 
     private _name: string;

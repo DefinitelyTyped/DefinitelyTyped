@@ -2,7 +2,7 @@ import { Result, RunOptions, Spec } from "axe-core";
 import { AxeBuilder, AxeAnalysis } from "axe-webdriverjs";
 import { WebDriver } from "selenium-webdriver";
 
-const inTest = async (webDriver: WebDriver) => {
+const inTest = async (webDriver: WebDriver, source?: string) => {
     const builderCalled: AxeBuilder = AxeBuilder(webDriver);
     const builderNewed: AxeBuilder = new AxeBuilder(webDriver);
 
@@ -20,7 +20,11 @@ const inTest = async (webDriver: WebDriver) => {
         .disableRules("rule")
         .disableRules(["rule", "rule"])
         .configure(spec)
-        .analyze((internalResults: AxeAnalysis) => {});
+        .analyze((err: Error | null, internalResults: AxeAnalysis) => {});
+
+    const deprecatedAnalysis: AxeAnalysis = await AxeBuilder(webDriver).analyze(
+        (internalResults: AxeAnalysis) => {}
+    );
 
     const inapplicable: Result[] = analysis.inapplicable;
     const incomplete: Result[] = analysis.incomplete;

@@ -51,6 +51,7 @@ function test_droppable() {
         activeClass: "ui-state-hover",
         hoverClass: "ui-state-active",
         drop: (event, ui) => {
+            console.log(`${event.screenX}, ${event.screenY}`);
             $(this)
                 .addClass("ui-state-highlight")
                 .find("p")
@@ -1458,8 +1459,8 @@ function test_dialog() {
     $(".selector").dialog({ title: "Dialog Title" });
     $(".selector").dialog({ width: 500 });
     $(".selector").dialog({ zIndex: 20 });
-	var $el = $( ".selector" ).dialog( "moveToTop" );
-	var isOpen = $( ".selector" ).dialog( "isOpen" );
+    var $el = $( ".selector" ).dialog( "moveToTop" );
+    var isOpen = $( ".selector" ).dialog( "isOpen" );
 }
 
 
@@ -1494,6 +1495,7 @@ function test_selectmenu() {
     // Events and options
     $("#selectmenu").selectmenu({
         appendTo: ".selector",
+        classes: { "ui-selectmenu-button": "custom-button", "ui-selectmenu-menu": "custom-menu" },
         disabled: true,
         icons: { submenu: "ui-icon-circle-triangle-e" },
         position: { my: "left top", at: "right-5 top+5" },
@@ -1599,6 +1601,7 @@ function test_slider() {
     $(".selector").slider({ step: 5 });
     $(".selector").slider({ value: 10 });
     $(".selector").slider({ values: [10, 25] });
+    $(".selector").slider({ classes: { "ui-slider": "custom", "ui-slider-handle": "custom-handle" } } );
 }
 
 
@@ -1861,6 +1864,7 @@ function test_ui() {
     $("aDialog").keypress(function (e) {
         return (e.keyCode == $.ui.keyCode.ENTER);
     });
+    $(".selector").jQuery.ui.selectmenu({ disabled: true });
 }
 
 function test_widget() {

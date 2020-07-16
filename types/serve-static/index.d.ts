@@ -3,7 +3,7 @@
 // Definitions by: Uros Smolnik <https://github.com/urossmolnik>
 //                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 
@@ -54,7 +54,7 @@ declare namespace serveStatic {
          * The first that exists will be served. Example: ['html', 'htm'].
          * The default value is false.
          */
-        extensions?: string[];
+        extensions?: string[] | false;
 
         /**
          * Let client errors fall-through as unhandled requests, otherwise forward a client error.

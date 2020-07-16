@@ -2,12 +2,12 @@
 // Project: https://github.com/KyleAMathews/react-spinkit
 // Definitions by: Qubo <https://github.com/tkqubo>, Mleko <https://github.com/mleko>, Tom Crockett <https://github.com/pelotom>, zzanol <https://github.com/zzanol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 
 declare namespace spinner {
-	export interface SpinnerProps {
+    export interface SpinnerProps {
         /**
          * Specify spinner to use.
          */
@@ -33,10 +33,12 @@ declare namespace spinner {
          * for circle or folding-cube); this can either be a hex value or a color word
          */
         color?: string;
-	}
 
-	export interface Spinner extends React.ComponentClass<SpinnerProps> {
-	}
+        style?: React.CSSProperties
+    }
+
+    export interface Spinner extends React.ComponentClass<SpinnerProps> {
+    }
 }
 
 declare const spinner: spinner.Spinner;

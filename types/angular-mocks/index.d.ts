@@ -1,6 +1,8 @@
-// Type definitions for Angular JS (ngMock, ngMockE2E module) 1.6
+// Type definitions for Angular JS (ngMock, ngMockE2E module) 1.7
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <https://github.com/diegovilar>, Tony Curtis <https://github.com/daltin>
+// Definitions by: Diego Vilar <https://github.com/diegovilar>
+//                 Tony Curtis <https://github.com/daltin>
+//                 Georgii Dolzhykov <https://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -59,7 +61,38 @@ declare module 'angular' {
   // Augments the original service
   ///////////////////////////////////////////////////////////////////////////
   interface ITimeoutService {
+    /**
+     * **Deprecated** since version 1.7.3. (Use `$flushPendingTasks` instead.)
+     *
+     * ---
+     * Flushes the queue of pending tasks.
+     *
+     * _This method is essentially an alias of `$flushPendingTasks`._
+     *
+     * > For historical reasons, this method will also flush non-`$timeout` pending tasks, such as
+     * > `$q` promises and tasks scheduled via `$applyAsync` and `$evalAsync`.
+     *
+     * @param delay - The maximum timeout amount to flush up until.
+     */
     flush(delay?: number): void;
+
+    /**
+     * **Deprecated** since version 1.7.3. (Use `$verifyNoPendingTasks` instead.)
+     *
+     * ---
+     * Verifies that there are no pending tasks that need to be flushed. It throws an error if there
+     * are still pending tasks.
+     *
+     * _This method is essentially an alias of `$verifyNoPendingTasks` (called with no arguments)._
+     *
+     * > For historical reasons, this method will also verify non-`$timeout` pending tasks, such as
+     * > pending `$http` requests, in-progress `$route` transitions, unresolved `$q` promises and
+     * > tasks scheduled via `$applyAsync` and `$evalAsync`.
+     * >
+     * > It is recommended to use `$verifyNoPendingTasks` instead, which additionally supports
+     * > verifying a specific type of tasks. For example, you can verify there are no pending
+     * > timeouts with `$verifyNoPendingTasks('$timeout')`.
+     */
     verifyNoPendingTasks(): void;
   }
 
@@ -69,7 +102,13 @@ declare module 'angular' {
   // Augments the original service
   ///////////////////////////////////////////////////////////////////////////
   interface IIntervalService {
-    flush(millis?: number): number;
+    /**
+     * Runs interval tasks scheduled to be run in the next `millis` milliseconds.
+     *
+     * @param millis - The maximum timeout amount to flush up until.
+     * @return The amount of time moved forward.
+     */
+    flush(millis: number): number;
   }
 
   ///////////////////////////////////////////////////////////////////////////
@@ -414,6 +453,65 @@ declare module 'angular' {
   }
 
   ///////////////////////////////////////////////////////////////////////////
+  // FlushPendingTasksService
+  // see https://docs.angularjs.org/api/ngMock/service/$flushPendingTasks
+  ///////////////////////////////////////////////////////////////////////////
+  interface IFlushPendingTasksService {
+    /**
+     * Flushes all currently pending tasks and executes the corresponding callbacks.
+     *
+     * Optionally, you can also pass a `delay` argument to only flush tasks that are scheduled to be
+     * executed within `delay` milliseconds. Currently, `delay` only applies to timeouts, since all
+     * other tasks have a delay of 0 (i.e. they are scheduled to be executed as soon as possible, but
+     * still asynchronously).
+     *
+     * If no delay is specified, it uses a delay such that all currently pending tasks are flushed.
+     *
+     * The types of tasks that are flushed include:
+     *
+     * - Pending timeouts (via `$timeout`).
+     * - Pending tasks scheduled via `$applyAsync`.
+     * - Pending tasks scheduled via `$evalAsync`.
+     *   These include tasks scheduled via `$evalAsync()` indirectly (such as `$q` promises).
+     *
+     * > Periodic tasks scheduled via `$interval` use a different queue and are not flushed by
+     * > `$flushPendingTasks()`. Use `$interval.flush(millis)` instead.
+     *
+     * @param millis - The number of milliseconds to flush.
+     */
+    (delay?: number): void;
+  }
+
+  ///////////////////////////////////////////////////////////////////////////
+  // VerifyNoPendingTasksService
+  // see https://docs.angularjs.org/api/ngMock/service/$verifyNoPendingTasks
+  ///////////////////////////////////////////////////////////////////////////
+  interface IVerifyNoPendingTasksService {
+    /**
+     * Verifies that there are no pending tasks that need to be flushed. It throws an error if there
+     * are still pending tasks.
+     *
+     * You can check for a specific type of tasks only, by specifying a `taskType`.
+     *
+     * Available task types:
+     *
+     * - `$timeout`: Pending timeouts (via `$timeout`).
+     * - `$http`: Pending HTTP requests (via `$http`).
+     * - `$route`: In-progress route transitions (via `$route`).
+     * - `$applyAsync`: Pending tasks scheduled via `$applyAsync`.
+     * - `$evalAsync`: Pending tasks scheduled via `$evalAsync`.
+     *   These include tasks scheduled via `$evalAsync()` indirectly (such as `$q` promises).
+     *
+     * > Periodic tasks scheduled via `$interval` use a different queue and are not taken into
+     * > account by `$verifyNoPendingTasks()`. There is currently no way to verify that there are no
+     * > pending `$interval` tasks.
+     *
+     * @param taskType - The type of tasks to check for.
+     */
+    (taskType?: string): void;
+  }
+
+  ///////////////////////////////////////////////////////////////////////////
   // AnimateService
   // see https://docs.angularjs.org/api/ngMock/service/$animate
   ///////////////////////////////////////////////////////////////////////////
@@ -514,6 +612,11 @@ declare module 'angular' {
        */
       charcode?: number;
       /**
+       * [data](https://developer.mozilla.org/en-US/docs/Web/API/CompositionEvent/data) for
+       * [CompositionEvents](https://developer.mozilla.org/en-US/docs/Web/API/CompositionEvent).
+       */
+      data?: string;
+      /**
        * The elapsedTime for
        * [TransitionEvent](https://developer.mozilla.org/docs/Web/API/TransitionEvent)
        * and [AnimationEvent](https://developer.mozilla.org/docs/Web/API/AnimationEvent).
@@ -566,10 +669,11 @@ declare global {
    * This is a global (window) function that is only available when the `ngMock` module is included.
    * It can be used to trigger a native browser event on an element, which is useful for unit testing.
    *
-   * @param element Either a wrapped jQuery/jqLite node or a DOM element
-   * @param eventType Optional event type. If none is specified, the function tries to determine
-   * the right event type for the element, e.g. `change` for `input[text]`.
-   * @param eventData An optional object which contains additional event data used when creating the event.
+   * @param element Either a wrapped jQuery/jqLite node or a DOM element.
+   * @param eventType Optional event type. If none is specified, the function tries to determine the
+   *     right event type for the element, e.g. `change` for `input[text]`.
+   * @param eventData An optional object which contains additional event data used when creating the
+   *     event.
    */
   function browserTrigger(
     element: JQuery | Element,

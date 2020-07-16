@@ -12,4 +12,3 @@ interface Props {
 
 declare var BreadcrumbItem: React.StatelessComponent<Props>;
 export default BreadcrumbItem;
-

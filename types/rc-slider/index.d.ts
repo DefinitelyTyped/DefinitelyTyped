@@ -1,19 +1,25 @@
-// Type definitions for rc-slider 8.2
-// Project: https://github.com/react-component/slider
+// Type definitions for rc-slider 8.6
+// Project: http://github.com/react-component/slider
 // Definitions by: Marcinkus Mantas <https://github.com/mantasmarcinkus>
 //                 Alexander Mattoni <https://github.com/mattoni>
 //                 Austin Turner <https://github.com/paustint>
 //                 Jacob Froman <https://github.com/j-fro>
+//                 Deanna Veale <https://github.com/Deanna2>
+//                 Nick Maddren <https://github.com/nicholasmaddren>
+//                 Roman Nevolin <https://github.com/nulladdict>
+//                 Mojtaba Izadmehr <https://github.com/m-izadmehr>
+//                 Andrey Yankovsky <https://github.com/yankovsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
+import { RCTooltip } from "rc-tooltip";
 
 export interface Marks {
     [number: number]:
-    | JSX.Element
-    | string
-    | { style: any; label: string | JSX.Element };
+        | JSX.Element
+        | string
+        | { style: any; label: string | JSX.Element };
 }
 
 export interface CommonApiProps {
@@ -67,18 +73,6 @@ export interface CommonApiProps {
      *  @default false
      */
     dots?: boolean;
-    /**
-     * onBeforeChange will be triggered when ontouchstart or onmousedown is triggered.
-     */
-    onBeforeChange?(value: any): any | undefined;
-    /**
-     * onChange will be triggered while the value of Slider changing.
-     */
-    onChange?(value: any): any | undefined;
-    /**
-     * onAfterChange will be triggered when ontouchend or onmouseup is triggered.
-     */
-    onAfterChange?(value: any): any | undefined;
 
     /**
      * @deprecated in version ^6.0.0. Use rc-tooltip
@@ -121,9 +115,31 @@ export interface CommonApiProps {
      * The style used for the active dots.
      */
     activeDotStyle?: React.CSSProperties;
+    /**
+     * Reverse the direction of the slider.
+     * From Left to Right To Right to Left
+     * @default false
+     */
+    reverse?: boolean;
 }
 
 export interface SliderProps extends CommonApiProps {
+    /**
+     * onBeforeChange will be triggered when ontouchstart or onmousedown is triggered.
+     */
+    onBeforeChange?(value: number): void;
+    /**
+     * onChange will be triggered while the value of Slider changing.
+     */
+    onChange?(value: number): void;
+    /**
+     * onAfterChange will be triggered when ontouchend or onmouseup is triggered.
+     */
+    onAfterChange?(value: number): void;
+    /**
+     * Handle blur event on the control
+     */
+    onBlur?: React.FocusEventHandler;
     /**
      * Set initial value of slider.
      *  @default 0
@@ -133,9 +149,34 @@ export interface SliderProps extends CommonApiProps {
      * Set current value of slider.
      */
     value?: number;
+    /**
+     * Track starts from this value. If `undefined`, `min` is used.
+     * @default undefined
+     */
+    startPoint?: number;
+    /**
+     * Set the tabIndex of the slider handle.
+     * @default 0
+     */
+    tabIndex?: number;
 }
 
 export interface RangeProps extends CommonApiProps {
+    /**
+     * onBeforeChange will be triggered when ontouchstart or onmousedown is triggered.
+     * For prop (count = -1) type returned is [number, undefined]. Bug raised in rc-slider https://github.com/react-component/slider/issues/457
+     */
+    onBeforeChange?(value: number[]): void;
+    /**
+     * onChange will be triggered while the value of Slider changing.
+     * For prop (count = -1) type returned is [number, undefined]. Bug raised in rc-slider https://github.com/react-component/slider/issues/457
+     */
+    onChange?(value: number[]): void;
+    /**
+     * onAfterChange will be triggered when ontouchend or onmouseup is triggered.
+     * For prop (count = -1) type returned is [number, undefined]. Bug raised in rc-slider https://github.com/react-component/slider/issues/457
+     */
+    onAfterChange?(value: number[]): void;
     /**
      * Set initial positions of handles.
      *  @default [0,0]
@@ -145,6 +186,11 @@ export interface RangeProps extends CommonApiProps {
      * Set current positions of handles.
      */
     value?: number[];
+    /**
+     * Set the tabIndex of each handle.
+     * @default [0,0]
+     */
+    tabIndex?: number[];
     /**
      * Determine how many ranges to render, and multiple handles will be rendered (number + 1).
      *  @default 1
@@ -176,11 +222,25 @@ export interface HandleProps extends CommonApiProps {
      * Styling option offset
      */
     offset: number;
+   /**
+    * Set the tabIndex of the slider handle.
+    * @default 0
+    */
+    tabIndex?: number;
 }
 
-export default class Slider extends React.Component<SliderProps> { }
-export class Range extends React.Component<RangeProps> { }
-export class Handle extends React.Component<HandleProps> { }
+export interface WithTooltipProps {
+    tipFormatter?: (value: number) => React.ReactNode;
+    tipProps?: Partial<RCTooltip.Props>;
+}
 
-export function createSliderWithTooltip(slider: typeof Slider): new() => Slider;
-export function createSliderWithTooltip(range: typeof Range): new() => Range;
+export default class Slider extends React.Component<SliderProps> {}
+export class Range extends React.Component<RangeProps> {}
+export class Handle extends React.Component<HandleProps> {}
+
+export function createSliderWithTooltip(
+    slider: typeof Slider
+): new () => React.Component<WithTooltipProps & SliderProps>;
+export function createSliderWithTooltip(
+    range: typeof Range
+): new () => React.Component<WithTooltipProps & RangeProps>;

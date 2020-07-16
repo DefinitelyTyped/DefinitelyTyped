@@ -27,6 +27,10 @@ export namespace Base64 {
     function noConflict(): typeof Base64;
 
     function extendString(): void;
+
+    function fromUint8Array(uint8Array: Uint8Array): string;
+
+    function toUint8Array(s: string): Uint8Array;
 }
 
 // Helper to allow referencing Base64 from inside the global declaration without creating a self reference

@@ -6,6 +6,7 @@ import qs = require('querystring');
 import request = require('request');
 import stream = require('stream');
 import urlModule = require('url');
+import constants = require('constants');
 
 let value: any;
 let str: string;
@@ -14,7 +15,6 @@ let strOrTrueOrUndef: string | true | undefined;
 const buffer: Buffer = new Buffer('foo');
 let num = 0;
 let bool: boolean;
-let date: Date;
 let obj: object;
 const dest = 'foo';
 
@@ -27,11 +27,11 @@ let res: request.Response;
 let form: FormData;
 
 const bodyArr: request.RequestPart[] = [{
-	body: value
+    body: value
 }, {
-	body: value
+    body: value
 }, {
-	body: value
+    body: value
 }];
 
 // Defaults tests
@@ -58,8 +58,8 @@ obj = req.toJSON();
 let cookie: request.Cookie = request.cookie('foo')!;
 str = cookie.key;
 str = cookie.value;
-date = cookie.expires;
-str = cookie.path;
+const expires: Date | 'Infinity' = cookie.expires;
+const cpath: string | null = cookie.path;
 str = cookie.toString();
 bool = cookie.httpOnly;
 
@@ -83,37 +83,37 @@ strOrUndef = oauth.verifier;
 strOrTrueOrUndef = oauth.body_hash;
 
 let options: request.Options = {
-	url: str,
-	uri: str,
-	callback: (error: any, response: any, body: any) => {},
-	jar: value,
-	form: obj,
-	oauth: value,
-	aws,
-	qs: obj,
-	json: value,
-	jsonReviver: (key: string, value: any) => {},
-	jsonReplacer: (key: string, value: any) => {},
-	multipart: value,
-	agent: new http.Agent(),
-	agentOptions: value,
-	agentClass: value,
-	forever: value,
-	host: str,
-	port: num,
-	method: str,
-	headers: value,
-	body: value,
-	followRedirect: bool,
-	followAllRedirects: bool,
-	maxRedirects: num,
-	encoding: str,
-	pool: value,
-	timeout: num,
-	proxy: value,
-	tunnel: bool,
-	strictSSL: bool,
-	rejectUnauthorized: false
+    url: str,
+    uri: str,
+    callback: (error: any, response: any, body: any) => {},
+    jar: value,
+    form: obj,
+    oauth: value,
+    aws,
+    qs: obj,
+    json: value,
+    jsonReviver: (key: string, value: any) => {},
+    jsonReplacer: (key: string, value: any) => {},
+    multipart: value,
+    agent: new http.Agent(),
+    agentOptions: value,
+    agentClass: value,
+    forever: value,
+    host: str,
+    port: num,
+    method: str,
+    headers: value,
+    body: value,
+    followRedirect: bool,
+    followAllRedirects: bool,
+    maxRedirects: num,
+    encoding: str,
+    pool: value,
+    timeout: num,
+    proxy: value,
+    tunnel: bool,
+    strictSSL: bool,
+    rejectUnauthorized: false
 };
 
 // Below line has compile error, use OptionsWithUri or OptionsWithUrl instead. See #7979.
@@ -541,7 +541,7 @@ options = {
         // Or use `pfx` property replacing `cert` and `key` when using private key, certificate and CA certs in PFX or PKCS12 format:
         // pfx: fs.readFileSync(pfxFilePath),
         passphrase: 'password',
-        securityOptions: 'SSL_OP_NO_SSLv3'
+        secureOptions: constants.SSL_OP_NO_SSLv3
     }
 };
 
@@ -550,7 +550,9 @@ request.get(options);
 request.get({
     url: 'https://api.some-server.com/',
     agentOptions: {
-        secureProtocol: 'SSLv3_method'
+        secureProtocol: 'SSLv3_method',
+        maxCachedSessions: 3,
+        keepAlive: true,
     }
 });
 
@@ -626,25 +628,64 @@ request.get('http://10.255.255.1', {timeout: 1500}, (err) => {
 });
 
 const rand = Math.floor(Math.random() * 100000000).toString();
-  request(
-    { method: 'PUT'
-    , uri: 'http://mikeal.iriscouch.com/testjs/' + rand
-    , multipart:
-      [ { headers: { 'content-type': 'application/json' }
-        , body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, content_type: 'text/plain' }}})
-        }
-      , { body: 'I am an attachment' }
-      ]
+
+request(
+{ method: 'PUT'
+, uri: 'http://mikeal.iriscouch.com/testjs/' + rand
+, multipart:
+    [ { headers: { 'content-type': 'application/json' }
+    , body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, content_type: 'text/plain' }}})
     }
-  , (error, response, body) => {
-      if (response.statusCode === 201) {
-        console.log('document saved as: http://mikeal.iriscouch.com/testjs/' + rand);
-      } else {
-        console.log('error: ' + response.statusCode);
-        console.log(body);
-      }
+    , { body: 'I am an attachment' }
+    ]
+}
+, (error, response, body) => {
+    if (response.statusCode === 201) {
+    console.log('document saved as: http://mikeal.iriscouch.com/testjs/' + rand);
+    } else {
+    console.log('error: ' + response.statusCode);
+    console.log(body);
     }
-  );
+}
+);
+
+request(
+  {
+    method: 'PUT',
+    uri: 'http://mikeal.iriscouch.com/testjs/' + rand,
+    multipart: {
+      data: [
+        {
+          'content-type': 'application/json; charset=utf-8',
+          body: JSON.stringify({
+            _attachments: {
+              'dot.png': {
+                follows: true,
+                length: 269,
+                content_type: 'image/png',
+              },
+            },
+          }),
+        },
+        {
+          'content-type': 'image/png',
+          body: Buffer.from(
+            'iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAA3NCSVQICAjb4U/gAAAAX3pUWHRSYXcgcHJvZmlsZSB0eXBlIEFQUDEAAAiZ40pPzUstykxWKCjKT8vMSeVSAANjEy4TSxNL' +
+              'o0QDAwMLAwgwNDAwNgSSRkC2OVQo0QAFmJibpQGhuVmymSmIzwUAT7oVaBst2IwAAAAWSURBVAiZY/z//z8DAwMTAwMDAwMDACQGAwGaMKL7AAAAAElFTkSuQmCC',
+          ),
+        },
+      ],
+    },
+  },
+  (error, response, body) => {
+    if (response.statusCode === 201) {
+      console.log('image saved as http://mikeal.iriscouch.com/testjs/' + rand);
+    } else {
+      console.log('error: ' + response.statusCode);
+      console.log(body);
+    }
+  },
+);
 
 request(
     { method: 'GET'

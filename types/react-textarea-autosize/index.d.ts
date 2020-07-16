@@ -1,8 +1,10 @@
 // Type definitions for react-textarea-autosize 4.3.0
 // Project: https://github.com/andreypopp/react-textarea-autosize
-// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>, Jerry Zou <https://github.com/zry656565>
+// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>,
+//                 Jerry Zou <https://github.com/zry656565>
+//                 Rahul Sagore <https://github.com/Rahul-Sagore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 declare module "react-textarea-autosize" {
     import * as React from "react";
@@ -29,7 +31,7 @@ declare module "react-textarea-autosize" {
          * Try to cache DOM measurements performed by component so that we don't
          * touch DOM when it's not needed.
          *
-         * This optimization doesn't work if we dynamically style <textarea />
+         * This optimization doesn't work if we dynamically style `<textarea />`
          * component.
          * @default false
          */
@@ -49,7 +51,7 @@ declare module "react-textarea-autosize" {
         /**
          * Allows an owner to retrieve the DOM node.
          */
-        inputRef?: (node: HTMLTextAreaElement) => void;
+        inputRef?: ((node: HTMLTextAreaElement) => void) | React.RefObject<HTMLTextAreaElement>;
     }
 
     /**

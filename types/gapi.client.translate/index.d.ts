@@ -1,4 +1,4 @@
-// Type definitions for Google Google Cloud Translation API v2 2.0
+// Type definitions for non-npm package Google Google Cloud Translation API v2 2.0
 // Project: https://code.google.com/apis/language/translate/v2/getting_started.html
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

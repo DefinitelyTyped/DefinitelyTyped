@@ -2,7 +2,7 @@
 // Project: https://github.com/tonyhb/redux-ui
 // Definitions by: Andy Shu Xin <https://github.com/andyshuxin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 import * as Redux from 'redux';
@@ -19,6 +19,10 @@ export interface uiParams<UIStateShape> {
 
   // **required**: UI state for the component
   state: UIStateShape;
+
+  // customReducer: you can handle the UI state for this component's scope
+  // by dispatching actions
+  reducer?(state: any, action: any): any;
 
   // optional mergeProps passed to react-redux' @connect
   mergeProps?(stateProps: any, dispatchProps: any, ownProps: any): any;

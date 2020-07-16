@@ -1,11 +1,10 @@
 import {
-  Action,
   Middleware,
   Reducer,
   applyMiddleware,
   createStore
 } from 'redux';
-import { composeWithDevTools } from 'remote-redux-devtools';
+import devToolsEnhancer, { composeWithDevTools } from 'remote-redux-devtools';
 
 const composeEnhancers = composeWithDevTools();
 
@@ -48,4 +47,11 @@ const store5 = createStore(reducer, composeWithDevTools({
   stopOn: '@@STOP',
   sendOn: ['@@SEND'],
   sendOnError: 2
+}));
+
+const store6 = createStore(reducer, devToolsEnhancer());
+
+const store7 = createStore(reducer, devToolsEnhancer({
+    hostname: 'localhost',
+    port: 8000
 }));

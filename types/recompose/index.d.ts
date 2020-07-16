@@ -1,12 +1,13 @@
-// Type definitions for Recompose 0.26
+// Type definitions for Recompose 0.30
 // Project: https://github.com/acdlite/recompose
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
-//                 Samuel DeSota <https://github.com/mrapogee>
 //                 Curtis Layne <https://github.com/clayne11>
 //                 Rasmus Eneman <https://github.com/Pajn>
 //                 Lucas Terra <https://github.com/lucasterra>
+//                 Brian Adams <https://github.com/brian-lives-outdoors>
+//                 Mathieu Masy <https://github.com/TiuSh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 ///<reference types="react" />
 
@@ -19,8 +20,8 @@ declare module 'recompose' {
     type predicate<T> = mapper<T, boolean>;
     type predicateDiff<T> = (current: T, next: T) => boolean
 
-    // Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
-    type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+    // Diff / Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
+    type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
     interface Observer<T>{
         next(props: T): void;
@@ -45,7 +46,7 @@ declare module 'recompose' {
     export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
         <P extends TInjectedProps>(
             component: Component<P>
-        ): React.ComponentType<Omit<P, keyof TInjectedProps> & TNeedsProps>
+        ): React.ComponentClass<Omit<P, keyof TInjectedProps> & TNeedsProps>
     }
 
     // Injects props and removes them from the prop requirements.
@@ -151,7 +152,7 @@ declare module 'recompose' {
       [updaterName: string]: StateHandler<TState>;
     };
     type StateUpdaters<TOutter, TState, TUpdaters> = {
-      [updaterName in keyof TUpdaters]: (state: TState, props: TOutter) => StateHandler<TState>;
+      [updaterName in keyof TUpdaters]: (state: TState, props: TOutter) => TUpdaters[updaterName];
     };
     export function withStateHandlers<TState, TUpdaters extends StateHandlerMap<TState>, TOutter = {}>(
       createProps: TState | mapper<TOutter, TState>,
@@ -250,12 +251,16 @@ declare module 'recompose' {
     // lifecycle: https://github.com/acdlite/recompose/blob/master/docs/API.md#lifecycle
     interface ReactLifeCycleFunctions<TProps, TState, TInstance = {}> {
         componentWillMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
+        UNSAFE_componentWillMount?(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>): void;
         componentDidMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
         componentWillReceiveProps?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps) => void;
+        UNSAFE_componentWillReceiveProps?(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps): void;
         shouldComponentUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => boolean;
         componentWillUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => void;
+        UNSAFE_componentWillUpdate?(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState): void;
         componentDidUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, prevProps: TProps, prevState: TState) => void;
         componentWillUnmount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
+        componentDidCatch?:(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, error: Error, info: React.ErrorInfo) => void;
     }
 
     export function lifecycle<TProps, TState, TInstance = {}>(
@@ -265,23 +270,34 @@ declare module 'recompose' {
     // toClass: https://github.com/acdlite/recompose/blob/master/docs/API.md#toClass
     export const toClass: InferableComponentEnhancer<{}>;
 
+    // toRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#torenderprops
+    export function toRenderProps<TInner, TOutter>(
+        hoc: InferableComponentEnhancerWithProps<TInner & TOutter, TOutter>
+    ): StatelessComponent<TOutter & { children: (props: TInner) => React.ReactElement }>;
+
+    // fromRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#fromrenderprops
+    export function fromRenderProps<TInner, TOutter, TRenderProps = {}>(
+        RenderPropsComponent: Component<any>,
+        propsMapper: (props: TRenderProps) => TInner,
+        renderPropName?: string
+    ): ComponentEnhancer<TInner & TOutter, TOutter>;
 
     // Static property helpers: https://github.com/acdlite/recompose/blob/master/docs/API.md#static-property-helpers
 
     // setStatic: https://github.com/acdlite/recompose/blob/master/docs/API.md#setStatic
-    export function setStatic<TOutter>(
+    export function setStatic(
         key: string, value: any
-    ): ComponentEnhancer<TOutter, TOutter>;
+    ): <T extends Component<any>>(component: T) => T;
 
     // setPropTypes: https://github.com/acdlite/recompose/blob/master/docs/API.md#setPropTypes
-    export function setPropTypes<TOutter>(
-        propTypes: ValidationMap<TOutter>
-    ): ComponentEnhancer<any, TOutter>;
+    export function setPropTypes<P>(
+        propTypes: ValidationMap<P>
+    ): <T extends Component<P>>(component: T) => T;
 
     // setDisplayName: https://github.com/acdlite/recompose/blob/master/docs/API.md#setDisplayName
-    export function setDisplayName<TOutter>(
+    export function setDisplayName(
         displayName: string
-    ): ComponentEnhancer<TOutter, TOutter>;
+    ): <T extends Component<any>>(component: T) => T;
 
 
     // Utilities: https://github.com/acdlite/recompose/blob/master/docs/API.md#utilities
@@ -323,10 +339,10 @@ declare module 'recompose' {
         type: Component<any> | string,
         props?: Object,
         children?: React.ReactNode
-    ): React.ReactElement<any>;
+    ): React.ReactElement;
 
     // createEagerFactory: https://github.com/acdlite/recompose/blob/master/docs/API.md#createEagerFactory
-    type componentFactory = (props?: Object, children?: React.ReactNode) => React.ReactElement<any>;
+    type componentFactory = (props?: Object, children?: React.ReactNode) => React.ReactElement;
     export function createEagerFactory(
         type: Component<any> | string
     ): componentFactory;
@@ -348,7 +364,8 @@ declare module 'recompose' {
 
     // hoistStatics: https://github.com/acdlite/recompose/blob/master/docs/API.md#hoistStatics
     export function hoistStatics<TProps>(
-        hoc: InferableComponentEnhancer<TProps>
+        hoc: InferableComponentEnhancer<TProps>,
+        blacklist?: {[key: string]: boolean}
     ): InferableComponentEnhancer<TProps>;
 
 
@@ -586,6 +603,18 @@ declare module 'recompose/toClass' {
     export default toClass;
 }
 
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#torenderprops
+declare module 'recompose/toRenderProps' {
+    import { toRenderProps } from 'recompose';
+    export default toRenderProps;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#fromrenderprops
+declare module 'recompose/fromRenderProps' {
+    import { fromRenderProps } from 'recompose';
+    export default fromRenderProps;
+}
+
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#setstatic
 declare module 'recompose/setStatic' {
     import { setStatic } from 'recompose';
@@ -661,37 +690,22 @@ declare module 'recompose/hoistStatics' {
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#componentfromstream
 declare module 'recompose/componentFromStream' {
     import { componentFromStream } from 'recompose';
+    export { componentFromStreamWithConfig } from 'recompose';
     export default componentFromStream;
-}
-
-// https://github.com/acdlite/recompose/blob/master/docs/API.md#componentfromstreamwithconfig
-declare module 'recompose/componentFromStreamWithConfig' {
-    import { componentFromStreamWithConfig } from 'recompose';
-    export default componentFromStreamWithConfig;
 }
 
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#mappropsstream
 declare module 'recompose/mapPropsStream' {
     import { mapPropsStream } from 'recompose';
+    export { mapPropsStreamWithConfig } from 'recompose';
     export default mapPropsStream;
-}
-
-// https://github.com/acdlite/recompose/blob/master/docs/API.md#mappropsstreamwithconfig
-declare module 'recompose/mapPropsStreamWithConfig' {
-    import { mapPropsStreamWithConfig } from 'recompose';
-    export default mapPropsStreamWithConfig;
 }
 
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#createeventhandler
 declare module 'recompose/createEventHandler' {
     import { createEventHandler } from 'recompose';
+    export { createEventHandlerWithConfig } from 'recompose';
     export default createEventHandler;
-}
-
-// https://github.com/acdlite/recompose/blob/master/docs/API.md#createeventhandlerwithconfig
-declare module 'recompose/createEventHandlerWithConfig' {
-    import { createEventHandlerWithConfig } from 'recompose';
-    export default createEventHandlerWithConfig;
 }
 
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#setobservableconfig

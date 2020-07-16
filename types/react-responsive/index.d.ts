@@ -1,10 +1,10 @@
-// Type definitions for react-responsive 3.0
-// Project: https://github.com/contra/react-responsive
+// Type definitions for react-responsive 8.0
+// Project: http://github.com/contra/react-responsive
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 Alec Hill <https://github.com/alechill>
 //                 Javier Gonzalez <https://github.com/xaviergonz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -80,6 +80,7 @@ export interface MediaQueryProps extends MediaQueryAllQueryable {
     style?: React.CSSProperties;
     className?: string;
     children?: React.ReactNode | ((matches: boolean) => React.ReactNode);
+    device?: MediaQueryMatchers;
     values?: Partial<MediaQueryMatchers>;
     onBeforeChange?: (matches: boolean) => void;
     onChange?: (matches: boolean) => void;
@@ -87,4 +88,13 @@ export interface MediaQueryProps extends MediaQueryAllQueryable {
 
 declare class MediaQuery extends React.Component<MediaQueryProps> { }
 export function toQuery(matchers: Partial<MediaQueryAllQueryable>): string;
+
+export const Context: React.Context<Partial<MediaQueryAllQueryable>>;
+
+export function useMediaQuery(
+    settings: Partial<MediaQueryAllQueryable & { query?: string }>,
+    device?: MediaQueryMatchers,
+    callback?: (matches: boolean) => void
+): boolean;
+
 export default MediaQuery;

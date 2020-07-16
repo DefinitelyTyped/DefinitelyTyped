@@ -2,10 +2,10 @@
 // Project: https://github.com/db-migrate/pg
 // Definitions by: nickiannone <https://github.com/nickiannone>
 // Definitions: https://github.com/nickiannone/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 import * as pg from "pg";
-import * as DbMigrateBase from "db-migrate-base";
+import DbMigrateBase = require("db-migrate-base");
 import * as Promise from "bluebird";
 
 // Yes, this is a dummy interface for now; the current implementation of the pg driver doesn't need any options.
@@ -38,7 +38,7 @@ export interface ColumnConstraintOptions {
   emitPrimaryKey?: boolean;
 }
 
-export class PgDriver extends DbMigrateBase.Base {
+export class PgDriver extends DbMigrateBase {
   constructor(connection: pg.Client, schema: string, intern: DbMigrateBase.InternalOptions);
   createDatabase(dbName: string, optionsOrCb: CreateDatabaseOptions | DbMigrateBase.CallbackFunction, callback?: DbMigrateBase.CallbackFunction): void;
   dropDatabase(dbName: string, optionsOrCb: DropDatabaseOptions | DbMigrateBase.CallbackFunction, callback?: DbMigrateBase.CallbackFunction): void;

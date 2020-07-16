@@ -17,7 +17,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "../async/index.d.ts",
         "index.d.ts",
         "i2c-bus-tests.ts"
     ]

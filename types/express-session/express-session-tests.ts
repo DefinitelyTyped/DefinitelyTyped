@@ -5,7 +5,23 @@ const app = express();
 
 app.use(session({
   secret: 'keyboard cat',
+  cookie: { secure: true }
+}));
+app.use(session({
+  secret: 'keyboard cat',
   cookie: { secure: 'auto' }
+}));
+app.use(session({
+  secret: 'keyboard cat',
+  cookie: { sameSite: 'none' }
+}));
+app.use(session({
+  secret: 'keyboard cat',
+  cookie: { sameSite: 'lax' }
+}));
+app.use(session({
+  secret: 'keyboard cat',
+  cookie: { sameSite: 'strict' }
 }));
 app.use(session({
   secret: 'keyboard cat',
@@ -17,7 +33,14 @@ app.use(session({
   resave: true,
   proxy: true,
   saveUninitialized: true,
-  unset: 'keep'
+}));
+app.use(session({
+    secret: 'keyboard cat',
+    unset: 'destroy'
+}));
+app.use(session({
+    secret: 'keyboard cat',
+    unset: 'keep'
 }));
 
 interface MySession extends Express.Session {
@@ -54,7 +77,7 @@ class MyStore extends session.Store {
     callback(null, sessionData);
   }
 
-  set = (sid: string, session: Express.Session, callback?: (err?: any) => void): void => {
+  set = (sid: string, session: Express.SessionData, callback?: (err?: any) => void): void => {
     this.sessions[sid] = JSON.stringify(session);
     if (callback) callback();
   }

@@ -11,7 +11,8 @@
         "types": [],
         "paths": {
             "d3-scale": ["d3-scale/v1"],
-            "d3": ["d3/v4"]
+            "d3": ["d3/v4"],
+            "d3-array": ["d3-array/v1"]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

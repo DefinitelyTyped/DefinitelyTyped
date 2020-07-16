@@ -1,9 +1,14 @@
 declare namespace gsap {
-    export class Animation {
-        /** Base class for all TweenLite, TweenMax, TimelineLite, and TimelineMax classes, providing core methods/properties/() => voidality, but there is no reason to create an instance of this class directly. */
+    class Animation {
+        /**
+         * Base class for all TweenLite, TweenMax, TimelineLite, and TimelineMax classes, providing core methods/properties/() => voidality, but there is no reason to create an instance of this
+         * class directly.
+         */
         constructor(duration?: number, vars?: any);
 
-        /** A place to store any data you want (initially populated with vars.data if it exists). */
+        /**
+         * A place to store any data you want (initially populated with vars.data if it exists).
+         */
         data: any;
 
         /** [Read-only] Parent timeline. */
@@ -20,14 +25,23 @@ declare namespace gsap {
         duration(): number;
         duration(value: number): Animation;
 
-        /** Gets or sets an event callback like "onComplete", "onUpdate", "onStart", "onReverseComplete" or "onRepeat" (onRepeat only applies to TweenMax or TimelineMax instances) along with any parameters that should be passed to that callback. */
-        eventCallback(type: string): () => void;
-        eventCallback(type: string, callback: () => void, params?: any[], scope?: any): Animation;
+        /**
+         * Gets or sets an event callback like "onComplete", "onUpdate", "onStart", "onReverseComplete" or "onRepeat" (onRepeat only applies to TweenMax or TimelineMax instances) along with any
+         * parameters that should be passed to that callback.
+         */
+        eventCallback(type: string): (...args: any[]) => void;
+        eventCallback(type: string, callback: (...args: any[]) => void, params?: any[], scope?: any): Animation;
 
-        /** Clears any initialization data (like starting/ending values in tweens) which can be useful if, for example, you want to restart a tween without reverting to any previously recorded starting values. */
+        /**
+         * Clears any initialization data (like starting/ending values in tweens) which can be useful if, for example, you want to restart a tween without reverting to any previously recorded
+         * starting values.
+         */
         invalidate(): Animation;
 
-        /** Indicates whether or not the animation is currently active (meaning the virtual playhead is actively moving across this instance's time span and it is not paused, nor are any of its ancestor timelines). */
+        /**
+         * Indicates whether or not the animation is currently active (meaning the virtual playhead is actively moving across this instance's time span and it is not paused, nor are any of its
+         * ancestor timelines).
+         */
         isActive(): boolean;
 
         /** Kills the animation entirely or in part depending on the parameters. */
@@ -43,7 +57,10 @@ declare namespace gsap {
         /** Begins playing forward, optionally from a specific time (by default playback begins from wherever the playhead currently is). */
         play(from?: any, suppressEvents?: boolean): Animation;
 
-        /** Gets or sets the animations's progress which is a value between 0 and 1 indicating the position of the virtual playhead (excluding repeats) where 0 is at the beginning, 0.5 is at the halfway point, and 1 is at the end (complete). */
+        /**
+         * Gets or sets the animations's progress which is a value between 0 and 1 indicating the position of the virtual playhead (excluding repeats) where 0 is at the beginning, 0.5 is at the
+         * halfway point, and 1 is at the end (complete).
+         */
         progress(): number;
         progress(value: number, suppressEvents?: boolean): Animation;
 
@@ -67,7 +84,10 @@ declare namespace gsap {
         startTime(): number;
         startTime(value: number): Animation;
 
-        /** Gets or sets the local position of the playhead (essentially the current time), described in seconds (or frames for frames-based animations) which will never be less than 0 or greater than the animation's duration. */
+        /**
+         * Gets or sets the local position of the playhead (essentially the current time), described in seconds (or frames for frames-based animations) which will never be less than 0 or greater
+         * than the animation's duration.
+         */
         time(): number;
         time(value: number, suppressEvents?: boolean): Animation;
 
@@ -79,7 +99,10 @@ declare namespace gsap {
         totalDuration(): number;
         totalDuration(value: number): Animation;
 
-        /** Gets or sets the animation's total progress which is a value between 0 and 1 indicating the position of the virtual playhead (including repeats) where 0 is at the beginning, 0.5 is at the halfway point, and 1 is at the end (complete). */
+        /**
+         * Gets or sets the animation's total progress which is a value between 0 and 1 indicating the position of the virtual playhead (including repeats) where 0 is at the beginning, 0.5 is at
+         * the halfway point, and 1 is at the end (complete).
+         */
         totalProgress(): number;
         totalProgress(value: number, suppressEvents?: boolean): Animation;
 

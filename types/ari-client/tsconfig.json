@@ -1,0 +1,36 @@
+{
+    "files": [
+        "index.d.ts",
+        "test/bridge.ts",
+        "test/bridgeAsyncAwait.ts",
+        "test/deviceState.ts",
+        "test/deviceStateAsyncAwait.ts",
+        "test/example.ts",
+        "test/exampleAsyncAwait.ts",
+        "test/mwi.ts",
+        "test/mwiAsyncAwait.ts",
+        "test/originate.ts",
+        "test/originateAsyncAwait.ts",
+        "test/playback.ts",
+        "test/playbackAsyncAwait.ts",
+        "test/externalMedia.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "esModuleInterop": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}
