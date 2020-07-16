@@ -13,21 +13,28 @@ export type ec_level = 'L' | 'M' | 'Q' | 'H';
 /** @default 'png' */
 export type image_type = 'png' | 'svg' | 'pdf' | 'eps';
 
-/**
- * bitmap.size — width (and height) of resulting image in pixels
- * bitmap.data — Buffer with image data. It's a linear representation
- * of image in format:
- *    <00> <xx> <xx> ..        <xx>
- *    <00> <xx> <xx> ..        <xx>
- *    ..
- *    <00> <xx> <xx> ..        <xx>
- *    ^    | size number of bytes |
- *    \ do not modify. Must be 00
- *
- * Each <xx> is a pixel of image. It's value 0 — black, 255 — white, everything between are shades of gray.
- */
 export interface Bitmap {
+    /**
+     * width (and height) of resulting image in pixels
+     */
     size: number;
+    /**
+     * @summary
+     * Buffer with image data. It's a linear representation
+     * of image in format:
+     *
+     * @example
+     * <00> <xx> <xx> ..        <xx>
+     * <00> <xx> <xx> ..        <xx>
+     * ..
+     * <00> <xx> <xx> ..        <xx>
+     * ^    | size number of bytes |
+     * \ do not modify. Must be 00
+     *
+     * @description
+     * Each `<xx>` is a pixel of image.
+     * It's value `0` — black, `255` — white, everything between are shades of gray.
+     */
     data: Buffer;
 }
 
