@@ -77,3 +77,21 @@ dot.dot({ test: 'something' }, result);
 result = dot.dot({ test: 'something' });
 
 var dotWithArrow = new dot('=>');
+
+var dotWithAnotherSeparator = new dot('->', true, false)
+
+var objWithArray = {
+  author: 'John Doe',
+  books: ['A', 'B', 'C'],
+  about: {
+    hometown: 'Sampang, Jawa Timur',
+    skils: ['HTML', 'CSS', 'JS', 'TS']
+  }
+}
+
+var defaultResult = dot.dot(objWithArray)
+// set keepArray property
+dot.keepArray = true
+var keepArrayResult = dot.dot(objWithArray)
+console.log('Default:', defaultResult)
+console.log('KeepArray:', keepArrayResult)
