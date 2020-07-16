@@ -15,7 +15,7 @@ const c: webpack.Configuration = {
     entry: 'test.js',
     externals: [
         webpackNodeExternals({
-            whitelist: [
+            allowList: [
                 'jquery',
                 'webpack/hot/dev-server',
                 /^lodash/,
