@@ -3,10 +3,7 @@
     "name": "definitely-typed",
     "version": "0.0.3",
     "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/DefinitelyTyped/DefinitelyTyped.git"
-    },
+    "repository": "DefinitelyTyped/DefinitelyTyped",
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
