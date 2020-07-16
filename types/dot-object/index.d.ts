@@ -1,13 +1,19 @@
 // Type definitions for Dot-Object 2.1
 // Project: https://github.com/rhalff/dot-object
 // Definitions by: Niko Kovačič <https://github.com/nkovacic>
+//                 Rico Sandyca <https://github.com/ricosandyca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 
 declare namespace DotObject {
     interface DotConstructor extends Dot {
-        new (separator: string): Dot;
+        new (
+          separator: string,
+          override?: boolean,
+          useArray?: boolean,
+          useBrackets?: boolean
+        ): Dot;
     }
 
     interface ModifierFunctionWrapper {
@@ -180,6 +186,29 @@ declare namespace DotObject {
          * @param {Array} mods modifiers for the target
          */
         transform(recipe: any, obj: any, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): void;
+        /**
+         *
+         * Keep array
+         *
+         * example:
+         *
+         * var obj = {
+         *   "id": "my-id",
+         *   "other": [1, 2, 3]
+         *   "some": {
+         *     "array": ["A", "B"]
+         *   }
+         * }
+         *
+         * if the keepArray property is true:
+         *
+         * {
+         *   "id": "my-id",
+         *   "other": [1, 2, 3],
+         *   "some.array": ["A", "B"]
+         * }
+         */
+        keepArray: boolean;
     }
 }
 
