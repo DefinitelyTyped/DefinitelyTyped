@@ -1,4 +1,4 @@
-import vad from 'voice-activity-detection';
+import vad = require('voice-activity-detection');
 
 const valueContainer = document.createElement('div');
 document.body.appendChild(valueContainer);

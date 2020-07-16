@@ -3,21 +3,23 @@
 // Definitions by: JohnDoeAntler <https://github.com/JohnDoeAntler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function vad(audioContext: AudioContext, stream: MediaStream, options?: VoiceActivityDetectionOptions): void;
+declare function vad(audioContext: AudioContext, stream: MediaStream, options?: vad.VoiceActivityDetectionOptions): void;
 
-interface VoiceActivityDetectionOptions {
-    fftSize?: number;
-    bufferLen?: number;
-    smoothingTimeConstant?: number;
-    minCaptureFreq?: number;
-    maxCaptureFreq?: number;
-    noiseCaptureDuration?: number;
-    minNoiseLevel?: number;
-    maxNoiseLevel?: number;
-    avgNoiseMultiplier?: number;
-    onVoiceStart?: () => void;
-    onVoiceStop?: () => void;
-    onUpdate?: (val: number) => void;
+declare namespace vad {
+    interface VoiceActivityDetectionOptions {
+        fftSize?: number;
+        bufferLen?: number;
+        smoothingTimeConstant?: number;
+        minCaptureFreq?: number;
+        maxCaptureFreq?: number;
+        noiseCaptureDuration?: number;
+        minNoiseLevel?: number;
+        maxNoiseLevel?: number;
+        avgNoiseMultiplier?: number;
+        onVoiceStart?: () => void;
+        onVoiceStop?: () => void;
+        onUpdate?: (val: number) => void;
+    }
 }
 
-export default vad;
+export = vad;
