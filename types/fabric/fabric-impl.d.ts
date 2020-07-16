@@ -52,7 +52,7 @@ export function loadSVGFromURL(
     url: string,
     callback: (results: Object[], options: any) => void,
     reviver?: Function,
-    options?: Object | string
+    options?: { crossOrigin?: string }
 ): void;
 /**
  * Returns CSS rules for a given SVG document
