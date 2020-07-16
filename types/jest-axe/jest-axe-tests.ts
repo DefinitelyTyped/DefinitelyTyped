@@ -17,7 +17,7 @@ const newJestWithOptions: JestAxe = configureAxe({
 
 const newJestWithGlobalOptions: JestAxe = configureAxe({
     globalOptions: {
-        axeVersion: '3.5.0'
+        axeVersion: '3.5.5',
     },
     elementRef: false,
     iframes: false,
