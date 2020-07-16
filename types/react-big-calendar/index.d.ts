@@ -15,7 +15,6 @@
 //                 Eric Kenney <https://github.com/KenneyE>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
 //                 Jan Michalak <https://github.com/michalak111>
-//                 Felix Hessenberger <https://github.com/fhessenberger>
 //                 Tom Price <https://github.com/tomtom5152>
 //                 Daniele Carrucciu <https://github.com/catruzz>
 //                 Chris Vandenberg <https://github.com/altruisticsoftware>
