@@ -11,7 +11,7 @@ export interface WooCommerceRestApiOptions {
     url: string;
     /* Your API consumer key */
     consumerKey: string;
-    /* 	Your API consumer secret */
+    /* Your API consumer secret */
     consumerSecret: string;
     /* Custom WP REST API URL prefix, used to support custom prefixes created with the `rest_url_prefix filter` */
     wpAPIPrefix?: string;
