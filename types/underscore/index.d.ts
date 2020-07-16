@@ -97,10 +97,11 @@ declare module _ {
 
     type EnumerableKey = string | number;
 
-    type CollectionIterator<T, TResult, V> =
-        V extends List<T> ? ListIterator<T, TResult, V>
-        : V extends Dictionary<T> ? ObjectIterator<T, TResult, V>
+    type CollectionKey<V> = V extends List<any> ? number
+        : V extends Dictionary<any> ? string
         : never;
+
+    type CollectionIterator<T, TResult, V> = (element: T, key: CollectionKey<V>, collection: V) => TResult;
 
     type Iteratee<V, R, T extends TypeOfCollection<V> = TypeOfCollection<V>> =
         undefined |
