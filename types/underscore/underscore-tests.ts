@@ -543,6 +543,15 @@ _.chain(overlappingTypeUnion)
     .findWhere({ same: 'no' })
     .value();
 
+declare const nestedObjectList: { a: { b: boolean; c: string; }; }[];
+
+// $ExpectType [{ a: { b: boolean; c: string; }; }[], { a: { b: boolean; c: string; }; }[]]
+_.chain(nestedObjectList)
+    .uniq(['a', 'c'])
+    .without(nestedObjectList[0], nestedObjectList[2])
+    .partition(['a', 'b'])
+    .value();
+
 // common testing types and objects
 const context = {};
 
