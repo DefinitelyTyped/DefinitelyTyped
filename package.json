@@ -27,7 +27,6 @@
         "danger": "^10.1.1",
         "dtslint": "latest",
         "prettier": "^2.0.2",
-        "typescript": "next"
     },
     "husky": {
         "hooks": {
@@ -35,4 +34,5 @@
             "pre-commit": "npm uninstall husky"
         }
     }
+	"dependencies": {}
 }
