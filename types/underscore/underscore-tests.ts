@@ -570,16 +570,18 @@ interface StringRecordAugmentedList extends _.List<StringRecord> {
 
 const stringRecordAugmentedList: StringRecordAugmentedList = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: { a: 'c', b: 'a' }, length: 3, notAListProperty: true };
 const stringRecordList: _.List<StringRecord> = stringRecordAugmentedList;
+declare const stringRecordListUnion: StringRecord[] | _.List<StringRecord>;
 declare const level2RecordList: _.List<_.List<StringRecord>>;
 declare const level3RecordList: _.List<_.List<_.List<StringRecord>>>;
 declare const level4RecordList: _.List<_.List<_.List<_.List<StringRecord>>>>;
 declare const maxLevel2RecordArray: (StringRecord | StringRecord[])[];
 declare const maxLevel3RecordArray: (StringRecord | StringRecord[] | StringRecord[][])[];
 
-const stringRecordListVoidIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => { value.a += 'b'; };
+const stringRecordAugmentedListVoidIterator = (value: StringRecord, index: number, list: StringRecordAugmentedList) => { value.a += 'b'; };
 const stringRecordListValueIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => value.a;
 const stringRecordListBooleanIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => value.a === 'b';
 const stringRecordPartialBooleanIterator = (value: StringRecord) => value.a === 'b';
+declare const stringRecordListUnionVoidIterator: (element: StringRecord, key: number, list: StringRecord[] | _.List<StringRecord>) => void;
 declare const stringRecordPartialMemoIterator: (prev: string, value: StringRecord) => string;
 declare const stringRecordListMemoIterator: (prev: string, value: StringRecord, index: number, list: _.List<StringRecord>) => string;
 declare const resultUnionPartialMemoIterator: (prev: string | StringRecord, value: StringRecord) => string | StringRecord;
@@ -593,7 +595,7 @@ interface StringRecordExplicitDictionary extends _.Dictionary<StringRecord> {
 const stringRecordExplicitDictionary: StringRecordExplicitDictionary = { a: { a: 'a', b: 'c' }, b: { a: 'b', b: 'b' }, c: { a: 'c', b: 'a' } };
 const stringRecordDictionary: _.Dictionary<StringRecord> = stringRecordExplicitDictionary;
 
-const stringRecordDictionaryVoidIterator = (element: StringRecord, key: string, dictionary: _.Dictionary<StringRecord>) => { element.a += 'b'; };
+const stringRecordExplicitDictionaryVoidIterator = (element: StringRecord, key: string, dictionary: StringRecordExplicitDictionary) => { element.a += 'b'; };
 const stringRecordDictionaryValueIterator = (element: StringRecord, key: string, dictionary: _.Dictionary<StringRecord>) => element.a;
 const stringRecordDictionaryBooleanIterator = (element: StringRecord, key: string, list: _.Dictionary<StringRecord>) => element.a === 'b';
 declare const stringRecordDictionaryMemoIterator: (prev: string, element: StringRecord, key: string, dictionary: _.Dictionary<StringRecord>) => string;
@@ -632,6 +634,8 @@ declare const stringListSelfMemoIterator: (prev: string, value: string, index: n
 declare const stringListMemoIterator: (prev: _.Dictionary<number>, value: string, index: number, str: string) => _.Dictionary<number>;
 declare const resultUnionStringListMemoIterator: (prev: string | number, value: string, index: number, str: string) => string | number;
 
+declare const anyCollectionVoidIterator: (element: any, index: string | number, collection: any) => void;
+
 const simpleNumber = 7;
 
 declare const mixedIterabilityValue: number | number[];
@@ -663,36 +667,44 @@ declare const extractChainTypes: ChainTypeExtractor;
 // each, forEach
 {
     // lists - each
-    _.each(stringRecordList, stringRecordListVoidIterator); // $ExpectType List<StringRecord>
-    _.each(stringRecordList, stringRecordListVoidIterator, context); // $ExpectType List<StringRecord>
-    _(stringRecordList).each(stringRecordListVoidIterator); // $ExpectType List<StringRecord>
-    _(stringRecordList).each(stringRecordListVoidIterator, context); // $ExpectType List<StringRecord>
-    _.chain(stringRecordList).each(stringRecordListVoidIterator); // // $ExpectType _Chain<StringRecord, List<StringRecord>>
-    _.chain(stringRecordList).each(stringRecordListVoidIterator, context); // // $ExpectType _Chain<StringRecord, List<StringRecord>>
+    _.each(stringRecordAugmentedList, stringRecordAugmentedListVoidIterator); // $ExpectType StringRecordAugmentedList
+    _(stringRecordAugmentedList).each(stringRecordAugmentedListVoidIterator, context); // $ExpectType StringRecordAugmentedList
+    _.chain(stringRecordAugmentedList).each(stringRecordAugmentedListVoidIterator); // // $ExpectType _Chain<StringRecordAugmentedList, StringRecordAugmentedList>
 
     // lists - forEach
-    _.forEach(stringRecordList, stringRecordListVoidIterator); // $ExpectType List<StringRecord>
-    _.forEach(stringRecordList, stringRecordListVoidIterator, context); // $ExpectType List<StringRecord>
-    _(stringRecordList).forEach(stringRecordListVoidIterator); // $ExpectType List<StringRecord>
-    _(stringRecordList).forEach(stringRecordListVoidIterator, context); // $ExpectType List<StringRecord>
-    _.chain(stringRecordList).forEach(stringRecordListVoidIterator); // // $ExpectType _Chain<StringRecord, List<StringRecord>>
-    _.chain(stringRecordList).forEach(stringRecordListVoidIterator, context); // // $ExpectType _Chain<StringRecord, List<StringRecord>>
+    _.forEach(stringRecordAugmentedList, stringRecordAugmentedListVoidIterator, context); // $ExpectType StringRecordAugmentedList
+    _(stringRecordAugmentedList).forEach(stringRecordAugmentedListVoidIterator); // $ExpectType StringRecordAugmentedList
+    _.chain(stringRecordAugmentedList).forEach(stringRecordAugmentedListVoidIterator, context); // // $ExpectType _Chain<StringRecordAugmentedList, StringRecordAugmentedList>
 
     // dictionaries - each
-    _.each(stringRecordDictionary, stringRecordDictionaryVoidIterator); // $ExpectType Dictionary<StringRecord>
-    _.each(stringRecordDictionary, stringRecordDictionaryVoidIterator, context); // $ExpectType Dictionary<StringRecord>
-    _(stringRecordDictionary).each(stringRecordDictionaryVoidIterator); // $ExpectType Dictionary<StringRecord>
-    _(stringRecordDictionary).each(stringRecordDictionaryVoidIterator, context); // $ExpectType Dictionary<StringRecord>
-    _.chain(stringRecordDictionary).each(stringRecordDictionaryVoidIterator); // // $ExpectType _Chain<StringRecord, Dictionary<StringRecord>>
-    _.chain(stringRecordDictionary).each(stringRecordDictionaryVoidIterator, context); // // $ExpectType _Chain<StringRecord, Dictionary<StringRecord>>
+    _.each(stringRecordExplicitDictionary, stringRecordExplicitDictionaryVoidIterator, context); // $ExpectType StringRecordExplicitDictionary
+    _(stringRecordExplicitDictionary).each(stringRecordExplicitDictionaryVoidIterator); // $ExpectType StringRecordExplicitDictionary
+    _.chain(stringRecordExplicitDictionary).each(stringRecordExplicitDictionaryVoidIterator, context); // // $ExpectType _Chain<StringRecord, StringRecordExplicitDictionary>
 
     // dictionaries - forEach
-    _.forEach(stringRecordDictionary, stringRecordDictionaryVoidIterator); // $ExpectType Dictionary<StringRecord>
-    _.forEach(stringRecordDictionary, stringRecordDictionaryVoidIterator, context); // $ExpectType Dictionary<StringRecord>
-    _(stringRecordDictionary).forEach(stringRecordDictionaryVoidIterator); // $ExpectType Dictionary<StringRecord>
-    _(stringRecordDictionary).forEach(stringRecordDictionaryVoidIterator, context); // $ExpectType Dictionary<StringRecord>
-    _.chain(stringRecordDictionary).forEach(stringRecordDictionaryVoidIterator); // // $ExpectType _Chain<StringRecord, Dictionary<StringRecord>>
-    _.chain(stringRecordDictionary).forEach(stringRecordDictionaryVoidIterator, context); // // $ExpectType _Chain<StringRecord, Dictionary<StringRecord>>
+    _.forEach(stringRecordExplicitDictionary, stringRecordExplicitDictionaryVoidIterator); // $ExpectType StringRecordExplicitDictionary
+    _(stringRecordExplicitDictionary).forEach(stringRecordExplicitDictionaryVoidIterator, context); // $ExpectType StringRecordExplicitDictionary
+    _.chain(stringRecordExplicitDictionary).forEach(stringRecordExplicitDictionaryVoidIterator); // // $ExpectType _Chain<StringRecord, StringRecordExplicitDictionary>
+
+    // unioned list types with similar items - each
+    _.each(stringRecordListUnion, stringRecordListUnionVoidIterator); // $ExpectType List<StringRecord> | StringRecord[]
+    _(stringRecordListUnion).each(stringRecordListUnionVoidIterator); // $ExpectType List<StringRecord> | StringRecord[]
+    _.chain(stringRecordListUnion).each(stringRecordListUnionVoidIterator); // // $ExpectType _Chain<StringRecord, List<StringRecord> | StringRecord[]>
+
+    // unioned list types with similar items - forEach
+    _.forEach(stringRecordListUnion, stringRecordListUnionVoidIterator); // $ExpectType List<StringRecord> | StringRecord[]
+    _(stringRecordListUnion).forEach(stringRecordListUnionVoidIterator); // $ExpectType List<StringRecord> | StringRecord[]
+    _.chain(stringRecordListUnion).forEach(stringRecordListUnionVoidIterator); // // $ExpectType _Chain<StringRecord, List<StringRecord> | StringRecord[]>
+
+    // any - each
+    _.each(anyValue, anyCollectionVoidIterator); // $ExpectType any
+    _(anyValue).each(anyCollectionVoidIterator, context); // $ExpectType any
+    _.chain(anyValue).each(anyCollectionVoidIterator); // // $ExpectType _Chain<any, any>
+
+    // any - forEach
+    _.forEach(anyValue, anyCollectionVoidIterator); // $ExpectType any
+    _(anyValue).forEach(anyCollectionVoidIterator, context); // $ExpectType any
+    _.chain(anyValue).forEach(anyCollectionVoidIterator); // // $ExpectType _Chain<any, any>
 }
 
 // map, collect
