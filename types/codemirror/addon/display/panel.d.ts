@@ -5,9 +5,9 @@
 
 // See docs https://codemirror.net/doc/manual.html#addon_panel
 
-import * as CodeMirror from "codemirror";
+import * as CodeMirror from 'codemirror';
 
-declare module "codemirror" {
+declare module 'codemirror' {
     interface Panel {
         /**Removes the panel from the editor */
         clear(): void;
@@ -16,13 +16,13 @@ declare module "codemirror" {
     }
 
     interface ShowPanelOptions {
-        /**Controls the position of the newly added panel. The following values are recognized:  
-         * `top` (default): Adds the panel at the very top.  
-         *  `after-top`: Adds the panel at the bottom of the top panels.  
-         *  `bottom`: Adds the panel at the very bottom.  
-         *  `before-bottom`: Adds the panel at the top of the bottom panels.  
-        */
-        position?: "top" | "after-top" | "bottom" | "before-bottom";
+        /**Controls the position of the newly added panel. The following values are recognized:
+         * `top` (default): Adds the panel at the very top.
+         *  `after-top`: Adds the panel at the bottom of the top panels.
+         *  `bottom`: Adds the panel at the very bottom.
+         *  `before-bottom`: Adds the panel at the top of the bottom panels.
+         */
+        position?: 'top' | 'after-top' | 'bottom' | 'before-bottom';
         /**The new panel will be added before the given panel. */
         before?: Panel;
         /**The new panel will be added after the given panel. */
@@ -34,7 +34,6 @@ declare module "codemirror" {
     }
 
     interface Editor {
-
         /**
          * Places a DOM node above or below an editor and shrinks the editor to make room for the node.
          * When using the `after`, `before` or `replace` options, if the panel doesn't exists or has been removed, the value of the `position` option will be used as a fallback.
@@ -42,6 +41,5 @@ declare module "codemirror" {
          * @param options optional options object
          */
         addPanel(node: HTMLElement, options?: ShowPanelOptions): Panel;
-
     }
 }

@@ -1,6 +1,6 @@
 declare module "string_decoder" {
     class StringDecoder {
-        constructor(encoding?: string);
+        constructor(encoding?: BufferEncoding);
         write(buffer: Buffer): string;
         end(buffer?: Buffer): string;
     }

@@ -78,3 +78,6 @@ Pet.restore({ age: 10 }, (err, result) => {});
 // Restore multiple object, promise
 Pet.restore().exec((err, result) => {});
 Pet.restore({ age: 10 }).exec((err, result) => {});
+
+// $ExpectType boolean | undefined
+type deletedType = PetDocument["deleted"];

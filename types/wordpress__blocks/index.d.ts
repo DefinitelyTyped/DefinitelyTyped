@@ -7,7 +7,7 @@
 
 import { Dashicon } from '@wordpress/components';
 import { dispatch, select } from '@wordpress/data';
-import { ComponentType } from '@wordpress/element';
+import { ComponentType, ReactElement } from 'react';
 
 export * from './api';
 export { withBlockContentContext } from './block-content-provider';
@@ -29,7 +29,7 @@ export interface BlockIconNormalized {
     background?: string;
     foreground?: string;
     shadowColor?: string;
-    src: Dashicon.Icon | ComponentType;
+    src: Dashicon.Icon | ReactElement | ComponentType;
 }
 
 export type BlockIcon = BlockIconNormalized['src'] | BlockIconNormalized;

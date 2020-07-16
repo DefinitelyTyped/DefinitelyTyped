@@ -178,11 +178,11 @@ declare module "crypto" {
     interface CipherGCMOptions extends stream.TransformOptions {
         authTagLength?: number;
     }
-    /** @deprecated since v10.0.0 use createCipheriv() */
+    /** @deprecated since v10.0.0 use `createCipheriv()` */
     function createCipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): CipherCCM;
-    /** @deprecated since v10.0.0 use createCipheriv() */
+    /** @deprecated since v10.0.0 use `createCipheriv()` */
     function createCipher(algorithm: CipherGCMTypes, password: BinaryLike, options?: CipherGCMOptions): CipherGCM;
-    /** @deprecated since v10.0.0 use createCipheriv() */
+    /** @deprecated since v10.0.0 use `createCipheriv()` */
     function createCipher(algorithm: string, password: BinaryLike, options?: stream.TransformOptions): Cipher;
 
     function createCipheriv(
@@ -208,7 +208,7 @@ declare module "crypto" {
         update(data: NodeJS.ArrayBufferView, input_encoding: undefined, output_encoding: HexBase64BinaryEncoding): string;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding | undefined, output_encoding: HexBase64BinaryEncoding): string;
         final(): Buffer;
-        final(output_encoding: string): string;
+        final(output_encoding: BufferEncoding): string;
         setAutoPadding(auto_padding?: boolean): this;
         // getAuthTag(): Buffer;
         // setAAD(buffer: Buffer): this; // docs only say buffer
@@ -221,11 +221,11 @@ declare module "crypto" {
         setAAD(buffer: Buffer, options?: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
-    /** @deprecated since v10.0.0 use createDecipheriv() */
+    /** @deprecated since v10.0.0 use `createDecipheriv()` */
     function createDecipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): DecipherCCM;
-    /** @deprecated since v10.0.0 use createDecipheriv() */
+    /** @deprecated since v10.0.0 use `createDecipheriv()` */
     function createDecipher(algorithm: CipherGCMTypes, password: BinaryLike, options?: CipherGCMOptions): DecipherGCM;
-    /** @deprecated since v10.0.0 use createDecipheriv() */
+    /** @deprecated since v10.0.0 use `createDecipheriv()` */
     function createDecipher(algorithm: string, password: BinaryLike, options?: stream.TransformOptions): Decipher;
 
     function createDecipheriv(
@@ -249,7 +249,7 @@ declare module "crypto" {
         update(data: NodeJS.ArrayBufferView, input_encoding: HexBase64BinaryEncoding | undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
         update(data: string, input_encoding: HexBase64BinaryEncoding | undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
-        final(output_encoding: string): string;
+        final(output_encoding: BufferEncoding): string;
         setAutoPadding(auto_padding?: boolean): this;
         // setAuthTag(tag: NodeJS.ArrayBufferView): this;
         // setAAD(buffer: NodeJS.ArrayBufferView): this;
@@ -337,9 +337,9 @@ declare module "crypto" {
         getPrivateKey(): Buffer;
         getPrivateKey(encoding: HexBase64Latin1Encoding): string;
         setPublicKey(public_key: NodeJS.ArrayBufferView): void;
-        setPublicKey(public_key: string, encoding: string): void;
+        setPublicKey(public_key: string, encoding: BufferEncoding): void;
         setPrivateKey(private_key: NodeJS.ArrayBufferView): void;
-        setPrivateKey(private_key: string, encoding: string): void;
+        setPrivateKey(private_key: string, encoding: BufferEncoding): void;
         verifyError: number;
     }
     function getDiffieHellman(group_name: string): DiffieHellman;
@@ -429,7 +429,7 @@ declare module "crypto" {
     function createECDH(curve_name: string): ECDH;
     function timingSafeEqual(a: NodeJS.ArrayBufferView, b: NodeJS.ArrayBufferView): boolean;
     /** @deprecated since v10.0.0 */
-    const DEFAULT_ENCODING: string;
+    const DEFAULT_ENCODING: BufferEncoding;
 
     type KeyType = 'rsa' | 'dsa' | 'ec';
     type KeyFormat = 'pem' | 'der';

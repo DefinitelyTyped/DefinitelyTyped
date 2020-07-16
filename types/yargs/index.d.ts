@@ -508,6 +508,12 @@ declare namespace yargs {
         showHelp(consoleLevel?: string): Argv<T>;
 
         /**
+         * Provide the usage data as a string.
+         * @param printCallback a function with a single argument.
+         */
+        showHelp(printCallback: (s: string) => void): Argv<T>;
+
+        /**
          * By default, yargs outputs a usage string if any error is detected.
          * Use the `.showHelpOnFail()` method to customize this behavior.
          * @param enable If `false`, the usage string is not output.

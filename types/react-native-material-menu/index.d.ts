@@ -4,20 +4,22 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ComponentClass, ReactElement, Component } from 'react';
-import { TextStyle } from 'react-native';
+import { StyleProp, TextStyle, TextProps, ViewStyle } from 'react-native';
 
 export interface MenuProps {
     button?: ReactElement;
-    style?: StyleMedia;
+    testID?: string;
+    style?: StyleProp<ViewStyle>;
     onHidden?: () => void;
     animationDuration?: number;
 }
 export interface MenuItemProps {
     disabled?: boolean;
+    testID?: string;
     disabledTextColor?: string;
-    ellipsizeMode?: 'clip' | 'tail';
+    ellipsizeMode?: TextProps["ellipsizeMode"];
     onPress?: () => void;
-    style?: StyleMedia;
+    style?: StyleProp<ViewStyle>;
     textStyle?: TextStyle;
     underlayColor?: string;
 }

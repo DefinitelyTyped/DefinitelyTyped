@@ -3964,6 +3964,11 @@ export class Server {
     validator(joi: Root): void;
 }
 
+/**
+ * Factory function to create a new server object (introduced in v17).
+ */
+export function server(opts?: ServerOptions): Server;
+
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
  +                                                                           +

@@ -33,6 +33,8 @@ $ = cheerio.load(html, {
 
 $ = cheerio.load(html, {
     normalizeWhitespace: true,
+    withStartIndices: true,
+    withEndIndices: true,
     xmlMode: true,
     decodeEntities: true,
     lowerCaseTags: true,
@@ -304,6 +306,7 @@ $el.css('width', '50px');
 $.html();
 $.html('.class');
 $.xml();
+$.xml($el);
 
 /**
  * Miscellaneous

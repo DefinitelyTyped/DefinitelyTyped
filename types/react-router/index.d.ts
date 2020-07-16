@@ -14,7 +14,6 @@
 //                 Daniel Roth <https://github.com/DaIgeb>
 //                 Egor Shulga <https://github.com/egorshulga>
 //                 Rahul Raina <https://github.com/rraina>
-//                 Maksim Sharipov <https://github.com/pret-a-porter>
 //                 Duong Tran <https://github.com/t49tran>
 //                 Ben Smith <https://github.com/8enSmith>
 //                 Wesley Tsai <https://github.com/wezleytsai>
@@ -48,7 +47,7 @@ export interface MemoryRouterProps {
 export class MemoryRouter extends React.Component<MemoryRouterProps, any> {}
 
 export interface PromptProps {
-    message: string | ((location: H.Location) => string | boolean);
+    message: string | ((location: H.Location, action: H.Action) => string | boolean);
     when?: boolean;
 }
 export class Prompt extends React.Component<PromptProps, any> {}
@@ -162,7 +161,7 @@ export function useHistory<HistoryLocationState = H.LocationState>(): H.History<
 
 export function useLocation<S = H.LocationState>(): H.Location<S>;
 
-export function useParams<Params extends { [K in keyof Params]?: string } = {}>(): { [p in keyof Params]: keyof Params[p] extends undefined ? string | undefined : string  };
+export function useParams<Params extends { [K in keyof Params]?: string } = {}>(): Params;
 
 export function useRouteMatch<Params extends { [K in keyof Params]?: string } = {}>(): match<Params>;
 export function useRouteMatch<Params extends { [K in keyof Params]?: string } = {}>(

@@ -83,7 +83,7 @@ interface cornerPoints {
 }
 
 interface TaskQueue {
-	push(task: (bLoadingWhenPush: boolean) => void, context?: any, args?: []): void;
+    push(task: (bLoadingWhenPush: boolean) => void, context?: any, args?: []): void;
     unshift(task: (bLoadingWhenPush: boolean) => void, context?: any, args?: []): void;
     next(): void;
 }
@@ -530,7 +530,7 @@ painter.onUpdateImgPosZoom(function(){
 
     // # Basic Editor
     /**
-	* The can - not - store step(freeTransform, brush) will generate a step image.If the step images' count over `stepImgsGCThreshold`, oldest not protected one would be GC.
+    * The can - not - store step(freeTransform, brush) will generate a step image.If the step images' count over `stepImgsGCThreshold`, oldest not protected one would be GC.
     
     * Syntax:* `.stepImgsGCThreshold = 10;`
      */

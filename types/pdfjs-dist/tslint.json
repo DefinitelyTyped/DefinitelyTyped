@@ -12,6 +12,7 @@
         "no-redundant-jsdoc": false,
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
+        "npm-naming": [true,{"mode":"code","errors":[["NeedsExportEquals",false]]}],
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,

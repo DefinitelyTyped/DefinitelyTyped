@@ -56,7 +56,7 @@ const MasonryComponent = ({}) => {
 <Column span={1} />;
 <Container />;
 <Divider />;
-<Flyout onDismiss={() => {}} anchor={React.useRef()} />;
+<Flyout onDismiss={() => {}} anchor={React.useRef().current} />;
 <Heading />;
 <Icon accessibilityLabel="icon" />;
 <IconButton accessibilityLabel="icon" />;
@@ -77,7 +77,7 @@ const MasonryComponent = ({}) => {
 <SegmentedControl items={[]} selectedItemIndex={1} onChange={() => {}} />;
 <SelectList id="city" onChange={({ value }) => value} options={[]} />;
 <Spinner show={true} accessibilityLabel="Example spinner" />;
-<Sticky />;
+<Sticky dangerouslySetZIndex={ { __zIndex: 1 } } />;
 <Switch id="id" onChange={() => {}} />;
 <Tabs
     tabs={[

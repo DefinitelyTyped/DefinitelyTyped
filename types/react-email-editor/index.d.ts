@@ -73,6 +73,8 @@ export interface Features {
     readonly undoRedo?: boolean;
 }
 
+export type Translations = Record<string, Record<string, string>>;
+
 export type DisplayMode = 'email' | 'web';
 export interface UnlayerOptions {
     readonly id?: string;
@@ -91,6 +93,7 @@ export interface UnlayerOptions {
     readonly customJS?: string[];
     readonly customCSS?: string[];
     readonly features?: Features;
+    readonly translations?: Translations;
 }
 
 export interface EmailEditorProps {

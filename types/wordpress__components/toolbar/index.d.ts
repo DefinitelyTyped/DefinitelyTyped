@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps } from '@wordpress/element';
+import { ComponentType, HTMLProps } from 'react';
 
 import DropdownMenu from '../dropdown-menu';
 import ToolbarButton from '../toolbar-button';

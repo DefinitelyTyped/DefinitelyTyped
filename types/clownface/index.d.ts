@@ -57,7 +57,7 @@ declare namespace clownface {
     node<X extends Term[]>(values: X, options?: NodeOptions): Clownface<X, D>;
 
     node(value: null, options?: NodeOptions): Clownface<BlankNode, D>;
-    node(values: null[], options?: NodeOptions): Clownface<BlankNode[], D>;
+    node(values: Array<null>, options?: NodeOptions): Clownface<BlankNode[], D>;
 
     node(values: Array<boolean | string | number | Term | null>, options?: NodeOptions): Clownface<Term[], D>;
 
@@ -76,7 +76,7 @@ declare namespace clownface {
     has(predicates: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTermsOrLiterals<Term>): Clownface<Array<NamedNode | BlankNode>, D>;
 
     addIn(predicates: SingleOrArrayOfTerms<Term>, callback?: AddCallback<D, BlankNode>): Clownface<T, D>;
-    addIn<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objects: SingleOrArrayOfTermsOrLiterals<X>, callback?: AddCallback<D, X>): Clownface<T, D>;
+    addIn<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, subjects: SingleOrArrayOfTermsOrLiterals<X>, callback?: AddCallback<D, X>): Clownface<T, D>;
 
     addOut(predicates: SingleOrArrayOfTerms<Term>, callback?: AddCallback<D, BlankNode>): Clownface<T, D>;
     addOut<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objects: SingleOrArrayOfTermsOrLiterals<X>, callback?: AddCallback<D, X>): Clownface<T, D>;
