@@ -75526,7 +75526,7 @@ declare namespace Word {
         tableCell = "TableCell",
     }
     /**
-     * This enum sets where the insertion point (cursor) in the document is after a selection.
+     * This enum sets where the cursor (insertion point) in the document is after a selection.
      * 
      * [Api set: WordApi 1.1]
      */
