@@ -83,7 +83,24 @@ declare namespace jsrsasign {
      * @return UTF-8 encoded string
      */
     function b64utoutf8(s: string): string;
-
+    
+    
+    /**
+     * convert a Base64URL encoded string to a hexadecimal string.
+     * @param s Base64URL encoded string
+     * @return hexadecimal string
+     */
+    function b64tohex(s: string): string;
+    
+    
+    /**
+     * convert a base64 string to a byte/number array.
+     * @param s Base64URL encoded string
+     * @return byte/number array
+     */
+    function b64toBA(s: string): number[];
+    
+    
     /**
      * convert an array of bytes(Number) to hexadecimal string.
      * @param a array of bytes
