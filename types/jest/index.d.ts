@@ -72,6 +72,8 @@ type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
         : 'fallback'
 ];
 
+type MockModuleFactory<T> = () => T extends { default: unknown } ? T & { __esModule: true } : T;
+
 interface NodeRequire {
     /**
      * Returns the actual module instead of a mock, bypassing all checks on
@@ -162,7 +164,7 @@ declare namespace jest {
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
-    function doMock(moduleName: string, factory?: () => unknown, options?: MockOptions): typeof jest;
+    function doMock<T>(moduleName: string, factory?: MockModuleFactory<T>, options?: MockOptions): typeof jest;
     /**
      * Indicates that the module system should never return a mocked version
      * of the specified module from require() (e.g. that it should always return the real module).
@@ -192,7 +194,7 @@ declare namespace jest {
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
-    function mock(moduleName: string, factory?: () => unknown, options?: MockOptions): typeof jest;
+    function mock<T>(moduleName: string, factory?: MockModuleFactory<T>, options?: MockOptions): typeof jest;
     /**
      * Returns the actual module instead of a mock, bypassing all checks on
      * whether the module should receive a mock implementation or not.
