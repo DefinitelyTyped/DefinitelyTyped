@@ -180,8 +180,8 @@ declare module _ {
         /**
          * Iterates over a collection of elements, yielding each in turn to an
          * iteratee. The iteratee is bound to the context object, if one is
-         * passed. If iteratee is a function, Each invocation is called with
-         * three arguments: (value, key, collection).
+         * passed. Each invocation of `iteratee` is called with three
+         * arguments: (element, key, collection).
          * @param collection The collection of elements to iterate over.
          * @param iteratee The iteratee to call for each element in
          * `collection`.
@@ -4064,8 +4064,8 @@ declare module _ {
         /**
          * Iterates over the wrapped collection of elements, yielding each in
          * turn to an iteratee. The iteratee is bound to the context object, if
-         * one is passed. If iteratee is a function, Each invocation is called
-         * with three arguments: (value, key, collection).
+         * one is passed. Each invocation of `iteratee` is called with three
+         * arguments: (element, key, collection).
          * @param iteratee The iteratee to call for each element in the wrapped
          * collection.
          * @param context 'this' object in `iteratee`, optional.
@@ -5061,8 +5061,8 @@ declare module _ {
         /**
          * Iterates over the wrapped collection of elements, yielding each in
          * turn to an iteratee. The iteratee is bound to the context object, if
-         * one is passed. If iteratee is a function, Each invocation is called
-         * with three arguments: (value, key, collection).
+         * one is passed. Each invocation of `iteratee` is called with three
+         * arguments: (element, key, collection).
          * @param iteratee The iteratee to call for each element in the wrapped
          * collection.
          * @param context 'this' object in `iteratee`, optional.
