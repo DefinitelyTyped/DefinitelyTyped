@@ -109,7 +109,7 @@ declare module _ {
         undefined |
         CollectionIterator<T, R, V> |
         EnumerableKey |
-        Array<EnumerableKey> |
+        EnumerableKey[] |
         Partial<T>;
 
     // temporary iteratee type for _Chain until _Chain return types have been fixed
@@ -119,7 +119,7 @@ declare module _ {
         I extends undefined ? T // default iteratee is _.identity
         : I extends (...args: any[]) => infer R ? R
         : I extends keyof T ? T[I]
-        : I extends EnumerableKey | Array<EnumerableKey> ? any
+        : I extends EnumerableKey |EnumerableKey[] ? any
         : I extends Partial<T> ? boolean
         : never;
 
