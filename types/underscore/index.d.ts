@@ -101,7 +101,9 @@ declare module _ {
         (element: T, key: string, object: V): TResult;
     }
 
-    type CollectionIterator<T, TResult, V> = (element: T, key: CollectionKey<V>, collection: V) => TResult;
+    interface CollectionIterator<T, TResult, V> {
+        (element: T, key: CollectionKey<V>, collection: V): TResult;
+    }
 
     type Iteratee<V, R, T extends TypeOfCollection<V> = TypeOfCollection<V>> =
         undefined |
@@ -131,10 +133,9 @@ declare module _ {
         (prev: TResult, curr: T, key: string, object: V): TResult;
     }
 
-    type MemoCollectionIterator<T, TResult, V> =
-        V extends List<T> ? MemoIterator<T, TResult, V>
-        : V extends Dictionary<T> ? MemoObjectIterator<T, TResult, V>
-        : never;
+    interface MemoCollectionIterator<T, TResult, V> {
+        (prev: TResult, curr: T, key: CollectionKey<V>, collection: V): TResult;
+    }
 
     type TypeOfList<V> = V extends List<infer T> ? T : never;
 
