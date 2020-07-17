@@ -83,6 +83,12 @@ declare module _ {
 
     type Collection<T> = List<T> | Dictionary<T>;
 
+    type EnumerableKey = string | number;
+
+    type CollectionKey<V> = V extends List<any> ? number
+        : V extends Dictionary<any> ? string
+        : never;
+
     interface Predicate<T> {
         (value: T): boolean;
     }
@@ -94,12 +100,6 @@ declare module _ {
     interface ObjectIterator<T, TResult, V = Dictionary<T>> {
         (element: T, key: string, object: V): TResult;
     }
-
-    type EnumerableKey = string | number;
-
-    type CollectionKey<V> = V extends List<any> ? number
-        : V extends Dictionary<any> ? string
-        : never;
 
     type CollectionIterator<T, TResult, V> = (element: T, key: CollectionKey<V>, collection: V) => TResult;
 
