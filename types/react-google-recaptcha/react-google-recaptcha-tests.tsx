@@ -19,7 +19,9 @@ const invisibleRecaptcha2: React.SFC = () => {
     const recaptchaRef = React.createRef<ReCAPTCHA2>();
 
     const handleOnSubmit = async () => {
-        const token = await recaptchaRef.current?.executeAsync();
+        if (recaptchaRef.current) {
+            const token = await recaptchaRef.current.executeAsync();
+        }
     };
 
     return (
