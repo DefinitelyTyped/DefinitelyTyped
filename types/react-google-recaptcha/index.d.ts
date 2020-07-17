@@ -5,6 +5,7 @@
 //                 Max Bo <https://github.com/MaxwellBo>
 //                 Meir Keller <https://github.com/meirkl>
 //                 Florian Roher <https://github.com/RohrerF>
+//                 Timotei Mocan <https://github.com/mocantimoteidavid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -15,11 +16,13 @@ export { ReCAPTCHA };
 
 declare class ReCAPTCHA extends React.Component<ReCAPTCHAProps> {
     /**
-     * Resets the reCAPTCHA widget
+     * Resets the reCAPTCHA widget.
      */
     reset(): void;
+
     /**
-     * Programatically invoke the reCAPTCHA check. Used if the invisible reCAPTCHA is on a div instead of a button
+     * Programatically invoke the reCAPTCHA check. 
+     * Used if the invisible reCAPTCHA is on a div instead of a button.
      */
     execute(): void;
 
@@ -30,7 +33,7 @@ declare class ReCAPTCHA extends React.Component<ReCAPTCHAProps> {
     getValue(): string | null;
 
     /**
-     * Gets the widgetId of reCAPTCHA widget
+     * Gets the widgetId of reCAPTCHA widget.
      * @return widgetId | null
      */
     getWidgetId(): number | null;
@@ -43,62 +46,73 @@ type Badge = "bottomright" | "bottomleft" | "inline";
 
 export interface ReCAPTCHAProps {
     /**
-     *  The API client key
+     * The API client key
      */
     sitekey: string;
+
     /**
-     *  The function to be called when the user successfully completes the normal or compat captcha.
-     *     It will also be called with null, when captcha expires
-     *  @param token string or null
+     * The function to be called when the user successfully completes the normal 
+     * or the compact captcha. It will also be called with null, when captcha expires.
+     * @param token string or null
      */
     onChange?: (token: string|null) => void;
 
     /**
-     *  if you are using the barebone component you need to provide access  to the google grecaptcha object.
+     *  If you are using the barebone component you need to provide access to the
+     *  google grecaptcha object.
      */
     grecaptcha?: object;
 
     /**
-     *  Optional light or dark theme of the widget
-     *  @default "light"
+     * The theme of the widget.
+     * @default "light"
      */
     theme?: Theme;
+
     /**
-     * Optional image or audio The type of initial captcha
+     * The type of initial captcha.
      * @default "image"
      */
     type?: Type;
+
     /**
-     *  Optional the tabindex of the element
-     *  @default 0
+     * The tabindex of the element.
+     * @default 0
      */
     tabindex?: number;
+
     /**
-     *  Optional callback, called when a challenge expires and has to be redone by the user.
+     * Callback called when a challenge expires and has to be redone by the user.
      */
     onExpired?: () => void;
+
     /**
      *  Optional callback, called when reCAPTCHA encounters an error (usually network connectivity)
      *  and cannot continue until connectivity is restored. If you specify a function here, you are
      *  responsible for informing the user that they should retry.
      */
     onErrored?: () => void;
+
     /**
-     *  Optional set the stoken parameter, which allows the captcha to be used from different domains,
-     *  @see reCAPTCHA secure-token
+     * Set the stoken parameter, which allows the captcha to be used from different domains.
+     * @see reCAPTCHA secure-token
      */
     stoken?: string;
+
     /**
-     *  Optional. Forces the widget to render in a specific language. Auto-detects the user's language if unspecified.
+     *  Forces the widget to render in a specific language.
+     *  Auto-detects the user's language if unspecified.
      */
     hl?: string;
+
     /**
-     *  Optional compact, normal or invisible. This allows you to change the size or do an invisible captcha
+     * This allows you to change the size or do an invisible captcha.
+     * @default "normal"
      */
     size?: Size;
+
     /**
-     * Optional. The badge location for g-recaptcha with size of "invisible".
-     *
+     * The badge location for g-recaptcha with size of "invisible".
      * @default "bottomright"
      */
     badge?: Badge;
