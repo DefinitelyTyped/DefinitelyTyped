@@ -674,7 +674,7 @@ declare const extractChainTypes: ChainTypeExtractor;
         collection; // $ExpectType List<StringRecord>
         return element.a;
     };
-    listFunctionIteratee(stringRecordList[0], 0, stringRecordList);
+    listFunctionIteratee(stringRecordList[0], 0, stringRecordList); // $ExpectType string
 
     const dictionaryFunctionIteratee: _.Iteratee<_.Dictionary<StringRecord>, string> = (element, key, collection) => {
         element; // $ExpectType StringRecord
@@ -682,7 +682,7 @@ declare const extractChainTypes: ChainTypeExtractor;
         collection; // $ExpectType Dictionary<StringRecord>
         return element.a;
     };
-    dictionaryFunctionIteratee(stringRecordDictionary['a'], 'a', stringRecordDictionary);
+    dictionaryFunctionIteratee(stringRecordDictionary['a'], 'a', stringRecordDictionary); // $ExpectType string
 
     const unionCollectionItemFunctionIteratee: _.Iteratee<_.List<IntersectingProperties>, string | boolean> = (element, key, collection) => {
         element; // $ExpectType IntersectingProperties
