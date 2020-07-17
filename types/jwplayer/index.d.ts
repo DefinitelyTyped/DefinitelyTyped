@@ -177,7 +177,7 @@ declare namespace jwplayer {
     }
 
     interface VolumeParam {
-        volume: boolean;
+        volume: number;
     }
 
     interface PlayParam {

@@ -1,5 +1,5 @@
-// Type definitions for node-email-templates 7.0
-// Project: https://github.com/niftylettuce/email-templates
+// Type definitions for node-email-templates 7.1
+// Project: https://github.com/forwardemail/email-templates
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Matus Gura <https://github.com/gurisko>
 //                 Jacob Copeland <https://github.com/blankstar85>
@@ -41,7 +41,7 @@ declare namespace EmailTemplate {
         | SMTPTransport.Options
         | string;
 
-    // No typedef for https://github.com/niftylettuce/preview-email
+    // No typedef for https://github.com/forwardemail/preview-email
     interface PreviewEmailOpts {
         /**
          * a path to a directory for saving the generated email previews (defaults to os.tmpdir()

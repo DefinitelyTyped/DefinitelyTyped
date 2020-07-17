@@ -4,7 +4,6 @@
 //                 Ascari Andrea <https://github.com/ascariandrea>
 //                 Kartik Malik <https://github.com/kartik2406>
 //                 Michael Pertl <https://github.com/viamuli>
-//                 Orblazer <https://github.com/orblazer>
 //                 Taylor Herron <https://github.com/gbhmt>
 //                 Lane Goldberg <https://github.com/builtbylane>
 //                 Lorenzo Adinolfi <https://github.com/loru88>
