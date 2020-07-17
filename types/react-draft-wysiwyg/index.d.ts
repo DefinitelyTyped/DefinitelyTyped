@@ -40,7 +40,7 @@ export interface EditorProps {
     localization?: object;
     editorClassName?: string;
     wrapperClassName?: string;
-    toolbarStyle?: object;
+    toolbarStyle?: React.CSSProperties;
     editorStyle?: React.CSSProperties;
     wrapperStyle?: React.CSSProperties;
     uploadCallback?(file: object): Promise<object>;
