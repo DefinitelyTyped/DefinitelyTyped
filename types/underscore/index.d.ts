@@ -93,17 +93,13 @@ declare module _ {
         (value: T): boolean;
     }
 
-    interface ListIterator<T, TResult, V = List<T>> {
-        (value: T, index: number, list: V): TResult;
-    }
-
-    interface ObjectIterator<T, TResult, V = Dictionary<T>> {
-        (element: T, key: string, object: V): TResult;
-    }
-
-    interface CollectionIterator<T, TResult, V> {
+    interface CollectionIterator<T, TResult, V = Collection<T>> {
         (element: T, key: CollectionKey<V>, collection: V): TResult;
     }
+
+    interface ListIterator<T, TResult, V extends List<T> = List<T>> extends CollectionIterator<T, TResult, V> { }
+
+    interface ObjectIterator<T, TResult, V extends Dictionary<T> = Dictionary<T>> extends CollectionIterator<T, TResult, V> { }
 
     type Iteratee<V, R, T extends TypeOfCollection<V> = TypeOfCollection<V>> =
         undefined |
@@ -125,17 +121,13 @@ declare module _ {
 
     type PropertyTypeOrAny<T, K> = K extends keyof T ? T[K] : any;
 
-    interface MemoIterator<T, TResult, V = List<T>> {
-        (prev: TResult, curr: T, index: number, list: V): TResult;
-    }
-
-    interface MemoObjectIterator<T, TResult, V = Dictionary<T>> {
-        (prev: TResult, curr: T, key: string, object: V): TResult;
-    }
-
-    interface MemoCollectionIterator<T, TResult, V> {
+    interface MemoCollectionIterator<T, TResult, V = Collection<T>> {
         (prev: TResult, curr: T, key: CollectionKey<V>, collection: V): TResult;
     }
+
+    interface MemoIterator<T, TResult, V extends List<T> = List<T>> extends MemoCollectionIterator<T, TResult, V> { }
+
+    interface MemoObjectIterator<T, TResult, V extends Dictionary<T> = Dictionary<T>> extends MemoCollectionIterator<T, TResult, V> { }
 
     type TypeOfList<V> = V extends List<infer T> ? T : never;
 
