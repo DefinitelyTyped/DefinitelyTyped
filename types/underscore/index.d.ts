@@ -125,6 +125,14 @@ declare module _ {
 
     type PropertyTypeOrAny<T, K> = K extends keyof T ? T[K] : any;
 
+    interface MemoIterator<T, TResult, V = List<T>> {
+        (prev: TResult, curr: T, index: number, list: V): TResult;
+    }
+
+    interface MemoObjectIterator<T, TResult, V = Dictionary<T>> {
+        (prev: TResult, curr: T, key: string, object: V): TResult;
+    }
+
     interface MemoCollectionIterator<T, TResult, V> {
         (prev: TResult, curr: T, key: CollectionKey<V>, collection: V): TResult;
     }
