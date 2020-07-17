@@ -1,4 +1,4 @@
-// Type definitions for miniprogtam-api-typings 2.11
+// Type definitions for miniprogtam-api-typings 3.0
 // Project: https://github.com/wechat-miniprogram/api-typings.git
 // Definitions by: Wechat Miniprogram <https://github.com/wechat-miniprogram>,
 //                SgLy <https://github.com/SgLy>,
