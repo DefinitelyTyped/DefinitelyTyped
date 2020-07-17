@@ -123,8 +123,6 @@ declare module _ {
 
     type PropertyTypeOrAny<T, K> = K extends keyof T ? T[K] : any;
 
-    type IterateePropertyShorthand = string | number;
-
     interface MemoIterator<T, TResult, V = List<T>> {
         (prev: TResult, curr: T, index: number, list: V): TResult;
     }
