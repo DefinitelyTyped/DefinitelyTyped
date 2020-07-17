@@ -1,0 +1,1 @@
+$localize`test`;
