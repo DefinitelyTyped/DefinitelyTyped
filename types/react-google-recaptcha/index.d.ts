@@ -1,4 +1,4 @@
-// Type definitions for React Google Recaptcha 1.1
+// Type definitions for React Google Recaptcha 2.1
 // Project: https://github.com/dozoisch/react-google-recaptcha
 // Definitions by: Koala Human <https://github.com/KoalaHuman>
 //                 Tom Sturge <https://github.com/tomsturge>
@@ -25,6 +25,14 @@ declare class ReCAPTCHA extends React.Component<ReCAPTCHAProps> {
      * Used if the invisible reCAPTCHA is on a div instead of a button.
      */
     execute(): void;
+
+    /**
+     * Programmatically invoke the challenge and return a promise that resolves
+     * to the token or errors (if encountered). Alternative approach to 
+     * execute() in combination with the onChange() prop.
+     * @return token | null | undefined
+     */
+    executeAsync(): Promise<string | null | undefined>
 
     /**
      * Gets the response for the reCAPTCHA widget.
