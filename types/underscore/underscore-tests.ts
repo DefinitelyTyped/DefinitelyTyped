@@ -637,6 +637,7 @@ declare const resultUnionStringListMemoIterator: (prev: string | number, value: 
 declare const anyCollectionVoidIterator: (element: any, index: string | number, collection: any) => void;
 
 const simpleNumber = 7;
+declare const simpleNumberDictionary: _.Dictionary<number>;
 
 declare const mixedIterabilityValue: number | number[];
 declare const neverValue: never;
@@ -1155,14 +1156,14 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(stringRecordDictionary).detect(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecordOrUndefined, never>
 
     // identity iteratee - dictionaries - find
-    _.find(stringRecordDictionary); // $ExpectType StringRecordOrUndefined
-    _(stringRecordDictionary).find(); // $ExpectType StringRecordOrUndefined
-    extractChainTypes(_.chain(stringRecordDictionary).find()); // $ExpectType ChainType<StringRecordOrUndefined, never>
+    _.find(simpleNumberDictionary); // $ExpectType number | undefined
+    _(simpleNumberDictionary).find(); // $ExpectType number | undefined
+    extractChainTypes(_.chain(simpleNumberDictionary).find()); // $ExpectType ChainType<number | undefined, never>
 
     // identity iteratee - lists - detect
-    _.detect(stringRecordList); // $ExpectType StringRecordOrUndefined
-    _(stringRecordList).detect(); // $ExpectType StringRecordOrUndefined
-    extractChainTypes(_.chain(stringRecordList).detect()); // $ExpectType ChainType<StringRecordOrUndefined, never>
+    _.detect(simpleStringList); // $ExpectType string | undefined
+    _(simpleStringList).detect(); // $ExpectType string | undefined
+    extractChainTypes(_.chain(simpleStringList).detect()); // $ExpectType ChainType<string | undefined, string>
 }
 
 // filter, select
@@ -1238,14 +1239,14 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(stringRecordDictionary).select(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
 
     // identity iteratee - dictionaries - filter
-    _.filter(stringRecordDictionary); // $ExpectType StringRecord[]
-    _(stringRecordDictionary).filter(); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(stringRecordDictionary).filter()); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.filter(simpleNumberDictionary); // $ExpectType number[]
+    _(simpleNumberDictionary).filter(); // $ExpectType number[]
+    extractChainTypes(_.chain(simpleNumberDictionary).filter()); // $ExpectType ChainType<number[], number>
 
     // identity iteratee - lists - select
-    _.select(stringRecordList); // $ExpectType StringRecord[]
-    _(stringRecordList).select(); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(stringRecordList).select()); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.select(simpleStringList); // $ExpectType string[]
+    _(simpleStringList).select(); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringList).select()); // $ExpectType ChainType<string[], string>
 }
 
 // where
@@ -1322,9 +1323,9 @@ declare const extractChainTypes: ChainTypeExtractor;
     extractChainTypes(_.chain(stringRecordList).reject(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
 
     // identity iteratee - dictionaries
-    _.reject(stringRecordDictionary); // $ExpectType StringRecord[]
-    _(stringRecordDictionary).reject(); // $ExpectType StringRecord[]
-    extractChainTypes(_.chain(stringRecordDictionary).reject()); // $ExpectType ChainType<StringRecord[], StringRecord>
+    _.reject(simpleNumberDictionary); // $ExpectType number[]
+    _(simpleNumberDictionary).reject(); // $ExpectType number[]
+    extractChainTypes(_.chain(simpleNumberDictionary).reject()); // $ExpectType ChainType<number[], number>
 }
 
 // pluck
@@ -1479,16 +1480,6 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(stringRecordList).partition(partialStringRecord); // $ExpectType [StringRecord[], StringRecord[]]
     extractChainTypes(_.chain(stringRecordList).partition(partialStringRecord)); // $ExpectType ChainType<[StringRecord[], StringRecord[]], StringRecord[]>
 
-    // partial object iteratee - dictionaries
-    _.partition(stringRecordDictionary, partialStringRecord); // $ExpectType [StringRecord[], StringRecord[]]
-    _(stringRecordDictionary).partition(partialStringRecord); // $ExpectType [StringRecord[], StringRecord[]]
-    extractChainTypes(_.chain(stringRecordDictionary).partition(partialStringRecord)); // $ExpectType ChainType<[StringRecord[], StringRecord[]], StringRecord[]>
-
-    // property name iteratee - lists
-    _.partition(stringRecordList, stringRecordProperty); // $ExpectType [StringRecord[], StringRecord[]]
-    _(stringRecordList).partition(stringRecordProperty); // $ExpectType [StringRecord[], StringRecord[]]
-    extractChainTypes(_.chain(stringRecordList).partition(stringRecordProperty)); // $ExpectType ChainType<[StringRecord[], StringRecord[]], StringRecord[]>
-
     // property name iteratee - dictionaries
     _.partition(stringRecordDictionary, stringRecordProperty); // $ExpectType [StringRecord[], StringRecord[]]
     _(stringRecordDictionary).partition(stringRecordProperty); // $ExpectType [StringRecord[], StringRecord[]]
@@ -1499,10 +1490,10 @@ declare const extractChainTypes: ChainTypeExtractor;
     _(stringRecordList).partition(stringRecordPropertyPath); // $ExpectType [StringRecord[], StringRecord[]]
     extractChainTypes(_.chain(stringRecordList).partition(stringRecordPropertyPath)); // $ExpectType ChainType<[StringRecord[], StringRecord[]], StringRecord[]>
 
-    // property path iteratee - dictionaries
-    _.partition(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType [StringRecord[], StringRecord[]]
-    _(stringRecordDictionary).partition(stringRecordPropertyPath); // $ExpectType [StringRecord[], StringRecord[]]
-    extractChainTypes(_.chain(stringRecordDictionary).partition(stringRecordPropertyPath)); // $ExpectType ChainType<[StringRecord[], StringRecord[]], StringRecord[]>
+    // identity iteratee - dictionaries
+    _.partition(simpleNumberDictionary); // $ExpectType [number[], number[]]
+    _(simpleNumberDictionary).partition(); // $ExpectType [number[], number[]]
+    extractChainTypes(_.chain(simpleNumberDictionary).partition()); // $ExpectType ChainType<[number[], number[]], number[]>
 }
 
 // Arrays

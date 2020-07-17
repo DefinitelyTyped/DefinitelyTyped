@@ -723,7 +723,7 @@ declare module _ {
          **/
         partition<V extends Collection<any>>(
             list: V,
-            iteratee: Iteratee<V, boolean>,
+            iteratee?: Iteratee<V, boolean>,
             context?: any
         ): [TypeOfCollection<V>[], TypeOfCollection<V>[]];
 
@@ -4387,7 +4387,7 @@ declare module _ {
          * contains the elements in the wrapped collection that satisfied the
          * predicate and the second element contains the elements that did not.
          **/
-        partition(iteratee: Iteratee<V, boolean>, context?: any): [T[], T[]];
+        partition(iteratee?: Iteratee<V, boolean>, context?: any): [T[], T[]];
 
         /*********
         * Arrays *
@@ -5389,7 +5389,7 @@ declare module _ {
          * collection that satisfied the predicate and the second element
          * contains the elements that did not.
          **/
-        partition(iteratee: _ChainIteratee<V, boolean, T>, context?: any): _Chain<T[], [T[], T[]]>;
+        partition(iteratee?: _ChainIteratee<V, boolean, T>, context?: any): _Chain<T[], [T[], T[]]>;
 
         /*********
         * Arrays *
