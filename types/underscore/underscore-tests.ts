@@ -663,6 +663,139 @@ interface ChainTypeExtractor {
 
 declare const extractChainTypes: ChainTypeExtractor;
 
+// Types
+
+// Iteratee
+{
+    // functions
+    const listFunctionIteratee: _.Iteratee<_.List<StringRecord>, string> = (element, key, collection) => {
+        element; // $ExpectType StringRecord
+        key; // $ExpectType number
+        collection; // $ExpectType List<StringRecord>
+        return element.a;
+    };
+    listFunctionIteratee(stringRecordList[0], 0, stringRecordList);
+
+    const dictionaryFunctionIteratee: _.Iteratee<_.Dictionary<StringRecord>, string> = (element, key, collection) => {
+        element; // $ExpectType StringRecord
+        key; // $ExpectType string
+        collection; // $ExpectType Dictionary<StringRecord>
+        return element.a;
+    };
+    dictionaryFunctionIteratee(stringRecordDictionary['a'], 'a', stringRecordDictionary);
+
+    const unionCollectionItemFunctionIteratee: _.Iteratee<_.List<IntersectingProperties>, string | boolean> = (element, key, collection) => {
+        element; // $ExpectType IntersectingProperties
+        key; // $ExpectType number
+        collection; // $ExpectType List<IntersectingProperties>
+        return element.a;
+    };
+    unionCollectionItemFunctionIteratee(intersectingPropertiesList[0], 0, intersectingPropertiesList); // $ExpectType string | boolean
+
+    const unionCollectionFunctionIteratee: _.Iteratee<_.Dictionary<StringRecord> | StringRecord[], string> = (element, key, collection) => {
+        element; // $ExpectType StringRecord
+        key; // $ExpectType string | number
+        collection; // $ExpectType Dictionary<StringRecord> | StringRecord[]
+        return element.a;
+    };
+    unionCollectionFunctionIteratee(stringRecordDictionary['a'], 'a', stringRecordDictionary); // $ExpectType string
+
+    const anyFunctionIteratee: _.Iteratee<any, string> = (element, key, collection) => {
+        element; // $ExpectType any
+        key; // $ExpectType string | number
+        collection; // $ExpectType any
+        return element.a;
+    };
+    if (_.isFunction(anyFunctionIteratee)) {
+        anyFunctionIteratee(stringRecordDictionary['a'], 'a', stringRecordDictionary); // $ExpectType string
+    }
+
+    // partial objects
+    const listPartialObjectIteratee: _.Iteratee<_.List<StringRecord>, string> = partialStringRecord;
+    listPartialObjectIteratee; // $ExpectType Partial<StringRecord>
+
+    const dictionaryPartialObjectIteratee: _.Iteratee<_.Dictionary<StringRecord>, string> = partialStringRecord;
+    dictionaryPartialObjectIteratee; // $ExpectType Partial<StringRecord>
+
+    const unionCollectionItemPartialObjectIteratee: _.Iteratee<_.List<IntersectingProperties>, string | boolean> = partialStringRecord;
+    unionCollectionItemPartialObjectIteratee; // $ExpectType Partial<StringRecord>
+
+    const unionCollectionPartialObjectIteratee: _.Iteratee<StringRecord[] | _.Dictionary<StringRecord>, string> = partialStringRecord;
+    unionCollectionPartialObjectIteratee; // $ExpectType Partial<StringRecord>
+
+    const anyPartialObjectIteratee: _.Iteratee<any, string> = partialStringRecord;
+    anyPartialObjectIteratee; // $ExpectType Partial<any>
+
+    // property names
+    const listPropertyNameIteratee: _.Iteratee<_.List<StringRecord>, string> = stringRecordProperty;
+    listPropertyNameIteratee; // $ExpectType string
+
+    const dictionaryPropertyNameIteratee: _.Iteratee<_.Dictionary<StringRecord>, string> = stringRecordProperty;
+    dictionaryPropertyNameIteratee; // $ExpectType string
+
+    const unionCollectionItemPropertyNameIteratee: _.Iteratee<_.List<IntersectingProperties>, string | boolean> = stringRecordProperty;
+    unionCollectionItemPropertyNameIteratee; // $ExpectType string
+
+    const unionCollectionPropertyNameIteratee: _.Iteratee<StringRecord[] | _.Dictionary<StringRecord>, string> = stringRecordProperty;
+    unionCollectionPropertyNameIteratee; // $ExpectType string
+
+    const anyPropertyNameteratee: _.Iteratee<any, string> = stringRecordProperty;
+    anyPropertyNameteratee; // $ExpectType string
+
+    // property paths
+    const listPropertyPathIteratee: _.Iteratee<_.List<StringRecord>, string> = stringRecordPropertyPath;
+    listPropertyPathIteratee; // $ExpectType (string | number)[]
+
+    const dictionaryPropertyPathIteratee: _.Iteratee<_.Dictionary<StringRecord>, string> = stringRecordPropertyPath;
+    dictionaryPropertyPathIteratee; // $ExpectType (string | number)[]
+
+    const unionCollectionItemPropertyPathIteratee: _.Iteratee<_.List<IntersectingProperties>, string | boolean> = stringRecordPropertyPath;
+    unionCollectionItemPropertyPathIteratee; // $ExpectType (string | number)[]
+
+    const unionCollectionPropertyPathIteratee: _.Iteratee<StringRecord[] | _.Dictionary<StringRecord>, string> = stringRecordPropertyPath;
+    unionCollectionPropertyPathIteratee; // $ExpectType (string | number)[]
+
+    const anyPropertyPathIteratee: _.Iteratee<any, string> = stringRecordPropertyPath;
+    if (_.isArray(anyPropertyPathIteratee)) {
+        anyPropertyPathIteratee; // $ExpectType (string | number)[]
+    }
+
+    // identity
+    const listIdentityIteratee: _.Iteratee<_.List<StringRecord>, string> = undefined;
+    listIdentityIteratee; // $ExpectType undefined
+
+    const dictionaryIdentityIteratee: _.Iteratee<_.Dictionary<StringRecord>, string> = undefined;
+    dictionaryIdentityIteratee; // $ExpectType undefined
+
+    const unionCollectionItemIdentityIteratee: _.Iteratee<_.List<IntersectingProperties>, string | boolean> = undefined;
+    unionCollectionItemIdentityIteratee; // $ExpectType undefined
+
+    const unionCollectionIdentityIteratee: _.Iteratee<StringRecord[] | _.Dictionary<StringRecord>, string> = undefined;
+    unionCollectionIdentityIteratee; // $ExpectType undefined
+
+    const anyIdentityIteratee: _.Iteratee<any, string> = undefined;
+    anyIdentityIteratee; // $ExpectType undefined
+}
+
+// IterateeResult
+declare const functionIterateeResult: _.IterateeResult<() => string, StringRecord>;
+functionIterateeResult; // $ExpectType string
+
+declare const partialObjectIterateeResult: _.IterateeResult<Partial<StringRecord>, StringRecord>;
+partialObjectIterateeResult; // $ExpectType boolean
+
+declare const knownPropertyNameIterateeResult: _.IterateeResult<typeof stringRecordProperty, IntersectingProperties>;
+knownPropertyNameIterateeResult; // $ExpectType string | boolean
+
+declare const unknownPropertyNameIterateeResult: _.IterateeResult<typeof stringRecordProperty, NonIntersectingProperties>;
+unknownPropertyNameIterateeResult; // $ExpectType any
+
+declare const propertyPathIterateeResult: _.IterateeResult<_.EnumerableKey[], StringRecord>;
+propertyPathIterateeResult; // $ExpectType any
+
+declare const identityIterateeResult: _.IterateeResult<undefined, StringRecord>;
+identityIterateeResult; // $ExpectType StringRecord
+
 // Collections
 
 // each, forEach
