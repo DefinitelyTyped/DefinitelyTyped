@@ -36,7 +36,7 @@ declare global {
         }
 
         interface Base {
-            (tableName: string): Table<{}>;
+            <T>(tableName: string): Table<T>;
         }
 
         interface Table<TFields extends FieldSet> {
