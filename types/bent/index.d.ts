@@ -1,4 +1,4 @@
-// Type definitions for bent 7.0
+// Type definitions for bent 7.3
 // Project: https://github.com/mikeal/bent#readme
 // Definitions by: Ovyerus <https://github.com/Ovyerus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
