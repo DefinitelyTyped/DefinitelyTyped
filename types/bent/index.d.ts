@@ -56,6 +56,15 @@ declare namespace bent {
 
     type Json = { [key: string]: any; [key: number]: any } | any[];
     type ValidResponse = BentResponse | string | Buffer | ArrayBuffer | Json;
+
+    class StatusError extends Error {
+        statusCode: number;
+        arrayBuffer(): Promise<ArrayBuffer | Buffer>;
+        text(): Promise<string>;
+        json(): Promise<Json>;
+        responseBody: Promise<ArrayBuffer | Buffer>;
+        headers: { [key: string]: any };
+    }
 }
 
 export = bent;
