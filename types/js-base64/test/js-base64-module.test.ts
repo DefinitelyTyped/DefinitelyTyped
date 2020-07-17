@@ -13,6 +13,7 @@ Base64.toBase64('', true); // $ExpectType string
 Base64.btou(''); // $ExpectType string
 Base64.utob(''); // $ExpectType string
 
+Base64.Base64; // $ExpectError
 Base64.noConflict(); // $ExpectError
 
 Base64.extendString(); // $ExpectType void
