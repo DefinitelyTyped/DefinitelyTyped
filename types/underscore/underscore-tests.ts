@@ -764,14 +764,14 @@ declare const extractChainTypes: ChainTypeExtractor;
     const listIdentityIteratee: _.Iteratee<_.List<StringRecord>, string> = undefined;
     listIdentityIteratee; // $ExpectType undefined
 
-    const dictionaryIdentityIteratee: _.Iteratee<_.Dictionary<StringRecord>, string> = undefined;
-    dictionaryIdentityIteratee; // $ExpectType undefined
+    const dictionaryIdentityIteratee: _.Iteratee<_.Dictionary<StringRecord>, string> = null;
+    dictionaryIdentityIteratee; // $ExpectType null
 
     const unionCollectionItemIdentityIteratee: _.Iteratee<_.List<IntersectingProperties>, string | boolean> = undefined;
     unionCollectionItemIdentityIteratee; // $ExpectType undefined
 
-    const unionCollectionIdentityIteratee: _.Iteratee<StringRecord[] | _.Dictionary<StringRecord>, string> = undefined;
-    unionCollectionIdentityIteratee; // $ExpectType undefined
+    const unionCollectionIdentityIteratee: _.Iteratee<StringRecord[] | _.Dictionary<StringRecord>, string> = null;
+    unionCollectionIdentityIteratee; // $ExpectType null
 
     const anyIdentityIteratee: _.Iteratee<any, string> = undefined;
     anyIdentityIteratee; // $ExpectType undefined
@@ -793,8 +793,11 @@ unknownPropertyNameIterateeResult; // $ExpectType any
 declare const propertyPathIterateeResult: _.IterateeResult<_.EnumerableKey[], StringRecord>;
 propertyPathIterateeResult; // $ExpectType any
 
-declare const identityIterateeResult: _.IterateeResult<undefined, StringRecord>;
-identityIterateeResult; // $ExpectType StringRecord
+declare const nullIdentityIterateeResult: _.IterateeResult<null, StringRecord>;
+nullIdentityIterateeResult; // $ExpectType StringRecord
+
+declare const undefinedIdentityIterateeResult: _.IterateeResult<undefined, StringRecord>;
+undefinedIdentityIterateeResult; // $ExpectType StringRecord
 
 // Collections
 
