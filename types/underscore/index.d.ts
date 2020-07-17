@@ -93,13 +93,13 @@ declare module _ {
         (value: T): boolean;
     }
 
-    interface CollectionIterator<T, TResult, V = Collection<T>> {
+    interface CollectionIterator<T extends TypeOfCollection<V>, TResult, V = Collection<T>> {
         (element: T, key: CollectionKey<V>, collection: V): TResult;
     }
 
-    interface ListIterator<T, TResult, V extends List<T> = List<T>> extends CollectionIterator<T, TResult, V> { }
+    interface ListIterator<T extends TypeOfList<V>, TResult, V = List<T>> extends CollectionIterator<T, TResult, V> { }
 
-    interface ObjectIterator<T, TResult, V extends Dictionary<T> = Dictionary<T>> extends CollectionIterator<T, TResult, V> { }
+    interface ObjectIterator<T extends TypeOfDictionary<V>, TResult, V = Dictionary<T>> extends CollectionIterator<T, TResult, V> { }
 
     type Iteratee<V, R, T extends TypeOfCollection<V> = TypeOfCollection<V>> =
         undefined |
@@ -121,23 +121,25 @@ declare module _ {
 
     type PropertyTypeOrAny<T, K> = K extends keyof T ? T[K] : any;
 
-    interface MemoCollectionIterator<T, TResult, V = Collection<T>> {
+    interface MemoCollectionIterator<T extends TypeOfCollection<V>, TResult, V = Collection<T>> {
         (prev: TResult, curr: T, key: CollectionKey<V>, collection: V): TResult;
     }
 
-    interface MemoIterator<T, TResult, V extends List<T> = List<T>> extends MemoCollectionIterator<T, TResult, V> { }
+    interface MemoIterator<T extends TypeOfList<V>, TResult, V = List<T>> extends MemoCollectionIterator<T, TResult, V> { }
 
-    interface MemoObjectIterator<T, TResult, V extends Dictionary<T> = Dictionary<T>> extends MemoCollectionIterator<T, TResult, V> { }
+    interface MemoObjectIterator<T extends TypeOfDictionary<V>, TResult, V = Dictionary<T>> extends MemoCollectionIterator<T, TResult, V> { }
 
-    type TypeOfList<V> = V extends List<infer T> ? T : never;
-
-    type TypeOfDictionary<V> = V extends Dictionary<infer T> ? T : never;
-
-    type TypeOfCollection<V> =
+    type TypeOfList<V> =
         V extends never ? any
         : V extends List<infer T> ? T
+        : never;
+
+    type TypeOfDictionary<V> =
+        V extends never ? any
         : V extends Dictionary<infer T> ? T
         : never;
+
+    type TypeOfCollection<V> = TypeOfList<V> | TypeOfDictionary<V>;
 
     type ListItemOrSelf<T> = T extends List<infer TItem> ? TItem : T;
 
@@ -4044,7 +4046,7 @@ declare module _ {
          * @param context 'this' object in `iteratee`, optional.
          * @returns The originally wrapped collection.
          **/
-        each(iteratee: CollectionIterator<T, void, V>, context?: any): V;
+        each(iteratee: CollectionIterator<TypeOfCollection<V>, void, V>, context?: any): V;
 
         /**
          * @see each
@@ -4084,13 +4086,13 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The reduced result.
          **/
-        reduce<TResult>(iteratee: MemoCollectionIterator<T, TResult, V>,
+        reduce<TResult>(iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult, V>,
             memo: TResult,
             context?: any
         ): TResult;
-        reduce<TResult = T>(
-            iteratee: MemoCollectionIterator<T, TResult | T, V>
-        ): TResult | T | undefined;
+        reduce<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult | TypeOfCollection<V>, V>
+        ): TResult | TypeOfCollection<V> | undefined;
 
         /**
          * @see reduce
@@ -4112,13 +4114,13 @@ declare module _ {
          * @returns The reduced result.
          **/
         reduceRight<TResult>(
-            iteratee: MemoCollectionIterator<T, TResult, V>,
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult, V>,
             memo: TResult,
             context?: any
         ): TResult;
-        reduceRight<TResult = T>(
-            iteratee: MemoCollectionIterator<T, TResult | T, V>
-        ): TResult | T | undefined;
+        reduceRight<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult | TypeOfCollection<V>, V>
+        ): TResult | TypeOfCollection<V> | undefined;
 
         /**
          * @see reduceRight
@@ -5041,7 +5043,7 @@ declare module _ {
          * @param context 'this' object in `iteratee`, optional.
          * @returns A chain wrapper around the originally wrapped collection.
          **/
-        each(iteratee: CollectionIterator<T, void, V>, context?: any): _Chain<T, V>;
+        each(iteratee: CollectionIterator<TypeOfCollection<V>, void, V>, context?: any): _Chain<T, V>;
 
         /**
         * @see each
@@ -5082,13 +5084,13 @@ declare module _ {
          * @returns The reduced result in a chain wraper.
          **/
         reduce<TResult>(
-            iteratee: MemoCollectionIterator<T, TResult, V>,
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult, V>,
             memo: TResult,
             context?: any
         ): _ChainSingle<TResult>;
-        reduce<TResult = T>(
-            iteratee: MemoCollectionIterator<T, TResult | T, V>
-        ): _ChainSingle<TResult | T | undefined>;
+        reduce<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult | TypeOfCollection<V>, V>
+        ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
 
         /**
          * @see reduce
@@ -5110,13 +5112,13 @@ declare module _ {
          * @returns The reduced result in a chain wrapper.
          **/
         reduceRight<TResult>(
-            iteratee: MemoCollectionIterator<T, TResult, V>,
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult, V>,
             memo: TResult,
             context?: any
         ): _ChainSingle<TResult>;
-        reduceRight<TResult = T>(
-            iteratee: MemoCollectionIterator<T, TResult | T, V>
-        ): _ChainSingle<TResult | T | undefined>;
+        reduceRight<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult | TypeOfCollection<V>, V>
+        ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
 
         /**
          * @see reduceRight
