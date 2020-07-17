@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
-export interface ModuleOptions<ClientIdName extends string = 'client_id'> {
+export interface ModuleOptions<ClientIdName extends string = "client_id"> {
     client: {
         /** Service registered client id. Required. */
         id: string;
@@ -39,17 +39,17 @@ export interface ModuleOptions<ClientIdName extends string = 'client_id'> {
     http?: {};
     options?: {
         /** Format of data sent in the request body. Defaults to form. */
-        bodyFormat?: 'json' | 'form';
+        bodyFormat?: "json" | "form";
         /**
          * Indicates the method used to send the client.id/client.secret authorization params at the token request.
          * If set to body, the bodyFormat option will be used to format the credentials.
          * Defaults to header
          */
-        authorizationMethod?: 'header' | 'body';
+        authorizationMethod?: "header" | "body";
     };
 }
 
-export type TokenType = 'access_token' | 'refresh_token';
+export type TokenType = "access_token" | "refresh_token";
 
 export interface Token {
     [x: string]: any;
@@ -103,8 +103,8 @@ export interface WreckHttpOptions {
     secureProtocol?: string;
     ciphers?: string;
     events?: boolean;
-    json?: true | 'strict' | 'force';
-    gunzip?: boolean | 'force';
+    json?: true | "strict" | "force";
+    gunzip?: boolean | "force";
 }
 
 /**
@@ -113,7 +113,7 @@ export interface WreckHttpOptions {
  * After the user returns to the client via the redirect URL,
  * the application will get the authorization code from the URL and use it to request an access token.
  */
-export class AuthorizationCode<ClientIdName extends string = 'client_id'> {
+export class AuthorizationCode<ClientIdName extends string = "client_id"> {
     constructor(options: ModuleOptions<ClientIdName>);
 
     /**
@@ -170,7 +170,7 @@ export interface AuthorizationTokenConfig {
  * Because the client application has to collect the user's password and send it to the authorization server,
  * it is not recommended that this grant be used at all anymore.
  */
-export class ResourceOwnerPassword<ClientIdName extends string = 'client_id'> {
+export class ResourceOwnerPassword<ClientIdName extends string = "client_id"> {
     constructor(options: ModuleOptions<ClientIdName>);
 
     /**
@@ -214,7 +214,7 @@ export interface PasswordTokenConfig {
  * is used by clients to obtain an access token outside of the context of a user.
  * This is typically used by clients to access resources about themselves rather than to access a user's resources.
  */
-export class ClientCredentials<ClientIdName extends string = 'client_id'> {
+export class ClientCredentials<ClientIdName extends string = "client_id"> {
     constructor(options: ModuleOptions<ClientIdName>);
 
     /**
