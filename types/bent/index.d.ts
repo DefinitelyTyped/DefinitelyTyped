@@ -47,6 +47,9 @@ declare namespace bent {
         statusCode: number;
         statusMessage: string;
         headers: Headers;
+        arrayBuffer(): Promise<Buffer>;
+        text(): Promise<string>;
+        json(): Promise<Json>;
     };
     type FetchResponse = Response & { statusCode: number };
     type BentResponse = NodeResponse | FetchResponse;
