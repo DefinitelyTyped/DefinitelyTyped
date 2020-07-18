@@ -12,7 +12,10 @@
 /// <reference path="./cast.framework.messages.d.ts" />
 /// <reference path="./cast.framework.system.d.ts" />
 /// <reference path="./cast.framework.ui.d.ts" />
+/// <reference path="./player.d.ts" />
+/// <reference path="./cast.player.api.d.ts" />
 
+import * as player from './cast.player';
 import * as framework from './cast.framework';
 import { PlayerDataChangedEvent } from './cast.framework.ui';
 import { Event as SystemEvent } from './cast.framework.system';
@@ -41,9 +44,10 @@ import {
 
 export as namespace cast;
 export { framework };
+export { player };
 
 declare global {
-    const cast: { framework: typeof framework };
+    const cast: { framework: typeof framework; player: typeof player };
 
     type EventHandler = (event: Event) => void;
     type SystemEventHandler = (event: SystemEvent) => void;
