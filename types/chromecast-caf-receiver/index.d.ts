@@ -12,7 +12,7 @@
 /// <reference path="./cast.framework.messages.d.ts" />
 /// <reference path="./cast.framework.system.d.ts" />
 /// <reference path="./cast.framework.ui.d.ts" />
-/// <reference path="./player.d.ts" />
+/// <reference path="./cast.player.d.ts" />
 /// <reference path="./cast.player.api.d.ts" />
 
 import * as player from './cast.player';
