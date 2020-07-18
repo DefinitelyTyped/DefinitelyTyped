@@ -6,7 +6,7 @@
             "dom"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": false,
         "baseUrl": "../",
@@ -15,30 +15,15 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "preserve"
     },
     "files": [
-        "accounts.d.ts",
-        "blaze.d.ts",
-        "browser-policy-common.d.ts",
-        "check.d.ts",
-        "ddp-rate-limiter.d.ts",
-        "ddp.d.ts",
-        "ejson.d.ts",
-        "email.d.ts",
-        "http.d.ts",
-        "meteor.d.ts",
-        "mongo.d.ts",
-        "reactive-var.d.ts",
-        "server-render.d.ts",
-        "service-configuration.d.ts",
-        "session.d.ts",
-        "tiny-test.d.ts",
-        "tools.d.ts",
-        "tracker.d.ts",
-        "underscore.d.ts",
-        "webapp.d.ts",
         "index.d.ts",
-        "meteor-tests.ts"
+        "test/meteor-tests.ts",
+        "test/globals/meteor-tests.ts",
+        "test/meteor-tests-module-only.ts",
+        "test/server-render.tsx",
+        "test/react-meteor-data-tests.tsx"
     ]
 }

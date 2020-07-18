@@ -1,5 +1,11 @@
 import * as React from 'react';
-import ReactInfiniteCalendar from 'react-infinite-calendar';
+import ReactInfiniteCalendar, {
+    Calendar,
+    withRange,
+    withKeyboardSupport,
+    withMultipleDates,
+    withDateSelection
+} from 'react-infinite-calendar';
 
 const test: React.SFC = () => (
     <ReactInfiniteCalendar
@@ -26,6 +32,10 @@ const test: React.SFC = () => (
           todayHelperRowOffset: 4,
         }}
         locale={{
+          locale: {
+            distanceInWords: () => {},
+            format: () => {}
+          },
           blank: 'Select a date...',
           headerFormat: 'ddd, MMM Do',
           todayLabel: {
@@ -57,5 +67,14 @@ const test: React.SFC = () => (
         rowHeight={40}
         autoFocus={false}
         tabIndex={1}
+        interpolateSelection={(date: Date, selected: Date[]) => {
+            console.log(date, selected);
+            return [new Date()];
+        }}
     />
 );
+
+const testWithRange = withRange(Calendar);
+const testWithDateSelection = withDateSelection(Calendar);
+const testWithKeyboardSupport = withKeyboardSupport(Calendar);
+const testWithMultipleDate = withMultipleDates(Calendar);

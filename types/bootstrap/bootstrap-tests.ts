@@ -34,12 +34,16 @@ $("#carousel").carousel("pause");
 
 $("#carousel").carousel(100);
 
-$("#carousel").on("slide.bs.carousel", function(ev) {
+$("#carousel").on("slide.bs.carousel", function(e) {
     const that: HTMLElement = this;
-    const from: number = ev.from;
-    const to: number = ev.to;
-    const direction: string = ev.direction;
-    const data: undefined = ev.data;
+
+    const data: undefined = e.data;
+    const carousel: HTMLElement = e.target;
+
+    const direction: string = e.direction;
+    const relatedTarget: HTMLElement = e.relatedTarget;
+    const from: number = e.from;
+    const to: number = e.to;
 });
 
 $("#carousel").carousel({
@@ -47,7 +51,9 @@ $("#carousel").carousel({
     keyboard: true,
     slide: false,
     pause: "hover",
+    ride: 'carousel',
     wrap: true,
+    touch: false,
 });
 
 $("#carousel").carousel({
@@ -101,7 +107,11 @@ $("#dropdown").dropdown();
 // $ExpectType JQuery<HTMLElement>
 $("#dropdown").dropdown("update");
 
-$("#dropdown").on("hide.bs.dropdown", () => {});
+$("#dropdown").on("hide.bs.dropdown", (e) => {
+    const data: undefined = e.data;
+    const container: HTMLElement = e.target;
+    const togglingAnchorElement: HTMLElement = e.relatedTarget;
+});
 
 $("#dropdown").dropdown({
     offset: 10,
@@ -141,7 +151,13 @@ $("#modal").modal();
 // $ExpectType JQuery<HTMLElement>
 $("#modal").modal("show");
 
-$("#modal").on("hide.bs.modal", () => {});
+$("#modal").on("show.bs.modal", (e) => {
+    const data: undefined = e.data;
+    const modal: HTMLElement = e.target;
+    if (e.relatedTarget) {
+        const clickedElement: HTMLElement = e.relatedTarget;
+    }
+});
 
 $("#modal").modal({
     backdrop: false,
@@ -152,6 +168,10 @@ $("#modal").modal({
 
 $("#modal").modal({
     backdrop: "static",
+});
+
+$("#modal").on('hidePrevented.bs.modal', e => {
+    const {data, target: modal} = e;
 });
 
 // --------------------------------------------------------------------------------------
@@ -181,6 +201,12 @@ $("#popover").popover({
     offset: 10,
     fallbackPlacement: ["flip", "clockwise"],
     boundary: "scrollParent",
+    sanitize: false,
+    whiteList: {
+        h1: [],
+        img: ['src', 'alt', 'title', 'width', 'height'],
+    },
+    sanitizeFn: (x: string) => x.replace("<", ""),
 });
 
 $("#popover").popover({
@@ -190,6 +216,10 @@ $("#popover").popover({
         console.log(this.config.content);
         return "left";
     },
+});
+
+$("#popover").popover({
+    sanitizeFn: null,
 });
 
 // --------------------------------------------------------------------------------------
@@ -215,6 +245,10 @@ $("#scrollspy").scrollspy({
 });
 
 $("#scrollspy").scrollspy({
+    target: $("#navbar-example2"),
+});
+
+$("#scrollspy").scrollspy({
     method: "position"
 });
 
@@ -226,9 +260,30 @@ $("#scrollspy").scrollspy({
 $("#someListItem").tab("show");
 
 $("a[data-toggle=\"list\"]").on("shown.bs.tab", (e) => {
-    e.target; // newly activated tab
-    e.relatedTarget; // previous active tab
+    const data: undefined = e.data;
+    const newlyActivatedTab: HTMLElement = e.target;
+    const previousActiveTab: HTMLElement = e.relatedTarget;
 });
+
+// --------------------------------------------------------------------------------------
+// Toast
+// --------------------------------------------------------------------------------------
+
+// $ExpectType JQuery<HTMLElement>
+$("#toast").toast();
+
+// $ExpectType JQuery<HTMLElement>
+$("#toast").toast("show");
+
+$("#toast").on("shown.bs.toast", () => {});
+
+$("#toast").toast({
+    animation: false,
+    autohide: false,
+    delay: 100,
+});
+
+$("#toast").toast({});
 
 // --------------------------------------------------------------------------------------
 // Tooltip
@@ -244,10 +299,26 @@ $("#tooltip").on("hide.bs.tooltip", () => {});
 
 $("#tooltip").tooltip({
     animation: false,
-});
-
-$("#tooltip").tooltip({
     container: "#container",
+    delay: {show: 500, hide: 100},
+    html: true,
+    placement: "auto",
+    selector: "[rel=\"tooltip\"]",
+    template: '<div class="tooltip empty" role="tooltip"></div>',
+    title: "Hello world",
+    trigger: "hover focus",
+    offset: 10,
+    fallbackPlacement: ["flip", "clockwise"],
+    boundary: "scrollParent",
+    sanitize: false,
+    whiteList: {
+        h1: [],
+        img: ['src', 'alt', 'title', 'width', 'height'],
+    },
+    sanitizeFn: (x: string) => x.replace("<", ""),
+    popperConfig: {
+        placement: 'bottom',
+    },
 });
 
 $("#tooltip").tooltip({
@@ -260,18 +331,6 @@ $("#tooltip").tooltip({
 
 $("#tooltip").tooltip({
     delay: 250,
-});
-
-$("#tooltip").tooltip({
-    delay: {show: 500, hide: 100},
-});
-
-$("#tooltip").tooltip({
-    html: true,
-});
-
-$("#tooltip").tooltip({
-    placement: "auto",
 });
 
 $("#tooltip").tooltip({
@@ -292,19 +351,7 @@ $("#tooltip").tooltip({
 });
 
 $("#tooltip").tooltip({
-    selector: "[rel=\"tooltip\"]",
-});
-
-$("#tooltip").tooltip({
     selector: false,
-});
-
-$("#tooltip").tooltip({
-    template: '<div class="tooltip empty" role="tooltip"></div>',
-});
-
-$("#tooltip").tooltip({
-    title: "Hello world",
 });
 
 $("#tooltip").tooltip({
@@ -318,14 +365,6 @@ $("#tooltip").tooltip({
 });
 
 $("#tooltip").tooltip({
-    trigger: "hover focus",
-});
-
-$("#tooltip").tooltip({
-    offset: 10,
-});
-
-$("#tooltip").tooltip({
     offset: "10px",
 });
 
@@ -334,13 +373,9 @@ $("#tooltip").tooltip({
 });
 
 $("#tooltip").tooltip({
-    fallbackPlacement: ["flip", "clockwise"],
-});
-
-$("#tooltip").tooltip({
-    boundary: "scrollParent",
-});
-
-$("#tooltip").tooltip({
     boundary: aHtmlElement,
+});
+
+$("#tooltip").tooltip({
+    sanitizeFn: null,
 });

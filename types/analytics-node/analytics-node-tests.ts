@@ -1,12 +1,23 @@
 import Analytics = require("analytics-node");
-var analytics: Analytics;
+let analytics: Analytics;
 
 function testConfig(): void {
   analytics = new Analytics('YOUR_WRITE_KEY', {
     flushAt: 20,
-    flushAfter: 10000,
+    flushInterval: 10000,
     host: "http://example.com",
-    enable: true
+    enable: true,
+    timeout: 1000,
+  });
+}
+
+function testConfigWithStringTimeout(): void {
+  analytics = new Analytics('YOUR_WRITE_KEY', {
+    flushAt: 20,
+    flushInterval: 10000,
+    host: "http://example.com",
+    enable: true,
+    timeout: '1000',
   });
 }
 
@@ -33,7 +44,7 @@ function testIdentify(): void {
     if (err) {
       console.error(err);
     } else {
-      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`))
+      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`));
     }
   });
 }
@@ -41,6 +52,24 @@ function testIdentify(): void {
 function testTrack(): void {
   analytics.track({
     userId: '019mr8mf4r',
+    event: 'Purchased an Item',
+    properties: {
+      revenue: 39.95,
+      shippingMethod: '2-day'
+    }
+  });
+
+  analytics.track({
+    anonymousId: '019mr8mf4r',
+    event: 'Purchased an Item',
+    properties: {
+      revenue: 39.95,
+      shippingMethod: '2-day'
+    }
+  });
+
+  // $ExpectError
+  analytics.track({
     event: 'Purchased an Item',
     properties: {
       revenue: 39.95,
@@ -59,7 +88,7 @@ function testTrack(): void {
     if (err) {
       console.error(err);
     } else {
-      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`))
+      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`));
     }
   });
 }
@@ -91,20 +120,20 @@ function testPage(): void {
     if (err) {
       console.error(err);
     } else {
-      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`))
+      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`));
     }
   });
 }
 
 function testAlias(): void {
   // the anonymous user does actions ...
-  analytics.track({ userId: 'anonymous_user', event: 'Anonymous Event' })
+  analytics.track({ userId: 'anonymous_user', event: 'Anonymous Event' });
   // the anonymous user signs up and is aliased
-  analytics.alias({ previousId: 'anonymous_user', userId: 'identified@gmail.com' })
+  analytics.alias({ previousId: 'anonymous_user', userId: 'identified@gmail.com' });
   // the identified user is identified
-  analytics.identify({ userId: 'identified@gmail.com', traits: { plan: 'Free' } })
+  analytics.identify({ userId: 'identified@gmail.com', traits: { plan: 'Free' } });
   // the identified user does actions ...
-  analytics.track({ userId: 'identified@gmail.com', event: 'Identified Action' })
+  analytics.track({ userId: 'identified@gmail.com', event: 'Identified Action' });
 }
 
 function testGroup(): void {
@@ -128,35 +157,41 @@ function testGroup(): void {
     if (err) {
       console.error(err);
     } else {
-      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`))
+      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`));
     }
   });
 }
 
 function testIntegrations(): void {
   analytics.track({
-    event: 'Upgraded Membershipt',
+    event: 'Upgraded Membership',
     userId: '97234974',
     integrations: {
-      'All': false,
-      'Vero': true,
-      'Google Analytics': false
+      All: false,
+      Vero: true,
+      'Google Analytics': false,
+      AppsFlyer: {
+        appsflyer_id: 'example-id'
+      }
     }
   });
 
   analytics.track({
-    event: 'Upgraded Membershipt',
+    event: 'Upgraded Membership',
     userId: '97234974',
     integrations: {
-      'All': false,
-      'Vero': true,
-      'Google Analytics': false
+      All: false,
+      Vero: true,
+      'Google Analytics': false,
+      AppsFlyer: {
+        appsflyer_id: 'example-id'
+      }
     }
   }, (err, data) => {
     if (err) {
       console.error(err);
     } else {
-      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`))
+      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`));
     }
   });
 }
@@ -164,8 +199,10 @@ function testIntegrations(): void {
 function testFlush(): void {
   analytics.flush();
   analytics.flush((err, batch) => {
-    if (err) { alert("Oh nos!"); }
-    else { console.log(batch.batch[0].type); }
+    if (err) {
+        alert("Oh nos!");
+    } else {
+        console.log(batch.batch[0].type);
+    }
   });
 }
-

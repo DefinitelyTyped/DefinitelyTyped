@@ -1,4 +1,4 @@
-// Type definitions for topojson-specification 1.0
+// Type definitions for non-npm package topojson-specification 1.0
 // Project: https://github.com/topojson/topojson-specification
 // Definitions by: denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

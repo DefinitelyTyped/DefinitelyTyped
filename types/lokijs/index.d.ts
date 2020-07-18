@@ -1086,7 +1086,7 @@ declare class DynamicView<E extends object> extends LokiEventEmitter {
      * @param [parameters] - optional parameters (if optional transform requires them)
      * @returns A copy of the internal resultset for branched queries.
      */
-    public branchResultset(transform: string | string[] | Transform[], parameters?: object): Resultset<any>;
+    public branchResultset(transform?: string | string[] | Transform[], parameters?: object): Resultset<any>;
 
     /**
      * toJSON() - Override of toJSON to avoid circular references

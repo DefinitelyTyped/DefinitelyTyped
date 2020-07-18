@@ -130,20 +130,20 @@ export declare class FtpConnection extends events.EventEmitter {
  */
 export interface FtpFileSystem {
     unlink: (path: string, callback?: (err?: NodeJS.ErrnoException) => void) => void;
-    readdir: (path: string, callback?: (err: NodeJS.ErrnoException, files: string[]) => void) => void;
+    readdir: (path: string, callback?: (err?: NodeJS.ErrnoException, files?: string[]) => void) => void;
     mkdir: ((path: string, callback?: (err?: NodeJS.ErrnoException) => void) => void)
     | ((path: string, mode: number, callback?: (err?: NodeJS.ErrnoException) => void) => void)
     | ((path: string, mode: string, callback?: (err?: NodeJS.ErrnoException) => void) => void);
-    open: ((path: string, flags: string, callback?: (err: NodeJS.ErrnoException, fd: number) => any) => void)
-    | ((path: string, flags: string, mode: number, callback?: (err: NodeJS.ErrnoException, fd: number) => any) => void)
-    | ((path: string, flags: string, mode: string, callback?: (err: NodeJS.ErrnoException, fd: number) => any) => void);
+    open: ((path: string, flags: string, callback?: (err?: NodeJS.ErrnoException, fd?: number) => any) => void)
+    | ((path: string, flags: string, mode: number, callback?: (err?: NodeJS.ErrnoException, fd?: number) => any) => void)
+    | ((path: string, flags: string, mode: string, callback?: (err?: NodeJS.ErrnoException, fd?: number) => any) => void);
     close: (fd: number, callback?: (err?: NodeJS.ErrnoException) => void) => void;
     rmdir: (path: string, callback?: (err?: NodeJS.ErrnoException) => void) => void;
     rename: (oldPath: string, newPath: string, callback?: (err?: NodeJS.ErrnoException) => void) => void;
     /**
      * specific object properties: { mode, isDirectory(), size, mtime }
      */
-    stat: (path: string, callback?: (err: NodeJS.ErrnoException, stats: fs.Stats) => any) => void;
+    stat: (path: string, callback?: (err?: NodeJS.ErrnoException, stats?: fs.Stats) => any) => void;
     /**
      * if useReadFile option is not set or is false
      */
@@ -184,7 +184,7 @@ export interface FtpFileSystem {
  * FTP server
  *
  * Events:
- * @event close	net.Server close event
+ * @event close    net.Server close event
  * @event error net.Server error event
  * @event client:connected  (connection: FtpConnection)
  */

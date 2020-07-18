@@ -1,5 +1,5 @@
 // Type definitions for Select2 4.0
-// Project: http://ivaynberg.github.com/select2/
+// Project: http://ivaynberg.github.com/select2/, https://select2.org
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -233,21 +233,21 @@ export interface Select2Plugin<TElement = HTMLElement>  {
     // tslint:disable-next-line:no-unnecessary-generics
     <Result = DataFormat | GroupedDataFormat, RemoteResult = any>(options: Options<Result, RemoteResult>): JQuery<TElement>;
 
-	/**
-	 * Get the data object of the current selection
-	 */
+    /**
+     * Get the data object of the current selection
+     */
     (method: "data"): OptionData[];
-	/**
-	 * Reverts changes to DOM done by Select2. Any selection done via Select2 will be preserved.
-	 */
+    /**
+     * Reverts changes to DOM done by Select2. Any selection done via Select2 will be preserved.
+     */
     (method: "destroy"): JQuery<TElement>;
-	/**
-	 * Opens the dropdown
-	 */
+    /**
+     * Opens the dropdown
+     */
     (method: "open"): JQuery<TElement>;
-	/**
-	 * Closes the dropdown
-	 */
+    /**
+     * Closes the dropdown
+     */
     (method: "close"): JQuery<TElement>;
 }
 

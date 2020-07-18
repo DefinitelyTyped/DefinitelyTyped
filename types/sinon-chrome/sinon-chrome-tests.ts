@@ -1,6 +1,6 @@
 import * as sinon from 'sinon';
 import SinonChrome = require("sinon-chrome");
-var chromeStub = <typeof SinonChrome> <any> window.chrome;
+var chromeStub = window.chrome as any as typeof SinonChrome;
 
 // Examples taken from https://github.com/vitalets/sinon-chrome:
 
@@ -64,7 +64,8 @@ chromeStub.registerPlugin(new chromeStub.plugins.CookiePlugin(
             secure: false,
             session: false,
             storeId: '0',
-            value: 'COOKIE_VALUE'
+            value: 'COOKIE_VALUE',
+            sameSite: 'unspecified'
         },
         {
             domain: 'other-domain.com',
@@ -75,7 +76,11 @@ chromeStub.registerPlugin(new chromeStub.plugins.CookiePlugin(
             secure: false,
             session: true,
             storeId: '0',
-            value: '123'
+            value: '123',
+            sameSite: 'unspecified'
         }
     ]
 ));
+
+chromeStub.runtime.openOptionsPage();
+chromeStub.runtime.openOptionsPage(() => { });

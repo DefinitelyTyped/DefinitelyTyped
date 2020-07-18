@@ -1,4 +1,4 @@
-// Type definitions for chayns 3.1
+// Type definitions for non-npm package chayns 3.1
 // Project: https://github.com/TobitSoftware/chayns-js
 // Definitions by: Henning Kuehl <https://github.com/HenningKuehl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -73,7 +73,7 @@ declare namespace chayns {
 
     function getBaseColor(color?: string, colorMode?: number): string;
 
-    function share(config: ShareConfig): Promise<any>;		// TODO interface for promise result
+    function share(config: ShareConfig): Promise<any>;        // TODO interface for promise result
 
     function getAvailableSharingServices(): Promise<number[]>;
 
@@ -99,9 +99,9 @@ declare namespace chayns {
 
     function scrollToY(position: number): Promise<any>;
 
-    function addToWallet(passbook: string): Promise<any>;		// TODO check passbock parameter
+    function addToWallet(passbook: string): Promise<any>;        // TODO check passbock parameter
 
-    function addScrollListener(callback: (data: any) => any, throttle?: number): Promise<any>;		// TODO interface for callback data
+    function addScrollListener(callback: (data: any) => any, throttle?: number): Promise<any>;        // TODO interface for callback data
 
     function setScreenOrientation(orientation: number): Promise<any>;
 
@@ -159,11 +159,11 @@ declare namespace chayns {
      * chayns.intercom
      */
     namespace intercom {
-        function sendMessageToUser(userId: number, config: IntercomConfig): Promise<any>;		// TODO set interface for promise result
+        function sendMessageToUser(userId: number, config: IntercomConfig): Promise<any>;        // TODO set interface for promise result
 
-        function sendMessageToGroup(groupId: number, config: IntercomConfig): Promise<any>;	// TODO set interface for promise result
+        function sendMessageToGroup(groupId: number, config: IntercomConfig): Promise<any>;    // TODO set interface for promise result
 
-        function sendMessageToPage(config: IntercomConfig): Promise<any>;						// TODO set interface for promise result
+        function sendMessageToPage(config: IntercomConfig): Promise<any>;                        // TODO set interface for promise result
     }
 
     /**
@@ -171,9 +171,9 @@ declare namespace chayns {
      * chayns.passKit
      */
     namespace passKit {
-        function getInstalled(): Promise<any>;						// TODO interface for promise result
+        function getInstalled(): Promise<any>;                        // TODO interface for promise result
 
-        function isInstalled(identifier: string): Promise<any>;		// TODO interface for promise result
+        function isInstalled(identifier: string): Promise<any>;        // TODO interface for promise result
     }
 
     /**
@@ -769,7 +769,7 @@ interface DialogSelectConfig {
     message?: string;
     quickfind?: boolean;
     multiselect?: boolean;
-    buttons?: any[];		// TODO interface for buttons
+    buttons?: any[];        // TODO interface for buttons
     list: DialogSelectConfigItem[];
 }
 

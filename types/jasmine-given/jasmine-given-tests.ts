@@ -11,31 +11,41 @@ And(() => { });
 Invariant(() => { });
 
 Given((done) => {
-  if (done) {
-    done();
-  }
+  done();
 });
 
 When((done) => {
-  if (done) {
-    done();
-  }
+  done();
 });
 
 Then('expected condition 2', (done) => {
-  if (done) {
-    done();
-  }
+  done();
 });
 
 And((done) => {
-  if (done) {
-    done();
-  }
+  done();
 });
 
 Invariant((done) => {
-  if (done) {
-    done();
-  }
+  done();
+});
+
+Given((done) => {
+  done.fail();
+});
+
+When((done) => {
+  done.fail();
+});
+
+Then('expected condition 2', (done) => {
+  done.fail();
+});
+
+And((done) => {
+  done.fail();
+});
+
+Invariant((done) => {
+  done.fail();
 });

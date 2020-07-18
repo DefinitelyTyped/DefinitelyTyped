@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "plugin.d.ts",
         "svg-sprite-loader-tests.ts"
     ]
 }

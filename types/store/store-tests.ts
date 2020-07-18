@@ -1,7 +1,7 @@
 import * as store from 'store';
 import * as engine from 'store/src/store-engine';
 import * as allPlugin from 'store/plugins/all';
-import * as defaultPlugin from 'store/plugins/default';
+import * as defaultsPlugin from 'store/plugins/defaults';
 import * as dumpPlugin from 'store/plugins/dump';
 import * as eventsPlugin from 'store/plugins/events';
 import * as expirePlugin from 'store/plugins/expire';
@@ -78,7 +78,7 @@ var storages: any[] = [
 ];
 var plugins = [
     allPlugin,
-    defaultPlugin,
+    defaultsPlugin,
     dumpPlugin,
     eventsPlugin,
     expirePlugin,

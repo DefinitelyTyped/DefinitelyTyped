@@ -1,4 +1,4 @@
-// Type definitions for Google Cloud Monitoring API v2beta2 2.0
+// Type definitions for non-npm package Google Cloud Monitoring API v2beta2 2.0
 // Project: https://cloud.google.com/monitoring/v2beta2/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

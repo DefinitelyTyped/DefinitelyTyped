@@ -43,8 +43,8 @@ grids.forEach(( gridControl: Xrm.Page.GridControl ) =>
 
 /// Demonstrate generic overload vs typecast
 
-const lookupAttribute = <Xrm.Page.LookupControl>Xrm.Page.getControl( "customerid" );
-const lookupAttribute2 = Xrm.Page.getControl<Xrm.Page.LookupControl>( "customerid" );
+const lookupAttribute = Xrm.Page.getControl( "customerid" ) as Xrm.Page.LookupControl;
+const lookupAttribute2 = Xrm.Page.getControl( "customerid" ) as Xrm.Page.LookupControl;
 
 /// Demonstrate ES6 String literal syntax
 
@@ -105,7 +105,7 @@ alert( `The current entity type is: ${Xrm.Page.data.entity.getEntityName() }` );
 
 /// Demonstrate Optionset Value as int in Turbo Forms
 
-const optionSetAttribute = Xrm.Page.getAttribute<Xrm.Page.OptionSetAttribute>( "statuscode" );
+const optionSetAttribute = Xrm.Page.getAttribute( "statuscode" ) as Xrm.Page.OptionSetAttribute;
 const optionValue: number = optionSetAttribute.getOptions()[0].value;
 
 /// Demonstrate Control.setFocus();
@@ -125,7 +125,7 @@ let requirementLevelString = "none";
 let submitMode: Xrm.Page.SubmitMode = "always";
 let submitModeString = "always";
 
-let attribute = Xrm.Page.getAttribute<Xrm.Page.LookupAttribute>("customerid");
+let attribute = Xrm.Page.getAttribute("customerid") as Xrm.Page.LookupAttribute;
 attribute.setSubmitMode(submitMode);
 attribute.setSubmitMode(submitMode);
 attribute.setRequiredLevel(requirementLevel);

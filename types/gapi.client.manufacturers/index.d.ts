@@ -1,4 +1,4 @@
-// Type definitions for Google Manufacturer Center API v1 1.0
+// Type definitions for non-npm package Google Manufacturer Center API v1 1.0
 // Project: https://developers.google.com/manufacturers/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -1,4 +1,4 @@
-// Type definitions for socketio-jwt 0.0
+// Type definitions for socketio-jwt 0.2
 // Project: https://github.com/auth0/socketio-jwt
 // Definitions by: Eric Hallander <https://github.com/ehallander9591>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,28 +18,28 @@ export function authorize(options: JwtAuthOptions, callback?: JwtAuthorizeCallba
  * This is an object literal that contains options.
  */
 export interface JwtAuthOptions {
-	secret: string | JwtSecretFunc;
-	timeout?: number; // In milliseconds to handle the second round trip.
-	callback?: boolean; // To disconnect socket server-side without a client-side callback if no valid token.
-	decodedPropertyName: string; // Property to store the docoded token to.
-	handshake?: boolean; // Used to trigger a single round trip authentication.
+    secret: string | JwtSecretFunc;
+    timeout?: number; // In milliseconds to handle the second round trip.
+    callback?: boolean; // To disconnect socket server-side without a client-side callback if no valid token.
+    decodedPropertyName?: string; // Property to store the decoded token to.
+    handshake?: boolean; // Used to trigger a single round trip authentication.
 }
 
 export interface JwtData {
-	message: string;
-	code: string;
-	type: string;
+    message: string;
+    code: string;
+    type: string;
 }
 
 /**
  * An Error Object used by the package.
  */
 export class UnauthorizedError extends Error {
-	constructor(code: string, error: Error);
+    constructor(code: string, error: Error);
 
-	message: string;
-	inner: Error;
-	data: JwtData;
+    message: string;
+    inner: Error;
+    data: JwtData;
 }
 
 /**

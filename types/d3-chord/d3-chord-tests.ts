@@ -193,5 +193,5 @@ ribbonPaths = select<SVGGElement, any>('g')
     .datum(chords)
     .selectAll()
     .data(chords => chords)
-    .enter().append<SVGPathElement>('path')
+    .enter().append('path')
     .attr('d', svgRibbon);

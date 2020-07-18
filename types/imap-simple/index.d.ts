@@ -1,11 +1,13 @@
-// Type definitions for imap-simple v3.1.0
+// Type definitions for imap-simple v4.2.0
 // Project: https://github.com/chadxz/imap-simple
 // Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
+//                 Ilari Aarnio <https://github.com/iaarnio>
 // Definitions: https://github.com/psnider/DefinitelyTyped/imap-simple
 
 /// <reference types="node" />
 
 import Imap = require("imap");
+import { EventEmitter } from 'events';
 
 export interface ImapSimpleOptions {
     /** Options to pass to node-imap constructor. */
@@ -35,14 +37,26 @@ export interface Message {
     seqno: number;
 }
 
-export class ImapSimple extends NodeJS.EventEmitter {
+export class ImapSimple extends EventEmitter {
     constructor(imap: Imap);
 
     /** Open a mailbox, calling the provided callback with signature (err, boxName), or resolves the returned promise with boxName. */
     openBox(boxName: string, callback: (err: Error, boxName: string) => void): void;
     openBox(boxName: string): Promise<string>;
 
-    /** Search for and retrieve mail in the previously opened mailbox. */
+    /** Create a mailbox, calling the provided callback with signature (err, boxName), or resolves the returned promise with boxName. */
+    addBox(boxName: string, callback: (err: Error, boxName: string) => void): void;
+    addBox(boxName: string): Promise<string>;
+
+    /** Delete a mailbox, calling the provided callback with signature (err, boxName), or resolves the returned promise with boxName. */
+    delBox(boxName: string, callback: (err: Error, boxName: string) => void): void;
+    delBox(boxName: string): Promise<string>;
+
+    /** Returns the full list of mailboxes (folders). Upon success, either the provided callback will be called with signature (err, boxes), or the returned promise will be resolved with boxes. Boxes is the exact object returned from the node-imap getBoxes() result. */
+    getBoxes(callback: (err: Error, boxes: Imap.MailBoxes) => void): void;
+    getBoxes(): Promise<Imap.MailBoxes>;
+
+    /** Search for and retrieve mail in the currently open mailbox. */
     search(searchCriteria: any[], fetchOptions: Imap.FetchOptions, callback: (err: Error, messages: Message[]) => void): void;
     search(searchCriteria: any[], fetchOptions: Imap.FetchOptions): Promise<Message[]>;
 
@@ -57,6 +71,10 @@ export class ImapSimple extends NodeJS.EventEmitter {
     addMessageLabel(source: string | string[], label: string | string[], callback: (err: Error) => void): void;
     addMessageLabel(source: string | string[], label: string | string[]): Promise<void>;
 
+    /** Appends the argument message to the currently open mailbox or another mailbox. Message is a RFC-822 compatible MIME message. Valid options are mailbox, flags and date. When completed, either calls the provided callback with signature (err), or resolves the returned promise. */
+    append(message: any, options: Imap.AppendOptions, callback: (err: Error) => void): void;
+    append(message: any, options: Imap.AppendOptions): Promise<void>;
+
     /** Moves the specified message(s) in the currently open mailbox to another mailbox. source corresponds to a node-imap MessageSource which specifies the messages to be moved. When completed, either calls the provided callback with signature (err), or resolves the returned promise. */
     moveMessage(source: string | string[], boxName: string, callback: (err: Error) => void): void;
     moveMessage(source: string | string[], boxName: string): Promise<void>;
@@ -66,8 +84,8 @@ export class ImapSimple extends NodeJS.EventEmitter {
     addFlags(source: string | string[], flag: string | string[]): Promise<void>;
 
     /** Removes the provided flag(s) from the specified message(s). uid is the uid of the message you want to remove the flag from or an array of uids. flag is either a string or array of strings indicating the flags to remove. */
-    delFlags(source: string | string[], flag: string | string[], callback: (err: Error) => void): void;
-    delFlags(source: string | string[], flag: string | string[]): Promise<void>;
+    delFlags(uid: string | string[], flag: string | string[], callback: (err: Error) => void): void;
+    delFlags(uid: string | string[], flag: string | string[]): Promise<void>;
 }
 
 export namespace errors {

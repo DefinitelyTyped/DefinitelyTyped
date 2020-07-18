@@ -52,12 +52,12 @@ export interface MeasureProps {
     scroll?: boolean;
     bounds?: boolean;
     margin?: boolean;
-    innerRef?(ref: Element | null): void;
+    innerRef?: React.Ref<Element>;
     onResize?(contentRect: ContentRect): void;
     children?: React.SFC<MeasuredComponentProps>;
 }
 
-export declare function withContentRect(types: ReadonlyArray<MeasurementType> | MeasurementType):
+export function withContentRect(types: ReadonlyArray<MeasurementType> | MeasurementType):
     <T extends {}>(fn: MeasuredComponent<T>) => React.ComponentType<T>;
 
 declare class Measure extends React.Component<MeasureProps> {}

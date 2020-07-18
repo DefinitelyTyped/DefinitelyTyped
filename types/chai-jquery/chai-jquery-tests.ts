@@ -67,6 +67,10 @@ function test_disabled() {
     expect($('#foo')).to.be.disabled;
 }
 
+function test_enabled() {
+    expect($('#foo')).to.be.enabled;
+}
+
 function test_empty() {
     $('.empty').should.be.empty;
     expect($('body')).not.to.be.empty;

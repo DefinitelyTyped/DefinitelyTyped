@@ -47,11 +47,20 @@ var newObj = {
     nested: {
       value: 'Hi there!'
     }
+  },
+  breath: {
+    value: 'Hello'
   }
 };
 
 var val = dot.pick('some.nested.value', newObj);
 console.log(val);
+
+// Set a new value
+val = dot.str('breath.value', 'World', newObj);
+
+// Replacing with a new object
+val = dot.set('breath', { value: 'Goodbye' }, newObj);
 
 // Pick & Remove the value
 val = dot.pick('some.nested.value', newObj, true);

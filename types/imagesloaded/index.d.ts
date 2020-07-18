@@ -58,4 +58,5 @@ declare module 'imagesloaded' {
 
 interface JQuery {
   imagesLoaded(callback?: ImagesLoaded.ImagesLoadedCallback): JQueryDeferred<ImagesLoaded.ImagesLoaded>;
+  imagesLoaded(options: ImagesLoaded.ImagesLoadedOptions, callback?: ImagesLoaded.ImagesLoadedCallback): JQueryDeferred<ImagesLoaded.ImagesLoaded>;
 }

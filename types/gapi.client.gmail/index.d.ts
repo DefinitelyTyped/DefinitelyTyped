@@ -1,4 +1,4 @@
-// Type definitions for Google Gmail API v1 1.0
+// Type definitions for non-npm package Google Gmail API v1 1.0
 // Project: https://developers.google.com/gmail/api/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,8 +15,6 @@ declare namespace gapi.client {
     /** Load Gmail API v1 */
     function load(name: "gmail", version: "v1"): PromiseLike<void>;
     function load(name: "gmail", version: "v1", callback: () => any): void;
-
-    const users: gmail.UsersResource;
 
     namespace gmail {
         interface AutoForwarding {
@@ -2048,5 +2046,7 @@ declare namespace gapi.client {
             settings: SettingsResource;
             threads: ThreadsResource;
         }
+
+        const users: UsersResource;
     }
 }

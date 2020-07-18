@@ -1,4 +1,4 @@
-// Type definitions for Google Google Proximity Beacon API v1beta1 1.0
+// Type definitions for non-npm package Google Google Proximity Beacon API v1beta1 1.0
 // Project: https://developers.google.com/beacons/proximity/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

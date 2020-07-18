@@ -2,7 +2,7 @@
 // Project: https://github.com/saintedlama/passport-local-mongoose
 // Definitions by: Linus Brolin <https://github.com/linusbrolin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="mongoose" />
 /// <reference types="passport-local" />
@@ -10,18 +10,37 @@
 declare module 'mongoose' {
   import passportLocal = require('passport-local');
 
+  export interface AuthenticationResult {
+    user: any;
+    error: any;
+  }
+
   // methods
   export interface PassportLocalDocument extends Document {
+    setPassword(password: string): Promise<PassportLocalDocument>;
     setPassword(password: string, cb: (err: any, res: any) => void): void;
-    authenticate(password: string, cb: (err: any, res: any, error: any) => void): void;
+    changePassword(oldPassword: string, newPassword: string): Promise<PassportLocalDocument>;
+    changePassword(oldPassword: string, newPassword: string, cb: (err: any, res: any) => void): void;
+    authenticate(password: string): Promise<AuthenticationResult>;
+    authenticate(password: string, cb: (err: any, user: any, error: any) => void): void;
+    resetAttempts(): Promise<PassportLocalDocument>;
+    resetAttempts(cb: (err: any, res: any) => void): void;
+  }
+
+  interface AuthenticateMethod<T> {
+    (username: string, password: string): Promise<AuthenticationResult>;
+    (username: string, password: string, cb: (err: any, user: T | boolean, error: any) => void): void;
   }
 
   // statics
   interface PassportLocalModel<T extends Document> extends Model<T> {
-    authenticate(): (username: string, password: string, cb: (err: any, res: T, error: any) => void) => void;
+    authenticate(): AuthenticateMethod<T> 
     serializeUser(): (user: PassportLocalModel<T>, cb: (err: any, id?: any) => void) => void;
     deserializeUser(): (username: string, cb: (err: any, user?: any) => void) => void;
+
+    register(user: T, password: string): Promise<T>;
     register(user: T, password: string, cb: (err: any, account: any) => void): void;
+    findByUsername(username: string, selectHashSaltFields: boolean): Query<T>;
     findByUsername(username: string, selectHashSaltFields: boolean, cb: (err: any, account: any) => void): any;
     createStrategy(): passportLocal.Strategy;
   }

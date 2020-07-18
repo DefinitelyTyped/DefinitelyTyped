@@ -18,7 +18,7 @@ import MDCComponent from 'material__base/component';
 import MDCTabFoundation from './foundation';
 import MDCTabAdapter from './adapter';
 
-export {MDCTabAdapter, MDCTabFoundation};
+export { MDCTabAdapter, MDCTabFoundation };
 
 export class MDCTab extends MDCComponent<MDCTabAdapter, MDCTabFoundation> {
     static attachTo(root: Element): MDCTab;

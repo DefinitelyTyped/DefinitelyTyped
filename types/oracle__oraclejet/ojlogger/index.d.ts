@@ -1,0 +1,10 @@
+export let LEVEL_ERROR: number;
+export let LEVEL_INFO: number;
+export let LEVEL_LOG: number;
+export let LEVEL_NONE: number;
+export let LEVEL_WARN: number;
+export function error(...args: Array<object | string | number>): void;
+export function info(...args: Array<object | string | number>): void;
+export function log(...args: Array<object | string | number>): void;
+export function option(key?: object | string, value?: any): any;
+export function warn(...args: Array<object | string | number>): void;

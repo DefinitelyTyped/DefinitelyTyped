@@ -121,15 +121,20 @@ sql = mysql.format(sql, inserts);
 
 connection.config.queryFormat = function(query, values) {
     if (!values) return query;
-    return query.replace(/\:(\w+)/g, function(txt: string, key: string) {
+    return query.replace(/\:(\w+)/g, (txt: string, key: string) => {
         if (values.hasOwnProperty(key)) {
             return this.escape(values[key]);
         }
         return txt;
-    }.bind(this));
+    });
 };
 
+// $ExpectType string
+connection.config.queryFormat("UPDATE posts SET title = :title", {title: "Hello MySQL"});
+
 connection.query("UPDATE posts SET title = :title", {title: "Hello MySQL"});
+connection.query({sql: "UPDATE posts SET title = :title"}, {title: "Hello MySQL"});
+connection.query({sql: "UPDATE posts SET title = :title"}, {title: "Hello MySQL"}, (err, result) => {});
 
 const s: stream.Readable = connection.query("UPDATE posts SET title = :title", {title: "Hello MySQL"}).stream({highWaterMark: 5});
 
@@ -178,6 +183,8 @@ const poolConfig = {
 };
 
 let pool = mysql.createPool(poolConfig);
+
+console.log('Connection timezone config:', pool.config.connectionConfig.timezone);
 
 pool.query('SELECT 1 + 1 AS solution', (err, rows, fields) => {
     if (err) throw err;
@@ -252,6 +259,11 @@ const poolClusterWithOptions = mysql.createPoolCluster({
     restoreNodeTimeout: 1000,
     defaultSelector: 'RR'
 });
+
+// raw
+// $ExpectType { toSqlString: () => string; }
+const CURRENT_TIMESTAMP = mysql.raw('CURRENT_TIMESTAMP()');
+const sqlString = mysql.format('UPDATE posts SET modified = ? WHERE id = ?', [CURRENT_TIMESTAMP, 42]);
 
 // destroy
 poolCluster.end();
@@ -431,3 +443,5 @@ connection = mysql.createConnection({debug: true});
 connection = mysql.createConnection({debug: ['ComQueryPacket', 'RowDataPacket']});
 connection = mysql.createConnection({dateStrings: ['DATE']});
 connection = mysql.createConnection({dateStrings: true});
+connection = mysql.createConnection({flags: '-FOUND_ROWS'});
+connection = mysql.createConnection({flags: ['-FOUND_ROWS']});

@@ -94,14 +94,15 @@ class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
 
 // Below tests that extended types for state work
 export abstract class SetStateTestForExtendsState<P, S extends { baseProp: string }> extends React.Component<P, S> {
-	foo() {
-		this.setState({ baseProp: 'foobar' });
-	}
+    foo() {
+        this.setState({ baseProp: 'foobar' });
+    }
 }
 
 // Below tests that & generic still works
-export abstract class SetStateTestForAndedState<P, S> extends React.Component<P, S & { baseProp: string }> {
-	foo() {
-		this.setState({ baseProp: 'foobar' });
-	}
-}
+// This is invalid because 'S' may specify a different type for `baseProp`.
+// export abstract class SetStateTestForAndedState<P, S> extends React.Component<P, S & { baseProp: string }> {
+//        foo() {
+//            this.setState({ baseProp: 'foobar' });
+//        }
+// }

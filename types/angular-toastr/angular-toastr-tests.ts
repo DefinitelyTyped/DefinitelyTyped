@@ -16,6 +16,10 @@ angular
             closeButton: false,
             closeHtml: '<button>&times;</button>',
             extendedTimeOut: 1000,
+            extraData: {
+                txt: "sample text",
+                action: () => {/* Do action */},
+            },
             iconClasses: {
                 error: 'toast-error',
                 info: 'toast-info',
@@ -29,7 +33,6 @@ angular
             progressBar: false,
             tapToDismiss: true,
             templates: {
-
                 toast: 'directives/toast/toast.html',
                 progressbar: 'directives/progressbar/progressbar.html'
             },

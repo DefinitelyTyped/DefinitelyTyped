@@ -1,4 +1,4 @@
-// Type definitions for react-sidebar 2.3
+// Type definitions for react-sidebar 3.0
 // Project: https://github.com/balloob/react-sidebar#readme
 // Definitions by: Jeroen Vervaeke <https://github.com/jeroenvervaeke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -23,6 +23,10 @@ export interface SidebarProps {
     transitions?: boolean;
     touch?: boolean;
     touchHandleWidth?: number;
+    rootId?: string;
+    sidebarId?: string;
+    contentId?: string;
+    overlayId?: string;
 }
 
 export interface SidebarStyles {

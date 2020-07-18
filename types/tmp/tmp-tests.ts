@@ -1,67 +1,98 @@
-import tmp = require('tmp');
+import {
+    DirResult,
+    FileResult,
+    tmpdir,
+    tmpName,
+    tmpNameSync,
+    dir,
+    dirSync,
+    file,
+    fileSync,
+    setGracefulCleanup
+} from "tmp";
 
-tmp.file((err, path, fd, cleanupCallback) => {
-	if (err) throw err;
+console.log(tmpdir);
 
-	console.log("File: ", path);
-	console.log("Filedescriptor: ", fd);
+setGracefulCleanup();
 
-	cleanupCallback();
+file((err, name, fd, removeCallback) => {
+    if (err) throw err;
+
+    console.log("File name: ", name);
+    console.log("File descriptor: ", fd);
+
+    removeCallback();
 });
 
-tmp.dir((err, path, cleanupCallback) => {
-	if (err) throw err;
+file({ mode: 644, prefix: "prefix-", postfix: ".txt" }, (err, name, fd) => {
+    if (err) throw err;
 
-	console.log("Dir: ", path);
-
-	cleanupCallback();
+    console.log("File name: ", name);
+    console.log("File descriptor: ", fd);
 });
 
-tmp.tmpName((err, path) => {
-	if (err) throw err;
+dir((err, name, removeCallback) => {
+    if (err) throw err;
 
-	console.log("Created temporary filename: ", path);
+    console.log("Dir name: ", name);
+
+    removeCallback();
 });
 
-tmp.file({ mode: 644, prefix: 'prefix-', postfix: '.txt' }, (err, path, fd) => {
-	if (err) throw err;
+dir({ mode: 750, prefix: "myTmpDir_" }, (err, name) => {
+    if (err) throw err;
 
-	console.log("File: ", path);
-	console.log("Filedescriptor: ", fd);
+    console.log("Dir name: ", name);
 });
 
-tmp.dir({ mode: 750, prefix: 'myTmpDir_' }, (err, path) => {
-	if (err) throw err;
+tmpName((err, name) => {
+    if (err) throw err;
 
-	console.log("Dir: ", path);
+    console.log("Created temporary filename: ", name);
 });
 
-tmp.tmpName({ template: '/tmp/tmp-XXXXXX' }, (err, path) => {
-	if (err) throw err;
+tmpName({ template: "/tmp/tmp-XXXXXX" }, (err, name) => {
+    if (err) throw err;
 
-	console.log("Created temporary filename: ", path);
+    console.log("Created temporary filename: ", name);
 });
 
-tmp.setGracefulCleanup();
+tmpName({ name: "fixed-name", dir: "relative" }, (err, name) => {
+    if (err) throw err;
 
-let tmpobj = tmp.fileSync();
-console.log("File: ", tmpobj.name);
-console.log("Filedescriptor: ", tmpobj.fd);
-tmpobj.removeCallback();
+    console.log("Created temporary filename: ", name);
+});
 
-tmpobj = tmp.dirSync();
-console.log("Dir: ", tmpobj.name);
-tmpobj.removeCallback();
+tmpName({ tmpdir: "/overridden/tmp/root" }, (err, name) => {
+    if (err) throw err;
 
-const name = tmp.tmpNameSync();
+    console.log("Created temporary filename: ", name);
+});
+
+let tmpDir: DirResult = dirSync();
+console.log("Dir name: ", tmpDir.name);
+tmpDir.removeCallback();
+
+tmpDir = dirSync({ mode: 750, prefix: "myTmpDir_" });
+console.log("Dir: ", tmpDir.name);
+
+let tmpFile: FileResult = fileSync();
+console.log("File name: ", tmpFile.name);
+console.log("File descriptor: ", tmpFile.fd);
+tmpFile.removeCallback();
+
+tmpFile = fileSync({ mode: 644, prefix: "prefix-", postfix: ".txt" });
+console.log("File name: ", tmpFile.name);
+console.log("File descriptor: ", tmpFile.fd);
+
+let name: string = tmpNameSync();
 console.log("Created temporary filename: ", name);
 
-tmpobj = tmp.fileSync({ mode: 644, prefix: 'prefix-', postfix: '.txt' });
-console.log("File: ", tmpobj.name);
-console.log("Filedescriptor: ", tmpobj.fd);
+name = tmpNameSync({ template: "/tmp/tmp-XXXXXX" });
+console.log("Created temporary filename: ", name);
 
-tmpobj = tmp.dirSync({ mode: 750, prefix: 'myTmpDir_' });
-console.log("Dir: ", tmpobj.name);
+name = tmpNameSync({ name: "fixed-name", dir: "relative" });
+console.log("Created temporary filename: ", name);
 
-const tmpname  = tmp.tmpNameSync({ template: '/tmp/tmp-XXXXXX' });
-console.log("Created temporary filename: ", tmpname);
+name = tmpNameSync({ tmpdir: "/overridden/tmp/root" });
+console.log("Created temporary filename: ", name);

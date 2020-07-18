@@ -1,22 +1,13 @@
 import * as React from 'react';
-import * as moment from 'moment';
 import * as chrono from '../ChronoNodeDummy';
 
 import Select, { components as SelectComponents } from 'react-select';
 
-const createOptionForDate = (d: any) => {
-  const date = moment.isMoment(d) ? d : moment(d);
+const createOptionForDate = (date: Date) => {
   return {
     date,
-    value: date.toDate(),
-    label: date.calendar(undefined, {
-      sameDay: '[Today] (Do MMM YYYY)',
-      nextDay: '[Tomorrow] (Do MMM YYYY)',
-      nextWeek: '[Next] dddd (Do MMM YYYY)',
-      lastDay: '[Yesterday] (Do MMM YYYY)',
-      lastWeek: '[Last] dddd (Do MMM YYYY)',
-      sameElse: 'Do MMMM YYYY',
-    }),
+    value: date,
+    label: "some label",
   };
 };
 
@@ -25,15 +16,13 @@ const defaultOptions: any = ['today', 'tomorrow', 'yesterday'].map(i =>
 );
 
 const createCalendarOptions = (date = new Date()) => {
-  // $FlowFixMe
   const daysInMonth = Array.apply(null, {
-    length: moment(date).daysInMonth(),
+    length: date.getUTCDate(),
   }).map((x: any, i: number) => {
-    const d = moment(date).date(i + 1);
-    return { ...createOptionForDate(d), display: 'calendar' };
+    return { ...createOptionForDate(date), display: 'calendar' };
   });
   return {
-    label: moment(date).format('MMMM YYYY'),
+    label: date.toDateString(),
     options: daysInMonth,
   };
 };

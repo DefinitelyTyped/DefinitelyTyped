@@ -31,3 +31,25 @@ duplex.write("oh, hi there", () => {
 duplex.end("", () => {
   console.log("finished ending");
 });
+
+const duplexWithOptions = duplexer2({ readableObjectMode: true, writableObjectMode: true }, writable, readable);
+
+duplexWithOptions.on("data", (e: any) => {
+  console.log("got data", JSON.stringify(e));
+});
+
+duplexWithOptions.on("finish", () => {
+  console.log("got finish event");
+});
+
+duplexWithOptions.on("end", () => {
+  console.log("got end event");
+});
+
+duplexWithOptions.write("oh, hi there", () => {
+  console.log("finished writing");
+});
+
+duplexWithOptions.end("", () => {
+  console.log("finished ending");
+});

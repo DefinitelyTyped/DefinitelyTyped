@@ -5,5 +5,5 @@ const stream = fs.createReadStream('package.json');
 
 // $ExpectType ReadStream
 destroy(stream);
-// $ExpectType WriteStream
+// $ExpectType WriteStream & { fd: 2; }
 destroy(process.stderr);

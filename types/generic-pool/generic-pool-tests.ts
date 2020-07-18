@@ -29,12 +29,13 @@ const opts = {
     min: 2,
     maxWaitingClients: 2,
     testOnBorrow: true,
+    testOnReturn: true,
     acquireTimeoutMillis: 100,
     fifo: true,
     priorityRange: 5,
     autostart: false,
     evictionRunIntervalMillis: 200,
-    numTestsPerRun: 3,
+    numTestsPerEvictionRun: 3,
     softIdleTimeoutMillis: 100,
     idleTimeoutMillis: 5000
 };
@@ -48,6 +49,7 @@ pool.use((conn: Connection) => 'test')
 
 pool.acquire()
     .then((conn: Connection) => {
+        console.log(pool.isBorrowedResource(conn));  // => true
         return pool.release(conn);
     }).then(() => {
         return pool.acquire(5);

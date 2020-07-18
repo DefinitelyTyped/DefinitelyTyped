@@ -47,6 +47,8 @@ setTimeout(() => {
     throw new Error('timeout');
 }, 5000);
 
+// $ExpectType Stream
 pump(createReadStream('/dev/random'), toHex(), createWriteStream('/dev/null'));
 
+// $ExpectType Stream
 pump([createReadStream('/dev/random'), toHex(), createWriteStream('/dev/null')]);

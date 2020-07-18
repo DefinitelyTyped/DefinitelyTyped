@@ -19,6 +19,8 @@
     },
     "files": [
         "index.d.ts",
+        "test/plugin-tests.ts",
+        "test/videojs-alt-distributions-tests.ts",
         "video.js-tests.ts"
     ]
 }

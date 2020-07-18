@@ -1,5 +1,5 @@
 // Type definitions for Material Components Web 0.35
-// Project: https://material.io/components/
+// Project: https://material.io/components/, https://github.com/material-components/material-components-web
 // Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
@@ -78,4 +78,12 @@ export class MDCTextField extends MDCComponent<MDCTextFieldAdapter, MDCTextField
      * Recomputes the outline SVG path for the outline element.
      */
     layout(): void;
+
+    /**
+     * Ideally we would use a 'writeonly' modifier here since this is a setter,
+     * but such a thing does not exist.
+     * https://github.com/Microsoft/TypeScript/issues/4839
+     * https://github.com/Microsoft/TypeScript/issues/21759
+     */
+    useNativeValidation: boolean;
 }

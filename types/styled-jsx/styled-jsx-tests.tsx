@@ -26,6 +26,29 @@ const withSeparatedCSS = (
     </div>
 );
 
+const globalCSS = css.global`body { margin: 0; }`;
+const withGlobalCSS = (
+    <div>
+        <style jsx global>{globalCSS}</style>
+    </div>
+);
+
+const resolvedCSS = css.resolve`a { color: green; }`;
+const withResolvedCSS = (
+    <div>
+        <button className={resolvedCSS.className}>About</button>
+        {resolvedCSS.styles}
+    </div>
+);
+
+const dynamicResolvedCSS = css.resolve`a { color: ${buttonColor}; }`;
+const withDynamicResolvedCSS = (
+    <div>
+        <button className={dynamicResolvedCSS.className}>About</button>
+        {dynamicResolvedCSS.styles}
+    </div>
+);
+
 const stylesChildren = flushToReact();
 const jsxToRender = (
     <head>{ stylesChildren }</head>

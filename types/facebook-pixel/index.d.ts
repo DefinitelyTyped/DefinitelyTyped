@@ -1,6 +1,7 @@
 // Type definitions for the Facebook Pixel Tag API
 // Project: https://developers.facebook.com/docs/ads-for-websites/tag-api/
 // Definitions by: Noctis Hsu <https://github.com/noctishsu>
+//                 Victor Hom <https://github.com/VictorHom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare var fbq:facebook.Pixel.Event;
 
@@ -8,6 +9,19 @@ declare var fbq:facebook.Pixel.Event;
 declare module facebook.Pixel {
     interface Event {
         (eventType:string, InitialAppId:string):void;
+        (eventType:string, InitialAppId:string, eventName:string, 
+            parameters:
+            facebook.Pixel.ViewContentParameters |
+            ViewContentParameters |
+            SearchParameters |
+            AddToCartParameters |
+            AddToWishlistParameters |
+            InitiateCheckoutParameters |
+            AddPaymentInfoParameters |
+            PurchaseParameters |
+            LeadParameters |
+            CompleteRegistrationParameters 
+            ):void;
         (eventType:string, eventName:string):void;
         (eventType:string, eventName:string, parameters:facebook.Pixel.ViewContentParameters):void;
         (eventType:string, eventName:string, parameters:ViewContentParameters):void;

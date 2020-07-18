@@ -212,7 +212,7 @@ declare namespace SemanticUI {
             /**
              * Callback if a form is all valid
              */
-            onSuccess(this: JQuery, event: JQuery.Event<HTMLElement>, fields: any): void;
+            onSuccess(this: JQuery, event: JQuery.TriggeredEvent<HTMLElement>, fields: any): void;
             /**
              * Callback if any form field is invalid
              */

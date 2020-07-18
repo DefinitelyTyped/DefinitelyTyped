@@ -41,7 +41,7 @@ declare namespace Sticky {
          *
          * Defaults to 'div'.
          */
-        wrapperCmp?: keyof React.ReactHTML | React.ReactElement<any>;
+        wrapperCmp?: keyof React.ReactHTML | React.ReactElement;
 
         /**
          * Anything that can be used by React.createElement. Used for holder

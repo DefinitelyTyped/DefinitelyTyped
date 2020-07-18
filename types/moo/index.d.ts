@@ -1,7 +1,8 @@
-// Type definitions for moo 0.4
+// Type definitions for moo 0.5
 // Project: https://github.com/tjvr/moo#readme
 // Definitions by: Nikita Litvin <https://github.com/deltaidea>
 //                 Jörg Vehlow <https://github.com/MofX>
+//                 Martien Oranje <https://github.com/moranje>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace moo;
@@ -9,7 +10,24 @@ export as namespace moo;
 /**
  * Reserved token for indicating a parse fail.
  */
-export const error: { error: true };
+export interface ErrorRule {
+  error: true;
+}
+
+export const error: ErrorRule;
+
+/**
+ * Reserved token for indicating a fallback rule.
+ */
+export interface FallbackRule {
+  fallback: true;
+}
+
+export const fallback: FallbackRule;
+
+export type TypeMapper = (x: string) => string;
+
+export function keywords(kws: {[k: string]: string | string[]}): TypeMapper;
 
 export function compile(rules: Rules): Lexer;
 
@@ -45,12 +63,14 @@ export interface Rule {
      */
     value?: (x: string) => string;
 
-    keywords?: {
-        [x: string]: string | string[]
-    };
+    /**
+     * Used for mapping one set of types to another.
+     * See https://github.com/no-context/moo#keywords for an example
+     */
+    type?: TypeMapper;
 }
 export interface Rules {
-    [x: string]: RegExp | string | string[] | Rule;
+    [x: string]: RegExp | string | string[] | Rule | Rule[] | ErrorRule | FallbackRule;
 }
 
 export interface Lexer {
@@ -70,12 +90,25 @@ export interface Lexer {
     /**
      * Empty the internal buffer of the lexer, and set the line, column, and offset counts back to their initial value.
      */
-    reset(chunk?: string, state?: LexerState): void;
+    reset(chunk?: string, state?: LexerState): this;
     /**
      * Returns current state, which you can later pass it as the second argument
      * to reset() to explicitly control the internal state of the lexer.
      */
     save(): LexerState;
+    /**
+     * Transitions to the provided state and pushes the state onto the state
+     * stack.
+     */
+    pushState(state: string): void;
+    /**
+     * Returns back to the previous state in the stack.
+     */
+    popState(): void;
+    /**
+     * Transitiosn to the provided state. Does not push onto the state stack.
+     */
+    setState(state: string): void;
 
     [Symbol.iterator](): Iterator<Token>;
 }
@@ -104,7 +137,7 @@ export interface Token {
     /**
      * The number of line breaks found in the match. (Always zero if this rule has lineBreaks: false.)
      */
-    lineBreaks: boolean;
+    lineBreaks: number;
     /**
      * The line number of the beginning of the match, starting from 1.
      */

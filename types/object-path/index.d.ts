@@ -1,249 +1,141 @@
-// Type definitions for objectPath v0.9.x
+// Type definitions for objectPath 0.11
 // Project: https://github.com/mariocasciaro/object-path
 // Definitions by: Paulo Cesar <https://github.com/pocesar>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-declare var objectPath: ObjectPathGlobal.IObjectPathStatic;
+declare const objectPath: objectPath.ObjectPathStatic & {
+    withInheritedProps: objectPath.ObjectPathStatic;
+    create(options?: objectPath.Options): objectPath.ObjectPathStatic;
+};
 
-declare namespace ObjectPathGlobal {
+declare namespace objectPath {
+    interface Options {
+        includeInheritedProps?: boolean;
+    }
 
-    type IPath = Array<number|string>|number|string;
-    type IMultiArray = Array<IPath>;
+    type Path = Array<number | string> | number | string;
 
-    interface IObjectPathStatic {
+    interface ObjectPathStatic {
         /**
          * Binds an object
          */
-        <T extends {}>(object: T): IObjectPathBound<T>;
-
-        /*======== Del =========*/
+        <T extends object>(object: T): ObjectPathBound<T>;
 
         /**
          * Deletes a member from object or array
-         * @param {object} object
-         * @param {string[]|string} path
-         * @return object
          */
-        del<T extends {}>(object: T, path: IPath): T;
-        /**
-         * @see objectPath.del
-         */
-        del<T extends {}>(object: T):T;
-        /**
-         * @see objectPath.del
-         */
-        del():void;
+        del(object: object, path: Path): { [key: string]: any };
 
-        /*======== Has =========*/
         /**
          * Tests path existence
-         * @param {object} object
-         * @param {string[]|string} path
-         * @return object
          */
-        has<T extends {}>(object: T, path: IPath): boolean;
-        /**
-         * @see objectPath.has
-         */
-        has<T extends {}>(object: T): boolean;
-        /**
-         * @see objectPath.has
-         */
-        has(): boolean;
+        has(object: object, path: Path): boolean;
 
-        /*======== Get =========*/
         /**
          * Get a path from an object
-         * @param {object} object
-         * @param {string|string[]|number|number[]} path
-         * @param {*} [defaultValue=undefined]
          */
-        get<T extends {}, TResult>(object: T, path: IPath, defaultValue?: TResult): TResult;
-        /**
-         * @see objectPath.get
-         */
-        get<T extends {}>(object: T): T;
-        /**
-         * @see objectPath.get
-         */
-        get():void;
+        get(object: object, path: Path): any;
+        get<TResult>(object: object, path: Path, defaultValue: TResult): TResult;
 
-        /*======== Set =========*/
         /**
          * Set a path to a value
-         * @param {object} object
-         * @param {string|string[]|number|number[]} path
-         * @param {*} value
-         * @param {boolean} [doNotReplace=false]
          * @return Any existing value on the path if any
          */
-        set<T extends {}, TExisting>(object: T, path: IPath, value: any, doNotReplace?:boolean): TExisting;
-        /**
-         * @see objectPath.set
-         */
-        set<T extends {}>(object: T): T;
-        /**
-         * @see objectPath.set
-         */
-        set():void;
+        set<TResult = any>(
+            object: object,
+            path: Path,
+            value: TResult,
+            doNotReplace?: boolean
+        ): TResult | undefined;
 
-        /*======== Push =========*/
         /**
          * Create (if path isn't an array) and push the value to it. Can push unlimited number of values
-         * @param {object} object
          */
-        push<T extends {}>(object: T, path: IPath, ...args:any[]):void;
-        /**
-         * @see objectPath.push
-         */
-        push():void;
+        push(object: object, path: Path, ...items: any[]): void;
 
-        /*======== Coalesce =========*/
         /**
          * Get the first non undefined property
-         * @param {object} object
-         * @param {string[]|string[][]|number[]|number[][]} paths
-         * @param {*} defaultValue
-         * @return {*}
          */
-        coalesce<T extends {}, TResult>(object: T, paths: IMultiArray, defaultValue?: TResult):TResult;
+        coalesce<TResult>(object: object, paths: Path | Path[], defaultValue: TResult): TResult;
+        coalesce<TResult = any>(
+            object: object,
+            paths: Path | Path[],
+            defaultValue?: TResult
+        ): TResult | undefined;
 
-        /*======== Empty =========*/
         /**
          * Empty a path. Arrays are set to length 0, objects have all elements deleted, strings
          * are set to empty, numbers to 0, everything else is set to null
-         * @param {object} object
-         * @param {string|string[]|number[]} path
          */
-        empty<T extends {}, TResult>(object: T, path: IPath):TResult;
-        /**
-         * @see objectPath.empty
-         */
-        empty<T extends {}>(object: T):T;
-        /**
-         * @see objectPath.empty
-         */
-        empty():void;
+        empty(object: object, path: Path): any;
 
-        /*======== EnsureExists =========*/
         /**
          * Set a value if it doesn't exist, do nothing if it does
-         * @param {object} object
-         * @param {string|string[]|number|number[]} path
          */
-        ensureExists<T extends {}, TExisting>(object: T, path: IPath, value: any):TExisting;
-        /**
-         * @see objectPath.ensureExists
-         */
-        ensureExists<T extends {}>(object: T): T;
-        /**
-         * @see objectPath.ensureExists
-         */
-        ensureExists():void;
+        ensureExists<TResult>(object: object, path: Path, defaultValue: TResult): TResult;
+        ensureExists<TResult = any>(
+            object: object,
+            path: Path,
+            defaultValue?: TResult
+        ): TResult | undefined;
 
-        /*======== Insert =========*/
         /**
          * Insert an item in an array path
-         * @param {object} object
-         * @param {string|string[]|number|number[]} path
-         * @param {*} value
-         * @param {number} [at=0]
          */
-        insert<T extends {}>(object: T, path: IPath, value: any, at?: number):void;
+        insert(object: object, path: Path, value: any, at?: number): void;
     }
 
-    interface IObjectPathBound<T extends {}> {
-        /*======== Del =========*/
-
-        /**
-         * @see objectPath.ensureExists
-         */
-        del(path: IPath): T;
+    interface ObjectPathBound<T extends object> {
         /**
          * @see objectPath.del
          */
-        del(): T;
+        del(path: Path): { [key: string]: any };
 
-        /*======== Has =========*/
-        /**
-         * @see objectPath.ensureExists
-         */
-        has(path: IPath): boolean;
         /**
          * @see objectPath.has
          */
-        has(): boolean;
+        has(path: Path): boolean;
 
-        /*======== Get =========*/
-        /**
-         * @see objectPath.ensureExists
-         */
-        get<TResult>(path: IPath, defaultValue?: TResult): TResult;
         /**
          * @see objectPath.get
          */
-        get(): T;
+        get(path: Path): any;
+        get<TResult>(path: Path, defaultValue: TResult): TResult;
 
-        /*======== Set =========*/
-        /**
-         * @see objectPath.ensureExists
-         */
-        set<TExisting>(path: IPath, value: any, doNotReplace?:boolean): TExisting;
         /**
          * @see objectPath.set
          */
-        set(): T;
+        set<TResult = any>(path: Path, value: TResult, doNotReplace?: boolean): TResult | undefined;
 
-        /*======== Push =========*/
-        /**
-         * @see objectPath.ensureExists
-         */
-        push(path: IPath, ...args:any[]):void;
         /**
          * @see objectPath.push
          */
-        push():void;
+        push(path: Path, ...items: any[]): void;
 
-        /*======== Coalesce =========*/
         /**
-         * @see objectPath.ensureExists
+         * @see objectPath.coalesce
          */
-        coalesce<TResult>(paths: IMultiArray, defaultValue?: TResult):TResult;
+        coalesce<TResult>(paths: Path | Path[], defaultValue: TResult): TResult;
+        coalesce<TResult = any>(paths: Path | Path[], defaultValue?: TResult): TResult | undefined;
 
-        /*======== Empty =========*/
-        /**
-         * @see objectPath.ensureExists
-         */
-        empty(path: IPath):T;
         /**
          * @see objectPath.empty
          */
-        empty():T;
+        empty(path: Path): any;
 
-        /*======== EnsureExists =========*/
         /**
          * @see objectPath.ensureExists
          */
-        ensureExists<TExisting>(path: IPath, value: any):TExisting;
-        /**
-         * @see objectPath.ensureExists
-         */
-        ensureExists(): T;
+        ensureExists<TResult>(path: Path, defaultValue: TResult): TResult;
+        ensureExists<TResult = any>(path: Path, defaultValue?: TResult): TResult | undefined;
 
-        /*======== Insert =========*/
         /**
          * @see objectPath.insert
          */
-        insert(path: IPath, value: any, at?: number):void;
+        insert(path: Path, value: any, at?: number): void;
     }
 }
 
-// browser version
-declare module 'objectPath' {
-    export = objectPath;
-}
-
-// node version
-declare module 'object-path' {
-    export = objectPath;
-}
+export = objectPath;

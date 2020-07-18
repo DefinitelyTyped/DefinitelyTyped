@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODOs
         "jsdoc-format": false,
         "no-any-union": false,
         "no-redundant-jsdoc": false,

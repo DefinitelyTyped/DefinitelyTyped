@@ -22,7 +22,7 @@ export interface StickyChildArgs {
 }
 
 export interface StickyProps {
-    children: (args: StickyChildArgs) => React.ReactElement<any>;
+    children: (args: StickyChildArgs) => React.ReactElement;
     relative?: boolean;
     isActive?: boolean;
     className?: string;

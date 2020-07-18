@@ -10,16 +10,35 @@ class ImageGallery extends React.Component {
         }
     }
 
+    renderThumbInner(item: ReactImageGalleryItem): React.ReactNode {
+        return (
+            <div className="image-gallery-thumbnail-inner">
+                <img
+                    src={item.thumbnail}
+                    alt={item.thumbnailAlt}
+                    title={item.thumbnailTitle}
+                />
+                {item.thumbnailLabel && (
+                    <div className="image-gallery-thumbnail-label">
+                        {item.thumbnailLabel}
+                    </div>
+                )}
+            </div>
+        );
+    }
+
     render() {
         const galleryItem: ReactImageGalleryItem = {
             original: 'http://localhost/logo.jpg',
-            originalTitle: 'My Logo'
+            originalTitle: 'My Logo',
+            bulletClass: 'my-bullet-class-name',
         };
 
         const props: ReactImageGalleryProps = {
             items: [galleryItem],
             autoPlay: false,
-            showFullscreenButton: false
+            showFullscreenButton: false,
+            renderThumbInner: this.renderThumbInner
         };
 
         return <ReactImageGallery ref={(r) => this.gallery = r} {...props} />;

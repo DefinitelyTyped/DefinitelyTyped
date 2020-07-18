@@ -1,6 +1,6 @@
-import * as karma from 'karma-coverage';
+import * as karma from 'karma';
 
-// See https://github.com/karma-runner/karma-coverage/blob/v0.5.3/README.md#basic
+// See https://github.com/karma-runner/karma-coverage/blob/v1.1.2/README.md#basic
 module.exports = function(config: karma.Config) {
   config.set({
     files: [
@@ -20,13 +20,19 @@ module.exports = function(config: karma.Config) {
 
     // optionally, configure the reporter
     coverageReporter: {
-      type : 'html',
-      dir : 'coverage/'
+      type: 'html',
+      dir: 'coverage/',
+      // $ExpectType (browser: string) => string
+      subdir: (browser) => {
+          return `cool-${browser}-directory`;
+      },
+      // $ExpectType string
+      file: 'index.html',
     }
   });
 };
 
-// See https://github.com/karma-runner/karma-coverage/blob/v0.5.3/README.md#advanced-multiple-reporters
+// See https://github.com/karma-runner/karma-coverage/blob/v1.1.2/README.md#advanced-multiple-reporters
 module.exports = function(config: karma.Config) {
   config.set({
     files: [
@@ -56,7 +62,7 @@ module.exports = function(config: karma.Config) {
   });
 };
 
-// See https://github.com/karma-runner/karma-coverage/blob/v0.5.3/README.md#dont-minify-instrumenter-output
+// See https://github.com/karma-runner/karma-coverage/blob/v1.1.2/README.md#dont-minify-instrumenter-output
 module.exports = function(config: karma.Config) {
   config.set({
     coverageReporter: {
@@ -67,11 +73,12 @@ module.exports = function(config: karma.Config) {
   });
 };
 
-// See https://github.com/karma-runner/karma-coverage/blob/v0.5.3/docs/configuration.md#subdir
+// See https://github.com/karma-runner/karma-coverage/blob/v1.1.2/docs/configuration.md#subdir
 module.exports = function(config: karma.Config) {
   config.set({
     coverageReporter: {
       dir: 'coverage',
+      // $ExpectType string
       subdir: '.'
       // Would output the results into: .'/coverage/'
     }
@@ -93,7 +100,7 @@ module.exports = function(config: karma.Config) {
     coverageReporter: {
       dir: 'coverage',
       subdir: function(browser) {
-        // normalization process to keep a consistent browser name accross different
+        // normalization process to keep a consistent browser name across different
         // OS
         return browser.toLowerCase().split(/[ /-]/)[0];
       }
@@ -102,18 +109,18 @@ module.exports = function(config: karma.Config) {
   });
 };
 
-// See https://github.com/karma-runner/karma-coverage/blob/v0.5.3/docs/configuration.md#file
+// See https://github.com/karma-runner/karma-coverage/blob/v1.1.2/docs/configuration.md#file
 module.exports = function(config: karma.Config) {
   config.set({
     coverageReporter: {
-      type : 'text',
-      dir : 'coverage/',
-      file : 'coverage.txt'
+      type: 'text',
+      dir: 'coverage/',
+      file: 'coverage.txt'
     }
   });
 };
 
-// See https://github.com/karma-runner/karma-coverage/blob/v0.5.3/docs/configuration.md#check
+// See https://github.com/karma-runner/karma-coverage/blob/v1.1.2/docs/configuration.md#check
 module.exports = function(config: karma.Config) {
   config.set({
     coverageReporter: {
@@ -146,7 +153,7 @@ module.exports = function(config: karma.Config) {
   });
 };
 
-// See https://github.com/karma-runner/karma-coverage/blob/v0.5.3/docs/configuration.md#watermarks
+// See https://github.com/karma-runner/karma-coverage/blob/v1.1.2/docs/configuration.md#watermarks
 module.exports = function(config: karma.Config) {
   config.set({
     coverageReporter: {
@@ -160,24 +167,36 @@ module.exports = function(config: karma.Config) {
   });
 };
 
-// See https://github.com/karma-runner/karma-coverage/blob/v0.5.3/docs/configuration.md#sourcestore
-module.exports = function(config: karma.Config) {
+// See https://github.com/karma-runner/karma-coverage/blob/v1.1.2/docs/configuration.md#includeallsources
+module.exports = function (config: karma.Config) {
   config.set({
     coverageReporter: {
-      type : 'text',
-      dir : 'coverage/',
-      file : 'coverage.txt',
-      sourceStore : require('istanbul').Store.create('fslookup')
+      type: 'text',
+      dir: 'coverage/',
+      file: 'coverage.txt',
+      includeAllSources: true
     }
   });
 };
 
-// See https://github.com/karma-runner/karma-coverage/blob/v0.5.3/docs/configuration.md#reporters
+// See https://github.com/karma-runner/karma-coverage/blob/v1.1.2/docs/configuration.md#sourcestore
 module.exports = function(config: karma.Config) {
   config.set({
     coverageReporter: {
-      reporters:[
-        {type: 'html', dir:'coverage/'},
+      type: 'text',
+      dir: 'coverage/',
+      file: 'coverage.txt',
+      sourceStore: require('istanbul').Store.create('fslookup')
+    }
+  });
+};
+
+// See https://github.com/karma-runner/karma-coverage/blob/v1.1.2/docs/configuration.md#reporters
+module.exports = function(config: karma.Config) {
+  config.set({
+    coverageReporter: {
+      reporters: [
+        {type: 'html', dir: 'coverage/'},
         {type: 'teamcity'},
         {type: 'text-summary'}
       ],
@@ -185,7 +204,7 @@ module.exports = function(config: karma.Config) {
   });
 };
 
-// See https://github.com/karma-runner/karma-coverage/blob/v0.5.3/docs/configuration.md#instrumenter
+// See https://github.com/karma-runner/karma-coverage/blob/v1.1.2/docs/configuration.md#instrumenter
 module.exports = function(config: karma.Config) {
   config.set({
     coverageReporter: {

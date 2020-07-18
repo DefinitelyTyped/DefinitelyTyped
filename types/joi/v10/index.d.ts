@@ -1,4 +1,4 @@
-// Type definitions for joi v10.6.0
+// Type definitions for joi 10.6
 // Project: https://github.com/hapijs/joi
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Laurence Dougal Myers <https://github.com/laurence-myers>
@@ -114,7 +114,7 @@ export interface IpOptions {
     cidr?: string;
 }
 
-export type GuidVersions = 'uuidv1' | 'uuidv2' | 'uuidv3' | 'uuidv4' | 'uuidv5'
+export type GuidVersions = 'uuidv1' | 'uuidv2' | 'uuidv3' | 'uuidv4' | 'uuidv5';
 
 export interface GuidOptions {
     version: GuidVersions[] | GuidVersions;
@@ -160,8 +160,8 @@ export interface ReferenceOptions {
 }
 
 export interface IPOptions {
-    version?: Array<string>;
-    cidr?: string
+    version?: string[];
+    cidr?: string;
 }
 
 export interface JoiObject {
@@ -210,7 +210,6 @@ export type Schema = AnySchema
     | LazySchema;
 
 export interface AnySchema extends JoiObject {
-
     /**
      * Validates a value using the schema and options.
      */
@@ -411,7 +410,6 @@ export interface State {
 }
 
 export interface BooleanSchema extends AnySchema {
-
     /**
      * Allows for additional values to be considered valid booleans by converting them to true during validation.
      * Accepts a value or an array of values. String comparisons are by default case insensitive,
@@ -513,7 +511,6 @@ export interface StringSchema extends AnySchema {
      */
     max(limit: number, encoding?: string): this;
     max(limit: Reference, encoding?: string): this;
-
 
     /**
      * Specifies whether the string.max() limit should be used as a truncation.
@@ -651,7 +648,9 @@ export interface ArraySchema extends AnySchema {
     /**
      * Lists the types in sequence order for the array values where:
      * @param type - a joi schema object to validate against each array item in sequence order. type can be an array of values, or multiple values can be passed as individual arguments.
-     * If a given type is .required() then there must be a matching item with the same index position in the array. Errors will contain the number of items that didn't match. Any unmatched item having a label will be mentioned explicitly.
+     * If a given type is .required() then there must be a matching item with the same index position in the array.
+     * Errors will contain the number of items that didn't match.
+     * Any unmatched item having a label will be mentioned explicitly.
      */
     ordered(...types: SchemaLike[]): this;
     ordered(types: SchemaLike[]): this;
@@ -670,6 +669,7 @@ export interface ArraySchema extends AnySchema {
      * Specifies the exact number of items in the array.
      */
     length(limit: number): this;
+    length(limit: Reference): this;
 
     /**
      * Requires the array values to be unique.
@@ -681,7 +681,6 @@ export interface ArraySchema extends AnySchema {
 }
 
 export interface ObjectSchema extends AnySchema {
-
     /**
      * Sets the allowed object keys.
      */
@@ -818,7 +817,6 @@ export interface BinarySchema extends AnySchema {
 }
 
 export interface DateSchema extends AnySchema {
-
     /**
      * Specifies the oldest date allowed.
      * Notes: 'now' can be passed in lieu of date so as to always compare relatively to the current date,
@@ -861,7 +859,6 @@ export interface DateSchema extends AnySchema {
 }
 
 export interface FunctionSchema extends AnySchema {
-
     /**
      * Specifies the arity of the function where:
      * @param n - the arity expected.
@@ -895,7 +892,6 @@ export interface AlternativesSchema extends AnySchema {
 }
 
 export interface LazySchema extends AnySchema {
-
 }
 
 export interface Reference extends JoiObject {
@@ -916,7 +912,7 @@ export type ExtensionBoundSchema = Schema & {
      * @param options - should the context passed into the `validate` function in a custom rule
      */
     createError(type: string, context: Context, state: State, options: ValidationOptions): Err;
-}
+};
 
 export interface Rules<P extends object = any> {
     name: string;
@@ -985,7 +981,7 @@ export function func(): FunctionSchema;
 export function number(): NumberSchema;
 
 /**
- * Generates a schema object that matches an object data type (as well as JSON strings that parsed into objects).
+ * Generates a schema object that matches an object data type (as well as JSON strings that have been parsed into objects).
  */
 export function object(schema?: SchemaMap): ObjectSchema;
 
@@ -1077,8 +1073,8 @@ export function extend(extention: Extension): any;
 export function describe(schema: Schema): Description;
 
 /**
-* Whitelists a value
-*/
+ * Whitelists a value
+ */
 export function allow(value: any, ...values: any[]): Schema;
 export function allow(values: any[]): Schema;
 

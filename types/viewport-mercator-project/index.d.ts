@@ -1,8 +1,10 @@
-// Type definitions for viewport-mercator-project 5.2
+// Type definitions for viewport-mercator-project 6.1
 // Project: https://github.com/uber-common/viewport-mercator-project#readme
 // Definitions by: Fabio Berta <https://github.com/fnberta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.7
+
+import { mat4 } from 'gl-matrix';
 
 export interface ProjectOptions {
     topLeft?: boolean;
@@ -16,20 +18,24 @@ export type Coordinates = [number, number];
 
 export type CoordinatesZ = [number, number, number];
 
+export type ViewMatrix = number[];
+
 export interface ViewportOptions {
     width?: number;
     height?: number;
-    longitude?: number;
-    latitude?: number;
-    zoom?: number;
-    pitch?: number;
-    bearing?: number;
-    altitude?: number;
-    farZMultiplier?: number;
+    viewMatrix?: ViewMatrix;
+    projectionMatrix?: ViewMatrix;
 }
 
 export class Viewport {
+    width: number;
+    height: number;
+    scale: number;
+    viewMatrix: ViewMatrix;
+    projectionMatrix: ViewMatrix;
+
     constructor(opts?: ViewportOptions);
+
     equals(viewport: Viewport): boolean;
     project(lngLat: Coordinates, opts?: ProjectOptions): Coordinates;
     project(lngLatZ: CoordinatesZ, opts?: ProjectOptions): CoordinatesZ;
@@ -41,7 +47,30 @@ export type Padding = number | { top: number; right: number; bottom: number; lef
 
 export type Bounds = [Coordinates, Coordinates];
 
+export interface WebMercatorViewportOptions {
+    width?: number;
+    height?: number;
+    longitude?: number;
+    latitude?: number;
+    zoom?: number;
+    pitch?: number;
+    bearing?: number;
+    altitude?: number;
+    nearZMultiplier?: number;
+    farZMultiplier?: number;
+}
+
 export class WebMercatorViewport extends Viewport {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+    pitch: number;
+    bearing: number;
+    altitude: number;
+    center: CoordinatesZ;
+
+    constructor(opts?: WebMercatorViewportOptions);
+
     projectFlat(lngLat: Coordinates, scale?: number): Coordinates;
     unprojectFlat(xy: Coordinates, scale?: number): Coordinates;
     getMapCenterByLngLatPosition(opts: { lngLat: Coordinates; pos: Coordinates }): Coordinates;
@@ -58,37 +87,38 @@ export interface FittedBounds {
 
 export function fitBounds(options: { width: number; height: number; bounds: Bounds; padding?: Padding; offset?: Coordinates }): FittedBounds;
 
-export interface BaseViewportProps {
-    width: number;
-    height: number;
+export interface TransitionViewport {
     longitude: number;
     latitude: number;
     zoom: number;
 }
 
-export interface ViewportProps extends BaseViewportProps {
+export interface FlyToViewportProps extends TransitionViewport {
+    width: number;
+    height: number;
+}
+
+export interface ViewportProps extends FlyToViewportProps {
     pitch?: number;
     bearing?: number;
 }
 
-export interface NormalizedViewportProps extends BaseViewportProps {
+export interface NormalizedViewportProps extends FlyToViewportProps {
     pitch: number;
     bearing: number;
 }
 
 export function normalizeViewportProps(props: ViewportProps): NormalizedViewportProps;
 
-export function flyToViewport(startProps: BaseViewportProps, endProps: BaseViewportProps): BaseViewportProps;
+export function flyToViewport(startProps: FlyToViewportProps, endProps: FlyToViewportProps, t: number): TransitionViewport;
 
 export function lngLatToWorld(lngLat: Coordinates, scale: number): Coordinates;
 
 export function worldToLngLat(point: Coordinates, scale: number): Coordinates;
 
-export type ProjectionMatrix = number[];
+export function worldToPixels(coordinates: Coordinates | CoordinatesZ, pixelProjectionMatrix: mat4): CoordinatesZ;
 
-export function worldToPixels(coordinates: Coordinates | CoordinatesZ, pixelProjectionMatrix: ProjectionMatrix): CoordinatesZ;
-
-export function pixelsToWorld(pixels: Coordinates | CoordinatesZ, pixelUnprojectionMatrix: ProjectionMatrix, targetZ?: number): CoordinatesZ;
+export function pixelsToWorld(pixels: Coordinates | CoordinatesZ, pixelUnprojectionMatrix: mat4, targetZ?: number): CoordinatesZ;
 
 export function getMeterZoom(input: { latitude: number }): number;
 
@@ -118,15 +148,10 @@ export interface BaseHighPrecisionDistanceScalesInput extends BaseDistanceScales
 export type HighPrecisionDistanceScalesInput = BaseHighPrecisionDistanceScalesInput & { zoom: number } | BaseHighPrecisionDistanceScalesInput & { scale: number };
 
 export function getDistanceScales(input: DistanceScalesInput): DistanceScales;
-
 export function getDistanceScales(input: HighPrecisionDistanceScalesInput): HighPrecisionDistanceScales;
 
-// Type comes from https://github.com/uber-web/math.gl
-export class Vector3 extends Array {}
-
-export function getWorldPosition(input: { longitude: number; latitude: number; zoom: number; scale: number; meterOffset?: number; distanceScales?: DistanceScales }): Vector3;
-
-export type ViewMatrix = number[];
+export function addMetersToLngLat(lngLat: Coordinates, xy: Coordinates): Coordinates;
+export function addMetersToLngLat(lngLatZ: CoordinatesZ, xyz: CoordinatesZ): CoordinatesZ;
 
 export function getViewMatrix(input: { height: number; pitch: number; bearing: number; altitude: number; center?: CoordinatesZ; flipY?: boolean }): ViewMatrix;
 
@@ -135,6 +160,7 @@ export interface ProjectionParametersInput {
     height: number;
     pitch?: number;
     altitude?: number;
+    nearZMultiplier?: number;
     farZMultiplier?: number;
 }
 
@@ -148,4 +174,4 @@ export interface ProjectionParameters {
 
 export function getProjectionParameters(input: ProjectionParametersInput): ProjectionParameters;
 
-export function getProjectionMatrix(input: ProjectionParametersInput): ProjectionMatrix;
+export function getProjectionMatrix(input: ProjectionParametersInput): mat4;

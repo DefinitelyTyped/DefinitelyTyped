@@ -1,6 +1,8 @@
-// Type definitions for object-inspect 1.4
+// Type definitions for object-inspect 1.6
 // Project: https://github.com/substack/object-inspect
 // Definitions by: Charles Samborski <https://github.com/demurgos>
+//                 Akuukis <https://github.com/Akuukis>
+//                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace objectInspect {
@@ -12,6 +14,10 @@ declare namespace objectInspect {
          * Maximum depth of the inspection. Default: `5`.
          */
         depth?: number;
+        /**
+         * Must be "single" or "double", if present.
+         */
+        quoteStyle?: 'single' | 'double';
     }
 }
 

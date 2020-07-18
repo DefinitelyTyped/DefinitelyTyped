@@ -1,6 +1,7 @@
 import rpn = require('request-promise-native');
 import * as errors from 'request-promise-native/errors';
 import * as path from 'path';
+import constants = require('constants');
 
 rpn('http://www.google.com')
   .then(console.dir)
@@ -336,7 +337,7 @@ options = {
     // Or use `pfx` property replacing `cert` and `key` when using private key, certificate and CA certs in PFX or PKCS12 format:
     // pfx: fs.readFileSync(pfxFilePath),
     passphrase: 'password',
-    securityOptions: 'SSL_OP_NO_SSLv3'
+    secureOptions: constants.SSL_OP_NO_SSLv3
   }
 };
 

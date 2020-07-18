@@ -1,8 +1,11 @@
 // Type definitions for csso 3.5
 // Project: https://github.com/css/csso
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
+//                 Erik Källén <https://github.com/erik-kallen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.7
+
+import * as csstree from 'css-tree';
 
 declare namespace csso {
     interface Result {
@@ -14,6 +17,18 @@ declare namespace csso {
          * Instance of SourceMapGenerator or null.
          */
         map: object | null;
+    }
+
+    interface Usage {
+        tags?: string[];
+        ids?: string[];
+        classes?: string[];
+        scopes?: string[][];
+        blacklist?: {
+            tags?: string[];
+            ids?: string[];
+            classes?: string[];
+        };
     }
 
     interface CompressOptions {
@@ -44,7 +59,7 @@ declare namespace csso {
         /**
          * Usage data for advanced optimisations.
          */
-        usage?: object;
+        usage?: Usage;
         /**
          * Function to track every step of transformation.
          */
@@ -100,7 +115,9 @@ interface Csso {
     /**
      * Does the main task – compress an AST.
      */
-    compress(ast: object, options?: csso.CompressOptions): { ast: object };
+    compress(ast: csstree.CssNode, options?: csso.CompressOptions): { ast: csstree.CssNode };
+
+    syntax: typeof csstree;
 }
 
 declare const csso: Csso;

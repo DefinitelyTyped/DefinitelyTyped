@@ -22,6 +22,13 @@ r.connect({ host: "localhost", port: 28015 }, function(err: Error, conn: r.Conne
     )
     .run(conn, errorAndCursorCallback);
 
+    r.table("players").merge((player: r.Expression<Object>) => {
+      return {
+        teams: r.table("games").getAll(player('teamIds')).coerceTo('array'),
+      }
+    })
+    .run(conn, errorAndCursorCallback);
+  
     const center = r.point(123, 456);
     r.table("geo")
       .getIntersecting(r.circle(center, 1000, { unit: "m" }), { index: "location" })
@@ -91,9 +98,14 @@ r.connect({ host: "localhost", port: 28015 }).then(function(conn: r.Connection) 
         .limit(4)
         .run(conn)
         .then((cursor: r.Cursor) => {
-          cursor.toArray().then((rows: any[]) => {
-            console.log(rows);
-          });
+          return cursor.next().then((row) => {
+            console.log('first row', row);
+            return cursor.toArray();
+          }).then((rows) => {
+            console.log('all rows', rows);
+          }).then(() => {
+            return cursor.close();
+          })
         });
     });
 });

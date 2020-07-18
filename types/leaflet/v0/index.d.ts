@@ -1020,7 +1020,7 @@ declare namespace L {
 
         /**
           * Function that will be used for converting GeoJSON coordinates to LatLng points
-          * (if not specified, coords will be assumed to be WGS84 � standard[longitude, latitude]
+          * (if not specified, coords will be assumed to be WGS84 standard[longitude, latitude]
           * values in degrees).
           */
         coordsToLatLng?: (coords: any[]) => LatLng[];
@@ -1583,25 +1583,25 @@ declare namespace L {
           */
         getSouthEast(): LatLng;
 
-      	/**
+          /**
           * Returns the west longitude in degrees of the bounds.
           */
-	getWest(): number;
+    getWest(): number;
 
         /**
           * Returns the east longitude in degrees of the bounds.
           */
-	getEast(): number;
+    getEast(): number;
 
         /**
           * Returns the north latitude in degrees of the bounds.
           */
-	getNorth(): number;
+    getNorth(): number;
 
         /**
           * Returns the south latitude in degrees of the bounds.
           */
-	getSouth(): number;
+    getSouth(): number;
 
         /**
           * Returns the center point of the bounds.
@@ -2442,7 +2442,7 @@ declare namespace L {
 
         /**
           * Iterates over the layers of the map, optionally specifying context
-		  * of the iterator function.
+          * of the iterator function.
           */
         eachLayer(fn: (layer: ILayer) => void, context?: any): Map;
 
@@ -2497,7 +2497,7 @@ declare namespace L.Map {
 
         /**
           * When this option is set, the map restricts the view to the given geographical
-          * bounds, bouncing the user back when he tries to pan outside the view, and also
+          * bounds, bouncing the user back when they try to pan outside the view, and also
           * not allowing to zoom out to a view that's larger than the given bounds (depending
           * on the map size). To set the restriction dynamically, use setMaxBounds method
           */
@@ -2563,7 +2563,7 @@ declare namespace L.Map {
         tap?: boolean;
 
         /**
-          * The max number of pixels a user can shift his finger during touch for it
+          * The max number of pixels a user can shift their finger during touch for it
           * to be considered a valid tap.
           *
           * Default value: 15.
@@ -3405,10 +3405,10 @@ declare namespace L {
           */
         className?: string;
 
-	/**
-	 * Sets the radius of a circle marker.
-	 */
-	radius?: number;
+    /**
+     * Sets the radius of a circle marker.
+     */
+    radius?: number;
 
     }
 }
@@ -4377,7 +4377,7 @@ declare var L_NO_TOUCH: boolean;
 declare var L_DISABLE_3D: boolean;
 
 declare module "leaflet" {
-	export = L;
+    export = L;
 }
 
 // vim: et ts=4 sw=4

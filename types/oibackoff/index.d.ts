@@ -8,10 +8,10 @@
 export function backoff(opts?: BackoffOptions): BackoffInstance;
 
 export interface BackoffOptions {
-	maxTries?: number;
-	algorithm?: 'incremental' | 'exponential' | 'fibonacci';
-	delayRatio?: number;
-	maxDelay?: number;
+    maxTries?: number;
+    algorithm?: 'incremental' | 'exponential' | 'fibonacci';
+    delayRatio?: number;
+    maxDelay?: number;
 }
 
 export type BackoffIntermediate<A> = (err: A, tries: number, delay: number) => boolean;
@@ -21,164 +21,164 @@ export function exponential(n: number): number;
 export function fibonacci(n: number): number;
 
 export interface BackoffInstance {
-	<A>(
-		fn: (callback: (a: A) => void) => void,
-		callback: (a: A, b: null, priorErrors: A[] | undefined) => void): void;
-	<A>(
-		fn: (callback: (a: A) => void) => void,
-		intermediate: BackoffIntermediate<A>,
-		callback: (a: A, b: null, priorErrors: A[] | undefined) => void): void;
-	<A, P0>(
-		fn: (p0: P0, callback: (a: A) => void) => void,
-		p0: P0,
-		callback: (a: A, b: null, priorErrors: A[] | undefined) => void): void;
-	<A, P0>(
-		fn: (p0: P0, callback: (a: A) => void) => void,
-		p0: P0,
-		intermediate: BackoffIntermediate<A>,
-		callback: (a: A, b: null, priorErrors: A[] | undefined) => void): void;
-	<A, P0, P1>(
-		fn: (p0: P0, p1: P1, callback: (a: A) => void) => void,
-		p0: P0,
-		p1: P1,
-		callback: (a: A, b: null, priorErrors: A[] | undefined) => void): void;
-	<A, P0, P1>(
-		fn: (p0: P0, p1: P1, callback: (a: A) => void) => void,
-		p0: P0,
-		p1: P1,
-		intermediate: BackoffIntermediate<A>,
-		callback: (a: A, b: null, priorErrors: A[] | undefined) => void): void;
-	<A, P0, P1, P2>(
-		fn: (p0: P0, p1: P1, p2: P2, callback: (a: A) => void) => void,
-		p0: P0,
-		p1: P1,
-		p2: P2,
-		callback: (a: A, b: null, priorErrors: A[] | undefined) => void): void;
-	<A, P0, P1, P2>(
-		fn: (p0: P0, p1: P1, p2: P2, callback: (a: A) => void) => void,
-		p0: P0,
-		p1: P1,
-		p2: P2,
-		intermediate: BackoffIntermediate<A>,
-		callback: (a: A, b: null, priorErrors: A[] | undefined) => void): void;
-	<A, B>(
-		fn: (callback: (a: A, b: B) => void) => void,
-		callback: (a: A, b: B | null | undefined, priorErrors: A[] | undefined) => void): void;
-	<A, B>(
-		fn: (callback: (a: A, b: B) => void) => void,
-		intermediate: BackoffIntermediate<A>,
-		callback: (a: A, b: B | null | undefined, priorErrors: A[] | undefined) => void): void;
-	<A, B, P0>(
-		fn: (p0: P0, callback: (a: A, b: B) => void) => void,
-		p0: P0,
-		callback: (a: A, b: B | null | undefined, priorErrors: A[] | undefined) => void): void;
-	<A, B, P0>(
-		fn: (p0: P0, callback: (a: A, b: B) => void) => void,
-		p0: P0,
-		intermediate: BackoffIntermediate<A>,
-		callback: (a: A, b: B | null | undefined, priorErrors: A[] | undefined) => void): void;
-	<A, B, P0, P1>(
-		fn: (p0: P0, p1: P1, callback: (a: A, b: B) => void) => void,
-		p0: P0,
-		p1: P1,
-		callback: (a: A, b: B | null | undefined, priorErrors: A[] | undefined) => void): void;
-	<A, B, P0, P1>(
-		fn: (p0: P0, p1: P1, callback: (a: A, b: B) => void) => void,
-		p0: P0,
-		p1: P1,
-		intermediate: BackoffIntermediate<A>,
-		callback: (a: A, b: B | null | undefined, priorErrors: A[] | undefined) => void): void;
-	<A, B, P0, P1, P2>(
-		fn: (p0: P0, p1: P1, p2: P2, callback: (a: A, b: B) => void) => void,
-		p0: P0,
-		p1: P1,
-		p2: P2,
-		callback: (a: A, b: B | null | undefined, priorErrors: A[] | undefined) => void): void;
-	<A, B, P0, P1, P2>(
-		fn: (p0: P0, p1: P1, p2: P2, callback: (a: A, b: B) => void) => void,
-		p0: P0,
-		p1: P1,
-		p2: P2,
-		intermediate: BackoffIntermediate<A>,
-		callback: (a: A, b: B | null | undefined, priorErrors: A[] | undefined) => void): void;
-	<A, B, C>(
-		fn: (callback: (a: A, b: B, c: C) => void) => void,
-		callback: (a: A, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined) => void): void;
-	<A, B, C>(
-		fn: (callback: (a: A, b: B, c: C) => void) => void,
-		intermediate: BackoffIntermediate<A>,
-		callback: (a: A, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined) => void): void;
-	<A, B, C, P0>(
-		fn: (p0: P0, callback: (a: A, b: B, c: C) => void) => void,
-		p0: P0,
-		callback: (a: A, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined) => void): void;
-	<A, B, C, P0>(
-		fn: (p0: P0, callback: (a: A, b: B, c: C) => void) => void,
-		p0: P0,
-		intermediate: BackoffIntermediate<A>,
-		callback: (a: A, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined) => void): void;
-	<A, B, C, P0, P1>(
-		fn: (p0: P0, p1: P1, callback: (a: A, b: B, c: C) => void) => void,
-		p0: P0,
-		p1: P1,
-		callback: (a: A, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined) => void): void;
-	<A, B, C, P0, P1>(
-		fn: (p0: P0, p1: P1, callback: (a: A, b: B, c: C) => void) => void,
-		p0: P0,
-		p1: P1,
-		intermediate: BackoffIntermediate<A>,
-		callback: (a: A, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined) => void): void;
-	<A, B, C, P0, P1, P2>(
-		fn: (p0: P0, p1: P1, p2: P2, callback: (a: A, b: B, c: C) => void) => void,
-		p0: P0,
-		p1: P1,
-		p2: P2,
-		callback: (a: A, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined) => void): void;
-	<A, B, C, P0, P1, P2>(
-		fn: (p0: P0, p1: P1, p2: P2, callback: (a: A, b: B, c: C) => void) => void,
-		p0: P0,
-		p1: P1,
-		p2: P2,
-		intermediate: BackoffIntermediate<A>,
-		callback: (a: A, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined) => void): void;
-	<A, B, C, D>(
-		fn: (callback: (a: A, b: B, c: C, d: D) => void) => void,
-		callback: (a: A, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined, d: D | undefined) => void): void;
-	<A, B, C, D>(
-		fn: (callback: (a: A, b: B, c: C, d: D) => void) => void,
-		intermediate: BackoffIntermediate<A>,
-		callback: (a: A, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined, d: D | undefined) => void): void;
-	<A, B, C, D, P0>(
-		fn: (p0: P0, callback: (a: A, b: B, c: C, d: D) => void) => void,
-		p0: P0,
-		callback: (a: A, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined, d: D | undefined) => void): void;
-	<A, B, C, D, P0>(
-		fn: (p0: P0, callback: (a: A, b: B, c: C, d: D) => void) => void,
-		p0: P0,
-		intermediate: BackoffIntermediate<A>,
-		callback: (a: A, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined, d: D | undefined) => void): void;
-	<A, B, C, D, P0, P1>(
-		fn: (p0: P0, p1: P1, callback: (a: A, b: B, c: C, d: D) => void) => void,
-		p0: P0,
-		p1: P1,
-		callback: (a: A, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined, d: D | undefined) => void): void;
-	<A, B, C, D, P0, P1>(
-		fn: (p0: P0, p1: P1, callback: (a: A, b: B, c: C, d: D) => void) => void,
-		p0: P0,
-		p1: P1,
-		intermediate: BackoffIntermediate<A>,
-		callback: (a: A, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined, d: D | undefined) => void): void;
-	<A, B, C, D, P0, P1, P2>(
-		fn: (p0: P0, p1: P1, p2: P2, callback: (a: A, b: B, c: C, d: D) => void) => void,
-		p0: P0,
-		p1: P1,
-		p2: P2,
-		callback: (a: A, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined, d: D | undefined) => void): void;
-	<A, B, C, D, P0, P1, P2>(
-		fn: (p0: P0, p1: P1, p2: P2, callback: (a: A, b: B, c: C, d: D) => void) => void,
-		p0: P0,
-		p1: P1,
-		p2: P2,
-		intermediate: BackoffIntermediate<A>,
-		callback: (a: A, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined, d: D | undefined) => void): void;
+    <A>(
+        fn: (callback: (a: A | null) => void) => void,
+        callback: (a: A | null, b: null, priorErrors: A[] | undefined) => void): void;
+    <A>(
+        fn: (callback: (a: A | null) => void) => void,
+        intermediate: BackoffIntermediate<A | null>,
+        callback: (a: A | null, b: null, priorErrors: A[] | undefined) => void): void;
+    <A, P0>(
+        fn: (p0: P0, callback: (a: A | null) => void) => void,
+        p0: P0,
+        callback: (a: A | null, b: null, priorErrors: A[] | undefined) => void): void;
+    <A, P0>(
+        fn: (p0: P0, callback: (a: A | null) => void) => void,
+        p0: P0,
+        intermediate: BackoffIntermediate<A | null>,
+        callback: (a: A | null, b: null, priorErrors: A[] | undefined) => void): void;
+    <A, P0, P1>(
+        fn: (p0: P0, p1: P1, callback: (a: A | null) => void) => void,
+        p0: P0,
+        p1: P1,
+        callback: (a: A | null, b: null, priorErrors: A[] | undefined) => void): void;
+    <A, P0, P1>(
+        fn: (p0: P0, p1: P1, callback: (a: A | null) => void) => void,
+        p0: P0,
+        p1: P1,
+        intermediate: BackoffIntermediate<A | null>,
+        callback: (a: A | null, b: null, priorErrors: A[] | undefined) => void): void;
+    <A, P0, P1, P2>(
+        fn: (p0: P0, p1: P1, p2: P2, callback: (a: A | null) => void) => void,
+        p0: P0,
+        p1: P1,
+        p2: P2,
+        callback: (a: A | null, b: null, priorErrors: A[] | undefined) => void): void;
+    <A, P0, P1, P2>(
+        fn: (p0: P0, p1: P1, p2: P2, callback: (a: A | null) => void) => void,
+        p0: P0,
+        p1: P1,
+        p2: P2,
+        intermediate: BackoffIntermediate<A | null>,
+        callback: (a: A | null, b: null, priorErrors: A[] | undefined) => void): void;
+    <A, B>(
+        fn: (callback: (a: A | null, b: B) => void) => void,
+        callback: (a: A | null, b: B | null | undefined, priorErrors: A[] | undefined) => void): void;
+    <A, B>(
+        fn: (callback: (a: A | null, b: B) => void) => void,
+        intermediate: BackoffIntermediate<A | null>,
+        callback: (a: A | null, b: B | null | undefined, priorErrors: A[] | undefined) => void): void;
+    <A, B, P0>(
+        fn: (p0: P0, callback: (a: A | null, b: B) => void) => void,
+        p0: P0,
+        callback: (a: A | null, b: B | null | undefined, priorErrors: A[] | undefined) => void): void;
+    <A, B, P0>(
+        fn: (p0: P0, callback: (a: A | null, b: B) => void) => void,
+        p0: P0,
+        intermediate: BackoffIntermediate<A | null>,
+        callback: (a: A | null, b: B | null | undefined, priorErrors: A[] | undefined) => void): void;
+    <A, B, P0, P1>(
+        fn: (p0: P0, p1: P1, callback: (a: A | null, b: B) => void) => void,
+        p0: P0,
+        p1: P1,
+        callback: (a: A | null, b: B | null | undefined, priorErrors: A[] | undefined) => void): void;
+    <A, B, P0, P1>(
+        fn: (p0: P0, p1: P1, callback: (a: A | null, b: B) => void) => void,
+        p0: P0,
+        p1: P1,
+        intermediate: BackoffIntermediate<A | null>,
+        callback: (a: A | null, b: B | null | undefined, priorErrors: A[] | undefined) => void): void;
+    <A, B, P0, P1, P2>(
+        fn: (p0: P0, p1: P1, p2: P2, callback: (a: A | null, b: B) => void) => void,
+        p0: P0,
+        p1: P1,
+        p2: P2,
+        callback: (a: A | null, b: B | null | undefined, priorErrors: A[] | undefined) => void): void;
+    <A, B, P0, P1, P2>(
+        fn: (p0: P0, p1: P1, p2: P2, callback: (a: A | null, b: B) => void) => void,
+        p0: P0,
+        p1: P1,
+        p2: P2,
+        intermediate: BackoffIntermediate<A | null>,
+        callback: (a: A | null, b: B | null | undefined, priorErrors: A[] | undefined) => void): void;
+    <A, B, C>(
+        fn: (callback: (a: A | null, b: B, c: C) => void) => void,
+        callback: (a: A | null, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined) => void): void;
+    <A, B, C>(
+        fn: (callback: (a: A | null, b: B, c: C) => void) => void,
+        intermediate: BackoffIntermediate<A | null>,
+        callback: (a: A | null, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined) => void): void;
+    <A, B, C, P0>(
+        fn: (p0: P0, callback: (a: A | null, b: B, c: C) => void) => void,
+        p0: P0,
+        callback: (a: A | null, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined) => void): void;
+    <A, B, C, P0>(
+        fn: (p0: P0, callback: (a: A | null, b: B, c: C) => void) => void,
+        p0: P0,
+        intermediate: BackoffIntermediate<A | null>,
+        callback: (a: A | null, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined) => void): void;
+    <A, B, C, P0, P1>(
+        fn: (p0: P0, p1: P1, callback: (a: A | null, b: B, c: C) => void) => void,
+        p0: P0,
+        p1: P1,
+        callback: (a: A | null, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined) => void): void;
+    <A, B, C, P0, P1>(
+        fn: (p0: P0, p1: P1, callback: (a: A | null, b: B, c: C) => void) => void,
+        p0: P0,
+        p1: P1,
+        intermediate: BackoffIntermediate<A | null>,
+        callback: (a: A | null, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined) => void): void;
+    <A, B, C, P0, P1, P2>(
+        fn: (p0: P0, p1: P1, p2: P2, callback: (a: A | null, b: B, c: C) => void) => void,
+        p0: P0,
+        p1: P1,
+        p2: P2,
+        callback: (a: A | null, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined) => void): void;
+    <A, B, C, P0, P1, P2>(
+        fn: (p0: P0, p1: P1, p2: P2, callback: (a: A | null, b: B, c: C) => void) => void,
+        p0: P0,
+        p1: P1,
+        p2: P2,
+        intermediate: BackoffIntermediate<A | null>,
+        callback: (a: A | null, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined) => void): void;
+    <A, B, C, D>(
+        fn: (callback: (a: A | null, b: B, c: C, d: D) => void) => void,
+        callback: (a: A | null, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined, d: D | undefined) => void): void;
+    <A, B, C, D>(
+        fn: (callback: (a: A | null, b: B, c: C, d: D) => void) => void,
+        intermediate: BackoffIntermediate<A | null>,
+        callback: (a: A | null, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined, d: D | undefined) => void): void;
+    <A, B, C, D, P0>(
+        fn: (p0: P0, callback: (a: A | null, b: B, c: C, d: D) => void) => void,
+        p0: P0,
+        callback: (a: A | null, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined, d: D | undefined) => void): void;
+    <A, B, C, D, P0>(
+        fn: (p0: P0, callback: (a: A | null, b: B, c: C, d: D) => void) => void,
+        p0: P0,
+        intermediate: BackoffIntermediate<A | null>,
+        callback: (a: A | null, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined, d: D | undefined) => void): void;
+    <A, B, C, D, P0, P1>(
+        fn: (p0: P0, p1: P1, callback: (a: A | null, b: B, c: C, d: D) => void) => void,
+        p0: P0,
+        p1: P1,
+        callback: (a: A | null, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined, d: D | undefined) => void): void;
+    <A, B, C, D, P0, P1>(
+        fn: (p0: P0, p1: P1, callback: (a: A | null, b: B, c: C, d: D) => void) => void,
+        p0: P0,
+        p1: P1,
+        intermediate: BackoffIntermediate<A | null>,
+        callback: (a: A | null, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined, d: D | undefined) => void): void;
+    <A, B, C, D, P0, P1, P2>(
+        fn: (p0: P0, p1: P1, p2: P2, callback: (a: A | null, b: B, c: C, d: D) => void) => void,
+        p0: P0,
+        p1: P1,
+        p2: P2,
+        callback: (a: A | null, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined, d: D | undefined) => void): void;
+    <A, B, C, D, P0, P1, P2>(
+        fn: (p0: P0, p1: P1, p2: P2, callback: (a: A | null, b: B, c: C, d: D) => void) => void,
+        p0: P0,
+        p1: P1,
+        p2: P2,
+        intermediate: BackoffIntermediate<A | null>,
+        callback: (a: A | null, b: B | null | undefined, priorErrorsOrC: C | A[] | undefined, d: D | undefined) => void): void;
 }

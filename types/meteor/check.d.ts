@@ -1,48 +1,45 @@
-
-declare module Match {
-    var Any: any;
-    var String: any;
-    var Integer: any;
-    var Boolean: any;
-    var undefined: any;
-    var Object: any;
-
-    function Maybe(pattern: any): boolean;
-
-    function Optional(pattern: any): boolean;
-
-    function ObjectIncluding(dico: any): boolean;
-
-    function OneOf(...patterns: any[]): any;
-
-    function Where(condition: any): any;
-
-    function test(value: any, pattern: any): boolean;
-}
-
-declare function check(value: any, pattern: any): void;
-
 declare module "meteor/check" {
     module Match {
-        var Any: any;
-        var String: any;
-        var Integer: any;
-        var Boolean: any;
-        var undefined: any;
-        var Object: any;
+        interface Matcher<T> { _meteorCheckMatcherBrand: void }
+        export type Pattern =
+            typeof String |
+            typeof Number |
+            typeof Boolean |
+            typeof Object |
+            typeof Function |
+            (new (...args: any[]) => any) |
+            undefined | null | string | number | boolean |
+            [Pattern] |
+            {[key: string]: Pattern} |
+            Matcher<any>;
+        export type PatternMatch<T extends Pattern> =
+            T extends Matcher<infer U> ? U :
+            T extends typeof String ? string :
+            T extends typeof Number ? number :
+            T extends typeof Boolean ? boolean :
+            T extends typeof Object ? object :
+            T extends typeof Function ? Function :
+            T extends undefined | null | string | number | boolean ? T :
+            T extends new (...args: any[]) => infer U ? U :
+            T extends [Pattern] ? PatternMatch<T[0]>[] :
+            T extends {[key: string]: Pattern} ? {[K in keyof T]: PatternMatch<T[K]>} :
+            unknown;
 
-        function Maybe(pattern: any): boolean;
+        var Any: Matcher<any>;
+        var Integer: Matcher<number>;
 
-        function Optional(pattern: any): boolean;
+        function Maybe<T extends Pattern>(pattern: T): Matcher<PatternMatch<T> | undefined | null>;
 
-        function ObjectIncluding(dico: any): boolean;
+        function Optional<T extends Pattern>(pattern: T): Matcher<PatternMatch<T> | undefined>;
 
-        function OneOf(...patterns: any[]): any;
+        function ObjectIncluding<T extends {[key: string]: Pattern}>(dico: T): Matcher<PatternMatch<T>>;
 
-        function Where(condition: any): any;
+        function OneOf<T extends Pattern[]>(...patterns: T): Matcher<PatternMatch<T[number]>>;
 
-        function test(value: any, pattern: any): boolean;
+        function Where(condition: (val: any) => boolean): Matcher<any>;
+
+        function test<T extends Pattern>(value: any, pattern: T): value is PatternMatch<T>;
     }
 
-    function check(value: any, pattern: any): void;
+    function check<T extends Match.Pattern>(value: any, pattern: T): asserts value is Match.PatternMatch<T>;
 }

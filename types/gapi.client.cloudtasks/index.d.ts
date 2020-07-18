@@ -1,4 +1,4 @@
-// Type definitions for Google Cloud Tasks API v2beta2 2.0
+// Type definitions for non-npm package Google Cloud Tasks API v2beta2 2.0
 // Project: https://cloud.google.com/cloud-tasks/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

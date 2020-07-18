@@ -1,0 +1,15 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "interface-name": false,
+        "interface-over-type-literal": false,
+        "member-access": false,
+        "no-declare-current-package": false,
+        "no-empty-interface": false,
+        "no-single-declare-module": false,
+        "no-unnecessary-generics": false,
+        "npm-naming": false,
+        "strict-export-declare-modifiers": false
+    }
+}

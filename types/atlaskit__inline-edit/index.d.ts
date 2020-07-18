@@ -12,9 +12,9 @@ export interface BaseProps {
     /** Label above the input. */
     label?: string;
     /** Component to be shown when reading only */
-    readView: ReactElement<any>;
+    readView: ReactElement;
     /** Component to be shown when editing. Should be an @atlaskit/input. */
-    editView?: ReactElement<any>;
+    editView?: ReactElement;
     /** Set whether the read view should fit width, most obvious when hovered. */
     isFitContainerWidthReadView?: boolean;
     /** Greys out text and shows spinner. Does not disable input. */
@@ -38,7 +38,7 @@ export interface BaseProps {
     /** Set whether default stylings should be disabled when editing. */
     disableEditViewFieldBase?: boolean;
     /** Component to be shown in an @atlaskit/inline-dialog when edit view is open. */
-    invalidMessage?: ReactElement<any>;
+    invalidMessage?: ReactElement;
 }
 
 export interface StatelessProps extends BaseProps {

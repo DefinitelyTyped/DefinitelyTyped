@@ -1,0 +1,13 @@
+-private/route-info.d.ts
+-private/router-dsl.d.ts
+-private/transition.d.ts
+auto-location.d.ts
+hash-location.d.ts
+history-location.d.ts
+link-component.d.ts
+location.d.ts
+none-location.d.ts
+route.d.ts
+router.d.ts
+router-service.d.ts
+types.d.ts

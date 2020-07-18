@@ -1,13 +1,15 @@
-// Type definitions for http-errors 1.6
+// Type definitions for http-errors 1.8
 // Project: https://github.com/jshttp/http-errors
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 export = createHttpError;
 
-declare const createHttpError: createHttpError.CreateHttpError & createHttpError.NamedConstructors;
+declare const createHttpError: createHttpError.CreateHttpError & createHttpError.NamedConstructors & {
+    isHttpError: createHttpError.IsHttpError
+};
 
 declare namespace createHttpError {
     interface HttpError extends Error {
@@ -20,9 +22,13 @@ declare namespace createHttpError {
         [key: string]: any;
     }
 
+    type UnknownError = Error | string | number | { [key: string]: any };
+
     type HttpErrorConstructor = new (msg?: string) => HttpError;
 
-    type CreateHttpError = (...args: Array<Error | string | number | { [key: string]: any }>) => HttpError;
+    type CreateHttpError = (...args: UnknownError[]) => HttpError;
+
+    type IsHttpError = (error: unknown) => error is HttpError;
 
     type NamedConstructors = {
         [code: string]: HttpErrorConstructor;

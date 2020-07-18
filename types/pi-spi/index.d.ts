@@ -38,6 +38,6 @@ declare namespace __PI_SPI {
         transfer(writebuf:Buffer, cb:(error:Error,data:Buffer) => void ):void;
         transfer(writebuf:Buffer, readcount:number, cb:(error:Error,data:Buffer) => void ):void;
 
-        close():void;
+        close(cb:(error:Error) => void):void;
     }
 }

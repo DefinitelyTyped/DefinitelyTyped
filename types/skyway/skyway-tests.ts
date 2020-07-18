@@ -1,44 +1,37 @@
-var peerByOption: PeerJs.Peer = new Peer({
+const peerByOption: Peer = new Peer({
     key: 'peerKey',
-    debug: 3,
+    debug: 3
 });
 
-peerByOption.listAllPeers(function(items){
-    for(var i in items){
-        console.log(decodeURI(items[i]));
+peerByOption.listAllPeers((items) => {
+    for (let item in items) {
+        console.log(decodeURI(items[item]));
     }
 });
 
-var peerById: PeerJs.Peer = new Peer("peerid");
+const peerByIdAndOption: Peer = new Peer('peerid', {
+    key: 'peerKey',
+    debug: 3
+});
 
-var peerByIdAndOption: PeerJs.Peer = new Peer(
-    "peerId",
-    {
-        key: 'peerKey',
-        debug: 3,
-    });
-
-var id = peerByOption.id;
-var connections = peerByOption.connections;
-var flag = peerByOption.disconnected;
-flag = peerByOption.destroyed;
+let id = peerByOption.id;
+let connections = peerByOption.connections;
 
 peerByOption.disconnect();
 peerByOption.destroy();
 
-var connection = peerById.connect("id", {
+let connection = peerByOption.connect("id", {
     label: 'chat',
     serialization: 'none',
-    metadata: {message: 'hi i want to chat with you!'}
+    metadata: { message: 'hi i want to chat with you!' }
 });
 
-var call = peerById.call('callto-id', (<any>window).localStream);
+let call = peerByOption.call('callto-id', (window as any).localStream);
 
-var openHandler=()=> console.log("open");
-peerById.on("open", openHandler);
-peerById.on("connection", (c)=> console.log("connection"));
-peerById.on("call", (media)=> console.log("call"));
-peerById.on("close", ()=> console.log("close"));
-peerById.on("disconnected", ()=> console.log("disconnected"));
-peerById.on("error", (err)=> console.log(err));
-peerById.off("open", openHandler);
+let openHandler = () => console.log("open");
+peerByOption.on("open", openHandler);
+peerByOption.on("connection", (c) => console.log("connection"));
+peerByOption.on("call", (media) => console.log("call"));
+peerByOption.on("close", () => console.log("close"));
+peerByOption.on("disconnected", () => console.log("disconnected"));
+peerByOption.on("error", (err) => console.log(err));

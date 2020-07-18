@@ -70,8 +70,8 @@ let $grid = $('.grid').isotope({
 
 // test the ones not used in upper test
 $grid = $('.grid').isotope({
-    filter: (): boolean => {
-        return true;
+    filter: (itemElem): boolean => {
+        return itemElem ? true : false;
     },
     sortAscending: {
         key: true
@@ -81,6 +81,7 @@ $grid = $('.grid').isotope({
 });
 
 // test methods using jquery
+$grid.isotope();
 $grid.isotope('addItems', $('.items'));
 $grid.isotope('appended', $('.items')[0]);
 $grid.isotope('hideItemElements', [ new HTMLElement() ]);

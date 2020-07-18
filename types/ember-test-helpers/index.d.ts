@@ -1,8 +1,20 @@
-// Type definitions for ember-test-helpers 0.7
+// Type definitions for ember-test-helpers 1.0
 // Project: https://github.com/emberjs/ember-test-helpers#readme
 // Definitions by: Derek Wickern <https://github.com/dwickern>
+//                 Mike North <https://github.com/mike-north>
+//                 Chris Krycho <https://github.com/chriskrycho>
+//                 James C. Davis <https://github.com/jamescdavis>
+//                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.7
+
+// NOTE: These types apply to ember-test-helper v0.7. The major
+// version had to be bumped for SemVer due to a breaking change
+// in TypeScript 3.1
+//
+// In the future, we'll use another versioning strategy that
+// provides safety from breaking changes without bumping the major
+// version number
 
 /// <reference types="jquery" />
 

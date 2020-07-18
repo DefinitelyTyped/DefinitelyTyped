@@ -2,6 +2,14 @@ import _ = require("../index");
 // tslint:disable-next-line:strict-export-declare-modifiers
 type GlobalPartial<T> = Partial<T>;
 declare module "../index" {
+    interface ConvertOptions {
+        cap?: boolean;
+        curry?: boolean;
+        fixed?: boolean;
+        immutable?: boolean;
+        rearg?: boolean;
+    }
+
     type PartialObject<T> = GlobalPartial<T>;
     type Many<T> = T | ReadonlyArray<T>;
     interface LoDashStatic {
@@ -127,21 +135,21 @@ declare module "../index" {
          * @param key The key of the value to remove.
          * @return Returns `true` if the entry was removed successfully, else `false`.
          */
-        delete(key: string): boolean;
+        delete(key: any): boolean;
 
         /**
          * Gets the cached value for `key`.
          * @param key The key of the value to get.
          * @return Returns the cached value.
          */
-        get(key: string): any;
+        get(key: any): any;
 
         /**
          * Checks if a cached value for `key` exists.
          * @param key The key of the entry to check.
          * @return Returns `true` if an entry for `key` exists, else `false`.
          */
-        has(key: string): boolean;
+        has(key: any): boolean;
 
         /**
          * Sets `value` to `key` of the cache.
@@ -149,12 +157,12 @@ declare module "../index" {
          * @param value The value to cache.
          * @return Returns the cache object.
          */
-        set(key: string, value: any): Dictionary<any>;
+        set(key: any, value: any): this;
 
         /**
          * Removes all key-value entries from the map.
          */
-        clear(): void;
+        clear?: () => void;
     }
     interface MapCacheConstructor {
         new (): MapCache;

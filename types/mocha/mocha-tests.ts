@@ -695,12 +695,6 @@ function test_Context(ctx: LocalMocha.Context, runnable: LocalMocha.Runnable) {
     // $ExpectType never
     ctx.skip(); // throws
 
-    // $ExpectType boolean
-    ctx.enableTimeouts();
-
-    // $ExpectType Context
-    ctx.enableTimeouts(boolean);
-
     // $ExpectType number
     ctx.retries();
 
@@ -736,8 +730,7 @@ function test_Context(ctx: LocalMocha.Context, runnable: LocalMocha.Runnable) {
     // $ExpectType any
     ctx["extended"];
 
-    ctx.enableTimeouts(boolean)
-        .retries(number)
+    ctx.retries(number)
         .runnable(runnable)
         .slow(number)
         .timeout(number)
@@ -783,11 +776,6 @@ function test_browser_mocha_setup_reporter_string_option() {
     mocha.setup({ reporter: 'html' });
 }
 
-function test_browser_mocha_setup_require_stringArray_option() {
-    // $ExpectType BrowserMocha
-    mocha.setup({ require: ['ts-node/register'] });
-}
-
 function test_browser_mocha_setup_reporter_function_option() {
     // $ExpectType BrowserMocha
     mocha.setup({ reporter: class extends LocalMocha.reporters.Base { } });
@@ -796,11 +784,6 @@ function test_browser_mocha_setup_reporter_function_option() {
 function test_browser_mocha_setup_bail_option() {
     // $ExpectType BrowserMocha
     mocha.setup({ bail: false });
-}
-
-function test_browser_mocha_setup_ignore_leaks_option() {
-    // $ExpectType BrowserMocha
-    mocha.setup({ ignoreLeaks: false });
 }
 
 function test_browser_mocha_setup_grep_string_option() {
@@ -827,10 +810,20 @@ function test_browser_mocha_setup_all_options() {
         globals: ['mocha'],
         reporter: 'html',
         bail: true,
-        ignoreLeaks: true,
-        grep: 'test',
-        require: ['ts-node/register'] // TODO: It doesn't appear this is actually supported. Should it be removed?
+        grep: 'test'
     });
+}
+
+function testLoadFilesAsync() {
+    mocha.loadFilesAsync();
+}
+
+function testParallelMode() {
+    mocha.parallelMode();
+}
+
+function testUnloadFiles() {
+    mocha.unloadFiles();
 }
 
 function test_constructor_slow_option() {
@@ -839,6 +832,10 @@ function test_constructor_slow_option() {
 
 function test_constructor_timeout_option() {
     const m: Mocha = new LocalMocha({ timeout: 25 });
+}
+
+function test_constructor_timeout_option_string() {
+    const m: Mocha = new LocalMocha({ timeout: '1s' });
 }
 
 function test_constructor_globals_option() {
@@ -861,10 +858,6 @@ function test_constructor_bail_option() {
     const m: Mocha = new LocalMocha({ bail: false });
 }
 
-function test_constructor_ignore_leaks_option() {
-    const m: Mocha = new LocalMocha({ ignoreLeaks: false });
-}
-
 function test_constructor_grep_string_option() {
     const m: Mocha = new LocalMocha({ grep: "describe" });
 }
@@ -877,6 +870,14 @@ function test_constructor_grep_regex_literal_option() {
     const m: Mocha = new LocalMocha({ grep: /(expect|should)/i });
 }
 
+function test_constructor_parallel_option() {
+    const m: Mocha = new LocalMocha({ parallel: true });
+}
+
+function test_constructor_jobs_option() {
+    const m: Mocha = new LocalMocha({ jobs: 4 });
+}
+
 function test_constructor_all_options() {
     const m: Mocha = new LocalMocha({
         slow: 25,
@@ -885,8 +886,9 @@ function test_constructor_all_options() {
         globals: ['mocha'],
         reporter: 'html',
         bail: true,
-        ignoreLeaks: true,
-        grep: 'test'
+        grep: 'test',
+        parallel: true,
+        jobs: 4
     });
 }
 
@@ -950,16 +952,12 @@ function test_require_fluentParams() {
         .grep('[a-z]*')
         .grep(/[a-z]*/)
         .invert()
-        .ignoreLeaks(true)
         .checkLeaks()
         .growl()
         .globals('foo')
         .globals(['bar', 'zap'])
-        .useColors(true)
-        .useInlineDiffs(true)
         .timeout(500)
         .slow(100)
-        .enableTimeouts(true)
         .asyncOnly()
         .noHighlighting()
         .run();
@@ -1038,10 +1036,22 @@ function test_runner_events(runner: LocalMocha.Runner) {
     runner.on("start", () => {});
 
     // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_RUN_BEGIN, () => {});
+
+    // $ExpectType Runner
     runner.on("end", () => {});
 
     // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_RUN_END, () => {});
+
+    // $ExpectType Runner
     runner.on("suite", (suite) => {
+        // $ExpectType Suite
+        suite;
+    });
+
+    // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_SUITE_BEGIN, (suite) => {
         // $ExpectType Suite
         suite;
     });
@@ -1053,7 +1063,19 @@ function test_runner_events(runner: LocalMocha.Runner) {
     });
 
     // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_SUITE_END, (suite) => {
+        // $ExpectType Suite
+        suite;
+    });
+
+    // $ExpectType Runner
     runner.on("test", (test) => {
+        // $ExpectType Test
+        test;
+    });
+
+    // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_TEST_BEGIN, (test) => {
         // $ExpectType Test
         test;
     });
@@ -1065,7 +1087,19 @@ function test_runner_events(runner: LocalMocha.Runner) {
     });
 
     // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_TEST_END, (test) => {
+        // $ExpectType Test
+        test;
+    });
+
+    // $ExpectType Runner
     runner.on("hook", (hook) => {
+        // $ExpectType Hook
+        hook;
+    });
+
+    // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_HOOK_BEGIN, (hook) => {
         // $ExpectType Hook
         hook;
     });
@@ -1077,7 +1111,19 @@ function test_runner_events(runner: LocalMocha.Runner) {
     });
 
     // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_HOOK_END, (hook) => {
+        // $ExpectType Hook
+        hook;
+    });
+
+    // $ExpectType Runner
     runner.on("pass", (test) => {
+        // $ExpectType Test
+        test;
+    });
+
+    // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_TEST_PASS, (test) => {
         // $ExpectType Test
         test;
     });
@@ -1092,7 +1138,22 @@ function test_runner_events(runner: LocalMocha.Runner) {
     });
 
     // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_TEST_FAIL, (test, err) => {
+        // $ExpectType Test
+        test;
+
+        // $ExpectType any
+        err;
+    });
+
+    // $ExpectType Runner
     runner.on("pending", (test) => {
+        // $ExpectType Test
+        test;
+    });
+
+    // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_TEST_PENDING, (test) => {
         // $ExpectType Test
         test;
     });
@@ -1114,7 +1175,19 @@ function test_suite_events(suite: LocalMocha.Suite) {
     });
 
     // $ExpectType Suite
+    suite.on(LocalMocha.Suite.constants.EVENT_SUITE_ADD_HOOK_BEFORE_ALL, (hook) => {
+        // $ExpectType Hook
+        hook;
+    });
+
+    // $ExpectType Suite
     suite.on("afterAll", (hook) => {
+        // $ExpectType Hook
+        hook;
+    });
+
+    // $ExpectType Suite
+    suite.on(LocalMocha.Suite.constants.EVENT_SUITE_ADD_HOOK_AFTER_ALL, (hook) => {
         // $ExpectType Hook
         hook;
     });
@@ -1126,7 +1199,19 @@ function test_suite_events(suite: LocalMocha.Suite) {
     });
 
     // $ExpectType Suite
+    suite.on(LocalMocha.Suite.constants.EVENT_SUITE_ADD_HOOK_BEFORE_EACH, (hook) => {
+        // $ExpectType Hook
+        hook;
+    });
+
+    // $ExpectType Suite
     suite.on("afterEach", (hook) => {
+        // $ExpectType Hook
+        hook;
+    });
+
+    // $ExpectType Suite
+    suite.on(LocalMocha.Suite.constants.EVENT_SUITE_ADD_HOOK_AFTER_EACH, (hook) => {
         // $ExpectType Hook
         hook;
     });
@@ -1135,7 +1220,19 @@ function test_suite_events(suite: LocalMocha.Suite) {
     suite.on("run", () => { });
 
     // $ExpectType Suite
+    suite.on(LocalMocha.Suite.constants.EVENT_ROOT_SUITE_RUN, () => { });
+
+    // $ExpectType Suite
     suite.on("pre-require", (context, file, mocha) => {
+        // $ExpectType MochaGlobals
+        context;
+        // $ExpectType string
+        file;
+        const m: Mocha = mocha;
+    });
+
+    // $ExpectType Suite
+    suite.on(LocalMocha.Suite.constants.EVENT_FILE_PRE_REQUIRE, (context, file, mocha) => {
         // $ExpectType MochaGlobals
         context;
         // $ExpectType string
@@ -1152,6 +1249,14 @@ function test_suite_events(suite: LocalMocha.Suite) {
         const m: Mocha = mocha;
     });
 
+    suite.on(LocalMocha.Suite.constants.EVENT_FILE_REQUIRE, (module, file, mocha) => {
+        // $ExpectType any
+        module;
+        // $ExpectType string
+        file;
+        const m: Mocha = mocha;
+    });
+
     // $ExpectType Suite
     suite.on("post-require", (context, file, mocha) => {
         // $ExpectType MochaGlobals
@@ -1160,54 +1265,14 @@ function test_suite_events(suite: LocalMocha.Suite) {
         file;
         const m: Mocha = mocha;
     });
-}
 
-function test_backcompat_Suite(suite: Mocha.Suite, iSuite: Mocha.ISuite, iSuiteContext: Mocha.ISuiteCallbackContext, iTest: Mocha.ITest, iContext: Mocha.IContext) {
-    iSuite = suite;
-    iSuiteContext = suite;
-    suite.addTest(iTest);
-    suite.addSuite(iSuite);
-    LocalMocha.Suite.create(iSuite, string);
-    new LocalMocha.Suite(string, iContext);
-}
-
-function test_backcompat_Runner(runner: Mocha.Runner, iRunner: Mocha.IRunner, iSuite: Mocha.ISuite) {
-    iRunner = runner;
-    runner.grepTotal(iSuite);
-}
-
-function test_backcompat_Runnable(runnable: Mocha.Runnable, iRunnable: Mocha.IRunnable) {
-    iRunnable = runnable;
-}
-
-function test_backcompat_Test(test: Mocha.Test, iTest: Mocha.ITest) {
-    iTest = test;
-}
-
-function test_backcompat_Hook(hook: Mocha.Hook, iHook: Mocha.IHook) {
-    iHook = hook;
-}
-
-function test_backcompat_Context(context: Mocha.Context, iContext: Mocha.IContext,
-    iHookContext: Mocha.IHookCallbackContext, iBeforeAfterContext: Mocha.IBeforeAndAfterContext,
-    iTestContext: Mocha.ITestCallbackContext, iRunnable: Mocha.IRunnable) {
-    iContext = context;
-    iHookContext = context;
-    iBeforeAfterContext = context;
-    iTestContext = context;
-    context.runnable(iRunnable);
-}
-
-function test_backcompat_Base(iRunner: Mocha.IRunner) {
-    new LocalMocha.reporters.Base(iRunner);
-}
-
-function test_backcompat_XUnit(iRunner: Mocha.IRunner) {
-    new LocalMocha.reporters.XUnit(iRunner);
-}
-
-function test_backcompat_Progress(iRunner: Mocha.IRunner) {
-    new LocalMocha.reporters.Progress(iRunner);
+    suite.on(LocalMocha.Suite.constants.EVENT_FILE_POST_REQUIRE, (context, file, mocha) => {
+        // $ExpectType MochaGlobals
+        context;
+        // $ExpectType string
+        file;
+        const m: Mocha = mocha;
+    });
 }
 
 import common = require("mocha/lib/interfaces/common");

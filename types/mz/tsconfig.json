@@ -6,7 +6,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -17,13 +17,12 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "fs.d.ts",
-        "dns.d.ts",
-        "crypto.d.ts",
-        "child_process.d.ts",
-        "zlib.d.ts",
-        "readline.d.ts",
         "index.d.ts",
-        "mz-tests.ts"
+        "test/child_process.test.ts",
+        "test/crypto.test.ts",
+        "test/fs.test.ts",
+        "test/readline.test.ts",
+        "test/zlib.test.ts",
+        "test/index.test.ts"
     ]
 }

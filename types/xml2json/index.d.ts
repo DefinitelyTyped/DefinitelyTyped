@@ -1,6 +1,7 @@
-// Type definitions for xml2json 0.10
+// Type definitions for xml2json 0.11
 // Project: https://github.com/buglabs/node-xml2json
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>
+//                 Igor Strebezhev <https://github.com/xamgore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export function toJson(xml: string, options?: { object?: false } & JsonOptions): string;
 export function toJson(xml: string, options?: { object: true } & JsonOptions): {};
@@ -24,6 +25,10 @@ export interface XmlOptions {
      * @example
      */
     sanitize?: boolean;
+    /**
+     * Ignores all null values.
+     */
+    ignoreNull?: boolean;
 }
 
 export interface JsonOptions {
@@ -64,7 +69,13 @@ export interface JsonOptions {
      */
     trim?: boolean;
     /**
-     * XML child nodes are always treated as arrays
+     * XML child nodes are always treated as arrays.
+     * You can specify a selective array of nodes for this to apply to instead of the whole document.
      */
-    arrayNotation?: boolean;
+    arrayNotation?: boolean | string[];
+    /**
+     * Changes the default textNode property from $t to _t when option is set to true.
+     * Alternatively a string can be specified which will override $t to what ever the string is.
+     */
+    alternateTextNode?: boolean;
 }

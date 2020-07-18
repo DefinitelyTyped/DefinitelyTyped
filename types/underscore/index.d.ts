@@ -1,13 +1,22 @@
-// Type definitions for Underscore 1.8
+// Type definitions for Underscore 1.10
 // Project: http://underscorejs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, Josh Baldwin <https://github.com/jbaldwin>, Christopher Currens <https://github.com/ccurrens>, Cassey Lottman <https://github.com/clottman>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>,
+//                 Josh Baldwin <https://github.com/jbaldwin>,
+//                 Christopher Currens <https://github.com/ccurrens>,
+//                 Ard Timmerman <https://github.com/confususs>,
+//                 Julian Gonggrijp <https://github.com/jgonggrijp>,
+//                 Florian Keller <https://github.com/ffflorian>
+//                 Regev Brody <https://github.com/regevbr>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Michael Ness <https://github.com/reubenrybnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare var _: _.UnderscoreStatic;
 export = _;
 export as namespace _;
 
-// The DOM is not required to be present, but these definitions reference type Element for the 
+// The DOM is not required to be present, but these definitions reference type Element for the
 // isElement check. If the DOM is present, this declaration will merge.
 declare global {
     interface Element { }
@@ -57,37 +66,100 @@ declare module _ {
         variable?: string;
     }
 
-    interface Collection<T> { }
+    interface CompiledTemplate {
+        (data?: any): string;
+        source: string;
+    }
 
     // Common interface between Arrays and jQuery objects
-    interface List<T> extends Collection<T> {
+    interface List<T> {
         [index: number]: T;
         length: number;
     }
 
-    interface Dictionary<T> extends Collection<T> {
+    interface Dictionary<T> {
         [index: string]: T;
     }
 
-    interface ListIterator<T, TResult> {
-        (value: T, index: number, list: List<T>): TResult;
+    type Collection<T> = List<T> | Dictionary<T>;
+
+    interface Predicate<T> {
+        (value: T): boolean;
     }
 
-    interface ObjectIterator<T, TResult> {
-        (element: T, key: string, list: Dictionary<T>): TResult;
+    interface ListIterator<T, TResult, V = List<T>> {
+        (value: T, index: number, list: V): TResult;
     }
+
+    interface ObjectIterator<T, TResult, V = Dictionary<T>> {
+        (element: T, key: string, object: V): TResult;
+    }
+
+    type EnumerableKey = string | number;
+
+    type CollectionIterator<T, TResult, V> =
+        V extends List<T> ? ListIterator<T, TResult, V>
+        : V extends Dictionary<T> ? ObjectIterator<T, TResult, V>
+        : never;
+
+    type Iteratee<V, R, T extends TypeOfCollection<V> = TypeOfCollection<V>> =
+        undefined |
+        CollectionIterator<T, R, V> |
+        EnumerableKey |
+        Array<EnumerableKey> |
+        Partial<T>;
+
+    // temporary iteratee type for _Chain until _Chain return types have been fixed
+    type _ChainIteratee<V, R, T> = Iteratee<V extends Collection<T> ? V : T[], R>;
+
+    type IterateeResult<I, T> =
+        I extends undefined ? T // default iteratee is _.identity
+        : I extends (...args: any[]) => infer R ? R
+        : I extends keyof T ? T[I]
+        : I extends EnumerableKey | Array<EnumerableKey> ? any
+        : I extends Partial<T> ? boolean
+        : never;
+
+    type PropertyTypeOrAny<T, K> = K extends keyof T ? T[K] : any;
 
     type IterateePropertyShorthand = string | number;
 
-    type IterateeMatcherShorthand<T> = Dictionary<T>;
-
-    interface MemoIterator<T, TResult> {
-        (prev: TResult, curr: T, index: number, list: List<T>): TResult;
+    interface MemoIterator<T, TResult, V = List<T>> {
+        (prev: TResult, curr: T, index: number, list: V): TResult;
     }
 
-    interface MemoObjectIterator<T, TResult> {
-        (prev: TResult, curr: T, key: string, list: Dictionary<T>): TResult;
+    interface MemoObjectIterator<T, TResult, V = Dictionary<T>> {
+        (prev: TResult, curr: T, key: string, object: V): TResult;
     }
+
+    type MemoCollectionIterator<T, TResult, V> =
+        V extends List<T> ? MemoIterator<T, TResult, V>
+        : V extends Dictionary<T> ? MemoObjectIterator<T, TResult, V>
+        : never;
+
+    type TypeOfList<V> = V extends List<infer T> ? T : never;
+
+    type TypeOfDictionary<V> = V extends Dictionary<infer T> ? T : never;
+
+    type TypeOfCollection<V> =
+        V extends never ? any
+        : V extends List<infer T> ? T
+        : V extends Dictionary<infer T> ? T
+        : never;
+
+    type ListItemOrSelf<T> = T extends List<infer TItem> ? TItem : T;
+
+    // unfortunately it's not possible to recursively collapse all possible list dimensions to T[] at this time,
+    // so give up after one dimension since that's likely the most common case
+    // '& object' prevents strings from being matched by list checks so types like string[] don't end up resulting in any
+    type DeepestListItemOrSelf<T> =
+        T extends List<infer TItem> & object
+        ? TItem extends List<any> & object
+        ? any
+        : TItem
+        : T;
+
+    type _ChainSingle<V> = _Chain<TypeOfCollection<V>, V>;
 
     interface Cancelable {
         cancel(): void;
@@ -95,13 +167,12 @@ declare module _ {
 
     interface UnderscoreStatic {
         /**
-        * Underscore OOP Wrapper, all Underscore functions that take an object
-        * as the first parameter can be invoked through this function.
-        * @param key First argument to Underscore object functions.
-        **/
-        <T>(value: _.Dictionary<T>): Underscore<T>;
-        <T>(value: Array<T>): Underscore<T>;
-        <T>(value: T): Underscore<T>;
+         * Underscore OOP Wrapper, all Underscore functions that take an object
+         * as the first parameter can be invoked through this function.
+         * @param value First argument to Underscore object functions.
+         * @returns An Underscore wrapper around the supplied value.
+         **/
+        <V>(value: V): Underscore<TypeOfCollection<V>, V>;
 
         /* *************
         * Collections *
@@ -149,263 +220,188 @@ declare module _ {
             context?: any): _.Dictionary<T>;
 
         /**
-        * Produces a new array of values by mapping each value in list through a transformation function
-        * (iterator). If the native map method exists, it will be used instead. If list is a JavaScript
-        * object, iterator's arguments will be (value, key, object).
-        * @param list Maps the elements of this array.
-        * @param iterator Map iterator function for each element in `list`.
-        * @param context `this` object in `iterator`, optional.
-        * @return The mapped array result.
-        **/
-        map<T, TResult>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, TResult>,
-            context?: any): TResult[];
-
-        map<T>(
-            list: _.List<T>,
-            iterator: _.IterateePropertyShorthand,
-            context?: any): T[];
-
-        map<T>(
-            list: _.List<T>,
-            iterator: _.IterateeMatcherShorthand<any>,
-            context?: any): boolean[];
+         * Produces a new array of values by mapping each value in the collection through a transformation function
+         * (iteratee). For function iteratees, each invocation of iteratee is called with three arguments:
+         * (value, key, collection).
+         * @param collection Maps the elements of this collection.
+         * @param iteratee Map iteratee for each element in the collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The mapped result.
+         **/
+        map<V extends Collection<any>, I extends Iteratee<V, any>>(
+            collection: V,
+            iteratee: I,
+            context?: any
+        ): IterateeResult<I, TypeOfCollection<V>>[];
 
         /**
-        * @see _.map
-        * @param object Maps the properties of this object.
-        * @param iterator Map iterator function for each property on `object`.
-        * @param context `this` object in `iterator`, optional.
-        * @return The mapped object result.
-        **/
-        map<T, TResult>(
-            object: _.Dictionary<T>,
-            iterator: _.ObjectIterator<T, TResult>,
-            context?: any): TResult[];
+         * @see map
+         **/
+        collect: UnderscoreStatic['map'];
 
         /**
-        * @see _.map
-        **/
-        collect: typeof _.map;
+         * Also known as inject and foldl, reduce boils down a collection of values into a
+         * single value. Memo is the initial state of the reduction, and each successive
+         * step of it should be returned by iteratee. The iteratee is passed four arguments:
+         * the memo, then the value and index (or key) of the iteration, and finally a reference
+         * to the entire collection.
+         *
+         * If no memo is passed to the initial invocation of reduce, the iteratee is not invoked
+         * on the first element of the collection. The first element is instead passed as the memo
+         * in the invocation of the iteratee on the next element in the collection.
+         * @param collection Reduces the elements of this collection.
+         * @param iteratee Reduce iteratee function for each element in `collection`.
+         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The reduced result.
+         **/
+        reduce<V extends List<any>, TResult>(
+            collection: V,
+            iteratee: MemoIterator<TypeOfList<V>, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): TResult;
+        reduce<V extends Dictionary<any>, TResult>(
+            collection: V,
+            iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): TResult;
+        reduce<V extends List<any>, TResult = TypeOfList<V>>(
+            collection: V,
+            iteratee: MemoIterator<TypeOfList<V>, TResult | TypeOfList<V>, V>
+        ): TResult | TypeOfList<V> | undefined;
+        reduce<V extends Dictionary<any>, TResult = TypeOfDictionary<V>>(
+            collection: V,
+            iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult | TypeOfDictionary<V>, V>
+        ): TResult | TypeOfDictionary<V> | undefined;
 
         /**
-        * Also known as inject and foldl, reduce boils down a list of values into a single value.
-        * Memo is the initial state of the reduction, and each successive step of it should be
-        * returned by iterator. The iterator is passed four arguments: the memo, then the value
-        * and index (or key) of the iteration, and finally a reference to the entire list.
-        * @param list Reduces the elements of this array.
-        * @param iterator Reduce iterator function for each element in `list`.
-        * @param memo Initial reduce state.
-        * @param context `this` object in `iterator`, optional.
-        * @return Reduced object result.
-        **/
-        reduce<T, TResult>(
-            list: _.List<T>,
-            iterator: _.MemoIterator<T, TResult>,
-            memo?: TResult,
-            context?: any): TResult;
-
-        reduce<T, TResult>(
-            list: _.Dictionary<T>,
-            iterator: _.MemoObjectIterator<T, TResult>,
-            memo?: TResult,
-            context?: any): TResult;
+         * @see reduce
+         **/
+        inject: UnderscoreStatic['reduce'];
 
         /**
-        * @see _.reduce
-        **/
-        inject<T, TResult>(
-            list: _.List<T>,
-            iterator: _.MemoIterator<T, TResult>,
-            memo?: TResult,
-            context?: any): TResult;
-
-        inject<T, TResult>(
-            list: _.Dictionary<T>,
-            iterator: _.MemoObjectIterator<T, TResult>,
-            memo?: TResult,
-            context?: any): TResult;
+         * @see reduce
+         **/
+        foldl: UnderscoreStatic['reduce'];
 
         /**
-        * @see _.reduce
-        **/
-        foldl<T, TResult>(
-            list: _.Collection<T>,
-            iterator: _.MemoIterator<T, TResult>,
-            memo?: TResult,
-            context?: any): TResult;
+         * The right-associative version of reduce.
+         *
+         * This is not as useful in JavaScript as it would be in a language with lazy evaluation.
+         * @param collection Reduces the elements of this array.
+         * @param iteratee Reduce iteratee function for each element in `collection`.
+         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The reduced result.
+         **/
+        reduceRight<V extends List<any>, TResult>(
+            collection: V,
+            iteratee: MemoIterator<TypeOfList<V>, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): TResult;
+        reduceRight<V extends Dictionary<any>, TResult>(
+            collection: V,
+            iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): TResult;
+        reduceRight<V extends List<any>, TResult = TypeOfList<V>>(
+            collection: V,
+            iteratee: MemoIterator<TypeOfList<V>, TResult | TypeOfList<V>, V>
+        ): TResult | TypeOfList<V> | undefined;
+        reduceRight<V extends Dictionary<any>, TResult = TypeOfDictionary<V>>(
+            collection: V,
+            iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult | TypeOfDictionary<V>, V>
+        ): TResult | TypeOfDictionary<V> | undefined;
 
         /**
-        * The right-associative version of reduce. Delegates to the JavaScript 1.8 version of
-        * reduceRight, if it exists. `foldr` is not as useful in JavaScript as it would be in a
-        * language with lazy evaluation.
-        * @param list Reduces the elements of this array.
-        * @param iterator Reduce iterator function for each element in `list`.
-        * @param memo Initial reduce state.
-        * @param context `this` object in `iterator`, optional.
-        * @return Reduced object result.
-        **/
-        reduceRight<T, TResult>(
-            list: _.Collection<T>,
-            iterator: _.MemoIterator<T, TResult>,
-            memo?: TResult,
-            context?: any): TResult;
+         * @see reduceRight
+         **/
+        foldr: UnderscoreStatic['reduceRight'];
 
         /**
-        * @see _.reduceRight
-        **/
-        foldr<T, TResult>(
-            list: _.Collection<T>,
-            iterator: _.MemoIterator<T, TResult>,
-            memo?: TResult,
-            context?: any): TResult;
+         * Looks through each value in the collection, returning the first one that passes a
+         * truth test (iteratee), or undefined if no value passes the test. The function
+         * returns as soon as it finds an acceptable element, and doesn't traverse the entire
+         * collection.
+         * @param collection Searches for a value in this collection.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @return The first element in `collection` that passes the truth test or undefined
+         * if no elements pass.
+         **/
+        find<V extends Collection<any>>(
+            collection: V,
+            iteratee?: Iteratee<V, boolean>,
+            context?: any
+        ): TypeOfCollection<V> | undefined;
 
         /**
-        * Looks through each value in the list, returning the first one that passes a truth
-        * test (iterator). The function returns as soon as it finds an acceptable element,
-        * and doesn't traverse the entire list.
-        * @param list Searches for a value in this list.
-        * @param iterator Search iterator function for each element in `list`.
-        * @param context `this` object in `iterator`, optional.
-        * @return The first acceptable found element in `list`, if nothing is found undefined/null is returned.
-        **/
-        find<T>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, boolean>,
-            context?: any): T | undefined;
+         * @see find
+         **/
+        detect: UnderscoreStatic['find'];
 
         /**
-        * @see _.find
-        **/
-        find<T>(
-            object: _.Dictionary<T>,
-            iterator: _.ObjectIterator<T, boolean>,
-            context?: any): T | undefined;
+         * Looks through each value in the collection, returning an array of all the values that pass a truth
+         * test (iteratee).
+         * @param collection The collection to filter.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The set of values that pass the truth test.
+         **/
+        filter<V extends Collection<any>>(
+            collection: V,
+            iteratee?: Iteratee<V, boolean>,
+            context?: any
+        ): TypeOfCollection<V>[];
 
         /**
-        * @see _.find
-        **/
-        find<T, U extends {}>(
-            object: _.List<T> | _.Dictionary<T>,
-            iterator: U): T | undefined;
+         * @see filter
+         **/
+        select: UnderscoreStatic['filter'];
 
         /**
-        * @see _.find
-        **/
-        find<T>(
-            object: _.List<T> | _.Dictionary<T>,
-            iterator: string): T | undefined;
+         * Looks through each value in the collection, returning an array of all the values that matches the
+         * key-value pairs listed in `properties`.
+         * @param collection The collection in which to find elements that match `properties`.
+         * @param properties The properties to check for on the elements within `collection`.
+         * @return The elements in `collection` that match `properties`.
+         **/
+        where<V extends Collection<any>>(
+            collection: V,
+            properties: Partial<TypeOfCollection<V>>
+        ): TypeOfCollection<V>[];
 
         /**
-        * @see _.find
-        **/
-        detect<T>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, boolean>,
-            context?: any): T | undefined;
+         * Looks through the collection and returns the first value that matches all of the key-value
+         * pairs listed in `properties`.
+         * If no match is found, or if list is empty, undefined will be returned.
+         * @param collection The collection in which to find an element that matches `properties`.
+         * @param properties The properties to check for on the elements within `collection`.
+         * @return The first element in `collection` that matches `properties` or undefined if
+         * no match is found.
+         **/
+        findWhere<V extends Collection<any>>(
+            collection: V,
+            properties: Partial<TypeOfCollection<V>>
+        ): TypeOfCollection<V> | undefined;
 
         /**
-        * @see _.find
-        **/
-        detect<T>(
-            object: _.Dictionary<T>,
-            iterator: _.ObjectIterator<T, boolean>,
-            context?: any): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        detect<T, U extends {}>(
-            object: _.List<T> | _.Dictionary<T>,
-            iterator: U): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        detect<T>(
-            object: _.List<T> | _.Dictionary<T>,
-            iterator: string): T | undefined;
-
-        /**
-        * Looks through each value in the list, returning an array of all the values that pass a truth
-        * test (iterator). Delegates to the native filter method, if it exists.
-        * @param list Filter elements out of this list.
-        * @param iterator Filter iterator function for each element in `list`.
-        * @param context `this` object in `iterator`, optional.
-        * @return The filtered list of elements.
-        **/
-        filter<T>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, boolean>,
-            context?: any): T[];
-
-        /**
-        * @see _.filter
-        **/
-        filter<T>(
-            object: _.Dictionary<T>,
-            iterator: _.ObjectIterator<T, boolean>,
-            context?: any): T[];
-
-        /**
-        * @see _.filter
-        **/
-        select<T>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, boolean>,
-            context?: any): T[];
-
-        /**
-        * @see _.filter
-        **/
-        select<T>(
-            object: _.Dictionary<T>,
-            iterator: _.ObjectIterator<T, boolean>,
-            context?: any): T[];
-
-        /**
-        * Looks through each value in the list, returning an array of all the values that contain all
-        * of the key-value pairs listed in properties.
-        * @param list List to match elements again `properties`.
-        * @param properties The properties to check for on each element within `list`.
-        * @return The elements within `list` that contain the required `properties`.
-        **/
-        where<T, U extends {}>(
-            list: _.List<T>,
-            properties: U): T[];
-
-        /**
-        * Looks through the list and returns the first value that matches all of the key-value pairs listed in properties.
-        * @param list Search through this list's elements for the first object with all `properties`.
-        * @param properties Properties to look for on the elements within `list`.
-        * @return The first element in `list` that has all `properties`.
-        **/
-        findWhere<T, U extends {}>(
-            list: _.List<T>,
-            properties: U): T | undefined;
-
-        /**
-        * Returns the values in list without the elements that the truth test (iterator) passes.
-        * The opposite of filter.
-        * Return all the elements for which a truth test fails.
-        * @param list Reject elements within this list.
-        * @param iterator Reject iterator function for each element in `list`.
-        * @param context `this` object in `iterator`, optional.
-        * @return The rejected list of elements.
-        **/
-        reject<T>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, boolean>,
-            context?: any): T[];
-
-        /**
-        * @see _.reject
-        **/
-        reject<T>(
-            object: _.Dictionary<T>,
-            iterator: _.ObjectIterator<T, boolean>,
-            context?: any): T[];
+         * Returns the values in `collection` without the elements that pass a truth test (iteratee).
+         * The opposite of filter.
+         * @param collection The collection to filter.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @return The set of values that fail the truth test.
+         **/
+        reject<V extends Collection<any>>(
+            collection: V,
+            iteratee?: Iteratee<V, boolean>,
+            context?: any
+        ): TypeOfCollection<V>[];
 
         /**
         * Returns true if all of the values in the list pass the iterator truth test. Delegates to the
@@ -547,15 +543,16 @@ declare module _ {
             ...args: any[]): any;
 
         /**
-        * A convenient version of what is perhaps the most common use-case for map: extracting a list of
-        * property values.
-        * @param list The list to pluck elements out of that have the property `propertyName`.
-        * @param propertyName The property to look for on each element within `list`.
-        * @return The list of elements within `list` that have the property `propertyName`.
-        **/
-        pluck<T extends {}>(
-            list: _.List<T>,
-            propertyName: string): any[];
+         * A convenient version of what is perhaps the most common use-case for map: extracting a list of
+         * property values.
+         * @param collection The collection of items.
+         * @param propertyName The name of a specific property to retrieve from all items.
+         * @returns The set of values for the specified property for each item in the collection.
+         **/
+        pluck<V extends Collection<any>, K extends EnumerableKey>(
+            collection: V,
+            propertyName: K
+        ): PropertyTypeOrAny<TypeOfCollection<V>, K>[];
 
         /**
         * Returns the maximum value in list.
@@ -646,27 +643,17 @@ declare module _ {
             context?: any): T[];
 
         /**
-        * Splits a collection into sets, grouped by the result of running each value through iterator.
-        * If iterator is a string instead of a function, groups by the property named by iterator on
-        * each of the values.
-        * @param list Groups this list.
-        * @param iterator Group iterator for each element within `list`, return the key to group the element by.
-        * @param context `this` object in `iterator`, optional.
-        * @return An object with the group names as properties where each property contains the grouped elements from `list`.
-        **/
-        groupBy<T>(
-            list: _.List<T>,
-            iterator?: _.ListIterator<T, any>,
-            context?: any): _.Dictionary<T[]>;
-
-        /**
-        * @see _.groupBy
-        * @param iterator Property on each object to group them by.
-        **/
-        groupBy<T>(
-            list: _.List<T>,
-            iterator: string,
-            context?: any): _.Dictionary<T[]>;
+         * Splits a collection into sets, grouped by the result of running each value through iteratee.
+         * @param collection The collection to group.
+         * @param iteratee An iteratee that provides the value to group by for each item in the collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection.
+         **/
+        groupBy<V extends Collection<any>>(
+            collection: V,
+            iteratee: Iteratee<V, any>,
+            context?: any
+        ): Dictionary<TypeOfCollection<V>[]>;
 
         /**
         * Given a `list`, and an `iterator` function that returns a key for each element in the list (or a property name),
@@ -710,23 +697,21 @@ declare module _ {
             context?: any): _.Dictionary<number>;
 
         /**
-        * Returns a shuffled copy of the list, using a version of the Fisher-Yates shuffle.
-        * @param list List to shuffle.
-        * @return Shuffled copy of `list`.
-        **/
-        shuffle<T>(list: _.Collection<T>): T[];
+         * Returns a shuffled copy of the collection, using a version of the Fisher-Yates shuffle.
+         * @param collection The collection to shuffle.
+         * @return A shuffled copy of `collection`.
+         **/
+        shuffle<V extends Collection<any>>(collection: V): TypeOfCollection<V>[];
 
         /**
-        * Produce a random sample from the `list`.  Pass a number to return `n` random elements from the list.  Otherwise a single random item will be returned.
-        * @param list List to sample.
-        * @return Random sample of `n` elements in `list`.
-        **/
-        sample<T>(list: _.Collection<T>, n: number): T[];
-
-        /**
-        * @see _.sample
-        **/
-        sample<T>(list: _.Collection<T>): T;
+         * Produce a random sample from the collection. Pass a number to return `n` random elements from the collection.
+         * Otherwise a single random item will be returned.
+         * @param collection The collection to sample.
+         * @param n The number of elements to sample from the collection.
+         * @return A random sample of `n` elements from `collection` or a single element if `n` is not specified.
+         **/
+        sample<V extends Collection<any>>(collection: V, n: number): TypeOfCollection<V>[];
+        sample<V extends Collection<any>>(collection: V): TypeOfCollection<V> | undefined;
 
         /**
         * Converts the list (anything that can be iterated over), into a real Array. Useful for transmuting
@@ -859,25 +844,26 @@ declare module _ {
         compact<T>(array: _.List<T | null | undefined | false | "" | 0> | null | undefined): T[]
 
         /**
-        * Flattens a nested array (the nesting can be to any depth). If you pass shallow, the array will
-        * only be flattened a single level.
-        * @param array The array to flatten.
-        * @param shallow If true then only flatten one level, optional, default = false.
-        * @return `array` flattened.
-        **/
-        flatten(
-            array: _.List<any>,
-            shallow?: boolean): any[];
+         * Flattens a nested array (the nesting can be to any depth). If you pass shallow, the array will
+         * only be flattened a single level.
+         * @param list The array to flatten.
+         * @param shallow If true then only flatten one level, optional, default = false.
+         * @returns The flattened list.
+         **/
+        flatten<V extends List<any>>(list: V, shallow?: false): DeepestListItemOrSelf<TypeOfList<V>>[];
+        flatten<V extends List<any>>(list: V, shallow: true): ListItemOrSelf<TypeOfList<V>>[];
 
         /**
-        * Returns a copy of the array with all instances of the values removed.
-        * @param array The array to remove `values` from.
-        * @param values The values to remove from `array`.
-        * @return Copy of `array` without `values`.
-        **/
-        without<T>(
-            array: _.List<T>,
-            ...values: T[]): T[];
+         * Returns a copy of `list` with all instances of `values` removed.
+         * @param list The list to exclude `values` from.
+         * @param values The values to exclude from `list`.
+         * @return An array that contains all elements of `list` except for
+         * `values`.
+         **/
+        without<V extends List<any>>(
+            list: V,
+            ...values: TypeOfList<V>[]
+        ): TypeOfList<V>[];
 
         /**
         * Computes the union of the passed-in arrays: the list of unique items, in order, that are
@@ -906,46 +892,35 @@ declare module _ {
             ...others: _.List<T>[]): T[];
 
         /**
-        * Produces a duplicate-free version of the array, using === to test object equality. If you know in
-        * advance that the array is sorted, passing true for isSorted will run a much faster algorithm. If
-        * you want to compute unique items based on a transformation, pass an iterator function.
-        * @param array Array to remove duplicates from.
-        * @param isSorted True if `array` is already sorted, optional, default = false.
-        * @param iterator Transform the elements of `array` before comparisons for uniqueness.
-        * @param context 'this' object in `iterator`, optional.
-        * @return Copy of `array` where all elements are unique.
-        **/
-        uniq<T, TSort>(
-            array: _.List<T>,
+         * Produces a duplicate-free version of `list`, using === to test
+         * object equality. If you know in advance that `list` is sorted,
+         * passing true for isSorted will run a much faster algorithm. If you
+         * want to compute unique items based on a transformation, pass an
+         * iteratee function.
+         * @param list The list to remove duplicates from.
+         * @param isSorted True if `list` is already sorted, optional,
+         * default = false.
+         * @param iteratee Transform the elements of `list` before comparisons
+         * for uniqueness.
+         * @param context 'this' object in `iteratee`, optional.
+         * @return An array containing only the unique elements in `list`.
+         **/
+        uniq<V extends List<any>>(
+            list: V,
             isSorted?: boolean,
-            iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand,
-            context?: any): T[];
+            iteratee?: Iteratee<V, any>,
+            context?: any
+        ): TypeOfList<V>[];
+        uniq<V extends List<any>>(
+            list: V,
+            iteratee?: Iteratee<V, any>,
+            context?: any
+        ): TypeOfList<V>[];
 
         /**
-        * @see _.uniq
-        **/
-        uniq<T, TSort>(
-            array: _.List<T>,
-            iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand,
-            context?: any): T[];
-
-        /**
-        * @see _.uniq
-        **/
-        unique<T, TSort>(
-            array: _.List<T>,
-            iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand,
-            context?: any): T[];
-
-        /**
-        * @see _.uniq
-        **/
-        unique<T, TSort>(
-            array: _.List<T>,
-            isSorted?: boolean,
-            iterator?: _.ListIterator<T, TSort>  | _.IterateePropertyShorthand,
-            context?: any): T[];
-
+         * @see uniq
+         **/
+        unique: UnderscoreStatic['uniq'];
 
         /**
         * Merges together the values of each of the arrays with the values at the corresponding position.
@@ -1058,19 +1033,22 @@ declare module _ {
             context?: any): number;
 
         /**
-        * Uses a binary search to determine the index at which the value should be inserted into the list in order
-        * to maintain the list's sorted order. If an iterator is passed, it will be used to compute the sort ranking
-        * of each value, including the value you pass.
-        * @param list The sorted list.
-        * @param value The value to determine its index within `list`.
-        * @param iterator Iterator to compute the sort ranking of each value, optional.
-        * @param context `this` object in `iterator`, optional.
-        * @return The index where `value` should be inserted into `list`.
-        **/
-        sortedIndex<T, TSort>(
-            list: _.List<T>,
-            value: T,
-            iterator?: ((x: T) => TSort) | string,
+         * Uses a binary search to determine the lowest index at which the
+         * value should be inserted into `list` in order to maintain `list`'s
+         * sorted order. If an iteratee is provided, it will be used to compute
+         * the sort ranking of each value, including the value you pass.
+         * @param list A sorted list.
+         * @param value The value to determine an insert index for to mainain
+         * the sorting in `list`.
+         * @param iteratee Iteratee to compute the sort ranking of each
+         * element including `value`, optional.
+         * @param context `this` object in `iteratee`, optional.
+         * @return The index where `value` should be inserted into `list`.
+         **/
+        sortedIndex<V extends List<any>>(
+            list: V,
+            value: TypeOfList<V>,
+            iteratee?: Iteratee<V, any>,
             context?: any
         ): number;
 
@@ -1098,12 +1076,12 @@ declare module _ {
         range(stop: number): number[];
 
         /**
-        * Split an **array** into several arrays containing **count** or less elements
-        * of initial array.
-        * @param array The array to split
-        * @param count The maximum size of the inner arrays.
-        */
-        chunk<T>(array: _.Collection<T>, count: number): (_.Collection<T>)[]
+         * Chunks a list into multiple arrays, each containing length or fewer items.
+         * @param list The list to split.
+         * @param length The maximum size of the inner arrays.
+         * @returns The chunked list.
+         **/
+        chunk<V extends List<any>>(list: V, length: number): TypeOfList<V>[][]
 
         /*************
          * Functions *
@@ -3432,9 +3410,9 @@ declare module _ {
         * @param hashFn Hash function for storing the result of `fn`.
         * @return Memoized version of `fn`.
         **/
-        memoize(
-            fn: Function,
-            hashFn?: (...args: any[]) => string): Function;
+        memoize<T = Function>(
+            fn: T,
+            hashFn?: (...args: any[]) => string): T;
 
         /**
         * Much like setTimeout, invokes function after wait milliseconds. If you pass the optional arguments,
@@ -3631,7 +3609,7 @@ declare module _ {
         * @param object Convert this object to a list of [key, value] pairs.
         * @return List of [key, value] pairs on `object`.
         **/
-        pairs(object: any): any[][];
+        pairs(object: any): [string, any][];
 
         /**
         * Returns a copy of the object where the keys have become the values and the values the keys.
@@ -3695,16 +3673,9 @@ declare module _ {
         * @keys The key/value pairs to keep on `object`.
         * @return Copy of `object` with only the `keys` properties.
         **/
-        pick(
-            object: any,
-            ...keys: any[]): any;
-
-        /**
-        * @see _.pick
-        **/
-        pick(
-            object: any,
-            fn: (value: any, key: any, object: any) => any): any;
+        pick<T, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K>;
+        pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K>;
+        pick<T, K extends keyof T>(obj: T, predicate: ObjectIterator<T[K], boolean>): Pick<T, K>;
 
         /**
         * Return a copy of the object, filtered to omit the blacklisted keys (or array of keys).
@@ -3741,7 +3712,6 @@ declare module _ {
             object: any,
             ...defaults: any[]): any;
 
-
         /**
         * Creates an object that inherits from the given prototype object.
         * If additional properties are provided then they will be added to the
@@ -3749,7 +3719,7 @@ declare module _ {
         * @param prototype The prototype that the returned object will inherit from.
         * @param props Additional props added to the returned object.
         **/
-        create(prototype: any, props?: Object): any;
+        create(prototype: any, props?: object): any;
 
         /**
         * Create a shallow-copied clone of the object.
@@ -3782,7 +3752,7 @@ declare module _ {
         * @param attrs Object with key values pair
         * @return Predicate function
         **/
-        matches<T>(attrs: T): _.ListIterator<T, boolean>;
+        matches<T>(attrs: T): _.Predicate<T>;
 
         /**
         * Returns a predicate function that will tell you if a passed in object contains all of the key/value properties present in attrs.
@@ -3790,167 +3760,161 @@ declare module _ {
         * @param attrs Object with key values pair
         * @return Predicate function
         **/
-        matcher<T>(attrs: T): _.ListIterator<T, boolean>;
+        matcher<T>(attrs: T): _.Predicate<T>;
 
         /**
         * Returns a function that will itself return the key property of any passed-in object.
         * @param key Property of the object.
         * @return Function which accept an object an returns the value of key in that object.
         **/
-        property(key: string): (object: Object) => any;
+        property(key: string | number | Array<string | number>): (object: object) => any;
 
         /**
         * Returns a function that will itself return the value of a object key property.
         * @param key The object to get the property value from.
         * @return Function which accept a key property in `object` and returns its value.
         **/
-        propertyOf(object: Object): (key: string) => any;
+        propertyOf(object: object): (key: string | number | Array<string | number>) => any;
 
         /**
-        * Performs an optimized deep comparison between the two objects,
-        * to determine if they should be considered equal.
-        * @param object Compare to `other`.
-        * @param other Compare to `object`.
-        * @return True if `object` is equal to `other`.
-        **/
+         * Performs an optimized deep comparison between `object` and `other`
+         * to determine if they should be considered equal.
+         * @param object Compare to `other`.
+         * @param other Compare to `object`.
+         * @returns True if `object` should be considered equal to `other`.
+         **/
         isEqual(object: any, other: any): boolean;
 
         /**
-        * Returns true if object contains no values.
-        * @param object Check if this object has no properties or values.
-        * @return True if `object` is empty.
-        **/
-        isEmpty(object: any): boolean;
+         * Returns true if `collection` contains no values.
+         * For strings and array-like objects checks if the length property is 0.
+         * @param collection The collection to check.
+         * @returns True if `collection` has no elements.
+         **/
+        isEmpty(collection: any): boolean;
 
         /**
-        * Returns true if the keys and values in `properties` matches with the `object` properties.
-        * @param object Object to be compared with `properties`.
-        * @param properties Properties be compared with `object`
-        * @return True if `object` has matching keys and values, otherwise false.
-        **/
+         * Returns true if the keys and values in `properties` are contained in `object`.
+         * @param object The object to check.
+         * @param properties The properties to check for in `object`.
+         * @returns True if all keys and values in `properties` are also in `object`.
+         **/
         isMatch(object: any, properties: any): boolean;
 
         /**
-        * Returns true if object is a DOM element.
-        * @param object Check if this object is a DOM element.
-        * @return True if `object` is a DOM element, otherwise false.
-        **/
+         * Returns true if `object` is a DOM element.
+         * @param object The object to check.
+         * @returns True if `object` is a DOM element, otherwise false.
+         **/
         isElement(object: any): object is Element;
 
         /**
-        * Returns true if object is an Array.
-        * @param object Check if this object is an Array.
-        * @return True if `object` is an Array, otherwise false.
-        **/
+         * Returns true if `object` is an Array.
+         * @param object The object to check.
+         * @returns True if `object` is an Array, otherwise false.
+         **/
         isArray(object: any): object is any[];
 
         /**
-        * Returns true if object is an Array.
-        * @param object Check if this object is an Array.
-        * @return True if `object` is an Array, otherwise false.
-        **/
-        isArray<T>(object: any): object is T[];
-
-        /**
-         * Returns true if object is a Symbol.
-         * @param object Check if this object is a Symbol.
-         * @return True if `object` is a Symbol, otherwise false.
+         * Returns true if `object` is a Symbol.
+         * @param object The object to check.
+         * @returns True if `object` is a Symbol, otherwise false.
          **/
         isSymbol(object: any): object is symbol;
 
         /**
-        * Returns true if value is an Object. Note that JavaScript arrays and functions are objects,
-        * while (normal) strings and numbers are not.
-        * @param object Check if this object is an Object.
-        * @return True of `object` is an Object, otherwise false.
-        **/
-        isObject(object: any): boolean;
+         * Returns true if `object` is an Object. Note that JavaScript arrays and functions are objects,
+         * while (normal) strings and numbers are not.
+         * @param object The object to check.
+         * @returns True if `object` is an Object, otherwise false.
+         **/
+        isObject(object: any): object is Dictionary<any> & object;
 
         /**
-        * Returns true if object is an Arguments object.
-        * @param object Check if this object is an Arguments object.
-        * @return True if `object` is an Arguments object, otherwise false.
-        **/
+         * Returns true if `object` is an Arguments object.
+         * @param object The object to check.
+         * @returns True if `object` is an Arguments object, otherwise false.
+         **/
         isArguments(object: any): object is IArguments;
 
         /**
-        * Returns true if object is a Function.
-        * @param object Check if this object is a Function.
-        * @return True if `object` is a Function, otherwise false.
-        **/
+         * Returns true if `object` is a Function.
+         * @param object The object to check.
+         * @returns True if `object` is a Function, otherwise false.
+         **/
         isFunction(object: any): object is Function;
 
         /**
-        * Returns true if object inherits from an Error.
-        * @param object Check if this object is an Error.
-        * @return True if `object` is a Error, otherwise false.
-        **/
+         * Returns true if `object` is an Error.
+         * @param object The object to check.
+         * @returns True if `object` is a Error, otherwise false.
+         **/
         isError(object: any): object is Error;
 
         /**
-        * Returns true if object is a String.
-        * @param object Check if this object is a String.
-        * @return True if `object` is a String, otherwise false.
-        **/
+         * Returns true if `object` is a String.
+         * @param object The object to check.
+         * @returns True if `object` is a String, otherwise false.
+         **/
         isString(object: any): object is string;
 
         /**
-        * Returns true if object is a Number (including NaN).
-        * @param object Check if this object is a Number.
-        * @return True if `object` is a Number, otherwise false.
-        **/
+         * Returns true if `object` is a Number (including NaN).
+         * @param object The object to check.
+         * @returns True if `object` is a Number, otherwise false.
+         **/
         isNumber(object: any): object is number;
 
         /**
-        * Returns true if object is a finite Number.
-        * @param object Check if this object is a finite Number.
-        * @return True if `object` is a finite Number.
-        **/
+         * Returns true if `object` is a finite Number.
+         * @param object The object to check.
+         * @returns True if `object` is a finite Number.
+         **/
         isFinite(object: any): boolean;
 
         /**
-        * Returns true if object is either true or false.
-        * @param object Check if this object is a bool.
-        * @return True if `object` is a bool, otherwise false.
-        **/
+         * Returns true if `object` is a Boolean.
+         * @param object The object to check.
+         * @returns True if `object` is a Boolean, otherwise false.
+         **/
         isBoolean(object: any): object is boolean;
 
         /**
-        * Returns true if object is a Date.
-        * @param object Check if this object is a Date.
-        * @return True if `object` is a Date, otherwise false.
-        **/
+         * Returns true if `object` is a Date.
+         * @param object The object to check.
+         * @returns True if `object` is a Date, otherwise false.
+         **/
         isDate(object: any): object is Date;
 
         /**
-        * Returns true if object is a RegExp.
-        * @param object Check if this object is a RegExp.
-        * @return True if `object` is a RegExp, otherwise false.
-        **/
+         * Returns true if `object` is a RegExp.
+         * @param object The object to check.
+         * @returns True if `object` is a RegExp, otherwise false.
+         **/
         isRegExp(object: any): object is RegExp;
 
         /**
-        * Returns true if object is NaN.
-        * Note: this is not the same as the native isNaN function,
-        * which will also return true if the variable is undefined.
-        * @param object Check if this object is NaN.
-        * @return True if `object` is NaN, otherwise false.
-        **/
+         * Returns true if `object` is NaN.
+         * Note: this is not the same as the native isNaN function,
+         * which will also return true if the variable is undefined.
+         * @param object The object to check.
+         * @returns True if `object` is NaN, otherwise false.
+         **/
         isNaN(object: any): boolean;
 
         /**
-        * Returns true if the value of object is null.
-        * @param object Check if this object is null.
-        * @return True if `object` is null, otherwise false.
-        **/
-        isNull(object: any): boolean;
+         * Returns true if `object` is null.
+         * @param object The object to check.
+         * @returns True if `object` is null, otherwise false.
+         **/
+        isNull(object: any): object is null;
 
         /**
-        * Returns true if value is undefined.
-        * @param object Check if this object is undefined.
-        * @return True if `object` is undefined, otherwise false.
-        **/
-        isUndefined(value: any): boolean;
+         * Returns true if `object` is undefined.
+         * @param object The object to check.
+         * @returns True if `object` is undefined, otherwise false.
+         **/
+        isUndefined(object: any): object is undefined;
 
         /* *********
         * Utility *
@@ -4028,7 +3992,7 @@ declare module _ {
         **/
         iteratee(value: string): Function;
         iteratee(value: Function, context?: any): Function;
-        iteratee(value: Object): Function;
+        iteratee(value: object): Function;
 
         /**
         * Generate a globally-unique id for client-side models or DOM elements that need one.
@@ -4076,7 +4040,7 @@ declare module _ {
         * @param settings Settings to use while compiling.
         * @return Returns the compiled Underscore HTML template.
         **/
-        template(templateString: string, settings?: _.TemplateSettings): (...data: any[]) => string;
+        template(templateString: string, settings?: _.TemplateSettings): CompiledTemplate;
 
         /**
         * By default, Underscore uses ERB-style template delimiters, change the
@@ -4094,17 +4058,20 @@ declare module _ {
         *********** */
 
         /**
-        * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
-        * until value() is used.
-        * @param obj Object to chain.
-        * @return Wrapped `obj`.
-        **/
-        chain<T>(obj: T[]): _Chain<T>;
-        chain<T>(obj: _.Dictionary<T>): _Chain<T>;
-        chain<T extends {}>(obj: T): _Chain<T>;
+         * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
+         * until value() is used.
+         * @param value The object to chain.
+         * @returns An underscore chain wrapper around the supplied value.
+         **/
+        chain<V>(value: V): _Chain<TypeOfCollection<V>, V>;
+
+        /**
+         * Current version
+         */
+        readonly VERSION: string;
     }
 
-    interface Underscore<T> {
+    interface Underscore<T, V = T> {
 
         /* *************
         * Collections *
@@ -4132,113 +4099,136 @@ declare module _ {
         forEach(iterator: _.ObjectIterator<T, void>, context?: any): _.List<T>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.map
-        **/
-        map<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): TResult[];
+         * Produces a new array of values by mapping each value in the wrapped collection through a transformation function
+         * (iteratee). For function iterators, each invocation of iterator is called with three arguments:
+         * (value, key, collection).
+         * @param iteratee Map iteratee for each element in the collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The mapped result.
+         **/
+        map<I extends Iteratee<V, any>>(
+            iteratee: I,
+            context?: any
+        ): IterateeResult<I, T>[];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.map
-        **/
-        map<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): TResult[];
+         * @see map
+         **/
+        collect: Underscore<T, V>['map'];
 
         /**
-        * @see _.map
-        **/
-        collect<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): TResult[];
+         * Also known as inject and foldl, reduce boils down a collection of wrapped values into a
+         * single value. Memo is the initial state of the reduction, and each successive
+         * step of it should be returned by iteratee. The iteratee is passed four arguments:
+         * the memo, then the value and index (or key) of the iteration, and finally a reference
+         * to the entire collection.
+         *
+         * If no memo is passed to the initial invocation of reduce, the iteratee is not invoked
+         * on the first element of the collection. The first element is instead passed as the memo
+         * in the invocation of the iteratee on the next element in the collection.
+         * @param iteratee Reduce iteratee function for each element in the wrapped collection.
+         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The reduced result.
+         **/
+        reduce<TResult>(iteratee: MemoCollectionIterator<T, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): TResult;
+        reduce<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>
+        ): TResult | TypeOfCollection<V> | undefined;
 
         /**
-        * @see _.map
-        **/
-        collect<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): TResult[];
+         * @see reduce
+         **/
+        inject: Underscore<T, V>['reduce'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.reduce
-        **/
-        reduce<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+         * @see reduce
+         **/
+        foldl: Underscore<T, V>['reduce'];
 
         /**
-        * @see _.reduce
-        **/
-        inject<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+         * The right-associative version of reduce.
+         *
+         * This is not as useful in JavaScript as it would be in a language with lazy evaluation.
+         * @param iteratee Reduce iteratee function for each element in the wrapped collection.
+         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The reduced result.
+         **/
+        reduceRight<TResult>(
+            iteratee: MemoCollectionIterator<T, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): TResult;
+        reduceRight<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>
+        ): TResult | TypeOfCollection<V> | undefined;
 
         /**
-        * @see _.reduce
-        **/
-        foldl<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+         * @see reduceRight
+         **/
+        foldr: Underscore<T, V>['reduceRight'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.reduceRight
-        **/
-        reduceRight<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+         * Looks through each value in the wrapped collection, returning the first one that passes a
+         * truth test (iteratee), or undefined if no value passes the test. The function
+         * returns as soon as it finds an acceptable element, and doesn't traverse the entire
+         * collection.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @return The first element in the wrapped collection that passes the truth test or undefined
+         * if no elements pass.
+         **/
+        find(iteratee?: Iteratee<V, boolean>, context?: any): T | undefined;
 
         /**
-        * @see _.reduceRight
-        **/
-        foldr<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+         * @see find
+         **/
+        detect: Underscore<T, V>['find'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.find
-        **/
-        find<T>(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): T | undefined;
+         * Looks through each value in the wrapped collection, returning an array of all the values that pass a truth
+         * test (iteratee).
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The set of values that pass the truth test.
+         **/
+        filter(iteratee?: Iteratee<V, boolean>, context?: any): T[];
 
         /**
-        * @see _.find
-        **/
-        find<T, U extends {}>(interator: U): T | undefined;
+         * @see filter
+         **/
+        select: Underscore<T, V>['filter'];
 
         /**
-        * @see _.find
-        **/
-        find<T>(interator: string): T | undefined;
+         * Looks through each value in the wrapped collection, returning an array of all the values that matches the
+         * key-value pairs listed in `properties`.
+         * @param properties The properties to check for on the elements within the wrapped collection.
+         * @return The elements in the wrapped collection that match `properties`.
+         **/
+        where(properties: Partial<T>): T[];
 
         /**
-        * @see _.find
-        **/
-        detect<T>(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): T | undefined;
+         * Looks through the wrapped collection and returns the first value that matches all of the key-value
+         * pairs listed in `properties`.
+         * If no match is found, or if list is empty, undefined will be returned.
+         * @param properties The properties to check for on the elements within the wrapped collection.
+         * @return The first element in the wrapped collection that matches `properties` or undefined if
+         * no match is found.
+         **/
+        findWhere(properties: Partial<T>): T | undefined;
 
         /**
-        * @see _.find
-        **/
-        detect<T, U extends {}>(interator?: U): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        detect<T>(interator?: string): T | undefined;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.filter
-        **/
-        filter(iterator: _.ListIterator<T, boolean>, context?: any): T[];
-
-        /**
-        * @see _.filter
-        **/
-        select(iterator: _.ListIterator<T, boolean>, context?: any): T[];
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.where
-        **/
-        where<U extends {}>(properties: U): T[];
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.findWhere
-        **/
-        findWhere<U extends {}>(properties: U): T | undefined;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.reject
-        **/
-        reject(iterator: _.ListIterator<T, boolean>, context?: any): T[];
+         * Returns the values in the wrapped collection without the elements that pass a truth test (iteratee).
+         * The opposite of filter.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @return The set of values that fail the truth test.
+         **/
+        reject(iteratee?: Iteratee<V, boolean>, context?: any): T[];
 
         /**
         * Wrapped type `any[]`.
@@ -4287,10 +4277,14 @@ declare module _ {
         invoke(methodName: string, ...args: any[]): any;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.pluck
-        **/
-        pluck(propertyName: string): any[];
+         * A convenient version of what is perhaps the most common use-case for map: extracting a list of
+         * property values.
+         * @param propertyName The name of a specific property to retrieve from all items.
+         * @returns The set of values for the specified property for each item in the collection.
+         **/
+        pluck<K extends EnumerableKey>(
+            propertyName: K
+        ): PropertyTypeOrAny<T, K>[];
 
         /**
         * Wrapped type `number[]`.
@@ -4341,16 +4335,12 @@ declare module _ {
         sortBy(iterator: string, context?: any): T[];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.groupBy
-        **/
-        groupBy(iterator?: _.ListIterator<T, any>, context?: any): _.Dictionary<_.List<T>>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.groupBy
-        **/
-        groupBy(iterator: string, context?: any): _.Dictionary<T[]>;
+         * Splits a collection into sets, grouped by the result of running each value through iteratee.
+         * @param iteratee An iteratee that provides the value to group by for each item in the collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection.
+         **/
+        groupBy(iteratee: Iteratee<V, any>, context?: any): Dictionary<T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -4377,21 +4367,19 @@ declare module _ {
         countBy(iterator: string, context?: any): _.Dictionary<number>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.shuffle
-        **/
+         * Returns a shuffled copy of the wrapped collection, using a version of the Fisher-Yates shuffle.
+         * @return A shuffled copy of the wrapped collection.
+         **/
         shuffle(): T[];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.sample
-        **/
-        sample<T>(n: number): T[];
-
-        /**
-        * @see _.sample
-        **/
-        sample<T>(): T;
+         * Produce a random sample from the wrapped collection. Pass a number to return `n` random elements from the
+         * wrapped collection. Otherwise a single random item will be returned.
+         * @param n The number of elements to sample from the wrapped collection.
+         * @return A random sample of `n` elements from the wrapped collection or a single element if `n` is not specified.
+         **/
+        sample(n: number): T[];
+        sample(): T | undefined;
 
         /**
         * Wrapped type `any`.
@@ -4482,15 +4470,21 @@ declare module _ {
         compact(): T[];
 
         /**
-        * Wrapped type `any`.
-        * @see _.flatten
-        **/
-        flatten(shallow?: boolean): any[];
+         * Flattens the wrapped nested list (the nesting can be to any depth). If you pass shallow, the list will
+         * only be flattened a single level.
+         * @param shallow If true then only flatten one level, optional, default = false.
+         * @returns The flattened list.
+         **/
+        flatten(shallow?: false): DeepestListItemOrSelf<T>[];
+        flatten(shallow: true): ListItemOrSelf<T>[];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.without
-        **/
+         * Returns a copy of the wrapped list with all instances of `values`
+         * removed.
+         * @param values The values to exclude from the wrapped list.
+         * @return An array that contains all elements of the wrapped list
+         * except for `values`.
+         **/
         without(...values: T[]): T[];
 
         /**
@@ -4518,26 +4512,26 @@ declare module _ {
         difference(...others: _.List<T>[]): T[];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.uniq
-        **/
-        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any> |  _.IterateePropertyShorthand): T[];
+         * Produces a duplicate-free version of the wrapped list, using === to
+         * test object equality. If you know in advance that the wrapped list
+         * is sorted, passing true for isSorted will run a much faster
+         * algorithm. If you want to compute unique items based on a
+         * transformation, pass an iteratee function.
+         * @param isSorted True if the wrapped list is already sorted,
+         * optional, default = false.
+         * @param iteratee Transform the elements of the wrapped list before
+         * comparisons for uniqueness.
+         * @param context 'this' object in `iteratee`, optional.
+         * @return An array containing only the unique elements in the wrapped
+         * list.
+         **/
+        uniq(isSorted?: boolean, iteratee?: Iteratee<V, any>, cotext?: any): T[];
+        uniq(iteratee?: Iteratee<V, any>, context?: any): T[];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.uniq
+        * @see uniq
         **/
-        uniq<TSort>(iterator?: _.ListIterator<T, TSort>, context?: any): T[];
-
-        /**
-        * @see _.uniq
-        **/
-        unique<TSort>(isSorted?: boolean, iterator?: _.ListIterator<T, TSort>): T[];
-
-        /**
-        * @see _.uniq
-        **/
-        unique<TSort>(iterator?: _.ListIterator<T, TSort>, context?: any): T[];
+        unique: Underscore<T, V>['uniq'];
 
         /**
         * Wrapped type `any[][]`.
@@ -4582,18 +4576,28 @@ declare module _ {
         /**
         * @see _.findIndex
         **/
-        findIndex<T>(array: _.List<T>, predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
+        findIndex(predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
 
         /**
         * @see _.findLastIndex
         **/
-        findLastIndex<T>(array: _.List<T>, predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
+        findLastIndex(predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.sortedIndex
-        **/
-        sortedIndex(value: T, iterator?: (x: T) => any, context?: any): number;
+         * Uses a binary search to determine the lowest index at which the
+         * value should be inserted into the wrapped list in order to maintain
+         * the wrapped list's sorted order. If an iteratee is provided, it will
+         * be used to compute the sort ranking of each value, including the
+         * value you pass.
+         * @param value The value to determine an insert index for to mainain
+         * the sorting in the wrapped list.
+         * @param iteratee Iteratee to compute the sort ranking of each
+         * element including `value`, optional.
+         * @param context `this` object in `iteratee`, optional.
+         * @return The index where `value` should be inserted into the wrapped
+         * list.
+         **/
+        sortedIndex(value: T, iteratee?: Iteratee<V, any>, context?: any): number;
 
         /**
         * Wrapped type `number`.
@@ -4608,10 +4612,11 @@ declare module _ {
         range(): number[];
 
         /**
-         * Wrapped type any[][].
-         * @see _.chunk
+         * Chunks a wrapped list into multiple arrays, each containing length or fewer items.
+         * @param length The maximum size of the inner arrays.
+         * @returns The chunked list.
          **/
-        chunk(): any[][];
+        chunk(length: number): T[][];
 
         /* ***********
         * Functions *
@@ -4738,7 +4743,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.pairs
         **/
-        pairs(): any[][];
+        pairs(): [string, any][];
 
         /**
         * Wrapped type `object`.
@@ -4773,9 +4778,9 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.pick
         **/
-        pick(...keys: any[]): any;
-        pick(keys: any[]): any;
-        pick(fn: (value: any, key: any, object: any) => any): any;
+        pick<K extends keyof V>(...keys: K[]): Pick<V, K>;
+        pick<K extends keyof V>(keys: K[]): Pick<V, K>;
+        pick<K extends keyof V>(predicate: ObjectIterator<V[K], boolean>): Pick<V, K>;
 
         /**
         * Wrapped type `object`.
@@ -4795,7 +4800,7 @@ declare module _ {
         * Wrapped type `any`.
         * @see _.create
         **/
-        create(props?: Object): any;
+        create(props?: object): any;
 
         /**
         * Wrapped type `any[]`.
@@ -4831,7 +4836,7 @@ declare module _ {
         * Wrapped type `string`.
         * @see _.property
         **/
-        property(): (object: Object) => any;
+        property(): (object: object) => any;
 
         /**
         * Wrapped type `object`.
@@ -4840,117 +4845,124 @@ declare module _ {
         propertyOf(): (key: string) => any;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isEqual
-        **/
+         * Performs an optimized deep comparison between the wrapped object
+         * and `other` to determine if they should be considered equal.
+         * @param other Compare to the wrapped object.
+         * @returns True if the wrapped object should be considered equal to `other`.
+         **/
         isEqual(other: any): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isEmpty
-        **/
+         * Returns true if the wrapped collection contains no values.
+         * For strings and array-like objects checks if the length property is 0.
+         * @returns True if the wrapped collection has no elements.
+         **/
         isEmpty(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isMatch
-        **/
-        isMatch(): boolean;
+         * Returns true if the keys and values in `properties` are contained in the wrapped object.
+         * @param properties The properties to check for in the wrapped object.
+         * @returns True if all keys and values in `properties` are also in the wrapped object.
+         **/
+        isMatch(properties: any): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isElement
-        **/
+         * Returns true if the wrapped object is a DOM element.
+         * @returns True if the wrapped object is a DOM element, otherwise false.
+         **/
         isElement(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isArray
-        **/
+         * Returns true if the wrapped object is an Array.
+         * @returns True if the wrapped object is an Array, otherwise false.
+         **/
         isArray(): boolean;
 
         /**
-         * Wrapped type `object`.
-         * @see _.isSymbol
+         * Returns true if the wrapped object is a Symbol.
+         * @returns True if the wrapped object is a Symbol, otherwise false.
          **/
         isSymbol(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isObject
-        **/
+         * Returns true if the wrapped object is an Object. Note that JavaScript arrays
+         * and functions are objects, while (normal) strings and numbers are not.
+         * @returns True if the wrapped object is an Object, otherwise false.
+         **/
         isObject(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isArguments
-        **/
+         * Returns true if the wrapped object is an Arguments object.
+         * @returns True if the wrapped object is an Arguments object, otherwise false.
+         **/
         isArguments(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isFunction
-        **/
+         * Returns true if the wrapped object is a Function.
+         * @returns True if the wrapped object is a Function, otherwise false.
+         **/
         isFunction(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isError
-        **/
+         * Returns true if the wrapped object is a Error.
+         * @returns True if the wrapped object is a Error, otherwise false.
+         **/
         isError(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isString
-        **/
+         * Returns true if the wrapped object is a String.
+         * @returns True if the wrapped object is a String, otherwise false.
+         **/
         isString(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isNumber
-        **/
+         * Returns true if the wrapped object is a Number (including NaN).
+         * @returns True if the wrapped object is a Number, otherwise false.
+         **/
         isNumber(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isFinite
-        **/
+         * Returns true if the wrapped object is a finite Number.
+         * @returns True if the wrapped object is a finite Number.
+         **/
         isFinite(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isBoolean
-        **/
+         * Returns true if the wrapped object is a Boolean.
+         * @returns True if the wrapped object is a Boolean, otherwise false.
+         **/
         isBoolean(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isDate
-        **/
+         * Returns true if the wrapped object is a Date.
+         * @returns True if the wrapped object is a Date, otherwise false.
+         **/
         isDate(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isRegExp
-        **/
+         * Returns true if the wrapped object is a RegExp.
+         * @returns True if the wrapped object is a RegExp, otherwise false.
+         **/
         isRegExp(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isNaN
-        **/
+         * Returns true if the wrapped object is NaN.
+         * Note: this is not the same as the native isNaN function,
+         * which will also return true if the variable is undefined.
+         * @returns True if the wrapped object is NaN, otherwise false.
+         **/
         isNaN(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isNull
-        **/
+         * Returns true if the wrapped object is null.
+         * @returns True if the wrapped object is null, otherwise false.
+         **/
         isNull(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isUndefined
-        **/
+         * Returns true if the wrapped object is undefined.
+         * @returns True if the wrapped object is undefined, otherwise false.
+         **/
         isUndefined(): boolean;
 
         /********* *
@@ -5032,27 +5044,27 @@ declare module _ {
         * Wrapped type `string`.
         * @see _.template
         **/
-        template(settings?: _.TemplateSettings): (...data: any[]) => string;
+        template(settings?: _.TemplateSettings): CompiledTemplate;
 
         /********** *
          * Chaining *
         *********** */
 
         /**
-        * Wrapped type `any`.
-        * @see _.chain
-        **/
-        chain(): _Chain<T>;
+         * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
+         * until value() is used.
+         * @returns An underscore chain wrapper around the wrapped value.
+         **/
+        chain(): _Chain<T, V>;
 
         /**
-        * Wrapped type `any`.
-        * Extracts the value of a wrapped object.
-        * @return Value of the wrapped object.
-        **/
-        value<TResult>(): TResult;
+         * Extracts the value of the wrapped object.
+         * @returns The value of the wrapped object.
+         **/
+        value(): V;
     }
 
-    interface _Chain<T> {
+    interface _Chain<T, V = T> {
 
         /* *************
         * Collections *
@@ -5080,125 +5092,137 @@ declare module _ {
         forEach(iterator: _.ObjectIterator<T, void>, context?: any): _Chain<T>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.map
-        **/
-        map<TArray>(iterator: _.ListIterator<T, TArray[]>, context?: any): _ChainOfArrays<TArray>;
+         * Produces a new array of values by mapping each value in the wrapped collection through a transformation function
+         * (iteratee). For function iteratees, each invocation of iteratee is called with three arguments:
+         * (value, key, collection).
+         * @param iterator Map iteratee for each element in the collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The mapped result in a chain wrapper.
+         **/
+        map<I extends _ChainIteratee<V, any, T>>(
+            iteratee: I,
+            context?: any
+        ): _Chain<IterateeResult<I, T>, IterateeResult<I, T>[]>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.map
-        **/
-        map<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): _Chain<TResult>;
+         * @see map
+         **/
+        collect: _Chain<T, V>['map'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.map
-        **/
-        map<TArray>(iterator: _.ObjectIterator<T, TArray[]>, context?: any): _ChainOfArrays<TArray>;
+         * Also known as inject and foldl, reduce boils down a collection of wrapped values into a
+         * single value. Memo is the initial state of the reduction, and each successive
+         * step of it should be returned by iteratee. The iteratee is passed four arguments:
+         * the memo, then the value and index (or key) of the iteration, and finally a reference
+         * to the entire collection.
+         *
+         * If no memo is passed to the initial invocation of reduce, the iteratee is not invoked
+         * on the first element of the collection. The first element is instead passed as the memo
+         * in the invocation of the iteratee on the next element in the collection.
+         * @param iteratee Reduce iteratee function for each element in `list`.
+         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The reduced result in a chain wraper.
+         **/
+        reduce<TResult>(
+            iteratee: MemoCollectionIterator<T, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): _ChainSingle<TResult>;
+        reduce<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>
+        ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.map
-        **/
-        map<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): _Chain<TResult>;
+         * @see reduce
+         **/
+        inject: _Chain<T, V>['reduce'];
 
         /**
-        * @see _.map
-        **/
-        collect<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): _Chain<TResult>;
+         * @see reduce
+         **/
+        foldl: _Chain<T, V>['reduce'];
 
         /**
-        * @see _.map
-        **/
-        collect<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): _Chain<TResult>;
+         * The right-associative version of reduce.
+         *
+         * This is not as useful in JavaScript as it would be in a language with lazy evaluation.
+         * @param iteratee Reduce iteratee function for each element in the wrapped collection.
+         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The reduced result in a chain wrapper.
+         **/
+        reduceRight<TResult>(
+            iteratee: MemoCollectionIterator<T, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): _ChainSingle<TResult>;
+        reduceRight<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>
+        ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.reduce
-        **/
-        reduce<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+         * @see reduceRight
+         **/
+        foldr: _Chain<T, V>['reduceRight'];
 
         /**
-        * @see _.reduce
-        **/
-        inject<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+         * Looks through each value in the wrapped collection, returning the first one that passes a
+         * truth test (iteratee), or undefined if no value passes the test. The function
+         * returns as soon as it finds an acceptable element, and doesn't traverse the entire
+         * collection.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @return A chain wrapper containing the first element in the wrapped collection that passes
+         * the truth test or undefined if no elements pass.
+         **/
+        find(iteratee?: _ChainIteratee<V, boolean, T>, context?: any): _ChainSingle<T | undefined>;
 
         /**
-        * @see _.reduce
-        **/
-        foldl<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+         * @see find
+         **/
+        detect: _Chain<T, V>['find'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.reduceRight
-        **/
-        reduceRight<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+         * Looks through each value in the wrapped collection, returning an array of all the values that pass a truth
+         * test (iteratee).
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The set of values that pass a truth test in a chain wrapper.
+         **/
+        filter(iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
 
         /**
-        * @see _.reduceRight
-        **/
-        foldr<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+         * @see filter
+         **/
+        select: _Chain<T, V>['filter'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.find
-        **/
-        find<T>(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
+         * Looks through each value in the wrapped collection, returning an array of all the values that matches the
+         * key-value pairs listed in `properties`.
+         * @param properties The properties to check for on the elements within the wrapped collection.
+         * @return The elements in the wrapped collection that match `properties` in a chain wrapper.
+         **/
+        where(properties: Partial<T>): _Chain<T, T[]>;
 
         /**
-        * @see _.find
-        **/
-        find<T, U extends {}>(interator: U): _ChainSingle<T | undefined>;
+         * Looks through the wrapped collection and returns the first value that matches all of the key-value
+         * pairs listed in `properties`.
+         * If no match is found, or if list is empty, undefined will be returned.
+         * @param properties The properties to check for on the elements within the wrapped collection.
+         * @return The first element in the wrapped collection that matches `properties` or undefined if
+         * no match is found. The result will be wrapped in a chain wrapper.
+         **/
+        findWhere(properties: Partial<T>): _ChainSingle<T | undefined>;
 
         /**
-        * @see _.find
-        **/
-        find<T>(interator: string): _ChainSingle<T | undefined>;
-
-        /**
-        * @see _.find
-        **/
-        detect<T>(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
-
-        /**
-        * @see _.find
-        **/
-        detect<T, U extends {}>(interator: U): _ChainSingle<T | undefined>;
-
-        /**
-        * @see _.find
-        **/
-        detect<T>(interator: string): _ChainSingle<T | undefined>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.filter
-        **/
-        filter(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
-
-        /**
-        * @see _.filter
-        **/
-        select(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.where
-        **/
-        where<U extends {}>(properties: U): _Chain<T>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.findWhere
-        **/
-        findWhere<U extends {}>(properties: U): _ChainSingle<T>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.reject
-        **/
-        reject(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+         * Returns the values in the wrapped collection without the elements that pass a truth test (iteratee).
+         * The opposite of filter.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @return The set of values that fail the truth test in a chain wrapper.
+         **/
+        reject(iteratee?: _ChainIteratee<V, boolean, T>, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5247,10 +5271,14 @@ declare module _ {
         invoke(methodName: string, ...args: any[]): _Chain<T>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.pluck
-        **/
-        pluck(propertyName: string): _Chain<any>;
+         * A convenient version of what is perhaps the most common use-case for map: extracting a list of
+         * property values.
+         * @param propertyName The name of a specific property to retrieve from all items.
+         * @returns The set of values for the specified property for each item in the collection in a chain wrapper.
+         **/
+        pluck<K extends EnumerableKey>(
+            propertyName: K
+        ): _Chain<PropertyTypeOrAny<T, K>, PropertyTypeOrAny<T, K>[]>;
 
         /**
         * Wrapped type `number[]`.
@@ -5292,25 +5320,22 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.sortBy
         **/
-        sortBy(iterator?: _.ListIterator<T, any>, context?: any): _Chain<T>;
+        sortBy(iterator?: _.ListIterator<T, any>, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.sortBy
         **/
-        sortBy(iterator: string, context?: any): _Chain<T>;
+        sortBy(iterator: string, context?: any): _Chain<T, T[]>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.groupBy
-        **/
-        groupBy(iterator?: _.ListIterator<T, any>, context?: any): _ChainOfArrays<T>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.groupBy
-        **/
-        groupBy(iterator: string, context?: any): _ChainOfArrays<T>;
+         * Splits a collection into sets, grouped by the result of running each value through iteratee.
+         * @param iteratee An iteratee that provides the value to group by for each item in the collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection
+         * in a chain wrapper.
+         **/
+        groupBy(iterator: _ChainIteratee<V, any, T>, context?: any): _Chain<T[], Dictionary<T[]>>;
 
         /**
         * Wrapped type `any[]`.
@@ -5337,21 +5362,20 @@ declare module _ {
         countBy(iterator: string, context?: any): _Chain<T>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.shuffle
-        **/
-        shuffle(): _Chain<T>;
+         * Returns a shuffled copy of the wrapped collection, using a version of the Fisher-Yates shuffle.
+         * @return A shuffled copy of the wrapped collection in a chain wrapper.
+         **/
+        shuffle(): _Chain<T, T[]>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.sample
-        **/
-        sample<T>(n: number): _Chain<T>;
-
-        /**
-        * @see _.sample
-        **/
-        sample<T>(): _Chain<T>;
+         * Produce a random sample from the wrapped collection. Pass a number to return `n` random elements from the
+         * wrapped collection. Otherwise a single random item will be returned.
+         * @param n The number of elements to sample from the wrapped collection.
+         * @return A random sample of `n` elements from the wrapped collection or a single element if `n` is not specified.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        sample(n: number): _Chain<T, T[]>;
+        sample(): _ChainSingle<T | undefined>;
 
         /**
         * Wrapped type `any`.
@@ -5442,16 +5466,22 @@ declare module _ {
         compact(): _Chain<T>;
 
         /**
-        * Wrapped type `any`.
-        * @see _.flatten
-        **/
-        flatten(shallow?: boolean): _Chain<any>;
+         * Flattens the wrapped nested list (the nesting can be to any depth). If you pass shallow, the list will
+         * only be flattened a single level.
+         * @param shallow If true then only flatten one level, optional, default = false.
+         * @returns The flattened list in a chain wrapper.
+         **/
+        flatten(shallow?: false): _Chain<DeepestListItemOrSelf<T>, DeepestListItemOrSelf<T>[]>;
+        flatten(shallow: true): _Chain<ListItemOrSelf<T>, ListItemOrSelf<T>[]>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.without
-        **/
-        without(...values: T[]): _Chain<T>;
+         * Returns a copy of the wrapped list with all instances of `values`
+         * removed.
+         * @param values The values to exclude from the wrapped list.
+         * @return A chain wrapper around an array that contains all elements
+         * of the wrapped list except for `values`.
+         **/
+        without(...values: T[]): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5463,7 +5493,7 @@ declare module _ {
         * Wrapped type `any[][]`.
         * @see _.union
         **/
-        union(...arrays: _.List<T>[]): _Chain<T>;
+        union(...arrays: _.List<T>[]): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[][]`.
@@ -5478,26 +5508,27 @@ declare module _ {
         difference(...others: _.List<T>[]): _Chain<T>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.uniq
-        **/
-        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand): _Chain<T>;
+         * Produces a duplicate-free version of the wrapped list, using === to
+         * test object equality. If you know in advance that the wrapped list
+         * is sorted, passing true for isSorted will run a much faster
+         * algorithm. If you want to compute unique items based on a
+         * transformation, pass an iteratee function.
+         * @param isSorted True if the wrapped list is already sorted,
+         * optional, default = false.
+         * @param iteratee Transform the elements of the wrapped list before
+         * comparisons for uniqueness.
+         * @param context 'this' object in `iteratee`, optional.
+         * @return A chain wrapper around an array containing only the unique
+         * elements in the wrapped list.
+         **/
+        uniq(isSorted?: boolean, iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
+        uniq(iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.uniq
+        * Wrapped type List<T>.
+        * @see uniq
         **/
-        uniq<TSort>(iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand, context?: any): _Chain<T>;
-
-        /**
-        * @see _.uniq
-        **/
-        unique<TSort>(isSorted?: boolean, iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand): _Chain<T>;
-
-        /**
-        * @see _.uniq
-        **/
-        unique<TSort>(iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand, context?: any): _Chain<T>;
+        unique: _Chain<T, V>['uniq'];
 
         /**
         * Wrapped type `any[][]`.
@@ -5542,18 +5573,28 @@ declare module _ {
         /**
         * @see _.findIndex
         **/
-        findIndex<T>(predicate: _.ListIterator<T, boolean> | {}, context?: any): _ChainSingle<number>;
+        findIndex(predicate: _.ListIterator<T, boolean> | {}, context?: any): _ChainSingle<number>;
 
         /**
         * @see _.findLastIndex
         **/
-        findLastIndex<T>(predicate: _.ListIterator<T, boolean> | {}, context?: any): _ChainSingle<number>;
+        findLastIndex(predicate: _.ListIterator<T, boolean> | {}, context?: any): _ChainSingle<number>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.sortedIndex
-        **/
-        sortedIndex(value: T, iterator?: (x: T) => any, context?: any): _ChainSingle<number>;
+         * Uses a binary search to determine the lowest index at which the
+         * value should be inserted into the wrapped list in order to maintain
+         * the wrapped list's sorted order. If an iteratee is provided, it
+         * will be used to compute the sort ranking of each value, including
+         * the value you pass.
+         * @param value The value to determine an insert index for to mainain
+         * the sorting in the wrapped list.
+         * @param iteratee Iteratee to compute the sort ranking of each element
+         * including `value`, optional.
+         * @param context `this` object in `iteratee`, optional.
+         * @return A chain wrapper around the index where `value` should be
+         * inserted into the wrapped list.
+         **/
+        sortedIndex(value: T, iteratee?: _ChainIteratee<V, any, T>, context?: any): _ChainSingle<number>;
 
         /**
         * Wrapped type `number`.
@@ -5568,10 +5609,11 @@ declare module _ {
         range(): _Chain<T>;
 
         /**
-         * Wrapped type `any[][]`.
-         * @see _.chunk
+         * Chunks a wrapped list into multiple arrays, each containing length or fewer items.
+         * @param length The maximum size of the inner arrays.
+         * @returns The wrapped chunked list.
          **/
-        chunk(): _Chain<T>;
+        chunk(length: number): _Chain<T[], T[][]>;
 
         /* ***********
         * Functions *
@@ -5692,7 +5734,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.values
         **/
-        values(): _Chain<T>;
+        values(): _Chain<any>;
 
         /**
         * Wrapped type `object`.
@@ -5704,7 +5746,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.pairs
         **/
-        pairs(): _Chain<T[]>;
+        pairs(): _Chain<[string, any]>;
 
         /**
         * Wrapped type `object`.
@@ -5739,9 +5781,9 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.pick
         **/
-        pick(...keys: any[]): _Chain<T>;
-        pick(keys: any[]): _Chain<T>;
-        pick(fn: (value: any, key: any, object: any) => any): _Chain<T>;
+        pick<K extends keyof V>(...keys: K[]): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
+        pick<K extends keyof V>(keys: K[]): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
+        pick<K extends keyof V>(predicate: ObjectIterator<V[K], boolean>): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
 
         /**
         * Wrapped type `object`.
@@ -5761,7 +5803,7 @@ declare module _ {
          * Wrapped type `any`.
          * @see _.create
          **/
-        create(props?: Object): _Chain<T>;
+        create(props?: object): _Chain<T>;
 
         /**
         * Wrapped type `any[]`.
@@ -5773,7 +5815,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.tap
         **/
-        tap(interceptor: (...as: any[]) => any): _Chain<T>;
+        tap(interceptor: (...as: any[]) => any): _Chain<T, V>;
 
         /**
         * Wrapped type `object`.
@@ -5806,118 +5848,144 @@ declare module _ {
         propertyOf(): _Chain<T>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isEqual
-        **/
-        isEqual(other: any): _Chain<T>;
+         * Performs an optimized deep comparison between the wrapped object
+         * and `other` to determine if they should be considered equal.
+         * @param other Compare to the wrapped object.
+         * @returns True if the wrapped object should be considered equal to `other`.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isEqual(other: any): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isEmpty
-        **/
-        isEmpty(): _Chain<T>;
+         * Returns true if the wrapped collection contains no values.
+         * For strings and array-like objects checks if the length property is 0.
+         * @returns True if the wrapped collection has no elements.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isEmpty(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isMatch
-        **/
-        isMatch(): _Chain<T>;
+         * Returns true if the keys and values in `properties` are contained in the wrapped object.
+         * @param properties The properties to check for in the wrapped object.
+         * @returns True if all keys and values in `properties` are also in the wrapped object.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isMatch(properties: any): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isElement
-        **/
-        isElement(): _Chain<T>;
+         * Returns true if the wrapped object is a DOM element.
+         * @returns True if the wrapped object is a DOM element, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isElement(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isArray
-        **/
-        isArray(): _Chain<T>;
+         * Returns true if the wrapped object is an Array.
+         * @returns True if the wrapped object is an Array, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isArray(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isSymbol
-        **/
-        isSymbol(): _Chain<T>;
+         * Returns true if the wrapped object is a Symbol.
+         * @returns True if the wrapped object is a Symbol, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isSymbol(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isObject
-        **/
-        isObject(): _Chain<T>;
+         * Returns true if the wrapped object is an Object. Note that JavaScript arrays
+         * and functions are objects, while (normal) strings and numbers are not.
+         * @returns True if the wrapped object is an Object, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isObject(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isArguments
-        **/
-        isArguments(): _Chain<T>;
+         * Returns true if the wrapped object is an Arguments object.
+         * @returns True if the wrapped object is an Arguments object, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isArguments(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isFunction
-        **/
-        isFunction(): _Chain<T>;
+         * Returns true if the wrapped object is a Function.
+         * @returns True if the wrapped object is a Function, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isFunction(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isError
-        **/
-        isError(): _Chain<T>;
+         * Returns true if the wrapped object is a Error.
+         * @returns True if the wrapped object is a Error, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isError(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isString
-        **/
-        isString(): _Chain<T>;
+         * Returns true if the wrapped object is a String.
+         * @returns True if the wrapped object is a String, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isString(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isNumber
-        **/
-        isNumber(): _Chain<T>;
+         * Returns true if the wrapped object is a Number (including NaN).
+         * @returns True if the wrapped object is a Number, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isNumber(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isFinite
-        **/
-        isFinite(): _Chain<T>;
+         * Returns true if the wrapped object is a finite Number.
+         * @returns True if the wrapped object is a finite Number.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isFinite(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isBoolean
-        **/
-        isBoolean(): _Chain<T>;
+         * Returns true if the wrapped object is a Boolean.
+         * @returns True if the wrapped object is a Boolean, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isBoolean(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isDate
-        **/
-        isDate(): _Chain<T>;
+         * Returns true if the wrapped object is a Date.
+         * @returns True if the wrapped object is a Date, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isDate(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isRegExp
-        **/
-        isRegExp(): _Chain<T>;
+         * Returns true if the wrapped object is a RegExp.
+         * @returns True if the wrapped object is a RegExp, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isRegExp(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isNaN
-        **/
-        isNaN(): _Chain<T>;
+         * Returns true if the wrapped object is NaN.
+         * Note: this is not the same as the native isNaN function,
+         * which will also return true if the variable is undefined.
+         * @returns True if the wrapped object is NaN, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isNaN(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isNull
-        **/
-        isNull(): _Chain<T>;
+         * Returns true if the wrapped object is null.
+         * @returns True if the wrapped object is null, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isNull(): _ChainSingle<boolean>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.isUndefined
-        **/
-        isUndefined(): _Chain<T>;
+         * Returns true if the wrapped object is undefined.
+         * @returns True if the wrapped object is undefined, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isUndefined(): _ChainSingle<boolean>;
 
         /********* *
          * Utility *
@@ -5998,7 +6066,7 @@ declare module _ {
         * Wrapped type `string`.
         * @see _.template
         **/
-        template(settings?: _.TemplateSettings): (...data: any[]) => _Chain<T>;
+        template(settings?: _.TemplateSettings): _Chain<CompiledTemplate>;
 
         /************* *
         * Array proxy *
@@ -6086,21 +6154,16 @@ declare module _ {
         *********** */
 
         /**
-        * Wrapped type `any`.
-        * @see _.chain
-        **/
-        chain(): _Chain<T>;
+          * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
+          * until value() is used.
+          * @returns An underscore chain wrapper around the wrapped value.
+          **/
+        chain(): _Chain<T, V>;
 
         /**
-        * Wrapped type `any`.
-        * @see _.value
-        **/
-        value<TResult>(): T[];
-    }
-    interface _ChainSingle<T> {
-        value(): T;
-    }
-    interface _ChainOfArrays<T> extends _Chain<T[]> {
-        flatten(shallow?: boolean): _Chain<T>;
+         * Extracts the value of the wrapped object.
+         * @returns The value of the wrapped object.
+         **/
+        value(): V;
     }
 }

@@ -20,6 +20,13 @@ const signature = jws.sign({
   secret: 'has a van',
 });
 
+// jws.sign with extra header values
+const signatureWithHeaderParams = jws.sign({
+  header: { alg: 'HS256', foo: 'bar' },
+  payload: 'h. jon benjamin',
+  secret: 'has a van',
+});
+
 // jws.decode
 const message = jws.decode('djfakdid');
 
@@ -49,3 +56,6 @@ const verifier = jws.createVerify();
 pubKeyStream.pipe(verifier.publicKey);
 sigStream.pipe(verifier.signature);
 verifier.on('done', (verified, obj) => {});
+
+// jws.ALGORITHMS defined
+const algorithms = jws.ALGORITHMS;

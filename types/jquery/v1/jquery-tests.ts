@@ -972,8 +972,8 @@ function test_trigger() {
         .trigger("click", ["foo", "bar"]);
 
     var event = jQuery.Event("logged");
-    (<any>event).user = "foo";
-    (<any>event).pass = "bar";
+    (event as any).user = "foo";
+    (event as any).pass = "bar";
     $("body").trigger(event);
 
     // Adapted from jQuery documentation which may be wrong on this occasion
@@ -1226,7 +1226,7 @@ function test_dblclick() {
     divdbl.dblclick(function () {
         divdbl.toggleClass('dbl');
     });
-	$('#target').dblclick();
+    $('#target').dblclick();
 }
 
 function test_delay() {
@@ -1594,7 +1594,7 @@ function test_eventParams() {
         $('#log').html(e.type + ': ' + e.which);
     });
     $(window).on('mousewheel', (e) => {
-        var delta = (<WheelEvent>e.originalEvent).deltaY;
+        var delta = (e.originalEvent as WheelEvent).deltaY;
     });
     $( "p" ).click(function( event ) {
       alert( event.currentTarget === this ); // true
@@ -2715,7 +2715,7 @@ function test_fn_extend() {
 }
 
 function test_jquery() {
-    var a = <any>{ what: "A regular JS object" },
+    var a: any = { what: "A regular JS object" },
     b = $('body');
     if (a.jquery) {
         alert(' a is a jQuery object! ');
@@ -2877,7 +2877,7 @@ function test_keyup() {
 }
 
 function test_resize() {
-	$('#other').resize();
+    $('#other').resize();
     $('#other').resize(function () {
         alert('Handler for .resize() called.');
     });
@@ -2887,7 +2887,7 @@ function test_resize() {
 }
 
 function test_scroll() {
-	$('#other').scroll();
+    $('#other').scroll();
     $('#other').scroll(function () {
         alert('Handler for .scroll() called.');
     });
@@ -2897,7 +2897,7 @@ function test_scroll() {
 }
 
 function test_select() {
-	$('#other').select();
+    $('#other').select();
     $('#other').select(function () {
         alert('Handler for .select() called.');
     });
@@ -3285,8 +3285,8 @@ function test_text() {
 }
 
 $('#item').click(function(e) {
-	if (e.ctrlKey) { console.log('control pressed'); }
-	if (e.altKey) { console.log('alt pressed'); }
+    if (e.ctrlKey) { console.log('control pressed'); }
+    if (e.altKey) { console.log('alt pressed'); }
 });
 
 function test_addBack() {
@@ -3303,27 +3303,27 @@ function test_addBack() {
 
 // http://api.jquery.com/jQuery.parseHTML/
 function test_parseHTML() {
-	var $log = $( "#log" ),
-		str = "hello, <b>my name is</b> jQuery.",
-		html = $.parseHTML( str ),
-		nodeNames = [];
+    var $log = $( "#log" ),
+        str = "hello, <b>my name is</b> jQuery.",
+        html = $.parseHTML( str ),
+        nodeNames = [];
 
-	// Append the parsed HTML
-	$log.append( html );
+    // Append the parsed HTML
+    $log.append( html );
 
-	// Gather the parsed HTML's node names
-	$.each( html, function( i, el ) {
-		nodeNames[i] = "<li>" + el.nodeName + "</li>";
-	});
+    // Gather the parsed HTML's node names
+    $.each( html, function( i, el ) {
+        nodeNames[i] = "<li>" + el.nodeName + "</li>";
+    });
 
-	// Insert the node names
-	$log.append( "<h3>Node Names:</h3>" );
-	$( "<ol></ol>" )
-	  .append( nodeNames.join( "" ) )
-	  .appendTo( $log );
+    // Insert the node names
+    $log.append( "<h3>Node Names:</h3>" );
+    $( "<ol></ol>" )
+      .append( nodeNames.join( "" ) )
+      .appendTo( $log );
 
-	// parse HTML with all parameters
-	$.parseHTML( str, document, true );
+    // parse HTML with all parameters
+    $.parseHTML( str, document, true );
 }
 
 // http://api.jquery.com/jQuery.parseJSON/
@@ -3505,30 +3505,30 @@ function test_deferred_promise() {
 }
 
 function test_promise_then_change_type() {
-	function request() {
-		var def = $.Deferred<any>();
-		var promise = def.promise(null);
+    function request() {
+        var def = $.Deferred<any>();
+        var promise = def.promise(null);
 
-		def.rejectWith(this, [new Error()]);
+        def.rejectWith(this, [new Error()]);
 
-		return promise;
-	}
+        return promise;
+    }
 
-	function count() {
-		var def = request();
-		return def.then<number>(data => {
-			try {
-				var count: number = parseInt(data.count, 10);
-			} catch (err) {
-				return $.Deferred<number>().reject(err).promise();
-			}
-			return $.Deferred<number>().resolve(count).promise();
-		});
-	}
+    function count() {
+        var def = request();
+        return def.then<number>(data => {
+            try {
+                var count: number = parseInt(data.count, 10);
+            } catch (err) {
+                return $.Deferred<number>().reject(err).promise();
+            }
+            return $.Deferred<number>().resolve(count).promise();
+        });
+    }
 
-	count().done(data => {
-	}).fail((exception: Error) => {
-	});
+    count().done(data => {
+    }).fail((exception: Error) => {
+    });
 }
 
 function test_promise_then_not_return_deferred() {

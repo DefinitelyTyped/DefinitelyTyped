@@ -1,3 +1,6 @@
+// package: google.protobuf
+// file: struct.proto
+
 import * as jspb from "../../index";
 
 export class Struct extends jspb.Message {
@@ -94,7 +97,7 @@ export class ListValue extends jspb.Message {
   clearValuesList(): void;
   getValuesList(): Array<Value>;
   setValuesList(value: Array<Value>): void;
-  addValues(value?: Value, index?: number): void;
+  addValues(value?: Value, index?: number): Value;
 
   toJavaScript(): Array<JavaScriptValue>;
   static fromJavaScript(value: Array<JavaScriptValue>): ListValue;

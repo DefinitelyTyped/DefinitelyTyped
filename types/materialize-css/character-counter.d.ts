@@ -20,6 +20,5 @@ declare namespace M {
 }
 
 interface JQuery {
-    characterCounter(method: keyof Pick<M.CharacterCounter, "destroy">): JQuery;
-    characterCounter(): JQuery;
+    characterCounter(method?: keyof Pick<M.CharacterCounter, "destroy">): JQuery;
 }

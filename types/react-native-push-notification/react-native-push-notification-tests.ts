@@ -6,6 +6,7 @@ PushNotification.configure({
     },
     onRegister: (token) => {},
     senderID: 'XXX',
+    permissions: { alert: true, badge: true, sound: true },
     popInitialNotification: false,
     requestPermissions: true,
 });
@@ -14,6 +15,7 @@ PushNotification.unregister();
 PushNotification.localNotification = (details) => {};
 PushNotification.localNotificationSchedule = (details) => {};
 PushNotification.requestPermissions();
+PushNotification.subscribeToTopic("topic");
 PushNotification.presentLocalNotification = (details) => {};
 PushNotification.scheduleLocalNotification = (details) => {};
 PushNotification.cancelLocalNotifications = (details) => {};

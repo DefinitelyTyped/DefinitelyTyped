@@ -53,7 +53,7 @@ FBInstant.getRewardedVideoAsync("placementID").then(adInstance => {
     adInstance.showAsync().then(() => {});
 });
 
-FBInstant.matchPlayerAsync("matchTag", false).then(() => {});
+FBInstant.matchPlayerAsync("matchTag", false, false).then(() => {});
 FBInstant.checkCanPlayerMatchAsync().then((canPlayerMatchAsync: boolean) => {});
 FBInstant.getLeaderboardAsync("name").then((leaderboard: FBInstant.Leaderboard) => {
     leaderboard.getConnectedPlayerEntriesAsync(10, 0).then(leaderboardEntries => {
@@ -77,6 +77,7 @@ FBInstant.getLeaderboardAsync("name").then((leaderboard: FBInstant.Leaderboard) 
     leaderboard.getPlayerEntryAsync().then(playerEntry => {});
     leaderboard.setScoreAsync(10).then(leaderboardEntry => {});
 });
+FBInstant.postSessionScore(10);
 
 FBInstant.player.canSubscribeBotAsync().then((canSubscribeBot: boolean) => {});
 FBInstant.player.flushDataAsync().then(() => {});

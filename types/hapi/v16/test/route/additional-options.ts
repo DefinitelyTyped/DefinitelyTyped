@@ -1,6 +1,6 @@
 'use strict';
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 
 var authConfig: Hapi.RouteAdditionalConfigurationOptions = {
     app: {},
@@ -10,28 +10,28 @@ var authConfig: Hapi.RouteAdditionalConfigurationOptions = {
 var extConfigSingle: Hapi.RouteAdditionalConfigurationOptions = {
     ext: {
         type: 'onPreAuth',
-        method: <Hapi.ServerExtRequestHandler> function (request, reply) {
+        method: function (request, reply) {
             reply('ok');
-        }
+        } as Hapi.ServerExtRequestHandler
     }
 }
 
 var extConfigMulti: Hapi.RouteAdditionalConfigurationOptions = {
     ext: [{
         type: 'onPreAuth',
-        method: <Hapi.ServerExtRequestHandler> function (request, reply) {
+        method: function (request, reply) {
             reply('ok');
-        }
+        } as Hapi.ServerExtRequestHandler
     }, {
         type: 'onPostAuth',
-        method: <Hapi.ServerExtRequestHandler> function (request, reply) {
+        method: function (request, reply) {
             reply('ok');
-        }
+        } as Hapi.ServerExtRequestHandler
     }, {
         type: 'onPostStart',
-        method: <Hapi.ServerExtFunction> function (server, next) {
+        method: function (server, next) {
             next();
-        }
+        } as Hapi.ServerExtFunction
   }]
 }
 

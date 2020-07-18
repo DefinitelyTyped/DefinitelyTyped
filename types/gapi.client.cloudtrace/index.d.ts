@@ -1,4 +1,4 @@
-// Type definitions for Google Stackdriver Trace API v2 2.0
+// Type definitions for non-npm package Google Stackdriver Trace API v2 2.0
 // Project: https://cloud.google.com/trace
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

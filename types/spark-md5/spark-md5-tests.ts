@@ -1,8 +1,8 @@
-import SparkMD5 = require("spark-md5");
+import SparkMD5 = require('spark-md5');
 
 SparkMD5.hash('Hi there');
 SparkMD5.hash('Hi there', true);
-SparkMD5.hashBinary("");
+SparkMD5.hashBinary('');
 
 const spark = new SparkMD5();
 spark.append('Hi');
@@ -11,8 +11,7 @@ let hexHash = spark.end();
 let rawHash = spark.end(true);
 
 const sparkArr = new SparkMD5.ArrayBuffer();
-sparkArr.append('Hi');
-sparkArr.append(' there');
+sparkArr.append(new ArrayBuffer(8));
 hexHash = sparkArr.end();
 rawHash = sparkArr.end(true);
 

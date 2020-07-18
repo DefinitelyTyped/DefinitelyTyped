@@ -1,9 +1,9 @@
 import { createServer } from 'http';
 import { createWriteStream } from 'fs';
-import express = require('express');
-import asyncWriter = require('async-writer');
+import * as express from 'express';
+import * as asyncWriter from 'async-writer';
 
-import markoExpress = require('marko/express');
+import * as markoExpress from 'marko/express';
 import { load } from 'marko';
 import { createWriter, AsyncStream, Template, RenderResult } from 'marko/src/runtime/html';
 import { Component } from 'marko/src/components';
@@ -18,7 +18,7 @@ const template: Template = require('template.marko');
     // $ExpectType RenderResult
     template
         .renderSync({ name: 'Marko' })
-        .appendTo(document.body!);
+        .appendTo(document.body);
 
     createServer((req, res) => {
         res.setHeader('content-type', 'text/html');
@@ -30,12 +30,12 @@ const template: Template = require('template.marko');
         .render({ $global: { flags: ['mobile'] } })
         .then((result) => {
             // $ExpectType RenderResult
-            result.appendTo(document.body!);
+            result.appendTo(document.body);
         });
 
     template.render({}, (err: Error | null, result: RenderResult) => {
         // $ExpectType RenderResult
-        result.appendTo(document.body!);
+        result.appendTo(document.body);
     });
 };
 
@@ -49,10 +49,8 @@ template.render({ name: 'Frank' }, writeStream);
 // $ExpectType WriteStream
 template.stream({}).pipe(writeStream);
 
-(req: Request) => {
-    // $ExpectType Readable
-    template.stream({ name: 'Frank' });
-};
+// $ExpectType Readable
+template.stream({ name: 'Frank' });
 
 // rendering tests
 
@@ -114,13 +112,13 @@ template.render({}, asyncWriterInstance);
 
 // markoExpress() tests
 
-const app = express() as markoExpress.Application;
+const app = express();
 
-// $ExpectType Application
+// $ExpectType Express
 app.use(markoExpress());
 
-// $ExpectType Application
-app.get('/', (req: express.Request, res: markoExpress.Response) => {
+// $ExpectType Express
+app.get('/', (req: express.Request, res: express.Response) => {
     // $ExpectType void
     res.marko(template, {
         name: 'Frank',

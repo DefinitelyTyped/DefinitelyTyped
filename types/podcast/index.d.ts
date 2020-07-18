@@ -1,86 +1,89 @@
-// Type definitions for podcast v0.1.0
+// Type definitions for podcast 1.1
 // Project: https://github.com/maxnowack/node-podcast
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
+//                 Malo Bourgon <https://github.com/malob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
-interface PodcastStatic
-{
-    new(options: IFeedOptions): PodcastStatic;
+export = Podcast;
 
-    item(options: IItemOptions): void;
-    xml(indent?: string): string;
+declare class Podcast {
+    constructor(options?: Podcast.FeedOptions, items?: ReadonlyArray<Podcast.Item>);
+
+    addItem(item: Podcast.Item): void;
+    buildXml(indent?: boolean | string): string;
 }
 
-interface IFeedOptions
-{
-    title: string;
-    description?: string;
-    generator?: string;
-    feed_url: string;
-    site_url: string;
-    image_url?: string;
-    docs?: string;
-    author: string;
-    managingEditor?: string;
-    webMaster?: string;
-    copyright?: string;
-    language?: string;
-    categories?: string[];
-    pubDate?: Date;
-    ttl?: number;
-    itunesAuthor?: string;
-    itunesSubtitle?: string;
-    itunesSummary?: string;
-    itunesOwner?: IItunesOwner;
-    itunesExplicit?: boolean;
-    itunesCategory?: IItunesCategory;
-    itunesImage?: string;
-}
+declare namespace Podcast {
+    interface BaseFeedOptions {
+        title?: string;
+        description?: string;
+        generator?: string;
+        docs?: string;
+        author: string;
+        managingEditor?: string;
+        webMaster?: string;
+        copyright?: string;
+        language?: string;
+        categories?: string[];
+        pubDate?: Date | string;
+        ttl?: number;
+        itunesAuthor?: string;
+        itunesSubtitle?: string;
+        itunesSummary?: string;
+        itunesOwner?: FeedItunesOwner;
+        itunesExplicit?: boolean;
+        itunesCategory?: FeedItunesCategory[];
+        itunesImage?: string;
+        itunesType?: "episodic" | "serial";
+        customNamespaces?: object;
+        customElements?: object[];
+    }
 
-interface IItunesOwner
-{
-    name: string;
-    email: string;
-}
-interface IItunesCategory
-{
-    name: string;
-    subcats: IItunesSubCategory[]
-}
-interface IItunesSubCategory
-{
-    name: string;
-    subcat: string[] /* ? */
-}
+    interface FeedItunesOwner {
+        name: string;
+        email: string;
+    }
 
-interface IItemOptions
-{
-    title: string;
-    description: string;
-    url: string;
-    guid: string;
-    categories?: string[];
-    author?: string;
-    date: Date;
-    lat?: number;
-    long?: number;
-    enclosure?: {
+    interface FeedItunesCategory {
+        text: string;
+        subcats?: FeedItunesCategory[];
+    }
+
+    type FeedOptions = BaseFeedOptions &
+        ({ feedUrl: string } | { feed_url: string }) &
+        ({ siteUrl: string } | { site_url: string }) &
+        ({ imageUrl?: string } | { image_url?: string });
+
+    interface Item {
+        title?: string;
+        description?: string;
+        url: string;
+        guid?: string;
+        categories?: string[];
+        author?: string;
+        date: Date | string;
+        lat?: number;
+        long?: number;
+        enclosure?: ItemEnclosure;
+        content?: string;
+        itunesAuthor?: string;
+        itunesExplicit?: boolean;
+        itunesSubtitle?: string;
+        itunesSummary?: string;
+        itunesDuration?: number;
+        itunesImage?: string;
+        itunesSeason?: number;
+        itunesEpisode?: number;
+        itunesTitle?: string;
+        itunesEpisodeType?: 'full' | 'trailer' | 'bonus';
+        customElements?: object[];
+    }
+
+    interface ItemEnclosure {
         url: string;
         file?: string;
         size?: number;
-        mime?: string;
+        type?: string;
     }
-    itunesAuthor?: string;
-    itunesExplicit?: boolean;
-    itunesSubtitle?: string;
-    itunesSummary?: string;
-    itunesDuration?: number;
-    itunesKeywords?: string[];
-}
-
-declare var Podcast: PodcastStatic;
-
-declare module "podcast"
-{
-    export = Podcast;
 }

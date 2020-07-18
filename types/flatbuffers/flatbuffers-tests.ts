@@ -86,6 +86,27 @@ class Test {
     builder.writeInt16(a);
     return builder.offset();
   }
+
+  static testClear(builder: flatbuffers.Builder, a: number, b: number) {
+    const offsets: number[] = [];
+    const iterations = 100;
+    for (let i = 0; i < iterations; i++) {
+      const offset = Test.createTest(builder, a, b);
+      offsets.push(offset);
+      builder.clear();
+    }
+
+    let lastOffsetValue = offsets[0];
+    let sameValue = true;
+    for (let i = 1; i < offsets.length; i++) {
+      if (lastOffsetValue !== offsets[i]) {
+        sameValue = false;
+        return sameValue;
+      }
+      lastOffsetValue = offsets[i];
+    }
+    return sameValue;
+  }
 }
 
 class TestSimpleTableWithEnum {
@@ -846,6 +867,9 @@ class Monster {
   }
 
   static finishMonsterBuffer(builder: flatbuffers.Builder, offset: flatbuffers.Offset) {
+    builder.finish(offset);
     builder.finish(offset, 'MONS');
+    builder.finish(offset, 'MONS', false);
+    builder.finishSizePrefixed(offset, 'MONS');
   }
 }

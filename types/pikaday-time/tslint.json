@@ -1,1 +1,7 @@
-{ "extends": "dtslint/dt.json" }
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-angle-bracket-type-assertion": false,
+        "no-outside-dependencies": false
+    }
+}

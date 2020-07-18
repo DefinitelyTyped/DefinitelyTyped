@@ -121,6 +121,9 @@ modelResponse.subscribe(res => res.json.items.length);
 modelResponse.subscribe(res => res.json.items.length, error => console.error.bind(error));
 modelResponse.subscribe(res => res.json.items.length, error => console.error.bind(error), () => null);
 
+modelResponse.progressively().subscribe(res => res.json.items.length);
+modelResponse.progressively().subscribe(res => res.json.items.length, error => console.error.bind(error), () => null);
+
 const subscription = modelResponse.subscribe(res => res);
 subscription.dispose();
 

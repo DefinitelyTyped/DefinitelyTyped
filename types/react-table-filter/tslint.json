@@ -1,0 +1,7 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-console": false,
+        "no-empty-interface": false
+    }
+}

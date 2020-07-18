@@ -1,10 +1,16 @@
 import * as React from 'react';
-import * as hedron from 'hedron';
+import * as Grid from 'hedron';
 
-<hedron.BreakpointProvider breakpoints={{ lg: 1, md: 2 }}>
-    <hedron.Page debug fluid tagName="div" width="10px">
-        <hedron.Row debug tagName="div">
-            <hedron.Column debug divisions={3} fluid lg={3} smShift={2}>test</hedron.Column>
-        </hedron.Row>
-    </hedron.Page>
-</hedron.BreakpointProvider>;
+<Grid.Provider
+    padding='20px'
+    breakpoints={{ sm: '-500', md: '501-750', lg: '+750' }}>
+    <Grid.Bounds direction='vertical'>
+        <Grid.Box sm={{ hidden: true }}>
+            This header hides on small screens
+        </Grid.Box>
+        <Grid.Box>Content</Grid.Box>
+        <Grid.Box lg={{ padding: '50px' }}>
+            This footer gains extra padding on large screens
+        </Grid.Box>
+    </Grid.Bounds>
+</Grid.Provider>;

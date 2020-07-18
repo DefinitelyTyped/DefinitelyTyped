@@ -109,27 +109,43 @@ declare class ActiveDirectory {
         callback: (err: string, authenticated: boolean) => void
     ): void;
     isUserMemberOf(
+        username: string,
+        groupName: string,
+        callback: (err: object, res: boolean) => void
+    ): void;
+    isUserMemberOf(
         opts: ReqProps,
         username: string,
         groupName: string,
         callback: (err: object, res: boolean) => void
     ): void;
+    find(callback: (err: object, results: FindResult) => void): void;
     find(
         opts: string | ReqProps,
         callback: (err: object, results: FindResult) => void
     ): void;
+    findDeletedObjects(callback: (err: object, results: object[]) => void): void;
     findDeletedObjects(
         opts: string | ReqProps,
         callback: (err: object, results: object[]) => void
+    ): void;
+    findUser(
+        username: string,
+        callback: (err: object, user: object) => void
     ): void;
     findUser(
         opts: string | ReqProps,
         username: string,
         callback: (err: object, user: object) => void
     ): void;
+    findUsers(callback: (err: object, users: object[]) => void): void;
     findUsers(
         opts: string | ReqProps,
         callback: (err: object, users: object[]) => void
+    ): void;
+    findGroup(
+        groupName: string,
+        callback: (err: object, group: object) => void
     ): void;
     findGroup(
         opts: string | ReqProps,
@@ -137,9 +153,58 @@ declare class ActiveDirectory {
         callback: (err: object, group: object) => void
     ): void;
     findGroups(
+        groupName: string,
+        callback: (err: object, groups: object[]) => void
+    ): void;
+    findGroups(
         opts: string | ReqProps,
         groupName: string,
         callback: (err: object, groups: object[]) => void
+    ): void;
+    groupExists(
+        groupName: string,
+        callback: (err: object, res: boolean) => void
+    ): void;
+    groupExists(
+        opts: string | ReqProps,
+        groupName: string,
+        callback: (err: object, res: boolean) => void
+    ): void;
+    userExists(
+        username: string,
+        callback: (err: object, res: boolean) => void
+    ): void;
+    userExists(
+        opts: string | ReqProps,
+        username: string,
+        callback: (err: object, res: boolean) => void
+    ): void;
+    getGroupMembershipForGroup(
+        groupName: string,
+        callback: (err: object, groups: object[]) => void
+    ): void;
+    getGroupMembershipForGroup(
+        opts: string | ReqProps,
+        groupName: string,
+        callback: (err: object, groups: object[]) => void
+    ): void;
+    getGroupMembershipForUser(
+        username: string,
+        callback: (err: object, groups: object[]) => void
+    ): void;
+    getGroupMembershipForUser(
+        opts: string | ReqProps,
+        username: string,
+        callback: (err: object, groups: object[]) => void
+    ): void;
+    getUsersForGroup(
+        groupName: string,
+        callback: (err: object, users: object[]) => void
+    ): void;
+    getUsersForGroup(
+        opts: string | ReqProps,
+        groupName: string,
+        callback: (err: object, users: object[]) => void
     ): void;
     getRootDSE(
         url: string,

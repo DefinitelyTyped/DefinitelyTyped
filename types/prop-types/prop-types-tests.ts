@@ -9,7 +9,7 @@ interface Props {
     any?: any;
     array: string[];
     bool: boolean;
-    element: ReactElement<any>;
+    element: ReactElement;
     func(foo: string): void;
     node?: ReactNode;
     requiredNode: NonNullable<ReactNode>;
@@ -20,7 +20,7 @@ interface Props {
     instanceOf: TestClass;
     oneOf: 'a' | 'b' | 'c';
     oneOfType: string | boolean | {
-        foo?: string;
+        foo?: string | null;
         bar: number;
     };
     numberOrFalse: false | number;
@@ -29,11 +29,14 @@ interface Props {
     objectOf: { [K: string]: number };
     shape: {
         foo: string;
-        bar?: boolean;
-        baz?: any
+        bar?: boolean | null;
+        baz?: any;
     };
     optionalNumber?: number | null;
+    nullableNumber: number | null;
+    undefinableNumber?: number;
     customProp?: typeof uniqueType;
+    component: PropTypes.ReactComponentLike;
 }
 
 const innerProps = {
@@ -74,7 +77,10 @@ const propTypes: PropTypesMap = {
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
     optionalNumber: PropTypes.number,
-    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>
+    nullableNumber: (() => null) as PropTypes.Validator<number | null>,
+    undefinableNumber: (() => null) as PropTypes.Validator<number | undefined>,
+    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>,
+    component: PropTypes.elementType.isRequired
 };
 
 // JS checking
@@ -100,7 +106,10 @@ const propTypesWithoutAnnotation = {
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
     optionalNumber: PropTypes.number,
-    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>
+    nullableNumber: (() => null) as PropTypes.Validator<number | null>,
+    undefinableNumber: (() => null) as PropTypes.Validator<number | undefined>,
+    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>,
+    component: PropTypes.elementType.isRequired
 };
 
 const partialPropTypes = {
@@ -129,36 +138,28 @@ type ExtractedPartialProps = PropTypes.InferProps<typeof partialPropTypes>;
 type ExtractedPropsWithoutAnnotation = PropTypes.InferProps<typeof propTypesWithoutAnnotation>;
 type ExtractedPropsFromOuterPropsWithoutAnnotation = PropTypes.InferProps<typeof outerPropTypesWithoutAnnotation>['props'];
 
-// $ExpectType: true
+// $ExpectType true
 type ExtractPropsMatch = ExtractedProps extends ExtractedPropsWithoutAnnotation ? true : false;
-// $ExpectType: true
+// $ExpectType true
 type ExtractPropsMatch2 = ExtractedPropsWithoutAnnotation extends ExtractedProps ? true : false;
-// $ExpectType: true
+// $ExpectType true
 type ExtractPropsMatch3 = ExtractedProps extends Props ? true : false;
-// $ExpectType: true
+// $ExpectType true
 type ExtractPropsMatch4 = Props extends ExtractedPropsWithoutAnnotation ? true : false;
-// $ExpectType: true
+// $ExpectType true
 type ExtractFromOuterPropsMatch = ExtractedPropsFromOuterProps extends ExtractedPropsFromOuterPropsWithoutAnnotation ? true : false;
-// $ExpectType: true
+// $ExpectType true
 type ExtractFromOuterPropsMatch2 = ExtractedPropsFromOuterPropsWithoutAnnotation extends ExtractedPropsFromOuterProps ? true : false;
-// $ExpectType: true
+// $ExpectType true
 type ExtractFromOuterPropsMatch3 = ExtractedPropsFromOuterProps extends Props ? true : false;
-// $ExpectType: true
+// $ExpectType true
 type ExtractFromOuterPropsMatch4 = Props extends ExtractedPropsFromOuterPropsWithoutAnnotation ? true : false;
 
-// $ExpectType: false
+// $ExpectType false
 type ExtractPropsMismatch = ExtractedPartialProps extends Props ? true : false;
 
-// $ExpectType: {}
-type UnmatchedPropKeys = Pick<ExtractedPropsWithoutAnnotation, Extract<{
-    [K in keyof ExtractedPropsWithoutAnnotation]: ExtractedPropsWithoutAnnotation[K] extends ExtractedProps[K] ? never : K
-}[keyof ExtractedPropsWithoutAnnotation], keyof ExtractedPropsWithoutAnnotation>>;
-// $ExpectType: {}
-type UnmatchedPropKeys2 = Pick<ExtractedProps, Extract<{
-    [K in keyof ExtractedProps]: ExtractedProps[K] extends ExtractedPropsWithoutAnnotation[K] ? never : K
-}[keyof ExtractedProps], keyof ExtractedProps>>;
-
 PropTypes.checkPropTypes({ xs: PropTypes.array }, { xs: [] }, 'location', 'componentName');
+PropTypes.resetWarningCache();
 
 // This would be the type that JSX sees
 type Defaultize<T, D> =
@@ -189,7 +190,7 @@ const componentDefaultProps = {
 type DefaultizedProps = Defaultize<PropTypes.InferProps<typeof componentPropTypes>, typeof componentDefaultProps>;
 type UndefaultizedProps = Undefaultize<PropTypes.InferProps<typeof componentPropTypes>, typeof componentDefaultProps>;
 
-// $ExpectType: true
+// $ExpectType true
 type DefaultizedPropsTest = {
     fi?: (...args: any[]) => any;
     foo?: string | null;
@@ -197,7 +198,7 @@ type DefaultizedPropsTest = {
     baz?: boolean | null;
     bat?: ReactNode;
 } extends DefaultizedProps ? true : false;
-// $ExpectType: true
+// $ExpectType true
 type UndefaultizedPropsTest = {
     fi: (...args: any[]) => any;
     foo?: string | null;

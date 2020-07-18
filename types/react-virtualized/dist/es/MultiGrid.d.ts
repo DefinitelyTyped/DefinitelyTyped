@@ -1,6 +1,6 @@
-import { PureComponent, Validator, Requireable } from "react";
-import { GridProps } from "./Grid";
-import { CellPosition } from "./CellMeasurer";
+import { PureComponent, Validator, Requireable } from 'react';
+import { GridProps } from './Grid';
+import { CellPosition } from './CellMeasurer';
 
 export type MultiGridProps = {
     classNameBottomLeftGrid?: string;
@@ -48,10 +48,10 @@ export class MultiGrid extends PureComponent<MultiGridProps, MultiGridState> {
     };
 
     static defaultProps: {
-        classNameBottomLeftGrid: "";
-        classNameBottomRightGrid: "";
-        classNameTopLeftGrid: "";
-        classNameTopRightGrid: "";
+        classNameBottomLeftGrid: '';
+        classNameBottomRightGrid: '';
+        classNameTopLeftGrid: '';
+        classNameTopRightGrid: '';
         enableFixedColumnScroll: false;
         enableFixedRowScroll: false;
         fixedColumnCount: 0;
@@ -74,12 +74,6 @@ export class MultiGrid extends PureComponent<MultiGridProps, MultiGridState> {
     measureAllCells(): void;
 
     /** See Grid#recomputeGridSize */
-    recomputeGridSize(params?: {
-        columnIndex?: number;
-        rowIndex?: number;
-    }): void;
-    static getDerivedStateFromProps(
-        nextProps: MultiGridProps,
-        prevState: MultiGridState
-    ): MultiGridState | null;
+    recomputeGridSize(params?: { columnIndex?: number; rowIndex?: number }): void;
+    static getDerivedStateFromProps(nextProps: MultiGridProps, prevState: MultiGridState): MultiGridState | null;
 }

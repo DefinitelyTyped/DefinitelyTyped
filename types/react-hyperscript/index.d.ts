@@ -8,12 +8,12 @@ import { ComponentClass, StatelessComponent, ReactElement } from 'react';
 
 declare namespace h {}
 
-type Element = ReactElement<any> | string | number | null;
+type Element = ReactElement | string | number | null;
 
 declare function h(
     componentOrTag: ComponentClass | StatelessComponent | string,
     children?: ReadonlyArray<Element> | Element
-): ReactElement<any>;
+): ReactElement;
 
 declare function h<P extends {[attr: string]: any}>(
     componentOrTag: ComponentClass<P> | StatelessComponent<P> | string,

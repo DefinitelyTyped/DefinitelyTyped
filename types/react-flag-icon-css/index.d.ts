@@ -41,7 +41,7 @@ export interface FlagIconProps {
     rotate?: FlagIconRotate;
     Component?: string;
     /**
-     * 	Uses the 1x1 image if true.
+     *     Uses the 1x1 image if true.
      */
     squared?: boolean;
     /**
@@ -55,9 +55,8 @@ export interface FlagIconProps {
     children?: ReactNode;
 }
 
-export class FlagIcon extends PureComponent<FlagIconProps> {
-}
+export class FlagIcon extends PureComponent<FlagIconProps> {}
 
-export default function FlagIconFactory(react: any, opts?: Readonly<FlagIconOptions>): (props: FlagIconProps) => FlagIcon;
+export default function FlagIconFactory(react: any, opts?: Readonly<FlagIconOptions>): typeof FlagIcon;
 
-export function CustomFlagIconFactory(react: any, opts?: Readonly<FlagIconOptions>): (props: FlagIconProps) => FlagIcon;
+export function CustomFlagIconFactory(react: any, opts?: Readonly<FlagIconOptions>): typeof FlagIcon;

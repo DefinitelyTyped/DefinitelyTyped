@@ -15,7 +15,7 @@ before(done => helpers.gruntfile({foo: 'bar'}, done));
 
 // helpers.testDirectory()
 helpers.testDirectory(path.join(__dirname, './temp'), () => {
-	fs.writeFileSync('testfile', 'Roses are red.');
+    fs.writeFileSync('testfile', 'Roses are red.');
 });
 
 // helpers.mockPrompt()
@@ -32,11 +32,11 @@ const dummyGenerator = helpers.createDummyGenerator();
 
 // helpers.createGenerator()
 const angularGenerator = helpers.createGenerator('angular:app', [
-	'../../app',
-	'../../common',
-	'../../controller',
-	'../../main',
-	[helpers.createDummyGenerator(), 'testacular:app']
+    '../../app',
+    '../../common',
+    '../../controller',
+    '../../main',
+    [helpers.createDummyGenerator(), 'testacular:app']
 ]);
 
 // helpers.registerDependencies()
@@ -44,22 +44,27 @@ helpers.registerDependencies(env, ['dependency']);
 
 // helpers.run()
 helpers.run(path.join(__dirname, '../app'))
-	.withOptions({foo: 'bar'})
-	.withArguments(['name-x'])
-	.withPrompts({coffee: false});
+    .withOptions({foo: 'bar'})
+    .withArguments(['name-x'])
+    .withPrompts({coffee: false});
 
 helpers.run(path.join(__dirname, '../app'))
-	.inTmpDir(dir => { /* ... */ })
-	.withPrompts({coffee: false})
-	.then(() => { /* ... */ });
+    .inTmpDir(dir => { /* ... */ })
+    .withPrompts({coffee: false})
+    .then(() => { /* ... */ });
 
 helpers.run(path.join(__dirname, '../app')).withGenerators([
-	[helpers.createDummyGenerator(), 'karma:app'],
+    [helpers.createDummyGenerator(), 'karma:app'],
 ]);
 
+helpers.run(Generator, {
+    resolved: '../app',
+    namespace: 'custom:generator'
+});
+
 before(done => {
-	helpers.run(path.join(__dirname, '../app'))
-		.on('error', error => { /* ... */ })
-		.on('ready', generator => { /* ... */ })
-		.on('end', done);
+    helpers.run(path.join(__dirname, '../app'))
+        .on('error', error => { /* ... */ })
+        .on('ready', generator => { /* ... */ })
+        .on('end', done);
 });

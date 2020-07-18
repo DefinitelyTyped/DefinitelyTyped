@@ -1,4 +1,4 @@
-// Type definitions for Google Stackdriver Debugger API v2 2.0
+// Type definitions for non-npm package Google Stackdriver Debugger API v2 2.0
 // Project: http://cloud.google.com/debugger
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
