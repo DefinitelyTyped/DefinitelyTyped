@@ -48,9 +48,9 @@ const MuiCustomTable: React.FC<Props> = props => {
         {
             name: 'amount',
             label: 'Amount',
-            options:{
+            options: {
                 customHeadLabelRender: (dataIndex: number, rowIndex: number) => {
-                    console.log(`custom header label render for dataIndex ${dataIndex} and rowIndex ${rowIndex}`)
+                    console.log(`custom header label render for dataIndex ${dataIndex} and rowIndex ${rowIndex}`);
                     return (<p>Some customize Header</p>);
                 }
             }
@@ -137,7 +137,7 @@ const MuiCustomTable: React.FC<Props> = props => {
             return {
                 color: "secondary",
                 variant: "outlined"
-            }
+            };
         },
         textLabels: {
             body: {
@@ -175,15 +175,15 @@ const MuiCustomTable: React.FC<Props> = props => {
         },
     };
 
-    return <MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions} />;
+    return <MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions}/>;
 };
 
 const TableFruits = [
-    { id: 1, name: 'Apple', color: 'Red', amount: 1 },
-    { id: 2, name: 'Pear', color: 'Green', amount: 2 },
-    { id: 3, name: 'Strawberry', color: 'Red', amount: 5 },
-    { id: 4, name: 'Banana', color: 'Yellow', amount: 7 },
-    { id: 5, name: 'Orange', color: 'Orange', amount: 9 },
+    {id: 1, name: 'Apple', color: 'Red', amount: 1},
+    {id: 2, name: 'Pear', color: 'Green', amount: 2},
+    {id: 3, name: 'Strawberry', color: 'Red', amount: 5},
+    {id: 4, name: 'Banana', color: 'Yellow', amount: 7},
+    {id: 5, name: 'Orange', color: 'Orange', amount: 9},
 ];
 
 const options: MUIDataTableOptions = {
@@ -198,4 +198,4 @@ const options: MUIDataTableOptions = {
     },
 };
 
-<MuiCustomTable title="Awesome Table" data={TableFruits} options={options} />;
+<MuiCustomTable title="Awesome Table" data={TableFruits} options={options}/>;
