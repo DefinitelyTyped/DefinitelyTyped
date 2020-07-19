@@ -188,7 +188,6 @@ const options: MUIDataTableOptions = {
 
 <MuiCustomTable title="Awesome Table" data={TableFruits} options={options} />;
 
-
 const Todos = [
     { id: 1, name: 'Buy apples', color: 'Red', amount: 4 },
     { id: 2, name: 'Eat apple', color: 'Green', amount: 1 },
@@ -196,8 +195,8 @@ const Todos = [
 ];
 
 const todoOptions: MUIDataTableOptions = {
-    textLabels:{
-        body:{
+    textLabels: {
+        body: {
             noMatch: <p>You have no apples, go an buy some.</p>
         }
     }
