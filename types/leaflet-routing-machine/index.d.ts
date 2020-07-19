@@ -1,4 +1,4 @@
-// Type definitions for leaflet-routing-machine 3.2.12
+// Type definitions for leaflet-routing-machine 3.2
 // Project: https://github.com/perliedman/leaflet-routing-machine#readme
 // Definitions by: Chanaka Rathnayaka <https://github.com/chanakadrathnayaka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +12,7 @@ declare module 'leaflet' {
             constructor(options?: RoutingControlOptions);
 
             getWaypoints(): Waypoint[];
-            setWaypoints(waypoints: Waypoint[] | L.LatLng[]): this;
+            setWaypoints(waypoints: Waypoint[] | LatLng[]): this;
             spliceWaypoints(index: number, waypointsToRemove: number, ...wayPoints: Waypoint[]): Waypoint[];
             getPlan(): Plan;
             getRouter(): IRouter;
@@ -49,7 +49,7 @@ declare module 'leaflet' {
         }
 
         interface ItineraryOptions {
-            pointMarkerStyle?: L.CircleMarkerOptions;
+            pointMarkerStyle?: CircleMarkerOptions;
             summaryTemplate?: string;
             distanceTemplate?: string;
             timeTemplate?: string;
@@ -89,7 +89,7 @@ declare module 'leaflet' {
             waypointNameFallback?: (latLng: LatLng) => string;
             createGeocoder?: (waypointIndex: number, numberWaypoints: number, plan: Plan) => {};
             addButtonClassName?: string;
-            createMarker?: (waypointIndex: number, waypoint: Waypoint, numberWaypoints: number) => L.Marker;
+            createMarker?: (waypointIndex: number, waypoint: Waypoint, numberWaypoints: number) => Marker;
             routeWhileDragging?: boolean;
             reverseWaypoints?: boolean;
             language?: string;
@@ -115,7 +115,7 @@ declare module 'leaflet' {
 
             route(waypoints: Waypoint[], callback: (args?: any) => void, context?: {}, options?: RoutingOptions): void ;
             buildRouteUrl(waypoints: Waypoint[], options: RoutingOptions): string;
-            requiresMoreDetail(route: { inputWaypoints: Waypoint, waypoints: Waypoint, properties?: any }, zoom: any, bounds: L.LatLng[]): boolean;
+            requiresMoreDetail(route: { inputWaypoints: Waypoint, waypoints: Waypoint, properties?: any }, zoom: any, bounds: LatLng[]): boolean;
         }
 
         interface OSRMOptions {
@@ -137,7 +137,9 @@ declare module 'leaflet' {
             formatDistance(d: number, precision?: number): string;
             formatTime(t: number): string;
             formatInstruction(instruction: IInstruction): string;
-            getIconName(instruction: IInstruction, index: number): 'depart' | 'via' | 'enter-roundabout' | 'arrive' | 'continue' | 'bear-right' | 'turn-right' | 'sharp-right' | 'u-turn' | 'sharp-left' | 'turn-left' | 'bear-left';
+            getIconName(instruction: IInstruction, index: number):
+                'depart' | 'via' | 'enter-roundabout' | 'arrive' | 'continue' | 'bear-right' | 'turn-right'
+                | 'sharp-right' | 'u-turn' | 'sharp-left' | 'turn-left' | 'bear-left';
             capitalize(s: string): string;
         }
 
@@ -168,7 +170,9 @@ declare module 'leaflet' {
         }
 
         interface LocalizationOptions {
-            directions: { N: string, NE: string, E: string, SE: string, S: string, SW: string, W: string, NW: string, SlightRight: string, Right: string, SharpRight: string, SlightLeft: string, Left: string, SharpLeft: string, Uturn: string };
+            directions: { N: string, NE: string, E: string, SE: string, S: string, SW: string, W: string, NW: string,
+                SlightRight: string, Right: string, SharpRight: string, SlightLeft: string, Left: string,
+                SharpLeft: string, Uturn: string };
             instructions: { [key: string]: string[] | string };
             formatOrder: (n: number | string) => string;
             ui: { startPlaceholder: string, viaPlaceholder: string, endPlaceholder: string };
@@ -176,9 +180,9 @@ declare module 'leaflet' {
         }
 
         class Waypoint {
-            constructor(latLng: L.LatLng, name: string, options: WaypointOptions);
+            constructor(latLng: LatLng, name: string, options: WaypointOptions);
 
-            latLng: L.LatLng;
+            latLng: LatLng;
             name?: string;
             options?: WaypointOptions;
         }
@@ -200,7 +204,7 @@ declare module 'leaflet' {
             createGeocoder?: (i: number, nWps: number, options: GeocoderElementOptions) => any;
             geocoderPlaceholder?: (i: number, numberWaypoints: number, geocoderElement: GeocoderElement) => string;
             geocoderClass?: () => string;
-            waypointNameFallback?: (latLng: L.LatLng) => string;
+            waypointNameFallback?: (latLng: LatLng) => string;
             maxGeocoderTolerance?: number;
             autocompleteOptions?: {};
             language?: string;
@@ -228,11 +232,7 @@ declare module 'leaflet' {
         }
 
         class MapBox extends OSRMv1 {
-            constructor(accessToken: string, options: MapBoxOptions) ;
-        }
-
-        interface MapBoxOptions extends OSRMOptions {
-
+            constructor(accessToken: string, options: OSRMOptions) ;
         }
 
         // Event Objects
@@ -330,9 +330,9 @@ declare module 'leaflet' {
 
         function line(route: IRoute, options?: LineOptions): Line;
 
-        function plan(waypoints: Waypoint[] | L.LatLng[], options?: PlanOptions): Plan;
+        function plan(waypoints: Waypoint[] | LatLng[], options?: PlanOptions): Plan;
 
-        function waypoint(latLng: L.LatLng, name?: string, options?: WaypointOptions): Waypoint;
+        function waypoint(latLng: LatLng, name?: string, options?: WaypointOptions): Waypoint;
 
         function osrmv1(options?: OSRMOptions): OSRMv1;
 
@@ -344,7 +344,7 @@ declare module 'leaflet' {
 
         function itineraryBuilder(options?: ItineraryBuilderOptions): ItineraryBuilder;
 
-        function mapbox(accessToken: string, options: MapBoxOptions): MapBox;
+        function mapbox(accessToken: string, options: OSRMOptions): MapBox;
 
         function errorControl(routingControl: Control, options: ErrorControlOptions): ErrorControl ;
 
@@ -360,7 +360,7 @@ declare module 'leaflet' {
 
         function plan(waypoints: Routing.Waypoint[] | LatLng[], options?: Routing.PlanOptions): Routing.Plan;
 
-        function waypoint(latLng: L.LatLng, name?: string, options?: Routing.WaypointOptions): Routing.Waypoint;
+        function waypoint(latLng: LatLng, name?: string, options?: Routing.WaypointOptions): Routing.Waypoint;
 
         function osrmv1(options?: Routing.OSRMOptions): Routing.OSRMv1;
 
@@ -372,7 +372,7 @@ declare module 'leaflet' {
 
         function itineraryBuilder(options?: Routing.ItineraryBuilderOptions): Routing.ItineraryBuilder;
 
-        function mapbox(accessToken: string, options: Routing.MapBoxOptions): Routing.MapBox;
+        function mapbox(accessToken: string, options: Routing.OSRMOptions): Routing.MapBox;
 
         function errorControl(routingControl: Routing.Control, options: Routing.ErrorControlOptions): Routing.ErrorControl;
 
