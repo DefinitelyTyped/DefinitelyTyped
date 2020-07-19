@@ -8764,7 +8764,7 @@ export namespace Animated {
 
     interface AnimationConfig {
         isInteraction?: boolean;
-        useNativeDriver: boolean;
+        useNativeDriver?: boolean;
     }
 
     /**
@@ -8916,7 +8916,7 @@ export namespace Animated {
     type Mapping = { [key: string]: Mapping } | AnimatedValue;
     interface EventConfig<T> {
         listener?: (event: NativeSyntheticEvent<T>) => void;
-        useNativeDriver: boolean;
+        useNativeDriver?: boolean;
     }
 
     /**
