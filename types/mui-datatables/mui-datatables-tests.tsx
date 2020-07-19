@@ -50,11 +50,10 @@ const MuiCustomTable: React.FC<Props> = props => {
             label: 'Amount',
             options: {
                 customHeadLabelRender: (dataIndex: number, rowIndex: number) => {
-                    console.log(`custom header label render for dataIndex ${dataIndex} and rowIndex ${rowIndex}`);
-                    return (<p>Some customize Header</p>);
+                    return <p>Some customize Header</p>;
                 }
             }
-        },
+        }
     ];
 
     const TableOptions: MUIDataTableOptions = {
@@ -109,25 +108,14 @@ const MuiCustomTable: React.FC<Props> = props => {
         onTableChange: (action, tableState) => {
             switch (action) {
                 case 'changeRowsPerPage':
-                    console.log('rowsPerPage', tableState.rowsPerPage);
                     break;
                 case 'changePage':
-                    console.log('page', tableState.page);
                     break;
                 case 'sort':
-                    console.log(
-                        'sortOrder',
-                        tableState.sortOrder,
-                        tableState.sortOrder.name,
-                        tableState.sortOrder.direction,
-                    );
                     break;
                 case 'search ':
-                    console.log('searchText', tableState.searchText);
-                    console.log('searchText', tableState.searchProps);
                     break;
                 case 'filterChange':
-                    console.log('filterChange ', tableState.filterList);
                     break;
                 default:
                     console.warn('action not handled.');
@@ -141,7 +129,7 @@ const MuiCustomTable: React.FC<Props> = props => {
         },
         textLabels: {
             body: {
-                noMatch: <p>Sorry, no matching records found</p>,
+                noMatch: 'Sorry, no matching records found',
                 toolTip: 'Sort',
                 columnHeaderTooltip: column => (column.label ? `Sort on ${column.label}` : `Sort`),
             },
@@ -175,15 +163,15 @@ const MuiCustomTable: React.FC<Props> = props => {
         },
     };
 
-    return <MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions}/>;
+    return <MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions} />;
 };
 
 const TableFruits = [
-    {id: 1, name: 'Apple', color: 'Red', amount: 1},
-    {id: 2, name: 'Pear', color: 'Green', amount: 2},
-    {id: 3, name: 'Strawberry', color: 'Red', amount: 5},
-    {id: 4, name: 'Banana', color: 'Yellow', amount: 7},
-    {id: 5, name: 'Orange', color: 'Orange', amount: 9},
+    { id: 1, name: 'Apple', color: 'Red', amount: 1 },
+    { id: 2, name: 'Pear', color: 'Green', amount: 2 },
+    { id: 3, name: 'Strawberry', color: 'Red', amount: 5 },
+    { id: 4, name: 'Banana', color: 'Yellow', amount: 7 },
+    { id: 5, name: 'Orange', color: 'Orange', amount: 9 },
 ];
 
 const options: MUIDataTableOptions = {
@@ -198,4 +186,21 @@ const options: MUIDataTableOptions = {
     },
 };
 
-<MuiCustomTable title="Awesome Table" data={TableFruits} options={options}/>;
+<MuiCustomTable title="Awesome Table" data={TableFruits} options={options} />;
+
+
+const Todos = [
+    { id: 1, name: 'Buy apples', color: 'Red', amount: 4 },
+    { id: 2, name: 'Eat apple', color: 'Green', amount: 1 },
+    { id: 3, name: 'Eat some more apple', color: 'Yellow', amount: 3 }
+];
+
+const todoOptions: MUIDataTableOptions = {
+    textLabels:{
+        body:{
+            noMatch: <p>You have no apples, go an buy some.</p>
+        }
+    }
+};
+
+<MuiCustomTable title="Todo Table" data={Todos} options={todoOptions} />;
