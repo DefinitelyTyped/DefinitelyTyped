@@ -134,6 +134,7 @@ export interface ReactDatePickerProps {
     selected?: Date | null;
     selectsEnd?: boolean;
     selectsStart?: boolean;
+    selectsRange?: boolean;
     shouldCloseOnSelect?: boolean;
     showDisabledMonthNavigation?: boolean;
     showFullMonthYearPicker?: boolean;
