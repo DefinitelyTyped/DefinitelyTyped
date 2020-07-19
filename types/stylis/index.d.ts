@@ -3,6 +3,8 @@
 // Definitions by: Gen Hames <https://github.com/heyheyhello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export as namespace stylis;
+
 export interface Element {
     parent?: Element;
     children?: Element[] | string;
