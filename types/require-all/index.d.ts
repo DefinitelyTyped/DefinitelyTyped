@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 interface Options {
     dirname: string;
-    filter?: ((name: string, path: string) => string | false) | RegExp;
+    filter?: ((name: string, path: string) => string | false | void) | RegExp;
     excludeDirs?: RegExp;
     map?: (name: string, path: string) => string;
     resolve?: (module: any) => any;
