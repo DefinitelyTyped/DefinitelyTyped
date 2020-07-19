@@ -14,6 +14,9 @@ const MuiCustomTable: React.FC<Props> = props => {
         {
             name: 'id',
             label: 'id',
+            options: {
+                draggable: true
+            }
         },
         {
             name: 'name',
@@ -59,6 +62,9 @@ const MuiCustomTable: React.FC<Props> = props => {
         downloadOptions: {
             filename: 'filename.csv',
             separator: ',',
+        },
+        draggableColumns: {
+            enabled: true
         },
         sortFilterList: false,
         customRowRender: (data, dataIndex, rowIndex) => {
