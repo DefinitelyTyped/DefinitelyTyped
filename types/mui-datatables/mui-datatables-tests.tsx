@@ -48,6 +48,12 @@ const MuiCustomTable: React.FC<Props> = props => {
         {
             name: 'amount',
             label: 'Amount',
+            options:{
+                customHeadLabelRender: (dataIndex: number, rowIndex: number) => {
+                    console.log(`custom header label render for dataIndex ${dataIndex} and rowIndex ${rowIndex}`)
+                    return (<p>Some customize Header</p>);
+                }
+            }
         },
     ];
 
@@ -127,9 +133,15 @@ const MuiCustomTable: React.FC<Props> = props => {
                     console.warn('action not handled.');
             }
         },
+        setFilterChipProps: () => {
+            return {
+                color: "secondary",
+                variant: "outlined"
+            }
+        },
         textLabels: {
             body: {
-                noMatch: 'Sorry, no matching records found',
+                noMatch: <p>Sorry, no matching records found</p>,
                 toolTip: 'Sort',
                 columnHeaderTooltip: column => (column.label ? `Sort on ${column.label}` : `Sort`),
             },
