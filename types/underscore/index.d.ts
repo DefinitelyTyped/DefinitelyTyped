@@ -83,69 +83,64 @@ declare module _ {
 
     type Collection<T> = List<T> | Dictionary<T>;
 
+    type EnumerableKey = string | number;
+
+    type CollectionKey<V> = V extends List<any> ? number
+        : V extends Dictionary<any> ? string
+        : never;
+
     interface Predicate<T> {
         (value: T): boolean;
     }
 
-    interface ListIterator<T, TResult, V = List<T>> {
-        (value: T, index: number, list: V): TResult;
+    interface CollectionIterator<T extends TypeOfCollection<V>, TResult, V = Collection<T>> {
+        (element: T, key: CollectionKey<V>, collection: V): TResult;
     }
 
-    interface ObjectIterator<T, TResult, V = Dictionary<T>> {
-        (element: T, key: string, object: V): TResult;
-    }
+    interface ListIterator<T extends TypeOfList<V>, TResult, V = List<T>> extends CollectionIterator<T, TResult, V> { }
 
-    type EnumerableKey = string | number;
-
-    type CollectionIterator<T, TResult, V> =
-        V extends List<T> ? ListIterator<T, TResult, V>
-        : V extends Dictionary<T> ? ObjectIterator<T, TResult, V>
-        : never;
+    interface ObjectIterator<T extends TypeOfDictionary<V>, TResult, V = Dictionary<T>> extends CollectionIterator<T, TResult, V> { }
 
     type Iteratee<V, R, T extends TypeOfCollection<V> = TypeOfCollection<V>> =
-        undefined |
         CollectionIterator<T, R, V> |
         EnumerableKey |
-        Array<EnumerableKey> |
-        Partial<T>;
+        EnumerableKey[] |
+        Partial<T> |
+        null |
+        undefined;
 
     // temporary iteratee type for _Chain until _Chain return types have been fixed
     type _ChainIteratee<V, R, T> = Iteratee<V extends Collection<T> ? V : T[], R>;
 
     type IterateeResult<I, T> =
-        I extends undefined ? T // default iteratee is _.identity
-        : I extends (...args: any[]) => infer R ? R
+        I extends (...args: any[]) => infer R ? R
         : I extends keyof T ? T[I]
-        : I extends EnumerableKey | Array<EnumerableKey> ? any
+        : I extends EnumerableKey |EnumerableKey[] ? any
         : I extends Partial<T> ? boolean
+        : I extends null | undefined ? T
         : never;
 
     type PropertyTypeOrAny<T, K> = K extends keyof T ? T[K] : any;
 
-    type IterateePropertyShorthand = string | number;
-
-    interface MemoIterator<T, TResult, V = List<T>> {
-        (prev: TResult, curr: T, index: number, list: V): TResult;
+    interface MemoCollectionIterator<T extends TypeOfCollection<V>, TResult, V = Collection<T>> {
+        (prev: TResult, curr: T, key: CollectionKey<V>, collection: V): TResult;
     }
 
-    interface MemoObjectIterator<T, TResult, V = Dictionary<T>> {
-        (prev: TResult, curr: T, key: string, object: V): TResult;
-    }
+    interface MemoIterator<T extends TypeOfList<V>, TResult, V = List<T>> extends MemoCollectionIterator<T, TResult, V> { }
 
-    type MemoCollectionIterator<T, TResult, V> =
-        V extends List<T> ? MemoIterator<T, TResult, V>
-        : V extends Dictionary<T> ? MemoObjectIterator<T, TResult, V>
-        : never;
+    interface MemoObjectIterator<T extends TypeOfDictionary<V>, TResult, V = Dictionary<T>> extends MemoCollectionIterator<T, TResult, V> { }
 
-    type TypeOfList<V> = V extends List<infer T> ? T : never;
-
-    type TypeOfDictionary<V> = V extends Dictionary<infer T> ? T : never;
-
-    type TypeOfCollection<V> =
+    type TypeOfList<V> =
         V extends never ? any
         : V extends List<infer T> ? T
+        : never;
+
+    type TypeOfDictionary<V> =
+        V extends never ? any
         : V extends Dictionary<infer T> ? T
         : never;
+
+    type TypeOfCollection<V> = TypeOfList<V> | TypeOfDictionary<V>;
 
     type ListItemOrSelf<T> = T extends List<infer TItem> ? TItem : T;
 
@@ -179,45 +174,26 @@ declare module _ {
         ************* */
 
         /**
-        * Iterates over a list of elements, yielding each in turn to an iterator function. The iterator is
-        * bound to the context object, if one is passed. Each invocation of iterator is called with three
-        * arguments: (element, index, list). If list is a JavaScript object, iterator's arguments will be
-        * (value, key, object). Delegates to the native forEach function if it exists.
-        * @param list Iterates over this list of elements.
-        * @param iterator Iterator function for each element `list`.
-        * @param context 'this' object in `iterator`, optional.
-        **/
-        each<T>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, void>,
-            context?: any): _.List<T>;
+         * Iterates over a collection of elements, yielding each in turn to an
+         * iteratee. The iteratee is bound to the context object, if one is
+         * passed. Each invocation of `iteratee` is called with three
+         * arguments: (element, key, collection).
+         * @param collection The collection of elements to iterate over.
+         * @param iteratee The iteratee to call for each element in
+         * `collection`.
+         * @param context 'this' object in `iteratee`, optional.
+         * @returns The original collection.
+         **/
+        each<V extends Collection<any>>(
+            collection: V,
+            iteratee: CollectionIterator<TypeOfCollection<V>, void, V>,
+            context?: any
+        ): V;
 
         /**
-        * @see _.each
-        * @param object Iterates over properties of this object.
-        * @param iterator Iterator function for each property on `object`.
-        * @param context 'this' object in `iterator`, optional.
-        **/
-        each<T>(
-            object: _.Dictionary<T>,
-            iterator: _.ObjectIterator<T, void>,
-            context?: any): _.Dictionary<T>;
-
-        /**
-        * @see _.each
-        **/
-        forEach<T>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, void>,
-            context?: any): _.List<T>;
-
-        /**
-        * @see _.each
-        **/
-        forEach<T>(
-            object: _.Dictionary<T>,
-            iterator: _.ObjectIterator<T, void>,
-            context?: any): _.Dictionary<T>;
+         * @see each
+         **/
+        forEach: UnderscoreStatic['each'];
 
         /**
          * Produces a new array of values by mapping each value in the collection through a transformation function
@@ -255,26 +231,16 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The reduced result.
          **/
-        reduce<V extends List<any>, TResult>(
+        reduce<V extends Collection<any>, TResult>(
             collection: V,
-            iteratee: MemoIterator<TypeOfList<V>, TResult, V>,
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult, V>,
             memo: TResult,
             context?: any
         ): TResult;
-        reduce<V extends Dictionary<any>, TResult>(
+        reduce<V extends Collection<any>, TResult = TypeOfCollection<V>>(
             collection: V,
-            iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult, V>,
-            memo: TResult,
-            context?: any
-        ): TResult;
-        reduce<V extends List<any>, TResult = TypeOfList<V>>(
-            collection: V,
-            iteratee: MemoIterator<TypeOfList<V>, TResult | TypeOfList<V>, V>
-        ): TResult | TypeOfList<V> | undefined;
-        reduce<V extends Dictionary<any>, TResult = TypeOfDictionary<V>>(
-            collection: V,
-            iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult | TypeOfDictionary<V>, V>
-        ): TResult | TypeOfDictionary<V> | undefined;
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult | TypeOfCollection<V>, V>
+        ): TResult | TypeOfCollection<V> | undefined;
 
         /**
          * @see reduce
@@ -296,26 +262,16 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The reduced result.
          **/
-        reduceRight<V extends List<any>, TResult>(
+        reduceRight<V extends Collection<any>, TResult>(
             collection: V,
-            iteratee: MemoIterator<TypeOfList<V>, TResult, V>,
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult, V>,
             memo: TResult,
             context?: any
         ): TResult;
-        reduceRight<V extends Dictionary<any>, TResult>(
+        reduceRight<V extends Collection<any>, TResult = TypeOfCollection<V>>(
             collection: V,
-            iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult, V>,
-            memo: TResult,
-            context?: any
-        ): TResult;
-        reduceRight<V extends List<any>, TResult = TypeOfList<V>>(
-            collection: V,
-            iteratee: MemoIterator<TypeOfList<V>, TResult | TypeOfList<V>, V>
-        ): TResult | TypeOfList<V> | undefined;
-        reduceRight<V extends Dictionary<any>, TResult = TypeOfDictionary<V>>(
-            collection: V,
-            iteratee: MemoObjectIterator<TypeOfDictionary<V>, TResult | TypeOfDictionary<V>, V>
-        ): TResult | TypeOfDictionary<V> | undefined;
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult | TypeOfCollection<V>, V>
+        ): TResult | TypeOfCollection<V> | undefined;
 
         /**
          * @see reduceRight
@@ -714,12 +670,12 @@ declare module _ {
         sample<V extends Collection<any>>(collection: V): TypeOfCollection<V> | undefined;
 
         /**
-        * Converts the list (anything that can be iterated over), into a real Array. Useful for transmuting
-        * the arguments object.
-        * @param list object to transform into an array.
-        * @return `list` as an array.
-        **/
-        toArray<T>(list: _.Collection<T>): T[];
+         * Creates a real Array from the collection (anything that can be
+         * iterated over). Useful for transmuting the arguments object.
+         * @param collection The collection to transform into an array.
+         * @returns An array containing the elements of `collection`.
+         **/
+        toArray<V extends Collection<any>>(collection: V): TypeOfCollection<V>[];
 
         /**
         * Return the number of values in the list.
@@ -729,17 +685,21 @@ declare module _ {
         size<T>(list: _.Collection<T>): number;
 
         /**
-        * Split array into two arrays:
-        * one whose elements all satisfy predicate and one whose elements all do not satisfy predicate.
-        * @param array Array to split in two.
-        * @param iterator Filter iterator function for each element in `array`.
-        * @param context `this` object in `iterator`, optional.
-        * @return Array where Array[0] are the elements in `array` that satisfies the predicate, and Array[1] the elements that did not.
-        **/
-        partition<T>(
-            array: Array<T>,
-            iterator: _.ListIterator<T, boolean>,
-            context?: any): T[][];
+         * Splits `collection` into two arrays: one whose elements all satisfy
+         * `iteratee` and one whose elements all do not satisfy `iteratee`.
+         * @param collection The collection to partition.
+         * @param iteratee The iteratee that defines the partitioning scheme
+         * for each element in `collection`.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns An array composed of two elements, where the first element
+         * contains the elements in `collection` that satisfied the predicate
+         * and the second element contains the elements that did not.
+         **/
+        partition<V extends Collection<any>>(
+            list: V,
+            iteratee?: Iteratee<V, boolean>,
+            context?: any
+        ): [TypeOfCollection<V>[], TypeOfCollection<V>[]];
 
         /*********
         * Arrays *
@@ -4078,25 +4038,21 @@ declare module _ {
         ************* */
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.each
-        **/
-        each(iterator: _.ListIterator<T, void>, context?: any): _.List<T>;
+         * Iterates over the wrapped collection of elements, yielding each in
+         * turn to an iteratee. The iteratee is bound to the context object, if
+         * one is passed. Each invocation of `iteratee` is called with three
+         * arguments: (element, key, collection).
+         * @param iteratee The iteratee to call for each element in the wrapped
+         * collection.
+         * @param context 'this' object in `iteratee`, optional.
+         * @returns The originally wrapped collection.
+         **/
+        each(iteratee: CollectionIterator<TypeOfCollection<V>, void, V>, context?: any): V;
 
         /**
-        * @see _.each
-        **/
-        each(iterator: _.ObjectIterator<T, void>, context?: any): _.List<T>;
-
-        /**
-        * @see _.each
-        **/
-        forEach(iterator: _.ListIterator<T, void>, context?: any): _.List<T>;
-
-        /**
-        * @see _.each
-        **/
-        forEach(iterator: _.ObjectIterator<T, void>, context?: any): _.List<T>;
+         * @see each
+         **/
+        forEach: Underscore<T, V>['each'];
 
         /**
          * Produces a new array of values by mapping each value in the wrapped collection through a transformation function
@@ -4131,12 +4087,12 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The reduced result.
          **/
-        reduce<TResult>(iteratee: MemoCollectionIterator<T, TResult, V>,
+        reduce<TResult>(iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult, V>,
             memo: TResult,
             context?: any
         ): TResult;
         reduce<TResult = TypeOfCollection<V>>(
-            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult | TypeOfCollection<V>, V>
         ): TResult | TypeOfCollection<V> | undefined;
 
         /**
@@ -4159,12 +4115,12 @@ declare module _ {
          * @returns The reduced result.
          **/
         reduceRight<TResult>(
-            iteratee: MemoCollectionIterator<T, TResult, V>,
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult, V>,
             memo: TResult,
             context?: any
         ): TResult;
         reduceRight<TResult = TypeOfCollection<V>>(
-            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult | TypeOfCollection<V>, V>
         ): TResult | TypeOfCollection<V> | undefined;
 
         /**
@@ -4382,9 +4338,10 @@ declare module _ {
         sample(): T | undefined;
 
         /**
-        * Wrapped type `any`.
-        * @see _.toArray
-        **/
+         * Creates a real Array from the wrapped collection (anything that can
+         * be iterated over). Useful for transmuting the arguments object.
+         * @returns An array containing the elements of the wrapped collection.
+         **/
         toArray(): T[];
 
         /**
@@ -4392,6 +4349,19 @@ declare module _ {
         * @see _.size
         **/
         size(): number;
+
+        /**
+         * Splits the wrapped collection into two arrays: one whose elements
+         * all satisfy `iteratee` and one whose elements all do not satisfy
+         * `iteratee`.
+         * @param iteratee The iteratee that defines the partitioning scheme
+         * for each element in the wrapped collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns An array composed of two elements, where the first element
+         * contains the elements in the wrapped collection that satisfied the
+         * predicate and the second element contains the elements that did not.
+         **/
+        partition(iteratee?: Iteratee<V, boolean>, context?: any): [T[], T[]];
 
         /*********
         * Arrays *
@@ -4486,12 +4456,6 @@ declare module _ {
          * except for `values`.
          **/
         without(...values: T[]): T[];
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.partition
-        **/
-        partition(iterator: _.ListIterator<T, boolean>, context?: any): T[][];
 
         /**
         * Wrapped type `any[][]`.
@@ -5071,25 +5035,21 @@ declare module _ {
         ************* */
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.each
-        **/
-        each(iterator: _.ListIterator<T, void>, context?: any): _Chain<T>;
+         * Iterates over the wrapped collection of elements, yielding each in
+         * turn to an iteratee. The iteratee is bound to the context object, if
+         * one is passed. Each invocation of `iteratee` is called with three
+         * arguments: (element, key, collection).
+         * @param iteratee The iteratee to call for each element in the wrapped
+         * collection.
+         * @param context 'this' object in `iteratee`, optional.
+         * @returns A chain wrapper around the originally wrapped collection.
+         **/
+        each(iteratee: CollectionIterator<TypeOfCollection<V>, void, V>, context?: any): _Chain<T, V>;
 
         /**
-        * @see _.each
+        * @see each
         **/
-        each(iterator: _.ObjectIterator<T, void>, context?: any): _Chain<T>;
-
-        /**
-        * @see _.each
-        **/
-        forEach(iterator: _.ListIterator<T, void>, context?: any): _Chain<T>;
-
-        /**
-        * @see _.each
-        **/
-        forEach(iterator: _.ObjectIterator<T, void>, context?: any): _Chain<T>;
+        forEach: _Chain<T, V>['each'];
 
         /**
          * Produces a new array of values by mapping each value in the wrapped collection through a transformation function
@@ -5125,12 +5085,12 @@ declare module _ {
          * @returns The reduced result in a chain wraper.
          **/
         reduce<TResult>(
-            iteratee: MemoCollectionIterator<T, TResult, V>,
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult, V>,
             memo: TResult,
             context?: any
         ): _ChainSingle<TResult>;
         reduce<TResult = TypeOfCollection<V>>(
-            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult | TypeOfCollection<V>, V>
         ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
 
         /**
@@ -5153,12 +5113,12 @@ declare module _ {
          * @returns The reduced result in a chain wrapper.
          **/
         reduceRight<TResult>(
-            iteratee: MemoCollectionIterator<T, TResult, V>,
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult, V>,
             memo: TResult,
             context?: any
         ): _ChainSingle<TResult>;
         reduceRight<TResult = TypeOfCollection<V>>(
-            iteratee: MemoCollectionIterator<T, TResult | TypeOfCollection<V>, V>
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult | TypeOfCollection<V>, V>
         ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
 
         /**
@@ -5378,16 +5338,32 @@ declare module _ {
         sample(): _ChainSingle<T | undefined>;
 
         /**
-        * Wrapped type `any`.
-        * @see _.toArray
-        **/
-        toArray(): _Chain<T>;
+         * Creates a real Array from the wrapped collection (anything that can
+         * be iterated over). Useful for transmuting the arguments object.
+         * @returns A chain wrapper around an array containing the elements
+         * of the wrapped collection.
+         **/
+        toArray(): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any`.
         * @see _.size
         **/
         size(): _ChainSingle<number>;
+
+        /**
+         * Splits the wrapped collection into two arrays: one whose elements
+         * all satisfy `iteratee` and one whose elements all do not satisfy
+         * `iteratee`.
+         * @param iteratee The iteratee that defines the partitioning scheme
+         * for each element in the wrapped collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A chain wrapper around an array composed of two elements,
+         * where the first element contains the elements in the wrapped
+         * collection that satisfied the predicate and the second element
+         * contains the elements that did not.
+         **/
+        partition(iteratee?: _ChainIteratee<V, boolean, T>, context?: any): _Chain<T[], [T[], T[]]>;
 
         /*********
         * Arrays *
@@ -5482,12 +5458,6 @@ declare module _ {
          * of the wrapped list except for `values`.
          **/
         without(...values: T[]): _Chain<T, T[]>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.partition
-        **/
-        partition(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T[]>;
 
         /**
         * Wrapped type `any[][]`.
