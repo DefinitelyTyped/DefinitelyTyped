@@ -511,14 +511,6 @@ _.chain([
     .sample()
     .value();
 
-// $ExpectType number
-_.chain([1, 2, 3, 4, 5, 6])
-    .chunk(3)
-    .first()
-    .compact()
-    .reduce((aggregate, n) => aggregate + n, 0)
-    .value();
-
 // $ExpectType number[]
 _.chain([1, 2, 3, 4, 5, 6])
     .sample()
