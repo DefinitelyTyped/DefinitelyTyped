@@ -1,8 +1,7 @@
 /// <reference types="jquery" />
 
 layui.use('element', function () {
-    var element = layui.element;
-
+    const element = layui.element;
     // 一些事件监听
     element.on('tab(demo)', function (data) {
         console.log(data);
@@ -29,16 +28,14 @@ layui.use('element', function () {
         console.log(data.content); // 得到当前点击面板的内容区域DOM对象
     });
 });
-
-
 layui.use("layer", function (a, b) {
     layui.layer.load(1, {});
     layui.form.on("", function (a) {
         layui.form.val("", {});
-    })
+    });
     layui.form.getValue("", $(""));
 
-    var rendered = layui.table.render({
+    const rendered = layui.table.render({
         elem: '#demo'
         , cols: [[ // 标题栏
             {checkbox: true}
@@ -49,7 +46,7 @@ layui.use("layer", function (a, b) {
             , {event: "btn01", style: "background-color: #5FB878; color: #fff;"}
             , {align: "left", colspan: 1, rowspan: 2}
             , {
-                templet: function () {
+                templet() {
                     return "{{d.test}}";
                 }, toolbar: '#barDemo'
             }
@@ -60,7 +57,7 @@ layui.use("layer", function (a, b) {
         , width: "12"
         , height: 12
         , cellMinWidth: 12
-        , done: function (a, b, c) {
+        , done(a, b, c) {
         }
         , data: [{}, {}]
         , totalRow: true
@@ -69,7 +66,7 @@ layui.use("layer", function (a, b) {
         , limits: [1, 2, 3]
         , loading: true
         , title: "标题"
-        , text: {"none": "abc"}
+        , text: {none: "abc"}
         , autoSort: true
         , initSort: {field: "id", type: 'desc'}
         , id: "id"
@@ -81,7 +78,7 @@ layui.use("layer", function (a, b) {
         , where: null // {}
         , contentType: "application/json'"
         , headers: {token: ""}
-        , parseData: function (res) { // res 即为原始返回的数据
+        , parseData(res) { // res 即为原始返回的数据
             return {
                 code: 200, // 解析接口状态
                 msg: "res", // 解析提示文本
@@ -112,7 +109,8 @@ layui.use("layer", function (a, b) {
         const tr = obj.tr; // 获得当前行 tr 的 DOM 对象（如果有的话）
 
         switch (layEvent) {
-            case 'detail':break;
+            case 'detail':
+                break;
             case 'del':
                 layui.layer.confirm('真的删除行么', function (index) {
                     obj.del(); // 删除对应行（tr）的DOM结构，并更新缓存
@@ -133,7 +131,7 @@ layui.use("layer", function (a, b) {
     });
     const checkStatus = layui.table.checkStatus('idTest'); // idTest 即为基础参数 id 对应的值
 
-    if (checkStatus.isAll){
+    if (checkStatus.isAll) {
         checkStatus.data.length;
     }
     layui.table.exportFile("id", "");
