@@ -511,6 +511,27 @@ _.chain([
     .sample()
     .value();
 
+// $ExpectType number
+_.chain([1, 2, 3, 4, 5, 6])
+    .chunk(3)
+    .first()
+    .compact()
+    .reduce((aggregate, n) => aggregate + n, 0)
+    .value();
+
+// $ExpectType number[]
+_.chain([1, 2, 3, 4, 5, 6])
+    .sample()
+    .range(10)
+    .value();
+
+// $ExpectType [number[], number[]]
+_.chain([[1, 2, 3], [4, undefined, 5], [undefined, undefined, 6]])
+    .flatten()
+    .compact()
+    .partition(n => n > 3)
+    .value();
+
 // verify that partial objects can be provided without error to where and findWhere for a union type collection
 // where no types in the union share the same property names
 declare const nonIntersectinglTypeUnion: _.Dictionary<{ one: string; } | { two: number; }>;
