@@ -49,7 +49,7 @@ const cardElementProps: ElementsOptions = {
         invalid: 'is-invalid',
         webkitAutofill: 'webkit-autofill',
     },
-    showIcon: true,
+    hideIcon: true,
 };
 
 const fontElementsProps: ElementsCreateOptions = {
