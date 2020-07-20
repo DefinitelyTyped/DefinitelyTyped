@@ -1,38 +1,43 @@
-// Type definitions for date-arithmetic v3.1.0
+// Type definitions for date-arithmetic 4.1
 // Project: https://github.com/jquense/date-math
 // Definitions by: Sergii Paryzhskyi <https://github.com/HeeL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Unit = 'second' | 'minutes' | 'hours' | 'day' | 'week' | 'month' | 'year' | 'decade' | 'century';
+export type Unit =
+    | 'milliseconds'
+    | 'seconds'
+    | 'minutes'
+    | 'hours'
+    | 'day'
+    | 'week'
+    | 'month'
+    | 'year'
+    | 'decade'
+    | 'century';
 
-/** dateArithmetic Public Instance Methods */
-interface dateArithmeticStatic {
-    /** Add specified amount of units to a provided date and return new date as a result */
-    add(date: Date, num: number, unit: Unit): Date;
+export function add(date: Date, num: number, unit?: Unit): Date;
+export function subtract(date: Date, num: number, unit?: Unit): Date;
+export function eq(date: Date, date2: Date, unit?: Unit): boolean;
+export function neq(date: Date, date2: Date): boolean;
+export function gt(date: Date, date2: Date): boolean;
+export function gte(date: Date, date2: Date, unit?: Unit): boolean;
+export function lt(date: Date, date2: Date, unit?: Unit): boolean;
+export function lte(date: Date, date2: Date, unit?: Unit): boolean;
+export function inRange(date: Date, min: Date, max: Date, unit?: Unit): boolean;
+export function startOf(date: Date, unit?: Unit, firstOfWeek?: number): Date;
+export function endOf(date: Date, unit?: Unit, firstOfWeek?: number): Date;
+export function min(dateA: Date, dateB: Date, dateN?: Date): Date;
+export function max(dateA: Date, dateB: Date, dateN?: Date): Date;
+export function diff(dateA: Date, dateB: Date, unit: Unit, asFloat?: boolean): number;
 
-    /** Subtract specified amount of units from a provided date and return new date as a result */
-    subtract(date: Date, num: number, unit: Unit): Date;
-
-    /** Compare two dates and return true if they are equal */
-    eq(date: Date, date2: Date): Boolean;
-
-    /** Compare two dates and return false if they are equal */
-    neq(date: Date, date2: Date): Boolean;
-
-    /** Compare two dates and return true if date is greater than date2 */
-    gt(date: Date, date2: Date): Boolean;
-
-    /** Compare two dates and return true if date is greater or equal than date2 */
-    gte(date: Date, date2: Date): Boolean;
-
-    /** Compare two dates and return true if date is less than date2 */
-    lt(date: Date, date2: Date): Boolean;
-
-    /** Compare two dates and return true if date is less or equal than date2 */
-    lte(date: Date, date2: Date): Boolean;
-}
-
-declare module 'dateArithmetic' {
-    const dateArithmetic: dateArithmeticStatic;
-    export = dateArithmetic;
-}
+export function milliseconds(date: Date, value?: number): Date;
+export function seconds(date: Date, value?: number): Date;
+export function minutes(date: Date, value?: number): Date;
+export function hours(date: Date, value?: number): Date;
+export function date(date: Date, value?: number): Date;
+export function day(date: Date, value?: number): Date;
+export function weekday(date: Date, value?: number, firstOfWeek?: number): Date;
+export function month(date: Date, value?: number): Date;
+export function year(date: Date, value?: number): Date;
+export function decade(date: Date, value?: number): Date;
+export function century(date: Date, value?: number): Date;
