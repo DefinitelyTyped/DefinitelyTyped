@@ -134,3 +134,5 @@ Java.perform(() => {
         });
     });
 });
+
+Interceptor.flush();

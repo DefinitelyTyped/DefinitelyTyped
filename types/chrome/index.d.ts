@@ -5700,6 +5700,10 @@ declare namespace chrome.runtime {
         id?: string;
         /** The tabs.Tab which opened the connection, if any. This property will only be present when the connection was opened from a tab (including content scripts), and only if the receiver is an extension, not an app. */
         tab?: chrome.tabs.Tab;
+        /** The name of the native application that opened the connection, if any.
+         * @since Chrome 74
+         */
+        nativeApplication?: string;
         /**
          * The frame that opened the connection. 0 for top-level frames, positive for child frames. This will only be set when tab is set.
          * @since Chrome 41.
@@ -5715,6 +5719,11 @@ declare namespace chrome.runtime {
          * @since Chrome 32.
          */
         tlsChannelId?: string;
+        /**
+         * The origin of the page or frame that opened the connection. It can vary from the url property (e.g., about:blank) or can be opaque (e.g., sandboxed iframes). This is useful for identifying if the origin can be trusted if we can't immediately tell from the URL.
+         * @since Chrome 80.
+         */
+        origin?: string;
     }
 
     /**

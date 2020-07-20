@@ -263,3 +263,12 @@ function test_doc_utility() {
     const namedNode2: RDF.NamedNode = N3Util.prefixes(prefixes)('rdfs')('label');
     const namedNode3: N3.NamedNode = N3Util.prefixes(prefixes)('rdfs')('label');
 }
+
+function test_parser_options() {
+    const parser = new N3.Parser({
+        baseIRI: 'http://example.org/',
+        factory: N3.DataFactory,
+        format: 'N-Triples',
+        blankNodePrefix: '',
+    });
+}

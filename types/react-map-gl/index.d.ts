@@ -396,6 +396,7 @@ export interface GeolocateControlProps extends BaseControlProps {
     onViewportChange?: ViewportChangeHandler;
     onGeolocate?: (options: PositionOptions) => void;
     style?: React.CSSProperties;
+    auto?: boolean;
 }
 
 export class GeolocateControl extends BaseControl<GeolocateControlProps, HTMLDivElement> {}

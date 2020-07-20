@@ -35,6 +35,8 @@ import {
     SideNavItem,
     SideNavItems,
     ButtonRenderIconRenderProps,
+    Modal,
+    InlineLoading,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
@@ -623,4 +625,8 @@ const sideNavChildren = (
             <SideNavItem>Test</SideNavItem>
         </SideNavItems>
     </SideNav>
+)
+
+const modal = (
+    <Modal primaryButtonText={<InlineLoading />} secondaryButtonText={<InlineLoading />} />
 )

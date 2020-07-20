@@ -65,6 +65,7 @@ class MyMap extends React.Component<{}, State> {
                 >
                     <FullscreenControl className="test-class" container={document.querySelector('body')} />
                     <GeolocateControl
+                        auto={false}
                         className="test-class"
                         style={{ marginTop: '8px' }}
                         onGeolocate={options => {

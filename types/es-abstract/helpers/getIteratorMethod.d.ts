@@ -1,9 +1,9 @@
-import { PropertyKey as ESPropertyKey } from '../index';
+import type { PropertyKey } from '../index';
 
 declare function getIteratorMethod<T>(
     ES: {
         AdvanceStringIndex?(S: string, index: number, unicode: boolean): number;
-        GetMethod(O: unknown, P: ESPropertyKey): ((...args: any) => any) | undefined;
+        GetMethod(O: unknown, P: PropertyKey): ((...args: any) => any) | undefined;
         IsArray?(O: unknown): boolean;
         Type?(O: unknown): string | undefined;
     },

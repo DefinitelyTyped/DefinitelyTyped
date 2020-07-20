@@ -178,7 +178,7 @@ ctrl.setVisible(true);
 
 // Demonstrate getEntityMetadata
 Xrm.Utility.getEntityMetadata("account", ["telephone1"]).then((metadata) => {
-    console.log(metadata.Attributes["statuscode"].optionSet[0].Label.LocalizedLabels[0].Label);
+    console.log(metadata.Attributes["statuscode"].OptionSet[0].Label.LocalizedLabels[0].Label);
 });
 
 // Demonstrate WebAPI RetrieveMultiple

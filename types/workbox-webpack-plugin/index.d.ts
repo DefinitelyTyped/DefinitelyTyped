@@ -4,7 +4,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type ChacheStrategy = 'CacheFirst' | 'CacheOnly' | 'NetworkFirst' | 'NetworkOnly' | 'StaleWhileRevalidate';
+export type CacheStrategy = 'CacheFirst' | 'CacheOnly' | 'NetworkFirst' | 'NetworkOnly' | 'StaleWhileRevalidate';
 
 export interface ManifestEntry {
     revision: string;
@@ -93,7 +93,7 @@ export interface RuntimeCacheRule {
      * The `handler` values are strings, corresponding to names of the strategies supported by
      * [`workbox.strategies`](https://developers.google.com/web/tools/workbox/reference-docs/latest/workbox.strategies#methods).
      */
-    handler?: ChacheStrategy;
+    handler?: CacheStrategy;
 
     /**
      * The `options` properties can be used to configure instances of the cache expiration, cacheable response, and broadcast cache update plugins to apply to a given route.

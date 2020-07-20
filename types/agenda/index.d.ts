@@ -166,6 +166,12 @@ declare namespace Agenda {
     interface AgendaConfiguration {
 
         /**
+         * Sets the `lastModifiedBy` field to `name` in the jobs collection. Useful if you have multiple job processors
+         * (agendas) and want to see which job queue last ran the job.
+         */
+        name?: string;
+
+        /**
          * Sets the interval with which the queue is checked. A number in milliseconds or a frequency string.
          */
         processEvery?: string | number;
