@@ -486,6 +486,12 @@ _.chain(anyValue)
     .find(i => i.findBooleanFunction())
     .value();
 
+// $ExpectType boolean
+_.chain([{ a: 1 }, { a: 2 }, { a: 3 }, { b: 4 }])
+    .map('a')
+    .contains(3)
+    .value();
+
 // $ExpectType { valueProperty: string; } | undefined
 _.chain([
     {
