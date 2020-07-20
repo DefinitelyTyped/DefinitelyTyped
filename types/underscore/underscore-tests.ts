@@ -645,6 +645,9 @@ declare const maybeFunction: (() => void) | undefined;
 declare const maybeStringArray: string[] | undefined;
 declare const stringy: StringRecord | string;
 
+type Truthies = string | number | boolean | object | Function | StringRecord | (() => void);
+declare const truthyFalsyList: _.List<Truthies | _.AnyFalsy>;
+
 // avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
 // the types under test need to be refactored
 interface UnderscoreType<TWrappedValue, TItemType> { }
@@ -1726,6 +1729,13 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     extractChainTypes(_.chain(stringRecordList).drop(simpleNumber)); // $ExpectType ChainType<StringRecord[], StringRecord>
 }
 
+// compact
+{
+    _.compact(truthyFalsyList); // $ExpectType (string | number | true | object | Function | StringRecord | (() => void))[]
+    _(truthyFalsyList).compact(); // $ExpectType (string | number | true | object | Function | StringRecord | (() => void))[]
+    extractChainTypes(_.chain(truthyFalsyList).compact()); // $ExpectType ChainType<(string | number | true | object | Function | StringRecord | (() => void))[], string | number | true | object | Function | StringRecord | (() => void)>
+}
+
 // flatten
 {
     // one dimension, deep
@@ -1983,6 +1993,24 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _([{a: 'a'}, {a: 'b'}]).findLastIndex({ a: 'b' }); // $ExpectType number
     _.chain([1, 2, 3, 1, 2, 3]).findLastIndex(num => num % 2 === 0).value(); // $ExpectType number
     _.chain([{a: 'a'}, {a: 'b'}]).findLastIndex({ a: 'b' }).value(); // $ExpectType number
+}
+
+// range
+{
+    // only stop
+    _.range(simpleNumber); // $ExpectType number[]
+    _(simpleNumber).range(); // $ExpectType number[]
+    extractChainTypes(_.chain(simpleNumber).range()); // $ExpectType ChainType<number[], number>
+
+    // start and stop
+    _.range(simpleNumber, simpleNumber); // $ExpectType number[]
+    _(simpleNumber).range(simpleNumber); // $ExpectType number[]
+    extractChainTypes(_.chain(simpleNumber).range(simpleNumber)); // $ExpectType ChainType<number[], number>
+
+    // start, stop, and step
+    _.range(simpleNumber, simpleNumber, simpleNumber); // $ExpectType number[]
+    _(simpleNumber).range(simpleNumber, simpleNumber); // $ExpectType number[]
+    extractChainTypes(_.chain(simpleNumber).range(simpleNumber, simpleNumber)); // $ExpectType ChainType<number[], number>
 }
 
 // Objects
