@@ -280,7 +280,7 @@ export interface Lens {
  * <created by @pirix-gh>
  */
 export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =
-    O.MergeUp<T.ObjectOf<O1>, T.ObjectOf<O2>, Depth>;
+    O.MergeUp<T.ObjectOf<O1>, T.ObjectOf<O2>, Depth, 1>;
 
 /**
  * Merge multiple objects `Os` with each other
