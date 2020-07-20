@@ -202,7 +202,7 @@
         tabDelete(filter: string, layid: string): void;
         tabChange(filter: string, layid: string): void;
         tab(option: TabElement): void;
-        progress(filter: string, percent: string);
+        progress(filter: string, percent: string):void;
 
         init(type?: "tab"|"nav"|"breadcrumb"|"progress"|"collapse", filter?: string): void;
         //Element.prototype.render = Element.prototype.init;
@@ -234,10 +234,10 @@
          * @param callback
          */
         on(event: string, callback: (data: LayFormData) => any): void;
-        render(type?: "select"|"checkbox"|"radio"|null, filter?: string);
-        val(filter: string, obj?: object);
-        verify(config: object);
-        getValue(filter:string,itemForm?:JQuery)
+        render(type?: "select"|"checkbox"|"radio"|null, filter?: string):any;
+        val(filter: string, obj?: object):any;
+        verify(config: object):any;
+        getValue(filter:string,itemForm?:JQuery):any
     }
 
     interface PageOptions {
@@ -484,8 +484,8 @@
     interface Table {
         render(option: TableOption): TableRendered;
         init(filter: string, option: TableOption): object;
-        reload(option: TableOption);
-        reload(id: string, option: TableOption);
+        reload(option: TableOption):void;
+        reload(id: string, option: TableOption):void;
         //obj内容变化的，没法声明出指定，但这里提供了替代方案，
         /**
          * import TableOnCheckbox = layui.TableOnCheckbox;
@@ -505,10 +505,10 @@
          */
 
         on(event: string, callback: (this:any,obj: any) => any): void;
-        set(option: TableOption);
+        set(option: TableOption):void;
         checkStatus(id: string):{data:[],isAll:boolean};
-        resize(id:string);
-        exportFile(id:string, data:any, type?:string); //type默认csv
+        resize(id:string):void;
+        exportFile(id:string, data:any, type?:string):void; //type默认csv
     }
 
 
@@ -570,9 +570,9 @@
     }
 
     interface Flow {
-        load(option: FlowOption);
-        lazyimg();
-        lazyimg(option: FlowOption);
+        load(option: FlowOption):void;
+        lazyimg():void;
+        lazyimg(option: FlowOption):void;
     }
 
     interface UtilBarOption {
@@ -585,13 +585,13 @@
     }
 
     interface Util {
-        fixbar(option: UtilBarOption);
-        countdown(endtime: number | Date, serverTime: number | Date, callback: (date: any, serverTime: number | Date, timer: any) => void);
-        timeAgo(time: number | Date, onlyDate: boolean);
-        toDateString(time: number | Date, format: string);
-        digit(num: number, length: number);
-        escape(str: string);
-        event(attr:string,obj:{[index:string]:()=>void});
+        fixbar(option: UtilBarOption):void;
+        countdown(endtime: number | Date, serverTime: number | Date, callback: (date: any, serverTime: number | Date, timer: any) => void):void;
+        timeAgo(time: number | Date, onlyDate: boolean):any;
+        toDateString(time: number | Date, format: string):any;
+        digit(num: number, length: number):any;
+        escape(str: string):string;
+        event(attr:string,obj:{[index:string]:()=>void}):any;
     }
 
     interface CodeOption {
@@ -656,16 +656,16 @@
 
     interface Slider {
         render(option: SliderOption): Slider;
-        setValue(value: number);
-        setValue(value1: number, value2: number);
+        setValue(value: number):void;
+        setValue(value1: number, value2: number):void;
     }
     interface Layedit {
-        build(id:string,options?:EditOption);
-        set(options:EditOption);
-        getContent(index:number);
-        getText(index:number);
-        sync(index:number);
-        getSelection(index:number);
+        build(id:string,options?:EditOption):any;
+        set(options:EditOption):void;
+        getContent(index:number):string;
+        getText(index:number):string;
+        sync(index:number):void;
+        getSelection(index:number):string;
     }
     interface EditOption {
         tool?:string[];
@@ -677,7 +677,7 @@
         (tpl:string):TplObject;
     }
     interface TplObject {
-        render(data:object,callback:(str:string)=>void);
+        render(data:object,callback:(str:string)=>void):any;
     }
 
     export let layer: Layer;
