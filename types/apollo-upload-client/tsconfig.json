@@ -24,6 +24,5 @@
     "files": [
         "index.d.ts",
         "apollo-upload-client-tests.ts"
-    ],
-
+    ]
 }
