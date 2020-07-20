@@ -1,4 +1,4 @@
-// Type definitions for layui-src 2.5.5
+// Type definitions for layui-src 2.5
 // Project: https://github.com/javabitar/layui
 // Definitions by: javabitar <https://github.com/javabitar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -72,7 +72,7 @@ declare namespace layui {
     }
 
     interface LayerTabOptions extends LayerOptions {
-        tab: ({ title: string, content: string })[];
+        tab: Array<{ title: string, content: string }>;
     }
 
     interface LayerPhotosOptions extends LayerOptions {
@@ -101,7 +101,6 @@ declare namespace layui {
     interface Layer {
         /**
          * 初始化全局配置
-         * @param {LayerConfigOptions} options;
          */
         config(options: LayerConfigOptions): void;
 
@@ -117,22 +116,17 @@ declare namespace layui {
 
         /**
          * 原始核心方法
-         * @param {LayerOptions} options
          */
         open(options?: LayerOptions): number;
 
         /**
          * 普通信息框
-         * @param {string} content
-         * @param {LayerOptions} options
-         * @param {Function} yes
          */
         alert(content: string, options?: LayerOptions, yes?: LayerCallbackYes): number;
 
         /**
          * 普通信息框
          *  源码中会第三个参数代替第二个。单独定义一个方法。
-         * @param {string} content
          */
         alert(content: string, yes?: LayerCallbackYes): number;
 
@@ -267,7 +261,7 @@ declare namespace layui {
         next?: string;
         first?: string;
         last?: string;
-        layout?: Array<('count' | 'prev' | 'page' | 'next' | 'limit' | 'skip')>;
+        layout?: Array<'count' | 'prev' | 'page' | 'next' | 'limit' | 'skip'>;
         theme?: string;
         hash?: string | boolean;
         jump?: (obj: PageOptions, first: boolean) => void;
@@ -300,7 +294,7 @@ declare namespace layui {
         position?: "abolute" | "fixed" | "static";
         zIndex?: number;
         showBottom?: boolean;
-        btns?: Array<('clear' | 'now' | 'confirm')>;
+        btns?: Array<'clear' | 'now' | 'confirm'>;
         lang?: 'cn' | 'en';
         theme?: string | 'default' | 'molv' | 'grid';
         calendar?: boolean;
@@ -426,10 +420,10 @@ declare namespace layui {
     }
 
     interface TableRendered {
-        config: TableOption
-        reload: (options: TableOption) => void
-        setColsWidth: () => void
-        resize: () => void
+        config: TableOption;
+        reload: (options: TableOption) => void;
+        setColsWidth: () => void;
+        resize: () => void;
     }
 
     interface TableOption {
@@ -438,7 +432,7 @@ declare namespace layui {
         cols?: TableColumnOption[][];
         url?: string | null;
         toolbar?: string | HTMLElement | boolean;
-        defaultToolbar?: (string | { "title": string, layEvent: string, icon: string })[]
+        defaultToolbar?: Array<string | { "title": string, layEvent: string, icon: string }>;
         height?: number | string; // 'full-100'
         width?: number | string;
         cellMinWidth?: number;
@@ -568,8 +562,8 @@ declare namespace layui {
         drag?: boolean;
         choose?: (obj: object) => void;
         before?: (obj: object) => void;
-        done?(res: object, index: number, upload: void) :void;
-        error?(index: number, upload: void): void;
+        done? (res: object, index: number, upload: void) :void;
+        error? (index: number, upload: void): void;
         allDone? (obj: object) : void;
     }
 
@@ -605,10 +599,7 @@ declare namespace layui {
 
     interface Flow {
         load(option: FlowOption): void;
-
-        lazyimg(): void;
-
-        lazyimg(option: FlowOption): void;
+        lazyimg(option?: FlowOption): void;
     }
 
     interface UtilBarOption {
@@ -699,10 +690,7 @@ declare namespace layui {
 
     interface Slider {
         render(option: SliderOption): Slider;
-
-        setValue(value: number): void;
-
-        setValue(value1: number, value2: number): void;
+        setValue(value1: number, value2?: number): void;
     }
 
     interface Layedit {
@@ -751,12 +739,8 @@ declare namespace layui {
      let slider: Slider;
      let $: JQueryStatic;
 
-    export function code(): void;
-    export function code(option: CodeOption): void;
-
-    export function tree(option: TreeOption): void;
-
-    // export function use(mods: string | string[], callback: (...args: any[]) => any): any;
-
-    export function use(mods: string | string[], callback: (...args: any) => any): any;
+    function code(): void;
+    function code(option: CodeOption): void;
+    function tree(option: TreeOption): void;
+    function use(mods: string | string[], callback: (...args: any) => any): any;
 }
