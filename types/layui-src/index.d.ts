@@ -1,8 +1,8 @@
-// Type definitions for @javabitar/layui 2.5.6
+// Type definitions for layui-src 2.5.6
 // Project: https://github.com/javabitar/layui
 // Definitions by: javabitar <https://github.com/javabitar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-  declare namespace layui {
+declare namespace layui {
     type LayerCallbackSuccess = null | ((layero: JQuery, index: number) => void);
     type LayerCallbackYes = null | ((index: number, layero: JQuery) => boolean | void);
     type LayerCallbackCancel = null | ((index: number, layero: JQuery) => boolean | void);
@@ -16,7 +16,7 @@
      * Layer options
      */
     interface LayerOptions {
-        //基础参数  https://www.layui.com/doc/modules/layer.html#base
+        // 基础参数  https://www.layui.com/doc/modules/layer.html#base
         type?: number;
         title?: string | boolean | string[];
         content?: string | HTMLElement | JQuery | string[];
@@ -25,9 +25,9 @@
         offset?: number | string | string[];
         icon?: number;
         btn?: string | string[];
-        btnAlign?:string;
-        closeBtn?: string | boolean|number;
-        shade?: string | boolean |number|[number , string];
+        btnAlign?: string;
+        closeBtn?: string | boolean | number;
+        shade?: string | boolean | number | [number, string];
         shadeClose?: boolean;
         time?: number;
         id?: string;
@@ -36,16 +36,15 @@
         maxmin?: boolean;
         fixed?: boolean;
         resize?: boolean;
-        //resizing?: Function;
-        resizing?: (layero:JQuery)=>any;
+        resizing?: (layero: JQuery) => any;
         scrollbar?: boolean;
         maxWidth?: number;
         zIndex?: number;
         move?: string | boolean | HTMLElement;
-        //moveType?: boolean; //固定1，不能修改
+        // moveType?: boolean; //固定1，不能修改
         moveOut?: boolean;
-        moveEnd?: null | ((layero:JQuery)=>any);
-        tips?: number | [number,string];
+        moveEnd?: null | ((layero: JQuery) => any);
+        tips?: number | [number, string];
         tipsMore?: boolean;
         success?: LayerCallbackSuccess;
         yes?: LayerCallbackYes;
@@ -59,7 +58,7 @@
     }
 
     interface LayerConfigOptions extends LayerOptions {
-        //初始化全局配置
+        // 初始化全局配置
         path?: string;
         extend?: string[];
     }
@@ -104,21 +103,23 @@
          * @param {LayerConfigOptions} options;
          */
         config(options: LayerConfigOptions): void;
+
         /**
          * 初始化就绪
-         * @param {Function} callback
          */
-        //ready(path: string, callback: () => void): void; //兼容旧版？
+
+        // ready(path: string, callback: () => void): void; //兼容旧版？
         /**
          * 初始化就绪
-         * @param {Function} callback
          */
         ready(callback: () => void): void;
+
         /**
          * 原始核心方法
          * @param {LayerOptions} options
          */
         open(options?: LayerOptions): number;
+
         /**
          * 普通信息框
          * @param {string} content
@@ -126,12 +127,12 @@
          * @param {Function} yes
          */
         alert(content: string, options?: LayerOptions, yes?: LayerCallbackYes): number;
+
         /**
          * 普通信息框
          * @param {string} content
-         * @param {Function} yes
          */
-        alert(content: string, yes?: LayerCallbackYes): number;//源码中会第三个参数代替第二个。单独定义一个方法。
+        alert(content: string, yes?: LayerCallbackYes): number;// 源码中会第三个参数代替第二个。单独定义一个方法。
 
         confirm(content: string, options?: LayerOptions, yes?: LayerCallbackYes, cancel?: LayerCallbackCancel): number;
 
@@ -142,23 +143,26 @@
         msg(content: string, end?: LayerCallbackEnd): number;
 
         load(icon?: number, options?: LayerOptions): number;
-        load(options: LayerOptions): number;
-        //第二参数可以是'#id' 获取document.bod 或者JQuery
-        tips(content: string, follow: string |HTMLElement|JQuery , options?: LayerOptions): number;
 
-        //tips(content: string, follow: string | this, options?: LayerOptions): number;
+        load(options: LayerOptions): number;
+
+        // 第二参数可以是'#id' 获取document.bod 或者JQuery
+        tips(content: string, follow: string | HTMLElement | JQuery, options?: LayerOptions): number;
+
+        // tips(content: string, follow: string | this, options?: LayerOptions): number;
 
         close(index: number): void;
 
         closeAll(type?: 'dialog' | 'page' | 'iframe' | 'loading' | 'tips'): void;
-        //layer.style = function(index, options, limit){} limit默认true
-        style(index: number, options: { [key: string]: string | number },limit?:boolean): void;
 
-        //style(index: number, cssStyle: { [key: string]: string | number }): void;
+        // layer.style = function(index, options, limit){} limit默认true
+        style(index: number, options: { [key: string]: string | number }, limit?: boolean): void;
+
+        // style(index: number, cssStyle: { [key: string]: string | number }): void;
 
         title(title: string, index: number): void;
 
-        getChildFrame(selector: string|JQuery, index: number): JQuery;
+        getChildFrame(selector: string | JQuery, index: number): JQuery;
 
         getFrameIndex(windowName: string): number;
 
@@ -184,7 +188,7 @@
     }
 
     interface TabOption {
-        //三个参数layui中都是选填，但开发时应该都填，此处都设置必填
+        // 三个参数layui中都是选填，但开发时应该都填，此处都设置必填
         title: string;
         content: string;
         id: string;
@@ -196,28 +200,34 @@
     }
 
     interface Element {
-        //set(options:object):object;  很少用
-        on(filter: string, callback: (this:any,data: any) => any): void;
-        tabAdd(filter: string, options: TabOption): void;
-        tabDelete(filter: string, layid: string): void;
-        tabChange(filter: string, layid: string): void;
-        tab(option: TabElement): void;
-        progress(filter: string, percent: string):void;
+        // set(options: object): object;  很少用
+        on(filter: string, callback: (this: any, data: any) => any): void;
 
-        init(type?: "tab"|"nav"|"breadcrumb"|"progress"|"collapse", filter?: string): void;
-        //Element.prototype.render = Element.prototype.init;
-        //当type不能识别时，layui会遍历渲染"tab""nav"|"breadcrumb"|"progress"|"collapse" 全部；
-        render(type?: "tab"|"nav"|"breadcrumb"|"progress"|"collapse", filter?: string): void;
+        tabAdd(filter: string, options: TabOption): void;
+
+        tabDelete(filter: string, layid: string): void;
+
+        tabChange(filter: string, layid: string): void;
+
+        tab(option: TabElement): void;
+
+        progress(filter: string, percent: string): void;
+
+        init(type?: "tab" | "nav" | "breadcrumb" | "progress" | "collapse", filter?: string): void;
+
+        // Element.prototype.render = Element.prototype.init;
+        // 当type不能识别时，layui会遍历渲染"tab""nav"|"breadcrumb"|"progress"|"collapse" 全部；
+        render(type?: "tab" | "nav" | "breadcrumb" | "progress" | "collapse", filter?: string): void;
     }
 
-    //参数不用加'?'
+    // 参数不用加'?'
     interface LayFormData {
 
-        elem: any; //被执行事件的元素DOM对象，一般为button对象  ,可能是input select button等不能用HTMLElement
-        othis: JQuery;//得到美化后的DOM对象=$(selector)
+        elem: any; // 被执行事件的元素DOM对象，一般为button对象  ,可能是input select button等不能用HTMLElement
+        othis: JQuery;// 得到美化后的DOM对象=$(selector)
         value: string;
-        form: HTMLFormElement; //被执行提交的form对象，一般在存在form标签时才会返回
-        field: any;//当前容器的全部表单字段，名值对形式：{name: value}
+        form: HTMLFormElement; // 被执行提交的form对象，一般在存在form标签时才会返回
+        field: any;// 当前容器的全部表单字段，名值对形式：{name: value}
         /*
         elem?: HTMLElement;
         othis?: any;
@@ -234,14 +244,18 @@
          * @param callback
          */
         on(event: string, callback: (data: LayFormData) => any): void;
-        render(type?: "select"|"checkbox"|"radio"|null, filter?: string):any;
-        val(filter: string, obj?: object):any;
-        verify(config: object):any;
-        getValue(filter:string,itemForm?:JQuery):any
+
+        render(type?: "select" | "checkbox" | "radio" | null, filter?: string): any;
+
+        val(filter: string, obj?: object): any;
+
+        verify(config: object): any;
+
+        getValue(filter: string, itemForm?: JQuery): any
     }
 
     interface PageOptions {
-        //id选择器 不加#
+        // id选择器 不加#
         elem?: string | HTMLElement;
         count?: number;
         limit?: number;
@@ -278,8 +292,8 @@
         format?: string;
         value?: string | Date;
         isInitValue?: boolean;
-        min?: string|number;
-        max?: string|number;
+        min?: string | number;
+        max?: string | number;
         trigger?: string;
         show?: boolean;
         position?: "abolute" | "fixed" | "static";
@@ -299,23 +313,27 @@
      * https://www.layui.com/doc/modules/laydate.html
      */
     interface Laydate {
-        render(options: DateOption): {"config":DateOption,"hint":Function};
+        render(options: DateOption): { "config": DateOption, "hint": ()=>void };
+
         set(options: DateOption): void;
-        path:string;
-        //获取指定年月的最后一天是 1-31
+
+        path: string;
+
+        // 获取指定年月的最后一天是 1-31
         getEndDate(month?: number, year?: number): number;
     }
-/*
-    interface Layui {
-        layer?: Layer;
-        element?: Element;
-        form?: Form;
-        laydate?: Laydate;
-        laypage?: Laypage;
-        carousel?: Carousel;
-        use(mods: string | string[], callback: (...args: any[]) => any): any;
-    }
-*/
+
+    /*
+        interface Layui {
+            layer?: Layer;
+            element?: Element;
+            form?: Form;
+            laydate?: Laydate;
+            laypage?: Laypage;
+            carousel?: Carousel;
+            use(mods: string | string[], callback: (...args: any[]) => any): any;
+        }
+    */
     interface CarouselOption {
         elem?: string | HTMLElement;
         width?: string;
@@ -338,32 +356,34 @@
 
     interface Carousel {
         render(options: CarouselOption): object;
+
         on(event: string, callback: (obj: CarouselItem) => any): void;
+
         reload(options: CarouselOption): void;
     }
 
     interface TableColumnOption {
-        checkbox?:boolean;
+        checkbox?: boolean;
         field?: string;
         title?: string;
         width?: string | number;
         minWidth?: number;
         type?: "normal" | "checkbox" | "radio" | "space" | "numbers";
         LAY_CHECKED?: boolean;
-        fixed?: "left"|"right";
+        fixed?: "left" | "right";
         hide?: boolean;
-        totalRow?: boolean|{"score":number|string,"experience":string};
+        totalRow?: boolean | { "score": number | string, "experience": string };
         totalRowText?: string;
         sort?: boolean;
         unresize?: boolean;
-        edit?: "text"|string;
+        edit?: "text" | string;
         event?: string;
         style?: string;
         align?: "left" | "center" | "right";
         colspan?: number;
         rowspan?: number;
-        templet?: string|((d:any)=>string);
-        toolbar?: string;   //#toolbar 或者html且必须需有标签,例如'<b>{{d.city}}</b>'  因为源码中使用了 $(toolbar).html
+        templet?: string | ((d: any) => string);
+        toolbar?: string;   // #toolbar 或者html且必须需有标签,例如'<b>{{d.city}}</b>'  因为源码中使用了 $(toolbar).html
     }
 
     interface TableRequestRename {
@@ -384,57 +404,61 @@
         msg: string;
         count: number;
         data: any;
+
         [propName: string]: any;
     }
-/* 服务端返回数据不固定
-    interface TableOriginResponse {
-        status: number;
-        message: string;
-        total: number;
-        data: any;
-        [propName: string]: any;
-    }
-*/
+
+    /* 服务端返回数据不固定
+        interface TableOriginResponse {
+            status: number;
+            message: string;
+            total: number;
+            data: any;
+            [propName: string]: any;
+        }
+    */
     interface TableRequest {
         page: number;
         limit: number;
+
         [propName: string]: any;
     }
-    interface TableRendered{
-        config:TableOption
-        reload:(options:TableOption)=>void
-        setColsWidth:()=>void
-        resize:()=>void
+
+    interface TableRendered {
+        config: TableOption
+        reload: (options: TableOption) => void
+        setColsWidth: () => void
+        resize: () => void
     }
 
     interface TableOption {
-        //基础参数
+        // 基础参数
         elem?: string | HTMLElement;
         cols?: TableColumnOption[][];
-        url?: string|null;
+        url?: string | null;
         toolbar?: string | HTMLElement | boolean;
-        defaultToolbar?:(string|{"title":string,layEvent:string,icon:string})[]
+        defaultToolbar?: (string | { "title": string, layEvent: string, icon: string })[]
         height?: number | string; // 'full-100'
-        width?: number| string;
+        width?: number | string;
         cellMinWidth?: number;
         done?: (res: object, curr?: number, count?: number) => void;
         data?: object[];
         totalRow?: boolean;
-        page?: boolean | PageOptions;//PageOptions时排除jump和elem
+        page?: boolean | PageOptions;// PageOptions时排除jump和elem
         limit?: number;
         limits?: number[];
         loading?: boolean;
         title?: string;
-        text?:  {"none":string};
-        autoSort?:boolean
-        initSort?:{field: string,type?: "null" | "desc" | "asc"};
+        text?: { "none": string };
+        autoSort?: boolean
+        initSort?: { field: string, type?: "null" | "desc" | "asc" };
         id?: string;
         skin?: "line" | "row" | "nob";
         even?: boolean;
         size?: "sm" | "lg";
-        //异步数据接口
+        // 异步数据接口
         method?: string;
-        where?: object|null;
+        where?: object | null;
         contentType?: string;
         headers?: object;
         parseData?: (res: object) => TableResponse;
@@ -442,51 +466,61 @@
         request?: TableRequestRename;
         response?: TableResponseRename;
     }
-    //以下TableOn 开头interface，在调用地方使用
-    export interface TableOnCheckbox{
-        checked:true
-        data:object
-        del:()=>void
-        tr:JQuery
-        type:string
-        update:(fields:object)=>void
+
+    // 以下TableOn 开头interface，在调用地方使用
+    interface TableOnCheckbox {
+        checked: true
+        data: object
+        del: () => void
+        tr: JQuery
+        type: string
+        update: (fields: object) => void
     }
-    export interface TableOnToolbar{
-        config:TableOption
-        event:string
+
+    interface TableOnToolbar {
+        config: TableOption
+        event: string
     }
-    export interface TableOnTool{
-        data:object;
-        del:()=>void
-        event:string
-        tr:JQuery
-        update:(fields:object)=>void
+
+    interface TableOnTool {
+        data: object;
+        del: () => void
+        event: string
+        tr: JQuery
+        update: (fields: object) => void
     }
-    export interface TableOnRow{
-        data:object;
-        del:()=>void
-        tr:JQuery
-        update:(fields:object)=>void
+
+    interface TableOnRow {
+        data: object;
+        del: () => void
+        tr: JQuery
+        update: (fields: object) => void
     }
-    export interface TableOnEdit{
-        data:object;
-        del:()=>void
-        field:string
-        tr:JQuery
-        update:(fields:object)=>void
-        value:string
+
+    interface TableOnEdit {
+        data: object;
+        del: () => void
+        field: string
+        tr: JQuery
+        update: (fields: object) => void
+        value: string
     }
-    export interface TableOnSort{
-        field:string
-        type:string
+
+    interface TableOnSort {
+        field: string
+        type: string
     }
 
     interface Table {
         render(option: TableOption): TableRendered;
+
         init(filter: string, option: TableOption): object;
-        reload(option: TableOption):void;
-        reload(id: string, option: TableOption):void;
-        //obj内容变化的，没法声明出指定，但这里提供了替代方案，
+
+        reload(option: TableOption): void;
+
+        reload(id: string, option: TableOption): void;
+
+        // obj内容变化的，没法声明出指定，但这里提供了替代方案，
         /**
          * import TableOnCheckbox = layui.TableOnCheckbox;
          * table.on('checkbox(test)', function(obj){
@@ -504,17 +538,16 @@
          * @param callback
          */
 
-        on(event: string, callback: (this:any,obj: any) => any): void;
-        set(option: TableOption):void;
-        checkStatus(id: string):{data:[],isAll:boolean};
-        resize(id:string):void;
-        exportFile(id:string, data:any, type?:string):void; //type默认csv
+        on(event: string, callback: (this: any, obj: any) => any): void;
+
+        set(option: TableOption): void;
+
+        checkStatus(id: string): { data: [], isAll: boolean };
+
+        resize(id: string): void;
+
+        exportFile(id: string, data: any, type?: string): void; // type默认csv
     }
-
-
-
-
-
 
 
     interface UploadOption {
@@ -570,9 +603,11 @@
     }
 
     interface Flow {
-        load(option: FlowOption):void;
-        lazyimg():void;
-        lazyimg(option: FlowOption):void;
+        load(option: FlowOption): void;
+
+        lazyimg(): void;
+
+        lazyimg(option: FlowOption): void;
     }
 
     interface UtilBarOption {
@@ -585,13 +620,19 @@
     }
 
     interface Util {
-        fixbar(option: UtilBarOption):void;
-        countdown(endtime: number | Date, serverTime: number | Date, callback: (date: any, serverTime: number | Date, timer: any) => void):void;
-        timeAgo(time: number | Date, onlyDate: boolean):any;
-        toDateString(time: number | Date, format: string):any;
-        digit(num: number, length: number):any;
-        escape(str: string):string;
-        event(attr:string,obj:{[index:string]:()=>void}):any;
+        fixbar(option: UtilBarOption): void;
+
+        countdown(endtime: number | Date, serverTime: number | Date, callback: (date: any, serverTime: number | Date, timer: any) => void): void;
+
+        timeAgo(time: number | Date, onlyDate: boolean): any;
+
+        toDateString(time: number | Date, format: string): any;
+
+        digit(num: number, length: number): any;
+
+        escape(str: string): string;
+
+        event(attr: string, obj: { [index: string]: () => void }): any;
     }
 
     interface CodeOption {
@@ -617,6 +658,7 @@
         spread?: boolean;
         href?: string;
         children?: TreeNode | TreeNode[];
+
         [propName: string]: any;
     }
 
@@ -656,28 +698,39 @@
 
     interface Slider {
         render(option: SliderOption): Slider;
-        setValue(value: number):void;
-        setValue(value1: number, value2: number):void;
+
+        setValue(value: number): void;
+
+        setValue(value1: number, value2: number): void;
     }
+
     interface Layedit {
-        build(id:string,options?:EditOption):any;
-        set(options:EditOption):void;
-        getContent(index:number):string;
-        getText(index:number):string;
-        sync(index:number):void;
-        getSelection(index:number):string;
+        build(id: string, options?: EditOption): any;
+
+        set(options: EditOption): void;
+
+        getContent(index: number): string;
+
+        getText(index: number): string;
+
+        sync(index: number): void;
+
+        getSelection(index: number): string;
     }
+
     interface EditOption {
-        tool?:string[];
-        hideTool?:string[];
-        height?:number|string;
-        uploadImage?:{url: string, type: string};
+        tool?: string[];
+        hideTool?: string[];
+        height?: number | string;
+        uploadImage?: { url: string, type: string };
     }
+
     interface Laytpl {
-        (tpl:string):TplObject;
+        (tpl: string): TplObject;
     }
+
     interface TplObject {
-        render(data:object,callback:(str:string)=>void):any;
+        render(data: object, callback: (str: string) => void): any;
     }
 
     export let layer: Layer;
@@ -695,12 +748,14 @@
     export let util: Util;
     export let colorpicker: ColorPicker;
     export let slider: Slider;
-    export let  $: JQueryStatic;
+    export let $: JQueryStatic;
+
     export function code(): void;
     export function code(option: CodeOption): void;
+
     export function tree(option: TreeOption): void;
 
-    //export function use(mods: string | string[], callback: (...args: any[]) => any): any;
+    // export function use(mods: string | string[], callback: (...args: any[]) => any): any;
 
     export function use(mods: string | string[], callback: (...args: any) => any): any;
 }
