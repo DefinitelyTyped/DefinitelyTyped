@@ -119,7 +119,7 @@ export interface ParseConfig<T = any> {
     chunk?(results: ParseResult<T>, parser: Parser): void; // default: undefined
     beforeFirstChunk?(chunk: string): string | void; // default: undefined
     transform?(value: string, field: string | number): any; // default: undefined
-    transformHeader?(header: string): string; // default: undefined
+    transformHeader?(header: string, index?: number): string; // default: undefined
 }
 
 export interface UnparseConfig {
