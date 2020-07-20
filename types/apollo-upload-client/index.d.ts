@@ -6,6 +6,7 @@
 // TypeScript Version: 3.1
 
 import { ApolloLink, HttpOptions } from '@apollo/client';
+
 export { ReactNativeFile } from 'extract-files';
 
 declare global {
