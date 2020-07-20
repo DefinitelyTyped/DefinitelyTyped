@@ -957,7 +957,7 @@ declare namespace stripe {
                 webkitAutofill?: string;
             };
             hidePostalCode?: boolean;
-            hideIcon?: boolean;
+            showIcon?: boolean;
             iconStyle?: 'solid' | 'default';
             placeholder?: string;
             placeholderCountry?: string;
