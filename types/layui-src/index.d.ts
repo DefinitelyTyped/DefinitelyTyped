@@ -1,4 +1,4 @@
-// Type definitions for layui-src 2.5.6
+// Type definitions for layui-src 2.5.5
 // Project: https://github.com/javabitar/layui
 // Definitions by: javabitar <https://github.com/javabitar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
