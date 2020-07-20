@@ -151,10 +151,7 @@ declare namespace layui {
 
         closeAll(type?: 'dialog' | 'page' | 'iframe' | 'loading' | 'tips'): void;
 
-        // layer.style = function(index, options, limit){} limit默认true
         style(index: number, options: { [key: string]: string | number }, limit?: boolean): void;
-
-        // style(index: number, cssStyle: { [key: string]: string | number }): void;
 
         title(title: string, index: number): void;
 
@@ -543,8 +540,6 @@ declare namespace layui {
 
         exportFile(id: string, data: any, type?: string): void; // type默认csv
     }
-
-
     interface UploadOption {
         elem?: string | HTMLElement;
         url?: string;
@@ -560,11 +555,11 @@ declare namespace layui {
         multiple?: boolean;
         number?: number;
         drag?: boolean;
-        choose?: (obj: object) => void;
-        before?: (obj: object) => void;
-        done? (res: object, index: number, upload: void) :void;
+        choose? (obj: object): void;
+        before? (obj: object): void;
+        done? (res: object, index: number, upload: void): void;
         error? (index: number, upload: void): void;
-        allDone? (obj: object) : void;
+        allDone? (obj: object): void;
     }
 
     interface Upload {
@@ -579,8 +574,8 @@ declare namespace layui {
         half?: boolean;
         text?: boolean;
         readonly?: boolean;
-        setText?: (value: number) => void;
-        choose?: (value: number) => void;
+        setText? (value: number): void;
+        choose? (value: number): void;
     }
 
     interface Rate {
@@ -738,9 +733,7 @@ declare namespace layui {
      let colorpicker: ColorPicker;
      let slider: Slider;
      let $: JQueryStatic;
-
-    function code(): void;
-    function code(option: CodeOption): void;
-    function tree(option: TreeOption): void;
-    function use(mods: string | string[], callback: (...args: any) => any): any;
+     function code(option?: CodeOption): void;
+     function tree(option: TreeOption): void;
+     function use(mods: string | string[], callback: (...args: any) => any): any;
 }
