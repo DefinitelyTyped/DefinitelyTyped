@@ -1,4 +1,5 @@
-import dateArithmetic, { Unit } from 'date-arithmetic';
+import * as dateArithmetic from 'date-arithmetic';
+import { Unit } from 'date-arithmetic';
 
 const unit: Unit = 'week';
 const unit2: Unit = 'seconds';
