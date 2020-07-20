@@ -43,6 +43,7 @@ export interface ReactDatePickerProps {
     chooseDayAriaLabelPrefix?: string;
     className?: string;
     clearButtonTitle?: string;
+    closeOnScroll?: boolean | ((e: Event) => boolean);
     customInput?: React.ReactNode;
     customInputRef?: string;
     customTimeInput?: React.ReactNode;
