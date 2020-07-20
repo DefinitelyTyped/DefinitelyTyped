@@ -30,9 +30,9 @@ declare class ReCAPTCHA extends React.Component<ReCAPTCHAProps> {
      * Programmatically invoke the challenge and return a promise that resolves
      * to the token or errors (if encountered). Alternative approach to 
      * execute() in combination with the onChange() prop.
-     * @return token | null | undefined
+     * @return token | null
      */
-    executeAsync(): Promise<string | null | undefined>
+    executeAsync(): Promise<string | null>
 
     /**
      * Gets the response for the reCAPTCHA widget.
@@ -63,7 +63,7 @@ export interface ReCAPTCHAProps {
      * or the compact captcha. It will also be called with null, when captcha expires.
      * @param token string or null
      */
-    onChange?: (token: string|null) => void;
+    onChange?: (token: string | null) => void;
 
     /**
      *  If you are using the barebone component you need to provide access to the
