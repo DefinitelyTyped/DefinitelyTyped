@@ -21,5 +21,8 @@
     "files": [
         "index.d.ts",
         "apollo-upload-client-tests.ts"
-    ]
+    ],
+    "paths":{
+        "@apollo/client": ["apollo__client"]
+    }
 }
