@@ -3,7 +3,7 @@
 // Definitions by: rictic <https://github.com/rictic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface Options {
+export interface Options {
   /**
    * A string used for the indentation of the declaration (default is 4
    * spaces).
@@ -22,4 +22,4 @@ interface Options {
 }
 declare function beautify(cssText: string, options?: Options): string;
 
-export = beautify;
+export default beautify;
