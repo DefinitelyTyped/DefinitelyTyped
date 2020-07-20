@@ -403,6 +403,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "@braintree/sanitize-url",
+            "typingsPackageName": "braintree__sanitize-url",
+            "sourceRepoURL": "https://github.com/braintree/sanitize-url",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "broccoli-plugin",
             "typingsPackageName": "broccoli-plugin",
             "sourceRepoURL": "https://github.com/broccolijs/broccoli-plugin",
@@ -467,6 +473,12 @@
             "typingsPackageName": "camljs",
             "sourceRepoURL": "https://github.com/andrei-markeev/camljs",
             "asOfVersion": "2.8.1"
+        },
+        {
+            "libraryName": "card-validator",
+            "typingsPackageName": "card-validator",
+            "sourceRepoURL": "https://github.com/braintree/card-validator",
+            "asOfVersion": "7.0.1"
         },
         {
             "libraryName": "cash-dom",
@@ -809,6 +821,12 @@
             "typingsPackageName": "create-html-element",
             "sourceRepoURL": "https://github.com/sindresorhus/create-html-element",
             "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "credit-card-type",
+            "typingsPackageName": "credit-card-type",
+            "sourceRepoURL": "https://github.com/braintree/credit-card-type",
+            "asOfVersion": "9.0.0"
         },
         {
             "libraryName": "cropperjs",
