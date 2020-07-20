@@ -557,8 +557,8 @@ declare namespace layui {
         drag?: boolean;
         choose? (obj: object): void;
         before? (obj: object): void;
-        done? (res: object, index: number, upload: ()=>void): void;
-        error? (index: number, upload: ()=>void): void;
+        done? (res: object, index: number, upload: () => void): void;
+        error? (index: number, upload: () => void): void;
         allDone? (obj: object): void;
     }
 
