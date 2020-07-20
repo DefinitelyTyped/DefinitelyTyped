@@ -2,6 +2,7 @@
 // Project: https://github.com/javabitar/layui
 // Definitions by: javabitar <https://github.com/javabitar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.1
 declare namespace layui {
     type LayerCallbackSuccess = null | ((layero: JQuery, index: number) => void);
     type LayerCallbackYes = null | ((index: number, layero: JQuery) => boolean | void);
@@ -130,9 +131,10 @@ declare namespace layui {
 
         /**
          * 普通信息框
+         *  源码中会第三个参数代替第二个。单独定义一个方法。
          * @param {string} content
          */
-        alert(content: string, yes?: LayerCallbackYes): number;// 源码中会第三个参数代替第二个。单独定义一个方法。
+        alert(content: string, yes?: LayerCallbackYes): number;
 
         confirm(content: string, options?: LayerOptions, yes?: LayerCallbackYes, cancel?: LayerCallbackCancel): number;
 
@@ -222,12 +224,11 @@ declare namespace layui {
 
     // 参数不用加'?'
     interface LayFormData {
-
         elem: any; // 被执行事件的元素DOM对象，一般为button对象  ,可能是input select button等不能用HTMLElement
-        othis: JQuery;// 得到美化后的DOM对象=$(selector)
+        othis: JQuery; // 得到美化后的DOM对象=$(selector)
         value: string;
         form: HTMLFormElement; // 被执行提交的form对象，一般在存在form标签时才会返回
-        field: any;// 当前容器的全部表单字段，名值对形式：{name: value}
+        field: any; // 当前容器的全部表单字段，名值对形式：{name: value}
         /*
         elem?: HTMLElement;
         othis?: any;
@@ -251,7 +252,7 @@ declare namespace layui {
 
         verify(config: object): any;
 
-        getValue(filter: string, itemForm?: JQuery): any
+        getValue(filter: string, itemForm?: JQuery): any;
     }
 
     interface PageOptions {
@@ -266,7 +267,7 @@ declare namespace layui {
         next?: string;
         first?: string;
         last?: string;
-        layout?: ('count' | 'prev' | 'page' | 'next' | 'limit' | 'skip')[];
+        layout?: Array<('count' | 'prev' | 'page' | 'next' | 'limit' | 'skip')>;
         theme?: string;
         hash?: string | boolean;
         jump?: (obj: PageOptions, first: boolean) => void;
@@ -299,7 +300,7 @@ declare namespace layui {
         position?: "abolute" | "fixed" | "static";
         zIndex?: number;
         showBottom?: boolean;
-        btns?: ('clear' | 'now' | 'confirm')[];
+        btns?: Array<('clear' | 'now' | 'confirm')>;
         lang?: 'cn' | 'en';
         theme?: string | 'default' | 'molv' | 'grid';
         calendar?: boolean;
@@ -313,7 +314,7 @@ declare namespace layui {
      * https://www.layui.com/doc/modules/laydate.html
      */
     interface Laydate {
-        render(options: DateOption): { "config": DateOption, "hint": ()=>void };
+        render(options: DateOption): { "config": DateOption, "hint": () => void };
 
         set(options: DateOption): void;
 
@@ -444,13 +445,13 @@ declare namespace layui {
         done?: (res: object, curr?: number, count?: number) => void;
         data?: object[];
         totalRow?: boolean;
-        page?: boolean | PageOptions;// PageOptions时排除jump和elem
+        page?: boolean | PageOptions; // PageOptions时排除jump和elem
         limit?: number;
         limits?: number[];
         loading?: boolean;
         title?: string;
         text?: { "none": string };
-        autoSort?: boolean
+        autoSort?: boolean;
         initSort?: { field: string, type?: "null" | "desc" | "asc" };
         id?: string;
         skin?: "line" | "row" | "nob";
@@ -469,46 +470,46 @@ declare namespace layui {
 
     // 以下TableOn 开头interface，在调用地方使用
     interface TableOnCheckbox {
-        checked: true
-        data: object
-        del: () => void
-        tr: JQuery
-        type: string
-        update: (fields: object) => void
+        checked: true;
+        data: object;
+        del: () => void;
+        tr: JQuery;
+        type: string;
+        update: (fields: object) => void;
     }
 
     interface TableOnToolbar {
-        config: TableOption
-        event: string
+        config: TableOption;
+        event: string;
     }
 
     interface TableOnTool {
         data: object;
-        del: () => void
-        event: string
-        tr: JQuery
-        update: (fields: object) => void
+        del: () => void;
+        event: string;
+        tr: JQuery;
+        update: (fields: object) => void;
     }
 
     interface TableOnRow {
         data: object;
-        del: () => void
-        tr: JQuery
-        update: (fields: object) => void
+        del: () => void;
+        tr: JQuery;
+        update: (fields: object) => void;
     }
 
     interface TableOnEdit {
         data: object;
-        del: () => void
-        field: string
-        tr: JQuery
-        update: (fields: object) => void
-        value: string
+        del: () => void;
+        field: string;
+        tr: JQuery;
+        update: (fields: object) => void;
+        value: string;
     }
 
     interface TableOnSort {
-        field: string
-        type: string
+        field: string;
+        type: string;
     }
 
     interface Table {
@@ -567,9 +568,9 @@ declare namespace layui {
         drag?: boolean;
         choose?: (obj: object) => void;
         before?: (obj: object) => void;
-        done?: (res: object, index: number, upload: void) => void;
-        error?: (index: number, upload: void) => void;
-        allDone?: (obj: object) => void;
+        done?(res: object, index: number, upload: void) :void;
+        error?(index: number, upload: void): void;
+        allDone? (obj: object) : void;
     }
 
     interface Upload {
@@ -733,22 +734,22 @@ declare namespace layui {
         render(data: object, callback: (str: string) => void): any;
     }
 
-    export let layer: Layer;
-    export let element: Element;
-    export let form: Form;
-    export let laydate: Laydate;
-    export let layedit: Layedit;
-    export let laypage: Laypage;
-    export let laytpl: Laytpl;
-    export let carousel: Carousel;
-    export let table: Table;
-    export let upload: Upload;
-    export let rate: Rate;
-    export let flow: Flow;
-    export let util: Util;
-    export let colorpicker: ColorPicker;
-    export let slider: Slider;
-    export let $: JQueryStatic;
+     let layer: Layer;
+     let element: Element;
+     let form: Form;
+     let laydate: Laydate;
+     let layedit: Layedit;
+     let laypage: Laypage;
+     let laytpl: Laytpl;
+     let carousel: Carousel;
+     let table: Table;
+     let upload: Upload;
+     let rate: Rate;
+     let flow: Flow;
+     let util: Util;
+     let colorpicker: ColorPicker;
+     let slider: Slider;
+     let $: JQueryStatic;
 
     export function code(): void;
     export function code(option: CodeOption): void;
