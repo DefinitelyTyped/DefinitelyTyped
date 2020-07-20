@@ -1634,6 +1634,98 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
 
 // Arrays
 
+// first, head, take
+{
+    // without n - first
+    _.first(stringRecordList); // $ExpectType StringRecordOrUndefined
+    _(stringRecordList).first(); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordList).first()); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // without n - head
+    _.head(stringRecordList); // $ExpectType StringRecordOrUndefined
+    _(stringRecordList).head(); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordList).head()); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // without n - take
+    _.take(stringRecordList); // $ExpectType StringRecordOrUndefined
+    _(stringRecordList).take(); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordList).take()); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // with n - first
+    _.first(stringRecordList, simpleNumber); // $ExpectType StringRecord[]
+    _(stringRecordList).first(simpleNumber); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).first(simpleNumber)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // with n - head
+    _.head(stringRecordList, simpleNumber); // $ExpectType StringRecord[]
+    _(stringRecordList).head(simpleNumber); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).head(simpleNumber)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // with n - take
+    _.take(stringRecordList, simpleNumber); // $ExpectType StringRecord[]
+    _(stringRecordList).take(simpleNumber); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).take(simpleNumber)); // $ExpectType ChainType<StringRecord[], StringRecord>
+}
+
+// initial
+{
+    // without n
+    _.initial(stringRecordList); // $ExpectType StringRecord[]
+    _(stringRecordList).initial(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).initial()); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // with n
+    _.initial(stringRecordList, simpleNumber); // $ExpectType StringRecord[]
+    _(stringRecordList).initial(simpleNumber); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).initial(simpleNumber)); // $ExpectType ChainType<StringRecord[], StringRecord>
+}
+
+// last
+{
+    // without n
+    _.last(stringRecordList); // $ExpectType StringRecordOrUndefined
+    _(stringRecordList).last(); // $ExpectType StringRecordOrUndefined
+    extractChainTypes(_.chain(stringRecordList).last()); // $ExpectType ChainType<StringRecordOrUndefined, never>
+
+    // with n
+    _.last(stringRecordList, simpleNumber); // $ExpectType StringRecord[]
+    _(stringRecordList).last(simpleNumber); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).last(simpleNumber)); // $ExpectType ChainType<StringRecord[], StringRecord>
+}
+
+// rest, tail, drop
+{
+    // without n - rest
+    _.rest(stringRecordList); // $ExpectType StringRecord[]
+    _(stringRecordList).rest(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).rest()); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // without n - tail
+    _.tail(stringRecordList); // $ExpectType StringRecord[]
+    _(stringRecordList).tail(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).tail()); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // without n - drop
+    _.drop(stringRecordList); // $ExpectType StringRecord[]
+    _(stringRecordList).drop(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).drop()); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // with n - rest
+    _.rest(stringRecordList, simpleNumber); // $ExpectType StringRecord[]
+    _(stringRecordList).rest(simpleNumber); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).rest(simpleNumber)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // with n - tail
+    _.tail(stringRecordList, simpleNumber); // $ExpectType StringRecord[]
+    _(stringRecordList).tail(simpleNumber); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).tail(simpleNumber)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // with n - drop
+    _.drop(stringRecordList, simpleNumber); // $ExpectType StringRecord[]
+    _(stringRecordList).drop(simpleNumber); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).drop(simpleNumber)); // $ExpectType ChainType<StringRecord[], StringRecord>
+}
+
 // flatten
 {
     // one dimension, deep

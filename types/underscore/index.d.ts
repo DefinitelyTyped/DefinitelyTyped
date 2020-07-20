@@ -706,94 +706,79 @@ declare module _ {
         **********/
 
         /**
-        * Returns the first element of an array. Passing n will return the first n elements of the array.
-        * @param array Retrieves the first element of this array.
-        * @return Returns the first element of `array`.
-        **/
-        first<T>(array: _.List<T>): T | undefined;
+         * Returns the first element of `list`. Passing `n` will return the
+         * first `n` elements of `list`.
+         * @param list The list to retrieve elements from.
+         * @param n The number of elements to retrieve, optional.
+         * @returns The first `n` elements of `list` or the first element if
+         * `n` is omitted.
+         **/
+        first<V extends List<any>>(list: V): TypeOfList<V> | undefined;
+        first<V extends List<any>>(
+            list: V,
+            n: number
+        ): TypeOfList<V>[];
 
         /**
-        * @see _.first
-        * @param n Return more than one element from `array`.
-        **/
-        first<T>(
-            array: _.List<T>,
-            n: number): T[];
+         * @see first
+         **/
+        head: UnderscoreStatic['first'];
 
         /**
-        * @see _.first
-        **/
-        head<T>(array: _.List<T>): T | undefined;
+         * @see first
+         **/
+        take: UnderscoreStatic['first'];
 
         /**
-        * @see _.first
-        **/
-        head<T>(
-            array: _.List<T>,
-            n: number): T[];
+         * Returns everything but the last entry of `list`. Especially useful
+         * on the arguments object. Pass `n` to exclude the last
+         * `n` elements from the result.
+         * @param list The list to retrieve elements from.
+         * @param n The number of elements from the end of `list` to omit,
+         * optional, default = 1.
+         * @returns The elements of `list` with the last `n` items omitted.
+         **/
+        initial<V extends List<any>>(
+            list: V,
+            n?: number
+        ): TypeOfList<V>[];
 
         /**
-        * @see _.first
-        **/
-        take<T>(array: _.List<T>): T;
+         * Returns the last element of `list`. Passing `n` will return the last
+         * `n` elements of `list`.
+         * @param list The list to retrieve elements from.
+         * @param n The number of elements to retrieve, optional.
+         * @returns The last `n` elements of `list` or the last element if `n`
+         * is omitted.
+         **/
+        last<V extends List<any>>(list: V): TypeOfList<V> | undefined;
+        last<V extends List<any>>(
+            list: V,
+            n: number
+        ): TypeOfList<V>[];
 
         /**
-        * @see _.first
-        **/
-        take<T>(
-            array: _.List<T>,
-            n: number): T[];
+         * Returns the rest of the elements in `list`. Pass an `index` to
+         * return the values of the list from that index onward.
+         * @param list The list to retrieve elements from.
+         * @param index The index to start retrieving elements from, optional,
+         * default = 1.
+         * @returns The elements of `list` from `index` to the end of the list.
+         **/
+        rest<V extends List<any>>(
+            list: V,
+            index?: number
+        ): TypeOfList<V>[];
 
         /**
-        * Returns everything but the last entry of the array. Especially useful on the arguments object.
-        * Pass n to exclude the last n elements from the result.
-        * @param array Retrieve all elements except the last `n`.
-        * @param n Leaves this many elements behind, optional.
-        * @return Returns everything but the last `n` elements of `array`.
-        **/
-        initial<T>(
-            array: _.List<T>,
-            n?: number): T[];
+         * @see rest
+         **/
+        tail: UnderscoreStatic['rest'];
 
         /**
-        * Returns the last element of an array. Passing n will return the last n elements of the array.
-        * @param array Retrieves the last element of this array.
-        * @return Returns the last element of `array`.
-        **/
-        last<T>(array: _.List<T>): T | undefined;
-
-        /**
-        * @see _.last
-        * @param n Return more than one element from `array`.
-        **/
-        last<T>(
-            array: _.List<T>,
-            n: number): T[];
-
-        /**
-        * Returns the rest of the elements in an array. Pass an index to return the values of the array
-        * from that index onward.
-        * @param array The array to retrieve all but the first `index` elements.
-        * @param n The index to start retrieving elements forward from, optional, default = 1.
-        * @return Returns the elements of `array` from `index` to the end of `array`.
-        **/
-        rest<T>(
-            array: _.List<T>,
-            n?: number): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<T>(
-            array: _.List<T>,
-            n?: number): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<T>(
-            array: _.List<T>,
-            n?: number): T[];
+         * @see rest
+         **/
+        drop: UnderscoreStatic['rest'];
 
         /**
         * Returns a copy of the array with all falsy values removed. In JavaScript, false, null, 0, "",
@@ -4368,70 +4353,65 @@ declare module _ {
         **********/
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.first
-        **/
+         * Returns the first element of the wrapped list. Passing `n` will
+         * return the first `n` elements of the wrapped list.
+         * @param n The number of elements to retrieve, optional.
+         * @returns The first `n` elements of the wrapped list or the first
+         * element if `n` is omitted.
+         **/
         first(): T | undefined;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.first
-        **/
         first(n: number): T[];
 
         /**
-        * @see _.first
-        **/
-        head(): T | undefined;
+         * @see first
+         **/
+        head: Underscore<T, V>['first'];
 
         /**
-        * @see _.first
+         * @see first
         **/
-        head(n: number): T[];
+         take: Underscore<T, V>['first'];
 
         /**
-        * @see _.first
-        **/
-        take(): T;
-
-        /**
-        * @see _.first
-        **/
-        take(n: number): T[];
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.initial
-        **/
+         * Returns everything but the last entry of the wrapped list.
+         * Especially useful on the arguments object. Pass `n` to exclude the
+         * last `n` elements from the result.
+         * @param n The number of elements from the end of the wrapped list to
+         * omit, optional, default = 1.
+         * @returns The elements of the wrapped list with the last `n` items
+         * omitted.
+         **/
         initial(n?: number): T[];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.last
-        **/
+         * Returns the last element of the wrapped list. Passing `n` will
+         * return the last `n` elements of the wrapped list.
+         * @param n The number of elements to retrieve, optional.
+         * @returns The last `n` elements of the wrapped list or the last
+         * element if `n` is omitted.
+         **/
         last(): T | undefined;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.last
-        **/
         last(n: number): T[];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.rest
-        **/
+         * Returns the rest of the elements in the wrapped list. Pass an
+         * `index` to return the values of the list from that index onward.
+         * @param index The index to start retrieving elements from, optional,
+         * default = 1.
+         * @returns The elements of the wrapped list from `index` to the end
+         * of the list.
+         **/
         rest(n?: number): T[];
 
         /**
-        * @see _.rest
-        **/
-        tail(n?: number): T[];
+         * @see rest
+         **/
+        tail: Underscore<T, V>['rest'];
 
         /**
-        * @see _.rest
-        **/
-        drop(n?: number): T[];
+         * @see rest
+         **/
+        drop: Underscore<T, V>['rest'];
 
         /**
         * Wrapped type `any[]`.
@@ -5370,70 +5350,65 @@ declare module _ {
         **********/
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.first
-        **/
+         * Returns the first element of the wrapped list. Passing `n` will
+         * return the first `n` elements of the wrapped list.
+         * @param n The number of elements to retrieve, optional.
+         * @returns A chain wrapper around the first `n` elements of the
+         * wrapped list or around the first element if `n` is omitted.
+         **/
         first(): _ChainSingle<T | undefined>;
+        first(n: number): _Chain<T, T[]>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.first
-        **/
-        first(n: number): _Chain<T>;
+         * @see first
+         **/
+        head: _Chain<T, V>['first'];
 
         /**
-        * @see _.first
-        **/
-        head(): _Chain<T>;
+         * @see first
+         **/
+        take: _Chain<T, V>['first'];
 
         /**
-        * @see _.first
-        **/
-        head(n: number): _Chain<T>;
+         * Returns everything but the last entry of the wrapped list.
+         * Especially useful on the arguments object. Pass `n` to exclude the
+         * last `n` elements from the result.
+         * @param n The number of elements from the end of the wrapped list to
+         * omit, optional, default = 1.
+         * @returns A chain wrapper around the elements of the wrapped list
+         * with the last `n` items omitted.
+         **/
+        initial(n?: number): _Chain<T, T[]>;
 
         /**
-        * @see _.first
-        **/
-        take(): _Chain<T>;
+         * Returns the last element of the wrapped list. Passing `n` will
+         * return the last `n` elements of the wrapped list.
+         * @param n The number of elements to retrieve, optional.
+         * @returns A chain wrapper around the last `n` elements of the wrapped
+         * list or around the last element if `n` is omitted.
+         **/
+        last(): _ChainSingle<T | undefined>;
+        last(n: number): _Chain<T, T[]>;
 
         /**
-        * @see _.first
-        **/
-        take(n: number): _Chain<T>;
+         * Returns the rest of the elements in the wrapped list. Pass an
+         * `index` to return the values of the list from that index onward.
+         * @param index The index to start retrieving elements from, optional,
+         * default = 1.
+         * @returns A chain wrapper around the elements of the wrapped list
+         * from `index` to the end of the list.
+         **/
+        rest(n?: number): _Chain<T, T[]>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.initial
-        **/
-        initial(n?: number): _Chain<T>;
+         * @see rest
+         **/
+        tail: _Chain<T, V>['rest'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.last
-        **/
-        last(): _ChainSingle<T>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.last
-        **/
-        last(n: number): _Chain<T>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.rest
-        **/
-        rest(n?: number): _Chain<T>;
-
-        /**
-        * @see _.rest
-        **/
-        tail(n?: number): _Chain<T>;
-
-        /**
-        * @see _.rest
-        **/
-        drop(n?: number): _Chain<T>;
+         * @see rest
+         **/
+        drop: _Chain<T, V>['rest'];
 
         /**
         * Wrapped type `any[]`.
