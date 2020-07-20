@@ -46,6 +46,31 @@ interface SocketIOStatic {
     (opts: SocketIO.ServerOptions): SocketIO.Server;
 
     /**
+     * Default Server constructor
+     */
+    new (): SocketIO.Server;
+
+    /**
+     * Creates a new Server
+     * @param srv The HTTP server that we're going to bind to
+     * @param opts An optional parameters object
+     */
+    new (srv: any, opts?: SocketIO.ServerOptions): SocketIO.Server;
+
+    /**
+     * Creates a new Server
+     * @param port A port to bind to, as a number, or a string
+     * @param An optional parameters object
+     */
+    new (port: string | number, opts?: SocketIO.ServerOptions): SocketIO.Server;
+
+    /**
+     * Creates a new Server
+     * @param A parameters object
+     */
+    new (opts: SocketIO.ServerOptions): SocketIO.Server;
+
+    /**
      * Backwards compatibility
      * @see io().listen()
      */
