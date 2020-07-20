@@ -16,13 +16,14 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths":{
+            "@apollo/client": ["apollo__client"]
+        }
     },
     "files": [
         "index.d.ts",
         "apollo-upload-client-tests.ts"
     ],
-    "paths":{
-        "@apollo/client": ["apollo__client"]
-    }
+
 }
