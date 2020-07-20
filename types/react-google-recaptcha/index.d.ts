@@ -21,18 +21,18 @@ declare class ReCAPTCHA extends React.Component<ReCAPTCHAProps> {
     reset(): void;
 
     /**
-     * Programatically invoke the reCAPTCHA check. 
+     * Programatically invoke the reCAPTCHA check.
      * Used if the invisible reCAPTCHA is on a div instead of a button.
      */
     execute(): void;
 
     /**
      * Programmatically invoke the challenge and return a promise that resolves
-     * to the token or errors (if encountered). Alternative approach to 
+     * to the token or errors (if encountered). Alternative approach to
      * execute() in combination with the onChange() prop.
      * @return token | null
      */
-    executeAsync(): Promise<string | null>
+    executeAsync(): Promise<string | null>;
 
     /**
      * Gets the response for the reCAPTCHA widget.
@@ -59,7 +59,7 @@ export interface ReCAPTCHAProps {
     sitekey: string;
 
     /**
-     * The function to be called when the user successfully completes the normal 
+     * The function to be called when the user successfully completes the normal
      * or the compact captcha. It will also be called with null, when captcha expires.
      * @param token string or null
      */
