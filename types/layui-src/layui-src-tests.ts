@@ -1,4 +1,6 @@
-layui.use('element', function () {
+// element,form,table,util,laytpl,laypage,layedit
+
+layui.use('element',  () => {
     const element = layui.element;
     // 一些事件监听
     element.on('tab(demo)', data => {
@@ -17,7 +19,7 @@ layui.use('element', function () {
         console.log(data.index); // 得到当前Tab的所在下标
         console.log(data.elem); // 得到当前的Tab大容器
     });
-    element.on('nav(filter)', function (elem) {
+    element.on('nav(filter)',  (elem) => {
         console.log(elem); // 得到当前点击的DOM对象
     });
     element.on('collapse(filter)', data => {
@@ -26,9 +28,9 @@ layui.use('element', function () {
         console.log(data.content); // 得到当前点击面板的内容区域DOM对象
     });
 });
-layui.use('layer', (a, b) => {
+layui.use(['table', 'form'], (a, b) => {
     layui.layer.load(1, {});
-    layui.form.on('', function (a) {
+    layui.form.on('',  (a) => {
         layui.form.val('', {});
     });
     layui.form.getValue('', $(''));
@@ -115,7 +117,7 @@ layui.use('layer', (a, b) => {
             case 'detail':
                 break;
             case 'del':
-                layui.layer.confirm('真的删除行么', function (index) {
+                layui.layer.confirm('真的删除行么',  (index) => {
                     obj.del(); // 删除对应行（tr）的DOM结构，并更新缓存
                     layui.layer.close(index);
                     // 向服务端发送删除指令
@@ -142,7 +144,7 @@ layui.use('layer', (a, b) => {
         // 注：sort 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
         console.log(obj.field); // 当前排序的字段名
         console.log(obj.type); // 当前排序类型：desc（降序）、asc（升序）、null（空对象，默认排序）
-        //console.log(this); // 当前排序的 th 对象
+        // console.log(this); // 当前排序的 th 对象
 
         // 尽管我们的 table 自带排序功能，但并没有请求服务端。
         // 有些时候，你可能需要根据当前排序的字段，重新向服务端发送请求，从而实现服务端排序，如：
@@ -208,3 +210,123 @@ layui.table.reload('id', {
     data: [],
     where: null,
 });
+// 右下角固定图标 返回顶部
+layui.util.fixbar({
+    bar1: true,
+    bar2: true,
+    bgcolor: 'red',
+    showHeight: 120,
+    css: { right: 100, bottom: 100 },
+    click: type => {
+        console.log(type);
+        if (type === 'bar1') {
+            alert('点击了bar1');
+        }
+    },
+});
+// 倒计时执行，s
+const endTime = new Date(2099, 1, 1).getTime(); // 假设为结束日期
+const  serverTime = new Date().getTime(); // 假设为当前服务器时间，这里采用的是本地时间，实际使用一般是取服务端的
+layui.util.countdown(endTime, serverTime, (date, serverTime, timer) => {
+    const str = `${date[0]}天${date[1]}时${date[2]}分${date[3]}秒`;
+    layui.$('#test').html('距离2099年1月1日还有：' + str);
+});
+
+//
+layui.util.timeAgo(Date.now(), true);
+layui.util.toDateString(Date.now(), 'yyyy-MM-dd');
+layui.util.digit(10, 10);
+layui.util.escape('str');
+layui.util.event('lay-active', {
+    e1: () => {
+        alert('触发了事件1');
+    },
+    e2: () => {
+        alert('触发了事件2');
+    },
+    e3:  () => {
+        alert('触发了事件3');
+    },
+});
+layui.laytpl('{{ d.name }}是一位公猿').render(
+    {
+        name: '贤心',
+    },
+     (string) => {
+        console.log(string); // 贤心是一位公猿
+    },
+);
+layui.laypage.render({
+    elem: 'id',
+    count: 1,
+    limit: 1,
+    limits: [10, 20, 30],
+    curr: 1,
+    groups: 5,
+    prev: '上一页',
+    next: '下一页',
+    first: '首页',
+    last: '尾页',
+    layout: ['count', 'page', 'prev', 'page', 'next', 'limit', 'skip'],
+    theme: '#c00',
+    hash: 'abc',
+    jump: (obj: layui.PageOptions, first: boolean) => {
+        obj.first;
+    },
+});
+const layedit = layui.layedit;
+layedit.build('demo', {
+    uploadImage: {
+        url: '',
+        type: '1',
+    },
+    tool: [
+        'strong', // 加粗
+        'italic', // 斜体
+        'underline', // 下划线
+        'del', // 删除线
+        '|', // 分割线
+        'left', // 左对齐
+        'center', // 居中对齐
+        'right', // 右对齐
+        'link', // 超链接
+        'unlink', // 清除链接
+        'face', // 表情
+        'image', // 插入图片
+        'help', // 帮助
+    ],
+    hideTool: [],
+    height: 100,
+}); // 建立编辑器
+const laydate = layui.laydate;
+import DateParam = layui.DateParam;
+const laydateRet = laydate.render({
+    elem: '',
+    type: 'year',
+    range: true,
+    format: 'yyyy-MM-dd HH:mm:ss',
+    value: new Date(),
+    isInitValue: true,
+    min: '09:30:00',
+    max: '17:30:00',
+    trigger: 'focus',
+    show: true,
+    position: 'abolute',
+    zIndex: 1,
+    showBottom: true,
+    btns: ['clear', 'now', 'confirm'],
+    lang: 'cn',
+    theme: '#393D49',
+    calendar: true,
+    mark: { '0-10-14': '生日' },
+    ready: (date: layui.DateParam) => {
+        date.year;
+    },
+    change: (value: string, date: DateParam, endDate: DateParam) => {},
+    done: (value: string, date: DateParam, endDate: DateParam) => {
+        endDate.minutes;
+    },
+});
+laydateRet.config.format;
+laydateRet.hint();
+laydate.getEndDate(1);
