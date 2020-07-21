@@ -26364,14 +26364,14 @@ declare namespace Excel {
          */
         reapplyFilters(): void;
         /**
-         * Sets the style applied to the slicer.
+         * Sets the style applied to the table.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param style The style to apply to the PivotTable. An `InvalidArgumentException` is thrown if a string is provided that does not match the name of any style.
+         * @param style The style to apply to the table. An `InvalidArgumentException` is thrown if a string is provided that does not match the name of any style.
          */
-        setStyle(style: string | PivotTableStyle | BuiltInTableStyle): void;
+        setStyle(style: string | TableStyle | BuiltInTableStyle): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
@@ -40979,9 +40979,9 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param style The style to apply to the PivotTable. An `InvalidArgumentException` is thrown if a string is provided that does not match the name of any style.
+         * @param style The style to apply to the slicer. An `InvalidArgumentException` is thrown if a string is provided that does not match the name of any style.
          */
-        setStyle(style: string | PivotTableStyle | BuiltInSlicerStyle): void;
+        setStyle(style: string | SlicerStyle | BuiltInSlicerStyle): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
