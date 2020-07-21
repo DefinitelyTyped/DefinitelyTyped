@@ -157,20 +157,20 @@ export interface Components<TEvent extends object = Event> {
     agenda?: {
         date?: React.ComponentType;
         time?: React.ComponentType;
-        event?: React.ComponentType;
+        event?: React.ComponentType<EventProps<TEvent>>;
     };
     day?: {
         header?: React.ComponentType;
-        event?: React.ComponentType;
+        event?: React.ComponentType<EventProps<TEvent>>;
     };
     week?: {
         header?: React.ComponentType;
-        event?: React.ComponentType;
+        event?: React.ComponentType<EventProps<TEvent>>;
     };
     month?: {
         header?: React.ComponentType;
         dateHeader?: React.ComponentType;
-        event?: React.ComponentType;
+        event?: React.ComponentType<EventProps<TEvent>>;
     };
     /**
      * component used as a header for each column in the TimeGridHeader
