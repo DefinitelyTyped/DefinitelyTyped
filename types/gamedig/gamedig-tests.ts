@@ -13,6 +13,7 @@ Gamedig.query({
     maxplayers,
     players,
     bots,
-    notes
+    connect,
+    ping
   } = state;
 });

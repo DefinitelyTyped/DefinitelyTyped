@@ -17,7 +17,6 @@
 //                 Frontend Monster <https://github.com/frontendmonster>
 //                 Ming Chen <https://github.com/mingchen>
 //                 Olga Isakova <https://github.com/penumbra1>
-//                 Orblazer <https://github.com/orblazer>
 //                 HughKu <https://github.com/HughKu>
 //                 Erik Lopez <https://github.com/niuware>
 //                 Vlad Melnik <https://github.com/vladmel1234>

@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "braintree__sanitize-url-tests.ts"
+        "ottomated__passport-twitch-tests.ts"
     ]
 }
