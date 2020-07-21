@@ -360,131 +360,71 @@ declare module _ {
         ): TypeOfCollection<V>[];
 
         /**
-        * Returns true if all of the values in the list pass the iterator truth test. Delegates to the
-        * native method every, if present.
-        * @param list Truth test against all elements within this list.
-        * @param iterator Trust test iterator function for each element in `list`.
-        * @param context `this` object in `iterator`, optional.
-        * @return True if all elements passed the truth test, otherwise false.
-        **/
-        every<T>(
-            list: _.List<T>,
-            iterator?: _.ListIterator<T, boolean>,
-            context?: any): boolean;
+         * Returns true if all of the values in `collection` pass the `iteratee`
+         * truth test. Short-circuits and stops traversing `collection` if a false
+         * element is found.
+         * @param collection The collection to evaluate.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns True if all elements pass the truth test, otherwise false.
+         **/
+        every<V extends Collection<any>>(
+            collection: V,
+            iteratee?: Iteratee<V, boolean>,
+            context?: any
+        ): boolean;
 
         /**
-        * @see _.every
-        **/
-        every<T>(
-            list: _.Dictionary<T>,
-            iterator?: _.ObjectIterator<T, boolean>,
-            context?: any): boolean;
+         * @see every
+         **/
+        all: UnderscoreStatic['every'];
 
         /**
-        * @see _.every
-        **/
-        all<T>(
-            list: _.List<T>,
-            iterator?: _.ListIterator<T, boolean>,
-            context?: any): boolean;
+         * Returns true if any of the values in `collection` pass the `iteratee`
+         * truth test. Short-circuits and stops traversing `collection` if a
+         * true element is found.
+         * @param collection The collection to evaluate.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns True if any element passed the truth test, otherwise false.
+         **/
+        some<V extends Collection<any>>(
+            collection: V,
+            iteratee?: Iteratee<V, boolean>,
+            context?: any
+        ): boolean;
 
         /**
-        * @see _.every
-        **/
-        all<T>(
-            list: _.Dictionary<T>,
-            iterator?: _.ObjectIterator<T, boolean>,
-            context?: any): boolean;
+         * @see some
+         **/
+        any: UnderscoreStatic['some'];
 
         /**
-        * Returns true if any of the values in the list pass the iterator truth test. Short-circuits and
-        * stops traversing the list if a true element is found. Delegates to the native method some, if present.
-        * @param list Truth test against all elements within this list.
-        * @param iterator Trust test iterator function for each element in `list`.
-        * @param context `this` object in `iterator`, optional.
-        * @return True if any elements passed the truth test, otherwise false.
-        **/
-        some<T>(
-            list: _.List<T>,
-            iterator?: _.ListIterator<T, boolean>,
-            context?: any): boolean;
+         * Returns true if the value is present in `collection`. Uses indexOf
+         * internally, if `collection` is a List. Use `fromIndex` to start your
+         * search at a given index.
+         * @param collection The collection to check for `value`.
+         * @param value The value to check `collection` for.
+         * @param fromIndex The index to start searching from, optional,
+         * default = 0, only used when `collection` is a List.
+         * @returns True if `value` is present in `collection` after
+         * `fromIndex`, otherwise false.
+         **/
+        contains<V extends Collection<any>>(
+            collection: V,
+            value: any,
+            fromIndex?: number
+        ): boolean;
 
         /**
-        * @see _.some
-        **/
-        some<T>(
-            object: _.Dictionary<T>,
-            iterator?: _.ObjectIterator<T, boolean>,
-            context?: any): boolean;
+         * @see contains
+         **/
+        include: UnderscoreStatic['contains'];
 
         /**
-        * @see _.some
-        **/
-        any<T>(
-            list: _.List<T>,
-            iterator?: _.ListIterator<T, boolean>,
-            context?: any): boolean;
-
-        /**
-        * @see _.some
-        **/
-        any<T>(
-            object: _.Dictionary<T>,
-            iterator?: _.ObjectIterator<T, boolean>,
-            context?: any): boolean;
-
-        any<T>(
-            list: _.List<T>,
-            value: T): boolean;
-
-        /**
-        * Returns true if the value is present in the list. Uses indexOf internally,
-        * if list is an Array.
-        * @param list Checks each element to see if `value` is present.
-        * @param value The value to check for within `list`.
-        * @return True if `value` is present in `list`, otherwise false.
-        **/
-        contains<T>(
-            list: _.List<T>,
-            value: T,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.contains
-        **/
-        contains<T>(
-            object: _.Dictionary<T>,
-            value: T): boolean;
-
-        /**
-        * @see _.contains
-        **/
-        include<T>(
-            list: _.Collection<T>,
-            value: T,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.contains
-        **/
-        include<T>(
-            object: _.Dictionary<T>,
-            value: T): boolean;
-
-        /**
-        * @see _.contains
-        **/
-        includes<T>(
-            list: _.Collection<T>,
-            value: T,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.contains
-        **/
-        includes<T>(
-            object: _.Dictionary<T>,
-            value: T): boolean;
+         * @see contains
+         **/
+        includes: UnderscoreStatic['contains'];
 
         /**
         * Calls the method named by methodName on each value in the list. Any extra arguments passed to
@@ -4172,44 +4112,56 @@ declare module _ {
         reject(iteratee?: Iteratee<V, boolean>, context?: any): T[];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.all
-        **/
-        all(iterator?: _.ListIterator<T, boolean>, context?: any): boolean;
+         * Returns true if all of the values in the wrapped collection pass the
+         * `iteratee` truth test. Short-circuits and stops traversing the
+         * wrapped collection if a false element is found.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns True if all elements pass the truth test, otherwise false.
+         **/
+        every(iteratee?: Iteratee<V, boolean>, context?: any): boolean;
 
         /**
-        * @see _.all
-        **/
-        every(iterator?: _.ListIterator<T, boolean>, context?: any): boolean;
+         * @see every
+         **/
+        all: Underscore<T, V>['every'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.any
-        **/
-        any(iterator?: _.ListIterator<T, boolean>, context?: any): boolean;
+         * Returns true if any of the values in the wrapped collection pass the
+         * `iteratee` truth test. Short-circuits and stops traversing the
+         * wrapped collection if a true element is found.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns True if any element passed the truth test, otherwise false.
+         **/
+        some(iteratee?: Iteratee<V, boolean>, context?: any): boolean;
 
         /**
-        * @see _.any
-        **/
-        some(iterator?: _.ListIterator<T, boolean>, context?: any): boolean;
+         * @see some
+         **/
+        any: Underscore<T, V>['some'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.contains
-        **/
-        contains(value: T, fromIndex?: number): boolean;
+         * Returns true if the value is present in the wrapped collection. Uses
+         * indexOf internally, if the wrapped collection is a List. Use
+         * `fromIndex` to start your search at a given index.
+         * @param value The value to check the wrapped collection for.
+         * @param fromIndex The index to start searching from, optional,
+         * default = 0, only used when the wrapped collection is a List.
+         * @returns True if `value` is present in the wrapped collection after
+         * `fromIndex`, otherwise false.
+         **/
+        contains(value: any, fromIndex?: number): boolean;
 
         /**
-        * Alias for 'contains'.
-        * @see contains
-        **/
-        include(value: T, fromIndex?: number): boolean;
-
-        /**
-         * Alias for 'contains'.
          * @see contains
          **/
-        includes(value: T, fromIndex?: number): boolean;
+        include: Underscore<T, V>['contains'];
+
+        /**
+         * @see contains
+         **/
+        includes: Underscore<T, V>['contains'];
 
         /**
         * Wrapped type `any[]`.
@@ -5165,44 +5117,58 @@ declare module _ {
         reject(iteratee?: _ChainIteratee<V, boolean, T>, context?: any): _Chain<T, T[]>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.all
-        **/
-        all(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
+         * Returns true if all of the values in the wrapped collection pass the
+         * `iteratee` truth test. Short-circuits and stops traversing the
+         * wrapped collection if a false element is found.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A chain wrapper around true if all elements pass the truth
+         * test, otherwise around false.
+         **/
+        every(iterator?: _ChainIteratee<V, boolean, T>, context?: any): _ChainSingle<boolean>;
 
         /**
-        * @see _.all
-        **/
-        every(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
+         * @see every
+         **/
+        all: _Chain<T, V>['every'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.any
-        **/
-        any(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
+         * Returns true if any of the values in the wrapped collection pass the
+         * `iteratee` truth test. Short-circuits and stops traversing the
+         * wrapped collection if a true element is found.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A chain wrapper around true if any element passed the truth
+         * test, otherwise around false.
+         **/
+        some(iterator?: _ChainIteratee<V, boolean, T>, context?: any): _ChainSingle<boolean>;
 
         /**
-        * @see _.any
-        **/
-        some(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
+         * @see some
+         **/
+        any: _Chain<T, V>['some'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.contains
-        **/
-        contains(value: T, fromIndex?: number): _ChainSingle<boolean>;
+         * Returns true if the value is present in the wrapped collection. Uses
+         * indexOf internally, if the wrapped collection is a List. Use
+         * `fromIndex` to start your search at a given index.
+         * @param value The value to check the wrapped collection for.
+         * @param fromIndex The index to start searching from, optional,
+         * default = 0, only used when the wrapped collection is a List.
+         * @returns A chain wrapper around true if `value` is present in the
+         * wrapped collection after `fromIndex`, otherwise around false.
+         **/
+        contains(value: any, fromIndex?: number): _ChainSingle<boolean>;
 
         /**
-        * Alias for 'contains'.
-        * @see contains
-        **/
-        include(value: T, fromIndex?: number): _ChainSingle<boolean>;
-
-        /**
-         * Alias for 'contains'.
          * @see contains
          **/
-        includes(value: T, fromIndex?: number): _ChainSingle<boolean>;
+        include: _Chain<T, V>['contains'];
+
+        /**
+         * @see contains
+         **/
+        includes: _Chain<T, V>['contains'];
 
         /**
         * Wrapped type `any[]`.

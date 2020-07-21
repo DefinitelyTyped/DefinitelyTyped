@@ -486,6 +486,12 @@ _.chain(anyValue)
     .find(i => i.findBooleanFunction())
     .value();
 
+// $ExpectType boolean
+_.chain([{ a: 1 }, { a: 2 }, { a: 3 }, { b: 4 }])
+    .map('a')
+    .contains(3)
+    .value();
+
 // $ExpectType { valueProperty: string; } | undefined
 _.chain([
     {
@@ -638,6 +644,9 @@ declare const anyCollectionVoidIterator: (element: any, index: string | number, 
 
 const simpleNumber = 7;
 declare const simpleNumberDictionary: _.Dictionary<number>;
+
+declare const simpleBooleanList: _.List<boolean>;
+declare const simpleBooleanDictionary: _.Dictionary<boolean>;
 
 declare const mixedIterabilityValue: number | number[];
 declare const neverValue: never;
@@ -1462,6 +1471,260 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _.reject(simpleNumberDictionary); // $ExpectType number[]
     _(simpleNumberDictionary).reject(); // $ExpectType number[]
     extractChainTypes(_.chain(simpleNumberDictionary).reject()); // $ExpectType ChainType<number[], number>
+}
+
+// every, all
+{
+    // function iteratee - lists - every
+    _.every(stringRecordList, stringRecordListBooleanIterator); // $ExpectType boolean
+    _(stringRecordList).every(stringRecordListBooleanIterator, context); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).every(stringRecordListBooleanIterator)); // $ExpectType ChainType<boolean, never>
+
+    // function iteratee - lists - all
+    _.all(stringRecordList, stringRecordListBooleanIterator, context); // $ExpectType boolean
+    _(stringRecordList).all(stringRecordListBooleanIterator); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).all(stringRecordListBooleanIterator, context)); // $ExpectType ChainType<boolean, never>
+
+    // function iteratee - dictionaries - every
+    _.every(stringRecordDictionary, stringRecordDictionaryBooleanIterator, context); // $ExpectType boolean
+    _(stringRecordDictionary).every(stringRecordDictionaryBooleanIterator); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).every(stringRecordDictionaryBooleanIterator, context)); // $ExpectType ChainType<boolean, never>
+
+    // function iteratee - dictionaries - all
+    _.all(stringRecordDictionary, stringRecordDictionaryBooleanIterator); // $ExpectType boolean
+    _(stringRecordDictionary).all(stringRecordDictionaryBooleanIterator, context); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).all(stringRecordDictionaryBooleanIterator)); // $ExpectType ChainType<boolean, never>
+
+    // partial object iteratee - lists - every
+    _.every(stringRecordList, partialStringRecord); // $ExpectType boolean
+    _(stringRecordList).every(partialStringRecord); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).every(partialStringRecord)); // $ExpectType ChainType<boolean, never>
+
+    // partial object iteratee - lists - all
+    _.all(stringRecordList, partialStringRecord); // $ExpectType boolean
+    _(stringRecordList).all(partialStringRecord); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).all(partialStringRecord)); // $ExpectType ChainType<boolean, never>
+
+    // partial object iteratee - dictionaries - every
+    _.every(stringRecordDictionary, partialStringRecord); // $ExpectType boolean
+    _(stringRecordDictionary).every(partialStringRecord); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).every(partialStringRecord)); // $ExpectType ChainType<boolean, never>
+
+    // partial object iteratee - dictionaries - all
+    _.all(stringRecordDictionary, partialStringRecord); // $ExpectType boolean
+    _(stringRecordDictionary).all(partialStringRecord); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).all(partialStringRecord)); // $ExpectType ChainType<boolean, never>
+
+    // property name iterator - lists - every
+    _.every(stringRecordList, stringRecordProperty); // $ExpectType boolean
+    _(stringRecordList).every(stringRecordProperty); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).every(stringRecordProperty)); // $ExpectType ChainType<boolean, never>
+
+    // property name iterator - lists - all
+    _.all(stringRecordList, stringRecordProperty); // $ExpectType boolean
+    _(stringRecordList).all(stringRecordProperty); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).all(stringRecordProperty)); // $ExpectType ChainType<boolean, never>
+
+    // property name iterator - dictionaries - every
+    _.every(stringRecordDictionary, stringRecordProperty); // $ExpectType boolean
+    _(stringRecordDictionary).every(stringRecordProperty); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).every(stringRecordProperty)); // $ExpectType ChainType<boolean, never>
+
+    // property name iterator - dictionaries - all
+    _.all(stringRecordDictionary, stringRecordProperty); // $ExpectType boolean
+    _(stringRecordDictionary).all(stringRecordProperty); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).all(stringRecordProperty)); // $ExpectType ChainType<boolean, never>
+
+    // property path iterator - lists - every
+    _.every(stringRecordList, stringRecordPropertyPath); // $ExpectType boolean
+    _(stringRecordList).every(stringRecordPropertyPath); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).every(stringRecordPropertyPath)); // $ExpectType ChainType<boolean, never>
+
+    // property path iterator - lists - all
+    _.all(stringRecordList, stringRecordPropertyPath); // $ExpectType boolean
+    _(stringRecordList).all(stringRecordPropertyPath); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).all(stringRecordPropertyPath)); // $ExpectType ChainType<boolean, never>
+
+    // property path iterator - dictionaries - every
+    _.every(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType boolean
+    _(stringRecordDictionary).every(stringRecordPropertyPath); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).every(stringRecordPropertyPath)); // $ExpectType ChainType<boolean, never>
+
+    // property path iterator - dictionaries - all
+    _.all(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType boolean
+    _(stringRecordDictionary).all(stringRecordPropertyPath); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).all(stringRecordPropertyPath)); // $ExpectType ChainType<boolean, never>
+
+    // identity iterator - lists - every
+    _.every(simpleBooleanList); // $ExpectType boolean
+    _(simpleBooleanList).every(); // $ExpectType boolean
+    extractChainTypes(_.chain(simpleBooleanList).every()); // $ExpectType ChainType<boolean, never>
+
+    // identity iterator - lists - all
+    _.all(simpleBooleanList); // $ExpectType boolean
+    _(simpleBooleanList).all(); // $ExpectType boolean
+    extractChainTypes(_.chain(simpleBooleanList).all()); // $ExpectType ChainType<boolean, never>
+
+    // identity iterator - dictionaries - every
+    _.every(simpleBooleanDictionary); // $ExpectType boolean
+    _(simpleBooleanDictionary).every(); // $ExpectType boolean
+    extractChainTypes(_.chain(simpleBooleanDictionary).every()); // $ExpectType ChainType<boolean, never>
+
+    // identity iterator - dictionaries - all
+    _.all(simpleBooleanDictionary); // $ExpectType boolean
+    _(simpleBooleanDictionary).all(); // $ExpectType boolean
+    extractChainTypes(_.chain(simpleBooleanDictionary).all()); // $ExpectType ChainType<boolean, never>
+}
+
+// some, any
+{
+    // function iteratee - lists - some
+    _.some(stringRecordList, stringRecordListBooleanIterator); // $ExpectType boolean
+    _(stringRecordList).some(stringRecordListBooleanIterator, context); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).some(stringRecordListBooleanIterator)); // $ExpectType ChainType<boolean, never>
+
+    // function iteratee - lists - any
+    _.any(stringRecordList, stringRecordListBooleanIterator, context); // $ExpectType boolean
+    _(stringRecordList).any(stringRecordListBooleanIterator); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).any(stringRecordListBooleanIterator, context)); // $ExpectType ChainType<boolean, never>
+
+    // function iteratee - dictionaries - some
+    _.some(stringRecordDictionary, stringRecordDictionaryBooleanIterator, context); // $ExpectType boolean
+    _(stringRecordDictionary).some(stringRecordDictionaryBooleanIterator); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).some(stringRecordDictionaryBooleanIterator, context)); // $ExpectType ChainType<boolean, never>
+
+    // function iteratee - dictionaries - any
+    _.any(stringRecordDictionary, stringRecordDictionaryBooleanIterator); // $ExpectType boolean
+    _(stringRecordDictionary).any(stringRecordDictionaryBooleanIterator, context); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).any(stringRecordDictionaryBooleanIterator)); // $ExpectType ChainType<boolean, never>
+
+    // partial object iteratee - lists - some
+    _.some(stringRecordList, partialStringRecord); // $ExpectType boolean
+    _(stringRecordList).some(partialStringRecord); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).some(partialStringRecord)); // $ExpectType ChainType<boolean, never>
+
+    // partial object iteratee - lists - any
+    _.any(stringRecordList, partialStringRecord); // $ExpectType boolean
+    _(stringRecordList).any(partialStringRecord); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).any(partialStringRecord)); // $ExpectType ChainType<boolean, never>
+
+    // partial object iteratee - dictionaries - some
+    _.some(stringRecordDictionary, partialStringRecord); // $ExpectType boolean
+    _(stringRecordDictionary).some(partialStringRecord); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).some(partialStringRecord)); // $ExpectType ChainType<boolean, never>
+
+    // partial object iteratee - dictionaries - any
+    _.any(stringRecordDictionary, partialStringRecord); // $ExpectType boolean
+    _(stringRecordDictionary).any(partialStringRecord); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).any(partialStringRecord)); // $ExpectType ChainType<boolean, never>
+
+    // property name iterator - lists - some
+    _.some(stringRecordList, stringRecordProperty); // $ExpectType boolean
+    _(stringRecordList).some(stringRecordProperty); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).some(stringRecordProperty)); // $ExpectType ChainType<boolean, never>
+
+    // property name iterator - lists - any
+    _.any(stringRecordList, stringRecordProperty); // $ExpectType boolean
+    _(stringRecordList).any(stringRecordProperty); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).any(stringRecordProperty)); // $ExpectType ChainType<boolean, never>
+
+    // property name iterator - dictionaries - some
+    _.some(stringRecordDictionary, stringRecordProperty); // $ExpectType boolean
+    _(stringRecordDictionary).some(stringRecordProperty); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).some(stringRecordProperty)); // $ExpectType ChainType<boolean, never>
+
+    // property name iterator - dictionaries - any
+    _.any(stringRecordDictionary, stringRecordProperty); // $ExpectType boolean
+    _(stringRecordDictionary).any(stringRecordProperty); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).any(stringRecordProperty)); // $ExpectType ChainType<boolean, never>
+
+    // property path iterator - lists - some
+    _.some(stringRecordList, stringRecordPropertyPath); // $ExpectType boolean
+    _(stringRecordList).some(stringRecordPropertyPath); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).some(stringRecordPropertyPath)); // $ExpectType ChainType<boolean, never>
+
+    // property path iterator - lists - any
+    _.any(stringRecordList, stringRecordPropertyPath); // $ExpectType boolean
+    _(stringRecordList).any(stringRecordPropertyPath); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).any(stringRecordPropertyPath)); // $ExpectType ChainType<boolean, never>
+
+    // property path iterator - dictionaries - some
+    _.some(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType boolean
+    _(stringRecordDictionary).some(stringRecordPropertyPath); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).some(stringRecordPropertyPath)); // $ExpectType ChainType<boolean, never>
+
+    // property path iterator - dictionaries - any
+    _.any(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType boolean
+    _(stringRecordDictionary).any(stringRecordPropertyPath); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).any(stringRecordPropertyPath)); // $ExpectType ChainType<boolean, never>
+
+    // identity iterator - lists - some
+    _.some(simpleBooleanList); // $ExpectType boolean
+    _(simpleBooleanList).some(); // $ExpectType boolean
+    extractChainTypes(_.chain(simpleBooleanList).some()); // $ExpectType ChainType<boolean, never>
+
+    // identity iterator - lists - any
+    _.any(simpleBooleanList); // $ExpectType boolean
+    _(simpleBooleanList).any(); // $ExpectType boolean
+    extractChainTypes(_.chain(simpleBooleanList).any()); // $ExpectType ChainType<boolean, never>
+
+    // identity iterator - dictionaries - some
+    _.some(simpleBooleanDictionary); // $ExpectType boolean
+    _(simpleBooleanDictionary).some(); // $ExpectType boolean
+    extractChainTypes(_.chain(simpleBooleanDictionary).some()); // $ExpectType ChainType<boolean, never>
+
+    // identity iterator - dictionaries - any
+    _.any(simpleBooleanDictionary); // $ExpectType boolean
+    _(simpleBooleanDictionary).any(); // $ExpectType boolean
+    extractChainTypes(_.chain(simpleBooleanDictionary).any()); // $ExpectType ChainType<boolean, never>
+}
+
+// contains, include, includes
+{
+    // no index - lists - contains
+    _.contains(stringRecordList, stringRecordList[0]); // $ExpectType boolean
+    _(stringRecordList).contains(stringRecordList[0]); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).contains(stringRecordList[0])); // $ExpectType ChainType<boolean, never>
+
+    // no index - lists - include
+    _.include(stringRecordList, stringRecordList[0]); // $ExpectType boolean
+    _(stringRecordList).include(stringRecordList[0]); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).include(stringRecordList[0])); // $ExpectType ChainType<boolean, never>
+
+    // no index - lists - includes
+    _.includes(stringRecordList, stringRecordList[0]); // $ExpectType boolean
+    _(stringRecordList).includes(stringRecordList[0]); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).includes(stringRecordList[0])); // $ExpectType ChainType<boolean, never>
+
+    // no index - dictionaries - contains
+    _.contains(stringRecordDictionary, stringRecordList[0]); // $ExpectType boolean
+    _(stringRecordDictionary).contains(stringRecordList[0]); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).contains(stringRecordList[0])); // $ExpectType ChainType<boolean, never>
+
+    // no index - dictionaries - include
+    _.include(stringRecordDictionary, stringRecordList[0]); // $ExpectType boolean
+    _(stringRecordDictionary).include(stringRecordList[0]); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).include(stringRecordList[0])); // $ExpectType ChainType<boolean, never>
+
+    // no index - dictionaries - includes
+    _.includes(stringRecordDictionary, stringRecordList[0]); // $ExpectType boolean
+    _(stringRecordDictionary).includes(stringRecordList[0]); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordDictionary).includes(stringRecordList[0])); // $ExpectType ChainType<boolean, never>
+
+    // with index - contains
+    _.contains(stringRecordList, stringRecordList[0], simpleNumber); // $ExpectType boolean
+    _(stringRecordList).contains(stringRecordList[0], simpleNumber); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).contains(stringRecordList[0], simpleNumber)); // $ExpectType ChainType<boolean, never>
+
+    // with index - include
+    _.include(stringRecordList, stringRecordList[0], simpleNumber); // $ExpectType boolean
+    _(stringRecordList).include(stringRecordList[0], simpleNumber); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).include(stringRecordList[0], simpleNumber)); // $ExpectType ChainType<boolean, never>
+
+    // with index - includes
+    _.includes(stringRecordList, stringRecordList[0], simpleNumber); // $ExpectType boolean
+    _(stringRecordList).includes(stringRecordList[0], simpleNumber); // $ExpectType boolean
+    extractChainTypes(_.chain(stringRecordList).includes(stringRecordList[0], simpleNumber)); // $ExpectType ChainType<boolean, never>
 }
 
 // pluck
