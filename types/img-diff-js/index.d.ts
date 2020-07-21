@@ -7,12 +7,12 @@ export interface ImgDiffOptions {
     actualFilename: string;
     expectedFilename: string;
     diffFilename?: string;
-    /** default: `false` **/
+    /** {default:false} */
     generateOnlyDiffFile?: boolean;
     options?: {
-        /** default: `0.1` **/
+        /** {default: 0.1} */
         threshold?: number;
-        /** default: `false` **/
+        /** {default:false} */
         includeAA?: boolean;
     };
 }
