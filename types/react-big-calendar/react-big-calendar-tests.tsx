@@ -104,10 +104,12 @@ class CalendarResource {
 
 // Drag and Drop Example Test
 {
+    class MyCalendar extends Calendar<CalendarEvent, CalendarResource> {}
+
     interface Props {
         localizer: DateLocalizer;
     }
-    const DragAndDropCalendar = withDragAndDrop(Calendar);
+    const DragAndDropCalendar = withDragAndDrop<CalendarEvent, CalendarResource>(MyCalendar);
     const DnD = ({ localizer }: Props) => (
         <DragAndDropCalendar
             events={getEvents()}
@@ -143,10 +145,7 @@ class CalendarResource {
 
 // overriding 'views' props
 {
-    interface DayProps {
-        random: string;
-    }
-    class DayComponent extends React.Component<DayProps> {
+    class DayComponent extends React.Component {
         static title() {
             return 'title';
         }
@@ -299,7 +298,7 @@ function getResources(): CalendarResource[] {
     ];
 }
 
-class EventAgenda extends React.Component<any, any> {
+class EventAgenda extends React.Component<EventProps<CalendarEvent>> {
     render() {
         // const { label } = this.props;
         return (
