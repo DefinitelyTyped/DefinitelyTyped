@@ -6810,6 +6810,14 @@ export class ScrollView extends ScrollViewBase {
      * @deprecated Use scrollTo instead
      */
     scrollWithoutAnimationTo?: (y: number, x: number) => void;
+    
+    /**
+     * This function sends props straight to native. They will not participate in
+     * future diff process - this means that if you do not include them in the
+     * next render, they will remain active (see [Direct
+     * Manipulation](docs/direct-manipulation.html)).
+     */
+    setNativeProps(nativeProps: Object): void;
 }
 
 export interface NativeScrollRectangle {
