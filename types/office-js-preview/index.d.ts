@@ -7885,6 +7885,17 @@ declare namespace Office {
 declare namespace Office {
     namespace MailboxEnums {
         /**
+         * Specifies the type of action in a notification message.
+         *
+         * [Api set: Mailbox Preview]
+         */
+        enum ActionType {
+            /**
+             * The `showTaskPane` action.
+             */
+            ShowTaskPane = "showTaskPane"
+        }
+        /**
          * Specifies the sensitivity type of an appointment.
          *
          * [Api set: Mailbox Preview]
@@ -7902,21 +7913,18 @@ declare namespace Office {
              * [Api set: Mailbox Preview]
              */
             Normal = "normal",
-
             /**
              * Treat the item as personal.
              *
              * [Api set: Mailbox Preview]
              */
             Personal = "personal",
-
             /**
              * Treat the item as private.
              *
              * [Api set: Mailbox Preview]
              */
             Private = "private",
-
             /**
              * Treat the item as confidential.
              *
@@ -7938,17 +7946,14 @@ declare namespace Office {
              * The content of the attachment is returned as a base64-encoded string.
              */
             Base64 = "base64",
-
             /**
              * The content of the attachment is returned as a string representing a URL.
              */
             Url = "url",
-
             /**
              * The content of the attachment is returned as a string representing an .eml formatted file.
              */
             Eml = "eml",
-
             /**
              * The content of the attachment is returned as a string representing an .icalendar formatted file.
              */
@@ -7968,7 +7973,6 @@ declare namespace Office {
              * An attachment was added to the item.
              */
             Added = "added",
-
             /**
              * An attachment was removed from the item.
              */
@@ -8293,7 +8297,13 @@ declare namespace Office {
             /**
              * The notification message is an error message.
              */
-            ErrorMessage = "errorMessage"
+            ErrorMessage = "errorMessage",
+            /**
+             * The notification message is an informational message with actions.
+             *
+             * [Api set: Mailbox Preview]
+             */
+            InsightMessage = "insightMessage"
         }
         /**
          * Specifies an item's type.
@@ -16150,6 +16160,36 @@ declare namespace Office {
         setAsync(isAllDayEvent: boolean, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
+     * The definition of the action for a notification message.
+     *
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     *
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+     *
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+     */
+    interface NotificationMessageAction {
+        /**
+         * The type of action to be performed.
+         * `ActionType.ShowTaskPane` is the only supported action.
+         */
+        actionType: string | MailboxEnums.ActionType;
+        /**
+         * The text of the action link.
+         */
+        actionText: string;
+        /**
+         * The button defined in the manifest based on the item type.
+         */
+        commandId: string;
+        /**
+         * Any JSON data the button needs to pass on.
+         */
+        contextData: any;
+    }
+    /**
      * An array of `NotificationMessageDetails` objects are returned by the `NotificationMessages.getAllAsync` method.
      *
      * [Api set: Mailbox 1.3]
@@ -16166,9 +16206,12 @@ declare namespace Office {
          */
         key?: string;
         /**
-         * Specifies the `ItemNotificationMessageType` of message. If type is `ProgressIndicator` or `ErrorMessage`, an icon is automatically supplied
+         * Specifies the `ItemNotificationMessageType` of message.
+         *
+         * If type is `ProgressIndicator` or `ErrorMessage`, an icon is automatically supplied
          * and the message is not persistent. Therefore the icon and persistent properties are not valid for these types of messages.
          * Including them will result in an `ArgumentException`.
+         *
          * If type is `ProgressIndicator`, the developer should remove or replace the progress indicator when the action is complete.
          */
         type: MailboxEnums.ItemNotificationMessageType | string;
@@ -16185,12 +16228,25 @@ declare namespace Office {
          */
         message: string;
         /**
-         * Only applicable when type is `InformationalMessage`. If true, the message remains until removed by this add-in or dismissed by the user.
+         * Specifies if the message should be persistent. Only applicable when type is `InformationalMessage`.
+         * If true, the message remains until removed by this add-in or dismissed by the user.
          * If false, it is removed when the user navigates to a different item.
          * For error notifications, the message persists until the user sees it once.
          * Specifying this parameter for an unsupported type throws an exception.
          */
         persistent?: Boolean;
+        /**
+         * Specifies actions for the message. Limit: 2 actions. This limit doesn't count the "Dismiss" action as it's included by default.
+         * Only applicable when the type is `InsightMessage`.
+         * Specifying this property for an unsupported type or including too many actions throws an error.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         */
+        actions?: NotificationMessageAction[];
     }
     /**
      * The `NotificationMessages` object is returned as the `notificationMessages` property of an item.
