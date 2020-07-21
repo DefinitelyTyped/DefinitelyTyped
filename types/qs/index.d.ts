@@ -61,7 +61,7 @@ declare namespace QueryString {
     // When these types support TypeScript 3.0+, we can replace this with `unknown`.
     type UnknownFacade = {} | null | undefined;
 
-    /** @deprecated - UnknownFacade is more clear about what's going on */
+    /** @deprecated - Use `UnknownFacade` instead. It is a better classifier for the type */
     type PoorMansUnknown = UnknownFacade
 
     function stringify(obj: any, options?: IStringifyOptions): string;
