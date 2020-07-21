@@ -3,38 +3,36 @@
 // Definitions by: Kevin Brown <https://github.com/thekevinbrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'folder-hash' {
-    type PathGlobFunction = () => string[];
+export type PathGlobFunction = () => string[];
 
-    export interface FolderAndFileOptions {
-        exclude?: string[] | PathGlobFunction;
-        include?: string[] | PathGlobFunction;
-        matchBasename?: boolean;
-        matchPath?: boolean;
-        ignoreBasename?: boolean;
-        ignoreRootName?: boolean;
-    }
-    export interface HashElementOptions {
-        // See crypto.getHashes() for options.
-        // Defaults to 'sha1'.
-        algo?: string;
-        // Defaults to 'base64'
-        encoding?: 'base64' | 'hex' | 'binary';
-        folders?: FolderAndFileOptions;
-        files?: FolderAndFileOptions;
-    }
-
-    export interface HashElementNode {
-        name: string;
-        hash: string;
-        children: HashElementNode[];
-    }
-    export function hashElement(path: string, options?: HashElementOptions): Promise<HashElementNode>;
-    export function hashElement(path: string, dir?: string, options?: HashElementOptions): Promise<HashElementNode>;
-    export function hashElement(
-        path: string,
-        dir?: string,
-        options?: HashElementOptions,
-        callback?: (error?: Error, result?: HashElementNode) => any,
-    ): void;
+export interface FolderAndFileOptions {
+    exclude?: string[] | PathGlobFunction;
+    include?: string[] | PathGlobFunction;
+    matchBasename?: boolean;
+    matchPath?: boolean;
+    ignoreBasename?: boolean;
+    ignoreRootName?: boolean;
 }
+export interface HashElementOptions {
+    // See crypto.getHashes() for options.
+    // Defaults to 'sha1'.
+    algo?: string;
+    // Defaults to 'base64'
+    encoding?: 'base64' | 'hex' | 'binary';
+    folders?: FolderAndFileOptions;
+    files?: FolderAndFileOptions;
+}
+
+export interface HashElementNode {
+    name: string;
+    hash: string;
+    children: HashElementNode[];
+}
+export function hashElement(path: string, options?: HashElementOptions): Promise<HashElementNode>;
+export function hashElement(path: string, dir?: string, options?: HashElementOptions): Promise<HashElementNode>;
+export function hashElement(
+    path: string,
+    dir?: string,
+    options?: HashElementOptions,
+    callback?: (error?: Error, result?: HashElementNode) => any,
+): void;

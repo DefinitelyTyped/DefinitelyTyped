@@ -73,8 +73,20 @@ const testAsync = async () => {
     // $ExpectType HashElementNode
     await hashElement('./whatever', 'directory', functionOptions);
 
-    // $ExpectType HashElementNode
-    await hashElement('./whatever', 'directory', stringOptions, (error, result) => {});
-    // $ExpectType HashElementNode
-    await hashElement('./whatever', 'directory', functionOptions, (error, result) => {});
+    // $ExpectType void
+    hashElement('./whatever', 'directory', stringOptions, (error, result) => {
+        // $ExpectType Error | undefined
+        error;
+
+        // $ExpectType HashElementNode | undefined
+        result;
+    });
+    // $ExpectType void
+    hashElement('./whatever', 'directory', functionOptions, (error, result) => {
+        // $ExpectType Error | undefined
+        error;
+
+        // $ExpectType HashElementNode | undefined
+        result;
+    });
 };
