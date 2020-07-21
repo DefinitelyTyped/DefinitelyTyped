@@ -1499,17 +1499,17 @@ declare namespace Sinon {
         /**
          * Creates a basic fake, with no behavior
          */
-        (): SinonSpy;
+        (): SinonSpy<any[], void>;
         /**
          * Wraps an existing Function to record all interactions, while leaving it up to the func to provide the behavior.
          * This is useful when complex behavior not covered by the sinon.fake.* methods is required or when wrapping an existing function or method.
          */
-        (fn: Function): SinonSpy;
+        <TArgs extends any[], TReturn>(fn: (...args: TArgs) => TReturn): SinonSpy<TArgs, TReturn>;
         /**
          * Creates a fake that returns the val argument
          * @param val Returned value
          */
-        returns(val: any): SinonSpy;
+        returns<T>(val: T): SinonSpy<any[], T>;
         /**
          * Creates a fake that throws an Error with the provided value as the message property.
          * If an Error is passed as the val argument, then that will be the thrown value. If any other value is passed, then that will be used for the message property of the thrown Error.
@@ -1520,7 +1520,7 @@ declare namespace Sinon {
          * Creates a fake that returns a resolved Promise for the passed value.
          * @param val Resolved promise
          */
-        resolves(val: any): SinonSpy;
+        resolves<T>(val: T): SinonSpy<any[], Promise<T>>;
         /**
          * Creates a fake that returns a rejected Promise for the passed value.
          * If an Error is passed as the value argument, then that will be the value of the promise.

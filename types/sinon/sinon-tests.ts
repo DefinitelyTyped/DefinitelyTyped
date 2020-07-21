@@ -250,16 +250,16 @@ function testMatch() {
 
 function testFake() {
     const fn = () => { };
-    let fake = sinon.fake();
+    const fake = sinon.fake();
 
-    fake = sinon.fake(() => true);
-    fake = sinon.fake.returns(5);
-    fake = sinon.fake.throws('foo');
-    fake = sinon.fake.throws(new Error('foo'));
-    fake = sinon.fake.resolves('foo');
-    fake = sinon.fake.rejects('foo');
-    fake = sinon.fake.yields(1, 2, fn);
-    fake = sinon.fake.yieldsAsync(1, 2, fn);
+    const fakeFn = sinon.fake(() => true);
+    const fakeReturns = sinon.fake.returns(5);
+    const fakeThrows = sinon.fake.throws('foo');
+    const fakeThrowsError = sinon.fake.throws(new Error('foo'));
+    const fakeResolves = sinon.fake.resolves('foo');
+    const fakeRejects = sinon.fake.rejects('foo');
+    const fakeYields = sinon.fake.yields(1, 2, fn);
+    const fakeYieldsAsync = sinon.fake.yieldsAsync(1, 2, fn);
 
     fake.calledWith('foo');
 }
