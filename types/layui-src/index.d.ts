@@ -3,6 +3,8 @@
 // Definitions by: javabitar <https://github.com/javabitar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.1
+
+/// <reference types="jquery" />
 declare namespace layui {
     type LayerCallbackSuccess = null | ((layero: JQuery, index: number) => void);
     type LayerCallbackYes = null | ((index: number, layero: JQuery) => boolean | void);
