@@ -1,5 +1,5 @@
 // Type definitions for layui-src 2.5
-// Project: https://github.com/javabitar/layui
+// Project: https://github.com/sentsin/layui
 // Definitions by: javabitar <https://github.com/javabitar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.1
@@ -72,7 +72,7 @@ declare namespace layui {
     }
 
     interface LayerTabOptions extends LayerOptions {
-        tab: Array<{ title: string, content: string }>;
+        tab: Array<{ title: string; content: string }>;
     }
 
     interface LayerPhotosOptions extends LayerOptions {
@@ -206,11 +206,11 @@ declare namespace layui {
 
         progress(filter: string, percent: string): void;
 
-        init(type?: "tab" | "nav" | "breadcrumb" | "progress" | "collapse", filter?: string): void;
+        init(type?: 'tab' | 'nav' | 'breadcrumb' | 'progress' | 'collapse', filter?: string): void;
 
         // Element.prototype.render = Element.prototype.init;
         // 当type不能识别时，layui会遍历渲染"tab""nav"|"breadcrumb"|"progress"|"collapse" 全部；
-        render(type?: "tab" | "nav" | "breadcrumb" | "progress" | "collapse", filter?: string): void;
+        render(type?: 'tab' | 'nav' | 'breadcrumb' | 'progress' | 'collapse', filter?: string): void;
     }
 
     // 参数不用加'?'
@@ -237,7 +237,7 @@ declare namespace layui {
          */
         on(event: string, callback: (data: LayFormData) => any): void;
 
-        render(type?: "select" | "checkbox" | "radio" | null, filter?: string): any;
+        render(type?: 'select' | 'checkbox' | 'radio' | null, filter?: string): any;
 
         val(filter: string, obj?: object): any;
 
@@ -288,7 +288,7 @@ declare namespace layui {
         max?: string | number;
         trigger?: string;
         show?: boolean;
-        position?: "abolute" | "fixed" | "static";
+        position?: 'abolute' | 'fixed' | 'static';
         zIndex?: number;
         showBottom?: boolean;
         btns?: Array<'clear' | 'now' | 'confirm'>;
@@ -305,7 +305,7 @@ declare namespace layui {
      * https://www.layui.com/doc/modules/laydate.html
      */
     interface Laydate {
-        render(options: DateOption): { "config": DateOption, "hint": () => void };
+        render(options: DateOption): { config: DateOption; hint: () => void };
 
         set(options: DateOption): void;
 
@@ -331,12 +331,12 @@ declare namespace layui {
         width?: string;
         height?: string;
         full?: boolean;
-        anim?: "default" | "updown" | "fade";
+        anim?: 'default' | 'updown' | 'fade';
         autoplay?: boolean;
         interval?: number;
         index?: number;
-        arrow?: "hover" | "always" | "none";
-        indicator?: "insider" | "outsider" | "none";
+        arrow?: 'hover' | 'always' | 'none';
+        indicator?: 'insider' | 'outsider' | 'none';
         trigger?: string;
     }
 
@@ -360,22 +360,22 @@ declare namespace layui {
         title?: string;
         width?: string | number;
         minWidth?: number;
-        type?: "normal" | "checkbox" | "radio" | "space" | "numbers";
+        type?: 'normal' | 'checkbox' | 'radio' | 'space' | 'numbers';
         LAY_CHECKED?: boolean;
-        fixed?: "left" | "right";
+        fixed?: 'left' | 'right';
         hide?: boolean;
-        totalRow?: boolean | { "score": number | string, "experience": string };
+        totalRow?: boolean | { score: number | string; experience: string };
         totalRowText?: string;
         sort?: boolean;
         unresize?: boolean;
-        edit?: "text" | string;
+        edit?: 'text' | string;
         event?: string;
         style?: string;
-        align?: "left" | "center" | "right";
+        align?: 'left' | 'center' | 'right';
         colspan?: number;
         rowspan?: number;
         templet?: string | ((d: any) => string);
-        toolbar?: string;   // #toolbar 或者html且必须需有标签,例如'<b>{{d.city}}</b>'  因为源码中使用了 $(toolbar).html
+        toolbar?: string; // #toolbar 或者html且必须需有标签,例如'<b>{{d.city}}</b>'  因为源码中使用了 $(toolbar).html
     }
 
     interface TableRequestRename {
@@ -429,7 +429,7 @@ declare namespace layui {
         cols?: TableColumnOption[][];
         url?: string | null;
         toolbar?: string | HTMLElement | boolean;
-        defaultToolbar?: Array<string | { "title": string, layEvent: string, icon: string }>;
+        defaultToolbar?: Array<string | { title: string; layEvent: string; icon: string }>;
         height?: number | string; // 'full-100'
         width?: number | string;
         cellMinWidth?: number;
@@ -441,13 +441,13 @@ declare namespace layui {
         limits?: number[];
         loading?: boolean;
         title?: string;
-        text?: { "none": string };
+        text?: { none: string };
         autoSort?: boolean;
-        initSort?: { field: string, type?: "null" | "desc" | "asc" };
+        initSort?: { field: string; type?: 'null' | 'desc' | 'asc' };
         id?: string;
-        skin?: "line" | "row" | "nob";
+        skin?: 'line' | 'row' | 'nob';
         even?: boolean;
-        size?: "sm" | "lg";
+        size?: 'sm' | 'lg';
         // 异步数据接口
         method?: string;
         where?: object | null;
@@ -534,7 +534,7 @@ declare namespace layui {
 
         set(option: TableOption): void;
 
-        checkStatus(id: string): { data: [], isAll: boolean };
+        checkStatus(id: string): { data: []; isAll: boolean };
 
         resize(id: string): void;
 
@@ -545,7 +545,7 @@ declare namespace layui {
         url?: string;
         data?: object;
         header?: object;
-        accept?: "images" | "file" | "video" | "audio";
+        accept?: 'images' | 'file' | 'video' | 'audio';
         acceptMime?: string;
         exts?: string;
         auto?: boolean;
@@ -555,11 +555,11 @@ declare namespace layui {
         multiple?: boolean;
         number?: number;
         drag?: boolean;
-        choose? (obj: object): void;
-        before? (obj: object): void;
-        done? (res: object, index: number, upload: () => void): void;
-        error? (index: number, upload: () => void): void;
-        allDone? (obj: object): void;
+        choose?(obj: object): void;
+        before?(obj: object): void;
+        done?(res: object, index: number, upload: () => void): void;
+        error?(index: number, upload: () => void): void;
+        allDone?(obj: object): void;
     }
 
     interface Upload {
@@ -574,8 +574,8 @@ declare namespace layui {
         half?: boolean;
         text?: boolean;
         readonly?: boolean;
-        setText? (value: number): void;
-        choose? (value: number): void;
+        setText?(value: number): void;
+        choose?(value: number): void;
     }
 
     interface Rate {
@@ -609,7 +609,11 @@ declare namespace layui {
     interface Util {
         fixbar(option: UtilBarOption): void;
 
-        countdown(endtime: number | Date, serverTime: number | Date, callback: (date: any, serverTime: number | Date, timer: any) => void): void;
+        countdown(
+            endtime: number | Date,
+            serverTime: number | Date,
+            callback: (date: any, serverTime: number | Date, timer: any) => void,
+        ): void;
 
         timeAgo(time: number | Date, onlyDate: boolean): any;
 
@@ -652,11 +656,11 @@ declare namespace layui {
     interface ColorPickerOption {
         elem?: string | HTMLElement;
         color?: string;
-        format?: "hex" | "rgb" | "rgba";
+        format?: 'hex' | 'rgb' | 'rgba';
         aplha?: boolean;
         predefine?: boolean;
         colors?: string[];
-        size?: "lg" | "sm" | "xs";
+        size?: 'lg' | 'sm' | 'xs';
         change?: (color: any) => void;
         done?: (color: any) => void;
     }
@@ -667,7 +671,7 @@ declare namespace layui {
 
     interface SliderOption {
         elem?: string | HTMLElement;
-        type?: "default" | "vertical";
+        type?: 'default' | 'vertical';
         mix?: number;
         max?: number;
         range?: boolean;
@@ -706,7 +710,7 @@ declare namespace layui {
         tool?: string[];
         hideTool?: string[];
         height?: number | string;
-        uploadImage?: { url: string, type: string };
+        uploadImage?: { url: string; type: string };
     }
 
     interface Laytpl {
@@ -717,23 +721,23 @@ declare namespace layui {
         render(data: object, callback: (str: string) => void): any;
     }
 
-     let layer: Layer;
-     let element: Element;
-     let form: Form;
-     let laydate: Laydate;
-     let layedit: Layedit;
-     let laypage: Laypage;
-     let laytpl: Laytpl;
-     let carousel: Carousel;
-     let table: Table;
-     let upload: Upload;
-     let rate: Rate;
-     let flow: Flow;
-     let util: Util;
-     let colorpicker: ColorPicker;
-     let slider: Slider;
-     let $: JQueryStatic;
-     function code(option?: CodeOption): void;
-     function tree(option: TreeOption): void;
-     function use(mods: string | string[], callback: (...args: any) => any): any;
+    let layer: Layer;
+    let element: Element;
+    let form: Form;
+    let laydate: Laydate;
+    let layedit: Layedit;
+    let laypage: Laypage;
+    let laytpl: Laytpl;
+    let carousel: Carousel;
+    let table: Table;
+    let upload: Upload;
+    let rate: Rate;
+    let flow: Flow;
+    let util: Util;
+    let colorpicker: ColorPicker;
+    let slider: Slider;
+    let $: JQueryStatic;
+    function code(option?: CodeOption): void;
+    function tree(option: TreeOption): void;
+    function use(mods: string | string[], callback: (...args: any) => any): any;
 }
