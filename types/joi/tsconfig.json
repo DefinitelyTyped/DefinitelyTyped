@@ -12,11 +12,6 @@
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "joi": [
-                "joi"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
