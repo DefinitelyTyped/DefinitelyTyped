@@ -1711,17 +1711,17 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _(stringRecordDictionary).includes(stringRecordList[0]); // $ExpectType boolean
     extractChainTypes(_.chain(stringRecordDictionary).includes(stringRecordList[0])); // $ExpectType ChainType<boolean, never>
 
-    // with index - contains - lists
+    // with index - contains
     _.contains(stringRecordList, stringRecordList[0], simpleNumber); // $ExpectType boolean
     _(stringRecordList).contains(stringRecordList[0], simpleNumber); // $ExpectType boolean
     extractChainTypes(_.chain(stringRecordList).contains(stringRecordList[0], simpleNumber)); // $ExpectType ChainType<boolean, never>
 
-    // with index - contains - include
+    // with index - include
     _.include(stringRecordList, stringRecordList[0], simpleNumber); // $ExpectType boolean
     _(stringRecordList).include(stringRecordList[0], simpleNumber); // $ExpectType boolean
     extractChainTypes(_.chain(stringRecordList).include(stringRecordList[0], simpleNumber)); // $ExpectType ChainType<boolean, never>
 
-    // with index - contains - includes
+    // with index - includes
     _.includes(stringRecordList, stringRecordList[0], simpleNumber); // $ExpectType boolean
     _(stringRecordList).includes(stringRecordList[0], simpleNumber); // $ExpectType boolean
     extractChainTypes(_.chain(stringRecordList).includes(stringRecordList[0], simpleNumber)); // $ExpectType ChainType<boolean, never>
