@@ -28,4 +28,4 @@ export interface ImgDiffResult {
  */
 export function imgDiff(opt: ImgDiffOptions): Promise<ImgDiffResult>;
 
-export function registerDecoder(extensions: any, decoder: any): void;
+export function registerDecoder(extensions: string[], decoder: (filename: string) => any): void;
