@@ -17,11 +17,11 @@ declare global {
 
 export function createUploadLink(
     linkOptions?: HttpOptions & {
-        // Customizes how files are matched in the GraphQL operation for extraction.
+        // Function that checks if a value is an extractable file
         isExtractableFile?: (value: any) => boolean;
         // FormData implementation to use, defaulting to the FormData global.
         FormData?: any;
         // Customizes how extracted files are appended to the FormData instance.
-        formDataAppendFile?: (formData: FormData, fieldName: string, file: File) => void;
+        formDataAppendFile?: (formData: FormData, fieldName: string, file: any) => void;
     },
 ): ApolloLink;
