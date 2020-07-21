@@ -1,5 +1,4 @@
 /// <reference types="jquery" />
-/// <reference path="index.d.ts" />
 layui.use('element', function () {
     const element = layui.element;
     // 一些事件监听
