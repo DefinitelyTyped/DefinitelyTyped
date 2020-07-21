@@ -36,4 +36,4 @@ export interface DetaBase {
     util: DetaBaseUtil;
 }
 
-export function Deta(projectKey: string): DetaInstance;
+export function Deta(projectKey: string, host?: string): DetaInstance;
