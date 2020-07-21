@@ -67,3 +67,11 @@ import { inspect } from 'util';
         context: createContext(),
     }).then((data: MemoryMeasurement) => { });
 }
+
+{
+    runInNewContext(
+      'blah',
+      { },
+      { timeout: 5, microtaskMode: 'afterEvaluate' }
+    );
+}
