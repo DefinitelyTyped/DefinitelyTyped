@@ -3,11 +3,5 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import hasFlag from './commonjs/hasFlag';
-
-declare const countryFlagIcons: {
-    hasFlag: typeof hasFlag;
-    countries: string[];
-};
-
-export = countryFlagIcons;
+export { default as hasFlag } from "./commonjs/hasFlag";
+export const countries: string[];
