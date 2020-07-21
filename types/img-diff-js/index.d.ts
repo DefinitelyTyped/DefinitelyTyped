@@ -10,8 +10,10 @@ export interface ImgDiffOptions {
     /** default: `false` **/
     generateOnlyDiffFile?: boolean;
     options?: {
-        threshold?: number; // default 0.1
-        includeAA?: boolean; // default false
+        /** default: `0.1` **/
+        threshold?: number;
+        /** default: `false` **/
+        includeAA?: boolean;
     };
 }
 
