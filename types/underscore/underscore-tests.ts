@@ -120,17 +120,15 @@ interface NoParameterFunctionRecord {
     a: () => number;
 }
 
-const noParameterFunctionRecordArray: NoParameterFunctionRecord[] = [{ a: Math.random }, { a: Math.random }];
-const noParameterFunctionRecordList: _.List<NoParameterFunctionRecord> = { 0: { a: Math.random }, 1: { a: Math.random }, length: 2 };
-const noParameterFunctionRecordDictionary: _.Dictionary<NoParameterFunctionRecord> = { a: { a: Math.random }, b: { a: Math.random } };
+declare const noParameterFunctionRecordList: _.List<NoParameterFunctionRecord>;
+declare const noParameterFunctionRecordDictionary: _.Dictionary<NoParameterFunctionRecord>;
 
-interface OneParameterFunctionRecord {
-    a: (arg0: number) => number;
+interface TwoParameterFunctionRecord {
+    a: (arg0: number, arg1: string) => void;
 }
 
-const oneParameterFunctionRecordArray: OneParameterFunctionRecord[] = [{ a: Math.abs }, { a: Math.abs }];
-const oneParameterFunctionRecordList: _.List<OneParameterFunctionRecord> = { 0: { a: Math.abs }, 1: { a: Math.abs }, length: 2 };
-const oneParameterFunctionRecordDictionary: _.Dictionary<OneParameterFunctionRecord> = { a: { a: Math.abs }, b: { a: Math.abs } };
+declare const twoParameterFunctionRecordList: _.List<TwoParameterFunctionRecord>;
+declare const twoParameterFunctionRecordDictionary: _.Dictionary<TwoParameterFunctionRecord>;
 
 declare const mixedIterabilityValue: number | number[];
 declare const anyValue: any;
@@ -1224,62 +1222,31 @@ declare const extractChainTypes: ChainTypeExtractor;
 }
 
 // invoke
-// once TS 3.6 is reached as a minimum version, as a breaking change, consider updating invoke to be the following:
-// type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? K : never }[keyof T];
 {
-    const functionName = 'substring';
-    const simpleStringArg = 1;
-    const stringRecordArg = -1;
+    // known property - function without parameters
+    _.invoke(noParameterFunctionRecordList, stringRecordProperty); // $ExpectType number[]
+    _(noParameterFunctionRecordList).invoke(stringRecordProperty); // $ExpectType number[]
+    extractChainTypes(_.chain(noParameterFunctionRecordList).invoke(stringRecordProperty)); // $ExpectType ChainType<number[], number>
 
-    // without parameters
-    _.invoke(noParameterFunctionRecordArray, stringRecordProperty); // $ExpectType any[]
+    // known property - function with parameters
+    _.invoke(twoParameterFunctionRecordDictionary, stringRecordProperty, simpleNumber, simpleString); // $ExpectType void[]
+    _(twoParameterFunctionRecordDictionary).invoke(stringRecordProperty, simpleNumber, simpleString); // $ExpectType void[]
+    extractChainTypes(_.chain(twoParameterFunctionRecordDictionary).invoke(stringRecordProperty, simpleNumber, simpleString)); // $ExpectType ChainType<void[], void>
 
-    _(noParameterFunctionRecordArray).invoke(stringRecordProperty); // $ExpectType any[]
+    // unknown property
+    _.invoke(nonIntersectingPropertiesList, stringRecordProperty, simpleString); // $ExpectType any[]
+    _(nonIntersectingPropertiesList).invoke(stringRecordProperty, simpleString); // $ExpectType any[]
+    extractChainTypes(_.chain(nonIntersectingPropertiesList).invoke(stringRecordProperty, simpleString)); // $ExpectType ChainType<any[], any>
 
-    extractChainTypes(_.chain(noParameterFunctionRecordArray).invoke(stringRecordProperty)); // $ExpectType ChainType<any[], any>
+    // non-function property
+    _.invoke(stringRecordDictionary, stringRecordProperty, simpleString); // $ExpectType any[]
+    _(stringRecordDictionary).invoke(stringRecordProperty, simpleString); // $ExpectType any[]
+    extractChainTypes(_.chain(stringRecordDictionary).invoke(stringRecordProperty, simpleString)); // $ExpectType ChainType<any[], any>
 
-    _.invoke(noParameterFunctionRecordList, stringRecordProperty); // $ExpectType any[]
-
-    _(noParameterFunctionRecordList).invoke(stringRecordProperty); // $ExpectType any[]
-
-    extractChainTypes(_.chain(noParameterFunctionRecordList).invoke(stringRecordProperty)); // $ExpectType ChainType<any[], any>
-
-    _.invoke(noParameterFunctionRecordDictionary, stringRecordProperty); // $ExpectType any[]
-
-    _(noParameterFunctionRecordDictionary).invoke(stringRecordProperty); // $ExpectType any[]
-
-    extractChainTypes(_.chain(noParameterFunctionRecordDictionary).invoke(stringRecordProperty)); // $ExpectType ChainType<any[], any>
-
-    _.invoke(simpleString, stringRecordProperty); // $ExpectType any[]
-
-    _(simpleString).invoke(stringRecordProperty); // $ExpectType any[]
-
-    extractChainTypes(_.chain(simpleString).invoke(stringRecordProperty)); // $ExpectType ChainType<any[], any>
-
-    // with parameters
-    _.invoke(oneParameterFunctionRecordArray, stringRecordProperty, stringRecordArg); // $ExpectType any[]
-
-    _(oneParameterFunctionRecordArray).invoke(stringRecordProperty, stringRecordArg); // $ExpectType any[]
-
-    extractChainTypes(_.chain(oneParameterFunctionRecordArray).invoke(stringRecordProperty, stringRecordArg)); // $ExpectType ChainType<any[], any>
-
-    _.invoke(oneParameterFunctionRecordList, stringRecordProperty, stringRecordArg); // $ExpectType any[]
-
-    _(oneParameterFunctionRecordList).invoke(stringRecordProperty, stringRecordArg); // $ExpectType any[]
-
-    extractChainTypes(_.chain(oneParameterFunctionRecordList).invoke(stringRecordProperty, stringRecordArg)); // $ExpectType ChainType<any[], any>
-
-    _.invoke(oneParameterFunctionRecordDictionary, stringRecordProperty, stringRecordArg); // $ExpectType any[]
-
-    _(oneParameterFunctionRecordDictionary).invoke(stringRecordProperty, stringRecordArg); // $ExpectType any[]
-
-    extractChainTypes(_.chain(oneParameterFunctionRecordDictionary).invoke(stringRecordProperty, stringRecordArg)); // $ExpectType ChainType<any[], any>
-
-    _.invoke(simpleString, functionName, simpleStringArg); // $ExpectType any[]
-
-    _(simpleString).invoke(functionName, simpleStringArg); // $ExpectType any[]
-
-    extractChainTypes(_.chain(simpleString).invoke(functionName, simpleStringArg)); // $ExpectType ChainType<any[], any>
+    // any
+    _.invoke(anyValue, stringRecordProperty, simpleString, simpleNumber); // $ExpectType any[]
+    _(anyValue).invoke(stringRecordProperty, simpleString, simpleNumber); // $ExpectType any[]
+    extractChainTypes(_.chain(nonIntersectingPropertiesList).invoke(stringRecordProperty, simpleString, simpleNumber)); // $ExpectType ChainType<any[], any>
 }
 
 // pluck

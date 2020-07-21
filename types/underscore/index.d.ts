@@ -10,7 +10,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Michael Ness <https://github.com/reubenrybnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 declare var _: _.UnderscoreStatic;
 export = _;
@@ -121,6 +121,20 @@ declare module _ {
         : never;
 
     type PropertyTypeOrAny<T, K> = K extends keyof T ? T[K] : any;
+
+    type PropertyParametersOrAny<T, K> =
+        K extends keyof T
+        ? T[K] extends (...args: infer P) => any
+        ? P
+        : any[]
+        : any[];
+
+    type PropertyReturnTypeOrAny<T, K> =
+        K extends keyof T
+        ? T[K] extends (...args: any[]) => infer R
+        ? R
+        : any
+        : any;
 
     interface MemoCollectionIterator<T extends TypeOfCollection<V>, TResult, V = Collection<T>> {
         (prev: TResult, curr: T, key: CollectionKey<V>, collection: V): TResult;
@@ -469,17 +483,22 @@ declare module _ {
         includes: UnderscoreStatic['contains'];
 
         /**
-        * Calls the method named by methodName on each value in the list. Any extra arguments passed to
-        * invoke will be forwarded on to the method invocation.
-        * @param list The element's in this list will each have the method `methodName` invoked.
-        * @param methodName The method's name to call on each element within `list`.
-        * @param arguments Additional arguments to pass to the method `methodName`.
-        **/
-        invoke<V extends Collection<any>>(
-            list: V,
-            methodName: string,
-            ...args: any[]
-        ): any[];
+         * Calls the method named by `methodName` on each value in
+         * `collection`. Any extra arguments passed to invoke will be forwarded
+         * on to the method invocation.
+         * @param collection The collection of elements to invoke `methodName`
+         * on.
+         * @param methodName The name of the method to call on each element in
+         * `collection`.
+         * @param args Additional arguments to pass to method `methodName`.
+         * @returns An array containing the result of the method call for each
+         * item in `collection`.
+         **/
+        invoke<V extends Collection<any>, K extends string>(
+            collection: V,
+            methodName: K,
+            ...args: PropertyParametersOrAny<TypeOfCollection<V>, K>
+        ): PropertyReturnTypeOrAny<TypeOfCollection<V>, K>[];
 
         /**
          * A convenient version of what is perhaps the most common use-case for map: extracting a list of
@@ -4096,10 +4115,16 @@ declare module _ {
         includes: Underscore<T, V>['contains'];
 
         /**
-        * Wrapped type Collection<T>.
-        * @see invoke
-        **/
-        invoke(methodName: string, ...args: any[]): any[];
+         * Calls the method named by `methodName` on each value in the wrapped
+         * collection. Any extra arguments passed to invoke will be forwarded
+         * on to the method invocation.
+         * @param methodName The name of the method to call on each element in
+         * the wrapped collection.
+         * @param args Additional arguments to pass to method `methodName`.
+         * @returns An array containing the result of the method call for each
+         * item in the wrapped collection.
+         **/
+        invoke<K extends string>(methodName: K, ...args: PropertyParametersOrAny<T, K>): PropertyReturnTypeOrAny<T, K>[];
 
         /**
          * A convenient version of what is perhaps the most common use-case for map: extracting a list of
@@ -4973,10 +4998,16 @@ declare module _ {
         includes: _Chain<T, V>['contains'];
 
         /**
-        * Wrapped type Collection<T>.
-        * @see invoke
-        **/
-        invoke(methodName: string, ...args: any[]): _Chain<any, any[]>;
+         * Calls the method named by `methodName` on each value in the wrapped
+         * collection. Any extra arguments passed to invoke will be forwarded
+         * on to the method invocation.
+         * @param methodName The name of the method to call on each element in
+         * the wrapped collection.
+         * @param args Additional arguments to pass to method `methodName`.
+         * @returns A chain wrapper around an array containing the result of
+         * the method call for each item in the wrapped collection.
+         **/
+        invoke<K extends string>(methodName: K, ...args: PropertyParametersOrAny<T, K>): _Chain<PropertyReturnTypeOrAny<T, K>, PropertyReturnTypeOrAny<T, K>[]>;
 
         /**
          * A convenient version of what is perhaps the most common use-case for map: extracting a list of
