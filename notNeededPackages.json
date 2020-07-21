@@ -3997,6 +3997,12 @@
             "asOfVersion": "5.1.0"
         },
         {
+            "libraryName": "react-easy-crop",
+            "typingsPackageName": "react-easy-crop",
+            "sourceRepoURL": "https://github.com/ricardo-ch/react-easy-crop",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "react-flip-move",
             "typingsPackageName": "react-flip-move",
             "sourceRepoURL": "https://github.com/joshwcomeau/react-flip-move",
