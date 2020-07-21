@@ -7,7 +7,8 @@ export interface ImgDiffOptions {
     actualFilename: string;
     expectedFilename: string;
     diffFilename?: string;
-    generateOnlyDiffFile?: boolean; // default false
+    /** default: `false` **/
+    generateOnlyDiffFile?: boolean;
     options?: {
         threshold?: number; // default 0.1
         includeAA?: boolean; // default false
