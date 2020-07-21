@@ -412,7 +412,7 @@ declare module _ {
          **/
         contains<V extends Collection<any>>(
             collection: V,
-            value: TypeOfCollection<V>,
+            value: any,
             fromIndex?: number
         ): boolean;
 
@@ -4166,7 +4166,7 @@ declare module _ {
          * @returns True if `value` is present in the wrapped collection after
          * `fromIndex`, otherwise false.
          **/
-        contains(value: T, fromIndex?: number): boolean;
+        contains(value: any, fromIndex?: number): boolean;
 
         /**
          * @see contains
@@ -5178,7 +5178,7 @@ declare module _ {
          * @returns A chain wrapper around true if `value` is present in the
          * wrapped collection after `fromIndex`, otherwise around false.
          **/
-        contains(value: T, fromIndex?: number): _ChainSingle<boolean>;
+        contains(value: any, fromIndex?: number): _ChainSingle<boolean>;
 
         /**
          * @see contains
