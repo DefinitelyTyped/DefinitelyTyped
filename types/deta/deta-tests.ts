@@ -31,3 +31,5 @@ async function test() {
         key6: db.util.trim()
     }, 'key');
 }
+
+test();
