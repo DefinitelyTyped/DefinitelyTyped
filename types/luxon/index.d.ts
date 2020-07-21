@@ -7,7 +7,6 @@
 //                 Pietro Vismara <https://github.com/pietrovismara>
 //                 Janeene Beeforth <https://github.com/dawnmist>
 //                 Jason Yu <https://github.com/ycmjason>
-//                 Miklos Danka <https://github.com/mdanka>
 //                 Aitor Pérez Rodal <https://github.com/Aitor1995>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
