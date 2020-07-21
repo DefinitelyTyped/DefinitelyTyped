@@ -31,11 +31,11 @@ export type stringOrDate = string | Date;
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
 export type ViewsProps = View[] | {
-    work_week?: boolean | React.ComponentType<any> & ViewStatic,
-    day?: boolean | React.ComponentType<any> & ViewStatic,
-    agenda?: boolean | React.ComponentType<any> & ViewStatic,
-    month?: boolean | React.ComponentType<any> & ViewStatic,
-    week?: boolean | React.ComponentType<any> & ViewStatic
+    work_week?: boolean | React.ComponentType & ViewStatic,
+    day?: boolean | React.ComponentType & ViewStatic,
+    agenda?: boolean | React.ComponentType & ViewStatic,
+    month?: boolean | React.ComponentType & ViewStatic,
+    week?: boolean | React.ComponentType & ViewStatic
 };
 export type DayLayoutFunction<TEvent extends object = Event> = (_: {
     events: TEvent[],
