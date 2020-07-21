@@ -49,7 +49,8 @@ declare const maxLevel3RecordArray: (StringRecord | StringRecord[] | StringRecor
 const stringRecordListVoidIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => { value.a += 'b'; };
 const stringRecordListValueIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => value.a;
 const stringRecordListBooleanIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => value.a === 'b';
-const stringRecordListMemoIterator = (prev: string, value: StringRecord, index: number, list: _.List<StringRecord>) => prev + value.a;
+declare const stringRecordPartialMemoIterator: (prev: string, value: StringRecord) => string;
+declare const stringRecordListMemoIterator: (prev: string, value: StringRecord, index: number, list: _.List<StringRecord>) => string;
 
 interface StringRecordExplicitDictionary extends _.Dictionary<StringRecord> {
     a: StringRecord;
@@ -63,7 +64,7 @@ const stringRecordDictionary: _.Dictionary<StringRecord> = { a: { a: 'a', b: 'c'
 const stringRecordDictionaryVoidIterator = (element: StringRecord, key: string, dictionary: _.Dictionary<StringRecord>) => { element.a += 'b'; };
 const stringRecordDictionaryValueIterator = (element: StringRecord, key: string, dictionary: _.Dictionary<StringRecord>) => element.a;
 const stringRecordDictionaryBooleanIterator = (element: StringRecord, key: string, list: _.Dictionary<StringRecord>) => element.a === 'b';
-const stringRecordDictionaryMemoIterator = (prev: string, element: StringRecord, key: string, dictionary: _.Dictionary<StringRecord>) => prev + element.a;
+declare const stringRecordDictionaryMemoIterator: (prev: string, element: StringRecord, key: string, dictionary: _.Dictionary<StringRecord>) => string;
 
 const simpleString = 'abc';
 
@@ -325,50 +326,50 @@ declare const extractChainTypes: ChainTypeExtractor;
 
 // reduce, foldl, inject
 {
-    const stringMemo = '';
+    const stringMemo ='';
     const dictionaryMemo: _.Dictionary<number> = {};
 
-    // with memo - lists
+    // with constant primitive memo - lists
     _.reduce(stringRecordList, stringRecordListMemoIterator, stringMemo); // $ExpectType string
-    _.reduce(stringRecordList, stringRecordListMemoIterator, stringMemo, context); // $ExpectType string
+    _.reduce(stringRecordList, stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     _(stringRecordList).reduce(stringRecordListMemoIterator, stringMemo); // $ExpectType string
-    _(stringRecordList).reduce(stringRecordListMemoIterator, stringMemo, context); // $ExpectType string
+    _(stringRecordList).reduce(stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     extractChainTypes(_.chain(stringRecordList).reduce(stringRecordListMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
-    extractChainTypes(_.chain(stringRecordList).reduce(stringRecordListMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(stringRecordList).reduce(stringRecordPartialMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
     _.foldl(stringRecordList, stringRecordListMemoIterator, stringMemo); // $ExpectType string
-    _.foldl(stringRecordList, stringRecordListMemoIterator, stringMemo, context); // $ExpectType string
+    _.foldl(stringRecordList, stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     _(stringRecordList).foldl(stringRecordListMemoIterator, stringMemo); // $ExpectType string
-    _(stringRecordList).foldl(stringRecordListMemoIterator, stringMemo, context); // $ExpectType string
+    _(stringRecordList).foldl(stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     extractChainTypes(_.chain(stringRecordList).foldl(stringRecordListMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
-    extractChainTypes(_.chain(stringRecordList).foldl(stringRecordListMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(stringRecordList).foldl(stringRecordPartialMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
     _.inject(stringRecordList, stringRecordListMemoIterator, stringMemo); // $ExpectType string
-    _.inject(stringRecordList, stringRecordListMemoIterator, stringMemo, context); // $ExpectType string
+    _.inject(stringRecordList, stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     _(stringRecordList).inject(stringRecordListMemoIterator, stringMemo); // $ExpectType string
-    _(stringRecordList).inject(stringRecordListMemoIterator, stringMemo, context); // $ExpectType string
+    _(stringRecordList).inject(stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     extractChainTypes(_.chain(stringRecordList).inject(stringRecordListMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
-    extractChainTypes(_.chain(stringRecordList).inject(stringRecordListMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(stringRecordList).inject(stringRecordPartialMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
-    // with memo - dictionaries
+    // with constant primitive memo - dictionaries
     _.reduce(stringRecordDictionary, stringRecordDictionaryMemoIterator, stringMemo); // $ExpectType string
-    _.reduce(stringRecordDictionary, stringRecordDictionaryMemoIterator, stringMemo, context); // $ExpectType string
+    _.reduce(stringRecordDictionary, stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     _(stringRecordDictionary).reduce(stringRecordDictionaryMemoIterator, stringMemo); // $ExpectType string
-    _(stringRecordDictionary).reduce(stringRecordDictionaryMemoIterator, stringMemo, context); // $ExpectType string
+    _(stringRecordDictionary).reduce(stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     extractChainTypes(_.chain(stringRecordDictionary).reduce(stringRecordDictionaryMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
-    extractChainTypes(_.chain(stringRecordDictionary).reduce(stringRecordDictionaryMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(stringRecordDictionary).reduce(stringRecordPartialMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
     _.foldl(stringRecordDictionary, stringRecordDictionaryMemoIterator, stringMemo); // $ExpectType string
-    _.foldl(stringRecordDictionary, stringRecordDictionaryMemoIterator, stringMemo, context); // $ExpectType string
+    _.foldl(stringRecordDictionary, stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     _(stringRecordDictionary).foldl(stringRecordDictionaryMemoIterator, stringMemo); // $ExpectType string
-    _(stringRecordDictionary).foldl(stringRecordDictionaryMemoIterator, stringMemo, context); // $ExpectType string
+    _(stringRecordDictionary).foldl(stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     extractChainTypes(_.chain(stringRecordDictionary).foldl(stringRecordDictionaryMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
-    extractChainTypes(_.chain(stringRecordDictionary).foldl(stringRecordDictionaryMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(stringRecordDictionary).foldl(stringRecordPartialMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
     _.inject(stringRecordDictionary, stringRecordDictionaryMemoIterator, stringMemo); // $ExpectType string
-    _.inject(stringRecordDictionary, stringRecordDictionaryMemoIterator, stringMemo, context); // $ExpectType string
+    _.inject(stringRecordDictionary, stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     _(stringRecordDictionary).inject(stringRecordDictionaryMemoIterator, stringMemo); // $ExpectType string
-    _(stringRecordDictionary).inject(stringRecordDictionaryMemoIterator, stringMemo, context); // $ExpectType string
+    _(stringRecordDictionary).inject(stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     extractChainTypes(_.chain(stringRecordDictionary).inject(stringRecordDictionaryMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
-    extractChainTypes(_.chain(stringRecordDictionary).inject(stringRecordDictionaryMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(stringRecordDictionary).inject(stringRecordPartialMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
-    // with memo - strings
+    // with object memo - strings
     _.reduce(simpleString, stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
     _.reduce(simpleString, stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
     _(simpleString).reduce(stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
@@ -414,35 +415,35 @@ declare const extractChainTypes: ChainTypeExtractor;
     const stringMemo = '';
     const dictionaryMemo: _.Dictionary<number> = {};
 
-    // with memo - lists
+    // with constant primitive memo - lists
     _.reduceRight(stringRecordList, stringRecordListMemoIterator, stringMemo); // $ExpectType string
-    _.reduceRight(stringRecordList, stringRecordListMemoIterator, stringMemo, context); // $ExpectType string
+    _.reduceRight(stringRecordList, stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     _(stringRecordList).reduceRight(stringRecordListMemoIterator, stringMemo); // $ExpectType string
-    _(stringRecordList).reduceRight(stringRecordListMemoIterator, stringMemo, context); // $ExpectType string
+    _(stringRecordList).reduceRight(stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     extractChainTypes(_.chain(stringRecordList).reduceRight(stringRecordListMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
-    extractChainTypes(_.chain(stringRecordList).reduceRight(stringRecordListMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(stringRecordList).reduceRight(stringRecordPartialMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
     _.foldr(stringRecordList, stringRecordListMemoIterator, stringMemo); // $ExpectType string
-    _.foldr(stringRecordList, stringRecordListMemoIterator, stringMemo, context); // $ExpectType string
+    _.foldr(stringRecordList, stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     _(stringRecordList).foldr(stringRecordListMemoIterator, stringMemo); // $ExpectType string
-    _(stringRecordList).foldr(stringRecordListMemoIterator, stringMemo, context); // $ExpectType string
+    _(stringRecordList).foldr(stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     extractChainTypes(_.chain(stringRecordList).foldr(stringRecordListMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
-    extractChainTypes(_.chain(stringRecordList).foldr(stringRecordListMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(stringRecordList).foldr(stringRecordPartialMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
-    // with memo - dictionaries
+    // with constant primitive memo - dictionaries
     _.reduceRight(stringRecordDictionary, stringRecordDictionaryMemoIterator, stringMemo); // $ExpectType string
-    _.reduceRight(stringRecordDictionary, stringRecordDictionaryMemoIterator, stringMemo, context); // $ExpectType string
+    _.reduceRight(stringRecordDictionary, stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     _(stringRecordDictionary).reduceRight(stringRecordDictionaryMemoIterator, stringMemo); // $ExpectType string
-    _(stringRecordDictionary).reduceRight(stringRecordDictionaryMemoIterator, stringMemo, context); // $ExpectType string
+    _(stringRecordDictionary).reduceRight(stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     extractChainTypes(_.chain(stringRecordDictionary).reduceRight(stringRecordDictionaryMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
-    extractChainTypes(_.chain(stringRecordDictionary).reduceRight(stringRecordDictionaryMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(stringRecordDictionary).reduceRight(stringRecordPartialMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
     _.foldr(stringRecordDictionary, stringRecordDictionaryMemoIterator, stringMemo); // $ExpectType string
-    _.foldr(stringRecordDictionary, stringRecordDictionaryMemoIterator, stringMemo, context); // $ExpectType string
+    _.foldr(stringRecordDictionary, stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     _(stringRecordDictionary).foldr(stringRecordDictionaryMemoIterator, stringMemo); // $ExpectType string
-    _(stringRecordDictionary).foldr(stringRecordDictionaryMemoIterator, stringMemo, context); // $ExpectType string
+    _(stringRecordDictionary).foldr(stringRecordPartialMemoIterator, stringMemo, context); // $ExpectType string
     extractChainTypes(_.chain(stringRecordDictionary).foldr(stringRecordDictionaryMemoIterator, stringMemo)); // $ExpectType ChainType<string, string>
-    extractChainTypes(_.chain(stringRecordDictionary).foldr(stringRecordDictionaryMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
+    extractChainTypes(_.chain(stringRecordDictionary).foldr(stringRecordPartialMemoIterator, stringMemo, context)); // $ExpectType ChainType<string, string>
 
-    // with memo - strings
+    // with object memo - strings
     _.reduceRight(simpleString, stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
     _.reduceRight(simpleString, stringListMemoIterator, dictionaryMemo, context); // $ExpectType Dictionary<number>
     _(simpleString).reduceRight(stringListMemoIterator, dictionaryMemo); // $ExpectType Dictionary<number>
@@ -3217,7 +3218,6 @@ function useSymbol(arg: symbol) {};
 var guardedType: {} = {};
 if(_.isElement(guardedType)) useElement(guardedType);
 if(_.isArray(guardedType)) useArray(guardedType);
-if(_.isArray<String>(guardedType)) useArray(guardedType);
 if(_.isArguments(guardedType)) useArguments(guardedType);
 if(_.isFunction(guardedType)) useFunction(guardedType);
 if(_.isError(guardedType)) useError(guardedType);
@@ -3399,8 +3399,8 @@ _.chain([{ a: 1, b: 2, c: 3 }, { a: 4, b: 5, c: 6 }])
 // $ExpectType number
 _.chain([1, 2, 3, 4, 5, 6])
     .chunk(3)
+    .shuffle()
     .first()
-    .compact()
     .reduce((aggregate, n) => aggregate + n, 0)
     .value();
 
@@ -3458,4 +3458,26 @@ _.chain(stringRecordList)
 _.chain([{ a: 1 }, { a: 2 }, { a: 3 }, { b: 4 }])
     .pluck('a')
     .max()
+    .value();
+
+declare const dictionaryTuple: [string, { str: string; bool: boolean; }][];
+
+// $ExpectType [{ str: string; bool: boolean; }, { str: string; bool: boolean; }]
+_.chain(dictionaryTuple)
+    .object()
+    .each((element, key, collection) => {
+        // verify that an object call on a tuple array results in a Dictionary
+        // $ExpectType Dictionary<{ str: string; bool: boolean; }>
+        collection;
+
+        element.str += key;
+    })
+    .filter((element, key, collection) => {
+        // verify that each preserves the colleciton type it was given
+        // $ExpectType Dictionary<{ str: string; bool: boolean; }>
+        collection;
+
+        return element.str === 'match';
+    })
+    .partition('bool')
     .value();

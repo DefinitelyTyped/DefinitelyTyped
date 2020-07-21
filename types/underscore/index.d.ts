@@ -83,65 +83,66 @@ declare module _ {
 
     type Collection<T> = List<T> | Dictionary<T>;
 
+    type EnumerableKey = string | number;
+
+    type CollectionKey<V> = V extends List<any> ? number
+        : V extends Dictionary<any> ? string
+        : never;
+
     interface Predicate<T> {
         (value: T): boolean;
     }
 
-    interface ListIterator<T, TResult, V = List<T>> {
-        (value: T, index: number, list: V): TResult;
+    interface CollectionIterator<T extends TypeOfCollection<V>, TResult, V = Collection<T>> {
+        (element: T, key: CollectionKey<V>, collection: V): TResult;
     }
 
-    interface ObjectIterator<T, TResult, V = Dictionary<T>> {
-        (element: T, key: string, object: V): TResult;
-    }
+    interface ListIterator<T extends TypeOfList<V>, TResult, V = List<T>> extends CollectionIterator<T, TResult, V> { }
 
-    type CollectionIterator<T, TResult, V> =
-        V extends List<T> ? ListIterator<T, TResult, V>
-        : V extends Dictionary<T> ? ObjectIterator<T, TResult, V>
-        : never;
+    interface ObjectIterator<T extends TypeOfDictionary<V>, TResult, V = Dictionary<T>> extends CollectionIterator<T, TResult, V> { }
 
     type Iteratee<V, R, T extends TypeOfCollection<V> = TypeOfCollection<V>> =
-        undefined |
         CollectionIterator<T, R, V> |
-        PropertyKey |
-        Array<PropertyKey> |
-        Partial<T>;
+        EnumerableKey |
+        Array<EnumerableKey> |
+        Partial<T> |
+        null |
+        undefined;
 
     // temporary iteratee type for _Chain until _Chain return types have been fixed
     type _ChainIteratee<V, R, T> = Iteratee<V extends Collection<T> ? V : T[], R>;
 
     type IterateeResult<I, T> =
-        I extends undefined ? T // default iteratee is _.identity
-        : I extends (...args: any[]) => infer R ? R
+        I extends (...args: any[]) => infer R ? R
         : I extends keyof T ? T[I]
-        : I extends PropertyKey | Array<PropertyKey> ? any
+        : I extends EnumerableKey | Array<EnumerableKey> ? any
         : I extends Partial<T> ? boolean
+        : I extends null | undefined ? T
         : never;
 
     type PropertyTypeOrAny<T, K> = K extends keyof T ? T[K] : any;
 
-    interface MemoIterator<T, TResult, V = List<T>> {
-        (prev: TResult, curr: T, index: number, list: V): TResult;
+    interface MemoCollectionIterator<T extends TypeOfCollection<V>, TResult, V = Collection<T>> {
+        (prev: TResult, curr: T, key: CollectionKey<V>, collection: V): TResult;
     }
 
-    interface MemoObjectIterator<T, TResult, V = Dictionary<T>> {
-        (prev: TResult, curr: T, key: string, object: V): TResult;
-    }
+    interface MemoIterator<T extends TypeOfList<V>, TResult, V = List<T>> extends MemoCollectionIterator<T, TResult, V> { }
 
-    type MemoCollectionIterator<T, TResult, V> =
-        V extends List<T> ? MemoIterator<T, TResult, V>
-        : V extends Dictionary<T> ? MemoObjectIterator<T, TResult, V>
+    interface MemoObjectIterator<T extends TypeOfDictionary<V>, TResult, V = Dictionary<T>> extends MemoCollectionIterator<T, TResult, V> { }
+
+    type TypeOfList<V> =
+        V extends never ? any
+        : V extends List<infer T> ? T
         : never;
 
-    type TypeOfList<V> = V extends List<infer T> ? T : never;
-
-    type TypeOfDictionary<V> = V extends Dictionary<infer T> ? T : never;
-
-    type TypeOfCollection<V> = V extends List<infer T> ? T
+    type TypeOfDictionary<V> =
+        V extends never ? any
         : V extends Dictionary<infer T> ? T
         : never;
 
-    type NonFalsy<T> = T extends undefined | null | false | '' | 0 ? never : T;
+    type TypeOfCollection<V> = TypeOfList<V> | TypeOfDictionary<V>;
+
+    type NonFalsy<T> = T extends void | null | false | '' | 0 ? never : T;
 
     type PropertyNamesOfType<T, P> = { [K in keyof T]: T[K] extends P ? K : never }[keyof T];
 
@@ -255,32 +256,9 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns Reduced object result.
          **/
-        reduce<V extends List<any>, TResult>(
+        reduce<V extends Collection<any>, TResult>(
             collection: V,
-            iteratee: MemoIterator<TypeOfCollection<V>, TResult, V>,
-            memo: TResult,
-            context?: any
-        ): TResult;
-
-        /**
-         * Also known as inject and foldl, reduce boils down a collection of values into a
-         * single value. Memo is the initial state of the reduction, and each successive
-         * step of it should be returned by iteratee. The iteratee is passed four arguments:
-         * the memo, then the value and index (or key) of the iteration, and finally a reference
-         * to the entire collection.
-         *
-         * If no memo is passed to the initial invocation of reduce, the iteratee is not invoked
-         * on the first element of the collection. The first element is instead passed as the memo
-         * in the invocation of the iteratee on the next element in the collection.
-         * @param collection Reduces the elements of this collection.
-         * @param iteratee Reduce iteratee function for each element in `list`.
-         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
-         * @param context `this` object in `iteratee`, optional.
-         * @returns Reduced object result.
-         **/
-        reduce<V extends Dictionary<any>, TResult>(
-            collection: V,
-            iteratee: MemoObjectIterator<TypeOfCollection<V>, TResult, V>,
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult, V>,
             memo: TResult,
             context?: any
         ): TResult;
@@ -416,17 +394,16 @@ declare module _ {
         ): TypeOfCollection<V> | undefined;
 
         /**
-        * Returns the values in list without the elements that the truth test (iterator) passes.
-        * The opposite of filter.
-        * Return all the elements for which a truth test fails.
-        * @param list Reject elements within this list.
-        * @param iterator Reject iterator function for each element in `list`.
-        * @param context `this` object in `iterator`, optional.
-        * @return The rejected list of elements.
-        **/
+         * Returns the values in `collection` without the elements that the truth test (iteratee) passes.
+         * The opposite of filter.
+         * @param collection Reject elements within this list.
+         * @param iteratee Reject iterator function for each element in `list`.
+         * @param context `this` object in `iteratee`, optional.
+         * @return The filtered set of values.
+         **/
         reject<V extends Collection<any>>(
-            list: V,
-            iterator: Iteratee<V, boolean>,
+            collection: V,
+            iteratee: Iteratee<V, boolean>,
             context?: any
         ): TypeOfCollection<V>[];
 
@@ -865,7 +842,7 @@ declare module _ {
         * @param keyValuePairs Array of [key, value] pairs.
         * @return An object containing the `keys` as properties and `values` as the property values.
         **/
-        object<TValue>(keyValuePairs: List<[string, TValue]>): Dictionary<TValue>;
+        object<TPair>(keyValuePairs: List<TPair>): TPair extends [string, infer TValue] ? Dictionary<TValue> : Dictionary<any>;
 
         /**
         * Returns the index at which value can be found in the array, or -1 if value is not present in the array.
@@ -3675,148 +3652,142 @@ declare module _ {
         propertyOf(object: object): (key: string | number | Array<string | number>) => any;
 
         /**
-        * Performs an optimized deep comparison between the two objects,
-        * to determine if they should be considered equal.
-        * @param object Compare to `other`.
-        * @param other Compare to `object`.
-        * @return True if `object` is equal to `other`.
-        **/
+         * Performs an optimized deep comparison between the two objects,
+         * to determine if they should be considered equal.
+         * @param object Compare to `other`.
+         * @param other Compare to `object`.
+         * @returns True if `object` is equal to `other`.
+         **/
         isEqual(object: any, other: any): boolean;
 
         /**
-        * Returns true if object contains no values.
-        * @param object Check if this object has no properties or values.
-        * @return True if `object` is empty.
-        **/
+         * Returns true if an enumerable object contains no values (no enumerable own-properties).
+         * For strings and array-like objects checks if the length property is 0.
+         * @param object The object to check.
+         * @returns True if `object` is empty.
+         **/
         isEmpty(object: any): boolean;
 
         /**
-        * Returns true if the keys and values in `properties` matches with the `object` properties.
-        * @param object Object to be compared with `properties`.
-        * @param properties Properties be compared with `object`
-        * @return True if `object` has matching keys and values, otherwise false.
-        **/
+         * Tells you if the keys and values in properties are contained in object.
+         * @param object The object to be checked.
+         * @param properties The properties to check for in `object`.
+         * @returns True if all keys and values in `properties` are also in `object`.
+         **/
         isMatch(object: any, properties: any): boolean;
 
         /**
-        * Returns true if object is a DOM element.
-        * @param object Check if this object is a DOM element.
-        * @return True if `object` is a DOM element, otherwise false.
-        **/
+         * Returns true if object is a DOM element.
+         * @param object Check if this object is a DOM element.
+         * @returns True if `object` is a DOM element, otherwise false.
+         **/
         isElement(object: any): object is Element;
 
         /**
-        * Returns true if object is an Array.
-        * @param object Check if this object is an Array.
-        * @return True if `object` is an Array, otherwise false.
-        **/
+         * Returns true if object is an Array.
+         * @param object Check if this object is an Array.
+         * @returns True if `object` is an Array, otherwise false.
+         **/
         isArray(object: any): object is any[];
-
-        /**
-        * Returns true if object is an Array.
-        * @param object Check if this object is an Array.
-        * @return True if `object` is an Array, otherwise false.
-        **/
-        isArray<T>(object: any): object is T[];
 
         /**
          * Returns true if object is a Symbol.
          * @param object Check if this object is a Symbol.
-         * @return True if `object` is a Symbol, otherwise false.
+         * @returns True if `object` is a Symbol, otherwise false.
          **/
         isSymbol(object: any): object is symbol;
 
         /**
-        * Returns true if value is an Object. Note that JavaScript arrays and functions are objects,
-        * while (normal) strings and numbers are not.
-        * @param object Check if this object is an Object.
-        * @return True of `object` is an Object, otherwise false.
-        **/
+         * Returns true if value is an Object. Note that JavaScript arrays and functions are objects,
+         * while (normal) strings and numbers are not.
+         * @param object Check if this object is an Object.
+         * @returns True of `object` is an Object, otherwise false.
+         **/
         isObject(object: any): object is object;
 
         /**
-        * Returns true if object is an Arguments object.
-        * @param object Check if this object is an Arguments object.
-        * @return True if `object` is an Arguments object, otherwise false.
-        **/
+         * Returns true if object is an Arguments object.
+         * @param object Check if this object is an Arguments object.
+         * @returns True if `object` is an Arguments object, otherwise false.
+         **/
         isArguments(object: any): object is IArguments;
 
         /**
-        * Returns true if object is a Function.
-        * @param object Check if this object is a Function.
-        * @return True if `object` is a Function, otherwise false.
-        **/
+         * Returns true if object is a Function.
+         * @param object Check if this object is a Function.
+         * @returns True if `object` is a Function, otherwise false.
+         **/
         isFunction(object: any): object is Function;
 
         /**
-        * Returns true if object inherits from an Error.
-        * @param object Check if this object is an Error.
-        * @return True if `object` is a Error, otherwise false.
-        **/
+         * Returns true if object is an Error.
+         * @param object Check if this object is an Error.
+         * @returns True if `object` is a Error, otherwise false.
+         **/
         isError(object: any): object is Error;
 
         /**
-        * Returns true if object is a String.
-        * @param object Check if this object is a String.
-        * @return True if `object` is a String, otherwise false.
-        **/
+         * Returns true if object is a String.
+         * @param object Check if this object is a String.
+         * @returns True if `object` is a String, otherwise false.
+         **/
         isString(object: any): object is string;
 
         /**
-        * Returns true if object is a Number (including NaN).
-        * @param object Check if this object is a Number.
-        * @return True if `object` is a Number, otherwise false.
-        **/
+         * Returns true if object is a Number (including NaN).
+         * @param object Check if this object is a Number.
+         * @returns True if `object` is a Number, otherwise false.
+         **/
         isNumber(object: any): object is number;
 
         /**
-        * Returns true if object is a finite Number.
-        * @param object Check if this object is a finite Number.
-        * @return True if `object` is a finite Number.
-        **/
+         * Returns true if object is a finite Number.
+         * @param object Check if this object is a finite Number.
+         * @returns True if `object` is a finite Number.
+         **/
         isFinite(object: any): boolean;
 
         /**
-        * Returns true if object is either true or false.
-        * @param object Check if this object is a bool.
-        * @return True if `object` is a bool, otherwise false.
-        **/
+         * Returns true if object is either true or false.
+         * @param object Check if this object is a bool.
+         * @returns True if `object` is a bool, otherwise false.
+         **/
         isBoolean(object: any): object is boolean;
 
         /**
-        * Returns true if object is a Date.
-        * @param object Check if this object is a Date.
-        * @return True if `object` is a Date, otherwise false.
-        **/
+         * Returns true if object is a Date.
+         * @param object Check if this object is a Date.
+         * @returns True if `object` is a Date, otherwise false.
+         **/
         isDate(object: any): object is Date;
 
         /**
-        * Returns true if object is a RegExp.
-        * @param object Check if this object is a RegExp.
-        * @return True if `object` is a RegExp, otherwise false.
-        **/
+         * Returns true if object is a RegExp.
+         * @param object Check if this object is a RegExp.
+         * @returns True if `object` is a RegExp, otherwise false.
+         **/
         isRegExp(object: any): object is RegExp;
 
         /**
-        * Returns true if object is NaN.
-        * Note: this is not the same as the native isNaN function,
-        * which will also return true if the variable is undefined.
-        * @param object Check if this object is NaN.
-        * @return True if `object` is NaN, otherwise false.
-        **/
+         * Returns true if object is NaN.
+         * Note: this is not the same as the native isNaN function,
+         * which will also return true if the variable is undefined.
+         * @param object Check if this object is NaN.
+         * @returns True if `object` is NaN, otherwise false.
+         **/
         isNaN(object: any): boolean;
 
         /**
-        * Returns true if the value of object is null.
+        * Returns true if object is null.
         * @param object Check if this object is null.
-        * @return True if `object` is null, otherwise false.
+        * @returns True if `object` is null, otherwise false.
         **/
         isNull(object: any): object is null;
 
         /**
-        * Returns true if value is undefined.
+        * Returns true if object is undefined.
         * @param object Check if this object is undefined.
-        * @return True if `object` is undefined, otherwise false.
+        * @returns True if `object` is undefined, otherwise false.
         **/
         isUndefined(object: any): object is undefined;
 
@@ -4010,11 +3981,13 @@ declare module _ {
         **/
         collect: Underscore<T, V>['map'];
 
+        reduce(iterator: MemoCollectionIterator<T, T, V>, memo?: undefined, context?: any): T;
+
         /**
         * Wrapped type Collection<T>.
         * @see reduce
         **/
-        reduce<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo?: TResult, context?: any): TResult;
+        reduce<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo: TResult, context?: any): TResult;
 
         /**
         * @see reduce
@@ -4026,11 +3999,13 @@ declare module _ {
         **/
         foldl: Underscore<T, V>['reduce'];
 
+        reduceRight(iterator: MemoCollectionIterator<T, T, V>, memo?: undefined, context?: any): T;
+
         /**
         * Wrapped type Collection<T>.
         * @see reduceRight
         **/
-        reduceRight<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo?: TResult, context?: any): TResult;
+        reduceRight<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo: TResult, context?: any): TResult;
 
         /**
         * @see reduceRight
@@ -4629,117 +4604,124 @@ declare module _ {
         propertyOf(): (key: string) => any;
 
         /**
-        * Wrapped type `object`.
-        * @see isEqual
-        **/
+         * Performs an optimized deep comparison between the wrapped object
+         * and the provided object to determine if they should be considered equal.
+         * @param other Compare to the wrapped object.
+         * @returns True if the wrapped object is equal to `other`.
+         **/
         isEqual(other: any): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see isEmpty
-        **/
+         * Returns true if an enumerable object contains no values (no enumerable own-properties).
+         * For strings and array-like objects checks if the length property is 0.
+         * @returns True if the wrapped object is empty.
+         **/
         isEmpty(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see isMatch
-        **/
-        isMatch(): boolean;
+         * Tells you if the keys and values in properties are contained in the wrapped object.
+         * @param properties The properties to check for in the wrapped object.
+         * @returns True if all keys and values in `properties` are also in the wrapped object.
+         **/
+        isMatch(properties: any): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see isElement
-        **/
+         * Returns true if the wrapped object is a DOM element.
+         * @returns True if the wrapped object is a DOM element, otherwise false.
+         **/
         isElement(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see isArray
-        **/
+         * Returns true if the wrapped object is an Array.
+         * @returns True if the wrapped object is an Array, otherwise false.
+         **/
         isArray(): boolean;
 
         /**
-         * Wrapped type `object`.
-         * @see isSymbol
+         * Returns true if the wrapped object is a Symbol.
+         * @returns True if the wrapped object is a Symbol, otherwise false.
          **/
         isSymbol(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see isObject
-        **/
+         * Returns true if the wrapped object is an Object. Note that JavaScript arrays
+         * and functions are objects, while (normal) strings and numbers are not.
+         * @returns True if the wrapped object is an Object, otherwise false.
+         **/
         isObject(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see isArguments
-        **/
+         * Returns true if the wrapped object is an Arguments object.
+         * @returns True if the wrapped object is an Arguments object, otherwise false.
+         **/
         isArguments(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see isFunction
-        **/
+         * Returns true if the wrapped object is a Function.
+         * @returns True if the wrapped object is a Function, otherwise false.
+         **/
         isFunction(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see isError
-        **/
+         * Returns true if the wrapped object is a Error.
+         * @returns True if the wrapped object is a Error, otherwise false.
+         **/
         isError(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see isString
-        **/
+         * Returns true if the wrapped object is a String.
+         * @returns True if the wrapped object is a String, otherwise false.
+         **/
         isString(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see isNumber
-        **/
+         * Returns true if the wrapped object is a Number (including NaN).
+         * @returns True if the wrapped object is a Number, otherwise false.
+         **/
         isNumber(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see isFinite
-        **/
+         * Returns true if the wrapped object is a finite Number.
+         * @returns True if the wrapped object is a finite Number.
+         **/
         isFinite(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see isBoolean
-        **/
+         * Returns true if the wrapped object is a Boolean.
+         * @returns True if the wrapped object is a Boolean, otherwise false.
+         **/
         isBoolean(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see isDate
-        **/
+         * Returns true if the wrapped object is a Date.
+         * @returns True if the wrapped object is a Date, otherwise false.
+         **/
         isDate(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see isRegExp
-        **/
+         * Returns true if the wrapped object is a RegExp.
+         * @returns True if the wrapped object is a RegExp, otherwise false.
+         **/
         isRegExp(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see isNaN
-        **/
+         * Returns true if the wrapped object is NaN.
+         * Note: this is not the same as the native isNaN function,
+         * which will also return true if the variable is undefined.
+         * @returns True if the wrapped object is NaN, otherwise false.
+         **/
         isNaN(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see isNull
-        **/
+         * Returns true if the wrapped object is null.
+         * @returns True if the wrapped object is null, otherwise false.
+         **/
         isNull(): boolean;
 
         /**
-        * Wrapped type `object`.
-        * @see isUndefined
-        **/
+         * Returns true if the wrapped object is undefined.
+         * @returns True if the wrapped object is undefined, otherwise false.
+         **/
         isUndefined(): boolean;
 
         /********* *
@@ -4876,11 +4858,13 @@ declare module _ {
         **/
         collect: _Chain<T, V>['map'];
 
+        reduce(iterator: MemoCollectionIterator<T, T, V>, memo?: undefined, context?: any): _ChainSingle<T>;
+
         /**
         * Wrapped type Collection<T>.
         * @see reduce
         **/
-        reduce<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+        reduce<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo: TResult, context?: any): _ChainSingle<TResult>;
 
         /**
         * @see reduce
@@ -4892,11 +4876,13 @@ declare module _ {
         **/
         foldl: _Chain<T, V>['reduce'];
 
+        reduceRight(iterator: MemoCollectionIterator<T, T, V>, memo?: undefined, context?: any): _ChainSingle<T>;
+
         /**
         * Wrapped type Collection<T>.
         * @see reduceRight
         **/
-        reduceRight<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+        reduceRight<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo: TResult, context?: any): _ChainSingle<TResult>;
 
         /**
         * @see reduceRight
