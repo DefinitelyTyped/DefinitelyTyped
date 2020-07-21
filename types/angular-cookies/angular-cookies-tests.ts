@@ -1,32 +1,30 @@
 import * as angular from 'angular';
 import * as ngCookiesModule from 'angular-cookies';
 
-interface ICookiesProvider {
-    defaults: angular.cookies.ICookiesOptions;
-}
-
 angular.module('angular-cookies-tests', [ngCookiesModule])
-    .config(($cookiesProvider: ICookiesProvider) => {
+    .config(($cookiesProvider: angular.cookies.ICookiesProvider) => {
         $cookiesProvider.defaults = {
             path: '/',
             domain: 'www.example.com',
             expires: 'Wed, 22 Jul 2020 00:30:00 BST',
-            secure: true
+            secure: true,
+            samesite: 'strict'
         };
     })
-    .config(($cookiesProvider: ICookiesProvider) => {
+    .config(($cookiesProvider: angular.cookies.ICookiesProvider) => {
         // expires can also be specified as a Date
         $cookiesProvider.defaults = {
             expires: new Date()
         };
     })
-    .config(($cookiesProvider: ICookiesProvider) => {
+    .config(($cookiesProvider: angular.cookies.ICookiesProvider) => {
         // all defaults are optional
         $cookiesProvider.defaults = {
             path: undefined,
             domain: undefined,
             expires: undefined,
-            secure: undefined
+            secure: undefined,
+            samesite: undefined
         };
     })
     .service('authService', class AuthService {

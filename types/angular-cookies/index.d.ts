@@ -1,4 +1,4 @@
-// Type definitions for Angular JS (ngCookies module) 1.4
+// Type definitions for Angular JS (ngCookies module) 1.8
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <https://github.com/diegovilar>, Anthony Ciccarello <https://github.com/aciccarello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,6 +15,17 @@ declare module 'angular' {
      * ngCookies module (angular-cookies.js)
      */
     namespace cookies {
+
+        /**
+         * CookiesProvider
+         * see https://docs.angularjs.org/api/ngCookies/provider/$cookiesProvider
+         */
+        interface ICookiesProvider {
+            /**
+             * Object containing default options to pass when setting cookies.
+             */
+            defaults: ICookiesOptions;
+        }
 
         /**
         * Cookies options
@@ -41,19 +52,27 @@ declare module 'angular' {
             * The cookie will be available only in secured connection.
             */
             secure?: boolean;
+            /**
+             * Prevents the browser from sending the cookie along with cross-site requests.
+             * Accepts the values "lax" and "strict".
+             */
+            samesite?: string;
         }
 
         /**
-         * CookieService
-         * see http://docs.angularjs.org/api/ngCookies.$cookies
+         * CookiesService
+         * see https://code.angularjs.org/1.3.20/docs/api/ngCookies/service/$cookies
          */
         interface ICookiesService {
+            /**
+             * DEPRECATED
+             */
             [index: string]: any;
         }
 
         /**
-         * CookieStoreService
-         * see http://docs.angularjs.org/api/ngCookies.$cookieStore
+         * CookiesService
+         * see https://docs.angularjs.org/api/ngCookies/service/$cookies
          */
         interface ICookiesService {
             get(key: string): string;
@@ -67,7 +86,7 @@ declare module 'angular' {
 
         /**
          * CookieStoreService DEPRECATED
-         * see https://code.angularjs.org/1.2.26/docs/api/ngCookies/service/$cookieStore
+         * see https://code.angularjs.org/1.3.20/docs/api/ngCookies/service/$cookieStore
          */
         interface ICookieStoreService {
             /**
