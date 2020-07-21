@@ -148,29 +148,29 @@ export interface ResourceHeaderProps {
 export interface Components<TEvent extends object = Event> {
     event?: React.ComponentType<EventProps<TEvent>>;
     eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>>;
-    eventContainerWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-    dateCellWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-    timeSlotWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-    timeGutterHeader?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-    timeGutterWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+    eventContainerWrapper?: React.ComponentType;
+    dateCellWrapper?: React.ComponentType;
+    timeSlotWrapper?: React.ComponentType;
+    timeGutterHeader?: React.ComponentType;
+    timeGutterWrapper?: React.ComponentType;
     toolbar?: React.ComponentType<ToolbarProps>;
     agenda?: {
-        date?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-        time?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-        event?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+        date?: React.ComponentType;
+        time?: React.ComponentType;
+        event?: React.ComponentType;
     };
     day?: {
-        header?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-        event?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+        header?: React.ComponentType;
+        event?: React.ComponentType;
     };
     week?: {
-        header?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-        event?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+        header?: React.ComponentType;
+        event?: React.ComponentType;
     };
     month?: {
-        header?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-        dateHeader?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-        event?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+        header?: React.ComponentType;
+        dateHeader?: React.ComponentType;
+        event?: React.ComponentType;
     };
     /**
      * component used as a header for each column in the TimeGridHeader
