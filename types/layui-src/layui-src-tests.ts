@@ -1,4 +1,3 @@
-/// <reference types="jquery" />
 layui.use('element', function () {
     const element = layui.element;
     // 一些事件监听
