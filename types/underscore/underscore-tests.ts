@@ -2026,6 +2026,11 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _(simpleNumber).range(simpleNumber); // $ExpectType number[]
     extractChainTypes(_.chain(simpleNumber).range(simpleNumber)); // $ExpectType ChainType<number[], number>
 
+    // stop and step
+    _.range(simpleNumber, undefined, simpleNumber); // $ExpectType number[]
+    _(simpleNumber).range(undefined, simpleNumber); // $ExpectType number[]
+    extractChainTypes(_.chain(simpleNumber).range(undefined, simpleNumber)); // $ExpectType ChainType<number[], number>
+
     // start, stop, and step
     _.range(simpleNumber, simpleNumber, simpleNumber); // $ExpectType number[]
     _(simpleNumber).range(simpleNumber, simpleNumber); // $ExpectType number[]

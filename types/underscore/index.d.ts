@@ -1004,32 +1004,28 @@ declare module _ {
 
         /**
          * A function to create flexibly-numbered lists of integers, handy for
-         * `each` and `map` loops. Returns a list of integers from `start`
-         * (inclusive) to `stop` (exclusive), incremented (or decremented) by
-         * `step`, exclusive. Note that ranges that `stop` before they `start`
-         * are considered to be zero-length instead of negative - if you'd like
-         * a negative range, use a negative `step`.
-         * @param start The number to start at, optional, default = 1.
+         * `each` and `map` loops. Returns a list of integers from
+         * `startOrStop` (inclusive) to `stop` (exclusive), incremented
+         * (or decremented) by `step`. Note that ranges that `stop` before they
+         * `start` are considered to be zero-length instead of negative - if
+         * you'd like a negative range, use a negative `step`.
+         *
+         * If `stop` is not specified, `startOrStop` will be the number to stop
+         * at and the default start of 0 will be used.
+         * @param startOrStop If `stop` is specified, the number to start at.
+         * Otherwise, this is the number to stop at and the default start of 0
+         * will be used.
          * @param stop The number to stop at.
          * @param step The number to count up by each iteration, optional,
          * default = 1.
-         * @returns An array of numbers from `start` to `stop` with increments
+         * @returns An array of numbers from start to `stop` with increments
          * of `step`.
          **/
         range(
-            start: number,
-            stop: number,
+            startOrStop: number,
+            stop?: number,
             step?: number
         ): number[];
-
-        /**
-         * A function to create flexibly-numbered lists of integers, handy for
-         * `each` and `map` loops.  Returns a list of integers from 0
-         * (inclusive) to `stop` (exclusive), incremented by 1.
-         * @param stop The number to stop at.
-         * @returns An array of numbers from 0 to `stop` with increments of 1.
-         **/
-        range(stop: number): number[];
 
         /**
          * Chunks a list into multiple arrays, each containing length or fewer items.
@@ -4558,27 +4554,21 @@ declare module _ {
 
         /**
          * A function to create flexibly-numbered lists of integers, handy for
-         * `each` and `map` loops. Returns a list of integers from the wrapped
-         * value (inclusive) to `stop` (exclusive), incremented (or
-         * decremented) by `step`, exclusive. Note that ranges that `stop`
-         * before they start are considered to be zero-length instead of
-         * negative - if you'd like a negative range, use a negative `step`.
+         * `each` and `map` loops. Returns a list of integers from
+         * the wrapped value (inclusive) to `stop` (exclusive), incremented
+         * (or decremented) by `step`. Note that ranges that `stop` before they
+         * `start` are considered to be zero-length instead of negative - if
+         * you'd like a negative range, use a negative `step`.
+         *
+         * If `stop` is not specified, the wrapped value will be the number to
+         * stop at and the default start of 0 will be used.
          * @param stop The number to stop at.
          * @param step The number to count up by each iteration, optional,
          * default = 1.
-         * @returns An array of numbers from the wrapped value to `stop` with
-         * increments of `step`.
+         * @returns An array of numbers from start to `stop` with increments
+         * of `step`.
          **/
-        range(stop: number, step?: number): number[];
-
-        /**
-         * A function to create flexibly-numbered lists of integers, handy for
-         * `each` and `map` loops.  Returns a list of integers from 0
-         * (inclusive) to the wrapped value (exclusive), incremented by 1.
-         * @returns An array of numbers from 0 to the wrapped value with
-         * increments of 1.
-         **/
-        range(): number[];
+        range(stop?: number, step?: number): number[];
 
         /**
          * Chunks a wrapped list into multiple arrays, each containing length or fewer items.
@@ -5570,27 +5560,21 @@ declare module _ {
 
         /**
          * A function to create flexibly-numbered lists of integers, handy for
-         * `each` and `map` loops. Returns a list of integers from the wrapped
-         * value (inclusive) to `stop` (exclusive), incremented (or
-         * decremented) by `step`, exclusive. Note that ranges that `stop`
-         * before they start are considered to be zero-length instead of
-         * negative - if you'd like a negative range, use a negative `step`.
+         * `each` and `map` loops. Returns a list of integers from
+         * the wrapped value (inclusive) to `stop` (exclusive), incremented
+         * (or decremented) by `step`. Note that ranges that `stop` before they
+         * `start` are considered to be zero-length instead of negative - if
+         * you'd like a negative range, use a negative `step`.
+         *
+         * If `stop` is not specified, the wrapped value will be the number to
+         * stop at and the default start of 0 will be used.
          * @param stop The number to stop at.
          * @param step The number to count up by each iteration, optional,
          * default = 1.
-         * @returns A chain wrapper around an array of numbers from the wrapped
-         * value to `stop` with increments of `step`.
+         * @returns A chain wrapper around an array of numbers from start to
+         * `stop` with increments of `step`.
          **/
-        range(stop: number, step?: number): _Chain<number, number[]>;
-
-        /**
-         * A function to create flexibly-numbered lists of integers, handy for
-         * `each` and `map` loops.  Returns a list of integers from 0
-         * (inclusive) to the wrapped value (exclusive), incremented by 1.
-         * @returns A chain wrapper around nn array of numbers from 0 to the
-         * wrapped value with increments of 1.
-         **/
-        range(): _Chain<number, number[]>;
+        range(stop?: number, step?: number): _Chain<number, number[]>;
 
         /**
          * Chunks a wrapped list into multiple arrays, each containing length or fewer items.
