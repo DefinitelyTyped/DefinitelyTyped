@@ -164,6 +164,7 @@ declare namespace jest {
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
+    // tslint:disable-next-line: no-unnecessary-generics
     function doMock<T>(moduleName: string, factory?: MockModuleFactory<T>, options?: MockOptions): typeof jest;
     /**
      * Indicates that the module system should never return a mocked version
@@ -194,6 +195,7 @@ declare namespace jest {
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
+    // tslint:disable-next-line: no-unnecessary-generics
     function mock<T>(moduleName: string, factory?: MockModuleFactory<T>, options?: MockOptions): typeof jest;
     /**
      * Returns the actual module instead of a mock, bypassing all checks on
