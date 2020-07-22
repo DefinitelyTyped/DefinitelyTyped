@@ -2123,6 +2123,20 @@ namespace child_process_tests {
         ipc.ref();
     }
 
+    {
+        const forked = childProcess.fork('./', {
+            windowsVerbatimArguments: true,
+            silent: false,
+            stdio: ["inherit"],
+            execPath: '',
+            execArgv: ['asda']
+        });
+    }
+
+    {
+        const forked = childProcess.fork('./');
+    }
+
     async function testPromisify() {
         const execFile = util.promisify(childProcess.execFile);
         let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");

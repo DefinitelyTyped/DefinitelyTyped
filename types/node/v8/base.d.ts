@@ -2223,6 +2223,7 @@ declare module "child_process" {
         gid?: number;
         windowsVerbatimArguments?: boolean;
     }
+    export function fork(modulePath: string, options?: ForkOptions): ChildProcess;
     export function fork(modulePath: string, args?: string[], options?: ForkOptions): ChildProcess;
 
     export interface SpawnSyncOptions {

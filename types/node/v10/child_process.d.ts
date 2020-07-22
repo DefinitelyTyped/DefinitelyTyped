@@ -270,6 +270,7 @@ declare module "child_process" {
         uid?: number;
         gid?: number;
     }
+    function fork(modulePath: string, options?: ForkOptions): ChildProcess;
     function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
     interface SpawnSyncOptions {
