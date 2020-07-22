@@ -660,6 +660,7 @@ declare const stringy: StringRecord | string;
 
 type Truthies = string | number | boolean | object | Function | StringRecord | (() => void);
 declare const truthyFalsyList: _.List<Truthies | _.AnyFalsy>;
+declare const maybeTruthyFalsyList: _.List<Truthies | _.AnyFalsy> | null | undefined;
 
 // avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
 // the types under test need to be refactored
@@ -1749,15 +1750,10 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _(truthyFalsyList).compact(); // $ExpectType (string | number | true | object | Function | StringRecord | (() => void))[]
     extractChainTypes(_.chain(truthyFalsyList).compact()); // $ExpectType ChainType<(string | number | true | object | Function | StringRecord | (() => void))[], string | number | true | object | Function | StringRecord | (() => void)>
 
-    // null
-    _.compact(null); // $ExpectType never[]
-    _(null).compact(); // $ExpectType never[]
-    extractChainTypes(_.chain(null).compact()); // $ExpectType ChainType<never[], never>
-
-    // undefined
-    _.compact(undefined); // $ExpectType never[]
-    _(undefined).compact(); // $ExpectType never[]
-    extractChainTypes(_.chain(undefined).compact()); // $ExpectType ChainType<never[], never>
+    // maybe lists
+    _.compact(maybeTruthyFalsyList); // $ExpectType (string | number | true | object | Function | StringRecord | (() => void))[]
+    _(maybeTruthyFalsyList).compact(); // $ExpectType (string | number | true | object | Function | StringRecord | (() => void))[]
+    extractChainTypes(_.chain(maybeTruthyFalsyList).compact()); // $ExpectType ChainType<(string | number | true | object | Function | StringRecord | (() => void))[], string | number | true | object | Function | StringRecord | (() => void)>
 }
 
 // flatten
