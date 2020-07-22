@@ -38,9 +38,16 @@ export interface DotenvSafeOptions extends dotenv.DotenvConfigOptions {
   allowEmptyValues?: boolean,
 }
 
+export interface DotenvSafeConfigOutput extends dotenv.DotenvConfigOutput {
+  /**
+   * key-value pairs required by .env.example
+   */
+  required: dotenv.DotenvParseOutput
+}
+
 /**
  * Loads environment variables file into 'process.env'.
  *
  * @throws MissingEnvVarsError
  */
-export function config(options?: DotenvSafeOptions): dotenv.DotenvConfigOutput
+export function config(options?: DotenvSafeOptions): DotenvSafeConfigOutput
