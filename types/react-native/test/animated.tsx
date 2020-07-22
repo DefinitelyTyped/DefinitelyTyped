@@ -168,22 +168,22 @@ function TestAnimatedAPI() {
             {/* AnimatedComponent function prop args should infer original types */}
             <Animated.View
               style={{opacity: v1}}
-              //should infer (event: LayoutChangeEvent) => void;
-              onLayout={e => console.log(e.nativeEvent.layout)}
+              // $ExpectType (event: LayoutChangeEvent) => void
+              onLayout={event => console.log(event.nativeEvent.layout)}
             />;
 
             <Animated.FlatList
               style={{opacity: v1}}
               data={[1]}
-              //should infer ({ item:number, index, separators }) => React.ReactElement | null
+              // $ExpectType (s: ListRenderItemInfo<number>) => Element
               renderItem={s => <View testID={s.item.toFixed(1)}/>}
             />;
 
             <Animated.SectionList
               style={{opacity: v1}}
               sections={[{ title: 'test', data: [1] }]}
-              //should infer ({ item:number, index, section, separators }) => React.ReactElement | null
-              renderItem={s => <View testID={s.section + s.item.toFixed(1)}/>}
+              // $ExpectType (s: SectionListRenderItemInfo<number>) => Element
+              renderItem={s => <View testID={s.item.toFixed(1)}/>}
             />;
         </View>
     );
