@@ -27,19 +27,23 @@ import {
     CompositeFilterConstructor,
     SortModeConstructor,
     SimpleCoordinatesConstructor,
-    BundleConstructor,
-} from 'tizen';
-import { ApplicationControlConstructor, ApplicationControlDataConstructor, ApplicationManager } from 'application';
-import { FilesystemManager } from 'filesystem';
-import { DownloadManager, DownloadRequestConstructor } from 'download';
-import { SystemInfoManager } from 'systeminfo';
-import { WebSettingManager } from 'websetting';
-import { TVAudioControlManager } from 'tvaudiocontrol';
-import { TVDisplayControlManager } from 'tvdisplaycontrol';
-import { TVInputDeviceManager } from 'tvinputdevice';
-import { TVWindowManager } from 'tvwindow';
-import { PackageManager } from 'package';
-import { TVInfoManager } from 'tvinfo';
+    BundleConstructor
+} from './tizen';
+import {
+    ApplicationControlConstructor,
+    ApplicationControlDataConstructor,
+    ApplicationManager
+} from './application';
+import { FilesystemManager } from './filesystem';
+import { DownloadManager, DownloadRequestConstructor } from './download';
+import { SystemInfoManager } from './systeminfo';
+import { WebSettingManager } from './websetting';
+import { TVAudioControlManager } from './tvaudiocontrol';
+import { TVDisplayControlManager } from './tvdisplaycontrol';
+import { TVInputDeviceManager } from './tvinputdevice';
+import { TVWindowManager } from './tvwindow';
+import { PackageManager } from './package';
+import { TVInfoManager } from './tvinfo';
 
 declare const tizen: Tizen;
 
