@@ -1744,9 +1744,15 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
 
 // compact
 {
+    // lists
     _.compact(truthyFalsyList); // $ExpectType (string | number | true | object | Function | StringRecord | (() => void))[]
     _(truthyFalsyList).compact(); // $ExpectType (string | number | true | object | Function | StringRecord | (() => void))[]
     extractChainTypes(_.chain(truthyFalsyList).compact()); // $ExpectType ChainType<(string | number | true | object | Function | StringRecord | (() => void))[], string | number | true | object | Function | StringRecord | (() => void)>
+
+    // undefined
+    _.compact(undefined); // $ExpectType never[]
+    _(undefined).compact(); // $ExpectType never[]
+    extractChainTypes(_.chain(undefined).compact()); // $ExpectType ChainType<never[], never>
 }
 
 // flatten

@@ -791,7 +791,7 @@ declare module _ {
          * @returns An array containing the elements of `list` without falsy
          * values.
          **/
-        compact<V extends List<any>>(list: V): Truthy<TypeOfList<V>>[];
+        compact<V extends List<any> | null | undefined>(list: V): Truthy<TypeOfList<V>>[];
 
         /**
          * Flattens a nested array (the nesting can be to any depth). If you pass shallow, the array will
