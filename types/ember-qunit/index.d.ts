@@ -156,7 +156,34 @@ declare module 'ember-qunit' {
 declare module 'qunit' {
     import { TestContext } from "ember-test-helpers";
 
-    export const module: typeof QUnit.module;
+    type moduleFunc1 = (name: string, hooks?: Hooks, nested?: (hooks: NestedHooks) => void) => void;
+    type moduleFunc2 = (name: string, nested?: (hooks: NestedHooks) => void) => void;
+    interface ModuleOnly { only: moduleFunc1 & moduleFunc2; }
+
+    export const module: moduleFunc1 & moduleFunc2 & ModuleOnly;
+
+    export interface NestedHooks {
+      /**
+       * Runs after the last test. If additional tests are defined after the
+       * module's queue has emptied, it will not run this hook again.
+       */
+      after: (fn: (this: TestContext, assert: Assert) => void) => void;
+
+      /**
+       * Runs after each test.
+       */
+      afterEach: (fn: (this: TestContext, assert: Assert) => void) => void;
+
+      /**
+       * Runs before the first test.
+       */
+      before: (fn: (this: TestContext, assert: Assert) => void) => void;
+
+      /**
+       * Runs before each test.
+       */
+      beforeEach: (fn: (this: TestContext, assert: Assert) => void) => void;
+    }
 
     /**
      * Add a test to run.
