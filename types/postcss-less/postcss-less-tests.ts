@@ -37,7 +37,6 @@ less.parse(lessCode).walkAtRules(atRule => {
 
     if ('function' in lessAtRule) {
         assert(lessAtRule.function === true);
-        assert(typeof lessAtRule.params === 'string');
     }
 });
 

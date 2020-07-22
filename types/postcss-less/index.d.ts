@@ -31,10 +31,9 @@ declare namespace postcssLess {
         important?: true;
     }
 
-    // @see https://github.com/shellscape/postcss-less/blob/v3.1.4/lib/LessParser.js#L57-L58
+    // @see https://github.com/shellscape/postcss-less/blob/v3.1.4/lib/LessParser.js#L57
     interface FunctionAtRule extends postcss.AtRule {
         function: true;
-        params: string;
     }
 
     type AtRule = ImportAtRule | VariableAtRule | MixinAtRule | FunctionAtRule;
