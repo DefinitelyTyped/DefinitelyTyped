@@ -1749,6 +1749,11 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _(truthyFalsyList).compact(); // $ExpectType (string | number | true | object | Function | StringRecord | (() => void))[]
     extractChainTypes(_.chain(truthyFalsyList).compact()); // $ExpectType ChainType<(string | number | true | object | Function | StringRecord | (() => void))[], string | number | true | object | Function | StringRecord | (() => void)>
 
+    // null
+    _.compact(null); // $ExpectType never[]
+    _(null).compact(); // $ExpectType never[]
+    extractChainTypes(_.chain(null).compact()); // $ExpectType ChainType<never[], never>
+
     // undefined
     _.compact(undefined); // $ExpectType never[]
     _(undefined).compact(); // $ExpectType never[]
