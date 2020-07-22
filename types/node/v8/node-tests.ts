@@ -2116,6 +2116,8 @@ namespace child_process_tests {
             execPath: '',
             execArgv: ['asda']
         });
+        const exitCode: number | null = forked.exitCode;
+        const signalCode: number | null = forked.signalCode;
         const ipc: stream.Pipe = forked.channel;
         const hasRef: boolean = ipc.hasRef();
         ipc.close();
