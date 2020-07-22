@@ -23,10 +23,7 @@ export interface TVWindowManager {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.window
      */
-    getAvailableWindows: (
-        successCallback: AvailableWindowListCallback,
-        errorCallback?: ErrorCallback
-    ) => void;
+    getAvailableWindows: (successCallback: AvailableWindowListCallback, errorCallback?: ErrorCallback) => void;
 
     /**
      * Changes the source of a TV window.
@@ -45,7 +42,7 @@ export interface TVWindowManager {
         videoSource: SystemInfoVideoSourceInfo,
         successCallback: SourceChangedSuccessCallback,
         errorCallback?: ErrorCallback,
-        type?: WindowType | 'MAIN'
+        type?: WindowType | 'MAIN',
     ): void;
     /**
      * Gets information about the current source of a specified TV window.
@@ -98,7 +95,7 @@ export interface TVWindowManager {
         errorCallback?: ErrorCallback,
         rectangle?: string[],
         type?: WindowType | 'MAIN',
-        zPosition?: ZPosition | 'FRONT' | 'BEHIND'
+        zPosition?: ZPosition | 'FRONT' | 'BEHIND',
     ): void;
     /**
      * Hides a TV window which is shown.
@@ -111,11 +108,7 @@ export interface TVWindowManager {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.window
      */
-    hide(
-        successCallback: SuccessCallback,
-        errorCallback?: ErrorCallback,
-        type?: WindowType | 'MAIN'
-    ): void;
+    hide(successCallback: SuccessCallback, errorCallback?: ErrorCallback, type?: WindowType | 'MAIN'): void;
     /**
      * Gets the area information of a TV window which is shown.
      *
@@ -137,7 +130,7 @@ export interface TVWindowManager {
         successCallback: WindowRectangleSuccessCallback,
         errorCallback?: ErrorCallback,
         unit?: MeasurementUnit | 'px' | '%',
-        type?: WindowType | 'MAIN'
+        type?: WindowType | 'MAIN',
     ): void;
     /**
      * Gets video resolution information.
@@ -168,10 +161,7 @@ export interface TVWindowManager {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.window
      */
-    addVideoResolutionChangeListener(
-        callback: VideoResolutionChangeCallback,
-        type?: WindowType | 'MAIN'
-    ): number;
+    addVideoResolutionChangeListener(callback: VideoResolutionChangeCallback, type?: WindowType | 'MAIN'): number;
     /**
      * Removes the listener to stop receiving notifications for the video resolution changes.
      *
@@ -193,7 +183,7 @@ export interface TVWindowManager {
  * - `MAIN` - The main video window, which can be show anywhere
  */
 export enum WindowType {
-    MAIN = 'MAIN'
+    MAIN = 'MAIN',
 }
 
 /**
@@ -203,7 +193,7 @@ export enum WindowType {
  */
 export enum MeasurementUnit {
     px = 'px',
-    '%' = '%'
+    '%' = '%',
 }
 
 /**
@@ -222,7 +212,7 @@ export enum AspectRatio {
     ASPECT_RATIO_4x3 = 'ASPECT_RATIO_4x3',
     ASPECT_RATIO_16x9 = 'ASPECT_RATIO_16x9',
     ASPECT_RATIO_221x100 = 'ASPECT_RATIO_221x100',
-    ASPECT_RATIO_UNKNOWN = 'ASPECT_RATIO_UNKNOWN'
+    ASPECT_RATIO_UNKNOWN = 'ASPECT_RATIO_UNKNOWN',
 }
 
 /**
@@ -232,7 +222,7 @@ export enum AspectRatio {
  */
 export enum ZPosition {
     FRONT = 'FRONT',
-    BEHIND = 'BEHIND'
+    BEHIND = 'BEHIND',
 }
 
 /**

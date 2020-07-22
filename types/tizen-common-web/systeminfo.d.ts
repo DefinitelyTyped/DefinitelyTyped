@@ -166,7 +166,7 @@ export interface SystemInfoManager {
             | 'ADS'
             | 'SERVICE_COUNTRY'
             | 'SOURCE_INFO'
-            | 'PANEL'
+            | 'PANEL',
     ): number;
 
     /**
@@ -214,7 +214,7 @@ export interface SystemInfoManager {
             | 'SOURCE_INFO'
             | 'PANEL',
         successCallback: SystemInfoPropertySuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ): void;
 
     /**
@@ -260,7 +260,7 @@ export interface SystemInfoManager {
             | 'SOURCE_INFO'
             | 'PANEL',
         successCallback: SystemInfoPropertyArraySuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ): void;
 
     /**
@@ -319,7 +319,7 @@ export interface SystemInfoManager {
             | 'PANEL',
         successCallback: SystemInfoPropertySuccessCallback,
         options?: SystemInfoOptions,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ): number;
 
     /**
@@ -371,7 +371,7 @@ export interface SystemInfoManager {
             | 'PANEL',
         successCallback: SystemInfoPropertyArraySuccessCallback,
         options?: SystemInfoOptions,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ): number;
 
     /**
@@ -784,13 +784,7 @@ export interface SystemInfoDeviceCapability {
      *
      * @since 2.2
      */
-    readonly profile:
-        | SystemInfoProfile
-        | 'MOBILE_FULL'
-        | 'MOBILE_WEB'
-        | 'MOBILE'
-        | 'WEARABLE'
-        | 'TV';
+    readonly profile: SystemInfoProfile | 'MOBILE_FULL' | 'MOBILE_WEB' | 'MOBILE' | 'WEARABLE' | 'TV';
 }
 /**
  * The device property identifier.
@@ -825,7 +819,7 @@ export enum SystemInfoPropertyId {
     ADS = 'ADS',
     SERVICE_COUNTRY = 'SERVICE_COUNTRY',
     SOURCE_INFO = 'SOURCE_INFO',
-    PANEL = 'PANEL'
+    PANEL = 'PANEL',
 }
 
 /**
@@ -842,7 +836,7 @@ export enum SystemInfoNetworkType {
     WIFI = 'WIFI',
     ETHERNET = 'ETHERNET',
     NET_PROXY = 'NET_PROXY',
-    UNKNOWN = 'UNKNOWN'
+    UNKNOWN = 'UNKNOWN',
 }
 
 /**
@@ -861,7 +855,7 @@ export enum SystemInfoWifiSecurityMode {
     WEP = 'WEP',
     WPA_PSK = 'WPA_PSK',
     WPA2_PSK = 'WPA2_PSK',
-    EAP = 'EAP'
+    EAP = 'EAP',
 }
 
 /**
@@ -879,7 +873,7 @@ export enum SystemInfoWifiEncryptionType {
     WEP = 'WEP',
     TKIP = 'TKIP',
     AES = 'AES',
-    TKIP_AES_MIXED = 'TKIP_AES_MIXED'
+    TKIP_AES_MIXED = 'TKIP_AES_MIXED',
 }
 
 /**
@@ -898,7 +892,7 @@ export enum SystemInfoNetworkIpMode {
     STATIC = 'STATIC',
     DYNAMIC = 'DYNAMIC',
     AUTO = 'AUTO',
-    FIXED = 'FIXED'
+    FIXED = 'FIXED',
 }
 
 /**
@@ -915,7 +909,7 @@ export enum SystemInfoProfile {
     MOBILE_WEB = 'MOBILE_WEB',
     MOBILE = 'MOBILE',
     WEARABLE = 'WEARABLE',
-    TV = 'TV'
+    TV = 'TV',
 }
 
 /**
@@ -926,7 +920,7 @@ export enum SystemInfoProfile {
  */
 export enum SystemInfoLowMemoryStatus {
     NORMAL = 'NORMAL',
-    WARNING = 'WARNING'
+    WARNING = 'WARNING',
 }
 
 /**
@@ -948,7 +942,7 @@ export enum SystemInfoDeviceOrientationStatus {
     PORTRAIT_PRIMARY = 'PORTRAIT_PRIMARY',
     PORTRAIT_SECONDARY = 'PORTRAIT_SECONDARY',
     LANDSCAPE_PRIMARY = 'LANDSCAPE_PRIMARY',
-    LANDSCAPE_SECONDARY = 'LANDSCAPE_SECONDARY'
+    LANDSCAPE_SECONDARY = 'LANDSCAPE_SECONDARY',
 }
 /**
  * An enumerator to indicate the type of video source.
@@ -972,7 +966,7 @@ export enum SystemInfoVideoSourceType {
     HDMI = 'HDMI',
     SCART = 'SCART',
     DVI = 'DVI',
-    MEDIA = 'MEDIA'
+    MEDIA = 'MEDIA',
 }
 
 /**
@@ -1384,37 +1378,19 @@ export interface SystemInfoWifiNetwork extends SystemInfoProperty {
      *
      * @since 2.4
      */
-    readonly securityMode:
-        | SystemInfoWifiSecurityMode
-        | 'NONE'
-        | 'WEP'
-        | 'WPA_PSK'
-        | 'WPA2_PSK'
-        | 'EAP';
+    readonly securityMode: SystemInfoWifiSecurityMode | 'NONE' | 'WEP' | 'WPA_PSK' | 'WPA2_PSK' | 'EAP';
     /**
      * Represents this connection's encryption type.
      *
      * @since 2.4
      */
-    readonly encryptionType:
-        | SystemInfoWifiEncryptionType
-        | 'NONE'
-        | 'WEP'
-        | 'TKIP'
-        | 'AES'
-        | 'TKIP_AES_MIXED';
+    readonly encryptionType: SystemInfoWifiEncryptionType | 'NONE' | 'WEP' | 'TKIP' | 'AES' | 'TKIP_AES_MIXED';
     /**
      * Represents this connection's IP configuration type.
      *
      * @since 2.4
      */
-    readonly ipMode:
-        | SystemInfoNetworkIpMode
-        | 'NONE'
-        | 'STATIC'
-        | 'DYNAMIC'
-        | 'AUTO'
-        | 'FIXED';
+    readonly ipMode: SystemInfoNetworkIpMode | 'NONE' | 'STATIC' | 'DYNAMIC' | 'AUTO' | 'FIXED';
     /**
      * Represents the subnet mask of this connection.
      *
@@ -1480,13 +1456,7 @@ export interface SystemInfoEthernetNetwork extends SystemInfoProperty {
     /**
      * Represents this connection's IP configuration type.
      */
-    readonly ipMode:
-        | SystemInfoNetworkIpMode
-        | 'NONE'
-        | 'STATIC'
-        | 'DYNAMIC'
-        | 'AUTO'
-        | 'FIXED';
+    readonly ipMode: SystemInfoNetworkIpMode | 'NONE' | 'STATIC' | 'DYNAMIC' | 'AUTO' | 'FIXED';
     /**
      * Represents the subnet mask of this connection.
      *
@@ -1583,13 +1553,7 @@ export interface SystemInfoCellularNetwork extends SystemInfoProperty {
      *
      * @since 2.4
      */
-    readonly ipMode:
-        | SystemInfoNetworkIpMode
-        | 'NONE'
-        | 'STATIC'
-        | 'DYNAMIC'
-        | 'AUTO'
-        | 'FIXED';
+    readonly ipMode: SystemInfoNetworkIpMode | 'NONE' | 'STATIC' | 'DYNAMIC' | 'AUTO' | 'FIXED';
     /**
      * Represents the subnet mask of this connection.
      *

@@ -27,13 +27,9 @@ import {
     CompositeFilterConstructor,
     SortModeConstructor,
     SimpleCoordinatesConstructor,
-    BundleConstructor
+    BundleConstructor,
 } from './tizen';
-import {
-    ApplicationControlConstructor,
-    ApplicationControlDataConstructor,
-    ApplicationManager
-} from './application';
+import { ApplicationControlConstructor, ApplicationControlDataConstructor, ApplicationManager } from './application';
 import { FilesystemManager } from './filesystem';
 import { DownloadManager, DownloadRequestConstructor } from './download';
 import { SystemInfoManager } from './systeminfo';

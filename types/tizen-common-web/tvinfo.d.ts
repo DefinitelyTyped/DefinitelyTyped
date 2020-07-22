@@ -27,7 +27,7 @@ export enum CaptionInfoKey {
     CAPTION_EDGE_TYPE_KEY = 'CAPTION_EDGE_TYPE_KEY',
     CAPTION_EDGE_COLOR_KEY = 'CAPTION_EDGE_COLOR_KEY',
     CAPTION_WINDOW_COLOR_KEY = 'CAPTION_WINDOW_COLOR_KEY',
-    CAPTION_WINDOW_OPACITY_KEY = 'CAPTION_WINDOW_OPACITY_KEY'
+    CAPTION_WINDOW_OPACITY_KEY = 'CAPTION_WINDOW_OPACITY_KEY',
 }
 
 /**
@@ -39,7 +39,7 @@ export enum CaptionInfoKey {
  */
 export enum CaptionState {
     CAPTION_OFF = 'CAPTION_OFF',
-    CAPTION_ON = 'CAPTION_ON'
+    CAPTION_ON = 'CAPTION_ON',
 }
 
 /**
@@ -77,7 +77,7 @@ export enum CaptionMode {
     CAPTION_MODE_TEXT1 = 'CAPTION_MODE_TEXT1',
     CAPTION_MODE_TEXT2 = 'CAPTION_MODE_TEXT2',
     CAPTION_MODE_TEXT3 = 'CAPTION_MODE_TEXT3',
-    CAPTION_MODE_TEXT4 = 'CAPTION_MODE_TEXT4'
+    CAPTION_MODE_TEXT4 = 'CAPTION_MODE_TEXT4',
 }
 
 /**
@@ -95,7 +95,7 @@ export enum CaptionFontSize {
     CAPTION_SIZE_SMALL = 'CAPTION_SIZE_SMALL',
     CAPTION_SIZE_STANDARD = 'CAPTION_SIZE_STANDARD',
     CAPTION_SIZE_LARGE = 'CAPTION_SIZE_LARGE',
-    CAPTION_SIZE_EXTRA_LARGE = 'CAPTION_SIZE_EXTRA_LARGE'
+    CAPTION_SIZE_EXTRA_LARGE = 'CAPTION_SIZE_EXTRA_LARGE',
 }
 
 /**
@@ -120,7 +120,7 @@ export enum CaptionFontStyle {
     CAPTION_FONT_STYLE4 = 'CAPTION_FONT_STYLE4',
     CAPTION_FONT_STYLE5 = 'CAPTION_FONT_STYLE5',
     CAPTION_FONT_STYLE6 = 'CAPTION_FONT_STYLE6',
-    CAPTION_FONT_STYLE7 = 'CAPTION_FONT_STYLE7'
+    CAPTION_FONT_STYLE7 = 'CAPTION_FONT_STYLE7',
 }
 
 /**
@@ -137,7 +137,7 @@ export enum CaptionColor {
     CAPTION_COLOR_BLUE = 'CAPTION_COLOR_BLUE',
     CAPTION_COLOR_YELLOW = 'CAPTION_COLOR_YELLOW',
     CAPTION_COLOR_MAGENTA = 'CAPTION_COLOR_MAGENTA',
-    CAPTION_COLOR_CYAN = 'CAPTION_COLOR_CYAN'
+    CAPTION_COLOR_CYAN = 'CAPTION_COLOR_CYAN',
 }
 
 /**
@@ -150,7 +150,7 @@ export enum CaptionOpacity {
     CAPTION_OPACITY_FLASHING = 'CAPTION_OPACITY_FLASHING',
     CAPTION_OPACITY_TRANSLUCENT = 'CAPTION_OPACITY_TRANSLUCENT',
     CAPTION_OPACITY_TRANSPARENT = 'CAPTION_OPACITY_TRANSPARENT',
-    CAPTION_OPACITY_DEFAULT = 'CAPTION_OPACITY_DEFAULT'
+    CAPTION_OPACITY_DEFAULT = 'CAPTION_OPACITY_DEFAULT',
 }
 
 /**
@@ -168,7 +168,7 @@ export enum CaptionEdge {
     CAPTION_EDGE_RAISED = 'CAPTION_EDGE_RAISED',
     CAPTION_EDGE_DEPRESSED = 'CAPTION_EDGE_DEPRESSED',
     CAPTION_EDGE_UNIFORM = 'CAPTION_EDGE_UNIFORM',
-    CAPTION_EDGE_DROP_SHADOWED = 'CAPTION_EDGE_DROP_SHADOWED'
+    CAPTION_EDGE_DROP_SHADOWED = 'CAPTION_EDGE_DROP_SHADOWED',
 }
 
 /**
@@ -184,7 +184,7 @@ export interface CaptionValueChangeCallback {
             CaptionFontStyle &
             CaptionColor &
             CaptionOpacity &
-            CaptionEdge
+            CaptionEdge,
     ): void;
 }
 
@@ -214,14 +214,8 @@ export interface TVInfoManager {
             | 'CAPTION_EDGE_TYPE_KEY'
             | 'CAPTION_EDGE_COLOR_KEY'
             | 'CAPTION_WINDOW_COLOR_KEY'
-            | 'CAPTION_WINDOW_OPACITY_KEY'
-    ): CaptionState &
-        CaptionMode &
-        CaptionFontSize &
-        CaptionFontStyle &
-        CaptionColor &
-        CaptionOpacity &
-        CaptionEdge;
+            | 'CAPTION_WINDOW_OPACITY_KEY',
+    ): CaptionState & CaptionMode & CaptionFontSize & CaptionFontStyle & CaptionColor & CaptionOpacity & CaptionEdge;
 
     /**
      * Adds a listener to be called when given caption menu key value changes.
@@ -246,7 +240,7 @@ export interface TVInfoManager {
             | 'CAPTION_EDGE_COLOR_KEY'
             | 'CAPTION_WINDOW_COLOR_KEY'
             | 'CAPTION_WINDOW_OPACITY_KEY',
-        callback: CaptionValueChangeCallback
+        callback: CaptionValueChangeCallback,
     ): number;
 
     /**

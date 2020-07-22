@@ -52,7 +52,7 @@ export enum DownloadState {
     CANCELED = 'CANCELED',
     COMPLETED = 'COMPLETED',
     FAILED = 'FAILED',
-    ABANDONED = 'ABANDONED'
+    ABANDONED = 'ABANDONED',
 }
 
 /**
@@ -69,7 +69,7 @@ export enum DownloadState {
 export enum DownloadNetworkType {
     CELLULAR = 'CELLULAR',
     WIFI = 'WIFI',
-    ALL = 'ALL'
+    ALL = 'ALL',
 }
 
 export interface DownloadRequestConstructor {
@@ -95,7 +95,7 @@ export interface DownloadRequestConstructor {
         destination?: string,
         fileName?: string,
         networkType?: DownloadNetworkType | 'CELLULAR' | 'WIFI' | 'ALL',
-        httpHeader?: DownloadHTTPHeaderFields
+        httpHeader?: DownloadHTTPHeaderFields,
     ): DownloadRequest;
 }
 
@@ -125,7 +125,7 @@ export class DownloadRequest {
         destination?: string,
         fileName?: string,
         networkType?: DownloadNetworkType | 'CELLULAR' | 'WIFI' | 'ALL',
-        httpHeader?: DownloadHTTPHeaderFields
+        httpHeader?: DownloadHTTPHeaderFields,
     );
     url: string;
     destnation?: string;
@@ -157,10 +157,7 @@ export interface DownloadManager {
      * @throw WebAPIException TypeMismatchError, NotSupportedError, InvalidValuesError, SecurityError, UnknownError
      *
      */
-    start: (
-        downloadRequest: DownloadRequest,
-        downloadCallback?: DownloadCallback
-    ) => number;
+    start: (downloadRequest: DownloadRequest, downloadCallback?: DownloadCallback) => number;
 
     /**
      * Cancels an ongoing download operation that is specified by the `downloadId` parameter.
@@ -271,10 +268,7 @@ export interface DownloadManager {
      * @throw WebAPIException NotFoundError, TypeMismatchError, InvalidValuesError, UnknownError
      *
      */
-    setListener: (
-        downloadId: number,
-        downloadCallback: DownloadCallback
-    ) => void;
+    setListener: (downloadId: number, downloadCallback: DownloadCallback) => void;
 }
 
 /**
@@ -290,11 +284,7 @@ export interface DownloadCallback {
      * @param receivedSize The size of data received in bytes.
      * @param totalSize The total size of data to receive in bytes.
      */
-    onprogress?(
-        downloadId: number,
-        receivedSize: number,
-        totalSize: number
-    ): void;
+    onprogress?(downloadId: number, receivedSize: number, totalSize: number): void;
 
     /**
      * Called when the download operation is paused by the `pause()` method.

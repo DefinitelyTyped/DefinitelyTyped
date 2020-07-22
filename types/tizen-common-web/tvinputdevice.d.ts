@@ -99,7 +99,7 @@ export interface TVInputDeviceManager {
     registerKeyBatch(
         keyNames: InputDeviceKeyName[],
         successCallback?: SuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ): void;
 
     /**
@@ -117,6 +117,6 @@ export interface TVInputDeviceManager {
     unregisterKeyBatch(
         keyNames: InputDeviceKeyName[],
         successCallback?: SuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ): void;
 }

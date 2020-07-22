@@ -38,7 +38,7 @@ export enum FilterMatchFlag {
     CONTAINS = 'CONTAINS',
     STARTSWITH = 'STARTSWITH',
     ENDSWITH = 'ENDSWITH',
-    EXISTS = 'EXISTS'
+    EXISTS = 'EXISTS',
 }
 
 /**
@@ -50,7 +50,7 @@ export enum FilterMatchFlag {
  */
 export enum SortModeOrder {
     ASC = 'ASC',
-    DESC = 'DESC'
+    DESC = 'DESC',
 }
 
 /**
@@ -62,7 +62,7 @@ export enum SortModeOrder {
  */
 export enum CompositeFilterType {
     UNION = 'UNION',
-    INTERSECTION = 'INTERSECTION'
+    INTERSECTION = 'INTERSECTION',
 }
 
 /**
@@ -81,7 +81,7 @@ export enum BundleValueType {
     STRING = 'STRING',
     STRING_ARRAY = 'STRING_ARRAY',
     BYTES = 'BYTES',
-    BYTES_ARRAY = 'BYTES_ARRAY'
+    BYTES_ARRAY = 'BYTES_ARRAY',
 }
 
 export interface BundleConstructor {
@@ -124,9 +124,7 @@ export class Bundle {
      * @remark If the value for the given key is an empty array this function returns STRING_ARRAY.
      *
      */
-    typeOf: (
-        key: string
-    ) => BundleValueType | 'STRING' | 'STRING_ARRAY' | 'BYTES' | 'BYTES_ARRAY';
+    typeOf: (key: string) => BundleValueType | 'STRING' | 'STRING_ARRAY' | 'BYTES' | 'BYTES_ARRAY';
     /**
      * Calls the callback function for each item stored in the bundle.
      * If bundle is empty the callback function will not be called.
@@ -160,15 +158,8 @@ export class AbstractFilter {}
 export interface AttributeFilterConstructor {
     new (
         attributeName: string,
-        matchFlag?:
-            | FilterMatchFlag
-            | 'EXACTLY'
-            | 'FULLSTRING'
-            | 'CONTAINS'
-            | 'STARTSWITH'
-            | 'ENDSWITH'
-            | 'EXISTS',
-        matchValue?: any
+        matchFlag?: FilterMatchFlag | 'EXACTLY' | 'FULLSTRING' | 'CONTAINS' | 'STARTSWITH' | 'ENDSWITH' | 'EXISTS',
+        matchValue?: any,
     ): AttributeFilter;
 }
 
@@ -182,15 +173,8 @@ export interface AttributeFilterConstructor {
 export class AttributeFilter extends AbstractFilter {
     constructor(
         attributeName: string,
-        matchFlag?:
-            | FilterMatchFlag
-            | 'EXACTLY'
-            | 'FULLSTRING'
-            | 'CONTAINS'
-            | 'STARTSWITH'
-            | 'ENDSWITH'
-            | 'EXISTS',
-        matchValue?: any
+        matchFlag?: FilterMatchFlag | 'EXACTLY' | 'FULLSTRING' | 'CONTAINS' | 'STARTSWITH' | 'ENDSWITH' | 'EXISTS',
+        matchValue?: any,
     );
     /**
      * The name of the object attribute used for filtering.
@@ -207,14 +191,7 @@ export class AttributeFilter extends AbstractFilter {
      * The match flag used for attribute-based filtering.
      * By default, this attribute is set to "EXACTLY".
      */
-    matchFlag:
-        | FilterMatchFlag
-        | 'EXACTLY'
-        | 'FULLSTRING'
-        | 'CONTAINS'
-        | 'STARTSWITH'
-        | 'ENDSWITH'
-        | 'EXISTS';
+    matchFlag: FilterMatchFlag | 'EXACTLY' | 'FULLSTRING' | 'CONTAINS' | 'STARTSWITH' | 'ENDSWITH' | 'EXISTS';
     /**
      * The value used for matching.
      * The filter will match if the attribute value matches the given matchValue.
@@ -225,11 +202,7 @@ export class AttributeFilter extends AbstractFilter {
 }
 
 export interface AttributeRangeFilterConstructor {
-    new (
-        attributeName: string,
-        initialValue?: any,
-        endValue?: any
-    ): AttributeRangeFilter;
+    new (attributeName: string, initialValue?: any, endValue?: any): AttributeRangeFilter;
 }
 /**
  * `AttributeRangeFilter` represents a filter based on an object attribute
@@ -263,10 +236,7 @@ export class AttributeRangeFilter extends AbstractFilter {
 }
 
 export interface CompositeFilterConstructor {
-    new (
-        type: CompositeFilterType | 'UNION' | 'INTERSECTION',
-        filters?: AbstractFilter[]
-    ): CompositeFilter;
+    new (type: CompositeFilterType | 'UNION' | 'INTERSECTION', filters?: AbstractFilter[]): CompositeFilter;
 }
 /**
  * `CompositeFilter` represents a set of filters.
@@ -276,10 +246,7 @@ export interface CompositeFilterConstructor {
  * - `intersection` - used to filter objects that match all the filters it includes.
  */
 export class CompositeFilter extends AbstractFilter {
-    constructor(
-        type: CompositeFilterType | 'UNION' | 'INTERSECTION',
-        filters?: AbstractFilter[]
-    );
+    constructor(type: CompositeFilterType | 'UNION' | 'INTERSECTION', filters?: AbstractFilter[]);
     /**
      * The composite filter type.
      *
@@ -292,10 +259,7 @@ export class CompositeFilter extends AbstractFilter {
 }
 
 export interface SortModeConstructor {
-    new (
-        attributeName: string,
-        order?: SortModeOrder | 'ASC' | 'DESC'
-    ): SortMode;
+    new (attributeName: string, order?: SortModeOrder | 'ASC' | 'DESC'): SortMode;
 }
 /**
  * `SortMode` is a common interface used for sorting of queried data.

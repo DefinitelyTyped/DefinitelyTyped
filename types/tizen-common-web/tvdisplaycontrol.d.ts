@@ -74,11 +74,7 @@ export interface TVDisplayControlManager {
      * @privilegeName 5.0 http://tizen.org/privilege/tv.display
      * @warning 5.0 http://tizen.org/privilege/tv.display (public level) has been deprecated since 5.0.
      */
-    is3DModeEnabled():
-        | Display3DModeState
-        | 'NOT_CONNECTED'
-        | 'NOT_SUPPORTED'
-        | 'READY';
+    is3DModeEnabled(): Display3DModeState | 'NOT_CONNECTED' | 'NOT_SUPPORTED' | 'READY';
 
     /**
      * Gets the supported 3D effects.
@@ -90,10 +86,7 @@ export interface TVDisplayControlManager {
      * @privilegeName 5.0 http://tizen.org/privilege/tv.display
      * @warning 5.0 http://tizen.org/privilege/tv.display (public level) has been deprecated since 5.0.
      */
-    getSupported3DEffectModeList(
-        successCallback: Mode3DEffectListSupportCallback,
-        errorCallback?: ErrorCallback
-    ): void;
+    getSupported3DEffectModeList(successCallback: Mode3DEffectListSupportCallback, errorCallback?: ErrorCallback): void;
 }
 
 /**
@@ -115,7 +108,7 @@ export enum Display3DEffectMode {
     VERTICAL_STRIPE = 'VERTICAL_STRIPE',
     FRAME_SEQUENCE = 'FRAME_SEQUENCE',
     CHECKER_BD = 'CHECKER_BD',
-    FROM_2D_TO_3D = 'FROM_2D_TO_3D'
+    FROM_2D_TO_3D = 'FROM_2D_TO_3D',
 }
 
 /**
@@ -127,7 +120,7 @@ export enum Display3DEffectMode {
 export enum Display3DModeState {
     NOT_CONNECTED = 'NOT_CONNECTED',
     NOT_SUPPORTED = 'NOT_SUPPORTED',
-    READY = 'READY'
+    READY = 'READY',
 }
 
 /**

@@ -15,7 +15,7 @@ export enum AudioOutputMode {
     DOLBY = 'DOLBY',
     DTS = 'DTS',
     AAC = 'AAC',
-    DOLBY_DIGITAL_PLUS = 'DOLBY_DIGITAL_PLUS'
+    DOLBY_DIGITAL_PLUS = 'DOLBY_DIGITAL_PLUS',
 }
 
 /**
@@ -53,7 +53,7 @@ export enum AudioBeepType {
     KEYPAD_ENTER = 'KEYPAD_ENTER',
     KEYPAD_DEL = 'KEYPAD_DEL',
     MOVE = 'MOVE',
-    PREPARING = 'PREPARING'
+    PREPARING = 'PREPARING',
 }
 
 /**
@@ -198,13 +198,7 @@ export interface TVAudioControlManager {
      * @warning 5.0 http://tizen.org/privilege/tv.audio (public level) has been deprecated since 5.0.
      *
      */
-    getOutputMode: () =>
-        | AudioOutputMode
-        | 'PCM'
-        | 'DOLBY'
-        | 'DTS'
-        | 'AAC'
-        | 'DOLBY_DIGITAL_PLUS';
+    getOutputMode: () => AudioOutputMode | 'PCM' | 'DOLBY' | 'DTS' | 'AAC' | 'DOLBY_DIGITAL_PLUS';
 
     /**
      * Plays the sound of a specific beep.
@@ -235,7 +229,7 @@ export interface TVAudioControlManager {
             | 'KEYPAD_ENTER'
             | 'KEYPAD_DEL'
             | 'MOVE'
-            | 'PREPARING'
+            | 'PREPARING',
     ) => void;
 }
 

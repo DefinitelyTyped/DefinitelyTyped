@@ -77,7 +77,7 @@ export enum FileMode {
     r = 'r',
     rw = 'rw',
     rwo = 'rwo',
-    w = 'w'
+    w = 'w',
 }
 
 /**
@@ -87,7 +87,7 @@ export enum FileMode {
  */
 export enum FileSystemStorageType {
     INTERNAL = 'INTERNAL',
-    EXTERNAL = 'EXTERNAL'
+    EXTERNAL = 'EXTERNAL',
 }
 
 /**
@@ -99,7 +99,7 @@ export enum FileSystemStorageType {
 export enum FileSystemStorageState {
     MOUNTED = 'MOUNTED',
     REMOVED = 'REMOVED',
-    UNMOUNTABLE = 'UNMOUNTABLE'
+    UNMOUNTABLE = 'UNMOUNTABLE',
 }
 
 /**
@@ -111,7 +111,7 @@ export enum FileSystemStorageState {
 export enum BaseSeekPosition {
     BEGIN = 'BEGIN',
     CURRENT = 'CURRENT',
-    END = 'END'
+    END = 'END',
 }
 
 /**
@@ -155,11 +155,7 @@ export interface FilesystemManager {
      * @returns Object representing open file.
      * @throw WebAPIException IOError, NotFoundError, SecurityError, TypeMismatchError
      */
-    openFile: (
-        path: Path,
-        openMode: FileMode | 'a' | 'r' | 'rw' | 'rwo' | 'w',
-        makeParents?: boolean
-    ) => FileHandle;
+    openFile: (path: Path, openMode: FileMode | 'a' | 'r' | 'rw' | 'rwo' | 'w', makeParents?: boolean) => FileHandle;
 
     /**
      * Creates directory pointed by `path`.
@@ -186,7 +182,7 @@ export interface FilesystemManager {
         path: Path,
         makeParents?: boolean,
         successCallback?: PathSuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ) => void;
 
     /**
@@ -205,11 +201,7 @@ export interface FilesystemManager {
      * @param errorCallback Callback function to be invoked when an error occurs.
      * @throw WebAPIException with error type InvalidValuesError, SecurityError, TypeMismatchError
      */
-    deleteFile: (
-        path: Path,
-        successCallback?: PathSuccessCallback,
-        errorCallback?: ErrorCallback
-    ) => void;
+    deleteFile: (path: Path, successCallback?: PathSuccessCallback, errorCallback?: ErrorCallback) => void;
 
     /**
      * Deletes directory or directory tree under the current directory pointed by `path`.
@@ -234,7 +226,7 @@ export interface FilesystemManager {
         path: Path,
         recursive?: boolean,
         successCallback?: PathSuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ) => void;
 
     /**
@@ -263,7 +255,7 @@ export interface FilesystemManager {
         destinationPath: Path,
         overwrite?: boolean,
         successCallback?: PathSuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ) => void;
 
     /**
@@ -294,7 +286,7 @@ export interface FilesystemManager {
         destinationPath: Path,
         overwrite?: boolean,
         successCallback?: PathSuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ) => void;
 
     /**
@@ -323,7 +315,7 @@ export interface FilesystemManager {
         destinationPath: Path,
         overwrite?: boolean,
         successCallback?: PathSuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ) => void;
 
     /**
@@ -353,7 +345,7 @@ export interface FilesystemManager {
         destinationPath: Path,
         overwrite?: boolean,
         successCallback?: PathSuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ) => void;
 
     /**
@@ -373,12 +365,7 @@ export interface FilesystemManager {
      * @param errorCallback Callback function to be invoked when an error occurs.
      * @throw WebAPIException InvalidValuesError, SecurityError, TypeMismatchError
      */
-    rename: (
-        path: Path,
-        newName: string,
-        successCallback?: PathSuccessCallback,
-        errorCallback?: ErrorCallback
-    ) => void;
+    rename: (path: Path, newName: string, successCallback?: PathSuccessCallback, errorCallback?: ErrorCallback) => void;
 
     /**
      * Lists directory content located in `path`.
@@ -404,7 +391,7 @@ export interface FilesystemManager {
         path: Path,
         successCallback: ListDirectorySuccessCallback,
         errorCallback?: ErrorCallback,
-        filter?: FileFilter
+        filter?: FileFilter,
     ) => void;
 
     /**
@@ -505,7 +492,7 @@ export interface FilesystemManager {
         location: string,
         onsuccess: FileSuccessCallback,
         onerror?: ErrorCallback,
-        mode?: FileMode | 'a' | 'r' | 'rw' | 'rwo' | 'w'
+        mode?: FileMode | 'a' | 'r' | 'rw' | 'rwo' | 'w',
     ) => void;
 
     /**
@@ -525,11 +512,7 @@ export interface FilesystemManager {
      * @param onerror   Callback method to be invoked when an error occurs.
      * @throw WebAPIException TypeMismatchError, SecurityError
      */
-    getStorage: (
-        label: string,
-        onsuccess: FileSystemStorageSuccessCallback,
-        onerror?: ErrorCallback
-    ) => void;
+    getStorage: (label: string, onsuccess: FileSystemStorageSuccessCallback, onerror?: ErrorCallback) => void;
 
     /**
      * Lists the available storages (both internal and external) on a device.
@@ -552,10 +535,7 @@ export interface FilesystemManager {
      * @param onerror   Callback method to be invoked when an error occurs.
      * @throw WebAPIException TypeMismatchError, SecurityError
      */
-    listStorages: (
-        onsuccess: FileSystemStorageArraySuccessCallback,
-        onerror?: ErrorCallback
-    ) => void;
+    listStorages: (onsuccess: FileSystemStorageArraySuccessCallback, onerror?: ErrorCallback) => void;
 
     /**
      * Adds a listener to subscribe to notifications when a change in storage state occurs.
@@ -570,10 +550,7 @@ export interface FilesystemManager {
      * @returns Subscription identifier.
      * @throw WebAPIException SecurityError, TypeMismatchError, UnknownError
      */
-    addStorageStateChangeListener: (
-        onsuccess: FileSystemStorageSuccessCallback,
-        onerror?: ErrorCallback
-    ) => number;
+    addStorageStateChangeListener: (onsuccess: FileSystemStorageSuccessCallback, onerror?: ErrorCallback) => number;
 
     /**
      * Removes a listener to unsubscribe from a storage watch operation.
@@ -604,11 +581,7 @@ export interface FileSystemStorage {
     /**
      * The storage state as mounted or not.
      */
-    readonly state:
-        | FileSystemStorageState
-        | 'MOUNTED'
-        | 'REMOVED'
-        | 'UNMOUNTABLE';
+    readonly state: FileSystemStorageState | 'MOUNTED' | 'REMOVED' | 'UNMOUNTABLE';
 }
 
 /**
@@ -633,10 +606,7 @@ export interface FileHandle {
      * @returns File position indicator.
      * @throw WebAPIException IOError, TypeMismatchError
      */
-    seek: (
-        offset: number,
-        whence?: BaseSeekPosition | 'BEGIN' | 'CURRENT' | 'END'
-    ) => number;
+    seek: (offset: number, whence?: BaseSeekPosition | 'BEGIN' | 'CURRENT' | 'END') => number;
 
     /**
      * Sets position indicator in file stream to ***offset***.
@@ -657,7 +627,7 @@ export interface FileHandle {
         offset: number,
         onsuccess?: SeekSuccessCallback,
         onerror?: ErrorCallback,
-        whence?: BaseSeekPosition | 'BEGIN' | 'CURRENT' | 'END'
+        whence?: BaseSeekPosition | 'BEGIN' | 'CURRENT' | 'END',
     ) => void;
 
     /**
@@ -696,7 +666,7 @@ export interface FileHandle {
         onsuccess?: ReadStringSuccessCallback,
         onerror?: ErrorCallback,
         count?: number,
-        inputEncoding?: string
+        inputEncoding?: string,
     ) => void;
 
     /**
@@ -732,7 +702,7 @@ export interface FileHandle {
         inputString: string,
         onsuccess?: WriteStringSuccessCallback,
         onerror?: ErrorCallback,
-        outputEncoding?: string
+        outputEncoding?: string,
     ) => void;
 
     /**
@@ -758,11 +728,7 @@ export interface FileHandle {
      * @param size Size in bytes of data to read from file. If none is given, method attempts to read whole file.
      * @throw WebAPIException InvalidValuesError, TypeMismatchError
      */
-    readBlobNonBlocking: (
-        onsuccess?: ReadBlobSuccessCallback,
-        onerror?: ErrorCallback,
-        size?: number
-    ) => void;
+    readBlobNonBlocking: (onsuccess?: ReadBlobSuccessCallback, onerror?: ErrorCallback, size?: number) => void;
 
     /**
      * Writes `Blob` to file.
@@ -786,11 +752,7 @@ export interface FileHandle {
      * @param onerror Callback function to be invoked when an error occurs.
      * @throw WebAPIException TypeMismatchError
      */
-    writeBlobNonBlocking: (
-        blob: Blob,
-        onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
-    ) => void;
+    writeBlobNonBlocking: (blob: Blob, onsuccess?: SuccessCallback, onerror?: ErrorCallback) => void;
 
     /**
      * Reads file content as binary data.
@@ -817,11 +779,7 @@ export interface FileHandle {
      * @param size Size in bytes of data to read from file. If none is given, method attempts to read whole file.
      * @throw WebAPIException InvalidValuesError, TypeMismatchError
      */
-    readDataNonBlocking: (
-        onsuccess?: ReadDataSuccessCallback,
-        onerror?: ErrorCallback,
-        size?: number
-    ) => void;
+    readDataNonBlocking: (onsuccess?: ReadDataSuccessCallback, onerror?: ErrorCallback, size?: number) => void;
 
     /**
      * Writes binary data to file.
@@ -847,11 +805,7 @@ export interface FileHandle {
      * @param onerror Callback function to be invoked when an error occurs.
      * @throw WebAPIException TypeMismatchError
      */
-    writeDataNonBlocking: (
-        data: Uint8Array,
-        onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
-    ) => void;
+    writeDataNonBlocking: (data: Uint8Array, onsuccess?: SuccessCallback, onerror?: ErrorCallback) => void;
 
     /**
      * Flushes data.
@@ -877,10 +831,7 @@ export interface FileHandle {
      * @param onerror Callback function to be invoked when an error occurs.
      * @throw WebAPIException TypeMismatchError
      */
-    flushNonBlocking: (
-        onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
-    ) => void;
+    flushNonBlocking: (onsuccess?: SuccessCallback, onerror?: ErrorCallback) => void;
 
     /**
      * Synchronizes data to storage device.
@@ -902,10 +853,7 @@ export interface FileHandle {
      * @param onerror Callback function to be invoked when an error occurs.
      * @throw WebAPIException TypeMismatchError
      */
-    syncNonBlocking: (
-        onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
-    ) => void;
+    syncNonBlocking: (onsuccess?: SuccessCallback, onerror?: ErrorCallback) => void;
 
     /**
      * Closes file handle.
@@ -929,10 +877,7 @@ export interface FileHandle {
      * @param onerror Callback function to be invoked when an error occurs.
      * @throw WebAPIException TypeMismatchError
      */
-    closeNonBlocking: (
-        onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
-    ) => void;
+    closeNonBlocking: (onsuccess?: SuccessCallback, onerror?: ErrorCallback) => void;
 }
 
 /**
@@ -1114,11 +1059,7 @@ export interface File {
      * @param filter    Criteria to restrict the listed files.
      * @throw WebAPIException TypeMismatchError, SecurityError
      */
-    listFiles: (
-        onsuccess: FileArraySuccessCallback,
-        onerror?: ErrorCallback,
-        filter?: FileFilter
-    ) => void;
+    listFiles: (onsuccess: FileArraySuccessCallback, onerror?: ErrorCallback, filter?: FileFilter) => void;
 
     /**
      * Opens the file in the given mode supporting a specified encoding.
@@ -1149,7 +1090,7 @@ export interface File {
         mode: FileMode | 'a' | 'r' | 'rw' | 'rwo' | 'w',
         onsuccess: FileStreamSuccessCallback,
         onerror?: ErrorCallback,
-        encoding?: string
+        encoding?: string,
     ) => void;
 
     /**
@@ -1172,11 +1113,7 @@ export interface File {
      *                  If no encoding is passed by the developer, then the default platform encoding must be used.
      * @throw WebAPIException TypeMismatchError, SecurityError
      */
-    readAsText: (
-        onsuccess: FileStringSuccessCallback,
-        onerror?: ErrorCallback,
-        encoding?: string
-    ) => void;
+    readAsText: (onsuccess: FileStringSuccessCallback, onerror?: ErrorCallback, encoding?: string) => void;
 
     /**
      * Copies (and overwrites if possible and specified) a file or a
@@ -1207,7 +1144,7 @@ export interface File {
         destinationFilePath: string,
         overwrite: boolean,
         onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -1239,7 +1176,7 @@ export interface File {
         destinationFilePath: string,
         overwrite: boolean,
         onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -1320,7 +1257,7 @@ export interface File {
         directoryPath: string,
         recursive: boolean,
         onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -1342,11 +1279,7 @@ export interface File {
      * @param onerror   Callback method to be invoked when an error has occurred.
      * @throw WebAPIException TypeMismatchError, SecurityError
      */
-    deleteFile: (
-        filePath: string,
-        onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
-    ) => void;
+    deleteFile: (filePath: string, onsuccess?: SuccessCallback, onerror?: ErrorCallback) => void;
 }
 
 /**

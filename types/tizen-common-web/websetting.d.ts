@@ -16,11 +16,7 @@ export interface WebSettingManager {
      * @throw WebAPIException TypeMismatchError
      * @since 2.2
      */
-    setUserAgentString: (
-        userAgent: string,
-        successCallback?: SuccessCallback,
-        errorCallback?: ErrorCallback
-    ) => void;
+    setUserAgentString: (userAgent: string, successCallback?: SuccessCallback, errorCallback?: ErrorCallback) => void;
 
     /**
      * Sets the custom user agent string for your Web application.
@@ -33,8 +29,5 @@ export interface WebSettingManager {
      * @warning http://tizen.org/privilege/websetting(public level privilege) MUST NOT be declared to use this API since 2.4.
      * @since 2.2
      */
-    removeAllCookies: (
-        successCallback?: SuccessCallback,
-        errorCallback?: ErrorCallback
-    ) => void;
+    removeAllCookies: (successCallback?: SuccessCallback, errorCallback?: ErrorCallback) => void;
 }
