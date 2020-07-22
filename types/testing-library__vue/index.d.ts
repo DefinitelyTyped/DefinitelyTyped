@@ -6,8 +6,8 @@
 import { ThisTypedMountOptions, VueClass } from '@vue/test-utils';
 import Vue from 'vue';
 import { Store, StoreOptions } from 'vuex';
-import Router, { RouterOptions, RouteConfig } from 'vue-router';
-import { getQueriesForElement, BoundFunctions, queries, EventType, FireFunction } from '@testing-library/dom';
+import Router, { RouteConfig } from 'vue-router';
+import { BoundFunctions, queries, EventType } from '@testing-library/dom';
 
 // NOTE: fireEvent is overridden below
 export * from '@testing-library/dom';
@@ -24,7 +24,7 @@ export interface RenderOptions<V extends Vue, S = {}> extends
 }
 
 export type ConfigurationCallback<V extends Vue> =
-  (vue: V, store: Store<any>, router: Router) => Partial<ThisTypedMountOptions<V>> | void;
+  (localVue: typeof Vue, store: Store<any>, router: Router) => Partial<ThisTypedMountOptions<V>> | void;
 
 export interface ComponentHarness extends BoundFunctions<typeof queries> {
   container: HTMLElement;
