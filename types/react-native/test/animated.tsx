@@ -164,6 +164,27 @@ function TestAnimatedAPI() {
             <ForwardComp ref={ForwardCompRef} width={1} />
             <AnimatedForwardComp ref={AnimatedForwardCompRef} width={10} />
             <Animated.Image style={position.getTranslateTransform()} source={{ uri: 'https://picsum.photos/200' }} />
+
+            {/* AnimatedComponent function prop args should infer original types */}
+            <Animated.View
+              style={{opacity: v1}}
+              //should infer (event: LayoutChangeEvent) => void;
+              onLayout={e => console.log(e.nativeEvent.layout)}
+            />;
+
+            <Animated.FlatList
+              style={{opacity: v1}}
+              data={[1]}
+              //should infer ({ item:number, index, separators }) => React.ReactElement | null
+              renderItem={s => <View testID={s.item.toFixed(1)}/>}
+            />;
+
+            <Animated.SectionList
+              style={{opacity: v1}}
+              sections={[{ title: 'test', data: [1] }]}
+              //should infer ({ item:number, index, section, separators }) => React.ReactElement | null
+              renderItem={s => <View testID={s.section + s.item.toFixed(1)}/>}
+            />;
         </View>
     );
 }
