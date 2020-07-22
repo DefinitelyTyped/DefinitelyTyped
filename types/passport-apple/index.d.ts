@@ -1,8 +1,7 @@
 // Type definitions for passport-apple 1.1
-// Project: https://github.com/ananay/passport-apple
-// Definitions by: Atom Yuen <https://github.com/atomyyyy>
+// Project: https://github.com/ananay/passport-apple#readme
+// Definitions by: ytkalan <https://github.com/atomyyyy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import { Request } from 'express';
 import { Strategy } from 'passport';
