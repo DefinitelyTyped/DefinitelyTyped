@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-type Signal = "SIGINT" | "SIGTERM" | "SIGQUIT";
+type Signal = 'SIGINT' | 'SIGTERM' | 'SIGQUIT';
 
 /**
  * Invokes a callback when a SIGINT, SIGTERM, or SIGQUIT is detected
@@ -23,9 +23,7 @@ type Signal = "SIGINT" | "SIGTERM" | "SIGQUIT";
  *  // later
  *  OFF_DEATH();
  */
-declare function ON_DEATH(
-    callback: (arg: Signal) => void
-): () => void;
+declare function ON_DEATH(callback: (arg: Signal) => void): () => void;
 
 /**
  * Invokes a callback when a SIGINT, SIGTERM, or SIGQUIT is detected
@@ -54,11 +52,7 @@ declare function ON_DEATH(options: {
     SIGTERM?: boolean;
     SIGQUIT?: boolean;
     uncaughtException?: false;
-}): (
-    callback: (
-        signal: Signal
-    ) => void
-) => () => void;
+}): (callback: (signal: Signal) => void) => () => void;
 
 /**
  * Invokes a callback when a SIGINT, SIGTERM, or SIGQUIT is detected
@@ -89,11 +83,6 @@ declare function ON_DEATH(options: {
     SIGTERM?: boolean;
     SIGQUIT?: boolean;
     uncaughtException: true;
-}): (
-    callback: (
-        signalOrErr: Signal | Error,
-        origin?: string
-    ) => void
-) => () => void;
+}): (callback: (signalOrErr: Signal | Error, origin?: string) => void) => () => void;
 
 export = ON_DEATH;
