@@ -10,6 +10,7 @@ export = postcssLess;
 declare const postcssLess: postcss.Syntax & {
     parse: postcss.Parser;
     stringify: postcss.Stringifier;
+    nodeToString: (node: postcss.Node) => string;
 };
 
 declare namespace postcssLess {

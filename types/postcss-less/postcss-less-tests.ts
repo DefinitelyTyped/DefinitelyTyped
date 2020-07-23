@@ -50,6 +50,20 @@ less.parse(lessCode).walkComments(comment => {
     assert(lessComment.inline === true);
 });
 
+less.stringify(less.parse(lessCode), (part, node, type) => {
+    assert(typeof part === 'string');
+    assert(type === 'start');
+    assert(type === 'end');
+
+    if (node) {
+        assert(typeof node.root === 'function');
+    } else {
+        assert(node === undefined);
+    }
+});
+
+assert(typeof less.nodeToString(less.parse(lessCode)) === 'string');
+
 function assert(condition: any) /* : asserts condition */ {
     if (!condition) {
         throw new Error('Assertion failed');
