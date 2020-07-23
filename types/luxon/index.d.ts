@@ -271,25 +271,25 @@ export class DateTime {
     toBSON(): Date;
     toFormat(format: string, options?: DateTimeFormatOptions): string;
     toHTTP(): string;
-    toISO(options?: ToISOTimeOptions): string;
+    toISO(options?: ToISOTimeOptions): string | null;
     /** Returns an ISO 8601-compliant string representation of this DateTime's date component */
-    toISODate(options?: ToISODateOptions): string;
-    toISOTime(options?: ToISOTimeOptions): string;
-    toISOWeekDate(): string;
+    toISODate(options?: ToISODateOptions): string | null;
+    toISOTime(options?: ToISOTimeOptions): string | null;
+    toISOWeekDate(): string | null;
     toJSDate(): Date;
-    toJSON(): string;
+    toJSON(): string | null;
     toLocal(): DateTime;
     toLocaleParts(options?: LocaleOptions & DateTimeFormatOptions): any[];
-    toLocaleString(options?: LocaleOptions & DateTimeFormatOptions): string;
+    toLocaleString(options?: LocaleOptions & DateTimeFormatOptions): string | null;
     toMillis(): number;
     toObject(options?: { includeConfig?: boolean }): DateObject;
     toRelative(options?: ToRelativeOptions): string | null;
     toRelativeCalendar(options?: ToRelativeCalendarOptions): string | null;
-    toRFC2822(): string;
+    toRFC2822(): string | null;
     toSeconds(): number;
-    toSQL(options?: ToSQLOptions): string;
-    toSQLDate(): string;
-    toSQLTime(options?: ToSQLOptions): string;
+    toSQL(options?: ToSQLOptions): string | null;
+    toSQLDate(): string | null;
+    toSQLTime(options?: ToSQLOptions): string | null;
     toString(): string;
     toUTC(offset?: number, options?: ZoneOptions): DateTime;
     until(other: DateTime): Interval;
@@ -364,10 +364,10 @@ export class Duration {
     shiftTo(...units: DurationUnit[]): Duration;
     mapUnits(fn: (x: number, u: DurationUnit) => number): Duration;
     toFormat(format: string, options?: DurationToFormatOptions): string;
-    toISO(): string;
-    toJSON(): string;
+    toISO(): string | null;
+    toJSON(): string | null;
     toObject(options?: { includeConfig?: boolean }): DurationObject;
-    toString(): string;
+    toString(): string | null;
     valueOf(): number;
 }
 
