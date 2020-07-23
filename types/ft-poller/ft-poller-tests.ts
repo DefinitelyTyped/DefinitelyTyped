@@ -1,10 +1,10 @@
-import Poller from 'ft-poller'
+import Poller from 'ft-poller';
 
 type Data = {
-    [key: string]: string
-}
+    [key: string]: string;
+};
 
-const poller = new Poller<Data>({ url: 'example.com' })
+const poller = new Poller<Data>({ url: 'example.com' });
 
-poller.start({}) // $ExpectType Promise<void | Data>
-poller.getData() // $ExpectType Data
+poller.start({}); // $ExpectType Promise<void | Data>
+poller.getData(); // $ExpectType Data

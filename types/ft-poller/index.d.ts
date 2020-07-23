@@ -14,8 +14,8 @@ declare module 'ft-poller' {
     }
 
     class Poller<PollerData, ExternalData = any> {
-        constructor(config: Config<PollerData, ExternalData>)
-        start(options?: object): Promise<PollerData | void>
+        constructor(config: Config<PollerData, ExternalData>);
+        start(options?: object): Promise<PollerData | void>;
         stop(): boolean;
         retry(): void;
         fetch(): void;
@@ -23,5 +23,5 @@ declare module 'ft-poller' {
         isRunning(): boolean;
     }
 
-    export default Poller
+    export default Poller;
 }
