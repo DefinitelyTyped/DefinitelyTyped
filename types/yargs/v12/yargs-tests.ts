@@ -151,7 +151,7 @@ function Argv$parsing() {
     yargs.parse([], (err, argv, msg) => {
         // $ExpectType Error | undefined
         err;
-        // $ExpectType { [x: string]: unknown; _: string[]; $0: string; }
+        // $ExpectType { [argName: string]: unknown; _: string[]; $0: string; }
         argv;
         // $ExpectType string
         msg;
@@ -160,7 +160,7 @@ function Argv$parsing() {
     yargs.parse([], {}, (err, argv, msg) => {
         // $ExpectType Error | undefined
         err;
-        // $ExpectType { [x: string]: unknown; _: string[]; $0: string; }
+        // $ExpectType { [argName: string]: unknown; _: string[]; $0: string; }
         argv;
         // $ExpectType string
         msg;
