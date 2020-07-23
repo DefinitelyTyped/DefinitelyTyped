@@ -7,7 +7,7 @@
 //                 Hyojin Kim <https://github.com/prozanne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./lib/adinfo.d.ts" />
+/// <reference path="./adinfo.d.ts" />
 /// <reference path="./lib/appcommon.d.ts" />
 /// <reference path="./lib/avinfo.d.ts" />
 /// <reference path="./lib/avplay.d.ts" />
