@@ -50,7 +50,7 @@ declare namespace webpackNodeExternals {
         /**
          * Additional folders to look for node modules.
          */
-        additionalModuleDirs?: string[],
+        additionalModuleDirs?: string[];
         /**
          * Read the modules from the package.json file instead of the node_modules folder.
          * @default false
