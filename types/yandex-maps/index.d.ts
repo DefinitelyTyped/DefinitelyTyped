@@ -752,7 +752,6 @@ declare namespace ymaps {
 
                 fire(type: string, eventobject: object | IEvent): this;
             }
-        }
 
             class Point implements IBasePointGeometry { //tslint:disable-line no-shadowed-variable
                 events: IEventManager;
