@@ -4,6 +4,7 @@ import * as chai from 'chai';
 const expect = chai.expect;
 const assert = chai.assert;
 const should = chai.should();
+const util = chai.util;
 
 function chaiVersion(): string {
     return chai.version;
@@ -1307,6 +1308,11 @@ function oneOf() {
     expect('z').to.not.be.oneOf(['w', 'x', 'y']);
     expect('z').to.not.be.oneOf(['x', 'y', ['z']]);
     expect(obj).to.not.be.oneOf([{z: 3}]);
+}
+
+function testInspectType() {
+    const x: string = util.inspect([1, 2, 3], false, 4, false);
+    expect(x).to.be.equal('[ 1, 2, 3 ]');
 }
 
 // tdd
