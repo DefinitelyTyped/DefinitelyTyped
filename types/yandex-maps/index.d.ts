@@ -752,189 +752,7 @@ declare namespace ymaps {
 
                 fire(type: string, eventobject: object | IEvent): this;
             }
-
-            namespace pixel {
-                class Circle implements IPixelCircleGeometry {
-                  constructor(
-                    coordinates: number[] | null,
-                    radius: number,
-                    metaData?: object
-                  );
-
-                  events: IEventManager;
-
-                  equals(geometry: IPixelGeometry): boolean;
-
-                  getBounds(): number[][] | null;
-
-                  getCoordinates(): number[];
-
-                  getMetaData(): object;
-
-                  getRadius(): number;
-
-                  getType(): string;
-
-                  scale(factor: number): IPixelGeometry;
-
-                  shift(offset: number[]): IPixelGeometry;
-                }
-
-                class LineString implements IPixelLineStringGeometry {
-                  constructor(coordinates: number[][], metaData?: object);
-
-                  events: IEventManager;
-
-                  equals(geometry: IPixelGeometry): boolean;
-
-                  getBounds(): number[][] | null;
-
-                  getClosest(anchorPosition: number[]): object;
-
-                  getCoordinates(): number[][];
-
-                  getLength(): number;
-
-                  getMetaData(): object;
-
-                  getType(): string;
-
-                  scale(factor: number): IPixelGeometry;
-
-                  shift(offset: number[]): IPixelGeometry;
-                }
-
-                class MultiLineString implements IPixelMultiLineGeometry {
-                  constructor(coordinates: number[][][], metaData?: object);
-
-                  events: IEventManager;
-
-                  equals(geometry: IPixelGeometry): boolean;
-
-                  getBounds(): number[][] | null;
-
-                  getClosest(anchorPosition: number[]): object;
-
-                  getCoordinates(): number[][][];
-
-                  getLength(): number;
-
-                  getMetaData(): object;
-
-                  getType(): string;
-
-                  scale(factor: number): IPixelGeometry;
-
-                  shift(offset: number[]): IPixelGeometry;
-                }
-
-                class MultiPolygon implements IPixelMultiPolygonGeometry {
-                  constructor(
-                    coordinates: number[][][][],
-                    fillRule: string,
-                    metaData?: object
-                  );
-
-                  events: IEventManager;
-
-                  contains(position: number[]): boolean;
-
-                  equals(geometry: IPixelGeometry): boolean;
-
-                  getBounds(): number[][] | null;
-
-                  getClosest(anchorPosition: number[]): object;
-
-                  getCoordinates(): number[][][][];
-
-                  getFillRule(): string;
-
-                  getLength(): number;
-
-                  getMetaData(): object;;
-
-                  getType(): string;
-
-                  scale(factor: number): IPixelGeometry;
-
-                  shift(offset: number[]): IPixelGeometry;
-                }
-
-                class Point implements IPixelPointGeometry {
-                  constructor(position: number[] | null, metaData?: object);
-
-                  events: IEventManager;
-
-                  equals(geometry: IPixelGeometry): boolean;
-
-                  getBounds(): number[][] | null;
-
-                  getCoordinates(): number[];
-
-                  getMetaData(): object;
-
-                  getType(): string;
-
-                  scale(factor: number): IPixelGeometry;
-
-                  shift(offset: number[]): IPixelGeometry;
-                }
-
-                class Polygon implements IPixelPolygonGeometry {
-                  constructor(
-                    coordinates: number[][][],
-                    fillRule: string,
-                    metaData?: object
-                  );
-
-                  events: IEventManager;
-
-                  contains(position: number[]): boolean;
-
-                  equals(geometry: IPixelGeometry): boolean;
-
-                  getBounds(): number[][] | null;
-
-                  getClosest(anchorPosition: number[]): object;
-
-                  getCoordinates(): number[][][];
-
-                  getFillRule(): string;
-
-                  getLength(): number;
-
-                  getMetaData(): object;
-
-                  getType(): string;
-
-                  scale(factor: number): IPixelGeometry;
-
-                  shift(offset: number[]): IPixelGeometry;
-                }
-
-                class Rectangle implements IPixelRectangleGeometry {
-                  constructor(coordinates: number[][] | null, metaData?: object);
-
-                  events: IEventManager;
-
-                  equals(geometry: IPixelGeometry): boolean;
-
-                  getBounds(): number[][] | null;
-
-                  getClosest(anchorPosition: number[]): object;
-
-                  getCoordinates(): number[][];
-
-                  getMetaData(): object;
-
-                  getType(): string;
-
-                  scale(factor: number): IPixelGeometry;
-
-                  shift(offset: number[]): IPixelGeometry;
-                }
-              }
-            }
+        }
 
             class Point implements IBasePointGeometry { //tslint:disable-line no-shadowed-variable
                 events: IEventManager;
@@ -1139,6 +957,188 @@ declare namespace ymaps {
             splice(index: number, number: number): ILinearRingGeometryAccess[];
 
             unfreeze(): IFreezable;
+        }
+
+        namespace pixel {
+            class Circle implements IPixelCircleGeometry {
+                constructor(
+                    coordinates: number[] | null,
+                    radius: number,
+                    metaData?: object
+                );
+
+                events: IEventManager;
+
+                equals(geometry: IPixelGeometry): boolean;
+
+                getBounds(): number[][] | null;
+
+                getCoordinates(): number[];
+
+                getMetaData(): object;
+
+                getRadius(): number;
+
+                getType(): string;
+
+                scale(factor: number): IPixelGeometry;
+
+                shift(offset: number[]): IPixelGeometry;
+            }
+
+            class LineString implements IPixelLineStringGeometry {
+                constructor(coordinates: number[][], metaData?: object);
+
+                events: IEventManager;
+
+                equals(geometry: IPixelGeometry): boolean;
+
+                getBounds(): number[][] | null;
+
+                getClosest(anchorPosition: number[]): object;
+
+                getCoordinates(): number[][];
+
+                getLength(): number;
+
+                getMetaData(): object;
+
+                getType(): string;
+
+                scale(factor: number): IPixelGeometry;
+
+                shift(offset: number[]): IPixelGeometry;
+            }
+
+            class MultiLineString implements IPixelMultiLineGeometry {
+                constructor(coordinates: number[][][], metaData?: object);
+
+                events: IEventManager;
+
+                equals(geometry: IPixelGeometry): boolean;
+
+                getBounds(): number[][] | null;
+
+                getClosest(anchorPosition: number[]): object;
+
+                getCoordinates(): number[][][];
+
+                getLength(): number;
+
+                getMetaData(): object;
+
+                getType(): string;
+
+                scale(factor: number): IPixelGeometry;
+
+                shift(offset: number[]): IPixelGeometry;
+            }
+
+            class MultiPolygon implements IPixelMultiPolygonGeometry {
+                constructor(
+                    coordinates: number[][][][],
+                    fillRule: string,
+                    metaData?: object
+                );
+
+                events: IEventManager;
+
+                contains(position: number[]): boolean;
+
+                equals(geometry: IPixelGeometry): boolean;
+
+                getBounds(): number[][] | null;
+
+                getClosest(anchorPosition: number[]): object;
+
+                getCoordinates(): number[][][][];
+
+                getFillRule(): string;
+
+                getLength(): number;
+
+                getMetaData(): object;;
+
+                getType(): string;
+
+                scale(factor: number): IPixelGeometry;
+
+                shift(offset: number[]): IPixelGeometry;
+            }
+
+            class Point implements IPixelPointGeometry {
+                constructor(position: number[] | null, metaData?: object);
+
+                events: IEventManager;
+
+                equals(geometry: IPixelGeometry): boolean;
+
+                getBounds(): number[][] | null;
+
+                getCoordinates(): number[];
+
+                getMetaData(): object;
+
+                getType(): string;
+
+                scale(factor: number): IPixelGeometry;
+
+                shift(offset: number[]): IPixelGeometry;
+            }
+
+            class Polygon implements IPixelPolygonGeometry {
+                constructor(
+                    coordinates: number[][][],
+                    fillRule: string,
+                    metaData?: object
+                );
+
+                events: IEventManager;
+
+                contains(position: number[]): boolean;
+
+                equals(geometry: IPixelGeometry): boolean;
+
+                getBounds(): number[][] | null;
+
+                getClosest(anchorPosition: number[]): object;
+
+                getCoordinates(): number[][][];
+
+                getFillRule(): string;
+
+                getLength(): number;
+
+                getMetaData(): object;
+
+                getType(): string;
+
+                scale(factor: number): IPixelGeometry;
+
+                shift(offset: number[]): IPixelGeometry;
+            }
+
+            class Rectangle implements IPixelRectangleGeometry {
+                constructor(coordinates: number[][] | null, metaData?: object);
+
+                events: IEventManager;
+
+                equals(geometry: IPixelGeometry): boolean;
+
+                getBounds(): number[][] | null;
+
+                getClosest(anchorPosition: number[]): object;
+
+                getCoordinates(): number[][];
+
+                getMetaData(): object;
+
+                getType(): string;
+
+                scale(factor: number): IPixelGeometry;
+
+                shift(offset: number[]): IPixelGeometry;
+            }
         }
     }
 
