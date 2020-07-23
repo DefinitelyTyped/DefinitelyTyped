@@ -156,7 +156,9 @@ declare module _ {
 
     type TypeOfCollection<V> = TypeOfList<V> | TypeOfDictionary<V>;
 
-    type NonFalsy<T> = T extends void | null | false | '' | 0 ? never : T;
+    type PairValue<T> = T extends [EnumerableKey, infer TValue] ? TValue : any
+
+    type NonFalsy<T> = T extends undefined | null | false | '' | 0 ? never : T;
 
     type PropertyNamesOfType<T, P> = { [K in keyof T]: T[K] extends P ? K : never }[keyof T];
 
@@ -242,33 +244,10 @@ declare module _ {
          * on the first element of the collection. The first element is instead passed as the memo
          * in the invocation of the iteratee on the next element in the collection.
          * @param collection Reduces the elements of this collection.
-         * @param iteratee Reduce iteratee function for each element in `list`.
+         * @param iteratee Reduce iteratee function for each element in `collection`.
          * @param memo Initial reduce state or undefined to use the first collection item as initial state.
          * @param context `this` object in `iteratee`, optional.
-         * @returns Reduced object result.
-         **/
-        reduce<V extends Collection<any>>(
-            collection: V,
-            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TypeOfCollection<V>, V>,
-            memo?: undefined,
-            context?: any
-        ): TypeOfCollection<V>;
-
-        /**
-         * Also known as inject and foldl, reduce boils down a collection of values into a
-         * single value. Memo is the initial state of the reduction, and each successive
-         * step of it should be returned by iteratee. The iteratee is passed four arguments:
-         * the memo, then the value and index (or key) of the iteration, and finally a reference
-         * to the entire collection.
-         *
-         * If no memo is passed to the initial invocation of reduce, the iteratee is not invoked
-         * on the first element of the collection. The first element is instead passed as the memo
-         * in the invocation of the iteratee on the next element in the collection.
-         * @param collection Reduces the elements of this collection.
-         * @param iteratee Reduce iteratee function for each element in `list`.
-         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
-         * @param context `this` object in `iteratee`, optional.
-         * @returns Reduced object result.
+         * @returns The reduced result.
          **/
         reduce<V extends Collection<any>, TResult>(
             collection: V,
@@ -276,6 +255,10 @@ declare module _ {
             memo: TResult,
             context?: any
         ): TResult;
+        reduce<V extends Collection<any>, TResult = TypeOfCollection<V>>(
+            collection: V,
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult | TypeOfCollection<V>, V>
+        ): TResult | TypeOfCollection<V> | undefined;
 
         /**
          * @see reduce
@@ -295,48 +278,18 @@ declare module _ {
          * @param iteratee Reduce iteratee function for each element in `collection`.
          * @param memo Initial reduce state or undefined to use the first collection item as initial state.
          * @param context `this` object in `iteratee`, optional.
-         * @return Reduced object result.
+         * @returns The reduced result.
          **/
-        reduceRight<V extends Collection<any>>(
+        reduceRight<V extends Collection<any>, TResult>(
             collection: V,
-            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TypeOfCollection<V>, V>,
-            memo?: undefined,
-            context?: any
-        ): TypeOfCollection<V>;
-
-        /**
-         * The right-associative version of reduce.
-         *
-         * This is not as useful in JavaScript as it would be in a language with lazy evaluation.
-         * @param collection Reduces the elements of this array.
-         * @param iteratee Reduce iteratee function for each element in `collection`.
-         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
-         * @param context `this` object in `iteratee`, optional.
-         * @return Reduced object result.
-         **/
-        reduceRight<V extends List<any>, TResult>(
-            collection: V,
-            iteratee: MemoIterator<TypeOfCollection<V>, TResult, V>,
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult, V>,
             memo: TResult,
             context?: any
         ): TResult;
-
-        /**
-         * The right-associative version of reduce.
-         *
-         * This is not as useful in JavaScript as it would be in a language with lazy evaluation.
-         * @param collection Reduces the elements of this array.
-         * @param iteratee Reduce iteratee function for each element in `collection`.
-         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
-         * @param context `this` object in `iteratee`, optional.
-         * @return Reduced object result.
-         **/
-        reduceRight<V extends Dictionary<any>, TResult>(
+        reduceRight<V extends Collection<any>, TResult = TypeOfCollection<V>>(
             collection: V,
-            iteratee: MemoObjectIterator<TypeOfCollection<V>, TResult, V>,
-            memo: TResult,
-            context?: any
-        ): TResult;
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult | TypeOfCollection<V>, V>
+        ): TResult | TypeOfCollection<V> | undefined;
 
         /**
          * @see reduceRight
@@ -825,43 +778,40 @@ declare module _ {
         unique: UnderscoreStatic['uniq'];
 
         /**
-        * Merges together the values of each of the arrays with the values at the corresponding position.
-        * Useful when you have separate data sources that are coordinated through matching array indexes.
-        * If you're working with a matrix of nested arrays, zip.apply can transpose the matrix in a similar fashion.
-        * @param arrays The arrays to merge/zip.
-        * @return Zipped version of `arrays`.
-        **/
-        zip(...arrays: List<any>[]): any[][];
+         * Merges together the values of each of the `lists` with the values at
+         * the corresponding position. Useful when you have separate data
+         * sources that are coordinated through matching list indexes. If
+         * you're working with a matrix of nested lists, this can be used to
+         * transpose the matrix.
+         * @param lists The lists to zip.
+         * @returns The zipped version of `lists`.
+         **/
+        zip(...lists: List<any>[]): any[][];
 
         /**
-        * The opposite of zip. Given a number of arrays, returns a series of new arrays, the first
-        * of which contains all of the first elements in the input arrays, the second of which
-        * contains all of the second elements, and so on. Use with apply to pass in an array
-        * of arrays
-        * @param array The arrays to unzip.
-        * @return Unzipped version of `arrays`.
-        **/
-        unzip(array: List<List<any>>): any[][];
+         * The opposite of zip. Given a list of lists, returns a series of new
+         * arrays, the first of which contains all of the first elements in the
+         * input lists, the second of which contains all of the second
+         * elements, and so on.
+         * @param lists The lists to unzip.
+         * @returns The unzipped version of `lists`.
+         **/
+        unzip(lists: List<List<any>>): any[][];
 
         /**
-        * Converts arrays into objects. Pass either a single list of [key, value] pairs, or a
-        * list of keys, and a list of values.
-        * @param keys Key array.
-        * @param values Value array.
-        * @return An object containing the `keys` as properties and `values` as the property values.
-        **/
-        object<TValue>(
-            keys: List<string>,
-            values: List<TValue>
+         * Converts lists into objects. Pass either a single `list` of
+         * [key, value] pairs, or a `list` of keys and a list of `values`.
+         * Passing by pairs is the reverse of pairs. If duplicate keys exist,
+         * the last value wins.
+         * @param list A list of [key, value] pairs or a list of keys.
+         * @param values If `list` is a list of keys, a list of values
+         * corresponding to those keys.
+         * @retursn An object comprised of the provided keys and values.
+         **/
+        object<V extends List<any>, TValue extends PairValue<TypeOfList<V>> = PairValue<TypeOfList<V>>>(
+            list: V,
+            values?: List<TValue>
         ): Dictionary<TValue>;
-
-        /**
-        * Converts arrays into objects. Pass either a single list of [key, value] pairs, or a
-        * list of keys, and a list of values.
-        * @param keyValuePairs Array of [key, value] pairs.
-        * @return An object containing the `keys` as properties and `values` as the property values.
-        **/
-        object<TPair>(keyValuePairs: List<TPair>): TPair extends [string, infer TValue] ? Dictionary<TValue> : Dictionary<any>;
 
         /**
         * Returns the index at which value can be found in the array, or -1 if value is not present in the array.
@@ -4000,31 +3950,56 @@ declare module _ {
         **/
         collect: Underscore<T, V>['map'];
 
-        reduce(iterator: MemoCollectionIterator<T, T, V>, memo?: undefined, context?: any): T;
+        /**
+         * Also known as inject and foldl, reduce boils down a collection of wrapped values into a
+         * single value. Memo is the initial state of the reduction, and each successive
+         * step of it should be returned by iteratee. The iteratee is passed four arguments:
+         * the memo, then the value and index (or key) of the iteration, and finally a reference
+         * to the entire collection.
+         *
+         * If no memo is passed to the initial invocation of reduce, the iteratee is not invoked
+         * on the first element of the collection. The first element is instead passed as the memo
+         * in the invocation of the iteratee on the next element in the collection.
+         * @param iteratee Reduce iteratee function for each element in the wrapped collection.
+         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The reduced result.
+         **/
+        reduce<TResult>(iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): TResult;
+        reduce<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult | TypeOfCollection<V>, V>
+        ): TResult | TypeOfCollection<V> | undefined;
 
         /**
-        * Wrapped type Collection<T>.
-        * @see reduce
-        **/
-        reduce<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo: TResult, context?: any): TResult;
-
-        /**
-        * @see reduce
-        **/
+         * @see reduce
+         **/
         inject: Underscore<T, V>['reduce'];
 
         /**
-        * @see reduce
-        **/
+         * @see reduce
+         **/
         foldl: Underscore<T, V>['reduce'];
 
-        reduceRight(iterator: MemoCollectionIterator<T, T, V>, memo?: undefined, context?: any): T;
-
         /**
-        * Wrapped type Collection<T>.
-        * @see reduceRight
-        **/
-        reduceRight<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo: TResult, context?: any): TResult;
+         * The right-associative version of reduce.
+         *
+         * This is not as useful in JavaScript as it would be in a language with lazy evaluation.
+         * @param iteratee Reduce iteratee function for each element in the wrapped collection.
+         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The reduced result.
+         **/
+        reduceRight<TResult>(
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): TResult;
+        reduceRight<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult | TypeOfCollection<V>, V>
+        ): TResult | TypeOfCollection<V> | undefined;
 
         /**
         * @see reduceRight
@@ -4328,28 +4303,36 @@ declare module _ {
         unique: Underscore<T, V>['uniq'];
 
         /**
-        * Wrapped type List<T>.
-        * @see zip
-        **/
-        zip(...arrays: List<any>[]): any[][];
+         * Merges together the values of each of the `lists` (including the
+         * wrapped list) with the values at the corresponding position. Useful
+         * when you have separate data sources that are coordinated through
+         * matching list indexes. If you're working with a matrix of nested
+         * lists, this can be used to transpose the matrix.
+         * @returns The zipped version of the wrapped list and `lists`.
+         **/
+        zip(...lists: List<any>[]): any[][];
 
         /**
-        * Wrapped type List<T>.
-        * @see unzip
-        **/
+         * The opposite of zip. Given the wrapped list of lists, returns a
+         * series of new arrays, the first of which contains all of the first
+         * elements in the wrapped lists, the second of which contains all of
+         * the second elements, and so on.
+         * @returns The unzipped version of the wrapped lists.
+         **/
         unzip(): any[][];
 
         /**
-        * Wrapped type List<string>.
-        * @see object
-        **/
-        object<TValue>(values: List<TValue>): Dictionary<TValue>;
-
-        /**
-        * Wrapped type List<[string, any]>.
-        * @see object
-        **/
-        object(): T extends [string, infer TValue] ? Dictionary<TValue> : Dictionary<any>;
+         * Converts lists into objects. Call on either a wrapped list of
+         * [key, value] pairs, or a wrapped list of keys and a list of
+         * `values`. Passing by pairs is the reverse of pairs. If duplicate
+         * keys exist, the last value wins.
+         * @param values If the wrapped list is a list of keys, a list of
+         * values corresponding to those keys.
+         * @returns An object comprised of the provided keys and values.
+         **/
+        object<TValue extends PairValue<T> = PairValue<T>>(
+            values?: List<TValue>
+        ): Dictionary<TValue>;
 
         /**
         * Wrapped type List<T>.
@@ -4556,7 +4539,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see extend
         **/
-        findKey(predicate: ObjectIterator<any, boolean, V>, context?: any): any
+        findKey(predicate: ObjectIterator<any, boolean>, context?: any): any
 
         /**
         * Wrapped type `object`.
@@ -4564,7 +4547,7 @@ declare module _ {
         **/
         pick<K extends keyof V>(...keys: K[]): Pick<V, K>;
         pick<K extends keyof V>(keys: K[]): Pick<V, K>;
-        pick<K extends keyof V>(predicate: ObjectIterator<V[K], boolean, V>): Pick<V, K>;
+        pick<K extends keyof V>(predicate: ObjectIterator<V[K], boolean>): Pick<V, K>;
 
         /**
         * Wrapped type `object`.
@@ -4608,13 +4591,13 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see matches
         **/
-        matches(): ListIterator<T, boolean, V>;
+        matches(): ListIterator<T, boolean>;
 
         /**
          * Wrapped type `any[]`.
          * @see matcher
          **/
-        matcher(): ListIterator<T, boolean, V>;
+        matcher(): ListIterator<T, boolean>;
 
         /**
         * Wrapped type `string`.
@@ -4883,31 +4866,57 @@ declare module _ {
         **/
         collect: _Chain<T, V>['map'];
 
-        reduce(iterator: MemoCollectionIterator<T, T, V>, memo?: undefined, context?: any): _ChainSingle<T>;
+        /**
+         * Also known as inject and foldl, reduce boils down a collection of wrapped values into a
+         * single value. Memo is the initial state of the reduction, and each successive
+         * step of it should be returned by iteratee. The iteratee is passed four arguments:
+         * the memo, then the value and index (or key) of the iteration, and finally a reference
+         * to the entire collection.
+         *
+         * If no memo is passed to the initial invocation of reduce, the iteratee is not invoked
+         * on the first element of the collection. The first element is instead passed as the memo
+         * in the invocation of the iteratee on the next element in the collection.
+         * @param iteratee Reduce iteratee function for each element in `list`.
+         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The reduced result in a chain wraper.
+         **/
+        reduce<TResult>(
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): _ChainSingle<TResult>;
+        reduce<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult | TypeOfCollection<V>, V>
+        ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
 
         /**
-        * Wrapped type Collection<T>.
-        * @see reduce
-        **/
-        reduce<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo: TResult, context?: any): _ChainSingle<TResult>;
-
-        /**
-        * @see reduce
-        **/
+         * @see reduce
+         **/
         inject: _Chain<T, V>['reduce'];
 
         /**
-        * @see reduce
-        **/
+         * @see reduce
+         **/
         foldl: _Chain<T, V>['reduce'];
 
-        reduceRight(iterator: MemoCollectionIterator<T, T, V>, memo?: undefined, context?: any): _ChainSingle<T>;
-
         /**
-        * Wrapped type Collection<T>.
-        * @see reduceRight
-        **/
-        reduceRight<TResult>(iterator: MemoCollectionIterator<T, TResult, V>, memo: TResult, context?: any): _ChainSingle<TResult>;
+         * The right-associative version of reduce.
+         *
+         * This is not as useful in JavaScript as it would be in a language with lazy evaluation.
+         * @param iteratee Reduce iteratee function for each element in the wrapped collection.
+         * @param memo Initial reduce state or undefined to use the first collection item as initial state.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The reduced result in a chain wrapper.
+         **/
+        reduceRight<TResult>(
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult, V>,
+            memo: TResult,
+            context?: any
+        ): _ChainSingle<TResult>;
+        reduceRight<TResult = TypeOfCollection<V>>(
+            iteratee: MemoCollectionIterator<TypeOfCollection<V>, TResult | TypeOfCollection<V>, V>
+        ): _ChainSingle<TResult | TypeOfCollection<V> | undefined>;
 
         /**
         * @see reduceRight
@@ -5213,26 +5222,39 @@ declare module _ {
         unique: _Chain<T, V>['uniq'];
 
         /**
-        * Wrapped type List<T>.
-        * @see zip
-        **/
+         * Merges together the values of each of the `lists` (including the
+         * wrapped list) with the values at the corresponding position. Useful
+         * when you have separate data sources that are coordinated through
+         * matching list indexes. If you're working with a matrix of nested
+         * lists, this can be used to transpose the matrix.
+         * @returns A chain wrapper around the zipped version of the wrapped
+         * list and `lists`.
+         **/
         zip(...arrays: List<any>[]): _Chain<any[], any[][]>;
 
         /**
-        * Wrapped type List<T>.
-        * @see unzip
-        **/
+         * The opposite of zip. Given the wrapped list of lists, returns a
+         * series of new arrays, the first of which contains all of the first
+         * elements in the wrapped lists, the second of which contains all of
+         * the second elements, and so on.
+         * @returns A chain wrapper aoround the unzipped version of the wrapped
+         * lists.
+         **/
         unzip(): _Chain<any[], any[][]>;
 
         /**
-        * @see object
-        **/
-        object<TValue>(values: List<TValue>): _Chain<TValue, Dictionary<TValue>>;
-
-        /**
-        * @see object
-        **/
-        object(): T extends [string, infer TValue] ? _Chain<TValue, Dictionary<TValue>> : _Chain<any, Dictionary<any>>;
+         * Converts lists into objects. Call on either a wrapped list of
+         * [key, value] pairs, or a wrapped list of keys and a list of
+         * `values`. Passing by pairs is the reverse of pairs. If duplicate
+         * keys exist, the last value wins.
+         * @param values If the wrapped list is a list of keys, a list of
+         * values corresponding to those keys.
+         * @returns A chain wrapper around an object comprised of the provided
+         * keys and values.
+         **/
+        object<TValue extends PairValue<T> = PairValue<T>>(
+            values?: List<TValue>
+        ): _Chain<TValue, Dictionary<TValue>>;
 
         /**
         * Wrapped type List<T>.
@@ -5410,7 +5432,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see mapObject
         **/
-        mapObject(fn: ListIterator<T, any, V>): _Chain<T>;
+        mapObject(fn: ListIterator<T, any>): _Chain<T>;
 
         /**
         * Wrapped type `object`.
@@ -5445,7 +5467,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see extend
         **/
-        findKey(predicate: ObjectIterator<any, boolean, V>, context?: any): _Chain<T>
+        findKey(predicate: ObjectIterator<any, boolean>, context?: any): _Chain<T>
 
         /**
         * Wrapped type `object`.
@@ -5453,7 +5475,7 @@ declare module _ {
         **/
         pick<K extends keyof V>(...keys: K[]): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
         pick<K extends keyof V>(keys: K[]): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
-        pick<K extends keyof V>(predicate: ObjectIterator<V[K], boolean, V>): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
+        pick<K extends keyof V>(predicate: ObjectIterator<V[K], boolean>): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
 
         /**
         * Wrapped type `object`.
