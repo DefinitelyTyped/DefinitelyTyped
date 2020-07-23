@@ -72,8 +72,6 @@ type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
         : 'fallback'
 ];
 
-type MockModuleFactory<T> = () => T extends { default: unknown } ? T & { __esModule: true } : T;
-
 declare namespace jest {
     /**
      * Provides a way to add Jasmine-compatible matchers into your Jest context.
