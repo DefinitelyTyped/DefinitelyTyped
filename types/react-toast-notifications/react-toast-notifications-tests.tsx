@@ -119,6 +119,7 @@ const UpdateToast: React.FC = () => {
                         {
                             appearance: 'error',
                             autoDismiss: true,
+                            content: 'Toast',
                         },
                         () => {},
                     )
