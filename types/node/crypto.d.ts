@@ -178,11 +178,11 @@ declare module "crypto" {
     interface CipherGCMOptions extends stream.TransformOptions {
         authTagLength?: number;
     }
-    /** @deprecated since v10.0.0 use createCipheriv() */
+    /** @deprecated since v10.0.0 use `createCipheriv()` */
     function createCipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): CipherCCM;
-    /** @deprecated since v10.0.0 use createCipheriv() */
+    /** @deprecated since v10.0.0 use `createCipheriv()` */
     function createCipher(algorithm: CipherGCMTypes, password: BinaryLike, options?: CipherGCMOptions): CipherGCM;
-    /** @deprecated since v10.0.0 use createCipheriv() */
+    /** @deprecated since v10.0.0 use `createCipheriv()` */
     function createCipher(algorithm: string, password: BinaryLike, options?: stream.TransformOptions): Cipher;
 
     function createCipheriv(
@@ -221,11 +221,11 @@ declare module "crypto" {
         setAAD(buffer: Buffer, options?: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
-    /** @deprecated since v10.0.0 use createDecipheriv() */
+    /** @deprecated since v10.0.0 use `createDecipheriv()` */
     function createDecipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): DecipherCCM;
-    /** @deprecated since v10.0.0 use createDecipheriv() */
+    /** @deprecated since v10.0.0 use `createDecipheriv()` */
     function createDecipher(algorithm: CipherGCMTypes, password: BinaryLike, options?: CipherGCMOptions): DecipherGCM;
-    /** @deprecated since v10.0.0 use createDecipheriv() */
+    /** @deprecated since v10.0.0 use `createDecipheriv()` */
     function createDecipher(algorithm: string, password: BinaryLike, options?: stream.TransformOptions): Decipher;
 
     function createDecipheriv(

@@ -552,6 +552,10 @@ export interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
     contain(value: string): this;
     contains(value: string): this;
     match(value: string | RegExp): this;
+    startWith(value: string): this;
+    startsWith(value: string): this;
+    endWith(value: string): this;
+    endsWith(value: string): this;
 
     /**
      * Negates any of assertions following in the chain.

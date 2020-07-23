@@ -88,6 +88,8 @@ import {
     Keyboard,
     PermissionsAndroid,
     Platform,
+    PlatformColor,
+    DynamicColorIOS,
     ProgressBarAndroid,
     PushNotificationIOS,
     AccessibilityInfo,
@@ -97,8 +99,11 @@ import {
     Appearance,
     useColorScheme,
     DevSettings,
+    Pressable,
     VirtualizedList,
     ListRenderItemInfo,
+    LogBox,
+    ColorValue,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -356,6 +361,71 @@ export class TouchableNativeFeedbackTest extends React.Component {
     }
 }
 
+// PressableTest
+export class PressableTest extends React.Component {
+    onPressButton = (e: GestureResponderEvent) => {
+        e.persist();
+        e.isPropagationStopped();
+        e.isDefaultPrevented();
+    };
+
+    render() {
+        return (
+            <>
+                <Pressable onPress={this.onPressButton} style={{ backgroundColor: 'blue' }}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </Pressable>
+                {/* Style function */}
+                <Pressable
+                    onPress={this.onPressButton}
+                    style={state => ({
+                        backgroundColor: state.pressed ? 'red' : 'blue',
+                    })}
+                >
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </Pressable>
+                {/* Children function */}
+                <Pressable
+                    onPress={this.onPressButton}
+                    style={state => ({
+                        backgroundColor: state.pressed ? 'red' : 'blue',
+                    })}
+                >
+                    {state =>
+                        state.pressed ? (
+                            <View>
+                                <Text>Pressed</Text>
+                            </View>
+                        ) : (
+                            <View>
+                                <Text>Not Pressed</Text>
+                            </View>
+                        )
+                    }
+                </Pressable>
+                {/* Android Ripple */}
+                <Pressable
+                    android_ripple={{
+                        borderless: true,
+                        color: 'green',
+                        radius: 20,
+                    }}
+                    onPress={this.onPressButton}
+                    style={{ backgroundColor: 'blue' }}
+                >
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </Pressable>
+            </>
+        );
+    }
+}
+
 // App State
 function appStateListener(state: string) {
     console.log('New state: ' + state);
@@ -506,6 +576,12 @@ const getInitialUrlTest = () =>
             val.indexOf('val is now a string');
         }
     });
+
+LogBox.ignoreAllLogs();
+LogBox.ignoreAllLogs(true);
+LogBox.ignoreLogs(['someString', /^aRegex/]);
+LogBox.install();
+LogBox.uninstall();
 
 class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
     eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -800,6 +876,7 @@ class StatusBarTest extends React.Component {
 export class ImageTest extends React.Component {
     componentDidMount(): void {
         const uri = 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png';
+        const headers = { Authorization: 'Bearer test' };
         const image: ImageResolvedAssetSource = Image.resolveAssetSource({ uri });
         console.log(image.width, image.height, image.scale, image.uri);
 
@@ -811,6 +888,11 @@ export class ImageTest extends React.Component {
                     console.log(`Image is in ${status} cache`);
                 }
             });
+
+        Image.getSize(uri, (width, height) => console.log(width, height));
+        Image.getSize(uri, (width, height) => console.log(width, height), (error) => console.error(error));
+        Image.getSizeWithHeaders(uri, headers, (width, height) => console.log(width, height));
+        Image.getSizeWithHeaders(uri, headers, (width, height) => console.log(width, height), (error) => console.error(error));
     }
 
     handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
@@ -1086,6 +1168,88 @@ Platform.select({ android: 1, ios: 2, default: 0 }); // $ExpectType number
 Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5 }); // $ExpectType number
 Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5, default: 0 }); // $ExpectType number
 
+PlatformColor('?attr/colorControlNormal');
+PlatformColor('?attr/colorControlNormal', '?attr/colorAccent', 'another');
+
+DynamicColorIOS({
+    dark: 'lightskyblue',
+    light: 'midnightblue',
+});
+
+DynamicColorIOS({
+    dark: 'lightskyblue',
+    light: PlatformColor('labelColor'),
+});
+
+// Test you cannot set internals of ColorValue directly
+const OpaqueTest1 = () => (
+    <View
+        // $ExpectError
+        style={{
+            backgroundColor: {
+                resource_paths: ['?attr/colorControlNormal'],
+            },
+        }}
+    />
+);
+
+const OpaqueTest2 = () => (
+    <View
+        // $ExpectError
+        style={{
+            backgroundColor: {
+                semantic: 'string',
+                dynamic: {
+                    light: 'light',
+                    dark: 'dark',
+                },
+            },
+        }}
+    />
+);
+
+// Test you cannot ammend opaque type
+PlatformColor('?attr/colorControlNormal').resource_paths.push('foo'); // $ExpectError
+
+const someColorProp: ColorValue = PlatformColor('test');
+
+// Test PlatformColor inside Platform select with stylesheet
+StyleSheet.create({
+    labelCell: {
+        flex: 1,
+        alignItems: 'stretch',
+        ...Platform.select({
+            ios: { color: DynamicColorIOS({ dark: 'lightskyblue', light: PlatformColor('labelColor') }) },
+            android: {
+                color: PlatformColor('?attr/colorControlNormal'),
+            },
+            default: { color: PlatformColor('?attr/colorControlNormal') },
+        }),
+    },
+});
+
+// PlatformColor in style colors
+StyleSheet.create({
+    labelCell: {
+        flex: 1,
+        alignItems: 'stretch',
+        color: PlatformColor('test'),
+        backgroundColor: PlatformColor('test'),
+        borderBottomColor: PlatformColor('test'),
+        borderColor: PlatformColor('test'),
+        borderEndColor: PlatformColor('test'),
+        borderLeftColor: PlatformColor('test'),
+        borderRightColor: PlatformColor('test'),
+        borderStartColor: PlatformColor('test'),
+        borderTopColor: PlatformColor('test'),
+        overlayColor: PlatformColor('test'),
+        shadowColor: PlatformColor('test'),
+        textDecorationColor: PlatformColor('test'),
+        textShadowColor: PlatformColor('test'),
+        tintColor: PlatformColor('test'),
+    },
+});
+
 // ProgressBarAndroid
 const ProgressBarAndroidTest = () => {
     <ProgressBarAndroid animating color="white" styleAttr="Horizontal" progress={0.42} />;
@@ -1168,3 +1332,31 @@ DevSettings.addMenuItem('alert', () => {
 });
 DevSettings.reload();
 DevSettings.reload('reload with reason');
+
+// Accessibility custom actions
+const AccessibilityCustomActionsTest = () => {
+    return (
+        <View
+            accessible={true}
+            accessibilityActions={[
+                // should support custom defined actions
+                { name: 'cut', label: 'cut' },
+                { name: 'copy', label: 'copy' },
+                { name: 'paste', label: 'paste' },
+            ]}
+            onAccessibilityAction={event => {
+                switch (event.nativeEvent.actionName) {
+                    case 'cut':
+                        Alert.alert('Alert', 'cut action success');
+                        break;
+                    case 'copy':
+                        Alert.alert('Alert', 'copy action success');
+                        break;
+                    case 'paste':
+                        Alert.alert('Alert', 'paste action success');
+                        break;
+                }
+            }}
+        />
+    );
+};

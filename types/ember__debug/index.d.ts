@@ -36,7 +36,7 @@ export function registerDeprecationHandler(handler: (message: string, options: {
  * The following example demonstrates its usage by registering a handler that does nothing overriding Ember's
  * default warning behavior.
  */
-export function registerWarnHandler(handler: (message: string, options: { id: string }, next: () => void) => void): void;
+export function registerWarnHandler(handler: (message: string, options: { id: string }, next: (message?: string, options?: { id: string }) => void) => void): void;
 
 /**
  * Run a function meant for debugging.

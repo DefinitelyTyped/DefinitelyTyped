@@ -342,7 +342,10 @@ const awsServerless: Aws.Serverless = {
             onError: 'testonError',
             awsKmsKeyArn: 'testawsKmsKeyArn',
             environment: {
-                testenvironment: 'testenvironmentvalue'
+                testenvironment: 'testenvironmentvalue',
+                testRefEnvironment: {
+                    Ref: 'MyRessource',
+                }
             },
             tags: {
                 testtagkey: 'testtagvalue'
@@ -417,6 +420,16 @@ const awsServerless: Aws.Serverless = {
                             scopes: ['testscopes']
                         }
                     }
+                },
+                {
+                    httpApi: {
+                        method: 'testmethod',
+                        path: 'testpath',
+                        authorizer: {
+                            id: 'testid',
+                            scopes: ['testscopes'],
+                        },
+                    },
                 }, {
                     websocket: {
                         route: 'testroute',

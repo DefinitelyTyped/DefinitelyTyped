@@ -6,6 +6,7 @@ var mongoConnectionString = "mongodb://127.0.0.1/agenda";
 (async () => {
     var agenda = new Agenda({ db: { address: mongoConnectionString } });
     var agenda = new Agenda({
+        name: 'backend',
         mongo: (await MongoClient.connect(mongoConnectionString)).db(),
         db: { collection: 'agenda-jobs' },
     });

@@ -50,6 +50,13 @@ const component = lib.render(SomeComponent, {
     ],
 });
 
+const ExamplePlugin: Vue.PluginFunction<never> = () => {};
+const componentWithConfigCallback = lib.render(SomeComponent, {}, (localVue, store, router) => {
+    localVue.use(ExamplePlugin);
+    store.replaceState({foo: 'bar'});
+    router.onError((error) => console.log(error.message));
+});
+
 component.container; // $ExpectType HTMLElement
 component.baseElement; // $ExpectType HTMLBodyElement
 component.debug(); // $ExpectType void
@@ -132,8 +139,8 @@ lib.wait(() => { throw new Error("nope"); }, {timeout: 3000, interval: 100});
 lib.waitForDomChange({container: select, timeout: 3000, mutationObserverOptions: {subtree: false}});
 lib.waitForElement(() => input); // $ExpectType Promise<HTMLInputElement>
 lib.waitForElement(() => option, {container: select, timeout: 3000, mutationObserverOptions: {subtree: false}}); // $ExpectType Promise<HTMLOptionElement>
-lib.waitForElementToBeRemoved(() => input); // $ExpectType Promise<HTMLInputElement>
-lib.waitForElementToBeRemoved(() => option, {container: select, timeout: 3000, mutationObserverOptions: {subtree: false}}); // $ExpectType Promise<HTMLOptionElement>
+lib.waitForElementToBeRemoved(() => input); // $ExpectType Promise<void>
+lib.waitForElementToBeRemoved(() => option, {container: select, timeout: 3000, mutationObserverOptions: {subtree: false}}); // $ExpectType Promise<void>
 
 // Reexports utilities from dom-testing-library
 lib.buildQueries((el: HTMLElement) => [el], (_: HTMLElement) => "something", (_: HTMLElement) => "error");

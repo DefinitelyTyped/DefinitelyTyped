@@ -402,10 +402,6 @@ export const BASE_INTRINSIC_DATA: { [intrinsic: string]: string | Intrinsic } = 
     Promise: {
         type: 'PromiseConstructor',
         get: 'typeof Promise',
-        overrides: {
-            // TODO: Delete in v1.17:
-            allSettled: null,
-        },
     },
     Proxy: { type: 'ProxyConstructor', get: 'typeof Proxy' },
     RangeError: {
@@ -453,24 +449,16 @@ export const BASE_INTRINSIC_DATA: { [intrinsic: string]: string | Intrinsic } = 
     String: {
         type: 'StringConstructor',
         get: 'typeof String',
-        overrides: {
-            prototype: {
-                type: 'typeof String.prototype',
-                overrides: {
-                    // TODO: Delete in v1.17:
-                    matchAll: null,
-                },
-            },
-        },
     },
     StringIteratorPrototype: 'IterableIterator<string>',
     Symbol: {
         type: 'SymbolConstructor',
         get: 'typeof Symbol',
         overrides: {
-            prototype: { type: 'typeof Symbol.prototype', getterType: 'symbol | Symbol' },
-            // TODO: Delete in v1.17:
-            matchAll: null,
+            prototype: {
+                type: 'typeof Symbol.prototype',
+                getterType: 'symbol | Symbol',
+            },
         },
     },
     SyntaxError: {

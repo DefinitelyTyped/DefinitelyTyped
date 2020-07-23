@@ -1,6 +1,7 @@
 // Type definitions for passport.socketio 3.7
 // Project: https://github.com/jfromaniello/passport.socketio#readme
 // Definitions by: AhmedMKamal <https://github.com/AhmedMKamal>
+//                 Jack Scotson <https://github.com/Scotsoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -39,7 +40,7 @@ export interface PassportSocketIoOptions {
     /**
      * callback on fail/error.
      */
-    fail?: (data: any, message: string, critical: string, accept: (err?: any, accepted?: boolean) => void) => void;
+    fail?: (data: any, message: string, critical: boolean, accept: (err?: any, accepted?: boolean) => void) => void;
 }
 
 export function authorize(options: PassportSocketIoOptions): (socket: Socket, fn: (err?: any) => void) => void;
