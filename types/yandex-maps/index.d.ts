@@ -788,7 +788,7 @@ declare namespace ymaps {
 
                 getCoordinates(): number[] | null;
 
-                getFillRule(): string;
+                getFillRule(): 'evenOdd' | 'nonZero';
 
                 getLength(): number;
 
@@ -804,7 +804,7 @@ declare namespace ymaps {
 
                 setCoordinates(coordinates: number[] | null): this;
 
-                setFillRule(fillRule: string): IPolygonGeometryAccess;
+                setFillRule(fillRule: 'evenOdd' | 'nonZero'): IPolygonGeometryAccess;
 
                 splice(index: number, number: number): ILinearRingGeometryAccess[];
 
@@ -924,7 +924,7 @@ declare namespace ymaps {
 
             getCoordinates(): number[][][];
 
-            getFillRule(): string;
+            getFillRule(): 'evenOdd' | 'nonZero';
 
             getLength(): number;
 
@@ -948,7 +948,7 @@ declare namespace ymaps {
 
             setCoordinates(coordinates: number[][][]): IPolygonGeometryAccess;
 
-            setFillRule(fillRule: string): IPolygonGeometryAccess;
+            setFillRule(fillRule: 'evenOdd' | 'nonZero'): IPolygonGeometryAccess;
 
             setMap(map: Map): void;
 
@@ -1037,7 +1037,7 @@ declare namespace ymaps {
             class MultiPolygon implements IPixelMultiPolygonGeometry {
                 constructor(
                     coordinates: number[][][][],
-                    fillRule: string,
+                    fillRule: 'evenOdd' | 'nonZero',
                     metaData?: object
                 );
 
@@ -1053,7 +1053,7 @@ declare namespace ymaps {
 
                 getCoordinates(): number[][][][];
 
-                getFillRule(): string;
+                getFillRule(): 'evenOdd' | 'nonZero';
 
                 getLength(): number;
 
@@ -1089,7 +1089,7 @@ declare namespace ymaps {
             class Polygon implements IPixelPolygonGeometry {
                 constructor(
                     coordinates: number[][][],
-                    fillRule: string,
+                    fillRule: 'evenOdd' | 'nonZero',
                     metaData?: object
                 );
 
@@ -1105,7 +1105,7 @@ declare namespace ymaps {
 
                 getCoordinates(): number[][][];
 
-                getFillRule(): string;
+                getFillRule(): 'evenOdd' | 'nonZero';
 
                 getLength(): number;
 
@@ -3752,7 +3752,7 @@ declare namespace ymaps {
 
         getCoordinates(): number[][][][];
 
-        getFillRule(): string;
+        getFillRule(): 'evenOdd' | 'nonZero';
 
         getLength(): number;
     }
@@ -3764,7 +3764,7 @@ declare namespace ymaps {
 
         getCoordinates(): number[][][];
 
-        getFillRule(): string;
+        getFillRule(): 'evenOdd' | 'nonZero';
 
         getLength(): number;
     }
