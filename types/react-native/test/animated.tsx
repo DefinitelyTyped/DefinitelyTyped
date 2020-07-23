@@ -165,25 +165,38 @@ function TestAnimatedAPI() {
             <AnimatedForwardComp ref={AnimatedForwardCompRef} width={10} />
             <Animated.Image style={position.getTranslateTransform()} source={{ uri: 'https://picsum.photos/200' }} />
 
-            {/* AnimatedComponent function prop args should infer original types */}
             <Animated.View
+              testID='expect-type-animated-view'
               style={{opacity: v1}}
-              // $ExpectType (event: LayoutChangeEvent) => void
-              onLayout={event => console.log(event.nativeEvent.layout)}
+              onLayout={event => {
+                event; // $ExpectType LayoutChangeEvent
+              }}
             />;
 
             <Animated.FlatList
+              testID='expect-type-animated-flatlist'
               style={{opacity: v1}}
               data={[1]}
-              // $ExpectType (s: ListRenderItemInfo<number>) => Element
-              renderItem={s => <View testID={s.item.toFixed(1)}/>}
+              renderItem={info => {
+                info; // $ExpectType ListRenderItemInfo<number>
+                return <View testID={info.item.toFixed(1)}/>
+              }}
             />;
 
             <Animated.SectionList
+              testID='expect-type-animated-sectionlist'
               style={{opacity: v1}}
               sections={[{ title: 'test', data: [1] }]}
-              // $ExpectType (s: SectionListRenderItemInfo<number>) => Element
-              renderItem={s => <View testID={s.item.toFixed(1)}/>}
+              renderItem={info => {
+                /*
+                 * Original <SectionList> expects:
+                 * SectionListRenderItemInfo<any>    on TS@3.5,
+                 * SectionListRenderItemInfo<number> on TS@4.0.
+                 * Skip until original is adjusted and type can be asserted
+                 */
+                info; // Should expect SectionListRenderItemInfo<number>
+                return <View testID={info.item.toFixed(1)}/>
+              }}
             />;
         </View>
     );
