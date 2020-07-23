@@ -130,7 +130,7 @@ export function excludeElevation(locationIdWithElevation: string): LocationIdWit
  * @param   locationIdWithoutElevation - LocationId without elevation chars.
  * @param   elevation - Height of the elevation.
  * @param   elevationType - floor | heightincm.
- * @returns
+ * @returns locationId with elevation
  * @throws  Invalid locationId.
  */
 export function appendElevation(
@@ -138,3 +138,12 @@ export function appendElevation(
     elevation: number,
     elevationType: ElevationType,
 ): string;
+
+/**
+ * Returns grid lines for specified SW/NE latitude/longitude bounds and precision.
+ *
+ * @param   bounds - The bound whithin to return the grid lines.
+ * @param   precision - Number of characters to consider for the locationId of a grid cell.
+ * @returns grid lines
+ */
+export function gridLines(bounds: Bounds, precision: number): [[number, number], [number, number]][];

@@ -17,3 +17,6 @@ const atx_adj_cell2: string = LocationId.adjacent(atx_locationId, 'N');
 // Neighbors
 const atx_neighbors: LocationId.Neighbours = LocationId.neighbours(atx_locationId);
 const atx_adj_cell3: string = atx_neighbors.n;
+
+// Grid Lines
+const atx_gridLines: [[number, number], [number, number]][] = LocationId.gridLines(atx_bounds, 9);
