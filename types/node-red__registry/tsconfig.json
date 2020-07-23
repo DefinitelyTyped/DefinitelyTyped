@@ -35,6 +35,6 @@
     },
     "files": [
         "index.d.ts",
-        "node-red-tests.ts"
+        "node-red__registry-tests.ts"
     ]
 }
