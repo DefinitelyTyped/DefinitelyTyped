@@ -210,6 +210,11 @@ declare namespace jwplayer {
         reason: string;
     }
 
+    interface PlaybackRateChangedParam {
+        playbackRate: number;
+        position: number;
+    }
+
     interface LevelsParam {
         width: number;
         levels: any[];
@@ -308,6 +313,7 @@ declare namespace jwplayer {
         ready: ReadyParam;
         resize: ResizeParam;
         visualQuality: VisualQualityParam;
+        playbackRateChanged: PlaybackRateChangedParam;
         levels: LevelsParam;
         seek: SeekParam;
         setupError: ErrorParam;
@@ -343,6 +349,7 @@ declare namespace jwplayer {
         getEnvironment(): Environment;
         getWidth(): number;
         getVisualQuality(): QualityLevel | undefined;
+        getPlaybackRate(): number;
         load(playlist: any[] | string): void;
         on<TEvent extends keyof EventParams>(event: TEvent, callback: EventCallback<EventParams[TEvent]>): void;
         on(event: NoParamEvent, callback: () => void): void;
@@ -366,6 +373,7 @@ declare namespace jwplayer {
         setCurrentAudioTrack(index: number): void;
         setCurrentCaptions(index: number): void;
         setCurrentQuality(index: number): void;
+        setPlaybackRate(rate: number): void;
         setFullscreen(state: boolean): void;
         setMute(state?: boolean): void;
         setup(options: any): JWPlayer;
