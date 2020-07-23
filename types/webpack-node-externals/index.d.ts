@@ -4,7 +4,6 @@
 //                 Manuel Pogge <https://github.com/MrSpoocy>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import { ExternalsFunctionElement } from 'webpack';
 
@@ -48,6 +47,10 @@ declare namespace webpackNodeExternals {
          * @default 'node_modules'
          */
         modulesDir?: string;
+        /**
+         * Additional folders to look for node modules.
+         */
+        additionalModuleDirs?: string[],
         /**
          * Read the modules from the package.json file instead of the node_modules folder.
          * @default false
