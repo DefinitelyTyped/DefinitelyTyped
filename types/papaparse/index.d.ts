@@ -111,6 +111,7 @@ export interface ParseConfig<T = any> {
     fastMode?: boolean; // default: undefined
     withCredentials?: boolean; // default: undefined
     delimitersToGuess?: GuessableDelimiters[]; // default: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
+    chunkSize?: number; // default: undefined
 
     // Callbacks
     step?(results: ParseResult<T>, parser: Parser): void; // default: undefined
