@@ -1,4 +1,4 @@
-// Type definitions for phoenix_live_view 0.13
+// Type definitions for phoenix_live_view 0.14
 // Project: https://github.com/phoenixframework/phoenix_live_view
 // Definitions by: Peter Zingg <https://github.com/pzingg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -89,7 +89,6 @@ export class LiveSocket {
   // log(view: View, kind: string, msgCallback: () => [any, any]): void;
   // on(event: string, callback: (e: Event) => void): void;
   // onChannel(channel: any, event: any, cb: (data: any) => void): void;
-  // onViewError(view: View): void;
   // owner(childEl: HTMLElement, callback: (view: View) => void): void;
   // pushHistoryPatch(href: string, linkState: any, targetEl: HTMLElement): void;
   // redirect(to: string, flash: any): void;
@@ -104,7 +103,6 @@ export class LiveSocket {
   // time(name: string, func: () => any): any;
   // triggerDOM(kind: string, args: any): void;
   // withinOwners(childEl: HTMLElement, callback: (view: View, el: HTMLElement) => void): void;
-  // withinTargets(el: HTMLElement, phxTarget: string, callback: (view: View, el: HTMLElement) => void): void;
   // withPageLoading(info: Event, callback: any): any;
   // wrapPush(push: any): any;
 }
@@ -117,6 +115,7 @@ export class Rendered {
   componentCIDs(diff: any): number[];
   componentToString(cid: number): string;
   expandStatics(diff: any): void;
+  getComponent(diff: any, cid: number): any;
   isComponentOnlyDiff(diff: any): boolean;
   mergeDiff(diff: any): void;
   parentViewId(): string;
@@ -128,28 +127,29 @@ export class Rendered {
   // private
 
   // comprehensionToBuffer(rendered: any, output: any): void;
+  // createSpan(text: string, cid: number): HTMLSpanElement;
   // dynamicToBuffer(rendered: any, output: any): void;
   // get(): any;
   // isNewFingerprint(diff: object): boolean;
   // recursiveCIDToString(components: any, cid: string, onlyCids?: number[]): any;
-  // replaceRendered(rendered: any): void;
   // toOutputBuffer(rendered: any, output: object): any;
 }
 
 export interface ViewHookInterface {
   el: HTMLElement;
   viewName: string;
-  pushEvent(event: string, payload: object): void;
-  pushEventTo(phxTarget: any, event: string, payload: object): void;
+  pushEvent(event: string, payload: object, onReply?: (reply: any, ref: number) => any): void;
+  pushEventTo(selectorOrTarget: any, event: string, payload: object, onReply?: (reply: any, ref: number) => any): void;
+  handleEvent(event: string, callback: (payload: object) => void): void;
 
   // callbacks
   mounted?: () => void;
-  disconnected?: () => void;
-  connected?: () => void;
   beforeUpdate?: () => void;
   updated?: () => void;
   beforeDestroy?: () => void;
   destroyed?: () => void;
+  disconnected?: () => void;
+  reconnected?: () => void;
 }
 
 export class View {
@@ -157,20 +157,21 @@ export class View {
 
   ackJoin(child: any): void;
   addHook(el: HTMLElement): void;
-  applyJoinPatch(live_patch: any, html: any): void;
+  applyJoinPatch(live_patch: any, html: any, events: Array<[string, object]>): void;
   applyPendingUpdates(): void;
   attachTrueDocEl(): void;
   bindChannel(): void;
   binding(kind: string): any;
   closestComponentID(targetCtx: object | null): number | null;
   componentID(el: HTMLElement): number | null;
-  componentPatch(diff: any, cid: number, ref: any): boolean;
+  componentPatch(diff: any, cid: number): boolean;
   connectParams(): object;
   destroy(callback?: () => void): void;
   destroyAllChildren(): void;
   destroyDescendent(id: string): any;
   destroyHook(hook: ViewHookInterface): void;
   displayError(): void;
+  dispatchEvents(events: Array<[string, object]>): void;
   dropPendingRefs(): void;
   expandURL(to: string): string;
   extractMeta(el: HTMLElement, meta: object): object;
@@ -194,15 +195,16 @@ export class View {
   name(): string;
   onAllChildJoinsComplete(): void;
   onChannel(event: string, cb: (resp: any) => void): void;
+  onClose(): void;
   onError(reason: any): void;
   onJoin(resp: object): void;
-  onJoinComplete(resp: object, html: any): void;
+  onJoinComplete(resp: object, html: any, events: Array<[string, object]>): void;
   onJoinError(resp: object): void;
   onLivePatch(redir: object): void;
   onLiveRedirect(redir: object): void;
   onRedirect(redir: object): void;
   ownsElement(el: HTMLElement): boolean;
-  performPatch(patch: any): boolean;
+  performPatch(patch: any, pruneCids: boolean): boolean;
   pushEvent(type: string, el: HTMLElement, targetCtx: object | null, phxEvent: string, meta: object): void;
   pushFormRecovery(form: HTMLElement, callback: any): void;
   pushFormSubmit(inputEl: HTMLElement, targetCtx: object | null, kind: string, phxEvent: string, onReply: any): void;
@@ -217,8 +219,11 @@ export class View {
   showLoader(timeout?: number): void;
   submitForm(form: HTMLElement, targetCtx: object | null, phxEvent: string): void;
   targetComponentID(target: HTMLElement, targetCtx?: object): number | null;
+  triggerBeforeUpdate(fromEl: HTMLElement, toEl: HTMLElement): any;
   triggerReconnected(): void;
-  update(diff: any, cidAck: any, ref: any): void;
+  triggerUpdatedHook(hook: any): void;
+  update(diff: any, events: Array<[string, object]>): void;
+  undoRefs(ref: number): void;
 }
 
 export function debug(view: View, kind: string, msg: object, obj: object): void;
@@ -240,22 +245,22 @@ export namespace Browser {
 export namespace DOM {
   function all(node: Node, query: string, callback: (el: HTMLElement) => HTMLElement): HTMLElement[];
   function byId(id: string): HTMLElement | void;
+  function cleanChildNodes(container: any, phxUpdate: any): void;
   function cloneNode(node: Node, html: any): Node;
   function copyPrivates(target: HTMLElement, source: HTMLElement): void;
   function debounce(el: HTMLElement, event: Event, phxDebounce: string, defaultDebounce: string | null, phxThrottle: string, defaultThrottle: string | null, callback: () => any): any;
   function deletePrivate(el: HTMLElement, key: string): void;
   function discardError(container: HTMLElement, el: HTMLElement, phxFeedbackFor: string): void;
   function dispatchEvent(target: Node, eventString: string, detail?: object): void;
-  function findComponentNodeList(node: Node, cid: number): HTMLElement[];
-  function findFirstComponentNode(node: Node, cid: number): HTMLElement | null;
+  function findComponentNode(node: Node, cid: number): HTMLElement[];
   function findParentCIDs(node: Node, cids: number[]): Set<number>;
   function findPhxChildren(el: HTMLElement, parentId: string): HTMLElement[];
   function findPhxChildrenInFragment(html: string, parentId: string): HTMLElement[];
   function incCycle(el: HTMLElement, key: string, trigger?: any): number;
   function isFormInput(el: HTMLElement): boolean;
   function isNowTriggerFormExternal(el: HTMLElement, phxTriggerExternal: string): boolean;
-  function isPhxChild(e: any): boolean;
-  function isPhxUpdate(e: any, t: any, n: any): boolean;
+  function isPhxChild(el: HTMLElement): boolean;
+  function isPhxUpdate(el: HTMLElement, phxUpdate: any, updateTypes: string[]): boolean;
   function isTextualInput(el: HTMLElement): boolean;
   function mergeAttrs(target: HTMLElement, source: HTMLElement, exclude?: string[]): void;
   function mergeFocusedInput(target: HTMLElement, source: HTMLElement): void;
@@ -267,5 +272,4 @@ export namespace DOM {
   function syncAttrsToProps(el: HTMLElement): void;
   function syncPendingRef(ref: number | null, fromEl: HTMLElement, toEl: HTMLElement): boolean;
   function triggerCycle(el: HTMLElement, key: string, currentCycle?: number): void;
-  function undoRefs(ref: number | null, container: Node): void;
 }
