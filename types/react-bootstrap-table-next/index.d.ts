@@ -378,7 +378,7 @@ export interface SelectRowProps<T> {
     nonSelectable?: number[];
     nonSelectableStyle?: ((row: T, rowIndex: number) => CSSProperties | undefined) | CSSProperties;
     nonSelectableClasses?: ((row: T, rowIndex: number) => string | undefined) | string;
-    bgColor?: (row: T, rowIndex: number) => string;
+    bgColor?: (row: T, rowIndex: number) => string | string;
     hideSelectColumn?: boolean;
     selectionRenderer?: (options: {
         checked: boolean;
