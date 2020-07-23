@@ -1,4 +1,4 @@
-// Type definitions for @tizentv/tizen-common-web 1.0
+// Type definitions for tizen-common-web 1.0
 // Project: https://docs.tizen.org/application/web/api/5.5/device_api/tv/index.html
 // Definitions by: SejoongDeJang <https://github.com/SejoongDeJang>
 //                 Dongkeun Nam <https://github.com/capscrom>
