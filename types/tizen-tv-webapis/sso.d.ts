@@ -1,11 +1,11 @@
+import { ErrorCallback } from './webapis';
 /*
  * This module defines the SSO functionalities provided by the Tizen Samsung TV Product API.
  * @privilegeLevel Partner
  * @privilegeName http://developer.samsung.com/privilege/sso.partner
  * @since 2.3
  */
-// tslint:disable-next-line strict-export-declare-modifiers
-declare interface SsoManager {
+export interface SsoManager {
     /**
      * Retrieves the plugin version number.
      * @returns string The version of the sso
@@ -67,7 +67,7 @@ declare interface SsoManager {
  * Defines a dictionary for call success data.
  * @param status Login status
  */
-interface SsoCallData {
+export interface SsoCallData {
     status: string;
 }
 
@@ -79,7 +79,7 @@ interface SsoCallData {
  * @param uid Login UID
  * @param guid Login GUID
  */
-interface SsoData {
+export interface SsoData {
     bLogin: boolean;
     id: string;
     authToken: string;
@@ -90,21 +90,21 @@ interface SsoData {
 /**
  * Defines the login success callback.
  */
-interface SsoCallDataSuccessCallback {
+export interface SsoCallDataSuccessCallback {
     (data: SsoCallData): void;
 }
 
 /**
  * Defines the success callback for string data.
  */
-interface SsoDataSuccessCallback {
+export interface SsoDataSuccessCallback {
     (data: SsoData): void;
 }
 
 /**
  * Defines the success callback for number data.
  */
-interface SsoStringSuccessCallback {
+export interface SsoStringSuccessCallback {
     (data: string): void;
 }
 
@@ -113,7 +113,7 @@ interface SsoStringSuccessCallback {
  * - `SSO_NOT_LOGIN` - Test NOT LOGIN
  * - `SSO_LOGIN` - Test Login
  */
-declare enum SsoLoginState {
+export enum SsoLoginState {
     /**
      * Not logged in
      */

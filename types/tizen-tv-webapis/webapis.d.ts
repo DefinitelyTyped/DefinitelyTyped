@@ -2,8 +2,8 @@
  * Defines the WebApi exception errors.
  * @since 2.3
  */
-// tslint:disable-next-line strict-export-declare-modifiers
-declare interface WebAPIException {
+
+export interface WebAPIException {
     /**
      * Error code
      * @since 2.3
@@ -200,8 +200,8 @@ declare interface WebAPIException {
  * Defines the data returned by asynchronous method error callbacks.
  * @since 2.3
  */
-// tslint:disable-next-line strict-export-declare-modifiers
-declare interface WebAPIError {
+
+export interface WebAPIError {
     /**
      * Error code
      * @since 2.3
@@ -225,8 +225,8 @@ declare interface WebAPIError {
  * Defines a generic callback for methods that do not require a return value in the success callback.
  * @since 2.3
  */
-// tslint:disable-next-line strict-export-declare-modifiers
-declare interface SuccessCallback {
+
+export interface SuccessCallback {
     /**
      * Callback method invoked when an asynchronous call completes successfully.
      * @since 2.3
@@ -238,8 +238,8 @@ declare interface SuccessCallback {
  * Defines a generic error callback for methods that require only the error as an input parameter in the error callback.
  * @since 2.3
  */
-// tslint:disable-next-line strict-export-declare-modifiers
-declare interface ErrorCallback {
+
+export interface ErrorCallback {
     /**
      * @descEng Callback method invoked if an error occurs.
      * @since 2.3

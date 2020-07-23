@@ -1,12 +1,10 @@
-/* tslint:disable:max-line-length */
 /**
  * This module defines the network information retrieval functionalities provided by the Tizen Samsung TV Product API.
  * @privilegeLevel Public
  * @privilegeName http://developer.samsung.com/privilege/network.public
  * @since 2.3
  */
-// tslint:disable-next-line strict-export-declare-modifiers
-declare interface NetworkManager {
+export interface NetworkManager {
     NetworkIpMode: {
         /**
          * No network IP mode configured
@@ -432,8 +430,7 @@ declare interface NetworkManager {
 /**
  * Defines constants for network IP modes.
  */
-// tslint:disable-next-line no-const-enum
-declare const enum NetworkIpMode {
+export enum NetworkIpMode {
     /**
      * No network IP mode configured
      */
@@ -468,8 +465,7 @@ declare const enum NetworkIpMode {
 /**
  * Defines constants for network connection types.
  */
-// tslint:disable-next-line no-const-enum
-declare const enum NetworkActiveConnectionType {
+export enum NetworkActiveConnectionType {
     /**
      * No network configured
      */
@@ -495,15 +491,14 @@ declare const enum NetworkActiveConnectionType {
  * @since 3.0
  * @privilegeLevel Public
  */
-interface NetworkStateChangedCallback {
+export interface NetworkStateChangedCallback {
     (state: NetworkState): void;
 }
 
 /**
  * Defines constants for network states.
  */
-// tslint:disable-next-line no-const-enum
-declare const enum NetworkState {
+export enum NetworkState {
     /**
      * LAN cable connected
      */
@@ -548,8 +543,7 @@ declare const enum NetworkState {
 /**
  * Defines constants for Wi-Fi network security modes.
  */
-// tslint:disable-next-line no-const-enum
-declare const enum NetworkWiFiSecurityMode {
+export enum NetworkWiFiSecurityMode {
     /**
      * WEP security mode
      */
@@ -584,8 +578,7 @@ declare const enum NetworkWiFiSecurityMode {
 /**
  * Defines constants for Wi-fi network encryption types.
  */
-// tslint:disable-next-line no-const-enum
-declare const enum NetworkWiFiEncryptionType {
+export enum NetworkWiFiEncryptionType {
     /**
      * WEP encryption
      */

@@ -1,4 +1,4 @@
-/* tslint:disable:max-line-length */
+import { SuccessCallback, ErrorCallback } from './webapis';
 /**
  * Specifies the player state.
  * - `NONE`- Player is not created
@@ -8,16 +8,13 @@
  * - `PAUSED`- Player is paused
  * @since 2.3
  */
-// tslint:disable-next-line no-const-enum
-declare const enum AVPlayPlayerState {
+export enum AVPlayPlayerState {
     NONE = 'NONE',
     IDLE = 'IDLE',
     READY = 'READY',
     PLAYING = 'PLAYING',
     PAUSED = 'PAUSED',
 }
-
-type AVPlayPlayerStateUnion = AVPlayPlayerState | 'NONE' | 'IDLE' | 'READY' | 'PLAYING' | 'PAUSED';
 
 /**
  * Specifies display modes.
@@ -26,18 +23,11 @@ type AVPlayPlayerStateUnion = AVPlayPlayerState | 'NONE' | 'IDLE' | 'READY' | 'P
  * - `PLAYER_DISPLAY_MODE_AUTO_ASPECT_RATIO`- Screen mode based on video dar/par info
  * @since 2.3
  */
-// tslint:disable-next-line no-const-enum
-declare const enum AVPlayDisplayMode {
+export enum AVPlayDisplayMode {
     PLAYER_DISPLAY_MODE_LETTER_BOX = 'PLAYER_DISPLAY_MODE_LETTER_BOX',
     PLAYER_DISPLAY_MODE_FULL_SCREEN = 'PLAYER_DISPLAY_MODE_FULL_SCREEN',
     PLAYER_DISPLAY_MODE_AUTO_ASPECT_RATIO = 'PLAYER_DISPLAY_MODE_AUTO_ASPECT_RATIO',
 }
-
-type AVPlayDisplayModeUnion =
-    | AVPlayDisplayMode
-    | 'PLAYER_DISPLAY_MODE_LETTER_BOX'
-    | 'PLAYER_DISPLAY_MODE_FULL_SCREEN'
-    | 'PLAYER_DISPLAY_MODE_AUTO_ASPECT_RATIO';
 
 /**
  * Specifies buffering scenarios.
@@ -47,26 +37,21 @@ type AVPlayDisplayModeUnion =
  * The actual buffering completion time may vary depending on the contents format, bitrate, network speed and so on.
  * @since 2.3
  */
-// tslint:disable-next-line no-const-enum
-declare const enum AVPlayBufferOption {
+export enum AVPlayBufferOption {
     PLAYER_BUFFER_FOR_PLAY = 'PLAYER_BUFFER_FOR_PLAY',
     PLAYER_BUFFER_FOR_RESUME = 'PLAYER_BUFFER_FOR_RESUME',
 }
 
-type AVPlayBufferOptionUnion = AVPlayBufferOption | 'PLAYER_BUFFER_FOR_PLAY' | 'PLAYER_BUFFER_FOR_RESUME';
 /**
  * Specifies buffer size units.
  * - `PLAYER_BUFFER_SIZE_IN_SECOND`- Buffer size in seconds
  * @since 2.3
  * @note "PLAYER_BUFFER_SIZE_IN_BYTE" property has been deprecated from Tizen version 5.0
  */
-// tslint:disable-next-line no-const-enum
-declare const enum AVPlayBufferSizeUnit {
+export enum AVPlayBufferSizeUnit {
     PLAYER_BUFFER_SIZE_IN_BYTE = 'PLAYER_BUFFER_SIZE_IN_BYTE',
     PLAYER_BUFFER_SIZE_IN_SECOND = 'PLAYER_BUFFER_SIZE_IN_SECOND',
 }
-
-type AVPlayBufferSizeUnitUnion = AVPlayBufferSizeUnit | 'PLAYER_BUFFER_SIZE_IN_BYTE' | 'PLAYER_BUFFER_SIZE_IN_SECOND';
 
 /**
  * Specifies parameters for various streaming protocols, such as HTTP, MMS, and adaptive streaming (Smooth Streaming, HLS, and MPEG-DASH).
@@ -97,8 +82,7 @@ type AVPlayBufferSizeUnitUnion = AVPlayBufferSizeUnit | 'PLAYER_BUFFER_SIZE_IN_B
  * @note "SET_MODE_4K" property has been deprecated from Tizen version 5.0. Property "ADAPTIVE_INFO" with attribute "FIXED_MAX_RESOLUTION=max_widthXmax_height" has been available since 5.0 as an alternative.
  * @note "ADAPTIVE_INFO" with attribute  "FIXED_MAX_RESOLUTION=max_widthXmax_height" is available since Tizen version 5.0 and API version 4.1
  */
-// tslint:disable-next-line no-const-enum
-declare const enum AVPlayStreamingPropertyType {
+export enum AVPlayStreamingPropertyType {
     COOKIE = 'COOKIE',
     USER_AGENT = 'USER_AGENT',
     PREBUFFER_MODE = 'PREBUFFER_MODE',
@@ -117,25 +101,6 @@ declare const enum AVPlayStreamingPropertyType {
     PORTRAIT_MODE = 'PORTRAIT_MODE',
 }
 
-type AVPlayStreamingPropertyTypeUnion =
-    | AVPlayStreamingPropertyType
-    | 'COOKIE'
-    | 'USER_AGENT'
-    | 'PREBUFFER_MODE'
-    | 'ADAPTIVE_INFO'
-    | 'SET_MODE_4K'
-    | 'PROPERTY_HD_AUDIO'
-    | 'LISTEN_SPARSE_TRACK'
-    | 'IS_LIVE'
-    | 'AVAILABLE_BITRATE'
-    | 'GET_LIVE_DURATION'
-    | 'CURRENT_BANDWIDTH'
-    | 'WIDEVINE'
-    | 'SET_VR360_MODE'
-    | 'USE_VIDEOMIXER'
-    | 'SET_MIXEDFRAME'
-    | 'PORTRAIT_MODE';
-
 /**
  * Specifies DRM systems supported by the player.
  * - `PLAYREADY`- PlayReady
@@ -145,22 +110,13 @@ type AVPlayStreamingPropertyTypeUnion =
  * - `EME_WIDEVINE_CDM`- Widevine Modular (supported since Tizen 5.0)
  * @since 2.3
  */
-// tslint:disable-next-line no-const-enum
-declare const enum AVPlayDrmType {
+export enum AVPlayDrmType {
     PLAYREADY = 'PLAYREADY',
     EME_PLAYREADY = 'EME_PLAYREADY',
     VERIMATRIX = 'VERIMATRIX',
     WIDEVINE_CDM = 'WIDEVINE_CDM',
     EME_WIDEVINE_CDM = 'EME_WIDEVINE_CDM',
 }
-
-type AVPlayDrmTypeUnion =
-    | AVPlayDrmType
-    | 'PLAYREADY'
-    | 'EME_PLAYREADY'
-    | 'VERIMATRIX'
-    | 'WIDEVINE_CDM'
-    | 'EME_WIDEVINE_CDM';
 
 /**
  * Specifies various DRM operations.
@@ -173,8 +129,7 @@ type AVPlayDrmTypeUnion =
  * @note 'Initialize' and 'Finalize' operations have been deprecated from Tizen version 5.0. Because these are being executed by avplay itself.
  * @note 'widevine_app_session' and 'widevine_data_type' operations have been deprecated from Tizen version 5.0. Because these are merged into "SetProperties". Please refer to setDrm() example.
  */
-// tslint:disable-next-line no-const-enum
-declare const enum AVPlayDrmOperation {
+export enum AVPlayDrmOperation {
     'SetProperties' = 'SetProperties',
     'InstallLicense' = 'InstallLicense',
     'ProcessInitiator' = 'ProcessInitiator',
@@ -186,18 +141,6 @@ declare const enum AVPlayDrmOperation {
     'widevine_data_type' = 'widevine_data_type',
 }
 
-type AVPlayDrmOperationUnion =
-    | AVPlayDrmOperation
-    | 'SetProperties'
-    | 'InstallLicense'
-    | 'ProcessInitiator'
-    | 'GetUID'
-    | 'Initialize'
-    | 'Finalize'
-    | 'widevine_license_data'
-    | 'widevine_app_session'
-    | 'widevine_data_type';
-
 /**
  * Specifies stream types supported by the player.
  * - `VIDEO`- Video track
@@ -205,14 +148,11 @@ type AVPlayDrmOperationUnion =
  * - `TEXT`- Subtitle track
  * @since 2.3
  */
-// tslint:disable-next-line no-const-enum
-declare const enum AVPlayStreamType {
+export enum AVPlayStreamType {
     VIDEO = 'VIDEO',
     AUDIO = 'AUDIO',
     TEXT = 'TEXT',
 }
-
-type AVPlayStreamTypeUnion = AVPlayStreamType | 'VIDEO' | 'AUDIO' | 'TEXT';
 
 /**
  * Specifies the player error messages.
@@ -229,8 +169,7 @@ type AVPlayStreamTypeUnion = AVPlayStreamType | 'VIDEO' | 'AUDIO' | 'TEXT';
  * - `PLAYER_ERROR_GENEREIC`- Failed to create the display window
  * @since 2.3
  */
-// tslint:disable-next-line no-const-enum
-declare const enum AVPlayError {
+export enum AVPlayError {
     PLAYER_ERROR_NONE = 'PLAYER_ERROR_NONE',
     PLAYER_ERROR_INVALID_PARAMETER = 'PLAYER_ERROR_INVALID_PARAMETER',
     PLAYER_ERROR_NO_SUCH_FILE = 'PLAYER_ERROR_NO_SUCH_FILE',
@@ -244,20 +183,6 @@ declare const enum AVPlayError {
     PLAYER_ERROR_GENEREIC = 'PLAYER_ERROR_GENEREIC',
 }
 
-type AVPlayErrorUnion =
-    | AVPlayError
-    | 'PLAYER_ERROR_NONE'
-    | 'PLAYER_ERROR_INVALID_PARAMETER'
-    | 'PLAYER_ERROR_NO_SUCH_FILE'
-    | 'PLAYER_ERROR_INVALID_OPERATION'
-    | 'PLAYER_ERROR_SEEK_FAILED'
-    | 'PLAYER_ERROR_INVALID_STATE'
-    | 'PLAYER_ERROR_NOT_SUPPORTED_FILE'
-    | 'PLAYER_ERROR_NOT_SUPPORTED_FORMAT'
-    | 'PLAYER_ERROR_INVALID_URI'
-    | 'PLAYER_ERROR_CONNECTION_FAILED'
-    | 'PLAYER_ERROR_GENEREIC';
-
 /**
  * Specifies player events.
  * - `PLAYER_MSG_NONE`- Notifies that a multimedia component message was not recognized by the player
@@ -270,8 +195,7 @@ type AVPlayErrorUnion =
  * @since 2.3
  * @note 'PLAYER_MSG_FRAGMENT_INFO' event has been deprecated from Tizen version 2.4, because it affects the application performance.
  */
-// tslint:disable-next-line no-const-enum
-declare const enum AVPlayEvent {
+export enum AVPlayEvent {
     PLAYER_MSG_NONE = 'PLAYER_MSG_NONE',
     PLAYER_MSG_RESOLUTION_CHANGED = 'PLAYER_MSG_RESOLUTION_CHANGED',
     PLAYER_MSG_BITRATE_CHANGE = 'PLAYER_MSG_BITRATE_CHANGE',
@@ -282,17 +206,6 @@ declare const enum AVPlayEvent {
     PLAYER_MSG_DRM_CHALLENGE_DATA = 'PLAYER_MSG_DRM_CHALLENGE_DATA',
 }
 
-type AVPlayEventUnion =
-    | AVPlayEvent
-    | 'PLAYER_MSG_NONE'
-    | 'PLAYER_MSG_RESOLUTION_CHANGED'
-    | 'PLAYER_MSG_BITRATE_CHANGE'
-    | 'PLAYER_MSG_FRAGMENT_INFO'
-    | 'PLAYER_SPARSE_TRACK_DETECT'
-    | 'PLAYER_STREAMING_EVENT'
-    | 'PLAYER_MSG_HTTP_ERROR_CODE'
-    | 'PLAYER_MSG_DRM_CHALLENGE_DATA';
-
 /**
  * Defines a dictionary for streaming video, audio and subtitle information for various streaming scenarios.
  * @param index unsigned long Index
@@ -300,10 +213,9 @@ type AVPlayEventUnion =
  * @param extra_info string JSON string containing all media-related info (such as height, width, and fourCC for a video stream, and bitrate, fourCC, language, and codec type for an audio stream)
  * @since 2.3
  */
-// tslint:disable-next-line interface-over-type-literal
-type AVPlayStreamInfo = {
+export type AVPlayStreamInfo = {
     index: number;
-    type: AVPlayStreamTypeUnion;
+    type: AVPlayStreamType | 'VIDEO' | 'AUDIO' | 'TEXT';
     extra_info: string;
 };
 
@@ -314,8 +226,7 @@ type AVPlayStreamInfo = {
  * @param stop_pos Stop position
  * @since 2.3
  */
-// tslint:disable-next-line interface-over-type-literal
-type AVPlaySubtitleAttribute = {
+export type AVPlaySubtitleAttribute = {
     attr_type: string;
     start_pos: number;
     stop_pos: number;
@@ -325,7 +236,7 @@ type AVPlaySubtitleAttribute = {
  * Defines callbacks for buffering and playback notifications.
  * @since 2.3
  */
-interface AVPlayPlaybackCallback {
+export interface AVPlayPlaybackCallback {
     /**
      * Callback method for asynchronous buffering started notifications.
      * @throw WebAPIException NotSupportedError, UnknownError
@@ -370,7 +281,19 @@ interface AVPlayPlaybackCallback {
      * @throw WebAPIException NotSupportedError, UnknownError
      * @since 2.3
      */
-    onevent?(eventid: AVPlayEventUnion, data: string): void;
+    onevent?(
+        eventid:
+            | AVPlayEvent
+            | 'PLAYER_MSG_NONE'
+            | 'PLAYER_MSG_RESOLUTION_CHANGED'
+            | 'PLAYER_MSG_BITRATE_CHANGE'
+            | 'PLAYER_MSG_FRAGMENT_INFO'
+            | 'PLAYER_SPARSE_TRACK_DETECT'
+            | 'PLAYER_STREAMING_EVENT'
+            | 'PLAYER_MSG_HTTP_ERROR_CODE'
+            | 'PLAYER_MSG_DRM_CHALLENGE_DATA',
+        data: string,
+    ): void;
 
     /**
      * Callback method for AVPlay error notifications.
@@ -378,7 +301,21 @@ interface AVPlayPlaybackCallback {
      * @throw WebAPIException NotSupportedError, UnknownError
      * @since 2.3
      */
-    onerror?(eventid: AVPlayErrorUnion): void;
+    onerror?(
+        eventid:
+            | AVPlayError
+            | 'PLAYER_ERROR_NONE'
+            | 'PLAYER_ERROR_INVALID_PARAMETER'
+            | 'PLAYER_ERROR_NO_SUCH_FILE'
+            | 'PLAYER_ERROR_INVALID_OPERATION'
+            | 'PLAYER_ERROR_SEEK_FAILED'
+            | 'PLAYER_ERROR_INVALID_STATE'
+            | 'PLAYER_ERROR_NOT_SUPPORTED_FILE'
+            | 'PLAYER_ERROR_NOT_SUPPORTED_FORMAT'
+            | 'PLAYER_ERROR_INVALID_URI'
+            | 'PLAYER_ERROR_CONNECTION_FAILED'
+            | 'PLAYER_ERROR_GENEREIC',
+    ): void;
 
     /**
      * Callback method for DRM information notifications.
@@ -387,7 +324,10 @@ interface AVPlayPlaybackCallback {
      * @throw WebAPIException NotSupportedError, UnknownError
      * @since 2.3
      */
-    ondrmevent?(type: AVPlayDrmTypeUnion, data: object): void;
+    ondrmevent?(
+        type: AVPlayDrmType | 'PLAYREADY' | 'EME_PLAYREADY' | 'VERIMATRIX' | 'WIDEVINE_CDM' | 'EME_WIDEVINE_CDM',
+        data: object,
+    ): void;
 
     /**
      * Callback method for asynchronous subtitle change notifications.
@@ -406,7 +346,7 @@ interface AVPlayPlaybackCallback {
  * @since 2.3
  * @note `deprecated` 2.4
  */
-interface AVPlaySoundAnalysisCallback {
+export interface AVPlaySoundAnalysisCallback {
     /**
      * AVPlay Sound Analysis data array
      * @since 2.3
@@ -419,8 +359,7 @@ interface AVPlaySoundAnalysisCallback {
  * This module defines the multimedia player functionalities provided by the Tizen Samsung TV Product API.
  * @since 2.3
  */
-// tslint:disable-next-line strict-export-declare-modifiers
-declare interface AVPlayManager {
+export interface AVPlayManager {
     /**
      * Instantiates the player object with a content URL as the input parameter.
      * @param url Content URL for playback. It can be an absolute local path or a remote URL from a network-based stream server.
@@ -511,7 +450,7 @@ declare interface AVPlayManager {
      * @since 2.3
      * @constraint Can be called in the following states: "NONE", "IDLE", "READY", "PLAYING", "PAUSED"
      */
-    getState: () => AVPlayPlayerStateUnion;
+    getState: () => AVPlayPlayerState | 'NONE' | 'IDLE' | 'READY' | 'PLAYING' | 'PAUSED';
 
     /**
      * Pauses playback. If this method is called successfully, current time updates are stopped.
@@ -589,7 +528,11 @@ declare interface AVPlayManager {
      * @note unit "PLAYER_BUFFER_SIZE_IN_BYTE" has been deprecated from Tizen version 5.0
      * @constraint Can be called in the following states: "IDLE"
      */
-    setBufferingParam: (option: AVPlayBufferOptionUnion, unit: AVPlayBufferSizeUnitUnion, amount: number) => void;
+    setBufferingParam: (
+        option: AVPlayBufferOption | 'PLAYER_BUFFER_FOR_PLAY' | 'PLAYER_BUFFER_FOR_RESUME',
+        unit: AVPlayBufferSizeUnit | 'PLAYER_BUFFER_SIZE_IN_BYTE' | 'PLAYER_BUFFER_SIZE_IN_SECOND',
+        amount: number,
+    ) => void;
 
     /**
      * Sets the current playback rate. Positive parameter values play the media forwards, while negative values cause the media to play in reverse.
@@ -631,7 +574,21 @@ declare interface AVPlayManager {
      * 'widevine_app_session' and 'widevine_data_type' operations have been deprecated from Tizen version 5.0. Because these are merged into "SetProperties". Please refer to setDrm() example.
      * @constraint Can be called in the following states: "IDLE"
      */
-    setDrm: (drmType: AVPlayDrmTypeUnion, drmOperation: AVPlayDrmOperationUnion, jsonParam: string) => string;
+    setDrm: (
+        drmType: AVPlayDrmType | 'PLAYREADY' | 'EME_PLAYREADY' | 'VERIMATRIX' | 'WIDEVINE_CDM' | 'EME_WIDEVINE_CDM',
+        drmOperation:
+            | AVPlayDrmOperation
+            | 'SetProperties'
+            | 'InstallLicense'
+            | 'ProcessInitiator'
+            | 'GetUID'
+            | 'Initialize'
+            | 'Finalize'
+            | 'widevine_license_data'
+            | 'widevine_app_session'
+            | 'widevine_data_type',
+        jsonParam: string,
+    ) => string;
 
     /**
      * Gets the device UID. The input would be the drm type.
@@ -643,7 +600,9 @@ declare interface AVPlayManager {
      * @since 2.3
      * @constraint Can be called in the following states: "NONE", "IDLE", "READY", "PLAYING", "PAUSED".
      */
-    getUID: (drmType: AVPlayDrmTypeUnion) => string;
+    getUID: (
+        drmType: AVPlayDrmType | 'PLAYREADY' | 'EME_PLAYREADY' | 'VERIMATRIX' | 'WIDEVINE_CDM' | 'EME_WIDEVINE_CDM',
+    ) => string;
 
     /**
      * Retrieves the audio spectrum analysis result every 30 ms. You can use it for an equalizer effect video or in a PartyTV application. The spectrum is analyzed across an array of 31 bands, of which Bands[14] ~ Bands[18] generally have the largest values.
@@ -700,7 +659,13 @@ declare interface AVPlayManager {
      * @since 2.3
      * @constraint Can be called in the following states: "IDLE", "READY", "PLAYING", "PAUSED"
      */
-    setDisplayMethod: (displayMode: AVPlayDisplayModeUnion) => void;
+    setDisplayMethod: (
+        displayMode:
+            | AVPlayDisplayMode
+            | 'PLAYER_DISPLAY_MODE_LETTER_BOX'
+            | 'PLAYER_DISPLAY_MODE_FULL_SCREEN'
+            | 'PLAYER_DISPLAY_MODE_AUTO_ASPECT_RATIO',
+    ) => void;
 
     /**
      * Switches audio or subtitle tracks during playback.
@@ -713,7 +678,7 @@ declare interface AVPlayManager {
      * If buffering is not complete, calling this method for an AUDIO track returns an error.
      * The trackType "TEXT" is not supported for DASH streaming.
      */
-    setSelectTrack: (trackType: AVPlayStreamTypeUnion, trackIndex: number) => void;
+    setSelectTrack: (trackType: AVPlayStreamType | 'VIDEO' | 'AUDIO' | 'TEXT', trackIndex: number) => void;
 
     /**
      * Retrieves the currently-playing video, audio, or subtitle stream information, and notifies that a stream is playing.
@@ -757,7 +722,27 @@ declare interface AVPlayManager {
      * @constraint Can be called in the following states: "IDLE"
      * "READY", "PLAYING", "PAUSED" is valid only for SET_MIXEDFRAME.
      */
-    setStreamingProperty: (propertyType: AVPlayStreamingPropertyTypeUnion, propertyParam: string) => void;
+    setStreamingProperty: (
+        propertyType:
+            | AVPlayStreamingPropertyType
+            | 'COOKIE'
+            | 'USER_AGENT'
+            | 'PREBUFFER_MODE'
+            | 'ADAPTIVE_INFO'
+            | 'SET_MODE_4K'
+            | 'PROPERTY_HD_AUDIO'
+            | 'LISTEN_SPARSE_TRACK'
+            | 'IS_LIVE'
+            | 'AVAILABLE_BITRATE'
+            | 'GET_LIVE_DURATION'
+            | 'CURRENT_BANDWIDTH'
+            | 'WIDEVINE'
+            | 'SET_VR360_MODE'
+            | 'USE_VIDEOMIXER'
+            | 'SET_MIXEDFRAME'
+            | 'PORTRAIT_MODE',
+        propertyParam: string,
+    ) => void;
 
     /**
      * Retrieves a specific property value obtained by the streaming engine (Smooth Streaming, HLS, DASH, or Widevine).
@@ -768,7 +753,26 @@ declare interface AVPlayManager {
      * @note GET_SERVER_TIME_SCALE and GET_ABSOLUTE_SERVER_TIME: Supported for Smooth Streaming only.
      * @constraint Can be called in the following states: "READY", "PLAYING", "PAUSED"
      */
-    getStreamingProperty: (propertyType: AVPlayStreamingPropertyTypeUnion) => string;
+    getStreamingProperty: (
+        propertyType:
+            | AVPlayStreamingPropertyType
+            | 'COOKIE'
+            | 'USER_AGENT'
+            | 'PREBUFFER_MODE'
+            | 'ADAPTIVE_INFO'
+            | 'SET_MODE_4K'
+            | 'PROPERTY_HD_AUDIO'
+            | 'LISTEN_SPARSE_TRACK'
+            | 'IS_LIVE'
+            | 'AVAILABLE_BITRATE'
+            | 'GET_LIVE_DURATION'
+            | 'CURRENT_BANDWIDTH'
+            | 'WIDEVINE'
+            | 'SET_VR360_MODE'
+            | 'USE_VIDEOMIXER'
+            | 'SET_MIXEDFRAME'
+            | 'PORTRAIT_MODE',
+    ) => string;
 
     /**
      * Retrieves the AVPlay version.

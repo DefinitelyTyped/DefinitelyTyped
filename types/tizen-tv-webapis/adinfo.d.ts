@@ -1,12 +1,11 @@
-/* tslint:disable:max-line-length*/
 /**
  * This module defines the identification information for advertising functionalities provided by the Tizen Samsung TV Product API.
  * @privilegeLevel Public
  * @privilegeName http://developer.samsung.com/privilege/adinfo
  * @since 2.4
  */
-// tslint:disable-next-line strict-export-declare-modifiers
-declare interface AdInfoManager {
+
+export interface AdInfoManager {
     /**
      * Retrieves the plugin version number.
      * @returns Plugin version

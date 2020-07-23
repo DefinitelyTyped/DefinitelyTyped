@@ -1,3 +1,4 @@
+import { SuccessCallback, ErrorCallback } from './webapis';
 /**
  * Defines a WebApi object instance of the Tizen Samsung TV Product API.
  * The webapis.widgetdata object enables access to WidgetData API functionality.
@@ -5,8 +6,7 @@
  * @privilegeName http://developer.samsung.com/privilege/widgetdata
  * @since 2.3
  */
-// tslint:disable-next-line strict-export-declare-modifiers
-declare interface WidgetDataManager {
+export interface WidgetDataManager {
     /**
      * Retrieves the plugin version number.
      * @returns string value of plugin's version

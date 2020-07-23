@@ -1,9 +1,9 @@
+import { ErrorCallback, SuccessCallback } from './webapis';
 /**
  * Defines constants for product info configuration keys.
  * @since 2.3
  */
-// tslint:disable-next-line no-const-enum
-declare const enum ProductInfoConfigKey {
+export enum ProductInfoConfigKey {
     /**
      * Data service configuration, it can be set as string type with numbers
      * @since 2.3
@@ -21,8 +21,7 @@ declare const enum ProductInfoConfigKey {
  * Defines constants for glasses-free 3D support.
  * @since 2.3
  */
-// tslint:disable-next-line no-const-enum
-declare const enum ProductInfoNoGlass3dSupport {
+export enum ProductInfoNoGlass3dSupport {
     /**
      * Glasses-free 3D is not supported
      * @since 2.3
@@ -40,8 +39,7 @@ declare const enum ProductInfoNoGlass3dSupport {
  * Defines constants for infolink server types.
  * @since 2.3
  */
-// tslint:disable-next-line no-const-enum
-declare const enum ProductInfoSiServerType {
+export enum ProductInfoSiServerType {
     /**
      * Operating server
      * @since 2.3
@@ -66,7 +64,7 @@ declare const enum ProductInfoSiServerType {
  * @param key Key of each ProductInfo config
  * @since 2.3
  */
-interface ProductInfoConfigChangeCallback {
+export interface ProductInfoConfigChangeCallback {
     (key: ProductInfoConfigKey): void;
 }
 
@@ -77,8 +75,7 @@ interface ProductInfoConfigChangeCallback {
  * @privilegeName http://developer.samsung.com/privilege/productinfo
  * @since 2.3
  */
-// tslint:disable-next-line strict-export-declare-modifiers
-declare interface ProductInfoManager {
+export interface ProductInfoManager {
     ProductInfoConfigKey: {
         /**
          * Data service configuration, it can be set as string type with numbers

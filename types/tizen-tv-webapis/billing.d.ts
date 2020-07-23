@@ -1,22 +1,18 @@
-/* tslint:disable:max-line-length */
+import { ErrorCallback } from './webapis';
 /**
  * Specifies billing server types.
  * - `DEV` - Staging server
  * - `PRD` - Operating server
  */
-// tslint:disable-next-line no-const-enum
-declare const enum TVServerType {
+export enum TVServerType {
     DEV = 'DEV',
     PRD = 'PRD',
 }
 
-type TVServerTypeUnion = TVServerType | 'DEV' | 'PRD';
-
 /**
  * Defines the payment result and information.
  */
-// tslint:disable-next-line interface-over-type-literal
-type BillingBuyData = {
+export type BillingBuyData = {
     /**
      * Payment result
      */
@@ -31,8 +27,7 @@ type BillingBuyData = {
  * Defines a dictionary for product list data returned by the getProductsList API.
  * @param apiResult getProductsList API result dictionary in JSON format. This value is JSON string type data, so Please use it by JSON parsing. After you parse this value, you can use it in ProductsListAPIResult format at the below.
  */
-// tslint:disable-next-line interface-over-type-literal
-type ProductsListData = {
+export type ProductsListData = {
     apiResult: string;
 };
 
@@ -40,8 +35,7 @@ type ProductsListData = {
  * Defines a dictionary for data returned by the applyInvoice API.
  * @param apiResult applyInvoice API result dictionary in JSON format. This value is JSON string type data, so Please use it by JSON parsing. After you parse this value, you can use it in ApplyInvoiceAPIResult format at the below.
  */
-// tslint:disable-next-line interface-over-type-literal
-type ApplyInvoiceData = {
+export type ApplyInvoiceData = {
     apiResult: string;
 };
 
@@ -49,8 +43,7 @@ type ApplyInvoiceData = {
  * Defines a dictionary for data returned by the verifyInvoice API.
  * @param apiResult verifyInvoice API result dictionary in JSON format. This value is JSON string type data, so Please use it by JSON parsing. After you parse this value, you can use it in VerifyInvoiceAPIResult format at the below.
  */
-// tslint:disable-next-line interface-over-type-literal
-type VerifyInvoiceData = {
+export type VerifyInvoiceData = {
     apiResult: string;
 };
 
@@ -58,8 +51,7 @@ type VerifyInvoiceData = {
  * Defines a dictionary for data returned by the getServiceCountryAvailability API.
  * @param apiResult getServiceCountryAvailability API result dictionary in JSON format. This value is JSON string type data, so Please use it by JSON parsing. After you parse this value, you can use it in GetUserPurchaseListAPIResult format at the below.
  */
-// tslint:disable-next-line interface-over-type-literal
-type ServiceCountryAvailabilityData = {
+export type ServiceCountryAvailabilityData = {
     apiResult: string;
 };
 
@@ -67,8 +59,7 @@ type ServiceCountryAvailabilityData = {
  * Defines a dictionary for data returned by the getUserPurchaseList API.
  * @param apiResult getUserPurchaseList API result dictionary in JSON format. This value is JSON string type data, so Please use it by JSON parsing. After you parse this value, you can use it in GetUserPurchaseListAPIResult format at the below.
  */
-// tslint:disable-next-line interface-over-type-literal
-type UserPurchaseData = {
+export type UserPurchaseData = {
     apiResult: string;
 };
 
@@ -76,8 +67,7 @@ type UserPurchaseData = {
  * Defines a dictionary for subscription cancellation data returned by the cancelSubscription API.
  * @param apiResult cancelSubscription API result dictionary in JSON format. This value is JSON string type data, so Please use it by JSON parsing. After you parse this value, you can use it in CancelSubscriptionAPIResult format at the below.
  */
-// tslint:disable-next-line interface-over-type-literal
-type CancelSubscriptionData = {
+export type CancelSubscriptionData = {
     apiResult: string;
 };
 
@@ -86,8 +76,7 @@ type CancelSubscriptionData = {
  * @param apiResult IsServiceAvailable API result dictionary in JSON format. This value is JSON string type data, so Please use it by JSON parsing. After you parse this value, you can use it in ServiceAvailableAPIResult format at the below.
  * @note `deprecated` 5.5
  */
-// tslint:disable-next-line interface-over-type-literal
-type ServiceAvailableData = {
+export type ServiceAvailableData = {
     apiResult: string;
 };
 
@@ -95,7 +84,7 @@ type ServiceAvailableData = {
  * Callback method returning the payment status.
  * @param data Payment status
  */
-interface BillingBuyDataSuccessCallback {
+export interface BillingBuyDataSuccessCallback {
     (data: BillingBuyData): void;
 }
 
@@ -103,7 +92,7 @@ interface BillingBuyDataSuccessCallback {
  * Callback method returning the product list request status.
  * @param data It includes getProductList API result. but you can't use it as it is. you have to parse it as JSON format data.
  */
-interface BillingProductsListCallback {
+export interface BillingProductsListCallback {
     (data: ProductsListData): void;
 }
 
@@ -111,7 +100,7 @@ interface BillingProductsListCallback {
  * Callback method returning the apply invoice request status.
  * @param data It includes applyInvoice API result. but you can't use it as it is. you have to parse it as JSON format data.
  */
-interface BillingApplyInvoiceCallback {
+export interface BillingApplyInvoiceCallback {
     (data: ApplyInvoiceData): void;
 }
 
@@ -119,7 +108,7 @@ interface BillingApplyInvoiceCallback {
  * Callback method returning the payment verification request status.
  * @param data It includes verifyInvoice API result. but you can't use it as it is. you have to parse it as JSON format data.
  */
-interface BillingVerifyInvoiceCallback {
+export interface BillingVerifyInvoiceCallback {
     (data: VerifyInvoiceData): void;
 }
 
@@ -127,7 +116,7 @@ interface BillingVerifyInvoiceCallback {
  * Callback method returning availability of country list status.
  * @param data It includes getServiceCountryAvailability API result. but you can't use it as it is. you have to parse it as JSON format data.
  */
-interface BillingGetServiceCountryAvailabilityCallback {
+export interface BillingGetServiceCountryAvailabilityCallback {
     (data: ServiceCountryAvailabilityData): void;
 }
 
@@ -135,7 +124,7 @@ interface BillingGetServiceCountryAvailabilityCallback {
  * Callback method returning the purchase history request status.
  * @param data It includes getUserPurchaseList API result. but you can't use it as it is. you have to parse it as JSON format data.
  */
-interface BillingGetUserPurchaseListCallback {
+export interface BillingGetUserPurchaseListCallback {
     (data: UserPurchaseData): void;
 }
 
@@ -143,7 +132,7 @@ interface BillingGetUserPurchaseListCallback {
  * Callback method returning the subscription cancel request status.
  * @param data It includes cancelSubscription API result. but you can't use it as it is. you have to parse it as JSON format data.
  */
-interface BillingCancelSubscriptionCallback {
+export interface BillingCancelSubscriptionCallback {
     (data: CancelSubscriptionData): void;
 }
 
@@ -152,7 +141,7 @@ interface BillingCancelSubscriptionCallback {
  * @param data It includes isServiceAvailable API result. but you can't use it as it is. you have to parse it as JSON format data.
  * @note `deprecated` 5.5
  */
-interface BillingIsServiceAvailableCallback {
+export interface BillingIsServiceAvailableCallback {
     (data: ServiceAvailableData): void;
 }
 
@@ -162,8 +151,7 @@ interface BillingIsServiceAvailableCallback {
  * @privilegeName http://developer.samsung.com/privilege/billing
  * @since 2.4
  */
-// tslint:disable-next-line strict-export-declare-modifiers
-declare interface BillingManager {
+export interface BillingManager {
     /**
      * Retrieves the Billing API version.
      * @returns Billing API version
@@ -193,7 +181,7 @@ declare interface BillingManager {
      */
     buyItem: (
         appId: string,
-        serverType: TVServerTypeUnion,
+        serverType: TVServerType | 'DEV' | 'PRD',
         paymentDetails: string,
         onsuccess: BillingBuyDataSuccessCallback,
         onerror?: ErrorCallback,
@@ -224,7 +212,7 @@ declare interface BillingManager {
         pageSize: string,
         pageNumber: string,
         checkValue: string,
-        serverType: TVServerTypeUnion,
+        serverType: TVServerType | 'DEV' | 'PRD',
         onsuccess: BillingProductsListCallback,
         onerror?: ErrorCallback,
     ) => void;
@@ -252,7 +240,7 @@ declare interface BillingManager {
         customId: string,
         invoiceId: string,
         countryCode: string,
-        serverType: TVServerTypeUnion,
+        serverType: TVServerType | 'DEV' | 'PRD',
         onsuccess: BillingApplyInvoiceCallback,
         onerror?: ErrorCallback,
     ) => void;
@@ -280,7 +268,7 @@ declare interface BillingManager {
         customId: string,
         invoiceId: string,
         countryCode: string,
-        serverType: TVServerTypeUnion,
+        serverType: TVServerType | 'DEV' | 'PRD',
         onsuccess: BillingVerifyInvoiceCallback,
         onerror?: ErrorCallback,
     ) => void;
@@ -306,7 +294,7 @@ declare interface BillingManager {
         appId: string,
         countryCodes: string[],
         checkValue: string,
-        serverType: TVServerTypeUnion,
+        serverType: TVServerType | 'DEV' | 'PRD',
         onsuccess: BillingGetServiceCountryAvailabilityCallback,
         onerror?: ErrorCallback,
     ) => void;
@@ -336,7 +324,7 @@ declare interface BillingManager {
         countryCode: string,
         pageNumber: string,
         checkValue: string,
-        serverType: TVServerTypeUnion,
+        serverType: TVServerType | 'DEV' | 'PRD',
         onsuccess: BillingGetUserPurchaseListCallback,
         onerror?: ErrorCallback,
     ) => void;
@@ -364,7 +352,7 @@ declare interface BillingManager {
         invoiceId: string,
         customId: string,
         countryCode: string,
-        serverType: TVServerTypeUnion,
+        serverType: TVServerType | 'DEV' | 'PRD',
         onsuccess: BillingCancelSubscriptionCallback,
         onerror?: ErrorCallback,
     ) => void;
@@ -383,7 +371,7 @@ declare interface BillingManager {
      * @note `deprecated` 5.5
      */
     isServiceAvailable: (
-        serverType: TVServerTypeUnion,
+        serverType: TVServerType | 'DEV' | 'PRD',
         onsuccess: BillingIsServiceAvailableCallback,
         onerror?: ErrorCallback,
     ) => void;

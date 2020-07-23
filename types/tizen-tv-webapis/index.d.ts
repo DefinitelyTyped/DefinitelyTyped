@@ -8,17 +8,30 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./adinfo.d.ts" />
-/// <reference path="./lib/appcommon.d.ts" />
-/// <reference path="./lib/avinfo.d.ts" />
-/// <reference path="./lib/avplay.d.ts" />
-/// <reference path="./lib/avplaystore.d.ts" />
-/// <reference path="./lib/billing.d.ts" />
-/// <reference path="./lib/network.d.ts" />
-/// <reference path="./lib/productinfo.d.ts" />
-/// <reference path="./lib/sso.d.ts" />
-/// <reference path="./lib/tvinfo.d.ts" />
-/// <reference path="./lib/widgetdata.d.ts" />
-/// <reference path="./lib/webapis.d.ts" />
+/// <reference path="./appcommon.d.ts" />
+/// <reference path="./avinfo.d.ts" />
+/// <reference path="./avplay.d.ts" />
+/// <reference path="./avplaystore.d.ts" />
+/// <reference path="./billing.d.ts" />
+/// <reference path="./network.d.ts" />
+/// <reference path="./productinfo.d.ts" />
+/// <reference path="./sso.d.ts" />
+/// <reference path="./tvinfo.d.ts" />
+/// <reference path="./widgetdata.d.ts" />
+/// <reference path="./webapis.d.ts" />
+
+import { AdInfoManager } from './adinfo';
+import { AppCommonManager } from './appcommon';
+import { AVPlayManager } from './avplay';
+import { AVInfoManager } from './avinfo';
+import { AVPlayStoreManager } from './avplaystore';
+import { BillingManager } from './billing';
+import { NetworkManager } from './network';
+import { ProductInfoManager } from './productinfo';
+import { SsoManager } from './sso';
+import { TvInfoManager } from './tvinfo';
+import { WidgetDataManager } from './widgetdata';
+import { WebAPIException } from './webapis';
 
 declare const webapis: Webapis;
 

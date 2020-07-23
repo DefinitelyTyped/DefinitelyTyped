@@ -2,8 +2,9 @@
  * This module defines the application information retrieval functionalities provided by the Tizen Samsung TV Product API.
  * @since 2.3
  */
-// tslint:disable-next-line strict-export-declare-modifiers
-declare interface AppCommonManager {
+
+import { SuccessCallback, ErrorCallback } from './webapis';
+export interface AppCommonManager {
     AppCommonScreenSaverState: {
         /**
          * Screensaver off
@@ -40,8 +41,7 @@ declare interface AppCommonManager {
  * @since 2.3
  */
 
-// tslint:disable-next-line no-const-enum
-declare const enum AppCommonScreenSaverState {
+export enum AppCommonScreenSaverState {
     /**
      * Screensaver off
      * @since 2.3
