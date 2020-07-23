@@ -54,23 +54,23 @@ Dms.parse('51° 28′ 40.12″ N');
 
 Dms.toDms(45);
 Dms.toDms(45, 'dm');
-Dms.toDms(45, 'd', 2);
-Dms.toDms(45, 'dms', 4);
+Dms.toDms(45, 'd', 1);
+Dms.toDms(45, 'dms', 3);
 
 Dms.toLat(45);
 Dms.toLat(45, 'dm');
-Dms.toLat(45, 'd', 2);
-Dms.toLat(45, 'dms', 4);
+Dms.toLat(45, 'd', 1);
+Dms.toLat(45, 'dms', 3);
 
 Dms.toLon(45);
 Dms.toLon(45, 'dm');
-Dms.toLon(45, 'd', 2);
-Dms.toLon(45, 'dms', 4);
+Dms.toLon(45, 'd', 1);
+Dms.toLon(45, 'dms', 3);
 
 Dms.toBrng(90);
 Dms.toBrng(90, 'dm');
-Dms.toBrng(90, 'd', 2);
-Dms.toBrng(90, 'dms', 4);
+Dms.toBrng(90, 'd', 1);
+Dms.toBrng(90, 'dms', 3);
 
 Dms.compassPoint(180);
 Dms.compassPoint(180, 1);

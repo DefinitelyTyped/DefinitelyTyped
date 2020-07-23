@@ -168,7 +168,7 @@ declare namespace request {
         unset(field: string): this;
         use(fn: Plugin): this;
         withCredentials(): this;
-        write(data: string | Buffer, encoding?: string): this;
+        write(data: string | Buffer, encoding?: string): boolean;
         maxResponseSize(size: number): this;
     }
 

@@ -24,11 +24,14 @@ declare class BlobEvent extends Event {
     readonly timecode: number;
 }
 
+type BitrateMode = 'vbr' | 'cbr';
+
 interface MediaRecorderOptions {
     mimeType?: string;
     audioBitsPerSecond?: number;
     videoBitsPerSecond?: number;
     bitsPerSecond?: number;
+    audioBitrateMode?: BitrateMode;
 }
 
 type RecordingState = 'inactive' | 'recording' | 'paused';
@@ -48,6 +51,7 @@ declare class MediaRecorder extends EventTarget {
     readonly state: RecordingState;
     readonly videoBitsPerSecond: number;
     readonly audioBitsPerSecond: number;
+    readonly audioBitrateMode: BitrateMode;
 
     ondataavailable: ((event: BlobEvent) => void) | null;
     onerror: ((event: MediaRecorderErrorEvent) => void) | null;

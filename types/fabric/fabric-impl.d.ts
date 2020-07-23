@@ -41,12 +41,18 @@ export function loadSVGFromString(
 /**
  * Takes url corresponding to an SVG document, and parses it into a set of fabric objects.
  * Note that SVG is fetched via XMLHttpRequest, so it needs to conform to SOP (Same Origin Policy)
- * @param [reviver] Method for further parsing of SVG elements, called after each fabric object created.
+ * @param {String} url URL to get a SVG from
+ * @param {Function} callback Callback is invoked when svg has been loaded
+ * @param {Function} [reviver] Method for further parsing of SVG elements, called after each fabric object created.
+ * @param {Object} [options] options for crossOrigin
+ * @param {String} [options.crossOrigin] crossOrigin settings
+ *
  */
 export function loadSVGFromURL(
     url: string,
     callback: (results: Object[], options: any) => void,
     reviver?: Function,
+    options?: { crossOrigin?: string }
 ): void;
 /**
  * Returns CSS rules for a given SVG document
@@ -5930,7 +5936,7 @@ interface IUtilAnimationOptions {
     /**
      * Value to modify the property by
      */
-    byValue: number;
+    byValue?: number;
     /**
      * Duration of change (in ms)
      */
@@ -5938,7 +5944,7 @@ interface IUtilAnimationOptions {
     /**
      * Callback; invoked on every value change
      */
-    onChange?: Function;
+    onChange?: (value: number) => void;
     /**
      * Callback; invoked when value change is completed
      */

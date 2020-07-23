@@ -72,6 +72,8 @@ type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
         : 'fallback'
 ];
 
+type MockModuleFactory<T> = () => T extends { default: unknown } ? T & { __esModule: true } : T;
+
 interface NodeRequire {
     /**
      * Returns the actual module instead of a mock, bypassing all checks on
@@ -162,7 +164,7 @@ declare namespace jest {
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
-    function doMock(moduleName: string, factory?: () => unknown, options?: MockOptions): typeof jest;
+    function doMock<T>(moduleName: string, factory?: MockModuleFactory<T>, options?: MockOptions): typeof jest;
     /**
      * Indicates that the module system should never return a mocked version
      * of the specified module from require() (e.g. that it should always return the real module).
@@ -183,6 +185,7 @@ declare namespace jest {
     /**
      * Use the automatic mocking system to generate a mocked version of the given module.
      */
+    // tslint:disable-next-line: no-unnecessary-generics
     function genMockFromModule<T>(moduleName: string): T;
     /**
      * Returns whether the given function is a mock function.
@@ -191,16 +194,18 @@ declare namespace jest {
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
-    function mock(moduleName: string, factory?: () => unknown, options?: MockOptions): typeof jest;
+    function mock<T>(moduleName: string, factory?: MockModuleFactory<T>, options?: MockOptions): typeof jest;
     /**
      * Returns the actual module instead of a mock, bypassing all checks on
      * whether the module should receive a mock implementation or not.
      */
+    // tslint:disable-next-line: no-unnecessary-generics
     function requireActual<TModule = any>(moduleName: string): TModule;
     /**
      * Returns a mock module instead of the actual module, bypassing all checks
      * on whether the module should be required normally or not.
      */
+    // tslint:disable-next-line: no-unnecessary-generics
     function requireMock<TModule = any>(moduleName: string): TModule;
     /**
      * Resets the module registry - the cache of all required modules. This is
@@ -262,6 +267,7 @@ declare namespace jest {
      * Explicitly supplies the mock object that the module system should return
      * for the specified module.
      */
+    // tslint:disable-next-line: no-unnecessary-generics
     function setMock<T>(moduleName: string, moduleExports: T): typeof jest;
     /**
      * Set the default timeout interval for tests and before/after hooks in milliseconds.
@@ -568,6 +574,7 @@ declare namespace jest {
          *
          * Optionally, you can provide a type for the elements via a generic.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         arrayContaining<E = any>(arr: E[]): any;
         /**
          * `expect.not.objectContaining(object)` matches any received object
@@ -579,6 +586,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the object via a generic.
          * This ensures that the object contains the desired structure.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         objectContaining<E = {}>(obj: E): any;
         /**
          * `expect.not.stringMatching(string | regexp)` matches the received
@@ -652,6 +660,7 @@ declare namespace jest {
          *
          * Optionally, you can provide a type for the elements via a generic.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         arrayContaining<E = any>(arr: E[]): any;
         /**
          * Verifies that a certain number of assertions are called during a test.
@@ -680,6 +689,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the object via a generic.
          * This ensures that the object contains the desired structure.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         objectContaining<E = {}>(obj: E): any;
         /**
          * Matches any string that contains the exact provided string
@@ -721,6 +731,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected arguments via a generic.
          * Note that the type must be either an array or a tuple.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         lastCalledWith<E extends any[]>(...args: E): R;
         /**
          * Ensure that the last call to a mock function has returned a specified value.
@@ -728,6 +739,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         lastReturnedWith<E = any>(value: E): R;
         /**
          * Ensure that a mock function is called with specific arguments on an Nth call.
@@ -735,6 +747,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected arguments via a generic.
          * Note that the type must be either an array or a tuple.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         nthCalledWith<E extends any[]>(nthCall: number, ...params: E): R;
         /**
          * Ensure that the nth call to a mock function has returned a specified value.
@@ -742,6 +755,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         nthReturnedWith<E = any>(n: number, value: E): R;
         /**
          * Checks that a value is what you expect. It uses `Object.is` to check strict equality.
@@ -750,6 +764,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toBe<E = any>(expected: E): R;
         /**
          * Ensures that a mock function is called.
@@ -765,6 +780,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected arguments via a generic.
          * Note that the type must be either an array or a tuple.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toBeCalledWith<E extends any[]>(...args: E): R;
         /**
          * Using exact equality with floating point numbers is a bad idea.
@@ -796,6 +812,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toBeInstanceOf<E = any>(expected: E): R;
         /**
          * For comparing floating point numbers.
@@ -832,6 +849,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toContain<E = any>(expected: E): R;
         /**
          * Used when you want to check that an item is in a list.
@@ -841,6 +859,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toContainEqual<E = any>(expected: E): R;
         /**
          * Used when you want to check that two objects have the same value.
@@ -849,6 +868,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toEqual<E = any>(expected: E): R;
         /**
          * Ensures that a mock function is called.
@@ -864,6 +884,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected arguments via a generic.
          * Note that the type must be either an array or a tuple.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toHaveBeenCalledWith<E extends any[]>(...params: E): R;
         /**
          * Ensure that a mock function is called with specific arguments on an Nth call.
@@ -871,6 +892,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected arguments via a generic.
          * Note that the type must be either an array or a tuple.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toHaveBeenNthCalledWith<E extends any[]>(nthCall: number, ...params: E): R;
         /**
          * If you have a mock function, you can use `.toHaveBeenLastCalledWith`
@@ -879,6 +901,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected arguments via a generic.
          * Note that the type must be either an array or a tuple.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toHaveBeenLastCalledWith<E extends any[]>(...params: E): R;
         /**
          * Use to test the specific value that a mock function last returned.
@@ -888,6 +911,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toHaveLastReturnedWith<E = any>(expected: E): R;
         /**
          * Used to check that an object has a `.length` property
@@ -902,6 +926,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toHaveNthReturnedWith<E = any>(nthCall: number, expected: E): R;
         /**
          * Use to check if property at provided reference keyPath exists for an object.
@@ -916,6 +941,7 @@ declare namespace jest {
          *
          * expect(houseForSale).toHaveProperty('kitchen.area', 20);
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toHaveProperty<E = any>(propertyPath: string | any[], value?: E): R;
         /**
          * Use to test that the mock function successfully returned (i.e., did not throw an error) at least one time
@@ -932,6 +958,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toHaveReturnedWith<E = any>(expected: E): R;
         /**
          * Check that a string matches a regular expression.
@@ -957,11 +984,13 @@ declare namespace jest {
          *
          * expect(desiredHouse).toMatchObject<House>(...standardHouse, kitchen: {area: 20}) // wherein standardHouse is some base object of type House
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toMatchObject<E extends {} | any[]>(expected: E): R;
         /**
          * This ensures that a value matches the most recent snapshot with property matchers.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toMatchSnapshot<U extends { [P in keyof T]: any }>(propertyMatchers: Partial<U>, snapshotName?: string): R;
         /**
          * This ensures that a value matches the most recent snapshot.
@@ -973,6 +1002,7 @@ declare namespace jest {
          * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toMatchInlineSnapshot<U extends { [P in keyof T]: any }>(propertyMatchers: Partial<U>, snapshot?: string): R;
         /**
          * This ensures that a value matches the most recent snapshot with property matchers.
@@ -994,6 +1024,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toReturnWith<E = any>(value: E): R;
         /**
          * Use to test that objects have the same types as well as structure.
@@ -1001,6 +1032,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toStrictEqual<E = any>(expected: E): R;
         /**
          * Used to test that a function throws when it is called.
@@ -1099,7 +1131,7 @@ declare namespace jest {
      *  import { MyClass } from "./libary";
      *  jest.mock("./library");
      *
-     *  const mockedMyClass = MyClass as jest.MockedClass<MyClass>;
+     *  const mockedMyClass = MyClass as jest.MockedClass<typeof MyClass>;
      *
      *  expect(mockedMyClass.mock.calls[0][0]).toBe(42); // Constructor calls
      *  expect(mockedMyClass.prototype.myMethod.mock.calls[0][0]).toBe(42); // Method calls
@@ -1352,6 +1384,7 @@ declare namespace jasmine {
     function objectContaining(sample: any): ObjectContaining;
     function createSpy(name?: string, originalFn?: (...args: any[]) => any): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
+    // tslint:disable-next-line: no-unnecessary-generics
     function createSpyObj<T>(baseName: string, methodNames: any[]): T;
     function pp(value: any): string;
     function addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
@@ -1496,6 +1529,7 @@ declare namespace jasmine {
 
     interface MatchersUtil {
         equals(a: any, b: any, customTesters?: CustomEqualityTester[]): boolean;
+        // tslint:disable-next-line: no-unnecessary-generics
         contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: CustomEqualityTester[]): boolean;
         buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: any[]): string;
     }

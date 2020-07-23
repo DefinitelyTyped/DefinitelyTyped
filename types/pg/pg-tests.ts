@@ -9,6 +9,7 @@ const client = new Client({
     port: 5334,
     user: 'database-user',
     password: 'secretpassword!!',
+    application_name: 'DefinitelyTyped',
     keepAlive: true,
 });
 client.connect(err => {

@@ -85,6 +85,10 @@ declare class Chart {
         disableCSSInjection: boolean
     };
 
+    static scaleService: {
+        updateScaleDefaults: (type: Chart.ScaleType, updates: Chart.ChartScales) => void;
+    };
+
     // Tooltip Static Options
     static Tooltip: Chart.ChartTooltipsStaticConfiguration;
 
@@ -854,7 +858,7 @@ declare namespace Chart {
         resize?(chartInstance: Chart, newChartSize: ChartSize, options?: any): void;
         destroy?(chartInstance: Chart): void;
 
-        /** @deprecated since version 2.5.0. Use `afterLayout` instead. */
+        /** Deprecated since version 2.5.0. Use `afterLayout` instead. */
         afterScaleUpdate?(chartInstance: Chart, options?: any): void;
     }
 

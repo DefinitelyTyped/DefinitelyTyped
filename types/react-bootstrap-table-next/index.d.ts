@@ -230,19 +230,19 @@ export type PaginationOptions = Partial<{
     /**
      * the text of first page button
      */
-    firstPageText: string;
+    firstPageText: string | JSX.Element;
     /**
      * the text of previous page button
      */
-    prePageText: string;
+    prePageText: string | JSX.Element;
     /**
      * the text of next page button
      */
-    nextPageText: string;
+    nextPageText: string | JSX.Element;
     /**
      * the text of last page button
      */
-    lastPageText: string;
+    lastPageText: string | JSX.Element;
     /**
      * the title of next page button
      */

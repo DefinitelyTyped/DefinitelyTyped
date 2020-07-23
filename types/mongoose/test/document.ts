@@ -55,7 +55,8 @@ doc.unmarkModified('path');
 doc.update(doc, cb).cursor();
 doc.update(doc, {
   safe: true,
-  upsert: true
+  upsert: true,
+  strict: "throw"
 }, cb).cursor();
 doc.validate({}, function (err) {});
 doc.validate().then(null).catch(null);

@@ -224,7 +224,7 @@ declare namespace WebSocket {
         close(cb?: (err?: Error) => void): void;
         handleUpgrade(request: http.IncomingMessage, socket: net.Socket,
             upgradeHead: Buffer, callback: (client: WebSocket) => void): void;
-        shouldHandle(request: http.IncomingMessage): boolean;
+        shouldHandle(request: http.IncomingMessage): boolean | Promise<boolean>;
 
         // Events
         on(event: 'connection', cb: (this: Server, socket: WebSocket, request: http.IncomingMessage) => void): this;

@@ -296,9 +296,10 @@ export class WebAuth {
      * Renews an existing session on Auth0's servers using `response_mode=web_message` (i.e. Auth0's hosted login page)
      *
      * @param options options used in {@link authorize} call
-     * @param callback: any(err, token_payload)
+     * @param cb
+     * @see {@link https://auth0.com/docs/libraries/auth0js/v9#using-checksession-to-acquire-new-tokens}
      */
-    checkSession(options: CheckSessionOptions, callback: Auth0Callback<any>): void;
+    checkSession(options: CheckSessionOptions, cb: Auth0Callback<any>): void;
 }
 
 export class Redirect {
@@ -536,7 +537,22 @@ export interface AuthOptions {
      */
     maxAge?: number;
     leeway?: number;
-    plugins?: any[];
+    jwksURI?: string;
+    overrides?: {
+      __tenant?: string;
+      __token_issuer?: string;
+      __jwks_uri?: string;
+    };
+    plugins?: any;
+    popupOrigin?: string;
+    protocol?: string;
+    response_type?: string;
+    state?: string;
+    tenant?: string;
+    universalLoginPage?: boolean;
+    _csrf?: string;
+    _intstate?: string;
+    _timesToRetryFailedRequests?: number;
     _disableDeprecationWarnings?: boolean;
     _sendTelemetry?: boolean;
     _telemetryInfo?: any;

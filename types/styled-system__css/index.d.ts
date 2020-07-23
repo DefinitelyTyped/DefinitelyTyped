@@ -589,7 +589,8 @@ export interface ScaleThemeProperties {
  * If you're using variants in your theme, you can access them by using the `variant`
  * property. The value of the property has to correspond to a path of your `Theme`.
  */
-export function css(input?: SystemStyleObject): (props?: Theme | { theme: Theme }) => CSSObject;
+export type CssFunctionReturnType = (props?: Theme | { theme: Theme }) => CSSObject;
+export function css(input?: SystemStyleObject): CssFunctionReturnType;
 export default css;
 
 /**

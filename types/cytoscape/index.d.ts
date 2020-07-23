@@ -411,6 +411,11 @@ declare namespace cytoscape {
         collection(eles?: Selector | CollectionArgument[]): CollectionReturnValue;
 
         /**
+         * check whether the specified id is in the collection
+         */
+        hasElementWithId(id: string): boolean;
+
+        /**
          * Get an element from its ID in a very performant way.
          * http://js.cytoscape.org/#cy.getElementById
          */
@@ -3821,9 +3826,9 @@ declare namespace cytoscape {
          */
         interface Gradient {
             /**
-             * The colours of the gradient stops.
+             * The colors of the gradient stops.
              */
-            "line-gradient-stop-colours"?: Array<PropertyValueEdge<Colour>>;
+            "line-gradient-stop-colors"?: Array<PropertyValueEdge<Colour>>;
             /**
              * The positions of the gradient stops.
              * If not specified (or invalid), the stops will divide equally.

@@ -1152,7 +1152,7 @@ declare namespace React {
      *
      * target - a reference to the element from which the event was originally dispatched.
      * This might be a child element to the element on which the event listener is registered.
-     * If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
+     * If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682
      */
     interface SyntheticEvent<T = Element, E = Event> extends BaseSyntheticEvent<E, EventTarget & T, EventTarget> {}
 
@@ -1979,6 +1979,7 @@ declare namespace React {
 
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
         open?: boolean;
+        onToggle?: ReactEventHandler<T>;
     }
 
     interface DelHTMLAttributes<T> extends HTMLAttributes<T> {

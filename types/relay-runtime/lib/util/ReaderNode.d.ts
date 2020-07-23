@@ -125,14 +125,12 @@ export interface ReaderListValue {
 export interface ReaderLocalArgument {
     readonly kind: string; // 'LocalArgument';
     readonly name: string;
-    readonly type: string;
     readonly defaultValue: unknown;
 }
 
 export interface ReaderRootArgument {
     readonly kind: string; // 'RootArgument';
     readonly name: string;
-    readonly type: string | null | undefined;
 }
 
 export interface ReaderRefetchMetadata {

@@ -6412,16 +6412,29 @@ fp.now(); // $ExpectType number
 
 // _.split
 {
+    _.split(undefined); // $ExpectType string[]
+    _.split(null); // $ExpectType string[]
     _.split("a-b-c"); // $ExpectType string[]
+    _.split(null, "-"); // $ExpectType string[]
     _.split("a-b-c", "-"); // $ExpectType string[]
+    _.split(null, "-", 2); // $ExpectType string[]
     _.split("a-b-c", "-", 2); // $ExpectType string[]
+    _(null).split();  // $ExpectType LoDashImplicitWrapper<string[]>
     _("a-b-c").split(); // $ExpectType LoDashImplicitWrapper<string[]>
+    _(null).split("-");  // $ExpectType LoDashImplicitWrapper<string[]>
     _("a-b-c").split("-"); // $ExpectType LoDashImplicitWrapper<string[]>
+    _(null).split("-", 2);  // $ExpectType LoDashImplicitWrapper<string[]>
     _("a-b-c").split("-", 2); // $ExpectType LoDashImplicitWrapper<string[]>
+    _.chain(null).split(); // $ExpectType LoDashExplicitWrapper<string[]>
     _.chain("a-b-c").split(); // $ExpectType LoDashExplicitWrapper<string[]>
+    _.chain(null).split("-"); // $ExpectType LoDashExplicitWrapper<string[]>
     _.chain("a-b-c").split("-"); // $ExpectType LoDashExplicitWrapper<string[]>
+    _.chain(null).split("-", 2); // $ExpectType LoDashExplicitWrapper<string[]>
     _.chain("a-b-c").split("-", 2); // $ExpectType LoDashExplicitWrapper<string[]>
+    fp.split("-", undefined); // $ExpectType string[]
+    fp.split("-", null); // $ExpectType string[]
     fp.split("-", "a-b-c"); // $ExpectType string[]
+    fp.split("-")(null); // $ExpectType string[]
     fp.split("-")("a-b-c"); // $ExpectType string[]
 
     _.map(["abc", "def"], _.split); // $ExpectType string[][]

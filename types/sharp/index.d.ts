@@ -312,11 +312,12 @@ declare namespace sharp {
          * Blur the image.
          * When used without parameters, performs a fast, mild blur of the output image.
          * When a sigma is provided, performs a slower, more accurate Gaussian blur.
+         * When a boolean sigma is provided, ether blur mild or disable blur
          * @param sigma a value between 0.3 and 1000 representing the sigma of the Gaussian mask, where sigma = 1 + radius / 2.
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
-        blur(sigma?: number): Sharp;
+        blur(sigma?: number | boolean): Sharp;
 
         /**
          * Merge alpha transparency channel, if any, with background.

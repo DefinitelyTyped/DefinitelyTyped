@@ -4039,12 +4039,12 @@ declare namespace _ {
     type LodashSortedUniqBy1x1<T> = (array: lodash.List<T> | null | undefined) => T[];
     type LodashSortedUniqBy1x2<T> = (iteratee: lodash.ValueIteratee<T>) => T[];
     interface LodashSplit extends LodashConvertible {
-        (separator: RegExp|string): LodashSplit1x1;
-        (separator: lodash.__, string: string): LodashSplit1x2;
-        (separator: RegExp|string, string: string): string[];
+        (separator: RegExp | string): LodashSplit1x1;
+        (separator: lodash.__, string: string | null | undefined): LodashSplit1x2;
+        (separator: RegExp | string, string: string | null | undefined): string[];
     }
-    type LodashSplit1x1 = (string: string) => string[];
-    type LodashSplit1x2 = (separator: RegExp|string) => string[];
+    type LodashSplit1x1 = (string: string | null | undefined) => string[];
+    type LodashSplit1x2 = (separator: RegExp | string) => string[];
     type LodashSpread = <TResult>(func: (...args: any[]) => TResult) => (...args: any[]) => TResult;
     interface LodashSpreadFrom extends LodashConvertible {
         (start: number): LodashSpreadFrom1x1;
