@@ -1056,7 +1056,7 @@ declare namespace ymaps {
 
                 getLength(): number;
 
-                getMetaData(): object;;
+                getMetaData(): object;
 
                 getType(): string;
 
