@@ -2369,6 +2369,131 @@ declare namespace ymaps {
         }
     }
 
+    namespace shape {
+        class Circle implements IShape {
+            constructor(
+                pixelGeometry: IPixelCircleGeometry,
+                params?: {
+                    fill?: boolean;
+                    outline?: boolean;
+                    strokeWidth?: number;
+                }
+            );
+
+            contains(position: number[]): boolean;
+
+            equals(shape: IShape): boolean;
+
+            getBounds(): number[][] | null;
+
+            getGeometry(): IPixelGeometry;
+
+            getType(): string;
+
+            scale(factor: number): IShape;
+
+            shift(offset: number[]): IShape;
+        }
+
+        class LineString implements IShape {
+            constructor(
+                pixelGeometry: IPixelLineStringGeometry,
+                params?: {
+                    strokeWidth?: number;
+                }
+            );
+
+            contains(position: number[]): boolean;
+
+            equals(shape: IShape): boolean;
+
+            getBounds(): number[][] | null;
+
+            getGeometry(): IPixelGeometry;
+
+            getType(): string;
+
+            scale(factor: number): IShape;
+
+            shift(offset: number[]): IShape;
+        }
+
+        class MultiPolygon implements IShape {
+            constructor(
+                pixelGeometry: IPixelMultiPolygonGeometry,
+                params?: {
+                    fill?: boolean;
+                    outline?: boolean;
+                    strokeWidth?: number;
+                }
+            );
+
+            contains(position: number[]): boolean;
+
+            equals(shape: IShape): boolean;
+
+            getBounds(): number[][] | null;
+
+            getGeometry(): IPixelGeometry;
+
+            getType(): string;
+
+            scale(factor: number): IShape;
+
+            shift(offset: number[]): IShape;
+        }
+
+        class Polygon implements IShape {
+            constructor(
+                pixelGeometry: IPixelPolygonGeometry,
+                params?: {
+                    fill?: boolean;
+                    outline?: boolean;
+                    strokeWidth?: number;
+                }
+            );
+
+            contains(position: number[]): boolean;
+
+            equals(shape: IShape): boolean;
+
+            getBounds(): number[][] | null;
+
+            getGeometry(): IPixelGeometry;
+
+            getType(): string;
+
+            scale(factor: number): IShape;
+
+            shift(offset: number[]): IShape;
+        }
+
+        class Rectangle implements IShape {
+            constructor(
+                geometry: IPixelRectangleGeometry,
+                params?: {
+                    fill?: boolean;
+                    outline?: boolean;
+                    strokeWidth?: number;
+                }
+            );
+
+            contains(position: number[]): boolean;
+
+            equals(shape: IShape): boolean;
+
+            getBounds(): number[][] | null;
+
+            getGeometry(): IPixelGeometry;
+
+            getType(): string;
+
+            scale(factor: number): IShape;
+
+            shift(offset: number[]): IShape;
+        }
+    }
+
     class Balloon extends Popup<Balloon> implements IBaloon<Balloon> {
         constructor(map: Map, options?: IBalloonOptions);
 
