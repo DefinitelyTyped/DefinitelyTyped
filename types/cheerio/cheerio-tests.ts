@@ -337,3 +337,6 @@ $.parseHTML(html, null, true);
 $el.toArray();
 
 cheerio.html($el);
+
+// $ExpectType string
+cheerio.version;

@@ -295,6 +295,7 @@ declare namespace cheerio {
     }
 
     interface CheerioAPI extends CheerioRoot {
+        version: string;
         load(html: string | Buffer, options?: CheerioParserOptions): CheerioRoot;
         load(element: CheerioElement, options?: CheerioParserOptions): CheerioRoot;
     }
