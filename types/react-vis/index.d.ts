@@ -169,11 +169,11 @@ export interface WhiskerSeriesPoint extends AbstractSeriesPoint {
 
 export interface TreemapPoint extends AbstractSeriesPoint {
     title: string;
-    size: number;
+    size?: number;
     opacity?: number;
     color?: string | number;
-    style: CSSProperties;
-    children: TreemapPoint[];
+    style?: CSSProperties;
+    children?: TreemapPoint[];
 }
 
 export interface ParallelCoordinatesPoint extends AbstractSeriesPoint {
@@ -199,8 +199,8 @@ export interface SankeyPoint extends AbstractSeriesPoint {
 
 export interface SunburstPoint extends AbstractSeriesPoint {
     title: string;
-    size: number;
-    color?: number;
+    size?: number;
+    color?: number|string;
     label?: string;
     labelStyle?: CSSProperties;
     dontRotateLabel?: boolean;
@@ -819,6 +819,7 @@ export interface TreemapProps {
     width: number;
     getSize?: RVGet<TreemapPoint, 'size'>;
     getColor?: RVGet<TreemapPoint, 'color'>;
+    color?: string;
 }
 export class Treemap<T = any> extends Component<TreemapProps & T> {}
 
