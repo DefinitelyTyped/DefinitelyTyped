@@ -33,7 +33,7 @@ declare namespace echarts {
             interface Inside {
                 type?: string;
                 id?: string;
-                disable?: boolean;
+                disabled?: boolean;
                 xAxisIndex?: number | number[];
                 yAxisIndex?: number | number[];
                 radiusAxisIndex?: number | number[];
