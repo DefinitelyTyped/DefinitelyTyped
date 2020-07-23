@@ -37,6 +37,7 @@ import {
     ButtonRenderIconRenderProps,
     Modal,
     InlineLoading,
+    DataTableSkeleton,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
@@ -630,3 +631,12 @@ const sideNavChildren = (
 const modal = (
     <Modal primaryButtonText={<InlineLoading />} secondaryButtonText={<InlineLoading />} />
 )
+
+// DataTableSkeleton
+const dataTableSkeleton = (
+    <DataTableSkeleton showHeader={true} showToolbar={true} columnCount={5} rowCount={6} compact={false} zebra={false} />
+);
+
+const dataTableSkeletonBasic = (
+    <DataTableSkeleton />
+);
