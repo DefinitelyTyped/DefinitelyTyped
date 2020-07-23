@@ -1,5 +1,5 @@
 // Type definitions for nspell 2.1
-// Project: https://github.com/wooorm/nspell
+// Project: https://github.com/wooorm/nspell#readme
 // Definitions by: Ulrich Block <https://github.com/ulrichblock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -100,5 +100,3 @@ declare function nspell(dictionaries: IDictionary[]): NSpell
  * make sure to pass one either in the constructor or to NSpell.dictionary
  */
 export default nspell
-
-export as namespace nspell
