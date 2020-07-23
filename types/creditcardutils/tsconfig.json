@@ -12,5 +12,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "tests/creditcardutils-tests.cjs.ts", "tests/creditcardutils-tests.global.ts"]
+    "files": ["index.d.ts", "test/creditcardutils-tests.cjs.ts", "test/creditcardutils-tests.global.ts"]
 }
