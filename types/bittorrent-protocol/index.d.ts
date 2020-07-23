@@ -3,6 +3,7 @@
 // Definitions by: Feross Aboukhadijeh <https://github.com/feross>,
 //                 Tomasz Łaziuk <https://github.com/tlaziuk>,
 //                 H1b9b <https://github.com/h1b9b>
+//                 Ronald Zielaznicki <https://github.com/RonaldZielaznicki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -55,6 +56,8 @@ declare namespace BittorrentProtocol {
         destroy(): void;
 
         use(ext: ExtensionConstructor): void;
+
+        [key: string]: any;
 
         handshake(infoHash: string | Buffer, peerId: string | Buffer, extensions?: any): void;
 
