@@ -53,6 +53,10 @@ Papa.parse(file, {
         return header;
     },
     complete(a, b) {
+        // This should be string[] | undefined, however the assertion is not
+        // working correctly.
+        // https://github.com/microsoft/dtslint/issues/238
+        // $ExpectType string[]
         a.meta.fields;
         if (b) b.name;
     },
