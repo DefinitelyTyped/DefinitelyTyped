@@ -3,25 +3,27 @@
 // Definitions by: Alex Kondov <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'ft-poller' {
-    interface Config<PollerData, ExternalData> {
-        url: string;
-        defaultData?: PollerData;
-        options?: object;
-        refreshInterval?: number;
-        autostart?: boolean;
-        parseData?: (data: ExternalData) => PollerData;
-    }
-
-    class Poller<PollerData, ExternalData = any> {
-        constructor(config: Config<PollerData, ExternalData>);
-        start(options?: object): Promise<PollerData | void>;
-        stop(): boolean;
-        retry(): void;
-        fetch(): void;
-        getData(): PollerData;
-        isRunning(): boolean;
-    }
-
-    export default Poller;
+interface Options {
+    [key: string]: any;
 }
+
+interface Config<PollerData, ExternalData> {
+    url: string;
+    defaultData?: PollerData;
+    options?: Options;
+    refreshInterval?: number;
+    autostart?: boolean;
+    parseData?: (data: ExternalData) => PollerData;
+}
+
+declare class Poller<PollerData, ExternalData = any> {
+    constructor(config: Config<PollerData, ExternalData>);
+    start(options?: Options): Promise<PollerData>;
+    stop(): boolean;
+    retry(): void;
+    fetch(): void;
+    getData(): PollerData;
+    isRunning(): boolean;
+}
+
+export = Poller;
