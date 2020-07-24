@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "monday-sdk-js-tests.ts"
+        "test/monday-sdk-js-module.test.ts",
+        "test/monday-sdk-js-global.test.ts"
     ]
 }
