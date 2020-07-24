@@ -3,7 +3,7 @@
 // Definitions by: Josh Parnham <https://github.com/josh->
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace monday;
+export as namespace mondaySdk;
 
 interface APIOptions {
     /**
