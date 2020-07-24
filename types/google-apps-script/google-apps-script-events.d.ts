@@ -41,7 +41,16 @@ declare namespace GoogleAppsScript {
       source: Spreadsheet.Spreadsheet;
     }
 
-    enum SheetsOnChangeChangeType { EDIT, INSERT_ROW, INSERT_COLUMN, REMOVE_ROW, REMOVE_COLUMN, INSERT_GRID, REMOVE_GRID, FORMAT, OTHER }
+    type SheetsOnChangeChangeType =
+      | 'EDIT'
+      | 'INSERT_ROW'
+      | 'INSERT_COLUMN'
+      | 'REMOVE_ROW'
+      | 'REMOVE_COLUMN'
+      | 'INSERT_GRID'
+      | 'REMOVE_GRID'
+      | 'FORMAT'
+      | 'OTHER';
     interface SheetsOnChange extends AppsScriptEvent {
       changeType: SheetsOnChangeChangeType;
     }
