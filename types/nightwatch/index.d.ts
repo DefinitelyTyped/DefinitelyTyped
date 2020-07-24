@@ -1,4 +1,4 @@
-// Type definitions for nightwatch 1.1
+// Type definitions for nightwatch 1.3
 // Project: http://nightwatchjs.org
 // Definitions by: Rahul Kavalapara <https://github.com/rkavalap>
 //                 Connor Schlesiger <https://github.com/schlesiger>
