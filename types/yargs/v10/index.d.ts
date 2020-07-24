@@ -154,8 +154,7 @@ declare namespace yargs {
 
         parse(arg?: string | ReadonlyArray<string>): Arguments;
         parse(arg: string | ReadonlyArray<string>, parseCallback: ParseCallback): Arguments;
-        parse(arg: string | ReadonlyArray<string>, context: object): Arguments;
-        parse(arg: string | ReadonlyArray<string>, context: object, parseCallback: ParseCallback): Arguments;
+        parse(arg: string | ReadonlyArray<string>, context: object, parseCallback?: ParseCallback): Arguments;
 
         pkgConf(key: string | string[], cwd?: string): Argv;
 

@@ -187,8 +187,7 @@ declare namespace yargs {
 
         parse(arg?: string | ReadonlyArray<string>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
         parse(arg: string | ReadonlyArray<string>, parseCallback: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
-        parse(arg: string | ReadonlyArray<string>, context: object): { [key in keyof Arguments<T>]: Arguments<T>[key] };
-        parse(arg: string | ReadonlyArray<string>, context: object, parseCallback: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parse(arg: string | ReadonlyArray<string>, context: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
 
         parsed: DetailedArguments | false;
 
