@@ -5,7 +5,7 @@
 // TypeScript Version: 3.1
 
 import {
-  Button
+  ButtonRenderer
 } from './modules/button';
 
 import {
@@ -32,11 +32,12 @@ import {
   TokenizePayloadDetails,
 } from './modules/callback-data';
 
-export const Button: Button;
+export const Button: ButtonRenderer;
 
 export {
   Address,
   AuthorizationData,
+  ButtonRenderer,
   ButtonColorOption,
   ButtonLabelOption,
   ButtonShapeOption,

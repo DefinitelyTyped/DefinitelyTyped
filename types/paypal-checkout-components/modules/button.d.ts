@@ -2,7 +2,7 @@ import { Environment, ButtonStyle } from './configuration';
 
 import { AuthorizationData, TokenizePayload, CancellationData } from './callback-data';
 
-export interface Button {
+export interface ButtonRenderer {
     render(
         options: {
             env?: Environment;
