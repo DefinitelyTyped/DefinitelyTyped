@@ -1,4 +1,6 @@
-paypal.Button.render(
+const buttonRenderer: paypal.ButtonRenderer = paypal.Button;
+
+buttonRenderer.render(
     {
         env: paypal.Environment.Production,
 
