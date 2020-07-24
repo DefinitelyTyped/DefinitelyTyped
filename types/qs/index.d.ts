@@ -1,4 +1,4 @@
-// Type definitions for qs 6.9
+// Type definitions for qs 7.0
 // Project: https://github.com/ljharb/qs
 // Definitions by: Roman Korneev <https://github.com/RWander>
 //                 Leon Yu <https://github.com/leonyu>
@@ -10,7 +10,8 @@
 //                 Hunter Perrin <https://github.com/hperrin>
 //                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 3.0
+//
 export = QueryString;
 export as namespace qs;
 
@@ -57,14 +58,7 @@ declare namespace QueryString {
 
     interface ParsedQs { [key: string]: undefined | string | string[] | ParsedQs | ParsedQs[] }
 
-    // TODO: The value type here is a version of `unknown` which replicates with an acceptably lossy amount of accuracy.
-    // When these types support TypeScript 3.0+, we can replace this with `unknown`.
-    type UnknownFacade = {} | null | undefined;
-
-    /** @deprecated - UnknownFacade is more clear about what's going on */
-    type PoorMansUnknown = UnknownFacade
-
     function stringify(obj: any, options?: IStringifyOptions): string;
     function parse(str: string, options?: IParseOptions & { decoder?: never }): ParsedQs;
-    function parse(str: string, options?: IParseOptions): { [key: string]: UnknownFacade };
+    function parse(str: string, options?: IParseOptions): { [key: string]: unknown };
 }
