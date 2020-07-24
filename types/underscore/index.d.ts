@@ -93,7 +93,7 @@ declare module _ {
         (value: T): boolean;
     }
 
-    interface CollectionIterator<T extends TypeOfCollection<V>, TResult, V = Collection<T>> {
+    interface CollectionIterator<T extends TypeOfCollection<V, any>, TResult, V = Collection<T>> {
         (element: T, key: CollectionKey<V>, collection: V): TResult;
     }
 
@@ -101,7 +101,7 @@ declare module _ {
 
     interface ObjectIterator<T extends TypeOfDictionary<V>, TResult, V = Dictionary<T>> extends CollectionIterator<T, TResult, V> { }
 
-    type Iteratee<V, R, T extends TypeOfCollection<V> = TypeOfCollection<V>> =
+    type Iteratee<V, R, T extends TypeOfCollection<V, any> = TypeOfCollection<V>> =
         CollectionIterator<T, R, V> |
         EnumerableKey |
         Array<EnumerableKey> |
@@ -144,19 +144,21 @@ declare module _ {
 
     interface MemoObjectIterator<T extends TypeOfDictionary<V>, TResult, V = Dictionary<T>> extends MemoCollectionIterator<T, TResult, V> { }
 
-    type TypeOfList<V> =
+    type MemoResult<TMemo, T> = TMemo extends never ? T | undefined : any;
+
+    type TypeOfList<V, TDefault = never> =
         V extends never ? any
         : V extends List<infer T> ? T
-        : never;
+        : TDefault;
 
-    type TypeOfDictionary<V> =
+    type TypeOfDictionary<V, TDefault = never> =
         V extends never ? any
         : V extends Dictionary<infer T> ? T
-        : never;
+        : TDefault;
 
-    type TypeOfCollection<V> = TypeOfList<V> | TypeOfDictionary<V>;
+    type TypeOfCollection<V, TDefault = never> = TypeOfList<V, TDefault> | TypeOfDictionary<V, TDefault>;
 
-    type PairValue<T> = T extends [EnumerableKey, infer TValue] ? TValue : any
+    type PairValueOrAny<T> = T extends [EnumerableKey, infer TValue] ? TValue : any;
 
     type NonFalsy<T> = T extends undefined | null | false | '' | 0 ? never : T;
 
@@ -808,7 +810,7 @@ declare module _ {
          * corresponding to those keys.
          * @retursn An object comprised of the provided keys and values.
          **/
-        object<V extends List<any>, TValue extends PairValue<TypeOfList<V>> = PairValue<TypeOfList<V>>>(
+        object<V extends List<any>, TValue extends PairValueOrAny<TypeOfList<V>> = PairValueOrAny<TypeOfList<V>>>(
             list: V,
             values?: List<TValue>
         ): Dictionary<TValue>;
@@ -3425,35 +3427,25 @@ declare module _ {
 
         /**
          * Like map, but for objects. Transform the value of each property in turn.
-         * @param object The object to transform
-         * @param iteratee The function that transforms property values
-         * @param context The optional context (value of `this`) to bind to
-         * @return a new Dictionary of property values
+         * @param object The object to transform.
+         * @param iteratee The iteratee to use to transform property values.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A new object with all of `object`'s property values
+         * transformed through `iteratee`.
          */
-        mapObject<T, U>(object: Dictionary<T>, iteratee: (val: T, key: string, object: Dictionary<T>) => U, context?: any): Dictionary<U>;
+        mapObject<V extends object, I extends Iteratee<V, any, TypeOfDictionary<V, any>>>(
+            object: V,
+            iteratee: I,
+            context?: any
+        ): { [K in keyof V]: IterateeResult<I, TypeOfDictionary<V, any>> };
 
         /**
-         * Like map, but for objects. Transform the value of each property in turn.
-         * @param object The object to transform
-         * @param iteratee The function that tranforms property values
-         * @param context The optional context (value of `this`) to bind to
-         */
-        mapObject<T>(object: any, iteratee: (val: any, key: string, object: any) => T, context?: any): Dictionary<T>;
-
-        /**
-         * Like map, but for objects. Retrieves a property from each entry in the object, as if by property
-         * @param object The object to transform
-         * @param iteratee The property name to retrieve
-         * @param context The optional context (value of `this`) to bind to
-         */
-        mapObject(object: any, iteratee: string, context?: any): Dictionary<any>;
-
-        /**
-        * Convert an object into a list of [key, value] pairs.
-        * @param object Convert this object to a list of [key, value] pairs.
-        * @return List of [key, value] pairs on `object`.
-        **/
-        pairs(object: any): [string, any][];
+         * Converts `object` into a list of [key, value] pairs. The opposite
+         * of object.
+         * @param object The object to convert.
+         * @returns The list of [key, value] pairs from `object`.
+         **/
+        pairs<V extends object>(object: V): [string, TypeOfDictionary<V, any>][];
 
         /**
         * Returns a copy of the object where the keys have become the values and the values the keys.
@@ -3503,12 +3495,19 @@ declare module _ {
             ...source: any[]): any;
 
         /**
-        * Returns the first key on an object that passes a predicate test.
-        * @param obj the object to search in
-        * @param predicate Predicate function.
-        * @param context `this` object in `iterator`, optional.
-        */
-        findKey<T>(obj: Dictionary<T>, predicate: ObjectIterator<T, boolean>, context?: any): string;
+         * Similar to `findIndex` but for keys in objects. Returns the key
+         * where the `iteratee` truth test passes or `undefined`.
+         * @param object The object to search.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The first element in `object` that passes the truth test or
+         * undefined if no elements pass.
+         */
+        findKey<V extends object>(
+            object: V,
+            iteratee?: Iteratee<V, boolean, TypeOfDictionary<V, any>>,
+            context?: any
+        ): string | undefined;
 
         /**
         * Return a copy of the object, filtered to only have values for the whitelisted keys
@@ -4330,7 +4329,7 @@ declare module _ {
          * values corresponding to those keys.
          * @returns An object comprised of the provided keys and values.
          **/
-        object<TValue extends PairValue<T> = PairValue<T>>(
+        object<TValue extends PairValueOrAny<T> = PairValueOrAny<T>>(
             values?: List<TValue>
         ): Dictionary<TValue>;
 
@@ -4507,10 +4506,22 @@ declare module _ {
         values(): T[];
 
         /**
-        * Wrapped type `object`.
-        * @see pairs
-        **/
-        pairs(): [string, any][];
+         * Like map, but for objects. Transform the value of each property in turn.
+         * @param iteratee The iteratee to use to transform property values.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A new object with all of the wrapped object's property values
+         * transformed through `iteratee`.
+         */
+        mapObject<I extends Iteratee<V, any, TypeOfDictionary<V, any>>>(
+            iteratee: I,
+            context?: any
+        ): { [K in keyof V]: IterateeResult<I, TypeOfDictionary<V, any>> };
+
+        /**
+         * Convert the wrapped object into a list of [key, value] pairs.
+         * @returns The list of [key, value] pairs from the wrapped object.
+         **/
+        pairs(): [string, TypeOfDictionary<V, any>][];
 
         /**
         * Wrapped type `object`.
@@ -4536,10 +4547,17 @@ declare module _ {
         extend(...sources: any[]): any;
 
         /**
-        * Wrapped type `object`.
-        * @see extend
-        **/
-        findKey(predicate: ObjectIterator<any, boolean>, context?: any): any
+         * Similar to `findIndex` but for keys in objects. Returns the key
+         * where the `iteratee` truth test passes or `undefined`.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The first element in the wrapped object that passes the
+         * truth test or undefined if no elements pass.
+         */
+        findKey(
+            iteratee?: Iteratee<V, boolean, TypeOfDictionary<V, any>>,
+            context?: any
+        ): string | undefined;
 
         /**
         * Wrapped type `object`.
@@ -5252,7 +5270,7 @@ declare module _ {
          * @returns A chain wrapper around an object comprised of the provided
          * keys and values.
          **/
-        object<TValue extends PairValue<T> = PairValue<T>>(
+        object<TValue extends PairValueOrAny<T> = PairValueOrAny<T>>(
             values?: List<TValue>
         ): _Chain<TValue, Dictionary<TValue>>;
 
@@ -5429,16 +5447,23 @@ declare module _ {
         values(): _Chain<any>;
 
         /**
-        * Wrapped type `object`.
-        * @see mapObject
-        **/
-        mapObject(fn: ListIterator<T, any>): _Chain<T>;
+         * Like map, but for objects. Transform the value of each property in turn.
+         * @param iteratee The iteratee to use to transform property values.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A chain wrapper around a new object with all of the wrapped
+         * object's property values transformed through `iteratee`.
+         */
+        mapObject<I extends Iteratee<V, any, TypeOfDictionary<V, any>>>(
+            iteratee: I,
+            context?: any
+        ): _Chain<IterateeResult<I, TypeOfDictionary<V, any>>, { [K in keyof V]: IterateeResult<I, TypeOfDictionary<V, any>> }>;
 
         /**
-        * Wrapped type `object`.
-        * @see pairs
-        **/
-        pairs(): _Chain<[string, any]>;
+         * Convert the wrapped object into a list of [key, value] pairs.
+         * @returns A chain wrapper around the list of [key, value] pairs from
+         * the wrapped object.
+         **/
+        pairs(): _Chain<[string, TypeOfDictionary<V, any>], [string, TypeOfDictionary<V, any>][]>;
 
         /**
         * Wrapped type `object`.
@@ -5464,10 +5489,17 @@ declare module _ {
         extend(...sources: any[]): _Chain<T>;
 
         /**
-        * Wrapped type `object`.
-        * @see extend
-        **/
-        findKey(predicate: ObjectIterator<any, boolean>, context?: any): _Chain<T>
+         * Similar to `findIndex` but for keys in objects. Returns the key
+         * where the `iteratee` truth test passes or `undefined`.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The first element in the wrapped object that passes the
+         * truth test or undefined if no elements pass.
+         */
+        findKey(
+            iteratee?: Iteratee<V, boolean, TypeOfDictionary<V, any>>,
+            context?: any
+        ): _ChainSingle<string | undefined>;
 
         /**
         * Wrapped type `object`.
