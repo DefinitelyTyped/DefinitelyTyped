@@ -10,6 +10,7 @@
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
+        "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": ["index.d.ts", "recordrtc-tests.ts"]

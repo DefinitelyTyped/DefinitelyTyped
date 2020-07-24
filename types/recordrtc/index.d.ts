@@ -3,15 +3,15 @@
 // Definitions by: Kyle Hensel <https://github.com/k-yle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type State = 'inactive' | 'recording' | 'stopped' | 'paused' | 'destroyed';
+type State = 'inactive' | 'recording' | 'stopped' | 'paused' | 'destroyed';
 
-export interface Disk {
+interface Disk {
     audio?: Blob;
     video?: Blob;
     gif?: Blob;
 }
 
-export interface Options {
+interface Options {
     type?: 'video' | 'audio' | 'canvas' | 'gif';
 
     mimeType?:
@@ -86,7 +86,7 @@ export interface Options {
     elementClass?: string;
 }
 
-export default class RecordRTC {
+declare class RecordRTC {
     constructor(stream: MediaStream | HTMLCanvasElement | HTMLVideoElement | HTMLElement, options?: Options);
 
     /** start the recording */
@@ -178,4 +178,4 @@ export default class RecordRTC {
     static invokeSaveAsDialog(file: Blob | File, fileName: string): void;
 }
 
-// export as namespace RecordRTC;
+export = RecordRTC;
