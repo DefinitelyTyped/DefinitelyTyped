@@ -18,7 +18,7 @@ interface SpellCheck {
     warn: boolean;
 }
 
-export interface Dictionary {
+interface Dictionary {
     aff: Buffer | string;
     dic?: Buffer | string;
 }
@@ -94,4 +94,4 @@ declare class NSpell {
  * @param dictionary {Dictionary} - Object with aff (required) and dic (optional) properties
  * @param dictionary {Dictionary[]} - List of dictionary objects. The first must have an aff key, other aff keys are ignored
  */
-export default NSpell;
+export = NSpell;
