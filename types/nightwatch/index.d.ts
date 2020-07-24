@@ -213,6 +213,7 @@ export interface NightwatchTestRunner {
 export interface NightwatchTestWorker {
     enabled: boolean;
     workers: string;
+    node_options?: string | string[];
 }
 
 export interface NightwatchOptions {
