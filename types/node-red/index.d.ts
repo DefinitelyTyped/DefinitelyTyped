@@ -1,6 +1,9 @@
 // Type definitions for node-red 1.1
 // Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/node-red, https://nodered.org/
-// Definitions by: Alex Kaul <https://github.com/alexk111>
+// Definitions by: Anders E. Andersen <https://github.com/andersea>
+//                 Thomas B. Mørch <https://github.com/tbowmo>
+//                 Bernardo Belchior <https://github.com/bernardobelchior>
+//                 Alex Kaul <https://github.com/alexk111>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.1
 
