@@ -20,7 +20,6 @@ import {
 import {
   Address,
   AuthorizationData,
-  AuthorizationTokenizePayload,
   CancellationData,
   CreditFinancingOptions,
   FlowType,
@@ -38,7 +37,6 @@ export const Button: Button;
 export {
   Address,
   AuthorizationData,
-  AuthorizationTokenizePayload,
   ButtonColorOption,
   ButtonLabelOption,
   ButtonShapeOption,

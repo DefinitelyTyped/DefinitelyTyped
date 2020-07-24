@@ -266,20 +266,3 @@ export interface CancellationData {
     paymentID: string;
     paymentToken: string;
 }
-
-export interface AuthorizationTokenizePayload {
-    /**
-     * The payment method nonce.
-     */
-    nonce: string;
-
-    /**
-     * The payment method type, always `PayPalAccount`.
-     */
-    type: string;
-
-    /**
-     * Additional PayPal account details.
-     */
-    details: TokenizePayloadDetails;
-}

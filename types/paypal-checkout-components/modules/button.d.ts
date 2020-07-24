@@ -1,6 +1,6 @@
 import { Environment, ButtonStyle } from './configuration';
 
-import { AuthorizationData, AuthorizationTokenizePayload, CancellationData } from './callback-data';
+import { AuthorizationData, TokenizePayload, CancellationData } from './callback-data';
 
 export interface Button {
     render(
@@ -10,7 +10,7 @@ export interface Button {
             locale?: string;
 
             payment?: () => Promise<string>;
-            onAuthorize: (data: AuthorizationData, actions: object) => Promise<AuthorizationTokenizePayload>;
+            onAuthorize: (data: AuthorizationData, actions: object) => Promise<TokenizePayload>;
             onCancel?: (data: CancellationData, actions: object) => void;
             onError?: (error: string) => void;
             onShippingChange?: () => void;
