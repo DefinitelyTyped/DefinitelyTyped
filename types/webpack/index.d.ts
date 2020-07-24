@@ -174,8 +174,8 @@ declare namespace webpack {
             | string[]
             | {
                   import: string | string[];
-                  dependOn: string | string[];
-                  filename: string;
+                  dependOn?: string | string[];
+                  filename?: string;
               };
     }
 
