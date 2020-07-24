@@ -2,6 +2,13 @@ import { Environment, ButtonStyle } from './configuration';
 
 import { AuthorizationData, TokenizePayload, CancellationData } from './callback-data';
 
+export enum FundingOption {
+    CREDIT,
+    CARD,
+    VENMO,
+    ELV
+}
+
 export interface ButtonRenderer {
     render(
         options: {
@@ -17,6 +24,11 @@ export interface ButtonRenderer {
             onAuth?: (data: string | object) => object;
             accessToken?: () => void;
             onClose?: () => void;
+
+            funding?: {
+                allowed?: FundingOption[];
+                disallowed?: FundingOption[];
+            };
 
             sessionID?: string;
             buttonSessionID?: string;

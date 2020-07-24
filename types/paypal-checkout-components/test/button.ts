@@ -1,5 +1,3 @@
-import * as paypal from 'paypal-checkout-components';
-
 paypal.Button.render(
     {
         env: paypal.Environment.Production,
@@ -33,6 +31,11 @@ paypal.Button.render(
         onError: (error: string) => {
             console.error('checkout.js error', error);
         },
+
+        funding: {
+            allowed: [paypal.FUNDING.CARD],
+            disallowed: [paypal.FUNDING.VENMO]
+        }
     },
     '#paypal-button',
 );

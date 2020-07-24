@@ -5,7 +5,7 @@
 // TypeScript Version: 3.1
 
 import {
-  ButtonRenderer
+  ButtonRenderer, FundingOption
 } from './modules/button';
 
 import {
@@ -47,6 +47,7 @@ export {
   CreditFinancingOptions,
   Environment,
   FlowType,
+  FundingOption as FUNDING,
   Intent,
   LineItem,
   LineItemKind,
