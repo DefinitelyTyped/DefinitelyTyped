@@ -1667,7 +1667,7 @@ declare namespace google.payments.api {
         buttonColor?: ButtonColor;
 
         /**
-         * @default "long"
+         * @default "buy"
          */
         buttonType?: ButtonType;
     }
@@ -1914,18 +1914,29 @@ declare namespace google.payments.api {
     /**
      * Supported methods for presenting the Google Pay button.
      *
+     * A translated button label may appear if a language specified in the
+     * viewer's browser matches an [available
+     * language](https://developers.google.com/pay/api/web/guides/brand-guidelines#payment-buttons-assets).
+     *
+     *
      * Options:
      *
+     * - `buy`:
+     *   "Buy with Google Pay" button.
+     *
+     * - `donate`:
+     *   "Donate with Google Pay" button.
+     *
+     * - `plain`:
+     *   "Google Pay" button without text.
+     *
      * - `long`:
-     *   "Buy with Google Pay" button. A translated button label may
-     *   appear if a language specified in the viewer's browser matches an
-     *   [available
-     *   language](https://developers.google.com/pay/api/web/guides/brand-guidelines#payment-buttons-assets).
+     *   Same as "buy".
      *
      * - `short`:
-     *   Google Pay payment button without the "Buy with" text.
+     *   Same as "plain".
      */
-    type ButtonType = "long" | "short";
+    type ButtonType = "buy" | "donate" | "plain" | "long" | "short";
 
     /**
      * Supported environment names to run Google Pay.
