@@ -2,6 +2,7 @@
 // Project: https://github.com/wooorm/nspell#readme
 // Definitions by: Ulrich Block <https://github.com/ulrichblock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.6
 
 /// <reference types="node" />
 
@@ -17,10 +18,21 @@ interface SpellCheck {
     warn: boolean;
 }
 
+export interface Dictionary {
+    aff: Buffer | string;
+    dic?: Buffer | string;
+}
+
+declare function NSpell(aff: Buffer | string, dic?: Buffer | string): NSpell;
+declare function NSpell(dictionary: Dictionary | Dictionary[]): NSpell;
+
 /**
  * Describes instance of NSpell, which is returned by the default factory function.
  */
-export interface NSpell {
+declare class NSpell {
+    constructor(aff: Buffer | string, dic?: Buffer | string)
+    constructor(dictionary: Dictionary | Dictionary[])
+
     /**
      * Add word to known words.
      * If no model is given, the word will be marked as correct in the future, and will show up in spelling suggestions.
@@ -73,14 +85,6 @@ export interface NSpell {
     wordCharacters(): string | undefined;
 }
 
-export interface Dictionary {
-    aff: Buffer | string;
-    dic?: Buffer | string;
-}
-
-declare function nspell(aff: Buffer | string, dic?: Buffer | string): NSpell;
-declare function nspell(dictionary: Dictionary | Dictionary[]): NSpell;
-
 /**
  * Create a new spell checker. Passing an affix document is required, through any of the below mentioned signatures.
  * nspell is useless without at least one dic passed:
@@ -90,4 +94,4 @@ declare function nspell(dictionary: Dictionary | Dictionary[]): NSpell;
  * @param dictionary {Dictionary} - Object with aff (required) and dic (optional) properties
  * @param dictionary {Dictionary[]} - List of dictionary objects. The first must have an aff key, other aff keys are ignored
  */
-export default nspell;
+export default NSpell;
