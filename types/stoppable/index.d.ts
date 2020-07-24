@@ -7,14 +7,13 @@
 
 /// <reference types="node" />
 import * as https from 'https';
-import * as http from 'http';
 
 declare namespace stoppable {
-  interface StoppableServer extends https.Server, http.Server {
+  interface StoppableServer extends https.Server {
     stop(callback?: (e: Error, gracefully: boolean) => void): void;
   }
 }
 
-declare function stoppable(server: any, grace?: number): stoppable.StoppableServer;
+declare function stoppable(server: https.Server, grace?: number): stoppable.StoppableServer;
 
 export = stoppable;
