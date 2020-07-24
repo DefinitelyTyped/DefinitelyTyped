@@ -1180,6 +1180,6 @@ declare namespace NodeJS {
     // Now that TypeScript's DT support is  3.0+, we can look into replacing this with `unknown`.
     type UnknownFacade = {} | null | undefined;
 
-    /** @deprecated - UnknownFacade is more clear about what's going on */
+    /** @deprecated - Use `UnknownFacade` instead. It is a better classifier for the type */
     type PoorMansUnknown = UnknownFacade
 }
