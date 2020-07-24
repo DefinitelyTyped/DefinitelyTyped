@@ -26,7 +26,11 @@ if (notifier.update) {
         isGlobal: true,
         boxenOptions: {
             padding: 1,
-            margin: 1,
+            margin: {
+                top: 1,
+                bottom: 1,
+                left: 2,
+            },
             align: 'center',
             borderColor: 'yellow',
             borderStyle: 'round',
