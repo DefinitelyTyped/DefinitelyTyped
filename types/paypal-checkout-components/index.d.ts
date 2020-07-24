@@ -20,6 +20,7 @@ import {
 import {
   Address,
   AuthorizationData,
+  AuthorizationTokenizePayload,
   CancellationData,
   CreditFinancingOptions,
   FlowType,
@@ -28,7 +29,6 @@ import {
   LineItemKind,
   ShippingOption,
   ShippingOptionType,
-  TokenizePayload,
   TokenizePayloadDetails,
 } from './modules/callback-data';
 
@@ -37,6 +37,7 @@ export const Button: ButtonRenderer;
 export {
   Address,
   AuthorizationData,
+  AuthorizationTokenizePayload,
   ButtonRenderer,
   ButtonColorOption,
   ButtonLabelOption,
@@ -53,7 +54,6 @@ export {
   LineItemKind,
   ShippingOption,
   ShippingOptionType,
-  TokenizePayload,
   TokenizePayloadDetails,
 };
 

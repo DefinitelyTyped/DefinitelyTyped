@@ -202,7 +202,7 @@ export interface TokenizePayloadDetails {
     creditFinancingOffered?: CreditFinancingOptions;
 }
 
-export interface TokenizePayload {
+export interface AuthorizationTokenizePayload {
     /**
      * The payment method nonce.
      */

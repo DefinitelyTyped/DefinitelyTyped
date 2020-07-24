@@ -1,6 +1,6 @@
 import { Environment, ButtonStyle } from './configuration';
 
-import { AuthorizationData, TokenizePayload, CancellationData } from './callback-data';
+import { AuthorizationData, AuthorizationTokenizePayload, CancellationData } from './callback-data';
 
 export enum FundingOption {
     CREDIT,
@@ -17,7 +17,7 @@ export interface ButtonRenderer {
             locale?: string;
 
             payment?: () => Promise<string>;
-            onAuthorize: (data: AuthorizationData, actions: object) => Promise<TokenizePayload>;
+            onAuthorize: (data: AuthorizationData, actions: object) => Promise<AuthorizationTokenizePayload>;
             onCancel?: (data: CancellationData, actions: object) => void;
             onError?: (error: string) => void;
             onShippingChange?: () => void;
