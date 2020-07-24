@@ -154,6 +154,8 @@ declare module _ {
         : TItem
         : T;
 
+    type PairValueOrAny<T> = T extends [EnumerableKey, infer TValue] ? TValue : any;
+
     type AnyFalsy = undefined | null | false | '' | 0;
 
     type Truthy<T> = Exclude<T, AnyFalsy>;
@@ -813,54 +815,40 @@ declare module _ {
         unique: UnderscoreStatic['uniq'];
 
         /**
-        * Merges together the values of each of the arrays with the values at the corresponding position.
-        * Useful when you have separate data sources that are coordinated through matching array indexes.
-        * If you're working with a matrix of nested arrays, zip.apply can transpose the matrix in a similar fashion.
-        * @param arrays The arrays to merge/zip.
-        * @return Zipped version of `arrays`.
-        **/
-        zip(...arrays: any[][]): any[][];
+         * Merges together the values of each of the `lists` with the values at
+         * the corresponding position. Useful when you have separate data
+         * sources that are coordinated through matching list indexes. If
+         * you're working with a matrix of nested lists, this can be used to
+         * transpose the matrix.
+         * @param lists The lists to zip.
+         * @returns The zipped version of `lists`.
+         **/
+        zip(...lists: List<any>[]): any[][];
 
         /**
-        * @see _.zip
-        **/
-        zip(...arrays: any[]): any[];
+         * The opposite of zip. Given a list of lists, returns a series of new
+         * arrays, the first of which contains all of the first elements in the
+         * input lists, the second of which contains all of the second
+         * elements, and so on.
+         * @param lists The lists to unzip.
+         * @returns The unzipped version of `lists`.
+         **/
+        unzip(lists: List<List<any>>): any[][];
 
         /**
-        * The opposite of zip. Given a number of arrays, returns a series of new arrays, the first
-        * of which contains all of the first elements in the input arrays, the second of which
-        * contains all of the second elements, and so on. Use with apply to pass in an array
-        * of arrays
-        * @param arrays The arrays to unzip.
-        * @return Unzipped version of `arrays`.
-        **/
-        unzip(...arrays: any[][]): any[][];
-
-        /**
-        * Converts arrays into objects. Pass either a single list of [key, value] pairs, or a
-        * list of keys, and a list of values.
-        * @param keys Key array.
-        * @param values Value array.
-        * @return An object containing the `keys` as properties and `values` as the property values.
-        **/
-        object<TResult extends {}>(
-            keys: _.List<string>,
-            values: _.List<any>): TResult;
-
-        /**
-        * Converts arrays into objects. Pass either a single list of [key, value] pairs, or a
-        * list of keys, and a list of values.
-        * @param keyValuePairs Array of [key, value] pairs.
-        * @return An object containing the `keys` as properties and `values` as the property values.
-        **/
-        object<TResult extends {}>(...keyValuePairs: any[][]): TResult;
-
-        /**
-        * @see _.object
-        **/
-        object<TResult extends {}>(
-            list: _.List<any>,
-            values?: any): TResult;
+         * Converts lists into objects. Pass either a single `list` of
+         * [key, value] pairs, or a `list` of keys and a list of `values`.
+         * Passing by pairs is the reverse of pairs. If duplicate keys exist,
+         * the last value wins.
+         * @param list A list of [key, value] pairs or a list of keys.
+         * @param values If `list` is a list of keys, a list of values
+         * corresponding to those keys.
+         * @retursn An object comprised of the provided keys and values.
+         **/
+        object<V extends List<any>, TValue extends PairValueOrAny<TypeOfList<V>> = PairValueOrAny<TypeOfList<V>>>(
+            list: V,
+            values?: List<TValue>
+        ): Dictionary<TValue>;
 
         /**
         * Returns the index at which value can be found in the array, or -1 if value is not present in the array.
@@ -4439,27 +4427,36 @@ declare module _ {
         unique: Underscore<T, V>['uniq'];
 
         /**
-        * Wrapped type `any[][]`.
-        * @see _.zip
-        **/
-        zip(...arrays: any[][]): any[][];
+         * Merges together the values of each of the `lists` (including the
+         * wrapped list) with the values at the corresponding position. Useful
+         * when you have separate data sources that are coordinated through
+         * matching list indexes. If you're working with a matrix of nested
+         * lists, this can be used to transpose the matrix.
+         * @returns The zipped version of the wrapped list and `lists`.
+         **/
+        zip(...lists: List<any>[]): any[][];
 
         /**
-        * Wrapped type `any[][]`.
-        * @see _.unzip
-        **/
-        unzip(...arrays: any[][]): any[][];
+         * The opposite of zip. Given the wrapped list of lists, returns a
+         * series of new arrays, the first of which contains all of the first
+         * elements in the wrapped lists, the second of which contains all of
+         * the second elements, and so on.
+         * @returns The unzipped version of the wrapped lists.
+         **/
+        unzip(): any[][];
 
         /**
-        * Wrapped type `any[][]`.
-        * @see _.object
-        **/
-        object(...keyValuePairs: any[][]): any;
-
-        /**
-        * @see _.object
-        **/
-        object(values?: any): any;
+         * Converts lists into objects. Call on either a wrapped list of
+         * [key, value] pairs, or a wrapped list of keys and a list of
+         * `values`. Passing by pairs is the reverse of pairs. If duplicate
+         * keys exist, the last value wins.
+         * @param values If the wrapped list is a list of keys, a list of
+         * values corresponding to those keys.
+         * @returns An object comprised of the provided keys and values.
+         **/
+        object<TValue extends PairValueOrAny<T> = PairValueOrAny<T>>(
+            values?: List<TValue>
+        ): Dictionary<TValue>;
 
         /**
         * Wrapped type `any[]`.
@@ -5459,27 +5456,39 @@ declare module _ {
         unique: _Chain<T, V>['uniq'];
 
         /**
-        * Wrapped type `any[][]`.
-        * @see _.zip
-        **/
-        zip(...arrays: any[][]): _Chain<T>;
+         * Merges together the values of each of the `lists` (including the
+         * wrapped list) with the values at the corresponding position. Useful
+         * when you have separate data sources that are coordinated through
+         * matching list indexes. If you're working with a matrix of nested
+         * lists, this can be used to transpose the matrix.
+         * @returns A chain wrapper around the zipped version of the wrapped
+         * list and `lists`.
+         **/
+        zip(...arrays: List<any>[]): _Chain<any[], any[][]>;
 
         /**
-        * Wrapped type `any[][]`.
-        * @see _.unzip
-        **/
-        unzip(...arrays: any[][]): _Chain<T>;
+         * The opposite of zip. Given the wrapped list of lists, returns a
+         * series of new arrays, the first of which contains all of the first
+         * elements in the wrapped lists, the second of which contains all of
+         * the second elements, and so on.
+         * @returns A chain wrapper aoround the unzipped version of the wrapped
+         * lists.
+         **/
+        unzip(): _Chain<any[], any[][]>;
 
         /**
-        * Wrapped type `any[][]`.
-        * @see _.object
-        **/
-        object(...keyValuePairs: any[][]): _Chain<T>;
-
-        /**
-        * @see _.object
-        **/
-        object(values?: any): _Chain<T>;
+         * Converts lists into objects. Call on either a wrapped list of
+         * [key, value] pairs, or a wrapped list of keys and a list of
+         * `values`. Passing by pairs is the reverse of pairs. If duplicate
+         * keys exist, the last value wins.
+         * @param values If the wrapped list is a list of keys, a list of
+         * values corresponding to those keys.
+         * @returns A chain wrapper around an object comprised of the provided
+         * keys and values.
+         **/
+        object<TValue extends PairValueOrAny<T> = PairValueOrAny<T>>(
+            values?: List<TValue>
+        ): _Chain<TValue, Dictionary<TValue>>;
 
         /**
         * Wrapped type `any[]`.

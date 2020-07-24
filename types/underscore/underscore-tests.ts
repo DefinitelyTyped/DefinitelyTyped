@@ -656,6 +656,7 @@ declare const resultUnionStringListMemoIterator: (prev: string | number, value: 
 declare const anyCollectionVoidIterator: (element: any, index: string | number, collection: any) => void;
 
 const simpleNumber = 7;
+declare const simpleNumberList: _.List<number>;
 declare const simpleNumberDictionary: _.Dictionary<number>;
 
 declare const simpleBooleanList: _.List<boolean>;
@@ -670,6 +671,9 @@ declare const stringy: StringRecord | string;
 type Truthies = string | number | boolean | object | Function | StringRecord | (() => void);
 declare const truthyFalsyList: _.List<Truthies | _.AnyFalsy>;
 declare const maybeTruthyFalsyList: _.List<Truthies | _.AnyFalsy> | null | undefined;
+
+declare const level2UnionList: _.List<_.List<string | number>>;
+declare const tupleList: _.List<[string, number]>;
 
 // avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
 // the types under test need to be refactored
@@ -2217,6 +2221,44 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _.unique(stringRecordList, true, stringRecordPropertyPath); // $ExpectType StringRecord[]
     _(stringRecordList).unique(true, stringRecordPropertyPath); // $ExpectType StringRecord[]
     extractChainTypes(_.chain(stringRecordList).unique(true, stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
+}
+
+// zip
+{
+    _.zip(simpleStringList, simpleNumberList, stringRecordList); // $ExpectType any[][]
+    _(simpleStringList).zip(simpleNumberList, stringRecordList); // $ExpectType any[][]
+    extractChainTypes(_.chain(simpleStringList).zip(simpleNumberList, stringRecordList)); // $ExpectType ChainType<any[][], any[]>
+}
+
+// unzip
+{
+    // tuple lists
+    _.unzip(tupleList); // $ExpectType any[][]
+    _(tupleList).unzip(); // $ExpectType any[][]
+    extractChainTypes(_.chain(tupleList).unzip()); // $ExpectType ChainType<any[][], any[]>
+
+    // nested lists
+    _.unzip(level2UnionList); // $ExpectType any[][]
+    _(level2UnionList).unzip(); // $ExpectType any[][]
+    extractChainTypes(_.chain(level2UnionList).unzip()); // $ExpectType ChainType<any[][], any[]>
+}
+
+// object
+{
+    // key and value lists
+    _.object(simpleStringList, simpleNumberList); // $ExpectType Dictionary<number>
+    _(simpleStringList).object(simpleNumberList); // $ExpectType Dictionary<number>
+    extractChainTypes(_.chain(simpleStringList).object(simpleNumberList)); // $ExpectType ChainType<Dictionary<number>, number>
+
+    // tuple lists
+    _.object(tupleList); // $ExpectType Dictionary<number>
+    _(tupleList).object(); // $ExpectType Dictionary<number>
+    extractChainTypes(_.chain(tupleList).object()); // $ExpectType ChainType<Dictionary<number>, number>
+
+    // nested lists
+    _.object(level2UnionList); // $ExpectType Dictionary<any>
+    _(level2UnionList).object(); // $ExpectType Dictionary<any>
+    extractChainTypes(_.chain(level2UnionList).object()); // $ExpectType ChainType<Dictionary<any>, any>
 }
 
 // chunk
