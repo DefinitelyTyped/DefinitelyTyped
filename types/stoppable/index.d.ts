@@ -6,14 +6,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { Server } from 'https';
+import * as https from 'https';
+import * as http from 'http';
 
 declare namespace stoppable {
-  interface StoppableServer extends Server {
+  interface StoppableServer extends https.Server, http.Server {
     stop(callback?: (e: Error, gracefully: boolean) => void): void;
   }
 }
 
-declare function stoppable(server: Server, grace?: number): stoppable.StoppableServer;
+declare function stoppable(server: any, grace?: number): stoppable.StoppableServer;
 
 export = stoppable;
