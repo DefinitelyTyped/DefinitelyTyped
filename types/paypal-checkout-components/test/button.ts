@@ -11,7 +11,7 @@ buttonRenderer.render(
         onAuthorize: async (
             data: paypal.AuthorizationData,
             actions: object,
-        ): Promise<paypal.TokenizePayload> => {
+        ): Promise<paypal.AuthorizationResponse> => {
             console.log('onAuthorize', data, actions);
 
             return {

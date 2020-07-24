@@ -20,7 +20,7 @@ import {
 import {
   Address,
   AuthorizationData,
-  AuthorizationTokenizePayload,
+  AuthorizationResponse,
   CancellationData,
   CreditFinancingOptions,
   FlowType,
@@ -29,7 +29,7 @@ import {
   LineItemKind,
   ShippingOption,
   ShippingOptionType,
-  TokenizePayloadDetails,
+  AuthorizationResponseDetails,
 } from './modules/callback-data';
 
 export const Button: ButtonRenderer;
@@ -37,7 +37,11 @@ export const Button: ButtonRenderer;
 export {
   Address,
   AuthorizationData,
-  AuthorizationTokenizePayload,
+  AuthorizationResponse,
+  AuthorizationResponse as AuthorizationTokenizePayload, // maintain backwards compatibility
+  AuthorizationResponse as TokenizePayload, // maintain backwards compatibility
+  AuthorizationResponseDetails,
+  AuthorizationResponseDetails as TokenizePayloadDetails, // maintain backwards compatibility
   ButtonRenderer,
   ButtonColorOption,
   ButtonLabelOption,
@@ -54,7 +58,6 @@ export {
   LineItemKind,
   ShippingOption,
   ShippingOptionType,
-  TokenizePayloadDetails,
 };
 
 export as namespace paypal;
