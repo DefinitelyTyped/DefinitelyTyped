@@ -53,8 +53,10 @@ declare namespace UpdateNotifier {
         defer?: boolean;
         /** Include the -g argument in the default message's npm i recommendation */
         isGlobal?: boolean;
-        /** Options object that will be passed to `boxen` */
-        /** See https://github.com/sindresorhus/boxen/blob/master/index.d.ts */
+        /**
+         * Options object that will be passed to `boxen`
+         * See https://github.com/sindresorhus/boxen/blob/master/index.d.ts
+         */
         boxenOptions?: boxen.Options;
     }
 
