@@ -1090,6 +1090,10 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usecallback
      */
+    // Using `Function` because we do not want to type args as `...any[]`,
+    // as this would permit ommitting types of the args in the callback.
+    // see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/46309
+    // tslint:disable-next-line: ban-types
     function useCallback<T extends Function>(callback: T, deps: DependencyList): T;
     /**
      * `useMemo` will only recompute the memoized value when one of the `deps` has changed.
