@@ -154,6 +154,10 @@ declare module _ {
         : TItem
         : T;
 
+    type AnyFalsy = undefined | null | false | '' | 0;
+
+    type Truthy<T> = Exclude<T, AnyFalsy>;
+
     type _ChainSingle<V> = _Chain<TypeOfCollection<V>, V>;
 
     interface Cancelable {
@@ -721,12 +725,13 @@ declare module _ {
         drop: UnderscoreStatic['rest'];
 
         /**
-        * Returns a copy of the array with all falsy values removed. In JavaScript, false, null, 0, "",
-        * undefined and NaN are all falsy.
-        * @param array Array to compact.
-        * @return Copy of `array` without false values.
-        **/
-        compact<T>(array: _.List<T | null | undefined | false | "" | 0> | null | undefined): T[]
+         * Returns a copy of `list` with all falsy values removed. In
+         * JavaScript, false, null, 0, "", undefined and NaN are all falsy.
+         * @param list The list to compact.
+         * @returns An array containing the elements of `list` without falsy
+         * values.
+         **/
+        compact<V extends List<any> | null | undefined>(list: V): Truthy<TypeOfList<V>>[];
 
         /**
          * Flattens a nested array (the nesting can be to any depth). If you pass shallow, the array will
@@ -938,27 +943,29 @@ declare module _ {
         ): number;
 
         /**
-        * A function to create flexibly-numbered lists of integers, handy for each and map loops. start, if omitted,
-        * defaults to 0; step defaults to 1. Returns a list of integers from start to stop, incremented (or decremented)
-        * by step, exclusive.
-        * @param start Start here.
-        * @param stop Stop here.
-        * @param step The number to count up by each iteration, optional, default = 1.
-        * @return Array of numbers from `start` to `stop` with increments of `step`.
-        **/
-
+         * A function to create flexibly-numbered lists of integers, handy for
+         * `each` and `map` loops. Returns a list of integers from
+         * `startOrStop` (inclusive) to `stop` (exclusive), incremented
+         * (or decremented) by `step`. Note that ranges that `stop` before they
+         * `start` are considered to be zero-length instead of negative - if
+         * you'd like a negative range, use a negative `step`.
+         *
+         * If `stop` is not specified, `startOrStop` will be the number to stop
+         * at and the default start of 0 will be used.
+         * @param startOrStop If `stop` is specified, the number to start at.
+         * Otherwise, this is the number to stop at and the default start of 0
+         * will be used.
+         * @param stop The number to stop at.
+         * @param step The number to count up by each iteration, optional,
+         * default = 1.
+         * @returns An array of numbers from start to `stop` with increments
+         * of `step`.
+         **/
         range(
-            start: number,
-            stop: number,
-            step?: number): number[];
-
-        /**
-        * @see _.range
-        * @param stop Stop here.
-        * @return Array of numbers from 0 to `stop` with increments of 1.
-        * @note If start is not specified the implementation will never pull the step (step = arguments[2] || 0)
-        **/
-        range(stop: number): number[];
+            startOrStop: number,
+            stop?: number,
+            step?: number
+        ): number[];
 
         /**
          * Chunks a list into multiple arrays, each containing length or fewer items.
@@ -4366,10 +4373,12 @@ declare module _ {
         drop: Underscore<T, V>['rest'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.compact
-        **/
-        compact(): T[];
+         * Returns a copy of the wrapped list with all falsy values removed. In
+         * JavaScript, false, null, 0, "", undefined and NaN are all falsy.
+         * @returns An array containing the elements of the wrapped list without
+         * falsy values.
+         **/
+        compact(): Truthy<T>[];
 
         /**
          * Flattens the wrapped nested list (the nesting can be to any depth). If you pass shallow, the list will
@@ -4496,16 +4505,22 @@ declare module _ {
         sortedIndex(value: T, iteratee?: Iteratee<V, any>, context?: any): number;
 
         /**
-        * Wrapped type `number`.
-        * @see _.range
-        **/
-        range(stop: number, step?: number): number[];
-
-        /**
-        * Wrapped type `number`.
-        * @see _.range
-        **/
-        range(): number[];
+         * A function to create flexibly-numbered lists of integers, handy for
+         * `each` and `map` loops. Returns a list of integers from
+         * the wrapped value (inclusive) to `stop` (exclusive), incremented
+         * (or decremented) by `step`. Note that ranges that `stop` before they
+         * `start` are considered to be zero-length instead of negative - if
+         * you'd like a negative range, use a negative `step`.
+         *
+         * If `stop` is not specified, the wrapped value will be the number to
+         * stop at and the default start of 0 will be used.
+         * @param stop The number to stop at.
+         * @param step The number to count up by each iteration, optional,
+         * default = 1.
+         * @returns An array of numbers from start to `stop` with increments
+         * of `step`.
+         **/
+        range(stop?: number, step?: number): number[];
 
         /**
          * Chunks a wrapped list into multiple arrays, each containing length or fewer items.
@@ -5377,10 +5392,12 @@ declare module _ {
         drop: _Chain<T, V>['rest'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.compact
-        **/
-        compact(): _Chain<T>;
+         * Returns a copy of the wrapped list with all falsy values removed. In
+         * JavaScript, false, null, 0, "", undefined and NaN are all falsy.
+         * @returns A chain wrapper around an array containing the elements of
+         * the wrapped list without falsy values.
+         **/
+        compact(): _Chain<Truthy<T>, Truthy<T>[]>;
 
         /**
          * Flattens the wrapped nested list (the nesting can be to any depth). If you pass shallow, the list will
@@ -5508,16 +5525,22 @@ declare module _ {
         sortedIndex(value: T, iteratee?: _ChainIteratee<V, any, T>, context?: any): _ChainSingle<number>;
 
         /**
-        * Wrapped type `number`.
-        * @see _.range
-        **/
-        range(stop: number, step?: number): _Chain<T>;
-
-        /**
-        * Wrapped type `number`.
-        * @see _.range
-        **/
-        range(): _Chain<T>;
+         * A function to create flexibly-numbered lists of integers, handy for
+         * `each` and `map` loops. Returns a list of integers from
+         * the wrapped value (inclusive) to `stop` (exclusive), incremented
+         * (or decremented) by `step`. Note that ranges that `stop` before they
+         * `start` are considered to be zero-length instead of negative - if
+         * you'd like a negative range, use a negative `step`.
+         *
+         * If `stop` is not specified, the wrapped value will be the number to
+         * stop at and the default start of 0 will be used.
+         * @param stop The number to stop at.
+         * @param step The number to count up by each iteration, optional,
+         * default = 1.
+         * @returns A chain wrapper around an array of numbers from start to
+         * `stop` with increments of `step`.
+         **/
+        range(stop?: number, step?: number): _Chain<number, number[]>;
 
         /**
          * Chunks a wrapped list into multiple arrays, each containing length or fewer items.
