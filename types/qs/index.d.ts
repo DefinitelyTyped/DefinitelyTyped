@@ -10,8 +10,6 @@
 //                 Hunter Perrin <https://github.com/hperrin>
 //                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-//
 export = QueryString;
 export as namespace qs;
 
