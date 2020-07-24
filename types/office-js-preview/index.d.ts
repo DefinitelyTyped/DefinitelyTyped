@@ -17480,7 +17480,7 @@ declare namespace Office {
          */
         setAsync(name:string, value:string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Gets a session data value from the specified key.
+         * Gets a session data value with the specified key.
          *
          * [Api set: Mailbox Preview]
          *
