@@ -3,7 +3,7 @@
 // Definitions by: Frank Brullo <https://github.com/FrankBrullo>
 //                 J.R <https://github.com/jrguenin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.5
 
 import * as React from 'react';
 import { SelectFieldProps, TextFieldProps } from 'material-ui';
