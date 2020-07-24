@@ -7,6 +7,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import boxen = require('boxen');
 import ConfigStore = require('configstore');
 
 export = UpdateNotifier;
@@ -45,14 +46,6 @@ declare namespace UpdateNotifier {
         shouldNotifyInNpmScript?: boolean;
     }
 
-    interface BoxenOptions {
-        padding?: number;
-        margin?: number;
-        align?: string;
-        borderColor?: string;
-        borderStyle?: string;
-    }
-
     interface NotifyOptions {
         /** Message that will be shown when an update is available */
         message?: string;
@@ -61,7 +54,8 @@ declare namespace UpdateNotifier {
         /** Include the -g argument in the default message's npm i recommendation */
         isGlobal?: boolean;
         /** Options object that will be passed to `boxen` */
-        boxenOptions?: BoxenOptions;
+        /** See https://github.com/sindresorhus/boxen/blob/master/index.d.ts */
+        boxenOptions?: boxen.Options;
     }
 
     interface Package {
