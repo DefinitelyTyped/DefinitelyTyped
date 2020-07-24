@@ -1181,5 +1181,5 @@ declare namespace NodeJS {
     type UnknownFacade = {} | null | undefined;
 
     /** @deprecated - Use `UnknownFacade` instead. It is a better classifier for the type */
-    type PoorMansUnknown = UnknownFacade
+    type PoorMansUnknown = UnknownFacade;
 }
