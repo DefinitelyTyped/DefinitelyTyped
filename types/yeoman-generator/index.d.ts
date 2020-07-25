@@ -17,6 +17,7 @@ import { Editor } from 'mem-fs-editor';
 import { Observable } from 'rxjs';
 import table = require("text-table");
 import { format } from 'util';
+import Storage = require("./util/storage");
 
 declare namespace Generator {
     /**
@@ -73,16 +74,6 @@ declare namespace Generator {
         | Observable<Question<A>>
     );
 
-    class Storage {
-        constructor(name: string, fs: Editor, configPath: string);
-
-        defaults(defaults: {}): {};
-        delete(key: string): void;
-        get(key: string): any;
-        getAll(): { [key: string]: any };
-        save(): void;
-        set(key: string, value: any): any;
-    }
     interface InstallOptions {
         /**
          * whether to run `npm install` or can be options to pass to `dargs` as arguments
@@ -221,7 +212,12 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     resolved: string;
     description: string;
     appname: string;
-    config: Generator.Storage;
+
+    /**
+     * The `.yo-rc` config file manager.
+     */
+    config: Storage;
+
     fs: Editor;
     options: T;
     log: Generator.Logger;
