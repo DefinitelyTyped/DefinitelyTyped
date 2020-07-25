@@ -220,6 +220,12 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     _templateData(path?: string): any;
 
     argument(name: string, config: Generator.ArgumentConfig): this;
+
+    /**
+     * Cancels all cancellable tasks.
+     */
+    cancelCancellableTasks(): void;
+
     composeWith(namespace: string, options: Generator.GeneratorOptions, settings?: { local: string, link: 'weak' | 'strong' }): this;
     destinationPath(...path: string[]): string;
     destinationRoot(rootPath?: string): string;
