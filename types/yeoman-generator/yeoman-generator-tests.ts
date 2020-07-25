@@ -50,6 +50,8 @@ generator.log('Hello %world', { world: 'Universe' });
 generator.log.error("Error: %s", "This is a test");
 generator.log.ok("Workspace created");
 
+generator.debug('test');
+
 generator.argument('arg1', {});
 generator.argument('arg2', {
   description: 'second argument',

@@ -11,6 +11,7 @@
 // TypeScript Version: 3.3
 
 import { SpawnOptions } from 'child_process';
+import { Debugger } from 'debug';
 import { EventEmitter } from 'events';
 import { Answers as InquirerAnswers, DistinctQuestion, PromptModule } from 'inquirer';
 import { Editor } from 'mem-fs-editor';
@@ -267,6 +268,11 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param lodashPath A value indicating whether the `key` argument should be treated as a lodash path.
      */
     createStorage(storagePath: string, key?: string, lodashPath?: boolean): Storage;
+
+    /**
+     * Convenience debug method.
+     */
+    debug: (...args: Parameters<Debugger>) => void;
 
     destinationPath(...path: string[]): string;
     destinationRoot(rootPath?: string): string;
