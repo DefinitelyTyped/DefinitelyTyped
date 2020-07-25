@@ -16,6 +16,41 @@ import { Editor } from 'mem-fs-editor';
 import { Observable } from 'rxjs';
 
 declare namespace Generator {
+    /**
+     * Provides a priority-specification for a custom queue.
+     */
+    interface Priority {
+        /**
+         * The name for identifying the queue.
+         */
+        queueName?: string;
+
+        /**
+         * The name of the method to execute.
+         */
+        priorityName: string;
+
+        /**
+         * The name of the queue which this priority should be added before.
+         */
+        before: string;
+    }
+
+    /**
+     * Provides options for generators.
+     */
+    interface GeneratorOptions {
+        /**
+         * Gets or sets additional properties.
+         */
+        [name: string]: any;
+
+        /**
+         * Gets or sets a collection of custom priorities.
+         */
+        customPriorities?: Array<Priority>;
+    }
+
     type Callback = (err: any) => void;
     type Question<T extends Answers = Answers> = DistinctQuestion<T> & {
         /**
@@ -73,9 +108,8 @@ declare namespace Generator {
         type?: typeof Boolean|typeof String|typeof Number;
     }
 }
-
-declare class Generator extends EventEmitter {
-    constructor(args: string|string[], options: {});
+declare class Generator<T extends Generator.GeneratorOptions> extends EventEmitter {
+    constructor(args: string | string[], options: T);
 
     env: {
         error(...e: Error[]): void;
@@ -89,11 +123,11 @@ declare class Generator extends EventEmitter {
     appname: string;
     config: Generator.Storage;
     fs: Editor;
-    options: { [name: string]: any };
+    options: T;
     log(message?: string, context?: any): void;
 
     argument(name: string, config: Generator.ArgumentConfig): this;
-    composeWith(namespace: string, options: { [name: string]: any }, settings?: { local: string, link: 'weak'|'strong' }): this;
+    composeWith(namespace: string, options: Generator.GeneratorOptions, settings?: { local: string, link: 'weak' | 'strong' }): this;
     destinationPath(...path: string[]): string;
     destinationRoot(rootPath?: string): string;
     determineAppname(): string;
