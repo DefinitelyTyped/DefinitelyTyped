@@ -125,6 +125,10 @@ newGenerator = generator.composeWith('bootstrap', {}, true);
 
 generator.desc('new description');
 
+// $ExpectType string
+generator.destinationRoot();
+generator.destinationRoot('./destination', true);
+
 const dPath1: string = generator.destinationPath();
 const dPath2: string = generator.destinationPath('foo');
 const dPath3: string = generator.destinationPath(...['many', 'parts']);

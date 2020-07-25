@@ -275,7 +275,16 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     debug: (...args: Parameters<Debugger>) => void;
 
     destinationPath(...path: string[]): string;
-    destinationRoot(rootPath?: string): string;
+
+    /**
+     * Changes the generator destination root directory.
+     *
+     * This path is used to find storage, when using file system helper methods (such as `this.writeDestination` and `this.copyDestination`).
+     *
+     * @param rootPath The new destination root path.
+     * @param skipEnvironment A value indicating whether `this.env.cwd` and the current working directory shouldn't be changed.
+     */
+    destinationRoot(rootPath?: string, skipEnvironment?: boolean): string;
     determineAppname(): string;
     option(name: string, config: Generator.OptionConfig): this;
     prompt<A extends Generator.Answers = Generator.Answers>(questions: Generator.Questions<A>): Promise<A>;
