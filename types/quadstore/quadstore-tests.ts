@@ -1,4 +1,4 @@
-import Quadstore = require('quadstore');
+import QuadStore = require('quadstore');
 import { Triple } from 'quadstore';
 import { AbstractLevelDOWN } from 'abstract-leveldown';
 
@@ -24,13 +24,15 @@ const createQuads = (triples: Triple[], graph: string) => triples.map(t => ({...
 
 const graph = 'http://default.graph/';
 
-const createQuadstore = (db: AbstractLevelDOWN) => new Quadstore(db);
+// These are equivalent
+const createQuadstore1 = (db: AbstractLevelDOWN) => new QuadStore(db);
+const createQuadstore2 = (db: AbstractLevelDOWN) => new QuadStore.QuadStore(db);
 
 const defaultQuads = createQuads(triples, 'http://default.graph');
 
 const db: AbstractLevelDOWN = <AbstractLevelDOWN> <unknown> undefined;
-const quadstore: Quadstore = createQuadstore(db);
+const qs: QuadStore = createQuadstore1(db);
 
-quadstore.put(defaultQuads);
+qs.put(defaultQuads);
 
-quadstore.get({subject: 'http://example.org/cartoons#Jerry'});
+qs.get({subject: 'http://example.org/cartoons#Jerry'});

@@ -90,6 +90,8 @@ declare namespace quadstore {
         offset?: number;
     }
 
+    const QuadStore: typeof quadstore;
+
     class RdfStore<Q extends r.BaseQuad = r.Quad> extends quadstore<'graph', Q, r.Term> {
         constructor(abstractLevelDOWN: AbstractLevelDOWN, opts: any);
 
