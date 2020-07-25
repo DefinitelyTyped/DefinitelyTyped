@@ -205,6 +205,14 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     options: T;
     log: Generator.Logger;
 
+    /**
+     * Reads the options or a single option at the specified property-path from the `.yo-rc` config-store.
+     *
+     * @param path
+     * The property-path of the option to get.
+     */
+    _templateData(path?: string): any;
+
     argument(name: string, config: Generator.ArgumentConfig): this;
     composeWith(namespace: string, options: Generator.GeneratorOptions, settings?: { local: string, link: 'weak' | 'strong' }): this;
     destinationPath(...path: string[]): string;
