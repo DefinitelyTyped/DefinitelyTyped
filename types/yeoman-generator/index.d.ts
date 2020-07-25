@@ -100,12 +100,40 @@ declare namespace Generator {
         type?: typeof String | typeof Number | typeof Array | typeof Object;
         default?: any;
     }
+
+    /**
+     * Provides settings for creating a new generator-option.
+     */
     interface OptionConfig {
+        /**
+         * The type of the option.
+         */
+        type: typeof Boolean | typeof String | typeof Number;
+
+        /**
+         * The option name alias (example `-h` and --help`).
+         */
         alias?: string;
+
+        /**
+         * The default value.
+         */
         default?: any;
+
+        /**
+         * The description for the option.
+         */
         description?: string;
+
+        /**
+         * A value indicating whether the option should be hidden from the help output.
+         */
         hide?: boolean;
-        type?: typeof Boolean | typeof String | typeof Number;
+
+        /**
+         * The storage to persist the option
+         */
+        storage?: Storage;
     }
 
     /**
@@ -286,6 +314,16 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      */
     destinationRoot(rootPath?: string, skipEnvironment?: boolean): string;
     determineAppname(): string;
+
+    /**
+     * Adds an option to the set of generator expected options, only used to generate generator usage.
+     * By default, generators get all the cli options parsed by nopt as a `this.options` hash object.
+     *
+     * @param name The name of the option.
+     * @param config The configuration of the option.
+     * @param {Storage} [config.storage] - 
+     * @return {this} This generator
+     */
     option(name: string, config: Generator.OptionConfig): this;
     prompt<A extends Generator.Answers = Generator.Answers>(questions: Generator.Questions<A>): Promise<A>;
     registerTransformStream(stream: {} | Array<{}>): this;
