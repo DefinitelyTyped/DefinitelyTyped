@@ -319,9 +319,32 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     /**
      * Deletes file from destination folder.
      * mem-fs-editor method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
-     * Shortcut for this.fs.delete(this.destinationPath(filepath)).
+     * Shortcut for:
+     * ```js
+     * this.fs.delete(this.destinationPath(filepath))
+     * ```
      */
     deleteDestination(...args: Parameters<Editor["delete"]>): ReturnType<Editor["delete"]>;
+
+    /**
+     * Checks whether a file exists in the destination folder.
+     * mem-fs-editor method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for:
+     * ```js
+     * this.fs.exists(this.destinationPath(filepath))
+     * ```
+     */
+    existsDestination(...args: Parameters<Editor["exists"]>): ReturnType<Editor["exists"]>;
+
+    /**
+     * Move file from destination folder to another destination folder.
+     * mem-fs-editor method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for:
+     * ```js
+     * this.fs.move(this.destinationPath(from), this.destinationPath(to))
+     * ```
+     */
+    moveDestination(...args: Parameters<Editor["move"]>): ReturnType<Editor["move"]>;
 
     // actions/help mixin
     argumentsHelp(): string;
