@@ -307,6 +307,13 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      */
     copyTemplate(...args: Parameters<Editor["copy"]>): ReturnType<Editor["copy"]>;
 
+    /**
+     * Deletes file from destination folder.
+     * mem-fs-editor method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for this.fs.delete(this.destinationPath(filepath)).
+     */
+    deleteDestination(...args: Parameters<Editor["delete"]>): ReturnType<Editor["delete"]>;
+
     // actions/help mixin
     argumentsHelp(): string;
     async(): () => {};

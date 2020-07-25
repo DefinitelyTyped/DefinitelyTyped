@@ -191,3 +191,4 @@ const usage: string = generator.usage();
 
 generator.copyDestination("LICENSE", "packages/test/LICENSE");
 generator.copyTemplate("LICENSE", "packages/test/LICENSE", {}, { AuthorName: "John Doe", Year: new Date().getFullYear() });
+generator.deleteDestination(".eslintrc.js");
