@@ -261,7 +261,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @returns
      * Either returns this generator or the newly created generator.
      */
-    composeWith<TGenerator extends Generator<any>, T extends true | false = true>(generators: Array<Generator.CompositionOptions | string> | Generator.CompositionOptions | string, options?: Generator.GeneratorOptions, returnNewGenerator?: T): T extends true ? TGenerator : Generator;
+    composeWith<T extends true | false = true>(generators: Array<Generator.CompositionOptions | string> | Generator.CompositionOptions | string, options?: Generator.GeneratorOptions, returnNewGenerator?: T): T extends true ? Generator : this;
     destinationPath(...path: string[]): string;
     destinationRoot(rootPath?: string): string;
     determineAppname(): string;
