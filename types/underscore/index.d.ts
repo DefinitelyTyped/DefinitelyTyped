@@ -455,70 +455,42 @@ declare module _ {
         ): PropertyTypeOrAny<TypeOfCollection<V>, K>[];
 
         /**
-        * Returns the maximum value in list.
-        * @param list Finds the maximum value in this list.
-        * @return Maximum value in `list`.
-        **/
-        max(list: _.List<number>): number;
+         * Returns the maximum value in `collection`. If an `iteratee` is
+         * provided, it will be used on each element to generate the criterion
+         * by which the element is ranked. -Infinity is returned if list is
+         * empty. Non-numerical values returned by `iteratee` will be ignored.
+         * @param collection The collection in which to find the maximum value.
+         * @param iteratee The iteratee that provides the criterion by which
+         * each element is ranked, optional if evaluating a collection of
+         * numbers.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The maximum element within `collection` or -Infinity if
+         * `collection` is empty.
+         **/
+        max<V extends Collection<any>>(
+            collection: V,
+            iteratee?: Iteratee<V, any>,
+            context?: any
+        ): TypeOfCollection<V> | number;
 
         /**
-        * @see _.max
-        */
-        max(object: _.Dictionary<number>): number;
-
-        /**
-        * Returns the maximum value in list. If iterator is passed, it will be used on each value to generate
-        * the criterion by which the value is ranked.
-        * @param list Finds the maximum value in this list.
-        * @param iterator Compares each element in `list` to find the maximum value.
-        * @param context `this` object in `iterator`, optional.
-        * @return The maximum element within `list`.
-        **/
-        max<T>(
-            list: _.List<T>,
-            iterator?: _.ListIterator<T, any>,
-            context?: any): T;
-
-        /**
-        * @see _.max
-        */
-        max<T>(
-            list: _.Dictionary<T>,
-            iterator?: _.ObjectIterator<T, any>,
-            context?: any): T;
-
-        /**
-        * Returns the minimum value in list.
-        * @param list Finds the minimum value in this list.
-        * @return Minimum value in `list`.
-        **/
-        min(list: _.List<number>): number;
-
-        /**
-         * @see _.min
-         */
-        min(o: _.Dictionary<number>): number;
-
-        /**
-        * Returns the minimum value in list. If iterator is passed, it will be used on each value to generate
-        * the criterion by which the value is ranked.
-        * @param list Finds the minimum value in this list.
-        * @param iterator Compares each element in `list` to find the minimum value.
-        * @param context `this` object in `iterator`, optional.
-        * @return The minimum element within `list`.
-        **/
-        min<T>(
-            list: _.List<T>,
-            iterator?: _.ListIterator<T, any>,
-            context?: any): T;
-
-        /**
-        * @see _.min
-        */
-        min<T>(
-            list: _.Dictionary<T>,
-            iterator?: _.ObjectIterator<T, any>,
-            context?: any): T;
+         * Returns the minimum value in `collection`. If an `iteratee` is
+         * provided, it will be used on each element to generate the criterion
+         * by which the element is ranked. Infinity is returned if list is
+         * empty. Non-numerical values returned by `iteratee` will be ignored.
+         * @param collection The collection in which to find the minimum value.
+         * @param iteratee The iteratee that provides the criterion by which
+         * each element is ranked, optional if evaluating a collection of
+         * numbers.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The minimum element within `collection` or Infinity if
+         * `collection` is empty.
+         **/
+        min<V extends Collection<any>>(
+            list: V,
+            iteratee?: Iteratee<V, any>,
+            context?: any
+        ): TypeOfCollection<V> | number;
 
         /**
         * Returns a sorted copy of list, ranked in ascending order by the results of running each value
@@ -622,11 +594,11 @@ declare module _ {
         toArray<V extends Collection<any>>(collection: V): TypeOfCollection<V>[];
 
         /**
-        * Return the number of values in the list.
-        * @param list Count the number of values/elements in this list.
-        * @return Number of values in `list`.
-        **/
-        size<T>(list: _.Collection<T>): number;
+         * Determines the number of values in `collection`.
+         * @param collection The collection to determine the number of values for.
+         * @returns The number of values in `collection`.
+         **/
+        size(collection: Collection<any>): number;
 
         /**
          * Splits `collection` into two arrays: one whose elements all satisfy
@@ -4187,40 +4159,34 @@ declare module _ {
         ): PropertyTypeOrAny<T, K>[];
 
         /**
-        * Wrapped type `number[]`.
-        * @see _.max
-        **/
-        max(): number;
+         * Returns the maximum value in the wrapped collection. If an
+         * `iteratee` is provided, it will be used on each element to generate
+         * the criterion by which the element is ranked. -Infinity is returned
+         * if list is empty. Non-numerical values returned by `iteratee` will
+         * be ignored.
+         * @param iteratee The iteratee that provides the criterion by which
+         * each element is ranked, optional if evaluating a collection of
+         * numbers.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The maximum element within the wrapped collection or
+         * -Infinity if the wrapped collection is empty.
+         **/
+        max(iteratee?: Iteratee<V, any>, context?: any): T | number;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.max
-        **/
-        max(iterator: _.ListIterator<T, number>, context?: any): T;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.max
-        **/
-        max(iterator?: _.ListIterator<T, any>, context?: any): T;
-
-        /**
-        * Wrapped type `number[]`.
-        * @see _.min
-        **/
-        min(): number;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.min
-        **/
-        min(iterator: _.ListIterator<T, number>, context?: any): T;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.min
-        **/
-        min(iterator?: _.ListIterator<T, any>, context?: any): T;
+         * Returns the minimum value in the wrapped collection. If an
+         * `iteratee` is provided, it will be used on each element to generate
+         * the criterion by which the element is ranked. Infinity is returned
+         * if list is empty. Non-numerical values returned by `iteratee` will
+         * be ignored.
+         * @param iteratee The iteratee that provides the criterion by which
+         * each element is ranked, optional if evaluating a collection of
+         * numbers.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The minimum element within the wrapped collection or
+         * Infinity if the wrapped collection is empty.
+         **/
+        min(iteratee?: Iteratee<V, any>, context?: any): T | number;
 
         /**
         * Wrapped type `any[]`.
@@ -4289,9 +4255,9 @@ declare module _ {
         toArray(): T[];
 
         /**
-        * Wrapped type `any`.
-        * @see _.size
-        **/
+         * Determines the number of values in the wrapped collection.
+         * @returns The number of values in the wrapped collection.
+         **/
         size(): number;
 
         /**
@@ -5202,40 +5168,36 @@ declare module _ {
         ): _Chain<PropertyTypeOrAny<T, K>, PropertyTypeOrAny<T, K>[]>;
 
         /**
-        * Wrapped type `number[]`.
-        * @see _.max
-        **/
-        max(): _ChainSingle<T>;
+         * Returns the maximum value in the wrapped collection. If an
+         * `iteratee` is provided, it will be used on each element to generate
+         * the criterion by which the element is ranked. -Infinity is returned
+         * if list is empty. Non-numerical values returned by `iteratee` will
+         * be ignored.
+         * @param iteratee The iteratee that provides the criterion by which
+         * each element is ranked, optional if evaluating a collection of
+         * numbers.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A chain wrapper around the maximum element within the
+         * wrapped collection or around -Infinity if the wrapped collection is
+         * empty.
+         **/
+        max(iteratee?: _ChainIteratee<V, any, T>, context?: any): _ChainSingle<T | number>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.max
-        **/
-        max(iterator: _.ListIterator<T, number>, context?: any): _ChainSingle<T>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.max
-        **/
-        max(iterator?: _.ListIterator<T, any>, context?: any): _ChainSingle<T>;
-
-        /**
-        * Wrapped type `number[]`.
-        * @see _.min
-        **/
-        min(): _ChainSingle<T>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.min
-        **/
-        min(iterator: _.ListIterator<T, number>, context?: any): _ChainSingle<T>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.min
-        **/
-        min(iterator?: _.ListIterator<T, any>, context?: any): _ChainSingle<T>;
+         * Returns the minimum value in the wrapped collection. If an
+         * `iteratee` is provided, it will be used on each element to generate
+         * the criterion by which the element is ranked. Infinity is returned
+         * if list is empty. Non-numerical values returned by `iteratee` will
+         * be ignored.
+         * @param iteratee The iteratee that provides the criterion by which
+         * each element is ranked, optional if evaluating a collection of
+         * numbers.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A chain wrapper around the minimum element within the
+         * wrapped collection or around Infinity if the wrapped collection is
+         * empty.
+         **/
+        min(iteratee?: _ChainIteratee<V, any, T>, context?: any): _ChainSingle<T | number>;
 
         /**
         * Wrapped type `any[]`.
@@ -5307,9 +5269,10 @@ declare module _ {
         toArray(): _Chain<T, T[]>;
 
         /**
-        * Wrapped type `any`.
-        * @see _.size
-        **/
+         * Determines the number of values in the wrapped collection.
+         * @returns A chain wrapper around the number of values in the wrapped
+         * collection.
+         **/
         size(): _ChainSingle<number>;
 
         /**
