@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.1
 
-// tslint:disable:no-empty-interface no-mergeable-namespace
+// tslint:disable:no-empty-interface
 
 import { Express } from 'express';
 import { EventEmitter } from 'events';
@@ -103,12 +103,11 @@ declare namespace nodeRed {
          */
         auth: editorAPI.Auth;
     }
-}
 
-/**
- * Type shortcuts for writing the runtime side of nodes (.js file)
- */
-declare namespace nodeRed {
+    /*******************************************************************
+     * Type shortcuts for writing the runtime side of nodes (.js file)
+     *******************************************************************/
+
     /**
      * Type def for the functions that should be exported
      * by the node .js files.
@@ -151,12 +150,11 @@ declare namespace nodeRed {
     interface NodeContextData extends registry.NodeContextData {}
 
     interface NodeContext extends registry.NodeContext {}
-}
 
-/**
- * Type shortcuts for writing the editor side of nodes (.html file)
- */
-declare namespace nodeRed {
+    /********************************************************************
+     * Type shortcuts for writing the editor side of nodes (.html file)
+     ********************************************************************/
+
     /**
      * Property definition
      * Read more: https://nodered.org/docs/creating-nodes/properties#property-definitions
