@@ -14,6 +14,8 @@ import { EventEmitter } from 'events';
 import { Answers, DistinctQuestion, PromptModule } from 'inquirer';
 import { Editor } from 'mem-fs-editor';
 import { Observable } from 'rxjs';
+import table = require("text-table");
+import { format } from 'util';
 
 declare namespace Generator {
     /**
@@ -107,6 +109,82 @@ declare namespace Generator {
         hide?: boolean;
         type?: typeof Boolean | typeof String | typeof Number;
     }
+
+    /**
+     * Provides the functionality to log messages.
+     */
+    interface Logger extends EventEmitter {
+        /**
+         * Writes a log-message.
+         *
+         * @param format
+         * The format of the log-messages.
+         *
+         * @param params
+         * The parameters to replace variables with.
+         */
+        (format: string, params?: Record<string, any>): this;
+
+        /**
+         * Writes a log-message.
+         */
+        write(...args: Parameters<typeof format>): this;
+
+        /**
+         * Writes a log-message with an appended newline character.
+         */
+        writeln(...args: Parameters<typeof format>): this;
+
+        /**
+         * Writes a success status with a check mark `✔`.
+         */
+        ok(...args: Parameters<typeof format>): this;
+
+        /**
+         * Writes an error-message with a prepended cross mark.
+         */
+        error(...args: Parameters<typeof format>): this;
+
+        /**
+         * Writes a `skip`-message.
+         */
+        skip(...args: Parameters<typeof format>): this;
+
+        /**
+         * Writes a `force`-message.
+         */
+        force(...args: Parameters<typeof format>): this;
+
+        /**
+         * Writes a `create`-message.
+         */
+        create(...args: Parameters<typeof format>): this;
+
+        /**
+         * Writes a `invoke`-message.
+         */
+        invoke(...args: Parameters<typeof format>): this;
+
+        /**
+         * Writes a `conflict`-message.
+         */
+        conflict(...args: Parameters<typeof format>): this;
+
+        /**
+         * Writes a `identical`-message.
+         */
+        identical(...args: Parameters<typeof format>): this;
+
+        /**
+         * Writes a `info`-message.
+         */
+        info(...args: Parameters<typeof format>): this;
+
+        /**
+         * Writes a table to the console.
+         */
+        table: typeof table;
+    }
 }
 
 declare class Generator<T extends Generator.GeneratorOptions = Generator.GeneratorOptions> extends EventEmitter {
@@ -125,7 +203,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     config: Generator.Storage;
     fs: Editor;
     options: T;
-    log(message?: string, context?: any): void;
+    log: Generator.Logger;
 
     argument(name: string, config: Generator.ArgumentConfig): this;
     composeWith(namespace: string, options: Generator.GeneratorOptions, settings?: { local: string, link: 'weak' | 'strong' }): this;
