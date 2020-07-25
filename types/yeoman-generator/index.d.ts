@@ -12,6 +12,7 @@
 
 import { EventEmitter } from 'events';
 import * as inquirer from 'inquirer';
+import { Editor } from 'mem-fs-editor';
 import { Observable } from 'rxjs';
 
 type Callback = (err: any) => void;
@@ -32,7 +33,7 @@ declare namespace Generator {
     );
 
     class Storage {
-        constructor(name: string, fs: MemFsEditor, configPath: string);
+        constructor(name: string, fs: Editor, configPath: string);
 
         defaults(defaults: {}): {};
         delete(key: string): void;
@@ -73,20 +74,6 @@ declare namespace Generator {
         hide?: boolean;
         type?: typeof Boolean|typeof String|typeof Number;
     }
-    interface MemFsEditor {
-        read(filepath: string, options?: {}): string;
-        readJSON(filepath: string, defaults?: {}): any;
-        write(filepath: string, contents: string): void;
-        writeJSON(filepath: string, contents: {}, replacer?: (key: string, value: any) => any, space?: number): void;
-        extendJSON(filepath: string, contents: {}, replacer?: (key: string, value: any) => any, space?: number): void;
-        delete(filepath: string, options?: {}): void;
-        copy(from: string, to: string, options?: {}, context?: {}, templateOptions?: {}): void;
-        copyTpl(from: string, to: string, context: {}, templateOptions?: {}, copyOptions?: {}): void;
-        move(from: string, to: string, options?: {}): void;
-        exists(filepath: string): boolean;
-        commit(callback: Callback): void;
-        commit(filters: any[], callback: Callback): void;
-    }
 }
 
 declare class Generator extends EventEmitter {
@@ -103,7 +90,7 @@ declare class Generator extends EventEmitter {
     description: string;
     appname: string;
     config: Generator.Storage;
-    fs: Generator.MemFsEditor;
+    fs: Editor;
     options: { [name: string]: any };
     log(message?: string, context?: any): void;
 
