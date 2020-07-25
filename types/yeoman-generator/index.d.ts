@@ -11,7 +11,7 @@
 // TypeScript Version: 3.3
 
 import { EventEmitter } from 'events';
-import { Answers, DistinctQuestion, PromptModule } from 'inquirer';
+import { Answers as InquirerAnswers, DistinctQuestion, PromptModule } from 'inquirer';
 import { Editor } from 'mem-fs-editor';
 import { Observable } from 'rxjs';
 import table = require("text-table");
@@ -60,6 +60,11 @@ declare namespace Generator {
          */
         store?: boolean;
     };
+
+    /**
+     * Represents an answer-hash.
+     */
+    type Answers = InquirerAnswers;
 
     type Questions<A extends Answers = Answers> = (
         | Question<A>
@@ -219,7 +224,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     destinationRoot(rootPath?: string): string;
     determineAppname(): string;
     option(name: string, config: Generator.OptionConfig): this;
-    prompt<A extends Answers = Answers>(questions: Generator.Questions<A>): Promise<A>;
+    prompt<A extends Generator.Answers = Generator.Answers>(questions: Generator.Questions<A>): Promise<A>;
     registerTransformStream(stream: {} | Array<{}>): this;
     rootGeneratorName(): string;
     rootGeneratorVersion(): string;
