@@ -10,6 +10,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
+import { SpawnOptions } from 'child_process';
 import { EventEmitter } from 'events';
 import { Answers as InquirerAnswers, DistinctQuestion, PromptModule } from 'inquirer';
 import { Editor } from 'mem-fs-editor';
@@ -254,7 +255,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
-    bowerInstall(component?: string | string[], options?: object, spawnOptions?: object): void;
+    bowerInstall(component?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
     /**
      * Runs `npm` and `bower`, in sequence, in the generated directory and prints a
      * message to let the user know.
@@ -282,7 +283,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
-    npmInstall(pkgs?: string | string[], options?: object, spawnOptions?: object): void;
+    npmInstall(pkgs?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
     /**
      * Combine package manager cmd line arguments and run the `install` command.
      *
@@ -292,10 +293,9 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param installer Which package manager to use
      * @param paths Packages to install. Use an empty string for `npm install`
      * @param options Options to pass to `dargs` as arguments
-     * @param spawnOptions Options to pass `child_process.spawn`. ref
-     *                     https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
+     * @param spawnOptions Options to pass `child_process.spawn`.
      */
-    scheduleInstallTask(installer: string, paths?: string | string[], options?: object, spawnOptions?: object): void;
+    scheduleInstallTask(installer: string, paths?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
     /**
      * Receives a list of `packages` and an `options` object to install through npm.
      *
@@ -305,7 +305,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
-    yarnInstall(pkgs?: string | string[], options?: object, spawnOptions?: object): void;
+    yarnInstall(pkgs?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
 
     // actions/user mixin
     readonly user: {
