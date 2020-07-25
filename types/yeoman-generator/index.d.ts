@@ -330,6 +330,11 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * Prompt user to answer questions.
      */
     prompt: typeof prompt;
+
+    /**
+     * Queues the basic tasks of the generator.
+     */
+    queueBasicTasks(): void;
     registerTransformStream(stream: {} | Array<{}>): this;
     rootGeneratorName(): string;
     rootGeneratorVersion(): string;

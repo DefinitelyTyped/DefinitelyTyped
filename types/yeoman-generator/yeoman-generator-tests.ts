@@ -43,6 +43,7 @@ const fs: Editor = generator.fs;
 // $ExpectType any
 generator._templateData("lint.ruleset");
 
+generator.queueBasicTasks();
 generator.cancelCancellableTasks();
 
 generator.log('my message');
