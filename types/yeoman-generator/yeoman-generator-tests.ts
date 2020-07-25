@@ -110,6 +110,15 @@ async function install() {
 
 const composed1: Base = generator.composeWith('bootstrap', { sass: true });
 const composed2: Base = generator.composeWith(require.resolve('generator-bootstrap/app/main.js'), { sass: true });
+const composed3: Base = generator.composeWith(
+  {
+    Generator: MyES2015Generator,
+    path: "./my-es2015-generator/lib/generators/app/index.js"
+  });
+// $ExpectType MyES2015Generator
+let newGenerator: Base = generator.composeWith('bootstrap', {}, false);
+// $ExpectType Generator<GeneratorOptions>
+newGenerator = generator.composeWith('bootstrap', {}, true);
 
 generator.desc('new description');
 
