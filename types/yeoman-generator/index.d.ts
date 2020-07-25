@@ -13,7 +13,7 @@
 import { SpawnOptions } from 'child_process';
 import { Debugger } from 'debug';
 import { EventEmitter } from 'events';
-import { Answers as InquirerAnswers, DistinctQuestion, PromptModule } from 'inquirer';
+import { Answers as InquirerAnswers, DistinctQuestion, PromptModule, prompt } from 'inquirer';
 import { Editor } from 'mem-fs-editor';
 import { Observable } from 'rxjs';
 import table = require("text-table");
@@ -325,7 +325,11 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @return {this} This generator
      */
     option(name: string, config: Generator.OptionConfig): this;
-    prompt<A extends Generator.Answers = Generator.Answers>(questions: Generator.Questions<A>): Promise<A>;
+
+    /**
+     * Prompt user to answer questions.
+     */
+    prompt: typeof prompt;
     registerTransformStream(stream: {} | Array<{}>): this;
     rootGeneratorName(): string;
     rootGeneratorVersion(): string;
