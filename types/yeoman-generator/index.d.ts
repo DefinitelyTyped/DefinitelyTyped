@@ -15,9 +15,8 @@ import { Answers, DistinctQuestion, PromptModule } from 'inquirer';
 import { Editor } from 'mem-fs-editor';
 import { Observable } from 'rxjs';
 
-type Callback = (err: any) => void;
-
 declare namespace Generator {
+    type Callback = (err: any) => void;
     type Question<T extends Answers = Answers> = DistinctQuestion<T> & {
         /**
          * whether to store the user's previous answer
@@ -103,7 +102,7 @@ declare class Generator extends EventEmitter {
     registerTransformStream(stream: {}|Array<{}>): this;
     rootGeneratorName(): string;
     rootGeneratorVersion(): string;
-    run(cb?: Callback): this;
+    run(cb?: Generator.Callback): this;
     sourceRoot(rootPath?: string): string;
     templatePath(...path: string[]): string;
 
