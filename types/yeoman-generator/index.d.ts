@@ -17,7 +17,7 @@ import { Editor } from 'mem-fs-editor';
 import { Observable } from 'rxjs';
 import table = require("text-table");
 import { format } from 'util';
-import Storage = require("./util/storage");
+import Storage = require("./lib/util/storage");
 
 declare namespace Generator {
     /**
@@ -258,6 +258,16 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * Either returns this generator or the newly created generator.
      */
     composeWith<T extends true | false = true>(generators: Array<Generator.CompositionOptions | string> | Generator.CompositionOptions | string, options?: Generator.GeneratorOptions, returnNewGenerator?: T): T extends true ? Generator : this;
+
+    /**
+     * Creates a new storage.
+     *
+     * @param storagePath The path to the `json`-file of the storage.
+     * @param key The key in which the options are stored inside the `json`.
+     * @param lodashPath A value indicating whether the `key` argument should be treated as a lodash path.
+     */
+    createStorage(storagePath: string, key?: string, lodashPath?: boolean): Storage;
+
     destinationPath(...path: string[]): string;
     destinationRoot(rootPath?: string): string;
     determineAppname(): string;

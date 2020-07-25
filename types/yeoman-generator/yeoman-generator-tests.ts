@@ -3,6 +3,7 @@ import { Questions, Answers } from 'yeoman-generator';
 import { EventEmitter } from 'events';
 import * as inquirer from 'inquirer';
 import { Editor } from 'mem-fs-editor';
+import Storage = require('yeoman-generator/lib/util/storage');
 
 class MyES2015Generator extends Base { }
 
@@ -36,7 +37,7 @@ const args: {} = generator.args;
 const resolved: string = generator.resolved;
 const description: string = generator.description;
 const appname: string = generator.appname;
-const config: Base.Storage = generator.config;
+const config: Storage = generator.config;
 const fs: Editor = generator.fs;
 
 // $ExpectType any
