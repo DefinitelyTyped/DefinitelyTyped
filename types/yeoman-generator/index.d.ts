@@ -108,7 +108,8 @@ declare namespace Generator {
         type?: typeof Boolean | typeof String | typeof Number;
     }
 }
-declare class Generator<T extends Generator.GeneratorOptions> extends EventEmitter {
+
+declare class Generator<T extends Generator.GeneratorOptions = Generator.GeneratorOptions> extends EventEmitter {
     constructor(args: string | string[], options: T);
 
     env: {
