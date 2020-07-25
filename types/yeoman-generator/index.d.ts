@@ -191,6 +191,21 @@ declare namespace Generator {
          */
         table: typeof table;
     }
+
+    /**
+     * Represents a generator-constructor.
+     */
+    interface GeneratorConstructor {
+        new(...args: any[]): Generator<any>;
+    }
+
+    /**
+     * Represents options for composing a generator.
+     */
+    interface CompositionOptions {
+        Generator: GeneratorConstructor;
+        path: string;
+    }
 }
 
 declare class Generator<T extends Generator.GeneratorOptions = Generator.GeneratorOptions> extends EventEmitter {
@@ -226,7 +241,27 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      */
     cancelCancellableTasks(): void;
 
-    composeWith(namespace: string, options: Generator.GeneratorOptions, settings?: { local: string, link: 'weak' | 'strong' }): this;
+    /**
+     * Compose this generator with another one.
+     *
+     * @param generator The path to the generator module or an object (see examples).
+     * @param options The options passed to the Generator.
+     * @param returnNewGenerator Returns the created generator instead of returning this.
+     * @return This generator or the composed generator when returnNewGenerator=true
+     *
+     * @example
+     * this.composeWith('bootstrap', { sass: true });
+     *
+     * @example
+     * this.composeWith(require.resolve('generator-bootstrap/app/main.js'), { sass: true });
+     *
+     * @example
+     * this.composeWith({ Generator: MyGenerator, path: '../generator-bootstrap/app/main.js' }, { sass: true });
+     *
+     * @returns
+     * Either returns this generator or the newly created generator.
+     */
+    composeWith<TGenerator extends Generator<any>, T extends true | false = true>(generators: Array<Generator.CompositionOptions | string> | Generator.CompositionOptions | string, options?: Generator.GeneratorOptions, returnNewGenerator?: T): T extends true ? TGenerator : Generator;
     destinationPath(...path: string[]): string;
     destinationRoot(rootPath?: string): string;
     determineAppname(): string;
