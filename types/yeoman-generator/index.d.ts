@@ -11,20 +11,19 @@
 // TypeScript Version: 3.3
 
 import { EventEmitter } from 'events';
-import * as inquirer from 'inquirer';
+import { Answers, DistinctQuestion, PromptModule } from 'inquirer';
 import { Editor } from 'mem-fs-editor';
 import { Observable } from 'rxjs';
 
 type Callback = (err: any) => void;
 
 declare namespace Generator {
-    type Question<T extends Answers = Answers> = inquirer.DistinctQuestion<T> & {
+    type Question<T extends Answers = Answers> = DistinctQuestion<T> & {
         /**
          * whether to store the user's previous answer
          */
         store?: boolean;
     };
-    type Answers = inquirer.Answers;
 
     type Questions<A extends Answers = Answers> = (
         | Question<A>
@@ -82,7 +81,7 @@ declare class Generator extends EventEmitter {
     env: {
         error(...e: Error[]): void;
         adapter: {
-            promptModule: inquirer.PromptModule;
+            promptModule: PromptModule;
         };
     };
     args: {};
@@ -100,7 +99,7 @@ declare class Generator extends EventEmitter {
     destinationRoot(rootPath?: string): string;
     determineAppname(): string;
     option(name: string, config: Generator.OptionConfig): this;
-    prompt<A extends Generator.Answers = Generator.Answers>(questions: Generator.Questions<A>): Promise<A>;
+    prompt<A extends Answers = Answers>(questions: Generator.Questions<A>): Promise<A>;
     registerTransformStream(stream: {}|Array<{}>): this;
     rootGeneratorName(): string;
     rootGeneratorVersion(): string;
