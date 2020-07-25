@@ -97,7 +97,7 @@ declare namespace Generator {
         description?: string;
         required?: boolean;
         optional?: boolean;
-        type?: typeof String|typeof Number|typeof Array|typeof Object;
+        type?: typeof String | typeof Number | typeof Array | typeof Object;
         default?: any;
     }
     interface OptionConfig {
@@ -105,7 +105,7 @@ declare namespace Generator {
         default?: any;
         description?: string;
         hide?: boolean;
-        type?: typeof Boolean|typeof String|typeof Number;
+        type?: typeof Boolean | typeof String | typeof Number;
     }
 }
 declare class Generator<T extends Generator.GeneratorOptions> extends EventEmitter {
@@ -133,7 +133,7 @@ declare class Generator<T extends Generator.GeneratorOptions> extends EventEmitt
     determineAppname(): string;
     option(name: string, config: Generator.OptionConfig): this;
     prompt<A extends Answers = Answers>(questions: Generator.Questions<A>): Promise<A>;
-    registerTransformStream(stream: {}|Array<{}>): this;
+    registerTransformStream(stream: {} | Array<{}>): this;
     rootGeneratorName(): string;
     rootGeneratorVersion(): string;
     run(cb?: Generator.Callback): this;
@@ -162,7 +162,7 @@ declare class Generator<T extends Generator.GeneratorOptions> extends EventEmitt
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
-    bowerInstall(component?: string|string[], options?: object, spawnOptions?: object): void;
+    bowerInstall(component?: string | string[], options?: object, spawnOptions?: object): void;
     /**
      * Runs `npm` and `bower`, in sequence, in the generated directory and prints a
      * message to let the user know.
@@ -190,7 +190,7 @@ declare class Generator<T extends Generator.GeneratorOptions> extends EventEmitt
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
-    npmInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): void;
+    npmInstall(pkgs?: string | string[], options?: object, spawnOptions?: object): void;
     /**
      * Combine package manager cmd line arguments and run the `install` command.
      *
@@ -203,7 +203,7 @@ declare class Generator<T extends Generator.GeneratorOptions> extends EventEmitt
      * @param spawnOptions Options to pass `child_process.spawn`. ref
      *                     https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
      */
-    scheduleInstallTask(installer: string, paths?: string|string[], options?: object, spawnOptions?: object): void;
+    scheduleInstallTask(installer: string, paths?: string | string[], options?: object, spawnOptions?: object): void;
     /**
      * Receives a list of `packages` and an `options` object to install through npm.
      *
@@ -213,7 +213,7 @@ declare class Generator<T extends Generator.GeneratorOptions> extends EventEmitt
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
-    yarnInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): void;
+    yarnInstall(pkgs?: string | string[], options?: object, spawnOptions?: object): void;
 
     // actions/user mixin
     readonly user: {
