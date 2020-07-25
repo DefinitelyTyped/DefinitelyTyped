@@ -436,7 +436,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
 
     /**
      * Deletes file from destination folder.
-     * mem-fs-editor method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
      * Shortcut for:
      * ```js
      * this.fs.delete(this.destinationPath(filepath))
@@ -446,7 +446,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
 
     /**
      * Checks whether a file exists in the destination folder.
-     * mem-fs-editor method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
      * Shortcut for:
      * ```js
      * this.fs.exists(this.destinationPath(filepath))
@@ -456,13 +456,43 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
 
     /**
      * Move file from destination folder to another destination folder.
-     * mem-fs-editor method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
      * Shortcut for:
      * ```js
      * this.fs.move(this.destinationPath(from), this.destinationPath(to))
      * ```
      */
     moveDestination(...args: Parameters<Editor["move"]>): ReturnType<Editor["move"]>;
+
+    /**
+     * Read file from destination folder.
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for:
+     * ```js
+     * this.fs.read(this.destinationPath(filepath))
+     * ```
+     */
+    readDestination(...args: Parameters<Editor["read"]>): ReturnType<Editor["read"]>;
+
+    /**
+     * Read JSON file from destination folder.
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for:
+     * ```js
+     * this.fs.readJSON(this.destinationPath(filepath))
+     * ```
+     */
+    readDestinationJSON(...args: Parameters<Editor["readJSON"]>): ReturnType<Editor["readJSON"]>;
+
+    /**
+     * Read file from templates folder.
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for:
+     * ```js
+     * this.fs.read(this.templatePath(filepath))
+     * ```
+     */
+    readTemplate(...args: Parameters<Editor["read"]>): ReturnType<Editor["read"]>;
 
     // actions/help mixin
     argumentsHelp(): string;
