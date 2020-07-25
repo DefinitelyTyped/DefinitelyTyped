@@ -422,7 +422,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.copy(this.destinationPath(from), this.destinationPath(to))
      * ```
      */
-    copyDestination(...args: Parameters<Editor["copy"]>): ReturnType<Editor["copy"]>;
+    copyDestination: Editor["copy"];
 
     /**
      * Copy file from templates folder to destination folder.
@@ -432,7 +432,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.copy(this.templatePath(from), this.destinationPath(to))
      * ```
      */
-    copyTemplate(...args: Parameters<Editor["copy"]>): ReturnType<Editor["copy"]>;
+    copyTemplate: Editor["copy"];
 
     /**
      * Deletes file from destination folder.
@@ -442,7 +442,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.delete(this.destinationPath(filepath))
      * ```
      */
-    deleteDestination(...args: Parameters<Editor["delete"]>): ReturnType<Editor["delete"]>;
+    deleteDestination: Editor["delete"];
 
     /**
      * Checks whether a file exists in the destination folder.
@@ -452,7 +452,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.exists(this.destinationPath(filepath))
      * ```
      */
-    existsDestination(...args: Parameters<Editor["exists"]>): ReturnType<Editor["exists"]>;
+    existsDestination: Editor["exists"];
 
     /**
      * Move file from destination folder to another destination folder.
@@ -462,7 +462,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.move(this.destinationPath(from), this.destinationPath(to))
      * ```
      */
-    moveDestination(...args: Parameters<Editor["move"]>): ReturnType<Editor["move"]>;
+    moveDestination: Editor["move"];
 
     /**
      * Read file from destination folder.
@@ -472,7 +472,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.read(this.destinationPath(filepath))
      * ```
      */
-    readDestination(...args: Parameters<Editor["read"]>): ReturnType<Editor["read"]>;
+    readDestination: Editor["read"];
 
     /**
      * Read JSON file from destination folder.
@@ -482,7 +482,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.readJSON(this.destinationPath(filepath))
      * ```
      */
-    readDestinationJSON(...args: Parameters<Editor["readJSON"]>): ReturnType<Editor["readJSON"]>;
+    readDestinationJSON: Editor["readJSON"];
 
     /**
      * Read file from templates folder.
@@ -492,7 +492,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.read(this.templatePath(filepath))
      * ```
      */
-    readTemplate(...args: Parameters<Editor["read"]>): ReturnType<Editor["read"]>;
+    readTemplate: Editor["read"];
 
     // actions/help mixin
     argumentsHelp(): string;
