@@ -289,7 +289,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     // actions/fs mixin
     /**
      * Copy file from destination folder to another destination folder.
-     * mem-fs-editor method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
      * Shortcut for:
      * ```js
      * this.fs.copy(this.destinationPath(from), this.destinationPath(to))
@@ -299,7 +299,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
 
     /**
      * Copy file from templates folder to destination folder.
-     * mem-fs-editor method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
      * Shortcut for:
      * ```js
      * this.fs.copy(this.templatePath(from), this.destinationPath(to))
