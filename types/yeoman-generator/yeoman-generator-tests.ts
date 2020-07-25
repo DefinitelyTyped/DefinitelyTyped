@@ -44,6 +44,20 @@ const fs: Editor = generator.fs;
 generator._templateData("lint.ruleset");
 
 generator.queueBasicTasks();
+generator.queueMethod(() => {});
+generator.queueTask(
+  {
+    method: () => {},
+    taskName: 'nothing'
+  });
+generator.queueTaskGroup(
+  {
+    install: () => {},
+    initializing: () => {}
+  },
+  {
+    queueName: 'test'
+  });
 generator.cancelCancellableTasks();
 
 generator.log('my message');

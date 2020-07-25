@@ -226,6 +226,51 @@ declare namespace Generator {
         Generator: GeneratorConstructor;
         path: string;
     }
+
+    /**
+     * Provides options for queues.
+     */
+    interface QueueOptions {
+        /**
+         * The name of the queue.
+         */
+        queueName?: string;
+
+        /**
+         * A value indicating whether the queue should be executed only once per namespace and task-name.
+         */
+        once?: boolean;
+
+        /**
+         * A value indicating whether the queue should be executed if not running yet.
+         */
+        run?: boolean;
+    }
+
+    /**
+     * Provides options for tasks.
+     */
+    interface TaskOptions {
+        /**
+         * A method for handling errors.
+         */
+        reject?: Callback;
+    }
+
+    /**
+     * Represents a task.
+     */
+    interface Task extends TaskOptions {
+        /**
+         * The function to queue.
+         */
+        method: (...args: any) => any;
+
+        /**
+         * The name of the task.
+         */
+        taskName: string;
+    }
 }
 
 declare class Generator<T extends Generator.GeneratorOptions = Generator.GeneratorOptions> extends EventEmitter {
@@ -335,6 +380,32 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * Queues the basic tasks of the generator.
      */
     queueBasicTasks(): void;
+
+    /**
+     * Schedules methods on a run queue.
+     *
+     * @param method The method or an object containing function properties to schedule.
+     * @param methodName The name of the method to be scheduled.
+     * @param queueName The name of the queue to schedule on.
+     * @param reject A callback for handling rejections.
+     */
+    queueMethod(method: (...args: any[]) => any | Record<string, (...args: any[]) => any>, methodName?: string, queueName?: string, reject?: Generator.Callback): void;
+
+    /**
+     * Schedules a task on a run queue.
+     *
+     * @param task The task to queue.
+     */
+    queueTask(task: Generator.Task): void;
+
+    /**
+     * Schedules methods on a run queue.
+     *
+     * @param taskGroup An object containing tasks.
+     * @param taskOptions The options for creating the tasks.
+     */
+    queueTaskGroup(taskGroup: Record<string, (...args: any[]) => any>, taskOptions?: Generator.TaskOptions): void;
+
     registerTransformStream(stream: {} | Array<{}>): this;
     rootGeneratorName(): string;
     rootGeneratorVersion(): string;
