@@ -465,7 +465,7 @@ declare module _ {
          **/
         max<V extends Collection<any>>(
             collection: V,
-            iteratee?: Iteratee<V, number>,
+            iteratee?: Iteratee<V, any>,
             context?: any
         ): TypeOfCollection<V> | number;
 
@@ -484,7 +484,7 @@ declare module _ {
          **/
         min<V extends Collection<any>>(
             list: V,
-            iteratee?: Iteratee<V, number>,
+            iteratee?: Iteratee<V, any>,
             context?: any
         ): TypeOfCollection<V> | number;
 
@@ -4164,7 +4164,7 @@ declare module _ {
          * @returns The maximum element within the wrapped collection or
          * -Infinity if the wrapped collection is empty.
          **/
-        max(iteratee?: Iteratee<V, number>, context?: any): T | number;
+        max(iteratee?: Iteratee<V, any>, context?: any): T | number;
 
         /**
          * Returns the minimum value in the wrapped collection. If an
@@ -4179,7 +4179,7 @@ declare module _ {
          * @returns The minimum element within the wrapped collection or
          * Infinity if the wrapped collection is empty.
          **/
-        min(iteratee?: Iteratee<V, number>, context?: any): T | number;
+        min(iteratee?: Iteratee<V, any>, context?: any): T | number;
 
         /**
         * Wrapped type `any[]`.
@@ -5166,7 +5166,7 @@ declare module _ {
          * wrapped collection or around -Infinity if the wrapped collection is
          * empty.
          **/
-        max(iteratee?: _ChainIteratee<V, number, T>, context?: any): _ChainSingle<T | number>;
+        max(iteratee?: _ChainIteratee<V, any, T>, context?: any): _ChainSingle<T | number>;
 
         /**
          * Returns the minimum value in the wrapped collection. If an
@@ -5182,7 +5182,7 @@ declare module _ {
          * wrapped collection or around Infinity if the wrapped collection is
          * empty.
          **/
-        min(iteratee?: _ChainIteratee<V, number, T>, context?: any): _ChainSingle<T | number>;
+        min(iteratee?: _ChainIteratee<V, any, T>, context?: any): _ChainSingle<T | number>;
 
         /**
         * Wrapped type `any[]`.
