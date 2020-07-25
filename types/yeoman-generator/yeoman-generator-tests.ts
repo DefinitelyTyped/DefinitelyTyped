@@ -15,12 +15,12 @@ const generator = new MyES2015Generator(
     opt3: false,
     customPriorities: [
       {
-        priorityName: "build",
-        before: "writing"
+        priorityName: 'build',
+        before: 'writing'
       },
       {
-        priorityName: "cleanup",
-        before: "end"
+        priorityName: 'cleanup',
+        before: 'end'
       }
     ]
   });
@@ -41,7 +41,7 @@ const config: Storage = generator.config;
 const fs: Editor = generator.fs;
 
 // $ExpectType any
-generator._templateData("lint.ruleset");
+generator._templateData('lint.ruleset');
 
 generator.queueBasicTasks();
 generator.queueMethod(() => {});
@@ -62,8 +62,8 @@ generator.cancelCancellableTasks();
 
 generator.log('my message');
 generator.log('Hello %world', { world: 'Universe' });
-generator.log.error("Error: %s", "This is a test");
-generator.log.ok("Workspace created");
+generator.log.error('Error: %s', 'This is a test');
+generator.log.ok('Workspace created');
 
 generator.debug('test');
 
@@ -105,25 +105,25 @@ async function install() {
   generator.bowerInstall('pkg');
   generator.bowerInstall(['pkg1', 'pkg2']);
   generator.bowerInstall('pkg', {});
-  generator.bowerInstall('pkg', { 'custom-option': 3 }, { cwd: "." });
+  generator.bowerInstall('pkg', { 'custom-option': 3 }, { cwd: '.' });
 
   generator.npmInstall();
   generator.npmInstall('pkg');
   generator.npmInstall(['pkg1', 'pkg2']);
   generator.npmInstall('pkg', {});
-  generator.npmInstall('pkg', { 'custom-option': 3 }, { cwd: "." });
+  generator.npmInstall('pkg', { 'custom-option': 3 }, { cwd: '.' });
 
   generator.yarnInstall();
   generator.yarnInstall('pkg');
   generator.yarnInstall(['pkg1', 'pkg2']);
   generator.yarnInstall('pkg', {});
-  generator.yarnInstall('pkg', { 'custom-option': 3 }, { cwd: "." });
+  generator.yarnInstall('pkg', { 'custom-option': 3 }, { cwd: '.' });
 
   generator.scheduleInstallTask('installer');
   generator.scheduleInstallTask('installer', 'pkg');
   generator.scheduleInstallTask('installer', ['pkg1', 'pkg2']);
   generator.scheduleInstallTask('installer', 'pkg', {});
-  generator.scheduleInstallTask('installer', 'pkg', { 'custom-option': 3 }, { cwd: "." });
+  generator.scheduleInstallTask('installer', 'pkg', { 'custom-option': 3 }, { cwd: '.' });
 }
 
 const composed1: Base = generator.composeWith('bootstrap', { sass: true });
@@ -131,7 +131,7 @@ const composed2: Base = generator.composeWith(require.resolve('generator-bootstr
 const composed3: Base = generator.composeWith(
   {
     Generator: MyES2015Generator,
-    path: "./my-es2015-generator/lib/generators/app/index.js"
+    path: './my-es2015-generator/lib/generators/app/index.js'
   });
 // $ExpectType MyES2015Generator
 let newGenerator: Base = generator.composeWith('bootstrap', {}, false);
@@ -156,7 +156,7 @@ const githubUsername: Promise<string> = generator.user.github.username();
 
 const help: string = generator.help();
 
-generator.option('name', {});
+generator.option('name', { type: Boolean });
 generator.option('opt2', {
   description: 'a description',
   type: Boolean,
@@ -179,9 +179,9 @@ const optionsHelp: string = generator.optionsHelp();
 
 const answers: Promise<Answers> = generator.prompt([]);
 const answers2: Promise<Answers> = generator.prompt([{ store: true }]);
-const answers3: Promise<Answers> = generator.prompt([{ type: "input" }]);
-const answers4: Promise<Answers> = generator.prompt({ type: "input" });
-const answers5: Promise<Answers> = generator.prompt({ type: "input", store: false });
+const answers3: Promise<Answers> = generator.prompt([{ type: 'input' }]);
+const answers4: Promise<Answers> = generator.prompt({ type: 'input' });
+const answers5: Promise<Answers> = generator.prompt({ type: 'input', store: false });
 
 generator.registerTransformStream([]);
 
@@ -208,6 +208,6 @@ const tPath3: string = generator.templatePath(...['many', 'parts']);
 
 const usage: string = generator.usage();
 
-generator.copyDestination("LICENSE", "packages/test/LICENSE");
-generator.copyTemplate("LICENSE", "packages/test/LICENSE", {}, { AuthorName: "John Doe", Year: new Date().getFullYear() });
-generator.deleteDestination(".eslintrc.js");
+generator.copyDestination('LICENSE', 'packages/test/LICENSE');
+generator.copyTemplate('LICENSE', 'packages/test/LICENSE', {}, { AuthorName: 'John Doe', Year: new Date().getFullYear() });
+generator.deleteDestination('.eslintrc.js');
