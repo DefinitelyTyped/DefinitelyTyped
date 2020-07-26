@@ -235,7 +235,13 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      */
     getVersion(dependency: string): string;
 
-    help(name: string): string;
+    /**
+     * Outputs general help and usage for the specified `command`.
+     * Optionally, if generators have been registered, a list of available generators is displayed.
+     *
+     * @param command `The name of the command to get help for.
+     */
+    help(command?: string): string;
 
     instantiate(
         name: string,
