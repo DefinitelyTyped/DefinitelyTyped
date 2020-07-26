@@ -118,5 +118,3 @@ export interface HandleOnPressDayArg {
 export type DateChangedCallback = (date: Moment, type: 'START_DATE' | 'END_DATE') => void;
 
 export type MonthChangedCallback = (date: Moment) => void;
-
-
