@@ -100,6 +100,12 @@ declare namespace createLogger {
     };
 }
 
+/**
+ * Creates a new `Logger` instance with the specified `options`.
+ *
+ * @param options
+ * The options for creating the new logger.
+ */
 declare function createLogger<TColors extends createLogger.ColorMap<TColors> = createLogger.DefaultColorMap>(
     options: createLogger.LoggerOptions<TColors>): createLogger.Logger<TColors>;
 
