@@ -412,16 +412,6 @@ declare namespace Environment {
     }
 
     /**
-     * Provides options for the `findGeneratorsIn` method.
-     */
-    interface GeneratorsInOptions {
-        /**
-         * The package-patterns to look for.
-         */
-        packagePatterns?: string[];
-    }
-
-    /**
      * Provides options for the `getNpmPaths` method.
      */
     interface NpmPathsOptions extends LookupOptionBase {
@@ -464,6 +454,16 @@ declare namespace Environment {
          * The `deep` option to pass to `globby`.
          */
         globbyDeep?: number;
+    }
+
+    /**
+     * Provides options for the `findGeneratorsIn` method.
+     */
+    interface GeneratorsInOptions {
+        /**
+         * The package-patterns to look for.
+         */
+        packagePatterns?: string[];
     }
 
     type Callback = (err: null | Error) => void;
