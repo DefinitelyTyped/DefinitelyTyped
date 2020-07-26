@@ -1,4 +1,4 @@
-// Type definitions for yeoman-environment 2.3
+// Type definitions for yeoman-environment 2.10
 // Project: https://github.com/yeoman/environment, http://yeoman.io
 // Definitions by: c4605 <https://github.com/bolasblack>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
