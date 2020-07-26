@@ -830,9 +830,7 @@ declare module _ {
         /**
          * Merges together the values of each of the `lists` with the values at
          * the corresponding position. Useful when you have separate data
-         * sources that are coordinated through matching list indexes. If
-         * you're working with a matrix of nested lists, this can be used to
-         * transpose the matrix.
+         * sources that are coordinated through matching list indexes.
          * @param lists The lists to zip.
          * @returns The zipped version of `lists`.
          **/
@@ -4443,8 +4441,7 @@ declare module _ {
          * Merges together the values of each of the `lists` (including the
          * wrapped list) with the values at the corresponding position. Useful
          * when you have separate data sources that are coordinated through
-         * matching list indexes. If you're working with a matrix of nested
-         * lists, this can be used to transpose the matrix.
+         * matching list indexes.
          * @returns The zipped version of the wrapped list and `lists`.
          **/
         zip(...lists: List<any>[]): any[][];
@@ -5472,8 +5469,7 @@ declare module _ {
          * Merges together the values of each of the `lists` (including the
          * wrapped list) with the values at the corresponding position. Useful
          * when you have separate data sources that are coordinated through
-         * matching list indexes. If you're working with a matrix of nested
-         * lists, this can be used to transpose the matrix.
+         * matching list indexes.
          * @returns A chain wrapper around the zipped version of the wrapped
          * list and `lists`.
          **/
