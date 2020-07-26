@@ -571,7 +571,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param templates The template files to copy.
      * @param templateData The ejs data or the name of the storage-key to get the data from.
      */
-    renderTemplates(templates: Array<Generator.TemplateRenderOptions<this>>, templateData: TemplateData | string): void;
+    renderTemplates(templates: Array<Generator.TemplateRenderOptions<this>>, templateData?: TemplateData | string): void;
 
     // actions/help mixin
     argumentsHelp(): string;
