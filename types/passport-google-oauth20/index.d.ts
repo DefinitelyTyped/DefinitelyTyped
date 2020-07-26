@@ -7,9 +7,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as passport from "passport";
-import * as express from "express";
-import * as oauth2 from "passport-oauth2";
+import passport = require("passport");
+import express = require("express");
+import oauth2 = require("passport-oauth2");
 
 export type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
     oauth2._StrategyOptionsBase,
