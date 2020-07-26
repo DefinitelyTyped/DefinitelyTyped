@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import * as React from 'react';
 import { renderHook, act, cleanup } from '@testing-library/react-hooks';
+
+const { useState, createContext, useContext } = React;
 
 const useHook = (initialValue: number) => {
     const [value, setValue] = useState(initialValue);
@@ -31,6 +33,46 @@ function checkTypesWithInitialProps() {
             value: number;
             setValue: (_: number) => void;
         };
+    } = result;
+    const _unmount: () => boolean = unmount;
+    const _rerender: (_?: { value: number }) => void = rerender;
+}
+
+function checkTypesWithWrapper() {
+    const TestContext = createContext<number>(10);
+
+    const wrapper: React.FC = ({ children }) => <div>{children}</div>;
+
+    const { result, unmount, rerender } = renderHook(() => useContext(TestContext), {
+        wrapper,
+    });
+
+    // check types
+    const _result: {
+        current: number;
+    } = result;
+    const _unmount: () => boolean = unmount;
+    const _rerender: (_?: { value: number }) => void = rerender;
+}
+
+function checkTypesWithInitialPropsAndWrapper() {
+    const TestContext = createContext<number>(10);
+
+    interface WrapperProps {
+        value: number;
+    }
+
+    const wrapper: React.FC<WrapperProps> = ({ children, value }) => (
+        <TestContext.Provider value={value}>{children}</TestContext.Provider>
+    );
+
+    const { result, unmount, rerender } = renderHook(() => useContext(TestContext), {
+        wrapper,
+    });
+
+    // check types
+    const _result: {
+        current: number;
     } = result;
     const _unmount: () => boolean = unmount;
     const _rerender: (_?: { value: number }) => void = rerender;

@@ -431,7 +431,7 @@ declare module "crypto" {
     /** @deprecated since v10.0.0 */
     const DEFAULT_ENCODING: BufferEncoding;
 
-    type KeyType = 'rsa' | 'dsa' | 'ec';
+    type KeyType = 'rsa' | 'dsa' | 'ec' | 'ed25519';
     type KeyFormat = 'pem' | 'der';
 
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
@@ -443,6 +443,12 @@ declare module "crypto" {
     interface KeyPairKeyObjectResult {
         publicKey: KeyObject;
         privateKey: KeyObject;
+    }
+
+    interface ED25519KeyPairKeyObjectOptions {
+        /**
+         * No options.
+         */
     }
 
     interface ECKeyPairKeyObjectOptions {
@@ -529,6 +535,16 @@ declare module "crypto" {
         };
     }
 
+    interface ED25519KeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
+        publicKeyEncoding: {
+            type: 'pkcs1' | 'spki';
+            format: PubF;
+        };
+        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
+            type: 'sec1' | 'pkcs8';
+        };
+    }
+
     interface KeyPairSyncResult<T1 extends string | Buffer, T2 extends string | Buffer> {
         publicKey: T1;
         privateKey: T2;
@@ -552,6 +568,12 @@ declare module "crypto" {
     function generateKeyPairSync(type: 'ec', options: ECKeyPairOptions<'der', 'der'>): KeyPairSyncResult<Buffer, Buffer>;
     function generateKeyPairSync(type: 'ec', options: ECKeyPairKeyObjectOptions): KeyPairKeyObjectResult;
 
+    function generateKeyPairSync(type: 'ed25519', options: ED25519KeyPairOptions<'pem', 'pem'>): KeyPairSyncResult<string, string>;
+    function generateKeyPairSync(type: 'ed25519', options: ED25519KeyPairOptions<'pem', 'der'>): KeyPairSyncResult<string, Buffer>;
+    function generateKeyPairSync(type: 'ed25519', options: ED25519KeyPairOptions<'der', 'pem'>): KeyPairSyncResult<Buffer, string>;
+    function generateKeyPairSync(type: 'ed25519', options: ED25519KeyPairOptions<'der', 'der'>): KeyPairSyncResult<Buffer, Buffer>;
+    function generateKeyPairSync(type: 'ed25519', options: ED25519KeyPairKeyObjectOptions): KeyPairKeyObjectResult;
+
     function generateKeyPair(type: 'rsa', options: RSAKeyPairOptions<'pem', 'pem'>, callback: (err: Error | null, publicKey: string, privateKey: string) => void): void;
     function generateKeyPair(type: 'rsa', options: RSAKeyPairOptions<'pem', 'der'>, callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void): void;
     function generateKeyPair(type: 'rsa', options: RSAKeyPairOptions<'der', 'pem'>, callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void): void;
@@ -569,6 +591,12 @@ declare module "crypto" {
     function generateKeyPair(type: 'ec', options: ECKeyPairOptions<'der', 'pem'>, callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void): void;
     function generateKeyPair(type: 'ec', options: ECKeyPairOptions<'der', 'der'>, callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void): void;
     function generateKeyPair(type: 'ec', options: ECKeyPairKeyObjectOptions, callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void): void;
+
+    function generateKeyPair(type: 'ed25519', options: ED25519KeyPairOptions<'pem', 'pem'>, callback: (err: Error | null, publicKey: string, privateKey: string) => void): void;
+    function generateKeyPair(type: 'ed25519', options: ED25519KeyPairOptions<'pem', 'der'>, callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void): void;
+    function generateKeyPair(type: 'ed25519', options: ED25519KeyPairOptions<'der', 'pem'>, callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void): void;
+    function generateKeyPair(type: 'ed25519', options: ED25519KeyPairOptions<'der', 'der'>, callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void): void;
+    function generateKeyPair(type: 'ed25519', options: ED25519KeyPairKeyObjectOptions, callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void): void;
 
     namespace generateKeyPair {
         function __promisify__(type: "rsa", options: RSAKeyPairOptions<'pem', 'pem'>): Promise<{ publicKey: string, privateKey: string }>;
@@ -588,6 +616,12 @@ declare module "crypto" {
         function __promisify__(type: "ec", options: ECKeyPairOptions<'der', 'pem'>): Promise<{ publicKey: Buffer, privateKey: string }>;
         function __promisify__(type: "ec", options: ECKeyPairOptions<'der', 'der'>): Promise<{ publicKey: Buffer, privateKey: Buffer }>;
         function __promisify__(type: "ec", options: ECKeyPairKeyObjectOptions): Promise<KeyPairKeyObjectResult>;
+
+        function __promisify__(type: "ed25519", options: ED25519KeyPairOptions<'pem', 'pem'>): Promise<{ publicKey: string, privateKey: string }>;
+        function __promisify__(type: "ed25519", options: ED25519KeyPairOptions<'pem', 'der'>): Promise<{ publicKey: string, privateKey: Buffer }>;
+        function __promisify__(type: "ed25519", options: ED25519KeyPairOptions<'der', 'pem'>): Promise<{ publicKey: Buffer, privateKey: string }>;
+        function __promisify__(type: "ed25519", options: ED25519KeyPairOptions<'der', 'der'>): Promise<{ publicKey: Buffer, privateKey: Buffer }>;
+        function __promisify__(type: "ed25519", options: ED25519KeyPairKeyObjectOptions): Promise<KeyPairKeyObjectResult>;
     }
 
     /**

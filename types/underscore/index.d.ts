@@ -154,6 +154,10 @@ declare module _ {
         : TItem
         : T;
 
+    type AnyFalsy = undefined | null | false | '' | 0;
+
+    type Truthy<T> = Exclude<T, AnyFalsy>;
+
     type _ChainSingle<V> = _Chain<TypeOfCollection<V>, V>;
 
     interface Cancelable {
@@ -451,70 +455,42 @@ declare module _ {
         ): PropertyTypeOrAny<TypeOfCollection<V>, K>[];
 
         /**
-        * Returns the maximum value in list.
-        * @param list Finds the maximum value in this list.
-        * @return Maximum value in `list`.
-        **/
-        max(list: _.List<number>): number;
+         * Returns the maximum value in `collection`. If an `iteratee` is
+         * provided, it will be used on each element to generate the criterion
+         * by which the element is ranked. -Infinity is returned if list is
+         * empty. Non-numerical values returned by `iteratee` will be ignored.
+         * @param collection The collection in which to find the maximum value.
+         * @param iteratee The iteratee that provides the criterion by which
+         * each element is ranked, optional if evaluating a collection of
+         * numbers.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The maximum element within `collection` or -Infinity if
+         * `collection` is empty.
+         **/
+        max<V extends Collection<any>>(
+            collection: V,
+            iteratee?: Iteratee<V, any>,
+            context?: any
+        ): TypeOfCollection<V> | number;
 
         /**
-        * @see _.max
-        */
-        max(object: _.Dictionary<number>): number;
-
-        /**
-        * Returns the maximum value in list. If iterator is passed, it will be used on each value to generate
-        * the criterion by which the value is ranked.
-        * @param list Finds the maximum value in this list.
-        * @param iterator Compares each element in `list` to find the maximum value.
-        * @param context `this` object in `iterator`, optional.
-        * @return The maximum element within `list`.
-        **/
-        max<T>(
-            list: _.List<T>,
-            iterator?: _.ListIterator<T, any>,
-            context?: any): T;
-
-        /**
-        * @see _.max
-        */
-        max<T>(
-            list: _.Dictionary<T>,
-            iterator?: _.ObjectIterator<T, any>,
-            context?: any): T;
-
-        /**
-        * Returns the minimum value in list.
-        * @param list Finds the minimum value in this list.
-        * @return Minimum value in `list`.
-        **/
-        min(list: _.List<number>): number;
-
-        /**
-         * @see _.min
-         */
-        min(o: _.Dictionary<number>): number;
-
-        /**
-        * Returns the minimum value in list. If iterator is passed, it will be used on each value to generate
-        * the criterion by which the value is ranked.
-        * @param list Finds the minimum value in this list.
-        * @param iterator Compares each element in `list` to find the minimum value.
-        * @param context `this` object in `iterator`, optional.
-        * @return The minimum element within `list`.
-        **/
-        min<T>(
-            list: _.List<T>,
-            iterator?: _.ListIterator<T, any>,
-            context?: any): T;
-
-        /**
-        * @see _.min
-        */
-        min<T>(
-            list: _.Dictionary<T>,
-            iterator?: _.ObjectIterator<T, any>,
-            context?: any): T;
+         * Returns the minimum value in `collection`. If an `iteratee` is
+         * provided, it will be used on each element to generate the criterion
+         * by which the element is ranked. Infinity is returned if list is
+         * empty. Non-numerical values returned by `iteratee` will be ignored.
+         * @param collection The collection in which to find the minimum value.
+         * @param iteratee The iteratee that provides the criterion by which
+         * each element is ranked, optional if evaluating a collection of
+         * numbers.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The minimum element within `collection` or Infinity if
+         * `collection` is empty.
+         **/
+        min<V extends Collection<any>>(
+            list: V,
+            iteratee?: Iteratee<V, any>,
+            context?: any
+        ): TypeOfCollection<V> | number;
 
         /**
         * Returns a sorted copy of list, ranked in ascending order by the results of running each value
@@ -618,11 +594,11 @@ declare module _ {
         toArray<V extends Collection<any>>(collection: V): TypeOfCollection<V>[];
 
         /**
-        * Return the number of values in the list.
-        * @param list Count the number of values/elements in this list.
-        * @return Number of values in `list`.
-        **/
-        size<T>(list: _.Collection<T>): number;
+         * Determines the number of values in `collection`.
+         * @param collection The collection to determine the number of values for.
+         * @returns The number of values in `collection`.
+         **/
+        size(collection: Collection<any>): number;
 
         /**
          * Splits `collection` into two arrays: one whose elements all satisfy
@@ -721,12 +697,13 @@ declare module _ {
         drop: UnderscoreStatic['rest'];
 
         /**
-        * Returns a copy of the array with all falsy values removed. In JavaScript, false, null, 0, "",
-        * undefined and NaN are all falsy.
-        * @param array Array to compact.
-        * @return Copy of `array` without false values.
-        **/
-        compact<T>(array: _.List<T | null | undefined | false | "" | 0> | null | undefined): T[]
+         * Returns a copy of `list` with all falsy values removed. In
+         * JavaScript, false, null, 0, "", undefined and NaN are all falsy.
+         * @param list The list to compact.
+         * @returns An array containing the elements of `list` without falsy
+         * values.
+         **/
+        compact<V extends List<any> | null | undefined>(list: V): Truthy<TypeOfList<V>>[];
 
         /**
          * Flattens a nested array (the nesting can be to any depth). If you pass shallow, the array will
@@ -938,27 +915,29 @@ declare module _ {
         ): number;
 
         /**
-        * A function to create flexibly-numbered lists of integers, handy for each and map loops. start, if omitted,
-        * defaults to 0; step defaults to 1. Returns a list of integers from start to stop, incremented (or decremented)
-        * by step, exclusive.
-        * @param start Start here.
-        * @param stop Stop here.
-        * @param step The number to count up by each iteration, optional, default = 1.
-        * @return Array of numbers from `start` to `stop` with increments of `step`.
-        **/
-
+         * A function to create flexibly-numbered lists of integers, handy for
+         * `each` and `map` loops. Returns a list of integers from
+         * `startOrStop` (inclusive) to `stop` (exclusive), incremented
+         * (or decremented) by `step`. Note that ranges that `stop` before they
+         * `start` are considered to be zero-length instead of negative - if
+         * you'd like a negative range, use a negative `step`.
+         *
+         * If `stop` is not specified, `startOrStop` will be the number to stop
+         * at and the default start of 0 will be used.
+         * @param startOrStop If `stop` is specified, the number to start at.
+         * Otherwise, this is the number to stop at and the default start of 0
+         * will be used.
+         * @param stop The number to stop at.
+         * @param step The number to count up by each iteration, optional,
+         * default = 1.
+         * @returns An array of numbers from start to `stop` with increments
+         * of `step`.
+         **/
         range(
-            start: number,
-            stop: number,
-            step?: number): number[];
-
-        /**
-        * @see _.range
-        * @param stop Stop here.
-        * @return Array of numbers from 0 to `stop` with increments of 1.
-        * @note If start is not specified the implementation will never pull the step (step = arguments[2] || 0)
-        **/
-        range(stop: number): number[];
+            startOrStop: number,
+            stop?: number,
+            step?: number
+        ): number[];
 
         /**
          * Chunks a list into multiple arrays, each containing length or fewer items.
@@ -4180,40 +4159,34 @@ declare module _ {
         ): PropertyTypeOrAny<T, K>[];
 
         /**
-        * Wrapped type `number[]`.
-        * @see _.max
-        **/
-        max(): number;
+         * Returns the maximum value in the wrapped collection. If an
+         * `iteratee` is provided, it will be used on each element to generate
+         * the criterion by which the element is ranked. -Infinity is returned
+         * if list is empty. Non-numerical values returned by `iteratee` will
+         * be ignored.
+         * @param iteratee The iteratee that provides the criterion by which
+         * each element is ranked, optional if evaluating a collection of
+         * numbers.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The maximum element within the wrapped collection or
+         * -Infinity if the wrapped collection is empty.
+         **/
+        max(iteratee?: Iteratee<V, any>, context?: any): T | number;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.max
-        **/
-        max(iterator: _.ListIterator<T, number>, context?: any): T;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.max
-        **/
-        max(iterator?: _.ListIterator<T, any>, context?: any): T;
-
-        /**
-        * Wrapped type `number[]`.
-        * @see _.min
-        **/
-        min(): number;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.min
-        **/
-        min(iterator: _.ListIterator<T, number>, context?: any): T;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.min
-        **/
-        min(iterator?: _.ListIterator<T, any>, context?: any): T;
+         * Returns the minimum value in the wrapped collection. If an
+         * `iteratee` is provided, it will be used on each element to generate
+         * the criterion by which the element is ranked. Infinity is returned
+         * if list is empty. Non-numerical values returned by `iteratee` will
+         * be ignored.
+         * @param iteratee The iteratee that provides the criterion by which
+         * each element is ranked, optional if evaluating a collection of
+         * numbers.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The minimum element within the wrapped collection or
+         * Infinity if the wrapped collection is empty.
+         **/
+        min(iteratee?: Iteratee<V, any>, context?: any): T | number;
 
         /**
         * Wrapped type `any[]`.
@@ -4282,9 +4255,9 @@ declare module _ {
         toArray(): T[];
 
         /**
-        * Wrapped type `any`.
-        * @see _.size
-        **/
+         * Determines the number of values in the wrapped collection.
+         * @returns The number of values in the wrapped collection.
+         **/
         size(): number;
 
         /**
@@ -4366,10 +4339,12 @@ declare module _ {
         drop: Underscore<T, V>['rest'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.compact
-        **/
-        compact(): T[];
+         * Returns a copy of the wrapped list with all falsy values removed. In
+         * JavaScript, false, null, 0, "", undefined and NaN are all falsy.
+         * @returns An array containing the elements of the wrapped list without
+         * falsy values.
+         **/
+        compact(): Truthy<T>[];
 
         /**
          * Flattens the wrapped nested list (the nesting can be to any depth). If you pass shallow, the list will
@@ -4496,16 +4471,22 @@ declare module _ {
         sortedIndex(value: T, iteratee?: Iteratee<V, any>, context?: any): number;
 
         /**
-        * Wrapped type `number`.
-        * @see _.range
-        **/
-        range(stop: number, step?: number): number[];
-
-        /**
-        * Wrapped type `number`.
-        * @see _.range
-        **/
-        range(): number[];
+         * A function to create flexibly-numbered lists of integers, handy for
+         * `each` and `map` loops. Returns a list of integers from
+         * the wrapped value (inclusive) to `stop` (exclusive), incremented
+         * (or decremented) by `step`. Note that ranges that `stop` before they
+         * `start` are considered to be zero-length instead of negative - if
+         * you'd like a negative range, use a negative `step`.
+         *
+         * If `stop` is not specified, the wrapped value will be the number to
+         * stop at and the default start of 0 will be used.
+         * @param stop The number to stop at.
+         * @param step The number to count up by each iteration, optional,
+         * default = 1.
+         * @returns An array of numbers from start to `stop` with increments
+         * of `step`.
+         **/
+        range(stop?: number, step?: number): number[];
 
         /**
          * Chunks a wrapped list into multiple arrays, each containing length or fewer items.
@@ -5187,40 +5168,36 @@ declare module _ {
         ): _Chain<PropertyTypeOrAny<T, K>, PropertyTypeOrAny<T, K>[]>;
 
         /**
-        * Wrapped type `number[]`.
-        * @see _.max
-        **/
-        max(): _ChainSingle<T>;
+         * Returns the maximum value in the wrapped collection. If an
+         * `iteratee` is provided, it will be used on each element to generate
+         * the criterion by which the element is ranked. -Infinity is returned
+         * if list is empty. Non-numerical values returned by `iteratee` will
+         * be ignored.
+         * @param iteratee The iteratee that provides the criterion by which
+         * each element is ranked, optional if evaluating a collection of
+         * numbers.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A chain wrapper around the maximum element within the
+         * wrapped collection or around -Infinity if the wrapped collection is
+         * empty.
+         **/
+        max(iteratee?: _ChainIteratee<V, any, T>, context?: any): _ChainSingle<T | number>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.max
-        **/
-        max(iterator: _.ListIterator<T, number>, context?: any): _ChainSingle<T>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.max
-        **/
-        max(iterator?: _.ListIterator<T, any>, context?: any): _ChainSingle<T>;
-
-        /**
-        * Wrapped type `number[]`.
-        * @see _.min
-        **/
-        min(): _ChainSingle<T>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.min
-        **/
-        min(iterator: _.ListIterator<T, number>, context?: any): _ChainSingle<T>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.min
-        **/
-        min(iterator?: _.ListIterator<T, any>, context?: any): _ChainSingle<T>;
+         * Returns the minimum value in the wrapped collection. If an
+         * `iteratee` is provided, it will be used on each element to generate
+         * the criterion by which the element is ranked. Infinity is returned
+         * if list is empty. Non-numerical values returned by `iteratee` will
+         * be ignored.
+         * @param iteratee The iteratee that provides the criterion by which
+         * each element is ranked, optional if evaluating a collection of
+         * numbers.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A chain wrapper around the minimum element within the
+         * wrapped collection or around Infinity if the wrapped collection is
+         * empty.
+         **/
+        min(iteratee?: _ChainIteratee<V, any, T>, context?: any): _ChainSingle<T | number>;
 
         /**
         * Wrapped type `any[]`.
@@ -5292,9 +5269,10 @@ declare module _ {
         toArray(): _Chain<T, T[]>;
 
         /**
-        * Wrapped type `any`.
-        * @see _.size
-        **/
+         * Determines the number of values in the wrapped collection.
+         * @returns A chain wrapper around the number of values in the wrapped
+         * collection.
+         **/
         size(): _ChainSingle<number>;
 
         /**
@@ -5377,10 +5355,12 @@ declare module _ {
         drop: _Chain<T, V>['rest'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.compact
-        **/
-        compact(): _Chain<T>;
+         * Returns a copy of the wrapped list with all falsy values removed. In
+         * JavaScript, false, null, 0, "", undefined and NaN are all falsy.
+         * @returns A chain wrapper around an array containing the elements of
+         * the wrapped list without falsy values.
+         **/
+        compact(): _Chain<Truthy<T>, Truthy<T>[]>;
 
         /**
          * Flattens the wrapped nested list (the nesting can be to any depth). If you pass shallow, the list will
@@ -5508,16 +5488,22 @@ declare module _ {
         sortedIndex(value: T, iteratee?: _ChainIteratee<V, any, T>, context?: any): _ChainSingle<number>;
 
         /**
-        * Wrapped type `number`.
-        * @see _.range
-        **/
-        range(stop: number, step?: number): _Chain<T>;
-
-        /**
-        * Wrapped type `number`.
-        * @see _.range
-        **/
-        range(): _Chain<T>;
+         * A function to create flexibly-numbered lists of integers, handy for
+         * `each` and `map` loops. Returns a list of integers from
+         * the wrapped value (inclusive) to `stop` (exclusive), incremented
+         * (or decremented) by `step`. Note that ranges that `stop` before they
+         * `start` are considered to be zero-length instead of negative - if
+         * you'd like a negative range, use a negative `step`.
+         *
+         * If `stop` is not specified, the wrapped value will be the number to
+         * stop at and the default start of 0 will be used.
+         * @param stop The number to stop at.
+         * @param step The number to count up by each iteration, optional,
+         * default = 1.
+         * @returns A chain wrapper around an array of numbers from start to
+         * `stop` with increments of `step`.
+         **/
+        range(stop?: number, step?: number): _Chain<number, number[]>;
 
         /**
          * Chunks a wrapped list into multiple arrays, each containing length or fewer items.

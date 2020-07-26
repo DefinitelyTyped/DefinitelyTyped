@@ -517,6 +517,19 @@ _.chain([
     .sample()
     .value();
 
+// $ExpectType number[]
+_.chain([1, 2, 3, 4, 5, 6])
+    .sample()
+    .range(10)
+    .value();
+
+// $ExpectType [number[], number[]]
+_.chain([[1, 2, 3], [4, undefined, 5], [undefined, undefined, 6]])
+    .flatten()
+    .compact()
+    .partition(n => n > 3)
+    .value();
+
 // verify that partial objects can be provided without error to where and findWhere for a union type collection
 // where no types in the union share the same property names
 declare const nonIntersectinglTypeUnion: _.Dictionary<{ one: string; } | { two: number; }>;
@@ -628,6 +641,19 @@ type NonIntersectingProperties = StringRecord | NonIntersectingStringRecord;
 const nonIntersectingPropertiesList: _.List<NonIntersectingProperties> = { 0: { a: 'a', b: 'c' }, 1: { onlyNonIntersectingStringRecord: 'b' }, length: 2 };
 declare const level2NonIntersectingPropertiesList: _.List<_.List<NonIntersectingProperties>>;
 
+interface NumberRecord {
+    a: number;
+}
+
+declare const numberRecordList: _.List<NumberRecord>;
+declare const numberRecordListValueIterator: (value: NumberRecord, index: number, collection: _.List<NumberRecord>) => number;
+
+declare const numberRecordDictionary: _.Dictionary<NumberRecord>;
+declare const numberRecordDictionaryValueIterator: (element: NumberRecord, key: string, collection: _.Dictionary<NumberRecord>) => number;
+
+const numberList: _.List<number> = { 0: 0, 1: 1, length: 2 };
+const numberDictionary: _.Dictionary<number> = { a: 0, b: 1 };
+
 const simpleString = 'abc';
 
 const simpleStringArray: string[] = ['a', 'c'];
@@ -653,6 +679,10 @@ declare const neverValue: never;
 declare const maybeFunction: (() => void) | undefined;
 declare const maybeStringArray: string[] | undefined;
 declare const stringy: StringRecord | string;
+
+type Truthies = string | number | boolean | object | Function | StringRecord | (() => void);
+declare const truthyFalsyList: _.List<Truthies | _.AnyFalsy>;
+declare const maybeTruthyFalsyList: _.List<Truthies | _.AnyFalsy> | null | undefined;
 
 // avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
 // the types under test need to be refactored
@@ -1746,6 +1776,104 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _.pluck(anyValue, stringRecordProperty); // $ExpectType any[]
 }
 
+// max
+{
+    // function iterator - lists
+    _.max(numberRecordList, numberRecordListValueIterator); // $ExpectType number | NumberRecord
+    _.max(numberRecordList, numberRecordListValueIterator, context); // $ExpectType number | NumberRecord
+    _(numberRecordList).max(numberRecordListValueIterator); // $ExpectType number | NumberRecord
+    _(numberRecordList).max(numberRecordListValueIterator, context); // $ExpectType number | NumberRecord
+    extractChainTypes(_.chain(numberRecordList).max(numberRecordListValueIterator)); // $ExpectType ChainType<number | NumberRecord, never>
+    extractChainTypes(_.chain(numberRecordList).max(numberRecordListValueIterator, context)); // $ExpectType ChainType<number | NumberRecord, never>
+
+    // function iterator - dictionaries
+    _.max(numberRecordDictionary, numberRecordDictionaryValueIterator); // $ExpectType number | NumberRecord
+    _.max(numberRecordDictionary, numberRecordDictionaryValueIterator, context); // $ExpectType number | NumberRecord
+    _(numberRecordDictionary).max(numberRecordDictionaryValueIterator); // $ExpectType number | NumberRecord
+    _(numberRecordDictionary).max(numberRecordDictionaryValueIterator, context); // $ExpectType number | NumberRecord
+    extractChainTypes(_.chain(numberRecordDictionary).max(numberRecordDictionaryValueIterator)); // $ExpectType ChainType<number | NumberRecord, never>
+    extractChainTypes(_.chain(numberRecordDictionary).max(numberRecordDictionaryValueIterator, context)); // $ExpectType ChainType<number | NumberRecord, never>
+
+    // property name iterator - lists
+    _.max(numberRecordList, stringRecordProperty); // $ExpectType number | NumberRecord
+    _(numberRecordList).max(stringRecordProperty); // $ExpectType number | NumberRecord
+    extractChainTypes(_.chain(numberRecordList).max(stringRecordProperty)); // $ExpectType ChainType<number | NumberRecord, never>
+
+    // property name iterator - dictionaries
+    _.max(numberRecordDictionary, stringRecordProperty); // $ExpectType number | NumberRecord
+    _(numberRecordDictionary).max(stringRecordProperty); // $ExpectType number | NumberRecord
+    extractChainTypes(_.chain(numberRecordDictionary).max(stringRecordProperty)); // $ExpectType ChainType<number | NumberRecord, never>
+
+    // property path iterator - lists
+    _.max(numberRecordList, stringRecordPropertyPath); // $ExpectType number | NumberRecord
+    _(numberRecordList).max(stringRecordPropertyPath); // $ExpectType number | NumberRecord
+    extractChainTypes(_.chain(numberRecordList).max(stringRecordPropertyPath)); // $ExpectType ChainType<number | NumberRecord, never>
+
+    // property path iterator - dictionaries
+    _.max(numberRecordDictionary, stringRecordPropertyPath); // $ExpectType number | NumberRecord
+    _(numberRecordDictionary).max(stringRecordPropertyPath); // $ExpectType number | NumberRecord
+    extractChainTypes(_.chain(numberRecordDictionary).max(stringRecordPropertyPath)); // $ExpectType ChainType<number | NumberRecord, never>
+
+    // identity iterator - lists
+    _.max(numberList); // $ExpectType number
+    _(numberList).max(); // $ExpectType number
+    extractChainTypes(_.chain(numberList).max()); // $ExpectType ChainType<number, never>
+
+    // identity iterator - dictionaries
+    _.max(numberDictionary); // $ExpectType number
+    _(numberDictionary).max(); // $ExpectType number
+    extractChainTypes(_.chain(numberDictionary).max()); // $ExpectType ChainType<number, never>
+}
+
+// min
+{
+    // function iterator - lists
+    _.min(numberRecordList, numberRecordListValueIterator); // $ExpectType number | NumberRecord
+    _.min(numberRecordList, numberRecordListValueIterator, context); // $ExpectType number | NumberRecord
+    _(numberRecordList).min(numberRecordListValueIterator); // $ExpectType number | NumberRecord
+    _(numberRecordList).min(numberRecordListValueIterator, context); // $ExpectType number | NumberRecord
+    extractChainTypes(_.chain(numberRecordList).min(numberRecordListValueIterator)); // $ExpectType ChainType<number | NumberRecord, never>
+    extractChainTypes(_.chain(numberRecordList).min(numberRecordListValueIterator, context)); // $ExpectType ChainType<number | NumberRecord, never>
+
+    // function iterator - dictionaries
+    _.min(numberRecordDictionary, numberRecordDictionaryValueIterator); // $ExpectType number | NumberRecord
+    _.min(numberRecordDictionary, numberRecordDictionaryValueIterator, context); // $ExpectType number | NumberRecord
+    _(numberRecordDictionary).min(numberRecordDictionaryValueIterator); // $ExpectType number | NumberRecord
+    _(numberRecordDictionary).min(numberRecordDictionaryValueIterator, context); // $ExpectType number | NumberRecord
+    extractChainTypes(_.chain(numberRecordDictionary).min(numberRecordDictionaryValueIterator)); // $ExpectType ChainType<number | NumberRecord, never>
+    extractChainTypes(_.chain(numberRecordDictionary).min(numberRecordDictionaryValueIterator, context)); // $ExpectType ChainType<number | NumberRecord, never>
+
+    // property name iterator - lists
+    _.min(numberRecordList, stringRecordProperty); // $ExpectType number | NumberRecord
+    _(numberRecordList).min(stringRecordProperty); // $ExpectType number | NumberRecord
+    extractChainTypes(_.chain(numberRecordList).min(stringRecordProperty)); // $ExpectType ChainType<number | NumberRecord, never>
+
+    // property name iterator - dictionaries
+    _.min(numberRecordDictionary, stringRecordProperty); // $ExpectType number | NumberRecord
+    _(numberRecordDictionary).min(stringRecordProperty); // $ExpectType number | NumberRecord
+    extractChainTypes(_.chain(numberRecordDictionary).min(stringRecordProperty)); // $ExpectType ChainType<number | NumberRecord, never>
+
+    // property path iterator - lists
+    _.min(numberRecordList, stringRecordPropertyPath); // $ExpectType number | NumberRecord
+    _(numberRecordList).min(stringRecordPropertyPath); // $ExpectType number | NumberRecord
+    extractChainTypes(_.chain(numberRecordList).min(stringRecordPropertyPath)); // $ExpectType ChainType<number | NumberRecord, never>
+
+    // property path iterator - dictionaries
+    _.min(numberRecordDictionary, stringRecordPropertyPath); // $ExpectType number | NumberRecord
+    _(numberRecordDictionary).min(stringRecordPropertyPath); // $ExpectType number | NumberRecord
+    extractChainTypes(_.chain(numberRecordDictionary).min(stringRecordPropertyPath)); // $ExpectType ChainType<number | NumberRecord, never>
+
+    // identity iterator - lists
+    _.min(numberList); // $ExpectType number
+    _(numberList).min(); // $ExpectType number
+    extractChainTypes(_.chain(numberList).min()); // $ExpectType ChainType<number, never>
+
+    // identity iterator - dictionaries
+    _.min(numberDictionary); // $ExpectType number
+    _(numberDictionary).min(); // $ExpectType number
+    extractChainTypes(_.chain(numberDictionary).min()); // $ExpectType ChainType<number, never>
+}
+
 // groupBy
 {
     // function iteratee - lists
@@ -1846,6 +1974,24 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _.toArray(simpleString); // $ExpectType string[]
     _(simpleString).toArray(); // $ExpectType string[]
     extractChainTypes(_.chain(simpleString).toArray()); // $ExpectType ChainType<string[], string>
+}
+
+// size
+{
+    // lists
+    _.size(stringRecordList); // $ExpectType number
+    _(stringRecordList).size(); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).size()); // $ExpectType ChainType<number, never>
+
+    // dictionaries
+    _.size(stringRecordDictionary); // $ExpectType number
+    _(stringRecordDictionary).size(); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordDictionary).size()); // $ExpectType ChainType<number, never>
+
+    // strings
+    _.size(simpleString); // $ExpectType number
+    _(simpleString).size(); // $ExpectType number
+    extractChainTypes(_.chain(simpleString).size()); // $ExpectType ChainType<number, never>
 }
 
 // partition
@@ -1987,6 +2133,19 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _.drop(stringRecordList, simpleNumber); // $ExpectType StringRecord[]
     _(stringRecordList).drop(simpleNumber); // $ExpectType StringRecord[]
     extractChainTypes(_.chain(stringRecordList).drop(simpleNumber)); // $ExpectType ChainType<StringRecord[], StringRecord>
+}
+
+// compact
+{
+    // lists
+    _.compact(truthyFalsyList); // $ExpectType (string | number | true | object | Function | StringRecord | (() => void))[]
+    _(truthyFalsyList).compact(); // $ExpectType (string | number | true | object | Function | StringRecord | (() => void))[]
+    extractChainTypes(_.chain(truthyFalsyList).compact()); // $ExpectType ChainType<(string | number | true | object | Function | StringRecord | (() => void))[], string | number | true | object | Function | StringRecord | (() => void)>
+
+    // maybe lists
+    _.compact(maybeTruthyFalsyList); // $ExpectType (string | number | true | object | Function | StringRecord | (() => void))[]
+    _(maybeTruthyFalsyList).compact(); // $ExpectType (string | number | true | object | Function | StringRecord | (() => void))[]
+    extractChainTypes(_.chain(maybeTruthyFalsyList).compact()); // $ExpectType ChainType<(string | number | true | object | Function | StringRecord | (() => void))[], string | number | true | object | Function | StringRecord | (() => void)>
 }
 
 // flatten
@@ -2246,6 +2405,29 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _([{a: 'a'}, {a: 'b'}]).findLastIndex({ a: 'b' }); // $ExpectType number
     _.chain([1, 2, 3, 1, 2, 3]).findLastIndex(num => num % 2 === 0).value(); // $ExpectType number
     _.chain([{a: 'a'}, {a: 'b'}]).findLastIndex({ a: 'b' }).value(); // $ExpectType number
+}
+
+// range
+{
+    // only stop
+    _.range(simpleNumber); // $ExpectType number[]
+    _(simpleNumber).range(); // $ExpectType number[]
+    extractChainTypes(_.chain(simpleNumber).range()); // $ExpectType ChainType<number[], number>
+
+    // start and stop
+    _.range(simpleNumber, simpleNumber); // $ExpectType number[]
+    _(simpleNumber).range(simpleNumber); // $ExpectType number[]
+    extractChainTypes(_.chain(simpleNumber).range(simpleNumber)); // $ExpectType ChainType<number[], number>
+
+    // stop and step
+    _.range(simpleNumber, undefined, simpleNumber); // $ExpectType number[]
+    _(simpleNumber).range(undefined, simpleNumber); // $ExpectType number[]
+    extractChainTypes(_.chain(simpleNumber).range(undefined, simpleNumber)); // $ExpectType ChainType<number[], number>
+
+    // start, stop, and step
+    _.range(simpleNumber, simpleNumber, simpleNumber); // $ExpectType number[]
+    _(simpleNumber).range(simpleNumber, simpleNumber); // $ExpectType number[]
+    extractChainTypes(_.chain(simpleNumber).range(simpleNumber, simpleNumber)); // $ExpectType ChainType<number[], number>
 }
 
 // Objects

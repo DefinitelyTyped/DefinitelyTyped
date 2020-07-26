@@ -23,7 +23,6 @@
 //                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Nicolas Even <https://github.com/n-e>
-//                 Nicolas Voigt <https://github.com/octo-sniffle>
 //                 Nikita Galkin <https://github.com/galkin>
 //                 Parambir Singh <https://github.com/parambirs>
 //                 Sebastian Silbermann <https://github.com/eps1lon>

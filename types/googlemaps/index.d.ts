@@ -15,6 +15,7 @@
 //                 Simon Haenisch <https://github.com/simonhaenisch>
 //                 Gavin Nitta <https://github.com/gshigeto>
 //                 Bat-Orshikh Baavgaikhuu <https://github.com/Bat-Orshikh>
+//                 Justin Poehnelt <https://github.com/jpoehnelt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 3.0
