@@ -469,7 +469,28 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     registerTransformStream(stream: Transform | Array<Transform>): this;
     rootGeneratorName(): string;
     rootGeneratorVersion(): string;
-    run(cb?: Generator.Callback): this;
+
+    /**
+     * Runs the generator, scheduling prototype methods on a run queue.
+     * Method names will determine the order each method is run.
+     * Methods without special names will run in default queue.
+     *
+     * Any method named `constructor` and any methods prefixed by a `_` won't be scheduled.
+     */
+    run(): Promise<void>;
+
+    /**
+     * Runs the generator, scheduling prototype methods on a run queue.
+     * Method names will determine the order each method is run.
+     * Methods without special names will run in default queue.
+     *
+     * Any method named `constructor` and any methods prefixed by a `_` won't be scheduled.
+     *
+     * @param cb The callback.
+     * @deprecated
+     */
+    run(cb: Generator.Callback): Promise<void>;
+
     sourceRoot(rootPath?: string): string;
     templatePath(...path: string[]): string;
 
