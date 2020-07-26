@@ -261,8 +261,23 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
         options: Environment.InstantiateOptions
     ): Generator;
 
-    lookup(cb?: (err: null | Error) => void): void;
-
+    /**
+     * Searches for generators and their sub-generators.
+     *
+     * A generator is a `:lookup/:name/index.js` file placed inside an npm package.
+     *
+     * Default lookups are:
+     *   - `./`
+     *   - `./generators/`
+     *   - `./lib/generators/`
+     *
+     * So the index file `node_modules/generator-dummy/lib/generators/yo/index.js` would be registered as `dummy:yo` generator.
+     *
+     * @param options The options for the lookup.
+     * @param cb A callback that is called once the lookup has been finished.
+     * @returns A list of generators.
+     */
+    lookup(options?: Environment.LookupOptions, cb?: (err: null | Error) => void): Environment.LookupGeneratorMeta[];
     namespace(filepath: string): string;
 
     namespaces(): string[];
@@ -273,12 +288,12 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
 
     resolveModulePath(moduleId: string): string;
 
-    run(done: Environment.RunDone): void;
-    run(args: string | string[], done: Environment.RunDone): void;
+    run(done: Environment.Callback): void;
+    run(args: string | string[], done: Environment.Callback): void;
     run(
         args: string | string[],
         options: object,
-        done: Environment.RunDone
+        done: Environment.Callback
     ): void;
 
     private _tryRegistering(generatorReference: string): void;
@@ -339,6 +354,16 @@ declare namespace Environment {
     }
 
     /**
+     * Provides information about a generator.
+     */
+    interface LookupGeneratorMeta extends GeneratorMeta {
+        /**
+         * A value indicating whether the generator could be registered.
+         */
+        registered: boolean;
+    }
+
+    /**
      * Provides options for instantiating a generator.
      */
     interface InstantiateOptions<TOptions extends Generator.GeneratorOptions = Generator.GeneratorOptions> {
@@ -356,7 +381,7 @@ declare namespace Environment {
     /**
      * Provides options for lookups.
      */
-    interface LookupOptions {
+    interface LookupOptionBase {
         /**
          * A value indicating whether globally installed packages should be ignored.
          */
@@ -366,7 +391,7 @@ declare namespace Environment {
     /**
      * Provides options for generator-lookups.
      */
-    interface GeneratorLookupOptions extends LookupOptions {
+    interface GeneratorLookupOptions extends LookupOptionBase {
         /**
          * A value indicating whether the path to the package should be returned instead of the path to the generator.
          */
@@ -391,14 +416,49 @@ declare namespace Environment {
     /**
      * Provides options for the `getNpmPaths` method.
      */
-    interface NpmPathsOptions extends LookupOptions {
+    interface NpmPathsOptions extends LookupOptionBase {
         /**
          * A value indicating whether paths which don't end with a supported directory-name should be filtered (unless they are part of `NODE_PATH`).
          */
         filterPaths: boolean;
     }
 
-    type RunDone = (err: null | Error) => void;
+    /**
+     * Provides options for the `lookup` method.
+     */
+    interface LookupOptions extends LookupOptionBase {
+        /**
+         * The paths to look for generators.
+         */
+        packagePaths?: string[];
+
+        /**
+         * The repüository paths to look for generator packages.
+         */
+        npmPaths?: string[];
+
+        /**
+         * The file-patterns to look for.
+         */
+        filePatterns?: string[];
+
+        /**
+         * The package patterns to look for.
+         */
+        packagePatterns?: string[];
+
+        /**
+         * A value indicating whether the lookup should be stopped after finding the first result.
+         */
+        singleResult?: boolean;
+
+        /**
+         * The `deep` option to pass to `globby`.
+         */
+        globbyDeep?: number;
+    }
+
+    type Callback = (err: null | Error) => void;
 }
 
 export = Environment;
