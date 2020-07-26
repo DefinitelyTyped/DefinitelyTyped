@@ -494,6 +494,13 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     sourceRoot(rootPath?: string): string;
     templatePath(...path: string[]): string;
 
+    /**
+     * Starts the generator again.
+     *
+     * @param The options to assign.
+     */
+    startOver(options?: T): void;
+
     // actions/fs mixin
     /**
      * Copy file from destination folder to another destination folder.
