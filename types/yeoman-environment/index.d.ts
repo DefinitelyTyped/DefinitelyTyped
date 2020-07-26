@@ -167,9 +167,25 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      */
     findGeneratorsIn(list: string[], options?: Environment.GeneratorsInOptions): string[];
 
-    get(namespace: string): Generator | null;
+    /**
+     * Gets a single constructor of a generator from the registered list of generators.
+     *
+     * The lookup is based on generator's namespace, "walking up" the namespaces until a matching is found.
+     * Eg. if an `angular:common` namespace is registered, and we try to get `angular:common:all`,
+     * then we get `angular:common` as a fallback (unless an `angular:common:all` generator is registered).
+     *
+     * @param namespaceOrPath The namespace of the generator or the path to a generator.
+     * @returns The constructor of the generator registered under the namespace.
+     */
+    get(namespaceOrPath: string): typeof Generator | undefined;
 
-    getByPath(path: string): Generator | null;
+    /**
+     * Gets a constructor of a generator by the path instead of the namespace.
+     *
+     * @param path The path to the generator.
+     * @returns The constructor of the generator found at the location.
+     */
+    getByPath(path: string): typeof Generator | undefined;
 
     getGeneratorNames(): string[];
 
