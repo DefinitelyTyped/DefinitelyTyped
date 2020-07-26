@@ -8,6 +8,7 @@ import { EventEmitter } from "events";
 import { Store as MemFsStore } from "mem-fs";
 import * as inquirer from "inquirer";
 import * as Generator from "yeoman-generator";
+import Storage = require("yeoman-generator/lib/util/storage");
 
 declare class Environment<
     O extends Environment.Options = Environment.Options
@@ -28,7 +29,7 @@ declare class Environment<
 
     cwd: string;
 
-    store: Generator.Storage;
+    store: Storage;
 
     sharedFs: MemFsStore;
 
@@ -75,7 +76,7 @@ declare class Environment<
 
     register(name: string, namespace?: string): string;
 
-    registerStub(generator: typeof Generator, namespace: string): this;
+    registerStub(generator: Generator.GeneratorConstructor, namespace: string): this;
 
     resolveModulePath(moduleId: string): string;
 
