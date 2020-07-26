@@ -288,6 +288,36 @@ declare namespace Generator {
          */
         taskName: string;
     }
+
+    /**
+     * Provides settings for rendering a template.
+     */
+    interface TemplateRenderOptions<T extends Generator<any>> {
+        /**
+         * A method for determining whether the template should be rendered.
+         */
+        when?: (templateData: TemplateData, generator: T) => boolean;
+
+        /**
+         * The template file, absolute or relative to `templatePath()`.
+         */
+        source: string | string[];
+
+        /**
+         * The destination, absolute or relative to `destinationPath()`.
+         */
+        destination?: string | string[];
+
+        /**
+         * The `ejs` options.
+         */
+        templateOptions?: TemplateOptions;
+
+        /**
+         * The `mem-fs-editor` copy-options.
+         */
+        copyOptions?: CopyOptions;
+    }
 }
 
 declare class Generator<T extends Generator.GeneratorOptions = Generator.GeneratorOptions> extends EventEmitter {
@@ -529,11 +559,19 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      *
      * @param source The template file, absolute or relative to `templatePath()`.
      * @param destination The destination, absolute or relative to `destinationPath()`.
-     * @param templateData The `ejs`-data.
+     * @param templateData The `ejs`-data or the name of the storage-key to get the data from.
      * @param templateOptions The `ejs`-options.
      * @param copyOptions The `mem-fs-editor` copy options.
      */
-    renderTemplate(source: string | string[], destination?: string | string[], templateData?: TemplateData, templateOptions?: TemplateOptions, copyOptions?: CopyOptions): void;
+    renderTemplate(source: string | string[], destination?: string | string[], templateData?: TemplateData | string, templateOptions?: TemplateOptions | string, copyOptions?: CopyOptions): void;
+
+    /**
+     * Copies templates from the `templates` folder to the destination.
+     *
+     * @param templates The template files to copy.
+     * @param templateData The ejs data or the name of the storage-key to get the data from.
+     */
+    renderTemplates(templates: Array<Generator.TemplateRenderOptions<this>>, templateData: TemplateData | string): void;
 
     // actions/help mixin
     argumentsHelp(): string;

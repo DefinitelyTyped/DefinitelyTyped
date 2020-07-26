@@ -183,6 +183,7 @@ const answers3: Promise<Answers> = generator.prompt([{ type: 'input' }]);
 const answers4: Promise<Answers> = generator.prompt({ type: 'input' });
 const answers5: Promise<Answers> = generator.prompt({ type: 'input', store: false });
 
+generator.registerConfigPrompts([{ storage: generator.config, exportOption: true, type: "input" }]);
 generator.registerTransformStream([]);
 
 const rootGeneratorName: string = generator.rootGeneratorName();
@@ -211,3 +212,12 @@ const usage: string = generator.usage();
 generator.copyDestination('LICENSE', 'packages/test/LICENSE');
 generator.copyTemplate('LICENSE', 'packages/test/LICENSE', {}, { AuthorName: 'John Doe', Year: new Date().getFullYear() });
 generator.deleteDestination('.eslintrc.js');
+generator.readDestination("README.md");
+generator.renderTemplate('package.json', 'package.json', 'package');
+generator.renderTemplates(
+  [
+    {
+      source: 'LICENSE'
+    }
+  ],
+  {});
