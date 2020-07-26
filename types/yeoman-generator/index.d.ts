@@ -55,7 +55,7 @@ declare namespace Generator {
         /**
          * Gets or sets a collection of custom priorities.
          */
-        customPriorities?: Array<Priority>;
+        customPriorities?: Priority[];
     }
 
     type Callback = (err: any) => void;
@@ -79,7 +79,7 @@ declare namespace Generator {
          * A value indicating whether an option should be exported for this question.
          */
         exportOption?: boolean | object;
-    }
+    };
 
     /**
      * Represents an answer-hash.
@@ -467,7 +467,10 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @returns
      * Either returns this generator or the newly created generator.
      */
-    composeWith<T extends true | false = true>(generators: Array<Generator.CompositionOptions | string> | Generator.CompositionOptions | string, options?: Generator.GeneratorOptions, returnNewGenerator?: T): T extends true ? Generator : this;
+    composeWith<T extends true | false = true>(
+        generators: Array<Generator.CompositionOptions | string> | Generator.CompositionOptions | string,
+        options?: Generator.GeneratorOptions,
+        returnNewGenerator?: T): T extends true ? Generator : this;
 
     /**
      * Creates a new storage.
@@ -523,7 +526,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     /**
      * Prompt user to answer questions.
      */
-    prompt: typeof prompt;
+    prompt<T>(questions: Generator.Questions<T>): Promise<T>;
 
     /**
      * Queues the basic tasks of the generator.
@@ -538,7 +541,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param queueName The name of the queue to schedule on.
      * @param reject A callback for handling rejections.
      */
-    queueMethod(method: (...args: any[]) => any | Record<string, (...args: any[]) => any>, methodName?: string, queueName?: string, reject?: Generator.Callback): void;
+    queueMethod(method: ((...args: any[]) => any) | Record<string, (...args: any[]) => any>, methodName?: string, queueName?: string, reject?: Generator.Callback): void;
 
     /**
      * Schedules a task on a run queue.
@@ -568,7 +571,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      *
      * @param stream An array of transform streams or a single one.
      */
-    registerTransformStream(stream: Transform | Array<Transform>): this;
+    registerTransformStream(stream: Transform | Transform[]): this;
 
     /**
      * Determines the root generator name (the one who's extending this generator).
@@ -599,6 +602,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param cb The callback.
      * @deprecated
      */
+    // tslint:disable-next-line:unified-signatures
     run(cb: Generator.Callback): Promise<void>;
 
     /**

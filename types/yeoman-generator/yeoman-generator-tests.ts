@@ -92,7 +92,6 @@ generator.argument('arg4', {
 });
 
 const argsHelp = generator.argumentsHelp();
-generator.async();
 
 async function install() {
   generator.installDependencies();
