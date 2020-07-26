@@ -191,7 +191,12 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
 
     getGeneratorsMeta(): { [namespace: string]: Environment.GeneratorMeta };
 
-    getNpmPaths(): string[];
+    /**
+     * Gets paths to directories to look for npm-packages (such as `./node_modules`).
+     *
+     * @deprecated
+     */
+    getNpmPaths(options?: Environment.NpmPathsOptions): string[];
 
     help(name: string): string;
 
@@ -310,6 +315,16 @@ declare namespace Environment {
          * The package-patterns to look for.
          */
         packagePatterns?: string[];
+    }
+
+    /**
+     * Provides options for the `getNpmPaths` method.
+     */
+    interface NpmPathsOptions extends LookupOptions {
+        /**
+         * A value indicating whether paths which don't end with a supported directory-name should be filtered (unless they are part of `NODE_PATH`).
+         */
+        filterPaths: boolean;
     }
 
     type RunDone = (err: null | Error) => void;
