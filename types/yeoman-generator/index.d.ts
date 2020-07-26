@@ -603,8 +603,23 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     usage(): string;
 
     // actions/spawn_command mixin
-    spawnCommand(command: string, args: string[], opt?: {}): any;
-    spawnCommandSync(command: string, args: string[], opt?: {}): any;
+    /**
+     * Normalizes a command across OS and spawns it (asynchronously).
+     *
+     * @param command The program to execute.
+     * @param args A list of arguments to pass to the program.
+     * @param opt Any cross-spawn options.
+     */
+    spawnCommand(command: string, args: string[], opt?: SpawnOptions): any;
+
+    /**
+     * Normalizes a command accross the OS and spawns it (synchronously).
+     *
+     * @param command The program to execute.
+     * @param args A list of arguments to pass to the program
+     * @param opt Any cross-spawn options.
+     */
+    spawnCommandSync(command: string, args: string[], opt?: SpawnSyncOptions): any;
 
     // actions/install mixin
     /**
