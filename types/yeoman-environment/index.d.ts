@@ -418,7 +418,7 @@ declare namespace Environment {
         /**
          * A value indicating whether paths which don't end with a supported directory-name should be filtered (unless they are part of `NODE_PATH`).
          */
-        filterPaths: boolean;
+        filterPaths?: boolean;
     }
 
     /**
