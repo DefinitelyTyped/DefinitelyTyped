@@ -156,7 +156,16 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      */
     error(error: Error | object, verifyListener?: boolean): Error;
 
-    findGeneratorsIn(list: string[]): string[];
+    /**
+     * Searches npm for every available generator.
+     * Generators are npm-packages whose name starts with `generator-` and that are placed in the top level `node_module` path.
+     * They can be installed globally or locally.
+     *
+     * @deprecated
+     * @param list The paths to search for generators.
+     * @param options The options for looking for generators.
+     */
+    findGeneratorsIn(list: string[], options?: Environment.GeneratorsInOptions): string[];
 
     get(namespace: string): Generator | null;
 
@@ -275,6 +284,16 @@ declare namespace Environment {
          * A value indicating whether only one result should be returned.
          */
         singleResult?: boolean;
+    }
+
+    /**
+     * Provides options for the `findGeneratorsIn` method.
+     */
+    interface GeneratorsInOptions {
+        /**
+         * The package-patterns to look for.
+         */
+        packagePatterns?: string[];
     }
 
     type RunDone = (err: null | Error) => void;
