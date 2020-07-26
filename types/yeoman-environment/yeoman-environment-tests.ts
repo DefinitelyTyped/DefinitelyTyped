@@ -37,3 +37,7 @@ customLogger.help("");
 Env.lookupGenerator("");
 // $ExpectType string
 Env.lookupGenerator("", { localOnly: true });
+// $ExpectType string
+env.alias("foo");
+// $ExpectType void
+env.alias(/^([a-zA-Z0-9:\*]+)$/, "generator-$1");

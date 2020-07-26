@@ -98,8 +98,40 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      */
     static lookupGenerator(namespace: string, options?: Environment.GeneratorLookupOptions): string;
 
+    /**
+     * Converts a generator namespace to its name.
+     *
+     * @param namespace The generator namespace.
+     */
     static namespaceToName(namespace: string): string;
 
+    /**
+     * Gets the alias for the specified `name`.
+     */
+    alias(name: string): string;
+
+    /**
+     * Creates an alias.
+     *
+     * Alias allows the `get()` and `lookup()` methods to search in alternate filepath for a given namespaces.
+     * It's used for example to map `generator-*` npm package to their namespace equivalent (without the generator- prefix),
+     * or to default a single namespace like `angular` to `angular:app` or `angular:all`.
+     *
+     * If multiple aliases are defined, then the replacement is recursive, replacing each alias in reverse order.
+     *
+     * An alias can be a single String or a Regular Expression.
+     * The finding is done based on .match().
+     *
+     * @param match The name to match.
+     * @param value The replacement for the specified `match`.
+     *
+     * @example
+     * env.alias(/^([a-zA-Z0-9:\*]+)$/, 'generator-$1');
+     * env.alias(/^([^:]+)$/, '$1:app');
+     * env.alias(/^([^:]+)$/, '$1:all');
+     * env.alias('foo');
+     * // => generator-foo:all
+     */
     alias(match: string | RegExp, value: string): void;
 
     create(name: string, options: object): void;
