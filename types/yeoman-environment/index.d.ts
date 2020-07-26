@@ -31,18 +31,39 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      */
     static util: typeof util;
 
+    /**
+     * The arguments passed to this environment.
+     */
     arguments: string[];
 
+    /**
+     * The options of the environment.
+     */
     options: TOptions;
 
+    /**
+     * The working-directory of the environment.
+     */
     cwd: string;
 
+    /**
+     * The config-storage of the environment.
+     */
     store: Storage;
 
+    /**
+     * The file-system of the environment.
+     */
     sharedFs: MemFsStore;
 
+    /**
+     * The file-paths to look for generators (such as `lib/generators/`).
+     */
     lookups: string[];
 
+    /**
+     * The alias-settings of the environment.
+     */
     aliases: Environment.Alias[];
 
     /**
@@ -412,8 +433,18 @@ declare namespace Environment {
         type Answers = inquirer.Answers;
     }
 
+    /**
+     * Represents an alias.
+     */
     interface Alias {
+        /**
+         * The pattern to match.
+         */
         match: RegExp;
+
+        /**
+         * The replacement of the `match`.
+         */
         value: string;
     }
 
