@@ -507,15 +507,19 @@ declare module _ {
             context?: any): TypeOfCollection<V>[];
 
         /**
-         * Splits a collection into sets, grouped by the result of running each value through iteratee.
+         * Splits a `collection` into sets that are grouped by the result of
+         * running each value through `iteratee`.
          * @param collection The collection to group.
-         * @param iteratee An iteratee that provides the value to group by for each item in the collection.
+         * @param iteratee An iteratee that provides the value to group by for
+         * each item in `collection`.
          * @param context `this` object in `iteratee`, optional.
-         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection.
+         * @returns A dictionary with the group names provided by `iteratee` as
+         * properties where each property contains the grouped elements from
+         * `collection`.
          **/
         groupBy<V extends Collection<any>>(
             collection: V,
-            iteratee: Iteratee<V, any>,
+            iteratee?: Iteratee<V, any>,
             context?: any
         ): Dictionary<TypeOfCollection<V>[]>;
 
@@ -4187,12 +4191,17 @@ declare module _ {
         sortBy(iteratee?: Iteratee<V, any>, context?: any): T[];
 
         /**
-         * Splits a collection into sets, grouped by the result of running each value through iteratee.
-         * @param iteratee An iteratee that provides the value to group by for each item in the collection.
+         * Splits the warpped collection into sets that are grouped by the
+         * result of running each value through `iteratee`.
+         * @param collection The collection to group.
+         * @param iteratee An iteratee that provides the value to group by for
+         * each item in the wrapped collection.
          * @param context `this` object in `iteratee`, optional.
-         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection.
+         * @returns A dictionary with the group names provided by `iteratee` as
+         * properties where each property contains the grouped elements from
+         * the wrapped collection.
          **/
-        groupBy(iteratee: Iteratee<V, any>, context?: any): Dictionary<T[]>;
+        groupBy(iteratee?: Iteratee<V, any>, context?: any): Dictionary<T[]>;
 
         /**
          * Given the warpped collection and an `iteratee` function that returns
@@ -5203,13 +5212,17 @@ declare module _ {
         sortBy(iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
 
         /**
-         * Splits a collection into sets, grouped by the result of running each value through iteratee.
-         * @param iteratee An iteratee that provides the value to group by for each item in the collection.
+         * Splits the warpped collection into sets that are grouped by the
+         * result of running each value through `iteratee`.
+         * @param collection The collection to group.
+         * @param iteratee An iteratee that provides the value to group by for
+         * each item in the wrapped collection.
          * @param context `this` object in `iteratee`, optional.
-         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection
-         * in a chain wrapper.
+         * @returns A chain wrapper around a dictionary with the group names
+         * provided by `iteratee` as properties where each property contains
+         * the grouped elements from the wrapped collection.
          **/
-        groupBy(iterator: _ChainIteratee<V, any, T>, context?: any): _Chain<T[], Dictionary<T[]>>;
+        groupBy(iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T[], Dictionary<T[]>>;
 
         /**
          * Given the warpped collection and an `iteratee` function that returns

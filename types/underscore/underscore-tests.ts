@@ -1939,6 +1939,16 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _(stringRecordDictionary).groupBy(stringRecordDictionaryValueIterator, context); // $ExpectType Dictionary<StringRecord[]>
     _.chain(stringRecordDictionary).groupBy(stringRecordDictionaryValueIterator, context); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
 
+    // partial object iteratee - lists
+    _.groupBy(stringRecordList, partialStringRecord); // $ExpectType Dictionary<StringRecord[]>
+    _(stringRecordList).groupBy(partialStringRecord); // $ExpectType Dictionary<StringRecord[]>
+    _.chain(stringRecordList).groupBy(partialStringRecord); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+
+    // partial object iteratee - dictionaries
+    _.groupBy(stringRecordDictionary, partialStringRecord); // $ExpectType Dictionary<StringRecord[]>
+    _(stringRecordDictionary).groupBy(partialStringRecord); // $ExpectType Dictionary<StringRecord[]>
+    _.chain(stringRecordDictionary).groupBy(partialStringRecord); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+
     // property name iteratee - lists
     _.groupBy(stringRecordList, stringRecordProperty); // $ExpectType Dictionary<StringRecord[]>
     _(stringRecordList).groupBy(stringRecordProperty); // $ExpectType Dictionary<StringRecord[]>
@@ -1958,6 +1968,16 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _.groupBy(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord[]>
     _(stringRecordDictionary).groupBy(stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord[]>
     _.chain(stringRecordDictionary).groupBy(stringRecordPropertyPath); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+
+    // identity iteratee - lists
+    _.groupBy(stringRecordList); // $ExpectType Dictionary<StringRecord[]>
+    _(stringRecordList).groupBy(); // $ExpectType Dictionary<StringRecord[]>
+    _.chain(stringRecordList).groupBy(); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+
+    // identity iteratee - dictionaries
+    _.groupBy(stringRecordDictionary); // $ExpectType Dictionary<StringRecord[]>
+    _(stringRecordDictionary).groupBy(); // $ExpectType Dictionary<StringRecord[]>
+    _.chain(stringRecordDictionary).groupBy(); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
 }
 
 // indexBy
