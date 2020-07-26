@@ -134,7 +134,16 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      */
     alias(match: string | RegExp, value: string): void;
 
-    create(name: string, options: object): void;
+    /**
+     * Creates a new generator.
+     *
+     * @param namespaceOrPath The namespace of the generator or the path to a generator.
+     * @param options The options to pass to the generator.
+     *
+     * @returns Either the newly created generator or the error that occured.
+     */
+    create<TOptions extends Generator.GeneratorOptions>(
+        namespaceOrPath: string, options?: Environment.InstantiateOptions<TOptions>): Generator<TOptions> | Error;
 
     error(err: Error | object): Error;
 
@@ -219,9 +228,19 @@ declare namespace Environment {
         namespace: string;
     }
 
-    interface InstantiateOptions {
-        arguments: string | string[];
-        options: Options;
+    /**
+     * Provides options for instantiating a generator.
+     */
+    interface InstantiateOptions<TOptions extends Generator.GeneratorOptions = Generator.GeneratorOptions> {
+        /**
+         * The arguments to pass to the generator.
+         */
+        arguments?: string | string[];
+
+        /**
+         * The options for creating the generator.
+         */
+        options?: TOptions;
     }
 
     /**
