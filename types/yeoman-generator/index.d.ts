@@ -390,10 +390,35 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @returns
      * Either returns this generator or the newly created generator.
      */
-    composeWith<T extends true | false = true, TGenerators extends Array<Generator.CompositionOptions | string> | Generator.CompositionOptions | string = string>(
-        generators: TGenerators,
+    composeWith<T extends true | false = true>(
+        generators: Generator.CompositionOptions | string,
         options?: Generator.GeneratorOptions,
-        returnNewGenerator?: T): T extends true ? TGenerators extends Array<any> ? Generator[] : Generator : this;
+        returnNewGenerator?: T): T extends true ? Generator : this;
+
+    /**
+     * Compose this generator with another one.
+     *
+     * @param generator The path to the generator module or an object (see examples).
+     * @param options The options passed to the Generator.
+     * @param returnNewGenerator Returns the created generator instead of returning this.
+     * @return This generator or the composed generator when returnNewGenerator=true
+     *
+     * @example
+     * this.composeWith('bootstrap', { sass: true });
+     *
+     * @example
+     * this.composeWith(require.resolve('generator-bootstrap/app/main.js'), { sass: true });
+     *
+     * @example
+     * this.composeWith({ Generator: MyGenerator, path: '../generator-bootstrap/app/main.js' }, { sass: true });
+     *
+     * @returns
+     * Either returns this generator or the newly created generator.
+     */
+    composeWith<T extends true | false = true>(
+        generators: Array<Generator.CompositionOptions | string>,
+        options?: Generator.GeneratorOptions,
+        returnNewGenerator?: T): T extends true ? Generator[] : this;
 
     /**
      * Creates a new storage.
