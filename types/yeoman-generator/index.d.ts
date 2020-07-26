@@ -516,8 +516,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      *
      * @param name The name of the option.
      * @param config The configuration of the option.
-     * @param {Storage} [config.storage] - 
-     * @return {this} This generator
+     * @returns This generator
      */
     option(name: string, config: Generator.OptionConfig): this;
 
