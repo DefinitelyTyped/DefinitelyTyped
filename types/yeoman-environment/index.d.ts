@@ -293,7 +293,14 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * @param packagesToLookup The patterns of the packages to lookup.
      */
     lookupLocalPackages(packagesToLookup?: string[]): Environment.LookupGeneratorMeta[];
-    namespace(filepath: string): string;
+
+    /**
+     * Converts the specified `filePath` to a namespace.
+     *
+     * @param filePath The path to convert.
+     * @param lookups The path-part to exclude (such as `lib/generators`).
+     */
+    namespace(filePath: string, lookups?: string[]): string;
 
     namespaces(): string[];
 
