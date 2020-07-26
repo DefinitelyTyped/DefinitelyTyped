@@ -18,6 +18,12 @@ const customLogger = createLogger({
     }
 });
 
+createLogger({
+    console,
+    stderr: process.stdout,
+    stdout: process.stderr
+});
+
 defaultLogger.skip("");
 // $ExpectError
 customLogger.skip("");

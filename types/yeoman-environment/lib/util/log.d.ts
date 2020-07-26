@@ -1,5 +1,6 @@
 import { Color, Modifiers } from "chalk";
 import { EventEmitter } from "events";
+import { WriteStream } from "tty";
 import table = require("text-table");
 import { format } from "util";
 
@@ -31,7 +32,25 @@ declare namespace createLogger {
      * Provides options for creating a logger.
      */
     interface LoggerOptions<TColors extends ColorMap<TColors> = DefaultColorMap> {
+        /**
+         * A set of categories and assigned `chalk`-formats.
+         */
         colors?: TColors;
+
+        /**
+         * The console to write log-messages to.
+         */
+        console?: Console;
+
+        /**
+         * The stream to write other messages to.
+         */
+        stderr?: WriteStream;
+
+        /**
+         * The stream to write other messages to.
+         */
+        stdout?: WriteStream;
     }
 
     /**
