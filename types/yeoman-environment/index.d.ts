@@ -319,7 +319,7 @@ declare namespace Environment {
     }
 
     /**
-     * Prrovides information about a generator.
+     * Provides information about a generator.
      */
     interface GeneratorMeta {
         /**
