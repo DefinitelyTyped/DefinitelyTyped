@@ -2246,9 +2246,9 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
 // object
 {
     // key and value lists
-    _.object(simpleStringList, simpleNumberList); // $ExpectType Dictionary<number>
-    _(simpleStringList).object(simpleNumberList); // $ExpectType Dictionary<number>
-    extractChainTypes(_.chain(simpleStringList).object(simpleNumberList)); // $ExpectType ChainType<Dictionary<number>, number>
+    _.object(simpleStringList, simpleNumberList); // $ExpectType Dictionary<number | undefined>
+    _(simpleStringList).object(simpleNumberList); // $ExpectType Dictionary<number | undefined>
+    extractChainTypes(_.chain(simpleStringList).object(simpleNumberList)); // $ExpectType ChainType<Dictionary<number | undefined>, number | undefined>
 
     // tuple lists
     _.object(tupleList); // $ExpectType Dictionary<number>
@@ -2259,6 +2259,11 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _.object(level2UnionList); // $ExpectType Dictionary<any>
     _(level2UnionList).object(); // $ExpectType Dictionary<any>
     extractChainTypes(_.chain(level2UnionList).object()); // $ExpectType ChainType<Dictionary<any>, any>
+
+    // non-nested lists
+    _.object(stringRecordList); // $ExpectType Dictionary<never>
+    _(stringRecordList).object(); // $ExpectType Dictionary<never>
+    extractChainTypes(_.chain(stringRecordList).object()); // $ExpectType ChainType<Dictionary<never>, never>
 }
 
 // chunk

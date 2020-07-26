@@ -154,7 +154,12 @@ declare module _ {
         : TItem
         : T;
 
-    type PairValueOrAny<T> = T extends [EnumerableKey, infer TValue] ? TValue : any;
+    type PairValue<TPair, TValueList extends List<any> | undefined> =
+        TValueList extends undefined
+        ? (TPair extends [EnumerableKey, infer TValue] ? TValue
+            : TPair extends List<any> ? any
+            : never)
+        : TypeOfList<TValueList> | undefined;
 
     type AnyFalsy = undefined | null | false | '' | 0;
 
@@ -845,10 +850,10 @@ declare module _ {
          * corresponding to those keys.
          * @retursn An object comprised of the provided keys and values.
          **/
-        object<V extends List<any>, TValue extends PairValueOrAny<TypeOfList<V>> = PairValueOrAny<TypeOfList<V>>>(
+        object<V extends List<any>, TValueList extends List<any> | undefined = undefined>(
             list: V,
-            values?: List<TValue>
-        ): Dictionary<TValue>;
+            values?: TValueList
+        ): Dictionary<PairValue<TypeOfList<V>, TValueList>>;
 
         /**
         * Returns the index at which value can be found in the array, or -1 if value is not present in the array.
@@ -4454,9 +4459,9 @@ declare module _ {
          * values corresponding to those keys.
          * @returns An object comprised of the provided keys and values.
          **/
-        object<TValue extends PairValueOrAny<T> = PairValueOrAny<T>>(
-            values?: List<TValue>
-        ): Dictionary<TValue>;
+        object<TValueList extends List<any> | undefined = undefined>(
+            values?: TValueList
+        ): Dictionary<PairValue<T, TValueList>>;
 
         /**
         * Wrapped type `any[]`.
@@ -5486,9 +5491,9 @@ declare module _ {
          * @returns A chain wrapper around an object comprised of the provided
          * keys and values.
          **/
-        object<TValue extends PairValueOrAny<T> = PairValueOrAny<T>>(
-            values?: List<TValue>
-        ): _Chain<TValue, Dictionary<TValue>>;
+        object<TValueList extends List<any> | undefined = undefined>(
+            values?: TValueList
+        ): _Chain<PairValue<T, TValueList>, Dictionary<PairValue<T, TValueList>>>;
 
         /**
         * Wrapped type `any[]`.
