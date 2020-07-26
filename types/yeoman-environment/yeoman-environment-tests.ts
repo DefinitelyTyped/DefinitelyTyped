@@ -1,5 +1,5 @@
-import * as Env from "yeoman-environment";
-import * as Generator from "yeoman-generator";
+import Env = require("yeoman-environment");
+import Generator = require("yeoman-generator");
 
 class TestGenerator extends Generator {}
 
