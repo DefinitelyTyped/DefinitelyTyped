@@ -1,11 +1,11 @@
 import Env = require("yeoman-environment");
-import util = require("yeoman-environment/lib/util/util");
 import createLogger = require("yeoman-environment/lib/util/log");
 import Generator = require("yeoman-generator");
 
 class TestGenerator extends Generator { }
 
 const env = Env.createEnv();
+const versionEnv = Env.createEnvWithVersion("2.9.0", [], {});
 env.registerStub(TestGenerator, "test");
 env.store.getPath("lint.ruleset");
 env.store.setPath("lint.ruleset", "weak");
@@ -31,3 +31,9 @@ defaultLogger.skip("");
 // $ExpectError
 customLogger.skip("");
 customLogger.help("");
+
+/* Lookup */
+// $ExpectType string
+Env.lookupGenerator("");
+// $ExpectType string
+Env.lookupGenerator("", { localOnly: true });

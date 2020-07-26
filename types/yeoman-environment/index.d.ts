@@ -90,6 +90,14 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      */
     static enforceUpdate<TEnv extends Environment>(env: TEnv): TEnv;
 
+    /**
+     * Invokes a lookup for a specific generator.
+     *
+     * @param namespace The namespace of the generator to search.
+     * @param options Options for searching the generator.
+     */
+    static lookupGenerator(namespace: string, options?: Environment.GeneratorLookupOptions): string;
+
     static namespaceToName(namespace: string): string;
 
     alias(match: string | RegExp, value: string): void;
@@ -182,6 +190,31 @@ declare namespace Environment {
     interface InstantiateOptions {
         arguments: string | string[];
         options: Options;
+    }
+
+    /**
+     * Provides options for lookups.
+     */
+    interface LookupOptions {
+        /**
+         * A value indicating whether globally installed packages should be ignored.
+         */
+        localOnly?: boolean;
+    }
+
+    /**
+     * Provides options for generator-lookups.
+     */
+    interface GeneratorLookupOptions extends LookupOptions {
+        /**
+         * A value indicating whether the path to the package should be returned instead of the path to the generator.
+         */
+        packagePath?: boolean;
+
+        /**
+         * A value indicating whether only one result should be returned.
+         */
+        singleResult?: boolean;
     }
 
     type RunDone = (err: null | Error) => void;
