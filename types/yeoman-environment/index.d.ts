@@ -302,6 +302,9 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      */
     namespace(filePath: string, lookups?: string[]): string;
 
+    /**
+     * Gets a list of all registered namespaces.
+     */
     namespaces(): string[];
 
     /**
@@ -324,6 +327,12 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      */
     registerStub(generator: Generator.GeneratorConstructor, namespace: string, resolved?: string, packagePath?: string): this;
 
+    /**
+     * Resolves the path of the specified module.
+     *
+     * @param moduleId The name of the module.
+     * @returns The resolved path to the module.
+     */
     resolveModulePath(moduleId: string): string;
 
     /**
@@ -331,8 +340,37 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      */
     rootGenerator(): Generator;
 
+    /**
+     * Tries to locate and run a specific generator.
+     * The lookup is done depending on the provided arguments, options and the list of registered generators.
+     *
+     * When the environment was unable to resolve a generator, an error is raised.
+     *
+     * @param done The callback.
+     */
     run(done: Environment.Callback): void;
+
+    /**
+     * Tries to locate and run a specific generator.
+     * The lookup is done depending on the provided arguments, options and the list of registered generators.
+     *
+     * When the environment was unable to resolve a generator, an error is raised.
+     *
+     * @param args The arguments to pass to the generator.
+     * @param done The callback.
+     */
     run(args: string | string[], done: Environment.Callback): void;
+
+    /**
+     * Tries to locate and run a specific generator.
+     * The lookup is done depending on the provided arguments, options and the list of registered generators.
+     *
+     * When the environment was unable to resolve a generator, an error is raised.
+     *
+     * @param args The arguments to pass to the generator.
+     * @param options The options for creating the generator.
+     * @param done The callback.
+     */
     run(
         args: string | string[],
         options: object,
