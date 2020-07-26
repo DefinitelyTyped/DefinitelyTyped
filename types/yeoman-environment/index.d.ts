@@ -333,8 +333,6 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
         options: object,
         done: Environment.Callback
     ): void;
-
-    private _tryRegistering(generatorReference: string): void;
 }
 
 declare namespace Environment {
