@@ -145,7 +145,16 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
     create<TOptions extends Generator.GeneratorOptions>(
         namespaceOrPath: string, options?: Environment.InstantiateOptions<TOptions>): Generator<TOptions> | Error;
 
-    error(err: Error | object): Error;
+    /**
+     * Handles the specified `error`.
+     *
+     * The `error`-event is emitted with the specified `error` object.
+     * If no `error` listener is registered, the error is thrown.
+     *
+     * @param error An object representing the error.
+     * @param verifyListener A value indicating whether an error should be thrown if no `error` listener is present.
+     */
+    error(error: Error | object, verifyListener?: boolean): Error;
 
     findGeneratorsIn(list: string[]): string[];
 
