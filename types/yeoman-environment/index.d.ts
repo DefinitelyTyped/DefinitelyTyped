@@ -338,6 +338,16 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
         options: object,
         done: Environment.Callback
     ): void;
+
+    /**
+     * Runs the specified generator.
+     *
+     * See [#101](https://github.com/yeoman/environment/pull/101) for more info.
+     *
+     * @param generator The generator to run.
+     * @param callback The callback.
+     */
+    runGenerator(generator: Generator, callback?: Environment.Callback): Promise<void>;
 }
 
 declare namespace Environment {
