@@ -243,6 +243,13 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      */
     help(command?: string): string;
 
+    /**
+     * Installs generators at the custom local repository and registers them.
+     *
+     * @param packages The package-names with the corresponding versions to install.
+     */
+    installLocalGenerators(packages: Record<string, string>): boolean;
+
     instantiate(
         name: string,
         options: Environment.InstantiateOptions
