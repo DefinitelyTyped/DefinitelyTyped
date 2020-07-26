@@ -2225,9 +2225,15 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
 
 // zip
 {
+    // multiple arguments
     _.zip(simpleStringList, simpleNumberList, stringRecordList); // $ExpectType any[][]
     _(simpleStringList).zip(simpleNumberList, stringRecordList); // $ExpectType any[][]
     extractChainTypes(_.chain(simpleStringList).zip(simpleNumberList, stringRecordList)); // $ExpectType ChainType<any[][], any[]>
+
+    // single arguments
+    _.zip(simpleStringList); // $ExpectType any[][]
+    _(simpleStringList).zip(); // $ExpectType any[][]
+    extractChainTypes(_.chain(simpleStringList).zip()); // $ExpectType ChainType<any[][], any[]>
 }
 
 // unzip
