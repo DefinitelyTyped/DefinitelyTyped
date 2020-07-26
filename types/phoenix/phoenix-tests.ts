@@ -8,6 +8,13 @@ function test_socket() {
       rejoinAfterMs: tries => 1000,
   });
   socket.connect();
+
+  const openRef = socket.onOpen(() => {console.log('Socket opened')});
+  const closeRef = socket.onClose(() => {console.log('Socket closed')});
+  const errorRef = socket.onError(() => {console.log('Error on socket')});
+  const messageRef = socket.onMessage(() => {console.log('Message on socket')});
+
+  socket.off([openRef, closeRef, errorRef, messageRef]);
 }
 
 function test_channel() {
