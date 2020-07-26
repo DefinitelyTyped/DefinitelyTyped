@@ -17,12 +17,13 @@ const customLogger = createLogger({
         help: "magenta"
     }
 });
-
 createLogger({
     console,
     stderr: process.stdout,
     stdout: process.stderr
 });
+// $ExpectType Logger<DefaultColorMap>
+Env.util.log({});
 
 defaultLogger.skip("");
 // $ExpectError

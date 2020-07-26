@@ -10,10 +10,15 @@ import * as inquirer from "inquirer";
 import * as Generator from "yeoman-generator";
 import Storage = require("yeoman-generator/lib/util/storage");
 import { Logger as LoggerBase } from "./lib/util/log";
+import util = require("./lib/util/util");
 
 declare class Environment<
     O extends Environment.Options = Environment.Options
     > extends EventEmitter {
+    /**
+     * The utilities of the module.
+     */
+    static util: typeof util;
     static createEnv<O extends Environment.Options = Environment.Options>(
         args?: string | string[],
         opts?: O,
