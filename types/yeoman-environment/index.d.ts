@@ -304,7 +304,15 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
 
     namespaces(): string[];
 
-    register(name: string, namespace?: string): string;
+    /**
+     * Registers a specific `generator` to this environment.
+     * This generator is stored under the provided `namespace` or, if not specified, a default namespace format.
+     *
+     * @param name The filepath to the generator or an npm package name.
+     * @param namespace The namespace under which the generator should be registered.
+     * @param packagePath The path to the npm package of the generator.
+     */
+    register(name: string, namespace?: string, packagePath?: string): string;
 
     registerStub(generator: Generator.GeneratorConstructor, namespace: string): this;
 
