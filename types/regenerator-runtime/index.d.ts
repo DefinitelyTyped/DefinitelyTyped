@@ -6,7 +6,7 @@
 
 export as namespace regeneratorRuntime;
 declare global {
-    var regeneratorRuntime: typeof regeneratorRuntime;
+    var regeneratorRuntime: typeof import('.');
 }
 
 /**
@@ -43,7 +43,7 @@ export interface DelegatedIterator {
     iterator: Iterator<unknown, unknown, unknown>;
 }
 
-export interface Context<TYield, TReturn, TNext> {
+export interface Context<TYield = unknown, TReturn = unknown, TNext = unknown> {
     readonly tryEntries: readonly [
         { readonly tryLoc: 'root' } & Omit<TryEntry, 'tryLoc'>,
         ...TryEntry[]
@@ -228,9 +228,8 @@ export function isGeneratorFunction(func: unknown): func is GeneratorFunction;
 
 export function keys(object: {}): () => IteratorResult<string, undefined>;
 
-export function mark<T, A extends unknown[], R>(
-    genFun: (this: T, ...args: A) => R,
-): ((this: T, ...args: A) => R) & GeneratorFunction;
+// tslint:disable-next-line: ban-types
+export function mark<F extends Function>(genFun: F): F & GeneratorFunction;
 
 export function values<I extends Iterator<unknown, unknown, unknown>>(iterable: { [Symbol.iterator](): I }): I;
 export function values<T>(iterableOrArrayLike: Iterable<T> | ArrayLike<T>): Iterator<T, unknown, unknown>;

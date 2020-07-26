@@ -48,7 +48,7 @@ function IteratorMap<T, U, TNext = unknown>(
     // 2. Repeat,
     return regenerator.wrap(
         // This is roughly based on the output of `@babel/plugin-transform-regenerator`:
-        function IteratorMapBody(this: Iterator<T, unknown, TNext>, context) {
+        function IteratorMapBody(this: Iterator<T, unknown, TNext>, context: regenerator.Context<U, void, TNext>) {
             this; // $ExpectType Iterator<T, unknown, TNext>
             context; // $ExpectType Context<U, void, TNext>
 
@@ -114,6 +114,14 @@ function IteratorMap<T, U, TNext = unknown>(
         [[1, 3]],
     );
 }
+
+declare const overloadedFunction: {
+    (): Generator;
+    <T>(...args: T[]): Generator<T>;
+};
+
+// $ExpectType { (): Generator<unknown, any, unknown>; <T>(...args: T[]): Generator<T, any, unknown>; } & GeneratorFunction
+regenerator.mark(overloadedFunction);
 
 declare const mappableIterator: IterableIterator<object> & {
     map: typeof IteratorMap;
