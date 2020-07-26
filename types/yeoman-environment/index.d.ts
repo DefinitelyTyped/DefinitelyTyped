@@ -187,9 +187,15 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      */
     getByPath(path: string): typeof Generator | undefined;
 
+    /**
+     * Gets the names of the registered generators.
+     */
     getGeneratorNames(): string[];
 
-    getGeneratorsMeta(): { [namespace: string]: Environment.GeneratorMeta };
+    /**
+     * Gets metadata of the registered generators.
+     */
+    getGeneratorsMeta(): Record<string, Environment.GeneratorMeta>;
 
     /**
      * Gets paths to directories to look for npm-packages (such as `./node_modules`).
@@ -197,6 +203,37 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * @deprecated
      */
     getNpmPaths(options?: Environment.NpmPathsOptions): string[];
+
+    /**
+     * Gets the most recent path to the generator by its namespace.
+     *
+     * @param namespace The namespace of the generator.
+     */
+    getPackagePath(namespace: string): string;
+
+    /**
+     * Gets all paths which have been populated for a generator by its namespace.
+     *
+     * @param namespace The namespace of the generator.
+     */
+    getPackagePaths(namespace: string): string[];
+
+    /**
+     * Gets the namespaces of all registered generators.
+     */
+    getRegisteredPackages(): string[];
+
+    /**
+     * Gets the version of this `Environment` object.
+     */
+    getVersion(): string;
+
+    /**
+     * Gets the version of the specified `dependency`.
+     *
+     * @param dependency The name of the dependency.
+     */
+    getVersion(dependency: string): string;
 
     help(name: string): string;
 
@@ -262,9 +299,24 @@ declare namespace Environment {
         [key: string]: any;
     }
 
+    /**
+     * Prrovides information about a generator.
+     */
     interface GeneratorMeta {
+        /**
+         * The resolved path to the generator.
+         */
         resolved: string;
+
+        /**
+         * The namespace of the generator.
+         */
         namespace: string;
+
+        /**
+         * The path to the package containing the generator.
+         */
+        packagePath: string;
     }
 
     /**
