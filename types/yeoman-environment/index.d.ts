@@ -12,9 +12,20 @@ import Storage = require("yeoman-generator/lib/util/storage");
 import { Logger as LoggerBase } from "./lib/util/log";
 import util = require("./lib/util/util");
 
-declare class Environment<
-    TOptions extends Environment.Options = Environment.Options
-    > extends EventEmitter {
+/**
+ * `Environment` object is responsible of handling the lifecyle and bootstrap
+ * of generators in a specific environment (your app).
+ *
+ * It provides a high-level API to create and run generators, as well as further
+ * tuning where and how a generator is resolved.
+ *
+ * An environment is created using a list of `arguments` and a Hash of `options`.
+ * Usually, this is the list of arguments you get back from your CLI options parser.
+ *
+ * An optional adapter can be passed to provide interaction in non-CLI environment
+ * (e.g. IDE plugins), otherwise a `TerminalAdapter` is instantiated by default
+ */
+declare class Environment<TOptions extends Environment.Options = Environment.Options> extends EventEmitter {
     /**
      * The utilities of the module.
      */
@@ -48,6 +59,12 @@ declare class Environment<
         adapter?: Environment.Adapter
     ): Environment<TOptions>;
 
+    /**
+     * Makes sure the Environment present expected methods if an old version is passed to a Generator.
+     *
+     * @param env The environment to update.
+     * @returns The updated `env`.
+     */
     static enforceUpdate<TEnv extends Environment>(env: TEnv): TEnv;
 
     static namespaceToName(namespace: string): string;
@@ -66,11 +83,14 @@ declare class Environment<
 
     aliases: Environment.Alias[];
 
-    constructor(
-        args?: string | string[],
-        opts?: TOptions,
-        adapter?: Environment.Adapter
-    );
+    /**
+     * Initializes a new instance of the `Environment` class.
+     *
+     * @param args The arguments to pass to the environment.
+     * @param opts The options for the environment.
+     * @param adapter A `TerminalAdapter` instance for handling input/output.
+     */
+    constructor(args?: string | string[], opts?: TOptions, adapter?: Environment.Adapter);
 
     alias(match: string | RegExp, value: string): void;
 
