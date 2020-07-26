@@ -266,7 +266,7 @@ declare namespace Generator {
     /**
      * Provides options for tasks.
      */
-    interface TaskOptions {
+    interface TaskOptions extends QueueOptions {
         /**
          * A method for handling errors.
          */
