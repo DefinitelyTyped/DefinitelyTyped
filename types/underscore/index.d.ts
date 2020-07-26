@@ -155,11 +155,11 @@ declare module _ {
         : T;
 
     type PairValue<TPair, TValueList extends List<any> | undefined> =
-        TValueList extends undefined
-        ? (TPair extends [EnumerableKey, infer TValue] ? TValue
-            : TPair extends List<any> ? any
-            : never)
-        : TypeOfList<TValueList> | undefined;
+        TValueList extends undefined                            // if separate values are not supplied
+        ? (TPair extends [EnumerableKey, infer TValue] ? TValue     // if the pairs are pairs, the value type for the pair
+            : TPair extends List<any> ? any                         // if the pairs are a list, they're probably pairs but the exact type isn't inferrable, so any
+            : never)                                                // if the pairs aren't a list, there's no way that they're pairs, so never
+        : TypeOfList<TValueList> | undefined;                   // if separate values are supplied, the type of values + undefined since there may be more keys than values
 
     type AnyFalsy = undefined | null | false | '' | 0;
 
