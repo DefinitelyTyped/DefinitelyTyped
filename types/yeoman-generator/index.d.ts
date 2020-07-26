@@ -97,14 +97,17 @@ declare namespace Generator {
          * whether to run `npm install` or can be options to pass to `dargs` as arguments
          */
         npm?: boolean | object;
+
         /**
          * whether to run `bower install` or can be options to pass to `dargs` as arguments
          */
         bower?: boolean | object;
+
         /**
          * whether to run `yarn install` or can be options to pass to `dargs` as arguments
          */
         yarn?: boolean | object;
+
         /**
          * whether to log the used commands
          */
@@ -659,6 +662,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
     bowerInstall(component?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
+
     /**
      * Runs `npm` and `bower`, in sequence, in the generated directory and prints a
      * message to let the user know.
@@ -677,6 +681,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      *
      */
     installDependencies(options?: Generator.InstallOptions): void;
+
     /**
      * Receives a list of `packages` and an `options` object to install through npm.
      *
@@ -687,6 +692,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
     npmInstall(pkgs?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
+
     /**
      * Combine package manager cmd line arguments and run the `install` command.
      *
@@ -699,6 +705,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
     scheduleInstallTask(installer: string, paths?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
+
     /**
      * Receives a list of `packages` and an `options` object to install through npm.
      *
@@ -719,6 +726,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
              * @return configured git email or undefined
              */
             email(): string;
+
             /**
              * Retrieves user's name from Git in the global scope or the project scope
              * (it'll take what Git will use in the current context)
