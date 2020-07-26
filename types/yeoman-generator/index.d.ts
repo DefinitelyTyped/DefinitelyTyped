@@ -61,7 +61,7 @@ declare namespace Generator {
     type Callback = (err: any) => void;
     type Question<T extends Answers = Answers> = DistinctQuestion<T> & {
         /**
-         * whether to store the user's previous answer
+         * A value indicating whether to store the user's previous answer.
          */
         store?: boolean;
     };
@@ -86,38 +86,67 @@ declare namespace Generator {
      */
     type Answers = InquirerAnswers;
 
+    /**
+     * Provides a set of questions.
+     */
     type Questions<A extends Answers = Answers> = (
         | Question<A>
         | Array<Question<A>>
         | Observable<Question<A>>
     );
 
+    /**
+     * Provides options for performing installations.
+     */
     interface InstallOptions {
         /**
-         * whether to run `npm install` or can be options to pass to `dargs` as arguments
+         * A value indicating whether to run `npm install` or options to pass to `dargs` as arguments.
          */
         npm?: boolean | object;
 
         /**
-         * whether to run `bower install` or can be options to pass to `dargs` as arguments
+         * A value indicating whether to run `bower install` or options to pass to `dargs` as arguments.
          */
         bower?: boolean | object;
 
         /**
-         * whether to run `yarn install` or can be options to pass to `dargs` as arguments
+         * A value indicating whether to run `yarn install` or options to pass to `dargs` as arguments.
          */
         yarn?: boolean | object;
 
         /**
-         * whether to log the used commands
+         * A value indicating whether messages should be logged.
          */
         skipMessage?: boolean;
     }
+
+    /**
+     * Provides options for creating a new argument.
+     */
     interface ArgumentConfig {
+        /**
+         * Description for the argument.
+         */
         description?: string;
+
+        /**
+         * A value indicating whether the argument is required.
+         */
         required?: boolean;
+
+        /**
+         * A value indicating whether the argument is optional.
+         */
         optional?: boolean;
+
+        /**
+         * The type of the argument.
+         */
         type?: typeof String | typeof Number | typeof Array | typeof Object;
+
+        /**
+         * The default value of the argument.
+         */
         default?: any;
     }
 
@@ -243,7 +272,14 @@ declare namespace Generator {
      * Represents options for composing a generator.
      */
     interface CompositionOptions {
+        /**
+         * The constructor of the generator.
+         */
         Generator: GeneratorConstructor;
+
+        /**
+         * The path to the file containing the generator.
+         */
         path: string;
     }
 
@@ -323,18 +359,43 @@ declare namespace Generator {
     }
 }
 
+/**
+ * The `Generator` class provides the common API shared by all generators.
+ * It define options, arguments, file, prompt, log, API, etc.
+ *
+ * Every generator should extend this base class.
+ */
 declare class Generator<T extends Generator.GeneratorOptions = Generator.GeneratorOptions> extends EventEmitter {
     constructor(args: string | string[], options: T);
 
+    /**
+     * The current Environment being run.
+     */
     env: {
         error(...e: Error[]): void;
         adapter: {
             promptModule: PromptModule;
         };
     };
+
+    /**
+     * Provides arguments at initialization.
+     */
     args: {};
+
+    /**
+     * The path to the current generator.
+     */
     resolved: string;
+
+    /**
+     * The description to display in the `--help` output.
+     */
     description: string;
+
+    /**
+     * The application name.
+     */
     appname: string;
 
     /**
@@ -342,18 +403,43 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      */
     config: Storage;
 
+    /**
+     * An instance of [`mem-fs-editor`](https://github.com/SBoudrias/mem-fs-editor).
+     */
     fs: Editor;
+
+    /**
+     * Provides options at initialization.
+     */
     options: T;
+
+    /**
+     * Provides the functionality to log messages.
+     */
     log: Generator.Logger;
 
     /**
      * Reads the options or a single option at the specified property-path from the `.yo-rc` config-store.
      *
-     * @param path
-     * The property-path of the option to get.
+     * @param path The property-path of the option to get.
      */
     _templateData(path?: string): any;
 
+    /**
+     * Adds an argument to the class and creates an attribute getter for it.
+     *
+     * Arguments are different from options in several aspects. The first one
+     * is how they are parsed from the command line, arguments are retrieved
+     * based on their position.
+     *
+     * Besides, arguments are used inside your code as a property (`this.argument`),
+     * while options are all kept in a hash (`this.options`).
+     *
+     *
+     * @param name Argument name.
+     * @param config Argument options.
+     * @return This generator.
+     */
     argument(name: string, config: Generator.ArgumentConfig): this;
 
     /**
@@ -397,6 +483,11 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      */
     debug: (...args: Parameters<Debugger>) => void;
 
+    /**
+     * Joins a path to the destination root.
+     *
+     * @param path The path parts.
+     */
     destinationPath(...path: string[]): string;
 
     /**
@@ -408,6 +499,15 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param skipEnvironment A value indicating whether `this.env.cwd` and the current working directory shouldn't be changed.
      */
     destinationRoot(rootPath?: string, skipEnvironment?: boolean): string;
+
+    /**
+     * Determines the name of the application.
+     *
+     * First checks for the name in `bower.json`, then checks for the name in `package.json`.
+     * Finally defaults to the name of the current directory.
+     *
+     * @returns The name of the application.
+     */
     determineAppname(): string;
 
     /**
@@ -470,7 +570,15 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param stream An array of transform streams or a single one.
      */
     registerTransformStream(stream: Transform | Array<Transform>): this;
+
+    /**
+     * Determines the root generator name (the one who's extending this generator).
+     */
     rootGeneratorName(): string;
+
+    /**
+     * Determines the root generator version (the one who's extending this generator).
+     */
     rootGeneratorVersion(): string;
 
     /**
@@ -494,7 +602,19 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      */
     run(cb: Generator.Callback): Promise<void>;
 
+    /**
+     * Changes the generator source root directory.
+     * This path is used by multiple file system methods.
+     *
+     * @param rootPath The new source root path.
+     */
     sourceRoot(rootPath?: string): string;
+
+    /**
+     * Joins a path to the source root.
+     *
+     * @param path The path parts.
+     */
     templatePath(...path: string[]): string;
 
     /**
@@ -625,11 +745,34 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     writeDestinationJSON: Editor["writeJSON"];
 
     // actions/help mixin
+    /**
+     * Generates a help-text for the arguments.
+     *
+     * @returns A help-text for the arguments.
+     */
     argumentsHelp(): string;
     async(): () => {};
+
+    /**
+     * Sets a custom `description` for the help output.
+     *
+     * @param description The new description.
+     */
     desc(description: string): this;
+
+    /**
+     * Tries to get the description from a `USAGE` file one folder above the source root, otherwise uses a default description.
+     */
     help(): string;
+
+    /**
+     * Gets help text for options.
+     */
     optionsHelp(): string;
+
+    /**
+     * Gets usage information for this generator, depending on its arguments or options.
+     */
     usage(): string;
 
     // actions/spawn_command mixin
