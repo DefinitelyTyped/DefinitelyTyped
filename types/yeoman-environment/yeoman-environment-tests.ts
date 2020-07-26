@@ -5,3 +5,7 @@ class TestGenerator extends Generator {}
 
 const env = Env.createEnv();
 env.registerStub(TestGenerator, "test");
+env.store.getPath("lint.ruleset");
+env.store.setPath("lint.ruleset", "weak");
+// $ExpectType object
+env.store.createProxy();
