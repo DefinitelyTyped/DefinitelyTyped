@@ -191,6 +191,8 @@ const rootGeneratorVersion: string = generator.rootGeneratorVersion();
 
 generator.run();
 generator.run(() => undefined);
+generator.startOver();
+generator.startOver({ customPriorities: [] });
 
 const sourceRoot: string = generator.sourceRoot();
 const sourceRoot2: string = generator.sourceRoot('new root');

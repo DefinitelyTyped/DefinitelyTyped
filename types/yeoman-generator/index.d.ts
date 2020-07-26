@@ -601,6 +601,26 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      */
     renderTemplates(templates: Array<Generator.TemplateRenderOptions<this>>, templateData?: TemplateData | string): void;
 
+    /**
+     * Write file to destination folder
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for:
+     * ```js
+     * this.fs.write(this.destinationPath(filepath))
+     * ```
+     */
+    writeDestination: Editor["write"];
+
+    /**
+     * Write json file to destination folder
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for:
+     * ```js
+     * this.fs.writeJSON(this.destinationPath(filepath))
+     * ```
+     */
+    writeDestinationJSON: Editor["writeJSON"];
+
     // actions/help mixin
     argumentsHelp(): string;
     async(): () => {};
