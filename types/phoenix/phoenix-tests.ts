@@ -6,6 +6,7 @@ function test_socket() {
         params: { userToken: '123' },
         reconnectAfterMs: tries => 1000,
         rejoinAfterMs: tries => 1000,
+        vsn: '2.0.0'
     });
     socket.connect();
 
