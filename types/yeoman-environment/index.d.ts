@@ -326,6 +326,11 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
 
     resolveModulePath(moduleId: string): string;
 
+    /**
+     * Gets the first generator that was queued to run in this environment.
+     */
+    rootGenerator(): Generator;
+
     run(done: Environment.Callback): void;
     run(args: string | string[], done: Environment.Callback): void;
     run(
