@@ -13,7 +13,7 @@ import { Logger as LoggerBase } from "./lib/util/log";
 import util = require("./lib/util/util");
 
 declare class Environment<
-    O extends Environment.Options = Environment.Options
+    TOptions extends Environment.Options = Environment.Options
     > extends EventEmitter {
     /**
      * The utilities of the module.
@@ -27,19 +27,19 @@ declare class Environment<
      * @param opts The options for the environment.
      * @param adapter A `TerminalAdapter` instance for handling input/output of Yeoman.
      */
-    static createEnv<O extends Environment.Options = Environment.Options>(
+    static createEnv<TOptions extends Environment.Options = Environment.Options>(
         args?: string | string[],
-        opts?: O,
+        opts?: TOptions,
         adapter?: Environment.Adapter
-    ): Environment<O>;
+    ): Environment<TOptions>;
 
-    static enforceUpdate<E extends Environment>(env: E): E;
+    static enforceUpdate<TEnv extends Environment>(env: TEnv): TEnv;
 
     static namespaceToName(namespace: string): string;
 
     arguments: string[];
 
-    options: O;
+    options: TOptions;
 
     cwd: string;
 
@@ -53,7 +53,7 @@ declare class Environment<
 
     constructor(
         args?: string | string[],
-        opts?: O,
+        opts?: TOptions,
         adapter?: Environment.Adapter
     );
 
@@ -113,10 +113,10 @@ declare namespace Environment {
 
     interface Adapter {
         prompt<T>(questions: Adapter.Questions<T>): Promise<T>;
-        prompt<T1, T2>(
-            questions: Adapter.Questions<T1>,
-            cb: (res: T1) => T2
-        ): Promise<T2>;
+        prompt<TAnswers, TResult>(
+            questions: Adapter.Questions<TAnswers>,
+            cb: (res: TAnswers) => TResult
+        ): Promise<TResult>;
 
         diff(actual: string, expected: string): string;
     }
