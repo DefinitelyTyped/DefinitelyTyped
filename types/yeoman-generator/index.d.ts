@@ -12,9 +12,10 @@
 
 import { SpawnOptions } from 'child_process';
 import { Debugger } from 'debug';
+import { Data as TemplateData, Options as TemplateOptions } from 'ejs';
 import { EventEmitter } from 'events';
 import { Answers as InquirerAnswers, DistinctQuestion, PromptModule, prompt } from 'inquirer';
-import { Editor } from 'mem-fs-editor';
+import { Editor, CopyOptions } from 'mem-fs-editor';
 import { Observable } from 'rxjs';
 import { Transform } from 'stream';
 import table = require("text-table");
@@ -522,6 +523,17 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * ```
      */
     readTemplate: Editor["read"];
+
+    /**
+     * Copies a template from templates folder to the destination.
+     *
+     * @param source The template file, absolute or relative to `templatePath()`.
+     * @param destination The destination, absolute or relative to `destinationPath()`.
+     * @param templateData The `ejs`-data.
+     * @param templateOptions The `ejs`-options.
+     * @param copyOptions The `mem-fs-editor` copy options.
+     */
+    renderTemplate(source: string | string[], destination?: string | string[], templateData?: TemplateData, templateOptions?: TemplateOptions, copyOptions?: CopyOptions): void;
 
     // actions/help mixin
     argumentsHelp(): string;
