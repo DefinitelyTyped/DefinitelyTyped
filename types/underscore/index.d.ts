@@ -154,12 +154,20 @@ declare module _ {
         : TItem
         : T;
 
-    type PairValue<TPair, TValueList extends List<any> | undefined> =
-        TValueList extends undefined                            // if separate values are not supplied
-        ? (TPair extends [EnumerableKey, infer TValue] ? TValue     // if the pairs are pairs, the value type for the pair
-            : TPair extends List<any> ? any                         // if the pairs are a list, they're probably pairs but the exact type isn't inferrable, so any
-            : never)                                                // if the pairs aren't a list, there's no way that they're pairs, so never
-        : TypeOfList<TValueList> | undefined;                   // if separate values are supplied, the type of values + undefined since there may be more keys than values
+    // if T is an inferrable pair, the value type for the pair
+    // if T is a list, assume that it contains pairs of some type, so any
+    // if T isn't a list, there's no way that it can provide pairs, so never
+    type PairValue<T> =
+        T extends [EnumerableKey, infer TValue, ...any[]] ? TValue
+        : T extends List<any> ? any
+        : never;
+
+    // if separate values are not supplied, the result is the pair type of the possible pair
+    // if separate values are supplied, then the result is the type of the values + undefined since more keys may be supplied than values
+    type ObjectValue<TMaybePair, TValueList extends List<any> | undefined> =
+        TValueList extends undefined
+        ? PairValue<TMaybePair>
+        : TypeOfList<TValueList> | undefined;
 
     type AnyFalsy = undefined | null | false | '' | 0;
 
@@ -853,7 +861,7 @@ declare module _ {
         object<V extends List<any>, TValueList extends List<any> | undefined = undefined>(
             list: V,
             values?: TValueList
-        ): Dictionary<PairValue<TypeOfList<V>, TValueList>>;
+        ): Dictionary<ObjectValue<TypeOfList<V>, TValueList>>;
 
         /**
         * Returns the index at which value can be found in the array, or -1 if value is not present in the array.
@@ -4461,7 +4469,7 @@ declare module _ {
          **/
         object<TValueList extends List<any> | undefined = undefined>(
             values?: TValueList
-        ): Dictionary<PairValue<T, TValueList>>;
+        ): Dictionary<ObjectValue<T, TValueList>>;
 
         /**
         * Wrapped type `any[]`.
@@ -5493,7 +5501,7 @@ declare module _ {
          **/
         object<TValueList extends List<any> | undefined = undefined>(
             values?: TValueList
-        ): _Chain<PairValue<T, TValueList>, Dictionary<PairValue<T, TValueList>>>;
+        ): _Chain<ObjectValue<T, TValueList>, Dictionary<ObjectValue<T, TValueList>>>;
 
         /**
         * Wrapped type `any[]`.
