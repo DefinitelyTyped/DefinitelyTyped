@@ -751,7 +751,6 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @returns A help-text for the arguments.
      */
     argumentsHelp(): string;
-    async(): () => {};
 
     /**
      * Sets a custom `description` for the help output.
