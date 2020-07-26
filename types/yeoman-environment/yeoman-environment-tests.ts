@@ -1,4 +1,5 @@
 import Env = require("yeoman-environment");
+import util = require("yeoman-environment/lib/util/util");
 import createLogger = require("yeoman-environment/lib/util/log");
 import Generator = require("yeoman-generator");
 
@@ -11,6 +12,7 @@ env.store.setPath("lint.ruleset", "weak");
 // $ExpectType object
 env.store.createProxy();
 
+/* Logging */
 const defaultLogger = createLogger({});
 const customLogger = createLogger({
     colors: {
