@@ -133,9 +133,24 @@ const composed3: Base = generator.composeWith(
     path: './my-es2015-generator/lib/generators/app/index.js'
   });
 // $ExpectType MyES2015Generator
-let newGenerator: Base = generator.composeWith('bootstrap', {}, false);
+generator.composeWith('bootstrap', {}, false);
+// $ExpectType MyES2015Generator
+generator.composeWith([], {}, false);
 // $ExpectType Generator<GeneratorOptions>
-newGenerator = generator.composeWith('bootstrap', {}, true);
+generator.composeWith('bootstrap', {}, true);
+// $ExpectType Generator<GeneratorOptions>[]
+generator.composeWith([], {}, true);
+// $ExpectType Generator<GeneratorOptions>[]
+generator.composeWith(
+  [
+    "",
+    {
+      Generator: MyES2015Generator,
+      path: ""
+    }
+  ],
+  {},
+  true);
 
 generator.desc('new description');
 

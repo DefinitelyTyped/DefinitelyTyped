@@ -390,10 +390,10 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @returns
      * Either returns this generator or the newly created generator.
      */
-    composeWith<T extends true | false = true>(
-        generators: Array<Generator.CompositionOptions | string> | Generator.CompositionOptions | string,
+    composeWith<T extends true | false = true, TGenerators extends Array<Generator.CompositionOptions | string> | Generator.CompositionOptions | string = string>(
+        generators: TGenerators,
         options?: Generator.GeneratorOptions,
-        returnNewGenerator?: T): T extends true ? Generator : this;
+        returnNewGenerator?: T): T extends true ? TGenerators extends Array<any> ? Generator[] : Generator : this;
 
     /**
      * Creates a new storage.
