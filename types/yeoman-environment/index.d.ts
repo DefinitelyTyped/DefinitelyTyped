@@ -314,7 +314,15 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      */
     register(name: string, namespace?: string, packagePath?: string): this;
 
-    registerStub(generator: Generator.GeneratorConstructor, namespace: string): this;
+    /**
+     * Registers a stubbed generator to this environment.
+     *
+     * @param generator The generator constructor.
+     * @param namespace The namespace under which the generator should be registered.
+     * @param resolved The file-path to the generator.
+     * @param packagePath The path to the npm package of the generator.
+     */
+    registerStub(generator: Generator.GeneratorConstructor, namespace: string, resolved?: string, packagePath?: string): this;
 
     resolveModulePath(moduleId: string): string;
 
