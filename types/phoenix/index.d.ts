@@ -1,4 +1,4 @@
-// Type definitions for phoenix 1.4
+// Type definitions for phoenix 1.5
 // Project: https://github.com/phoenixframework/phoenix
 // Definitions by: Mirosław Ciastek <https://github.com/mciastek>
 //                 John Goff <https://github.com/John-Goff>
@@ -51,7 +51,10 @@ export interface SocketConnectOption {
   logger: (kind: string, message: string, data: any) => void;
   reconnectAfterMs: (tries: number) => number;
   rejoinAfterMs: (tries: number) => number;
+  vsn: string;
 }
+
+export type MessageRef = string;
 
 export class Socket {
   constructor(endPoint: string, opts?: Partial<SocketConnectOption>);
@@ -71,12 +74,13 @@ export class Socket {
   log(kind: string, message: string, data: any): void;
   hasLogger(): boolean;
 
-  onOpen(callback: (cb: any) => void): void;
-  onClose(callback: (cb: any) => void): void;
-  onError(callback: (cb: any) => void): void;
-  onMessage(callback: (cb: any) => void): void;
+  onOpen(callback: (cb: any) => void): MessageRef;
+  onClose(callback: (cb: any) => void): MessageRef;
+  onError(callback: (cb: any) => void): MessageRef;
+  onMessage(callback: (cb: any) => void): MessageRef;
 
-  makeRef(): string;
+  makeRef(): MessageRef;
+  off(refs: MessageRef[]): void;
 }
 
 export class LongPoll {
@@ -177,4 +181,11 @@ export type PresenceOnLeaveCallback = (
 
 export interface PresenceOpts {
   events?: { state: string; diff: string };
+}
+
+export class Timer {
+  constructor(callback: () => void,  timerCalc: (tries: number) => number)
+
+  reset(): void;
+  scheduleTimeout(): void;
 }
