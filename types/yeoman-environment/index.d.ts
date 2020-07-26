@@ -19,6 +19,14 @@ declare class Environment<
      * The utilities of the module.
      */
     static util: typeof util;
+
+    /**
+     * Createas a new `Environment` instance.
+     *
+     * @param args The arguments to pass to the environment.
+     * @param opts The options for the environment.
+     * @param adapter A `TerminalAdapter` instance for handling input/output of Yeoman.
+     */
     static createEnv<O extends Environment.Options = Environment.Options>(
         args?: string | string[],
         opts?: O,
