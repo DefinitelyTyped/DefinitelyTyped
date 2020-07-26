@@ -31,6 +31,29 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      */
     static util: typeof util;
 
+    arguments: string[];
+
+    options: TOptions;
+
+    cwd: string;
+
+    store: Storage;
+
+    sharedFs: MemFsStore;
+
+    lookups: string[];
+
+    aliases: Environment.Alias[];
+
+    /**
+     * Initializes a new instance of the `Environment` class.
+     *
+     * @param args The arguments to pass to the environment.
+     * @param opts The options for the environment.
+     * @param adapter A `TerminalAdapter` instance for handling input/output.
+     */
+    constructor(args?: string | string[], opts?: TOptions, adapter?: Environment.Adapter);
+
     /**
      * Createas a new `Environment` instance.
      *
@@ -68,29 +91,6 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
     static enforceUpdate<TEnv extends Environment>(env: TEnv): TEnv;
 
     static namespaceToName(namespace: string): string;
-
-    arguments: string[];
-
-    options: TOptions;
-
-    cwd: string;
-
-    store: Storage;
-
-    sharedFs: MemFsStore;
-
-    lookups: string[];
-
-    aliases: Environment.Alias[];
-
-    /**
-     * Initializes a new instance of the `Environment` class.
-     *
-     * @param args The arguments to pass to the environment.
-     * @param opts The options for the environment.
-     * @param adapter A `TerminalAdapter` instance for handling input/output.
-     */
-    constructor(args?: string | string[], opts?: TOptions, adapter?: Environment.Adapter);
 
     alias(match: string | RegExp, value: string): void;
 
