@@ -286,6 +286,13 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * @returns A list of generators.
      */
     lookup(options?: Environment.LookupOptions, cb?: (err: null | Error) => void): Environment.LookupGeneratorMeta[];
+
+    /**
+     * Searches and registers generators inside the custom local repository.
+     *
+     * @param packagesToLookup The patterns of the packages to lookup.
+     */
+    lookupLocalPackages(packagesToLookup?: string[]): Environment.LookupGeneratorMeta[];
     namespace(filepath: string): string;
 
     namespaces(): string[];
