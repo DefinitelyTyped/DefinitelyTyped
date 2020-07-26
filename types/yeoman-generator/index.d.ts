@@ -10,7 +10,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-import { SpawnOptions } from 'child_process';
+import { SpawnOptions, SpawnSyncOptions } from 'child_process';
 import { Debugger } from 'debug';
 import { Data as TemplateData, Options as TemplateOptions } from 'ejs';
 import { EventEmitter } from 'events';
