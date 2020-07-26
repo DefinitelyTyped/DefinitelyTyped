@@ -1,4 +1,4 @@
-import { Socket, Channel, Presence } from 'phoenix';
+import { Socket, Channel, Presence, Timer } from 'phoenix';
 
 function test_socket() {
     const socket = new Socket('/ws', {
@@ -6,7 +6,7 @@ function test_socket() {
         params: { userToken: '123' },
         reconnectAfterMs: tries => 1000,
         rejoinAfterMs: tries => 1000,
-        vsn: '2.0.0'
+        vsn: '2.0.0',
     });
     socket.connect();
 
@@ -85,4 +85,13 @@ function test_presence() {
     socket.connect();
 
     channel.join();
+}
+
+function test_timer() {
+    const reconnectTimer = new Timer(
+        () => console.log('connect'),
+        tries => [1000, 5000, 10000][tries - 1] || 10000,
+    );
+    reconnectTimer.scheduleTimeout(); // fires after 5000
+    reconnectTimer.reset();
 }
