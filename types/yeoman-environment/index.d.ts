@@ -250,8 +250,14 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      */
     installLocalGenerators(packages: Record<string, string>): boolean;
 
+    /**
+     * Instantiates a generator.
+     *
+     * @param name The constructor of the generator.
+     * @param options The options to pass to the generator.
+     */
     instantiate(
-        name: string,
+        name: Generator.GeneratorConstructor,
         options: Environment.InstantiateOptions
     ): Generator;
 
