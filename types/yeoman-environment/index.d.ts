@@ -25,9 +25,24 @@ declare class Environment<
      *
      * @param args The arguments to pass to the environment.
      * @param opts The options for the environment.
-     * @param adapter A `TerminalAdapter` instance for handling input/output of Yeoman.
+     * @param adapter A `TerminalAdapter` instance for handling input/output.
      */
     static createEnv<TOptions extends Environment.Options = Environment.Options>(
+        args?: string | string[],
+        opts?: TOptions,
+        adapter?: Environment.Adapter
+    ): Environment<TOptions>;
+
+    /**
+     * Creates a new `Environment` instance with the specified `version`.
+     *
+     * @param version The version of the environment.
+     * @param args The arguments to pass to the environment.
+     * @param opts The options for the environment.
+     * @param adapter A `TerminalAdapter` instance for handling input/output.
+     */
+    static createEnvWithVersion<TOptions extends Environment.Options>(
+        version: string,
         args?: string | string[],
         opts?: TOptions,
         adapter?: Environment.Adapter
