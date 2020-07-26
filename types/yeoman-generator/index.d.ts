@@ -16,6 +16,7 @@ import { EventEmitter } from 'events';
 import { Answers as InquirerAnswers, DistinctQuestion, PromptModule, prompt } from 'inquirer';
 import { Editor } from 'mem-fs-editor';
 import { Observable } from 'rxjs';
+import { Transform } from 'stream';
 import table = require("text-table");
 import { format } from 'util';
 import Storage = require("./lib/util/storage");
@@ -63,6 +64,21 @@ declare namespace Generator {
          */
         store?: boolean;
     };
+
+    /**
+     * Provides options for registering a prompt.
+     */
+    type QuestionRegistrationOptions<T extends Answers = Answers> = Question<T> & {
+        /**
+         * The storage to store the answers.
+         */
+        storage?: Storage;
+
+        /**
+         * A value indicating whether an option should be exported for this question.
+         */
+        exportOption?: boolean | object;
+    }
 
     /**
      * Represents an answer-hash.
@@ -406,6 +422,13 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      */
     queueTaskGroup(taskGroup: Record<string, (...args: any[]) => any>, taskOptions?: Generator.TaskOptions): void;
 
+    /**
+     * Registers stored config prompts and optional option alternatives.
+     *
+     * @param questions
+     * The questions to register.
+     */
+    registerConfigPrompts<TAnswers>(questions: Generator.QuestionRegistrationOptions<TAnswers> | Array<Generator.QuestionRegistrationOptions<TAnswers>>): void;
     registerTransformStream(stream: {} | Array<{}>): this;
     rootGeneratorName(): string;
     rootGeneratorVersion(): string;
