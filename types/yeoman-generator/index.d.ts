@@ -429,7 +429,13 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * The questions to register.
      */
     registerConfigPrompts<TAnswers>(questions: Generator.QuestionRegistrationOptions<TAnswers> | Array<Generator.QuestionRegistrationOptions<TAnswers>>): void;
-    registerTransformStream(stream: {} | Array<{}>): this;
+
+    /**
+     * Adds a transform stream to the commit stream.
+     *
+     * @param stream An array of transform streams or a single one.
+     */
+    registerTransformStream(stream: Transform | Array<Transform>): this;
     rootGeneratorName(): string;
     rootGeneratorVersion(): string;
     run(cb?: Generator.Callback): this;
