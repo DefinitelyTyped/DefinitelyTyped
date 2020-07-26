@@ -262,6 +262,14 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
     ): Generator;
 
     /**
+     * Checks whether a package with the specified `packageNamespace` has been registered.
+     *
+     * @param packageNamespace The package-namespace to check.
+     * @returns A value indicating whether a package with the specified `packageNamespace` has been registered.
+     */
+    isPackageRegistered(packageNamespace?: string): boolean;
+
+    /**
      * Searches for generators and their sub-generators.
      *
      * A generator is a `:lookup/:name/index.js` file placed inside an npm package.
