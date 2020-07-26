@@ -57,7 +57,20 @@ declare namespace Generator {
         customPriorities?: Priority[];
     }
 
-    type Callback = (err: any) => void;
+    /**
+     * Provides the functionality to handle callbacks.
+     */
+    type Callback =
+        /**
+         * Handles a callback.
+         *
+         * @param err The error that occurred.
+         */
+        (err: any) => void;
+
+    /**
+     * Represents a question.
+     */
     type Question<T extends Answers = Answers> = DistinctQuestion<T> & {
         /**
          * A value indicating whether to store the user's previous answer.

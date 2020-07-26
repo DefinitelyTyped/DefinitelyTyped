@@ -140,7 +140,7 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * @param namespaceOrPath The namespace of the generator or the path to a generator.
      * @param options The options to pass to the generator.
      *
-     * @returns Either the newly created generator or the error that occured.
+     * @returns Either the newly created generator or the error that occurred.
      */
     create<TOptions extends Generator.GeneratorOptions>(
         namespaceOrPath: string, options?: Environment.InstantiateOptions<TOptions>): Generator<TOptions> | Error;
@@ -466,7 +466,16 @@ declare namespace Environment {
         packagePatterns?: string[];
     }
 
-    type Callback = (err: null | Error) => void;
+    /**
+     * Provides the functionality to handle callbacks.
+     */
+    type Callback =
+        /**
+         * Handles a callback.
+         *
+         * @param err The error that occurred.
+         */
+        (err: Error | null) => void;
 }
 
 export = Environment;
