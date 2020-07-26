@@ -12,7 +12,7 @@ declare namespace createLogger {
         /**
          * Gets the color for the specified method-name.
          */
-        [P in keyof TObject]?: typeof Color | typeof Modifiers | undefined;
+        [P in keyof TObject]?: typeof Color | typeof Modifiers;
     }
 
     /**
