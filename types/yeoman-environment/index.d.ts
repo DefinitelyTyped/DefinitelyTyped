@@ -9,10 +9,11 @@ import { Store as MemFsStore } from "mem-fs";
 import * as inquirer from "inquirer";
 import * as Generator from "yeoman-generator";
 import Storage = require("yeoman-generator/lib/util/storage");
+import { Logger as LoggerBase } from "./lib/util/log";
 
 declare class Environment<
     O extends Environment.Options = Environment.Options
-> extends EventEmitter {
+    > extends EventEmitter {
     static createEnv<O extends Environment.Options = Environment.Options>(
         args?: string | string[],
         opts?: O,
@@ -92,6 +93,11 @@ declare class Environment<
 }
 
 declare namespace Environment {
+    /**
+     * Represents a component for logging messages.
+     */
+    type Logger = LoggerBase;
+
     interface Adapter {
         prompt<T>(questions: Adapter.Questions<T>): Promise<T>;
         prompt<T1, T2>(

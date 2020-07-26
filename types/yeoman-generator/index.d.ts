@@ -18,8 +18,7 @@ import { Answers as InquirerAnswers, DistinctQuestion, PromptModule, prompt } fr
 import { Editor, CopyOptions } from 'mem-fs-editor';
 import { Observable } from 'rxjs';
 import { Transform } from 'stream';
-import table = require("text-table");
-import { format } from 'util';
+import { Logger } from "yeoman-environment";
 import Storage = require("./lib/util/storage");
 
 declare namespace Generator {
@@ -186,82 +185,6 @@ declare namespace Generator {
     }
 
     /**
-     * Provides the functionality to log messages.
-     */
-    interface Logger extends EventEmitter {
-        /**
-         * Writes a log-message.
-         *
-         * @param format
-         * The format of the log-messages.
-         *
-         * @param params
-         * The parameters to replace variables with.
-         */
-        (format: string, params?: Record<string, any>): this;
-
-        /**
-         * Writes a log-message.
-         */
-        write(...args: Parameters<typeof format>): this;
-
-        /**
-         * Writes a log-message with an appended newline character.
-         */
-        writeln(...args: Parameters<typeof format>): this;
-
-        /**
-         * Writes a success status with a check mark `✔`.
-         */
-        ok(...args: Parameters<typeof format>): this;
-
-        /**
-         * Writes an error-message with a prepended cross mark.
-         */
-        error(...args: Parameters<typeof format>): this;
-
-        /**
-         * Writes a `skip`-message.
-         */
-        skip(...args: Parameters<typeof format>): this;
-
-        /**
-         * Writes a `force`-message.
-         */
-        force(...args: Parameters<typeof format>): this;
-
-        /**
-         * Writes a `create`-message.
-         */
-        create(...args: Parameters<typeof format>): this;
-
-        /**
-         * Writes a `invoke`-message.
-         */
-        invoke(...args: Parameters<typeof format>): this;
-
-        /**
-         * Writes a `conflict`-message.
-         */
-        conflict(...args: Parameters<typeof format>): this;
-
-        /**
-         * Writes a `identical`-message.
-         */
-        identical(...args: Parameters<typeof format>): this;
-
-        /**
-         * Writes a `info`-message.
-         */
-        info(...args: Parameters<typeof format>): this;
-
-        /**
-         * Writes a table to the console.
-         */
-        table: typeof table;
-    }
-
-    /**
      * Represents a generator-constructor.
      */
     interface GeneratorConstructor {
@@ -416,7 +339,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     /**
      * Provides the functionality to log messages.
      */
-    log: Generator.Logger;
+    log: Logger;
 
     /**
      * Reads the options or a single option at the specified property-path from the `.yo-rc` config-store.
