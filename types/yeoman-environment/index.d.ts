@@ -451,8 +451,18 @@ declare namespace Environment {
         value: string;
     }
 
+    /**
+     * Represents options for an `Environment`.
+     */
     interface Options {
+        /**
+         * The working-directory of the environment.
+         */
         cwd?: string;
+
+        /**
+         * Additional options.
+         */
         [key: string]: any;
     }
 
