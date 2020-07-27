@@ -116,3 +116,6 @@ const validationResult6: mailgunFactory.validation.ValidateResponse = {
 // Generic requests
 mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] }, (error: any, body: any) => {});
 const response: Promise<any> = mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] });
+
+// Delete mailing list
+mailgun.lists('example@mailgun.net').delete((error, body) => { });
