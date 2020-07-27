@@ -13,19 +13,19 @@ declare namespace createLogger {
          * Gets the color for the specified method-name.
          */
         [P in keyof TObject]?: typeof Color | typeof Modifiers;
-    }
+    };
 
     /**
      * Provides a default color-set.
      */
     interface DefaultColorMap extends ColorMap<DefaultColorMap> {
-        skip: "yellow",
-        force: "yellow",
-        create: "green",
-        invoke: "bold",
-        conflict: "red",
-        identical: "cyan",
-        info: "gray"
+        skip: "yellow";
+        force: "yellow";
+        create: "green";
+        invoke: "bold";
+        conflict: "red";
+        identical: "cyan";
+        info: "gray";
     }
 
     /**

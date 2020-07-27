@@ -2,7 +2,7 @@
 // Project: https://github.com/yeoman/environment, http://yeoman.io
 // Definitions by: c4605 <https://github.com/bolasblack>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 3.5
 
 import { EventEmitter } from "events";
 import { Store as MemFsStore } from "mem-fs";
@@ -260,6 +260,7 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      *
      * @param dependency The name of the dependency.
      */
+    // tslint:disable-next-line:unified-signatures
     getVersion(dependency: string): string;
 
     /**
@@ -439,7 +440,7 @@ declare namespace Environment {
     /**
      * Represents an adapter.
      */
-    interface Adapter extends TerminalAdapter { }
+    type Adapter = TerminalAdapter;
 
     /**
      * Represents an alias.

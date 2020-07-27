@@ -1,4 +1,5 @@
 import Env = require("yeoman-environment");
+import { Adapter } from "yeoman-environment";
 import createLogger = require("yeoman-environment/lib/util/log");
 import Generator = require("yeoman-generator");
 

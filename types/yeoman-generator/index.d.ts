@@ -8,7 +8,7 @@
 //                 Richard Lea <https://github.com/chigix>
 //                 Devid Farinelli <https://github.com/misterdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 3.5
 
 import { SpawnOptions, SpawnSyncOptions } from 'child_process';
 import { Debugger } from 'debug';
