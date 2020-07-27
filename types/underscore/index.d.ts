@@ -849,7 +849,7 @@ declare module _ {
          * corresponding to those keys.
          * @retursn An object comprised of the provided keys and values.
          **/
-        object<TList extends List<any>, TValue>(
+        object<TList extends List<EnumerableKey>, TValue>(
             list: TList,
             values: List<TValue>
         ): Dictionary<TValue | undefined>;
