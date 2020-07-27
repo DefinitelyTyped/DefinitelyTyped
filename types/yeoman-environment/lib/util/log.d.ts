@@ -13,7 +13,7 @@ declare namespace createLogger {
          * Gets the color for the specified method-name.
          */
         [P in TKeys]: typeof Color | typeof Modifiers;
-    }
+    };
 
     /**
      * Provides default color-categories.
