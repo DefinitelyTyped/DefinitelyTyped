@@ -8,17 +8,17 @@ declare namespace createLogger {
     /**
      * Provides a set of colors.
      */
-    type ColorMap<TObject> = {
+    type ColorMap<TKeys extends string | number | symbol> = {
         /**
          * Gets the color for the specified method-name.
          */
-        [P in keyof TObject]?: typeof Color | typeof Modifiers;
+        [P in TKeys]?: typeof Color | typeof Modifiers;
     };
 
     /**
      * Provides a default color-set.
      */
-    interface DefaultColorMap extends ColorMap<DefaultColorMap> {
+    interface DefaultColorMap extends ColorMap<keyof DefaultColorMap> {
         skip: "yellow";
         force: "yellow";
         create: "green";
@@ -31,7 +31,7 @@ declare namespace createLogger {
     /**
      * Provides options for creating a logger.
      */
-    interface LoggerOptions<TColors extends ColorMap<TColors> = DefaultColorMap> {
+    interface LoggerOptions<TColors extends ColorMap<keyof TColors> = DefaultColorMap> {
         /**
          * A set of categories and assigned `chalk`-formats.
          */
@@ -56,7 +56,7 @@ declare namespace createLogger {
     /**
      * Provides the functionality to log messages.
      */
-    type Logger<TColors extends ColorMap<TColors> = DefaultColorMap> = EventEmitter & {
+    type Logger<TColors extends ColorMap<keyof TColors> = DefaultColorMap> = EventEmitter & {
         /**
          * Logs a message of the specified category.
          */
@@ -106,7 +106,7 @@ declare namespace createLogger {
  * @param options
  * The options for creating the new logger.
  */
-declare function createLogger<TColors extends createLogger.ColorMap<TColors> = createLogger.DefaultColorMap>(
+declare function createLogger<TColors extends createLogger.ColorMap<keyof TColors> = createLogger.DefaultColorMap>(
     options: createLogger.LoggerOptions<TColors>): createLogger.Logger<TColors>;
 
 /**
