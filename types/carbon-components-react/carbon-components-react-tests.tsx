@@ -631,7 +631,7 @@ const sideNavChildren = (
 
 const modal = (
     <Modal primaryButtonText={<InlineLoading />} secondaryButtonText={<InlineLoading />} />
-)
+);
 
 // DataTableSkeleton
 const dataTableSkeleton = (
