@@ -25,7 +25,7 @@ createLogger({
     stderr: process.stdout,
     stdout: process.stderr
 });
-// $ExpectType Logger<DefaultColorMap>
+// $ExpectType Logger<DefaultCategories>
 Env.util.log({});
 
 defaultLogger.skip("");
