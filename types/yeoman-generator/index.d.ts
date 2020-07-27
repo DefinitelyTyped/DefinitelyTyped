@@ -385,7 +385,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param generator The path to the generator module or an object (see examples).
      * @param options The options passed to the Generator.
      * @param returnNewGenerator Returns the created generator instead of returning this.
-     * @return This generator or the composed generator when returnNewGenerator=true
+     * @return This generator or the composed generator when `returnNewGenerator` is `true`.
      *
      * @example
      * this.composeWith('bootstrap', { sass: true });
@@ -399,10 +399,10 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @returns
      * Either returns this generator or the newly created generator.
      */
-    composeWith<T extends true | false = true>(
-        generators: Generator.CompositionOptions | string,
+    composeWith(
+        generators: Array<Generator.CompositionOptions | string> | Generator.CompositionOptions | string,
         options?: Generator.GeneratorOptions,
-        returnNewGenerator?: T): T extends true ? Generator : this;
+        returnNewGenerator?: false): this;
 
     /**
      * Compose this generator with another one.
@@ -424,10 +424,35 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @returns
      * Either returns this generator or the newly created generator.
      */
-    composeWith<T extends true | false = true>(
+    composeWith(
+        generators: Generator.CompositionOptions | string,
+        options: Generator.GeneratorOptions,
+        returnNewGenerator: true): Generator;
+
+    /**
+     * Compose this generator with another one.
+     *
+     * @param generator The path to the generator module or an object (see examples).
+     * @param options The options passed to the Generator.
+     * @param returnNewGenerator Returns the created generator instead of returning this.
+     * @return This generator or the composed generator when returnNewGenerator=true
+     *
+     * @example
+     * this.composeWith('bootstrap', { sass: true });
+     *
+     * @example
+     * this.composeWith(require.resolve('generator-bootstrap/app/main.js'), { sass: true });
+     *
+     * @example
+     * this.composeWith({ Generator: MyGenerator, path: '../generator-bootstrap/app/main.js' }, { sass: true });
+     *
+     * @returns
+     * Either returns this generator or the newly created generator.
+     */
+    composeWith(
         generators: Array<Generator.CompositionOptions | string>,
-        options?: Generator.GeneratorOptions,
-        returnNewGenerator?: T): T extends true ? Generator[] : this;
+        options: Generator.GeneratorOptions,
+        returnNewGenerator: true): Generator[];
 
     /**
      * Creates a new storage.
