@@ -311,7 +311,15 @@ export interface CalendarBaseProps {
     webAriaLevel?: number;
 }
 
-export class Calendar extends React.Component<CalendarMarkingProps & CalendarBaseProps> { }
+export type CalendarProps = CalendarMarkingProps &
+    CalendarBaseProps & {
+        /**
+         * Enable the option to swipe between months. Default = false
+         */
+        enableSwipeMonths?: boolean;
+    };
+
+export class Calendar extends React.Component<CalendarProps> {}
 
 export interface CalendarListBaseProps extends CalendarBaseProps {
     /**
