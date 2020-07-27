@@ -247,10 +247,16 @@ declare namespace Mailgun {
         delete: MailgunRequest;
     }
 
+    interface DeleteResponse {
+        address: string;
+        message: string;
+    }
+
     interface Lists {
         info(callback?: (error: Error, data: any) => void): Promise<any>;
         members(): lists.Members;
         members(member: string): lists.Member;
+        delete(callback?: (error: Error, body: DeleteResponse) => void): Promise<DeleteResponse>;
     }
 
     interface Messages {
