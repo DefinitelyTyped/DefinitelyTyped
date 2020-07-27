@@ -254,8 +254,6 @@ export class Cookie extends PropertyBase<CookieDefinition> implements Exclude<Co
   static stringify(cookie: CookieDefinition): string;
   /** Cookie header parser */
   static parse(str: string): CookieDefinition;
-  /** Splits a Cookie parameter into a key and a value */
-  private static splitParam(param: string): { key: string; value: string | boolean };
 }
 
 export class CookieList extends PropertyList<Cookie> {
