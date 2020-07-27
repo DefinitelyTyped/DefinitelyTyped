@@ -12,30 +12,29 @@ declare namespace createLogger {
         /**
          * Gets the color for the specified method-name.
          */
-        [P in TKeys]?: typeof Color | typeof Modifiers;
-    };
+        [P in TKeys]: typeof Color | typeof Modifiers;
+    }
 
     /**
-     * Provides a default color-set.
+     * Provides default color-categories.
      */
-    interface DefaultColorMap extends ColorMap<keyof DefaultColorMap> {
-        skip: "yellow";
-        force: "yellow";
-        create: "green";
-        invoke: "bold";
-        conflict: "red";
-        identical: "cyan";
-        info: "gray";
-    }
+    type DefaultCategories =
+        "skip" |
+        "force" |
+        "create" |
+        "invoke" |
+        "conflict" |
+        "identical" |
+        "info";
 
     /**
      * Provides options for creating a logger.
      */
-    interface LoggerOptions<TColors extends ColorMap<keyof TColors> = DefaultColorMap> {
+    interface LoggerOptions<TCategories extends string | number | symbol = DefaultCategories> {
         /**
          * A set of categories and assigned `chalk`-formats.
          */
-        colors?: TColors;
+        colors?: ColorMap<TCategories>;
 
         /**
          * The console to write log-messages to.
@@ -56,11 +55,11 @@ declare namespace createLogger {
     /**
      * Provides the functionality to log messages.
      */
-    type Logger<TColors extends ColorMap<keyof TColors> = DefaultColorMap> = EventEmitter & {
+    type Logger<TCategories extends string | number | symbol = DefaultCategories> = EventEmitter & {
         /**
          * Logs a message of the specified category.
          */
-        [P in keyof TColors]: (...args: Parameters<typeof format>) => Logger<TColors>;
+        [P in TCategories]: (...args: Parameters<typeof format>) => Logger<TCategories>;
     } & {
         /**
          * Writes a log-message.
@@ -71,27 +70,27 @@ declare namespace createLogger {
          * @param params
          * The parameters to replace variables with.
          */
-        (format: string, params?: Record<string, any>): Logger<TColors>;
+        (format: string, params?: Record<string, any>): Logger<TCategories>;
 
         /**
          * Writes a log-message.
          */
-        write(...args: Parameters<typeof format>): Logger<TColors>;
+        write(...args: Parameters<typeof format>): Logger<TCategories>;
 
         /**
          * Writes a log-message with an appended newline character.
          */
-        writeln(...args: Parameters<typeof format>): Logger<TColors>;
+        writeln(...args: Parameters<typeof format>): Logger<TCategories>;
 
         /**
          * Writes a success status with a check mark `✔`.
          */
-        ok(...args: Parameters<typeof format>): Logger<TColors>;
+        ok(...args: Parameters<typeof format>): Logger<TCategories>;
 
         /**
          * Writes an error-message with a prepended cross mark.
          */
-        error(...args: Parameters<typeof format>): Logger<TColors>;
+        error(...args: Parameters<typeof format>): Logger<TCategories>;
 
         /**
          * Writes a table to the console.
@@ -106,8 +105,8 @@ declare namespace createLogger {
  * @param options
  * The options for creating the new logger.
  */
-declare function createLogger<TColors extends createLogger.ColorMap<keyof TColors> = createLogger.DefaultColorMap>(
-    options: createLogger.LoggerOptions<TColors>): createLogger.Logger<TColors>;
+declare function createLogger<TCategories extends string | number | symbol = createLogger.DefaultCategories>(
+    options: createLogger.LoggerOptions<TCategories>): createLogger.Logger<TCategories>;
 
 /**
  * Creates a logger with the specified `options`.
