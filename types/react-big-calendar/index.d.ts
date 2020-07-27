@@ -8,7 +8,6 @@
 //                 janb87 <https://github.com/janb87>
 //                 Daniel Thorne <https://github.com/ldthorne>
 //                 Panagiotis Rikarnto Siavelis <https://github.com/siavelis>
-//                 Tomas Hubelbauer <https://github.com/TomasHubelbauer>
 //                 Lucas Silva Souza <https://github.com/lksilva>
 //                 Siarhey Belofost <https://github.com/SergeyBelofost>
 //                 Mark Nelissen <https://github.com/marknelissen>
