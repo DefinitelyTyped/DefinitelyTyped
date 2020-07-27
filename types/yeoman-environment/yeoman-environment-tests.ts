@@ -29,8 +29,6 @@ createLogger({
 Env.util.log({});
 
 defaultLogger.skip("");
-// $ExpectError
-customLogger.skip("");
 customLogger.help("");
 
 /* Lookup */
