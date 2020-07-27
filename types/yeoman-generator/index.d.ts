@@ -14,12 +14,13 @@ import { SpawnOptions, SpawnSyncOptions } from 'child_process';
 import { Debugger } from 'debug';
 import { Data as TemplateData, Options as TemplateOptions } from 'ejs';
 import { EventEmitter } from 'events';
-import { Answers as InquirerAnswers, DistinctQuestion, PromptModule, prompt } from 'inquirer';
+import { Answers as InquirerAnswers, DistinctQuestion } from 'inquirer';
 import { Editor, CopyOptions } from 'mem-fs-editor';
 import { Observable } from 'rxjs';
 import { Transform } from 'stream';
-import { Logger } from "yeoman-environment";
+import Environment = require('yeoman-environment');
 import Storage = require("./lib/util/storage");
+import Logger = Environment.Logger;
 
 declare namespace Generator {
     /**
@@ -307,12 +308,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     /**
      * The current Environment being run.
      */
-    env: {
-        error(...e: Error[]): void;
-        adapter: {
-            promptModule: PromptModule;
-        };
-    };
+    env: Environment;
 
     /**
      * Provides arguments at initialization.
