@@ -9,6 +9,7 @@ import { Store as MemFsStore } from "mem-fs";
 import * as inquirer from "inquirer";
 import * as Generator from "yeoman-generator";
 import Storage = require("yeoman-generator/lib/util/storage");
+import TerminalAdapter = require("./lib/adapter");
 import { Logger as LoggerBase } from "./lib/util/log";
 import util = require("./lib/util/util");
 
@@ -415,23 +416,25 @@ declare namespace Environment {
      */
     type Logger = LoggerBase;
 
-    interface Adapter {
-        prompt<T>(questions: Adapter.Questions<T>): Promise<T>;
-        prompt<TAnswers, TResult>(
-            questions: Adapter.Questions<TAnswers>,
-            cb: (res: TAnswers) => TResult
-        ): Promise<TResult>;
+    /**
+     * Represents a question.
+     */
+    type Question<T> = inquirer.DistinctQuestion<T>;
 
-        diff(actual: string, expected: string): string;
-    }
+    /**
+     * Represents a collection of questions.
+     */
+    type Questions<T> = inquirer.QuestionCollection<T>;
 
-    namespace Adapter {
-        type Question<T> = inquirer.DistinctQuestion<T>;
+    /**
+     * Represents an answer-hash.
+     */
+    type Answers = inquirer.Answers;
 
-        type Questions<T> = inquirer.QuestionCollection<T>;
-
-        type Answers = inquirer.Answers;
-    }
+    /**
+     * Represents an adapter.
+     */
+    interface Adapter extends TerminalAdapter { }
 
     /**
      * Represents an alias.
