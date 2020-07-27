@@ -3,12 +3,13 @@
 // Definitions by: Fred Eisele <https://github.com/phreed>
 //                 Ruben Taelman <https://github.com/rubensworks>
 //                 Laurens Rietveld <https://github.com/LaurensRietveld>
+//                 Joachim Van Herwegen <https://github.com/joachimvh>
+//                 Alexey Morozov <https://github.com/AlexeyMz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 /// <reference types="node" />
 
-import * as fs from "fs";
 import * as stream from "stream";
 import * as RDF from "rdf-js";
 import { EventEmitter } from "events";
@@ -129,9 +130,9 @@ export interface BlankTriple<Q extends RDF.BaseQuad = RDF.Quad> {
 
 export interface ParserOptions {
     format?: string;
-    prefixes?: string[];
     factory?: RDF.DataFactory;
     baseIRI?: string;
+    blankNodePrefix?: string;
 }
 
 export type ParseCallback<Q extends BaseQuad = Quad> = (error: Error, quad: Q, prefixes: Prefixes) => void;
@@ -169,7 +170,7 @@ export class Writer<Q extends RDF.BaseQuad = RDF.Quad> {
     list(triple: Array<Q['object']>): Quad_Object[];
 }
 
-export class StreamWriter<Q extends RDF.BaseQuad = Quad> extends stream.Transform implements RDF.Sink<RDF.Stream<Q>, EventEmitter> {
+export class StreamWriter<Q extends RDF.BaseQuad = RDF.Quad> extends stream.Transform implements RDF.Sink<RDF.Stream<Q>, EventEmitter> {
   constructor(options?: WriterOptions);
   constructor(fd: any, options?: WriterOptions);
   import(stream: RDF.Stream<Q>): EventEmitter;

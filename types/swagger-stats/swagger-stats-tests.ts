@@ -8,7 +8,7 @@ import {
   stop,
 } from 'swagger-stats';
 import { Server } from '@hapi/hapi';
-import * as fastify from 'fastify';
+import fastify from 'fastify';
 import * as express from 'express';
 
 const isDefined = (input: any) => {

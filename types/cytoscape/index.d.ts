@@ -3826,9 +3826,9 @@ declare namespace cytoscape {
          */
         interface Gradient {
             /**
-             * The colours of the gradient stops.
+             * The colors of the gradient stops.
              */
-            "line-gradient-stop-colours"?: Array<PropertyValueEdge<Colour>>;
+            "line-gradient-stop-colors"?: Array<PropertyValueEdge<Colour>>;
             /**
              * The positions of the gradient stops.
              * If not specified (or invalid), the stops will divide equally.

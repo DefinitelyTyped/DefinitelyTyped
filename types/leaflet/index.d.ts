@@ -155,7 +155,7 @@ export class LatLngBounds {
     getNorth(): number;
     contains(otherBoundsOrLatLng: LatLngBoundsExpression | LatLngExpression): boolean;
     intersects(otherBounds: LatLngBoundsExpression): boolean;
-    overlaps(otherBounds: BoundsExpression): boolean; // investigate if this is really bounds and not latlngbounds
+    overlaps(otherBounds: LatLngBoundsExpression): boolean;
     toBBoxString(): string;
     equals(otherBounds: LatLngBoundsExpression): boolean;
     isValid(): boolean;
@@ -1290,7 +1290,7 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
      * Resets the given vector layer's style to the original GeoJSON style,
      * useful for resetting style after hover events.
      */
-    resetStyle(layer: Layer): Layer;
+    resetStyle(layer?: Layer): Layer;
 
     /**
      * Same as FeatureGroup's setStyle method, but style-functions are also
@@ -1410,7 +1410,7 @@ export namespace Control {
 
     class Attribution extends Control {
         constructor(options?: AttributionOptions);
-        setPrefix(prefix: string): this;
+        setPrefix(prefix: string | false): this;
         addAttribution(text: string): this;
         removeAttribution(text: string): this;
         options: AttributionOptions;
@@ -1628,7 +1628,7 @@ export interface LayersControlEvent extends LayerEvent {
 
 export interface TileEvent extends LeafletEvent {
     tile: HTMLImageElement;
-    coords: Point; // apparently not a normal point, since docs say it has z (zoom)
+    coords: Coords;
 }
 
 export interface TileErrorEvent extends TileEvent {

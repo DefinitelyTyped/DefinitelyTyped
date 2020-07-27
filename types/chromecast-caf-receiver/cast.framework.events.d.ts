@@ -415,7 +415,7 @@ export class BreaksEvent extends Event {
 /**
  * Event data for @see {@link EventType.BITRATE_CHANGED} event.
  */
-export class BitrateChangedEvent {
+export class BitrateChangedEvent extends Event {
     constructor(totalBitrate?: number);
 
     /** The bitrate of the media (audio and video) in bits per second. */

@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.32
+// Type definitions for ArcGIS API for JavaScript 3.33
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -633,6 +633,8 @@ declare module "esri" {
     pageBackButton?: string;
     /** Selected variables array. */
     selection?: string[];
+    /** The maximum number of variables to select. */
+    selectionLimit?: number;
     /** Whether to display the "Shopping Cart" of selected variables. */
     shoppingCart?: boolean;
     /** Title to show in the top left hand corner. */

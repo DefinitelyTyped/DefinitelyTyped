@@ -1,4 +1,4 @@
-// Type definitions for bent 7.0
+// Type definitions for bent 7.3
 // Project: https://github.com/mikeal/bent#readme
 // Definitions by: Ovyerus <https://github.com/Ovyerus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -47,12 +47,24 @@ declare namespace bent {
         statusCode: number;
         statusMessage: string;
         headers: Headers;
+        arrayBuffer(): Promise<Buffer>;
+        text(): Promise<string>;
+        json(): Promise<Json>;
     };
     type FetchResponse = Response & { statusCode: number };
     type BentResponse = NodeResponse | FetchResponse;
 
     type Json = { [key: string]: any; [key: number]: any } | any[];
     type ValidResponse = BentResponse | string | Buffer | ArrayBuffer | Json;
+
+    class StatusError extends Error {
+        statusCode: number;
+        arrayBuffer(): Promise<ArrayBuffer | Buffer>;
+        text(): Promise<string>;
+        json(): Promise<Json>;
+        responseBody: Promise<ArrayBuffer | Buffer>;
+        headers: { [key: string]: any };
+    }
 }
 
 export = bent;

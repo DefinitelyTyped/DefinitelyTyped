@@ -280,7 +280,8 @@ export interface Lens {
  * <created by @pirix-gh>
  */
 export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =
-    O.MergeUp<T.ObjectOf<O1>, T.ObjectOf<O2>, Depth>;
+    // tslint:disable-next-line:use-default-type-parameter
+    O.MergeUp<T.ObjectOf<O1>, T.ObjectOf<O2>, Depth, 1>;
 
 /**
  * Merge multiple objects `Os` with each other
@@ -292,10 +293,11 @@ export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | '
  * <created by @pirix-gh>
  */
 export type MergeAll<Os extends readonly object[]> =
-    O.AssignUp<{}, Os> extends infer M
-    ? {} extends M         // nothing merged => bcs no `as const`
-      ? T.UnionOf<Os>      // so we output the approximate types
-      : T.ObjectOf<M & {}> // otherwise, we can get accurate types
+    // tslint:disable-next-line:use-default-type-parameter
+    O.AssignUp<{}, Os, 'flat', 1> extends infer M
+    ? {} extends M    // nothing merged => bcs no `as const`
+      ? T.UnionOf<Os> // so we output the approximate types
+      : M             // otherwise, we can get accurate types
     : never;
 
 // ---------------------------------------------------------------------------------------

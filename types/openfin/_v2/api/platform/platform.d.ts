@@ -1,35 +1,14 @@
-import { View } from './../view/view';
+import { View, ViewCreationOptions } from '../view/view';
 import { Base, EmitterBase } from '../base';
 import { Channel } from '../interappbus/channel/index';
 import { ChannelClient } from '../interappbus/channel/client';
 import { Identity } from '../../identity';
-import { ApplicationOption } from '../application/applicationOption';
-import { WindowOption } from '../window/windowOption';
-import { ViewCreationOptions } from '../view/view';
-import { RvmLaunchOptions } from '../application/application';
+import { RvmLaunchOptions, Application } from '../application/application';
 import Transport from '../../transport/transport';
 import LayoutModule from './layout';
 import { PlatformEvents } from '../events/platform';
 import { _Window } from '../window/window';
-export interface Snapshot {
-    windows: WindowOption[];
-}
-export interface ApplySnapshotOptions {
-    closeExistingWindows: boolean;
-}
-export interface PlatformOptions extends ApplicationOption {
-    defaultWindowOptions?: DefaultWindowOptions;
-    defaultViewOptions?: ViewCreationOptions;
-    disableDefaultCommands?: boolean;
-}
-interface DefaultWindowOptions extends WindowOption {
-    stylesheetUrl: string;
-}
-declare type PlatformProvider = any;
-export declare type OverrideCallback<T extends PlatformProvider> = (arg: PlatformProvider) => T;
-export interface InitPlatformOptions {
-    overrideCallback: OverrideCallback<any>;
-}
+import { PlatformOptions, ApplySnapshotOptions, Snapshot, InitPlatformOptions, PlatformWindowCreationOptions } from '../../shapes/Platform';
 /**
  * @lends Platform
  */
@@ -79,13 +58,13 @@ export default class PlatformModule extends Base {
      */
     getCurrentSync(): Platform;
     /**
-    * Creates and starts a Platform and returns a wrapped and running Platform instance. The wrapped Platform methods can
-    * be used to launch content into the platform.  Promise will reject if the platform is already running.
-    * @param { PlatformOptions } platformOptions
-    * @return {Promise.<Platform>}
-    * @tutorial Platform.start
-    * @static
-    */
+     * Creates and starts a Platform and returns a wrapped and running Platform instance. The wrapped Platform methods can
+     * be used to launch content into the platform.  Promise will reject if the platform is already running.
+     * @param { PlatformOptions } platformOptions
+     * @return {Promise.<Platform>}
+     * @tutorial Platform.start
+     * @static
+     */
     start(platformOptions: PlatformOptions): Promise<Platform>;
     /**
      * Retrieves platforms's manifest and returns a wrapped and running Platform.  If there is a snapshot in the manifest,
@@ -107,10 +86,10 @@ export default class PlatformModule extends Base {
 export declare class Platform extends EmitterBase<PlatformEvents> {
     Layout: LayoutModule;
     private _channel;
+    Application: Application;
     identity: Identity;
-    onWindowContextUpdate: Platform['onWindowContextUpdated'];
     constructor(identity: Identity, channel: Channel);
-    getClient(identity?: Identity): Promise<ChannelClient>;
+    getClient: (identity?: Identity) => Promise<ChannelClient>;
     /**
      * Creates a new view and attaches it to a specified target window.
      * @param { View~options } viewOptions View creation options
@@ -125,7 +104,7 @@ export declare class Platform extends EmitterBase<PlatformEvents> {
      * @return { Promise<_Window> }
      * @tutorial Platform.createWindow
      */
-    createWindow(options: WindowOption): Promise<_Window & Identity>;
+    createWindow(options: PlatformWindowCreationOptions): Promise<_Window & Identity>;
     /**
      * Closes current platform, all its windows, and their views.
      * @return { Promise<void> }
@@ -168,44 +147,37 @@ export declare class Platform extends EmitterBase<PlatformEvents> {
      * @tutorial Platform.applySnapshot
      */
     applySnapshot(requestedSnapshot: Snapshot | string, options?: ApplySnapshotOptions): Promise<Platform>;
+    launchLegacyManifest: (manifestUrl: string) => Promise<Platform>;
     /**
      * Retrieves a manifest by url and launches a legacy application manifest or snapshot into the platform.  Returns a promise that
      * resolves to the wrapped Platform.
-     * @param {string} [manifestUrl] - The URL of the manifest of the app to launch into the platform.  If this app manifest
+     * @param {string} manifestUrl - The URL of the manifest of the app to launch into the platform.  If this app manifest
      * contains a snapshot, that will be launched into the platform.  If not, the application described in startup_app options
      * will be launched into the platform. The applicable startup_app options will become {@link View~options View Options}.
      * @return {Promise<Platform>}
-     * @tutorial Platform.launchLegacyManifest
+     * @tutorial Platform.launchContentManifest
      * @experimental
      */
-    launchLegacyManifest(manifestUrl?: string): Promise<Platform>;
+    launchContentManifest(manifestUrl: string): Promise<Platform>;
     /**
-     * Set the context of your current window or view environment.  The context will be saved in any platform snapshots.
+     * Set the context of a host window. The context will be available to the window itself, and to its child Views. It will be saved in any platform snapshots.
+     * It can be retrieved using {@link Platform#getWindowContext getWindowContext}.
      * @param {any} context - A field where serializable context data can be stored to be saved in platform snapshots.
+     * @param {Identity} [target] - A target window or view may optionally be provided. If no target is provided, the update will be applied
+     * to the current window (if called from a Window) or the current host window (if called from a View).
      * @return {Promise<void>}
-     * @tutorial Platform.setContext
+     * @tutorial Platform.setWindowContext
      * @experimental
      */
-    setContext(context?: any): Promise<void>;
+    setWindowContext(context?: any, target?: Identity): Promise<void>;
     /**
-     * Get the context of your current window or view environment that was previously set using {@link Platform#setContext setContext}.
+     * Get the context context of a host window that was previously set using {@link Platform#setWindowContext setWindowContext}.
      * The context will be saved in any platform snapshots.  Returns a promise that resolves to the context.
+     * @param {Identity} [target] - A target window or view may optionally be provided. If no target is provided, target will be
+     * the current window (if called from a Window) or the current host window (if called from a View).
      * @return {Promise<any>}
-     * @tutorial Platform.getContext
+     * @tutorial Platform.getWindowContext
      * @experimental
      */
-    getContext(): Promise<any>;
-    /**
-     * Set a listener to be executed when the when a View's target Window experiences a context update. Can only be set from a view that
-     * has wrapped it's current platform. The listener receives the new context as its first argument and the previously context as the
-     * second argument.  If the listener returns a truthy value, the View's context will be updated with the new context as if
-     * {@link Platform#setContext setContext} was called.  This can only be set once per javascript environment (once per View), and any
-     * subsequent calls to onWindowContextUpdated will error out.  If the listener is successfully set, returns a promise that resolves to
-     * true.
-     * @return {Promise.<boolean>}
-     * @tutorial Platform.onWindowContextUpdated
-     * @experimental
-     */
-    onWindowContextUpdated(listener: (newContext: any, oldContext?: any) => any): Promise<boolean>;
+    getWindowContext(target?: Identity): Promise<any>;
 }
-export {};

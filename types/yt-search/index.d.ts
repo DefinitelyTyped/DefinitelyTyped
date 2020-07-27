@@ -1,24 +1,48 @@
-// Type definitions for yt-search 1.1
+// Type definitions for yt-search 2.0
 // Project: https://github.com/talmobi/yt-search#readme
 // Definitions by: cherryblossom <https://github.com/cherryblossom000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
-export = search;
+export = yts;
 
-declare function search(query: string | search.Options, callback: (err: Error, data: search.SearchResult) => void): void;
-declare function search(query: string | search.Options): Promise<search.SearchResult>;
+declare const yts: typeof search & { search: typeof search };
 
-declare function search(query: search.VideoMetadataOptions, callback: (err: Error, data: search.VideoMetadataResult) => void): void;
-declare function search(query: search.VideoMetadataOptions): Promise<search.VideoMetadataResult>;
+declare function search(query: string | yts.Options, callback: (err: Error | string | null | undefined, data: yts.SearchResult) => void): void;
+declare function search(query: string | yts.Options): Promise<yts.SearchResult>;
 
-declare function search(query: search.PlaylistMetadataOptions, callback: (err: Error, data: search.PlaylistMetadataResult) => void): void;
-declare function search(query: search.PlaylistMetadataOptions): Promise<search.PlaylistMetadataResult>;
+declare function search(query: yts.VideoMetadataOptions, callback: (err: Error | string | null | undefined, data: yts.VideoMetadataResult) => void): void;
+declare function search(query: yts.VideoMetadataOptions): Promise<yts.VideoMetadataResult>;
 
-declare namespace search {
+declare function search(query: yts.PlaylistMetadataOptions, callback: (err: Error | string | null | undefined, data: yts.PlaylistMetadataResult) => void): void;
+declare function search(query: yts.PlaylistMetadataOptions): Promise<yts.PlaylistMetadataResult>;
+
+declare namespace yts {
     interface BaseOptions {
         pageStart?: number;
         pageEnd?: number;
+        pages?: number;
+        userAgent?: string;
+
+        /**
+         * The language.
+         * @default 'en'
+         */
+        hl?: string;
+
+        /**
+         * The location.
+         * @default 'US'
+         */
+        gl?: string;
+
+        /**
+         * The category (for example `'music'`.)
+         * @default ''
+         */
+        category?: string;
+
+        sp?: string;
     }
 
     interface OptionsWithQuery extends BaseOptions { query: string; }
@@ -46,6 +70,12 @@ declare namespace search {
         channelText: string;
     }
 
+    interface Duration {
+        seconds: number;
+        timestamp: string;
+        toString(): string;
+    }
+
     interface VideoSearchResult {
         type: 'video';
         title: string;
@@ -54,15 +84,13 @@ declare namespace search {
         videoId: string;
         seconds: number;
         timestamp: string;
-        duration: {
-            seconds: number;
-            timestamp: string;
-        };
+        duration: Duration;
         views: number;
-        thumbnail: string;
         image: string;
+        /** @deprecated */
+        thumbnail: string;
         ago: string;
-        author: Author;
+        author: Pick<Author, 'name' | 'url'>;
     }
 
     interface PlaylistSearchResult {
@@ -72,8 +100,9 @@ declare namespace search {
         listId: string;
         videoCountLabel: string;
         videoCount: number;
-        thumbnail: string;
         image: string;
+        /** @deprecated */
+        thumbnail: string;
         author: Author;
     }
 
@@ -84,6 +113,8 @@ declare namespace search {
         url: string;
         videoCountLabel: string;
         videoCount: number;
+        image: string;
+        /** @deprecated */
         thumbnail: string;
         name: string;
         id: string;
@@ -104,16 +135,14 @@ declare namespace search {
         videoId: string;
         seconds: number;
         timestamp: string;
-        duration: {
-            seconds: number;
-            timestamp: string;
-        };
+        duration: Duration;
         views: number;
         genre: string;
         uploadDate: string;
         ago: string;
-        thumbnail: string;
         image: string;
+        /** @deprecated */
+        thumbnail: string;
         author: Author;
     }
 
@@ -132,11 +161,15 @@ declare namespace search {
         title: string;
         listId: string;
         url: string;
+        /** @deprecated */
         videoCount: number;
         views: number;
-        lastUpdate: string;
+        date: string;
+        image: string;
+        /** @deprecated */
         thumbnail: string;
         items: PlaylistItem[];
+        videos: PlaylistItem[];
         author: PlaylistAuthor;
     }
 }

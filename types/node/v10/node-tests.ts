@@ -2787,11 +2787,27 @@ async function asyncStreamPipelineFinished() {
             execPath: '',
             execArgv: ['asda']
         });
+        const exitCode: number | null = forked.exitCode;
+        const signalCode: number | null = forked.signalCode;
         const ipc: stream.Pipe = forked.channel;
         const hasRef: boolean = ipc.hasRef();
         ipc.close();
         ipc.unref();
         ipc.ref();
+    }
+
+    {
+        const forked = childProcess.fork('./', {
+            windowsVerbatimArguments: true,
+            silent: false,
+            stdio: ["inherit"],
+            execPath: '',
+            execArgv: ['asda']
+        });
+    }
+
+    {
+        const forked = childProcess.fork('./');
     }
 
     async function testPromisify() {

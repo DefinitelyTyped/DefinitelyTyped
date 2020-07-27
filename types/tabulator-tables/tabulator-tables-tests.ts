@@ -594,7 +594,7 @@ table = new Tabulator('#test', {});
 table.blockRedraw();
 table.restoreRedraw();
 
-table = Tabulator.prototype.findTable('#example-table');
+table = Tabulator.prototype.findTable('#example-table')[0];
 
 table.getRows('visible');
 table.deleteRow([15, 7, 9]);

@@ -64,15 +64,20 @@ export type ColorMode = {
     secondary?: CSS.ColorProperty;
 
     /**
+     * A contrast color for emphasizing UI
+     */
+    accent?: CSS.ColorProperty;
+
+    /**
+     * A background color for highlighting text
+     */
+    highlight?: CSS.ColorProperty;
+
+    /**
      * A faint color for backgrounds, borders, and accents that do not require
      * high contrast with the background color
      */
     muted?: CSS.ColorProperty;
-
-    /**
-     * A contrast color for emphasizing UI
-     */
-    accent?: CSS.ColorProperty;
 };
 
 export interface Theme extends Omit<StyledSystemTheme, 'colors' | 'buttons'> {

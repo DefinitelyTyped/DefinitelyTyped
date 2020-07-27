@@ -1,9 +1,9 @@
-// Type definitions for es-abstract 1.16
+// Type definitions for es-abstract 1.17
 // Project: https://github.com/ljharb/es-abstract
 // Definitions by: Jordan Harband <https://github.com/ljharb>
 //                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 3.8
 
 import ES5 = require('./es5');
 import ES6 = require('./es6');

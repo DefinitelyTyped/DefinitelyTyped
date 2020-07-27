@@ -212,9 +212,9 @@ cookie.update(cookieDef); // $ExpectType void
 cookie.valueOf(); // $ExpectType string
 
 pmCollection.Cookie.isCookie({}); // $ExpectType boolean
-pmCollection.Cookie.parse('string'); // $ExpectType CookieDefinition
-pmCollection.Cookie.splitParam('string'); // $ExpectType { key: string; value: string | boolean; }
-
+const parsed = pmCollection.Cookie.parse('string'); // $ExpectType CookieDefinition
+const unparsed = pmCollection.Cookie.unparseSingle(parsed); // $ExpectType string
+pmCollection.Cookie.stringify(parsed); // $ExpectType string
 // CookieList Tests
 
 const cookieList = new pmCollection.CookieList(null, [cookie]);

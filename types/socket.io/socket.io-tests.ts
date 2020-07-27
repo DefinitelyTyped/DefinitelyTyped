@@ -1,5 +1,23 @@
 import socketIO = require('socket.io');
 
+function testUsingWithClassConstructor() {
+    var Server = socketIO;
+    var io: socketIO.Server = new Server();
+}
+
+function testUsingWithClassConstructorAndNodeHTTPServer() {
+    var app = require('http').createServer();
+    var Server = socketIO;
+    var io: socketIO.Server = new Server(app);
+}
+
+function testUsingWithWithClassConstructorAndOptions() {
+    var app = require('express')();
+    var httpServer = require('http').Server(app);
+    var Server = socketIO;
+    var io = new Server(httpServer, { wsEngine: 'ws' });
+}
+
 function testUsingWithNodeHTTPServer() {
     var app = require('http').createServer(handler);
     var io: socketIO.Server = socketIO(app);

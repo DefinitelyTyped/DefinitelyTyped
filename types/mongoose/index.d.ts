@@ -17,7 +17,6 @@
 //                 Frontend Monster <https://github.com/frontendmonster>
 //                 Ming Chen <https://github.com/mingchen>
 //                 Olga Isakova <https://github.com/penumbra1>
-//                 Orblazer <https://github.com/orblazer>
 //                 HughKu <https://github.com/HughKu>
 //                 Erik Lopez <https://github.com/niuware>
 //                 Vlad Melnik <https://github.com/vladmel1234>
@@ -101,27 +100,36 @@ declare module "mongoose" {
 
   type OmitReadonly<T> = Omit<T, ReadonlyKeysOf<T>>;
 
-  // used to exclude functions from all levels of the schema
-  type DeepNonFunctionProperties<T> =
+  type MongooseBuiltIns = mongodb.ObjectID | mongodb.Decimal128 | Date | number | boolean;
+
+  type ImplicitMongooseConversions<T> = 
+    T extends MongooseBuiltIns 
+      ? T extends (boolean | mongodb.Decimal128 | Date) ? T | string | number // accept numbers for these
+      : T | string 
+    : T;
+
+  type DeepCreateObjectTransformer<T> =
+    T extends MongooseBuiltIns
+      ? T
+      : T extends object
+        ? { [V in keyof NonFunctionProperties<OmitReadonly<T>>]: T[V] extends object | undefined
+          ? ImplicitMongooseConversions<DeepCreateTransformer<NonNullable<T[V]>>>
+          : ImplicitMongooseConversions<T[V]> }
+        :
+      T;
+
+  // removes functions from schema from all levels
+  type DeepCreateTransformer<T> =
     T extends Map<infer KM, infer KV> 
       // handle map values
       // Maps are not scrubbed, replace below line with this once minimum TS version is 3.7:
       // ? Map<KM, DeepNonFunctionProperties<KV>>
-      ? { [key: string]: DeepNonFunctionProperties<KV> } | [KM, KV][] | Map<KM, KV>
+      ? { [key: string]: DeepCreateTransformer<KV> } | [KM, KV][] | Map<KM, KV>
       : 
     T extends Array<infer U>
-      ? (U extends object 
-        ? { [V in keyof NonFunctionProperties<OmitReadonly<U>>]: U[V] extends object | undefined
-          ? DeepNonFunctionProperties<NonNullable<U[V]>> 
-          : U[V] }
-        : U)[]
+      ? Array<DeepCreateObjectTransformer<U>>
       : 
-    T extends object
-      ? { [V in keyof NonFunctionProperties<OmitReadonly<T>>]: T[V] extends object | undefined
-        ? DeepNonFunctionProperties<NonNullable<T[V]>> 
-        : T[V] }
-      :
-    T;
+    DeepCreateObjectTransformer<T>;
 
   // mongoose allows Map<K, V> to be specified either as a Map or a Record<K, V>
   type DeepMapAsObject<T> = T extends object | undefined
@@ -140,7 +148,7 @@ declare module "mongoose" {
   /* Helper type to extract a definition type from a Document type */
   type DocumentDefinition<T> = Omit<T, Exclude<keyof Document, '_id'>>;
 
-  type ScrubCreateDefinition<T> = DeepMapAsObject<DeepNonFunctionProperties<T>>
+  type ScrubCreateDefinition<T> = DeepMapAsObject<DeepCreateTransformer<T>>
 
   type CreateDocumentDefinition<T> = ScrubCreateDefinition<DocumentDefinition<T>>;
 
@@ -2577,6 +2585,10 @@ declare module "mongoose" {
      * Does nothing if schema-level timestamps are not set.
      */
     timestamps?:boolean;
+    /**
+     * True by default. Set to false to make findOneAndUpdate() and findOneAndRemove() use native findOneAndUpdate() rather than findAndModify().
+     */
+    useFindAndModify?:boolean;
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {

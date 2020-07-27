@@ -612,12 +612,30 @@ enum SchemaEnum {
     Bar
 }
 
+enum StringSchemaEnum {
+    Foo = "foo",
+    Bar = "bar"
+}
+
 interface ModelWithFunction extends mongoose.Document {
     name: string;
 
     someFunc: () => any;
 
+    objectId?: mongoose.Types.ObjectId;
+
+    date?: Date;
+
+    boolean?: boolean;
+
+    decimal?: mongodb.Decimal128;
+
+    number?: number;
+
     enum?: SchemaEnum;
+
+    enum2?: StringSchemaEnum;
+
 
     selfRef?: ModelWithFunction | mongodb.ObjectID;
 
@@ -650,6 +668,7 @@ interface ModelWithFunction extends mongoose.Document {
             title: string, 
             func: () => {}, // should be excluded in CreateQuery<T>
             tuple?: [number, number]
+            objectId?: mongoose.Types.ObjectId;
 
             mapWithFuncs?: Map<string, { 
                 title: string, 
@@ -658,6 +677,7 @@ interface ModelWithFunction extends mongoose.Document {
                     title: string, 
                     func: () => {} // should be excluded in CreateQuery<T>
                     readonly readonly: unknown; // should be excluded in CreateQuery<T>
+                    objectId?: mongoose.Types.ObjectId;
                 }> 
             }>;
         }>
@@ -699,13 +719,15 @@ ModelWithFunctionInSchema.create({
         deepArray: [{ 
             title: "test", 
             tuple: [1, 2], 
+            objectId: "valid-object-id-source",
             mapWithFuncs: { 
                 test: { 
                     title: "test", 
                     innerMap: { 
                         test: { 
-                            title: "hello" 
-                        }
+                            title: "hello",
+                            objectId: "valid-object-id-source"
+                        },
                     }
                 }
             } 
@@ -762,3 +784,33 @@ ModelWithFunctionInSchema.create({ name: "test", jobs: [] }).then(ref => {
     ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRefArray2: [id, id] });
     ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRefArray2: [ref, ref] });
 });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], objectId: "valid-object-id-source" });
+ModelWithFunctionInSchema.create({ 
+    name: "test", 
+    jobs: [], 
+    objectId: new mongodb.ObjectID("valid-object-id-source") 
+});
+
+ModelWithFunctionInSchema.create({ 
+    name: "test", 
+    jobs: [], 
+    date: new Date() 
+});
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], date: "2020-01-01" });
+
+// allow strings, since mongoose can cast them
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], boolean: "true" });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], boolean: 1 });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], decimal: "1" });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], decimal: 1 });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], number: "1" });
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], enum2: "bad value" });
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], date: [123] });
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], objectId: [123] });
