@@ -43,6 +43,11 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
     options: TOptions;
 
     /**
+     * The adapter of the environment.
+     */
+    adapter: TerminalAdapter;
+
+    /**
      * The working-directory of the environment.
      */
     cwd: string;
