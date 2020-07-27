@@ -525,7 +525,7 @@ declare module _ {
          **/
         groupBy<V extends Collection<any>>(
             collection: V,
-            iteratee?: Iteratee<V, any>,
+            iteratee?: Iteratee<V, EnumerableKey>,
             context?: any
         ): Dictionary<TypeOfCollection<V>[]>;
 
@@ -543,7 +543,7 @@ declare module _ {
          **/
         indexBy<V extends Collection<any>>(
             collection: V,
-            iteratee?: Iteratee<V, any>,
+            iteratee?: Iteratee<V, EnumerableKey>,
             context?: any): Dictionary<TypeOfCollection<V>>;
 
         /**
@@ -561,7 +561,7 @@ declare module _ {
          **/
         countBy<V extends Collection<any>>(
             collection: V,
-            iteratee?: Iteratee<V, any>,
+            iteratee?: Iteratee<V, EnumerableKey>,
             context?: any
         ): Dictionary<number>;
 
@@ -4213,7 +4213,7 @@ declare module _ {
          * properties where each property contains the grouped elements from
          * the wrapped collection.
          **/
-        groupBy(iteratee?: Iteratee<V, any>, context?: any): Dictionary<T[]>;
+        groupBy(iteratee?: Iteratee<V, EnumerableKey>, context?: any): Dictionary<T[]>;
 
         /**
          * Given the warpped collection and an `iteratee` function that returns
@@ -4227,7 +4227,7 @@ declare module _ {
          * @returns A dictionary where each item in the wrapped collection is
          * assigned to the property designated by `iteratee`.
          **/
-        indexBy(iteratee?: Iteratee<V, any>, context?: any): Dictionary<T>;
+        indexBy(iteratee?: Iteratee<V, EnumerableKey>, context?: any): Dictionary<T>;
 
         /**
          * Sorts the wrapped collection into groups and returns a count for the
@@ -4242,7 +4242,7 @@ declare module _ {
          * properties where each property contains the count of the grouped
          * elements from the wrapped collection.
          **/
-        countBy(iteratee?: Iteratee<V, any>, context?: any): Dictionary<number>;
+        countBy(iteratee?: Iteratee<V, EnumerableKey>, context?: any): Dictionary<number>;
 
         /**
          * Returns a shuffled copy of the wrapped collection, using a version of the Fisher-Yates shuffle.
@@ -5240,7 +5240,7 @@ declare module _ {
          * provided by `iteratee` as properties where each property contains
          * the grouped elements from the wrapped collection.
          **/
-        groupBy(iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T[], Dictionary<T[]>>;
+        groupBy(iteratee?: _ChainIteratee<V, EnumerableKey, T>, context?: any): _Chain<T[], Dictionary<T[]>>;
 
         /**
          * Given the warpped collection and an `iteratee` function that returns
@@ -5255,7 +5255,7 @@ declare module _ {
          * wrapped collection is assigned to the property designated by
          * `iteratee`.
          **/
-        indexBy(iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, Dictionary<T>>;
+        indexBy(iteratee?: _ChainIteratee<V, EnumerableKey, T>, context?: any): _Chain<T, Dictionary<T>>;
 
         /**
          * Sorts the wrapped collection into groups and returns a count for the
@@ -5270,7 +5270,7 @@ declare module _ {
          * provided by `iteratee` as properties where each property contains
          * the count of the grouped elements from the wrapped collection.
          **/
-        countBy(iterator?: _ChainIteratee<V, any, T>, context?: any): _Chain<number, Dictionary<number>>;
+        countBy(iterator?: _ChainIteratee<V, EnumerableKey, T>, context?: any): _Chain<number, Dictionary<number>>;
 
         /**
          * Returns a shuffled copy of the wrapped collection, using a version of the Fisher-Yates shuffle.
