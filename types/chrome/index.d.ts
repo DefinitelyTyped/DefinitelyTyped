@@ -4196,15 +4196,29 @@ declare namespace chrome.input.ime {
     export function updateMenuItems(parameters: MenuItemParameters, callback?: () => void): void;
     /**
      * Shows/Hides an assistive window with the given properties.
-     * @param {{
-     *   contextID: number,
-     *   properties: !chrome.input.ime.AssistiveWindowProperties
-     * }} parameters
+     * @param parameters
      * @param callback Called when the operation completes.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function(boolean success) {...};
      */
-    export function setAssistiveWindowProperties(parameters: object, callback?: (success: boolean) => void): void;
+    export function setAssistiveWindowProperties(parameters: {
+            contextID: number,
+            properties: chrome.input.ime.AssistiveWindowProperties
+        }, callback?: (success: boolean) => void): void;
+    /**
+     * Highlights/Unhighlights a button in an assistive window.
+     * @param parameters
+     * @param callback Called when the operation completes. On failure, chrome.runtime.lastError is set.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
+     */
+    export function setAssistiveWindowButtonHighlighted(parameters: {
+            contextID: number,
+            buttonID: chrome.input.ime.AssistiveWindowButton,
+            windowType: chrome.input.ime.AssistiveWindowType,
+            announceString?: string,
+            highlighted: boolean
+        }, callback?: () => void): void;
     /**
      * Sets the properties of the candidate window. This fails if the extension doesn't own the active IME
      * @param callback Called when the operation completes.
@@ -5700,6 +5714,10 @@ declare namespace chrome.runtime {
         id?: string;
         /** The tabs.Tab which opened the connection, if any. This property will only be present when the connection was opened from a tab (including content scripts), and only if the receiver is an extension, not an app. */
         tab?: chrome.tabs.Tab;
+        /** The name of the native application that opened the connection, if any.
+         * @since Chrome 74
+         */
+        nativeApplication?: string;
         /**
          * The frame that opened the connection. 0 for top-level frames, positive for child frames. This will only be set when tab is set.
          * @since Chrome 41.
@@ -5715,6 +5733,11 @@ declare namespace chrome.runtime {
          * @since Chrome 32.
          */
         tlsChannelId?: string;
+        /**
+         * The origin of the page or frame that opened the connection. It can vary from the url property (e.g., about:blank) or can be opaque (e.g., sandboxed iframes). This is useful for identifying if the origin can be trusted if we can't immediately tell from the URL.
+         * @since Chrome 80.
+         */
+        origin?: string;
     }
 
     /**

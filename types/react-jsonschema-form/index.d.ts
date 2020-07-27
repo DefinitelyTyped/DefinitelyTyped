@@ -310,13 +310,13 @@ declare module 'react-jsonschema-form/lib/utils' {
 
     export function getWidget(
         schema: JSONSchema6,
-        widget: Widget,
+        widget: Widget | string,
         registeredWidgets?: { [name: string]: Widget },
-    ): Widget | Error;
+    ): Widget;
 
     export function hasWidget(
         schema: JSONSchema6,
-        widget: Widget,
+        widget: Widget | string,
         registeredWidgets?: { [name: string]: Widget },
     ): boolean;
 

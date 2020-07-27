@@ -87,9 +87,9 @@ export interface QueryRenderedFeaturesParams {
 export class StaticMap extends React.PureComponent<StaticMapProps> {
     getMap(): MapboxGL.Map;
     queryRenderedFeatures(
-        geometry?: MapboxGL.PointLike | MapboxGL.PointLike[],
+        geometry?: MapboxGL.PointLike | [MapboxGL.PointLike, MapboxGL.PointLike],
         parameters?: QueryRenderedFeaturesParams,
-    ): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
+    ): MapboxGL.MapboxGeoJSONFeature[];
 }
 
 export interface ExtraState {
@@ -306,9 +306,9 @@ export interface InteractiveMapProps extends StaticMapProps {
 export class InteractiveMap extends React.PureComponent<InteractiveMapProps> {
     getMap(): MapboxGL.Map;
     queryRenderedFeatures(
-        geometry?: MapboxGL.PointLike | MapboxGL.PointLike[],
+        geometry?: MapboxGL.PointLike | [MapboxGL.PointLike, MapboxGL.PointLike],
         parameters?: QueryRenderedFeaturesParams,
-    ): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
+    ): MapboxGL.MapboxGeoJSONFeature[];
 }
 
 export default InteractiveMap;

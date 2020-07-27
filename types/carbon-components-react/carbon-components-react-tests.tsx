@@ -35,6 +35,9 @@ import {
     SideNavItem,
     SideNavItems,
     ButtonRenderIconRenderProps,
+    Modal,
+    InlineLoading,
+    DataTableSkeleton,
     TableCell,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
@@ -624,4 +627,17 @@ const sideNavChildren = (
             <SideNavItem>Test</SideNavItem>
         </SideNavItems>
     </SideNav>
+);
+
+const modal = (
+    <Modal primaryButtonText={<InlineLoading />} secondaryButtonText={<InlineLoading />} />
+)
+
+// DataTableSkeleton
+const dataTableSkeleton = (
+    <DataTableSkeleton showHeader={true} showToolbar={true} columnCount={5} rowCount={6} compact={false} zebra={false} />
+);
+
+const dataTableSkeletonBasic = (
+    <DataTableSkeleton />
 );

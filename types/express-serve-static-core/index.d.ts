@@ -842,7 +842,7 @@ export interface Response<ResBody = any> extends http.ServerResponse, Express.Re
     render(view: string, options?: object, callback?: (err: Error, html: string) => void): void;
     render(view: string, callback?: (err: Error, html: string) => void): void;
 
-    locals: any;
+    locals: Record<string, any>;
 
     charset: string;
 
@@ -1044,7 +1044,7 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
 
     map: any;
 
-    locals: any;
+    locals: Record<string, any>;
 
     /**
      * The app.routes object houses all of the routes defined mapped by the
