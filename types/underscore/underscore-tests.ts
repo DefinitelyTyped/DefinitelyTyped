@@ -654,6 +654,20 @@ declare const numberRecordDictionaryValueIterator: (element: NumberRecord, key: 
 const numberList: _.List<number> = { 0: 0, 1: 1, length: 2 };
 const numberDictionary: _.Dictionary<number> = { a: 0, b: 1 };
 
+interface NoParameterFunctionRecord {
+    a: () => number;
+}
+
+declare const noParameterFunctionRecordList: _.List<NoParameterFunctionRecord>;
+declare const noParameterFunctionRecordDictionary: _.Dictionary<NoParameterFunctionRecord>;
+
+interface TwoParameterFunctionRecord {
+    a: (arg0: number, arg1: string) => void;
+}
+
+declare const twoParameterFunctionRecordList: _.List<TwoParameterFunctionRecord>;
+declare const twoParameterFunctionRecordDictionary: _.Dictionary<TwoParameterFunctionRecord>;
+
 const simpleString = 'abc';
 
 const simpleStringArray: string[] = ['a', 'c'];
@@ -1755,6 +1769,19 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _.includes(stringRecordList, stringRecordList[0], simpleNumber); // $ExpectType boolean
     _(stringRecordList).includes(stringRecordList[0], simpleNumber); // $ExpectType boolean
     extractChainTypes(_.chain(stringRecordList).includes(stringRecordList[0], simpleNumber)); // $ExpectType ChainType<boolean, never>
+}
+
+// invoke
+{
+    // function without parameters
+    _.invoke(noParameterFunctionRecordList, stringRecordProperty); // $ExpectType any[]
+    _(noParameterFunctionRecordList).invoke(stringRecordProperty); // $ExpectType any[]
+    extractChainTypes(_.chain(noParameterFunctionRecordList).invoke(stringRecordProperty)); // $ExpectType ChainType<any[], any>
+
+    // function with parameters
+    _.invoke(twoParameterFunctionRecordDictionary, stringRecordProperty, simpleNumber, simpleString); // $ExpectType any[]
+    _(twoParameterFunctionRecordDictionary).invoke(stringRecordProperty, simpleNumber, simpleString); // $ExpectType any[]
+    extractChainTypes(_.chain(twoParameterFunctionRecordDictionary).invoke(stringRecordProperty, simpleNumber, simpleString)); // $ExpectType ChainType<any[], any>
 }
 
 // pluck

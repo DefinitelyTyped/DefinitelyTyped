@@ -431,16 +431,22 @@ declare module _ {
         includes: UnderscoreStatic['contains'];
 
         /**
-        * Calls the method named by methodName on each value in the list. Any extra arguments passed to
-        * invoke will be forwarded on to the method invocation.
-        * @param list The element's in this list will each have the method `methodName` invoked.
-        * @param methodName The method's name to call on each element within `list`.
-        * @param arguments Additional arguments to pass to the method `methodName`.
-        **/
-        invoke<T extends {}>(
-            list: _.List<T>,
+         * Calls the method named by `methodName` on each value in
+         * `collection`. Any extra arguments passed to invoke will be forwarded
+         * on to the method invocation.
+         * @param collection The collection of elements to invoke `methodName`
+         * on.
+         * @param methodName The name of the method to call on each element in
+         * `collection`.
+         * @param args Additional arguments to pass to method `methodName`.
+         * @returns An array containing the result of the method call for each
+         * item in `collection`.
+         **/
+        invoke(
+            list: Collection<any>,
             methodName: string,
-            ...args: any[]): any;
+            ...args: any[]
+        ): any[];
 
         /**
          * A convenient version of what is perhaps the most common use-case for map: extracting a list of
@@ -4134,10 +4140,16 @@ declare module _ {
         includes: Underscore<T, V>['contains'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.invoke
-        **/
-        invoke(methodName: string, ...args: any[]): any;
+         * Calls the method named by `methodName` on each value in the wrapped
+         * collection. Any extra arguments passed to invoke will be forwarded
+         * on to the method invocation.
+         * @param methodName The name of the method to call on each element in
+         * the wrapped collection.
+         * @param args Additional arguments to pass to method `methodName`.
+         * @returns An array containing the result of the method call for each
+         * item in the wrapped collection.
+         **/
+        invoke(methodName: string, ...args: any[]): any[];
 
         /**
          * A convenient version of what is perhaps the most common use-case for map: extracting a list of
@@ -5152,10 +5164,16 @@ declare module _ {
         includes: _Chain<T, V>['contains'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.invoke
-        **/
-        invoke(methodName: string, ...args: any[]): _Chain<T>;
+         * Calls the method named by `methodName` on each value in the wrapped
+         * collection. Any extra arguments passed to invoke will be forwarded
+         * on to the method invocation.
+         * @param methodName The name of the method to call on each element in
+         * the wrapped collection.
+         * @param args Additional arguments to pass to method `methodName`.
+         * @returns A chain wrapper around an array containing the result of
+         * the method call for each item in the wrapped collection.
+         **/
+        invoke(methodName: string, ...args: any[]): _Chain<any, any[]>;
 
         /**
          * A convenient version of what is perhaps the most common use-case for map: extracting a list of
