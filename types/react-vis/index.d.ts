@@ -429,10 +429,10 @@ export class LineMarkSeriesCanvas extends AbstractSeries<LineMarkSeriesCanvasPro
 export interface HighlightProps extends AbstractSeriesProps<LineMarkSeriesPoint> {
     enableX?: boolean;
     enableY?: boolean;
-    highlightHeight: number;
-    highlightWidth: number;
-    highlightX: string | number;
-    highlightY: string | number;
+    highlightHeight?: number;
+    highlightWidth?: number;
+    highlightX?: string | number;
+    highlightY?: string | number;
     onBrushStart: (row: any) => any;
     onDragStart: (row: any) => any;
     onBrush: (row: any) => any;
