@@ -46,8 +46,7 @@ env.alias(/^([a-zA-Z0-9:\*]+)$/, "generator-$1");
 /* Generators-Creation */
 const result = env.create("./lib/generators/app", {});
 if (result instanceof Generator) {
-    // $ExpectType Generator<GeneratorOptions>
-    result;
+    result.run();
 } else {
     // $ExpectType Error
     result;
