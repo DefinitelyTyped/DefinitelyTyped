@@ -158,16 +158,9 @@ declare module _ {
     // if T is a list, assume that it contains pairs of some type, so any
     // if T isn't a list, there's no way that it can provide pairs, so never
     type PairValue<T> =
-        T extends [EnumerableKey, infer TValue, ...any[]] ? TValue
-        : T extends List<infer E> ? E
+        T extends [EnumerableKey, infer TValue] ? TValue
+        : T extends List<infer TValue> ? TValue
         : never;
-
-    // if separate values are not supplied, the result is the pair type of the possible pair
-    // if separate values are supplied, then the result is the type of the values + undefined since more keys may be supplied than values
-    type _ObjectValue<TMaybePair, TValueList extends List<any> | undefined> =
-        TValueList extends undefined
-        ? PairValue<TMaybePair>
-        : TypeOfList<TValueList> | undefined;
 
     type AnyFalsy = undefined | null | false | '' | 0;
 
@@ -856,10 +849,13 @@ declare module _ {
          * corresponding to those keys.
          * @retursn An object comprised of the provided keys and values.
          **/
-        object<V extends List<any>, TValueList extends List<any> | undefined = undefined>(
-            list: V,
-            values?: TValueList
-        ): Dictionary<_ObjectValue<TypeOfList<V>, TValueList>>;
+        object<TList extends List<any>, TValue>(
+            list: TList,
+            values: List<TValue>
+        ): Dictionary<TValue | undefined>;
+        object<TList extends List<List<any>>>(
+            list: TList
+        ): Dictionary<PairValue<TypeOfList<TList>>>;
 
         /**
         * Returns the index at which value can be found in the array, or -1 if value is not present in the array.
@@ -4464,9 +4460,8 @@ declare module _ {
          * values corresponding to those keys.
          * @returns An object comprised of the provided keys and values.
          **/
-        object<TValueList extends List<any> | undefined = undefined>(
-            values?: TValueList
-        ): Dictionary<_ObjectValue<T, TValueList>>;
+        object<TValue>(values: List<TValue>): Dictionary<TValue | undefined>;
+        object(): Dictionary<PairValue<T>>;
 
         /**
         * Wrapped type `any[]`.
@@ -5495,9 +5490,8 @@ declare module _ {
          * @returns A chain wrapper around an object comprised of the provided
          * keys and values.
          **/
-        object<TValueList extends List<any> | undefined = undefined>(
-            values?: TValueList
-        ): _Chain<_ObjectValue<T, TValueList>, Dictionary<_ObjectValue<T, TValueList>>>;
+        object<TValue>(values: List<TValue>): _Chain<TValue | undefined, Dictionary<TValue | undefined>>;
+        object(): _Chain<PairValue<T>, Dictionary<PairValue<T>>>;
 
         /**
         * Wrapped type `any[]`.

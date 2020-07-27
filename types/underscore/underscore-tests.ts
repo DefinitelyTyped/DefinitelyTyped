@@ -2262,12 +2262,12 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     extractChainTypes(_.chain(tupleList).object()); // $ExpectType ChainType<Dictionary<number>, number>
 
     // nested lists
-    _.object(level2UnionList); // $ExpectType Dictionary<any>
-    _(level2UnionList).object(); // $ExpectType Dictionary<any>
-    extractChainTypes(_.chain(level2UnionList).object()); // $ExpectType ChainType<Dictionary<any>, any>
+    _.object(level2UnionList); // $ExpectType Dictionary<string | number>
+    _(level2UnionList).object(); // $ExpectType Dictionary<string | number>
+    extractChainTypes(_.chain(level2UnionList).object()); // $ExpectType ChainType<Dictionary<string | number>, string | number>
 
     // non-nested lists
-    _.object(stringRecordList); // $ExpectType Dictionary<never>
+    _.object(stringRecordList); // $ExpectError
     _(stringRecordList).object(); // $ExpectType Dictionary<never>
     extractChainTypes(_.chain(stringRecordList).object()); // $ExpectType ChainType<Dictionary<never>, never>
 }
