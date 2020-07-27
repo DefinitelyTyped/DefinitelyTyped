@@ -105,6 +105,12 @@ export interface Context<TYield = unknown, TReturn = unknown, TNext = unknown> {
 
     /**
      * @param type The completion type.
+     * @param rval The return value.
+     */
+    abrupt(type: 'return', rval?: TReturn): unknown;
+
+    /**
+     * @param type The completion type.
      * @param exception The exception to throw.
      */
     abrupt(type: 'throw', exception?: unknown): never;
@@ -114,12 +120,6 @@ export interface Context<TYield = unknown, TReturn = unknown, TNext = unknown> {
      * @param nextLoc The location label to resume iteration at.
      */
     abrupt(type: 'break' | 'continue', nextLoc: number): unknown;
-
-    /**
-     * @param type The completion type.
-     * @param rval The return value.
-     */
-    abrupt(type: 'return', rval?: TReturn): unknown;
 
     /**
      * @param type The completion type.
