@@ -19,6 +19,7 @@ declare namespace SingleSpaReact {
         ReactDOM: typeof ReactDOM;
         rootComponent?: React.ComponentClass<any, any>;
         loadRootComponent?: () => Promise<React.ComponentClass<any, any>>;
+        errorBoundary?: (err: any, info: any, props: any) => React.ReactElement;
         domElementGetter?: () => Element;
         suppressComponentDidCatchWarning?: boolean;
         parcelCanUpdate?: boolean;
