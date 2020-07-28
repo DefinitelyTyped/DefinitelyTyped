@@ -8,10 +8,7 @@ export interface ParsedFile {
     extension: string;
     src: string;
 
-    blocks: {
-        global: any;
-        local: any;
-    }[];
+    blocks: Array<{ global: any; local: any; }>;
 }
 export interface DocOptions {
     dest?: string | string[];
@@ -32,7 +29,7 @@ export interface DocOptions {
     includeFilters?: string[];
     filters?: {
         [keys: string]: {
-            postFilter: (parsedFiles: Array<ParsedFile>, parsedFilenames: string[]) => void
+            postFilter: (parsedFiles: ParsedFile[], parsedFilenames: string[]) => void
         }
     };
     languages?: {
