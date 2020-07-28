@@ -1,4 +1,4 @@
-import { connect } from 'mongodb';
+import { connect, OptionalId } from 'mongodb';
 import { connectionString } from '../index';
 import { ObjectId } from 'bson';
 
@@ -99,12 +99,6 @@ async function run() {
     { _id: 2, stringField: 'hola', numberField: 1, fruitTags: [] },
   ]);
 
-  // should demand _id if it is not ObjectId
-  // $ExpectError
-  await collectionWithId.insertOne({ stringField: 'hola', fruitTags: ['Strawberry'] });
-  // $ExpectError
-  await collectionWithId.insertMany([ { stringField: 'hola', fruitTags: ['Apple', 'Lemon'] }, { _id: 2, stringField: 'hola', numberField: 1, fruitTags: [] } ]);
-
   // should not accept wrong _id type
   // $ExpectError
   await collectionWithId.insertMany([ { _id: new ObjectId, stringField: 'hola', fruitTags: ['Apple', 'Lemon'] }, { _id: 2, stringField: 'hola', numberField: 1, fruitTags: [] } ]);
@@ -151,16 +145,6 @@ async function run() {
     { _id: new ObjectId, stringField: 'hola', randomField: [34, 54, 32] },
   ]);
 
-  // should not accept wrong _id type
-  // $ExpectError
-  await indexTypeCollection1.insertMany([ { _id: 12, stringField: 'hola', numberField: 0 } ]);
-  // should not accept wrong types for fields
-  // $ExpectError
-  await indexTypeCollection1.insert({ stringField: 3, randomField: [34, 54, 32] });
-  // should demand missing fields
-  // $ExpectError
-  await indexTypeCollection1.insertMany([ { randomField: [34, 54, 32] } ]);
-
   indexTypeResult1.ops[0]._id;            // $ExpectType ObjectId
   indexTypeResult1.insertedId;            // $ExpectType ObjectId
   // should not remove types of existing fields
@@ -204,28 +188,32 @@ async function run() {
   // $ExpectError
   await indexTypeCollection2.insertMany([ { _id: '1', stringField: 'hola', numberField: 0 }, { _id: 2, stringField: 'hola', randomField: [34, 54, 32] } ]);
 
-  // should demand _id if it is defined and is not ObjectId
-  // $ExpectError
-  await indexTypeCollection2.insertOne({ stringField: 'hola', numberField: 23, randomField: [34, 54, 32], randomFiel2: 32 });
-  // $ExpectError
-  await indexTypeCollection2.insertMany([ { stringField: 'hola', numberField: 0 }, { _id: 12, stringField: 'hola', randomField: [34, 54, 32] } ]);
-
   indexTypeResult2.ops[0]._id;       // $ExpectType number
   indexTypeResult2.insertedId;       // $ExpectType number
   indexTypeResultMany2.ops[0]._id;   // $ExpectType number
   indexTypeResultMany2.insertedIds;  // $ExpectType { [key: number]: number; }
 
   /**
-   * test indexed types with custom _id (ObjectId)
+   * test with generic collection types
    */
-  interface IndexTypeTestModelWithObjectId {
-    _id: ObjectId;
-    stringField: string;
-    numberField?: number;
-    [key: string]: any;
+  async function withUnconstrainedGeneric<T>(param: T) {
+    const unconstrainedGenericCollection = db.collection<T>('testCollection');
+    await unconstrainedGenericCollection.insertOne(param);
+    await unconstrainedGenericCollection.insertMany([param]);
   }
-  const indexTypeCollection3 = db.collection<IndexTypeTestModelWithObjectId>('testCollection');
 
-  // TODO: should not demand _id if it is ObjectId
-  // await indexTypeCollection3.insertOne({ stringField: 'hola', numberField: 23, randomField: [34, 54, 32], randomFiel2: 32 });
+  async function withConstrainedGeneric<T extends { _id: number }>(param: T) {
+    const constrainedGenericCollection = db.collection<T>('testCollection');
+    await constrainedGenericCollection.insertOne(param);
+    await constrainedGenericCollection.insertOne({ ...param, _id: 0 });
+    await constrainedGenericCollection.insertMany([param]);
+
+    const optionalId: OptionalId<T> = param;
+    optionalId._id = 0;
+    // $ExpectError
+    optionalId._id = '';
+
+    // TODO: would be great to have an error in this case
+    // await constrainedGenericCollection.insertOne({ ...param, _id: '' });
+  }
 }

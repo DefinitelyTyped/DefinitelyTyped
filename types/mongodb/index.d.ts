@@ -1004,13 +1004,7 @@ type ExtractIdType<TSchema> =
     unknown extends U ? ObjectId : U
      : ObjectId; // user has not defined _id on schema
 
-// this makes _id optional
-export type OptionalId<TSchema extends { _id?: any }> =
-    ObjectId extends TSchema['_id']
-        // a Schema with ObjectId _id type or "any" or "indexed type" provided
-        ? EnhancedOmit<TSchema, '_id'> & { _id?: ExtractIdType<TSchema> }
-        // a Schema provided but _id type is not ObjectId
-        : WithId<TSchema>;
+export type OptionalId<TSchema extends { _id?: any }> = Omit<TSchema, '_id'> & { _id?: TSchema['_id'] };
 
 // this adds _id as a required property
 export type WithId<TSchema> = EnhancedOmit<TSchema, '_id'> & { _id: ExtractIdType<TSchema> };
