@@ -1,7 +1,8 @@
-// Type definitions for i18n-node 0.8
+// Type definitions for i18n-node 0.10
 // Project: http://github.com/mashpie/i18n-node
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 FindQ <https://github.com/FindQ>
+//                 Niek van Bennekom <https://github.com/niekvb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -112,6 +113,12 @@ declare namespace i18n {
         logErrorFn?: (msg: string) => void;
 
         /**
+         * Function to provide missing translations.
+         * @since 0.10.0
+         */
+        missingKeyFn?: (locale: string, value: string) => string;
+
+        /**
          * object or [obj1, obj2] to bind the i18n api and current locale to
          * @default null
          */
@@ -119,7 +126,8 @@ declare namespace i18n {
 
         /**
          * Hash to specify different aliases for i18n's internal methods to apply on the request/response objects (method -> alias).
-         * Note that this will *not* overwrite existing properties with the same name.
+         *
+         * **NOTE**: This will *not* overwrite existing properties with the same name.
          * @default undefined
          */
         api?: {
@@ -132,6 +140,14 @@ declare namespace i18n {
          * @default true
          */
         preserveLegacyCase?: boolean;
+
+        /**
+         * Static translation catalog. Setting this option overrides `locales`.
+         *
+         * **NOTE**: Enabling `staticCatalog` disables all other fs realated options such as `updateFiles`, `autoReload` and `syncFiles`.
+         * @since 0.10.0
+         */
+        staticCatalog?: GlobalCatalog;
     }
     interface TranslateOptions {
         phrase: string;

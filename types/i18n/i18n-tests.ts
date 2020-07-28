@@ -1,7 +1,9 @@
 /**
- * Test suite created by Maxime LUCE <https://github.com/SomaticIT>
- * Updated by FindQ for version 0.8 of i18n-node
- *
+ * Test suite for version 0.10 of i18n-node
+ * Project: http://github.com/mashpie/i18n-node
+ * Tests by: Maxime LUCE <https://github.com/SomaticIT>
+ *           FindQ <https://github.com/FindQ>
+ *           Niek van Bennekom <https://github.com/niekvb>
  * Created by using code samples from https://github.com/mashpie/i18n-node.
  */
 
@@ -78,6 +80,11 @@ i18n.configure({
         console.log('error', msg);
     },
 
+    // Function to provide missing translations.
+    missingKeyFn: (locale, value) => {
+        return `Translation for "${value}" is missing for locale "${locale}"!`;
+    },
+
     // object or [obj1, obj2] to bind the i18n api and current locale to - defaults to null
     register: global,
 
@@ -91,7 +98,23 @@ i18n.configure({
     // Downcase locale when passed on queryParam; e.g. lang=en-US becomes
     // en-us.  When set to false, the queryParam value will be used as passed;
     // e.g. lang=en-US remains en-US.
-    preserveLegacyCase: true
+    preserveLegacyCase: true,
+
+    // Static translation catalog. Setting this option overrides `locales`
+    // tslint:disable:object-literal-key-quotes
+    staticCatalog: {
+        'en-US': {
+            'no': 'No',
+            'ok': 'Ok',
+            'yes': 'Yes'
+        },
+        'nl-NL': {
+            'no': 'Nee',
+            'ok': 'Oké',
+            'yes': 'Ja'
+        }
+    }
+    // tslint:enable:object-literal-key-quotes
 });
 
 /**
