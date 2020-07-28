@@ -3,6 +3,7 @@
 // Definitions by: Carson Farmer <https://github.com/carsonfarmer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
+/// <reference lib="dom" />
 // TypeScript Version: 3.6
 
 // From https://github.com/IndigoUnited/js-err-code
