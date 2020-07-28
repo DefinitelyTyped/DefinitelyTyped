@@ -474,6 +474,6 @@ declare namespace Express {
     }
 
     interface Response extends i18nAPI {
-        locals: i18nAPI;
+        locals: Record<string, any>;
     }
 }
