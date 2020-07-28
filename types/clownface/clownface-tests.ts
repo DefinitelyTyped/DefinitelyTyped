@@ -286,8 +286,19 @@ function testOut() {
     cfTerm = cf.out(cf.node([node, node]));
 
     const singleContext: clownface.Clownface<NamedNode, Dataset> = <any> {};
-    let inContext = cfTerm.out(node);
-    inContext = singleContext;
+    let outContext = cfTerm.out(node);
+    outContext = singleContext;
+}
+
+function testOutWithLanguage() {
+    const cf: clownface.Clownface<undefined, Dataset> = <any> {};
+    let cfTerms: Literal[] = cf.out(undefined, { language: 'en' }).terms;
+    cfTerms = cf.out(node).terms;
+    cfTerms = cf.out([node, node]).terms;
+    cfTerms = cf.out(cf.node([node, node])).terms;
+
+    let outTerms: Literal[] = cf.blankNode().out(node, { language: 'en' }).terms;
+    outTerms = cf.blankNode().out(node, { language: ['en', 'de'] }).terms;
 }
 
 function testToArray() {

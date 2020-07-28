@@ -36,6 +36,10 @@ declare namespace clownface {
       ? Clownface<T[0], D>
       : Clownface<T, D>;
 
+  interface OutOptions {
+    language?: string | string[]
+  }
+
   interface Clownface<T extends AnyContext = AnyContext, D extends DatasetCore = DatasetCore> {
     readonly term: T extends undefined ? undefined : T extends any[] ? undefined | T[0] : T;
     readonly terms: T extends undefined ? Term[] : T extends any[] ? T : [T];
@@ -72,6 +76,7 @@ declare namespace clownface {
 
     in(predicates?: SingleOrArrayOfTerms<Term>): SafeClownface<T extends undefined ? never : NamedNode | BlankNode, D>;
     out(predicates?: SingleOrArrayOfTerms<Term>): SafeClownface<T extends undefined ? never : Term, D>;
+    out(predicates?: SingleOrArrayOfTerms<Term>, options?: OutOptions): SafeClownface<T extends undefined ? never : Literal, D>
 
     has(predicates: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTermsOrLiterals<Term>): Clownface<Array<NamedNode | BlankNode>, D>;
 
