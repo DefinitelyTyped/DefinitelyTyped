@@ -1,6 +1,6 @@
-import encode, { FormEncodedOptions } from "form-urlencoded";
+import encode = require("form-urlencoded");
 
-const opts: FormEncodedOptions = {
+const opts: encode.FormEncodedOptions = {
     sorted: true,
     skipIndex: false,
     ignorenull: true

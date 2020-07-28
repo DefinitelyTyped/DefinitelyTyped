@@ -2369,7 +2369,7 @@ const doesNotThrow = (func: Function) => {
                 },
                 additionalProperties: false
             },
-            options = {
+            options: jsen.JsenSettings = {
                 greedy: true,
                 schemas: {
                     external: {

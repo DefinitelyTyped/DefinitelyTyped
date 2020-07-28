@@ -24,7 +24,7 @@ port.onMessage.addListener((response) => {
 
 browser.bookmarks.getTree();
 
-browser.proxy.onProxyError.addListener(error => {
+browser.proxy.onError.addListener(error => {
     console.error(`Proxy error: ${error.message}`);
 });
 
@@ -45,4 +45,11 @@ browser.webNavigation.onBeforeNavigate.addListener(d => {
 
 browser.runtime.connect().onDisconnect.addListener(() => {
     console.log('ok');
+});
+
+browser.storage.onChanged.addListener((changes, area) => {
+    for (const key in changes) {
+        console.log(changes[key].oldValue);
+        console.log(changes[key].newValue);
+    }
 });

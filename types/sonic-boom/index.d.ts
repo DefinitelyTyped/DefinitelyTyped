@@ -1,4 +1,4 @@
-// Type definitions for sonic-boom 0.6
+// Type definitions for sonic-boom 0.7
 // Project: https://github.com/mcollina/sonic-boom
 // Definitions by: Alex Ferrando <https://github.com/alferpal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,7 +15,7 @@ declare class SonicBoom extends EventEmitter {
      * relative protocol is enabled. Default: process.stdout
      * @returns a new sonic-boom instance
      */
-    constructor(fileDescriptor: string | number)
+    constructor(fileDescriptor: string | number, minLength?: number, sync?: boolean)
 
     /**
      * Writes the string to the file. It will return false to signal the producer to slow down.

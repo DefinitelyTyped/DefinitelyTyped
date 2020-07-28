@@ -34,6 +34,12 @@ import {
     uniqBy
 } from "@ember/object/computed";
 
+function customMacro(message: string) {
+    return computed(() => {
+        return [message, message];
+    });
+}
+
 // Native class syntax
 class Foo extends EmberObject {
     firstName: string;
@@ -46,6 +52,17 @@ class Foo extends EmberObject {
     get fullName() {
         return `${this.firstName} ${this.lastName}`;
     }
+
+    @computed("firstName", "lastName") // $ExpectError
+    badFullName: string;
+
+    @computed("fullName", function(this: Foo) {
+        return this.fullName.toUpperCase();
+    })
+    bigFullName: string;
+
+    @customMacro('hi')
+    hiTwice: string[];
 
     @action
     foo() {}
@@ -93,6 +110,8 @@ class Bar extends EmberObject {
     @filter() filterTest2: string[]; // $ExpectError
     @filter("firstName") filterTest3: string[]; // $ExpectError
     @filter("firstName", x => x) filterTest4: string[];
+    @filter("firstName", "secondName", x => x) filterTest5: string[]; // $ExpectError
+    @filter("firstName", ["secondName"], x => x) filterTest6: string[];
 
     @filterBy filterByTest1: any[]; // $ExpectError
     @filterBy() filterByTest2: any[]; // $ExpectError
@@ -196,6 +215,9 @@ class Bar extends EmberObject {
     @sort("values", "id") sortTest4: number;
     @sort("values", "id", "a") sortTest5: number; // $ExpectError
     @sort("values", (a, b) => a - b) sortTest6: number;
+    @sort("values", ["id"], (a, b) => a - b) sortTest7: number;
+    @sort("values", "id", (a, b) => a - b) sortTest8: number; // $ExpectError
+    @sort(["id"], (a, b) => a - b) sortTest9: number; // $ExpectError
 
     @sum sumTest1: number; // $ExpectError
     @sum() sumTest2: number; // $ExpectError

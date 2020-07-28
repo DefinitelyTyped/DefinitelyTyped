@@ -130,13 +130,14 @@ export type TabProps<T = {}> = T & {
 };
 
 export interface DefaultTabBarProps {
-    backgroundColor?: string;
-    activeTextColor?: string;
-    inactiveTextColor?: string;
-    textStyle?: TextStyle;
-    tabStyle?: ViewStyle;
-    renderTab?: RenderTabProperties;
-    underlineStyle?: ViewStyle;
+  backgroundColor?: string;
+  activeTextColor?: string;
+  inactiveTextColor?: string;
+  textStyle?: TextStyle;
+  tabStyle?: ViewStyle;
+  renderTab?: RenderTabProperties;
+  underlineStyle?: ViewStyle;
+  style?: ViewStyle;
 }
 
 export type RenderTabProperties =

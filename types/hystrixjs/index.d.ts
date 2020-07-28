@@ -326,6 +326,7 @@ export interface CircuitFactory {
 
 export interface HystrixSSEStream {
     toObservable(): Rx.Observable<any>;
+    toCommandJson(metrics: any): string;
 }
 
 export const commandFactory: CommandFactory;

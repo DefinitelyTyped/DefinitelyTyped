@@ -1,7 +1,8 @@
-// Type definitions for mixpanel-browser 2.23
+// Type definitions for mixpanel-browser 2.35
 // Project: https://github.com/mixpanel/mixpanel-js
 // Definitions by: Carlos López <https://github.com/karlos1337>
 //                 Ricardo Rodrigues <https://github.com/RicardoRodrigues>
+//                 Kristian Randall <https://github.com/randak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -9,7 +10,13 @@ export type Persistence = 'cookie' | 'localStorage';
 
 export type PushItem = Array<string | Dict>;
 
+export type Query = string | Element | Element[];
+
 export interface Dict {[key: string]: any; }
+
+export interface RequestOptions {
+  transport?: "xhr" | "sendBeacon";
+}
 
 export interface XhrHeadersDef {[header: string]: any; }
 
@@ -36,9 +43,13 @@ export interface OutTrackingOptions extends ClearOptOutInOutOptions {
 
 export interface Config {
   api_host: string;
+  api_method: string;
+  api_transport: string;
   app_host: string;
-  autrotrack: boolean;
+  autotrack: boolean;
   cdn: string;
+  cookie_domain: string;
+  cross_site_cookie: boolean;
   cross_subdomain_cookie: boolean;
   persistence: Persistence;
   persistence_name: string;
@@ -62,19 +73,48 @@ export interface Config {
   property_blacklist: string[];
   xhr_headers: XhrHeadersDef;
   opt_out_tracking_by_default: boolean;
+  opt_out_persistence_by_default: boolean;
   opt_out_tracking_persistence_type: Persistence;
   opt_out_tracking_cookie_prefix: string;
+  inapp_protocol: string;
+  inapp_link_new_window: boolean;
+  ignore_dnt: boolean;
+  batch_requests: boolean;
+  batch_size: number;
+  batch_flush_interval_ms: number;
+  batch_request_timeout_ms: number;
 }
 
+export type VerboseResponse = {
+  status: 1;
+  error: null;
+} | {
+  status: 0;
+  error: string;
+};
+
+export type NormalResponse = 1 | 0;
+
+export type Response = VerboseResponse | NormalResponse;
+
+export type Callback = (response: Response) => void;
+
 export interface People {
-  set(prop: Dict | string, to?: any, callback?: () => void): void;
-  set_once(prop: Dict | string, to?: any, callback?: () => void): void;
-  unset(prop: string[] | string, callback?: () => void): void;
-  increment(prop: Dict | string, by?: number, callback?: () => void): void;
-  append(prop: Dict | string, value?: any, callback?: () => void): void;
-  union(prop: Dict | string, value?: any, callback?: () => void): void;
-  track_charge(amount: number, properties?: Dict, callback?: () => void): void;
-  clear_charges(callback?: () => void): void;
+  set(prop: string, to: any, callback?: Callback): void;
+  set(prop: Dict, callback?: Callback): void;
+  set_once(prop: string, to: any, callback?: Callback): void;
+  set_once(prop: Dict, callback?: Callback): void;
+  unset(prop: string[] | string, callback?: Callback): void;
+  increment(prop: string | Dict, callback?: Callback): void;
+  increment(prop: string, by: number, callback?: Callback): void;
+  remove(prop: string, value: any, callback?: Callback): void;
+  remove(prop: Dict, callback?: Callback): void;
+  append(prop: string, value: any, callback?: Callback): void;
+  append(prop: Dict, callback?: Callback): void;
+  union(prop: string, value: any, callback?: Callback): void;
+  union(prop: Dict, callback?: Callback): void;
+  track_charge(amount: number, propertiesOrCallback?: Dict | Callback, callback?: Callback): void;
+  clear_charges(callback?: Callback): void;
   delete_user(): void;
 }
 
@@ -97,9 +137,9 @@ export interface Mixpanel {
   reset(): void;
   set_config(config: Partial<Config>): void;
   time_event(event_name: string): void;
-  track(event_name: string, properties?: Dict, callback?: () => void): void;
-  track_forms(query: string, event_name: string, properties?: Dict | (() => void)): void;
-  track_links(query: string, event_name: string, properties?: Dict | (() => void)): void;
+  track(event_name: string, properties?: Dict, optionsOrCallback?: RequestOptions | Callback, callback?: Callback): void;
+  track_forms(query: Query, event_name: string, properties?: Dict | (() => void)): void;
+  track_links(query: Query, event_name: string, properties?: Dict | (() => void)): void;
   unregister(property: string): void;
   people: People;
 }
@@ -122,8 +162,11 @@ export function register_once(props: Dict, default_value?: any, days?: number): 
 export function reset(): void;
 export function set_config(config: Partial<Config>): void;
 export function time_event(event_name: string): void;
-export function track(event_name: string, properties?: Dict, callback?: () => void): void;
-export function track_forms(query: string, event_name: string, properties?: Dict | (() => void)): void;
-export function track_links(query: string, event_name: string, properties?: Dict | (() => void)): void;
+export function track(event_name: string, properties?: Dict, optionsOrCallback?: RequestOptions | Callback, callback?: Callback): void;
+export function track_forms(query: Query, event_name: string, properties?: Dict | (() => void)): void;
+export function track_links(query: Query, event_name: string, properties?: Dict | (() => void)): void;
 export function unregister(property: string): void;
 export const people: People;
+
+declare const mixpanel: Mixpanel;
+export default mixpanel;

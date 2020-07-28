@@ -356,7 +356,7 @@ declare namespace Gun {
          */
         recall(opt?: { sessionStorage: boolean }, cb?: Parameters<ChainReference['auth']>[2]): ChainReference;
         /**
-         * @param publicKey If you know a users publicKey you can get his user graph and see any unencrypted data he may have stored there.
+         * @param publicKey If you know a users publicKey you can get their user graph and see any unencrypted data they may have stored there.
          */
         user(publicKey?: string): ChainReference;
         //#endregion

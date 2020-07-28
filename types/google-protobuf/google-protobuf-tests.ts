@@ -1,17 +1,17 @@
-import * as jspb from "./index";
+import * as jspb from "google-protobuf";
 
-import * as google_protobuf_compiler_plugin_pb from "./google/protobuf/compiler/plugin_pb";
-import * as google_protobuf_any_pb from "./google/protobuf/any_pb";
-import * as google_protobuf_api_pb from "./google/protobuf/api_pb";
-import * as google_protobuf_descriptor_pb from "./google/protobuf/descriptor_pb";
-import * as google_protobuf_duration_pb from "./google/protobuf/duration_pb";
-import * as google_protobuf_empty_pb from "./google/protobuf/empty_pb";
-import * as google_protobuf_field_mask_pb from "./google/protobuf/field_mask_pb";
-import * as google_protobuf_source_context_pb from "./google/protobuf/source_context_pb";
-import * as google_protobuf_struct_pb from "./google/protobuf/struct_pb";
-import * as google_protobuf_timestamp_pb from "./google/protobuf/timestamp_pb";
-import * as google_protobuf_type_pb from "./google/protobuf/type_pb";
-import * as google_protobuf_wrappers_pb from "./google/protobuf/wrappers_pb";
+import * as google_protobuf_compiler_plugin_pb from "google-protobuf/google/protobuf/compiler/plugin_pb";
+import * as google_protobuf_any_pb from "google-protobuf/google/protobuf/any_pb";
+import * as google_protobuf_api_pb from "google-protobuf/google/protobuf/api_pb";
+import * as google_protobuf_descriptor_pb from "google-protobuf/google/protobuf/descriptor_pb";
+import * as google_protobuf_duration_pb from "google-protobuf/google/protobuf/duration_pb";
+import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";
+import * as google_protobuf_field_mask_pb from "google-protobuf/google/protobuf/field_mask_pb";
+import * as google_protobuf_source_context_pb from "google-protobuf/google/protobuf/source_context_pb";
+import * as google_protobuf_struct_pb from "google-protobuf/google/protobuf/struct_pb";
+import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
+import * as google_protobuf_type_pb from "google-protobuf/google/protobuf/type_pb";
+import * as google_protobuf_wrappers_pb from "google-protobuf/google/protobuf/wrappers_pb";
 
 /* This is a typescript version of a simple generated class from a proto file that is shown below. In order to make
  this ES5 JS file into TypeScript there have been quite a few modifications, but the same calls are made to the library
@@ -176,6 +176,18 @@ class MySimple extends jspb.Message {
     const writer = new jspb.BinaryWriter();
     MySimple.serializeBinaryToWriter(this, writer);
     return writer.getResultBuffer();
+  }
+
+  getExtensionsObject() {
+    const simple = new MySimple();
+    const { ExtensionRangeOptions } = google_protobuf_descriptor_pb;
+    const options: google_protobuf_descriptor_pb.ExtensionRangeOptions = ExtensionRangeOptions.deserializeBinary(simple.serializeBinary());
+    return options.toObject(true);
+  }
+
+  clearUninterpretedOptionList(options: google_protobuf_descriptor_pb.ExtensionRangeOptions) {
+    options.getUninterpretedOptionList();
+    options.clearUninterpretedOptionList();
   }
 
   static serializeBinaryToWriter(message: MySimple, writer: jspb.BinaryWriter) {
@@ -522,3 +534,8 @@ class MySimple extends jspb.Message {
     return jspb.Message.getField(this, 15) != null;
   }
 };
+
+// ensures messages are cloneable without a redundant cast
+const myMessage: MySimple = new MySimple();
+const myClonedMessage: MySimple = myMessage.clone();
+const myClonedMessage2: MySimple = myMessage.cloneMessage()

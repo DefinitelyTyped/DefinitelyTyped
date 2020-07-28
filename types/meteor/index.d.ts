@@ -11,8 +11,12 @@
 //                 Leon Machens <https://github.com/lmachens>
 //                 Arthur Gunn <https://github.com/gunn>
 //                 alesn <https://github.com/alesn>
+//                 Per Bergland <https://github.com/perbergland>
+//                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
+//                 Evan Broder <https://github.com/ebroder>
+//                 Radosław Miernik <https://github.com/radekmie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.7
 
 /// <reference path="./accounts-base.d.ts" />
 /// <reference path="./globals/accounts-base.d.ts" />
@@ -38,6 +42,8 @@
 /// <reference path="./globals/mongo.d.ts" />
 /// <reference path="./random.d.ts" />
 /// <reference path="./globals/random.d.ts" />
+/// <reference path="./reactive-dict.d.ts" />
+/// <reference path="./globals/reactive-dict.d.ts" />
 /// <reference path="./reactive-var.d.ts" />
 /// <reference path="./globals/reactive-var.d.ts" />
 /// <reference path="./server-render.d.ts" />

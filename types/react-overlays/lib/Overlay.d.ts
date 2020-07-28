@@ -18,12 +18,12 @@ declare namespace Overlay {
         outOfBoundaries?: boolean;
         scheduleUpdate(): void;
         props: {
-            ref?(element: HTMLElement): void;
+            ref: (popperNode: HTMLElement | null) => void;
             style: { [key: string]: string | number };
             'aria-labelledby'?: string;
         };
         arrowProps: {
-            ref?(element: HTMLElement): void;
+            ref: (popperNode: HTMLElement | null) => void;
             style: { [key: string]: string | number };
         };
     }

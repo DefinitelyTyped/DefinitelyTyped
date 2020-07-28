@@ -1,9 +1,12 @@
-// Type definitions for non-npm package @ember/runloop 3.0
-// Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Frunloop
+// Type definitions for non-npm package @ember/runloop 3.16
+// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Frunloop
 // Definitions by: Mike North <https://github.com/mike-north>
 //                 Steve Calvert <https://github.com/scalvert>
+//                 Chris Krycho <https://github.com/chriskrycho>
+//                 Dan Freeman <https://github.com/dfreeman>
+//                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 import { RunMethod, EmberRunQueues } from "@ember/runloop/-private/types";
 import { EmberRunTimer } from "@ember/runloop/types";
@@ -16,7 +19,7 @@ export interface RunNamespace {
    * end.
    */
   <Ret>(method: (...args: any[]) => Ret): Ret;
-  <Target, Ret>(target: Target, method: RunMethod<Target, Ret>): Ret;
+  <Target, Ret>(target: Target, method: RunMethod<Target, Ret>, ...args: any[]): Ret;
   /**
    * If no run-loop is present, it creates a new one. If a run loop is
    * present it will queue itself to run on the existing run-loops action

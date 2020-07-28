@@ -244,6 +244,26 @@ function testRemoteOptions() {
     });
 }
 
+function testViews() {
+    const db = new PouchDB('dbview');
+    db.put({
+        _id: '_design/index',
+        views: {
+            foo: {
+                map: 'func(doc){emit(doc.foo)}',
+                reduce: '_count'
+            },
+            bar: {
+                map: 'func(doc){emit(doc.bar, doc.buzz)}',
+                reduce: '_sum'
+            },
+            buzz: {
+                map: 'func(doc){emit(doc.buzz)}'
+            }
+        }
+    });
+}
+
 function heterogeneousGenericsDatabase(db: PouchDB.Database) {
     interface Cat {
         meow: string;

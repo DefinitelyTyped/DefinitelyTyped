@@ -12,6 +12,7 @@ FunctionComponent.defaultProps = {
     foo: 42
 };
 <FunctionComponent />;
+<slot name="slot1"></slot>;
 
 const FunctionComponent2: React.FunctionComponent<SCProps> = ({ foo, children }) => {
     return <div>{foo}{children}</div>;
@@ -27,6 +28,11 @@ FunctionComponent2.defaultProps = {
     <g>
         <text x="200" y="300" strokeWidth="5" stroke="black" alignmentBaseline="middle">
             Hello, world!
+            <animateMotion
+                path="M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z"
+                dur="5s"
+                repeatCount="indefinite"
+            />
         </text>
         <div slot="Some Div"> Hello again! </div>
     </g>
@@ -86,6 +92,14 @@ const FunctionComponentWithoutProps: React.FunctionComponent = (props) => {
 // React.createContext
 const ContextWithRenderProps = React.createContext('defaultValue');
 
+// unstable APIs should not be part of the typings
+// $ExpectError
+const ContextUsingUnstableObservedBits = React.createContext(undefined, (previous, next) => 7);
+// $ExpectError
+<ContextWithRenderProps.Consumer unstable_observedBits={4}>
+    {(value: unknown) => null}
+</ContextWithRenderProps.Consumer>;
+
 // Fragments
 <div>
     <React.Fragment>
@@ -129,17 +143,17 @@ class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
 
 // Below tests that extended types for state work
 export abstract class SetStateTestForExtendsState<P, S extends { baseProp: string }> extends React.Component<P, S> {
-	foo() {
-		this.setState({ baseProp: 'foobar' });
-	}
+    foo() {
+        this.setState({ baseProp: 'foobar' });
+    }
 }
 
 // Below tests that & generic still works
 // This is invalid because 'S' may specify a different type for `baseProp`.
 // export abstract class SetStateTestForAndedState<P, S> extends React.Component<P, S & { baseProp: string }> {
-// 	   foo() {
-// 	       this.setState({ baseProp: 'foobar' });
-// 	   }
+//        foo() {
+//            this.setState({ baseProp: 'foobar' });
+//        }
 // }
 
 interface NewProps { foo: string; }
@@ -261,6 +275,10 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 // $ExpectError
 <React.Suspense/>;
 
+// unstable API should not be part of the typings
+// $ExpectError
+<React.Suspense fallback={null} unstable_avoidThisFallback />;
+
 class LegacyContext extends React.Component {
     static contextTypes = { foo: PropTypes.node.isRequired };
 
@@ -273,7 +291,7 @@ class LegacyContext extends React.Component {
 
 class LegacyContextAnnotated extends React.Component {
     static contextTypes = { foo: PropTypes.node.isRequired };
-    context!: { foo: React.ReactNode };
+    context: { foo: React.ReactNode } = { foo: {} as React.ReactNode };
 
     render() {
         // $ExpectType ReactNode
@@ -284,7 +302,7 @@ class LegacyContextAnnotated extends React.Component {
 
 class NewContext extends React.Component {
     static contextType = ContextWithRenderProps;
-    context!: React.ContextType<typeof ContextWithRenderProps>;
+    context: React.ContextType<typeof ContextWithRenderProps> = "";
 
     render() {
         // $ExpectType string
@@ -321,7 +339,7 @@ const ForwardRef3 = React.forwardRef(
 <ForwardRef3 ref={divFnRef}/>;
 <ForwardRef3 ref={divRef}/>;
 
-const Profiler = React.unstable_Profiler;
+const { Profiler } = React;
 
 // 'id' is missing
 <Profiler />; // $ExpectError
@@ -357,8 +375,18 @@ const Profiler = React.unstable_Profiler;
 </Profiler>;
 
 type ImgProps = React.ComponentProps<'img'>;
-// $ExpectType "async" | "auto" | "sync" | undefined
-type ImgPropsDecoding = ImgProps['decoding'];
+const imgProps: ImgProps = {};
+// the order of the strings in the union seems to vary
+// with the typescript version, so test assignment instead
+imgProps.decoding = 'async';
+imgProps.decoding = 'auto';
+imgProps.decoding = 'sync';
+imgProps.loading = 'eager';
+imgProps.loading = 'lazy';
+// $ExpectError
+imgProps.loading = 'nonsense';
+// $ExpectError
+imgProps.decoding = 'nonsense';
 type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;
 // $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
 type ImgPropsWithRefRef = ImgPropsWithRef['ref'];

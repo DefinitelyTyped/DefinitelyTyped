@@ -20,5 +20,5 @@ compiled.render({ value: "test" });
 // $ExpectType Token[]
 const scanned = Hogan.scan("{{#if}}{{value}}{{/if}}");
 
-// $ExpectType Leaf[]
+// $ExpectType Leaf[] || Tree
 Hogan.parse(scanned);

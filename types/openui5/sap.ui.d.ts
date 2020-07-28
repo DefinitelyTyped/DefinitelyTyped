@@ -158,15 +158,15 @@ declare namespace sap {
     */
 
     interface ComponentConfig {
-      // 	the name of the Component to load
+      //     the name of the Component to load
       name: string;
-      // 	an alternate location from where to load the Component
+      //     an alternate location from where to load the Component
       url?: string;
-      // 	initial data of the Component (@see sap.ui.core.Component#getComponentData)
+      //     initial data of the Component (@see sap.ui.core.Component#getComponentData)
       componentData?: any;
-      // 	the sId of the new Component
+      //     the sId of the new Component
       id?: string;
-      //	the mSettings of the new Component
+      //    the mSettings of the new Component
       settings?: any;
     }
     //  Creates a new instance of a Component or returns the instance of an existing Component.
@@ -234,14 +234,14 @@ declare namespace sap {
      * @param oContainer The view or fragment containing the extension point
      * @param sExtName The extensionName used to identify the extension point in the customizing
      * @param fnCreateDefaultContent Optional callback function creating default content, returning an
-     * Array of controls. It is executed			when there's no customizing, if not provided, no default content
+     * Array of controls. It is executed            when there's no customizing, if not provided, no default content
      * will be rendered.
      * @param oTargetControl Optional - use this parameter to attach the extension point to a particular
      * aggregation
      * @param sAggregationName Optional - if provided along with oTargetControl, the extension point
-     * content is added to this particular aggregation at oTargetControl,			if not given, but an
+     * content is added to this particular aggregation at oTargetControl,            if not given, but an
      * oTargetControl is still present, the function will attempt to add the extension point to the default
-     * aggregation of oTargetControl.			If no oTargetControl is provided, sAggregationName will also be
+     * aggregation of oTargetControl.            If no oTargetControl is provided, sAggregationName will also be
      * ignored.
      * @returns an array with 0..n controls created from an ExtensionPoint
     */
@@ -1493,9 +1493,9 @@ declare namespace sap {
 
         /**
          * the global configuration of Opa.All of the global values can be overwritten in an individual waitFor
-         * call.The default values are:<ul>		<li>arrangements: A new Opa instance</li>		<li>actions: A new Opa
-         * instance</li>		<li>assertions: A new Opa instance</li>		<li>timeout : 15 seconds, is increased to 5
-         * minutes if running in debug mode e.g. with URL parameter sap-ui-debug=true</li>	
+         * call.The default values are:<ul>        <li>arrangements: A new Opa instance</li>        <li>actions: A new Opa
+         * instance</li>        <li>assertions: A new Opa instance</li>        <li>timeout : 15 seconds, is increased to 5
+         * minutes if running in debug mode e.g. with URL parameter sap-ui-debug=true</li>    
          * <li>pollingInterval: 400 milliseconds</li></ul>You can either directly manipulate the config, or
          * extend it using {@link sap.ui.test.Opa#.extendConfig}
         */
@@ -1510,12 +1510,6 @@ declare namespace sap {
         */
         constructor(extensionObject: any);
 
-
-
-        /**
-         * Calls the static emptyQueue function in the Opa namespace {@link sap.ui.test.Opa#.emptyQueue}
-        */
-        emptyQueue(): void;
 
         /**
          * Waits until all waitFor calls are done.
@@ -1544,14 +1538,6 @@ declare namespace sap {
         extendConfig(options: any): void;
 
         /**
-         * Gives access to a singleton object you can save values in.This object will only be created once and
-         * it will never be destroyed.That means you can use it to save values you need in multiple separated
-         * tests.
-         * @returns the context object
-        */
-        getContext(): any;
-
-        /**
          * Gives access to a singleton object you can save values in.Same as {@link sap.ui.test.Opa#getContext}
          * @since 1.29.0
          * @returns the context object
@@ -1560,9 +1546,9 @@ declare namespace sap {
 
         /**
          * Reset Opa.config to its default values.All of the global values can be overwritten in an individual
-         * waitFor call.The default values are:<ul>		<li>arrangements: A new Opa instance</li>		<li>actions: A
-         * new Opa instance</li>		<li>assertions: A new Opa instance</li>		<li>timeout : 15 seconds, is
-         * increased to 5 minutes if running in debug mode e.g. with URL parameter sap-ui-debug=true</li>	
+         * waitFor call.The default values are:<ul>        <li>arrangements: A new Opa instance</li>        <li>actions: A
+         * new Opa instance</li>        <li>assertions: A new Opa instance</li>        <li>timeout : 15 seconds, is
+         * increased to 5 minutes if running in debug mode e.g. with URL parameter sap-ui-debug=true</li>    
          * <li>pollingInterval: 400 milliseconds</li></ul>
          * @since 1.25
         */
@@ -1718,12 +1704,6 @@ declare namespace sap {
         iTeardownMyAppFrame(): any;
 
         /**
-         * Removes the IFrame from the DOM and removes all the references to its objects
-         * @returns A promise that gets resolved on success
-        */
-        iTeardownMyAppFrame(): any;
-
-        /**
          * Destroys the UIComponent and removes the div from the dom like all the references on its objects
          * @returns a promise that gets resolved on success.
         */
@@ -1731,10 +1711,10 @@ declare namespace sap {
 
         /**
          * Resets Opa.config to its default values.See {@link sap.ui.test.Opa5#waitFor} for the
-         * descriptionDefault values for OPA5 are:<ul>	<li>viewNamespace: empty string</li>	<li>arrangements:
-         * instance of OPA5</li>	<li>actions: instance of OPA5</li>	<li>assertions: instance of OPA5</li>
-         * <li>visible: true</li>	<li>timeout : 15 seconds, is increased to 5 minutes if running in debug mode
-         * e.g. with URL parameter sap-ui-debug=true</li>	<li>pollingInterval: 400 milliseconds</li></ul>
+         * descriptionDefault values for OPA5 are:<ul>    <li>viewNamespace: empty string</li>    <li>arrangements:
+         * instance of OPA5</li>    <li>actions: instance of OPA5</li>    <li>assertions: instance of OPA5</li>
+         * <li>visible: true</li>    <li>timeout : 15 seconds, is increased to 5 minutes if running in debug mode
+         * e.g. with URL parameter sap-ui-debug=true</li>    <li>pollingInterval: 400 milliseconds</li></ul>
          * @since 1.25
         */
         resetConfig(): void;
@@ -1777,9 +1757,9 @@ declare namespace sap {
 
         /**
          * Returns a control by its idaccepts an object with an ID property the ID can bewill check a control
-         * type also, if defined<ul>	<li>a single string - function will return the control instance or
-         * undefined</li>	<li>an array of strings - function will return an array of found controls or an empty
-         * array</li>	<li>a regexp - function will return an array of found controls or an empty
+         * type also, if defined<ul>    <li>a single string - function will return the control instance or
+         * undefined</li>    <li>an array of strings - function will return an array of found controls or an empty
+         * array</li>    <li>a regexp - function will return an array of found controls or an empty
          * array</li></ul>
          * @param oOptions should contain an ID property. It can be of the type string or regex. If contains
          * controlType property, will check it as well
@@ -2813,12 +2793,6 @@ declare namespace sap {
         getMetadata(): sap.ui.base.Metadata;
 
         /**
-         * Returns the metadata for the ManagedObject class.
-         * @returns Metadata for the ManagedObject class.
-        */
-        getMetadata(): sap.ui.base.Metadata;
-
-        /**
          * Get the model to be used for data bindings with the given model name.If the object does not have a
          * model set on itself, it will use the firstmodel defined in its parent hierarchy.The name can be
          * omitted to reference the default model or it must be a non-empty string.Note: to be compatible with
@@ -3208,7 +3182,7 @@ declare namespace sap {
        * provide the support custom style classes. The control API provides functionsto the application which
        * allow it to add, remove or change style classes for the control.In general, this option is not
        * available for elements because elements do not necessarily have a representation in the DOM.This
-       * function can be used by a control developer to explicitly enrich the API of his/her element
+       * function can be used by a control developer to explicitly enrich the API of their element
        * implementation with the API functionsfor the custom style class support. It must be called on the
        * prototype of the element.<b>Usage Example:</b><pre>sap.ui.define(['sap/ui/core/Element',
        * 'sap/ui/core/CustomStyleClassSupport'], function(Element, CustomStyleClassSupport) {   "use strict";
@@ -3489,7 +3463,7 @@ declare namespace sap {
              * @param oViewInfo identification information about the calling instance
              * @param mSettings settings object containing the settings provided with the preprocessor
              * @returns the processed resource or a promise which resolves with the processed resource or an error
-             * according to the		declared preprocessor sync capability
+             * according to the        declared preprocessor sync capability
             */
             process(vSource: any, oViewInfo: any, mSettings?: any): any | JQueryPromise<any>;
           }
@@ -3827,12 +3801,12 @@ declare namespace sap {
            * @param vPreprocessor module path of the preprocessor implementation or a preprocessor function
            * @param sViewType type of the calling view, e.g. <code>XML</code>
            * @param bSyncSupport declares if the vPreprocessor ensures safe sync processing. This means the
-           * preprocessor will be executed		also for sync views. Please be aware that any kind of async
-           * processing (like Promises, XHR, etc) may		break the view initialization and lead to unexpected
+           * preprocessor will be executed        also for sync views. Please be aware that any kind of async
+           * processing (like Promises, XHR, etc) may        break the view initialization and lead to unexpected
            * results.
            * @param bOnDemand on-demand preprocessor which enables developers to quickly activate the
-           * preprocessor for a view,		by setting <code>preprocessors : { xml }</code>, for example. This should
-           * be false except for very special		cases. There can only be one on-demand preprocessor per content
+           * preprocessor for a view,        by setting <code>preprocessors : { xml }</code>, for example. This should
+           * be false except for very special        cases. There can only be one on-demand preprocessor per content
            * type.
            * @param mSettings optional configuration for preprocessor
           */
@@ -4005,11 +3979,11 @@ declare namespace sap {
            * @param sType the type of content to be processed
            * @param vPreprocessor module path of the preprocessor implementation or a preprocessor function
            * @param bSyncSupport declares if the vPreprocessor ensures safe sync processing. This means the
-           * preprocessor will be executed		also for sync views. Please be aware that any kind of async
-           * processing (like Promises, XHR, etc) may		break the view initialization and lead to unexpected
+           * preprocessor will be executed        also for sync views. Please be aware that any kind of async
+           * processing (like Promises, XHR, etc) may        break the view initialization and lead to unexpected
            * results.
            * @param bOnDemand ondemand preprocessor which enables developers to quickly activate the preprocessor
-           * for a view,		by setting <code>preprocessors : { xml }</code>, for example.
+           * for a view,        by setting <code>preprocessors : { xml }</code>, for example.
            * @param mSettings optional configuration for preprocessor
           */
           registerPreprocessor(sType: string | sap.ui.core.mvc.XMLView.PreprocessorType, vPreprocessor: string | any, bSyncSupport: boolean, bOnDemand?: boolean, mSettings?: any): void;
@@ -6333,7 +6307,7 @@ declare namespace sap {
            * object
            * @param oObject The sap.ui.base.ManageObject
            * @param bHandleValidation Handle validation for this object. If set to true validation/parse events
-           * creates Messages and cancel event.					If set to false only the event will be canceled, but no
+           * creates Messages and cancel event.                    If set to false only the event will be canceled, but no
            * messages will be created
           */
           registerObject(oObject: sap.ui.base.ManagedObject, bHandleValidation: boolean): void;
@@ -6435,7 +6409,7 @@ declare namespace sap {
         }
         /**
          * The ControlMessageProcessor implementation.This MessageProcessor is able to handle Messages with the
-         * following target syntax:		'ControlID/PropertyName'Creating an instance of this class using the "new"
+         * following target syntax:        'ControlID/PropertyName'Creating an instance of this class using the "new"
          * keyword always results in the same instance (Singleton).
          * @resource sap/ui/core/message/ControlMessageProcessor.js
         */
@@ -7390,8 +7364,8 @@ declare namespace sap {
            * (navigation in a grid).
            * @param bTableMode Set to true if table mode should be used, else false
            * @param bTableList This sets a different behavior for table mode.In this mode we keep using table
-           * navigation but there are some differences. e.g.<ul>	<li>Page-up moves focus to the first row, not to
-           * the first cell like in table mode</li>	<li>Page-down moves focus to the last row, not to the last
+           * navigation but there are some differences. e.g.<ul>    <li>Page-up moves focus to the first row, not to
+           * the first cell like in table mode</li>    <li>Page-down moves focus to the last row, not to the last
            * cell like in table mode</li></ul>
            * @returns <code>this</code> to allow method chaining
           */
@@ -9369,11 +9343,11 @@ declare namespace sap {
        * direction.<strong>Since 1.12.3</strong> it is possible to add further DOM-element-ids that can get
        * the focuswhen 'autoclose' is enabled. E.g. the RichTextEditor with running TinyMCE uses this method
        * tobe able to focus the Popups of the TinyMCE if the RichTextEditor runs within a Popup/Dialog etc.
-       * To provide an additional DOM-element that can get the focus the following should be done:	// create
-       * an object with the corresponding DOM-id	var oObject = {		id :
-       * "this_is_the_most_valuable_id_of_the_DOM_element"	};	// add the event prefix for adding an element
-       * to the ID of the corresponding Popup	var sEventId = "sap.ui.core.Popup.addFocusableContent-" +
-       * oPopup.getId();	// fire the event with the created event-id and the object with the DOM-id
+       * To provide an additional DOM-element that can get the focus the following should be done:    // create
+       * an object with the corresponding DOM-id    var oObject = {        id :
+       * "this_is_the_most_valuable_id_of_the_DOM_element"    };    // add the event prefix for adding an element
+       * to the ID of the corresponding Popup    var sEventId = "sap.ui.core.Popup.addFocusableContent-" +
+       * oPopup.getId();    // fire the event with the created event-id and the object with the DOM-id
        * sap.ui.getCore().getEventBus().publish("sap.ui", sEventId, oObject);
        * @resource sap/ui/core/Popup.js
       */
@@ -9512,11 +9486,6 @@ declare namespace sap {
         getLastZIndex(): Number;
 
         /**
-         * Returns the last z-index that has been handed out. does not increase the internal z-index counter.
-        */
-        getLastZIndex(): Number;
-
-        /**
          * Returns a metadata object for class sap.ui.core.Popup.
          * @returns Metadata object describing this class
         */
@@ -9526,13 +9495,6 @@ declare namespace sap {
          * Returns the value if a Popup is of modal type
         */
         getModal(): void;
-
-        /**
-         * Returns the next available z-index on top of the existing/previous popups. Each call increases the
-         * internal z-index counter and the returned z-index.
-         * @returns the next z-index on top of the Popup stack
-        */
-        getNextZIndex(): Number;
 
         /**
          * Returns the next available z-index on top of the existing/previous popups. Each call increases the
@@ -10340,13 +10302,6 @@ declare namespace sap {
          * Element.
         */
         getLayoutData(): sap.ui.core.LayoutData;
-
-        /**
-         * Returns the runtime metadata for this UI element.When using the defineClass method, this function is
-         * automatically created and returnsa runtime representation of the design time metadata.
-         * @returns runtime metadata
-        */
-        getMetadata(): any;
 
         /**
          * Returns a metadata object for class sap.ui.core.Element.
@@ -11417,12 +11372,6 @@ declare namespace sap {
         getMetadata(): sap.ui.base.Metadata;
 
         /**
-         * Returns the metadata for the Component class.
-         * @returns Metadata for the Component class.
-        */
-        getMetadata(): sap.ui.base.Metadata;
-
-        /**
          * Returns the Component instance in whose "context" the given ManagedObject has been createdor
          * <code>undefined</code>.This is a convenience wrapper around {@link
          * sap.ui.core.Component.getOwnerIdFor Component.getOwnerIdFor}.If the owner ID cannot be determined
@@ -11544,7 +11493,7 @@ declare namespace sap {
        * The ScrollBar control can be used for virtual scrolling of a certain area.This means: to simulate a
        * very large scrollable area when technically the area is small and the control takes care of
        * displaying the respective part only. E.g. a Table control can take care of only rendering the
-       * currently visible rows and use this ScrollBar control to make the user think he actually scrolls
+       * currently visible rows and use this ScrollBar control to make the user think they actually scroll
        * through a long list.
        * @resource sap/ui/core/ScrollBar.js
       */
@@ -12568,8 +12517,8 @@ declare namespace sap {
          * Returns the reference to the router instance. The passed controller or viewhas to be created in the
          * context of a UIComponent to return the routerinstance. Otherwise this function will return
          * undefined.You may define the routerClass property in the config section of the routing to make the
-         * Component create your router extension.Example:routing: {	config: {		routerClass :
-         * myAppNamespace.MyRouterClass		...}...
+         * Component create your router extension.Example:routing: {    config: {        routerClass :
+         * myAppNamespace.MyRouterClass        ...}...
          * @since 1.16.1
          * @param oControllerOrView either a view or controller
          * @returns the router instance
@@ -12766,7 +12715,7 @@ declare namespace sap {
          * not apply anymore this child must be cleaned up correctly (e.g deregistering eventhandlers, ...).The
          * following example shows how renderControl and cleanupControlWithoutRendering shouldbe used:render =
          * function(rm, ctrl){  //...  var aAggregatedControls = //...  for(var i=0;
-         * i<aAgrregatedControls.length; i++){  	if(//... some filter expression){       
+         * i<aAgrregatedControls.length; i++){      if(//... some filter expression){       
          * rm.renderControl(aAggregatedControls[i]);     }else{       
          * rm.cleanupControlWithoutRendering(aAggregatedControls[i]);     }  }  //...}Note:The method does not
          * remove DOM of the given control. The callee of this method has to take over theresponsibility to
@@ -13173,7 +13122,7 @@ declare namespace sap {
          * valid ISO639 two-letter languagesand as such are valid BCP47 language tags. For better BCP47
          * compliance, the frameworkmaps the following non-BCP47 SAP logon codes to a BCP47 substitute:<pre>  
          * "ZH"  -->  "zh-Hans"         // script 'Hans' added to distinguish it from zh-Hant   "ZF"  --> 
-         * "zh-Hant"         // ZF ist not a valid ISO639 code, use the compliant language + script 'Hant'		 " 
+         * "zh-Hant"         // ZF ist not a valid ISO639 code, use the compliant language + script 'Hant'         " 
          *   "1Q"  -->  "en-US-x-saptrc"  // special language code for supportability (tracing),               
          *                    represented as en-US with a priate extension   "2Q"  -->  "en-US-x-sappsd"  //
          * special language code for supportability (pseudo translation),                                  
@@ -13891,7 +13840,7 @@ declare namespace sap {
 
       }
       /**
-       * 	Marker interface for toolbar controls.
+       *     Marker interface for toolbar controls.
        * @resource sap/ui/core/library.js
       */
       interface Toolbar {
@@ -15687,7 +15636,7 @@ declare namespace sap {
             /**
              * Constructor for a new ODataModel.
              * @param sServiceUrl base uri of the service to request data from; additional URL parameters appended
-             * here will be appended to every request								can be passed with the mParameters object as well:
+             * here will be appended to every request                                can be passed with the mParameters object as well:
              * [mParameters.serviceUrl] A serviceURl is required!
              * @param mParameters (optional) a map which contains the following parameter properties:
             */
@@ -15702,10 +15651,10 @@ declare namespace sap {
              * by calling the getServiceMetadata() method.
              * @param vUrl Either one URL as string or an array or URL strings
              * @returns The Promise to load the given URL(s), resolved if all URLs have been loaded, rejected if at
-             * least one fails to load.					 If this promise resolves it returns the following parameters:					
-             * annotations: The annotation object					 entitySets: An array of EntitySet objects containing the
-             * newly merged EntitySets from a $metadata requests.								 the structure is the same as in the
-             * metadata object reached by the getServiceMetadata() method.								 For non $metadata requests the
+             * least one fails to load.                     If this promise resolves it returns the following parameters:                    
+             * annotations: The annotation object                     entitySets: An array of EntitySet objects containing the
+             * newly merged EntitySets from a $metadata requests.                                 the structure is the same as in the
+             * metadata object reached by the getServiceMetadata() method.                                 For non $metadata requests the
              * array will be empty.
             */
             addAnnotationUrl(vUrl: string | string[]): JQueryPromise<any>;
@@ -15820,8 +15769,8 @@ declare namespace sap {
             /**
              * Trigger a POST request to the odata service that was specified in the model constructor. Please note
              * that deep creates are not supportedand may not work.
-             * @param sPath A string containing the path to the collection where an entry		should be created. The
-             * path is concatenated to the sServiceUrl		which was specified in the model constructor.
+             * @param sPath A string containing the path to the collection where an entry        should be created. The
+             * path is concatenated to the sServiceUrl        which was specified in the model constructor.
              * @param oData data of the entry that should be created.
              * @param mParameters Optional parameter map containing any of the following properties:
              * @returns an object which has an <code>abort</code> function to abort the current request.
@@ -16191,8 +16140,8 @@ declare namespace sap {
             /**
              * Trigger a GET request to the odata service that was specified in the model constructor.The data will
              * be stored in the model. The requested data is returned with the response.
-             * @param sPath A string containing the path to the data which should		be retrieved. The path is
-             * concatenated to the sServiceUrl		which was specified in the model constructor.
+             * @param sPath A string containing the path to the data which should        be retrieved. The path is
+             * concatenated to the sServiceUrl        which was specified in the model constructor.
              * @param mParameters Optional parameter map containing any of the following properties:
              * @returns an object which has an <code>abort</code> function to abort the current request.
             */
@@ -16202,7 +16151,7 @@ declare namespace sap {
              * Refresh the model.This will check all bindings for updated data and update the controls if data has
              * been changed.
              * @param bForceUpdate Force update of controls
-             * @param bRemoveData If set to true then the model data will be removed/cleared.					Please note that
+             * @param bRemoveData If set to true then the model data will be removed/cleared.                    Please note that
              * the data might not be there when calling e.g. getProperty too early before the refresh call
              * returned.
              * @param sGroupId The groupId. Requests belonging to the same groupId will be bundled in one batch
@@ -16220,7 +16169,7 @@ declare namespace sap {
 
             /**
              * refresh XSRF token by performing a GET request against the service root URL.
-             * @param fnSuccess a callback function which is called when the data has           					 been
+             * @param fnSuccess a callback function which is called when the data has                                been
              * successfully retrieved.
              * @param fnError a callback function which is called when the request failed. The handler can have the
              * parameter: oError which contains additional error information.
@@ -16230,7 +16179,7 @@ declare namespace sap {
 
             /**
              * Trigger a DELETE request to the odata service that was specified in the model constructor.
-             * @param sPath A string containing the path to the data that should be removed.		The path is
+             * @param sPath A string containing the path to the data that should be removed.        The path is
              * concatenated to the sServiceUrl which was specified in the model constructor.
              * @param mParameters Optional, can contain the following attributes:
              * @returns an object which has an <code>abort</code> function to abort the current request.
@@ -16239,7 +16188,7 @@ declare namespace sap {
 
             /**
              * Resets the collected changes by the setProperty method.
-             * @param aPath Array of paths that should be resetted.							If no array is passed all changes will be
+             * @param aPath Array of paths that should be resetted.                            If no array is passed all changes will be
              * resetted.
             */
             resetChanges(aPath: any[]): void;
@@ -16253,8 +16202,8 @@ declare namespace sap {
             /**
              * Definition of batchGroups per EntityType for "TwoWay" changes
              * @param mGroups A map containing the definition of bacthGroups for TwoWay changes. The Map has
-             * thefollowing format:{		"EntityTypeName": {			batchGroupId: "ID",			[changeSetId: "ID",]			[single:
-             * true/false,]		}}bacthGroupId: Defines the bacthGroup for changes of the defined
+             * thefollowing format:{        "EntityTypeName": {            batchGroupId: "ID",            [changeSetId: "ID",]            [single:
+             * true/false,]        }}bacthGroupId: Defines the bacthGroup for changes of the defined
              * EntityTypeNamechangeSetId: Defines a changeSetId wich bundles the changes for the EntityType.single:
              * Defines if every change will get an own changeSet (true)
             */
@@ -16263,8 +16212,8 @@ declare namespace sap {
             /**
              * Definition of groups per EntityType for "TwoWay" changes
              * @param mGroups A map containing the definition of bacthGroups for TwoWay changes. The Map has
-             * thefollowing format:{		"EntityTypeName": {			groupId: "ID",			[changeSetId: "ID",]			[single:
-             * true/false,]		}}GroupId: Defines the Group for changes of the defined EntityTypeNamechangeSetId:
+             * thefollowing format:{        "EntityTypeName": {            groupId: "ID",            [changeSetId: "ID",]            [single:
+             * true/false,]        }}GroupId: Defines the Group for changes of the defined EntityTypeNamechangeSetId:
              * Defines a changeSetId wich bundles the changes for the EntityType.single: Defines if every change
              * will get an own changeSet (true)
             */
@@ -16354,8 +16303,8 @@ declare namespace sap {
              * update method used is defined by the global <code>defaultUpdateMethod</code> parameter which is
              * sap.ui.model.odata.UpdateMethod.Merge by default.Please note that deep updates are not supported and
              * may not work. These should be done seperate on the entry directly.
-             * @param sPath A string containing the path to the data that should be updated.		The path is
-             * concatenated to the sServiceUrl which was specified		in the model constructor.
+             * @param sPath A string containing the path to the data that should be updated.        The path is
+             * concatenated to the sServiceUrl which was specified        in the model constructor.
              * @param oData data of the entry that should be updated.
              * @param mParameters Optional, can contain the following attributes:
              * @returns an object which has an <code>abort</code> function to abort the current request.
@@ -16376,7 +16325,7 @@ declare namespace sap {
            * in the specification.In addition to these hieararchy annotations, the ODataTreeBinding also supports
            * (cyclic) references between entities based on navigation properties.To do this you have to specify
            * the binding parameter "navigation".The pattern for this is as follows: { entitySetName:
-           * "navigationPropertyName" }.Example: {	 "Employees": "toColleagues"}In OperationMode.Server, the
+           * "navigationPropertyName" }.Example: {     "Employees": "toColleagues"}In OperationMode.Server, the
            * filtering on the ODataTreeBinding is only supported with initial filters.However please be aware
            * that this applies only to filters which do not obstruct the creation of a hierarchy.So filtering on
            * a property (e.g. a "Customer") is fine, as long as the application can ensure, that the responses
@@ -16455,12 +16404,12 @@ declare namespace sap {
              * exposed on the service.
              * @param iStartIndex the start index of the requested contexts
              * @param iLength the requested amount of contexts. If none given, the default value is the size limit
-             * of the underlying												 sap.ui.model.odata.v2.ODataModel instance.
-             * @param iThreshold the number of entities which should be retrieved in addition to the given length.	
-             * 		  A higher threshold reduces the number of backend requests, yet these request blow up in size,
+             * of the underlying                                                 sap.ui.model.odata.v2.ODataModel instance.
+             * @param iThreshold the number of entities which should be retrieved in addition to the given length.    
+             *           A higher threshold reduces the number of backend requests, yet these request blow up in size,
              * since more data is loaded.
              * @returns an array containing the contexts for the entities returned by the backend, might be fewer
-             * than requested								  if the backend does not have enough data.
+             * than requested                                  if the backend does not have enough data.
             */
             getRootContexts(iStartIndex: number, iLength?: number, iThreshold?: number): sap.ui.model.Context[];
 
@@ -18311,7 +18260,7 @@ declare namespace sap {
           /**
            * Constructor for a new ODataModel.
            * @param sServiceUrl base uri of the service to request data from; additional URL parameters appended
-           * here will be appended to every request								can be passed with the mParameters object as well:
+           * here will be appended to every request                                can be passed with the mParameters object as well:
            * [mParameters.serviceUrl] A serviceURl is required!
            * @param mParameters (optional) a map which contains the following parameter properties:
           */
@@ -18326,10 +18275,10 @@ declare namespace sap {
            * by calling the getServiceMetadata() method.
            * @param vUrl Either one URL as string or an array or URL strings
            * @returns The Promise to load the given URL(s), resolved if all URLs have been loaded, rejected if at
-           * least one fails to load.					 If this promise resolves it returns the following parameters:					
-           * annotations: The annotation object					 entitySets: An array of EntitySet objects containing the
-           * newly merged EntitySets from a $metadata requests.								 the structure is the same as in the
-           * metadata object reached by the getServiceMetadata() method.								 For non $metadata requests the
+           * least one fails to load.                     If this promise resolves it returns the following parameters:                    
+           * annotations: The annotation object                     entitySets: An array of EntitySet objects containing the
+           * newly merged EntitySets from a $metadata requests.                                 the structure is the same as in the
+           * metadata object reached by the getServiceMetadata() method.                                 For non $metadata requests the
            * array will be empty.
           */
           addAnnotationUrl(vUrl: string | string[]): JQueryPromise<any>;
@@ -18414,7 +18363,7 @@ declare namespace sap {
 
           /**
            * Trigger a request to the function import odata service that was specified in the model constructor.
-           * @param sFunctionName A string containing the name of the function to call.		The name is concatenated
+           * @param sFunctionName A string containing the name of the function to call.        The name is concatenated
            * to the sServiceUrl which was specified in the model constructor.
            * @param mParameters Optional parameter map containing any of the following properties:
            * @returns an object which has an <code>abort</code> function to abort the current request.
@@ -18429,8 +18378,8 @@ declare namespace sap {
           /**
            * Trigger a POST request to the odata service that was specified in the model constructor. Please note
            * that deep creates are not supportedand may not work.
-           * @param sPath A string containing the path to the collection where an entry		should be created. The
-           * path is concatenated to the sServiceUrl		which was specified in the model constructor.
+           * @param sPath A string containing the path to the collection where an entry        should be created. The
+           * path is concatenated to the sServiceUrl        which was specified in the model constructor.
            * @param oData data of the entry that should be created.
            * @param mParameters Optional parameter map containing any of the following properties:
            * @returns an object which has an <code>abort</code> function to abort the current request.
@@ -18440,7 +18389,7 @@ declare namespace sap {
           /**
            * Creates a single batch operation (read or change operation) which can be used in a batch request.
            * @param sPath A string containing the path to the collection or entry where the batch operation
-           * should be performed.						The path is concatenated to the sServiceUrl which was specified in the
+           * should be performed.                        The path is concatenated to the sServiceUrl which was specified in the
            * model constructor.
            * @param sMethod for the batch operation. Possible values are GET, PUT, MERGE, POST, DELETE
            * @param oData optional data payload which should be created, updated, deleted in a change batch
@@ -18665,8 +18614,8 @@ declare namespace sap {
           /**
            * Trigger a GET request to the odata service that was specified in the model constructor.The data will
            * not be stored in the model. The requested data is returned with the response.
-           * @param sPath A string containing the path to the data which should		be retrieved. The path is
-           * concatenated to the sServiceUrl		which was specified in the model constructor.
+           * @param sPath A string containing the path to the data which should        be retrieved. The path is
+           * concatenated to the sServiceUrl        which was specified in the model constructor.
            * @param mParameters Optional parameter map containing any of the following properties:
            * @returns an object which has an <code>abort</code> function to abort the current request.
           */
@@ -18676,7 +18625,7 @@ declare namespace sap {
            * Refresh the model.This will check all bindings for updated data and update the controls if data has
            * been changed.
            * @param bForceUpdate Force update of controls
-           * @param bRemoveData If set to true then the model data will be removed/cleared.					Please note that
+           * @param bRemoveData If set to true then the model data will be removed/cleared.                    Please note that
            * the data might not be there when calling e.g. getProperty too early before the refresh call
            * returned.
           */
@@ -18689,7 +18638,7 @@ declare namespace sap {
 
           /**
            * refresh XSRF token by performing a GET request against the service root URL.
-           * @param fnSuccess a callback function which is called when the data has           					 been
+           * @param fnSuccess a callback function which is called when the data has                                been
            * successfully retrieved.
            * @param fnError a callback function which is called when the request failed. The handler can have the
            * parameter: oError which contains additional error information.
@@ -18700,7 +18649,7 @@ declare namespace sap {
 
           /**
            * Trigger a DELETE request to the odata service that was specified in the model constructor.
-           * @param sPath A string containing the path to the data that should be removed.		The path is
+           * @param sPath A string containing the path to the data that should be removed.        The path is
            * concatenated to the sServiceUrl which was specified in the model constructor.
            * @param mParameters Optional, can contain the following attributes: oContext, fnSuccess, fnError,
            * sETag:
@@ -18710,8 +18659,8 @@ declare namespace sap {
 
           /**
            * Resets the collected changes by the setProperty method and reloads the data from the server.
-           * @param fnSuccess a callback function which is called when the data has           					 been
-           * successfully resetted. The handler can have the           	                 following parameters:
+           * @param fnSuccess a callback function which is called when the data has                                been
+           * successfully resetted. The handler can have the                                following parameters:
            * oData and response.
            * @param fnError a callback function which is called when the request failed
           */
@@ -18786,10 +18735,10 @@ declare namespace sap {
            * <code>addBatchReadOperations</code> or <code>addBatchChangeOperations</code>.The batch will be
            * cleared afterwards. If the batch is empty no request will be performed and false will be
            * returned.Note: No data will be stored in the model.
-           * @param fnSuccess a callback function which is called when the batch request has           					 been
+           * @param fnSuccess a callback function which is called when the batch request has                                been
            * successfully sent. Note: There might have errors occured in the single batch operations. These
            * errors can be accessed in the           aErrorResponses parameter in the callback handler.          
-           * The handler can have the           	                 following parameters: oData, oResponse and
+           * The handler can have the                                following parameters: oData, oResponse and
            * aErrorResponses.
            * @param fnError a callback function which is called when the batch request failed. The handler can
            * have the parameter: oError which containsadditional error information.
@@ -18805,8 +18754,8 @@ declare namespace sap {
            * be triggered to only update the changed properties.If a URI with a $expand System Query Option was
            * used then the expand entries will be removed from the collected changes.Changes to this entries
            * should be done on the entry itself. So no deep updates are supported.
-           * @param fnSuccess a callback function which is called when the data has           					 been
-           * successfully updated. The handler can have the           	                 following parameters:
+           * @param fnSuccess a callback function which is called when the data has                                been
+           * successfully updated. The handler can have the                                following parameters:
            * oData and response.
            * @param fnError a callback function which is called when the request failed. The handler can have the
            * parameter: oError which containsadditional error information
@@ -18819,8 +18768,8 @@ declare namespace sap {
            * Trigger a PUT/MERGE request to the odata service that was specified in the model constructor. Please
            * note that deep updates are not supportedand may not work. These should be done seperate on the entry
            * directly.
-           * @param sPath A string containing the path to the data that should be updated.		The path is
-           * concatenated to the sServiceUrl which was specified		in the model constructor.
+           * @param sPath A string containing the path to the data that should be updated.        The path is
+           * concatenated to the sServiceUrl which was specified        in the model constructor.
            * @param oData data of the entry that should be updated.
            * @param mParameters Optional, can contain the following attributes:
            * @returns an object which has an <code>abort</code> function to abort the current request.
@@ -18959,9 +18908,9 @@ declare namespace sap {
          * namespace are lifted upfrom the <code>extensions</code> array and transformed from objects into
          * simple propertieswith an "sap:" prefix for their name. Note that this happens in addition, thus
          * thefollowing example shows both representations. This way, such annotations can be addressedvia a
-         * simple relative path instead of searching an array.<pre>		{			"name" : "BusinessPartnerID",		
-         * "extensions" : [{				"name" : "label",				"value" : "Bus. Part. ID",				"namespace" :
-         * "http://www.sap.com/Protocols/SAPData"			}],			"sap:label" : "Bus. Part. ID"		}</pre>As of 1.29.0,
+         * simple relative path instead of searching an array.<pre>        {            "name" : "BusinessPartnerID",        
+         * "extensions" : [{                "name" : "label",                "value" : "Bus. Part. ID",                "namespace" :
+         * "http://www.sap.com/Protocols/SAPData"            }],            "sap:label" : "Bus. Part. ID"        }</pre>As of 1.29.0,
          * the corresponding vocabulary-based annotations for the following"<a
          * href="http://www.sap.com/Protocols/SAPData">SAP Annotations for OData Version 2.0</a>"are added, if
          * they are not yet defined in the V4
@@ -18984,9 +18933,9 @@ declare namespace sap {
          * "received", "sender" and "subject" (mapped to V4
          * annotation<code>com.sap.vocabularies.Communication.v1.Message</code>);</li><li>"completed", "due",
          * "percent-complete" and "priority" (mapped to V4
-         * annotation<code>com.sap.vocabularies.Communication.v1.Task</code>).</li></ul></ul>For example:<pre>	
-         * {			"name" : "BusinessPartnerID",			...			"sap:label" : "Bus. Part. ID",		
-         * "com.sap.vocabularies.Common.v1.Label" : {				"String" : "Bus. Part. ID"			}		}</pre>This model is
+         * annotation<code>com.sap.vocabularies.Communication.v1.Task</code>).</li></ul></ul>For example:<pre>    
+         * {            "name" : "BusinessPartnerID",            ...            "sap:label" : "Bus. Part. ID",        
+         * "com.sap.vocabularies.Common.v1.Label" : {                "String" : "Bus. Part. ID"            }        }</pre>This model is
          * read-only and thus only supports{@link sap.ui.model.BindingMode.OneTime OneTime} binding mode. No
          * events({@link sap.ui.model.Model#event:parseError parseError},{@link
          * sap.ui.model.Model#event:requestCompleted requestCompleted},{@link
@@ -19468,7 +19417,7 @@ declare namespace sap {
       }
       namespace message {
         /**
-         * Model implementation for Messages	 *
+         * Model implementation for Messages     *
          * @resource sap/ui/model/message/MessageModel.js
         */
         export class MessageModel extends sap.ui.model.ClientModel {
@@ -21304,7 +21253,7 @@ declare namespace sap {
            * BatchResponseCollector.TYPE_ERROR.Keeps track of all collected responses and fires the necessary
            * events after all responses for therequests, given in the constructor, have returned.
            * @param oResponse the response which should be collected
-           * @param sResponseType the type of the response, either BatchResponseCollector.TYPE_SUCCESS									or
+           * @param sResponseType the type of the response, either BatchResponseCollector.TYPE_SUCCESS                                    or
            * BatchResponseCollector.TYPE_ERROR
           */
           collect(oResponse: any, sResponseType?: string): void;
@@ -22698,7 +22647,7 @@ declare namespace sap {
 
         /**
          * update all bindings
-         * @param bForceUpdate true/false: Default = false. If set to false an update					will only be done
+         * @param bForceUpdate true/false: Default = false. If set to false an update                    will only be done
          * when the value of a binding changed.
         */
         updateBindings(bForceUpdate: boolean): void;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactHtmlParser, { processNodes, convertNodeToElement } from 'react-html-parser';
+import ReactHtmlParser, { processNodes, convertNodeToElement, Transform } from 'react-html-parser';
 
 class HtmlComponent extends React.Component {
     render() {
@@ -8,7 +8,7 @@ class HtmlComponent extends React.Component {
     }
 }
 
-const transform = (node: any, index: number): React.ReactElement | void => {
+const transform: Transform = (node, index) => {
     // convert <ul> to <ol>
     if (node.type === 'tag' && node.name === 'ul') {
         node.name = 'ol';

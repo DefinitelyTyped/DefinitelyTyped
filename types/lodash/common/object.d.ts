@@ -815,7 +815,7 @@ declare module "../index" {
         defaults<TObject, TSource>(
             object: TObject,
             source: TSource
-        ): TSource & TObject;
+        ): NonNullable<TSource & TObject>;
 
         /**
          * @see _.defaults
@@ -824,7 +824,7 @@ declare module "../index" {
             object: TObject,
             source1: TSource1,
             source2: TSource2
-        ): TSource2 & TSource1 & TObject;
+        ): NonNullable<TSource2 & TSource1 & TObject>;
 
         /**
          * @see _.defaults
@@ -834,7 +834,7 @@ declare module "../index" {
             source1: TSource1,
             source2: TSource2,
             source3: TSource3
-        ): TSource3 & TSource2 & TSource1 & TObject;
+        ): NonNullable<TSource3 & TSource2 & TSource1 & TObject>;
 
         /**
          * @see _.defaults
@@ -845,12 +845,12 @@ declare module "../index" {
             source2: TSource2,
             source3: TSource3,
             source4: TSource4
-        ): TSource4 & TSource3 & TSource2 & TSource1 & TObject;
+        ): NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & TObject>;
 
         /**
          * @see _.defaults
          */
-        defaults<TObject>(object: TObject): TObject;
+        defaults<TObject>(object: TObject): NonNullable<TObject>;
 
         /**
          * @see _.defaults
@@ -867,7 +867,7 @@ declare module "../index" {
          */
         defaults<TSource>(
             source: TSource
-        ): LoDashImplicitWrapper<TSource & TValue>;
+        ): LoDashImplicitWrapper<NonNullable<TSource & TValue>>;
 
         /**
          * @see _.defaults
@@ -875,7 +875,7 @@ declare module "../index" {
         defaults<TSource1, TSource2>(
             source1: TSource1,
             source2: TSource2
-        ): LoDashImplicitWrapper<TSource2 & TSource1 & TValue>;
+        ): LoDashImplicitWrapper<NonNullable<TSource2 & TSource1 & TValue>>;
 
         /**
          * @see _.defaults
@@ -884,7 +884,7 @@ declare module "../index" {
             source1: TSource1,
             source2: TSource2,
             source3: TSource3
-        ): LoDashImplicitWrapper<TSource3 & TSource2 & TSource1 & TValue>;
+        ): LoDashImplicitWrapper<NonNullable<TSource3 & TSource2 & TSource1 & TValue>>;
 
         /**
          * @see _.defaults
@@ -894,12 +894,12 @@ declare module "../index" {
             source2: TSource2,
             source3: TSource3,
             source4: TSource4
-        ): LoDashImplicitWrapper<TSource4 & TSource3 & TSource2 & TSource1 & TValue>;
+        ): LoDashImplicitWrapper<NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & TValue>>;
 
         /**
          * @see _.defaults
          */
-        defaults(): LoDashImplicitWrapper<TValue>;
+        defaults(): LoDashImplicitWrapper<NonNullable<TValue>>;
 
         /**
          * @see _.defaults
@@ -913,7 +913,7 @@ declare module "../index" {
          */
         defaults<TSource>(
             source: TSource
-        ): LoDashExplicitWrapper<TSource & TValue>;
+        ): LoDashExplicitWrapper<NonNullable<TSource & TValue>>;
 
         /**
          * @see _.defaults
@@ -921,7 +921,7 @@ declare module "../index" {
         defaults<TSource1, TSource2>(
             source1: TSource1,
             source2: TSource2
-        ): LoDashExplicitWrapper<TSource2 & TSource1 & TValue>;
+        ): LoDashExplicitWrapper<NonNullable<TSource2 & TSource1 & TValue>>;
 
         /**
          * @see _.defaults
@@ -930,7 +930,7 @@ declare module "../index" {
             source1: TSource1,
             source2: TSource2,
             source3: TSource3
-        ): LoDashExplicitWrapper<TSource3 & TSource2 & TSource1 & TValue>;
+        ): LoDashExplicitWrapper<NonNullable<TSource3 & TSource2 & TSource1 & TValue>>;
 
         /**
          * @see _.defaults
@@ -940,12 +940,12 @@ declare module "../index" {
             source2: TSource2,
             source3: TSource3,
             source4: TSource4
-        ): LoDashExplicitWrapper<TSource4 & TSource3 & TSource2 & TSource1 & TValue>;
+        ): LoDashExplicitWrapper<NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & TValue>>;
 
         /**
          * @see _.defaults
          */
-        defaults(): LoDashExplicitWrapper<TValue>;
+        defaults(): LoDashExplicitWrapper<NonNullable<TValue>>;
 
         /**
          * @see _.defaults
@@ -1688,6 +1688,57 @@ declare module "../index" {
             defaultValue: TDefault
         ): Exclude<TObject[TKey], undefined> | TDefault;
 
+          /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(
+            object: TObject | null | undefined,
+            path: [TKey1, TKey2]
+        ): TObject[TKey1][TKey2] | undefined;
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(
+            object: TObject | null | undefined,
+            path: [TKey1, TKey2],
+            defaultValue: TDefault
+        ): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(
+            object: TObject | null | undefined,
+            path: [TKey1, TKey2, TKey3]
+        ): TObject[TKey1][TKey2][TKey3] | undefined;
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(
+            object: TObject | null | undefined,
+            path: [TKey1, TKey2, TKey3],
+            defaultValue: TDefault
+        ): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(
+            object: TObject | null | undefined,
+            path: [TKey1, TKey2, TKey3, TKey4]
+        ): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(
+            object: TObject | null | undefined,
+            path: [TKey1, TKey2, TKey3, TKey4],
+            defaultValue: TDefault
+        ): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+
         /**
          * @see _.get
          */
@@ -1768,6 +1819,87 @@ declare module "../index" {
         /**
          * @see _.get
          */
+        get<TKey1 extends keyof TValue, TKey2 extends keyof TValue[TKey1]>(
+            path: [TKey1, TKey2]
+        ): TValue[TKey1][TKey2];
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(
+            this: LoDashImplicitWrapper<TObject | null | undefined>,
+            path: [TKey1, TKey2],
+        ): TObject[TKey1][TKey2] | undefined;
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(
+            this: LoDashImplicitWrapper<TObject | null | undefined>,
+            path: [TKey1, TKey2, TKey3],
+            defaultValue: TDefault
+        ): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof TValue, TKey2 extends keyof TValue[TKey1], TKey3 extends keyof TValue[TKey1][TKey2], TKey4 extends keyof TValue[TKey1][TKey2][TKey3]>(
+            path: [TKey1, TKey2, TKey3, TKey4]
+        ): TValue[TKey1][TKey2][TKey3][TKey4];
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(
+            this: LoDashImplicitWrapper<TObject | null | undefined>,
+            path: [TKey1, TKey2, TKey3, TKey4],
+        ): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(
+            this: LoDashImplicitWrapper<TObject | null | undefined>,
+            path: [TKey1, TKey2, TKey3, TKey4],
+            defaultValue: TDefault
+        ): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(
+            this: LoDashImplicitWrapper<TObject | null | undefined>,
+            path: [TKey1, TKey2, TKey3, TKey4],
+            defaultValue: TDefault
+        ): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof TValue, TKey2 extends keyof TValue[TKey1], TKey3 extends keyof TValue[TKey1][TKey2], TKey4 extends keyof TValue[TKey1][TKey2][TKey3]>(
+            path: [TKey1, TKey2, TKey3, TKey4]
+        ): TValue[TKey1][TKey2][TKey3][TKey4];
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(
+            this: LoDashImplicitWrapper<TObject | null | undefined>,
+            path: [TKey1, TKey2, TKey3, TKey4],
+        ): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(
+            this: LoDashImplicitWrapper<TObject | null | undefined>,
+            path: [TKey1, TKey2, TKey3, TKey4],
+            defaultValue: TDefault
+        ): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+
+        /**
+         * @see _.get
+         */
         get<T>(
             this: LoDashImplicitWrapper<NumericDictionary<T>>,
             path: number
@@ -1840,6 +1972,78 @@ declare module "../index" {
             path: TKey | [TKey],
             defaultValue: TDefault
         ): LoDashExplicitWrapper<Exclude<TObject[TKey], undefined> | TDefault>;
+
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof TValue, TKey2 extends keyof TValue[TKey1]>(
+            path: [TKey1, TKey2]
+        ): LoDashExplicitWrapper<TValue[TKey1][TKey2]>;
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(
+            this: LoDashExplicitWrapper<TObject | null | undefined>,
+            path: [TKey1, TKey2],
+        ): LoDashExplicitWrapper<TObject[TKey1][TKey2] | undefined>;
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(
+            this: LoDashExplicitWrapper<TObject | null | undefined>,
+            path: [TKey1, TKey2],
+            defaultValue: TDefault
+        ): LoDashExplicitWrapper<Exclude<TObject[TKey1][TKey2], undefined> | TDefault>;
+
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof TValue, TKey2 extends keyof TValue[TKey1], TKey3 extends keyof TValue[TKey1][TKey2]>(
+            path: [TKey1, TKey2, TKey3]
+        ): LoDashExplicitWrapper<TValue[TKey1][TKey2][TKey3]>;
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(
+            this: LoDashExplicitWrapper<TObject | null | undefined>,
+            path: [TKey1, TKey2, TKey3],
+        ): LoDashExplicitWrapper<TObject[TKey1][TKey2][TKey3] | undefined>;
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(
+            this: LoDashExplicitWrapper<TObject | null | undefined>,
+            path: [TKey1, TKey2, TKey3],
+            defaultValue: TDefault
+        ): LoDashExplicitWrapper<Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault>;
+
+         /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof TValue, TKey2 extends keyof TValue[TKey1], TKey3 extends keyof TValue[TKey1][TKey2], TKey4 extends keyof TValue[TKey1][TKey2][TKey3]>(
+            path: [TKey1, TKey2, TKey3, TKey4]
+        ): LoDashExplicitWrapper<TValue[TKey1][TKey2][TKey3][TKey4]>;
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(
+            this: LoDashExplicitWrapper<TObject | null | undefined>,
+            path: [TKey1, TKey2, TKey3, TKey4],
+        ): LoDashExplicitWrapper<TObject[TKey1][TKey2][TKey3][TKey4] | undefined>;
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(
+            this: LoDashExplicitWrapper<TObject | null | undefined>,
+            path: [TKey1, TKey2, TKey3, TKey4],
+            defaultValue: TDefault
+        ): LoDashExplicitWrapper<Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault>;
 
         /**
          * @see _.get

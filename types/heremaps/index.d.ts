@@ -1,8 +1,10 @@
-// Type definitions for non-npm package HERE Maps API for JavaScript 3.0
+// Type definitions for non-npm package HERE Maps API for JavaScript 3.1
 // Project: https://developer.here.com/
 // Definitions by: Joshua Efiong <https://github.com/Josh-ES>
 //                 Bernd Hacker <https://github.com/denyo>
 //                 Ferdinand Armbruster <https://github.com/fx88>
+//                 Vladimir Dashukevich <https://github.com/life777>
+//                 Daniel Schuba <https://github.com/DaSchTour>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -62,27 +64,6 @@ declare namespace H {
          * @param y {number} - map viewport y-axis pixel coordinate
          */
         zoomAt(zoom: number, x: number, y: number): void;
-
-        /**
-         * This method sets the bounding rect to be displayed by the map. Maps display the bounding rect in a way that it fits entirely in the current viewport.
-         * @param boundingRect {H.geo.Rect} - view bound which should be shown on map
-         * @param opt_animate {boolean=} - parameter indicates if animated transition should be applied, default is false
-         * @returns {H.Map} - the instance itself
-         */
-        setViewBounds(boundingRect: H.geo.Rect, opt_animate?: boolean): H.Map;
-
-        /**
-         * This method returns bounding rect for the current map view. Returned bounding rect defines entire currently viewable area on the screen.
-         * @returns {H.geo.Rect}
-         */
-        getViewBounds(): H.geo.Rect;
-
-        /**
-         * Calculates the best CameraModel to show the provided bounding rectangle
-         * @param rect {H.geo.Rect} - The geographical bounding rectangle to use
-         * @returns {H.map.ViewModel.CameraData} - The result, represented by the properties zoom (number) and position (geo.Point)
-         */
-        getCameraDataForBounds(rect: H.geo.Rect): H.map.ViewModel.CameraData;
 
         /**
          * This method returns current map viewport.
@@ -194,9 +175,9 @@ declare namespace H {
          * Returns the camera data according to the given screen coordinates. Method converts screen pixel coordinates to correct camera data object
          * @param x {number} - map viewport x-axis pixel coordinate
          * @param y {number} - map viewport y-axis pixel coordinate
-         * @returns {H.map.ViewModel.CameraData}
+         * @returns {H.map.ViewModel.ILookAtData}
          */
-        screenToCameraData(x: number, y: number): H.map.ViewModel.CameraData;
+        screenToLookAtData(x: number, y: number): H.map.ViewModel.ILookAtData;
 
         /**
          * This method adds an map object to the map. Map object can be a marker or a spatial object like polygon or polyline.
@@ -236,9 +217,10 @@ declare namespace H {
          * Returns the top most z-ordered map object found under the specific screen coordinates. Coordinates are viewport pixel coordinates starting from top left corner as (0, 0) point.
          * @param x {number} - map viewport x-axis pixel coordinate
          * @param y {number} - map viewport y-axis pixel coordinate
+         * @param callback {function}
          * @returns {?H.map.Object} - the encountered top most map object or null if no object found
          */
-        getObjectAt(x: number, y: number): H.map.Object;
+        getObjectAt(x: number, y: number, callback: (obj: H.map.Object) => any): H.map.Object;
 
         /**
          * Returns a list of map objects in descending z-order found under the specific screen coordinates. Coordinates are viewport pixel coordinates starting from top left corner as (0, 0) point.
@@ -309,6 +291,7 @@ declare namespace H {
          * @property margin {number=} - The size in pixel of the supplemental area to render for each side of the map
          * @property padding {H.map.ViewPort.Padding=} - The padding in pixels for each side of the map
          * @property fixedCenter {boolean=} - Indicates whether the center of the map should remain unchanged if the viewport's size or padding has been changed, default is true
+         * @property noWrap {boolean=} - Indicates whether to wrap the world on longitude axes. When set to true, only one world will be rendered. Default is false, multiple worlds are rendered.
          */
         interface Options {
             center?: H.geo.IPoint;
@@ -323,6 +306,7 @@ declare namespace H {
             margin?: number;
             padding?: H.map.ViewPort.Padding;
             fixedCenter?: boolean;
+            noWrap?: boolean;
         }
     }
 
@@ -765,7 +749,7 @@ declare namespace H {
              * Returns the bounding rectangle of the geometry.
              * @return {H.geo.Rect} - the bounding rectangle of the geometry or null if the bounding rectangle can't be computed (e.g. for a geometry without coordinates)
              */
-            getBounds(): H.geo.Rect;
+            getBoundingBox(): H.geo.Rect;
 
             /**
              * Checks whether the geometry is equal to the geometry supplied by the caller.
@@ -792,7 +776,7 @@ declare namespace H {
          */
         enum AltitudeContext {
             /** Ground level */
-            undefined,
+                undefined,
             /** Ground level */
             GL,
             /** Obstruction level */
@@ -823,8 +807,11 @@ declare namespace H {
 
         interface IProjection {
             latLngToPoint(lat: number, lng: number, opt_out?: H.math.Point): H.math.Point;
+
             xyToGeo(x: number, y: number, opt_out?: H.geo.Point): H.geo.Point;
+
             pointToGeo(point: H.math.IPoint, opt_out?: H.geo.Point): H.geo.Point;
+
             geoToPoint(geoPoint: H.geo.IPoint, opt_out?: H.math.Point): H.math.Point;
         }
 
@@ -838,7 +825,7 @@ declare namespace H {
          */
         type Longitude = number;
 
-        class LineString {
+        class LineString extends H.geo.AbstractGeometry {
             /**
              * Constructor
              * @param opt_latLngAlts {number[]=} - An optional array of latitude, longitude and altitude triples to initialize the LineString with.
@@ -1194,7 +1181,7 @@ declare namespace H {
          * @property alt {H.geo.Altitude} - The altitude coordinate.
          * @property ctx {H.geo.AltitudeContext} - The altitude context.
          */
-        class Point implements IPoint {
+        class Point extends H.geo.AbstractGeometry implements IPoint {
             /**
              * Constructor
              * @property lat {H.geo.Latitude} - The latitude coordinate.
@@ -1254,7 +1241,7 @@ declare namespace H {
         /**
          * This class represents a rectangular geographic area. The area is defined by four geographical coordinates two (left, right) longitudes and two (top, bottom) latitudes.
          */
-        class Rect {
+        class Rect extends H.geo.AbstractGeometry {
             /**
              * Constructor
              * @param top {H.geo.Latitude} - the northern-most latitude
@@ -1475,124 +1462,69 @@ declare namespace H {
         }
 
         /**
-         * A strip is a flat list of latitude, longitude, altitude tuples in a fixed order.
+         * @link https://developer.here.com/documentation/maps/api_reference/H.geo.Polygon.html
          */
-        class Strip {
-          /**
-           * Constructor
-           * @param opt_latLngAlts {Array<number>=} - An optional array of latitude, longitude and altitude triples to initialize the strip with.
-           * @param opt_ctx {H.geo.AltitudeContext=} - An optional altitude context for all altitudes contained in this strip.
-           */
-          constructor(opt_latLngAlts?: number[], opt_ctx?: H.geo.AltitudeContext);
+        class Polygon extends H.geo.AbstractGeometry {
+            constructor(exterior: H.geo.LineString, opt_interiors?: H.geo.LineString[]);
+            getExterior(): H.geo.LineString;
+            getInteriors(): H.geo.LineString[];
+            getPoleCovering(): H.geo.Polygon.Direction;
 
-          /**
-           * This method pushes a lat, lng, alt to the end of this strip.
-           * @param lat {H.geo.Latitude}
-           * @param lng {H.geo.Longitude}
-           * @param alt {H.geo.Altitude}
-           */
-          pushLatLngAlt(lat: H.geo.Latitude, lng: H.geo.Longitude, alt: H.geo.Altitude): void;
+            /**
+             * To add an interior ring.
+             * @param interior - The interior ring to add.
+             * @throws {@link H.lang.InvalidArgumentError}
+             */
+            pushInterior(interior: H.geo.LineString): void;
 
-          /**
-           * This method splices the strip at the provided index, removing the specified number of items at that index and inserting the lat, lng, alt array.
-           * @param index {number} - The index at which to splice
-           * @param opt_nRemove {number=} - The number of lat, lng, alt values to remove
-           * @param opt_latLngAlts {Array<number>=} - The lat, lng, alt values to add
-           * @returns {Array<number>} - an array of removed elements
-           */
-          spliceLatLngAlts(index: number, opt_nRemove?: number, opt_latLngAlts?: number[]): number[];
+            /**
+             * To remove the specified interior ring.
+             * @param interior - The interior ring to remove.
+             */
+            removeInterior(interior: H.geo.LineString): H.geo.LineString | undefined;
 
-          /**
-           * This method inserts one set of lat, lng, alt values into the strip at the specified index.
-           * @param index {number} - the index at which to add the element
-           * @param lat {H.geo.Latitude} - the latitude to insert
-           * @param lng {H.geo.Longitude} - the longitude to insert
-           * @param alt {H.geo.Altitude} - the altitude to insert
-           */
-          insertLatLngAlt(index: number, lat: H.geo.Latitude, lng: H.geo.Longitude, alt: H.geo.Altitude): void;
+            /**
+             * To remove an interior ring at the given index.
+             * @param opt_index - The index of the interior ring to remove, defaults to 0.
+             */
+            removeInteriorAt(opt_index?: number): H.geo.LineString | undefined;
 
-          /**
-           * This method removes one set of lat, lng, alt values from the strip at the specified index.
-           * @param index {number}
-           */
-          removeLatLngAlt(index: number): void;
+            /**
+             * To set the exterior ring of the polygon.
+             * @param exterior - The exterior ring to set
+             */
+            setExterior(exterior: H.geo.LineString): void;
 
-          /**
-           * This method pushes the lat, lng, alt values of a H.geo.Point to the end of this strip.
-           * @param geoPoint {H.geo.IPoint}
-           */
-          pushPoint(geoPoint: H.geo.IPoint): void;
+            /**
+             * To specify whether this polygon covers the North or the South Pole.
+             * This information is only needed for very special polygons that are defined as a line string around the world on longitude axis (for example along the coast of the Antarctic).
+             * In such cases, an additional information is needed to know if the southern part of the Earth (Antarctic) or the northern part (anything except Antarctic) should be covered.
+             * @param direction - The direction to set.
+             */
+            setPoleCovering(direction: H.geo.Polygon.Direction): H.geo.Polygon;
 
-          /**
-           * This method inserts the lat, lng, alt values of a H.geo.Point into the list at the specified index.
-           * @param pointIndex {number}
-           * @param geoPoint {H.geo.IPoint}
-           */
-          insertPoint(pointIndex: number, geoPoint: H.geo.IPoint): void;
-
-          /**
-           * This method removes one set of lat, lng, alt values from this strip at the virtual point index specified.
-           * @param pointIndex {number} - the virtual point index
-           */
-          removePoint(pointIndex: number): void;
-
-          /**
-           * This method extracts a H.geo.Point from this strip at the virtual point index. If the extracted point has an alt value, the strip's altitude context will be supplied to the point.
-           * @param pointIndex {number} - the virtual point index in the strip
-           * @param opt_out {H.geo.Point=} - an optional point object to store the lat, lng, alt values
-           * @returns {H.geo.Point} - returns either the 'opt_out' point object or a new point object.
-           */
-          extractPoint(pointIndex: number, opt_out?: H.geo.Point): H.geo.Point;
-
-          /**
-           * This method is a utility method that iterates over the lat, lng, alt array and calls the provided function for each 3 elements passing lat, lng and alt and the virtual point
-           * index as arguments.
-           * @param eachFn {function(H.geo.Latitude, H.geo.Longitude, H.geo.Altitude, number)} - the function to be called for each 3 elements
-           * @param opt_start {number=} - an optional start index to iterate from
-           * @param opt_end {number=} - an optional end index to iterate to
-           */
-          eachLatLngAlt(eachFn: (lat: H.geo.Latitude, lng: H.geo.Longitude, alt: H.geo.Altitude, n: number) => void, opt_start?: number, opt_end?: number): void;
-
-          /**
-           * This method returns the number of times that legs in this strip cross the date border.
-           * @param opt_closed {boolean=} - indicates whether the strip is closed (i.e. whether the strip's last and first coordinates form the closing leg of a polygon)
-           * @returns {number} - the amount of times this strip crosses the date border.
-           */
-          getDBCs(opt_closed?: boolean): number;
-
-          /**
-           * This method return the number of points stored in this strip.
-           * @returns {number} - the number of points in this strip
-           */
-          getPointCount(): number;
-
-          /**
-           * This method returns the internal array keeping the lat, lng, alt values. Modifying this array directly can destroy the integrity of this strip. Use it only for read access.
-           * @returns {Array<number>} - returns the raw lat, lng, alt values of this strip
-           */
-          getLatLngAltArray(): number[];
-
-          /**
-           * This method returns the bounding box of this strip.
-           * @returns {?H.geo.Rect} - this strip's bounding rectangle
-           */
-          getBounds(): H.geo.Rect;
-
-          /**
-           * This method checks whether two longitudes form a leg which crosses the date border.
-           * @param lng1 {H.geo.Longitude} - the start longitude of the leg
-           * @param lng2 {H.geo.Longitude} - the end longitude of the leg
-           * @returns {boolean} - true if the leg crosses the date border, otherwise false
-           */
-          static isDBC(lng1: H.geo.Longitude, lng2: H.geo.Longitude): boolean;
-
-          /**
-           * This method initializes a new strip with an array of lat, lng values. Arrays are expected to have an even length with the format [lat, lng, lat, lng, ...].
-           * @param latLngs {Array<number>} - the array of lat, lng value.
-           * @returns {H.geo.Strip} - the strip containing the lat, lng values
-           */
-          static fromLatLngArray(latLngs: number[]): H.geo.Strip;
+            /**
+             * Applies a splice-operation on the list of interior rings of the polygon.
+             * @param opt_index - The index at which to start changing the list, defaults to 0.
+             * @param opt_deleteCount - The number of interior rings to remove, defaults to Infinity.
+             * @param var_args - repeatable, The interior rings to insert.
+             */
+            spliceInteriors(opt_index?: number, opt_deleteCount?: number, ...var_args: H.geo.LineString[]): H.geo.LineString[];
         }
+
+        namespace Polygon {
+            /**
+             * {@link https://developer.here.com/documentation/maps/api_reference/H.geo.Polygon.html#.Direction}
+             */
+            interface Direction {
+                NORTH: number;
+                SOUTH: number;
+            }
+        }
+
+        class MultiPolygon extends H.geo.MultiGeometry<H.geo.Polygon> {}
+
+        class MultiPoint extends H.geo.MultiGeometry<H.geo.Point> {}
     }
 
     /***** lang *****/
@@ -1602,7 +1534,7 @@ declare namespace H {
         /**
          * This class represents marker, which offers a means of identifying a location on the map with an icon.
          */
-        class AbstractMarker extends H.map.Object {
+        abstract class AbstractMarker extends H.map.Object {
             /**
              * Constructor
              * @param position {H.geo.IPoint} - The location of this marker
@@ -1614,14 +1546,14 @@ declare namespace H {
              * This method returns this marker's current position.
              * @returns {H.geo.Point} - current marker geo position
              */
-            getPosition(): H.geo.Point;
+            getGeometry(): H.geo.Point | H.geo.MultiPoint;
 
             /**
              * This method sets the marker's current position.
              * @param position {H.geo.IPoint}
              * @returns {H.map.AbstractMarker} - the marker itself
              */
-            setPosition(position: H.geo.IPoint): H.map.AbstractMarker;
+            setGeometry(position: H.geo.IPoint | H.geo.MultiPoint): H.map.AbstractMarker;
 
             /**
              * Returns this marker's current icon.
@@ -1707,77 +1639,78 @@ declare namespace H {
          * A Polygon with a circular shape.
          */
         class Circle extends H.map.Polygon {
-          /**
-           * Constructor
-           * @param center {H.geo.IPoint} - The geographical coordinates of the circle's center
-           * @param radius {number} - The radius of the circle in meters
-           * @param opt_options {H.map.Circle.Options=} - An object that specifies circle options and their initial values (among these, precision has a significant impact on the shape of the circle
-           */
-          constructor(center: H.geo.IPoint, radius: number, opt_options?: H.map.Circle.Options);
+            /**
+             * Constructor
+             * @param center {H.geo.IPoint} - The geographical coordinates of the circle's center
+             * @param radius {number} - The radius of the circle in meters
+             * @param opt_options {H.map.Circle.Options=} - An object that specifies circle options and their initial values (among these, precision has a significant impact on the shape of the circle
+             */
+            constructor(center: H.geo.IPoint, radius: number, opt_options?: H.map.Circle.Options);
 
-          /**
-           * To set the geographical center point of this circle. If the specified center is an instance of H.geo.Point you must not modify this Point instance without calling setCenter
-           * immediately afterwards.
-           * @param center {H.geo.IPoint}
-           */
-          setCenter(center: H.geo.IPoint): void;
+            /**
+             * To set the geographical center point of this circle. If the specified center is an instance of H.geo.Point you must not modify this Point instance without calling setCenter
+             * immediately afterwards.
+             * @param center {H.geo.IPoint}
+             */
+            setCenter(center: H.geo.IPoint): void;
 
-          /**
-           * To get the center point of this circle You must not modify the returned Point instance without calling setCenter immediately afterwards.
-           * @returns {H.geo.Point}
-           */
-          getCenter(): H.geo.Point;
+            /**
+             * To get the center point of this circle You must not modify the returned Point instance without calling setCenter immediately afterwards.
+             * @returns {H.geo.Point}
+             */
+            getCenter(): H.geo.Point;
 
-          /**
-           * To set the length of the radius of the circle in meters. The value is clamped to the of {@code[0 ... 20015089.27787877]} (half WGS84 mean circumference)
-           * @param radius {number}
-           */
-          setRadius(radius: number): void;
+            /**
+             * To set the length of the radius of the circle in meters. The value is clamped to the of {@code[0 ... 20015089.27787877]} (half WGS84 mean circumference)
+             * @param radius {number}
+             */
+            setRadius(radius: number): void;
 
-          /**
-           * To get the length of the radius of the circle in meters.
-           * @returns {number}
-           */
-          getRadius(): number;
+            /**
+             * To get the length of the radius of the circle in meters.
+             * @returns {number}
+             */
+            getRadius(): number;
 
-          /**
-           * To set the precision of this circle {@see H.map.Circle.Options#precision}
-           * @param precision {number}
-           */
-          setPrecision(precision: number): void;
+            /**
+             * To set the precision of this circle {@see H.map.Circle.Options#precision}
+             * @param precision {number}
+             */
+            setPrecision(precision: number): void;
 
-          /**
-           * To get the precision value of this circle
-           * @returns {number}
-           */
-          getPrecision(): number;
+            /**
+             * To get the precision value of this circle
+             * @returns {number}
+             */
+            getPrecision(): number;
         }
 
         namespace Circle {
-          /**
-           * @property style {H.map.SpatialStyle=} - the style to be used when tracing the polyline
-           * @property visibility {boolean=} - An optional boolean value indicating whether this map object is visible, default is true
-           * @property precision {number=} - The precision of a circle as a number of segments to be used when rendering the circle. The value is clamped to the range between [4 ... 360], where 60 is
-           * the default. Note that the lower the value the more angular and the less circle-like the shape appears and, conversely, the higher the value the smoother and more rounded the result.
-           * Thus, starting at the extreme low end of the possible values, 4 produces a square, 6 a hexagon, while 30 results in a circle-like shape, although it appears increasingly angular as
-           * the zoom level increases (as you zoom in), and finally 360 produces a smooth circle.
-           * @property zIndex {number=} - The z-index value of the circle, default is 0
-           * @property min {number=} - The minimum zoom level for which the circle is visible, default is -Infinity
-           * @property max {number=} - The maximum zoom level for which the circle is visible, default is Infinity
-           * @property provider {(H.map.provider.Provider | null)=} - The provider of this object.
-           * This property is only needed if a customized Implementation of ObjectProvider wants to instantiate an object.
-           * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData
-           */
-          interface Options {
-            style?: H.map.SpatialStyle | H.map.SpatialStyle.Options;
-            visibility?: boolean;
-            precision?: number;
-            zIndex?: number;
-            min?: number;
-            max?: number;
-            provider?: H.map.provider.Provider;
-            data?: any;
-          }
+            /**
+             * @property style {H.map.SpatialStyle=} - the style to be used when tracing the polyline
+             * @property visibility {boolean=} - An optional boolean value indicating whether this map object is visible, default is true
+             * @property precision {number=} - The precision of a circle as a number of segments to be used when rendering the circle.
+             * The value is clamped to the range between [4 ... 360], where 60 is
+             * the default. Note that the lower the value the more angular and the less circle-like the shape appears and, conversely, the higher the value the smoother and more rounded the result.
+             * Thus, starting at the extreme low end of the possible values, 4 produces a square, 6 a hexagon, while 30 results in a circle-like shape, although it appears increasingly angular as
+             * the zoom level increases (as you zoom in), and finally 360 produces a smooth circle.
+             * @property zIndex {number=} - The z-index value of the circle, default is 0
+             * @property min {number=} - The minimum zoom level for which the circle is visible, default is -Infinity
+             * @property max {number=} - The maximum zoom level for which the circle is visible, default is Infinity
+             * @property provider {(H.map.provider.Provider | null)=} - The provider of this object.
+             * This property is only needed if a customized Implementation of ObjectProvider wants to instantiate an object.
+             * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData
+             */
+            interface Options {
+                style?: H.map.SpatialStyle | H.map.SpatialStyle.Options;
+                visibility?: boolean;
+                precision?: number;
+                zIndex?: number;
+                min?: number;
+                max?: number;
+                provider?: H.map.provider.Provider;
+                data?: any;
+            }
         }
 
         /**
@@ -1814,6 +1747,7 @@ declare namespace H {
              */
             interface Options {
                 onAttach?(el: Element, icon: H.map.DomIcon, marker: H.map.DomMarker): void;
+
                 onDetach?(el: Element, icon: H.map.DomIcon, marker: H.map.DomMarker): void;
             }
         }
@@ -1825,10 +1759,10 @@ declare namespace H {
         class DomMarker extends H.map.AbstractMarker {
             /**
              * Constructor
-             * @param position {H.geo.IPoint}
+             * @param position {H.geo.IPoint | H.geo.MultiPoint}
              * @param opt_options {H.map.DomMarker.Options=}
              */
-            constructor(position: H.geo.IPoint, opt_options?: H.map.DomMarker.Options);
+            constructor(position: H.geo.IPoint | H.geo.MultiPoint, opt_options?: H.map.DomMarker.Options);
         }
 
         namespace DomMarker {
@@ -1858,32 +1792,18 @@ declare namespace H {
          * This class represents a spatial shape in geographic space. It is defined by a path containing the vertices of the shape (lat, lng, alt values).
          */
         class GeoShape extends H.map.Spatial {
-          /**
-           * Constructor
-           * @param isClosed {boolean} - Indicates whether this geographical shape is closed (a polygon)
-           * @param strip {H.geo.Strip} - The strip describing the shape of the spatial object
-           * @param options {H.map.Spatial.Options} - The options to apply
-           */
-          constructor(isClosed: boolean, strip: H.geo.Strip, options: H.map.Spatial.Options);
+            /**
+             * Constructor
+             * @param isClosed {boolean} - Indicates whether this geographical shape is closed (a polygon)
+             * @param options {H.map.Spatial.Options} - The options to apply
+             */
+            constructor(isClosed: boolean, options: H.map.Spatial.Options);
 
-          /**
-           * This method returns the strip which represents the shape of the spatial object.
-           * @returns {H.geo.Strip} - the strip
-           */
-          getStrip(): H.geo.Strip;
-
-          /**
-           * This method sets the geo-information for the spatial object
-           * @param strip {?H.geo.Strip} - The strip which represents the shape of the spatial object.
-           * @returns {H.map.GeoShape} - the Spatial instance itself
-           */
-          setStrip(strip: H.geo.Strip): H.map.GeoShape;
-
-          /**
-           * This method returns the bounding rectangle for this object. The rectangle is the smallest rectangle which encloses all points of the spatial object.
-           * @returns {H.geo.Rect}
-           */
-          getBounds(): H.geo.Rect;
+            /**
+             * This method returns the bounding rectangle for this object. The rectangle is the smallest rectangle which encloses all points of the spatial object.
+             * @returns {H.geo.Rect}
+             */
+            getBoundingBox(): H.geo.Rect;
         }
 
         /**
@@ -2026,10 +1946,10 @@ declare namespace H {
              * This method ends current control, which will stop ongoing animation triggered by the startControl method. This method can prevent kinetics as well as it can adjust the final view if
              * the adjust function is being passed.
              * @param opt_preventKinetics {boolean=} - if set to true will prevent kinetics animation
-             * @param opt_adjustView {function(H.map.ViewModel.CameraData)=} - user defined function which can adjust the final view this function takes last requestedData from the view model and
+             * @param opt_adjustView {function(H.map.ViewModel.ILookAtData)=} - user defined function which can adjust the final view this function takes last requestedData from the view model and
              * should return a modified H.map.ViewModel.CameraData which will be set as the final view
              */
-            endControl(opt_preventKinetics?: boolean, opt_adjustView?: (data: H.map.ViewModel.CameraData) => void): void;
+            endControl(opt_preventKinetics?: boolean, opt_adjustView?: (data: H.map.ViewModel.ILookAtData) => void): void;
         }
 
         /**
@@ -2515,287 +2435,306 @@ declare namespace H {
          * by the strip object H.geo.Strip
          */
         class Polygon extends H.map.GeoShape {
-          /**
-           * Constructor
-           * @param strip {H.geo.Strip} - the strip describing this polygon's vertices
-           * @param opt_options {H.map.Spatial.Options=} - optional initialization parameters
-           */
-          constructor(strip: H.geo.Strip, opt_options?: H.map.Spatial.Options);
+            /**
+             * Constructor
+             * @param geometry {H.geo.LineString | H.geo.Polygon | H.geo.MultiPolygon}
+             * The geometry that defines the surface of the polygon. H.geo.LineString is interpreted as an exterior ring of H.geo.Polygon object.
+             * @param opt_options {H.map.Spatial.Options=} - optional initialization parameters
+             */
+            constructor(geometry: H.geo.LineString | H.geo.Polygon | H.geo.MultiPolygon, opt_options?: H.map.Polygon.Options);
 
-          /**
-           * To set the indicator whether this polygon covers the north pole. It's needed for Polygons whose strip is defined as lines arround the world on longitude axis (for example a circle whose
-           * center is one of the poles). In this case a additional information is needed to know if the southern or northern part of the world should be covered by the poygon.
-           * @param flag {boolean} - A value of true means it covers the north pole, false means south pole
-           * @returns {H.map.Polygon} - the Polygon instance itself
-           */
-          setNorthPoleCovering(flag: boolean): H.map.Polygon;
+            /**
+             * To set the indicator whether this polygon covers the north pole. It's needed for Polygons whose strip is defined as lines arround the world on longitude axis (for example a circle whose
+             * center is one of the poles). In this case a additional information is needed to know if the southern or northern part of the world should be covered by the poygon.
+             * @param flag {boolean} - A value of true means it covers the north pole, false means south pole
+             * @returns {H.map.Polygon} - the Polygon instance itself
+             */
+            setNorthPoleCovering(flag: boolean): H.map.Polygon;
 
-          /**
-           * See H.map.Polygon#setNorthPoleCovering
-           * @returns {boolean}
-           */
-          getNorthPoleCovering(): boolean;
+            /**
+             * See H.map.Polygon#setNorthPoleCovering
+             * @returns {boolean}
+             */
+            getNorthPoleCovering(): boolean;
+
+            /**
+             * To set the polygon's geometry. If the given geometry is modified afterwards, it must be set via setGeometry again to not violate the integrity of the polygon.
+             * @param geometry
+             */
+            setGeometry(geometry: H.geo.Polygon | H.geo.MultiPolygon): H.map.Polygon;
+
+            /**
+             * To obtain the polygon's geometry. If you modify the obtained geometry, you must call setGeometry afterwards to not violate the integrity of the polygon.
+             */
+            getGeometry(): H.geo.Polygon | H.geo.MultiPolygon;
+        }
+
+        namespace Polygon {
+            /**
+             * @property style {H.map.SpatialStyle | H.map.SpatialStyle.Options} - The style to be used when tracing the spatial object.
+             * @property arrows {H.map.ArrowStyle | H.map.ArrowStyle.Options} - The arrows style to be used when rendering the spatial object.
+             * @property visibility {boolean}
+             * Indicates whether the map object is visible, the default is true A map object is only treated as visible, if it self and all of its nesting parent groups are visible.
+             */
+            interface Options {
+                style?: H.map.SpatialStyle | H.map.SpatialStyle.Options;
+                arrows?: H.map.ArrowStyle | H.map.ArrowStyle.Options;
+                visibility?: boolean;
+                volatility?: boolean;
+                zIndex?: number;
+                min?: number;
+                max?: number;
+                provider?: H.map.provider.Provider | null;
+                data?: any;
+                extrusion?: number;
+                elevation?: number;
+            }
         }
 
         /**
          * This class represents a polyline in geo-space. It is defined by a path containing the vertices of a polyline (lat, lng, alt values) and a pen to use when tracing the path on the map.
          */
         class Polyline extends H.map.GeoShape {
-          /**
-           * Constructor
-           * @param geometry {H.geo.Strip | H.geo.LineString | H.geo.MultiLineString} - The geometry that defines the line segments of the polyline
-           * @param opt_options {H.map.Polyline.Options=} - optional initialization parameters
-           */
-          constructor(geometry: H.geo.Strip | H.geo.LineString | H.geo.MultiLineString, opt_options?: H.map.Polyline.Options);
+            /**
+             * Constructor
+             * @param geometry {H.geo.LineString | H.geo.MultiLineString} - The geometry that defines the line segments of the polyline
+             * @param opt_options {H.map.Polyline.Options=} - optional initialization parameters
+             */
+            constructor(geometry: H.geo.LineString | H.geo.MultiLineString, opt_options?: H.map.Polyline.Options);
 
-          /**
-           * To set the polyline's geometry. If the given geometry is modified afterwards, it must be set again via setGeometry(geometry) to not violate the integrity of the polyline.
-           * @param geometry {H.geo.LineString | H.geo.MultiLineString} - the geometry to set.
-           * @return {H.map.Polyline} - The polyline instance itself.
-           */
-          setGeometry(geometry: H.geo.LineString | H.geo.MultiLineString): H.map.Polyline;
+            /**
+             * To set the polyline's geometry. If the given geometry is modified afterwards, it must be set again via setGeometry(geometry) to not violate the integrity of the polyline.
+             * @param geometry {H.geo.LineString | H.geo.MultiLineString} - the geometry to set.
+             * @return {H.map.Polyline} - The polyline instance itself.
+             */
+            setGeometry(geometry: H.geo.LineString | H.geo.MultiLineString): H.map.Polyline;
 
-          /**
-           * To obtain the polyline's geometry. If you modify the obtained geometry, you must call setGeometry(geometry) afterwards to not violate the integrity of the polyline.
-           * @return {H.geo.LineString | H.geo.MultiLineString}
-           */
-          getGeometry(): H.geo.LineString | H.geo.MultiLineString;
+            /**
+             * To obtain the polyline's geometry. If you modify the obtained geometry, you must call setGeometry(geometry) afterwards to not violate the integrity of the polyline.
+             * @return {H.geo.LineString | H.geo.MultiLineString}
+             */
+            getGeometry(): H.geo.LineString | H.geo.MultiLineString;
 
-          /**
-           * Clips the geometry of the Polyline to a rectangular area
-           * @param geoRect {H.geo.Rect} - The rectangle to clip against.
-           * @returns {Array<Array<number>>} - a list of geometry segments that intersecting the given rectangle.
-           * Each segment is represented as a list of alternating latitude and longitude coordinates that describes a line string.
-           */
-          clip(geoRect: H.geo.Rect): number[][];
+            /**
+             * Clips the geometry of the Polyline to a rectangular area
+             * @param geoRect {H.geo.Rect} - The rectangle to clip against.
+             * @returns {Array<Array<number>>} - a list of geometry segments that intersecting the given rectangle.
+             * Each segment is represented as a list of alternating latitude and longitude coordinates that describes a line string.
+             */
+            clip(geoRect: H.geo.Rect): number[][];
 
-          /**
-           * Returns the geometry.
-           * @deprecated since 3.0.15.0
-           * @return {H.geo.Strip} - spatial object.
-           */
-          getStrip(): H.geo.Strip;
+            /**
+             * Returns the smallest rectangle which encloses the whole geometry of the GeoShape.
+             * @return {H.geo.Rect}
+             */
+            getBounds(): H.geo.Rect;
 
-          /**
-           * Sets the geometry.
-           * @deprecated since 3.0.15.0
-           * @param strip {H.geo.Strip} - The strip which represents geometry.
-           * @return {H.map.GeoShape} - The given spatial object
-           */
-          setStrip(strip: H.geo.Strip): H.map.GeoShape;
+            /**
+             * This method retrieves the drawing style of the given spatial object. The returned style is treated as immutable and must not be modified afterwards to prevent inconsistencies!
+             * @return {H.map.SpatialStyle} - The given spatial object
+             */
+            getStyle(): H.map.SpatialStyle;
 
-          /**
-           * Returns the smallest rectangle which encloses the whole geometry of the GeoShape.
-           * @return {H.geo.Rect}
-           */
-          getBounds(): H.geo.Rect;
+            /**
+             * This method sets the drawing style of the given spatial object. If the argument opt_style is an instance of H.map.SpatialStyle,
+             * it is treated as immutable and must not be modified afterwards to prevent inconsistencies!
+             * @param opt_style {(H.map.SpatialStyle | H.map.SpatialStyle.Options)=} - The style to set. If it evaluates to a false, the H.map.SpatialStyle.DEFAULT_STYLE is used.
+             * @return {H.map.Spatial} - The given spatial object
+             */
+            setStyle(opt_style?: H.map.SpatialStyle | H.map.SpatialStyle.Options): H.map.Spatial;
 
-          /**
-           * This method retrieves the drawing style of the given spatial object. The returned style is treated as immutable and must not be modified afterwards to prevent inconsistencies!
-           * @return {H.map.SpatialStyle} - The given spatial object
-           */
-          getStyle(): H.map.SpatialStyle;
+            /**
+             * This method retrieves the arrow style of the given spatial object or undefined if the style is not defined.
+             * The returned arrow style is treated as immutable and must not be modified afterwards to prevent inconsistencies!
+             * @return {H.map.ArrowStyle} - An object encapsulating information about the arrow style or undefined if the arrow style is not defined.
+             */
+            getArrows(): H.map.ArrowStyle | undefined;
 
-          /**
-           * This method sets the drawing style of the given spatial object. If the argument opt_style is an instance of H.map.SpatialStyle,
-           * it is treated as immutable and must not be modified afterwards to prevent inconsistencies!
-           * @param opt_style {(H.map.SpatialStyle | H.map.SpatialStyle.Options)=} - The style to set. If it evaluates to a false, the H.map.SpatialStyle.DEFAULT_STYLE is used.
-           * @return {H.map.Spatial} - The given spatial object
-           */
-          setStyle(opt_style?: H.map.SpatialStyle | H.map.SpatialStyle.Options): H.map.Spatial;
+            /**
+             * This method sets the arrow style of the given spatial object.
+             * @param opt_arrows {(H.map.ArrowStyle | H.map.ArrowStyle.Options)=} - The arrow style to be applied
+             * @return {H.map.Spatial} - The given spatial object
+             */
+            setArrows(opt_arrows?: H.map.ArrowStyle | H.map.ArrowStyle.Options): H.map.Spatial;
 
-          /**
-           * This method retrieves the arrow style of the given spatial object or undefined if the style is not defined.
-           * The returned arrow style is treated as immutable and must not be modified afterwards to prevent inconsistencies!
-           * @return {H.map.ArrowStyle} - An object encapsulating information about the arrow style or undefined if the arrow style is not defined.
-           */
-          getArrows(): H.map.ArrowStyle | undefined;
+            /**
+             * This method indicates whether this spatial object represents a closed shape
+             * @return {boolean} - true if the given spatial object is a closed shape, false otherwise
+             */
+            isClosed(): boolean;
 
-          /**
-           * This method sets the arrow style of the given spatial object.
-           * @param opt_arrows {(H.map.ArrowStyle | H.map.ArrowStyle.Options)=} - The arrow style to be applied
-           * @return {H.map.Spatial} - The given spatial object
-           */
-          setArrows(opt_arrows?: H.map.ArrowStyle | H.map.ArrowStyle.Options): H.map.Spatial;
+            /**
+             * This method retrieves the ID of the given object.
+             * @return {any} The identifier of the given object.
+             */
+            getId(): any;
 
-          /**
-           * This method indicates whether this spatial object represents a closed shape
-           * @return {boolean} - true if the given spatial object is a closed shape, false otherwise
-           */
-          isClosed(): boolean;
+            /**
+             * This method sets the visibility of the given object.
+             * @param opt_visibility {boolean=} - Indicates whether the map object should be visible.
+             * @return {H.map.Object} - The given object
+             */
+            setVisibility(opt_visibility?: boolean): H.map.Object;
 
-          /**
-           * This method retrieves the ID of the given object.
-           * @return {any} The identifier of the given object.
-           */
-          getId(): any;
+            /**
+             * This method retrieves a value indicating the visibility of the given object.
+             * @param opt_effective {boolean} - Indicates that the effective visibility is requested. In this case the visibility of all possible ancestor groups is also taken into account
+             * @return {boolean} - A value indicating if the object is visible (true) or not false
+             */
+            getVisibility(opt_effective?: boolean): boolean;
 
-          /**
-           * This method sets the visibility of the given object.
-           * @param opt_visibility {boolean=} - Indicates whether the map object should be visible.
-           * @return {H.map.Object} - The given object
-           */
-          setVisibility(opt_visibility?: boolean): H.map.Object;
+            /**
+             * This method retrieves the z-index of the given object.
+             * @return {number} - A value reflecting the z-index of the given object.
+             */
+            getZIndex(): number | undefined;
 
-          /**
-           * This method retrieves a value indicating the visibility of the given object.
-           * @param opt_effective {boolean} - Indicates that the effective visibility is requested. In this case the visibility of all possible ancestor groups is also taken into account
-           * @return {boolean} - A value indicating if the object is visible (true) or not false
-           */
-          getVisibility(opt_effective?: boolean): boolean;
+            /**
+             * This method sets the z-index of the given object.
+             * @param zIndex {number | undefined} - A value indicating the new z-index
+             * @return {H.map.Object} - The given object
+             */
+            setZIndex(zIndex: number | undefined): H.map.Object;
 
-          /**
-           * This method retrieves the z-index of the given object.
-           * @return {number} - A value reflecting the z-index of the given object.
-           */
-          getZIndex(): number | undefined;
+            /**
+             * This method compares the rendering z-order of the given object with another object. (The 'given object' mean the object on which the method has been invoke.)
+             * @param other {H.map.Object} -The map object with which to compare the given object.
+             * @return {number} - A value lower than 0 indicates that the given object has a lower z-order. 0 indicates that both objects have the same z-order.
+             * A value greater than 0, indicates that the given object has a higher z-order.
+             */
+            compareZOrder(other: H.map.Object): number;
 
-          /**
-           * This method sets the z-index of the given object.
-           * @param zIndex {number | undefined} - A value indicating the new z-index
-           * @return {H.map.Object} - The given object
-           */
-          setZIndex(zIndex: number | undefined): H.map.Object;
+            /**
+             * This method retrieves the parent group which contains the given object or null if the object is not contained in any group.
+             * @return {H.map.Group} - An object representing the containing group object or null if the given object is not contained in any group.
+             */
+            getParentGroup(): H.map.Group;
 
-          /**
-           * This method compares the rendering z-order of the given object with another object. (The 'given object' mean the object on which the method has been invoke.)
-           * @param other {H.map.Object} -The map object with which to compare the given object.
-           * @return {number} - A value lower than 0 indicates that the given object has a lower z-order. 0 indicates that both objects have the same z-order.
-           * A value greater than 0, indicates that the given object has a higher z-order.
-           */
-          compareZOrder(other: H.map.Object): number;
+            /**
+             * The root object to which the given object is attached or the object itself if it is not attached to another.
+             * @return {H.map.Object} - An object representing the root group for the given object or the given object if it is not part of a group.
+             */
+            getRootGroup(): H.map.Object;
 
-          /**
-           * This method retrieves the parent group which contains the given object or null if the object is not contained in any group.
-           * @return {H.map.Group} - An object representing the containing group object or null if the given object is not contained in any group.
-           */
-          getParentGroup(): H.map.Group;
+            /**
+             * This method checks whether the received object is an inclusive descendant of the given object.
+             * @param object {any} - The object to check.
+             * @return {boolean} - true if the given object is contained in the given object, otherwise false
+             */
+            contains(object: any): boolean;
 
-          /**
-           * The root object to which the given object is attached or the object itself if it is not attached to another.
-           * @return {H.map.Object} - An object representing the root group for the given object or the given object if it is not part of a group.
-           */
-          getRootGroup(): H.map.Object;
+            /**
+             * This method obtains the current provider of the given object
+             * @return {H.map.provider.ObjectProvider} - An object representing the provider
+             */
+            getProvider(): H.map.provider.ObjectProvider;
 
-          /**
-           * This method checks whether the received object is an inclusive descendant of the given object.
-           * @param object {any} - The object to check.
-           * @return {boolean} - true if the given object is contained in the given object, otherwise false
-           */
-          contains(object: any): boolean;
+            /**
+             * This method retrieves the invalidation states for the given object.
+             * @return {H.map.provider.Invalidations} - An object containing the invalidation states
+             */
+            getInvalidations(): H.map.provider.Invalidations;
 
-          /**
-           * This method obtains the current provider of the given object
-           * @return {H.map.provider.ObjectProvider} - An object representing the provider
-           */
-          getProvider(): H.map.provider.ObjectProvider;
+            /**
+             * This method invalidates the given map object.
+             * @param flags {H.math.BitMask} - The flags indicating the types of changes to the given object
+             * @return {boolean} - Indicates whether a validation was executed (only if the object has a provider)
+             */
+            invalidate(flags: H.math.BitMask): boolean;
 
-          /**
-           * This method retrieves the invalidation states for the given object.
-           * @return {H.map.provider.Invalidations} - An object containing the invalidation states
-           */
-          getInvalidations(): H.map.provider.Invalidations;
+            /**
+             * This method retrieves previously stored arbitrary data from the given object.
+             * @return {any} - The previously stored data or undefined if no data was stored.
+             */
+            getData(): any;
 
-          /**
-           * This method invalidates the given map object.
-           * @param flags {H.math.BitMask} - The flags indicating the types of changes to the given object
-           * @return {boolean} - Indicates whether a validation was executed (only if the object has a provider)
-           */
-          invalidate(flags: H.math.BitMask): boolean;
+            /**
+             * This method stores arbitrary data with the given map object.
+             * @param data {any} - The data to be stored
+             * @return {H.map.Object} - The given map object
+             */
+            setData(data: any): H.map.Object;
 
-          /**
-           * This method retrieves previously stored arbitrary data from the given object.
-           * @return {any} - The previously stored data or undefined if no data was stored.
-           */
-          getData(): any;
+            /**
+             * This method adds a listener for a specific event.
+             * Note that to prevent potential memory leaks, you must either call removeEventListener or dispose on the given object when you no longer need it.
+             * @param type {string} - The name of the event
+             * @param handler {function()} - An event handler function
+             * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
+             * @param opt_scope {{}=} - An object defining the scope for the handler function
+             */
+            addEventListener(type: string, handler: () => void, opt_capture?: boolean, opt_scope?: {}): void;
 
-          /**
-           * This method stores arbitrary data with the given map object.
-           * @param data {any} - The data to be stored
-           * @return {H.map.Object} - The given map object
-           */
-          setData(data: any): H.map.Object;
+            /**
+             * This method removes a previously added listener from the EventTarget instance.
+             * @param type {string} - The name of the event
+             * @param handler {function()} - An event handler function
+             * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
+             * @param opt_scope {{}=} - An object defining the scope for the handler function
+             */
+            removeEventListener(type: string, handler: () => void, opt_capture?: boolean, opt_scope?: {}): void;
 
-          /**
-           * This method adds a listener for a specific event.
-           * Note that to prevent potential memory leaks, you must either call removeEventListener or dispose on the given object when you no longer need it.
-           * @param type {string} - The name of the event
-           * @param handler {function()} - An event handler function
-           * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
-           * @param opt_scope {{}=} - An object defining the scope for the handler function
-           */
-          addEventListener(type: string, handler: () => void, opt_capture?: boolean, opt_scope?: {}): void;
+            /**
+             * This method dispatches an event on the EventTarget object.
+             * @param evt {H.util.Event | string} - An object representing the event or a string with the event name
+             */
+            dispatchEvent(evt: H.util.Event | string): void;
 
-          /**
-           * This method removes a previously added listener from the EventTarget instance.
-           * @param type {string} - The name of the event
-           * @param handler {function()} - An event handler function
-           * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
-           * @param opt_scope {{}=} - An object defining the scope for the handler function
-           */
-          removeEventListener(type: string, handler: () => void, opt_capture?: boolean, opt_scope?: {}): void;
+            /**
+             * This method removes listeners from the given object.
+             * Classes that extend EventTarget may need to override this method in order to remove references to DOM Elements and additional listeners.
+             */
+            dispose(): void;
 
-          /**
-           * This method dispatches an event on the EventTarget object.
-           * @param evt {H.util.Event | string} - An object representing the event or a string with the event name
-           */
-          dispatchEvent(evt: H.util.Event | string): void;
-
-          /**
-           * This method removes listeners from the given object.
-           * Classes that extend EventTarget may need to override this method in order to remove references to DOM Elements and additional listeners.
-           */
-          dispose(): void;
-
-          /**
-           * This method adds a callback which is triggered when the EventTarget object is being disposed.
-           * @param callback {function()} - The callback function.
-           * @param opt_scope {{}=} - An optional scope for the callback function
-           */
-          addOnDisposeCallback(callback: () => void, opt_scope?: {}): void;
+            /**
+             * This method adds a callback which is triggered when the EventTarget object is being disposed.
+             * @param callback {function()} - The callback function.
+             * @param opt_scope {{}=} - An optional scope for the callback function
+             */
+            addOnDisposeCallback(callback: () => void, opt_scope?: {}): void;
         }
 
         namespace Polyline {
-          /**
-           * Options which are used to initialize a polyline
-           * @property style {(H.map.SpatialStyle | H.map.SpatialStyle.Options)=} - the style to be used when tracing the polyline
-           * @property arrows {(H.map.ArrowStyle | H.map.ArrowStyle.Options)=} - The arrows style to be used when rendering the polyline.
-           * @property visibility {boolean=} - An optional boolean value indicating whether this map object is visible, default is true
-           * @property zIndex {number=} - The z-index value of the map object, default is 0
-           * @property min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
-           * @property max {number=} - The maximum zoom level for which the object is visible, default is Infinity
-           * @property provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to instantiate
-           * an object.
-           * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData
-           */
-          interface Options {
-            style?: (H.map.SpatialStyle | H.map.SpatialStyle.Options);
-            arrows?: (H.map.ArrowStyle | H.map.ArrowStyle.Options);
-            visibility?: boolean;
-            zIndex?: number;
-            min?: number;
-            max?: number;
-            provider?: H.map.provider.Provider;
-            data?: any;
-          }
+            /**
+             * Options which are used to initialize a polyline
+             * @property style {(H.map.SpatialStyle | H.map.SpatialStyle.Options)=} - the style to be used when tracing the polyline
+             * @property arrows {(H.map.ArrowStyle | H.map.ArrowStyle.Options)=} - The arrows style to be used when rendering the polyline.
+             * @property visibility {boolean=} - An optional boolean value indicating whether this map object is visible, default is true
+             * @property zIndex {number=} - The z-index value of the map object, default is 0
+             * @property min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
+             * @property max {number=} - The maximum zoom level for which the object is visible, default is Infinity
+             * @property provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to instantiate
+             * an object.
+             * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData
+             */
+            interface Options {
+                style?: (H.map.SpatialStyle | H.map.SpatialStyle.Options);
+                arrows?: (H.map.ArrowStyle | H.map.ArrowStyle.Options);
+                visibility?: boolean;
+                zIndex?: number;
+                min?: number;
+                max?: number;
+                provider?: H.map.provider.Provider;
+                data?: any;
+            }
         }
 
         /**
          * A Polygon with a rectangular shape.
          */
         class Rect extends H.map.Polygon {
-          /**
-           * Constructor
-           * @param bounds {H.geo.Rect} - The geographical bounding box for this rectangle
-           * @param opt_options {H.map.Spatial.Options=}
-           */
-          constructor(bounds: H.geo.Rect, opt_options?: H.map.Spatial.Options);
+            /**
+             * Constructor
+             * @param boundingBox {H.geo.Rect} - The geographical bounding box for this rectangle
+             * @param opt_options {H.map.Spatial.Options=}
+             */
+            constructor(boundingBox: H.geo.Rect, opt_options?: H.map.Spatial.Options);
 
-          /**
-           * To set the bounds of this rectangle.
-           * @param bounds {H.geo.Rect}
-           */
-          setBounds(bounds: H.geo.Rect): void;
+            /**
+             * To set the bounds of this rectangle.
+             * @param bounds {H.geo.Rect}
+             */
+            setBoundingBox(bounds: H.geo.Rect): void;
         }
 
         /**
@@ -2978,17 +2917,16 @@ declare namespace H {
          */
         class ViewModel extends H.util.EventTarget implements H.map.IControl {
             /**
-             * This method returns the camera data, which is currently rendered.
-             * @returns {H.map.ViewModel.CameraData} - the current rendered camera data
+             * {@link https://developer.here.com/documentation/maps/api_reference/H.map.ViewModel.html#setLookAtData}
+             * @param data - The values to be modified. Here are some of the main possibilities to reposition the camera at give look-at point
+             * @param opt_animate - A value indicating if an animated transition should be applied, default is false.
              */
-            getCameraData(): H.map.ViewModel.CameraData;
+            setLookAtData(data: H.map.ViewModel.ILookAtData, opt_animate?: boolean): H.map.ViewModel;
 
             /**
-             * This method sets new camera data to be processed by the renderer.
-             * @param data {H.map.ViewModel.CameraData} - the values to be modified
-             * @returns {H.map.ViewModel} - this view model object
+             * {@link https://developer.here.com/documentation/maps/api_reference/H.map.ViewModel.html#getLookAtData}
              */
-            setCameraData(data: H.map.ViewModel.CameraData): H.map.ViewModel;
+            getLookAtData(): H.map.ViewModel.ILookAtData;
 
             /**
              * This method sets a new zoom level to be processed by the renderer
@@ -3002,12 +2940,6 @@ declare namespace H {
              * @returns {number} - current zoom level (scale)
              */
             getZoom(): number;
-
-            /**
-             * This method returns the currently requested data.
-             * @returns {H.map.ViewModel.CameraData} - last requested cam/view data
-             */
-            getRequestedCameraData(): H.map.ViewModel.CameraData;
 
             /**
              * A method to signal the begin of a control operation.
@@ -3032,9 +2964,9 @@ declare namespace H {
             /**
              * A method to signal the end of a control operation.
              * @param opt_preventKinetics {boolean=} - A flag to indicate whether a kinetic effect is performed
-             * @param opt_adjustView {function(H.map.ViewModel.CameraData)=} - An callback to adjust the final ViewModel by modifying the passed camera data.
+             * @param opt_adjustView {function(H.map.ViewModel.ILookAtData)=} - An callback to adjust the final ViewModel by modifying the passed camera data.
              */
-            endControl(opt_preventKinetics?: boolean, opt_adjustView?: (data: H.map.ViewModel.CameraData) => void): void;
+            endControl(opt_preventKinetics?: boolean, opt_adjustView?: (data: H.map.ViewModel.ILookAtData) => void): void;
 
             /**
              * This method will dispatch event on the event target object
@@ -3057,37 +2989,20 @@ declare namespace H {
 
         namespace ViewModel {
             /**
-             * Defines camera's properties.
-             * @property zoom {number=} - zoom level to be used by rendering engine
-             * @property position {H.geo.IPoint} - the position of the virtual camera in geo-space
-             * @property pitch {number=} - the rotation of the virtual camera along its local x-axis
-             * @property yaw {number=} - the rotation of the virtual camera along its local y-axis
-             * @property roll {number=} - the rotation of the virtual camera along its local z-axis
-             * @property fov {number=} -
+             * {@link https://developer.here.com/documentation/maps/api_reference/H.map.ViewModel.html#.ILookAtData}
              */
-            interface CameraData {
+            interface ILookAtData {
+                position?: H.geo.IPoint;
                 zoom?: number;
-                position: H.geo.IPoint;
-                pitch?: number;
-                yaw?: number;
-                roll?: number;
-                fov?: number;
-            }
-
-            /**
-             * Defines currently requested view data, which will be rendered by the map.
-             * @property camera {H.map.ViewModel.CameraData=} - The requested camera properties
-             * @property zoom {number=} - The requested zoom level
-             * @property animate {boolean=} - indicates if the requested transition should be animated
-             */
-            interface RequestedData {
-                camera?: H.map.ViewModel.CameraData;
-                zoom?: number;
-                animate?: boolean;
+                bounds?: H.geo.AbstractGeometry;
+                heading?: number;
+                incline?: number;
+                tilt?: number;
             }
 
             /**
              * Update event is fired whenever view model data is changed. It contains property which hold currently requested data
+             * @fixme find documentation and update constructor typings
              * @property target {*} - Object which triggered the event
              * @property currentTarget {*} - Object which has listener attached
              * @property type {string} - Name of the dispatched event
@@ -3096,9 +3011,9 @@ declare namespace H {
             class UpdateEvent extends H.util.Event {
                 /**
                  * Constructor
-                 * @param requested {H.map.ViewModel.RequestedData}
+                 * @param requested {any}
                  */
-                constructor(requested: H.map.ViewModel.RequestedData);
+                constructor(requested: any);
 
                 /**
                  * Sets defaultPrevented to true. Which can be used to prevent some default behavior.
@@ -3321,7 +3236,7 @@ declare namespace H {
                  * @returns {(H.map.layer.IMarkerLayer.Response | H.map.layer.IMarkerLayer.TiledResponse)} - a response object containing the number of markers and the markers themselves
                  */
                 requestDomMarkers(boundingRect: H.geo.Rect, zoomLevel: number, cacheOnly: boolean, prioCenter: H.math.Point): (H.map.layer.IMarkerLayer.Response |
-                                  H.map.layer.IMarkerLayer.TiledResponse);
+                    H.map.layer.IMarkerLayer.TiledResponse);
             }
 
             namespace IMarkerLayer {
@@ -3511,7 +3426,7 @@ declare namespace H {
                  * @returns {(H.map.layer.IMarkerLayer.Response | H.map.layer.IMarkerLayer.TiledResponse)} - a response object containing the number of markers and the markers themselves
                  */
                 requestDomMarkers(boundingRect: H.geo.Rect, zoomLevel: number, cacheOnly: boolean, prioCenter: H.math.Point): (H.map.layer.IMarkerLayer.Response |
-                                  H.map.layer.IMarkerLayer.TiledResponse);
+                    H.map.layer.IMarkerLayer.TiledResponse);
             }
 
             /**
@@ -3589,7 +3504,7 @@ declare namespace H {
                  * @returns {(H.map.layer.IMarkerLayer.Response | H.map.layer.IMarkerLayer.TiledResponse)} - a response object containing the number of markers and the markers themselves
                  */
                 requestDomMarkers(boundingRect: H.geo.Rect, zoomLevel: number, cacheOnly: boolean, prioCenter: H.math.Point): (H.map.layer.IMarkerLayer.Response |
-                                  H.map.layer.IMarkerLayer.TiledResponse);
+                    H.map.layer.IMarkerLayer.TiledResponse);
             }
 
             namespace ObjectLayer {
@@ -3676,9 +3591,13 @@ declare namespace H {
                     uri?: string;
                     min?: number;
                     max?: number;
+
                     getCopyrights?(rect: H.geo.Rect, n: number): H.map.ICopyright[];
+
                     tileSize?: number;
+
                     getURL(n1: number, n2: number, n3: number): string;
+
                     crossOrigin?: string | boolean;
                 }
             }
@@ -3808,7 +3727,9 @@ declare namespace H {
                 interface Options {
                     min?: number;
                     max?: number;
+
                     requestData(n1: number, n2: number, n3: number, markerCallback: (markers: H.map.AbstractMarker[]) => void, f: () => void): H.util.ICancelable;
+
                     providesDomMarkers?: boolean;
                 }
             }
@@ -3971,6 +3892,7 @@ declare namespace H {
                     uri?: string;
                     min?: number;
                     max?: number;
+
                     getCopyrights?(rect: H.geo.Rect, n: number): H.map.ICopyright[];
                 }
             }
@@ -4006,14 +3928,12 @@ declare namespace H {
                     x: number,
                     y: number,
                     z: number,
-
                     onResponse?: (
                         object: H.map.Object[] | HTMLImageElement | HTMLCanvasElement | ArrayBuffer,
-                        response: any
+                        response: any,
                     ) => void,
-
                     onError?: (s: string) => void,
-                    opt_priority?: H.net.Request.Priority
+                    opt_priority?: H.util.Job.Priority,
                 ): H.util.ICancelable;
 
                 /**
@@ -4041,7 +3961,9 @@ declare namespace H {
                  * @param z {number} - tile zoom level
                  * @param data {*} - generic data object which cooresponds to the given coordinates
                  */
-                constructor(x: number, y: number, z: number, data?: any);  key: string;
+                constructor(x: number, y: number, z: number, data?: any);
+
+                key: string;
 
                 data: any;
                 valid: boolean;
@@ -4109,7 +4031,9 @@ declare namespace H {
                     uri?: string;
                     min?: number;
                     max?: number;
+
                     getCopyrights?(rect: H.geo.Rect, number: number): H.map.ICopyright[];
+
                     tileSize?: number;
                 }
             }
@@ -4547,13 +4471,14 @@ declare namespace H {
              * @param opt_buttons {number=} - Indicates which pointer device buttons are being pressed, expressed as a bitmask. Uses the same values, as "buttons" in Pointer Events spec.
              */
             constructor(viewportX: number, viewportY: number, id: number, type: string, opt_button?: H.mapevents.Pointer.Button, opt_buttons?: H.math.BitMask);
-            static viewportX: number;
-            static viewportY: number;
-            static target: (H.map.Object | H.Map);
-            static id: number;
-            static type: string;
-            static dragTarget: (H.map.Object | H.Map);
-            static button: H.mapevents.Pointer.Button;
+
+            viewportX: number;
+            viewportY: number;
+            target: (H.map.Object | H.Map);
+            id: number;
+            type: string;
+            dragTarget: (H.map.Object | H.Map);
+            button: H.mapevents.Pointer.Button;
         }
 
         namespace Pointer {
@@ -4808,22 +4733,9 @@ declare namespace H {
              * @param height {number} - Height.
              */
             constructor(width: number, height: number);
+
             w: number;
             h: number;
-        }
-    }
-
-    /***** net *****/
-    namespace net {
-        namespace Request {
-            enum State {
-                DONE = 2,
-                OPENED = 1,
-                UNSENT = 0,
-            }
-
-            // TODO no idea how this interface is set up, investigate
-            type Priority = any;
         }
     }
 
@@ -4862,11 +4774,18 @@ declare namespace H {
          * This property specifies collection of pre-configured HERE layers
          */
         interface DefaultLayers {
-            normal: H.service.MapType;
-            satellite: H.service.MapType;
-            terrain: H.service.MapType;
-            incidents: H.map.layer.MarkerTileLayer;
-            venues: H.map.layer.TileLayer;
+            vector: {
+                normal: {
+                    map: H.map.layer.TileLayer,
+                    traffic: H.map.layer.TileLayer,
+                    trafficincidents: H.map.layer.MarkerTileLayer
+                }
+            };
+            raster: {
+                normal: H.service.MapType;
+                satellite: H.service.MapType;
+                terrain: H.service.MapType;
+            };
         }
 
         /**
@@ -5006,6 +4925,7 @@ declare namespace H {
          */
         interface JsonpRequestHandle {
             id: number;
+
             cancel(): void;
         }
 
@@ -5048,7 +4968,7 @@ declare namespace H {
              * @returns {H.map.provider.ImageTileProvider} - the image tile provider
              */
             createTileProvider(tileType: string, scheme: string, tileSize: number, format: string, opt_additionalParameters?: H.service.ServiceParameters, opt_options?: H.service.TileProviderOptions):
-                               H.map.provider.ImageTileProvider;
+                H.map.provider.ImageTileProvider;
 
             /**
              * This method creates a tile layer. This layer can be used as a layer on a map's data model.
@@ -5113,32 +5033,27 @@ declare namespace H {
         /**
          * A map type is an object holding tile layers corresponding to a map type (e.g. 'normal', 'satellite' or 'terrain'). A map type contains at least a map property which defines the basic
          * map layer for a given map type. In addition it can hold other map layers with the given style, e.g. base, xbase, traffic etc.
+         * {@link https://developer.here.com/documentation/maps/content/api_reference/H.service.html#.MapType}
          * @property map {H.map.layer.TileLayer} - the basic map tiles with all features and labels
          * @property mapnight {H.map.layer.TileLayer} - the basic map tiles with all features and labels (night mode)
          * @property xbase {H.map.layer.TileLayer=} - map tiles without features and labels
          * @property xbasenight {H.map.layer.TileLayer=} - map tiles without features and labels (night mode)
          * @property base {H.map.layer.TileLayer=} - map tiles without labels
          * @property basenight {H.map.layer.TileLayer=} - map tiles without labels (night mode)
-         * @property traffic {H.map.layer.TileLayer=} - map tiles with traffic flow highlighting
-         * @property trafficnight {H.map.layer.TileLayer=} - map tiles with traffic flow highlighting (night mode)
+         * @property trafficincidents {H.map.layer.TileLayer=} - map tiles with traffic flow highlighting
          * @property transit {H.map.layer.TileLayer=} - map tiles with public transit lines highlighted
-         * @property panorama {H.map.layer.TileLayer=} - map tiles highlighting areas with HERE StreetLevel coverage
-         * @property panoramanight {H.map.layer.TileLayer=} - map tiles highlighting areas with HERE StreetLevel coverage (night mode)
          * @property labels {H.map.layer.TileLayer=} - transparent map tiles with labels only
          */
         interface MapType {
             map: H.map.layer.TileLayer;
-            mapnight: H.map.layer.TileLayer;
-            xbase?: H.map.layer.TileLayer;
-            xbasenight?: H.map.layer.TileLayer;
-            base?: H.map.layer.TileLayer;
-            basenight?: H.map.layer.TileLayer;
-            traffic?: H.map.layer.TileLayer;
-            trafficnight?: H.map.layer.TileLayer;
+            mapnight?: H.map.layer.TileLayer | null;
+            xbase: H.map.layer.TileLayer;
+            xbasenight?: H.map.layer.TileLayer | null;
+            base: H.map.layer.TileLayer;
+            basenight?: H.map.layer.TileLayer | null;
+            trafficincidents?: H.map.layer.MarkerTileLayer | null;
             transit?: H.map.layer.TileLayer;
-            panorama?: H.map.layer.TileLayer;
-            panoramanight?: H.map.layer.TileLayer;
-            labels?: H.map.layer.TileLayer;
+            labels: H.map.layer.TileLayer;
         }
 
         /**
@@ -5296,10 +5211,10 @@ declare namespace H {
             getBaseUrl(): H.service.Url;
 
             /**
-             * This method returns an instance of H.service.TrafficIncidentsService to query the Traffic API Traffic Incident Data
-             * @returns {H.service.TrafficIncidentsService} - a new places service instance
+             * This method returns an instance of {@link H.service.traffic.Service} to query the Traffic API Traffic Incident Data
+             * @returns {H.service.traffic.Service} - a new places service instance
              */
-            getTrafficIncidentsService(): H.service.TrafficIncidentsService;
+            getTrafficService(opt_options?: H.service.traffic.Service.Options): H.service.traffic.Service;
 
             /**
              * This method returns an instance of H.service.MapTileService to query the Map Tile API.
@@ -5397,8 +5312,7 @@ declare namespace H {
              * @property useHTTPS {boolean=} - Indicates whether secure communication should be used, default is false
              */
             interface Options {
-                app_id: string;
-                app_code: string;
+                apikey: string;
                 baseUrl?: H.service.Url;
                 useCIT?: boolean;
                 useHTTPS?: boolean;
@@ -5411,6 +5325,7 @@ declare namespace H {
                 normal?: H.service.MapType;
                 satellite?: H.service.MapType;
                 terrain?: H.service.MapType;
+
                 [key: string]: H.service.MapType | undefined;
             }
         }
@@ -5461,6 +5376,7 @@ declare namespace H {
          */
         interface ServiceResult {
             [key: string]: any;
+
             response?: {
                 language?: string,
                 route?: Array<{
@@ -5604,50 +5520,52 @@ declare namespace H {
             crossOrigin?: boolean;
         }
 
-        /**
-         * TrafficIncindentsService provides functionality to the low level traffic incidents api Traffic API documentation where it is possible to retrieve traffic incident information on a
-         * tile basis
-         */
-        class TrafficIncidentsService extends H.service.AbstractRestService {
+        namespace traffic {
             /**
-             * Constructor
-             * @param opt_options {H.service.TrafficIncidentsService.Options=}
+             * TrafficIncindentsService provides functionality to the low level traffic incidents api Traffic API documentation where it is possible to retrieve traffic incident information on a
+             * tile basis
              */
-            constructor(opt_options?: H.service.TrafficIncidentsService.Options);
+            class Service extends H.service.AbstractRestService {
+                /**
+                 * Constructor
+                 * @param opt_options {H.service.Service.Options=}
+                 */
+                constructor(opt_options?: H.service.traffic.Service.Options);
 
-            /**
-             * This method requests traffic incidents based on the service parameters provided.
-             * @param serviceParams {H.service.ServiceParameters}
-             * @param onResponse {function(H.service.ServiceResult)}
-             * @param onError {function()}
-             * @returns {H.service.JsonpRequestHandle}
-             */
-            requestIncidents(serviceParams: H.service.ServiceParameters, onResponse: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
+                /**
+                 * This method requests traffic incidents based on the service parameters provided.
+                 * @param serviceParams {H.service.ServiceParameters}
+                 * @param onResponse {function(H.service.ServiceResult)}
+                 * @param onError {function()}
+                 * @returns {H.service.JsonpRequestHandle}
+                 */
+                requestIncidents(serviceParams: H.service.ServiceParameters, onResponse: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
-            /**
-             * This method requests traffic incident information by tile coordinates
-             * @param x {number} - tile column number
-             * @param y {number} - tile row number
-             * @param z {number} - zoom level
-             * @param onResponse {function(H.service.ServiceResult)} - callback to handle service resposne
-             * @param onError {function()} - callback to habdle communication error
-             * @param opt_serviceParams {H.service.ServiceParameters=} - optional service parameters to be added to the request
-             * @returns {H.service.JsonpRequestHandle}
-             */
-            requestIncidentsByTile(x: number, y: number, z: number, onResponse: (result: H.service.ServiceResult) => void, onError: (error: Error) => void,
-                                   opt_serviceParams?: H.service.ServiceParameters): H.service.JsonpRequestHandle;
-        }
+                /**
+                 * This method requests traffic incident information by tile coordinates
+                 * @param x {number} - tile column number
+                 * @param y {number} - tile row number
+                 * @param z {number} - zoom level
+                 * @param onResponse {function(H.service.ServiceResult)} - callback to handle service resposne
+                 * @param onError {function()} - callback to habdle communication error
+                 * @param opt_serviceParams {H.service.ServiceParameters=} - optional service parameters to be added to the request
+                 * @returns {H.service.JsonpRequestHandle}
+                 */
+                requestIncidentsByTile(x: number, y: number, z: number, onResponse: (result: H.service.ServiceResult) => void, onError: (error: Error) => void,
+                                       opt_serviceParams?: H.service.ServiceParameters): H.service.JsonpRequestHandle;
+            }
 
-        namespace TrafficIncidentsService {
-            /**
-             * @property subDomain {string=} - the sub-domain of the traffic incidents service relative to the platform's base URL, default is 'traffic'
-             * @property path {string=} - the path of the traffic incidents service, default is 'traffic/6.1'
-             * @property baseUrl {H.service.Url=} - an optional base URL if it differs from the platform's default base URL
-             */
-            interface Options {
-                subDomain?: string;
-                path?: string;
-                baseUrl?: H.service.Url;
+            namespace Service {
+                /**
+                 * @property subDomain {string=} - the sub-domain of the traffic incidents service relative to the platform's base URL, default is 'traffic'
+                 * @property path {string=} - the path of the traffic incidents service, default is 'traffic/6.1'
+                 * @property baseUrl {H.service.Url=} - an optional base URL if it differs from the platform's default base URL
+                 */
+                interface Options {
+                    subDomain?: string;
+                    path?: string;
+                    baseUrl?: H.service.Url;
+                }
             }
         }
 
@@ -6143,6 +6061,7 @@ declare namespace H {
                 interface Options {
                     tileCacheSize?: number;
                     pixelRatio?: number;
+
                     onSpaceCreated?(space: H.service.venues.Space): void;
                 }
             }
@@ -6249,6 +6168,7 @@ declare namespace H {
                 endIcon?: H.map.Icon;
                 splitIcon?: H.map.Icon;
                 lineStyle: H.map.SpatialStyle | H.map.SpatialStyle.Options;
+
                 distanceFormatter?(n: number): void;
             }
         }
@@ -6374,20 +6294,21 @@ declare namespace H {
              * @property name {string} - label which describes the map type
              * @property mapType {H.service.MapType} - reference to map type
              */
-            interface MapTypeEntry {
+            interface Entry {
                 name: string;
                 mapType: H.service.MapType;
             }
 
             /**
+             * {@link https://developer.here.com/documentation/maps/api_reference/H.ui.MapSettingsControl.html#.Options}
              * @property alignment {H.ui.LayoutAlignment=} - the layout alignment which should be applied to this control, default is H.ui.LayoutAlignment.BOTTOM_RIGHT
              * @property entries {Array<H.ui.MapSettingsControl.MapTypeEntry>=} - the map type entries to be shown in this map settings control
              * @property incidents {H.map.layer.Layer} - the traffic incidents layer to be activated by the map settings control
              */
             interface Options {
                 alignment?: H.ui.LayoutAlignment;
-                entries?: H.ui.MapSettingsControl.MapTypeEntry[];
-                incidents: H.map.layer.Layer;
+                baseLayers?: H.ui.MapSettingsControl.Entry[];
+                layers?: H.ui.MapSettingsControl.Entry[];
             }
         }
 
@@ -6446,7 +6367,7 @@ declare namespace H {
 
             /**
              * This method returns this ui's root element.
-             * @returns {ELement} - the root element
+             * @returns {Element} - the root element
              */
             getElement(): Element;
 
@@ -6644,6 +6565,7 @@ declare namespace H {
              */
             interface Options {
                 alignment?: H.ui.LayoutAlignment;
+
                 adjustZoom?(n: number, m: H.Map): number;
             }
         }
@@ -7053,6 +6975,7 @@ declare namespace H {
             interface Options {
                 label?: string;
                 disabled?: boolean;
+
                 callback?(event: H.util.Event): void;
             }
         }
@@ -7468,6 +7391,36 @@ declare namespace H {
                 power: number;
                 duration: number;
             }
+        }
+
+        /**
+         * There is no documentation about this API
+         */
+        namespace Job {
+            type Priority = any;
+        }
+    }
+
+    namespace lang {
+        /**
+         * @link https://developer.here.com/documentation/maps/api_reference/H.lang.IllegalOperationError.html
+         */
+        class IllegalOperationError extends Error {
+            constructor(opt_caller?: (...args: any[]) => any, opt_message?: any);
+        }
+
+        /**
+         * @link https://developer.here.com/documentation/maps/api_reference/H.lang.InvalidArgumentError.html
+         */
+        class InvalidArgumentError extends Error {
+            constructor(opt_caller?: (...args: any[]) => any, opt_argNr?: number, opt_message?: any);
+        }
+
+        /**
+         * @link https://developer.here.com/documentation/maps/api_reference/H.lang.InvalidArgumentError.html
+         */
+        class OutOfRangeError extends Error {
+            constructor(opt_caller?: (...args: any[]) => any, opt_val?: number, opt_range?: number[]);
         }
     }
 }

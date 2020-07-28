@@ -16,7 +16,7 @@ declare namespace Bootstrap3Typeahead {
         /**
          * The max number of items to display in the dropdown
          */
-        items?: number;
+        items?: number | 'all';
 
         /**
          * The minimum character length needed before triggering autocomplete suggestions
@@ -66,7 +66,7 @@ declare namespace Bootstrap3Typeahead {
         /**
          * Call back function to execute after selected an item
          */
-        afterSelect?: (item: string) => void;
+        afterSelect?: (this: Typeahead, item: string|object) => void;
 
         /**
          * Adds a delay between lookups
@@ -88,7 +88,13 @@ declare namespace Bootstrap3Typeahead {
          */
         addItem?: object;
     }
+
+    interface Typeahead {
+        $element: JQuery;
+        options: Options;
+    }
 }
+
 interface JQuery {
     /**
      * Initialize or destroy Typeahead

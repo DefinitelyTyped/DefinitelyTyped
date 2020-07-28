@@ -1,0 +1,11 @@
+{
+    "private": true,
+    "dependencies": {
+        "@testing-library/dom": "^7.5.7",
+        "@vue/test-utils": "^1.0.3",
+        "pretty-format": "^25.5.0",
+        "vue": "^2.6.10",
+        "vue-router": "^3.0",
+        "vuex": "^3.0"
+    }
+}

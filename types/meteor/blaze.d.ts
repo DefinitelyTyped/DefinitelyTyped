@@ -1,3 +1,5 @@
+import { Tracker } from 'meteor/tracker';
+import { Meteor } from 'meteor/meteor';
 declare module "meteor/blaze" {
     module Blaze {
         var View: ViewStatic;
@@ -72,7 +74,7 @@ declare module "meteor/blaze" {
         interface TemplateInstance {
             $(selector: string): any;
             autorun(runFunc: (computation: Tracker.Computation) => void): Tracker.Computation;
-            data: Object;
+            data: Record<string, any>;
             find(selector: string): HTMLElement;
             findAll(selector: string): HTMLElement[];
             firstNode: Object;

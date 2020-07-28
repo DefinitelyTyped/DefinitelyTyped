@@ -4,6 +4,7 @@
 // Definitions: https://github.com/psnider/DefinitelyTyped/imap
 
 /// <reference types="node" />
+import { EventEmitter } from 'events';
 
 declare namespace Connection {
 
@@ -236,10 +237,10 @@ declare namespace Connection {
         serverSupports(capability: string): boolean;
     }
 
-    
+
 }
 
-declare class Connection extends NodeJS.EventEmitter implements Connection.MessageFunctions {
+declare class Connection extends EventEmitter implements Connection.MessageFunctions {
         /** @constructor */
         constructor(config: Connection.Config);
 

@@ -1,14 +1,61 @@
-// Type definitions for non-npm package OpenFin API 39.0
+// Type definitions for non-npm package OpenFin API 51.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker>
 //                 Ricardo de Pena <https://github.com/rdepena>
 //                 Roma <https://github.com/whyn07m3>
 //                 Li Cui <https://github.com/licui3936>
+//                 Tomer Sharon <https://github.com/tomer-openfin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.6
 
-// based on v10.66.39.25
+// based on v16.83.51.26
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
+
+declare const fdc3: typeof import('./_v2/fdc3/main');
+
+/**
+ * When running within the OpenFin Runtime, and the `fdc3Api` flag in your manifest is set, your web applications will
+ * have access to the "fdc3" namespace without the need to include additional source files. You can treat the "fdc3"
+ * namespace as you would the "window", "navigator" or "document" objects.
+ */
+
+declare namespace fdc3 {
+    type AppChannel = import('./_v2/fdc3/main').AppChannel;
+    type AppDirIntent = import('./_v2/fdc3/main').AppDirIntent;
+    type AppId = import('./_v2/fdc3/main').AppId;
+    type AppImage = import('./_v2/fdc3/main').AppImage;
+    type AppIntent = import('./_v2/fdc3/main').AppIntent;
+    type AppName = import('./_v2/fdc3/main').AppName;
+    type Application = import('./_v2/fdc3/main').Application;
+    type ApplicationError = import('./_v2/fdc3/main').ApplicationError;
+    type Channel = import('./_v2/fdc3/contextChannels').Channel;
+    type ChannelBase = import('./_v2/fdc3/contextChannels').ChannelBase;
+    type ChannelChangedEvent = import('./_v2/fdc3/contextChannels').ChannelChangedEvent;
+    type ChannelContextListener = import('./_v2/fdc3/contextChannels').ChannelContextListener;
+    type ChannelError = import('./_v2/fdc3/main').ChannelError;
+    type ChannelId = import('./_v2/fdc3/contextChannels').ChannelId;
+    type ChannelWindowAddedEvent = import('./_v2/fdc3/contextChannels').ChannelWindowAddedEvent;
+    type ChannelWindowRemovedEvent = import('./_v2/fdc3/contextChannels').ChannelWindowRemovedEvent;
+    type ConnectionError = import('./_v2/fdc3/main').ConnectionError;
+    type ContactContext = import('./_v2/fdc3/main').ContactContext;
+    type Context = import('./_v2/fdc3/main').Context;
+    type ContextListener = import('./_v2/fdc3/main').ContextListener;
+    type DefaultChannel = import('./_v2/fdc3/main').DefaultChannel;
+    type DisplayMetadata = import('./_v2/fdc3/main').DisplayMetadata;
+    type FDC3Error = import('./_v2/fdc3/main').FDC3Error;
+    type Icon = import('./_v2/fdc3/main').Icon;
+    type InstrumentContext = import('./_v2/fdc3/main').InstrumentContext;
+    type IntentListener = import('./_v2/fdc3/main').IntentListener;
+    type IntentMetadata = import('./_v2/fdc3/main').IntentMetadata;
+    type IntentResolution = import('./_v2/fdc3/main').IntentResolution;
+    type Intents = import('./_v2/fdc3/main').Intents;
+    type Listener = import('./_v2/fdc3/main').Listener;
+    type NameValuePair = import('./_v2/fdc3/main').NameValuePair;
+    type OrganizationContext = import('./_v2/fdc3/main').OrganizationContext;
+    type ResolveError = import('./_v2/fdc3/main').ResolveError;
+    type SendContextError = import('./_v2/fdc3/main').SendContextError;
+    type SystemChannel = import('./_v2/fdc3/contextChannels').SystemChannel;
+}
 
 /**
  * JavaScript API
@@ -22,66 +69,99 @@
  *
  * Overview
  * When running within the OpenFin Runtime your web applications have access to the "fin" namespace and all the modules within the API
- * without the need to include additional source files. You can treat the "fin" namespace as you would the "window", "navigator" or "documennt" objects.
+ * without the need to include additional source files. You can treat the "fin" namespace as you would the "window", "navigator" or "document" objects.
  */
 declare namespace fin {
     var Application: import('./_v2/api/application/application').default;
     var Clipboard: import('./_v2/api/clipboard/clipboard').default;
     var ExternalApplication: import('./_v2/api/external-application/external-application').default
+    var ExternalWindow: import('./_v2/api/external-window/external-window').default;
     var Frame: import('./_v2/api/frame/frame').default;
     var GlobalHotkey: import('./_v2/api/global-hotkey/index').default;
     var InterApplicationBus: import('./_v2/api/interappbus/interappbus').default;
+    var Platform: import('./_v2/api/platform/platform').default;
+    var Layout: import('./_v2/api/platform/layout').default;
     var Notification: import('./_v2/api/notification/notification').default;
     var System: import('./_v2/api/system/system').default;
+    var View: import('./_v2/api/view/view').default;
     var Window: import('./_v2/api/window/window').default;
-
+    var me: import('./_v2/api/fin').default['me'];
     // v2 shapes
-    type Identity = import('./_v2/identity').Identity;
     type applicationLogInfo = import('./_v2/api/application/application').LogInfo;
-    type LaunchInfo = import('./_v2/api/application/application').ApplicationInfo;
-    type ShortCutConfig = import('./_v2/api/application/application').ShortCutConfig;
-    type TrayInfo = import('./_v2/api/application/application').TrayInfo;
     type ApplicationOption = import('./_v2/api/application/applicationOption').ApplicationOption;
-    type ExternalApplicationInfo = import('./_v2/api/external-application/external-application').ExternalApplicationInfo;
     type ApplicationInfo = import('./_v2/api/system/application').ApplicationInfo;
+    type AppAssetInfo = import('./_v2/api/system/download-asset').AppAssetInfo;
+    type AppAssetRequest = import('./_v2/api/system/download-asset').AppAssetRequest;
+    type ApplySnapshotOptions = import('./_v2/shapes/Platform').ApplySnapshotOptions;
+    type AnchorType = import('./_v2/shapes/shapes').AnchorType
+    type Bounds = import('./_v2/shapes/shapes').Bounds;
+    type Channel = import('./_v2/api/interappbus/channel/index').Channel;
+    type ChannelClient = import('./_v2/api/interappbus/channel/client').ChannelClient;
     type ClearCacheOption = import('./_v2/api/system/clearCacheOption').ClearCacheOption;
     type CookieInfo = import('./_v2/api/system/cookie').CookieInfo;
     type CookieOption = import('./_v2/api/system/cookie').CookieOption;
     type CrashReporterOption = import('./_v2/api/system/crashReporterOption').CrashReporterOption;
-    type AppAssetInfo = import('./_v2/api/system/download-asset').AppAssetInfo;
-    type AppAssetRequest = import('./_v2/api/system/download-asset').AppAssetRequest;
-    type RuntimeDownloadOptions = import('./_v2/api/system/download-asset').RuntimeDownloadOptions;
-    type RuntimeDownloadProgress = import('./_v2/api/system/download-asset').RuntimeDownloadProgress;
+    type ContextMenuSettings = import('./_v2/shapes/shapes').ContextMenuSettings;
     type DownloadPreloadInfo = import('./_v2/api/system/download-preload').DownloadPreloadInfo;
     type DownloadPreloadOption = import('./_v2/api/system/download-preload').DownloadPreloadOption;
+    type Entity = import('./_v2/api/system/entity').Entity;
     type EntityInfo = import('./_v2/api/system/entity').EntityInfo;
+    type ExternalApplicationInfo = import('./_v2/api/external-application/external-application').ExternalApplicationInfo;
+    type ExternalConnection = import('./_v2/api/system/external-process').ExternalConnection;
     type ExternalProcessRequestType = import('./_v2/api/system/external-process').ExternalProcessRequestType;
     type ExternalProcessInfo = import('./_v2/api/system/external-process').ExternalProcessInfo;
+    type FrameInfo = import('./_v2/api/window/window').FrameInfo;
+    type GetLogRequestType = import('./_v2/api/system/log').GetLogRequestType;
     type HostSpecs = import('./_v2/api/system/host-specs').HostSpecs;
+    type Identity = import('./_v2/identity').Identity;
+    type InstalledApps = import('./_v2/api/system/installedApps').InstalledApps;
+    type LaunchInfo = import('./_v2/api/application/application').ApplicationInfo;
     type LogInfo = import('./_v2/api/system/log').LogInfo;
     type MonitorInfo = import('./_v2/api/system/monitor').MonitorInfo;
+    type Opacity = import('./_v2/shapes/shapes').Opacity;
     type PointTopLeft = import('./_v2/api/system/point').PointTopLeft;
+    type Position = import('./_v2/shapes/shapes').Position;
+    type Platform = import('./_v2/api/platform/platform').Platform;
+    type ProxyConfig = import('./_v2/api/system/proxy').ProxyConfig;
+    type InitPlatformOptions = import('./_v2/shapes/Platform').InitPlatformOptions;
+    type Layout = import('./_v2/api/platform/layout').Layout;
+    type LogLevel = import('./_v2/api/system/log').LogLevel;
+    type PlatformOptions = import('./_v2/shapes/Platform').PlatformOptions;
     type ProcessInfo = import('./_v2/api/system/process').ProcessInfo;
     type ProxyInfo = import('./_v2/api/system/proxy').ProxyInfo;
     type RegistryInfo = import('./_v2/api/system/registry-info').RegistryInfo;
     type RuntimeInfo = import('./_v2/api/system/runtime-info').RuntimeInfo;
     type RVMInfo = import('./_v2/api/system/rvm').RVMInfo;
-    type WindowDetail = import('./_v2/api/system/window').WindowDetail;
+    type RvmLaunchOptions = import('./_v2/api/application/application').RvmLaunchOptions;
+    type RGB = import('./_v2/shapes/shapes').RGB;
+    type RuntimeDownloadOptions = import('./_v2/api/system/download-asset').RuntimeDownloadOptions;
+    type RuntimeDownloadProgress = import('./_v2/api/system/download-asset').RuntimeDownloadProgress;
+    type ServiceConfiguration = import('./_v2/api/system/external-process').ServiceConfiguration;
+    type ServiceIdentifier = import('./_v2/api/system/system').ServiceIdentifier;
+    type ShortCutConfig = import('./_v2/api/application/application').ShortCutConfig;
+    type Snapshot = import('./_v2/shapes/Platform').Snapshot;
     type SystemWindowInfo = import('./_v2/api/system/window').WindowInfo;
-    type AnchorType = import('./_v2/api/window/anchor-type').AnchorType;
-    type Bounds = import('./_v2/api/window/bounds').default;
-    type Transition = import('./_v2/api/window/transition').Transition;
-    type TransitionOptions = import('./_v2/api/window/transition').TransitionOptions;
+    type Size = import('./_v2/shapes/shapes').Size;
+    type TerminateExternalRequestType = import('./_v2/api/system/external-process').TerminateExternalRequestType;
+    type TrayInfo = import('./_v2/api/application/application').TrayInfo;
+    type Transition = import('./_v2/shapes/shapes').Transition;
+    type TransitionOptions = import('./_v2/shapes/shapes').TransitionOptions;
+    type TransitionBase = import('./_v2/shapes/shapes').TransitionBase;
+    type ViewCreationOptions = import('./_v2/api/view/view').ViewCreationOptions;
+    type View = import('./_v2/api/view/view').View;
+    type ViewOptions = import('./_v2/api/view/view').ViewOptions;
+    type WindowDetail = import('./_v2/api/system/window').WindowDetail;
     type WindowOption = import('./_v2/api/window/windowOption').WindowOption;
     type WindowInfo = import('./_v2/api/window/window').WindowInfo;
-    type FrameInfo = import('./_v2/api/window/window').FrameInfo;
-
+    type _Window = import('./_v2/api/window/window')._Window;
+    type InitLayoutOptions = import('./_v2/api/platform/layout').InitLayoutOptions;
+    type PresetLayoutOptions = import('./_v2/api/platform/layout').PresetLayoutOptions;
     const desktop: OpenFinDesktop;
 
     interface OpenFinDesktop {
         main(f: () => any): void;
         Application: OpenFinApplicationStatic;
-        ExternalApp: OpenFinExternalApplicationStatic;
+        ExternalApplication: OpenFinExternalApplicationStatic;
         GlobalHotkey: OpenFinGlobalHotkey;
         InterApplicationBus: OpenFinInterApplicationBus;
         Notification: OpenFinNotificationStatic;
@@ -115,7 +195,7 @@ declare namespace fin {
 
     /**
      * Application
-     * An object representing an application.Allows the developer to create, execute, show / close an application as well as listen to application events.
+     * An object representing an application. Allows the developer to create, execute, show / close an application as well as listen to application events.
      */
     interface OpenFinApplication {
         /**
@@ -452,7 +532,7 @@ declare namespace fin {
     /**
      * Notification
      * Notification represents a window on OpenFin Runtime which is shown briefly to the user on the bottom-right corner of the primary monitor.
-     * A notification is typically used to alert the user of some important event which requires his or her attention.
+     * A notification is typically used to alert the user of some important event which requires their attention.
      * Notifications are a child or your application that are controlled by the runtime.
      */
     interface OpenFinNotification {
@@ -618,6 +698,11 @@ declare namespace fin {
          * Retrieves system information.
          */
         getHostSpecs(callback?: (info: HostSpecs) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         *
+         * Returns an array of version numbers of the runtimes installed. Requires RVM 5.2+
+         */
+        getInstalledRuntimes(): Promise<string[]>;
         /**
          * Retrieves the contents of the log with the specified filename.
          */
@@ -808,13 +893,13 @@ declare namespace fin {
         addEventListener(
             type: OpenFinWindowEventType,
             listener: (event: WindowBaseEvent
-					   | WindowAuthRequestedEvent
-					   | WindowBoundsEvent
-					   | WindowExternalProcessStartedEvent
-					   | WindowExternalProcessExited
-					   | WindowGroupChangedEvent
-					   | WindowHiddenEvent
-					   | Window_NavigationRejectedEvent) => void,
+                       | WindowAuthRequestedEvent
+                       | WindowBoundsEvent
+                       | WindowExternalProcessStartedEvent
+                       | WindowExternalProcessExited
+                       | WindowGroupChangedEvent
+                       | WindowHiddenEvent
+                       | Window_NavigationRejectedEvent) => void,
             callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Performs the specified window transitions
@@ -958,13 +1043,13 @@ declare namespace fin {
         removeEventListener(
             type: OpenFinWindowEventType,
             listener: (event: WindowBaseEvent
-					   | WindowAuthRequestedEvent
-					   | WindowBoundsEvent
-					   | WindowExternalProcessStartedEvent
-					   | WindowExternalProcessExited
-					   | WindowGroupChangedEvent
-					   | WindowHiddenEvent
-					   | Window_NavigationRejectedEvent) => void,
+                       | WindowAuthRequestedEvent
+                       | WindowBoundsEvent
+                       | WindowExternalProcessStartedEvent
+                       | WindowExternalProcessExited
+                       | WindowGroupChangedEvent
+                       | WindowHiddenEvent
+                       | Window_NavigationRejectedEvent) => void,
             callback?: () => void,
             errorCallback?: (reason: string) => void): void;
         /**
@@ -1032,7 +1117,6 @@ declare namespace fin {
 
         removeEventListener(type: string, listener: () => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
     }
-
     interface ApplicationBaseEvent {
         topic: string;
         type: OpenFinApplicationEventType;

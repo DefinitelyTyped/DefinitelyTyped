@@ -2,7 +2,7 @@
 // Project: https://github.com/expressjs/api-error-handler
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as express from 'express';
 

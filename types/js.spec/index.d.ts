@@ -61,7 +61,7 @@ export interface Problem {
     readonly path: string[];
 
     /**
-     * Pth to he Spec that applies.
+     * Path to the Spec that applies.
      */
     readonly via: string[];
 

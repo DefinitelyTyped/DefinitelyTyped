@@ -1,29 +1,30 @@
 import { Component, ComponentType } from "react";
 import { Validator } from "../index";
 
-export interface BaseFieldArrayProps<P = {}> {
+interface _BaseFieldArrayProps<P = {}, FieldValue = any> {
     name: string;
-    component: ComponentType<P>;
+    component: ComponentType<WrappedFieldArrayProps<FieldValue> & P>;
     validate?: Validator | Validator[];
     warn?: Validator | Validator[];
     withRef?: boolean;
-    props?: P;
     rerenderOnEveryChange?: boolean;
 }
 
-export interface GenericFieldArray<Field, P = {}> extends Component<BaseFieldArrayProps<P> & Partial<P>> {
+export type BaseFieldArrayProps<P = {}, FieldValue = any> = (P | { props: P}) & _BaseFieldArrayProps<P, FieldValue>;
+
+export interface GenericFieldArray<FieldValue = any, P = {}> extends Component<BaseFieldArrayProps<P, FieldValue>> {
     name: string;
     valid: boolean;
-    getRenderedComponent(): Component<WrappedFieldArrayProps<Field> & P>;
+    getRenderedComponent(): Component<WrappedFieldArrayProps<FieldValue> & P>;
 }
 
-export class FieldArray<P = {}> extends Component<BaseFieldArrayProps<P> & Partial<P>> implements GenericFieldArray<any, P> {
+export class FieldArray<P = {}, FieldValue = any> extends Component<BaseFieldArrayProps<P, FieldValue>> implements GenericFieldArray<FieldValue, P> {
     name: string;
     valid: boolean;
-    getRenderedComponent(): Component<WrappedFieldArrayProps<any> & P>;
+    getRenderedComponent(): Component<WrappedFieldArrayProps<FieldValue> & P>;
 }
 
-export interface WrappedFieldArrayProps<FieldValue> {
+export interface WrappedFieldArrayProps<FieldValue = any> {
     fields: FieldArrayFieldsProps<FieldValue>;
     meta: FieldArrayMetaProps;
 }
@@ -35,6 +36,7 @@ export interface FieldArrayFieldsProps<FieldValue> {
     get(index: number): FieldValue;
     getAll(): FieldValue[];
     removeAll(): void;
+
     insert(index: number, value: FieldValue): void;
     name: string;
     length: number;

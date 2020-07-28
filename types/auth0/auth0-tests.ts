@@ -5,6 +5,11 @@ const management = new auth0.ManagementClient({
   domain: '{YOUR_ACCOUNT}.auth0.com'
 });
 
+const uManagement = new auth0.ManagementClient<{aTest: string},{uTest: string}>({
+    token: '{YOUR_API_V2_TOKEN}',
+    domain: '{YOUR_ACCOUNT}.auth0.com'
+});
+
 const auth = new auth0.AuthenticationClient({
   domain: '{YOUR_ACCOUNT}.auth0.com',
   clientId: '{OPTIONAL_CLIENT_ID}',
@@ -111,7 +116,7 @@ management
 
 // Link users
 management
-  .createUser({ connection: 'email', email: 'hi@me.co' })
+  .createUser({ connection: 'email', email: 'hi@me.co', user_id: "my_id" })
   .catch(err => console.error('Cannot create E-mail user', err))
   .then((emailUser) => {
     if (!emailUser) return;
@@ -138,6 +143,11 @@ auth
     // Handle the error.
   });
 
+auth
+  .oauth.authorizationCodeGrant({
+    code: '{CODE}',
+    redirect_uri: '{REDIRECT_URI}'
+  });
 
 // Update a user
 management
@@ -151,6 +161,8 @@ management
 management
   .updateUserMetadata({id: "user_id"}, {"key": "value"});
 
+uManagement.updateAppMetadata({id: "user_id"},{aTest: 'test'});
+
 // Update user metadata with JSON object
 management
     .updateUserMetadata({id: "user_id"}, {
@@ -161,6 +173,7 @@ management
         another: "value"
       }
     });
+uManagement.updateUserMetadata({id: "user_id"}, { uTest: "value"});
 
 // Update user metadata using callback
 management
@@ -184,6 +197,80 @@ management.getUsersByEmail('email@address.com').then((users) => {
   console.log(users);
 });
 
+management.getUserRoles({id: "user_id"}).then(roles => console.log(roles));
+management.getUserRoles({id: "user_id"}, (err, data) => console.log(data));
+management.getUserRoles({id: "user_id", per_page: 3}).then(roles => console.log(roles));
+management.getUserRoles({id: "user_id", per_page: 3}, (err, data) => console.log(data));
+management.getUserRoles({id: "user_id", include_totals: true}).then(rolePage => console.log(rolePage));
+management.getUserRoles({id: "user_id", include_totals: true}, (err, data) => console.log(data));
+
+management.removeRolesFromUser({id: "user_id"}, { roles: [ "role_id" ] })
+    .then(() => console.log("It worked"))
+    .catch(err => console.log("Something went wrong " + err));
+management.removeRolesFromUser({id: "user_id"}, { roles: [ "role_id" ] }, err => {
+    if (err) {
+        console.error("Something went wrong " + err);
+    } else {
+        console.log("It worked");
+    }
+});
+
+management.assignRolestoUser({id: "user_id"}, { roles: [ "role_id" ] })
+    .then(() => console.log("It worked"))
+    .catch(err => console.log("Something went wrong " + err));
+management.assignRolestoUser({id: "user_id"}, { roles: [ "role_id" ] }, err => {
+    if (err) {
+        console.error("Something went wrong " + err);
+    } else {
+        console.log("It worked");
+    }
+});
+
+management.getUserPermissions({id: "user_id"}).then(permissions => console.log(permissions));
+management.getUserPermissions({id: "user_id"}, (err, data) => console.log(data));
+management.getUserPermissions({id: "user_id", per_page: 3}).then(permissions => console.log(permissions));
+management.getUserPermissions({id: "user_id", per_page: 3}, (err, data) => console.log(data));
+management.getUserPermissions({id: "user_id", include_totals: true}).then(permissionPage => console.log(permissionPage));
+management.getUserPermissions({id: "user_id", include_totals: true}, (err, data) => console.log(data));
+
+management.removePermissionsFromUser({id: "user_id"}, {
+        permissions: [
+            { permission_name: "god:mode", resource_server_identifier: "https://my.api.com" }
+        ]
+    })
+    .then(() => console.log("It worked"))
+    .catch(err => console.log("Something went wrong " + err));
+management.removePermissionsFromUser({id: "user_id"}, {
+    permissions: [
+        { permission_name: "god:mode", resource_server_identifier: "https://my.api.com" }
+    ]
+}, (err) => {
+    if (err) {
+        console.error("Something went wrong " + err);
+    } else {
+        console.log("It worked");
+    }
+});
+
+management.assignPermissionsToUser({id: "user_id"}, {
+        permissions: [
+            { permission_name: "god:mode", resource_server_identifier: "https://my.api.com" }
+        ]
+    })
+    .then(() => console.log("It worked"))
+    .catch(err => console.log("Something went wrong " + err));
+management.assignPermissionsToUser({id: "user_id"}, {
+    permissions: [
+        { permission_name: "god:mode", resource_server_identifier: "https://my.api.com" }
+    ]
+}, (err) => {
+    if (err) {
+        console.error("Something went wrong " + err);
+    } else {
+        console.log("It worked");
+    }
+});
+
 // Using different client settings.
 
 const retryableManagementClient = new auth0.ManagementClient({
@@ -195,15 +282,20 @@ const retryableManagementClient = new auth0.ManagementClient({
   }
 });
 
-management.createPasswordChangeTicket({
-  connection_id: 'con_id',
-  email: 'test@me.co',
-  new_password: 'password',
-  result_url: 'https://www.google.com/',
-  ttl_sec: 86400,
-}, (err: Error, data) => {
-  console.log(data.ticket);
-});
+management.createPasswordChangeTicket(
+    {
+        connection_id: 'con_id',
+        email: 'test@me.co',
+        new_password: 'password',
+        result_url: 'https://www.google.com/',
+        ttl_sec: 86400,
+        mark_email_as_verified: true,
+        includeEmailInRedirect: true,
+    },
+    (err: Error, data) => {
+        console.log(data.ticket);
+    }
+);
 
 // Link users
 management.linkUsers('primaryId', { user_id: 'secondaryId' })
@@ -236,6 +328,28 @@ management.getClients({fields:['name','client_metadata'], include_fields:true})
 
 // Get all clients with params (with callback)
 management.getClients({fields:['name','client_metadata'], include_fields:true}, (err:Error, clients:auth0.Client[]) => {});
+
+// Get all client grants
+management.getClientGrants();
+
+// Get all client grants (with callback)
+management.getClientGrants((err: Error, data: auth0.ClientGrant[]) => console.log(data));
+
+// Get all client data with params
+management.getClientGrants({per_page: 1}).then((data: auth0.ClientGrant[]) => console.log(data));
+management.getClientGrants({per_page: 12}, (err: Error, data: auth0.ClientGrant[]) => console.log(data));
+
+management.getClientGrants({page: 12}).then((data: auth0.ClientGrant[]) => console.log(data));
+management.getClientGrants({page: 12}, (err: Error, data) => console.log(data));
+
+management.getClientGrants({audience: 'audience'}).then((data: auth0.ClientGrant[]) => console.log(data));
+management.getClientGrants({audience: 'audience'}, (err: Error, data: auth0.ClientGrant[]) => console.log(data));
+
+management.getClientGrants({client_id: 'client_id'}).then((data: auth0.ClientGrant[]) => console.log(data));
+management.getClientGrants({client_id: 'client_id'}, (err: Error, data: auth0.ClientGrant[]) => console.log(data));
+
+management.getClientGrants({include_totals: true}).then((data: auth0.ClientGrantPage) => console.log(data));
+management.getClientGrants({include_totals: true}, (err: Error, data: auth0.ClientGrantPage) => console.log(data));
 
 // Jobs
 management.getJob({
@@ -283,6 +397,12 @@ management.importUsers({
     upsert: true
 }, (err, data) => console.log(data));
 
+management.importUsers({
+    users_json: "some json data",
+    connection_id: 'con_id',
+    send_completion_email: false
+}, (err, data) => console.log(data));
+
 management.exportUsers({
     connection_id: 'con_id',
     fields: [
@@ -310,3 +430,184 @@ management.sendEmailVerification({
     client_id: 'client_id',
     user_id: 'user_id'
 }, (err, data) => console.log(data));
+
+// Roles
+management.getRoles().then(roles => console.log(roles));
+management.getRoles((err, data) => console.log(data));
+management.getRoles({name_filter: "Admin"}).then(roles => console.log(roles));
+management.getRoles({name_filter: "Admin"}, (err, data) => console.log(data));
+management.getRoles({per_page: 12}).then(roles => console.log(roles));
+management.getRoles({per_page: 12}, (err, data) => console.log(data));
+management.getRoles({include_totals: true}).then(rolePage => console.log(rolePage));
+management.getRoles({include_totals: true}, (err, data) => console.log(data));
+
+management.createRole({
+    name: "Admin",
+    description: "I have all the power"
+}).then(role => console.log(role));
+management.createRole({
+    name: "Admin",
+    description: "I have all the power"
+}, (err, data) => console.log(data));
+
+management.getRole({id: "role_id"}).then(role => console.log(role));
+management.getRole({id: "role_id"}, (err, data) => console.log(data));
+
+
+management.deleteRole({id: "role_id"})
+    .then(() => console.log("It worked"))
+    .catch(err => console.error("Something went wrong " + err));
+management.deleteRole({id: "role_id"}, err => {
+    if (err) {
+        console.error("Something went wrong " + err);
+    } else {
+        console.log("It worked");
+    }
+});
+
+management.updateRole({id: "role_id"}, {
+    name: "The new name"
+}).then(role => console.log(role));
+management.updateRole({id: "role_id"}, {
+    name: "The new name"
+}, (err, data) => console.log(data));
+
+management.getPermissionsInRole({id: "role_id"}).then(permissions => console.log(permissions));
+management.getPermissionsInRole({id: "role_id"}, (err, data) => console.log(data));
+management.getPermissionsInRole({id: "role_id", per_page: 8}).then(permissions => console.log(permissions));
+management.getPermissionsInRole({id: "role_id", per_page: 8}, (err, data) => console.log(data));
+management.getPermissionsInRole({id: "role_id", include_totals: true}).then(permissions => console.log(permissions));
+management.getPermissionsInRole({id: "role_id", include_totals: true}, (err, data) => console.log(data));
+
+management.removePermissionsFromRole({id: "role_id"}, {
+        permissions: [
+            { permission_name: "eat:cake", resource_server_identifier: "https://my.api.com" }
+        ]
+    })
+    .then(() => console.log("It worked"))
+    .catch(err => console.log("Something went wrong " + err));
+management.removePermissionsFromRole({id: "role_id"}, {
+    permissions: [
+        { permission_name: "eat:cake", resource_server_identifier: "https://my.api.com" }
+    ]
+}, err => {
+    if (err) {
+        console.error("Something went wrong " + err);
+    } else {
+        console.log("It worked");
+    }
+});
+
+management.addPermissionsInRole({id: "role_id"}, {
+        permissions: [
+            { permission_name: "eat:cake", resource_server_identifier: "https://my.api.com" }
+        ]
+    })
+    .then(() => console.log("It worked"))
+    .catch(err => console.log("Something went wrong " + err));
+management.addPermissionsInRole({id: "role_id"}, {
+    permissions: [
+        { permission_name: "eat:cake", resource_server_identifier: "https://my.api.com" }
+    ]
+}, err => {
+    if (err) {
+        console.error("Something went wrong " + err);
+    } else {
+        console.log("It worked");
+    }
+});
+
+management.getUsersInRole({id: "role_id"}).then(users => console.log(users));
+management.getUsersInRole({id: "role_id"}, (err, data) => console.log(data));
+management.getUsersInRole({id: "role_id", per_page: 8}).then(users => console.log(users));
+management.getUsersInRole({id: "role_id", per_page: 8}, (err, data) => console.log(data));
+management.getUsersInRole({id: "role_id", include_totals: true}).then(userPage => console.log(userPage));
+management.getUsersInRole({id: "role_id", include_totals: true}, (err, data) => console.log(data));
+
+management.createClient({
+    name: 'client'
+});
+
+management.createClient({
+    name: 'client',
+    grant_types: ['implicit'],
+    jwt_configuration: {
+        lifetime_in_seconds: 300,
+        scopes: {},
+        alg: 'RS256',
+    },
+    encryption_key: {
+        pub: 'pub',
+        cert: 'cert',
+        subject: 'subject',
+    }
+});
+
+management.createEmailTemplate({name: 'template_name'}).then(data => {console.log(data)});
+management.createEmailTemplate({name: 'template_name'}, (err) => {console.log(err)});
+management.getEmailTemplate({name: 'template_name'}).then(data => {console.log(data)});
+management.getEmailTemplate({name: 'template_name'}, (err, data) => {console.log(data)});
+management.updateEmailTemplate({name: 'template_name'}, {type:'type'}).then(data => {console.log(data)});
+management.updateEmailTemplate({name: 'template_name'}, {type:'type'}, (err, data) => {console.log(data)});
+
+management.getUserBlocks({ id: 'user_id' })
+    .then(response => {
+        response.blocked_for.forEach(blockedFor => console.log(`${blockedFor.identifier}:${blockedFor.ip}`));
+    })
+    .catch(err => console.log('Error: ' + err));
+
+management.getUserBlocks({ id: 'user_id' }, (err, response) => {
+    if (err) {
+        console.log('Error: ' + err);
+        return;
+    }
+    response.blocked_for.forEach(blockedFor => console.log(`${blockedFor.identifier}:${blockedFor.ip}`));
+});
+
+management.getUserBlocksByIdentifier({ identifier: 'email' })
+    .then(response => {
+        response.blocked_for.forEach(blockedFor => console.log(`${blockedFor.identifier}:${blockedFor.ip}`));
+    })
+    .catch(err => console.log('Error: ' + err));
+
+management.getUserBlocksByIdentifier({ identifier: 'email' }, (err, response) => {
+    if (err) {
+        console.log('Error: ' + err);
+        return;
+    }
+    response.blocked_for.forEach(blockedFor => console.log(`${blockedFor.identifier}:${blockedFor.ip}`));
+});
+
+management.unblockUser({ id: 'user_id' })
+    .then(response => console.log(response))
+    .catch(err => console.log('Error: ' + err));
+
+management.unblockUser({ id: 'user_id' }, (err, response) => {
+    if (err) {
+        console.log('Error: ' + err);
+        return;
+    }
+    console.log(response);
+});
+
+management.unblockUserByIdentifier({ identifier: 'email' })
+    .then(response => console.log(response))
+    .catch(err => console.log('Error: ' + err));
+
+management.unblockUserByIdentifier({ identifier: 'email' }, (err, response) => {
+    if (err) {
+        console.log('Error: ' + err);
+        return;
+    }
+    console.log(response);
+});
+
+// Rules configurations
+management.setRulesConfig({key: 'test'}, {value: 'test'}).then((config) => console.log(config));
+management.setRulesConfig({key: 'test'}, {value: 'test'}, (err, config) => console.log(config));
+
+management.deleteRulesConfig({key: 'test'}).then(() => {});
+management.deleteRulesConfig({key: 'test'}, (err) => {});
+
+management.getRulesConfigs().then((configs) => console.log(configs));
+management.getRulesConfigs((err, configs) => console.log(configs));

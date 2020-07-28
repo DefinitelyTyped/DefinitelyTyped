@@ -1,6 +1,6 @@
 // Type definitions for sdp-transform 2.4
 // Project: https://github.com/clux/sdp-transform#readme
-// Definitions by: @loc <https://github.com/loc>
+// Definitions by: @loc <https://github.com/loc>, @muenchow <https://github.com/muenchow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // https://tools.ietf.org/html/rfc4566
@@ -39,6 +39,7 @@ export interface SessionDescription extends SharedDescriptionFields, SessionAttr
         sessionId: string | number;
         sessionVersion: number;
         netType: string;
+        ipVer: number;
         address: string;
     };
     // s=
@@ -81,12 +82,12 @@ export interface SharedAttributes {
     // a=control
     control?: string;
     // a=extmap
-    ext?: {
+    ext?: Array<{
         value: number;
         direction?: string;
         uri: string;
         config?: string;
-    };
+    }>;
     // a=setup
     setup?: string;
 
@@ -134,12 +135,12 @@ export interface SessionAttributes extends SharedAttributes {
  * https://www.iana.org/assignments/sdp-parameters/sdp-parameters.xhtml#sdp-parameters-9
  */
 export interface MediaAttributes extends SharedAttributes {
-    rtp?: {
+    rtp: Array<{
         payload: number;
         codec: string;
         rate?: number;
         encoding?: number;
-    };
+    }>;
     rtcp?: {
         port: number;
         netType?: string;
@@ -147,21 +148,21 @@ export interface MediaAttributes extends SharedAttributes {
         address?: string;
     };
     // a=rtcp-fb:98 nack rpsi
-    rtcpFb?: {
+    rtcpFb?: Array<{
         payload: number;
         type: string;
         subtype?: string;
-    };
+    }>;
     // a=rtcp-fb:98 trr-int 100
-    rtcpFbTrrInt?: {
+    rtcpFbTrrInt?: Array<{
         payload: number;
         value: number;
-    };
+    }>;
     // a=fmtp
-    fmtp?: {
+    fmtp: Array<{
         payload: number;
         config: string;
-    };
+    }>;
     // a=mid
     mid?: string;
     // a=msid
@@ -185,10 +186,10 @@ export interface MediaAttributes extends SharedAttributes {
         ip: string;
         port: number;
         type: string;
-        raddr: string;
-        rport: number;
-        tcptype: string;
-        generation: number;
+        raddr?: string;
+        rport?: number;
+        tcptype?: string;
+        generation?: number;
         'network-id'?: number;
         'network-cost'?: number;
     }>;
@@ -258,8 +259,8 @@ export interface SharedDescriptionFields {
         ip: string;
     };
     // b=AS:4000
-    bandwidth?: {
+    bandwidth?: Array<{
         type: 'TIAS' | 'AS' | 'CT' | 'RR' | 'RS';
         limit: number | string;
-    };
+    }>;
 }

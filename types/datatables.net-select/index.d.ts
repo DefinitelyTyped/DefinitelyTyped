@@ -81,4 +81,28 @@ declare namespace DataTables {
        */
       deselect(): Api;
     }
+
+    interface CellMethods {
+        /**
+         * Select cell
+         */
+        select(): Api;
+
+        /**
+         * Deselect a cell
+         */
+        deselect(): Api;
+    }
+
+    interface CellsMethods {
+        /**
+         * Select multiple cells
+         */
+        select(): Api;
+
+        /**
+         * Deselect cells
+         */
+        deselect(): Api;
+    }
 }

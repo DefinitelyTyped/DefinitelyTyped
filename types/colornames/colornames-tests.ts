@@ -1,19 +1,17 @@
 import colorNames = require("colornames");
 
+// $ExpectType string | undefined
+colorNames("red");
+// $ExpectType string | undefined
+colorNames("donkey");
 // $ExpectType Color
-const color = colorNames("red");
-
-// $ExpectType string
-color.value;
+const blue = colorNames.get("blue");
 // $ExpectType boolean | undefined
-color.css;
+blue.css;
 // $ExpectType boolean | undefined
-color.vga;
+blue.vga;
 // $ExpectType string
-color.name;
-
-// $ExpectType Color
-colorNames.get("blue");
+blue.name;
 // $ExpectType Color[]
 colorNames.get.all();
 // $ExpectType Color[]

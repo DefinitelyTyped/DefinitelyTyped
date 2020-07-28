@@ -1,19 +1,18 @@
 // Type definitions for Google Apps Script 2019-03-25
 // Project: https://developers.google.com/apps-script/
 // Generator: https://github.com/grant/google-apps-script-dts
-// Definitions by: grant <https://github.com/grant/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
   namespace Drive {
     namespace Collection {
-      export interface AboutCollection {
+      interface AboutCollection {
         // Gets the information about the current user along with Drive API settings
         get(): Drive.Schema.About;
         // Gets the information about the current user along with Drive API settings
         get(optionalArgs: object): Drive.Schema.About;
       }
-      export interface AppsCollection {
+      interface AppsCollection {
         // Gets a specific app.
         get(appId: string): Drive.Schema.App;
         // Lists a user's installed apps.
@@ -21,7 +20,7 @@ declare namespace GoogleAppsScript {
         // Lists a user's installed apps.
         list(optionalArgs: object): Drive.Schema.AppList;
       }
-      export interface ChangesCollection {
+      interface ChangesCollection {
         // Deprecated - Use changes.getStartPageToken and changes.list to retrieve recent changes.
         get(changeId: string): Drive.Schema.Change;
         // Deprecated - Use changes.getStartPageToken and changes.list to retrieve recent changes.
@@ -39,11 +38,11 @@ declare namespace GoogleAppsScript {
         // Subscribe to changes for a user.
         watch(resource: Schema.Channel, optionalArgs: object): Drive.Schema.Channel;
       }
-      export interface ChannelsCollection {
+      interface ChannelsCollection {
         // Stop watching resources through this channel
         stop(resource: Schema.Channel): void;
       }
-      export interface ChildrenCollection {
+      interface ChildrenCollection {
         // Gets a specific child reference.
         get(folderId: string, childId: string): Drive.Schema.ChildReference;
         // Inserts a file into a folder.
@@ -57,7 +56,7 @@ declare namespace GoogleAppsScript {
         // Removes a child from a folder.
         remove(folderId: string, childId: string): void;
       }
-      export interface CommentsCollection {
+      interface CommentsCollection {
         // Gets a comment by ID.
         get(fileId: string, commentId: string): Drive.Schema.Comment;
         // Gets a comment by ID.
@@ -75,7 +74,29 @@ declare namespace GoogleAppsScript {
         // Updates an existing comment.
         update(resource: Schema.Comment, fileId: string, commentId: string): Drive.Schema.Comment;
       }
-      export interface FilesCollection {
+      interface DrivesCollection {
+        // Gets a shared drive's metadata by ID.
+        get(driveId: string): Drive.Schema.Drive;
+        // Gets a shared drive's metadata by ID.
+        get(driveId: string, optionalArgs: object): Drive.Schema.Drive;
+        // Hides a shared drive from the default view.
+        hide(driveId: string): Drive.Schema.Drive;
+        // Creates a new shared drive.
+        insert(resource: Schema.Drive, requestId: string): Drive.Schema.Drive;
+        // Lists the user's shared drives.
+        list(): Drive.Schema.DriveList;
+        // Lists the user's shared drives.
+        list(optionalArgs: object): Drive.Schema.DriveList;
+        // Permanently deletes a shared drive for which the user is an organizer. The shared drive cannot contain any untrashed items.
+        remove(driveId: string): void;
+        // Restores a shared drive to the default view.
+        unhide(driveId: string): Drive.Schema.Drive;
+        // Updates the metadata for a shared drive.
+        update(resource: Schema.Drive, driveId: string): Drive.Schema.Drive;
+        // Updates the metadata for a shared drive.
+        update(resource: Schema.Drive, driveId: string, optionalArgs: object): Drive.Schema.Drive;
+      }
+      interface FilesCollection {
         // Creates a copy of the specified file.
         copy(resource: Schema.File, fileId: string): Drive.Schema.File;
         // Creates a copy of the specified file.
@@ -133,7 +154,7 @@ declare namespace GoogleAppsScript {
         // Subscribe to changes on a file
         watch(resource: Schema.Channel, fileId: string, optionalArgs: object): Drive.Schema.Channel;
       }
-      export interface ParentsCollection {
+      interface ParentsCollection {
         // Gets a specific parent reference.
         get(fileId: string, parentId: string): Drive.Schema.ParentReference;
         // Adds a parent folder for a file.
@@ -145,7 +166,7 @@ declare namespace GoogleAppsScript {
         // Removes a parent from a file.
         remove(fileId: string, parentId: string): void;
       }
-      export interface PermissionsCollection {
+      interface PermissionsCollection {
         // Gets a permission by ID.
         get(fileId: string, permissionId: string): Drive.Schema.Permission;
         // Gets a permission by ID.
@@ -173,7 +194,7 @@ declare namespace GoogleAppsScript {
         // Updates a permission.
         update(resource: Schema.Permission, fileId: string, permissionId: string, optionalArgs: object): Drive.Schema.Permission;
       }
-      export interface PropertiesCollection {
+      interface PropertiesCollection {
         // Gets a property by its key.
         get(fileId: string, propertyKey: string): Drive.Schema.Property;
         // Gets a property by its key.
@@ -195,7 +216,7 @@ declare namespace GoogleAppsScript {
         // Updates a property.
         update(resource: Schema.Property, fileId: string, propertyKey: string, optionalArgs: object): Drive.Schema.Property;
       }
-      export interface RealtimeCollection {
+      interface RealtimeCollection {
         // Exports the contents of the Realtime API data model associated with this file as JSON.
         get(fileId: string): void;
         // Exports the contents of the Realtime API data model associated with this file as JSON.
@@ -207,7 +228,7 @@ declare namespace GoogleAppsScript {
         // Overwrites the Realtime API data model associated with this file with the provided JSON data model.
         update(fileId: string, mediaData: any, optionalArgs: object): void;
       }
-      export interface RepliesCollection {
+      interface RepliesCollection {
         // Gets a reply.
         get(fileId: string, commentId: string, replyId: string): Drive.Schema.CommentReply;
         // Gets a reply.
@@ -225,7 +246,7 @@ declare namespace GoogleAppsScript {
         // Updates an existing reply.
         update(resource: Schema.CommentReply, fileId: string, commentId: string, replyId: string): Drive.Schema.CommentReply;
       }
-      export interface RevisionsCollection {
+      interface RevisionsCollection {
         // Gets a specific revision.
         get(fileId: string, revisionId: string): Drive.Schema.Revision;
         // Lists a file's revisions.
@@ -239,7 +260,7 @@ declare namespace GoogleAppsScript {
         // Updates a revision.
         update(resource: Schema.Revision, fileId: string, revisionId: string): Drive.Schema.Revision;
       }
-      export interface TeamdrivesCollection {
+      interface TeamdrivesCollection {
         // Gets a Team Drive's metadata by ID.
         get(teamDriveId: string): Drive.Schema.TeamDrive;
         // Gets a Team Drive's metadata by ID.
@@ -259,10 +280,12 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface About {
+      interface About {
         additionalRoleInfo?: Drive.Schema.AboutAdditionalRoleInfo[];
+        canCreateDrives?: boolean;
         canCreateTeamDrives?: boolean;
         domainSharingPolicy?: string;
+        driveThemes?: Drive.Schema.AboutDriveThemes[];
         etag?: string;
         exportFormats?: Drive.Schema.AboutExportFormats[];
         features?: Drive.Schema.AboutFeatures[];
@@ -287,40 +310,45 @@ declare namespace GoogleAppsScript {
         teamDriveThemes?: Drive.Schema.AboutTeamDriveThemes[];
         user?: Drive.Schema.User;
       }
-      export interface AboutAdditionalRoleInfo {
+      interface AboutAdditionalRoleInfo {
         roleSets?: Drive.Schema.AboutAdditionalRoleInfoRoleSets[];
         type?: string;
       }
-      export interface AboutAdditionalRoleInfoRoleSets {
+      interface AboutAdditionalRoleInfoRoleSets {
         additionalRoles?: string[];
         primaryRole?: string;
       }
-      export interface AboutExportFormats {
-        source?: string;
-        targets?: string[];
-      }
-      export interface AboutFeatures {
-        featureName?: string;
-        featureRate?: Number;
-      }
-      export interface AboutImportFormats {
-        source?: string;
-        targets?: string[];
-      }
-      export interface AboutMaxUploadSizes {
-        size?: string;
-        type?: string;
-      }
-      export interface AboutQuotaBytesByService {
-        bytesUsed?: string;
-        serviceName?: string;
-      }
-      export interface AboutTeamDriveThemes {
+      interface AboutDriveThemes {
         backgroundImageLink?: string;
         colorRgb?: string;
         id?: string;
       }
-      export interface App {
+      interface AboutExportFormats {
+        source?: string;
+        targets?: string[];
+      }
+      interface AboutFeatures {
+        featureName?: string;
+        featureRate?: number;
+      }
+      interface AboutImportFormats {
+        source?: string;
+        targets?: string[];
+      }
+      interface AboutMaxUploadSizes {
+        size?: string;
+        type?: string;
+      }
+      interface AboutQuotaBytesByService {
+        bytesUsed?: string;
+        serviceName?: string;
+      }
+      interface AboutTeamDriveThemes {
+        backgroundImageLink?: string;
+        colorRgb?: string;
+        id?: string;
+      }
+      interface App {
         authorized?: boolean;
         createInFolderTemplate?: string;
         createUrl?: string;
@@ -346,20 +374,22 @@ declare namespace GoogleAppsScript {
         supportsOfflineCreate?: boolean;
         useByDefault?: boolean;
       }
-      export interface AppIcons {
+      interface AppIcons {
         category?: string;
         iconUrl?: string;
         size?: number;
       }
-      export interface AppList {
+      interface AppList {
         defaultAppIds?: string[];
         etag?: string;
         items?: Drive.Schema.App[];
         kind?: string;
         selfLink?: string;
       }
-      export interface Change {
+      interface Change {
         deleted?: boolean;
+        drive?: Drive.Schema.Drive;
+        driveId?: string;
         file?: Drive.Schema.File;
         fileId?: string;
         id?: string;
@@ -370,7 +400,7 @@ declare namespace GoogleAppsScript {
         teamDriveId?: string;
         type?: string;
       }
-      export interface ChangeList {
+      interface ChangeList {
         etag?: string;
         items?: Drive.Schema.Change[];
         kind?: string;
@@ -380,7 +410,7 @@ declare namespace GoogleAppsScript {
         nextPageToken?: string;
         selfLink?: string;
       }
-      export interface Channel {
+      interface Channel {
         address?: string;
         expiration?: string;
         id?: string;
@@ -392,7 +422,7 @@ declare namespace GoogleAppsScript {
         token?: string;
         type?: string;
       }
-      export interface ChildList {
+      interface ChildList {
         etag?: string;
         items?: Drive.Schema.ChildReference[];
         kind?: string;
@@ -400,13 +430,13 @@ declare namespace GoogleAppsScript {
         nextPageToken?: string;
         selfLink?: string;
       }
-      export interface ChildReference {
+      interface ChildReference {
         childLink?: string;
         id?: string;
         kind?: string;
         selfLink?: string;
       }
-      export interface Comment {
+      interface Comment {
         anchor?: string;
         author?: Drive.Schema.User;
         commentId?: string;
@@ -423,18 +453,18 @@ declare namespace GoogleAppsScript {
         selfLink?: string;
         status?: string;
       }
-      export interface CommentContext {
+      interface CommentContext {
         type?: string;
         value?: string;
       }
-      export interface CommentList {
+      interface CommentList {
         items?: Drive.Schema.Comment[];
         kind?: string;
         nextLink?: string;
         nextPageToken?: string;
         selfLink?: string;
       }
-      export interface CommentReply {
+      interface CommentReply {
         author?: Drive.Schema.User;
         content?: string;
         createdDate?: string;
@@ -445,14 +475,64 @@ declare namespace GoogleAppsScript {
         replyId?: string;
         verb?: string;
       }
-      export interface CommentReplyList {
+      interface CommentReplyList {
         items?: Drive.Schema.CommentReply[];
         kind?: string;
         nextLink?: string;
         nextPageToken?: string;
         selfLink?: string;
       }
-      export interface File {
+      interface Drive {
+        backgroundImageFile?: Drive.Schema.DriveBackgroundImageFile;
+        backgroundImageLink?: string;
+        capabilities?: Drive.Schema.DriveCapabilities;
+        colorRgb?: string;
+        createdDate?: string;
+        hidden?: boolean;
+        id?: string;
+        kind?: string;
+        name?: string;
+        restrictions?: Drive.Schema.DriveRestrictions;
+        themeId?: string;
+      }
+      interface DriveBackgroundImageFile {
+        id?: string;
+        width?: number;
+        xCoordinate?: number;
+        yCoordinate?: number;
+      }
+      interface DriveCapabilities {
+        canAddChildren?: boolean;
+        canChangeCopyRequiresWriterPermissionRestriction?: boolean;
+        canChangeDomainUsersOnlyRestriction?: boolean;
+        canChangeDriveBackground?: boolean;
+        canChangeDriveMembersOnlyRestriction?: boolean;
+        canComment?: boolean;
+        canCopy?: boolean;
+        canDeleteChildren?: boolean;
+        canDeleteDrive?: boolean;
+        canDownload?: boolean;
+        canEdit?: boolean;
+        canListChildren?: boolean;
+        canManageMembers?: boolean;
+        canReadRevisions?: boolean;
+        canRename?: boolean;
+        canRenameDrive?: boolean;
+        canShare?: boolean;
+        canTrashChildren?: boolean;
+      }
+      interface DriveList {
+        items?: Drive.Schema.Drive[];
+        kind?: string;
+        nextPageToken?: string;
+      }
+      interface DriveRestrictions {
+        adminManagedRestrictions?: boolean;
+        copyRequiresWriterPermission?: boolean;
+        domainUsersOnly?: boolean;
+        driveMembersOnly?: boolean;
+      }
+      interface File {
         alternateLink?: string;
         appDataContents?: boolean;
         canComment?: boolean;
@@ -464,6 +544,7 @@ declare namespace GoogleAppsScript {
         defaultOpenWithLink?: string;
         description?: string;
         downloadUrl?: string;
+        driveId?: string;
         editable?: boolean;
         embedLink?: string;
         etag?: string;
@@ -521,7 +602,7 @@ declare namespace GoogleAppsScript {
         webViewLink?: string;
         writersCanShare?: boolean;
       }
-      export interface FileCapabilities {
+      interface FileCapabilities {
         canAddChildren?: boolean;
         canChangeCopyRequiresWriterPermission?: boolean;
         canChangeRestrictedDownload?: boolean;
@@ -532,13 +613,18 @@ declare namespace GoogleAppsScript {
         canDownload?: boolean;
         canEdit?: boolean;
         canListChildren?: boolean;
+        canMoveChildrenOutOfDrive?: boolean;
         canMoveChildrenOutOfTeamDrive?: boolean;
+        canMoveChildrenWithinDrive?: boolean;
         canMoveChildrenWithinTeamDrive?: boolean;
         canMoveItemIntoTeamDrive?: boolean;
+        canMoveItemOutOfDrive?: boolean;
         canMoveItemOutOfTeamDrive?: boolean;
+        canMoveItemWithinDrive?: boolean;
         canMoveItemWithinTeamDrive?: boolean;
         canMoveTeamDriveItem?: boolean;
         canReadRevisions?: boolean;
+        canReadDrive?: boolean;
         canReadTeamDrive?: boolean;
         canRemoveChildren?: boolean;
         canRename?: boolean;
@@ -547,22 +633,22 @@ declare namespace GoogleAppsScript {
         canTrashChildren?: boolean;
         canUntrash?: boolean;
       }
-      export interface FileImageMediaMetadata {
-        aperture?: Number;
+      interface FileImageMediaMetadata {
+        aperture?: number;
         cameraMake?: string;
         cameraModel?: string;
         colorSpace?: string;
         date?: string;
-        exposureBias?: Number;
+        exposureBias?: number;
         exposureMode?: string;
-        exposureTime?: Number;
+        exposureTime?: number;
         flashUsed?: boolean;
-        focalLength?: Number;
+        focalLength?: number;
         height?: number;
         isoSpeed?: number;
         lens?: string;
         location?: Drive.Schema.FileImageMediaMetadataLocation;
-        maxApertureValue?: Number;
+        maxApertureValue?: number;
         meteringMode?: string;
         rotation?: number;
         sensor?: string;
@@ -570,15 +656,15 @@ declare namespace GoogleAppsScript {
         whiteBalance?: string;
         width?: number;
       }
-      export interface FileImageMediaMetadataLocation {
-        altitude?: Number;
-        latitude?: Number;
-        longitude?: Number;
+      interface FileImageMediaMetadataLocation {
+        altitude?: number;
+        latitude?: number;
+        longitude?: number;
       }
-      export interface FileIndexableText {
+      interface FileIndexableText {
         text?: string;
       }
-      export interface FileLabels {
+      interface FileLabels {
         hidden?: boolean;
         modified?: boolean;
         restricted?: boolean;
@@ -586,7 +672,7 @@ declare namespace GoogleAppsScript {
         trashed?: boolean;
         viewed?: boolean;
       }
-      export interface FileList {
+      interface FileList {
         etag?: string;
         incompleteSearch?: boolean;
         items?: Drive.Schema.File[];
@@ -595,34 +681,34 @@ declare namespace GoogleAppsScript {
         nextPageToken?: string;
         selfLink?: string;
       }
-      export interface FileThumbnail {
+      interface FileThumbnail {
         image?: string;
         mimeType?: string;
       }
-      export interface FileVideoMediaMetadata {
+      interface FileVideoMediaMetadata {
         durationMillis?: string;
         height?: number;
         width?: number;
       }
-      export interface GeneratedIds {
+      interface GeneratedIds {
         ids?: string[];
         kind?: string;
         space?: string;
       }
-      export interface ParentList {
+      interface ParentList {
         etag?: string;
         items?: Drive.Schema.ParentReference[];
         kind?: string;
         selfLink?: string;
       }
-      export interface ParentReference {
+      interface ParentReference {
         id?: string;
         isRoot?: boolean;
         kind?: string;
         parentLink?: string;
         selfLink?: string;
       }
-      export interface Permission {
+      interface Permission {
         additionalRoles?: string[];
         authKey?: string;
         deleted?: boolean;
@@ -633,6 +719,7 @@ declare namespace GoogleAppsScript {
         id?: string;
         kind?: string;
         name?: string;
+        permissionDetails?: Drive.Schema.PermissionPermissionDetails[];
         photoLink?: string;
         role?: string;
         selfLink?: string;
@@ -641,25 +728,32 @@ declare namespace GoogleAppsScript {
         value?: string;
         withLink?: boolean;
       }
-      export interface PermissionId {
+      interface PermissionId {
         id?: string;
         kind?: string;
       }
-      export interface PermissionList {
+      interface PermissionList {
         etag?: string;
         items?: Drive.Schema.Permission[];
         kind?: string;
         nextPageToken?: string;
         selfLink?: string;
       }
-      export interface PermissionTeamDrivePermissionDetails {
+      interface PermissionPermissionDetails {
+        additionalRoles?: string[];
+        inherited?: boolean;
+        inheritedFrom?: string;
+        permissionType?: string;
+        role?: string;
+      }
+      interface PermissionTeamDrivePermissionDetails {
         additionalRoles?: string[];
         inherited?: boolean;
         inheritedFrom?: string;
         role?: string;
         teamDrivePermissionType?: string;
       }
-      export interface Property {
+      interface Property {
         etag?: string;
         key?: string;
         kind?: string;
@@ -667,13 +761,13 @@ declare namespace GoogleAppsScript {
         value?: string;
         visibility?: string;
       }
-      export interface PropertyList {
+      interface PropertyList {
         etag?: string;
         items?: Drive.Schema.Property[];
         kind?: string;
         selfLink?: string;
       }
-      export interface Revision {
+      interface Revision {
         downloadUrl?: string;
         etag?: string;
         exportLinks?: object;
@@ -693,18 +787,18 @@ declare namespace GoogleAppsScript {
         publishedOutsideDomain?: boolean;
         selfLink?: string;
       }
-      export interface RevisionList {
+      interface RevisionList {
         etag?: string;
         items?: Drive.Schema.Revision[];
         kind?: string;
         nextPageToken?: string;
         selfLink?: string;
       }
-      export interface StartPageToken {
+      interface StartPageToken {
         kind?: string;
         startPageToken?: string;
       }
-      export interface TeamDrive {
+      interface TeamDrive {
         backgroundImageFile?: Drive.Schema.TeamDriveBackgroundImageFile;
         backgroundImageLink?: string;
         capabilities?: Drive.Schema.TeamDriveCapabilities;
@@ -716,13 +810,13 @@ declare namespace GoogleAppsScript {
         restrictions?: Drive.Schema.TeamDriveRestrictions;
         themeId?: string;
       }
-      export interface TeamDriveBackgroundImageFile {
+      interface TeamDriveBackgroundImageFile {
         id?: string;
-        width?: Number;
-        xCoordinate?: Number;
-        yCoordinate?: Number;
+        width?: number;
+        xCoordinate?: number;
+        yCoordinate?: number;
       }
-      export interface TeamDriveCapabilities {
+      interface TeamDriveCapabilities {
         canAddChildren?: boolean;
         canChangeCopyRequiresWriterPermissionRestriction?: boolean;
         canChangeDomainUsersOnlyRestriction?: boolean;
@@ -743,18 +837,18 @@ declare namespace GoogleAppsScript {
         canShare?: boolean;
         canTrashChildren?: boolean;
       }
-      export interface TeamDriveList {
+      interface TeamDriveList {
         items?: Drive.Schema.TeamDrive[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface TeamDriveRestrictions {
+      interface TeamDriveRestrictions {
         adminManagedRestrictions?: boolean;
         copyRequiresWriterPermission?: boolean;
         domainUsersOnly?: boolean;
         teamMembersOnly?: boolean;
       }
-      export interface User {
+      interface User {
         displayName?: string;
         emailAddress?: string;
         isAuthenticatedUser?: boolean;
@@ -762,18 +856,19 @@ declare namespace GoogleAppsScript {
         permissionId?: string;
         picture?: Drive.Schema.UserPicture;
       }
-      export interface UserPicture {
+      interface UserPicture {
         url?: string;
       }
     }
   }
-  export interface Drive {
+  interface Drive {
     About?: Drive.Collection.AboutCollection;
     Apps?: Drive.Collection.AppsCollection;
     Changes?: Drive.Collection.ChangesCollection;
     Channels?: Drive.Collection.ChannelsCollection;
     Children?: Drive.Collection.ChildrenCollection;
     Comments?: Drive.Collection.CommentsCollection;
+    Drives?: Drive.Collection.DrivesCollection;
     Files?: Drive.Collection.FilesCollection;
     Parents?: Drive.Collection.ParentsCollection;
     Permissions?: Drive.Collection.PermissionsCollection;
@@ -792,6 +887,14 @@ declare namespace GoogleAppsScript {
     newCommentContext(): Drive.Schema.CommentContext;
     // Create a new instance of CommentReply
     newCommentReply(): Drive.Schema.CommentReply;
+    // Create a new instance of Drive
+    newDrive(): Drive.Schema.Drive;
+    // Create a new instance of DriveBackgroundImageFile
+    newDriveBackgroundImageFile(): Drive.Schema.DriveBackgroundImageFile;
+    // Create a new instance of DriveCapabilities
+    newDriveCapabilities(): Drive.Schema.DriveCapabilities;
+    // Create a new instance of DriveRestrictions
+    newDriveRestrictions(): Drive.Schema.DriveRestrictions;
     // Create a new instance of File
     newFile(): Drive.Schema.File;
     // Create a new instance of FileCapabilities
@@ -812,6 +915,8 @@ declare namespace GoogleAppsScript {
     newParentReference(): Drive.Schema.ParentReference;
     // Create a new instance of Permission
     newPermission(): Drive.Schema.Permission;
+    // Create a new instance of PermissionPermissionDetails
+    newPermissionPermissionDetails(): Drive.Schema.PermissionPermissionDetails;
     // Create a new instance of PermissionTeamDrivePermissionDetails
     newPermissionTeamDrivePermissionDetails(): Drive.Schema.PermissionTeamDrivePermissionDetails;
     // Create a new instance of Property

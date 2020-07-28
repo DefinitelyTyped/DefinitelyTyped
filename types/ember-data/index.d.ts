@@ -1,10 +1,12 @@
-// Type definitions for ember-data 3.1
+// Type definitions for ember-data 3.16
 // Project: https://github.com/emberjs/data
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
+//                 James C. Davis <https://github.com/jamescdavis>
+//                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 import Ember from 'ember';
 import Evented from '@ember/object/evented';
@@ -35,11 +37,18 @@ interface AttributeMeta<Model extends DS.Model> {
     parentType: Model;
     isAttribute: true;
 }
+
+interface RelationshipMetaOptions {
+    async?: boolean;
+    inverse?: string;
+    polymorphic?: boolean;
+    [k: string]: any;
+}
 interface RelationshipMeta<Model extends DS.Model> {
     key: RelationshipsFor<Model>;
     kind: 'belongsTo' | 'hasMany';
     type: keyof ModelRegistry;
-    options: object;
+    options: RelationshipMetaOptions;
     name: string;
     parentType: Model;
     isRelationship: true;
@@ -447,6 +456,10 @@ export namespace DS {
          * attribute.
          */
         id: string;
+        /**
+         * A reference to DS.Store service instance.
+         */
+        store: Store;
         /**
          * When the record is in the `invalid` state this object will contain
          * any errors returned by the adapter. When present the errors hash
@@ -957,7 +970,7 @@ export namespace DS {
          */
         snapshots(): Snapshot[];
     }
-    class Snapshot<K extends keyof ModelRegistry = any> {
+    class Snapshot<K extends keyof ModelRegistry = keyof ModelRegistry> {
         /**
          * The underlying record for this snapshot. Can be used to access methods and
          * properties defined on the record.
@@ -1046,7 +1059,7 @@ export namespace DS {
      * the individual data for a record, so that they can be bound to in your
      * Handlebars templates.
      */
-    class Store {
+    class Store extends Ember.Service {
         /**
          * The default adapter to use to communicate to a backend server or
          * other persistence layer. This will be overridden by an application

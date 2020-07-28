@@ -1,14 +1,13 @@
 // Type definitions for Google Apps Script 2019-03-25
 // Project: https://developers.google.com/apps-script/
 // Generator: https://github.com/grant/google-apps-script-dts
-// Definitions by: grant <https://github.com/grant/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
   namespace People {
     namespace Collection {
       namespace ContactGroups {
-        export interface MembersCollection {
+        interface MembersCollection {
           // Modify the members of a contact group owned by the authenticated user.
           // <br>
           // The only system contact groups that can have members added are
@@ -18,7 +17,7 @@ declare namespace GoogleAppsScript {
         }
       }
       namespace People {
-        export interface ConnectionsCollection {
+        interface ConnectionsCollection {
           // Provides a list of the authenticated user's contacts merged with any
           // connected profiles.
           // <br>
@@ -31,7 +30,7 @@ declare namespace GoogleAppsScript {
           list(resourceName: string, optionalArgs: object): Schema.ListConnectionsResponse;
         }
       }
-      export interface ContactGroupsCollection {
+      interface ContactGroupsCollection {
         Members?: Collection.ContactGroups.MembersCollection;
         // Get a list of contact groups owned by the authenticated user by specifying
         // a list of contact group resource names.
@@ -63,7 +62,7 @@ declare namespace GoogleAppsScript {
         // user.
         update(resource: Schema.UpdateContactGroupRequest, resourceName: string): Schema.ContactGroup;
       }
-      export interface PeopleCollection {
+      interface PeopleCollection {
         Connections?: Collection.People.ConnectionsCollection;
         // Create a new contact and return the person resource for that contact.
         createContact(resource: Schema.Person): Schema.Person;
@@ -120,7 +119,7 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface Address {
+      interface Address {
         city?: string;
         country?: string;
         countryCode?: string;
@@ -134,28 +133,28 @@ declare namespace GoogleAppsScript {
         streetAddress?: string;
         type?: string;
       }
-      export interface AgeRangeType {
+      interface AgeRangeType {
         ageRange?: string;
         metadata?: People.Schema.FieldMetadata;
       }
-      export interface BatchGetContactGroupsResponse {
+      interface BatchGetContactGroupsResponse {
         responses?: People.Schema.ContactGroupResponse[];
       }
-      export interface Biography {
+      interface Biography {
         contentType?: string;
         metadata?: People.Schema.FieldMetadata;
         value?: string;
       }
-      export interface Birthday {
+      interface Birthday {
         date?: People.Schema.Date;
         metadata?: People.Schema.FieldMetadata;
         text?: string;
       }
-      export interface BraggingRights {
+      interface BraggingRights {
         metadata?: People.Schema.FieldMetadata;
         value?: string;
       }
-      export interface ContactGroup {
+      interface ContactGroup {
         etag?: string;
         formattedName?: string;
         groupType?: string;
@@ -165,61 +164,61 @@ declare namespace GoogleAppsScript {
         name?: string;
         resourceName?: string;
       }
-      export interface ContactGroupMembership {
+      interface ContactGroupMembership {
         contactGroupId?: string;
       }
-      export interface ContactGroupMetadata {
+      interface ContactGroupMetadata {
         deleted?: boolean;
         updateTime?: string;
       }
-      export interface ContactGroupResponse {
+      interface ContactGroupResponse {
         contactGroup?: People.Schema.ContactGroup;
         requestedResourceName?: string;
         status?: People.Schema.Status;
       }
-      export interface CoverPhoto {
+      interface CoverPhoto {
         default?: boolean;
         metadata?: People.Schema.FieldMetadata;
         url?: string;
       }
-      export interface CreateContactGroupRequest {
+      interface CreateContactGroupRequest {
         contactGroup?: People.Schema.ContactGroup;
       }
-      export interface Date {
+      interface Date {
         day?: number;
         month?: number;
         year?: number;
       }
-      export interface DomainMembership {
+      interface DomainMembership {
         inViewerDomain?: boolean;
       }
-      export interface EmailAddress {
+      interface EmailAddress {
         displayName?: string;
         formattedType?: string;
         metadata?: People.Schema.FieldMetadata;
         type?: string;
         value?: string;
       }
-      export interface Event {
+      interface Event {
         date?: People.Schema.Date;
         formattedType?: string;
         metadata?: People.Schema.FieldMetadata;
         type?: string;
       }
-      export interface FieldMetadata {
+      interface FieldMetadata {
         primary?: boolean;
         source?: People.Schema.Source;
         verified?: boolean;
       }
-      export interface Gender {
+      interface Gender {
         formattedValue?: string;
         metadata?: People.Schema.FieldMetadata;
         value?: string;
       }
-      export interface GetPeopleResponse {
+      interface GetPeopleResponse {
         responses?: People.Schema.PersonResponse[];
       }
-      export interface ImClient {
+      interface ImClient {
         formattedProtocol?: string;
         formattedType?: string;
         metadata?: People.Schema.FieldMetadata;
@@ -227,40 +226,40 @@ declare namespace GoogleAppsScript {
         type?: string;
         username?: string;
       }
-      export interface Interest {
+      interface Interest {
         metadata?: People.Schema.FieldMetadata;
         value?: string;
       }
-      export interface ListConnectionsResponse {
+      interface ListConnectionsResponse {
         connections?: People.Schema.Person[];
         nextPageToken?: string;
         nextSyncToken?: string;
         totalItems?: number;
         totalPeople?: number;
       }
-      export interface ListContactGroupsResponse {
+      interface ListContactGroupsResponse {
         contactGroups?: People.Schema.ContactGroup[];
         nextPageToken?: string;
         nextSyncToken?: string;
         totalItems?: number;
       }
-      export interface Locale {
+      interface Locale {
         metadata?: People.Schema.FieldMetadata;
         value?: string;
       }
-      export interface Membership {
+      interface Membership {
         contactGroupMembership?: People.Schema.ContactGroupMembership;
         domainMembership?: People.Schema.DomainMembership;
         metadata?: People.Schema.FieldMetadata;
       }
-      export interface ModifyContactGroupMembersRequest {
+      interface ModifyContactGroupMembersRequest {
         resourceNamesToAdd?: string[];
         resourceNamesToRemove?: string[];
       }
-      export interface ModifyContactGroupMembersResponse {
+      interface ModifyContactGroupMembersResponse {
         notFoundResourceNames?: string[];
       }
-      export interface Name {
+      interface Name {
         displayName?: string;
         displayNameLastFirst?: string;
         familyName?: string;
@@ -276,16 +275,16 @@ declare namespace GoogleAppsScript {
         phoneticHonorificSuffix?: string;
         phoneticMiddleName?: string;
       }
-      export interface Nickname {
+      interface Nickname {
         metadata?: People.Schema.FieldMetadata;
         type?: string;
         value?: string;
       }
-      export interface Occupation {
+      interface Occupation {
         metadata?: People.Schema.FieldMetadata;
         value?: string;
       }
-      export interface Organization {
+      interface Organization {
         current?: boolean;
         department?: string;
         domain?: string;
@@ -301,7 +300,7 @@ declare namespace GoogleAppsScript {
         title?: string;
         type?: string;
       }
-      export interface Person {
+      interface Person {
         addresses?: People.Schema.Address[];
         ageRange?: string;
         ageRanges?: People.Schema.AgeRangeType[];
@@ -335,99 +334,99 @@ declare namespace GoogleAppsScript {
         urls?: People.Schema.Url[];
         userDefined?: People.Schema.UserDefined[];
       }
-      export interface PersonMetadata {
+      interface PersonMetadata {
         deleted?: boolean;
         linkedPeopleResourceNames?: string[];
         objectType?: string;
         previousResourceNames?: string[];
         sources?: People.Schema.Source[];
       }
-      export interface PersonResponse {
+      interface PersonResponse {
         httpStatusCode?: number;
         person?: People.Schema.Person;
         requestedResourceName?: string;
         status?: People.Schema.Status;
       }
-      export interface PhoneNumber {
+      interface PhoneNumber {
         canonicalForm?: string;
         formattedType?: string;
         metadata?: People.Schema.FieldMetadata;
         type?: string;
         value?: string;
       }
-      export interface Photo {
+      interface Photo {
         default?: boolean;
         metadata?: People.Schema.FieldMetadata;
         url?: string;
       }
-      export interface ProfileMetadata {
+      interface ProfileMetadata {
         objectType?: string;
         userTypes?: string[];
       }
-      export interface Relation {
+      interface Relation {
         formattedType?: string;
         metadata?: People.Schema.FieldMetadata;
         person?: string;
         type?: string;
       }
-      export interface RelationshipInterest {
+      interface RelationshipInterest {
         formattedValue?: string;
         metadata?: People.Schema.FieldMetadata;
         value?: string;
       }
-      export interface RelationshipStatus {
+      interface RelationshipStatus {
         formattedValue?: string;
         metadata?: People.Schema.FieldMetadata;
         value?: string;
       }
-      export interface Residence {
+      interface Residence {
         current?: boolean;
         metadata?: People.Schema.FieldMetadata;
         value?: string;
       }
-      export interface SipAddress {
+      interface SipAddress {
         formattedType?: string;
         metadata?: People.Schema.FieldMetadata;
         type?: string;
         value?: string;
       }
-      export interface Skill {
+      interface Skill {
         metadata?: People.Schema.FieldMetadata;
         value?: string;
       }
-      export interface Source {
+      interface Source {
         etag?: string;
         id?: string;
         profileMetadata?: People.Schema.ProfileMetadata;
         type?: string;
         updateTime?: string;
       }
-      export interface Status {
+      interface Status {
         code?: number;
-        details?: Object[];
+        details?: object[];
         message?: string;
       }
-      export interface Tagline {
+      interface Tagline {
         metadata?: People.Schema.FieldMetadata;
         value?: string;
       }
-      export interface UpdateContactGroupRequest {
+      interface UpdateContactGroupRequest {
         contactGroup?: People.Schema.ContactGroup;
       }
-      export interface Url {
+      interface Url {
         formattedType?: string;
         metadata?: People.Schema.FieldMetadata;
         type?: string;
         value?: string;
       }
-      export interface UserDefined {
+      interface UserDefined {
         key?: string;
         metadata?: People.Schema.FieldMetadata;
         value?: string;
       }
     }
   }
-  export interface People {
+  interface People {
     ContactGroups?: People.Collection.ContactGroupsCollection;
     People?: People.Collection.PeopleCollection;
     // Create a new instance of Address

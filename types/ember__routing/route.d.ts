@@ -1,9 +1,12 @@
-import EmberObject from "@ember/object";
-import ActionHandler from "@ember/object/-private/action-handler";
-import Transition from "@ember/routing/-private/transition";
-import Evented from "@ember/object/evented";
-import { RenderOptions, RouteQueryParam } from "@ember/routing/types";
+import EmberObject from '@ember/object';
+import ActionHandler from '@ember/object/-private/action-handler';
+import Transition from '@ember/routing/-private/transition';
+import Evented from '@ember/object/evented';
+import { RenderOptions, RouteQueryParam } from '@ember/routing/types';
 import Controller, { Registry as ControllerRegistry } from '@ember/controller';
+
+// tslint:disable-next-line:strict-export-declare-modifiers
+type RouteModel = object | string | number;
 
 /**
  * The `Ember.Route` class is used to define individual routes. Refer to
@@ -125,8 +128,11 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * (indicated by an `{{outlet}}`). `render` is used both during the entry
      * phase of routing (via the `renderTemplate` hook) and later in response to
      * user interaction.
+     * Not all options need to be passed to render. Default values will be used
+     * based on the name of the route specified in the router or the Route's
+     * controllerName and templateName properties.
      */
-    render(name: string, options?: RenderOptions): void;
+    render(name?: string, options?: RenderOptions): void;
 
     /**
      * A hook you can use to render the template for the current route.
@@ -150,7 +156,7 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * A hook you can use to reset controller values either when the model
      * changes or the route is exiting.
      */
-    resetController(controller: Controller, isExiting: boolean, transition: any): void;
+    resetController(controller: Controller, isExiting: boolean, transition: Transition): void;
 
     /**
      * Sends an action to the router, which will delegate it to the currently active
@@ -182,23 +188,217 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * when implementing your `setupController` function, make sure to call
      * `_super`
      */
-    setupController(controller: Controller, model: {}): void;
+    setupController(controller: Controller, model: {}, transition: Transition): void;
 
     /**
      * Transition the application into another route. The route may
-     * be either a single route or route path
+     * be either a single route or route path:
+     *
+     * ```javascript
+     * this.transitionTo('blogPosts');
+     * this.transitionTo('blogPosts.recentEntries');
+     * ```
+     *
+     * Optionally supply a model for the route in question. The model
+     * will be serialized into the URL using the `serialize` hook of
+     * the route:
+     *
+     * ```javascript
+     * this.transitionTo('blogPost', aPost);
+     * ```
+     *
+     * If a literal is passed (such as a number or a string), it will
+     * be treated as an identifier instead. In this case, the `model`
+     * hook of the route will be triggered:
+     *
+     * ```javascript
+     * this.transitionTo('blogPost', 1);
+     * ```
+     *
+     * Multiple models will be applied last to first recursively up the
+     * route tree.
+     *
+     * ```app/routes.js
+     * // ...
+     *
+     * Router.map(function() {
+     *   this.route('blogPost', { path:':blogPostId' }, function() {
+     *     this.route('blogComment', { path: ':blogCommentId' });
+     *   });
+     * });
+     *
+     * export default Router;
+     * ```
+     *
+     * ```javascript
+     * this.transitionTo('blogComment', aPost, aComment);
+     * this.transitionTo('blogComment', 1, 13);
+     * ```
+     *
+     * It is also possible to pass a URL (a string that starts with a
+     * `/`).
+     *
+     * ```javascript
+     * this.transitionTo('/');
+     * this.transitionTo('/blog/post/1/comment/13');
+     * this.transitionTo('/blog/posts?sort=title');
+     * ```
+     *
+     * An options hash with a `queryParams` property may be provided as
+     * the final argument to add query parameters to the destination URL.
+     *
+     * ```javascript
+     * this.transitionTo('blogPost', 1, {
+     *   queryParams: { showComments: 'true' }
+     * });
+     *
+     * // if you just want to transition the query parameters without changing the route
+     * this.transitionTo({ queryParams: { sort: 'date' } });
+     * ```
+     *
+     * See also [replaceWith](#method_replaceWith).
+     *
+     * Simple Transition Example
+     *
+     * ```app/routes.js
+     * // ...
+     *
+     * Router.map(function() {
+     *   this.route('index');
+     *   this.route('secret');
+     *   this.route('fourOhFour', { path: '*:' });
+     * });
+     *
+     * export default Router;
+     * ```
+     *
+     * ```app/routes/index.js
+     * import Route from '@ember/routing/route';
+     * import { action } from '@ember/object';
+     *
+     * export default class IndexRoute extends Route {
+     *   @action
+     *   moveToSecret(context) {
+     *     if (authorized()) {
+     *       this.transitionTo('secret', context);
+     *     } else {
+     *       this.transitionTo('fourOhFour');
+     *     }
+     *   }
+     * }
+     * ```
+     *
+     * Transition to a nested route
+     *
+     * ```app/router.js
+     * // ...
+     *
+     * Router.map(function() {
+     *   this.route('articles', { path: '/articles' }, function() {
+     *     this.route('new');
+     *   });
+     * });
+     *
+     * export default Router;
+     * ```
+     *
+     * ```app/routes/index.js
+     * import Route from '@ember/routing/route';
+     * import { action } from '@ember/object';
+     *
+     * export default class IndexRoute extends Route {
+     *   @action
+     *   transitionToNewArticle() {
+     *     this.transitionTo('articles.new');
+     *   }
+     * }
+     * ```
+     *
+     * Multiple Models Example
+     *
+     * ```app/router.js
+     * // ...
+     *
+     * Router.map(function() {
+     *   this.route('index');
+     *
+     *   this.route('breakfast', { path: ':breakfastId' }, function() {
+     *     this.route('cereal', { path: ':cerealId' });
+     *   });
+     * });
+     *
+     * export default Router;
+     * ```
+     *
+     * ```app/routes/index.js
+     * import Route from '@ember/routing/route';
+     * import { action } from '@ember/object';
+     *
+     * export default class IndexRoute extends Route {
+     *   @action
+     *   moveToChocolateCereal() {
+     *     let cereal = { cerealId: 'ChocolateYumminess' };
+     *     let breakfast = { breakfastId: 'CerealAndMilk' };
+     *
+     *     this.transitionTo('breakfast.cereal', breakfast, cereal);
+     *   }
+     * }
+     * ```
+     *
+     * Nested Route with Query String Example
+     *
+     * ```app/routes.js
+     * // ...
+     *
+     * Router.map(function() {
+     *   this.route('fruits', function() {
+     *     this.route('apples');
+     *   });
+     * });
+     *
+     * export default Router;
+     * ```
+     *
+     * ```app/routes/index.js
+     * import Route from '@ember/routing/route';
+     *
+     * export default class IndexRoute extends Route {
+     *   @action
+     *   transitionToApples() {
+     *     this.transitionTo('fruits.apples', { queryParams: { color: 'red' } });
+     *   }
+     * }
+     * ```
+     *
+     * @param name    the name of the route or a URL.
+     * @param models  the model(s) or identifier(s) to be used while
+     *                transitioning to the route.
+     * @param options optional hash with a queryParams property
+     *                containing a mapping of query parameters. May be supplied
+     *                as the only parameter to trigger a query-parameter-only
+     *                transition.
+     * @returns       the Transition object associated with this attempted
+     *                transition
      */
-    transitionTo(name: string, ...object: any[]): Transition;
-
-    /**
-     * The name of the view to use by default when rendering this routes template.
-     * When rendering a template, the route will, by default, determine the
-     * template and view to use from the name of the route itself. If you need to
-     * define a specific view, set this property.
-     * This is useful when multiple routes would benefit from using the same view
-     * because it doesn't require a custom `renderTemplate` method.
-     */
-    transitionTo(name: string, ...object: any[]): Transition;
+    transitionTo(name: string, options?: { queryParams: object }): Transition;
+    transitionTo(name: string, modelsA: RouteModel, options?: { queryParams: object }): Transition;
+    transitionTo(name: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): Transition;
+    transitionTo(
+        name: string,
+        modelsA: RouteModel,
+        modelsB: RouteModel,
+        modelsC: RouteModel,
+        options?: { queryParams: object },
+    ): Transition;
+    transitionTo(
+        name: string,
+        modelsA: RouteModel,
+        modelsB: RouteModel,
+        modelsC: RouteModel,
+        modelsD: RouteModel,
+        options?: { queryParams: object },
+    ): Transition;
+    transitionTo(options: { queryParams: object }): Transition;
 
     // https://emberjs.com/api/ember/3.2/classes/Route/methods/intermediateTransitionTo?anchor=intermediateTransitionTo
     /**

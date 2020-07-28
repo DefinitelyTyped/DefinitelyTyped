@@ -1,4 +1,4 @@
-import { Validator, Requireable, PureComponent } from "react";
+import { Validator, Requireable, PureComponent } from 'react';
 
 /**
  * Specifies the number of miliseconds during which to disable pointer events while a scroll is in progress.
@@ -13,6 +13,7 @@ export type WindowScrollerChildProps = {
     scrollTop: number;
     scrollLeft: number;
     onChildScroll: (params: { scrollTop: number }) => void;
+    registerChild: (element?: React.ReactNode) => void;
 };
 
 export type WindowScrollerProps = {
@@ -59,10 +60,7 @@ export type WindowScrollerState = {
     scrollTop: number;
 };
 
-export class WindowScroller extends PureComponent<
-    WindowScrollerProps,
-    WindowScrollerState
-> {
+export class WindowScroller extends PureComponent<WindowScrollerProps, WindowScrollerState> {
     static defaultProps: {
         onResize: () => void;
         onScroll: () => void;

@@ -83,7 +83,7 @@ async.detectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err, re
 async.detectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, (err, result) => { });
 
 async.sortBy(['file1', 'file2', 'file3'], (file, callback) => {
-    fs.stat(file, (err, stats) => { callback(err, stats.mtime); });
+    fs.stat(file, (err, stats) => { callback(err, stats ? stats.mtime : -1); });
 }, (err, results) => { });
 
 async.some(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, result: boolean) => { });
@@ -179,7 +179,7 @@ const q = async.queue<any>((task: any, callback: (err?: Error, msg?: string) => 
     callback(undefined, 'a message.');
 }, 2);
 
-q.drain = () => { console.log('all items have been processed'); };
+q.drain(() => { console.log('all items have been processed'); });
 
 q.push({ name: 'foo' });
 q.push({ name: 'bar' }, err => { console.log('finished processing bar'); });
@@ -196,11 +196,11 @@ const qPaused: boolean = q.paused;
 const qProcessingCount: number = q.running();
 const qIsIdle: boolean = q.idle();
 
-q.saturated = () => { console.log('queue is saturated.'); };
+q.saturated(() => { console.log('queue is saturated.'); });
 
-q.empty = () => { console.log('queue is empty.'); };
+q.empty(() => { console.log('queue is empty.'); });
 
-q.drain = () => { console.log('queue was drained.'); };
+q.drain(() => { console.log('queue was drained.'); });
 
 q.pause();
 q.resume();
@@ -223,8 +223,9 @@ q2.unshift(['task3', 'task4', 'task5'], error => { console.log('Finished tasks')
 const q2Length = q2.length();
 q2.push('testRemovalTask');
 q2.remove(x => x.data === 'testTaskRemoval');
+
 if (q2Length !== q2.length()) {
-    throw new Error('Failed to remove a task from queue.');
+  console.log('warning: Failed to remove a task from queue.');
 }
 
 const aq = async.queue<number, number>((level: number, callback: (error?: Error, newLevel?: number) => void) => {
@@ -236,6 +237,18 @@ aq.push(1, (err: Error, newLevel: number) => {
     console.log('finished processing bar' + newLevel);
 });
 
+// tests for the error method of queue
+const q3 = async.queue<string>((task: string, callback: ErrorCallback) => {
+    callback(new Error(task));
+}, 1);
+
+q3.error((error, task) => {
+    console.log('task: ' +  task);
+    console.log('error: ' + error);
+});
+
+q3.push(["task1", "task2", "task3"]);
+
 // create a cargo object with payload 2
 const cargo = async.cargo((tasks, callback) => {
     for (const task of tasks) {
@@ -243,6 +256,8 @@ const cargo = async.cargo((tasks, callback) => {
     }
     callback();
 }, 2);
+cargo.drain(); // $ExpectType Promise<void>
+cargo.drain(() => { console.log('done processing queue'); }); // $ExpectType void
 
 // add some items
 cargo.push({ name: 'foo' }, (err: Error) => { console.log('finished processing foo'); });
@@ -297,9 +312,47 @@ async.auto<A>({
     (err, results) => { console.log('finished auto'); }
 );
 
-async.retry(3, (callback, results) => { }, (err, result) => { });
-async.retry({ times: 3, interval: 200 }, (callback, results) => { }, (err, result) => { });
-async.retry({ times: 3, interval: (retryCount) => 200 * retryCount }, (callback, results) => { }, (err, result) => { });
+async.retry(); // $ExpectType Promise<void>
+async.retry(3); // $ExpectType Promise<void>
+// $ExpectType Promise<void>
+async.retry(
+    3,
+    (callback, results) => {},
+);
+// $ExpectType void
+async.retry(
+    { times: 3, interval: 200 },
+    (callback, results) => {},
+    (err, result) => {},
+);
+// $ExpectType void
+async.retry(
+    { times: 3, interval: retryCount => 200 * retryCount },
+    (callback, results) => {},
+    (err, result) => {},
+);
+// $ExpectType void
+async.retry(
+    { times: 3, interval: 200, errorFilter: err => true },
+    (callback, results) => {},
+    (err, result) => {},
+);
+
+async.retryable(
+    (callback) => {},
+);
+async.retryable(
+    3,
+    (callback) => {},
+);
+async.retryable(
+    { times: 3, interval: 200 },
+    (callback) => {},
+);
+async.retryable(
+    { times: 3, interval: retryCount => 200 * retryCount },
+    (callback) => {},
+);
 
 async.parallel([
         (callback: (err: Error, val: string) => void) => { },
@@ -570,23 +623,23 @@ async.some<number>(
 // timeout
 
 function myFunction1(foo: any, callback: (err?: Error, result?: any) => void): void {
-	console.log(`async.timeout 1 ${foo}`);
-	callback(undefined, foo);
+    console.log(`async.timeout 1 ${foo}`);
+    callback(undefined, foo);
 }
 const wrapped1 = async.timeout(myFunction1, 1000);
 wrapped1({ bar: 'bar' }, (err: Error, data: any) => { console.log(`async.timeout 1 end ${data}`); });
 
 function myFunction2(callback: (err?: Error, result?: any) => void): void {
-	console.log(`async.timeout 2`);
-	callback(undefined, { bar: 'bar' });
+    console.log(`async.timeout 2`);
+    callback(undefined, { bar: 'bar' });
 }
 
 const wrapped2 = async.timeout(myFunction2, 1000);
 wrapped2((err: Error, data: any) => { console.log(`async.timeout 2 end ${data}`); });
 
 function myFunction3(callback: (err?: Error, result?: any) => void): void {
-	console.log(`async.timeout 3`);
-	callback(undefined, { bar: 'bar' });
+    console.log(`async.timeout 3`);
+    callback(undefined, { bar: 'bar' });
 }
 
 const wrapped3 = async.timeout(myFunction3, 1000, { bar: 'bar' });

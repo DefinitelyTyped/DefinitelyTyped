@@ -1,8 +1,9 @@
-// Type definitions for unzipper 0.9
+// Type definitions for unzipper 0.10
 // Project: https://github.com/ZJONSSON/node-unzipper#readme
 // Definitions by: s73obrien <https://github.com/s73obrien>
 //                 Nate <https://github.com/natemara>
 //                 Bart <https://github.com/bartje321>
+//                 Ken Human <https://github.com/kenhuman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 /// <reference types="node" />
@@ -80,6 +81,7 @@ export interface CentralDirectory {
     offsetToStartOfCentralDirectory: number;
     commentLength: number;
     files: File[];
+    extract: (opts: ParseOptions) => Promise<void>;
 }
 
 export interface File {
@@ -100,16 +102,21 @@ export interface File {
     internalFileAttributes: number;
     externalFileAttributes: number;
     offsetToLocalFileHeader: number;
+    pathBuffer: Buffer;
     path: string;
+    isUnicode: number;
+    extra: any;
+    type: 'Directory' | 'File';
     comment: string;
     stream: (password?: string) => Entry;
     buffer: (password?: string) => Promise<Buffer>;
 }
 
-export class ParseOptions {
+export interface ParseOptions {
     verbose?: boolean;
     path?: string;
-    // more options?
+    concurrency?: number;
+    forceStream?: boolean;
 }
 
 export type ParseStream = PullStream & {
@@ -117,5 +124,5 @@ export type ParseStream = PullStream & {
 };
 
 export function Parse(opts?: ParseOptions): ParseStream;
-export function ParseOne(match: RegExp, opts: ParseOptions): Duplex;
+export function ParseOne(match?: RegExp, opts?: ParseOptions): Duplex;
 export function Extract(opts?: ParseOptions): ParseStream;

@@ -19,7 +19,7 @@ declare class Tracker {
 }
 
 interface GoogleAnalyticsCode {
-    push(commandArray: string[]): void;
+    push(commandArray: Array<string|boolean|number>): void;
     push(func: Function): void;
 }
 

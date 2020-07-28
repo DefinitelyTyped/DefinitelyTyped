@@ -1,4 +1,4 @@
-// Type definitions for Backbone 1.3.3
+// Type definitions for Backbone 1.4
 // Project: http://backbonejs.org/
 //          https://github.com/jashkenas/backbone
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
@@ -6,8 +6,10 @@
 //                 kenjiru <https://github.com/kenjiru>
 //                 jjoekoullas <https://github.com/jjoekoullas>
 //                 Julian Gonggrijp <https://github.com/jgonggrijp>
+//                 Kyle Scully <https://github.com/zieka>
+//                 Robert Kesterson <https://github.com/rkesters>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 
@@ -199,7 +201,7 @@ declare namespace Backbone {
         sync(...arg: any[]): JQueryXHR;
     }
 
-    class Model extends ModelBase implements Events {
+    class Model<T = any, S = Backbone.ModelSetOptions> extends ModelBase implements Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -235,8 +237,16 @@ declare namespace Backbone {
 
         urlRoot: any;
 
-        constructor(attributes?: any, options?: any);
-        initialize(attributes?: any, options?: any): void;
+        /**
+         * For use with models as ES classes. If you define a preinitialize
+         * method, it will be invoked when the Model is first created, before
+         * any instantiation logic is run for the Model.
+         * @see https://backbonejs.org/#Model-preinitialize
+         */
+        preinitialize(attributes?: T, options?: any): void;
+
+        constructor(attributes?: T, options?: any);
+        initialize(attributes?: T, options?: any): void;
 
         fetch(options?: ModelFetchOptions): JQueryXHR;
 
@@ -247,7 +257,7 @@ declare namespace Backbone {
         *    return super.get("name");
         * }
         **/
-        /*private*/ get(attributeName: string): any;
+        get<a extends keyof T & string>(attributeName: a): T[a];
 
         /**
         * For strongly-typed assignment of attributes, use the `set` method only privately in public setter properties.
@@ -256,8 +266,9 @@ declare namespace Backbone {
         *    super.set("name", value);
         * }
         **/
-        /*private*/ set(attributeName: string, value: any, options?: ModelSetOptions): Model;
-        set(obj: any, options?: ModelSetOptions): Model;
+        set<a extends keyof T & string>(attributeName: a, value?: T[a], options?: S): Backbone.Model;
+        set(attributeName: Partial<T>, options?: S): Backbone.Model;
+        set<a extends keyof T & string>(attributeName: a | Partial<T>, value?: T[a] | S, options?: S): Backbone.Model;
 
         /**
          * Return an object containing all the attributes that have changed, or
@@ -311,6 +322,14 @@ declare namespace Backbone {
         models: TModel[];
         length: number;
 
+        /**
+         * For use with collections as ES classes. If you define a preinitialize
+         * method, it will be invoked when the Collection is first created and
+         * before any instantiation logic is run for the Collection.
+         * @see https://backbonejs.org/#Collection-preinitialize
+         */
+        preinitialize(models?: TModel[] | Object[], options?: any): void;
+
         constructor(models?: TModel[] | Object[], options?: any);
         initialize(models?: TModel[] | Object[], options?: any): void;
 
@@ -356,6 +375,11 @@ declare namespace Backbone {
         where(properties: any): TModel[];
         findWhere(properties: any): TModel;
         modelId(attrs: any) : any
+
+        values(): Iterator<TModel>;
+        keys(): Iterator<any>;
+        entries(): Iterator<[any, TModel]>;
+        [Symbol.iterator](): Iterator<TModel>;
 
         private _prepareModel(attributes?: any, options?: any): any;
         private _removeReference(model: TModel): void;
@@ -452,6 +476,14 @@ declare namespace Backbone {
         **/
         routes: RoutesHash | any;
 
+        /**
+         * For use with Router as ES classes. If you define a preinitialize method,
+         * it will be invoked when the Router is first created, before any
+         * instantiation logic is run for the Router.
+         * @see https://backbonejs.org/#Router-preinitialize
+         */
+        preinitialize(options?: RouterOptions): void;
+
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
         route(route: string|RegExp, name: string, callback?: Function): Router;
@@ -510,6 +542,14 @@ declare namespace Backbone {
         * Do not use, prefer TypeScript's extend functionality.
         **/
         public static extend(properties: any, classProperties?: any): any;
+
+        /**
+         * For use with views as ES classes. If you define a preinitialize
+         * method, it will be invoked when the view is first created, before any
+         * instantiation logic is run.
+         * @see https://backbonejs.org/#View-preinitialize
+         */
+        preinitialize(options?: ViewOptions<TModel>): void;
 
         constructor(options?: ViewOptions<TModel>);
         initialize(options?: ViewOptions<TModel>): void;

@@ -731,7 +731,7 @@ function TestWebElementPromise() {
     elementPromise.then();
     elementPromise.then((element: webdriver.WebElement) => {});
     elementPromise.then((element: webdriver.WebElement) => {}, (error: any) => {});
-    elementPromise.then((element: webdriver.WebElement) => 'foo', (error: any) => {}).then((result: string) => {});
+    elementPromise.then((element: webdriver.WebElement) => 'foo', (error: any) => 'bar').then((result: string) => {});
 }
 
 function TestLogging() {

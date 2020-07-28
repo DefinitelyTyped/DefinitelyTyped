@@ -14,13 +14,13 @@ interface Enumerable<T> {
      * used by bindings and other parts of the framework to extract a single
      * object if the enumerable contains only one item.
      */
-    firstObject: ComputedProperty<T | undefined>;
+    firstObject: T | undefined;
     /**
      * Helper method returns the last object from a collection. If your enumerable
      * contains only one object, this method should always return that object.
      * If your enumerable is empty, this method should return `undefined`.
      */
-    lastObject: ComputedProperty<T | undefined>;
+    lastObject: T | undefined;
     /**
      * @deprecated Use `Enumerable#includes` instead.
      */
@@ -135,7 +135,7 @@ interface Enumerable<T> {
     /**
      * Returns a copy of the array with all `null` and `undefined` elements removed.
      */
-    compact(): NativeArray<T>;
+    compact(): NativeArray<NonNullable<T>>;
     /**
      * Returns a new enumerable that excludes the passed value. The default
      * implementation returns an array regardless of the receiver type.
@@ -151,12 +151,13 @@ interface Enumerable<T> {
      * Converts the enumerable into an array and sorts by the keys
      * specified in the argument.
      */
-    sortBy(property: string): NativeArray<T>;
+    sortBy(...properties: string[]): NativeArray<T>;
     /**
      * Returns a new enumerable that contains only items containing a unique property value.
      * The default implementation returns an array regardless of the receiver type.
      */
     uniqBy(property: string): NativeArray<T>;
+    uniqBy(callback: (value: T) => unknown): NativeArray<T>;
     /**
      * Returns `true` if the passed object can be found in the enumerable.
      */

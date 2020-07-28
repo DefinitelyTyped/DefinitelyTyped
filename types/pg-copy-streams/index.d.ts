@@ -2,6 +2,7 @@
 // Project: https://github.com/brianc/node-pg-copy-streams
 // Definitions by: Brian Crowell <https://github.com/fluggo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 

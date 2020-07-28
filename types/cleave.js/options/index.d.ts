@@ -16,6 +16,8 @@ export interface CleaveOptions {
 // Date Options
 export interface CleaveOptions {
     date?: boolean;
+    dateMin?: string;
+    dateMax?: string;
     datePattern?: ReadonlyArray<string>;
 }
 
@@ -23,6 +25,7 @@ export interface CleaveOptions {
 export interface CleaveOptions {
     time?: boolean;
     timePattern?: ReadonlyArray<string>;
+    timeFormat?: string;
 }
 
 // Numeral Options
@@ -44,6 +47,7 @@ export interface CleaveOptions {
     copyDelimiter?: boolean;
     delimiter?: string;
     delimiters?: ReadonlyArray<string>;
+    delimiterLazyShow?: boolean;
     initValue?: any;
     lowercase?: boolean;
     numericOnly?: boolean;

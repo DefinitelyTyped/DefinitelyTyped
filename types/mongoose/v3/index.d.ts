@@ -1,9 +1,11 @@
-// Type definitions for Mongoose 3.8.5
+// Type definitions for mongoose 3.8
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
+
+import { EventEmitter } from 'events';
 
 declare module "mongoose" {
   function connect(uri: string, options?: ConnectionOptions , callback?: (err: any) => void): Mongoose;
@@ -45,8 +47,8 @@ declare module "mongoose" {
     Promise: any;
   }
 
-  export interface Connection extends NodeJS.EventEmitter {
-    constructor(base: Mongoose): Connection;
+  export class Connection extends EventEmitter {
+    constructor(base: Mongoose);
 
     close(callback?: (err: any) => void): Connection;
     collection(name: string, options?: Object): Collection;
@@ -248,7 +250,7 @@ declare module "mongoose" {
       isValid(): boolean;
       static createFromTime(time: number): ObjectId;
       static createFromHexString(hexString: string): ObjectId;
-	  static isValid(id?: string|number):boolean;
+      static isValid(id?: string|number):boolean;
     }
   }
 
@@ -380,8 +382,8 @@ declare module "mongoose" {
     mapReduce<K, V>(options: MapReduceOption2<T, K, V>, callback?: (err: any, res: MapReduceResult<K, V>[]) => void): Promise<MapReduceResult<K, V>[]>;
     model<U extends Document>(name: string): Model<U>;
 
-    populate<U>(doc: U, options: Object, callback?: (err: any, res: U) => void): Promise<U>;
     populate<U>(doc: U[], options: Object, callback?: (err: any, res: U[]) => void): Promise<U[]>;
+    populate<U>(doc: U, options: Object, callback?: (err: any, res: U) => void): Promise<U>;
     update(cond: Object, update: Object, callback?: (err: any, affectedRows: number, raw: any) => void): Query<T>;
     update(cond: Object, update: Object, options: Object, callback?: (err: any, affectedRows: number, raw: any) => void): Query<T>;
     remove(cond: Object, callback?: (err: any) => void): Query<{}>;

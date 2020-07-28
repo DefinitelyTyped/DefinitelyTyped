@@ -785,6 +785,9 @@ let elementArray = angular.element(document.querySelectorAll('div'));
 let elementReadyFn = angular.element(() => {
     console.log('ready');
 });
+angular.element(window);
+declare let windowService: angular.IWindowService;
+angular.element(windowService);
 
 // $timeout signature tests
 namespace TestTimeout {
@@ -1009,7 +1012,7 @@ angular.module('docsTimeDirective', [])
         return {
             link(scope: ng.IScope, element: JQLite, attrs: ng.IAttributes) {
                 let format: any;
-                let timeoutId: any;
+                let timeoutId: angular.IPromise<any>;
 
                 function updateTime() {
                     element.text(dateFilter(new Date(), format));
@@ -1478,6 +1481,10 @@ function testIHttpParamSerializerJQLikeProvider() {
     });
 }
 
+function testJqLiteRestoreBehavior() {
+    angular.UNSAFE_restoreLegacyJqLiteXHTMLReplacement(); // $ExpectType void
+}
+
 function anyOf2<T1, T2>(v1: T1, v2: T2) {
     return Math.random() < 0.5 ? v1 : v2;
 }
@@ -1535,3 +1542,10 @@ angular.module('WithGenerics', [])
             scope['name'] = 'Jeff';
         };
     });
+
+angular.errorHandlingConfig(); // $ExpectType IErrorHandlingConfig
+// $ExpectType void
+angular.errorHandlingConfig({
+    objectMaxDepth: 5,
+    urlErrorParamsEnabled: true,
+});

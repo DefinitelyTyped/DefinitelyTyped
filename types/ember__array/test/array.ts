@@ -54,3 +54,6 @@ const value = '1,2,3';
 const filters = A(value.split(','));
 filters.push('4');
 filters.sort();
+
+const multiSortArr = A([{ k: 'a', v: 'z' }, { k: 'a', v: 'y' }, { k: 'b', v: 'c' }]);
+multiSortArr.sortBy('k', 'v');

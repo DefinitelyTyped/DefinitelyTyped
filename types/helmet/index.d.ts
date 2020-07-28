@@ -1,6 +1,10 @@
 // Type definitions for helmet
 // Project: https://github.com/helmetjs/helmet
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Evan Hahn <https://github.com/EvanHahn>, Elliot Blackburn <https://github.com/bluehatbrit>, Daniel Müller <https://github.com/chdanielmueller>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
+//                 Evan Hahn <https://github.com/EvanHahn>
+//                 Elliot Blackburn <https://github.com/bluehatbrit>
+//                 Daniel Müller <https://github.com/chdanielmueller>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -13,6 +17,7 @@ declare namespace helmet {
     export interface IHelmetConfiguration {
         contentSecurityPolicy?: boolean | IHelmetContentSecurityPolicyConfiguration;
         dnsPrefetchControl?: boolean | IHelmetDnsPrefetchControlConfiguration;
+        featurePolicy?: IFeaturePolicyOptions;
         frameguard?: boolean | IHelmetFrameguardConfiguration;
         hidePoweredBy?: boolean | IHelmetHidePoweredByConfiguration;
         hpkp?: boolean | IHelmetHpkpConfiguration;
@@ -24,6 +29,12 @@ declare namespace helmet {
         xssFilter?: boolean | IHelmetXssFilterConfiguration;
         expectCt?: boolean | IHelmetExpectCtConfiguration;
         permittedCrossDomainPolicies?: boolean | IHelmetPermittedCrossDomainPoliciesConfiguration;
+    }
+
+    export interface IFeaturePolicyOptions {
+        features: {
+            [featureName: string]: string[];
+        };
     }
 
     export interface IHelmetPermittedCrossDomainPoliciesConfiguration {
@@ -110,7 +121,7 @@ declare namespace helmet {
         setAllHeaders?: boolean;
         disableAndroid?: boolean;
         browserSniff?: boolean;
-        directives?: IHelmetContentSecurityPolicyDirectives;
+        directives: IHelmetContentSecurityPolicyDirectives;
         loose?: boolean;
     }
 
@@ -157,11 +168,12 @@ declare namespace helmet {
     }
 
     export interface IHelmetReferrerPolicyConfiguration {
-        policy?: string;
+        policy?: string | string[];
     }
 
     export interface IHelmetXssFilterConfiguration {
         setOnOldIE?: boolean;
+        reportUri?: string;
     }
 
     export interface IHelmetExpectCtConfiguration {
@@ -186,7 +198,7 @@ declare namespace helmet {
          * @param {IHelmetContentSecurityPolicyConfiguration} options The options
          * @return {RequestHandler} The Request handler
          */
-        contentSecurityPolicy(options?: IHelmetContentSecurityPolicyConfiguration): express.RequestHandler;
+        contentSecurityPolicy(options: IHelmetContentSecurityPolicyConfiguration): express.RequestHandler;
 
         /**
          * @summary Stop browsers from doing DNS prefetching.
@@ -194,6 +206,13 @@ declare namespace helmet {
          * @return {RequestHandler} The Request handler
          */
         dnsPrefetchControl(options?: IHelmetDnsPrefetchControlConfiguration): express.RequestHandler;
+
+        /**
+         * @summary Restrict which browser features can be used
+         * @param {IFeaturePolicyOptions} options The options
+         * @return {RequestHandler} The Request handler
+         */
+        featurePolicy(options: IFeaturePolicyOptions): express.RequestHandler;
 
         /**
          * @summary Prevent clickjacking.

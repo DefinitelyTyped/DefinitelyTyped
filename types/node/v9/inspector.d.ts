@@ -2524,7 +2524,7 @@ declare module "inspector" {
     export function close(): void;
 
     /**
-     * Return the URL of the active inspector, or undefined if there is none.
+     * Return the URL of the active inspector, or `undefined` if there is none.
      */
-    export function url(): string;
+    export function url(): string | undefined;
 }

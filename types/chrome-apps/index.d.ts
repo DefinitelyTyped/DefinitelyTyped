@@ -9460,7 +9460,7 @@ declare namespace chrome {
              * If set, updates the display's logical bounds origin along y-axis.
              * @see[See documentation for boundsOriginX parameter.]
              */
-            boundsOriginY: integer;
+            boundsOriginY?: integer;
 
             /**
              * If set, updates the display mode to the mode matching this value.
@@ -11632,7 +11632,7 @@ declare class HTMLWebViewElement extends HTMLElement {
      * If the storage partition ID starts with persist: (partition='persist:googlepluswidgets'),
      * the webview will use a persistent storage partition available to all guests in the app with the same storage partition ID.
      * If the ID is unset or if there is no 'persist': prefix, the webview will use an in-memory storage partition.
-     * his value can only be modified before the first navigation, since the storage partition of an active renderer process cannot change.
+     * This value can only be modified before the first navigation, since the storage partition of an active renderer process cannot change.
      * Subsequent attempts to modify the value will fail with a DOM exception.
      * By assigning the same partition ID, multiple webviews can share the same storage partition.
      */

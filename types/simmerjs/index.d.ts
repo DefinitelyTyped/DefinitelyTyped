@@ -53,7 +53,7 @@ export type Scope = Queryable | WindowLike;
 
 export interface Options {
     /**
-     * A minimum specificty level. Once t˚he parser reaches this level it starts
+     * A minimum specificty level. Once the parser reaches this level it starts
      * verifying the selector after every method is called. This can cut down
      * our execution time by avoiding needless parsing but can also hurt
      * execution times by performing many verifications. Specificity is

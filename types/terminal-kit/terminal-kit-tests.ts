@@ -9,6 +9,7 @@ import t, {
 } from "terminal-kit";
 import "node";
 import * as fs from "fs";
+import assert from "assert";
 
 new t.Rect({width: 4, height: 4});
 // The term() function simply output a string to stdout, using current style
@@ -52,9 +53,9 @@ term.moveTo.cyan(1, 1, "My name is %s, I'm %d.\n", "Jack", 32);
 
 // Get some user input
 term.magenta("Enter your name: ");
-term.inputField((error: any, input: any) => {
+assert(term.inputField((error, input) => {
   term.green("\nYour name is '%s'\n", input);
-});
+}).abort);
 
 function terminate() {
   term.grabInput(false);
@@ -144,7 +145,7 @@ term("Please enter your name: ");
 
 term.inputField(
   { history, autoComplete, autoCompleteMenu: true },
-  (error: any, input: string) => {
+  (error: any, input: string | undefined) => {
     term.green("\nYour name is '%s'\n", input);
   }
 );
@@ -408,6 +409,34 @@ term("My name is ")
   .red("Jack")(" and I'm ")
   .green("32\n");
 term("My name is ^rJack^ and I'm ^g32\n");
+
+term.noFormat.red("hello");
+
+term.noFormat("hello");
+
+// color methods with a second argument
+term.color(1, "test");
+term.darkColor(1, "test");
+term.brightColor(1, "test");
+term.color256(1, "test");
+term.colorRgb(255, 0, 0, "test");
+term.colorRgbHex("#ff0000", "test");
+term.colorGrayscale(192, "test");
+
+// bgColor methods with a second argument
+term.bgColor(1, "test");
+term.bgDarkColor(1, "test");
+term.bgBrightColor(1, "test");
+term.bgColor256(1, "test");
+term.bgColorRgb(255, 0, 0, "test");
+term.bgColorRgbHex("#ff0000", "test");
+term.bgColorGrayscale(192, "test");
+
+// new color & bgColor with color name
+term.color("red");
+term.color("red", "test");
+term.bgColor("red");
+term.bgColor("red", "test");
 
 getDetectedTerminal((error: any, term: any) => {
   term.cyan("Terminal name: %s\n", term.appName);

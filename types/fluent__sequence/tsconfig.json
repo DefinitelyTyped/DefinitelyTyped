@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "esnext.asynciterable",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "jsx": "preserve",
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@fluent/bundle": [
+                "fluent__bundle"
+            ],
+            "@fluent/sequence": [
+                "fluent__sequence"
+            ]
+        }
+    },
+    "files": [
+        "fluent__sequence-tests.ts",
+        "index.d.ts"
+    ]
+}

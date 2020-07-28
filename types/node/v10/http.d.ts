@@ -15,6 +15,8 @@ declare module "http" {
         'access-control-allow-origin'?: string;
         'access-control-expose-headers'?: string;
         'access-control-max-age'?: string;
+        'access-control-request-headers'?: string;
+        'access-control-request-method'?: string;
         'age'?: string;
         'allow'?: string;
         'alt-svc'?: string;
@@ -41,6 +43,7 @@ declare module "http" {
         'if-unmodified-since'?: string;
         'last-modified'?: string;
         'location'?: string;
+        'origin'?: string;
         'pragma'?: string;
         'proxy-authenticate'?: string;
         'proxy-authorization'?: string;
@@ -165,7 +168,8 @@ declare module "http" {
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
-        readonly path: string;
+        method: string;
+        path: string;
         abort(): void;
         onSocket(socket: net.Socket): void;
         setTimeout(timeout: number, callback?: () => void): this;
@@ -176,6 +180,7 @@ declare module "http" {
     class IncomingMessage extends stream.Readable {
         constructor(socket: net.Socket);
 
+        aborted: boolean;
         httpVersion: string;
         httpVersionMajor: number;
         httpVersionMinor: number;
@@ -184,7 +189,7 @@ declare module "http" {
         rawHeaders: string[];
         trailers: { [key: string]: string | undefined };
         rawTrailers: string[];
-        setTimeout(msecs: number, callback: () => void): this;
+        setTimeout(msecs: number, callback?: () => void): this;
         /**
          * Only valid for request obtained from http.Server.
          */

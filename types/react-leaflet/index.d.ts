@@ -1,6 +1,9 @@
-// Type definitions for react-leaflet 2.2
+// Type definitions for react-leaflet 2.5
 // Project: https://github.com/PaulLeCam/react-leaflet
-// Definitions by: Dave Leaver <https://github.com/danzel>, David Schneider <https://github.com/davschne>, Yui T. <https://github.com/yuit>
+// Definitions by: Dave Leaver <https://github.com/danzel>
+//                 David Schneider <https://github.com/davschne>
+//                 Yui T. <https://github.com/yuit>
+//                 Tom Fenech <https://github.com/fenech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -137,6 +140,8 @@ export class MapComponent<P extends MapComponentProps, E extends Leaflet.Evented
 
 export interface MapProps extends MapEvents, Leaflet.MapOptions, Leaflet.LocateOptions, Leaflet.FitBoundsOptions {
     animate?: boolean;
+    duration?: number;
+    noMoveStart?: boolean;
     bounds?: Leaflet.LatLngBoundsExpression;
     boundsOptions?: Leaflet.FitBoundsOptions;
     children: Children;
@@ -278,6 +283,14 @@ export class ImageOverlay<P extends ImageOverlayProps = ImageOverlayProps, E ext
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
 
+export interface SVGOverlayProps extends Leaflet.ImageOverlayOptions, MapComponentProps {
+    children?: Children;
+}
+export class SVGOverlay<P extends SVGOverlayProps = SVGOverlayProps, E extends Leaflet.SVGOverlay = Leaflet.SVGOverlay> extends MapComponent<P, E> {
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
+}
+
 export interface VideoOverlayProps extends Leaflet.VideoOverlayOptions, MapComponentProps {
     attribution?: string;
     bounds: Leaflet.LatLngBoundsExpression;
@@ -335,7 +348,7 @@ export class FeatureGroup<P extends FeatureGroupProps = FeatureGroupProps, E ext
 }
 
 export interface GeoJSONProps extends PathProps, FeatureGroupEvents, Leaflet.GeoJSONOptions {
-    data: GeoJSON.GeoJsonObject;
+    data: GeoJSON.GeoJsonObject | GeoJSON.GeoJsonObject[];
 }
 export class GeoJSON<P extends GeoJSONProps = GeoJSONProps, E extends Leaflet.GeoJSON = Leaflet.GeoJSON> extends FeatureGroup<P, E> {
     createLeafletElement(props: P): E;
@@ -464,3 +477,4 @@ export interface ContextProps {
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export function withLeaflet<T extends ContextProps>(WrappedComponent: React.ComponentType<T>): React.ComponentType<Omit<T, 'leaflet'>>;
+export function useLeaflet(): LeafletContext;

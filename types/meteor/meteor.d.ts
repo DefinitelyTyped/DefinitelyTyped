@@ -1,5 +1,9 @@
-type global_Error = Error;
+import { Mongo } from 'meteor/mongo';
+import { EJSONable, EJSONableProperty } from 'meteor/ejson';
+import { Blaze } from 'meteor/blaze';
+import { DDP } from 'meteor/ddp';
 declare module "meteor/meteor" {
+    type global_Error = Error;
     module Meteor {
         /** Global props **/
         var isClient: boolean;
@@ -24,7 +28,7 @@ declare module "meteor/meteor" {
             verified: boolean;
         }
         interface User {
-            _id?: string;
+            _id: string;
             username?: string;
             emails?: UserEmail[];
             createdAt?: Date;
@@ -113,7 +117,7 @@ declare module "meteor/meteor" {
 
         function wrapAsync(func: Function, context?: Object): any;
 
-        function bindEnvironment(func: Function): any;
+        function bindEnvironment<TFunc extends Function>(func: TFunc): TFunc;
         /** utils **/
 
         /** Pub/Sub **/
@@ -222,7 +226,7 @@ declare module "meteor/meteor" {
         function onConnection(callback: Function): void;
         /** Connection **/
 
-        function publish(name: string, func: (this: Subscription, ...args: any[]) => void): void;
+        function publish(name: string | null, func: (this: Subscription, ...args: any[]) => void, options?: {is_auto: boolean}): void;
 
         function _debug(...args: any[]): void;
     }

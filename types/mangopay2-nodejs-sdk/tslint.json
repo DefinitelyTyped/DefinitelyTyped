@@ -1,10 +1,10 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-redundant-jsdoc": false,
-        "no-misused-new": false,
-        "no-empty-interface": false,
         "interface-name": false,
-        "no-unnecessary-class": false
+        "no-empty-interface": false,
+        "no-redundant-jsdoc": false,
+        "no-unnecessary-class": false,
+        "npm-naming": false
     }
 }

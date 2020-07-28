@@ -44,6 +44,9 @@ router.get('/users.json', function(req: Request, res: Response) {
     options.select = 'email username';
     options.sort = { 'username': (descending ? -1 : 1) };
     options.populate = '';
+    options.populate = {
+      path: '',
+    };
     options.lean = true;
     options.leanWithId = false;
     options.offset = 0;

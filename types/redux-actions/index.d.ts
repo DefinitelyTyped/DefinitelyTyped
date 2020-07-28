@@ -38,7 +38,7 @@ export interface ReducerMap<State, Payload> {
 }
 
 export interface ReducerMapMeta<State, Payload, Meta> {
-    [actionType: string]: ReducerMeta<State, Payload, Meta> | ReducerNextThrowMeta<State, Payload, Meta>;
+    [actionType: string]: ReducerMeta<State, Payload, Meta> | ReducerNextThrowMeta<State, Payload, Meta> | ReducerMapMeta<State, Payload, Meta>;
 }
 
 export interface ReducerNextThrow<State, Payload> {

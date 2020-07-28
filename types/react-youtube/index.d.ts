@@ -2,6 +2,7 @@
 // Project: https://github.com/troybetz/react-youtube, https://github.com/compedit/react-youtube
 // Definitions by: kgtkr <https://github.com/kgtkr>
 //                 Leo Salgueiro <https://github.com/salguerooo>
+//                 Will Olson <https://github.com/frankolson>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -36,19 +37,20 @@ export interface Options {
     playerVars?: PlayerVars;
 }
 
-export default class YouTube extends React.Component<{
-    videoId?: string,
-    id?: string,
-    className?: string,
-    containerClassName?: string,
-    opts?: Options,
-    onReady?(event: { target: any }): void,
-    onError?(event: { target: any, data: number }): void,
-    onPlay?(event: { target: any, data: number }): void,
-    onPause?(event: { target: any, data: number }): void,
-    onEnd?(event: { target: any, data: number }): void,
-    onStateChange?(event: { target: any, data: number }): void,
-    onPlaybackRateChange?(event: { target: any, data: number }): void,
-    onPlaybackQualityChange?(event: { target: any, data: string }): void,
-}> {
+export interface YouTubeProps {
+    videoId?: string;
+    id?: string;
+    className?: string;
+    containerClassName?: string;
+    opts?: Options;
+    onReady?(event: { target: any }): void;
+    onError?(event: { target: any, data: number }): void;
+    onPlay?(event: { target: any, data: number }): void;
+    onPause?(event: { target: any, data: number }): void;
+    onEnd?(event: { target: any, data: number }): void;
+    onStateChange?(event: { target: any, data: number }): void;
+    onPlaybackRateChange?(event: { target: any, data: number }): void;
+    onPlaybackQualityChange?(event: { target: any, data: string }): void;
 }
+
+export default class YouTube extends React.Component<YouTubeProps> {}

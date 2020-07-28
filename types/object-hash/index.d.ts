@@ -1,58 +1,42 @@
-// Type definitions for object-hash v1.2.0
+// Type definitions for object-hash v1.3.1
 // Project: https://github.com/puleos/object-hash
-// Definitions by: Michael Zabka <https://github.com/misak113>
+// Definitions by: Michael Zabka <https://github.com/misak113>, Artur Diniz <https://github.com/artdiniz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+interface IStream {
+    update?(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
+    write?(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
+}
 
 import HashStatic = ObjectHash.HashStatic;
 export = HashStatic;
 export as namespace objectHash;
 
 declare namespace ObjectHash {
-	export interface IOptions {
-		algorithm?: string;
-		encoding?: string;
-		excludeValues?: boolean;
-		ignoreUnknown?: boolean;
-		replacer?: (value: any) => any;
-		respectFunctionProperties?: boolean;
-		respectFunctionNames?: boolean;
-		unorderedArrays?: boolean;
-		unorderedSets?: boolean;
-		excludeKeys?: (key: string) => boolean;
-	}
+    export interface IOptions {
+        algorithm?: string;
+        encoding?: string;
+        excludeValues?: boolean;
+        ignoreUnknown?: boolean;
+        replacer?: (value: any) => any;
+        respectFunctionProperties?: boolean;
+        respectFunctionNames?: boolean;
+        respectType?: boolean;
+        unorderedArrays?: boolean;
+        unorderedSets?: boolean;
+        unorderedObjects?: boolean;
+        excludeKeys?: (key: string) => boolean;
+    }
 
-	interface HashTableItem {
-		value: any;
-		count: number;
-	}
+    export interface Hash {
+        (object: any, options?: IOptions): string;
+        sha1(object: any): string;
+        keys(object: any): string;
+        MD5(object: any): string;
+        keysMD5(object: any): string;
+        writeToStream(value: any, stream: IStream): void;
+        writeToStream(value: any, options: IOptions, stream: IStream): void;
+    }
 
-	interface HashTableItemWithKey extends HashTableItem {
-		hash: string;
-	}
-
-	export interface HashTable {
-		add(...values: any[]): HashTable;
-		remove(...values: any[]): HashTable;
-		hasKey(key: string): boolean;
-		getValue(key: string): any;
-		getCount(key: string): number;
-		table(): { [key: string]: HashTableItem };
-		toArray(): HashTableItemWithKey[];
-		reset(): HashTable;
-	}
-
-	export interface HashTableStatic {
-		(options?: IOptions): HashTable;
-	}
-
-	export interface Hash {
-		(object: any, options?: IOptions): string;
-		sha1(object: any): string;
-		keys(object: any): string;
-		MD5(object: any): string;
-		keysMD5(object: any): string;
-		HashTable: HashTableStatic;
-	}
-
-	export var HashStatic: Hash;
+    export var HashStatic: Hash;
 }

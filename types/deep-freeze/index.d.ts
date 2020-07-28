@@ -2,7 +2,7 @@
 // Project: https://github.com/substack/deep-freeze
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Aluan Haddad <https://github.com/aluanhaddad>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 3.1
 
 export = deepFreeze;
 
@@ -11,7 +11,8 @@ declare function deepFreeze<T extends Function>(f: T): T;
 declare function deepFreeze<T>(o: T): deepFreeze.DeepReadonly<T>;
 
 declare namespace deepFreeze {
-    type DeepReadonly<T> = {
-        readonly [P in keyof T]: DeepReadonly<T[P]>
-    };
+    type DeepReadonly<T> =
+        T extends (...args: any) => any
+            ? T
+            : { readonly [P in keyof T]: DeepReadonly<T[P]> };
 }

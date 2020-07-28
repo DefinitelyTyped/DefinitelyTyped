@@ -6,6 +6,9 @@ const example1 = new SmoothScroll('a[href*="#"]', {
     header: '[data-scroll="header"]',
     topOnEmptyHash: false,
     speed: 1000,
+    speedAsDuration: true,
+    durationMax: 100,
+    durationMin: 0,
     clip: true,
     offset: () => 10,
     easing: "easeInCubic",
@@ -20,7 +23,7 @@ example1.destroy();
 const example2 = () => {
     const scroll = new SmoothScroll();
     const anchor = document.querySelector("#bazinga");
-    scroll.animateScroll(anchor, null, { speed: 1000 });
+    scroll.animateScroll(anchor, null, { speed: 1000, speedAsDuration: true });
 };
 
 // Scrolling to a specific Y-position

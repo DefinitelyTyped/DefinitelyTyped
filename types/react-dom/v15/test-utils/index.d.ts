@@ -29,7 +29,7 @@ export interface SyntheticEventData extends OptionalEventProperties {
     clientX?: number;
     clientY?: number;
     changedTouches?: TouchList;
-    charCode?: boolean;
+    charCode?: number;
     clipboardData?: DataTransfer;
     ctrlKey?: boolean;
     deltaMode?: number;
@@ -67,10 +67,6 @@ export interface ShallowRenderer {
      * After `shallowRenderer.render()` has been called, returns shallowly rendered output.
      */
     getRenderOutput<E extends ReactElement>(): E;
-    /**
-     * After `shallowRenderer.render()` has been called, returns shallowly rendered output.
-     */
-    getRenderOutput(): ReactElement;
     /**
      * Similar to `ReactDOM.render` but it doesn't require DOM and only renders a single level deep.
      */
@@ -160,8 +156,12 @@ export function renderIntoDocument<T extends Element>(
     element: DOMElement<any, T>): T;
 export function renderIntoDocument(
     element: SFCElement<any>): void;
-export function renderIntoDocument<T extends Component<any>>(
-    element: CElement<any, T>): T;
+// If we replace `P` with `any` in this overload, then some tests fail because
+// calls to `renderIntoDocument` choose the last overload on the
+// subtype-relation pass and get an undesirably broad return type.  Using `P`
+// allows this overload to match on the subtype-relation pass.
+export function renderIntoDocument<P, T extends Component<P>>(
+    element: CElement<P, T>): T;
 export function renderIntoDocument<P>(
     element: ReactElement<P>): Component<P> | Element | void;
 

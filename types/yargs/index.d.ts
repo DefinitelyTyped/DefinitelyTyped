@@ -1,4 +1,4 @@
-// Type definitions for yargs 13.0
+// Type definitions for yargs 15.0
 // Project: https://github.com/chevex/yargs, https://yargs.js.org
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
@@ -7,6 +7,8 @@
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
 //                 Steffen Viken Valvåg <https://github.com/steffenvv>
 //                 Emily Marigold Klassen <https://github.com/forivall>
+//                 ExE Boss <https://github.com/ExE-Boss>
+//                 Aankhen <https://github.com/Aankhen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -27,12 +29,21 @@
 import { DetailedArguments, Configuration } from 'yargs-parser';
 
 declare namespace yargs {
-    // The type parameter T is the expected shape of the parsed options.
-    // Arguments<T> is those options plus _ and $0, and an indexer falling
-    // back to unknown for unknown options.
-    //
-    // For the return type / argv property, we create a mapped type over
-    // Arguments<T> to simplify the inferred type signature in client code.
+    type BuilderCallback<T, R> = ((args: Argv<T>) => PromiseLike<Argv<R>>) | ((args: Argv<T>) => Argv<R>) | ((args: Argv<T>) => void);
+
+    type ParserConfigurationOptions = Configuration & {
+        /** Sort commands alphabetically. Default is `false` */
+        'sort-commands': boolean;
+    };
+
+    /**
+     * The type parameter `T` is the expected shape of the parsed options.
+     * `Arguments<T>` is those options plus `_` and `$0`, and an indexer falling
+     * back to `unknown` for unknown options.
+     *
+     * For the return type / `argv` property, we create a mapped type over
+     * `Arguments<T>` to simplify the inferred type signature in client code.
+     */
     interface Argv<T = {}> {
         (): { [key in keyof Arguments<T>]: Arguments<T>[key] };
         (args: ReadonlyArray<string>, cwd?: string): Argv<T>;
@@ -130,12 +141,14 @@ declare namespace yargs {
          * Set `description` to false to create a hidden command. Hidden commands don't show up in the help output and aren't available for completion.
          * @param [builder] Object to give hints about the options that your command accepts.
          * Can also be a function. This function is executed with a yargs instance, and can be used to provide advanced command specific help.
+         *
+         * Note that when `void` is returned, the handler `argv` object type will not include command-specific arguments.
          * @param [handler] Function, which will be executed with the parsed `argv` object.
          */
-        command<U>(command: string | ReadonlyArray<string>, description: string, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
+        command<U = T>(command: string | ReadonlyArray<string>, description: string, builder?: BuilderCallback<T, U>, handler?: (args: Arguments<U>) => void): Argv<U>;
         command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, description: string, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, U>): Argv<U>;
-        command<U>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
+        command<U = T>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: BuilderCallback<T, U>, handler?: (args: Arguments<U>) => void): Argv<T>;
         command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, U>): Argv<U>;
         command<U>(module: CommandModule<T, U>): Argv<U>;
@@ -158,9 +171,9 @@ declare namespace yargs {
         completion(cmd: string, func?: AsyncCompletionFunction): Argv<T>;
         completion(cmd: string, func?: SyncCompletionFunction): Argv<T>;
         completion(cmd: string, func?: PromiseCompletionFunction): Argv<T>;
-        completion(cmd: string, description?: string, func?: AsyncCompletionFunction): Argv<T>;
-        completion(cmd: string, description?: string, func?: SyncCompletionFunction): Argv<T>;
-        completion(cmd: string, description?: string, func?: PromiseCompletionFunction): Argv<T>;
+        completion(cmd: string, description?: string | false, func?: AsyncCompletionFunction): Argv<T>;
+        completion(cmd: string, description?: string | false, func?: SyncCompletionFunction): Argv<T>;
+        completion(cmd: string, description?: string | false, func?: PromiseCompletionFunction): Argv<T>;
 
         /**
          * Tells the parser that if the option specified by `key` is passed in, it should be interpreted as a path to a JSON config file.
@@ -288,7 +301,7 @@ declare namespace yargs {
          * Method to execute when a failure occurs, rather than printing the failure message.
          * @param func Is called with the failure message that would have been printed, the Error instance originally thrown and yargs state when the failure occurred.
          */
-        fail(func: (msg: string, err: Error) => any): Argv<T>;
+        fail(func: (msg: string, err: Error, yargs: Argv<T>) => any): Argv<T>;
 
         /**
          * Allows to programmatically get completion choices for any line.
@@ -382,6 +395,12 @@ declare namespace yargs {
         number<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: number | undefined }>;
 
         /**
+         * Method to execute when a command finishes successfully.
+         * @param func Is called with the successful result of the command that finished.
+         */
+        onFinishCommand(func: (result: any) => void): Argv<T>;
+
+        /**
          * This method can be used to make yargs aware of options that could exist.
          * You can also pass an opt object which can hold further customization, like `.alias()`, `.demandOption()` etc. for that option.
          */
@@ -414,7 +433,7 @@ declare namespace yargs {
         parsed: DetailedArguments | false;
 
         /** Allows to configure advanced yargs features. */
-        parserConfiguration(configuration: Partial<Configuration>): Argv<T>;
+        parserConfiguration(configuration: Partial<ParserConfigurationOptions>): Argv<T>;
 
         /**
          * Similar to `config()`, indicates that yargs should interpret the object from the specified key in package.json as a configuration object.
@@ -487,6 +506,12 @@ declare namespace yargs {
          * @param [consoleLevel='error']
          */
         showHelp(consoleLevel?: string): Argv<T>;
+
+        /**
+         * Provide the usage data as a string.
+         * @param printCallback a function with a single argument.
+         */
+        showHelp(printCallback: (s: string) => void): Argv<T>;
 
         /**
          * By default, yargs outputs a usage string if any error is detected.
@@ -664,6 +689,8 @@ declare namespace yargs {
     interface PositionalOptions {
         /** string or array of strings, see `alias()` */
         alias?: string | ReadonlyArray<string>;
+        /** boolean, interpret option as an array, see `array()` */
+        array?: boolean;
         /** value or array of values, limit valid option arguments to a predefined set, see `choices()` */
         choices?: Choices;
         /** function, coerce or transform parsed command line values into another value, see `coerce()` */
@@ -672,6 +699,8 @@ declare namespace yargs {
         conflicts?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> };
         /** value, set a default value for the option, see `default()` */
         default?: any;
+        /** boolean or string, demand the option be given, with optional error message, see `demandOption()` */
+        demandOption?: boolean | string;
         /** string, the option description for help content, see `describe()` */
         desc?: string;
         /** string, the option description for help content, see `describe()` */
@@ -748,12 +777,12 @@ declare namespace yargs {
     }
 
     type ParseCallback<T = {}> = (err: Error | undefined, argv: Arguments<T>, output: string) => void;
-    type CommandBuilder<T = {}, U = {}> = { [key: string]: Options } | ((args: Argv<T>) => Argv<U>);
+    type CommandBuilder<T = {}, U = {}> = { [key: string]: Options } | ((args: Argv<T>) => Argv<U>) | ((args: Argv<T>) => PromiseLike<Argv<U>>);
     type SyncCompletionFunction = (current: string, argv: any) => string[];
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: ReadonlyArray<string>) => void) => void;
     type PromiseCompletionFunction = (current: string, argv: any) => Promise<string[]>;
     type MiddlewareFunction<T = {}> = (args: Arguments<T>) => void;
-    type Choices = ReadonlyArray<string | true | undefined>;
+    type Choices = ReadonlyArray<string | number | true | undefined>;
     type PositionalOptionsType = "boolean" | "number" | "string";
 }
 

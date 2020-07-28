@@ -31,15 +31,17 @@ export type ReactNodeLike =
 
 export const nominalTypeHack: unique symbol;
 
-export type IsOptional<T> = undefined | null extends T ? true : undefined extends T ? true : null extends T ? true : false;
+export type IsOptional<T> = undefined extends T ? true : false;
 
 export type RequiredKeys<V> = { [K in keyof V]-?: Exclude<V[K], undefined> extends Validator<infer T> ? IsOptional<T> extends true ? never : K : never }[keyof V];
 export type OptionalKeys<V> = Exclude<keyof V, RequiredKeys<V>>;
 export type InferPropsInner<V> = { [K in keyof V]-?: InferType<V[K]>; };
 
 export interface Validator<T> {
-    (props: object, propName: string, componentName: string, location: string, propFullName: string): Error | null;
-    [nominalTypeHack]?: T;
+    (props: { [key: string]: any }, propName: string, componentName: string, location: string, propFullName: string): Error | null;
+    [nominalTypeHack]?: {
+        type: T;
+    };
 }
 
 export interface Requireable<T> extends Validator<T | undefined | null> {

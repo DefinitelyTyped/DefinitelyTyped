@@ -27,9 +27,9 @@ export function createFile(file: string): Promise<void>;
 export function createFile(file: string, callback: (err: Error) => void): void;
 export function createFileSync(file: string): void;
 
-export function ensureDir(path: string): Promise<void>;
-export function ensureDir(path: string, callback: (err: Error) => void): void;
-export function ensureDirSync(path: string): void;
+export function ensureDir(path: string, options?: EnsureOptions | number): Promise<void>;
+export function ensureDir(path: string, options?: EnsureOptions | number, callback?: (err: Error) => void): void;
+export function ensureDirSync(path: string, options?: EnsureOptions | number): void;
 
 export function mkdirs(dir: string): Promise<void>;
 export function mkdirs(dir: string, callback: (err: Error) => void): void;
@@ -267,6 +267,10 @@ export interface CopyOptions {
     recursive?: boolean;
 }
 
+export interface EnsureOptions {
+    mode?: number;
+}
+
 export interface MoveOptions {
     overwrite?: boolean;
     limit?: number;
@@ -276,12 +280,12 @@ export interface ReadOptions {
     throws?: boolean;
     fs?: object;
     reviver?: any;
-    encoding?: string;
+    encoding?: BufferEncoding;
     flag?: string;
 }
 
 export interface WriteFileOptions {
-    encoding?: string;
+    encoding?: BufferEncoding | null;
     flag?: string;
     mode?: number;
 }

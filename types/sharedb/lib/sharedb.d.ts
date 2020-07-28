@@ -1,5 +1,7 @@
 import { EventEmitter } from 'events';
 
+import { Connection } from './client';
+
 export type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
 export interface JSONObject {
   [name: string]: JSONValue;
@@ -11,7 +13,7 @@ export interface Snapshot {
     id: string;
     v: number;
     type: string | null;
-    data: JSONObject | undefined;
+    data?: any;
     m: SnapshotMeta | null;
 }
 
@@ -19,7 +21,7 @@ export interface SnapshotMeta {
     ctime: number;
     mtime: number;
     // Users can use server middleware to add additional metadata to snapshots.
-    [key: string]: JSONValue;
+    [key: string]: any;
 }
 
 export interface AddNumOp { p: Path; na: number; }
@@ -49,7 +51,27 @@ export interface RawOp {
     c: string;
     d: string;
 }
-export type OTType = 'ot-text' | 'ot-json0' | 'ot-text-tp2' | 'rich-text';
+export type OTType = 'ot-text' | 'ot-json0' | 'ot-json1' | 'ot-text-tp2' | 'rich-text';
+
+export interface Type {
+    name?: string;
+    uri?: string;
+    create(initialData?: any): any;
+    apply(snapshot: any, op: any): any;
+    transform(op1: any, op2: any, side: 'left' | 'right'): any;
+    compose(op1: any, op2: any): any;
+    invert?(op: any): any;
+    normalize?(op: any): any;
+    transformCursor?(cursor: any, op: any, isOwnOp: boolean): any;
+    serialize?(snapshot: any): any;
+    deserialize?(data: any): any;
+    [key: string]: any;
+}
+export interface Types {
+    register: (type: Type) => void;
+    map: { [key: string]: Type };
+}
+
 export interface Error {
     code: number;
     message: string;
@@ -64,9 +86,13 @@ export type Callback = (err: Error) => any;
 export type DocEvent = 'load' | 'create' | 'before op' | 'op' | 'del' | 'error' | 'no write pending' | 'nothing pending';
 
 export class Doc extends EventEmitter {
-    type: string;
+    connection: Connection;
+    type: Type | null;
     id: string;
+    collection: string;
     data: any;
+    version: number | null;
+
     fetch: (callback: (err: Error) => void) => void;
     subscribe: (callback: (err: Error) => void) => void;
 
@@ -109,5 +135,5 @@ export interface ClientRequest {
     /** Short name of the request's action */
     a: RequestAction;
 
-    [propertyName: string]: JSONValue;
+    [propertyName: string]: any;
 }

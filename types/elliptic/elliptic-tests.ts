@@ -13,6 +13,8 @@ const signature = key.sign(msgHash);
 // Export DER encoded signature in Array
 const derSign = signature.toDER();
 
+const decodedSignature = new elliptic.ec.Signature(derSign);
+
 // Verify signature
 console.log(key.verify(msgHash, derSign));
 
@@ -26,13 +28,18 @@ const y = pubPoint.getY();
 // 1) '04' + hex string of x + hex string of y; or
 // 2) object with two hex string properties (x and y); or
 // 3) object with two buffer properties (x and y)
-const pub = pubPoint.encode('hex');                                 // case 1
+const pub = pubPoint.encode('hex', true);                            // case 1
 const aPub = { x: x.toString('hex'), y: y.toString('hex') };         // case 2
 const bPub = { x: x.toBuffer(), y: y.toBuffer() };                   // case 3
 const cPub = { x: x.toArrayLike(Buffer), y: y.toArrayLike(Buffer) }; // case 3
 
 // Import public key
 const newKey = ec.keyFromPublic(pub, 'hex');
+
+// Import public key from array
+const pubArray = pubPoint.encode('array', true);
+const newKeyFromArray = ec.keyFromPublic(pubArray);
+console.log(pub === newKeyFromArray.getPublic().encodeCompressed('hex'));
 
 // Signature MUST be either:
 // 1) DER-encoded signature as hex-string; or
@@ -92,3 +99,14 @@ const sc = new elliptic.curve.short({
 const p2 = sc.pointFromX(123456789);
 sc.validate(p2.add(p2).mul(new BN(5)).dbl());
 sc.pointFromJSON(p2.toJSON(), false).toJSON();
+
+// ECDH Tests
+
+const key1 = ec.genKeyPair();
+const key2 = ec.genKeyPair();
+
+const shared1 = key1.derive(key2.getPublic());
+const shared2 = key2.derive(key1.getPublic());
+
+console.log(BN.isBN(shared1) && BN.isBN(shared2));
+console.log(shared1.toString('hex') === shared2.toString('hex'));

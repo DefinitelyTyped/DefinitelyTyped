@@ -81,8 +81,8 @@ let message: Stomp.Message = {
     headers: {},
     body: 'body',
 
-    ack(header) { },
-    nack(header) { }
+    ack(headers: {}) { },
+    nack(headers: {}) { }
 }
 
 message.ack();

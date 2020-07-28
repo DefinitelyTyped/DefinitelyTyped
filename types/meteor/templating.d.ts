@@ -1,3 +1,4 @@
+import { Blaze } from 'meteor/blaze';
 declare module "meteor/templating" {
     var Template: TemplateStatic;
     interface TemplateStatic extends Blaze.TemplateStatic {

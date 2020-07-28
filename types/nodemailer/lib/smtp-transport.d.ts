@@ -13,6 +13,11 @@ import SMTPConnection = require('./smtp-connection');
 import XOAuth2 = require('./xoauth2');
 
 declare namespace SMTPTransport {
+    interface AuthenticationTypeCustom extends SMTPConnection.Credentials {
+        type: 'CUSTOM';
+        method: string;
+    }
+
     interface AuthenticationTypeLogin {
         type: 'LOGIN';
         user: string;
@@ -75,6 +80,27 @@ declare class SMTPTransport extends EventEmitter implements Transport {
 
     /** Releases resources */
     close(): void;
+
+    addListener(event: 'close', listener: () => void): this;
+    addListener(event: 'error', listener: (err: Error) => void): this;
+
+    emit(event: 'close'): boolean;
+    emit(event: 'error', error: Error): boolean;
+
+    on(event: 'close', listener: () => void): this;
+    on(event: 'error', listener: (err: Error) => void): this;
+
+    once(event: 'close', listener: () => void): this;
+    once(event: 'error', listener: (err: Error) => void): this;
+
+    prependListener(event: 'close', listener: () => void): this;
+    prependListener(event: 'error', listener: (err: Error) => void): this;
+
+    prependOnceListener(event: 'close', listener: () => void): this;
+    prependOnceListener(event: 'error', listener: (err: Error) => void): this;
+
+    listeners(event: 'close'): Array<() => void>;
+    listeners(event: 'error'): Array<(err: Error) => void>;
 }
 
 export = SMTPTransport;

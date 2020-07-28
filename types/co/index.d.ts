@@ -4,7 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-type ExtractType<T> = T extends IterableIterator<infer R> ? R : never;
+type ExtractType<T> =
+    T extends { [Symbol.iterator](): { next(): { done: true, value: infer U } } } ? U :
+    T extends { [Symbol.iterator](): { next(): { done: false } } } ? never :
+    T extends { [Symbol.iterator](): { next(): { value: infer U } } } ? U :
+    T extends { [Symbol.iterator](): any } ? unknown :
+    never;
 
 interface Co {
     <F extends (...args: any[]) => Iterator<any>>(fn: F, ...args: Parameters<F>): Promise<ExtractType<ReturnType<F>>>;

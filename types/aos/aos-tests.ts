@@ -6,6 +6,9 @@ const options: Aos.AosOptions = {
     initClassName: "aos-init",
     animatedClassName: "aos-animate",
     useClassNames: false,
+    disableMutationObserver: false,
+    debounceDelay: 50,
+    throttleDelay: 99,
 
     offset: 120,
     delay: 0,

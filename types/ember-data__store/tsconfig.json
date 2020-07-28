@@ -1,0 +1,57 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6", "dom"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "@ember-data/model": ["ember-data__model"],
+            "@ember-data/model/*": ["ember-data__model/*"],
+            "@ember-data/store": ["ember-data__store"],
+            "@ember-data/store/*": ["ember-data__store/*"],
+            "@ember/application": ["ember__application"],
+            "@ember/application/*": ["ember__application/*"],
+            "@ember/array": ["ember__array"],
+            "@ember/array/*": ["ember__array/*"],
+            "@ember/component": ["ember__component"],
+            "@ember/component/*": ["ember__component/*"],
+            "@ember/controller": ["ember__controller"],
+            "@ember/debug": ["ember__debug"],
+            "@ember/debug/*": ["ember__debug/*"],
+            "@ember/engine": ["ember__engine"],
+            "@ember/engine/*": ["ember__engine/*"],
+            "@ember/error": ["ember__error"],
+            "@ember/object": ["ember__object"],
+            "@ember/object/*": ["ember__object/*"],
+            "@ember/polyfills": ["ember__polyfills"],
+            "@ember/routing": ["ember__routing"],
+            "@ember/routing/*": ["ember__routing/*"],
+            "@ember/runloop": ["ember__runloop"],
+            "@ember/runloop/*": ["ember__runloop/*"],
+            "@ember/service": ["ember__service"],
+            "@ember/string": ["ember__string"],
+            "@ember/string/*": ["ember__string/*"],
+            "@ember/template": ["ember__template"],
+            "@ember/template/*": ["ember__template/*"],
+            "@ember/test": ["ember__test"],
+            "@ember/test/*": ["ember__test/*"],
+            "@ember/utils": ["ember__utils"],
+            "@ember/utils/*": ["ember__utils/*"]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true
+    },
+    "files": [
+        "index.d.ts",
+        "ember-data__store-tests.ts"
+    ]
+}

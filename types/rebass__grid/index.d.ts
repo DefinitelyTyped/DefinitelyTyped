@@ -10,7 +10,6 @@
 // TypeScript Version: 2.9
 
 import * as React from "react";
-import { Interpolation } from "styled-components";
 import * as StyledSystem from "styled-system";
 
 export {};
@@ -19,7 +18,6 @@ type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 export interface BaseProps extends React.Props<any> {
     as?: React.ElementType;
-    css?: Interpolation<any>;
 }
 
 interface BoxKnownProps

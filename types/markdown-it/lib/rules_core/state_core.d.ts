@@ -1,20 +1,20 @@
-import MarkdownIt = require("..");
-import Token = require("../token");
-
-export = StateCore;
+import MarkdownIt = require('..');
+import Token = require('../token');
 
 declare class StateCore {
-    env: any;
-    level: number;
+    constructor(src: string, md: MarkdownIt, env: any);
 
-    /** Link to parser instance */
+    src: string;
+    env: any;
+    tokens: Token[];
+    inlineMode: boolean;
+
+    /**
+     * link to parser instance
+     */
     md: MarkdownIt;
 
-    /** The markdown source code that is being parsed. */
-    src: string;
-
-    tokens: Token[];
-
-    /** Return any for a yet untyped property */
-    [undocumented: string]: any;
+    Token: typeof Token;
 }
+
+export = StateCore;

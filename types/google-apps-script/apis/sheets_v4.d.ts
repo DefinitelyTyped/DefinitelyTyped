@@ -1,14 +1,13 @@
 // Type definitions for Google Apps Script 2019-03-25
 // Project: https://developers.google.com/apps-script/
 // Generator: https://github.com/grant/google-apps-script-dts
-// Definitions by: grant <https://github.com/grant/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
   namespace Sheets {
     namespace Collection {
       namespace Spreadsheets {
-        export interface DeveloperMetadataCollection {
+        interface DeveloperMetadataCollection {
           // Returns the developer metadata with the specified ID.
           // The caller must specify the spreadsheet ID and the developer metadata's
           // unique metadataId.
@@ -20,12 +19,12 @@ declare namespace GoogleAppsScript {
           // developer metadata associated with locations intersecting that region.
           search(resource: Schema.SearchDeveloperMetadataRequest, spreadsheetId: string): Sheets.Schema.SearchDeveloperMetadataResponse;
         }
-        export interface SheetsCollection {
+        interface SheetsCollection {
           // Copies a single sheet from a spreadsheet to another spreadsheet.
           // Returns the properties of the newly created sheet.
           copyTo(resource: Schema.CopySheetToAnotherSpreadsheetRequest, spreadsheetId: string, sheetId: number): Sheets.Schema.SheetProperties;
         }
-        export interface ValuesCollection {
+        interface ValuesCollection {
           // Appends values to a spreadsheet. The input range is used to search for
           // existing data and find a "table" within that range. Values will be
           // appended to the next row of the table, starting with the first column of
@@ -107,7 +106,7 @@ declare namespace GoogleAppsScript {
           update(resource: Schema.ValueRange, spreadsheetId: string, range: string, optionalArgs: object): Sheets.Schema.UpdateValuesResponse;
         }
       }
-      export interface SpreadsheetsCollection {
+      interface SpreadsheetsCollection {
         DeveloperMetadata?: Sheets.Collection.Spreadsheets.DeveloperMetadataCollection;
         Sheets?: Sheets.Collection.Spreadsheets.SheetsCollection;
         Values?: Sheets.Collection.Spreadsheets.ValuesCollection;
@@ -185,105 +184,105 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface AddBandingRequest {
+      interface AddBandingRequest {
         bandedRange?: Sheets.Schema.BandedRange;
       }
-      export interface AddBandingResponse {
+      interface AddBandingResponse {
         bandedRange?: Sheets.Schema.BandedRange;
       }
-      export interface AddChartRequest {
+      interface AddChartRequest {
         chart?: Sheets.Schema.EmbeddedChart;
       }
-      export interface AddChartResponse {
+      interface AddChartResponse {
         chart?: Sheets.Schema.EmbeddedChart;
       }
-      export interface AddConditionalFormatRuleRequest {
+      interface AddConditionalFormatRuleRequest {
         index?: number;
         rule?: Sheets.Schema.ConditionalFormatRule;
       }
-      export interface AddDimensionGroupRequest {
+      interface AddDimensionGroupRequest {
         range?: Sheets.Schema.DimensionRange;
       }
-      export interface AddDimensionGroupResponse {
+      interface AddDimensionGroupResponse {
         dimensionGroups?: Sheets.Schema.DimensionGroup[];
       }
-      export interface AddFilterViewRequest {
+      interface AddFilterViewRequest {
         filter?: Sheets.Schema.FilterView;
       }
-      export interface AddFilterViewResponse {
+      interface AddFilterViewResponse {
         filter?: Sheets.Schema.FilterView;
       }
-      export interface AddNamedRangeRequest {
+      interface AddNamedRangeRequest {
         namedRange?: Sheets.Schema.NamedRange;
       }
-      export interface AddNamedRangeResponse {
+      interface AddNamedRangeResponse {
         namedRange?: Sheets.Schema.NamedRange;
       }
-      export interface AddProtectedRangeRequest {
+      interface AddProtectedRangeRequest {
         protectedRange?: Sheets.Schema.ProtectedRange;
       }
-      export interface AddProtectedRangeResponse {
+      interface AddProtectedRangeResponse {
         protectedRange?: Sheets.Schema.ProtectedRange;
       }
-      export interface AddSheetRequest {
+      interface AddSheetRequest {
         properties?: Sheets.Schema.SheetProperties;
       }
-      export interface AddSheetResponse {
+      interface AddSheetResponse {
         properties?: Sheets.Schema.SheetProperties;
       }
-      export interface AppendCellsRequest {
+      interface AppendCellsRequest {
         fields?: string;
         rows?: Sheets.Schema.RowData[];
         sheetId?: number;
       }
-      export interface AppendDimensionRequest {
+      interface AppendDimensionRequest {
         dimension?: string;
         length?: number;
         sheetId?: number;
       }
-      export interface AppendValuesResponse {
+      interface AppendValuesResponse {
         spreadsheetId?: string;
         tableRange?: string;
         updates?: Sheets.Schema.UpdateValuesResponse;
       }
-      export interface AutoFillRequest {
+      interface AutoFillRequest {
         range?: Sheets.Schema.GridRange;
         sourceAndDestination?: Sheets.Schema.SourceAndDestination;
         useAlternateSeries?: boolean;
       }
-      export interface AutoResizeDimensionsRequest {
+      interface AutoResizeDimensionsRequest {
         dimensions?: Sheets.Schema.DimensionRange;
       }
-      export interface BandedRange {
+      interface BandedRange {
         bandedRangeId?: number;
         columnProperties?: Sheets.Schema.BandingProperties;
         range?: Sheets.Schema.GridRange;
         rowProperties?: Sheets.Schema.BandingProperties;
       }
-      export interface BandingProperties {
+      interface BandingProperties {
         firstBandColor?: Sheets.Schema.Color;
         footerColor?: Sheets.Schema.Color;
         headerColor?: Sheets.Schema.Color;
         secondBandColor?: Sheets.Schema.Color;
       }
-      export interface BasicChartAxis {
+      interface BasicChartAxis {
         format?: Sheets.Schema.TextFormat;
         position?: string;
         title?: string;
         titleTextPosition?: Sheets.Schema.TextPosition;
       }
-      export interface BasicChartDomain {
+      interface BasicChartDomain {
         domain?: Sheets.Schema.ChartData;
         reversed?: boolean;
       }
-      export interface BasicChartSeries {
+      interface BasicChartSeries {
         color?: Sheets.Schema.Color;
         lineStyle?: Sheets.Schema.LineStyle;
         series?: Sheets.Schema.ChartData;
         targetAxis?: string;
         type?: string;
       }
-      export interface BasicChartSpec {
+      interface BasicChartSpec {
         axis?: Sheets.Schema.BasicChartAxis[];
         chartType?: string;
         compareMode?: string;
@@ -296,58 +295,58 @@ declare namespace GoogleAppsScript {
         stackedType?: string;
         threeDimensional?: boolean;
       }
-      export interface BasicFilter {
+      interface BasicFilter {
         criteria?: object;
         range?: Sheets.Schema.GridRange;
         sortSpecs?: Sheets.Schema.SortSpec[];
       }
-      export interface BatchClearValuesByDataFilterRequest {
+      interface BatchClearValuesByDataFilterRequest {
         dataFilters?: Sheets.Schema.DataFilter[];
       }
-      export interface BatchClearValuesByDataFilterResponse {
+      interface BatchClearValuesByDataFilterResponse {
         clearedRanges?: string[];
         spreadsheetId?: string;
       }
-      export interface BatchClearValuesRequest {
+      interface BatchClearValuesRequest {
         ranges?: string[];
       }
-      export interface BatchClearValuesResponse {
+      interface BatchClearValuesResponse {
         clearedRanges?: string[];
         spreadsheetId?: string;
       }
-      export interface BatchGetValuesByDataFilterRequest {
+      interface BatchGetValuesByDataFilterRequest {
         dataFilters?: Sheets.Schema.DataFilter[];
         dateTimeRenderOption?: string;
         majorDimension?: string;
         valueRenderOption?: string;
       }
-      export interface BatchGetValuesByDataFilterResponse {
+      interface BatchGetValuesByDataFilterResponse {
         spreadsheetId?: string;
         valueRanges?: Sheets.Schema.MatchedValueRange[];
       }
-      export interface BatchGetValuesResponse {
+      interface BatchGetValuesResponse {
         spreadsheetId?: string;
         valueRanges?: Sheets.Schema.ValueRange[];
       }
-      export interface BatchUpdateSpreadsheetRequest {
+      interface BatchUpdateSpreadsheetRequest {
         includeSpreadsheetInResponse?: boolean;
         requests?: Sheets.Schema.Request[];
         responseIncludeGridData?: boolean;
         responseRanges?: string[];
       }
-      export interface BatchUpdateSpreadsheetResponse {
+      interface BatchUpdateSpreadsheetResponse {
         replies?: Sheets.Schema.Response[];
         spreadsheetId?: string;
         updatedSpreadsheet?: Sheets.Schema.Spreadsheet;
       }
-      export interface BatchUpdateValuesByDataFilterRequest {
+      interface BatchUpdateValuesByDataFilterRequest {
         data?: Sheets.Schema.DataFilterValueRange[];
         includeValuesInResponse?: boolean;
         responseDateTimeRenderOption?: string;
         responseValueRenderOption?: string;
         valueInputOption?: string;
       }
-      export interface BatchUpdateValuesByDataFilterResponse {
+      interface BatchUpdateValuesByDataFilterResponse {
         responses?: Sheets.Schema.UpdateValuesByDataFilterResponse[];
         spreadsheetId?: string;
         totalUpdatedCells?: number;
@@ -355,14 +354,14 @@ declare namespace GoogleAppsScript {
         totalUpdatedRows?: number;
         totalUpdatedSheets?: number;
       }
-      export interface BatchUpdateValuesRequest {
+      interface BatchUpdateValuesRequest {
         data?: Sheets.Schema.ValueRange[];
         includeValuesInResponse?: boolean;
         responseDateTimeRenderOption?: string;
         responseValueRenderOption?: string;
         valueInputOption?: string;
       }
-      export interface BatchUpdateValuesResponse {
+      interface BatchUpdateValuesResponse {
         responses?: Sheets.Schema.UpdateValuesResponse[];
         spreadsheetId?: string;
         totalUpdatedCells?: number;
@@ -370,31 +369,31 @@ declare namespace GoogleAppsScript {
         totalUpdatedRows?: number;
         totalUpdatedSheets?: number;
       }
-      export interface BooleanCondition {
+      interface BooleanCondition {
         type?: string;
         values?: Sheets.Schema.ConditionValue[];
       }
-      export interface BooleanRule {
+      interface BooleanRule {
         condition?: Sheets.Schema.BooleanCondition;
         format?: Sheets.Schema.CellFormat;
       }
-      export interface Border {
+      interface Border {
         color?: Sheets.Schema.Color;
         style?: string;
         width?: number;
       }
-      export interface Borders {
+      interface Borders {
         bottom?: Sheets.Schema.Border;
         left?: Sheets.Schema.Border;
         right?: Sheets.Schema.Border;
         top?: Sheets.Schema.Border;
       }
-      export interface BubbleChartSpec {
+      interface BubbleChartSpec {
         bubbleBorderColor?: Sheets.Schema.Color;
         bubbleLabels?: Sheets.Schema.ChartData;
         bubbleMaxRadiusSize?: number;
         bubbleMinRadiusSize?: number;
-        bubbleOpacity?: Number;
+        bubbleOpacity?: number;
         bubbleSizes?: Sheets.Schema.ChartData;
         bubbleTextStyle?: Sheets.Schema.TextFormat;
         domain?: Sheets.Schema.ChartData;
@@ -402,24 +401,24 @@ declare namespace GoogleAppsScript {
         legendPosition?: string;
         series?: Sheets.Schema.ChartData;
       }
-      export interface CandlestickChartSpec {
+      interface CandlestickChartSpec {
         data?: Sheets.Schema.CandlestickData[];
         domain?: Sheets.Schema.CandlestickDomain;
       }
-      export interface CandlestickData {
+      interface CandlestickData {
         closeSeries?: Sheets.Schema.CandlestickSeries;
         highSeries?: Sheets.Schema.CandlestickSeries;
         lowSeries?: Sheets.Schema.CandlestickSeries;
         openSeries?: Sheets.Schema.CandlestickSeries;
       }
-      export interface CandlestickDomain {
+      interface CandlestickDomain {
         data?: Sheets.Schema.ChartData;
         reversed?: boolean;
       }
-      export interface CandlestickSeries {
+      interface CandlestickSeries {
         data?: Sheets.Schema.ChartData;
       }
-      export interface CellData {
+      interface CellData {
         dataValidation?: Sheets.Schema.DataValidationRule;
         effectiveFormat?: Sheets.Schema.CellFormat;
         effectiveValue?: Sheets.Schema.ExtendedValue;
@@ -431,7 +430,7 @@ declare namespace GoogleAppsScript {
         userEnteredFormat?: Sheets.Schema.CellFormat;
         userEnteredValue?: Sheets.Schema.ExtendedValue;
       }
-      export interface CellFormat {
+      interface CellFormat {
         backgroundColor?: Sheets.Schema.Color;
         borders?: Sheets.Schema.Borders;
         horizontalAlignment?: string;
@@ -444,13 +443,13 @@ declare namespace GoogleAppsScript {
         verticalAlignment?: string;
         wrapStrategy?: string;
       }
-      export interface ChartData {
+      interface ChartData {
         sourceRange?: Sheets.Schema.ChartSourceRange;
       }
-      export interface ChartSourceRange {
+      interface ChartSourceRange {
         sources?: Sheets.Schema.GridRange[];
       }
-      export interface ChartSpec {
+      interface ChartSpec {
         altText?: string;
         backgroundColor?: Sheets.Schema.Color;
         basicChart?: Sheets.Schema.BasicChartSpec;
@@ -471,125 +470,125 @@ declare namespace GoogleAppsScript {
         treemapChart?: Sheets.Schema.TreemapChartSpec;
         waterfallChart?: Sheets.Schema.WaterfallChartSpec;
       }
-      export interface ClearBasicFilterRequest {
+      interface ClearBasicFilterRequest {
         sheetId?: number;
       }
-      export interface ClearValuesResponse {
+      interface ClearValuesResponse {
         clearedRange?: string;
         spreadsheetId?: string;
       }
-      export interface Color {
-        alpha?: Number;
-        blue?: Number;
-        green?: Number;
-        red?: Number;
+      interface Color {
+        alpha?: number;
+        blue?: number;
+        green?: number;
+        red?: number;
       }
-      export interface ConditionValue {
+      interface ConditionValue {
         relativeDate?: string;
         userEnteredValue?: string;
       }
-      export interface ConditionalFormatRule {
+      interface ConditionalFormatRule {
         booleanRule?: Sheets.Schema.BooleanRule;
         gradientRule?: Sheets.Schema.GradientRule;
         ranges?: Sheets.Schema.GridRange[];
       }
-      export interface CopyPasteRequest {
+      interface CopyPasteRequest {
         destination?: Sheets.Schema.GridRange;
         pasteOrientation?: string;
         pasteType?: string;
         source?: Sheets.Schema.GridRange;
       }
-      export interface CopySheetToAnotherSpreadsheetRequest {
+      interface CopySheetToAnotherSpreadsheetRequest {
         destinationSpreadsheetId?: string;
       }
-      export interface CreateDeveloperMetadataRequest {
+      interface CreateDeveloperMetadataRequest {
         developerMetadata?: Sheets.Schema.DeveloperMetadata;
       }
-      export interface CreateDeveloperMetadataResponse {
+      interface CreateDeveloperMetadataResponse {
         developerMetadata?: Sheets.Schema.DeveloperMetadata;
       }
-      export interface CutPasteRequest {
+      interface CutPasteRequest {
         destination?: Sheets.Schema.GridCoordinate;
         pasteType?: string;
         source?: Sheets.Schema.GridRange;
       }
-      export interface DataFilter {
+      interface DataFilter {
         a1Range?: string;
         developerMetadataLookup?: Sheets.Schema.DeveloperMetadataLookup;
         gridRange?: Sheets.Schema.GridRange;
       }
-      export interface DataFilterValueRange {
+      interface DataFilterValueRange {
         dataFilter?: Sheets.Schema.DataFilter;
         majorDimension?: string;
-        values?: Object[][];
+        values?: any[][];
       }
-      export interface DataValidationRule {
+      interface DataValidationRule {
         condition?: Sheets.Schema.BooleanCondition;
         inputMessage?: string;
         showCustomUi?: boolean;
         strict?: boolean;
       }
-      export interface DateTimeRule {
+      interface DateTimeRule {
         type?: string;
       }
-      export interface DeleteBandingRequest {
+      interface DeleteBandingRequest {
         bandedRangeId?: number;
       }
-      export interface DeleteConditionalFormatRuleRequest {
+      interface DeleteConditionalFormatRuleRequest {
         index?: number;
         sheetId?: number;
       }
-      export interface DeleteConditionalFormatRuleResponse {
+      interface DeleteConditionalFormatRuleResponse {
         rule?: Sheets.Schema.ConditionalFormatRule;
       }
-      export interface DeleteDeveloperMetadataRequest {
+      interface DeleteDeveloperMetadataRequest {
         dataFilter?: Sheets.Schema.DataFilter;
       }
-      export interface DeleteDeveloperMetadataResponse {
+      interface DeleteDeveloperMetadataResponse {
         deletedDeveloperMetadata?: Sheets.Schema.DeveloperMetadata[];
       }
-      export interface DeleteDimensionGroupRequest {
+      interface DeleteDimensionGroupRequest {
         range?: Sheets.Schema.DimensionRange;
       }
-      export interface DeleteDimensionGroupResponse {
+      interface DeleteDimensionGroupResponse {
         dimensionGroups?: Sheets.Schema.DimensionGroup[];
       }
-      export interface DeleteDimensionRequest {
+      interface DeleteDimensionRequest {
         range?: Sheets.Schema.DimensionRange;
       }
-      export interface DeleteEmbeddedObjectRequest {
+      interface DeleteEmbeddedObjectRequest {
         objectId?: number;
       }
-      export interface DeleteFilterViewRequest {
+      interface DeleteFilterViewRequest {
         filterId?: number;
       }
-      export interface DeleteNamedRangeRequest {
+      interface DeleteNamedRangeRequest {
         namedRangeId?: string;
       }
-      export interface DeleteProtectedRangeRequest {
+      interface DeleteProtectedRangeRequest {
         protectedRangeId?: number;
       }
-      export interface DeleteRangeRequest {
+      interface DeleteRangeRequest {
         range?: Sheets.Schema.GridRange;
         shiftDimension?: string;
       }
-      export interface DeleteSheetRequest {
+      interface DeleteSheetRequest {
         sheetId?: number;
       }
-      export interface DeveloperMetadata {
+      interface DeveloperMetadata {
         location?: Sheets.Schema.DeveloperMetadataLocation;
         metadataId?: number;
         metadataKey?: string;
         metadataValue?: string;
         visibility?: string;
       }
-      export interface DeveloperMetadataLocation {
+      interface DeveloperMetadataLocation {
         dimensionRange?: Sheets.Schema.DimensionRange;
         locationType?: string;
         sheetId?: number;
         spreadsheet?: boolean;
       }
-      export interface DeveloperMetadataLookup {
+      interface DeveloperMetadataLookup {
         locationMatchingStrategy?: string;
         locationType?: string;
         metadataId?: number;
@@ -598,69 +597,69 @@ declare namespace GoogleAppsScript {
         metadataValue?: string;
         visibility?: string;
       }
-      export interface DimensionGroup {
+      interface DimensionGroup {
         collapsed?: boolean;
         depth?: number;
         range?: Sheets.Schema.DimensionRange;
       }
-      export interface DimensionProperties {
+      interface DimensionProperties {
         developerMetadata?: Sheets.Schema.DeveloperMetadata[];
         hiddenByFilter?: boolean;
         hiddenByUser?: boolean;
         pixelSize?: number;
       }
-      export interface DimensionRange {
+      interface DimensionRange {
         dimension?: string;
         endIndex?: number;
         sheetId?: number;
         startIndex?: number;
       }
-      export interface DuplicateFilterViewRequest {
+      interface DuplicateFilterViewRequest {
         filterId?: number;
       }
-      export interface DuplicateFilterViewResponse {
+      interface DuplicateFilterViewResponse {
         filter?: Sheets.Schema.FilterView;
       }
-      export interface DuplicateSheetRequest {
+      interface DuplicateSheetRequest {
         insertSheetIndex?: number;
         newSheetId?: number;
         newSheetName?: string;
         sourceSheetId?: number;
       }
-      export interface DuplicateSheetResponse {
+      interface DuplicateSheetResponse {
         properties?: Sheets.Schema.SheetProperties;
       }
-      export interface Editors {
+      interface Editors {
         domainUsersCanEdit?: boolean;
         groups?: string[];
         users?: string[];
       }
-      export interface EmbeddedChart {
+      interface EmbeddedChart {
         chartId?: number;
         position?: Sheets.Schema.EmbeddedObjectPosition;
         spec?: Sheets.Schema.ChartSpec;
       }
-      export interface EmbeddedObjectPosition {
+      interface EmbeddedObjectPosition {
         newSheet?: boolean;
         overlayPosition?: Sheets.Schema.OverlayPosition;
         sheetId?: number;
       }
-      export interface ErrorValue {
+      interface ErrorValue {
         message?: string;
         type?: string;
       }
-      export interface ExtendedValue {
+      interface ExtendedValue {
         boolValue?: boolean;
         errorValue?: Sheets.Schema.ErrorValue;
         formulaValue?: string;
-        numberValue?: Number;
+        numberValue?: number;
         stringValue?: string;
       }
-      export interface FilterCriteria {
+      interface FilterCriteria {
         condition?: Sheets.Schema.BooleanCondition;
         hiddenValues?: string[];
       }
-      export interface FilterView {
+      interface FilterView {
         criteria?: object;
         filterViewId?: number;
         namedRangeId?: string;
@@ -668,7 +667,7 @@ declare namespace GoogleAppsScript {
         sortSpecs?: Sheets.Schema.SortSpec[];
         title?: string;
       }
-      export interface FindReplaceRequest {
+      interface FindReplaceRequest {
         allSheets?: boolean;
         find?: string;
         includeFormulas?: boolean;
@@ -679,35 +678,35 @@ declare namespace GoogleAppsScript {
         searchByRegex?: boolean;
         sheetId?: number;
       }
-      export interface FindReplaceResponse {
+      interface FindReplaceResponse {
         formulasChanged?: number;
         occurrencesChanged?: number;
         rowsChanged?: number;
         sheetsChanged?: number;
         valuesChanged?: number;
       }
-      export interface GetSpreadsheetByDataFilterRequest {
+      interface GetSpreadsheetByDataFilterRequest {
         dataFilters?: Sheets.Schema.DataFilter[];
         includeGridData?: boolean;
       }
-      export interface GradientRule {
+      interface GradientRule {
         maxpoint?: Sheets.Schema.InterpolationPoint;
         midpoint?: Sheets.Schema.InterpolationPoint;
         minpoint?: Sheets.Schema.InterpolationPoint;
       }
-      export interface GridCoordinate {
+      interface GridCoordinate {
         columnIndex?: number;
         rowIndex?: number;
         sheetId?: number;
       }
-      export interface GridData {
+      interface GridData {
         columnMetadata?: Sheets.Schema.DimensionProperties[];
         rowData?: Sheets.Schema.RowData[];
         rowMetadata?: Sheets.Schema.DimensionProperties[];
         startColumn?: number;
         startRow?: number;
       }
-      export interface GridProperties {
+      interface GridProperties {
         columnCount?: number;
         columnGroupControlAfter?: boolean;
         frozenColumnCount?: number;
@@ -716,83 +715,83 @@ declare namespace GoogleAppsScript {
         rowCount?: number;
         rowGroupControlAfter?: boolean;
       }
-      export interface GridRange {
+      interface GridRange {
         endColumnIndex?: number;
         endRowIndex?: number;
         sheetId?: number;
         startColumnIndex?: number;
         startRowIndex?: number;
       }
-      export interface HistogramChartSpec {
-        bucketSize?: Number;
+      interface HistogramChartSpec {
+        bucketSize?: number;
         legendPosition?: string;
-        outlierPercentile?: Number;
+        outlierPercentile?: number;
         series?: Sheets.Schema.HistogramSeries[];
         showItemDividers?: boolean;
       }
-      export interface HistogramRule {
-        end?: Number;
-        interval?: Number;
-        start?: Number;
+      interface HistogramRule {
+        end?: number;
+        interval?: number;
+        start?: number;
       }
-      export interface HistogramSeries {
+      interface HistogramSeries {
         barColor?: Sheets.Schema.Color;
         data?: Sheets.Schema.ChartData;
       }
-      export interface InsertDimensionRequest {
+      interface InsertDimensionRequest {
         inheritFromBefore?: boolean;
         range?: Sheets.Schema.DimensionRange;
       }
-      export interface InsertRangeRequest {
+      interface InsertRangeRequest {
         range?: Sheets.Schema.GridRange;
         shiftDimension?: string;
       }
-      export interface InterpolationPoint {
+      interface InterpolationPoint {
         color?: Sheets.Schema.Color;
         type?: string;
         value?: string;
       }
-      export interface IterativeCalculationSettings {
-        convergenceThreshold?: Number;
+      interface IterativeCalculationSettings {
+        convergenceThreshold?: number;
         maxIterations?: number;
       }
-      export interface LineStyle {
+      interface LineStyle {
         type?: string;
         width?: number;
       }
-      export interface ManualRule {
+      interface ManualRule {
         groups?: Sheets.Schema.ManualRuleGroup[];
       }
-      export interface ManualRuleGroup {
+      interface ManualRuleGroup {
         groupName?: Sheets.Schema.ExtendedValue;
         items?: Sheets.Schema.ExtendedValue[];
       }
-      export interface MatchedDeveloperMetadata {
+      interface MatchedDeveloperMetadata {
         dataFilters?: Sheets.Schema.DataFilter[];
         developerMetadata?: Sheets.Schema.DeveloperMetadata;
       }
-      export interface MatchedValueRange {
+      interface MatchedValueRange {
         dataFilters?: Sheets.Schema.DataFilter[];
         valueRange?: Sheets.Schema.ValueRange;
       }
-      export interface MergeCellsRequest {
+      interface MergeCellsRequest {
         mergeType?: string;
         range?: Sheets.Schema.GridRange;
       }
-      export interface MoveDimensionRequest {
+      interface MoveDimensionRequest {
         destinationIndex?: number;
         source?: Sheets.Schema.DimensionRange;
       }
-      export interface NamedRange {
+      interface NamedRange {
         name?: string;
         namedRangeId?: string;
         range?: Sheets.Schema.GridRange;
       }
-      export interface NumberFormat {
+      interface NumberFormat {
         pattern?: string;
         type?: string;
       }
-      export interface OrgChartSpec {
+      interface OrgChartSpec {
         labels?: Sheets.Schema.ChartData;
         nodeColor?: Sheets.Schema.Color;
         nodeSize?: string;
@@ -800,37 +799,37 @@ declare namespace GoogleAppsScript {
         selectedNodeColor?: Sheets.Schema.Color;
         tooltips?: Sheets.Schema.ChartData;
       }
-      export interface OverlayPosition {
+      interface OverlayPosition {
         anchorCell?: Sheets.Schema.GridCoordinate;
         heightPixels?: number;
         offsetXPixels?: number;
         offsetYPixels?: number;
         widthPixels?: number;
       }
-      export interface Padding {
+      interface Padding {
         bottom?: number;
         left?: number;
         right?: number;
         top?: number;
       }
-      export interface PasteDataRequest {
+      interface PasteDataRequest {
         coordinate?: Sheets.Schema.GridCoordinate;
         data?: string;
         delimiter?: string;
         html?: boolean;
         type?: string;
       }
-      export interface PieChartSpec {
+      interface PieChartSpec {
         domain?: Sheets.Schema.ChartData;
         legendPosition?: string;
-        pieHole?: Number;
+        pieHole?: number;
         series?: Sheets.Schema.ChartData;
         threeDimensional?: boolean;
       }
-      export interface PivotFilterCriteria {
+      interface PivotFilterCriteria {
         visibleValues?: string[];
       }
-      export interface PivotGroup {
+      interface PivotGroup {
         groupRule?: Sheets.Schema.PivotGroupRule;
         label?: string;
         repeatHeadings?: boolean;
@@ -840,20 +839,20 @@ declare namespace GoogleAppsScript {
         valueBucket?: Sheets.Schema.PivotGroupSortValueBucket;
         valueMetadata?: Sheets.Schema.PivotGroupValueMetadata[];
       }
-      export interface PivotGroupRule {
+      interface PivotGroupRule {
         dateTimeRule?: Sheets.Schema.DateTimeRule;
         histogramRule?: Sheets.Schema.HistogramRule;
         manualRule?: Sheets.Schema.ManualRule;
       }
-      export interface PivotGroupSortValueBucket {
+      interface PivotGroupSortValueBucket {
         buckets?: Sheets.Schema.ExtendedValue[];
         valuesIndex?: number;
       }
-      export interface PivotGroupValueMetadata {
+      interface PivotGroupValueMetadata {
         collapsed?: boolean;
         value?: Sheets.Schema.ExtendedValue;
       }
-      export interface PivotTable {
+      interface PivotTable {
         columns?: Sheets.Schema.PivotGroup[];
         criteria?: object;
         rows?: Sheets.Schema.PivotGroup[];
@@ -861,14 +860,14 @@ declare namespace GoogleAppsScript {
         valueLayout?: string;
         values?: Sheets.Schema.PivotValue[];
       }
-      export interface PivotValue {
+      interface PivotValue {
         calculatedDisplayType?: string;
         formula?: string;
         name?: string;
         sourceColumnOffset?: number;
         summarizeFunction?: string;
       }
-      export interface ProtectedRange {
+      interface ProtectedRange {
         description?: string;
         editors?: Sheets.Schema.Editors;
         namedRangeId?: string;
@@ -878,15 +877,15 @@ declare namespace GoogleAppsScript {
         unprotectedRanges?: Sheets.Schema.GridRange[];
         warningOnly?: boolean;
       }
-      export interface RandomizeRangeRequest {
+      interface RandomizeRangeRequest {
         range?: Sheets.Schema.GridRange;
       }
-      export interface RepeatCellRequest {
+      interface RepeatCellRequest {
         cell?: Sheets.Schema.CellData;
         fields?: string;
         range?: Sheets.Schema.GridRange;
       }
-      export interface Request {
+      interface Request {
         addBanding?: Sheets.Schema.AddBandingRequest;
         addChart?: Sheets.Schema.AddChartRequest;
         addConditionalFormatRule?: Sheets.Schema.AddConditionalFormatRuleRequest;
@@ -944,7 +943,7 @@ declare namespace GoogleAppsScript {
         updateSheetProperties?: Sheets.Schema.UpdateSheetPropertiesRequest;
         updateSpreadsheetProperties?: Sheets.Schema.UpdateSpreadsheetPropertiesRequest;
       }
-      export interface Response {
+      interface Response {
         addBanding?: Sheets.Schema.AddBandingResponse;
         addChart?: Sheets.Schema.AddChartResponse;
         addDimensionGroup?: Sheets.Schema.AddDimensionGroupResponse;
@@ -963,23 +962,23 @@ declare namespace GoogleAppsScript {
         updateDeveloperMetadata?: Sheets.Schema.UpdateDeveloperMetadataResponse;
         updateEmbeddedObjectPosition?: Sheets.Schema.UpdateEmbeddedObjectPositionResponse;
       }
-      export interface RowData {
+      interface RowData {
         values?: Sheets.Schema.CellData[];
       }
-      export interface SearchDeveloperMetadataRequest {
+      interface SearchDeveloperMetadataRequest {
         dataFilters?: Sheets.Schema.DataFilter[];
       }
-      export interface SearchDeveloperMetadataResponse {
+      interface SearchDeveloperMetadataResponse {
         matchedDeveloperMetadata?: Sheets.Schema.MatchedDeveloperMetadata[];
       }
-      export interface SetBasicFilterRequest {
+      interface SetBasicFilterRequest {
         filter?: Sheets.Schema.BasicFilter;
       }
-      export interface SetDataValidationRequest {
+      interface SetDataValidationRequest {
         range?: Sheets.Schema.GridRange;
         rule?: Sheets.Schema.DataValidationRule;
       }
-      export interface Sheet {
+      interface Sheet {
         bandedRanges?: Sheets.Schema.BandedRange[];
         basicFilter?: Sheets.Schema.BasicFilter;
         charts?: Sheets.Schema.EmbeddedChart[];
@@ -993,7 +992,7 @@ declare namespace GoogleAppsScript {
         protectedRanges?: Sheets.Schema.ProtectedRange[];
         rowGroups?: Sheets.Schema.DimensionGroup[];
       }
-      export interface SheetProperties {
+      interface SheetProperties {
         gridProperties?: Sheets.Schema.GridProperties;
         hidden?: boolean;
         index?: number;
@@ -1003,20 +1002,20 @@ declare namespace GoogleAppsScript {
         tabColor?: Sheets.Schema.Color;
         title?: string;
       }
-      export interface SortRangeRequest {
+      interface SortRangeRequest {
         range?: Sheets.Schema.GridRange;
         sortSpecs?: Sheets.Schema.SortSpec[];
       }
-      export interface SortSpec {
+      interface SortSpec {
         dimensionIndex?: number;
         sortOrder?: string;
       }
-      export interface SourceAndDestination {
+      interface SourceAndDestination {
         dimension?: string;
         fillLength?: number;
         source?: Sheets.Schema.GridRange;
       }
-      export interface Spreadsheet {
+      interface Spreadsheet {
         developerMetadata?: Sheets.Schema.DeveloperMetadata[];
         namedRanges?: Sheets.Schema.NamedRange[];
         properties?: Sheets.Schema.SpreadsheetProperties;
@@ -1024,7 +1023,7 @@ declare namespace GoogleAppsScript {
         spreadsheetId?: string;
         spreadsheetUrl?: string;
       }
-      export interface SpreadsheetProperties {
+      interface SpreadsheetProperties {
         autoRecalc?: string;
         defaultFormat?: Sheets.Schema.CellFormat;
         iterativeCalculationSettings?: Sheets.Schema.IterativeCalculationSettings;
@@ -1032,7 +1031,7 @@ declare namespace GoogleAppsScript {
         timeZone?: string;
         title?: string;
       }
-      export interface TextFormat {
+      interface TextFormat {
         bold?: boolean;
         fontFamily?: string;
         fontSize?: number;
@@ -1041,29 +1040,29 @@ declare namespace GoogleAppsScript {
         strikethrough?: boolean;
         underline?: boolean;
       }
-      export interface TextFormatRun {
+      interface TextFormatRun {
         format?: Sheets.Schema.TextFormat;
         startIndex?: number;
       }
-      export interface TextPosition {
+      interface TextPosition {
         horizontalAlignment?: string;
       }
-      export interface TextRotation {
+      interface TextRotation {
         angle?: number;
         vertical?: boolean;
       }
-      export interface TextToColumnsRequest {
+      interface TextToColumnsRequest {
         delimiter?: string;
         delimiterType?: string;
         source?: Sheets.Schema.GridRange;
       }
-      export interface TreemapChartColorScale {
+      interface TreemapChartColorScale {
         maxValueColor?: Sheets.Schema.Color;
         midValueColor?: Sheets.Schema.Color;
         minValueColor?: Sheets.Schema.Color;
         noDataColor?: Sheets.Schema.Color;
       }
-      export interface TreemapChartSpec {
+      interface TreemapChartSpec {
         colorData?: Sheets.Schema.ChartData;
         colorScale?: Sheets.Schema.TreemapChartColorScale;
         headerColor?: Sheets.Schema.Color;
@@ -1071,20 +1070,20 @@ declare namespace GoogleAppsScript {
         hintedLevels?: number;
         labels?: Sheets.Schema.ChartData;
         levels?: number;
-        maxValue?: Number;
-        minValue?: Number;
+        maxValue?: number;
+        minValue?: number;
         parentLabels?: Sheets.Schema.ChartData;
         sizeData?: Sheets.Schema.ChartData;
         textFormat?: Sheets.Schema.TextFormat;
       }
-      export interface UnmergeCellsRequest {
+      interface UnmergeCellsRequest {
         range?: Sheets.Schema.GridRange;
       }
-      export interface UpdateBandingRequest {
+      interface UpdateBandingRequest {
         bandedRange?: Sheets.Schema.BandedRange;
         fields?: string;
       }
-      export interface UpdateBordersRequest {
+      interface UpdateBordersRequest {
         bottom?: Sheets.Schema.Border;
         innerHorizontal?: Sheets.Schema.Border;
         innerVertical?: Sheets.Schema.Border;
@@ -1093,74 +1092,74 @@ declare namespace GoogleAppsScript {
         right?: Sheets.Schema.Border;
         top?: Sheets.Schema.Border;
       }
-      export interface UpdateCellsRequest {
+      interface UpdateCellsRequest {
         fields?: string;
         range?: Sheets.Schema.GridRange;
         rows?: Sheets.Schema.RowData[];
         start?: Sheets.Schema.GridCoordinate;
       }
-      export interface UpdateChartSpecRequest {
+      interface UpdateChartSpecRequest {
         chartId?: number;
         spec?: Sheets.Schema.ChartSpec;
       }
-      export interface UpdateConditionalFormatRuleRequest {
+      interface UpdateConditionalFormatRuleRequest {
         index?: number;
         newIndex?: number;
         rule?: Sheets.Schema.ConditionalFormatRule;
         sheetId?: number;
       }
-      export interface UpdateConditionalFormatRuleResponse {
+      interface UpdateConditionalFormatRuleResponse {
         newIndex?: number;
         newRule?: Sheets.Schema.ConditionalFormatRule;
         oldIndex?: number;
         oldRule?: Sheets.Schema.ConditionalFormatRule;
       }
-      export interface UpdateDeveloperMetadataRequest {
+      interface UpdateDeveloperMetadataRequest {
         dataFilters?: Sheets.Schema.DataFilter[];
         developerMetadata?: Sheets.Schema.DeveloperMetadata;
         fields?: string;
       }
-      export interface UpdateDeveloperMetadataResponse {
+      interface UpdateDeveloperMetadataResponse {
         developerMetadata?: Sheets.Schema.DeveloperMetadata[];
       }
-      export interface UpdateDimensionGroupRequest {
+      interface UpdateDimensionGroupRequest {
         dimensionGroup?: Sheets.Schema.DimensionGroup;
         fields?: string;
       }
-      export interface UpdateDimensionPropertiesRequest {
+      interface UpdateDimensionPropertiesRequest {
         fields?: string;
         properties?: Sheets.Schema.DimensionProperties;
         range?: Sheets.Schema.DimensionRange;
       }
-      export interface UpdateEmbeddedObjectPositionRequest {
+      interface UpdateEmbeddedObjectPositionRequest {
         fields?: string;
         newPosition?: Sheets.Schema.EmbeddedObjectPosition;
         objectId?: number;
       }
-      export interface UpdateEmbeddedObjectPositionResponse {
+      interface UpdateEmbeddedObjectPositionResponse {
         position?: Sheets.Schema.EmbeddedObjectPosition;
       }
-      export interface UpdateFilterViewRequest {
+      interface UpdateFilterViewRequest {
         fields?: string;
         filter?: Sheets.Schema.FilterView;
       }
-      export interface UpdateNamedRangeRequest {
+      interface UpdateNamedRangeRequest {
         fields?: string;
         namedRange?: Sheets.Schema.NamedRange;
       }
-      export interface UpdateProtectedRangeRequest {
+      interface UpdateProtectedRangeRequest {
         fields?: string;
         protectedRange?: Sheets.Schema.ProtectedRange;
       }
-      export interface UpdateSheetPropertiesRequest {
+      interface UpdateSheetPropertiesRequest {
         fields?: string;
         properties?: Sheets.Schema.SheetProperties;
       }
-      export interface UpdateSpreadsheetPropertiesRequest {
+      interface UpdateSpreadsheetPropertiesRequest {
         fields?: string;
         properties?: Sheets.Schema.SpreadsheetProperties;
       }
-      export interface UpdateValuesByDataFilterResponse {
+      interface UpdateValuesByDataFilterResponse {
         dataFilter?: Sheets.Schema.DataFilter;
         updatedCells?: number;
         updatedColumns?: number;
@@ -1168,7 +1167,7 @@ declare namespace GoogleAppsScript {
         updatedRange?: string;
         updatedRows?: number;
       }
-      export interface UpdateValuesResponse {
+      interface UpdateValuesResponse {
         spreadsheetId?: string;
         updatedCells?: number;
         updatedColumns?: number;
@@ -1176,25 +1175,25 @@ declare namespace GoogleAppsScript {
         updatedRange?: string;
         updatedRows?: number;
       }
-      export interface ValueRange {
+      interface ValueRange {
         majorDimension?: string;
         range?: string;
-        values?: Object[][];
+        values?: any[][];
       }
-      export interface WaterfallChartColumnStyle {
+      interface WaterfallChartColumnStyle {
         color?: Sheets.Schema.Color;
         label?: string;
       }
-      export interface WaterfallChartCustomSubtotal {
+      interface WaterfallChartCustomSubtotal {
         dataIsSubtotal?: boolean;
         label?: string;
         subtotalIndex?: number;
       }
-      export interface WaterfallChartDomain {
+      interface WaterfallChartDomain {
         data?: Sheets.Schema.ChartData;
         reversed?: boolean;
       }
-      export interface WaterfallChartSeries {
+      interface WaterfallChartSeries {
         customSubtotals?: Sheets.Schema.WaterfallChartCustomSubtotal[];
         data?: Sheets.Schema.ChartData;
         hideTrailingSubtotal?: boolean;
@@ -1202,7 +1201,7 @@ declare namespace GoogleAppsScript {
         positiveColumnsStyle?: Sheets.Schema.WaterfallChartColumnStyle;
         subtotalColumnsStyle?: Sheets.Schema.WaterfallChartColumnStyle;
       }
-      export interface WaterfallChartSpec {
+      interface WaterfallChartSpec {
         connectorLineStyle?: Sheets.Schema.LineStyle;
         domain?: Sheets.Schema.WaterfallChartDomain;
         firstValueIsTotal?: boolean;
@@ -1212,7 +1211,7 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface Sheets {
+  interface Sheets {
     Spreadsheets?: Sheets.Collection.SpreadsheetsCollection;
     // Create a new instance of AddBandingRequest
     newAddBandingRequest(): Sheets.Schema.AddBandingRequest;

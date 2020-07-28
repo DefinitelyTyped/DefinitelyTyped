@@ -12,13 +12,11 @@ class Example1 extends Ember.Object.extend({
     lastName: '',
     allNames: Ember.computed('fullName', function() {
         return [this.fullName];
-    }),
+    }) as Ember.ComputedProperty<string[]>,
     fullName: Ember.computed('firstName', 'lastName', function() {
         return `${this.firstName} ${this.lastName}`;
     })
 }) {
-    allNames!: Ember.ComputedProperty<string[]>;
-    fullName!: Ember.ComputedProperty<string>;
 }
 
 const unwrappedGetters1: UnwrapComputedPropertyGetters<Example1> = {} as any;

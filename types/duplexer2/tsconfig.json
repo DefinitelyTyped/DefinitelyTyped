@@ -9,7 +9,7 @@
             "es6"
         ],
         "noImplicitAny": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "noImplicitThis": true,
         "baseUrl": "../",

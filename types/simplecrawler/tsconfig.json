@@ -19,11 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "simplecrawler-tests.ts",
-        "cache.d.ts",
-        "cookies.d.ts",
-        "queue.d.ts",
-        "cache-backend-fs.d.ts",
-        "crawler.d.ts"
+        "simplecrawler-tests.ts"
     ]
 }

@@ -69,6 +69,14 @@ class SettingDefaults extends Backbone.Model {
         }
     }
 
+    // will be invoked when the view is first created, before any instantiation logic is run
+    preinitialize() {
+        this.defaults = {
+            name: "Joe"
+        } as any;
+
+    }
+
     constructor(attributes?: any, options?: any) {
         super(attributes, options); // error TS17009: 'super' must be called before accessing 'this' in the constructor of a derived class.
         this.defaults = <any>{
@@ -86,6 +94,42 @@ class SettingDefaults extends Backbone.Model {
     }
 
     // same patterns could be used for setting 'Router.routes' and 'View.events'
+}
+
+class FullyTyped extends Backbone.Model<{iLikeBacon: boolean, iLikeToast: boolean}> {
+    public getILikeBacon(): boolean {
+        return this.get('iLikeBacon')
+    }
+
+    public setILikeBacon(value: boolean) {
+        return this.set('iLikeBacon', value);
+    }
+
+    public setAll(values: {iLikeBacon: boolean, iLikeToast?: boolean}) {
+        return this.set(values);
+    }
+
+    public setValue(key:keyof {iLikeBacon: boolean, iLikeToast: boolean}, value: any) {
+        return this.set(key, value);
+    }
+}
+
+class FullyTypedDefault extends Backbone.Model {
+    public getILikeBacon(): boolean {
+        return this.get('iLikeBacon')
+    }
+
+    public setILikeBacon(value: boolean) {
+        return this.set('iLikeBacon', value);
+    }
+
+    public setAll(values: {iLikeBacon: boolean, iLikeToast?: boolean}) {
+        return this.set(values);
+    }
+
+    public setValue(key: string, value: any) {
+        return this.set(key, value);
+    }
 }
 
 class Sidebar extends Backbone.Model {
@@ -242,6 +286,14 @@ function test_collection() {
     models = books.slice();
     models = books.slice(1);
     models = books.slice(1, 3);
+
+    let it1: Iterator<Book>;
+    it1 = books.values();
+    it1 = books[Symbol.iterator]();
+    let it2: Iterator<any>;
+    it2 = books.keys();
+    let it3: Iterator<[any, Book]>;
+    it3 = books.entries();
 
     // underscore methods
     bool       = books.all((value: Book, index: number, list: Book[]) => true);

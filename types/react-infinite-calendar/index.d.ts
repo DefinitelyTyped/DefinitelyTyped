@@ -47,6 +47,10 @@ export interface ReactInfiniteCalendarProps {
         todayHelperRowOffset?: number;
     };
     locale?: {
+        locale?: {
+            distanceInWords: (token: any, count: any, options: any) => any,
+            format: () => any;
+        },
         blank?: string;
         headerFormat?: string;
         todayLabel?: {
@@ -79,6 +83,7 @@ export interface ReactInfiniteCalendarProps {
     autoFocus?: boolean;
     tabIndex?: number;
     Component?: CalendarClass;
+    interpolateSelection?: (date: Date, selected: Date[]) => Date[];
 }
 
 export class Calendar extends React.Component<ReactInfiniteCalendarProps> {}

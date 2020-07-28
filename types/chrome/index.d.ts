@@ -1,10 +1,22 @@
 // Type definitions for Chrome extension development
 // Project: http://developer.chrome.com/extensions/
-// Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>, sreimer15 <https://github.com/sreimer15>, MatCarlson <https://github.com/MatCarlson>, ekinsol <https://github.com/ekinsol>
+// Definitions by: Matthew Kimber <https://github.com/matthewkimber>
+//                 otiai10 <https://github.com/otiai10>
+//                 couven92 <https://github.com/couven92>
+//                 RReverser <https://github.com/rreverser>
+//                 sreimer15 <https://github.com/sreimer15>
+//                 MatCarlson <https://github.com/MatCarlson>
+//                 ekinsol <https://github.com/ekinsol>
+//                 Thierry Régagnon <https://github.com/tregagnon>
+//                 Brian Wilson <https://github.com/echoabstract>
+//                 Sebastiaan Pasma <https://github.com/spasma>
+//                 bdbai <https://github.com/bdbai>
+//                 pokutuna <https://github.com/pokutuna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 /// <reference types="filesystem" />
+/// <reference path="har-format/index.d.ts" />
 
 ////////////////////
 // Global object
@@ -23,89 +35,54 @@ interface Window {
  * Important: This API works only on Chrome OS.
  */
 declare namespace chrome.accessibilityFeatures {
-    export interface AccessibilityFeaturesGetArg {
-        /** Optional. Whether to return the value that applies to the incognito session (default false).  */
-        incognito?: boolean;
-    }
-
-    export interface AccessibilityFeaturesCallbackArg {
-        /** The value of the setting. */
-        value: any;
-        /**
-         * One of
-         * • not_controllable: cannot be controlled by any extension
-         * • controlled_by_other_extensions: controlled by extensions with higher precedence
-         * • controllable_by_this_extension: can be controlled by this extension
-         * • controlled_by_this_extension: controlled by this extension
-         */
-        levelOfControl: string;
-        /** Optional. Whether the effective value is specific to the incognito session. This property will only be present if the incognito property in the details parameter of get() was true.  */
-        incognitoSpecific?: boolean;
-    }
-
-    export interface AccessibilityFeaturesSetArg {
-        /**
-         * The value of the setting.
-         * Note that every setting has a specific value type, which is described together with the setting. An extension should not set a value of a different type.
-         */
-        value: any;
-        /**
-         * Optional.
-          * The scope of the ChromeSetting. One of
-         * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
-         * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
-         * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
-         * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
-         */
-        scope?: string;
-    }
-
-    export interface AccessibilityFeaturesClearArg {
-        /**
-         * Optional.
-          * The scope of the ChromeSetting. One of
-         * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
-         * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
-         * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
-         * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
-         */
-        scope?: string;
-    }
-
-    export interface AccessibilityFeaturesSetting {
-        /**
-         * Gets the value of a setting.
-         * @param details Which setting to consider.
-         * @param callback The callback parameter should be a function that looks like this:
-         * function(object details) {...};
-         */
-        get(details: AccessibilityFeaturesGetArg, callback: (details: AccessibilityFeaturesCallbackArg) => void): void;
-        /**
-         * Sets the value of a setting.
-         * @param details Which setting to change.
-         * @param callback Called at the completion of the set operation.
-         * If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
-         */
-        set(details: AccessibilityFeaturesSetArg, callback?: () => void): void;
-        /**
-         * Clears the setting, restoring any default value.
-         * @param details Which setting to clear.
-         * @param callback Called at the completion of the clear operation.
-         * If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
-         */
-        clear(details: AccessibilityFeaturesClearArg, callback?: () => void): void;
-    }
-
-    export var spokenFeedback: AccessibilityFeaturesSetting;
-    export var largeCursor: AccessibilityFeaturesSetting;
-    export var stickyKeys: AccessibilityFeaturesSetting;
-    export var highContrast: AccessibilityFeaturesSetting;
-    export var screenMagnifier: AccessibilityFeaturesSetting;
-    export var autoclick: AccessibilityFeaturesSetting;
-    export var virtualKeyboard: AccessibilityFeaturesSetting;
-    export var animationPolicy: AccessibilityFeaturesSetting;
+    /** **ChromeOS only.** Spoken feedback (text-to-speech). */
+    export var spokenFeedback: chrome.types.ChromeSetting;
+    /** **ChromeOS only.** Enlarged cursor. */
+    export var largeCursor: chrome.types.ChromeSetting;
+    /** **ChromeOS only.** Sticky modifier keys (like shift or alt). */
+    export var stickyKeys: chrome.types.ChromeSetting;
+    /** **ChromeOS only.** High contrast rendering mode. */
+    export var highContrast: chrome.types.ChromeSetting;
+    /** **ChromeOS only.** Full screen magnification. */
+    export var screenMagnifier: chrome.types.ChromeSetting;
+    /** **ChromeOS only.** Auto mouse click after mouse stops moving. */
+    export var autoclick: chrome.types.ChromeSetting;
+    /** **ChromeOS only.** Virtual on-screen keyboard. */
+    export var virtualKeyboard: chrome.types.ChromeSetting;
+    /**
+     * **ChromeOS only.**
+     * Caret highlighting.
+     * @since Chrome 51.
+     */
+    export var caretHighlight: chrome.types.ChromeSetting;
+    /**
+     * **ChromeOS only.**
+     * Cursor highlighting.
+     * @since Chrome 51.
+     */
+    export var cursorHighlight: chrome.types.ChromeSetting;
+    /**
+     * **ChromeOS only.**
+     * Focus highlighting.
+     * @since Chrome 51.
+     */
+    export var focusHighlight: chrome.types.ChromeSetting;
+    /**
+     * **ChromeOS only.**
+     * Select-to-speak.
+     * @since Chrome 51.
+     */
+    export var selectToSpeak: chrome.types.ChromeSetting;
+    /**
+     * **ChromeOS only.**
+     * Switch Access.
+     * @since Chrome 51.
+     */
+    export var switchAccess: chrome.types.ChromeSetting;
+    /**
+     * @since Chrome 42.
+     */
+    export var animationPolicy: chrome.types.ChromeSetting;
 }
 
 ////////////////////
@@ -488,29 +465,42 @@ declare namespace chrome.browserAction {
      * Since Chrome 22.
      * Enables the browser action for a tab. By default, browser actions are enabled.
      * @param tabId The id of the tab for which you want to modify the browser action.
+     * @param callback Supported since Chrome 67
      */
-    export function enable(tabId?: number): void;
-    /** Sets the background color for the badge. */
-    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails): void;
-    /** Sets the badge text for the browser action. The badge is displayed on top of the icon. */
-    export function setBadgeText(details: BadgeTextDetails): void;
-    /** Sets the title of the browser action. This shows up in the tooltip. */
-    export function setTitle(details: TitleDetails): void;
+    export function enable(tabId?: number, callback?: () => void): void;
+    /**
+     * Sets the background color for the badge.
+     * @param callback Supported since Chrome 67
+     */
+    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails, callback?: () => void): void;
+    /**
+     * Sets the badge text for the browser action. The badge is displayed on top of the icon.
+     * @param callback Supported since Chrome 67
+     */
+    export function setBadgeText(details: BadgeTextDetails, callback?: () => void): void;
+    /**
+     * Sets the title of the browser action. This shows up in the tooltip.
+     * @param callback Supported since Chrome 67
+     */
+    export function setTitle(details: TitleDetails, callback?: () => void): void;
     /**
      * Since Chrome 19.
      * Gets the badge text of the browser action. If no tab is specified, the non-tab-specific badge text is returned.
-     * @param callback The callback parameter should be a function that looks like this:
-     * function(string result) {...};
+     * @param callback Supported since Chrome 67
      */
     export function getBadgeText(details: TabDetails, callback: (result: string) => void): void;
-    /** Sets the html document to be opened as a popup when the user clicks on the browser action's icon. */
-    export function setPopup(details: PopupDetails): void;
+    /**
+     * Sets the html document to be opened as a popup when the user clicks on the browser action's icon.
+     * @param callback Supported since Chrome 67
+     */
+    export function setPopup(details: PopupDetails, callback?: () => void): void;
     /**
      * Since Chrome 22.
      * Disables the browser action for a tab.
      * @param tabId The id of the tab for which you want to modify the browser action.
+     * @param callback Supported since Chrome 67
      */
-    export function disable(tabId?: number): void;
+    export function disable(tabId?: number, callback?: () => void): void;
     /**
      * Since Chrome 19.
      * Gets the title of the browser action.
@@ -1204,6 +1194,12 @@ declare namespace chrome.contextMenus {
         /** Optional. Note: You cannot change an item to be a child of one of its own descendants.  */
         parentId?: any;
         type?: string;
+        /**
+         * Optional.
+         * @since Chrome 62.
+         * Whether the item is visible in the menu.
+         */
+        visible?: boolean;
     }
 
     export interface MenuClickedEvent extends chrome.events.Event<(info: OnClickData, tab?: chrome.tabs.Tab) => void> { }
@@ -1279,6 +1275,9 @@ declare namespace chrome.contextMenus {
  * Permissions:  "cookies", host permissions
  */
 declare namespace chrome.cookies {
+    /** A cookie's 'SameSite' state (https://tools.ietf.org/html/draft-west-first-party-cookies). 'no_restriction' corresponds to a cookie set with 'SameSite=None', 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'. 'unspecified' corresponds to a cookie set without the SameSite attribute. **/
+    export type SameSiteStatus = 'unspecified' | 'no_restriction' | 'lax' | 'strict';
+
     /** Represents information about an HTTP cookie. */
     export interface Cookie {
         /** The domain of the cookie (e.g. "www.google.com", "example.com"). */
@@ -1301,6 +1300,11 @@ declare namespace chrome.cookies {
         httpOnly: boolean;
         /** True if the cookie is marked as Secure (i.e. its scope is limited to secure channels, typically HTTPS). */
         secure: boolean;
+        /**
+         * The cookie's same-site status (i.e. whether the cookie is sent with cross-site requests).
+         * @since Chrome 51.
+         */
+        sameSite: SameSiteStatus
     }
 
     /** Represents a cookie store in the browser. An incognito mode window, for instance, uses a separate cookie store from a non-incognito window. */
@@ -1347,6 +1351,11 @@ declare namespace chrome.cookies {
         httpOnly?: boolean;
         /** Optional. Whether the cookie should be marked as Secure. Defaults to false.  */
         secure?: boolean;
+        /**
+         * Optional. The cookie's same-site status. Defaults to "unspecified", i.e., if omitted, the cookie is set without specifying a SameSite attribute.
+         * @since Chrome 51.
+         */
+        sameSite?: SameSiteStatus
     }
 
     export interface Details {
@@ -1592,6 +1601,13 @@ declare namespace chrome.declarativeContent {
 
     /** Declarative event action that shows the extension's page action while the corresponding conditions are met. */
     export class ShowPageAction { }
+
+    /** Declarative event action that changes the icon of the page action while the corresponding conditions are met. */
+    export class SetIcon {
+        constructor (options?: {
+            imageData?: ImageData | {[size: string]: ImageData}
+        })
+    }
 
     /** Provides the Declarative Event API consisting of addRules, removeRules, and getRules. */
     export interface PageChangedEvent extends chrome.events.Event<() => void> { }
@@ -1865,8 +1881,12 @@ declare namespace chrome.devtools.inspectedWindow {
  * Availability: Since Chrome 18.
  */
 declare namespace chrome.devtools.network {
+    /** Represents a HAR entry for a specific finished request. */
+    export interface HAREntry extends HARFormatEntry { }
+    /** Represents a HAR log that contains all known network requests. */
+    export interface HARLog extends HARFormatLog { }
     /** Represents a network request for a document resource (script, image and so on). See HAR Specification for reference. */
-    export interface Request {
+    export interface Request extends chrome.devtools.network.HAREntry {
         /**
          * Returns content of the response body.
          * @param callback A function that receives the response body when the request completes.
@@ -1889,7 +1909,7 @@ declare namespace chrome.devtools.network {
      * function(object harLog) {...};
      * Parameter harLog: A HAR log. See HAR specification for details.
      */
-    export function getHAR(callback: (harLog: Object) => void): void;
+    export function getHAR(callback: (harLog: HARLog) => void): void;
 
     /** Fired when a network request is finished and all request data are available. */
     export var onRequestFinished: RequestFinishedEvent;
@@ -2071,6 +2091,12 @@ declare namespace chrome.devtools.panels {
      * function() {...};
      */
     export function openResource(url: string, lineNumber: number, callback: () => void): void;
+
+    /**
+     * @since Chrome 59.
+     * The name of the color theme set in user's DevTools settings.
+     */
+    export var themeName: 'default'|'dark';
 }
 
 ////////////////////
@@ -2141,10 +2167,17 @@ declare namespace chrome.downloads {
     }
 
     export interface DownloadDelta {
+        /** The id of the DownloadItem that changed. */
+        id: number;
         /** Optional. The change in danger, if any.  */
         danger?: StringDelta;
         /** Optional. The change in url, if any.  */
         url?: StringDelta;
+        /**
+         * Optional. The change in finalUrl, if any.
+         * @since Since Chrome 54.
+         */
+        finalUrl: StringDelta;
         /** Optional. The change in totalBytes, if any.  */
         totalBytes?: DoubleDelta;
         /** Optional. The change in filename, if any.  */
@@ -2158,13 +2191,11 @@ declare namespace chrome.downloads {
         /** Optional. The change in fileSize, if any.  */
         fileSize?: DoubleDelta;
         /** Optional. The change in startTime, if any.  */
-        startTime?: DoubleDelta;
+        startTime?: StringDelta;
         /** Optional. The change in error, if any.  */
         error?: StringDelta;
         /** Optional. The change in endTime, if any.  */
-        endTime?: DoubleDelta;
-        /** The id of the DownloadItem that changed. */
-        id: number;
+        endTime?: StringDelta;
         /** Optional. The change in canResume, if any.  */
         canResume?: BooleanDelta;
         /** Optional. The change in exists, if any.  */
@@ -2192,8 +2223,13 @@ declare namespace chrome.downloads {
         bytesReceived: number;
         /** Indication of whether this download is thought to be safe or known to be suspicious. */
         danger: string;
-        /** Absolute URL. */
+        /** The absolute URL that this download initiated from, before any redirects. */
         url: string;
+        /**
+         * The absolute URL that this download is being made from, after all redirects.
+         * @since Since Chrome 54.
+         */
+        finalUrl: string;
         /** Number of bytes in the whole file, without considering file compression, or -1 if unknown. */
         totalBytes: number;
         /** Absolute local path. */
@@ -2241,8 +2277,8 @@ declare namespace chrome.downloads {
         orderBy?: string[];
         /** Optional. Limits results to DownloadItem whose url matches the given regular expression.  */
         urlRegex?: string;
-        /** Optional. Limits results to DownloadItem that ended before the given ms since the epoch.  */
-        endedBefore?: number;
+        /** Optional. Limits results to DownloadItem that ended before the time in ISO 8601 format.  */
+        endedBefore?: string;
         /** Optional. Limits results to DownloadItem whose totalBytes is greater than the given integer.  */
         totalBytesGreater?: number;
         /** Optional. Indication of whether this download is thought to be safe or known to be suspicious.  */
@@ -2261,30 +2297,30 @@ declare namespace chrome.downloads {
         id?: number;
         /** Optional. Number of bytes received so far from the host, without considering file compression.  */
         bytesReceived?: number;
-        /** Optional. Limits results to DownloadItem that ended after the given ms since the epoch.  */
-        endedAfter?: number;
+        /** Optional. Limits results to DownloadItem that ended after the time in ISO 8601 format.  */
+        endedAfter?: string;
         /** Optional. Absolute local path.  */
         filename?: string;
         /** Optional. Indicates whether the download is progressing, interrupted, or complete.  */
         state?: string;
-        /** Optional. Limits results to DownloadItem that started after the given ms since the epoch.  */
-        startedAfter?: number;
+        /** Optional. Limits results to DownloadItem that started after the time in ISO 8601 format.  */
+        startedAfter?: string;
         /** Optional. The file's MIME type.  */
         mime?: string;
         /** Optional. Number of bytes in the whole file post-decompression, or -1 if unknown.  */
         fileSize?: number;
         /** Optional. The time when the download began in ISO 8601 format.  */
-        startTime?: number;
+        startTime?: string;
         /** Optional. Absolute URL.  */
         url?: string;
-        /** Optional. Limits results to DownloadItem that started before the given ms since the epoch.  */
-        startedBefore?: number;
+        /** Optional. Limits results to DownloadItem that started before the time in ISO 8601 format.  */
+        startedBefore?: string;
         /** Optional. The maximum number of matching DownloadItem returned. Defaults to 1000. Set to 0 in order to return all matching DownloadItem. See search for how to page through results.  */
         limit?: number;
         /** Optional. Why a download was interrupted.  */
         error?: number;
         /** Optional. The time when the download ended in ISO 8601 format.  */
-        endTime?: number;
+        endTime?: string;
         /** Optional. Whether the downloaded file exists;  */
         exists?: boolean;
     }
@@ -2437,7 +2473,7 @@ declare namespace chrome.enterprise.platformKeys {
      * function(array of Token tokens) {...};
      * Parameter tokens: The list of available tokens.
      */
-    export function getToken(callback: (tokens: Token[]) => void): void;
+    export function getTokens(callback: (tokens: Token[]) => void): void;
     /**
      * Returns the list of all client certificates available from the given token. Can be used to check for the existence and expiration of client certificates that are usable for a certain authentication.
      * @param tokenId The id of a Token returned by getTokens.
@@ -2446,7 +2482,7 @@ declare namespace chrome.enterprise.platformKeys {
      * function(array of ArrayBuffer certificates) {...};
      * Parameter certificates: The list of certificates, each in DER encoding of a X.509 certificate.
      */
-    export function getCertificates(tokenId: string, callback: (certificates: ArrayBuffer) => void): void;
+    export function getCertificates(tokenId: string, callback: (certificates: ArrayBuffer[]) => void): void;
     /**
      * Imports certificate to the given token if the certified key is already stored in this token. After a successful certification request, this function should be used to store the obtained certificate and to make it available to the operating system and browser for authentication.
      * @param tokenId The id of a Token returned by getTokens.
@@ -2465,6 +2501,43 @@ declare namespace chrome.enterprise.platformKeys {
      * function() {...};
      */
     export function removeCertificate(tokenId: string, certificate: ArrayBuffer, callback?: () => void): void;
+    /**
+     * Challenges a hardware-backed Enterprise Machine Key and emits the response as part of a remote attestation protocol. Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
+     *
+     * * The current device is a legitimate Chrome OS device.
+     * * The current device is managed by the domain specified during verification.
+     * * The current signed-in user is managed by the domain specified during verification.
+     * * The current device state complies with enterprise device policy. For example, a policy may specify that the device must not be in developer mode.
+     * * Any device identity emitted by the verification is tightly bound to the hardware of the current device.
+     *
+     * This function is highly restricted and will fail if the current device is not managed, the current user is not managed, or if this operation has not explicitly been enabled for the caller by enterprise device policy. The Enterprise Machine Key does not reside in the "system" token and is not accessible by any other API.
+     * @param challenge A challenge as emitted by the Verified Access Web API.
+     * @param registerKey If set, the current Enterprise Machine Key is registered with the "system" token and relinquishes the Enterprise Machine Key role. The key can then be associated with a certificate and used like any other signing key. This key is 2048-bit RSA. Subsequent calls to this function will then generate a new Enterprise Machine Key. Since Chrome 59.
+     * @param callback Called back with the challenge response.
+     * The callback parameter should be a function that looks like this:
+     * function(ArrayBuffer response) {...};
+     * @since Chrome 50.
+     */
+    export function challengeMachineKey(challenge: ArrayBuffer, registerKey: boolean, callback: (response: ArrayBuffer) => void): void;
+    export function challengeMachineKey(challenge: ArrayBuffer, callback: (response: ArrayBuffer) => void): void;
+    /**
+     * Challenges a hardware-backed Enterprise User Key and emits the response as part of a remote attestation protocol. Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
+     *
+     * * The current device is a legitimate Chrome OS device.
+     * * The current device is managed by the domain specified during verification.
+     * * The current signed-in user is managed by the domain specified during verification.
+     * * The current device state complies with enterprise user policy. For example, a policy may specify that the device must not be in developer mode.
+     * * The public key emitted by the verification is tightly bound to the hardware of the current device and to the current signed-in user.
+     *
+     * This function is highly restricted and will fail if the current device is not managed, the current user is not managed, or if this operation has not explicitly been enabled for the caller by enterprise user policy. The Enterprise User Key does not reside in the "user" token and is not accessible by any other API.
+     * @param challenge A challenge as emitted by the Verified Access Web API.
+     * @param registerKey If set, the current Enterprise User Key is registered with the "user" token and relinquishes the Enterprise User Key role. The key can then be associated with a certificate and used like any other signing key. This key is 2048-bit RSA. Subsequent calls to this function will then generate a new Enterprise User Key.
+     * @param callback Called back with the challenge response.
+     * The callback parameter should be a function that looks like this:
+     * function(ArrayBuffer response) {...};
+     * @since Chrome 50.
+     */
+    export function challengeUserKey(challenge: ArrayBuffer, registerKey: boolean, callback: (response: ArrayBuffer) => void): void;
 }
 
 ////////////////////
@@ -2513,6 +2586,33 @@ declare namespace chrome.enterprise.deviceAttributes {
      * @param callback Called with the Annotated Location of the device.
      */
     export function getDeviceAnnotatedLocation(callback: (annotatedLocation: string) => void): void;
+}
+
+////////////////////
+// Enterprise Networking Attributes
+////////////////////
+/**
+ * Use the <code>chrome.enterprise.networkingAttributes</code> API to read information about your current network. Note: This API is only available to extensions force-installed by enterprise policy.
+ * Important: This API works only on Chrome OS.
+ * @since Chrome 85.
+ */
+declare namespace chrome.enterprise.networkingAttributes {
+  export interface NetworkDetails {
+    /** The device's MAC address. */
+    macAddress: string;
+    /** Optional. The device's local IPv4 address (undefined if not configured). */
+    ipv4?: string;
+    /** Optional. The device's local IPv6 address (undefined if not configured). */
+    ipv6?: string;
+  }
+
+  /**
+   * Retrieves the network details of the device's default network. If the user is not affiliated or the device is not connected to a network, runtime.lastError will be set with a failure reason.
+   * @param callback Called with the device's default network's NetworkDetails.
+   * The callback parameter should be a function that looks like this:
+   * function(NetworkDetails networkAddresses) {...};
+   */
+  export function getNetworkDetails(callback: (networkDetails: NetworkDetails) => void): void;
 }
 
 ////////////////////
@@ -3711,7 +3811,8 @@ declare namespace chrome.identity {
  * @since Chrome 6.
  */
 declare namespace chrome.idle {
-    export interface IdleStateChangedEvent extends chrome.events.Event<(newState: string) => void> { }
+    export type IdleState = 'active' | 'idle' | 'locked';
+    export interface IdleStateChangedEvent extends chrome.events.Event<(newState: IdleState) => void> { }
 
     /**
      * Returns "locked" if the system is locked, "idle" if the user has not generated any input for a specified number of seconds, or "active" otherwise.
@@ -3720,13 +3821,20 @@ declare namespace chrome.idle {
      * @param callback The callback parameter should be a function that looks like this:
      * function( IdleState newState) {...};
      */
-    export function queryState(detectionIntervalInSeconds: number, callback: (newState: string) => void): void;
+    export function queryState(detectionIntervalInSeconds: number, callback: (newState: IdleState) => void): void;
     /**
      * Sets the interval, in seconds, used to determine when the system is in an idle state for onStateChanged events. The default interval is 60 seconds.
      * @since Chrome 25.
      * @param intervalInSeconds Threshold, in seconds, used to determine when the system is in an idle state.
      */
     export function setDetectionInterval(intervalInSeconds: number): void;
+    /**
+     * Gets the time, in seconds, it takes until the screen is locked automatically while idle. Returns a zero duration if the screen is never locked automatically. Currently supported on Chrome OS only.
+     * @param callback The callback parameter should be a function that looks like this:
+     * function(integer delay) {...};
+     * Parameter delay: Time, in seconds, until the screen is locked automatically while idle. This is zero if the screen never locks automatically.
+     */
+    export function getAutoLockDelay(callback: (delay: number) => void): void;
 
     /** Fired when the system changes to an active, idle or locked state. The event fires with "locked" if the screen is locked or the screensaver activates, "idle" if the system is unlocked and the user has not generated any input for a specified number of seconds, and "active" when the user generates input on an idle system. */
     export var onStateChanged: IdleStateChangedEvent;
@@ -3753,8 +3861,18 @@ declare namespace chrome.input.ime {
          * Whether or not the ALT key is pressed.
          */
         altKey?: boolean;
-        /** The ID of the request. */
-        requestId: string;
+        /**
+         * Optional.
+         * Whether or not the ALTGR key is pressed.
+         * @since Chrome 79.
+         */
+        altgrKey?: boolean;
+        /**
+         * Optional.
+         * The ID of the request.
+         * @deprecated since Chrome 79.
+         */
+        requestId?: string;
         /** Value of the key being pressed */
         key: string;
         /**
@@ -3902,7 +4020,7 @@ declare namespace chrome.input.ime {
         /** Text to set */
         text: string;
         /** Optional. List of segments and their associated types. */
-        segments: CompositionParameterSegment[];
+        segments?: CompositionParameterSegment[];
         /** Position in the text of the cursor. */
         cursor: number;
         /** Optional. Position in the text that the selection starts at. */
@@ -3914,6 +4032,19 @@ declare namespace chrome.input.ime {
     export interface MenuItemParameters {
         items: Object[];
         engineId: string;
+    }
+
+    /** Type of the assistive window. */
+    export type AssistiveWindowType = 'undo';
+
+    /** ID of a button in an assistive window. */
+    export type AssistiveWindowButton = 'undo'|'addToDictionary';
+
+    /** Properties of an assistive window. */
+    export interface AssistiveWindowProperties {
+      type: AssistiveWindowType;
+      visible: boolean;
+      announceString?: string;
     }
 
     export interface CandidateWindowParameterProperties {
@@ -4000,7 +4131,16 @@ declare namespace chrome.input.ime {
         anchor: number;
     }
 
+    export interface AssistiveWindowButtonClickedDetails {
+        /** The ID of the button clicked. */
+        buttonID: AssistiveWindowButton;
+        /** The type of the assistive window. */
+        windowType: AssistiveWindowType;
+    }
+
     export interface BlurEvent extends chrome.events.Event<(contextID: number) => void> { }
+
+    export interface AssistiveWindowButtonClickedEvent extends chrome.events.Event<(details: AssistiveWindowButtonClickedDetails) => void> { }
 
     export interface CandidateClickedEvent extends chrome.events.Event<(engineID: string, candidateID: number, button: string) => void> { }
 
@@ -4055,6 +4195,31 @@ declare namespace chrome.input.ime {
      */
     export function updateMenuItems(parameters: MenuItemParameters, callback?: () => void): void;
     /**
+     * Shows/Hides an assistive window with the given properties.
+     * @param parameters
+     * @param callback Called when the operation completes.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function(boolean success) {...};
+     */
+    export function setAssistiveWindowProperties(parameters: {
+            contextID: number,
+            properties: chrome.input.ime.AssistiveWindowProperties
+        }, callback?: (success: boolean) => void): void;
+    /**
+     * Highlights/Unhighlights a button in an assistive window.
+     * @param parameters
+     * @param callback Called when the operation completes. On failure, chrome.runtime.lastError is set.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
+     */
+    export function setAssistiveWindowButtonHighlighted(parameters: {
+            contextID: number,
+            buttonID: chrome.input.ime.AssistiveWindowButton,
+            windowType: chrome.input.ime.AssistiveWindowType,
+            announceString?: string,
+            highlighted: boolean
+        }, callback?: () => void): void;
+    /**
      * Sets the properties of the candidate window. This fails if the extension doesn't own the active IME
      * @param callback Called when the operation completes.
      * If you specify the callback parameter, it should be a function that looks like this:
@@ -4103,6 +4268,8 @@ declare namespace chrome.input.ime {
 
     /** This event is sent when focus leaves a text box. It is sent to all extensions that are listening to this event, and enabled by the user. */
     export var onBlur: BlurEvent;
+    /** This event is sent when a button in an assistive window is clicked. */
+    export var onAssistiveWindowButtonClicked: AssistiveWindowButtonClickedEvent;
     /** This event is sent if this extension owns the active IME. */
     export var onCandidateClicked: CandidateClickedEvent;
     /** This event is sent if this extension owns the active IME. */
@@ -4127,6 +4294,34 @@ declare namespace chrome.input.ime {
      * @since Chrome 29.
      */
     export var onReset: InputResetEvent;
+}
+
+////////////////////
+// LoginState
+////////////////////
+/**
+ * Use the chrome.loginState API to read and monitor the login state.
+ * Permissions: "loginState"
+ * @since Chrome 78.
+ * Important: This API works only on Chrome OS.
+ */
+declare namespace chrome.loginState {
+    export interface SessionStateChangedEvent extends chrome.events.Event<(sessionState: SessionState) => void> { }
+
+    /** Possible profile types. */
+    export type ProfileType = 'SIGNIN_PROFILE'|'USER_PROFILE';
+
+    /** Possible session states. */
+    export type SessionState = 'UNKNOWN'|'IN_OOBE_SCREEN'|'IN_LOGIN_SCREEN'|'IN_SESSION'|'IN_LOCK_SCREEN';
+
+    /** Gets the type of the profile the extension is in. */
+    export function getProfileType(callback: (profileType: ProfileType) => void): void;
+
+    /** Gets the current session state. */
+    export function getSessionState(callback: (sessionState: SessionState) => void): void;
+
+    /** Dispatched when the session state changes. sessionState is the new session state.*/
+    export const onSessionStateChanged: SessionStateChangedEvent;
 }
 
 ////////////////////
@@ -4506,6 +4701,12 @@ declare namespace chrome.notifications {
          * @since Chrome 50
          */
         requireInteraction?: boolean;
+        /**
+         * Optional.
+         * Indicates that no sounds or vibrations should be made when the notification is being shown. This defaults to false.
+         * @since Chrome 70
+         */
+        silent?: boolean;
     }
 
     export interface NotificationClosedEvent extends chrome.events.Event<(notificationId: string, byUser: boolean) => void> { }
@@ -4609,6 +4810,11 @@ declare namespace chrome.omnibox {
         content: string;
         /** The text that is displayed in the URL dropdown. Can contain XML-style markup for styling. The supported tags are 'url' (for a literal URL), 'match' (for highlighting text that matched what the user's query), and 'dim' (for dim helper text). The styles can be nested, eg. dimmed match. You must escape the five predefined entities to display them as text: stackoverflow.com/a/1091953/89484 */
         description: string;
+        /**
+        * Whether the suggest result can be deleted by the user.
+        * @since Chrome 63.
+        */
+        deletable?: boolean;
     }
 
     export interface Suggestion {
@@ -4703,17 +4909,25 @@ declare namespace chrome.pageAction {
     /**
      * Shows the page action. The page action is shown whenever the tab is selected.
      * @param tabId The id of the tab for which you want to modify the page action.
+     * @param callback Supported since Chrome 67
      */
     export function hide(tabId: number, callback?: () => void): void;
     /**
      * Shows the page action. The page action is shown whenever the tab is selected.
      * @param tabId The id of the tab for which you want to modify the page action.
+     * @param callback Supported since Chrome 67
      */
     export function show(tabId: number, callback?: () => void): void;
-    /** Sets the title of the page action. This is displayed in a tooltip over the page action. */
-    export function setTitle(details: TitleDetails): void;
-    /** Sets the html document to be opened as a popup when the user clicks on the page action's icon. */
-    export function setPopup(details: PopupDetails): void;
+    /**
+     * Sets the title of the page action. This is displayed in a tooltip over the page action.
+     * @param callback Supported since Chrome 67
+     */
+    export function setTitle(details: TitleDetails, callback?: () => void): void;
+    /**
+     * Sets the html document to be opened as a popup when the user clicks on the page action's icon.
+     * @param callback Supported since Chrome 67
+     */
+    export function setPopup(details: PopupDetails, callback?: () => void): void;
     /**
      * Gets the title of the page action.
      * @since Chrome 19.
@@ -4776,12 +4990,12 @@ declare namespace chrome.permissions {
          * Optional.
          * List of named permissions (does not include hosts or origins). Anything listed here must appear in the optional_permissions list in the manifest.
          */
-        origins?: string[];
+        permissions?: string[];
         /**
          * Optional.
          * List of origin permissions. Anything listed here must be a subset of a host that appears in the optional_permissions list in the manifest. For example, if http://*.example.com/ or http://* appears in optional_permissions, you can request an origin of http://help.example.com/. Any path is ignored.
          */
-        permissions?: string[];
+        origins?: string[];
     }
 
     export interface PermissionsRemovedEvent {
@@ -4891,7 +5105,7 @@ declare namespace chrome.platformKeys {
     }
 
     /**
-     * This function filters from a list of client certificates the ones that are known to the platform, match request and for which the extension has permission to access the certificate and its private key. If interactive is true, the user is presented a dialog where he can select from matching certificates and grant the extension access to the certificate. The selected/filtered client certificates will be passed to callback.
+     * This function filters from a list of client certificates the ones that are known to the platform, match request and for which the extension has permission to access the certificate and its private key. If interactive is true, the user is presented a dialog where they can select from matching certificates and grant the extension access to the certificate. The selected/filtered client certificates will be passed to callback.
      * @param callback The callback parameter should be a function that looks like this:
      * function(array of Match matches) {...};
      * Parameter matches: The list of certificates that match the request, that the extension has permission for and, if interactive is true, that were selected by the user.
@@ -4907,6 +5121,18 @@ declare namespace chrome.platformKeys {
      * Optional parameter privateKey: Might be null if this extension does not have access to it.
      */
     export function getKeyPair(certificate: ArrayBuffer, parameters: Object, callback: (publicKey: CryptoKey, privateKey: CryptoKey | null) => void): void;
+    /**
+     * Passes the key pair of publicKeySpkiDer for usage with platformKeys.subtleCrypto to callback.
+     * @param publicKeySpkiDer A DER-encoded X.509 SubjectPublicKeyInfo, obtained e.g. by calling WebCrypto's exportKey function with format="spki".
+     * @param parameters Provides signature and hash algorithm parameters, in addition to those fixed by the key itself. The same parameters are accepted as by WebCrypto's importKey function, e.g. RsaHashedImportParams for a RSASSA-PKCS1-v1_5 key. For RSASSA-PKCS1-v1_5 keys, we need to also pass a "hash" parameter { "hash": { "name": string } }. The "hash" parameter represents the name of the hashing algorithm to be used in the digest operation before a sign. It is possible to pass "none" as the hash name, in which case the sign function will apply PKCS#1 v1.5 padding and but not hash the given data.
+     * Currently, this function only supports the "RSASSA-PKCS1-v1_5" algorithm with one of the hashing algorithms "none", "SHA-1", "SHA-256", "SHA-384", and "SHA-512".
+     * @param callback The public and private CryptoKey of a certificate which can only be used with platformKeys.subtleCrypto.
+     * The callback parameter should be a function that looks like this:
+     * function(object publicKey, object privateKey) {...};
+     * Optional parameter privateKey: Might be null if this extension does not have access to it.
+     * @since Chrome 85.
+     */
+    export function getKeyPairBySpki(publicKeySpkiDer: ArrayBuffer, parameters: Object, callback: (publicKey: CryptoKey, privateKey: CryptoKey | null) => void): void;
     /** An implementation of WebCrypto's  SubtleCrypto that allows crypto operations on keys of client certificates that are available to this extension. */
     export function subtleCrypto(): SubtleCrypto;
     /**
@@ -5007,6 +5233,7 @@ declare namespace chrome.privacy {
         instantEnabled: chrome.types.ChromeSetting;
         alternateErrorPagesEnabled: chrome.types.ChromeSetting;
         safeBrowsingEnabled: chrome.types.ChromeSetting;
+        /** @deprecated since Chrome 70. Please use privacy.services.autofillAddressEnabled and privacy.services.autofillCreditCardEnabled. */
         autofillEnabled: chrome.types.ChromeSetting;
         translationServiceEnabled: chrome.types.ChromeSetting;
         /** @since Chrome 38. */
@@ -5015,22 +5242,30 @@ declare namespace chrome.privacy {
         hotwordSearchEnabled: chrome.types.ChromeSetting;
         /** @since Chrome 42. */
         safeBrowsingExtendedReportingEnabled: chrome.types.ChromeSetting;
+        /** @since Chrome 70. */
+        autofillAddressEnabled: chrome.types.ChromeSetting;
+        /** @since Chrome 70. */
+        autofillCreditCardEnabled: chrome.types.ChromeSetting;
     }
 
     export interface Network {
         networkPredictionEnabled: chrome.types.ChromeSetting;
-        /** @since Chrome 42. */
+        /** @deprecated since Chrome 48. Please use privacy.network.webRTCIPHandlingPolicy. */
         webRTCMultipleRoutesEnabled: chrome.types.ChromeSetting;
-        /** @since Chrome 47. Warning: this is the current Dev channel. */
+        /** @deprecated since Chrome 48. Please use privacy.network.webRTCIPHandlingPolicy. */
         webRTCNonProxiedUdpEnabled: chrome.types.ChromeSetting;
+        /** @since Chrome 48. */
+        webRTCIPHandlingPolicy: chrome.types.ChromeSetting;
     }
 
     export interface Websites {
         thirdPartyCookiesAllowed: chrome.types.ChromeSetting;
         referrersEnabled: chrome.types.ChromeSetting;
         hyperlinkAuditingEnabled: chrome.types.ChromeSetting;
-        /** @since Chrome 21. */
+        /** @since Chrome 21. Available on Windows and ChromeOS only. */
         protectedContentEnabled: chrome.types.ChromeSetting;
+        /** @since Chrome 65. */
+        doNotTrackEnabled: chrome.types.ChromeSetting;
     }
 
     /** Settings that enable or disable features that require third-party network services provided by Google and your default search provider. */
@@ -5328,8 +5563,8 @@ declare namespace chrome.serial {
   * @export
   * @param connectionId The id of the connection.
   * @param signals The set of signal changes to send to the device:
-  * boolean:	(optional) dtr - DTR (Data Terminal Ready).
-  * boolean:	(optional) rts - RTS (Request To Send).
+  * boolean:    (optional) dtr - DTR (Data Terminal Ready).
+  * boolean:    (optional) rts - RTS (Request To Send).
   * @param callback Called once the control signals have been set.
   * The callback parameter should be a function that looks like this:
   * function(boolean result) {...};
@@ -5479,6 +5714,10 @@ declare namespace chrome.runtime {
         id?: string;
         /** The tabs.Tab which opened the connection, if any. This property will only be present when the connection was opened from a tab (including content scripts), and only if the receiver is an extension, not an app. */
         tab?: chrome.tabs.Tab;
+        /** The name of the native application that opened the connection, if any.
+         * @since Chrome 74
+         */
+        nativeApplication?: string;
         /**
          * The frame that opened the connection. 0 for top-level frames, positive for child frames. This will only be set when tab is set.
          * @since Chrome 41.
@@ -5494,6 +5733,11 @@ declare namespace chrome.runtime {
          * @since Chrome 32.
          */
         tlsChannelId?: string;
+        /**
+         * The origin of the page or frame that opened the connection. It can vary from the url property (e.g., about:blank) or can be opaque (e.g., sandboxed iframes). This is useful for identifying if the origin can be trusted if we can't immediately tell from the URL.
+         * @since Chrome 80.
+         */
+        origin?: string;
     }
 
     /**
@@ -5658,6 +5902,7 @@ declare namespace chrome.runtime {
             js?: string[];
             run_at?: string;
             all_frames?: boolean;
+            match_about_blank?: boolean;
             include_globs?: string[];
             exclude_globs?: string[];
         }[];
@@ -6535,7 +6780,7 @@ declare namespace chrome.system.display {
        * If set, updates the display's logical bounds origin along y-axis.
        * @see[See documentation for boundsOriginX parameter.]
        */
-      boundsOriginY: number;
+      boundsOriginY?: number;
 
       /**
        * If set, updates the display mode to the mode matching this value.
@@ -6829,15 +7074,20 @@ declare namespace chrome.tabCapture {
         fullscreen: boolean;
     }
 
+    export interface MediaStreamConstraint {
+        mandatory: object;
+        optional?: object;
+    }
+
     export interface CaptureOptions {
         /** Optional. */
         audio?: boolean;
         /** Optional. */
         video?: boolean;
         /** Optional. */
-        audioConstraints?: MediaStreamConstraints;
+        audioConstraints?: MediaStreamConstraint;
         /** Optional. */
-        videoConstraints?: MediaStreamConstraints;
+        videoConstraints?: MediaStreamConstraint;
     }
 
     export interface CaptureStatusChangedEvent extends chrome.events.Event<(info: CaptureInfo) => void> { }
@@ -6913,6 +7163,12 @@ declare namespace chrome.tabs {
          * The URL the tab is displaying. This property is only present if the extension's manifest includes the "tabs" permission.
          */
         url?: string;
+        /**
+         * The URL the tab is navigating to, before it has committed.
+         * This property is only present if the extension's manifest includes the "tabs" permission and there is a pending navigation.
+         * @since Chrome 79.
+         */
+        pendingUrl?: string;
         /**
          * Whether the tab is pinned.
          * @since Chrome 9.
@@ -7611,7 +7867,33 @@ declare namespace chrome.tabs {
      * @param tabId Optional. The ID of the tab to be discarded. If specified, the tab will be discarded unless it's active or already discarded. If omitted, the browser will discard the least important tab. This can fail if no discardable tabs exist.
      * @param callback Called after the operation is completed.
      */
-    export function discard(tabId: number, callback: (tab: Tab) => void): void;
+    export function discard(tabId?: number, callback?: (tab: Tab) => void): void;
+    /**
+     * Go foward to the next page, if one is available.
+     * @since Chrome 72.
+     * @param callback Optional. Called after the operation is completed.
+     */
+    export function goForward(callback?: () => void): void;
+    /**
+     * Go foward to the next page, if one is available.
+     * @since Chrome 72.
+     * @param tabId Optional. The ID of the tab to navigate forward; defaults to the selected tab of the current window.
+     * @param callback Optional. Called after the operation is completed.
+     */
+    export function goForward(tabId: number, callback?: () => void): void;
+    /**
+     * Go back to the previous page, if one is available.
+     * @since Chrome 72.
+     * @param callback Optional. Called after the operation is completed.
+     */
+    export function goBack(callback?: () => void): void;
+    /**
+     * Go back to the previous page, if one is available.
+     * @since Chrome 72.
+     * @param tabId Optional. The ID of the tab to navigate back; defaults to the selected tab of the current window.
+     * @param callback Optional. Called after the operation is completed.
+     */
+    export function goBack(tabId: number, callback?: () => void): void;
 
     /**
      * Fired when the highlighted or selected tabs in a window changes.
@@ -7720,16 +8002,17 @@ declare namespace chrome.tts {
         /**
          * Optional. This voice's gender.
          * One of: "male", or "female"
+         * @deprecated since Chrome 70. Gender is deprecated and will be ignored.
          */
         gender?: string;
         /** Optional. The name of the voice. */
         voiceName?: string;
-        /** The ID of the extension providing this voice. */
-        extensionsId?: string;
-        /** All of the callback event types that this voice is capable of sending. */
+        /** Optional. The ID of the extension providing this voice. */
+        extensionId?: string;
+        /** Optional. All of the callback event types that this voice is capable of sending. */
         eventTypes?: string[];
         /**
-         * If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs.
+         * Optional. If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs.
          * @since Chrome 33.
          */
         remote?: boolean;
@@ -8419,8 +8702,12 @@ declare namespace chrome.webRequest {
         error: string;
     }
 
-    export interface WebRequestBodyEvent extends chrome.events.Event<(details: WebRequestBodyDetails) => void> {
-        addListener(callback: (details: WebRequestBodyDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+    export interface WebRequestBodyEvent extends chrome.events.Event<(details: WebRequestBodyDetails) => BlockingResponse|void> {
+        addListener(callback: (details: WebRequestBodyDetails) => BlockingResponse|void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+    }
+
+    export interface WebRequestHeadersSynchronousEvent extends chrome.events.Event<(details: WebRequestHeadersDetails) => BlockingResponse|void> {
+        addListener(callback: (details: WebRequestHeadersDetails) => BlockingResponse|void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
     export interface WebRequestHeadersEvent extends chrome.events.Event<(details: WebRequestHeadersDetails) => void> {
@@ -8431,7 +8718,9 @@ declare namespace chrome.webRequest {
         addListener(callback: (details: T) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
-    export interface WebResponseHeadersEvent extends _WebResponseHeadersEvent<WebResponseHeadersDetails> { }
+    export interface WebResponseHeadersEvent extends chrome.events.Event<(details: WebResponseHeadersDetails) => BlockingResponse|void> {
+        addListener(callback: (details: WebResponseHeadersDetails) => BlockingResponse|void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+    }
 
     export interface WebResponseCacheEvent extends _WebResponseHeadersEvent<WebResponseCacheDetails> { }
 
@@ -8455,7 +8744,7 @@ declare namespace chrome.webRequest {
     /** Fired when a request is about to occur. */
     export var onBeforeRequest: WebRequestBodyEvent;
     /** Fired before sending an HTTP request, once the request headers are available. This may occur after a TCP connection is made to the server, but before any HTTP data is sent. */
-    export var onBeforeSendHeaders: WebRequestHeadersEvent;
+    export var onBeforeSendHeaders: WebRequestHeadersSynchronousEvent;
     /** Fired just before a request is going to be sent to the server (modifications of previous onBeforeSendHeaders callbacks are visible by the time onSendHeaders is fired). */
     export var onSendHeaders: WebRequestHeadersEvent;
     /** Fired when HTTP response headers of a request have been received. */

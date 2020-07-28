@@ -1,9 +1,10 @@
-// Type definitions for hls.js 0.12
+// Type definitions for hls.js 0.13
 // Project: https://github.com/video-dev/hls.js
 // Definitions by: John G. Gainfort, Jr. <https://github.com/jgainfort>
 //                 Johan Brook <https://github.com/brookback>
 //                 Adrián Caballero <https://github.com/adripanico>
 //                 Alexey I. Berezin <https://github.com/beraliv>
+//                 Arkadiusz Babiarz <https://github.com/drax98>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -350,6 +351,15 @@ declare namespace Hls {
         log?: CustomLogger;
         debug?: CustomLogger;
         error?: CustomLogger;
+    }
+
+    interface AudioTrack {
+        buffer: SourceBuffer;
+        container: string;
+        codec: string;
+        id: string;
+        initSegment?: Uint8Array;
+        levelCodec: string;
     }
 
     interface Config {
@@ -795,12 +805,12 @@ declare namespace Hls {
     }
 
     interface mediaAttachingData {
-        video: HTMLVideoElement;
+        media: HTMLMediaElement;
         mediaSource: string;
     }
 
     interface mediaAttachedData {
-        video: HTMLVideoElement;
+        media: HTMLMediaElement;
         mediaSource: string;
     }
 
@@ -1667,9 +1677,9 @@ declare class Hls {
      */
     startLevel: number;
     /**
-     * get: Return the bound videoElement from the hls instance
+     * get: Return the bound mediaElement (of type HTMLMediaElement, aka. HTMLVideoElement or HTMLAudioElement) from the hls instance
      */
-    readonly media?: HTMLVideoElement | null;
+    readonly media?: HTMLMediaElement | null;
     /**
      *  hls.js config
      */
@@ -1701,15 +1711,6 @@ declare class Hls {
      */
     firstLevel: number;
     /**
-     * array of audio tracks exposed in manifest
-     */
-    readonly audioTracks: AudioTrack[];
-    /**
-     * get: returns audio track id
-     * set: sets audio track id (returned by)
-     */
-    audioTrack: number;
-    /**
      * position of live sync point (ie edge of live position minus safety delay defined by hls.config.liveSyncDuration)
      */
     readonly liveSyncPosition: number;
@@ -1731,16 +1732,16 @@ declare class Hls {
     subtitleDisplay: boolean;
     /**
      * calling this method will:
-     *      bind videoElement and hls instances
-     *      create MediaSource and set it as video source
+     *      bind mediaElement (of type HTMLMediaElement, aka. HTMLVideoElement or HTMLAudioElement) and hls instances
+     *      create MediaSource and set it as video or audio source
      *      once MediaSource object is successfully created, MEDIA_ATTACHED event will be fired
      */
-    attachMedia(videoElement: HTMLVideoElement): void;
+    attachMedia(mediaElement: HTMLMediaElement): void;
     /**
      * calling this method will:
-     *      unbind VideoElement from hls instance
+     *      unbind HTMLMediaElement (aka. HTMLVideoElement or HTMLAudioElement) from hls instance
      *      signal the end of the stream on MediaSource
-     *      reset video source ( video.src = '' )
+     *      resets media source ( media.src = '',  )
      */
     detachMedia(): void;
     /**
@@ -1783,7 +1784,7 @@ declare class Hls {
     /**
      * hls.js event listener
      */
-    on(event: K_MEDIA_ATTACHING, callback: (event: K_MEDIA_ATTACHING, data: Hls.mediaAttachedData) => void): void;
+    on(event: K_MEDIA_ATTACHING, callback: (event: K_MEDIA_ATTACHING, data: Hls.mediaAttachingData) => void): void;
     on(event: K_MEDIA_ATTACHED, callback: (event: K_MEDIA_ATTACHED, data: Hls.mediaAttachedData) => void): void;
     on(event: K_MEDIA_DETACHING, callback: (event: K_MEDIA_DETACHING, data: {}) => void): void;
     on(event: K_MEDIA_DETACHED, callback: (event: K_MEDIA_DETACHED, data: {}) => void): void;

@@ -68,3 +68,11 @@ db.createReadStream()
     .on('end', () => {
       console.log('Stream closed');
     });
+
+db.clear((error) => {
+});
+
+db.clear({ gt: 'hello' }, (error) => {
+});
+
+db.clear().then(() => console.log('cleared'));

@@ -1,21 +1,16 @@
-// Type definitions for uuid 3.4
-// Project: https://github.com/kelektiv/node-uuid
+// Type definitions for uuid 8.0
+// Project: https://github.com/uuidjs/uuid
 // Definitions by: Oliver Hoffmann <https://github.com/iamolivinius>
 //                 Felipe Ochoa <https://github.com/felipeochoa>
 //                 Chris Barth <https://github.com/cjbarth>
+//                 Linus Unnebäck <https://github.com/LinusU>
+//                 Christoph Tavan <https://github.com/ctavan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
-// The version number has been artificially set to 3.4, instead of 3.0,
-// because of the existing uuid-js npm types package being at 3.3.28,
-// meaning that `npm install @types/uuid` was installing the typings for uuid-js, not this
+import { v1, v3, v4, v5 } from './interfaces';
 
-import { v1, v4 } from './interfaces';
-
-interface UuidStatic {
-    v1: v1;
-    v4: v4;
-}
-
-declare const uuid: UuidStatic & v4;
-export = uuid;
+export const v1: v1;
+export const v3: v3;
+export const v4: v4;
+export const v5: v5;

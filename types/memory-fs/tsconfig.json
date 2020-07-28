@@ -18,8 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "lib/join.d.ts",
-        "lib/normalize.d.ts",
         "test/index.ts",
         "test/join.ts",
         "test/normalize.ts",

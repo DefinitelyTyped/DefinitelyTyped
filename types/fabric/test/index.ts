@@ -2,6 +2,7 @@ function sample1() {
   const canvas = new fabric.Canvas('c', {
     hoverCursor: 'pointer',
     selection: false,
+    targets: []
   });
 
   canvas.on('object:moving', (e: fabric.IEvent) => {
@@ -46,6 +47,8 @@ function sample2() {
   const getRandomInt = fabric.util.getRandomInt;
   const rainbow = ["#ffcc66", "#ccff66", "#66ccff", "#ff6fcf", "#ff6666"];
   const rainbowEnd = rainbow.length - 1;
+
+  fabric.Object.NUM_FRACTION_DIGITS = 2;
 
   //
   // Rendering canvas #1
@@ -346,6 +349,8 @@ function sample6() {
         obj.set('opacity', (1 / (dist / 20)));
       });
     });
+  }, null, {
+      crossOrigin:'anonymous'
   });
 }
 
@@ -806,7 +811,8 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
     const obj = canvas.getActiveObject();
     if (obj) {
       obj.setGradient("fill", {
-        coords: {x2: (getRandomInt(0, 1) ? 0 : obj.width), y2: (getRandomInt(0, 1) ? 0 : obj.height)},
+        y2: (getRandomInt(0, 1) ? 0 : obj.height),
+        x2: (getRandomInt(0, 1) ? 0 : obj.width),
         colorStops: {
           0: '#' + getRandomColor(),
           1: '#' + getRandomColor()
@@ -1039,4 +1045,11 @@ function sample11() {
    const canvas2dFilterBackend = new fabric.Canvas2dFilterBackend();
    const webglFilterBackend = new fabric.WebglFilterBackend();
    fabric.filterBackend = new fabric.Canvas2dFilterBackend();
+}
+
+function sample12() {
+  const canvas = new fabric.Canvas('c');
+  const position = fabric.util.getScrollLeftTop(canvas.getElement());
+  const x = position.left;
+  const y = position.top;
 }

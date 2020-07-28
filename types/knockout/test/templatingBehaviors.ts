@@ -1,4 +1,3 @@
-/// <reference types="knockout.mapping" />
 
 // Jasmine definitions
 declare function describe(desc: string, f: () => void): void;

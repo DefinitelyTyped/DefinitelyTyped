@@ -71,7 +71,6 @@ declare namespace TestUtils {
 
     export interface ShallowRenderer {
         getRenderOutput<E extends ReactElement>(): E;
-        getRenderOutput(): ReactElement;
         render(element: ReactElement, context?: any): void;
         unmount(): void;
     }

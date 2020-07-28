@@ -389,6 +389,11 @@ declare namespace CleanCSS {
          * Controls maximum line length; defaults to `false`
          */
         wrapAt?: false | number;
+
+        /**
+         * Controls removing trailing semicolons in rule; defaults to `false` - means remove
+         */
+        semicolonAfterLastProperty?: boolean;
     }
 
     /**
@@ -506,11 +511,6 @@ declare namespace CleanCSS {
              * Controls selectors optimizing; defaults to `true`
              */
             tidySelectors?: boolean;
-
-            /**
-             * Controls removing trailing semicolons in rule; defaults to `false` - means remove
-             */
-            semicolonAfterLastProperty?: boolean;
 
             /**
              * Defines a callback for fine-grained property optimization; defaults to no-op

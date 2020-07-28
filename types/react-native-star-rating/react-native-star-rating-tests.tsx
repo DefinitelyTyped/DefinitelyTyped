@@ -21,6 +21,7 @@ class GeneralStarExample extends React.Component<{}, State> {
             <StarRating
                 disabled={false}
                 maxStars={5}
+                animation={'tada'}
                 rating={this.state.starCount}
                 selectedStar={this.onStarRatingPress}
             />

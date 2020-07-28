@@ -1,11 +1,13 @@
 import {
     DateTime,
     Duration,
-    Interval,
-    Info,
-    Settings,
+    FixedOffsetZone,
     IANAZone,
+    Info,
+    Interval,
+    Settings,
     Zone,
+    ZoneOffsetFormat,
     ZoneOffsetOptions,
 } from 'luxon';
 
@@ -23,9 +25,29 @@ const fromObject = DateTime.fromObject({
 });
 
 const ianaZone = new IANAZone('America/Los_Angeles');
+const testIanaZone = IANAZone.create('Europe/London');
+IANAZone.isValidSpecifier('Europe/London');
+IANAZone.isValidZone('Europe/London');
+IANAZone.resetCache();
+testIanaZone.formatOffset(dt.toMillis()); // $ExpectError
+testIanaZone.formatOffset(dt.toMillis(), 'narrow'); // $ExpectType string
+testIanaZone.formatOffset(dt.toMillis(), 'short'); // $ExpectType string
+testIanaZone.formatOffset(dt.toMillis(), 'techie'); // $ExpectType string
+testIanaZone.formatOffset(dt.toMillis(), 'other_string'); // $ExpectError
+testIanaZone.offsetName(dt.toMillis()); // $ExpectError
+testIanaZone.offsetName(dt.toMillis(), { format: 'short'}); // $ExpectType string
+testIanaZone.offsetName(dt.toMillis(), { format: 'long'}); // $ExpectType string
+testIanaZone.offsetName(dt.toMillis(), { format: 'other_string'}); // $ExpectError
+testIanaZone.offsetName(dt.toMillis(), { format: 'short', locale: 'en-us'}); // $ExpectType string
+testIanaZone.offsetName(dt.toMillis(), { locale: 'en-gb'}); // $ExpectType string
 const ianaZoneTest = DateTime.fromObject({
     zone: ianaZone,
 });
+
+FixedOffsetZone.utcInstance.equals(FixedOffsetZone.instance(0));
+
+FixedOffsetZone.instance(60);
+FixedOffsetZone.parseSpecifier('UTC+6');
 
 const fromIso = DateTime.fromISO('2017-05-15'); // => May 15, 2017 at midnight
 const fromIso2 = DateTime.fromISO('2017-05-15T08:30:00'); // => May 15, 2017 at midnight
@@ -46,27 +68,29 @@ getters.isInLeapYear;
 
 dt.toBSON(); // $ExpectType Date
 dt.toHTTP(); // $ExpectType string
-dt.toISO(); // $ExpectType string
-dt.toISO({ includeOffset: true }); // $ExpectType string
-dt.toISODate(); // $ExpectType string
-dt.toISOTime(); // $ExpectType string
-dt.toISOWeekDate(); // $ExpectType string
+dt.toISO(); // $ExpectType string | null
+dt.toISO({ includeOffset: true, format: 'extended' }); // $ExpectType string | null
+dt.toISODate(); // $ExpectType string | null
+dt.toISODate({ format: 'basic'}); // $ExpectType string | null
+dt.toISOTime(); // $ExpectType string | null
+dt.toISOTime({ format: 'basic' }); // $ExpectType string | null
+dt.toISOWeekDate(); // $ExpectType string | null
 dt.toJSDate(); // $ExpectType Date
-dt.toJSON(); // $ExpectType string
-dt.toLocaleString(); // $ExpectType string
-dt.toLocaleString({ month: 'long', day: 'numeric' }); // $ExpectType string
-dt.toLocaleString(DateTime.DATE_MED); // $ExpectType string
+dt.toJSON(); // $ExpectType string | null
+dt.toLocaleString(); // $ExpectType string | null
+dt.toLocaleString({ month: 'long', day: 'numeric' }); // $ExpectType string | null
+dt.toLocaleString(DateTime.DATE_MED); // $ExpectType string | null
 dt.toMillis(); // $ExpectType number
 dt.toMillis(); // $ExpectType number
 dt.toRelative(); // $ExpectType string | null
 dt.toRelativeCalendar(); // $ExpectType string | null
-dt.toRFC2822(); // $ExpectType string
+dt.toRFC2822(); // $ExpectType string | null
 dt.toSeconds(); // $ExpectType number
-dt.toSQL(); // $ExpectType string
-dt.toSQL({ includeOffset: false, includeZone: true }); // $ExpectType string
-dt.toSQLDate(); // $ExpectType string
-dt.toSQLTime(); // $ExpectType string
-dt.toSQLTime({ includeOffset: false, includeZone: true }); // $ExpectType string
+dt.toSQL(); // $ExpectType string | null
+dt.toSQL({ includeOffset: false, includeZone: true }); // $ExpectType string | null
+dt.toSQLDate(); // $ExpectType string | null
+dt.toSQLTime(); // $ExpectType string | null
+dt.toSQLTime({ includeOffset: false, includeZone: true }); // $ExpectType string | null
 dt.valueOf(); // $ExpectType number
 
 // $ExpectType string | null
@@ -74,7 +98,7 @@ dt.toRelative({
     base: DateTime.local(),
     locale: 'fr',
     style: 'long',
-    unit: 'day',
+    unit: 'days',
     round: true,
     padding: 10,
     numberingSystem: 'bali',
@@ -84,7 +108,7 @@ dt.toRelative({
 dt.toRelativeCalendar({
     base: DateTime.local(),
     locale: 'fr',
-    unit: 'day',
+    unit: 'days',
     numberingSystem: 'bali',
 });
 
@@ -134,8 +158,9 @@ dur.seconds; // $ExpectType number
 
 dur.as('seconds'); // $ExpectType number
 dur.toObject();
-dur.toISO(); // $ExpectType string
+dur.toISO(); // $ExpectType string | null
 dur.normalize(); // $ExpectType Duration
+dur.mapUnits((x, u) => u === 'hours' ? x * 2 : x); // $ExpectType Duration
 
 if (Duration.isDuration(anything)) {
     anything; // $ExpectType Duration
@@ -152,6 +177,8 @@ i.mapEndpoints(d => d); // $ExpectType Interval
 i.intersection(i); // $ExpectType Interval | null
 
 i.toISO(); // $ExpectType string
+i.toISODate(); // $ExpectType string
+i.toISOTime(); // $ExpectType string
 i.toString(); // $ExpectType string
 i.toDuration('months'); // $ExpectType Duration
 i.toDuration(); // $ExpectType Duration
@@ -170,6 +197,7 @@ Info.weekdays('2-digit');
 Info.features().intl;
 Info.features().intlTokens;
 Info.features().zones;
+Info.features().relative;
 
 /* Settings */
 Settings.defaultLocale;
@@ -188,7 +216,7 @@ Settings.defaultZone = Settings.defaultZone;
 
 /* Intl */
 // prettier-ignore
-DateTime.local().setLocale('el').toLocaleString(DateTime.DATE_FULL); // $ExpectType string
+DateTime.local().setLocale('el').toLocaleString(DateTime.DATE_FULL); // $ExpectType string | null
 dt.locale; // $ExpectType string
 DateTime.local().setLocale('fr').locale; // $ExpectType string
 DateTime.local().reconfigure({ locale: 'fr' }).locale; // $ExpectType string
@@ -198,8 +226,8 @@ DateTime.local().locale; // $ExpectType string
 
 Settings.defaultLocale = DateTime.local().resolvedLocaleOpts().locale;
 
-dt.setLocale('fr').toLocaleString(DateTime.DATE_FULL); // $ExpectType string
-dt.toLocaleString({ locale: 'es', ...DateTime.DATE_FULL }); // $ExpectType string
+dt.setLocale('fr').toLocaleString(DateTime.DATE_FULL); // $ExpectType string | null
+dt.toLocaleString({ locale: 'es', ...DateTime.DATE_FULL }); // $ExpectType string | null
 dt.setLocale('fr').toFormat('MMMM dd, yyyy GG'); // $ExpectType string
 
 DateTime.fromFormat('septembre 25, 2017 après Jésus-Christ', 'MMMM dd, yyyy GG', { locale: 'fr' });
@@ -236,11 +264,11 @@ Settings.defaultZoneName = 'Asia/Tokyo';
 
 /* Calendars */
 // prettier-ignore
-DateTime.fromISO('2017-W23-3').plus({ weeks: 1, days: 2 }).toISOWeekDate(); // $ExpectType string
+DateTime.fromISO('2017-W23-3').plus({ weeks: 1, days: 2 }).toISOWeekDate(); // $ExpectType string | null
 
 const dtHebrew = DateTime.local().reconfigure({ outputCalendar: 'hebrew' });
 dtHebrew.outputCalendar; // $ExpectType string
-dtHebrew.toLocaleString(); // $ExpectType string
+dtHebrew.toLocaleString(); // $ExpectType string | null
 
 DateTime.fromObject({ outputCalendar: 'buddhist' }).toLocaleString(DateTime.DATE_FULL);
 Settings.defaultOutputCalendar = 'persian';
@@ -261,6 +289,8 @@ DateTime.fromFormat('May 25 1982', 'LLLL dd yyyy'); // $ExpectType DateTime
 DateTime.fromFormat('mai 25 1982', 'LLLL dd yyyy', { locale: 'fr' }); // $ExpectType DateTime
 
 DateTime.fromFormatExplain('Aug 6 1982', 'MMMM d yyyy').regex;
+DateTime.invalid('Timestamp out of range');
+DateTime.invalid('mismatched weekday', "you can't specify both a weekday and a date");
 
 /* Math */
 const d1: DateTime = DateTime.local(2017, 2, 13).plus({ days: 30 });
@@ -280,7 +310,7 @@ dur.toObject().days; // $ExpectType number | undefined
 dur.as('minutes'); // $ExpectType number
 dur.shiftTo('minutes').toObject().minutes; // $ExpectType number | undefined
 // prettier-ignore
-DateTime.fromISO('2017-05-15').plus(dur).toISO(); // $ExpectType string
+DateTime.fromISO('2017-05-15').plus(dur).toISO(); // $ExpectType string | null
 
 const end = DateTime.fromISO('2017-03-13');
 const start = DateTime.fromISO('2017-02-13');
@@ -315,6 +345,9 @@ class SampleZone extends Zone {
 
     offsetName(ts: number, options?: ZoneOffsetOptions) {
         return 'SampleZone';
+    }
+    formatOffset(ts: number, format: ZoneOffsetFormat) {
+        return '+6';
     }
     equals(other: Zone) {
         return other.name === this.name;

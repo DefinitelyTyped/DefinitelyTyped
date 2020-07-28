@@ -148,3 +148,11 @@ wx.updateTimelineShareData({
     link: '',
     imgUrl: ''
 });
+
+wx.openAddress({
+    success: (res) => {
+        console.log(res.userName);
+    },
+});
+
+console.log(window.__wxjs_is_wkwebview);

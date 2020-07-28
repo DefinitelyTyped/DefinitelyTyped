@@ -3,17 +3,20 @@
 // Definitions by: Mathias Feitzinger <https://github.com/feitzi>, Brady Liles <https://github.com/BradyLiles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function randomColor(options?: RandomColorOptions): string;
+declare function randomColor(options?: RandomColorOptionsSingle): string;
+declare function randomColor(options?: RandomColorOptionsMultiple): string[];
 
-interface RandomColorOptions {
-	hue?: number | string;
-	luminosity?: "bright" | "light" | "dark" | "random";
-	count?: number;
-	seed?: number | string;
-	format?: "hsvArray" | "hslArray" | "hsl" | "hsla" | "rgbArray" | "rgb" | "rgba" | "hex";
-	alpha?: number;
+interface RandomColorOptionsSingle {
+    hue?: number | string;
+    luminosity?: "bright" | "light" | "dark" | "random";
+    seed?: number | string;
+    format?: "hsvArray" | "hslArray" | "hsl" | "hsla" | "rgbArray" | "rgb" | "rgba" | "hex";
+    alpha?: number;
 }
 
-declare module "randomcolor" {
-	export = randomColor;
+interface RandomColorOptionsMultiple extends RandomColorOptionsSingle {
+    count: number;
 }
+
+export = randomColor;
+export as namespace randomColor;

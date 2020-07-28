@@ -6,7 +6,6 @@ interface Props {
 }
 
 export class WyswygComponent extends React.Component<Props> {
-  props: Props;
   private editorInst: RichTextEditor;
 
   render() {

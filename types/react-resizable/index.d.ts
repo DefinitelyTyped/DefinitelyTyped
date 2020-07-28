@@ -7,6 +7,7 @@
 import * as React from "react";
 
 export type Axis = "both" | "x" | "y" | "none";
+export type ResizeHandle = 's' | 'w' | 'e' | 'n' | 'sw' | 'nw' | 'se' | 'ne';
 
 export interface ResizableState {
     resizing: boolean;
@@ -29,12 +30,14 @@ export interface DragCallbackData {
 export interface ResizeCallbackData {
     node: HTMLElement;
     size: { width: number; height: number };
+    handle: ResizeHandle;
 }
 
 export interface ResizableProps {
     className?: string;
     width: number;
     height: number;
+    handle?: React.ReactNode | ((resizeHandle: ResizeHandle) => React.ReactNode);
     handleSize?: [number, number];
     lockAspectRatio?: boolean;
     axis?: Axis;
@@ -44,12 +47,13 @@ export interface ResizableProps {
     onResizeStart?: (e: React.SyntheticEvent, data: ResizeCallbackData) => any;
     onResize?: (e: React.SyntheticEvent, data: ResizeCallbackData) => any;
     draggableOpts?: any;
+    resizeHandles?: ResizeHandle[];
 }
 
 export class Resizable extends React.Component<
     ResizableProps,
     ResizableState
-> {}
+    > { }
 
 export interface ResizableBoxState {
     height: number;
@@ -61,4 +65,4 @@ export type ResizableBoxProps = ResizableProps;
 export class ResizableBox extends React.Component<
     ResizableBoxProps,
     ResizableBoxState
-> {}
+    > { }

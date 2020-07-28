@@ -8,11 +8,10 @@ const latLon1 = {
 const utmCoord1 = fromLatLon(latLon1.lat, latLon1.lon);
 
 const latLon2 = toLatLon(
-    utmCoord1.easting,
-    utmCoord1.northing,
-    utmCoord1.zoneNum,
-    utmCoord1.zoneLetter,
-    true,
+  utmCoord1.easting,
+  utmCoord1.northing,
+  utmCoord1.zoneNum,
+  utmCoord1.zoneLetter,
 );
 
 const utmCoord2 = fromLatLon(latLon2.latitude, latLon2.longitude);

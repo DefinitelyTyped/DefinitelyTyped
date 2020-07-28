@@ -5,19 +5,19 @@
 //                 Leonard Thieu <https://github.com/leonard-thieu>,
 //                 Mike Lazer-Walker <https://github.com/lazerwalker>,
 //                 Matt Bishop <https://github.com/mattbishop>
+//                 William Orr <https://github.com/worr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 
 declare module 'chai-as-promised' {
-    function chaiAsPromised(chai: any, utils: any): void;
-
-    namespace chaiAsPromised {
-        function transferPromiseness(assertion: Chai.PromisedAssertion, promise: PromiseLike<any>): void;
-
-        function transformAsserterArgs(values: any[]): any;
+    interface ChaiAsPromised extends Chai.ChaiPlugin {
+        transferPromiseness(assertion: Chai.PromisedAssertion, promise: PromiseLike<any>): void;
+        transformAsserterArgs(values: any[]): any;
     }
 
+    const chaiAsPromised: ChaiAsPromised;
     export = chaiAsPromised;
 }
 
@@ -228,12 +228,8 @@ declare namespace Chai {
 
     interface PromisedThrow {
         (): PromisedAssertion;
-        (expected: string, message?: string): PromisedAssertion;
-        (expected: RegExp, message?: string): PromisedAssertion;
-        (constructor: Error, expected?: string, message?: string): PromisedAssertion;
-        (constructor: Error, expected?: RegExp, message?: string): PromisedAssertion;
-        (constructor: Function, expected?: string, message?: string): PromisedAssertion;
-        (constructor: Function, expected?: RegExp, message?: string): PromisedAssertion;
+        (expected: string | RegExp, message?: string): PromisedAssertion;
+        (constructor: Error | Function, expected?: string | RegExp, message?: string): PromisedAssertion;
     }
 
     interface PromisedRespondTo {
@@ -318,6 +314,7 @@ declare namespace Chai {
 
         isNumber(val: any, msg?: string): PromiseLike<void>;
         isNotNumber(val: any, msg?: string): PromiseLike<void>;
+        isFinite(val: number, msg?: string): PromiseLike<void>;
 
         isBoolean(val: any, msg?: string): PromiseLike<void>;
         isNotBoolean(val: any, msg?: string): PromiseLike<void>;
@@ -334,6 +331,24 @@ declare namespace Chai {
         notInclude(exp: string, inc: any, msg?: string): PromiseLike<void>;
         notInclude(exp: any[], inc: any, msg?: string): PromiseLike<void>;
 
+        deepInclude(exp: string, inc: any, msg?: string): PromiseLike<void>;
+        deepInclude(exp: any[], inc: any, msg?: string): PromiseLike<void>;
+
+        notDeepInclude(exp: string, inc: any, msg?: string): PromiseLike<void>;
+        notDeepInclude(exp: any[], inc: any, msg?: string): PromiseLike<void>;
+
+        nestedInclude(exp: Object, inc: Object, msg?: string): PromiseLike<void>;
+        notNestedInclude(exp: Object, inc: Object, msg?: string): PromiseLike<void>;
+
+        deepNestedInclude(exp: Object, inc: Object, msg?: string): PromiseLike<void>;
+        notDeepNestedInclude(exp: Object, inc: Object, msg?: string): PromiseLike<void>;
+
+        ownInclude(exp: Object, inc: Object, msg?: string): PromiseLike<void>;
+        notOwnInclude(exp: Object, inc: Object, msg?: string): PromiseLike<void>;
+
+        deepOwnInclude(exp: Object, inc: Object, msg?: string): PromiseLike<void>;
+        notDeepOwnInclude(exp: Object, inc: Object, msg?: string): PromiseLike<void>;
+
         match(exp: any, re: RegExp, msg?: string): PromiseLike<void>;
         notMatch(exp: any, re: RegExp, msg?: string): PromiseLike<void>;
 
@@ -348,7 +363,46 @@ declare namespace Chai {
         deepPropertyVal(obj: Object, prop: string, val: any, msg?: string): PromiseLike<void>;
         deepPropertyNotVal(obj: Object, prop: string, val: any, msg?: string): PromiseLike<void>;
 
+        nestedProperty(obj: object, prop: string, msg?: string): PromiseLike<void>;
+        notNestedProperty(obj: object, prop: string, msg?: string): PromiseLike<void>;
+        nestedPropertyVal(obj: object, prop: string, val: any, msg?: string): PromiseLike<void>;
+        notNestedPropertyVal(obj: object, prop: string, val: any, msg?: string): PromiseLike<void>;
+
+        deepNestedPropertyVal(obj: object, prop: string, val: any, msg?: string): PromiseLike<void>;
+        notDeepNestedPropertyVal(obj: object, prop: string, val: any, msg?: string): PromiseLike<void>;
+
         lengthOf(exp: any, len: number, msg?: string): PromiseLike<void>;
+
+        hasAnyKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
+        hasAnyKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+
+        hasAllKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
+        hasAllKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+
+        containsAllKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
+        containsAllKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+
+        doesNotHaveAnyKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
+        doesNotHaveAnyKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+
+        doesNotHaveAllKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
+        doesNotHaveAllKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+
+        hasAnyDeepKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
+        hasAnyDeepKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+
+        hasAllDeepKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
+        hasAllDeepKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+
+        containsAllDeepKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
+        containsAllDeepKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+
+        doesNotHaveAnyDeepKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
+        doesNotHaveAnyDeepKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+
+        doesNotHaveAllDeepKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
+        doesNotHaveAllDeepKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+
         //alias frenzy
         throw(fn: Function, msg?: string): PromiseLike<void>;
         throw(fn: Function, regExp: RegExp): PromiseLike<void>;
@@ -390,11 +444,17 @@ declare namespace Chai {
         oneOf(val: any, list: any[], msg?: string): PromiseLike<void>;
 
         changes(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
+        changesBy(modifier: Function, obj: object, property: string, change: number, msg?: string): PromiseLike<void>;
         doesNotChange(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
+        changesButNotBy(modifier: Function, obj: object, property: string, change: number, msg?: string): PromiseLike<void>;
         increases(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
+        increasesBy(modifier: Function, obj: Object, property: string, change: number, msg?: string): PromiseLike<void>;
         doesNotIncrease(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
+        increasesButNotBy(modifier: Function, obj: Object, property: string, change: number, msg?: string): PromiseLike<void>;
         decreases(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
+        decreasesBy(modifier: Function, obj: Object, property: string, change: number, msg?: string): PromiseLike<void>;
         doesNotDecrease(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
+        decreasesButNotBy(modifier: Function, obj: Object, property: string, change: number, msg?: string): PromiseLike<void>;
 
         ifError(val: any, msg?: string): PromiseLike<void>;
 

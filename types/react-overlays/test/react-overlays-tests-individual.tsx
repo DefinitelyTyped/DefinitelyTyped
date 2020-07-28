@@ -22,8 +22,14 @@ interface OverlayTriggerProps extends Overlay.OverlayProps {
     overlay: any;
 }
 
-function renderOverlayContent({ props }: Overlay.OverlayRenderProps) {
-    return <div {...props}>Popover content</div>;
+function renderOverlayContent({ props, arrowProps }: Overlay.OverlayRenderProps) {
+    return (
+        <div ref={props.ref} {...props}>
+            <div ref={arrowProps.ref}>
+                Popover content
+            </div>
+        </div>
+    );
 }
 class TestOverlay extends React.Component<{}, { open: boolean }> {
     target: HTMLElement | null = null;

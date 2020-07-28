@@ -1,8 +1,10 @@
 // Type definitions for pkgcloud 1.7
 // Project: https://github.com/pkgcloud/pkgcloud#readme
 // Definitions by: Daniel Friesen <https://github.com/dantman>
+//                 Adam Smith <https://github.com/ScriptSmith>
+//                 Cornelis Heuperman <https://github.com/heuperman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.7
 
 /// <reference types="node" />
 
@@ -52,9 +54,45 @@ export interface AzureProviderOptions {
     location?: string;
 }
 
+export interface GoogleProviderOptions {
+    provider: 'google';
+    keyFilename: string;
+    projectId: string;
+}
+
+export interface OpenstackProviderOptions {
+    provider: 'openstack';
+    username: string;
+    password: string;
+    authUrl: string;
+    region?: string;
+    tenantId?: string;
+    version?: string;
+    keystoneAuthVersion?: string;
+}
+
+export type RackspaceRegions =
+    | 'DFW' // Dallas/Fort Worth, United States
+    | 'ORD' // Chicago, United States
+    | 'IAD' // Northern Virginia, United States
+    | 'LON' // London, United Kingdom
+    | 'HKG' // Hong Kong, China
+    | 'SYD'; // Sydney, Australia
+
+export interface RackspaceProviderOptions {
+    provider: 'rackspace';
+    username: string;
+    apiKey: string;
+    region: RackspaceRegions;
+    useInternal?: boolean;
+}
+
 export type ProviderOptions = BaseProviderOptions & Partial<
     | AmazonProviderOptions
     | AzureProviderOptions
+    | GoogleProviderOptions
+    | OpenstackProviderOptions
+    | RackspaceProviderOptions
 >;
 
 /**

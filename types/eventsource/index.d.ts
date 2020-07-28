@@ -3,8 +3,15 @@
 // Definitions by: Scott Lee Davis <https://github.com/scottleedavis>
 //                 Ali Afroozeh <https://github.com/afroozeh>
 //                 Pedro Gámez <https://github.com/snakedrak>
+//                 Akuukis <https://github.com/Akuukis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
+
+// eventsource uses DOM dependencies which are absent in browserless envoronment like node.js.
+// to avoid compiler errors this monkey patch is used. See more details in:
+// - sinon: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
+// - rxjs: https://github.com/ReactiveX/rxjs/issues/1986
+/// <reference path="./dom-monkeypatch.d.ts" />
 
 declare class EventSource {
   static readonly CLOSED: number;
@@ -41,4 +48,3 @@ declare namespace EventSource {
 }
 
 export = EventSource;
-export as namespace EventSource;

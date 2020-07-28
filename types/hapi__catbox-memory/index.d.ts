@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ClientApi } from '@hapi/catbox';
+import { ClientApi, ClientOptions } from '@hapi/catbox';
 
 interface CatboxMemory<T> extends ClientApi<T> {}
 
@@ -15,7 +15,7 @@ declare class CatboxMemory<T> implements ClientApi<T> {
 }
 
 declare namespace CatboxMemory {
-    interface Options {
+    interface Options extends ClientOptions {
         /**
          * Sets an upper limit on the number of bytes that can be stored in the cache.
          * Once this limit is reached no additional items will be added to the cache until some expire.

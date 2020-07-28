@@ -77,3 +77,37 @@ client.listArchives(listArchivesOptions, (err: Error, archives: OpenTok.Archive[
     console.log(archives[i].id);
   }
 });
+
+const broadcastOptions: OpenTok.BroadcastOptions = {
+  outputs: {
+    hls: {},
+  },
+  layout: {
+    type: 'bestFit',
+  }
+};
+
+client.startBroadcast('SESSION_ID', broadcastOptions, (err: Error, broadcast: OpenTok.Broadcast) => {
+  if (err) return console.log(err);
+  console.log(broadcast)
+});
+
+client.stopBroadcast('BROADCAST_ID', (err: Error, broadcast: OpenTok.BroadcastStopResponse) => {
+  if (err) return console.log(err);
+  console.log(broadcast)
+})
+
+const singalOptions: OpenTok.SignalOptions = {
+  type: 'any',
+  data: {
+    any: 'any'
+  }
+}
+
+client.signal('SESSION_ID', null, singalOptions, (err: Error) => {
+  if (err) return console.log(err);
+})
+
+client.signal('SESSION_ID', 'CONNECTION_ID', singalOptions, (err: Error) => {
+  if (err) return console.log(err);
+})

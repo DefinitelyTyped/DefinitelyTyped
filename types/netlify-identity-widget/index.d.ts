@@ -34,6 +34,7 @@ export interface User {
     };
     app_metadata: {
         provider: string;
+        roles: string[];
     };
     aud: string;
     audience?: any;
