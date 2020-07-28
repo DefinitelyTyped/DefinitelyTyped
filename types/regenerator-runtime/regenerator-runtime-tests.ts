@@ -25,6 +25,10 @@ regenerator.values(anyArrayLike); // $ExpectType Iterator<object, unknown, unkno
 regenerator.keys(anyArray); // $ExpectType () => IteratorResult<string, undefined>
 regenerator.keys(anyIterableIterator); // $ExpectType () => IteratorResult<string, undefined>
 
+regenerator.AsyncIterator.prototype.next; // $ExpectType (...args: [] | [any]) => Promise<IteratorResult<any, any>>
+regenerator.AsyncIterator.prototype.return; // $ExpectType (value: any) => Promise<IteratorResult<any, any>>
+regenerator.AsyncIterator.prototype.throw; // $ExpectType (e: any) => Promise<IteratorResult<any, any>>
+
 // https://tc39.es/proposal-iterator-helpers/#sec-iteratorprototype.map
 function IteratorMap<T, U, TNext = unknown>(
     this: Iterator<T, unknown, TNext>,

@@ -188,7 +188,8 @@ export class AsyncIterator<TYield = unknown, TReturn = unknown, TNext = unknown>
         PromiseImpl: ResolvablePromiseConstructorLike,
     );
 
-    next(value: TNext): Promise<IteratorResult<TYield, TReturn>>;
+    // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.
+    next(...args: [] | [TNext]): Promise<IteratorResult<TYield, TReturn>>;
     return(value: TReturn | PromiseLike<TReturn>): Promise<IteratorResult<TYield, TReturn>>;
     throw(e: any): Promise<IteratorResult<TYield, TReturn>>;
 
