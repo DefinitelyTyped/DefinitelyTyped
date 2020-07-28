@@ -571,6 +571,13 @@ _.chain(nestedObjectList)
     .partition(['a', 'b'])
     .value();
 
+// $ExpectType number[]
+_.chain([1, 3, 5])
+    .union([2, 4, 6], [7, 8])
+    .difference([2, 5], [3, 6])
+    .intersection([2, 4, 6, 8], [4, 8])
+    .value();
+
 // common testing types and objects
 const context = {};
 
@@ -595,6 +602,7 @@ declare const level3RecordList: _.List<_.List<_.List<StringRecord>>>;
 declare const level4RecordList: _.List<_.List<_.List<_.List<StringRecord>>>>;
 declare const maxLevel2RecordArray: (StringRecord | StringRecord[])[];
 declare const maxLevel3RecordArray: (StringRecord | StringRecord[] | StringRecord[][])[];
+declare const recordListArray: _.List<StringRecord>[];
 
 const stringRecordAugmentedListVoidIterator = (value: StringRecord, index: number, list: StringRecordAugmentedList) => { value.a += 'b'; };
 const stringRecordListValueIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => value.a;
@@ -2441,6 +2449,28 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _.without(simpleString, simpleString[0], simpleString[1]); // $ExpectType string[]
     _(simpleString).without(simpleString[0], simpleString[1]); // $ExpectType string[]
     extractChainTypes(_.chain(simpleString).without(simpleString[0], simpleString[1])); // $ExpectType ChainType<string[], string>
+}
+
+// union
+{
+    _.union(...recordListArray); // $ExpectType StringRecord[]
+    _(stringRecordList).union(...recordListArray); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).union(...recordListArray)); // $ExpectType ChainType<StringRecord[], StringRecord>
+}
+
+// intersection
+{
+    _.intersection(...recordListArray); // $ExpectType StringRecord[]
+    _(stringRecordList).intersection(...recordListArray); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).intersection(...recordListArray)); // $ExpectType ChainType<StringRecord[], StringRecord>
+}
+
+// difference
+{
+    // n parameters
+    _.difference(stringRecordList, ...recordListArray); // $ExpectType StringRecord[]
+    _(stringRecordList).difference(...recordListArray); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).difference(...recordListArray)); // $ExpectType ChainType<StringRecord[], StringRecord>
 }
 
 // uniq, unique
