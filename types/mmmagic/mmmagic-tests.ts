@@ -27,3 +27,16 @@ magic.detect(buf, function(err: Error, result: string) {
     console.log(result);
     // output: Python script, ASCII text executable
 });
+
+// get all mime type canidates
+const magics = new Magic.Magic(Magic.MAGIC_MIME_TYPE | Magic.MAGIC_CONTINUE);
+magic.detectFile('node_modules/mmmagic/build/Release/magic.node', function(err: Error, result: string[]) {
+    if (err) throw err;
+    if (!Array.isArray(result)) throw new Error('expected an array')
+    console.log(result);
+});
+magic.detect(buf, function(err: Error, result: string | string[]) {
+    if (err) throw err;
+    if (!Array.isArray(result)) throw new Error('expected an array')
+    console.log(result);
+})
