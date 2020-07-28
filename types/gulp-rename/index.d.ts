@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
+import { VinylFile } from "gulp-typescript/release/types";
 
 declare namespace rename {
     interface ParsedPath {
@@ -20,5 +21,6 @@ declare namespace rename {
 
 declare function rename(name: string): NodeJS.ReadWriteStream;
 declare function rename(callback: (path: rename.ParsedPath) => any): NodeJS.ReadWriteStream;
+declare function rename(callback: (path: rename.ParsedPath, file: VinylFile) => any): NodeJS.ReadWriteStream;
 declare function rename(opts: rename.Options): NodeJS.ReadWriteStream;
 export = rename;
