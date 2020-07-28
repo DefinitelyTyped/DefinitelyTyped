@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import Dayzed, { DateObj } from 'dayzed';
+import Dayzed, { DateObj, useDayzed } from 'dayzed';
 
 interface State {
     selectedDate: Date;
@@ -44,4 +44,35 @@ class App extends React.Component<{}, State> {
     }
 }
 
-render(<App />, document.body);
+const HookApp = () => {
+    const selectedDate = new Date();
+    const { calendars, getDateProps } = useDayzed({ date: selectedDate, onDateSelected: () => {}});
+    return (
+        <>
+        {calendars.map(calendar => (
+            <div>
+              {calendar.weeks.map((week, windex) =>
+                week.map((dateObj, index) => {
+                  const key = `${calendar.month}${calendar.year}${windex}${index}`;
+                  if (!dateObj) return null;
+
+                  const { date } = dateObj;
+                  return (
+                    <button
+                      key={key}
+                      {...getDateProps({
+                        dateObj,
+                      })}
+                    >
+                      {date.getDate()}
+                    </button>
+                  );
+                }),
+              )}
+            </div>
+        ))}
+      </>
+    );
+};
+
+render(<><App /><HookApp/></>, document.body);

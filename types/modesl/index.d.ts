@@ -5,7 +5,8 @@
 
 /// <reference types="node" />
 
-import EventEmitter = NodeJS.EventEmitter;
+import { EventEmitter } from 'events';
+
 export class Connection extends EventEmitter {
     constructor(...args: any[]);
 

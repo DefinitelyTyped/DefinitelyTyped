@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "webpack-tests.ts"
+        "test/index.ts",
+        "test/next.ts"
     ]
 }

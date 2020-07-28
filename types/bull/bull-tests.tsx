@@ -99,6 +99,10 @@ imageQueue.process((job, done) => {
 videoQueue.add({video: 'http://example.com/video1.mov'});
 audioQueue.add({audio: 'http://example.com/audio1.mp3'});
 imageQueue.add({image: 'http://example.com/image1.tiff'});
+videoQueue.addBulk([
+    { name: 'frame1', data: { video: 'http://example.com/video1.mov'}, opts: { attempts: 6 }},
+    {  data: { audio: 'http://example.com/video1.mov'}},
+]);
 
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -165,6 +169,11 @@ videoQueue.add({ video: 'http://example.com/video1.mov' }, { jobId: 1 })
     // error
 });
 
+pdfQueue.whenCurrentJobsFinished()
+.then(() => {
+    // Jobs finished
+});
+
 //////////////////////////////////////////////////////////////////////////////////
 //
 // Typed Event Handlers
@@ -229,6 +238,29 @@ myQueue.on('active', (job: Queue.Job) => {
     job.discard();
 });
 
+// Pause and resume
+myQueue.pause().then(() => {
+    console.log('queue paused');
+});
+myQueue.pause(true).then(() => {
+    console.log('queue paused locally');
+});
+myQueue.pause(true, true).then(() => {
+    console.log('queue paused locally, not waiting for active jobs to finish');
+});
+
+myQueue.resume().then(() => {
+    console.log('queue resumed');
+});
+myQueue.resume(true).then(() => {
+    console.log('queue resumed locally');
+});
+
+// Remove jobs
+myQueue.removeJobs('?oo*').then(() => {
+    console.log('done removing jobs');
+});
+
 // Close queues
 
 myQueue.close();
@@ -245,3 +277,8 @@ new Queue('profile');
 new Queue('profile', 'url');
 new Queue('profile', { prefix: 'test' });
 new Queue('profile', 'url', { prefix: 'test' });
+
+// Use low-level API
+const multi = myQueue.multi();
+multi.del(myQueue.toKey('repeat'));
+multi.exec();

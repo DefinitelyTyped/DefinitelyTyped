@@ -74,7 +74,7 @@ export interface SwaggerConfigs {
     /**
      * The name of a component available via the plugin system to use as the top-level layout for Swagger UI.
      */
-    layout?: 'BaseLayout';
+    layout?: string;
 
     /**
      * Controls the default expansion setting for the operations and tags. It can be 'list' (expands only the tags), 'full' (expands the tags and operations) or 'none' (expands nothing).

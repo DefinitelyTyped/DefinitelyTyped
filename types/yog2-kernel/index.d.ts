@@ -1,6 +1,7 @@
 // Type definitions for yog2-kernel 1.9
 // Project: https://github.com/fex-team/yog2-kernel
 // Definitions by: ssddi456 <https://github.com/ssddi456>
+//                 devinux <https://github.com/devinux>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -82,9 +83,13 @@ declare class Yog {
     // debug模式时存在
     reloadIsomorphic?(): void;
 
+    PLUGINS_PATH: string;
     ROOT_PATH: string;
+    PLUGIN_TIMEOUT: string | number;
+    DEBUG: boolean;
 
     bootstrap(option: yog.YogBootstrapOption, callback?: () => void): void;
+    require(moduleName: string): any;
 }
 
 declare const yog: Yog;

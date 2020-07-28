@@ -14,7 +14,7 @@
  * @param func An optional function for which the last identifier of the expression will be parsed.
  */
 // tslint:disable-next-line no-unnecessary-generics
-declare function nameof<T>(func?: (obj: T) => void): string;
+declare function nameof<T>(func?: (obj: T) => any): string;
 
 /**
  * Gets a string representation of the last identifier of the given expression.
@@ -56,7 +56,7 @@ declare namespace nameof {
      * A negative index can be used, indicating an offset from the end of the sequence.
      */
     // tslint:disable-next-line no-unnecessary-generics
-    function full<T>(func: (obj: T) => void, periodIndex?: number): string;
+    function full<T>(func: (obj: T) => any, periodIndex?: number): string;
 
     /**
      * Gets the string representation of the entire given expression.

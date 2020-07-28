@@ -7,7 +7,6 @@
 //                 Brannon Jones <https://github.com/brannon>
 //                 Kyle Kamperschroer <https://github.com/kkamperschroer>
 //                 Kensuke Hoshikawa <https://github.com/starhoshi>
-//                 Thomas Bruun <https://github.com/bruun>
 //                 Gal Talmor <https://github.com/galtalmor>
 //                 Hunter Tunnicliff <https://github.com/htunnicliff>
 //                 Tyler Jones <https://github.com/squirly>
@@ -34,6 +33,9 @@
 //                 Richard Ward <https://github.com/richardwardza>
 //                 Aseel Al Dallal <https://github.com/Aseelaldallal>
 //                 Collin Pham <https://github.com/collin-pham>
+//                 Timon van Spronsen <https://github.com/TimonVS>
+//                 Sean Chen <https://github.com/kamiyo>
+//                 Asitha de Silva <https://github.com/asithade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -63,6 +65,16 @@ interface ResponseEvent {
     request_end_time: number;
 }
 
+interface StripeConfig {
+    apiVersion?: string | null;
+    maxNetworkRetries?: number;
+    httpAgent?: Agent | null;
+    timeout?: number;
+    host?: string;
+    port?: number;
+    telemetry?: boolean;
+}
+
 declare class Stripe {
     DEFAULT_HOST: string;
     DEFAULT_PORT: string;
@@ -84,6 +96,7 @@ declare class Stripe {
     StripeResource: typeof Stripe.StripeResource;
 
     constructor(apiKey: string, version?: string);
+    constructor(apiKey: string, config?: StripeConfig);
 
     accounts: Stripe.resources.Accounts;
     balance: Stripe.resources.Balance;
@@ -305,6 +318,13 @@ declare namespace Stripe {
                  * "legal_entity.first_name").
                  */
                 fields_needed: string[];
+
+                /**
+                 * The set of capabilities you want to unlock for this account (US only).
+                 * Each capability will be inactive until you have provided its specific requirements and Stripe has verified them.
+                 * An account may have some of its requested capabilities be active and some be inactive.
+                 */
+                requested_capabilities?: string[];
             };
         }
 
@@ -1026,6 +1046,31 @@ declare namespace Stripe {
                      */
                     front?: string;
                 };
+
+                /**
+                 * A user-displayable string describing the verification state for the person.
+                 * For example, this may say “Provided identity information could not be verified”.
+                 */
+                details?: string;
+
+                /**
+                 * One of document_address_mismatch, document_dob_mismatch, document_duplicate_type, document_id_number_mismatch,
+                 * document_name_mismatch, failed_keyed_identity, or failed_other.
+                 * A machine-readable code specifying the verification state for the person.
+                 */
+                details_code?:
+                    | 'document_address_mismatch'
+                    | 'document_dob_mismatch'
+                    | 'document_duplicate_type'
+                    | 'document_id_number_mismatch'
+                    | 'document_name_mismatch'
+                    | 'failed_keyed_identity'
+                    | 'failed_other';
+
+                /**
+                 * The state of verification for the person. Possible values are unverified, pending, or verified.
+                 */
+                status?: 'unverified' | 'pending' | 'verified';
             };
         }
 
@@ -3868,7 +3913,7 @@ declare namespace Stripe {
                  */
                 object: IObject;
 
-                previous_attributes?: {};
+                previous_attributes?: { [key: string]: any };
             };
 
             livemode: boolean;
@@ -7245,7 +7290,7 @@ declare namespace Stripe {
         }
 
         /** Payment methods supported by Payment Intents. This is a subsetset of all Payment Method types. See https://stripe.com/docs/api/payment_methods/create#create_payment_method-type */
-        type PaymentIntentPaymentMethodType = 'card' | 'card_present';
+        type PaymentIntentPaymentMethodType = 'card' | 'ideal' | 'sepa_debit';
 
         interface IPaymentMethodCardOptions {
             /**
@@ -7578,14 +7623,9 @@ declare namespace Stripe {
 
         interface IPaymentIntentListOptions extends IListOptionsCreated {
             /**
-             * Filter links by their expiration status. By default, all links are returned.
+             * Only return PaymentIntents for the customer specified by this customer ID.
              */
-            expired?: boolean;
-
-            /**
-             * Only return links for the given file.
-             */
-            file?: boolean;
+            customer?: string;
         }
     }
 
@@ -7612,7 +7652,7 @@ declare namespace Stripe {
         }
 
         /** Payment methods supported by Payment Intents. This is a subsetset of all Payment Method types. See https://stripe.com/docs/api/payment_methods/create#create_payment_method-type */
-        type SetupIntentPaymentMethodType = 'card' | 'card_present' | 'sepa_debit';
+        type SetupIntentPaymentMethodType = paymentIntents.PaymentIntentPaymentMethodType;
 
         interface ISetupIntent extends IResourceObject {
             /**
@@ -7835,6 +7875,11 @@ declare namespace Stripe {
         }
 
         interface ISetupIntentConfirmOptions {
+            /**
+             * The client secret of this SetupIntent. Used for client-side confirmation using a publishable key. Please refer to dynamic authentication guide on how client_secret should be handled.
+             */
+            client_secret?: string;
+
             /**
              * ID of the payment method (a PaymentMethod, Card, BankAccount, or saved Source object)
              * to attach to this SetupIntent.
@@ -8554,6 +8599,16 @@ declare namespace Stripe {
              * be affected.
              */
             product?: string;
+
+            /**
+             * Whether the plan is currently available for new subscriptions.
+             */
+            active?: boolean;
+
+            /**
+             * Default number of trial days when subscribing a customer to this plan using `trial_from_plan=true`.
+             */
+            trial_period_days?: number;
         }
 
         interface IPlanCreationOptionsProductHash {
@@ -10585,8 +10640,33 @@ declare namespace Stripe {
             /**
              * The tax rates that will apply to the subscription.
              */
-
             default_tax_rates?: string[];
+
+            /**
+             * ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer’s invoice settings.
+             */
+            default_payment_method?: string;
+
+            /**
+             * Indicates if a customer is on or off-session while an invoice payment is attempted.
+             */
+            off_session?: boolean;
+
+            /**
+             * If specified, the funds from the subscription’s invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges.
+             */
+            transfer_data?: {
+                /**
+                 * ID of an existing, connected Stripe account.
+                 */
+                destination: string;
+                /**
+                 * A non-negative decimal between 0 and 100, with at most two decimal places.
+                 * This represents the percentage of the subscription invoice subtotal that will be transferred to the destination account.
+                 * By default, the entire amount is transferred to the destination.
+                 */
+                amount_percent?: number;
+            };
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
@@ -10594,6 +10674,25 @@ declare namespace Stripe {
              * The identifier of the customer to subscribe.
              */
             customer: string;
+
+            /**
+             * A timestamp at which the subscription should cancel. If set to a date before the current period ends
+             * this will cause a proration if prorate=true.
+             */
+            cancel_at?: number | null;
+
+            /**
+             * Boolean indicating whether this subscription should cancel at the end of the current period.
+             */
+            cancel_at_period_end?: boolean;
+
+            /**
+             * Boolean (defaults to true) telling us whether to credit for unused time when the billing cycle changes
+             * (e.g. when switching plans, resetting billing_cycle_anchor=now, or starting a trial), or if an item’s
+             * quantity changes. If false, the anchor period will be free (similar to a trial) and
+             * proration adjustments will be created.
+             */
+            prorate?: boolean;
         }
 
         interface ISubscriptionUpdateOptions extends IDataOptionsWithMetadata {
@@ -10628,6 +10727,12 @@ declare namespace Stripe {
             proration_date?: number;
 
             /**
+             * Determines how to handle prorations when the billing cycle changes or if an item’s quantity changes.
+             * Prorations can be disabled by passing none.
+             */
+            proration_behavior?: 'create_prorations' | 'always_invoice' | 'none';
+
+            /**
              * The quantity you'd like to apply to the subscription you're creating. For example, if your plan is £10/user/month, and your customer
              * has 5 users, you could pass 5 as the quantity to have the customer charged £50 (5 x £10) monthly. If you update a subscription but
              * don't change the plan ID (e.g. changing only the trial_end), the subscription will inherit the old subscription's quantity attribute
@@ -10636,7 +10741,7 @@ declare namespace Stripe {
              */
             quantity?: number;
 
-            source?: string | cards.ICardSourceCreationOptions;
+            default_source?: string | cards.ICardSourceCreationOptions;
 
             /**
              * A positive decimal (with at most two decimal places) between 1 and 100. This represents the percentage of the subscription invoice
@@ -10678,6 +10783,16 @@ declare namespace Stripe {
              * Boolean indicating whether this subscription should cancel at the end of the current period.
              */
             cancel_at_period_end?: boolean;
+
+            /**
+             * ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer’s invoice settings.
+             */
+            default_payment_method?: string;
+
+            /**
+             * Indicates if a customer is on or off-session while an invoice payment is attempted.
+             */
+            off_session?: boolean;
 
             /**
              * Boolean (default true). Used to prevent Stripe Invoicing from automatically paying the subscription when the term changes.
@@ -10902,6 +11017,12 @@ declare namespace Stripe {
              * proration that was previewed with the upcoming invoice endpoint.
              */
             proration_date?: number;
+
+            /**
+             * Determines how to handle prorations when the billing cycle changes or if an item’s quantity changes.
+             * Prorations can be disabled by passing none.
+             */
+            proration_behavior?: 'create_prorations' | 'always_invoice' | 'none';
         }
 
         interface ISubscriptionItemListOptions extends IListOptionsCreated {

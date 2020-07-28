@@ -231,6 +231,12 @@ interface JQuerySlickOptions {
     fade?: boolean;
 
     /**
+     * Puts focus on slide after change
+     * Default: false
+     */
+    focusOnChange?: boolean;
+
+    /**
      * Enable focus on selected element (click)
      * Default: false
      */

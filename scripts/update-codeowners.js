@@ -1,9 +1,10 @@
 /// <reference lib="esnext.asynciterable" />
 // Must reference esnext.asynciterable lib, since octokit uses AsyncIterable internally
 const cp = require("child_process");
+const os = require("os");
 const Octokit = require("@octokit/rest");
-const { AllPackages, getDefinitelyTyped, loggerWithErrors,
-        parseDefinitions, parseNProcesses, clean } = require("types-publisher");
+const { AllPackages, getDefinitelyTyped, parseDefinitions, clean } = require("@definitelytyped/definitions-parser");
+const { loggerWithErrors } = require("@definitelytyped/utils");
 const { writeFile } = require("fs-extra");
 
 async function main() {
@@ -12,7 +13,7 @@ async function main() {
 
     clean();
     const dt = await getDefinitelyTyped(options, log);
-    await parseDefinitions(dt, { nProcesses: parseNProcesses(), definitelyTypedPath: "." }, log);
+    await parseDefinitions(dt, { nProcesses: os.cpus.length, definitelyTypedPath: "." }, log);
     const allPackages = await AllPackages.read(dt);
     const typings = allPackages.allTypings();
     const maxPathLen = Math.max(...typings.map(t => t.subDirectoryPath.length));
@@ -90,7 +91,7 @@ function padNum(number) {
 const header =
 `# This file is generated.
 # Add yourself to the "Definitions by:" list instead.
-# See https://github.com/DefinitelyTyped/DefinitelyTyped#edit-an-existing-package`;
+# See https://github.com/DefinitelyTyped/DefinitelyTyped#definition-owners`;
 
 /**
  * @param { { contributors: ReadonlyArray<{githubUsername?: string }>, subDirectoryPath: string} } pkg

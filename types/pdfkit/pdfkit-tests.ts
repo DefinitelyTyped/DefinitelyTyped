@@ -12,6 +12,8 @@ import pdfData = require('pdfkit/js/data');
 import text = require('pdfkit/js/mixins/text');
 
 font.registerFont('Arial');
+font.registerFont('CustomFont', 'path/to/font.ttf');
+font.registerFont('CustomFontWithBuffer', Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]));
 text.widthOfString('Kila', { ellipsis: true });
 
 var doc = new PDFDocument({
@@ -180,6 +182,8 @@ doc.text('Scale', { align: 'justify' });
 doc.text('Baseline - string literal', { baseline: 'alphabetic' });
 
 doc.text('Baseline - numeric', { baseline: 10 });
+
+doc.text('Text with features', { features: [ "kern" ] });
 
 doc.goTo(0, 0, 0, 0, 'lorem');
 

@@ -25,7 +25,6 @@ export { default as Translate } from './interaction/Translate';
 export interface DefaultsOptions {
     altShiftDragRotate?: boolean;
     onFocusOnly?: boolean;
-    constrainResolution?: boolean;
     doubleClickZoom?: boolean;
     keyboard?: boolean;
     mouseWheelZoom?: boolean;

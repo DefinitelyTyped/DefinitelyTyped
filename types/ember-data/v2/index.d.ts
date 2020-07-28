@@ -4,7 +4,7 @@
 //                 Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.7
 
 import Ember from 'ember';
 import RSVP from 'rsvp';
@@ -924,7 +924,7 @@ export namespace DS {
          */
         snapshots(): any[];
     }
-    class Snapshot<K extends keyof ModelRegistry = any> {
+    class Snapshot<K extends keyof ModelRegistry = keyof ModelRegistry> {
         /**
          * The underlying record for this snapshot. Can be used to access methods and
          * properties defined on the record.
@@ -2090,10 +2090,10 @@ export default DS;
 declare module 'ember' {
     namespace Ember {
         /*
-		* The store is automatically injected into these objects
-		*
-		* https://github.com/emberjs/data/blob/05e95280e11c411177f2fbcb65fd83488d6a9d89/addon/setup-container.js#L71-L78
-		*/
+        * The store is automatically injected into these objects
+        *
+        * https://github.com/emberjs/data/blob/05e95280e11c411177f2fbcb65fd83488d6a9d89/addon/setup-container.js#L71-L78
+        */
         interface Route {
             store: DS.Store;
         }

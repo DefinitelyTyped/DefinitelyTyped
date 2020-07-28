@@ -4,8 +4,9 @@
 //                 David Hahn <https://github.com/davidka>
 //                 Tim Baumann <https://github.com/timjb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
+//                 Mike Morearty <https://github.com/mmorearty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 import {
   Mark,
@@ -28,7 +29,7 @@ export interface PluginSpec<T = any, S extends Schema = any> {
    * that are functions will be bound to have the plugin instance as
    * their `this` binding.
    */
-  props?: EditorProps<S> | null;
+  props?: EditorProps<Plugin<T, S>, S> | null;
   /**
    * Allows a plugin to define a [state field](#state.StateField), an
    * extra slot in the state object in which it can keep its own data.
@@ -90,7 +91,7 @@ export class Plugin<T = any, S extends Schema = any> {
   /**
    * The [props](#view.EditorProps) exported by this plugin.
    */
-  props: EditorProps<S>;
+  props: EditorProps<Plugin<T, S>, S>;
   /**
    * The plugin's [spec object](#state.PluginSpec).
    */
@@ -113,24 +114,24 @@ export interface StateField<T = any, S extends Schema = Schema> {
    * that `instance` is a half-initialized state instance, and will
    * not have values for plugin fields initialized after this one.
    */
-  init(config: { [key: string]: any }, instance: EditorState<S>): T;
+  init(this: Plugin<T, S>, config: { [key: string]: any }, instance: EditorState<S>): T;
   /**
    * Apply the given transaction to this state field, producing a new
    * field value. Note that the `newState` argument is again a partially
    * constructed state does not yet contain the state from plugins
    * coming after this one.
    */
-  apply(tr: Transaction<S>, value: T, oldState: EditorState<S>, newState: EditorState<S>): T;
+  apply(this: Plugin<T, S>, tr: Transaction<S>, value: T, oldState: EditorState<S>, newState: EditorState<S>): T;
   /**
    * Convert this field to JSON. Optional, can be left off to disable
    * JSON serialization for the field.
    */
-  toJSON?: ((value: T) => any) | null;
+  toJSON?: ((this: Plugin<T, S>, value: T) => any) | null;
   /**
    * Deserialize the JSON representation of this field. Note that the
    * `state` argument is again a half-initialized state.
    */
-  fromJSON?: ((config: { [key: string]: any }, value: any, state: EditorState<S>) => T) | null;
+  fromJSON?: ((this: Plugin<T, S>, config: { [key: string]: any }, value: any, state: EditorState<S>) => T) | null;
 }
 /**
  * A key is used to [tag](#state.PluginSpec.key)
@@ -151,7 +152,7 @@ export class PluginKey<T = any, S extends Schema = any> {
   /**
    * Get the plugin's state from an editor state.
    */
-  getState(state: EditorState<S>): any | null | undefined;
+  getState(state: EditorState<S>): T | null | undefined;
 }
 /**
  * Superclass for editor selections. Every selection type should

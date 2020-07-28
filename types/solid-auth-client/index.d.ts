@@ -1,4 +1,4 @@
-// Type definitions for solid-auth-client 2.3
+// Type definitions for solid-auth-client 2.4
 // Project: https://github.com/solid/solid-auth-client#readme
 // Definitions by: Vincent <https://github.com/Vinnl>
 //                 James <https://github.com/durandj>
@@ -25,7 +25,8 @@ interface LoginOptions {
 export interface SolidAuthClient extends EventEmitter {
   fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
   currentSession(storage?: AsyncStorage): Promise<Session | undefined>;
-  trackSession(callback: (session?: Session) => void): void;
+  trackSession(callback: (session?: Session) => void): Promise<void>;
+  stopTrackSession(callback: (session?: Session) => void): void;
   login(identityProvider: string, options?: LoginOptions): Promise<void>;
   logout(storage?: AsyncStorage): Promise<void>;
   popupLogin(params?: LoginOptions): Promise<Session>;

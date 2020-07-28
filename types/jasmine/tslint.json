@@ -1,6 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        "await-promise": false,
         "ban-types": false,
         "no-declare-current-package": false,
         "no-empty-interface": false,
@@ -8,7 +9,6 @@
         "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "one-variable-per-declaration": false,
-        "only-arrow-functions": false,
-        "await-promise": [true, "PromiseLike"]
+        "only-arrow-functions": false
     }
 }

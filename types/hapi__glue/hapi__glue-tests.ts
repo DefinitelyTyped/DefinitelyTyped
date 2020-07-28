@@ -13,6 +13,12 @@ const manifest: Glue.Manifest = {
         routes: {
           prefix: "test"
         }
+      },
+      {
+        plugin: {
+          name: 'test',
+          register: (server, options) => {}
+        }
       }
     ]
   }

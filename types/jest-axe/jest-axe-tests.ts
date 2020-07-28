@@ -10,6 +10,21 @@ const newJestWithOptions: JestAxe = configureAxe({
     rules: {},
     runOnly: {
         type: 'rules',
+        values: [],
+    },
+    selectors: false,
+});
+
+const newJestWithGlobalOptions: JestAxe = configureAxe({
+    globalOptions: {
+        axeVersion: '3.5.5',
+    },
+    elementRef: false,
+    iframes: false,
+    rules: {},
+    runOnly: {
+        type: 'rules',
+        values: [],
     },
     selectors: false,
 });

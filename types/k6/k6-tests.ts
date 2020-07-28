@@ -1,4 +1,4 @@
-import http from 'k6/http';
+import http, { BatchRequest, RefinedResponse } from 'k6/http';
 import { JSONValue, JSONObject, check, sleep, fail, group } from 'k6';
 
 const users = JSON.parse(open('./users.json'));
@@ -76,17 +76,17 @@ function httpTest1() {
 }
 
 function httpTest2() {
-    const req1: http.BatchRequest = {
+    const req1: BatchRequest = {
         method: 'GET',
         url: 'http://httpbin.org/get',
         params: { responseType: 'text' },
     };
-    const req2: http.BatchRequest = {
+    const req2: BatchRequest = {
         method: 'GET',
         url: 'http://test.loadimpact.com',
         params: { responseType: 'text' },
     };
-    const req3: http.BatchRequest = {
+    const req3: BatchRequest = {
         method: 'POST',
         url: 'http://httpbin.org/post',
         body: { hello: 'world!' },
@@ -95,7 +95,7 @@ function httpTest2() {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         },
     };
-    const responses: Array<http.RefinedResponse<'text'>> = http.batch([req1, req2, req3]);
+    const responses: Array<RefinedResponse<'text'>> = http.batch([req1, req2, req3]);
     // httpbin.org should return our POST data in the response body, so
     // we check the third response object to see that the POST worked.
     check(responses[3], {

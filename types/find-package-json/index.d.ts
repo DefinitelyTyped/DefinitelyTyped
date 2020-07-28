@@ -7,9 +7,7 @@
 
 export = finder;
 
-import Module = NodeJS.Module;
-
-declare function finder(root?: string | Module): finder.FinderIterator;
+declare function finder(root?: string | NodeModule): finder.FinderIterator;
 
 declare namespace finder {
     interface FinderIterator {

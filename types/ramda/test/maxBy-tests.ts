@@ -1,7 +1,8 @@
 import * as R from 'ramda';
+import { Ord } from 'ramda/tools';
 
 () => {
-  function cmp(obj: { x: R.Ord }) {
+  function cmp(obj: { x: Ord }) {
     return obj.x;
   }
 

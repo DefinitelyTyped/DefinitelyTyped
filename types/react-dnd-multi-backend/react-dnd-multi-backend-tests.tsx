@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { DndProvider } from 'react-dnd';
-import MultiBackend, { createTransition, TouchTransition, Backends, Preview } from 'react-dnd-multi-backend';
-import HTML5ToTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
+import MultiBackend, { createTransition, TouchTransition, Backends, Preview, PreviewGenerator } from 'react-dnd-multi-backend';
+import HTML5ToTouchEsm from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
+import HTML5ToTouchCjs from 'react-dnd-multi-backend/dist/cjs/HTML5toTouch';
 import TouchBackend from 'react-dnd-touch-backend';
 
 const context = {};
@@ -9,8 +10,13 @@ const context = {};
 /**
  * Most common use case - using the default HTML5 with Touch as a fallback.
  */
-const multiDndComponent = (
-    <DndProvider backend={MultiBackend} options={HTML5ToTouch}>
+const multiDndComponentEsm = (
+    <DndProvider backend={MultiBackend} options={HTML5ToTouchEsm}>
+        <div>A page of Text</div>
+    </DndProvider>
+);
+const multiDndComponentCjs = (
+    <DndProvider backend={MultiBackend} options={HTML5ToTouchCjs}>
         <div>A page of Text</div>
     </DndProvider>
 );
@@ -43,8 +49,8 @@ const multiCustomBackendsComponent = (
  * Testing the Preview component.
  */
 class App extends React.Component {
-    generator = (type: string, item: any, style: React.CSSProperties) =>
-        (type === 'card')
+    generator: PreviewGenerator = ({item, itemType, style}) =>
+        (itemType === 'card')
             ? <div style={style}>{item.label}</div>
             : <div />
 

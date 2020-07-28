@@ -342,6 +342,66 @@ const AttrsInputExtra = styled(AttrsInput).attrs({ autoComplete: "off" })``;
 <AttrsInputExtra />;
 
 /**
+ * withConfig
+ */
+
+/**
+ * shouldForwardProp
+ */
+
+// $ExpectError
+const WithConfig = styled("div").withConfig()`
+    color: red;
+`;
+
+styled("div").withConfig({})`
+    color: red;
+`;
+
+styled("div").withConfig<{ myProp: boolean }>({
+    shouldForwardProp: (prop, defaultValidatorFn) => prop === "myProp",
+})<{ otherProp: string }>`
+    color: red;
+    ${p => {
+        // $ExpectType boolean
+        p.myProp;
+        return css``;
+    }}
+    ${p => {
+        // $ExpectType string
+        p.otherProp;
+        return css``;
+    }}
+`;
+
+styled("input").withConfig({
+    shouldForwardProp: (prop) => prop === "disabled",
+})`
+    color: red;
+`;
+
+styled('div').withConfig({
+    shouldForwardProp: (prop, defaultValidatorFn) => ['filterThis'].indexOf(prop) !== -1,
+})`
+    color: red;
+`;
+
+styled('div').withConfig({
+    shouldForwardProp: (prop, defaultValidatorFn) => defaultValidatorFn(prop),
+})`
+    color: red;
+`;
+
+styled("div").withConfig<{ test: boolean }>({
+    // $ExpectError
+    shouldForwardProp: (prop, defaultValidatorFn) => prop === "invalidProp" && true,
+})`
+   color: red;
+   ${p => p.test && css``}
+   ${p => p.invalidProp && css``} // $ExpectError
+`;
+
+/**
  * component type
  */
 
@@ -475,7 +535,7 @@ sheet.seal();
 
 const sheet2 = new ServerStyleSheet();
 const element = (
-    <StyleSheetManager sheet={sheet2.instance}>
+    <StyleSheetManager sheet={sheet2.instance} disableCSSOMInjection>
         <SSRTitle>Hello world</SSRTitle>
     </StyleSheetManager>
 );
@@ -586,6 +646,15 @@ const asTest = (
     <>
         <WithComponentH1 as="h2" />
         <WithComponentH1 as={WithComponentH2} />
+    </>
+);
+
+const ForwardedAsNestedComponent = styled.div``;
+const ForwardedAsComponent = styled(ForwardedAsNestedComponent)``;
+const forwardedAsTest = (
+    <>
+        <ForwardedAsComponent forwardedAs="h2" />
+        <ForwardedAsComponent forwardedAs={WithComponentH2} />
     </>
 );
 
@@ -1039,6 +1108,37 @@ const WrapperFunc = (props: WrapperProps) => <div />;
 const StyledWrapperFunc = styled(WrapperFunc)``;
 // No `children` in props, so this should generate an error
 const wrapperFunc = <StyledWrapperFunc>Text</StyledWrapperFunc>; // $ExpectError
+
+// Test if static properties added to the underlying component is passed through.
+function staticPropertyPassthrough() {
+    interface AProps { a: number; }
+    interface BProps { b?: string; }
+    interface BState { b?: string; }
+    class A extends React.Component<AProps> {}
+    class B extends React.Component {
+        static A = A;
+        PUBLIC = 'PUBIC_VAL';
+        static F = (props: BProps, state: BState) => props && state;
+        static getDerivedStateFromProps(props: BProps, state: BState) {
+            return state;
+        }
+    }
+    // Test FunctionComponent as well which can't be tested in <= TS 3.0
+    const C: React.FC & { A: typeof A; F: () => void } = () => <div></div>;
+    C.A = A;
+    C.F = () => {};
+    const StyledB = styled(B)``;
+    const StyledC = styled(C)``;
+    <StyledB.A />; // $ExpectError
+    <StyledB.A a='a' />; // $ExpectError
+    <StyledB.A a={0} />;
+    StyledB.PUBLIC; // $ExpectError
+    StyledB.componentDidMount(); // $ExpectError
+    StyledB.F({ b: 'b' } , {  b: 'b' });
+    StyledB.getDerivedStateFromProps({ b: 'b' } , { b: 'b' }); // $ExpectError
+    <StyledC.A a={0} />;
+    StyledC.F();
+}
 
 function unionTest() {
     interface Book {

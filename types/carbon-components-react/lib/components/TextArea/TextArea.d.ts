@@ -1,11 +1,12 @@
 import * as React from "react";
-import { ThemeProps, ValidityProps } from "../../../typings/shared";
+import { RefForwardingProps, ThemeProps, ValidityProps, ForwardRefReturn } from "../../../typings/shared";
 
 type ExcludedAttributes = "aria-invalid" | "aria-describedby" | "defaultValue" | "value";
 interface InheritedProps extends
     Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, ExcludedAttributes>,
     ThemeProps,
-    ValidityProps
+    ValidityProps,
+    RefForwardingProps<HTMLTextAreaElement>
 { }
 
 export interface TextAreaProps extends InheritedProps {
@@ -16,6 +17,6 @@ export interface TextAreaProps extends InheritedProps {
     value?: string | number,
 }
 
-declare const TextArea: React.RefForwardingComponent<HTMLTextAreaElement, TextAreaProps>;
+declare const TextArea: ForwardRefReturn<HTMLTextAreaElement, TextAreaProps>;
 
 export default TextArea;

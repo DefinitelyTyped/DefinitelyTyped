@@ -1,5 +1,5 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactDivAttr } from "../../../typings/shared";
+import { EmbeddedIconProps, ReactDivAttr, CarbonSize } from "../../../typings/shared";
 import { ButtonProps } from "../Button";
 
 // ComposedModal
@@ -12,6 +12,7 @@ export interface ComposedModalProps extends ComposedModalInheritedProps {
     onClose?(): boolean | void,
     open?: boolean,
     selectedPrimaryFocus?: string,
+    size?: CarbonSize,
 }
 
 declare class ComposedModal extends React.Component<ComposedModalProps> { }
@@ -24,7 +25,7 @@ interface ModalHeaderInheritedProps extends
 { }
 
 export interface ModalHeaderProps extends ModalHeaderInheritedProps {
-    buttonOnClick?(): void,
+    buttonOnClick?(event: React.MouseEvent<HTMLButtonElement>): void,
     closeClassName?: string,
     closeIconClassName?: string,
     closeModal?(): void,
@@ -40,16 +41,19 @@ export declare class ModalHeader extends React.Component<ModalHeaderProps> { }
 
 interface ModalBodyInheritedProps extends ReactDivAttr { }
 
-export interface ModalBodyProps extends ModalBodyInheritedProps { }
+export interface ModalBodyProps extends ModalBodyInheritedProps {
+    hasForm?: boolean;
+    hasScrollingContent?: boolean;
+}
 
-export declare class ModalBody extends React.Component<ModalBodyProps> { }
+export declare const ModalBody: React.FC<ModalBodyProps>;
 
 // Footer
 
 interface ModalFooterInheritedProps extends ReactDivAttr { }
 
 export interface ModalFooterProps extends ModalFooterInheritedProps {
-    closeModal?(): void,
+    closeModal?: ButtonProps["onClick"];
     primaryClassName?: string,
     primaryButtonText?: string,
     primaryButtonDisabled?: string,

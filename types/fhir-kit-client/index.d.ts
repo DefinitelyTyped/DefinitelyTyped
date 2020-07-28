@@ -144,7 +144,7 @@ interface CustomResource extends fhir.ResourceBase {
 type FhirResource = CustomResource | fhir.Resource;
 
 interface SearchParams {
-    [key: string]: string|number|boolean;
+    [key: string]: string|number|boolean|Array<string|number|boolean>;
 }
 
 interface Compartment  {
@@ -272,6 +272,156 @@ declare class Client {
      * @return {Promise<Object>} capability statement FHIR resource.
      */
     capabilityStatement(params?: { headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CapabilityStatement>;
+
+    /**
+     * Get a resource by id.
+     *
+     * @example
+     *
+     * // Using promises
+     * fhirClient.read({
+     *   resourceType: 'Patient',
+     *   id: '12345',
+     * }).then(data => console.log(data));
+     *
+     * // Using async
+     * let response = await fhirClient.read({
+     *   resourceType: 'Patient',
+     *   id: '12345',
+     * });
+     * console.log(response);
+     *
+     * @param {Object} params - The request parameters.
+     * @param {String} params.resourceType - The resource type (e.g. "Patient",
+     *   "Observation").
+     * @param {String} params.id - The FHIR id for the resource.
+     * @param {Object} [params.headers] - DEPRECATED Optional custom headers to
+     *   add to the request
+     * @param {Object} [params.options] - Optional options object
+     * @param {Object} [params.options.headers] - Optional headers to add to the
+     *   request
+     *
+     * @return {Promise<Object>} FHIR resource
+     */
+    read(params: { resourceType: "Account", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Account>;
+    read(params: { resourceType: "ActivityDefinition", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ActivityDefinition>;
+    read(params: { resourceType: "AdverseEvent", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.AdverseEvent>;
+    read(params: { resourceType: "AllergyIntolerance", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.AllergyIntolerance>;
+    read(params: { resourceType: "Appointment", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Appointment>;
+    read(params: { resourceType: "AppointmentResponse", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.AppointmentResponse>;
+    read(params: { resourceType: "AuditEvent", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.AuditEvent>;
+    read(params: { resourceType: "Basic", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Basic>;
+    read(params: { resourceType: "Binary", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Binary>;
+    read(params: { resourceType: "BodySite", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.BodySite>;
+    read(params: { resourceType: "Bundle", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Bundle>;
+    read(params: { resourceType: "CapabilityStatement", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CapabilityStatement>;
+    read(params: { resourceType: "CarePlan", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CarePlan>;
+    read(params: { resourceType: "CareTeam", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CareTeam>;
+    read(params: { resourceType: "ChargeItem", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ChargeItem>;
+    read(params: { resourceType: "Claim", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Claim>;
+    read(params: { resourceType: "ClaimResponse", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ClaimResponse>;
+    read(params: { resourceType: "ClinicalImpression", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ClinicalImpression>;
+    read(params: { resourceType: "CodeSystem", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CodeSystem>;
+    read(params: { resourceType: "Communication", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Communication>;
+    read(params: { resourceType: "CommunicationRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CommunicationRequest>;
+    read(params: { resourceType: "CompartmentDefinition", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CompartmentDefinition>;
+    read(params: { resourceType: "Composition", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Composition>;
+    read(params: { resourceType: "ConceptMap", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ConceptMap>;
+    read(params: { resourceType: "Condition", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Condition>;
+    read(params: { resourceType: "Consent", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Consent>;
+    read(params: { resourceType: "Contract", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Contract>;
+    read(params: { resourceType: "Coverage", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Coverage>;
+    read(params: { resourceType: "DataElement", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DataElement>;
+    read(params: { resourceType: "DetectedIssue", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DetectedIssue>;
+    read(params: { resourceType: "Device", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Device>;
+    read(params: { resourceType: "DeviceComponent", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceComponent>;
+    read(params: { resourceType: "DeviceMetric", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceMetric>;
+    read(params: { resourceType: "DeviceRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceRequest>;
+    read(params: { resourceType: "DeviceUseStatement", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceUseStatement>;
+    read(params: { resourceType: "DiagnosticReport", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DiagnosticReport>;
+    read(params: { resourceType: "DocumentManifest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DocumentManifest>;
+    read(params: { resourceType: "DocumentReference", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DocumentReference>;
+    read(params: { resourceType: "DomainResource", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DomainResource>;
+    read(params: { resourceType: "EligibilityRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EligibilityRequest>;
+    read(params: { resourceType: "EligibilityResponse", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EligibilityResponse>;
+    read(params: { resourceType: "Encounter", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Encounter>;
+    read(params: { resourceType: "Endpoint", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Endpoint>;
+    read(params: { resourceType: "EnrollmentRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EnrollmentRequest>;
+    read(params: { resourceType: "EnrollmentResponse", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EnrollmentResponse>;
+    read(params: { resourceType: "EpisodeOfCare", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EpisodeOfCare>;
+    read(params: { resourceType: "ExpansionProfile", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ExpansionProfile>;
+    read(params: { resourceType: "ExplanationOfBenefit", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ExplanationOfBenefit>;
+    read(params: { resourceType: "FamilyMemberHistory", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.FamilyMemberHistory>;
+    read(params: { resourceType: "Flag", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Flag>;
+    read(params: { resourceType: "Goal", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Goal>;
+    read(params: { resourceType: "GraphDefinition", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.GraphDefinition>;
+    read(params: { resourceType: "Group", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Group>;
+    read(params: { resourceType: "GuidanceResponse", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.GuidanceResponse>;
+    read(params: { resourceType: "HealthcareService", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.HealthcareService>;
+    read(params: { resourceType: "ImagingManifest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImagingManifest>;
+    read(params: { resourceType: "ImagingStudy", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImagingStudy>;
+    read(params: { resourceType: "Immunization", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Immunization>;
+    read(params: { resourceType: "ImmunizationRecommendation", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImmunizationRecommendation>;
+    read(params: { resourceType: "ImplementationGuide", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImplementationGuide>;
+    read(params: { resourceType: "Library", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Library>;
+    read(params: { resourceType: "Linkage", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Linkage>;
+    read(params: { resourceType: "List", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.List>;
+    read(params: { resourceType: "Location", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Location>;
+    read(params: { resourceType: "Measure", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Measure>;
+    read(params: { resourceType: "MeasureReport", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MeasureReport>;
+    read(params: { resourceType: "Media", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Media>;
+    read(params: { resourceType: "Medication", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Medication>;
+    read(params: { resourceType: "MedicationAdministration", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationAdministration>;
+    read(params: { resourceType: "MedicationDispense", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationDispense>;
+    read(params: { resourceType: "MedicationRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationRequest>;
+    read(params: { resourceType: "MedicationStatement", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationStatement>;
+    read(params: { resourceType: "MessageDefinition", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MessageDefinition>;
+    read(params: { resourceType: "MessageHeader", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MessageHeader>;
+    read(params: { resourceType: "NamingSystem", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.NamingSystem>;
+    read(params: { resourceType: "NutritionOrder", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.NutritionOrder>;
+    read(params: { resourceType: "Observation", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Observation>;
+    read(params: { resourceType: "OperationDefinition", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.OperationDefinition>;
+    read(params: { resourceType: "OperationOutcome", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.OperationOutcome>;
+    read(params: { resourceType: "Organization", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Organization>;
+    read(params: { resourceType: "Parameters", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Parameters>;
+    read(params: { resourceType: "Patient", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Patient>;
+    read(params: { resourceType: "PaymentNotice", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.PaymentNotice>;
+    read(params: { resourceType: "PaymentReconciliation", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.PaymentReconciliation>;
+    read(params: { resourceType: "Person", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Person>;
+    read(params: { resourceType: "PlanDefinition", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.PlanDefinition>;
+    read(params: { resourceType: "Practitioner", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Practitioner>;
+    read(params: { resourceType: "PractitionerRole", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.PractitionerRole>;
+    read(params: { resourceType: "Procedure", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Procedure>;
+    read(params: { resourceType: "ProcedureRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcedureRequest>;
+    read(params: { resourceType: "ProcessRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcessRequest>;
+    read(params: { resourceType: "ProcessResponse", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcessResponse>;
+    read(params: { resourceType: "Provenance", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Provenance>;
+    read(params: { resourceType: "Questionnaire", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Questionnaire>;
+    read(params: { resourceType: "QuestionnaireResponse", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.QuestionnaireResponse>;
+    read(params: { resourceType: "ReferralRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ReferralRequest>;
+    read(params: { resourceType: "RelatedPerson", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RelatedPerson>;
+    read(params: { resourceType: "RequestGroup", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RequestGroup>;
+    read(params: { resourceType: "ResearchStudy", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchStudy>;
+    read(params: { resourceType: "ResearchSubject", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchSubject>;
+    read(params: { resourceType: "RiskAssessment", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RiskAssessment>;
+    read(params: { resourceType: "Schedule", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Schedule>;
+    read(params: { resourceType: "SearchParameter", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SearchParameter>;
+    read(params: { resourceType: "Sequence", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Sequence>;
+    read(params: { resourceType: "ServiceDefinition", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ServiceDefinition>;
+    read(params: { resourceType: "Slot", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Slot>;
+    read(params: { resourceType: "Specimen", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Specimen>;
+    read(params: { resourceType: "StructureDefinition", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.StructureDefinition>;
+    read(params: { resourceType: "StructureMap", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.StructureMap>;
+    read(params: { resourceType: "Subscription", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Subscription>;
+    read(params: { resourceType: "Substance", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Substance>;
+    read(params: { resourceType: "SupplyDelivery", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SupplyDelivery>;
+    read(params: { resourceType: "SupplyRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SupplyRequest>;
+    read(params: { resourceType: "Task", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Task>;
+    read(params: { resourceType: "TestReport", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.TestReport>;
+    read(params: { resourceType: "TestScript", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.TestScript>;
+    read(params: { resourceType: "ValueSet", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ValueSet>;
+    read(params: { resourceType: "VisionPrescription", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.VisionPrescription>;
+    read(params: { resourceType: CustomResourceType, id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | CustomResource>;
 
     /**
      * Get a resource by id and version.

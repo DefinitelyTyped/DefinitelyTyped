@@ -58,22 +58,22 @@ declare module "net" {
 
         // Extended base methods
         write(buffer: Uint8Array | string, cb?: (err?: Error) => void): boolean;
-        write(str: Uint8Array | string, encoding?: string, cb?: (err?: Error) => void): boolean;
+        write(str: Uint8Array | string, encoding?: BufferEncoding, cb?: (err?: Error) => void): boolean;
 
         connect(options: SocketConnectOpts, connectionListener?: () => void): this;
         connect(port: number, host: string, connectionListener?: () => void): this;
         connect(port: number, connectionListener?: () => void): this;
         connect(path: string, connectionListener?: () => void): this;
 
-        setEncoding(encoding?: string): this;
+        setEncoding(encoding?: BufferEncoding): this;
         pause(): this;
         resume(): this;
         setTimeout(timeout: number, callback?: () => void): this;
         setNoDelay(noDelay?: boolean): this;
         setKeepAlive(enable?: boolean, initialDelay?: number): this;
         address(): AddressInfo | string;
-        unref(): void;
-        ref(): void;
+        unref(): this;
+        ref(): this;
 
         readonly bufferSize: number;
         readonly bytesRead: number;
@@ -89,7 +89,7 @@ declare module "net" {
         // Extended base methods
         end(cb?: () => void): void;
         end(buffer: Uint8Array | string, cb?: () => void): void;
-        end(str: Uint8Array | string, encoding?: string, cb?: () => void): void;
+        end(str: Uint8Array | string, encoding?: BufferEncoding, cb?: () => void): void;
 
         /**
          * events.EventEmitter

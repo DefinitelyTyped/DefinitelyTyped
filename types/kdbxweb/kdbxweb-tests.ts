@@ -7,6 +7,9 @@ const credentials = new kdbxweb.Credentials(
     "nFWx&e5SzT"
 );
 
+// allow null credentials
+new kdbxweb.Credentials(null, null);
+
 kdbxweb.Kdbx.load(dataarr, credentials).then(db => db);
 kdbxweb.Kdbx.loadXml("data", credentials).then(db => db);
 

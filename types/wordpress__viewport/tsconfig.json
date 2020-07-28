@@ -21,9 +21,6 @@
             "@wordpress/data": [
                 "wordpress__data"
             ],
-            "@wordpress/element": [
-                "wordpress__element"
-            ],
             "@wordpress/viewport": [
                 "wordpress__viewport"
             ]
