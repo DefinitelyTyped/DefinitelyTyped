@@ -1,12 +1,12 @@
 import leveldown from 'leveldown';
 import levelup from 'levelup';
 import { Key, Pair, Query, Batch, Datastore } from 'interface-datastore';
-import LevelDatastore, { LevelDatastore as Interface } from 'datastore-level';
+import * as LevelDatastore from 'datastore-level';
 
 const levelStore: Datastore = new LevelDatastore('init-default');
 levelStore.open();
 
-const store: Interface = new LevelDatastore('path', { db: (path, opts) => levelup(leveldown(path), opts) });
+const store = new LevelDatastore('path', { db: (path, opts) => levelup(leveldown(path), opts) });
 store.open();
 
 const k = new Key('/z/one');

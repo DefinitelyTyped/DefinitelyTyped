@@ -9,27 +9,27 @@ import { LevelUp } from 'levelup';
 import { Batch, Adapter } from 'interface-datastore';
 import { AbstractLevelDOWN, AbstractIterator, AbstractBatch } from 'abstract-leveldown';
 
-export interface LevelDatastoreBatch<Value = Buffer> extends Batch<Value> {
+interface LevelDatastoreBatch<Value = Buffer> extends Batch<Value> {
     ops: Array<AbstractBatch<string, Value>>;
 }
 
 /**
  * A datastore backed by leveldb.
  */
-export interface LevelDatastore<Value = Buffer> extends Adapter<Value> {
+interface LevelDatastore<Value = Buffer> extends Adapter<Value> {
     db: LevelUp<AbstractLevelDOWN<string, Value>, AbstractIterator<string, Value>>;
     batch(): LevelDatastoreBatch<Value>;
 }
 
-export interface LevelDatastoreOptions {
+interface LevelDatastoreOptions {
     db?: (location: string, options?: any) => LevelUp;
     [key: string]: any;
 }
 
-export interface LevelDatastoreConstructor {
+interface LevelDatastoreConstructor {
     new (path: string, options?: LevelDatastoreOptions): LevelDatastore;
     (path: string, options?: LevelDatastoreOptions): LevelDatastore;
 }
 
 declare const LevelDatastore: LevelDatastoreConstructor;
-export default LevelDatastore;
+export = LevelDatastore;
