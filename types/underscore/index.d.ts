@@ -439,16 +439,22 @@ declare module _ {
         includes: UnderscoreStatic['contains'];
 
         /**
-        * Calls the method named by methodName on each value in the list. Any extra arguments passed to
-        * invoke will be forwarded on to the method invocation.
-        * @param list The element's in this list will each have the method `methodName` invoked.
-        * @param methodName The method's name to call on each element within `list`.
-        * @param arguments Additional arguments to pass to the method `methodName`.
-        **/
-        invoke<T extends {}>(
-            list: _.List<T>,
+         * Calls the method named by `methodName` on each value in
+         * `collection`. Any extra arguments passed to invoke will be forwarded
+         * on to the method invocation.
+         * @param collection The collection of elements to invoke `methodName`
+         * on.
+         * @param methodName The name of the method to call on each element in
+         * `collection`.
+         * @param args Additional arguments to pass to method `methodName`.
+         * @returns An array containing the result of the method call for each
+         * item in `collection`.
+         **/
+        invoke(
+            list: Collection<any>,
             methodName: string,
-            ...args: any[]): any;
+            ...args: any[]
+        ): any[];
 
         /**
          * A convenient version of what is perhaps the most common use-case for map: extracting a list of
@@ -501,80 +507,71 @@ declare module _ {
         ): TypeOfCollection<V> | number;
 
         /**
-        * Returns a sorted copy of list, ranked in ascending order by the results of running each value
-        * through iterator. Iterator may also be the string name of the property to sort by (eg. length).
-        * @param list Sorts this list.
-        * @param iterator Sort iterator for each element within `list`.
-        * @param context `this` object in `iterator`, optional.
-        * @return A sorted copy of `list`.
-        **/
-        sortBy<T, TSort>(
-            list: _.List<T>,
-            iterator?: _.ListIterator<T, TSort>,
-            context?: any): T[];
-
-        /**
-        * @see _.sortBy
-        * @param iterator Sort iterator for each element within `list`.
-        **/
-        sortBy<T>(
-            list: _.List<T>,
-            iterator: string,
-            context?: any): T[];
-
-        /**
-         * Splits a collection into sets, grouped by the result of running each value through iteratee.
-         * @param collection The collection to group.
-         * @param iteratee An iteratee that provides the value to group by for each item in the collection.
+         * Returns a (stably) sorted copy of `collection`, ranked in ascending
+         * order by the results of running each value through `iteratee`.
+         * @param collection The collection to sort.
+         * @param iteratee An iteratee that provides the value to sort by for
+         * each item in `collection`.
          * @param context `this` object in `iteratee`, optional.
-         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection.
+         * @returns A sorted copy of `collection`.
+         **/
+        sortBy<V extends Collection<any>>(
+            collection: V,
+            iteratee?: Iteratee<V, any>,
+            context?: any): TypeOfCollection<V>[];
+
+        /**
+         * Splits a `collection` into sets that are grouped by the result of
+         * running each value through `iteratee`.
+         * @param collection The collection to group.
+         * @param iteratee An iteratee that provides the value to group by for
+         * each item in `collection`.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A dictionary with the group names provided by `iteratee` as
+         * properties where each property contains the grouped elements from
+         * `collection`.
          **/
         groupBy<V extends Collection<any>>(
             collection: V,
-            iteratee: Iteratee<V, any>,
+            iteratee?: Iteratee<V, EnumerableKey>,
             context?: any
         ): Dictionary<TypeOfCollection<V>[]>;
 
         /**
-        * Given a `list`, and an `iterator` function that returns a key for each element in the list (or a property name),
-        * returns an object with an index of each item.  Just like _.groupBy, but for when you know your keys are unique.
-        **/
-        indexBy<T>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, any>,
-            context?: any): _.Dictionary<T>;
+         * Given a `collection` and an `iteratee` function that returns a key
+         * for each element in `collection`, returns an object that acts as an
+         * index of each item.  Just like `groupBy`, but for when you know your
+         * keys are unique.
+         * @param collection The collection to index.
+         * @param iteratee An iteratee that provides the value to index by for
+         * each item in `collection`.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A dictionary where each item in `collection` is assigned to
+         * the property designated by `iteratee`.
+         **/
+        indexBy<V extends Collection<any>>(
+            collection: V,
+            iteratee?: Iteratee<V, EnumerableKey>,
+            context?: any): Dictionary<TypeOfCollection<V>>;
 
         /**
-        * @see _.indexBy
-        * @param iterator Property on each object to index them by.
-        **/
-        indexBy<T>(
-            list: _.List<T>,
-            iterator: string,
-            context?: any): _.Dictionary<T>;
-
-        /**
-        * Sorts a list into groups and returns a count for the number of objects in each group. Similar
-        * to groupBy, but instead of returning a list of values, returns a count for the number of values
-        * in that group.
-        * @param list Group elements in this list and then count the number of elements in each group.
-        * @param iterator Group iterator for each element within `list`, return the key to group the element by.
-        * @param context `this` object in `iterator`, optional.
-        * @return An object with the group names as properties where each property contains the number of elements in that group.
-        **/
-        countBy<T>(
-            list: _.List<T>,
-            iterator?: _.ListIterator<T, any>,
-            context?: any): _.Dictionary<number>;
-
-        /**
-        * @see _.countBy
-        * @param iterator Function name
-        **/
-        countBy<T>(
-            list: _.List<T>,
-            iterator: string,
-            context?: any): _.Dictionary<number>;
+         * Sorts a `collection` into groups and returns a count for the number
+         * of objects in each group. Similar to `groupBy`, but instead of
+         * returning a list of values, returns a count for the number of values
+         * in that group.
+         * @param collection The collection to count.
+         * @param iteratee An iteratee that provides the value to count by for
+         * each item in `collection`.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A dictionary with the group names provided by `iteratee` as
+         * properties where each property contains the count of the grouped
+         * elements from `collection`.
+         **/
+        countBy<V extends Collection<any>>(
+            collection: V,
+            iteratee?: Iteratee<V, EnumerableKey>,
+            context?: any
+        ): Dictionary<number>;
 
         /**
          * Returns a shuffled copy of the collection, using a version of the Fisher-Yates shuffle.
@@ -4138,10 +4135,16 @@ declare module _ {
         includes: Underscore<T, V>['contains'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.invoke
-        **/
-        invoke(methodName: string, ...args: any[]): any;
+         * Calls the method named by `methodName` on each value in the wrapped
+         * collection. Any extra arguments passed to invoke will be forwarded
+         * on to the method invocation.
+         * @param methodName The name of the method to call on each element in
+         * the wrapped collection.
+         * @param args Additional arguments to pass to method `methodName`.
+         * @returns An array containing the result of the method call for each
+         * item in the wrapped collection.
+         **/
+        invoke(methodName: string, ...args: any[]): any[];
 
         /**
          * A convenient version of what is perhaps the most common use-case for map: extracting a list of
@@ -4184,48 +4187,57 @@ declare module _ {
         min(iteratee?: Iteratee<V, any>, context?: any): T | number;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.sortBy
-        **/
-        sortBy(iterator?: _.ListIterator<T, any>, context?: any): T[];
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.sortBy
-        **/
-        sortBy(iterator: string, context?: any): T[];
-
-        /**
-         * Splits a collection into sets, grouped by the result of running each value through iteratee.
-         * @param iteratee An iteratee that provides the value to group by for each item in the collection.
+         * Returns a (stably) sorted copy of the wrapped collection, ranked in
+         * ascending order by the results of running each value through
+         * `iteratee`.
+         * @param iteratee An iteratee that provides the value to sort by for
+         * each item in the wrapped collection.
          * @param context `this` object in `iteratee`, optional.
-         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection.
+         * @returns A sorted copy of the wrapped collection.
          **/
-        groupBy(iteratee: Iteratee<V, any>, context?: any): Dictionary<T[]>;
+        sortBy(iteratee?: Iteratee<V, any>, context?: any): T[];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.indexBy
-        **/
-        indexBy(iterator: _.ListIterator<T, any>, context?: any): _.Dictionary<T>;
+         * Splits the warpped collection into sets that are grouped by the
+         * result of running each value through `iteratee`.
+         * @param collection The collection to group.
+         * @param iteratee An iteratee that provides the value to group by for
+         * each item in the wrapped collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A dictionary with the group names provided by `iteratee` as
+         * properties where each property contains the grouped elements from
+         * the wrapped collection.
+         **/
+        groupBy(iteratee?: Iteratee<V, EnumerableKey>, context?: any): Dictionary<T[]>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.indexBy
-        **/
-        indexBy(iterator: string, context?: any): _.Dictionary<T>;
+         * Given the warpped collection and an `iteratee` function that returns
+         * a key for each element in `collection`, returns an object that acts
+         * as an index of each item.  Just like `groupBy`, but for when you
+         * know your keys are unique.
+         * @param collection The collection to index.
+         * @param iteratee An iteratee that provides the value to index by for
+         * each item in the wrapped collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A dictionary where each item in the wrapped collection is
+         * assigned to the property designated by `iteratee`.
+         **/
+        indexBy(iteratee?: Iteratee<V, EnumerableKey>, context?: any): Dictionary<T>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.countBy
-        **/
-        countBy(iterator?: _.ListIterator<T, any>, context?: any): _.Dictionary<number>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.countBy
-        **/
-        countBy(iterator: string, context?: any): _.Dictionary<number>;
+         * Sorts the wrapped collection into groups and returns a count for the
+         * number of objects in each group. Similar to `groupBy`, but instead
+         * of returning a list of values, returns a count for the number of
+         * values in that group.
+         * @param collection The collection to count.
+         * @param iteratee An iteratee that provides the value to count by for
+         * each item in the wrapped collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A dictionary with the group names provided by `iteratee` as
+         * properties where each property contains the count of the grouped
+         * elements from the wrapped collection.
+         **/
+        countBy(iteratee?: Iteratee<V, EnumerableKey>, context?: any): Dictionary<number>;
 
         /**
          * Returns a shuffled copy of the wrapped collection, using a version of the Fisher-Yates shuffle.
@@ -5154,10 +5166,16 @@ declare module _ {
         includes: _Chain<T, V>['contains'];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.invoke
-        **/
-        invoke(methodName: string, ...args: any[]): _Chain<T>;
+         * Calls the method named by `methodName` on each value in the wrapped
+         * collection. Any extra arguments passed to invoke will be forwarded
+         * on to the method invocation.
+         * @param methodName The name of the method to call on each element in
+         * the wrapped collection.
+         * @param args Additional arguments to pass to method `methodName`.
+         * @returns A chain wrapper around an array containing the result of
+         * the method call for each item in the wrapped collection.
+         **/
+        invoke(methodName: string, ...args: any[]): _Chain<any, any[]>;
 
         /**
          * A convenient version of what is perhaps the most common use-case for map: extracting a list of
@@ -5202,49 +5220,59 @@ declare module _ {
         min(iteratee?: _ChainIteratee<V, any, T>, context?: any): _ChainSingle<T | number>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.sortBy
-        **/
-        sortBy(iterator?: _.ListIterator<T, any>, context?: any): _Chain<T, T[]>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.sortBy
-        **/
-        sortBy(iterator: string, context?: any): _Chain<T, T[]>;
-
-        /**
-         * Splits a collection into sets, grouped by the result of running each value through iteratee.
-         * @param iteratee An iteratee that provides the value to group by for each item in the collection.
+         * Returns a (stably) sorted copy of the wrapped collection, ranked in
+         * ascending order by the results of running each value through
+         * `iteratee`.
+         * @param iteratee An iteratee that provides the value to sort by for
+         * each item in the wrapped collection.
          * @param context `this` object in `iteratee`, optional.
-         * @returns A dictionary with the group names as properties where each property contains the grouped elements from the collection
-         * in a chain wrapper.
+         * @returns A chain wrapper around a sorted copy of the wrapped
+         * collection.
          **/
-        groupBy(iterator: _ChainIteratee<V, any, T>, context?: any): _Chain<T[], Dictionary<T[]>>;
+        sortBy(iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.indexBy
-        **/
-        indexBy(iterator: _.ListIterator<T, any>, context?: any): _Chain<T>;
+         * Splits the warpped collection into sets that are grouped by the
+         * result of running each value through `iteratee`.
+         * @param collection The collection to group.
+         * @param iteratee An iteratee that provides the value to group by for
+         * each item in the wrapped collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A chain wrapper around a dictionary with the group names
+         * provided by `iteratee` as properties where each property contains
+         * the grouped elements from the wrapped collection.
+         **/
+        groupBy(iteratee?: _ChainIteratee<V, EnumerableKey, T>, context?: any): _Chain<T[], Dictionary<T[]>>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.indexBy
-        **/
-        indexBy(iterator: string, context?: any): _Chain<T>;
+         * Given the warpped collection and an `iteratee` function that returns
+         * a key for each element in `collection`, returns an object that acts
+         * as an index of each item.  Just like `groupBy`, but for when you
+         * know your keys are unique.
+         * @param collection The collection to index.
+         * @param iteratee An iteratee that provides the value to index by for
+         * each item in the wrapped collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A chain wrapper around a dictionary where each item in the
+         * wrapped collection is assigned to the property designated by
+         * `iteratee`.
+         **/
+        indexBy(iteratee?: _ChainIteratee<V, EnumerableKey, T>, context?: any): _Chain<T, Dictionary<T>>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.countBy
-        **/
-        countBy(iterator?: _.ListIterator<T, any>, context?: any): _Chain<T>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.countBy
-        **/
-        countBy(iterator: string, context?: any): _Chain<T>;
+         * Sorts the wrapped collection into groups and returns a count for the
+         * number of objects in each group. Similar to `groupBy`, but instead
+         * of returning a list of values, returns a count for the number of
+         * values in that group.
+         * @param collection The collection to count.
+         * @param iteratee An iteratee that provides the value to count by for
+         * each item in the wrapped collection.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A chain wrapper around a dictionary with the group names
+         * provided by `iteratee` as properties where each property contains
+         * the count of the grouped elements from the wrapped collection.
+         **/
+        countBy(iterator?: _ChainIteratee<V, EnumerableKey, T>, context?: any): _Chain<number, Dictionary<number>>;
 
         /**
          * Returns a shuffled copy of the wrapped collection, using a version of the Fisher-Yates shuffle.

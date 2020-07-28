@@ -654,6 +654,20 @@ declare const numberRecordDictionaryValueIterator: (element: NumberRecord, key: 
 const numberList: _.List<number> = { 0: 0, 1: 1, length: 2 };
 const numberDictionary: _.Dictionary<number> = { a: 0, b: 1 };
 
+interface NoParameterFunctionRecord {
+    a: () => number;
+}
+
+declare const noParameterFunctionRecordList: _.List<NoParameterFunctionRecord>;
+declare const noParameterFunctionRecordDictionary: _.Dictionary<NoParameterFunctionRecord>;
+
+interface TwoParameterFunctionRecord {
+    a: (arg0: number, arg1: string) => void;
+}
+
+declare const twoParameterFunctionRecordList: _.List<TwoParameterFunctionRecord>;
+declare const twoParameterFunctionRecordDictionary: _.Dictionary<TwoParameterFunctionRecord>;
+
 const simpleString = 'abc';
 
 const simpleStringArray: string[] = ['a', 'c'];
@@ -1761,6 +1775,19 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     extractChainTypes(_.chain(stringRecordList).includes(stringRecordList[0], simpleNumber)); // $ExpectType ChainType<boolean, never>
 }
 
+// invoke
+{
+    // function without parameters
+    _.invoke(noParameterFunctionRecordList, stringRecordProperty); // $ExpectType any[]
+    _(noParameterFunctionRecordList).invoke(stringRecordProperty); // $ExpectType any[]
+    extractChainTypes(_.chain(noParameterFunctionRecordList).invoke(stringRecordProperty)); // $ExpectType ChainType<any[], any>
+
+    // function with parameters
+    _.invoke(twoParameterFunctionRecordDictionary, stringRecordProperty, simpleNumber, simpleString); // $ExpectType any[]
+    _(twoParameterFunctionRecordDictionary).invoke(stringRecordProperty, simpleNumber, simpleString); // $ExpectType any[]
+    extractChainTypes(_.chain(twoParameterFunctionRecordDictionary).invoke(stringRecordProperty, simpleNumber, simpleString)); // $ExpectType ChainType<any[], any>
+}
+
 // pluck
 {
     // property name iteratee with a non-nullable single type - lists
@@ -1782,7 +1809,7 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
 
 // max
 {
-    // function iterator - lists
+    // function iteratee - lists
     _.max(numberRecordList, numberRecordListValueIterator); // $ExpectType number | NumberRecord
     _.max(numberRecordList, numberRecordListValueIterator, context); // $ExpectType number | NumberRecord
     _(numberRecordList).max(numberRecordListValueIterator); // $ExpectType number | NumberRecord
@@ -1790,7 +1817,7 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     extractChainTypes(_.chain(numberRecordList).max(numberRecordListValueIterator)); // $ExpectType ChainType<number | NumberRecord, never>
     extractChainTypes(_.chain(numberRecordList).max(numberRecordListValueIterator, context)); // $ExpectType ChainType<number | NumberRecord, never>
 
-    // function iterator - dictionaries
+    // function iteratee - dictionaries
     _.max(numberRecordDictionary, numberRecordDictionaryValueIterator); // $ExpectType number | NumberRecord
     _.max(numberRecordDictionary, numberRecordDictionaryValueIterator, context); // $ExpectType number | NumberRecord
     _(numberRecordDictionary).max(numberRecordDictionaryValueIterator); // $ExpectType number | NumberRecord
@@ -1798,32 +1825,32 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     extractChainTypes(_.chain(numberRecordDictionary).max(numberRecordDictionaryValueIterator)); // $ExpectType ChainType<number | NumberRecord, never>
     extractChainTypes(_.chain(numberRecordDictionary).max(numberRecordDictionaryValueIterator, context)); // $ExpectType ChainType<number | NumberRecord, never>
 
-    // property name iterator - lists
+    // property name iteratee - lists
     _.max(numberRecordList, stringRecordProperty); // $ExpectType number | NumberRecord
     _(numberRecordList).max(stringRecordProperty); // $ExpectType number | NumberRecord
     extractChainTypes(_.chain(numberRecordList).max(stringRecordProperty)); // $ExpectType ChainType<number | NumberRecord, never>
 
-    // property name iterator - dictionaries
+    // property name iteratee - dictionaries
     _.max(numberRecordDictionary, stringRecordProperty); // $ExpectType number | NumberRecord
     _(numberRecordDictionary).max(stringRecordProperty); // $ExpectType number | NumberRecord
     extractChainTypes(_.chain(numberRecordDictionary).max(stringRecordProperty)); // $ExpectType ChainType<number | NumberRecord, never>
 
-    // property path iterator - lists
+    // property path iteratee - lists
     _.max(numberRecordList, stringRecordPropertyPath); // $ExpectType number | NumberRecord
     _(numberRecordList).max(stringRecordPropertyPath); // $ExpectType number | NumberRecord
     extractChainTypes(_.chain(numberRecordList).max(stringRecordPropertyPath)); // $ExpectType ChainType<number | NumberRecord, never>
 
-    // property path iterator - dictionaries
+    // property path iteratee - dictionaries
     _.max(numberRecordDictionary, stringRecordPropertyPath); // $ExpectType number | NumberRecord
     _(numberRecordDictionary).max(stringRecordPropertyPath); // $ExpectType number | NumberRecord
     extractChainTypes(_.chain(numberRecordDictionary).max(stringRecordPropertyPath)); // $ExpectType ChainType<number | NumberRecord, never>
 
-    // identity iterator - lists
+    // identity iteratee - lists
     _.max(numberList); // $ExpectType number
     _(numberList).max(); // $ExpectType number
     extractChainTypes(_.chain(numberList).max()); // $ExpectType ChainType<number, never>
 
-    // identity iterator - dictionaries
+    // identity iteratee - dictionaries
     _.max(numberDictionary); // $ExpectType number
     _(numberDictionary).max(); // $ExpectType number
     extractChainTypes(_.chain(numberDictionary).max()); // $ExpectType ChainType<number, never>
@@ -1831,7 +1858,7 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
 
 // min
 {
-    // function iterator - lists
+    // function iteratee - lists
     _.min(numberRecordList, numberRecordListValueIterator); // $ExpectType number | NumberRecord
     _.min(numberRecordList, numberRecordListValueIterator, context); // $ExpectType number | NumberRecord
     _(numberRecordList).min(numberRecordListValueIterator); // $ExpectType number | NumberRecord
@@ -1839,7 +1866,7 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     extractChainTypes(_.chain(numberRecordList).min(numberRecordListValueIterator)); // $ExpectType ChainType<number | NumberRecord, never>
     extractChainTypes(_.chain(numberRecordList).min(numberRecordListValueIterator, context)); // $ExpectType ChainType<number | NumberRecord, never>
 
-    // function iterator - dictionaries
+    // function iteratee - dictionaries
     _.min(numberRecordDictionary, numberRecordDictionaryValueIterator); // $ExpectType number | NumberRecord
     _.min(numberRecordDictionary, numberRecordDictionaryValueIterator, context); // $ExpectType number | NumberRecord
     _(numberRecordDictionary).min(numberRecordDictionaryValueIterator); // $ExpectType number | NumberRecord
@@ -1847,35 +1874,88 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     extractChainTypes(_.chain(numberRecordDictionary).min(numberRecordDictionaryValueIterator)); // $ExpectType ChainType<number | NumberRecord, never>
     extractChainTypes(_.chain(numberRecordDictionary).min(numberRecordDictionaryValueIterator, context)); // $ExpectType ChainType<number | NumberRecord, never>
 
-    // property name iterator - lists
+    // property name iteratee - lists
     _.min(numberRecordList, stringRecordProperty); // $ExpectType number | NumberRecord
     _(numberRecordList).min(stringRecordProperty); // $ExpectType number | NumberRecord
     extractChainTypes(_.chain(numberRecordList).min(stringRecordProperty)); // $ExpectType ChainType<number | NumberRecord, never>
 
-    // property name iterator - dictionaries
+    // property name iteratee - dictionaries
     _.min(numberRecordDictionary, stringRecordProperty); // $ExpectType number | NumberRecord
     _(numberRecordDictionary).min(stringRecordProperty); // $ExpectType number | NumberRecord
     extractChainTypes(_.chain(numberRecordDictionary).min(stringRecordProperty)); // $ExpectType ChainType<number | NumberRecord, never>
 
-    // property path iterator - lists
+    // property path iteratee - lists
     _.min(numberRecordList, stringRecordPropertyPath); // $ExpectType number | NumberRecord
     _(numberRecordList).min(stringRecordPropertyPath); // $ExpectType number | NumberRecord
     extractChainTypes(_.chain(numberRecordList).min(stringRecordPropertyPath)); // $ExpectType ChainType<number | NumberRecord, never>
 
-    // property path iterator - dictionaries
+    // property path iteratee - dictionaries
     _.min(numberRecordDictionary, stringRecordPropertyPath); // $ExpectType number | NumberRecord
     _(numberRecordDictionary).min(stringRecordPropertyPath); // $ExpectType number | NumberRecord
     extractChainTypes(_.chain(numberRecordDictionary).min(stringRecordPropertyPath)); // $ExpectType ChainType<number | NumberRecord, never>
 
-    // identity iterator - lists
+    // identity iteratee - lists
     _.min(numberList); // $ExpectType number
     _(numberList).min(); // $ExpectType number
     extractChainTypes(_.chain(numberList).min()); // $ExpectType ChainType<number, never>
 
-    // identity iterator - dictionaries
+    // identity iteratee - dictionaries
     _.min(numberDictionary); // $ExpectType number
     _(numberDictionary).min(); // $ExpectType number
     extractChainTypes(_.chain(numberDictionary).min()); // $ExpectType ChainType<number, never>
+}
+
+// sortBy
+{
+    // function iteratee - lists
+    _.sortBy(stringRecordList, stringRecordListValueIterator); // $ExpectType StringRecord[]
+    _(stringRecordList).sortBy(stringRecordListValueIterator, context); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).sortBy(stringRecordListValueIterator)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // function iteratee - dictionaries
+    _.sortBy(stringRecordDictionary, stringRecordDictionaryValueIterator, context); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).sortBy(stringRecordDictionaryValueIterator); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).sortBy(stringRecordDictionaryValueIterator, context)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // partial object iteratee - lists
+    _.sortBy(stringRecordList, partialStringRecord); // $ExpectType StringRecord[]
+    _(stringRecordList).sortBy(partialStringRecord); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).sortBy(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // partial object iteratee - dictionaries
+    _.sortBy(stringRecordDictionary, partialStringRecord); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).sortBy(partialStringRecord); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).sortBy(partialStringRecord)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // property name iteratee - lists
+    _.sortBy(stringRecordList, stringRecordProperty); // $ExpectType StringRecord[]
+    _(stringRecordList).sortBy(stringRecordProperty); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).sortBy(stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // property name iteratee - dictionaries
+    _.sortBy(stringRecordDictionary, stringRecordProperty); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).sortBy(stringRecordProperty); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).sortBy(stringRecordProperty)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // property path iteratee - lists
+    _.sortBy(stringRecordList, stringRecordPropertyPath); // $ExpectType StringRecord[]
+    _(stringRecordList).sortBy(stringRecordPropertyPath); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).sortBy(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // property path iteratee - dictionaries
+    _.sortBy(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).sortBy(stringRecordPropertyPath); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).sortBy(stringRecordPropertyPath)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // identity iteratee - lists
+    _.sortBy(stringRecordList); // $ExpectType StringRecord[]
+    _(stringRecordList).sortBy(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordList).sortBy()); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // identity iteratee - dictionaries
+    _.sortBy(stringRecordDictionary); // $ExpectType StringRecord[]
+    _(stringRecordDictionary).sortBy(); // $ExpectType StringRecord[]
+    extractChainTypes(_.chain(stringRecordDictionary).sortBy()); // $ExpectType ChainType<StringRecord[], StringRecord>
 }
 
 // groupBy
@@ -1889,6 +1969,16 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _.groupBy(stringRecordDictionary, stringRecordDictionaryValueIterator, context); // $ExpectType Dictionary<StringRecord[]>
     _(stringRecordDictionary).groupBy(stringRecordDictionaryValueIterator, context); // $ExpectType Dictionary<StringRecord[]>
     _.chain(stringRecordDictionary).groupBy(stringRecordDictionaryValueIterator, context); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+
+    // partial object iteratee - lists
+    _.groupBy(stringRecordList, partialStringRecord); // $ExpectType Dictionary<StringRecord[]>
+    _(stringRecordList).groupBy(partialStringRecord); // $ExpectType Dictionary<StringRecord[]>
+    _.chain(stringRecordList).groupBy(partialStringRecord); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+
+    // partial object iteratee - dictionaries
+    _.groupBy(stringRecordDictionary, partialStringRecord); // $ExpectType Dictionary<StringRecord[]>
+    _(stringRecordDictionary).groupBy(partialStringRecord); // $ExpectType Dictionary<StringRecord[]>
+    _.chain(stringRecordDictionary).groupBy(partialStringRecord); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
 
     // property name iteratee - lists
     _.groupBy(stringRecordList, stringRecordProperty); // $ExpectType Dictionary<StringRecord[]>
@@ -1909,6 +1999,122 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _.groupBy(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord[]>
     _(stringRecordDictionary).groupBy(stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord[]>
     _.chain(stringRecordDictionary).groupBy(stringRecordPropertyPath); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+
+    // identity iteratee - lists
+    _.groupBy(stringRecordList); // $ExpectType Dictionary<StringRecord[]>
+    _(stringRecordList).groupBy(); // $ExpectType Dictionary<StringRecord[]>
+    _.chain(stringRecordList).groupBy(); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+
+    // identity iteratee - dictionaries
+    _.groupBy(stringRecordDictionary); // $ExpectType Dictionary<StringRecord[]>
+    _(stringRecordDictionary).groupBy(); // $ExpectType Dictionary<StringRecord[]>
+    _.chain(stringRecordDictionary).groupBy(); // // $ExpectType _Chain<StringRecord[], Dictionary<StringRecord[]>>
+}
+
+// indexBy
+{
+    // function iteratee - lists
+    _.indexBy(stringRecordList, stringRecordListValueIterator); // $ExpectType Dictionary<StringRecord>
+    _(stringRecordList).indexBy(stringRecordListValueIterator, context); // $ExpectType Dictionary<StringRecord>
+    extractChainTypes(_.chain(stringRecordList).indexBy(stringRecordListValueIterator)); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
+
+    // function iteratee - dictionaries
+    _.indexBy(stringRecordDictionary, stringRecordDictionaryValueIterator, context); // $ExpectType Dictionary<StringRecord>
+    _(stringRecordDictionary).indexBy(stringRecordDictionaryValueIterator); // $ExpectType Dictionary<StringRecord>
+    extractChainTypes(_.chain(stringRecordDictionary).indexBy(stringRecordDictionaryValueIterator, context)); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
+
+    // partial object iteratee - lists
+    _.indexBy(stringRecordList, partialStringRecord); // $ExpectType Dictionary<StringRecord>
+    _(stringRecordList).indexBy(partialStringRecord); // $ExpectType Dictionary<StringRecord>
+    extractChainTypes(_.chain(stringRecordList).indexBy(partialStringRecord)); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
+
+    // partial object iteratee - dictionaries
+    _.indexBy(stringRecordDictionary, partialStringRecord); // $ExpectType Dictionary<StringRecord>
+    _(stringRecordDictionary).indexBy(partialStringRecord); // $ExpectType Dictionary<StringRecord>
+    extractChainTypes(_.chain(stringRecordDictionary).indexBy(partialStringRecord)); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
+
+    // property name iteratee - lists
+    _.indexBy(stringRecordList, stringRecordProperty); // $ExpectType Dictionary<StringRecord>
+    _(stringRecordList).indexBy(stringRecordProperty); // $ExpectType Dictionary<StringRecord>
+    extractChainTypes(_.chain(stringRecordList).indexBy(stringRecordProperty)); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
+
+    // property name iteratee - dictionaries
+    _.indexBy(stringRecordDictionary, stringRecordProperty); // $ExpectType Dictionary<StringRecord>
+    _(stringRecordDictionary).indexBy(stringRecordProperty); // $ExpectType Dictionary<StringRecord>
+    extractChainTypes(_.chain(stringRecordDictionary).indexBy(stringRecordProperty)); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
+
+    // property path iteratee - lists
+    _.indexBy(stringRecordList, stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord>
+    _(stringRecordList).indexBy(stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord>
+    extractChainTypes(_.chain(stringRecordList).indexBy(stringRecordPropertyPath)); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
+
+    // property path iteratee - dictionaries
+    _.indexBy(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord>
+    _(stringRecordDictionary).indexBy(stringRecordPropertyPath); // $ExpectType Dictionary<StringRecord>
+    extractChainTypes(_.chain(stringRecordDictionary).indexBy(stringRecordPropertyPath)); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
+
+    // identity iteratee - lists
+    _.indexBy(stringRecordList); // $ExpectType Dictionary<StringRecord>
+    _(stringRecordList).indexBy(); // $ExpectType Dictionary<StringRecord>
+    extractChainTypes(_.chain(stringRecordList).indexBy()); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
+
+    // identity iteratee - dictionaries
+    _.indexBy(stringRecordDictionary); // $ExpectType Dictionary<StringRecord>
+    _(stringRecordDictionary).indexBy(); // $ExpectType Dictionary<StringRecord>
+    extractChainTypes(_.chain(stringRecordDictionary).indexBy()); // $ExpectType ChainType<Dictionary<StringRecord>, StringRecord>
+}
+
+// countBy
+{
+    // function iteratee - lists
+    _.countBy(stringRecordList, stringRecordListValueIterator); // $ExpectType Dictionary<number>
+    _(stringRecordList).countBy(stringRecordListValueIterator, context); // $ExpectType Dictionary<number>
+    extractChainTypes(_.chain(stringRecordList).countBy(stringRecordListValueIterator)); // $ExpectType ChainType<Dictionary<number>, number>
+
+    // function iteratee - dictionaries
+    _.countBy(stringRecordDictionary, stringRecordDictionaryValueIterator, context); // $ExpectType Dictionary<number>
+    _(stringRecordDictionary).countBy(stringRecordDictionaryValueIterator); // $ExpectType Dictionary<number>
+    extractChainTypes(_.chain(stringRecordDictionary).countBy(stringRecordDictionaryValueIterator, context)); // $ExpectType ChainType<Dictionary<number>, number>
+
+    // partial object iteratee - lists
+    _.countBy(stringRecordList, partialStringRecord); // $ExpectType Dictionary<number>
+    _(stringRecordList).countBy(partialStringRecord); // $ExpectType Dictionary<number>
+    extractChainTypes(_.chain(stringRecordList).countBy(partialStringRecord)); // $ExpectType ChainType<Dictionary<number>, number>
+
+    // partial object iteratee - dictionaries
+    _.countBy(stringRecordDictionary, partialStringRecord); // $ExpectType Dictionary<number>
+    _(stringRecordDictionary).countBy(partialStringRecord); // $ExpectType Dictionary<number>
+    extractChainTypes(_.chain(stringRecordDictionary).countBy(partialStringRecord)); // $ExpectType ChainType<Dictionary<number>, number>
+
+    // property name iteratee - lists
+    _.countBy(stringRecordList, stringRecordProperty); // $ExpectType Dictionary<number>
+    _(stringRecordList).countBy(stringRecordProperty); // $ExpectType Dictionary<number>
+    extractChainTypes(_.chain(stringRecordList).countBy(stringRecordProperty)); // $ExpectType ChainType<Dictionary<number>, number>
+
+    // property name iteratee - dictionaries
+    _.countBy(stringRecordDictionary, stringRecordProperty); // $ExpectType Dictionary<number>
+    _(stringRecordDictionary).countBy(stringRecordProperty); // $ExpectType Dictionary<number>
+    extractChainTypes(_.chain(stringRecordDictionary).countBy(stringRecordProperty)); // $ExpectType ChainType<Dictionary<number>, number>
+
+    // property path iteratee - lists
+    _.countBy(stringRecordList, stringRecordPropertyPath); // $ExpectType Dictionary<number>
+    _(stringRecordList).countBy(stringRecordPropertyPath); // $ExpectType Dictionary<number>
+    extractChainTypes(_.chain(stringRecordList).countBy(stringRecordPropertyPath)); // $ExpectType ChainType<Dictionary<number>, number>
+
+    // property path iteratee - dictionaries
+    _.countBy(stringRecordDictionary, stringRecordPropertyPath); // $ExpectType Dictionary<number>
+    _(stringRecordDictionary).countBy(stringRecordPropertyPath); // $ExpectType Dictionary<number>
+    extractChainTypes(_.chain(stringRecordDictionary).countBy(stringRecordPropertyPath)); // $ExpectType ChainType<Dictionary<number>, number>
+
+    // identity iteratee - lists
+    _.countBy(stringRecordList); // $ExpectType Dictionary<number>
+    _(stringRecordList).countBy(); // $ExpectType Dictionary<number>
+    extractChainTypes(_.chain(stringRecordList).countBy()); // $ExpectType ChainType<Dictionary<number>, number>
+
+    // identity iteratee - dictionaries
+    _.countBy(stringRecordDictionary); // $ExpectType Dictionary<number>
+    _(stringRecordDictionary).countBy(); // $ExpectType Dictionary<number>
+    extractChainTypes(_.chain(stringRecordDictionary).countBy()); // $ExpectType ChainType<Dictionary<number>, number>
 }
 
 // shuffle
