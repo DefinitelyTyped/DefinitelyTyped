@@ -1,4 +1,4 @@
-// Type definitions for react-autosuggest 9.3
+// Type definitions for react-autosuggest 10.0.2
 // Project: http://react-autosuggest.js.org/, https://github.com/moroshko/react-autosuggest
 // Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>
 //                 Philip Ottesen <https://github.com/pjo256>
