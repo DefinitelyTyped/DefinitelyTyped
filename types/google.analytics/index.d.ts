@@ -641,3 +641,11 @@ declare var gaClassic: GoogleAnalytics;
 declare var ga: UniversalAnalytics.ga;
 declare var _gaq: GoogleAnalyticsCode;
 declare var _gat: GoogleAnalyticsTracker;
+
+export {
+    gaClassic,
+    ga,
+    _gaq,
+    _gat,
+    UniversalAnalytics
+};
