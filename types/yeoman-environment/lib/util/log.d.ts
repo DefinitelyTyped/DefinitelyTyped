@@ -70,7 +70,7 @@ declare namespace createLogger {
          * @param params
          * The parameters to replace variables with.
          */
-        (format: string, params?: Record<string, any>): Logger<TCategories>;
+        (format?: string, params?: Record<string, any>): Logger<TCategories>;
 
         /**
          * Writes a log-message.
