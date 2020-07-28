@@ -1321,10 +1321,6 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 一个数值数组，包含所有阈值。 */
         thresholds?: number[]
     }
-    interface CreateInterstitialAdOption {
-        /** 广告单元 id */
-        adUnitId: string
-    }
     interface CreateMediaRecorderOption {
         /** 指定录制的时长（s)，到达自动停止。最大 7200，最小 5 */
         duration?: number
@@ -2861,23 +2857,6 @@ innerAudioContext.onError((res) => {
         /** 宽度 */
         width: number
     }
-    interface InterstitialAdOnErrorCallbackResult {
-        /** 错误码
-         *
-         * 可选值：
-         * - 1000: 后端接口调用失败;
-         * - 1001: 参数错误;
-         * - 1002: 广告单元无效;
-         * - 1003: 内部错误;
-         * - 1004: 无合适的广告;
-         * - 1005: 广告组件审核中;
-         * - 1006: 广告组件被驳回;
-         * - 1007: 广告组件被封禁;
-         * - 1008: 广告单元已关闭; */
-        errCode: 1000 | 1001 | 1002 | 1003 | 1004 | 1005 | 1006 | 1007 | 1008
-        /** 错误信息 */
-        errMsg: string
-    }
     interface JoinVoIPChatOption {
         /** 小游戏内此房间/群聊的 ID。同一时刻传入相同 groupId 的用户会进入到同个实时语音房间。 */
         groupId: string
@@ -3828,7 +3807,7 @@ innerAudioContext.onError((res) => {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: PreviewMediaCompleteCallback
         /** 当前显示的资源序号 */
-        current?: current
+        current?: number
         /** 接口调用失败的回调函数 */
         fail?: PreviewMediaFailCallback
         /** 接口调用成功的回调函数 */
@@ -8889,97 +8868,6 @@ Page({
             margins?: Margins
         ): IntersectionObserver
     }
-    interface InterstitialAd {
-        /** [InterstitialAd.destroy()](https://developers.weixin.qq.com/miniprogram/dev/api/ad/InterstitialAd.destroy.html)
-         *
-         * 销毁插屏广告实例。
-         *
-         * 最低基础库： `2.8.0` */
-        destroy(): void
-        /** [InterstitialAd.offClose(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/ad/InterstitialAd.offClose.html)
-         *
-         * 取消监听插屏广告关闭事件 */
-        offClose(
-            /** 插屏广告关闭事件的回调函数 */
-            callback: OffCloseCallback
-        ): void
-        /** [InterstitialAd.offError(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/ad/InterstitialAd.offError.html)
-         *
-         * 取消监听插屏错误事件 */
-        offError(
-            /** 插屏错误事件的回调函数 */
-            callback: OffErrorCallback
-        ): void
-        /** [InterstitialAd.offLoad(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/ad/InterstitialAd.offLoad.html)
-         *
-         * 取消监听插屏广告加载事件 */
-        offLoad(
-            /** 插屏广告加载事件的回调函数 */
-            callback: OffLoadCallback
-        ): void
-        /** [InterstitialAd.onClose(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/ad/InterstitialAd.onClose.html)
-         *
-         * 监听插屏广告关闭事件。 */
-        onClose(
-            /** 插屏广告关闭事件的回调函数 */
-            callback: UDPSocketOnCloseCallback
-        ): void
-        /** [InterstitialAd.onError(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/ad/InterstitialAd.onError.html)
-         *
-         * 监听插屏错误事件。
-         *
-         * **错误码信息与解决方案表**
-         *
-         *
-         *  错误码是通过onError获取到的错误信息。调试期间，可以通过异常返回来捕获信息。
-         *  在小程序发布上线之后，如果遇到异常问题，可以在[“运维中心“](https://mp.weixin.qq.com/)里面搜寻错误日志，还可以针对异常返回加上适当的监控信息。
-         *
-         * | 代码 | 异常情况 | 理由 | 解决方案 |
-         * | ------ | -------------- | --------------- | -------------------------- |
-         * | 1000  | 后端错误调用失败  | 该项错误不是开发者的异常情况 | 一般情况下忽略一段时间即可恢复。 |
-         * | 1001  | 参数错误    | 使用方法错误 | 可以前往developers.weixin.qq.com确认具体教程（小程序和小游戏分别有各自的教程，可以在顶部选项中，“设计”一栏的右侧进行切换。|
-         * | 1002  | 广告单元无效    | 可能是拼写错误、或者误用了其他APP的广告ID | 请重新前往mp.weixin.qq.com确认广告位ID。 |
-         * | 1003  | 内部错误    | 该项错误不是开发者的异常情况 | 一般情况下忽略一段时间即可恢复。|
-         * | 1004  | 无适合的广告   | 广告不是每一次都会出现，这次没有出现可能是由于该用户不适合浏览广告 | 属于正常情况，且开发者需要针对这种情况做形态上的兼容。 |
-         * | 1005  | 广告组件审核中  | 你的广告正在被审核，无法展现广告 | 请前往mp.weixin.qq.com确认审核状态，且开发者需要针对这种情况做形态上的兼容。|
-         * | 1006  | 广告组件被驳回  | 你的广告审核失败，无法展现广告 | 请前往mp.weixin.qq.com确认审核状态，且开发者需要针对这种情况做形态上的兼容。|
-         * | 1007  | 广告组件被驳回  | 你的广告能力已经被封禁，封禁期间无法展现广告 | 请前往mp.weixin.qq.com确认小程序广告封禁状态。 |
-         * | 1008  | 广告单元已关闭  | 该广告位的广告能力已经被关闭 | 请前往mp.weixin.qq.com重新打开对应广告位的展现。| */
-        onError(
-            /** 插屏错误事件的回调函数 */
-            callback: InterstitialAdOnErrorCallback
-        ): void
-        /** [InterstitialAd.onLoad(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/ad/InterstitialAd.onLoad.html)
-         *
-         * 监听插屏广告加载事件。 */
-        onLoad(
-            /** 插屏广告加载事件的回调函数 */
-            callback: OnLoadCallback
-        ): void
-        /** [Promise InterstitialAd.load()](https://developers.weixin.qq.com/miniprogram/dev/api/ad/InterstitialAd.load.html)
-         *
-         * 加载插屏广告。
-         *
-         * 最低基础库： `2.8.0` */
-        load(): Promise<any>
-        /** [Promise InterstitialAd.show()](https://developers.weixin.qq.com/miniprogram/dev/api/ad/InterstitialAd.show.html)
-         *
-         * 显示插屏广告。
-         *
-         * **错误码信息表**
-         *
-         *
-         *  如果插屏广告显示失败，InterstitialAd.show() 方法会返回一个rejected Promise，开发者可以获取到错误码及对应的错误信息。
-         *
-         * | 代码 | 异常情况 | 理由 |
-         * | ------ | -------------- | -------------------------- |
-         * | 2001  | 触发频率限制  | 小程序启动一定时间内不允许展示插屏广告 |
-         * | 2002  | 触发频率限制  | 距离小程序插屏广告或者激励视频广告上次播放时间间隔不足，不允许展示插屏广告 |
-         * | 2003  | 触发频率限制  | 当前正在播放激励视频广告或者插屏广告，不允许再次展示插屏广告 |
-         * | 2004  | 广告渲染失败  | 该项错误不是开发者的异常情况，或因小程序页面切换导致广告渲染失败 |
-         * | 2005  | 广告调用异常  | 插屏广告实例不允许跨页面调用 | */
-        show(): Promise<any>
-    }
     interface IsoDep {
         /** [IsoDep.close(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/IsoDep.close.html)
          *
@@ -10901,12 +10789,6 @@ wx.downloadFile({
             /** 选项 */
             options?: CreateIntersectionObserverOption
         ): IntersectionObserver
-        /** [[InterstitialAd](https://developers.weixin.qq.com/miniprogram/dev/api/ad/InterstitialAd.html) wx.createInterstitialAd(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/ad/wx.createInterstitialAd.html)
-         *
-         * 创建插屏广告组件。请通过 [wx.getSystemInfoSync()](https://developers.weixin.qq.com/miniprogram/dev/api/base/system/system-info/wx.getSystemInfoSync.html) 返回对象的 SDKVersion 判断基础库版本号后再使用该 API。每次调用该方法创建插屏广告都会返回一个全新的实例（小程序端的插屏广告实例不允许跨页面使用）。
-         *
-         * 最低基础库： `2.6.0` */
-        createInterstitialAd(option: CreateInterstitialAdOption): InterstitialAd
         /** [[LivePlayerContext](https://developers.weixin.qq.com/miniprogram/dev/api/media/live/LivePlayerContext.html) wx.createLivePlayerContext(string id, Object this)](https://developers.weixin.qq.com/miniprogram/dev/api/media/live/wx.createLivePlayerContext.html)
          *
          * 创建 [live-player](https://developers.weixin.qq.com/miniprogram/dev/component/live-player.html) 上下文 [LivePlayerContext](https://developers.weixin.qq.com/miniprogram/dev/api/media/live/LivePlayerContext.html) 对象。
@@ -12635,7 +12517,7 @@ wx.hideShareMenu({
 *
 * 最低基础库： `1.1.0` */
         hideShareMenu<TOption extends HideShareMenuOption>(
-            option: TOption
+            option?: TOption
         ): PromisifySuccessResult<TOption, HideShareMenuOption>
         /** [wx.hideTabBar(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/ui/tab-bar/wx.hideTabBar.html)
          *
@@ -16467,10 +16349,6 @@ wx.writeBLECharacteristicValue({
     type IntersectionObserverObserveCallback = (
         result: IntersectionObserverObserveCallbackResult
     ) => void
-    /** 插屏错误事件的回调函数 */
-    type InterstitialAdOnErrorCallback = (
-        result: InterstitialAdOnErrorCallbackResult
-    ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type JoinVoIPChatCompleteCallback = (res: JoinVoIPChatError) => void
     /** 接口调用失败的回调函数 */
@@ -16613,6 +16491,7 @@ wx.writeBLECharacteristicValue({
     type OffCharacteristicWriteRequestCallback = (
         res: GeneralCallbackResult
     ) => void
+    /** 关闭事件的回调函数 */
     type OffCloseCallback = (res: GeneralCallbackResult) => void
     /** 的回调函数 */
     type OffDiscoveredCallback = (res: GeneralCallbackResult) => void
@@ -16623,8 +16502,6 @@ wx.writeBLECharacteristicValue({
     type OffHeadersReceivedCallback = (res: GeneralCallbackResult) => void
     /** 开始监听数据包消息的事件的回调函数 */
     type OffListeningCallback = (res: GeneralCallbackResult) => void
-    /** 插屏广告加载事件的回调函数 */
-    type OffLoadCallback = (res: GeneralCallbackResult) => void
     /** mDNS 服务停止搜索的事件的回调函数 */
     type OffLocalServiceDiscoveryStopCallback = (
         res: GeneralCallbackResult
@@ -16772,8 +16649,6 @@ wx.writeBLECharacteristicValue({
     ) => void
     /** 开始监听数据包消息的事件的回调函数 */
     type OnListeningCallback = (res: GeneralCallbackResult) => void
-    /** 插屏广告加载事件的回调函数 */
-    type OnLoadCallback = (res: GeneralCallbackResult) => void
     /** mDNS 服务停止搜索的事件的回调函数 */
     type OnLocalServiceDiscoveryStopCallback = (
         res: GeneralCallbackResult
@@ -17777,6 +17652,7 @@ wx.writeBLECharacteristicValue({
     type TranslateMarkerFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type TranslateMarkerSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 关闭事件的回调函数 */
     type UDPSocketOnCloseCallback = (res: GeneralCallbackResult) => void
     type UDPSocketOnErrorCallback = (
         result: UDPSocketOnErrorCallbackResult
