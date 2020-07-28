@@ -4,7 +4,8 @@
         "lib": [
             "es6",
             "esnext",
-            "esnext.asynciterable"
+            "esnext.asynciterable",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
