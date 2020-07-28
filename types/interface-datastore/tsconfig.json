@@ -1,25 +1,16 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6",
-            "esnext",
-            "esnext.asynciterable"
-        ],
+        "lib": ["DOM", "ES6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": [
-        "index.d.ts",
-        "interface-datastore-tests.ts"
-    ]
+    "files": ["index.d.ts", "interface-datastore-tests.ts"]
 }
