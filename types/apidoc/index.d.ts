@@ -32,7 +32,7 @@ export interface DocOptions {
     includeFilters?: string[];
     filters?: {
         [keys: string]: {
-            postFilter: (parsedFiles: ParsedFile[], parsedFilenames: string[]) => void
+            postFilter: (parsedFiles: Array<ParsedFile>, parsedFilenames: string[]) => void
         }
     };
     languages?: {
