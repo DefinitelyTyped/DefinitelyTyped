@@ -1,4 +1,4 @@
-// Type definitions for clownface 0.12
+// Type definitions for clownface 1.0
 // Project: https://github.com/rdf-ext/clownface
 // Definitions by: tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -44,7 +44,7 @@ declare namespace clownface {
     readonly dataset: D;
     readonly datasets: D[];
     readonly _context: Array<Context<D, Term>>;
-    list(): Iterable<Iteratee<T, D>>;
+    list(): Iterable<Iteratee<T, D>> | null;
     toArray(): Array<Clownface<T extends undefined ? never : T extends any[] ? T[0] : T, D>>;
     filter(cb: (quad: Iteratee<T, D>) => boolean): Clownface<T, D>;
     forEach(cb: (quad: Iteratee<T, D>) => void): void;

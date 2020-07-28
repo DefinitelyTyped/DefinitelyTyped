@@ -238,7 +238,7 @@ function testIn() {
 
 function testList() {
     const cf: clownface.Clownface<NamedNode, Dataset> = <any> {};
-    const listNodes: Iterable<clownface.Clownface<NamedNode, Dataset>> = cf.list();
+    const listNodes: Iterable<clownface.Clownface<NamedNode, Dataset>> | null = cf.list();
 }
 
 function testLiteral() {
