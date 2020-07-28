@@ -2453,24 +2453,41 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
 
 // union
 {
+    // lists
     _.union(...recordListArray); // $ExpectType StringRecord[]
     _(stringRecordList).union(...recordListArray); // $ExpectType StringRecord[]
     extractChainTypes(_.chain(stringRecordList).union(...recordListArray)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // list and array mix
+    _.union(simpleStringList, simpleStringArray, simpleStringList); // $ExpectType string[]
+    _(simpleStringList).union(simpleStringArray, simpleStringList); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringList).union(simpleStringArray, simpleStringList)); // $ExpectType ChainType<string[], string>
 }
 
 // intersection
 {
+    // lists
     _.intersection(...recordListArray); // $ExpectType StringRecord[]
     _(stringRecordList).intersection(...recordListArray); // $ExpectType StringRecord[]
     extractChainTypes(_.chain(stringRecordList).intersection(...recordListArray)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // list and array mix
+    _.intersection(simpleStringList, simpleStringArray, simpleStringList); // $ExpectType string[]
+    _(simpleStringList).intersection(simpleStringArray, simpleStringList); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringList).intersection(simpleStringArray, simpleStringList)); // $ExpectType ChainType<string[], string>
 }
 
 // difference
 {
-    // n parameters
+    // lists
     _.difference(stringRecordList, ...recordListArray); // $ExpectType StringRecord[]
     _(stringRecordList).difference(...recordListArray); // $ExpectType StringRecord[]
     extractChainTypes(_.chain(stringRecordList).difference(...recordListArray)); // $ExpectType ChainType<StringRecord[], StringRecord>
+
+    // list and array mix
+    _.intersection(simpleStringList, simpleStringArray, simpleStringList); // $ExpectType string[]
+    _(simpleStringList).intersection(simpleStringArray, simpleStringList); // $ExpectType string[]
+    extractChainTypes(_.chain(simpleStringList).intersection(simpleStringArray, simpleStringList)); // $ExpectType ChainType<string[], string>
 }
 
 // uniq, unique
