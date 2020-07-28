@@ -51,7 +51,7 @@ declare namespace clownface {
     list(): Iterable<Iteratee<T, D>> | null;
     toArray(): Array<Clownface<T extends undefined ? never : T extends any[] ? T[0] : T, D>>;
     filter(cb: (quad: Iteratee<T, D>) => boolean): Clownface<T, D>;
-    forEach(cb: (quad: Iteratee<T, D>) => void): void;
+    forEach(cb: (quad: Iteratee<T, D>) => void): this;
     map<X>(cb: (quad: Iteratee<T, D>, index: number) => X): X[];
 
     node(value: SingleOrOneElementArray<boolean | string | number>, options?: NodeOptions): Clownface<Literal, D>;

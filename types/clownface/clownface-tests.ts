@@ -197,20 +197,20 @@ function testFilter() {
 }
 
 function testForEach() {
-    const mutliple: clownface.Clownface<NamedNode[], Dataset> = <any> {};
-    mutliple.forEach(quad => {
+    let mutliple: clownface.Clownface<NamedNode[], Dataset> = <any> {};
+    mutliple = mutliple.forEach(quad => {
         const copy: clownface.Clownface<NamedNode, Dataset> = quad;
         return true;
     });
 
-    const single: clownface.Clownface<NamedNode, Dataset> = <any> {};
-    single.forEach(quad => {
+    let single: clownface.Clownface<NamedNode, Dataset> = <any> {};
+    single = single.forEach(quad => {
         const copy: clownface.Clownface<NamedNode, Dataset> = quad;
         return true;
     });
 
-    const noContext: clownface.Clownface<undefined, Dataset> = <any> {};
-    noContext.forEach(quad => {
+    let noContext: clownface.Clownface<undefined, Dataset> = <any> {};
+    noContext = noContext.forEach(quad => {
         const copy: never = quad;
         return true;
     });
