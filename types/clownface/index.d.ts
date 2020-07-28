@@ -37,7 +37,7 @@ declare namespace clownface {
       : AnyPointer<T, D>;
 
   interface OutOptions {
-    language?: string | string[]
+    language?: string | string[];
   }
 
   interface AnyPointer<T extends AnyContext = AnyContext, D extends DatasetCore = DatasetCore> {
@@ -61,7 +61,7 @@ declare namespace clownface {
     node<X extends Term[]>(values: X, options?: NodeOptions): AnyPointer<X, D>;
 
     node(value: null, options?: NodeOptions): AnyPointer<BlankNode, D>;
-    node(values: Array<null>, options?: NodeOptions): AnyPointer<BlankNode[], D>;
+    node(values: null[], options?: NodeOptions): AnyPointer<BlankNode[], D>;
 
     node(values: Array<boolean | string | number | Term | null>, options?: NodeOptions): AnyPointer<Term[], D>;
 
@@ -76,7 +76,7 @@ declare namespace clownface {
 
     in(predicates?: SingleOrArrayOfTerms<Term>): MultiPointer<T extends undefined ? never : NamedNode | BlankNode, D>;
     out(predicates?: SingleOrArrayOfTerms<Term>): MultiPointer<T extends undefined ? never : Term, D>;
-    out(predicates?: SingleOrArrayOfTerms<Term>, options?: OutOptions): MultiPointer<T extends undefined ? never : Literal, D>
+    out(predicates?: SingleOrArrayOfTerms<Term>, options?: OutOptions): MultiPointer<T extends undefined ? never : Literal, D>;
 
     has(predicates: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTermsOrLiterals<Term>): AnyPointer<Array<NamedNode | BlankNode>, D>;
 
