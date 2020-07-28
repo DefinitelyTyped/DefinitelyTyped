@@ -980,6 +980,14 @@ declare module "mongoose" {
     ) => void): this;
 
     post<T extends Document>(method: string | RegExp, fn: (
+      docs: T[], next: (err?: NativeError) => void
+    ) => void): this;
+
+    post<T extends Document>(method: string | RegExp, fn: (
+      docs: T[], next: (err?: NativeError) => void
+    ) => Promise<void>): this;
+
+    post<T extends Document>(method: string | RegExp, fn: (
       error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
     ) => void): this;
 
