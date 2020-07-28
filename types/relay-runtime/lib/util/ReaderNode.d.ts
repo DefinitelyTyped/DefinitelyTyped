@@ -131,6 +131,7 @@ export interface ReaderLocalArgument {
 export interface ReaderRootArgument {
     readonly kind: string; // 'RootArgument';
     readonly name: string;
+    readonly type: string | null | undefined;
 }
 
 export interface ReaderRefetchMetadata {
