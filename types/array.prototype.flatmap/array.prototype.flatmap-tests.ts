@@ -45,3 +45,6 @@ getPolyfill()(["foo"], word => word.split("")); // $ExpectType string[]
 
 // `shim` installs a flatMap implementation in `Array` prototype and returns it
 shim()(["foo"], word => word.split("")); // $ExpectType string[]
+
+// `ReadonlyArray` is supported
+(["foo"] as ReadonlyArray<string>).flatMap(word => word.split("")); // $ExpectType string[]
