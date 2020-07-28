@@ -1,10 +1,10 @@
-// Type definitions for datastore-core 0.7
+// Type definitions for datastore-core 1.1
 // Project: https://github.com/ipfs/js-datastore-core#readme
 // Definitions by: Carson Farmer <https://github.com/carsonfarmer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import { Datastore, Key } from 'interface-datastore';
+import { Adapter, Key } from 'interface-datastore';
 
 /**
  * Transform function object to converting back-and-forth between key spaces.
@@ -35,7 +35,7 @@ export interface Mount<Value = Buffer> {
     /**
      * The child datastore.
      */
-    datastore: Datastore<Value>;
+    datastore: Adapter<Value>;
     /**
      * The mount prefix.
      */
@@ -48,17 +48,17 @@ export namespace shard {
     const PREFIX = '/repo/flatfs/shard/';
     const readme: string;
     class Shard {
-        constructor(length: number)
+        constructor(length: number);
         name: string;
         param: number;
         _padding: string;
         fun(str: string): string;
         toString(): string;
     }
-    class Prefix extends Shard { }
-    class Suffix extends Shard { }
-    class NextToLast extends Shard { }
-    function readShardFun(path: string, store: Datastore): Promise<Shard>;
+    class Prefix extends Shard {}
+    class Suffix extends Shard {}
+    class NextToLast extends Shard {}
+    function readShardFun(path: string, store: Adapter): Promise<Shard>;
     function parseShardFun(str: string): Shard;
 }
 
@@ -67,13 +67,13 @@ export namespace shard {
  * the way keys look to the user, for example namespacing
  * keys, reversing them, etc.
  */
-export interface KeytransformDatastore<Value = Buffer> extends Datastore<Value> {
-    child: Datastore<Value>;
+export interface KeytransformDatastore<Value = Buffer> extends Adapter<Value> {
+    child: Adapter<Value>;
     transform: Transform;
 }
 
 export interface KeytransformDatastoreConstructor {
-    new <Value = Buffer>(child: Datastore<Value>, transform: Transform): KeytransformDatastore<Value>;
+    new <Value = Buffer>(child: Adapter<Value>, transform: Transform): KeytransformDatastore<Value>;
 }
 
 export const KeytransformDatastore: KeytransformDatastoreConstructor;
@@ -82,12 +82,12 @@ export const KeytransformDatastore: KeytransformDatastoreConstructor;
  * A datastore that can combine multiple stores inside various
  * key prefixs.
  */
-export interface MountDatastore extends Datastore<any> {
+export interface MountDatastore extends Adapter<any> {
     mounts: Array<Mount<any>>;
 }
 
 export interface MountDatastoreConstructor {
-    new(mounts: Array<Mount<any>>): MountDatastore;
+    new (mounts: Array<Mount<any>>): MountDatastore;
 }
 
 export const MountDatastore: MountDatastoreConstructor;
@@ -106,7 +106,7 @@ export interface NamespaceDatastore<Value = Buffer> extends KeytransformDatastor
 }
 
 export interface NamespaceDatastoreConstructor {
-    new(child: Datastore<any>, prefix: Key): NamespaceDatastore;
+    new (child: Adapter<any>, prefix: Key): NamespaceDatastore;
 }
 
 export const NamespaceDatastore: NamespaceDatastoreConstructor;
@@ -118,12 +118,12 @@ export const NamespaceDatastore: NamespaceDatastoreConstructor;
  * last one first.
  *
  */
-export interface TieredDatastore extends Datastore<any> {
-    stores: Array<Datastore<any>>;
+export interface TieredDatastore extends Adapter<any> {
+    stores: Array<Adapter<any>>;
 }
 
 export interface TieredDatastoreConstructor {
-    new(stores: Array<Datastore<any>>): TieredDatastore;
+    new (stores: Array<Adapter<any>>): TieredDatastore;
 }
 
 export const TieredDatastore: TieredDatastoreConstructor;
@@ -134,16 +134,16 @@ export const TieredDatastore: TieredDatastoreConstructor;
  * Wraps another datastore such that all values are stored
  * sharded according to the given sharding function.
  */
-export interface ShardingDatastore<Value = Buffer> extends Datastore<Value> {
+export interface ShardingDatastore<Value = Buffer> extends Adapter<Value> {
     child: KeytransformDatastore<Value>;
     shard: shard.Shard;
 }
 
 export interface ShardingDatastoreConstructor {
-    new <Value = Buffer>(stores: Array<Datastore<Value>>): ShardingDatastore<Value>;
-    createOrOpen<Value = Buffer>(store: Datastore<Value>, shard: shard.Shard): Promise<ShardingDatastore<Value>>;
-    open<Value = Buffer>(store: Datastore<Value>): Promise<ShardingDatastore<Value>>;
-    create<Value = Buffer>(store: Datastore<Value>, shard: shard.Shard): Promise<ShardingDatastore<Value>>;
+    new <Value = Buffer>(stores: Array<Adapter<Value>>): ShardingDatastore<Value>;
+    createOrOpen<Value = Buffer>(store: Adapter<Value>, shard: shard.Shard): Promise<ShardingDatastore<Value>>;
+    open<Value = Buffer>(store: Adapter<Value>): Promise<ShardingDatastore<Value>>;
+    create<Value = Buffer>(store: Adapter<Value>, shard: shard.Shard): Promise<ShardingDatastore<Value>>;
 }
 
 export const ShardingDatastore: ShardingDatastoreConstructor;
