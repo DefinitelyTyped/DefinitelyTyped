@@ -1,12 +1,12 @@
-// Type definitions for datastore-level 0.14
+// Type definitions for datastore-level 1.1
 // Project: https://github.com/ipfs/js-datastore-level#readme
-// Definitions by: Carson Farmer <https://github.com/me>
+// Definitions by: Carson Farmer <https://github.com/carsonfarmer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 // TypeScript Version: 3.6
 
 import { LevelUp } from 'levelup';
-import { Datastore, Batch } from 'interface-datastore';
+import { Batch, Adapter } from 'interface-datastore';
 import { AbstractLevelDOWN, AbstractIterator, AbstractBatch } from 'abstract-leveldown';
 
 export interface LevelDatastoreBatch<Value = Buffer> extends Batch<Value> {
@@ -16,7 +16,7 @@ export interface LevelDatastoreBatch<Value = Buffer> extends Batch<Value> {
 /**
  * A datastore backed by leveldb.
  */
-export interface LevelDatastore<Value = Buffer> extends Datastore<Value> {
+export interface LevelDatastore<Value = Buffer> extends Adapter<Value> {
     db: LevelUp<AbstractLevelDOWN<string, Value>, AbstractIterator<string, Value>>;
     batch(): LevelDatastoreBatch<Value>;
 }
