@@ -3,8 +3,18 @@
 // Definitions by: rigwild <https://github.com/rigwild>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+interface ParsedFile {
+    filename: string;
+    extension: string;
+    src: string;
+
+    blocks: {
+        global: any;
+        local: any;
+    }[];
+}
 export interface DocOptions {
-    dest?: string;
+    dest?: string | string[];
     template?: string;
     templateSingleFile?: string;
     debug?: boolean;
@@ -18,6 +28,36 @@ export interface DocOptions {
     config?: string;
     apiprivate?: boolean;
     encoding?: string;
+    excludeFilters?: string[];
+    includeFilters?: string[];
+    filters?: {
+        [keys: string]: {
+            postFilter: (parsedFiles: ParsedFile[], parsedFilenames: string[]) => void
+        }
+    };
+    languages?: {
+        [language: string]: {
+            docBlocksRegExp: RegExp;
+            inlineRegExp: RegExp;
+        }
+    };
+    parsers?: {
+        parse: (content: string, source: string, messages: string) => {
+            name: string;
+            title: string;
+            description: string;
+        };
+        path: string;
+        getGroup?: () => string;
+        markdownFields?: string[];
+        markdownRemovePTags?: string[];
+    };
+    workers?: {
+        [keys: string]: any;
+    };
+    lineEnding?: string;
+    copyDefinitions?: boolean;
+    filterBy?: string | string[];
 }
 
 export function createDoc(options: DocOptions): boolean | { data: Record<string, any>; project: Record<string, any> };
