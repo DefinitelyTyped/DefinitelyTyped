@@ -3685,9 +3685,15 @@ declare module "mongoose" {
   }
 
   interface SaveOptions {
+    checkKeys?: boolean;
     safe?: boolean | WriteConcern;
     validateBeforeSave?: boolean;
+    validateModifiedOnly?: boolean;
+    j?: boolean;
     session?: ClientSession;
+    timestamps?: boolean;
+    w?: number | string;
+    wtimeout?: number;
   }
 
   interface WriteConcern {
