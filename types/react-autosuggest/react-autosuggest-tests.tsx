@@ -78,6 +78,8 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
             sectionTitle: { color: 'blue' }
         };
 
+        inputRef = React.createRef<HTMLInputElement>();
+
         return <Autosuggest
             suggestions={suggestions}
             onSuggestionsFetchRequested={this
@@ -91,7 +93,8 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
                 placeholder: `Type 'c'`,
                 value,
                 onChange: (e, changeEvent) => this.onChange(e, changeEvent),
-                onBlur: (e) => { console.log(e.relatedTarget); }
+                onBlur: (e) => { console.log(e.relatedTarget); },
+                ref: inputRef
             }}
             theme={theme}/>;
     }
