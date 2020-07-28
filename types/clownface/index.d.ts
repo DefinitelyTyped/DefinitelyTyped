@@ -61,7 +61,7 @@ declare namespace clownface {
     node<X extends Term[]>(values: X, options?: NodeOptions): AnyPointer<X, D>;
 
     node(value: null, options?: NodeOptions): AnyPointer<BlankNode, D>;
-    node(values: null[], options?: NodeOptions): AnyPointer<BlankNode[], D>;
+    node(values: Array<null>, options?: NodeOptions): AnyPointer<BlankNode[], D>;
 
     node(values: Array<boolean | string | number | Term | null>, options?: NodeOptions): AnyPointer<Term[], D>;
 
