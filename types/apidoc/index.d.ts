@@ -3,7 +3,7 @@
 // Definitions by: rigwild <https://github.com/rigwild>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface ParsedFile {
+export interface ParsedFile {
     filename: string;
     extension: string;
     src: string;
