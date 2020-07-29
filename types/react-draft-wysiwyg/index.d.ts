@@ -35,7 +35,7 @@ export interface MentionsSuggestions {
 export interface EditorMentions {
     separator?: string;
     trigger?: string;
-    suggestions?: Array<MentionsSuggestions>;
+    suggestions?: MentionsSuggestions[];
 }
 
 export interface EditorHashtag {
