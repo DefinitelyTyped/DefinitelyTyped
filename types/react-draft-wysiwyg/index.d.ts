@@ -73,13 +73,14 @@ export type ToolbarListOptions = 'unordered' | 'ordered' | 'indent' | 'outdent';
 export type ToolbarTextAlignOptions = 'left' | 'center' | 'right' | 'justify';
 export type ToolbarLinkOptions = 'link' | 'unlink';
 export type ToolbarHistoryOptions = 'undo' | 'redo';
+export type ToolbarComponent = React.ComponentType<any>;
 
 export interface EditorToolbar {
     options?: ToolbarOptions[];
     inline?: {
         inDropdown?: boolean;
         className?: string;
-        component?: React.ComponentType<any>;
+        component?: ToolbarComponent;
         dropdownClassName?: string;
         options?: ToolbarInlineOptions[];
     };
@@ -94,7 +95,7 @@ export interface EditorToolbar {
         inDropdown?: boolean;
         options?: ToolbarBlockTypeOptions[];
         className?: string;
-        component?: string;
+        component?: ToolbarComponent;
         dropdownClassName?: string;
         title?: string;
     };
@@ -102,21 +103,21 @@ export interface EditorToolbar {
         icon?: string;
         options?: number[];
         className?: string;
-        component?: string;
+        component?: ToolbarComponent;
         dropdownClassName?: string;
         title?: string;
     };
     fontFamily?: {
         options?: string[];
         className?: string;
-        component?: string;
+        component?: ToolbarComponent;
         dropdownClassName?: string;
         title?: string;
     };
     list?: {
         inDropdown?: boolean;
         className?: string;
-        component?: string;
+        component?: ToolbarComponent;
         dropdownClassName?: string;
         options?: ToolbarListOptions[];
         unordered?: ToolbarCommonProps;
@@ -128,7 +129,7 @@ export interface EditorToolbar {
     textAlign?: {
         inDropdown?: boolean;
         className?: string;
-        component?: string;
+        component?: ToolbarComponent;
         dropdownClassName?: string;
         options?: ToolbarTextAlignOptions[];
         left?: ToolbarCommonProps;
@@ -140,7 +141,7 @@ export interface EditorToolbar {
     colorPicker?: {
         icon?: string;
         className?: string;
-        component?: string;
+        component?: ToolbarComponent;
         popupClassName?: string;
         colors?: string[];
         title?: string;
@@ -148,7 +149,7 @@ export interface EditorToolbar {
     link?: {
         inDropdown?: boolean;
         className?: string;
-        component?: string;
+        component?: ToolbarComponent;
         popupClassName?: string;
         dropdownClassName?: string;
         showOpenOptionOnHover?: boolean;
@@ -161,7 +162,7 @@ export interface EditorToolbar {
     emoji?: {
         icon?: string;
         className?: string;
-        component?: string;
+        component?: ToolbarComponent;
         popupClassName?: string;
         emojis?: string[];
         title?: string;
@@ -169,7 +170,7 @@ export interface EditorToolbar {
     embedded?: {
         icon?: string;
         className?: string;
-        component?: string;
+        component?: ToolbarComponent;
         popupClassName?: string;
         embedCallback?: (embeddedLink: string) => string;
         defaultSize?: {
@@ -181,7 +182,7 @@ export interface EditorToolbar {
     image?: {
         icon?: string;
         className?: string;
-        component?: string;
+        component?: ToolbarComponent;
         popupClassName?: string;
         urlEnabled?: boolean;
         uploadEnabled?: boolean;
@@ -202,13 +203,13 @@ export interface EditorToolbar {
     remove?: {
         icon?: string;
         className?: string;
-        component?: string;
+        component?: ToolbarComponent;
         title?: string;
     };
     history?: {
         inDropdown?: boolean;
         className?: string;
-        component?: string;
+        component?: ToolbarComponent;
         dropdownClassName?: string;
         options?: ToolbarHistoryOptions[];
         undo?: ToolbarCommonProps;
