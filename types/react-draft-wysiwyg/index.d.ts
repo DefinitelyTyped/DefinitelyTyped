@@ -8,8 +8,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import * as React from 'react';
 import * as Draft from 'draft-js';
+import * as React from 'react';
 
 export type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
 export type SyntheticEvent = React.SyntheticEvent<{}>;
@@ -19,6 +19,186 @@ export class EditorState extends Draft.EditorState {}
 export class ContentState extends Draft.ContentState {}
 export class ContentBlock extends Draft.ContentBlock {}
 export class SelectionState extends Draft.SelectionState {}
+
+export interface ToolbarCommonProps {
+    icon?: string;
+    className?: string;
+    title?: string;
+}
+
+export type ToolbarOptions =
+    | 'inline'
+    | 'blockType'
+    | 'fontSize'
+    | 'fontFamily'
+    | 'list'
+    | 'textAlign'
+    | 'colorPicker'
+    | 'link'
+    | 'link'
+    | 'embedded'
+    | 'emoji'
+    | 'image'
+    | 'remove'
+    | 'history';
+
+export type ToolbarInlineOptions =
+    | 'bold'
+    | 'italic'
+    | 'underline'
+    | 'strikethrough'
+    | 'monospace'
+    | 'superscript'
+    | 'subscript';
+
+export type ToolbarBlockTypeOptions = 'Normal' | 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'H6' | 'Blockquote' | 'Code';
+export type ToolbarListOptions = 'unordered' | 'ordered' | 'indent' | 'outdent';
+export type ToolbarTextAlignOptions = 'left' | 'center' | 'right' | 'justify';
+export type ToolbarLinkOptions = 'link' | 'unlink';
+export type ToolbarHistoryOptions = 'undo' | 'redo';
+
+export interface EditorToolbar {
+    options?: ToolbarOptions[];
+    inline?: {
+        inDropdown?: boolean;
+        className?: string;
+        component?: React.ComponentType<any>;
+        dropdownClassName?: string;
+        options?: ToolbarInlineOptions[];
+    };
+    bold?: ToolbarCommonProps;
+    italic?: ToolbarCommonProps;
+    underline?: ToolbarCommonProps;
+    strikethrough?: ToolbarCommonProps;
+    monospace?: ToolbarCommonProps;
+    superscript?: ToolbarCommonProps;
+    subscript?: ToolbarCommonProps;
+    blockType?: {
+        inDropdown?: boolean;
+        options?: ToolbarBlockTypeOptions[];
+        className?: string;
+        component?: string;
+        dropdownClassName?: string;
+        title?: string;
+    };
+    fontSize?: {
+        icon?: string;
+        options?: number[];
+        className?: string;
+        component?: string;
+        dropdownClassName?: string;
+        title?: string;
+    };
+    fontFamily?: {
+        options?: string[];
+        className?: string;
+        component?: string;
+        dropdownClassName?: string;
+        title?: string;
+    };
+    list?: {
+        inDropdown?: boolean;
+        className?: string;
+        component?: string;
+        dropdownClassName?: string;
+        options?: ToolbarListOptions[];
+        unordered?: ToolbarCommonProps;
+        ordered?: ToolbarCommonProps;
+        indent?: ToolbarCommonProps;
+        outdent?: ToolbarCommonProps;
+        title?: string;
+    };
+    textAlign?: {
+        inDropdown?: boolean;
+        className?: string;
+        component?: string;
+        dropdownClassName?: string;
+        options?: ToolbarTextAlignOptions[];
+        left?: ToolbarCommonProps;
+        center?: ToolbarCommonProps;
+        right?: ToolbarCommonProps;
+        justify?: ToolbarCommonProps;
+        title?: string;
+    };
+    colorPicker?: {
+        icon?: string;
+        className?: string;
+        component?: string;
+        popupClassName?: string;
+        colors?: string[];
+        title?: string;
+    };
+    link?: {
+        inDropdown?: boolean;
+        className?: string;
+        component?: string;
+        popupClassName?: string;
+        dropdownClassName?: string;
+        showOpenOptionOnHover?: boolean;
+        defaultTargetOption?: string;
+        options?: ToolbarLinkOptions[];
+        link?: ToolbarCommonProps;
+        unlink?: ToolbarCommonProps;
+        linkCallback?: any;
+    };
+    emoji?: {
+        icon?: string;
+        className?: string;
+        component?: string;
+        popupClassName?: string;
+        emojis?: string[];
+        title?: string;
+    };
+    embedded?: {
+        icon?: string;
+        className?: string;
+        component?: string;
+        popupClassName?: string;
+        embedCallback?: (embeddedLink: string) => string;
+        defaultSize?: {
+            height?: string;
+            width?: string;
+        };
+        title?: string;
+    };
+    image?: {
+        icon?: string;
+        className?: string;
+        component?: string;
+        popupClassName?: string;
+        urlEnabled?: boolean;
+        uploadEnabled?: boolean;
+        previewImage?: boolean;
+        alignmentEnabled?: boolean;
+        uploadCallback?(file: File): Promise<{ data: { link: string } }>;
+        inputAccept?: string;
+        alt?: {
+            present?: boolean;
+            mandatory?: boolean;
+        };
+        defaultSize?: {
+            height?: string;
+            width?: string;
+        };
+        title?: string;
+    };
+    remove?: {
+        icon?: string;
+        className?: string;
+        component?: string;
+        title?: string;
+    };
+    history?: {
+        inDropdown?: boolean;
+        className?: string;
+        component?: string;
+        dropdownClassName?: string;
+        options?: ToolbarHistoryOptions[];
+        undo?: ToolbarCommonProps;
+        redo?: ToolbarCommonProps;
+        title?: string;
+    };
+}
 
 export interface EditorProps {
     onChange?(contentState: RawDraftContentState): void;
@@ -32,7 +212,7 @@ export interface EditorProps {
     toolbarOnFocus?: boolean;
     spellCheck?: boolean;
     stripPastedStyles?: boolean;
-    toolbar?: object;
+    toolbar?: EditorToolbar;
     toolbarCustomButtons?: Array<React.ReactElement<HTMLElement>>;
     toolbarClassName?: string;
     toolbarHidden?: boolean;
@@ -68,7 +248,7 @@ export interface EditorProps {
         text: string,
         html: string,
         editorState: EditorState,
-        onChange: (editorState: EditorState) => void
+        onChange: (editorState: EditorState) => void,
     ): boolean;
     customStyleMap?: object;
 }
