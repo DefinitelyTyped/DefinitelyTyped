@@ -1,19 +1,27 @@
 // Type definitions for trusted-types 1.0
 // Project: https://github.com/WICG/trusted-types
-// Definitions by: Jakub Vrana <https://github.com/vrana>,
+// Definitions by: Jakub Vrana <https://github.com/vrana>
 //                 Damien Engels <https://github.com/engelsdamien>
 //                 Emanuel Tesar <https://github.com/siegrift>
+//                 Bjarki <https://github.com/bjarkler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 3.1
+
+type FnNames = keyof TrustedTypePolicyOptions;
+type Args<Options extends TrustedTypePolicyOptions, K extends FnNames> =
+    Parameters<NonNullable<Options[K]>>;
+
+interface FullTypedPolicy<Options extends TrustedTypePolicyOptions> {
+    name: string;
+    createHTML(...args: Args<Options, 'createHTML'>): TrustedHTML;
+    createScript(...args: Args<Options, 'createScript'>): TrustedScript;
+    createScriptURL(...args: Args<Options, 'createScriptURL'>): TrustedScriptURL;
+}
+
+type TypedPolicy<Options extends TrustedTypePolicyOptions> =
+    Pick<FullTypedPolicy<Options>, 'name' | Extract<keyof Options, FnNames>>;
 
 declare global {
-    interface TrustedTypePolicyOptions {
-        createHTML?: (input: string) => string;
-        createScript?: (input: string) => string;
-        createScriptURL?: (input: string) => string;
-        createURL?: (input: string) => string;
-    }
-
     class TrustedHTML {
         private constructor(); // To prevent instantiting with 'new'.
         private brand: true; // To prevent structural typing.
@@ -29,34 +37,32 @@ declare global {
         private brand: true; // To prevent structural typing.
     }
 
-    class TrustedURL {
-        private constructor(); // To prevent instantiting with 'new'.
-        private brand: true; // To prevent structural typing.
+    interface TrustedTypePolicyFactory {
+        createPolicy<Options extends TrustedTypePolicyOptions>(
+            policyName: string,
+            policyOptions?: Options,
+        ): TypedPolicy<Options>;
+        isHTML(value: unknown): value is TrustedHTML;
+        isScript(value: unknown): value is TrustedScript;
+        isScriptURL(value: unknown): value is TrustedScriptURL;
+        readonly emptyHTML: TrustedHTML;
+        readonly emptyScript: TrustedScript;
+        getAttributeType(tagName: string, attribute: string, elementNs?: string, attrNs?: string): string | null;
+        getPropertyType(tagName: string, property: string, elementNs?: string): string | null;
+        readonly defaultPolicy: TrustedTypePolicy | null;
     }
 
     interface TrustedTypePolicy {
         readonly name: string;
-        createHTML(input: string): TrustedHTML;
-        createScript(input: string): TrustedScript;
-        createScriptURL(input: string): TrustedScriptURL;
-        createURL(input: string): TrustedURL;
+        createHTML(input: string, ...arguments: any[]): TrustedHTML;
+        createScript(input: string, ...arguments: any[]): TrustedScript;
+        createScriptURL(input: string, ...arguments: any[]): TrustedScriptURL;
     }
 
-    interface TrustedTypePolicyFactory {
-        createPolicy<Keys extends keyof TrustedTypePolicyOptions>(
-            name: string,
-            policyOptions: Pick<TrustedTypePolicyOptions, Keys>,
-            expose?: boolean,
-        ): Pick<TrustedTypePolicy, 'name' | Keys>;
-        getPolicyNames(): string[];
-        isHTML(value: any): value is TrustedHTML;
-        isScript(value: any): value is TrustedScript;
-        isScriptURL(value: any): value is TrustedScriptURL;
-        isURL(value: any): value is TrustedURL;
-        getAttributeType(tagName: string, attrName: string, elemNs?: string, attrNs?: string): string | undefined;
-        getPropertyType(tagName: string, propName: string, elemNs?: string): string | undefined;
-        defaultPolicy?: TrustedTypePolicy;
-        emptyHTML: TrustedHTML;
+    interface TrustedTypePolicyOptions {
+        createHTML?: (input: string, ...arguments: any[]) => string;
+        createScript?: (input: string, ...arguments: any[]) => string;
+        createScriptURL?: (input: string, ...arguments: any[]) => string;
     }
 
     interface Window {
@@ -65,12 +71,9 @@ declare global {
         // undefined.
         // See https://github.com/w3c/webappsec-trusted-types/issues/177
         trustedTypes?: TrustedTypePolicyFactory;
-        /** @deprecated Prefer the lowercase version. */
-        TrustedTypes?: TrustedTypePolicyFactory;
         TrustedHTML: TrustedHTML;
         TrustedScript: TrustedScript;
         TrustedScriptURL: TrustedScriptURL;
-        TrustedURL: TrustedURL;
         TrustedTypePolicyFactory: TrustedTypePolicyFactory;
         TrustedTypePolicy: TrustedTypePolicy;
     }

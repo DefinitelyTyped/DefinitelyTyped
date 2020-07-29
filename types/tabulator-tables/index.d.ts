@@ -2212,8 +2212,8 @@ declare class Tabulator {
     The function takes three arguments, the name of the module, the name of the property you want to extend, and an object containing the elements you want to add in your module. In the example below we extend the format module to add two new default formatters: */
     extendModule: (name: string, property: string, values: {}) => void;
 
-    /** Lookup the table object for any existing table using the element they were created on. */
-    findTable: (query: string) => Tabulator;
+    /** Lookup table objects for any existing table using the element they were created on. */
+    findTable: (query: string) => Tabulator[];
 
     /**The getInvalidCells method returns an array of Cell Components for all cells flagged as invalid after a user edit. */
     getInvalidCells: () => Tabulator.CellComponent[];

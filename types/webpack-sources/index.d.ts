@@ -37,7 +37,7 @@ export abstract class Source {
     /**
      * Returns the represented source code as string.
      */
-    source(options: MapOptions): string | ArrayBuffer;
+    source(): string | ArrayBuffer;
 
     /**
      * Returns the size in chars of the represented source code.
@@ -48,13 +48,13 @@ export abstract class Source {
      * Returns the SourceMap of the represented source code as JSON.
      * May return `null` if no SourceMap is available.
      */
-    map(options: MapOptions): RawSourceMap | null;
+    map(options?: MapOptions): RawSourceMap | null;
 
     /**
      * Returns both, source code (like `Source.prototype.source()` and SourceMap (like `Source.prototype.map()`).
      * This method could have better performance than calling `source()` and `map()` separately.
      */
-    sourceAndMap(options: MapOptions): SourceAndMapResult;
+    sourceAndMap(options?: MapOptions): SourceAndMapResult;
 
     /**
      * This is an optional method. It may be null if not implemented.
@@ -94,11 +94,7 @@ export interface SourceAndMapMixin {
 export class CachedSource extends Source {
     constructor(source: Source);
 
-    source(): string | ArrayBuffer;
-    size(): number;
-    sourceAndMap(options: MapOptions): SourceAndMapResult;
-    map(options: MapOptions): RawSourceMap;
-    updateHash(hash: Hash): void;
+    map(options?: MapOptions): RawSourceMap;
 }
 
 /**
@@ -114,10 +110,8 @@ export class ConcatSource extends Source implements SourceAndMapMixin {
      */
     add(item: string | Source): void;
     source(): string;
-    size(): number;
     node(options: MapOptions): SourceNode;
     listMap(options: MapOptions): SourceListMap;
-    updateHash(hash: Hash): void;
 }
 
 export class LineToLineMappedSource extends Source implements SourceAndMapMixin {
@@ -126,7 +120,6 @@ export class LineToLineMappedSource extends Source implements SourceAndMapMixin 
     source(): string;
     node(options: MapOptions): SourceNode;
     listMap(options: MapOptions): SourceListMap;
-    updateHash(hash: Hash): void;
 }
 
 /**
@@ -140,7 +133,6 @@ export class OriginalSource extends Source implements SourceAndMapMixin {
     source(): string;
     node(options: MapOptions): SourceNode;
     listMap(options: MapOptions): SourceListMap;
-    updateHash(hash: Hash): void;
 }
 
 /**
@@ -151,7 +143,6 @@ export class PrefixSource extends Source implements SourceAndMapMixin {
     source(): string;
     node(options: MapOptions): SourceNode;
     listMap(options: MapOptions): SourceListMap;
-    updateHash(hash: Hash): void;
 }
 
 /**
@@ -163,7 +154,6 @@ export class RawSource extends Source {
     map(options: MapOptions): null;
     node(options: MapOptions): SourceNode;
     listMap(options: MapOptions): SourceListMap;
-    updateHash(hash: Hash): void;
 }
 
 export interface Replacement {
@@ -188,11 +178,11 @@ export class ReplaceSource extends Source implements SourceAndMapMixin {
     /**
      * Replaces chars from start (0-indexed, inclusive) to end (0-indexed, inclusive) with replacement.
      */
-    replace(start: number, end: number, newValue: string, name: string): void;
+    replace(start: number, end: number, newValue: string, name?: string): void;
     /**
      * Inserts the insertion before char pos (0-indexed).
      */
-    insert(pos: number, newValue: string, name: string): void;
+    insert(pos: number, newValue: string, name?: string): void;
     /**
      * Get decorated Source.
      */
@@ -217,5 +207,4 @@ export class SourceMapSource extends Source implements SourceAndMapMixin {
     source(): string;
     node(options: MapOptions): SourceNode;
     listMap(options: MapOptions): SourceListMap;
-    updateHash(hash: Hash): void;
 }

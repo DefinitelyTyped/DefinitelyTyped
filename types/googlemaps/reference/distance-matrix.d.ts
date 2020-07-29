@@ -10,10 +10,10 @@ declare namespace google.maps {
         avoidFerries?: boolean;
         avoidHighways?: boolean;
         avoidTolls?: boolean;
-        destinations?: string[] | LatLng[] | LatLngLiteral[] | Place[];
+        destinations?: Array<(string | LatLng | LatLngLiteral | Place)>;
         drivingOptions?: DrivingOptions;
         durationInTraffic?: boolean;
-        origins?: string[] | LatLng[] | LatLngLiteral[] | Place[];
+        origins?: Array<(string | LatLng | LatLngLiteral | Place)>;
         region?: string;
         transitOptions?: TransitOptions;
         travelMode?: TravelMode;

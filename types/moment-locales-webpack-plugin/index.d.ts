@@ -1,0 +1,17 @@
+// Type definitions for moment-locales-webpack-plugin 1.2
+// Project: https://github.com/iamakulov/moment-locales-webpack-plugin
+// Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { ContextReplacementPlugin } from 'webpack';
+
+declare class MomentLocalesPlugin extends ContextReplacementPlugin {
+    constructor(options?: {
+        /** Ignore invalid or unsupported locales in `localesToKeep`. */
+        ignoreInvalidLocales?: boolean;
+        /** An array of locales to keep bundled (other locales are removed). */
+        localesToKeep?: string[];
+    });
+}
+
+export = MomentLocalesPlugin;

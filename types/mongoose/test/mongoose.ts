@@ -553,6 +553,16 @@ schema.post('insertMany', async function(docs: mongoose.Document[]): Promise<voi
     return;
 });
 
+schema.post('find', function(docs: mongoose.Document[], next: (err?: mongoose.NativeError) => void): void {
+  const isDefaultType: mongoose.Query<mongoose.Document> = this;
+  return;
+});
+
+schema.post('find', async function(docs: mongoose.Document[], next: (err?: mongoose.NativeError) => void): Promise<void> {
+  const isDefaultType: mongoose.Query<mongoose.Document> = this;
+  return;
+});
+
 schema.queue('m1', [1, 2, 3]).queue('m2', [[]]);
 schema.remove('path');
 schema.remove(['path1', 'path2', 'path3']);

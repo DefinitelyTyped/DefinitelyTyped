@@ -199,6 +199,8 @@ export interface AuthCredentials {
      * If set, will only work with routes that set `access.entity` to `app`.
      */
     app?: AppCredentials;
+
+    [key: string]: unknown;
 }
 
 export type AuthMode = 'required' | 'optional' | 'try';

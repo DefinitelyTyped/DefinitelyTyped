@@ -1,6 +1,6 @@
 import { application } from 'tizen-common-web';
-import { ApplicationControlLaunchMode, ApplicationInformation, ApplicationControl } from 'application';
-import { WebAPIError } from 'tizen';
+import { ApplicationControlLaunchMode, ApplicationInformation, ApplicationControl } from 'tizen-common-web/application';
+import { WebAPIError } from 'tizen-common-web/tizen';
 
 const app = application.getCurrentApplication();
 const watchId = app.addEventListener({ appId: app.appInfo.id, name: 'custom_user_event' }, (event, data) => {
