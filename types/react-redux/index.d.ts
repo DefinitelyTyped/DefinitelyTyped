@@ -18,7 +18,7 @@
 //                 Kazuma Ebina <https://github.com/kazuma1989>
 //                 jun-sheaf <https://github.com/jun-sheaf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 3.0
 
 import { ClassAttributes, Component, ComponentClass, ComponentType, Context, NamedExoticComponent } from 'react';
 import { Action, AnyAction, Dispatch, Store } from 'redux';
@@ -143,7 +143,7 @@ export type ResolveArrayThunks<TDispatchProps extends ReadonlyArray<any>> = TDis
     infer A6,
     infer A7,
     infer A8,
-    infer A9,
+    infer A9
 ]
     ? [
           HandleThunkActionCreator<A1>,
@@ -154,7 +154,7 @@ export type ResolveArrayThunks<TDispatchProps extends ReadonlyArray<any>> = TDis
           HandleThunkActionCreator<A6>,
           HandleThunkActionCreator<A7>,
           HandleThunkActionCreator<A8>,
-          HandleThunkActionCreator<A9>,
+          HandleThunkActionCreator<A9>
       ]
     : TDispatchProps extends [infer A1, infer A2, infer A3, infer A4, infer A5, infer A6, infer A7, infer A8]
     ? [
@@ -165,7 +165,7 @@ export type ResolveArrayThunks<TDispatchProps extends ReadonlyArray<any>> = TDis
           HandleThunkActionCreator<A5>,
           HandleThunkActionCreator<A6>,
           HandleThunkActionCreator<A7>,
-          HandleThunkActionCreator<A8>,
+          HandleThunkActionCreator<A8>
       ]
     : TDispatchProps extends [infer A1, infer A2, infer A3, infer A4, infer A5, infer A6, infer A7]
     ? [
@@ -175,7 +175,7 @@ export type ResolveArrayThunks<TDispatchProps extends ReadonlyArray<any>> = TDis
           HandleThunkActionCreator<A4>,
           HandleThunkActionCreator<A5>,
           HandleThunkActionCreator<A6>,
-          HandleThunkActionCreator<A7>,
+          HandleThunkActionCreator<A7>
       ]
     : TDispatchProps extends [infer A1, infer A2, infer A3, infer A4, infer A5, infer A6]
     ? [
@@ -184,7 +184,7 @@ export type ResolveArrayThunks<TDispatchProps extends ReadonlyArray<any>> = TDis
           HandleThunkActionCreator<A3>,
           HandleThunkActionCreator<A4>,
           HandleThunkActionCreator<A5>,
-          HandleThunkActionCreator<A6>,
+          HandleThunkActionCreator<A6>
       ]
     : TDispatchProps extends [infer A1, infer A2, infer A3, infer A4, infer A5]
     ? [
@@ -192,14 +192,14 @@ export type ResolveArrayThunks<TDispatchProps extends ReadonlyArray<any>> = TDis
           HandleThunkActionCreator<A2>,
           HandleThunkActionCreator<A3>,
           HandleThunkActionCreator<A4>,
-          HandleThunkActionCreator<A5>,
+          HandleThunkActionCreator<A5>
       ]
     : TDispatchProps extends [infer A1, infer A2, infer A3, infer A4]
     ? [
           HandleThunkActionCreator<A1>,
           HandleThunkActionCreator<A2>,
           HandleThunkActionCreator<A3>,
-          HandleThunkActionCreator<A4>,
+          HandleThunkActionCreator<A4>
       ]
     : TDispatchProps extends [infer A1, infer A2, infer A3]
     ? [HandleThunkActionCreator<A1>, HandleThunkActionCreator<A2>, HandleThunkActionCreator<A3>]
