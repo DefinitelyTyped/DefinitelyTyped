@@ -146,4 +146,4 @@ export function appendElevation(
  * @param   precision - Number of characters to consider for the locationId of a grid cell.
  * @returns grid lines
  */
-export function gridLines(bounds: Bounds, precision: number): [[number, number], [number, number]][];
+export function gridLines(bounds: Bounds, precision: number): Array<[[number, number], [number, number]]>;
