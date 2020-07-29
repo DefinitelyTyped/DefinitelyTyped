@@ -26,6 +26,18 @@ export interface ToolbarCommonProps {
     title?: string;
 }
 
+export interface MentionsSuggestions {
+    text?: string;
+    value?: string;
+    url?: string;
+}
+
+export interface EditorMentions {
+    separator?: string;
+    trigger?: string;
+    suggestions?: Array<MentionsSuggestions>;
+}
+
 export type ToolbarOptions =
     | 'inline'
     | 'blockType'
@@ -227,7 +239,7 @@ export interface EditorProps {
     onFocus?(event: SyntheticEvent): void;
     onBlur?(event: SyntheticEvent): void;
     onTab?(event: SyntheticKeyboardEvent): void;
-    mention?: object;
+    mention?: EditorMentions;
     hashtag?: object;
     textAlignment?: string;
     readOnly?: boolean;
@@ -250,7 +262,7 @@ export interface EditorProps {
         editorState: EditorState,
         onChange: (editorState: EditorState) => void,
     ): boolean;
-    customStyleMap?: object;
+    customStyleMap?: Draft.DraftStyleMap;
 }
 
 export class Editor extends React.Component<EditorProps> {
