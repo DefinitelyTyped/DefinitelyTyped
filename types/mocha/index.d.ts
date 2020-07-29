@@ -2,7 +2,6 @@
 // Project: https://mochajs.org
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 //                 otiai10 <https://github.com/otiai10>
-//                 jt000 <https://github.com/jt000>
 //                 Vadim Macagon <https://github.com/enlight>
 //                 Andrew Bradley <https://github.com/cspotcode>
 //                 Dmitrii Sorin <https://github.com/1999>
