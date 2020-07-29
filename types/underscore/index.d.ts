@@ -4761,7 +4761,7 @@ declare module _ {
         * Wrapped type `string`.
         * @see _.property
         **/
-        property(): (object: object) => any;
+        property(): (object: any) => any;
 
         /**
         * Wrapped type `object`.
