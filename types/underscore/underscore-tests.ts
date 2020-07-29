@@ -512,6 +512,30 @@ _.chain({
     .uniq()
     .value();
 
+// $ExpectType any[][]
+_.chain({ one: 1, two: 2 })
+    .pairs()
+    .unzip()
+    .value();
+
+// $ExpectType [string, string | number | number[]] | undefined
+_.chain({ one: '1', two: 2, three: [3] })
+    .pairs()
+    .last()
+    .value();
+
+// $ExpectType string | undefined
+_.chain(['one', 'two', 'three'])
+    .object([1, 2, 3])
+    .findKey((element, key, value) => {
+        element; // $ExpectType number | undefined
+        key; // $ExpectType string
+        value; // $ExpectType Dictionary<number | undefined>
+
+        return element === 2;
+    })
+    .value();
+
 // $ExpectType { valueProperty: string; } | undefined
 _.chain([
     {
