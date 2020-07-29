@@ -14,6 +14,7 @@ import * as React from 'react';
 export type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
 export type SyntheticEvent = React.SyntheticEvent<{}>;
 export type RawDraftContentState = Draft.RawDraftContentState;
+export type DraftStyleMap = Draft.DraftStyleMap;
 
 export class EditorState extends Draft.EditorState {}
 export class ContentState extends Draft.ContentState {}
@@ -83,14 +84,14 @@ export interface EditorToolbar {
         component?: ToolbarComponent;
         dropdownClassName?: string;
         options?: ToolbarInlineOptions[];
+        bold?: ToolbarCommonProps;
+        italic?: ToolbarCommonProps;
+        underline?: ToolbarCommonProps;
+        strikethrough?: ToolbarCommonProps;
+        monospace?: ToolbarCommonProps;
+        superscript?: ToolbarCommonProps;
+        subscript?: ToolbarCommonProps;
     };
-    bold?: ToolbarCommonProps;
-    italic?: ToolbarCommonProps;
-    underline?: ToolbarCommonProps;
-    strikethrough?: ToolbarCommonProps;
-    monospace?: ToolbarCommonProps;
-    superscript?: ToolbarCommonProps;
-    subscript?: ToolbarCommonProps;
     blockType?: {
         inDropdown?: boolean;
         options?: ToolbarBlockTypeOptions[];
@@ -268,7 +269,7 @@ export interface EditorProps {
         editorState: EditorState,
         onChange: (editorState: EditorState) => void,
     ): boolean;
-    customStyleMap?: Draft.DraftStyleMap;
+    customStyleMap?: DraftStyleMap;
 }
 
 export class Editor extends React.Component<EditorProps> {
