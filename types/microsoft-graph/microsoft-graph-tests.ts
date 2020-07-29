@@ -39,4 +39,4 @@ const invitation: Invitation  = {
     invitedUserDisplayName: null,
     invitedUserType: undefined,
     inviteRedeemUrl: "url"
-}
+};
