@@ -801,6 +801,11 @@ function test_browser_mocha_setup_grep_regex_literal_option() {
     mocha.setup({ grep: /(expect|should)/i });
 }
 
+function test_browser_mocha_setup_check_leaks() {
+    // $ExpectType BrowserMocha
+    mocha.setup({ checkLeaks: true });
+}
+
 function test_browser_mocha_setup_all_options() {
     // $ExpectType BrowserMocha
     mocha.setup({
@@ -810,7 +815,8 @@ function test_browser_mocha_setup_all_options() {
         globals: ['mocha'],
         reporter: 'html',
         bail: true,
-        grep: 'test'
+        grep: 'test',
+        checkLeaks: true
     });
 }
 

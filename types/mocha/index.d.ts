@@ -1350,7 +1350,7 @@ declare namespace Mocha {
         fullStackTrace?: boolean;
         forbidOnly?: boolean;
         forbidPending?: boolean;
-        ignoreLeaks?: boolean;
+        checkLeaks?: boolean;
         test?: Test;
         currentRunnable?: Runnable;
         stats?: Stats; // added by reporters
@@ -2176,8 +2176,8 @@ declare namespace Mocha {
         /** milliseconds to wait before considering a test slow. */
         slow?: number;
 
-        /** ignore global leaks. */
-        ignoreLeaks?: boolean;
+        /** check for global variable leaks. */
+        checkLeaks?: boolean;
 
         /** display the full stack trace on failure. */
         fullStackTrace?: boolean;
