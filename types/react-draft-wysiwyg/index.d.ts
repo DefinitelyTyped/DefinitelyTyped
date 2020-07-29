@@ -38,6 +38,11 @@ export interface EditorMentions {
     suggestions?: Array<MentionsSuggestions>;
 }
 
+export interface EditorHashtag {
+    separator?: string;
+    trigger?: string;
+}
+
 export type ToolbarOptions =
     | 'inline'
     | 'blockType'
@@ -240,7 +245,7 @@ export interface EditorProps {
     onBlur?(event: SyntheticEvent): void;
     onTab?(event: SyntheticKeyboardEvent): void;
     mention?: EditorMentions;
-    hashtag?: object;
+    hashtag?: EditorHashtag;
     textAlignment?: string;
     readOnly?: boolean;
     tabIndex?: number;
