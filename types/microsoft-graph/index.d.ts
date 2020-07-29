@@ -11,7 +11,7 @@
 
 export as namespace microsoftgraph;
 
-type NullableOption<T> = T | null;
+export type NullableOption<T> = T | null;
 
 export type RiskLevel = "low" | "medium" | "high" | "hidden" | "none" | "unknownFutureValue";
 export type AppliedConditionalAccessPolicyResult =
