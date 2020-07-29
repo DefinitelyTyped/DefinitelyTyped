@@ -734,7 +734,8 @@ declare module _ {
 
         /**
          * Computes the union of the passed-in `lists`: the list of unique
-         * items, in order, that are present in one or more of the lists.
+         * items, examined in order from first list to last list, that are
+         * present in one or more of the lists.
          * @param lists The lists to compute the union of.
          * @returns The union of elements within `lists`.
          **/
@@ -753,7 +754,7 @@ declare module _ {
          * Similar to without, but returns the values from `list` that are not
          * present in `others`.
          * @param list The starting list.
-         * @param others The values to exclude from `list`.
+         * @param others The lists of values to exclude from `list`.
          * @returns The contents of `list` without the values in `others`.
          **/
         difference<T>(
@@ -4376,8 +4377,8 @@ declare module _ {
 
         /**
          * Computes the union of the wrapped list and the passed-in `lists`:
-         * the list of unique items, in order, that are present in one or more
-         * of the lists.
+         * the list of unique items, examined in order from first list to last
+         * list, that are present in one or more of the lists.
          * @param lists The lists (along with the wrapped list) to compute
          * the union of.
          * @returns The union of elements within the wrapped list and `lists`.
@@ -4399,7 +4400,7 @@ declare module _ {
          * Similar to without, but returns the values from the wrapped list
          * that are not present in `others`.
          * @param list The starting list.
-         * @param others The values to exclude from the wrapped list.
+         * @param others The lists of values to exclude from the wrapped list.
          * @returns The contents of the wrapped list without the values in
          * `others`.
          **/
@@ -5428,8 +5429,8 @@ declare module _ {
 
         /**
          * Computes the union of the wrapped list and the passed-in `lists`:
-         * the list of unique items, in order, that are present in one or more
-         * of the lists.
+         * the list of unique items, examined in order from first list to last
+         * list, that are present in one or more of the lists.
          * @param lists The lists (along with the wrapped list) to compute
          * the union of.
          * @returns A chain wrapper around the union of elements within the
@@ -5452,7 +5453,7 @@ declare module _ {
          * Similar to without, but returns the values from the wrapped list
          * that are not present in `others`.
          * @param list The starting list.
-         * @param others The values to exclude from the wrapped list.
+         * @param others The lists of values to exclude from the wrapped list.
          * @returns A chain wrapper around the contents of the wrapped list
          * without the values in `others`.
          **/
