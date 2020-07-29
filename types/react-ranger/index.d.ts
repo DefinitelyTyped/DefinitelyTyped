@@ -1,6 +1,7 @@
 // Type definitions for react-ranger 2.0
 // Project: https://github.com/tannerlinsley/react-ranger#readme
-// Definitions by: Matt Polichette <https://github.com/mpolichette>
+// Definitions by: Matt Polichette <https://github.com/mpolichette>,
+//                 Guy Gascoigne-Piggford <https://github.com/ggascoigne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Key, CSSProperties, MouseEvent, TouchEvent } from 'react';
@@ -21,19 +22,25 @@ export interface RangerOptions {
     };
 }
 
-export interface CommonProps {
+export interface TrackProps {
     key: Key;
     style: CSSProperties;
 }
-
-export type TrackProps = CommonProps;
-export type TickProps = CommonProps;
-export type SegmentProps = CommonProps;
-export type HandleProps = CommonProps & {
+export interface TickProps  {
+    key: Key;
+    style: CSSProperties;
+}
+export interface SegmentProps  {
+    key: Key;
+    style: CSSProperties;
+}
+export interface HandleProps {
+    key: Key;
+    style: CSSProperties;
     onMouseDown: (event: MouseEvent) => void;
     onTouchStart: (event: TouchEvent) => void;
     tabIndex: number;
-};
+}
 
 export interface RangerTick {
     value: number;

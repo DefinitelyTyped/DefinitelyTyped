@@ -24,17 +24,10 @@ const App = () => {
                     },
                 })}
             >
-                {ranger.ticks.map(({ getTickProps }) => (
-                    <div
-                        {...getTickProps({
-                            style: {
-                                width: 2,
-                                height: 10,
-                                background: '#888',
-                            },
-                        })}
-                    />
-                ))}
+                {ranger.ticks.map(({ getTickProps }) => {
+                    const tickProps = getTickProps({ className: 'tick-class' }); // $ExpectType { className: string; } & TickProps
+                    return <div {...tickProps} />;
+                })}
                 {ranger.handles.map(({ getHandleProps }) => (
                     <div
                         {...getHandleProps({
