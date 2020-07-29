@@ -1474,10 +1474,10 @@ function testConnectReturnType() {
 
     const Test = connect()(TestComponent);
 
-    const myHoc1 = <P,>(C: React.ComponentClass<P>): React.ComponentType<P> => C;
+    const myHoc1 = <P, >(C: React.ComponentClass<P>): React.ComponentType<P> => C;
     myHoc1(Test); // $ExpectError
 
-    const myHoc2 = <P,>(C: React.FC<P>): React.ComponentType<P> => C;
+    const myHoc2 = <P, >(C: React.FC<P>): React.ComponentType<P> => C;
     myHoc2(Test);
 }
 
