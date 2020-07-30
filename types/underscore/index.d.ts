@@ -3454,7 +3454,7 @@ declare module _ {
 
         /**
          * Converts `object` into a list of [key, value] pairs. The opposite
-         * of object.
+         * of the single-argument signature of `_.object`.
          * @param object The object to convert.
          * @returns The list of [key, value] pairs from `object`.
          **/
@@ -4644,7 +4644,8 @@ declare module _ {
         ): { [K in keyof V]: IterateeResult<I, V[K], EnumerableKey[], undefined> };
 
         /**
-         * Convert the wrapped object into a list of [key, value] pairs.
+         * Convert the wrapped object into a list of [key, value] pairs. The
+         * opposite of the single-argument signature of `_.object`.
          * @returns The list of [key, value] pairs from the wrapped object.
          **/
         pairs(): [string, TypeOfDictionary<V, any>][];
@@ -5707,7 +5708,8 @@ declare module _ {
         ): _Chain<IterateeResult<I, TypeOfDictionary<V>, EnumerableKey[]>, { [K in keyof V]: IterateeResult<I, V[K], EnumerableKey[], undefined> }>;
 
         /**
-         * Convert the wrapped object into a list of [key, value] pairs.
+         * Convert the wrapped object into a list of [key, value] pairs. The
+         * opposite of the single-argument signature of `_.object`.
          * @returns A chain wrapper around the list of [key, value] pairs from
          * the wrapped object.
          **/
