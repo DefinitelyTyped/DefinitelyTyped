@@ -3,6 +3,8 @@
   "private": true,
   "dependencies": {
       "next": "^9.4.0",
-      "typeorm": "^0.2.24"
+      "typeorm": "^0.2.24",
+      "source-map": "^0.7.3"
+
   }
 }
