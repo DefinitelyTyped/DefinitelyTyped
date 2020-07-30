@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "ramda-tests.ts",
         "test/add-tests.ts",
         "test/addIndex-tests.ts",
         "test/all-tests.ts",
@@ -231,6 +230,21 @@
         "test/unary-tests.ts",
         "test/uncurryN-tests.ts",
         "test/unfold-tests.ts",
-        "test/uniq-tests.ts"
+        "test/uniq-tests.ts",
+        "test/uniqWith-tests.ts",
+        "test/unless-tests.ts",
+        "test/until-tests.ts",
+        "test/useWith-tests.ts",
+        "test/values-tests.ts",
+        "test/valuesIn-tests.ts",
+        "test/view-tests.ts",
+        "test/when-tests.ts",
+        "test/where-tests.ts",
+        "test/whereEq-tests.ts",
+        "test/without-tests.ts",
+        "test/xprod-tests.ts",
+        "test/zip-tests.ts",
+        "test/zipObj-tests.ts",
+        "test/zipWith-tests.ts"
     ]
 }
