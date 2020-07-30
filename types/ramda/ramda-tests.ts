@@ -20,32 +20,6 @@ class F2 {
     }
 }
 
-(() => {
-    R.type({}); // => "Object"
-    R.type(1); // => "Number"
-    R.type(false); // => "Boolean"
-    R.type("s"); // => "String"
-    R.type(null); // => "Null"
-    R.type([]); // => "Array"
-    R.type(/[A-z]/); // => "RegExp"
-});
-
-() => {
-    function takesOneArg(a: number) {
-        return [a];
-    }
-    function takesTwoArgs(a: number, b: number) {
-        return [a, b];
-    }
-    function takesThreeArgs(a: number, b: number, c: number) {
-        return [a, b, c];
-    }
-
-    const u1: (a: any) => any = R.unary(takesOneArg);
-    const u2: (a: any) => any = R.unary(takesTwoArgs);
-    const u3: (a: any) => any = R.unary(takesThreeArgs);
-};
-
 /** R.__ */
 () => {
   R.concat(R.__, [4, 5, 6])([1, 2, 3]); // [1, 2, 3, 4, 5, 6]
@@ -86,21 +60,10 @@ class F2 {
 };
 
 () => {
-    const addFour          = (a: number) => (b: number) => (c: number) => (d: number) => a + b + c + d;
-    const uncurriedAddFour = R.uncurryN<number>(4, addFour);
-    const res: number      = uncurriedAddFour(1, 2, 3, 4); // => 10
-};
-
-() => {
     // coerceArray :: (a|[a]) -> [a]
     const coerceArray = R.unless(R.is(Array), R.of);
     const a: number[] = coerceArray([1, 2, 3]); // => [1, 2, 3]
     const b: number[] = coerceArray(1);         // => [1]
-};
-
-() => {
-    const fn: (...args: string[]) => string = R.unapply(JSON.stringify);
-    const res: string                       = R.unapply(JSON.stringify)(1, 2, 3); // => '[1,2,3]'
 };
 
 () => {
@@ -127,135 +90,12 @@ function addAll() {
 // Basic example
 R.useWith(addAll, [double, square]);
 
-function i(x: number) {
-    return x;
-}
-R.times(i, 5);
-
-(() => {
-    function isNotFour(x: number) {
-        return !(x === 4);
-    }
-
-    R.takeWhile(isNotFour, [1, 2, 3, 4]); // => [1, 2, 3]
-});
-(() => {
-    function f(n: number): false | [number, number] {
-        return n > 50 ? false : [-n, n + 10];
-    }
-
-    const a = R.unfold(f, 10); // => [-10, -20, -30, -40, -50]
-    const b = R.unfold(f); // => [-10, -20, -30, -40, -50]
-    const c = b(10);
-});
-
 /*********************
  * List category
  */
 () => {
     const headLens = R.lensIndex(0);
     R.view(headLens, ["a", "b", "c"]);            // => 'a'
-};
-
-() => {
-    const a: string[] = R.takeLast(1, ["foo", "bar", "baz"]); // => ['baz']
-    const b: string[] = R.takeLast(2)(["foo", "bar", "baz"]); // => ['bar', 'baz']
-    const c: string   = R.takeLast(3, "ramda");               // => 'mda'
-    const d: string   = R.takeLast(3)("ramda");               // => 'mda'
-};
-
-() => {
-    const isNotOne    = (x: number) => x !== 1;
-    const a: number[] = R.takeLastWhile(isNotOne, [1, 2, 3, 4]); // => [2, 3, 4]
-    const b: number[] = R.takeLastWhile(isNotOne)([1, 2, 3, 4]); // => [2, 3, 4]
-};
-
-() => {
-    function isNotFour(x: number) {
-        return !(x === 4);
-    }
-
-    R.takeWhile(isNotFour, [1, 2, 3, 4]); // => [1, 2, 3]
-    R.takeWhile(isNotFour)([1, 2, 3, 4]); // => [1, 2, 3]
-};
-
-() => {
-    const sayX      = (x: number) => console.log("x is " + x);
-    const a: number = R.tap(sayX, 100); // => 100
-};
-
-() => {
-    const a: boolean = R.test(/^x/, "xyz"); // => true
-    const b: boolean = R.test(/^y/)("xyz"); // => false
-};
-
-() => {
-    const x: unknown = R.thunkify(R.identity)(42)();
-    const y: number = R.thunkify((a: number, b: number) => a + b)(25, 17)();
-    const z: number = R.thunkify((a: number, b: number) => a + b)(25)(17)();
-};
-
-() => {
-    const a1 = R.times(R.identity, 5); // => [0, 1, 2, 3, 4]
-    const a2 = R.times(R.identity)(5); // => [0, 1, 2, 3, 4]
-};
-
-() => {
-    class Point {
-        constructor(public x: number, public y: number) {
-            this.x = x;
-            this.y = y;
-        }
-
-        toStringn() {
-            return `new Point(${this.x}, ${this.y})`;
-        }
-    }
-    R.toString(new Point(1, 2)); // => 'new Point(1, 2)'
-
-    R.toString(42); // => '42'
-    R.toString("abc"); // => '"abc"'
-    R.toString([1, 2, 3]); // => '[1, 2, 3]'
-    R.toString({foo: 1, bar: 2, baz: 3}); // => '{"bar": 2, "baz": 3, "foo": 1}'
-    R.toString(new Date("2001-02-03T04:05:06Z")); // => 'new Date("2001-02-03T04:05:06.000Z")'
-};
-
-() => {
-    const numbers    = [1, 2, 3, 4];
-    const transducer = R.compose(R.map(R.add(1)), R.take(2));
-    const fn         = R.flip<number, number[], number[]>(R.append);
-    R.transduce(transducer, fn, [], numbers); // => [2, 3]
-    R.transduce(transducer, fn, [])(numbers); // => [2, 3]
-    R.transduce(transducer, fn)([], numbers); // => [2, 3]
-    R.transduce<number, number>(transducer)(fn, [], numbers); // => [2, 3]
-};
-
-() => {
-    const a: Array<Array<number | string>> = R.transpose<number | string>([[1, "a"], [2, "b"], [3, "c"]]); // => [[1, 2, 3], ['a', 'b', 'c']]
-    const b: Array<Array<number | string>> = R.transpose<number | string>([[1, 2, 3], ["a", "b", "c"]]); // => [[1, 'a'], [2, 'b'], [3, 'c']]
-    const c: number[][]            = R.transpose([[10, 11], [20], [], [30, 31, 32]]); // => [[10, 20, 30], [11, 31], [32]]
-};
-
-() => {
-    const of = Array.of;
-    const fn = (x: number) => Array.of(x + 1);
-    const list = [1, 2, 3];
-    R.traverse(of, fn, list);
-    R.traverse(of, fn)(list);
-    R.traverse<number, number>(of)(fn, list);
-};
-
-() => {
-    const a: boolean  = R.tryCatch<boolean>(R.prop("x"), R.F)({x: true}); // => true
-    const a1: boolean = R.tryCatch(R.prop<"x", true>("x"), R.F)({x: true}); // => true
-    const b: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)(null);      // => false
-    const c: boolean = R.tryCatch<boolean>(R.and, R.F)(true, true);      // => true
-};
-
-() => {
-    R.uniq([1, 1, 2, 1]); // => [1, 2]
-    R.uniq([{}, {}]);     // => [{}, {}]
-    R.uniq([1, "1"]);     // => [1, '1']
 };
 
 () => {
@@ -330,17 +170,6 @@ R.times(i, 5);
     const testObj = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
 
     R.view(xyLens, testObj);            // => 2
-};
-
-() => {
-    const a = R.toPairs<number>({a: 1, b: 2, c: 3}); // => [['a', 1], ['b', 2], ['c', 3]]
-    const b = R.toPairs({1: 'a'}); // => [['1', 'something']]
-};
-
-() => {
-    const f    = new F();
-    const a1 = R.toPairsIn(f); // => [['x','X'], ['y','Y']]
-    const a2 = R.toPairsIn<string>(f); // => [['x','X'], ['y','Y']]
 };
 
 () => {

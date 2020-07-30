@@ -211,6 +211,26 @@
         "test/symmetricDifference-tests.ts",
         "test/symmetricDifferenceWith-tests.ts",
         "test/tail-tests.ts",
-        "test/take-tests.ts"
+        "test/take-tests.ts",
+        "test/takeLast-tests.ts",
+        "test/takeLastWhile-tests.ts",
+        "test/takeWhile-tests.ts",
+        "test/tap-tests.ts",
+        "test/test-tests.ts",
+        "test/thunkify-tests.ts",
+        "test/times-tests.ts",
+        "test/toPairs-tests.ts",
+        "test/toPairsIn-tests.ts",
+        "test/toString-tests.ts",
+        "test/transduce-tests.ts",
+        "test/transpose-tests.ts",
+        "test/traverse-tests.ts",
+        "test/tryCatch-tests.ts",
+        "test/type-tests.ts",
+        "test/unapply-tests.ts",
+        "test/unary-tests.ts",
+        "test/uncurryN-tests.ts",
+        "test/unfold-tests.ts",
+        "test/uniq-tests.ts"
     ]
 }
