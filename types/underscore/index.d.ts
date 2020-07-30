@@ -101,37 +101,21 @@ declare module _ {
 
     interface ObjectIterator<T extends TypeOfDictionary<V, any>, TResult, V = Dictionary<T>> extends CollectionIterator<T, TResult, V> { }
 
-    type Iteratee<V, R, T extends TypeOfCollection<V> = TypeOfCollection<V>> =
+    type Iteratee<V, R, T extends TypeOfCollection<V, any> = TypeOfCollection<V>> =
         CollectionIterator<T, R, V> |
         EnumerableKey |
         EnumerableKey[] |
-        Partial<T> |
-        null |
-        undefined;
-
-    type ObjectIteratee<V, TResult> =
-        ObjectIterator<TypeOfDictionary<V, any>, TResult, V> |
-        EnumerableKey |
-        EnumerableKey[] |
-        object |
+        (T extends TypeOfCollection<V> ? Partial<T> : object) |
         null |
         undefined;
 
     // temporary iteratee type for _Chain until _Chain return types have been fixed
     type _ChainIteratee<V, R, T> = Iteratee<V extends Collection<T> ? V : T[], R>;
 
-    type IterateeResult<I, T> =
+    type IterateeResult<I, T, TAnyResult = EnumerableKey | EnumerableKey[], TDefault = never> =
         I extends (...args: any[]) => infer R ? R
         : I extends keyof T ? T[I]
-        : I extends EnumerableKey | EnumerableKey[] ? any
-        : I extends Partial<T> ? boolean
-        : I extends null | undefined ? T
-        : never;
-
-    type ObjectIterateeResult<I, T, TDefault = undefined> =
-        I extends (...args: any[]) => infer R ? R
-        : I extends keyof T ? T[I]
-        : I extends EnumerableKey[] ? any
+        : I extends TAnyResult ? any
         : I extends object ? boolean
         : I extends null | undefined ? T
         : TDefault;
@@ -156,7 +140,7 @@ declare module _ {
         : V extends Dictionary<infer T> ? T
         : TDefault;
 
-    type TypeOfCollection<V, TDefault = never> = TypeOfList<V> | TypeOfDictionary<V, TDefault>;
+    type TypeOfCollection<V, TObjectDefault = never> = TypeOfList<V> | TypeOfDictionary<V, TObjectDefault>;
 
     type ListItemOrSelf<T> = T extends List<infer TItem> ? TItem : T;
 
@@ -3460,11 +3444,11 @@ declare module _ {
          * @returns A new object with all of `object`'s property values
          * transformed through `iteratee`.
          */
-        mapObject<V extends object, I extends ObjectIteratee<V, any>>(
+        mapObject<V extends object, I extends Iteratee<V, any, TypeOfDictionary<V, any>>>(
             object: V,
             iteratee: I,
             context?: any
-        ): { [K in keyof V]: ObjectIterateeResult<I, V[K]> };
+        ): { [K in keyof V]: IterateeResult<I, V[K], EnumerableKey[], undefined> };
 
         /**
          * Converts `object` into a list of [key, value] pairs. The opposite
@@ -3532,7 +3516,7 @@ declare module _ {
          */
         findKey<V extends object>(
             object: V,
-            iteratee?: ObjectIteratee<V, boolean>,
+            iteratee?: Iteratee<V, boolean, TypeOfDictionary<V, any>>,
             context?: any
         ): string | undefined;
 
@@ -4652,10 +4636,10 @@ declare module _ {
          * @returns A new object with all of the wrapped object's property
          * values transformed through `iteratee`.
          */
-        mapObject<I extends ObjectIteratee<V, any>>(
+        mapObject<I extends Iteratee<V, any, TypeOfDictionary<V, any>>>(
             iteratee: I,
             context?: any
-        ): { [K in keyof V]: ObjectIterateeResult<I, V[K]> };
+        ): { [K in keyof V]: IterateeResult<I, V[K], EnumerableKey[], undefined> };
 
         /**
          * Convert the wrapped object into a list of [key, value] pairs.
@@ -4695,7 +4679,7 @@ declare module _ {
          * truth test or undefined if no elements pass.
          */
         findKey(
-            iteratee?: ObjectIteratee<V, boolean>,
+            iteratee?: Iteratee<V, boolean, TypeOfDictionary<V, any>>,
             context?: any
         ): string | undefined;
 
@@ -5715,10 +5699,10 @@ declare module _ {
          * @returns A chain wrapper around a new object with all of the wrapped
          * object's property values transformed through `iteratee`.
          */
-        mapObject<I extends ObjectIteratee<V, any>>(
+        mapObject<I extends Iteratee<V, any, TypeOfDictionary<V, any>>>(
             iteratee: I,
             context?: any
-        ): _Chain<ObjectIterateeResult<I, TypeOfDictionary<V>, never>, { [K in keyof V]: ObjectIterateeResult<I, V[K]> }>;
+        ): _Chain<IterateeResult<I, TypeOfDictionary<V>, EnumerableKey[]>, { [K in keyof V]: IterateeResult<I, V[K], EnumerableKey[], undefined> }>;
 
         /**
          * Convert the wrapped object into a list of [key, value] pairs.
@@ -5759,7 +5743,7 @@ declare module _ {
          * truth test or undefined if no elements pass.
          */
         findKey(
-            iteratee?: ObjectIteratee<V, boolean>,
+            iteratee?: Iteratee<V, boolean, TypeOfDictionary<V, any>>,
             context?: any
         ): _ChainSingle<string | undefined>;
 
