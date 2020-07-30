@@ -62,6 +62,7 @@ export interface CalendarTheme {
     "stylesheet.day.single"?: CalendarThemeIdStyle;
     "stylesheet.day.multiDot"?: CalendarThemeIdStyle;
     "stylesheet.day.period"?: CalendarThemeIdStyle;
+    "stylesheet.dot"?: CalendarThemeIdStyle;
 }
 
 export type DateCallbackHandler = (date: DateObject) => void;
