@@ -2107,8 +2107,8 @@ declare namespace angular {
         $postLink(): void;
     }
 
-    interface IOnChangesObject {
-        [property: string]: IChangesObject<any>;
+    type IOnChangesObject<Bindings = {[key: string]: any}> = {
+        [property in keyof Bindings]: IChangesObject<Bindings[property]>
     }
 
     interface IChangesObject<T> {
