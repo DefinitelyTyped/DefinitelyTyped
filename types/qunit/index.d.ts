@@ -4,6 +4,7 @@
 //                 Mike North <https://github.com/mike-north>
 //                 Stefan Sechelmann <https://github.com/sechel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 interface Assert {
     /**
@@ -109,7 +110,7 @@ interface Assert {
      * @param state Expression being tested
      * @param {string} [message] A short description of the assertion
      */
-    notOk(state: any, message?: string): void;
+    notOk(state: any, message?: string): asserts state is false | null | undefined;
 
     /**
      * A strict comparison of an object's own properties, checking for inequality.
@@ -163,7 +164,7 @@ interface Assert {
      * @param state Expression being tested
      * @param {string} message A short description of the assertion
      */
-    ok(state: any, message?: string): void;
+    ok(state: any, message?: string): asserts state;
 
     /**
      * A strict type and value comparison of an object's own properties.
@@ -219,7 +220,7 @@ interface Assert {
      * @param expected Known comparison value
      * @param {string} [message] A short description of the assertion
      */
-    strictEqual<T>(actual: T, expected: T, message?: string): void;
+    strictEqual<T>(actual: any, expected: T, message?: string): asserts actual is T;
 
     /**
      * Test if a callback throws an exception, and optionally compare the thrown
