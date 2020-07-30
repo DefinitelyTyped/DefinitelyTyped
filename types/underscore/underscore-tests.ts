@@ -835,7 +835,7 @@ declare const extractChainTypes: ChainTypeExtractor;
     unionCollectionPartialObjectIteratee; // $ExpectType Partial<StringRecord>
 
     const anyPartialObjectIteratee: _.Iteratee<any, string> = partialStringRecord;
-    anyPartialObjectIteratee; // $ExpectType object | Partial<any>
+    anyPartialObjectIteratee; // $ExpectType Partial<any>
 
     // property names
     const listPropertyNameIteratee: _.Iteratee<_.List<StringRecord>, string> = stringRecordProperty;
