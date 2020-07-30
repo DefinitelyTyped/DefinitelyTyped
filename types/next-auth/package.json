@@ -4,6 +4,6 @@
   "dependencies": {
       "next": "^9.4.0",
       "typeorm": "^0.2.24",
-      "@types/source-map": "0.5.2"
+      "source-map": "^0.7.3"
   }
 }

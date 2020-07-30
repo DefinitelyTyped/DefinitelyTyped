@@ -10,6 +10,7 @@
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "esModuleInterop": true,
+        "moduleResolution": "node",
         "baseUrl": "../",
         "typeRoots": [
             "../"
