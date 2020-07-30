@@ -136,15 +136,15 @@ export interface OpenApiSchema {
      */
     exclusiveMinimum?: boolean;
     /**
-     * 	See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.2.1.
+     * See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.2.1.
      */
     maxLength?: number;
     /**
-     * 	See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.2.2.
+     * See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.2.2.
      */
     minLength?: number;
     /**
-     * 	See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.2.3.
+     * See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.2.3.
      */
     pattern?: string;
     /**
@@ -156,7 +156,7 @@ export interface OpenApiSchema {
      */
     minItems?: number;
     /**
-     * 	https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.3.4.
+     * https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.3.4.
      */
     uniqueItems?: boolean;
     /**
@@ -365,11 +365,11 @@ export interface OpenApiItems {
      */
     maxLength?: number;
     /**
-     * 	See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.2.2.
+     * See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.2.2.
      */
     minLength?: number;
     /**
-     * 	See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.2.3.
+     * See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.2.3.
      */
     pattern?: string;
     /**
@@ -463,11 +463,11 @@ export interface OpenApiParameter {
      */
     maximum?: number;
     /**
-     * 	See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.1.2.
+     * See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.1.2.
      */
     exclusiveMaximum?: boolean;
     /**
-     * 	See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.1.3.
+     * See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.1.3.
      */
     minimum?: number;
     /**
@@ -643,15 +643,15 @@ export interface OpenApiHeader {
      */
     exclusiveMinimum?: boolean;
     /**
-     * 	See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.2.1.
+     * See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.2.1.
      */
     maxLength?: number;
     /**
-     * 	See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.2.2.
+     * See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.2.2.
      */
     minLength?: number;
     /**
-     * 	See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.2.3.
+     * See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.2.3.
      */
     pattern?: string;
     /**
@@ -663,7 +663,7 @@ export interface OpenApiHeader {
      */
     minItems?: number;
     /**
-     * 	https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.3.4.
+     * https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.3.4.
      */
     uniqueItems?: boolean;
     /**
