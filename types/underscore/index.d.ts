@@ -166,6 +166,8 @@ declare module _ {
 
     type Truthy<T> = Exclude<T, AnyFalsy>;
 
+    type Strings<T> = T extends string ? T : never;
+
     type _ChainSingle<V> = _Chain<TypeOfCollection<V>, V>;
 
     interface Cancelable {
@@ -3518,7 +3520,7 @@ declare module _ {
             object: V,
             iteratee?: Iteratee<V, boolean, TypeOfDictionary<V, any>>,
             context?: any
-        ): string | undefined;
+        ): Strings<keyof V> | undefined;
 
         /**
         * Return a copy of the object, filtered to only have values for the whitelisted keys
@@ -4681,7 +4683,7 @@ declare module _ {
         findKey(
             iteratee?: Iteratee<V, boolean, TypeOfDictionary<V, any>>,
             context?: any
-        ): string | undefined;
+        ): Strings<keyof V> | undefined;
 
         /**
         * Wrapped type `object`.
@@ -5745,7 +5747,7 @@ declare module _ {
         findKey(
             iteratee?: Iteratee<V, boolean, TypeOfDictionary<V, any>>,
             context?: any
-        ): _ChainSingle<string | undefined>;
+        ): _ChainSingle<Strings<keyof V> | undefined>;
 
         /**
         * Wrapped type `object`.

@@ -2814,9 +2814,9 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
 // findKey
 {
     // function iteratee - objects
-    _.findKey(mixedTypeRecord, mixedTypeRecordBooleanIterator, context); // $ExpectType string | undefined
-    _(mixedTypeRecord).findKey(mixedTypeRecordBooleanIterator, context); // $ExpectType string | undefined
-    extractChainTypes(_.chain(mixedTypeRecord).findKey(mixedTypeRecordBooleanIterator, context)); // $ExpectType ChainType<string | undefined, string>
+    _.findKey(mixedTypeRecord, mixedTypeRecordBooleanIterator, context); // $ExpectType "a" | "b" | "c" | undefined
+    _(mixedTypeRecord).findKey(mixedTypeRecordBooleanIterator, context); // $ExpectType "a" | "b" | "c" | undefined
+    extractChainTypes(_.chain(mixedTypeRecord).findKey(mixedTypeRecordBooleanIterator, context)); // $ExpectType ChainType<"a" | "b" | "c" | undefined, string>
 
     // function iteratee - dictionaries
     _.findKey(stringRecordDictionary, stringRecordDictionaryBooleanIterator, context); // $ExpectType string | undefined
@@ -2829,24 +2829,24 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     extractChainTypes(_.chain(anyValue).findKey(stringRecordDictionaryBooleanIterator, context)); // $ExpectType ChainType<string | undefined, string>
 
     // partial object iteratee - objects
-    _.findKey(mixedTypeRecord, partialStringRecord); // $ExpectType string | undefined
-    _(mixedTypeRecord).findKey(partialStringRecord); // $ExpectType string | undefined
-    extractChainTypes(_.chain(mixedTypeRecord).findKey(partialStringRecord)); // $ExpectType ChainType<string | undefined, string>
+    _.findKey(mixedTypeRecord, partialStringRecord); // $ExpectType "a" | "b" | "c" | undefined
+    _(mixedTypeRecord).findKey(partialStringRecord); // $ExpectType "a" | "b" | "c" | undefined
+    extractChainTypes(_.chain(mixedTypeRecord).findKey(partialStringRecord)); // $ExpectType ChainType<"a" | "b" | "c" | undefined, string>
 
     // property name iteratee - objects
-    _.findKey(mixedTypeRecord, stringRecordProperty); // $ExpectType string | undefined
-    _(mixedTypeRecord).findKey(stringRecordProperty); // $ExpectType string | undefined
-    extractChainTypes(_.chain(mixedTypeRecord).findKey(stringRecordProperty)); // $ExpectType ChainType<string | undefined, string>
+    _.findKey(mixedTypeRecord, stringRecordProperty); // $ExpectType "a" | "b" | "c" | undefined
+    _(mixedTypeRecord).findKey(stringRecordProperty); // $ExpectType "a" | "b" | "c" | undefined
+    extractChainTypes(_.chain(mixedTypeRecord).findKey(stringRecordProperty)); // $ExpectType ChainType<"a" | "b" | "c" | undefined, string>
 
     // property path iteratee - objects
-    _.findKey(mixedTypeRecord, stringRecordPropertyPath); // $ExpectType string | undefined
-    _(mixedTypeRecord).findKey(stringRecordPropertyPath); // $ExpectType string | undefined
-    extractChainTypes(_.chain(mixedTypeRecord).findKey(stringRecordPropertyPath)); // $ExpectType ChainType<string | undefined, string>
+    _.findKey(mixedTypeRecord, stringRecordPropertyPath); // $ExpectType "a" | "b" | "c" | undefined
+    _(mixedTypeRecord).findKey(stringRecordPropertyPath); // $ExpectType "a" | "b" | "c" | undefined
+    extractChainTypes(_.chain(mixedTypeRecord).findKey(stringRecordPropertyPath)); // $ExpectType ChainType<"a" | "b" | "c" | undefined, string>
 
     // identity iteratee - objects
-    _.findKey(mixedTypeRecord); // $ExpectType string | undefined
-    _(mixedTypeRecord).findKey(); // $ExpectType string | undefined
-    extractChainTypes(_.chain(mixedTypeRecord).findKey()); // $ExpectType ChainType<string | undefined, string>
+    _.findKey(mixedTypeRecord); // $ExpectType "a" | "b" | "c" | undefined
+    _(mixedTypeRecord).findKey(); // $ExpectType "a" | "b" | "c" | undefined
+    extractChainTypes(_.chain(mixedTypeRecord).findKey()); // $ExpectType ChainType<"a" | "b" | "c" | undefined, string>
 }
 
 // isEqual
