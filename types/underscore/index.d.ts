@@ -105,7 +105,7 @@ declare module _ {
         CollectionIterator<T, R, V> |
         EnumerableKey |
         EnumerableKey[] |
-        (T extends TypeOfCollection<V> ? Partial<T> : object) |
+        (V extends Collection<any> ? Partial<T> : object) |
         null |
         undefined;
 
