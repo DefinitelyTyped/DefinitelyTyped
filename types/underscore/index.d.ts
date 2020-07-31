@@ -5705,7 +5705,7 @@ declare module _ {
         mapObject<I extends Iteratee<V, any, TypeOfCollection<V, any>>>(
             iteratee: I,
             context?: any
-        ): _Chain<IterateeResult<I, T>, { [K in keyof V]: IterateeResult<I, V[K]> }>;
+        ): _Chain<IterateeResult<I, TypeOfCollection<V, any>>, { [K in keyof V]: IterateeResult<I, V[K]> }>;
 
         /**
          * Convert the wrapped object into a list of [key, value] pairs. The
