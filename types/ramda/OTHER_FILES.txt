@@ -190,6 +190,7 @@ es/replace.d.ts
 es/reverse.d.ts
 es/scan.d.ts
 es/set.d.ts
+es/sequence.d.ts
 es/slice.d.ts
 es/sortBy.d.ts
 es/sort.d.ts
@@ -443,6 +444,7 @@ src/repeat.d.ts
 src/replace.d.ts
 src/reverse.d.ts
 src/scan.d.ts
+src/sequence.d.ts
 src/set.d.ts
 src/slice.d.ts
 src/sortBy.d.ts

@@ -1689,6 +1689,23 @@ export function set<U>(lens: Lens, a: U): <T>(obj: T) => T;
 export function set(lens: Lens): <T, U>(a: U, obj: T) => T;
 
 /**
+ * Transforms a Traversable of Applicative into an Applicative of Traversable.
+ *
+ * Dispatches to the `sequence` method of the second argument, if present.
+ *
+ * @example
+ * R.sequence(Maybe.of, [Just(1), Just(2), Just(3)]);   //=> Just([1, 2, 3])
+ * R.sequence(Maybe.of, [Just(1), Just(2), Nothing()]); //=> Nothing()
+ *
+ * R.sequence(R.of, Just([1, 2, 3])); //=> [Just(1), Just(2), Just(3)]
+ * R.sequence(R.of, Nothing());       //=> [Nothing()]
+ *
+ * R.sequence(R.of, [[1, 2], [3, 4]]); //=> [[1, 3], [1, 4], [2, 3], [2, 4]]
+ */
+export function sequence<A, B>(of: (a: A) => B, traversable: readonly A[]): B;
+export function sequence<A, B>(of: (a: A) => B): (traversable: readonly A[]) => B;
+
+/**
  * Returns the elements from `xs` starting at `a` and ending at `b - 1`.
  */
 export function slice(a: number, b: number, list: string): string;
