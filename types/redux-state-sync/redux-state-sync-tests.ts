@@ -15,6 +15,11 @@ const middleware = createStateSyncMiddleware({
     prepareState: (state) => state,
 });
 
+// $ExpectError
+const middleware = createStateSyncMiddleware({
+    broadcastChannelOption: null,
+});
+
 function rootReducer(state: TestState, action: Action): TestState {
     return state;
 }
