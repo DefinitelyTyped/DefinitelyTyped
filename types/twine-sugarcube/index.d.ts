@@ -13,6 +13,7 @@ export as namespace TwineSugarCube;
 export * from "./extensions";
 export * from "./functions";
 export * from "./globals";
+export * from "./jquery";
 
 export * from "./audio";
 export * from "./config";
