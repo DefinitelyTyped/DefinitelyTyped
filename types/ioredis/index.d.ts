@@ -931,9 +931,9 @@ declare namespace IORedis {
     }
 
     interface Pipeline {
-        readonly redis: Redis;
+        readonly redis: Redis | Cluster;
         readonly isCluster: boolean;
-        readonly options: RedisOptions;
+        readonly options: RedisOptions | ClusterOptions;
         readonly length: number;
 
         bitcount(key: KeyType, callback?: Callback<number>): Pipeline;
@@ -1340,11 +1340,11 @@ declare namespace IORedis {
             matchOption: 'match' | 'MATCH',
             pattern: string,
         ): Pipeline;
-        sscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
+        sscan(key: KeyType, cursor: number | string, ...args: ValueType[]): Pipeline;
 
-        hscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
+        hscan(key: KeyType, cursor: number | string, ...args: ValueType[]): Pipeline;
 
-        zscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
+        zscan(key: KeyType, cursor: number | string, ...args: ValueType[]): Pipeline;
 
         pfmerge(destkey: KeyType, ...sourcekeys: KeyType[]): Pipeline;
 
