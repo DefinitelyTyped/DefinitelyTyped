@@ -47,6 +47,7 @@ declare module 'meteor/mdg:validated-method' {
 
     export interface ValidatedMethodOptionsWithMixins<TName extends string, TRun extends (...args: any[]) => any>
         extends ValidatedMethodOptions<TName, TRun> {
+        // Force TRun to be inferred from run itself rather than from the elements of mixins
         mixins?: TRun extends infer TRunAlias
             ? TRunAlias extends TRun
                 ? ReadonlyArray<Mixin<TName, TRunAlias>>
