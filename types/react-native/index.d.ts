@@ -8951,12 +8951,14 @@ export namespace Animated {
     export type WithAnimatedValue<T> = T extends Builtin | Nullable
         ? T
         : T extends Primitive
-        ? T | Value | AnimatedInterpolation
+        ? // add `Value` and `AnimatedInterpolation` but also preserve original T
+          T | Value | AnimatedInterpolation
         : T extends Array<infer P>
         ? WithAnimatedArray<P>
         : T extends {}
         ? WithAnimatedObject<T>
-        : never;
+        : // in case it's something we don't yet know about (for .e.g bigint)
+          T;
 
     type NonAnimatedProps = 'key' | 'ref';
 
