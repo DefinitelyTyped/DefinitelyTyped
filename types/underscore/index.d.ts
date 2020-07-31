@@ -733,30 +733,34 @@ declare module _ {
         ): TypeOfList<V>[];
 
         /**
-        * Computes the union of the passed-in arrays: the list of unique items, in order, that are
-        * present in one or more of the arrays.
-        * @param arrays Array of arrays to compute the union of.
-        * @return The union of elements within `arrays`.
-        **/
-        union<T>(...arrays: _.List<T>[]): T[];
+         * Computes the union of the passed-in `lists`: the list of unique
+         * items, examined in order from first list to last list, that are
+         * present in one or more of the lists.
+         * @param lists The lists to compute the union of.
+         * @returns The union of elements within `lists`.
+         **/
+        union<T>(...lists: List<T>[]): T[];
 
         /**
-        * Computes the list of values that are the intersection of all the arrays. Each value in the result
-        * is present in each of the arrays.
-        * @param arrays Array of arrays to compute the intersection of.
-        * @return The intersection of elements within `arrays`.
-        **/
-        intersection<T>(...arrays: _.List<T>[]): T[];
+         * Computes the list of values that are the intersection of the
+         * passed-in `lists`. Each value in the result is present in each of
+         * the lists.
+         * @param lists The lists to compute the intersection of.
+         * @returns The intersection of elements within the `lists`.
+         **/
+        intersection<T>(...lists: List<T>[]): T[];
 
         /**
-        * Similar to without, but returns the values from array that are not present in the other arrays.
-        * @param array Keeps values that are within `others`.
-        * @param others The values to keep within `array`.
-        * @return Copy of `array` with only `others` values.
-        **/
+         * Similar to without, but returns the values from `list` that are not
+         * present in `others`.
+         * @param list The starting list.
+         * @param others The lists of values to exclude from `list`.
+         * @returns The contents of `list` without the values in `others`.
+         **/
         difference<T>(
-            array: _.List<T>,
-            ...others: _.List<T>[]): T[];
+            list: List<T>,
+            ...others: List<T>[]
+        ): T[];
 
         /**
          * Produces a duplicate-free version of `list`, using === to test
@@ -4372,22 +4376,35 @@ declare module _ {
         without(...values: T[]): T[];
 
         /**
-        * Wrapped type `any[][]`.
-        * @see _.union
-        **/
-        union(...arrays: _.List<T>[]): T[];
+         * Computes the union of the wrapped list and the passed-in `lists`:
+         * the list of unique items, examined in order from first list to last
+         * list, that are present in one or more of the lists.
+         * @param lists The lists (along with the wrapped list) to compute
+         * the union of.
+         * @returns The union of elements within the wrapped list and `lists`.
+         **/
+        union(...lists: List<T>[]): T[];
 
         /**
-        * Wrapped type `any[][]`.
-        * @see _.intersection
-        **/
-        intersection(...arrays: _.List<T>[]): T[];
+         * Computes the list of values that are the intersection of the wrapped
+         * list and the passed-in `lists`. Each value in the result is present
+         * in each of the lists.
+         * @param lists The lists (along with the wrapped list) to compute the
+         * intersection of.
+         * @returns The intersection of elements within the the wrapped list
+         * and `lists`.
+         **/
+        intersection(...lists: List<T>[]): T[];
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.difference
-        **/
-        difference(...others: _.List<T>[]): T[];
+         * Similar to without, but returns the values from the wrapped list
+         * that are not present in `others`.
+         * @param list The starting list.
+         * @param others The lists of values to exclude from the wrapped list.
+         * @returns The contents of the wrapped list without the values in
+         * `others`.
+         **/
+        difference(...others: List<T>[]): T[];
 
         /**
          * Produces a duplicate-free version of the wrapped list, using === to
@@ -5411,22 +5428,36 @@ declare module _ {
         without(...values: T[]): _Chain<T, T[]>;
 
         /**
-        * Wrapped type `any[][]`.
-        * @see _.union
-        **/
-        union(...arrays: _.List<T>[]): _Chain<T, T[]>;
+         * Computes the union of the wrapped list and the passed-in `lists`:
+         * the list of unique items, examined in order from first list to last
+         * list, that are present in one or more of the lists.
+         * @param lists The lists (along with the wrapped list) to compute
+         * the union of.
+         * @returns A chain wrapper around the union of elements within the
+         * wrapped list and `lists`.
+         **/
+        union(...lists: List<T>[]): _Chain<T, T[]>;
 
         /**
-        * Wrapped type `any[][]`.
-        * @see _.intersection
-        **/
-        intersection(...arrays: _.List<T>[]): _Chain<T>;
+         * Computes the list of values that are the intersection of the wrapped
+         * list and the passed-in `lists`. Each value in the result is present
+         * in each of the lists.
+         * @param lists The lists (along with the wrapped list) to compute the
+         * intersection of.
+         * @returns A chain wrapper around the intersection of elements within
+         * the the wrapped list and `lists`.
+         **/
+        intersection(...lists: List<T>[]): _Chain<T, T[]>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.difference
-        **/
-        difference(...others: _.List<T>[]): _Chain<T>;
+         * Similar to without, but returns the values from the wrapped list
+         * that are not present in `others`.
+         * @param list The starting list.
+         * @param others The lists of values to exclude from the wrapped list.
+         * @returns A chain wrapper around the contents of the wrapped list
+         * without the values in `others`.
+         **/
+        difference(...others: List<T>[]): _Chain<T, T[]>;
 
         /**
          * Produces a duplicate-free version of the wrapped list, using === to

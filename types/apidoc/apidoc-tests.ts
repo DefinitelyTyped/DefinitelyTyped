@@ -15,6 +15,36 @@ const apidocOutput = createDoc({
     config: '',
     apiprivate: true,
     encoding: '',
+    excludeFilters: [],
+    includeFilters: [],
+    filters: {
+        api: {
+            postFilter: (parsedFiles, parsedFilenames) => { }
+        }
+    },
+    languages: {
+        default: {
+            docBlocksRegExp: /\/\*\*.*\*\//,
+            inlineRegExp: /\@/,
+        }
+    },
+    parsers: {
+        parse: (content, source, messagesg) => ({
+            name: '',
+            title: '',
+            description: '',
+        }),
+        path: '',
+        getGroup: () => '',
+        markdownFields: [],
+        markdownRemovePTags: [],
+    },
+    workers: {
+        work: {}
+    },
+    lineEnding: "LF",
+    copyDefinitions: false,
+    filterBy: '',
 });
 
 if (typeof apidocOutput !== 'boolean') {
