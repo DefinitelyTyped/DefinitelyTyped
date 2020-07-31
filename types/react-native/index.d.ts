@@ -8950,26 +8950,25 @@ export namespace Animated {
 
     export type WithAnimatedValue<T> = T extends Builtin | Nullable
         ? T
-        : T extends Primitive
-        ? // add `Value` and `AnimatedInterpolation` but also preserve original T
-          T | Value | AnimatedInterpolation
+        : T extends Primitive // add `Value` and `AnimatedInterpolation` but also preserve original T
+        ? T | Value | AnimatedInterpolation
         : T extends Array<infer P>
         ? WithAnimatedArray<P>
         : T extends {}
-        ? WithAnimatedObject<T>
-        : // in case it's something we don't yet know about (for .e.g bigint)
-          T;
+        ? WithAnimatedObject<T> // in case it's something we don't yet know about (for .e.g bigint)
+        : T;
 
     type NonAnimatedProps = 'key' | 'ref';
 
-    export type AnimatedProps<T> = {
-        [key in keyof T]: key extends NonAnimatedProps ? T[key] : WithAnimatedValue<T[key]>;
-    } &
-        (T extends {
-            ref?: React.Ref<infer R>;
-        }
-            ? { ref?: React.Ref<R | LegacyRef<R>> }
-            : {});
+    export type AnimatedProps<T> =
+        | {
+              [key in keyof T]: key extends NonAnimatedProps ? T[key] : WithAnimatedValue<T[key]>;
+          }
+        | (T extends {
+              ref?: React.Ref<infer R>;
+          }
+              ? { ref?: React.Ref<LegacyRef<R>> }
+              : {});
 
     export interface AnimatedComponent<T extends React.ComponentType<any>>
         extends React.FC<AnimatedProps<React.ComponentPropsWithRef<T>>> {}
