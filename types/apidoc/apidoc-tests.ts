@@ -30,3 +30,32 @@ const apidocOutput = createDoc({
 if (typeof apidocOutput !== 'boolean') {
     const { data, project } = apidocOutput;
 }
+
+createDoc({
+    filters: {
+        api: {
+            postFilter: (parsedFiles, parsedFilenames) => { }
+        }
+    },
+    languages: {
+        default: {
+            docBlocksRegExp: /\/\*\*.*\*\//,
+            inlineRegExp: /\@/,
+        }
+    },
+    parsers: {
+        parse: (content, source, messagesg) => ({
+            name: '',
+            title: '',
+            description: '',
+        }),
+        path: '',
+        getGroup: () => '',
+        markdownFields: [],
+        markdownRemovePTags: [],
+    },
+    workers: {
+        work: {}
+    },
+    filterBy: [''],
+});
