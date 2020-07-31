@@ -166,8 +166,6 @@ declare module _ {
 
     type Truthy<T> = Exclude<T, AnyFalsy>;
 
-    type Strings<T> = T extends string ? T : never;
-
     type _ChainSingle<V> = _Chain<TypeOfCollection<V>, V>;
 
     interface Cancelable {
@@ -3458,7 +3456,7 @@ declare module _ {
          * @param object The object to convert.
          * @returns The list of [key, value] pairs from `object`.
          **/
-        pairs<V extends object>(object: V): [string, TypeOfCollection<V, any>][];
+        pairs<V extends object>(object: V): [Extract<keyof V, string>, TypeOfCollection<V, any>][];
 
         /**
         * Returns a copy of the object where the keys have become the values and the values the keys.
@@ -3520,7 +3518,7 @@ declare module _ {
             object: V,
             iteratee?: Iteratee<V, boolean, TypeOfCollection<V, any>>,
             context?: any
-        ): Strings<keyof V> | undefined;
+        ): Extract<keyof V, string> | undefined;
 
         /**
         * Return a copy of the object, filtered to only have values for the whitelisted keys
@@ -4648,7 +4646,7 @@ declare module _ {
          * opposite of the single-argument signature of `_.object`.
          * @returns The list of [key, value] pairs from the wrapped object.
          **/
-        pairs(): [string, TypeOfCollection<V, any>][];
+        pairs(): [Extract<keyof V, string>, TypeOfCollection<V, any>][];
 
         /**
         * Wrapped type `object`.
@@ -4684,7 +4682,7 @@ declare module _ {
         findKey(
             iteratee?: Iteratee<V, boolean, TypeOfCollection<V, any>>,
             context?: any
-        ): Strings<keyof V> | undefined;
+        ): Extract<keyof V, string> | undefined;
 
         /**
         * Wrapped type `object`.
@@ -5713,7 +5711,7 @@ declare module _ {
          * @returns A chain wrapper around the list of [key, value] pairs from
          * the wrapped object.
          **/
-        pairs(): _Chain<[string, TypeOfCollection<V, any>], [string, TypeOfCollection<V, any>][]>;
+        pairs(): _Chain<[Extract<keyof V, string>, TypeOfCollection<V, any>], [Extract<keyof V, string>, TypeOfCollection<V, any>][]>;
 
         /**
         * Wrapped type `object`.
@@ -5749,7 +5747,7 @@ declare module _ {
         findKey(
             iteratee?: Iteratee<V, boolean, TypeOfCollection<V, any>>,
             context?: any
-        ): _ChainSingle<Strings<keyof V> | undefined>;
+        ): _ChainSingle<Extract<keyof V, string> | undefined>;
 
         /**
         * Wrapped type `object`.

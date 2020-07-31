@@ -518,7 +518,7 @@ _.chain({ one: 1, two: 2 })
     .unzip()
     .value();
 
-// $ExpectType [string, string | number | number[]] | undefined
+// $ExpectType ["one" | "two" | "three", string | number | number[]] | undefined
 _.chain({ one: '1', two: 2, three: [3] })
     .pairs()
     .last()
@@ -2801,9 +2801,9 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     extractChainTypes(_.chain(stringRecordDictionary).pairs()); // $ExpectType ChainType<[string, StringRecord][], [string, StringRecord]>
 
     // objects
-    _.pairs(mixedTypeRecord); // $ExpectType [string, any][]
-    _(mixedTypeRecord).pairs(); // $ExpectType [string, any][]
-    extractChainTypes(_.chain(mixedTypeRecord).pairs()); // $ExpectType ChainType<[string, any][], [string, any]>
+    _.pairs(mixedTypeRecord); // $ExpectType ["a" | "b" | "c", any][]
+    _(mixedTypeRecord).pairs(); // $ExpectType ["a" | "b" | "c", any][]
+    extractChainTypes(_.chain(mixedTypeRecord).pairs()); // $ExpectType ChainType<["a" | "b" | "c", any][], ["a" | "b" | "c", any]>
 
     // any
     _.pairs(anyValue); // $ExpectType [string, any][]
