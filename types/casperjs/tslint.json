@@ -1,12 +1,7 @@
 {
-	"extends": "dtslint/dt.json",
+    "extends": "dtslint/dt.json",
     "rules": {
-        // need to fix some Function type
         "ban-types": false,
-        // can not merge
-        // begin(description: string, planned: number, suite: Function): any;
-        // and
-        // begin(description: string, planned: number, config: object): any;
         "unified-signatures": false
     }
 }

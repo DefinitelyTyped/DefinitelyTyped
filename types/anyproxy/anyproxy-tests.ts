@@ -60,3 +60,11 @@ proxyServer.start();
 
 // When finished
 proxyServer.close();
+
+AnyProxy.utils.systemProxyMgr.enableGlobalProxy('127.0.0.1', 8080);
+AnyProxy.utils.systemProxyMgr.enableGlobalProxy('127.0.0.1', 8080, 'http');
+AnyProxy.utils.systemProxyMgr.enableGlobalProxy('127.0.0.1', 8080, 'https');
+
+AnyProxy.utils.systemProxyMgr.disableGlobalProxy();
+AnyProxy.utils.systemProxyMgr.disableGlobalProxy('http');
+AnyProxy.utils.systemProxyMgr.disableGlobalProxy('https');

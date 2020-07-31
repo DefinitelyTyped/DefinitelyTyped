@@ -1,6 +1,7 @@
-// Type definitions for Google Apps Script 2019-11-06
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -132,8 +133,8 @@ declare namespace GoogleAppsScript {
       invalidateAuth(): void;
       newStateToken(): StateTokenBuilder;
       newTrigger(functionName: string): TriggerBuilder;
-      /** @deprecated DO NOT USE */getProjectKey(): string;
-      /** @deprecated DO NOT USE */getScriptTriggers(): Trigger[];
+      /** @deprecated DO NOT USE */ getProjectKey(): string;
+      /** @deprecated DO NOT USE */ getScriptTriggers(): Trigger[];
     }
     /**
      * Access and manipulate script publishing.
@@ -141,7 +142,7 @@ declare namespace GoogleAppsScript {
     interface Service {
       getUrl(): string;
       isEnabled(): boolean;
-      /** @deprecated DO NOT USE */disable(): void;
+      /** @deprecated DO NOT USE */ disable(): void;
     }
     /**
      * Builder for spreadsheet triggers.

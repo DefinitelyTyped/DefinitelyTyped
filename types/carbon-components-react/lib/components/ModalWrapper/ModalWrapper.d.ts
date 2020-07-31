@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ButtonProps } from "../Button";
+import { ButtonProps, ButtonKind } from '../Button';
 import { ModalProps } from "../Modal";
 
 type ExcludedModalProps = "onRequestClose" | "onRequestSubmit" | "open";
@@ -10,12 +10,12 @@ export interface TriggerProps {
     buttonTriggerText?: ButtonProps["children"],
     renderTriggerButtonIcon?: ButtonProps["renderIcon"],
     triggerButtonIconDescription?: ButtonProps["iconDescription"],
-    triggerButtonKind?: ButtonProps["kind"],
+    triggerButtonKind?: ButtonKind,
 }
 
 export interface ModalWrapperProps extends InheritedProps, TriggerProps {
     handleOpen?(e: React.MouseEvent<HTMLElement>): void,
-    handleSubmit?(): boolean,
+    handleSubmit(): boolean,
     shouldCloseAfterSubmit?: boolean,
     status?: string,
 }

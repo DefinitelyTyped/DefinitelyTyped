@@ -2,10 +2,17 @@ import * as React from 'react';
 import * as Popper from 'popper.js';
 import { CSSModule } from '../index';
 
+interface TooltipChildrenRenderProps {
+  scheduleUpdate: () => void;
+}
+
+export type TooltipChildren =
+  ((props: TooltipChildrenRenderProps) => React.ReactNode) | React.ReactNode;
+
 export interface UncontrolledTooltipProps extends React.HTMLAttributes<HTMLElement> {
   [key: string]: any;
-  target: string | HTMLElement;
-  container?: string | HTMLElement;
+  target: string | HTMLElement | React.RefObject<HTMLElement>;
+  container?: string | HTMLElement | React.RefObject<HTMLElement>;
   delay?: number | {show: number, hide: number};
   className?: string;
   popperClassName?: string;
@@ -16,6 +23,7 @@ export interface UncontrolledTooltipProps extends React.HTMLAttributes<HTMLEleme
   cssModule?: CSSModule;
   fade?: boolean;
   flip?: boolean;
+  children?: TooltipChildren;
 }
 
 export interface TooltipProps extends UncontrolledTooltipProps {

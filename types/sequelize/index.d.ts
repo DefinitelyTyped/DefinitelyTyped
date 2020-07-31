@@ -2647,7 +2647,7 @@ declare namespace sequelize {
          * A hook that is run before Model.sync call
          *
          * @param name
-         * @param fn   	A callback function that is called with options passed to Model.sync
+         * @param fn       A callback function that is called with options passed to Model.sync
          */
         beforeSync(name: string, fn: (options: SyncOptions) => void): void;
         beforeSync(fn: (options: SyncOptions) => void): void;
@@ -2656,7 +2656,7 @@ declare namespace sequelize {
          * A hook that is run after Model.sync call
          *
          * @param name
-         * @param fn   	A callback function that is called with options passed to Model.sync
+         * @param fn       A callback function that is called with options passed to Model.sync
          */
         afterSync(name: string, fn: (options: SyncOptions) => void): void;
         afterSync(fn: (options: SyncOptions) => void): void;

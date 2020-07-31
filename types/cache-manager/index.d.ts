@@ -52,10 +52,10 @@ export type CallbackFunc<T> = (error: any, result: T) => void;
 export type WrapArgsType<T> = string | ((callback: CallbackFunc<T>) => void) | CachingConfig | CallbackFunc<T>;
 
 export interface Cache {
-    set<T>(key: string, value: T, options: CachingConfig, callback?: (error: any) => void): void;
-    set<T>(key: string, value: T, ttl: number, callback?: (error: any) => void): void;
     set<T>(key: string, value: T, options: CachingConfig): Promise<any>;
     set<T>(key: string, value: T, ttl: number): Promise<any>;
+    set<T>(key: string, value: T, options: CachingConfig, callback: (error: any) => void): void;
+    set<T>(key: string, value: T, ttl: number, callback: (error: any) => void): void;
 
     // Because the library accepts multiple keys as arguments but not as an array and rather as individual parameters
     // of the function, the type definition had to be changed to this rather than specific ones
@@ -71,7 +71,36 @@ export interface Cache {
 
     del(key: string, callback: (error: any) => void): void;
     del(key: string): Promise<any>;
+
+    reset(): Promise<void>;
+    reset(cb: () => void): void;
+
+    store: Store;
+}
+
+export interface MultiCache {
+    set<T>(key: string, value: T, options: CachingConfig): Promise<any>;
+    set<T>(key: string, value: T, ttl: number): Promise<any>;
+    set<T>(key: string, value: T, options: CachingConfig, callback: (error: any) => void): void;
+    set<T>(key: string, value: T, ttl: number, callback: (error: any) => void): void;
+
+    // Because the library accepts multiple keys as arguments but not as an array and rather as individual parameters
+    // of the function, the type definition had to be changed to this rather than specific ones
+    // actual definitions would looks like this (impossible in typescript):
+    // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void, options: CachingConfig, callback: (error: any, result: T) => void): void
+    // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void, callback: (error: any, result: T) => void): void
+    // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void, options: CachingConfig): void
+    // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void): Promise<any>;
+    wrap<T>(...args: WrapArgsType<T>[]): Promise<any>;
+
+    get<T>(key: string, callback: (error: any, result: T) => void): void;
+    get<T>(key: string): Promise<any>;
+
+    del(key: string, callback: (error: any) => void): void;
+    del(key: string): Promise<any>;
+
+    reset(cb: () => void): void;
 }
 
 export function caching(IConfig: StoreConfig & CacheOptions): Cache;
-export function multiCaching(Caches: Cache[], options?: CacheOptions): Cache;
+export function multiCaching(Caches: Cache[], options?: CacheOptions): MultiCache;

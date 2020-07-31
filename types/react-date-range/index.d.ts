@@ -1,6 +1,7 @@
-// Type definitions for react-date-range 0.94
+// Type definitions for react-date-range 0.95
 // Project: https://github.com/Adphorus/react-date-range/
 // Definitions by: Junbong Lee <https://github.com/Junbong>
+//                 John Demetriou <https://github.com/DevsAnon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -88,26 +89,66 @@ export interface CalendarProps extends CommonCalendarProps {
     date: DateInputType;
 }
 
-export class Calendar extends React.Component<CalendarProps> {}
+export class Calendar extends React.Component<CalendarProps> { }
 
 export interface DateRangeProps extends Range, CommonCalendarProps {
+    /** default: enUs from locale. Complete list here https://github.com/Adphorus/react-date-range/blob/next/src/locale/index.js */
+    locale?: object;
     /** default: false */
     linkedCalendars?: boolean;
     /** default: 2 */
     calendars?: number;
     /** default: none */
     ranges?: object;
+    /** default: { enabled: false } */
+    scroll?: object;
+    /** default: false */
+    showSelectionPreview?: boolean;
     /** default: false */
     twoStepChange?: boolean;
+    /** default: true */
+    showMonthArrow?: boolean;
     /** default: false */
     rangedCalendars?: boolean;
     /** default: none */
     specialDays?: DateContainerType[];
+    /** default: 1 */
+    months?: number;
+    /** default: */
+    weekStartsOn?: number;
+    /** default: true */
+    showMonthAndYearPickers?: boolean;
+    /** default: [] */
+    rangeColors?: string[];
+    /** default: */
+    shownDate?: Date;
+    /** default: */
+    disabledDates?: Date[];
+    /** default: Early */
+    startDatePlaceholder?: string;
+    /** default: */
+    className?: string;
+    /** default: Continuous */
+    endDatePlaceholder?: string;
+    /** default: MMM d, yyyy */
+    dateDisplayFormat?: string;
+    /** default: d */
+    dayDisplayFormat?: string;
+    /** default: E */
+    weekdayDisplayFormat?: string;
+    /** default: MMM yyyy */
+    monthDisplayFormat?: string;
+    /** default: vertical */
+    direction?: string;
+    /** default: false */
+    moveRangeOnFirstSelection?: boolean;
+    /** default: false */
+    editableDateInputs?: boolean;
 }
 
-export class DateRange extends React.Component<DateRangeProps> {}
+export class DateRange extends React.Component<DateRangeProps> { }
 
-export class DateRangePicker extends React.Component<DateRangeProps> {}
+export class DateRangePicker extends React.Component<DateRangeProps> { }
 
 export type DateRangeIndex =
     | "Today"

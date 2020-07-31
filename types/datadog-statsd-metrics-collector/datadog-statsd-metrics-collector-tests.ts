@@ -5,6 +5,7 @@ const client = new datadog.StatsD('localhost');
 
 // constructors
 let collector = new Collector(client);
+collector = new Collector(null);
 collector = new Collector(client, 1000);
 
 // interface

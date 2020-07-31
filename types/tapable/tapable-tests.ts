@@ -25,7 +25,7 @@ class DllPlugin {
 }
 
 class Compiler extends Tapable {
-    constructor(){
+    constructor() {
         super()
     }
 }
@@ -59,8 +59,9 @@ compiler.applyPluginsParallelBailResult1('doSomething', 'a', callback);
 const multi = new MultiHook([new SyncHook(['hi'])]);
 
 const isNumber = (val: number) => val;
-const isAny = (val: {a: { n: {y: '!'}}}) => val;
+const isAny = (val: { a: { n: { y: '!' } } }) => val;
 const isUndefined = (val: undefined) => val;
+const isBoolean = (val: boolean) => val;
 
 // Without generics
 (() => {
@@ -102,7 +103,7 @@ const isUndefined = (val: undefined) => val;
     }
 
     getHookResults().then((result) => {
-        // Allways undefined:
+        // Always undefined:
         console.log(isUndefined(result.syncHook));
         console.log(isUndefined(result.asyncSeriesHook));
         console.log(isUndefined(result.asyncParallelHook));
@@ -113,15 +114,22 @@ const isUndefined = (val: undefined) => val;
         console.log(isAny(result.asyncParallelHook!));
         console.log(isAny(result.asyncSeriesHook!));
         console.log(isAny(result.asyncSeriesBailHook!));
-        // Allways defined:
+        // Always defined:
         console.log(isNumber(result.syncWaterfallHook.age));
         console.log(isNumber(result.asyncSeriesWaterfallHook.age));
+        console.log(isBoolean(hooks.syncHook.isUsed()));
+        console.log(isBoolean(hooks.asyncSeriesHook.isUsed()));
+        console.log(isBoolean(hooks.asyncParallelHook.isUsed()));
+        console.log(isBoolean(hooks.syncBailHook.isUsed()));
+        console.log(isBoolean(hooks.asyncSeriesBailHook.isUsed()));
+        console.log(isBoolean(hooks.syncWaterfallHook.isUsed()));
+        console.log(isBoolean(hooks.asyncSeriesWaterfallHook.isUsed()));
     });
 })();
 
 // With generics
 (() => {
-    type Person = {name: string, age: number};
+    type Person = { name: string, age: number };
     const hooks = {
         syncHook: new SyncHook<Person, undefined, undefined>(['arg1']),
         syncBailHook: new SyncBailHook<Person, undefined, undefined, number>(['arg1']),
@@ -173,5 +181,49 @@ const isUndefined = (val: undefined) => val;
         // Allways defined:
         console.log(isNumber(result.syncWaterfallHook.age));
         console.log(isNumber(result.asyncSeriesWaterfallHook.age));
+        console.log(isBoolean(hooks.syncHook.isUsed()));
+        console.log(isBoolean(hooks.asyncSeriesHook.isUsed()));
+        console.log(isBoolean(hooks.asyncParallelHook.isUsed()));
+        console.log(isBoolean(hooks.syncBailHook.isUsed()));
+        console.log(isBoolean(hooks.asyncSeriesBailHook.isUsed()));
+        console.log(isBoolean(hooks.syncWaterfallHook.isUsed()));
+        console.log(isBoolean(hooks.asyncSeriesWaterfallHook.isUsed()));
     });
+
+    // Test TapOptions
+    // Minimal params
+    hooks.syncHook.tap({
+        name: 'Hook1',
+    }, () => ('Any Return Value'));
+
+    // All param types
+    hooks.syncHook.tap({
+        name: 'Hook2',
+        type: 'sync',
+        before: 'Hook1',
+        context: true,
+        stage: 10,
+    }, () => ('Any Return Value'));
+
+    hooks.syncHook.tap({
+        name: 'Hook3',
+        before: ['Hook1', 'Hook2'],
+    }, () => ('Any Return Value'));
+
+    // No optional params
+    hooks.syncHook.tap({
+        name: 'Hook4',
+    }, () => ('Any Return Value'));
+
+    // The `fn` param
+    hooks.syncWaterfallHook.tap({
+        name: 'SyncHook',
+        fn: (person) => ({ name: 'sue', age: person.age + 1 }),
+    }, (person) => ({ name: 'sue', age: person.age + 1 }));
+
+    hooks.asyncSeriesWaterfallHook.tapPromise({
+        name: 'PromiseHook',
+        type: 'promise',
+        fn: async (person) => ({ name: 'sue', age: person.age + 1 }),
+    }, async (person) => ({ name: 'sue', age: person.age + 1 }));
 })();

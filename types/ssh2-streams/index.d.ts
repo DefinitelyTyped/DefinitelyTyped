@@ -1686,7 +1686,7 @@ export interface Stats extends Attributes {
 }
 
 export namespace utils {
-    export function parseKey(keyData: string | Buffer, passphrase?: string): ParsedKey | {}[];
+    export function parseKey(keyData: string | Buffer, passphrase?: string): ParsedKey | ParsedKey[] | Error | null;
 }
 
 export interface ParsedKey {

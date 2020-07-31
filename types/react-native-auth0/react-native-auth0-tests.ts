@@ -70,6 +70,34 @@ auth0.webAuth.authorize({
     prompt: 'login',
 });
 
+// handle additional options object
+auth0.webAuth.authorize(
+    {
+        state: 'state',
+        nonce: 'nonce',
+        scope: 'openid',
+        language: 'en',
+        prompt: 'login',
+    },
+    {
+        ephemeralSession: true,
+    },
+);
+
+// additional options with incorrect values
+auth0.webAuth.authorize(
+    {
+        state: 'state',
+        nonce: 'nonce',
+        scope: 'openid',
+        language: 'en',
+        prompt: 'login',
+    },
+    {
+        incorrectValue: true, // $ExpectError
+    },
+);
+
 auth0.webAuth.clearSession({ federated: false });
 auth0.webAuth.clearSession();
 
@@ -78,4 +106,23 @@ auth0.users('token').getUser({ id: 'userId' });
 auth0.users('token').patchUser<{ firstName: string; lastName: string }>({
     id: 'userId',
     metadata: { firstName: 'John', lastName: 'Dow' },
+});
+
+auth0.auth.passwordlessWithEmail({
+    email: 'info@auth0.com',
+    send: 'link',
+});
+
+auth0.auth.passwordlessWithSMS({
+    phoneNumber: '+5491159991000',
+});
+
+auth0.auth.loginWithEmail({
+    email: 'info@auth0.com',
+    code: '123456',
+});
+
+auth0.auth.loginWithSMS({
+    phoneNumber: 'info@auth0.com',
+    code: '123456',
 });

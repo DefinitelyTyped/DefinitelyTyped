@@ -1,6 +1,7 @@
-// Type definitions for Google Apps Script 2019-11-06
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -89,28 +90,28 @@ declare namespace GoogleAppsScript {
       setPrefix(prefix: string): Contact;
       setShortName(shortName: string): Contact;
       setSuffix(suffix: string): Contact;
-      /** @deprecated DO NOT USE */getEmailAddresses(): string[];
-      /** @deprecated DO NOT USE */getHomeAddress(): string;
-      /** @deprecated DO NOT USE */getHomeFax(): string;
-      /** @deprecated DO NOT USE */getHomePhone(): string;
-      /** @deprecated DO NOT USE */getMobilePhone(): string;
-      /** @deprecated DO NOT USE */getPager(): string;
-      /** @deprecated DO NOT USE */getUserDefinedField(key: string): string;
-      /** @deprecated DO NOT USE */getUserDefinedFields(): any;
-      /** @deprecated DO NOT USE */getWorkAddress(): string;
-      /** @deprecated DO NOT USE */getWorkFax(): string;
-      /** @deprecated DO NOT USE */getWorkPhone(): string;
-      /** @deprecated DO NOT USE */setHomeAddress(addr: string): void;
-      /** @deprecated DO NOT USE */setHomeFax(phone: string): void;
-      /** @deprecated DO NOT USE */setHomePhone(phone: string): void;
-      /** @deprecated DO NOT USE */setMobilePhone(phone: string): void;
-      /** @deprecated DO NOT USE */setPager(phone: string): void;
-      /** @deprecated DO NOT USE */setPrimaryEmail(primaryEmail: string): void;
-      /** @deprecated DO NOT USE */setUserDefinedField(key: string, value: string): void;
-      /** @deprecated DO NOT USE */setUserDefinedFields(o: any): void;
-      /** @deprecated DO NOT USE */setWorkAddress(addr: string): void;
-      /** @deprecated DO NOT USE */setWorkFax(phone: string): void;
-      /** @deprecated DO NOT USE */setWorkPhone(phone: string): void;
+      /** @deprecated DO NOT USE */ getEmailAddresses(): string[];
+      /** @deprecated DO NOT USE */ getHomeAddress(): string;
+      /** @deprecated DO NOT USE */ getHomeFax(): string;
+      /** @deprecated DO NOT USE */ getHomePhone(): string;
+      /** @deprecated DO NOT USE */ getMobilePhone(): string;
+      /** @deprecated DO NOT USE */ getPager(): string;
+      /** @deprecated DO NOT USE */ getUserDefinedField(key: string): string;
+      /** @deprecated DO NOT USE */ getUserDefinedFields(): object;
+      /** @deprecated DO NOT USE */ getWorkAddress(): string;
+      /** @deprecated DO NOT USE */ getWorkFax(): string;
+      /** @deprecated DO NOT USE */ getWorkPhone(): string;
+      /** @deprecated DO NOT USE */ setHomeAddress(addr: string): void;
+      /** @deprecated DO NOT USE */ setHomeFax(phone: string): void;
+      /** @deprecated DO NOT USE */ setHomePhone(phone: string): void;
+      /** @deprecated DO NOT USE */ setMobilePhone(phone: string): void;
+      /** @deprecated DO NOT USE */ setPager(phone: string): void;
+      /** @deprecated DO NOT USE */ setPrimaryEmail(primaryEmail: string): void;
+      /** @deprecated DO NOT USE */ setUserDefinedField(key: string, value: string): void;
+      /** @deprecated DO NOT USE */ setUserDefinedFields(o: object): void;
+      /** @deprecated DO NOT USE */ setWorkAddress(addr: string): void;
+      /** @deprecated DO NOT USE */ setWorkFax(phone: string): void;
+      /** @deprecated DO NOT USE */ setWorkPhone(phone: string): void;
     }
     /**
      * A ContactGroup is is a group of contacts.
@@ -124,8 +125,8 @@ declare namespace GoogleAppsScript {
       isSystemGroup(): boolean;
       removeContact(contact: Contact): ContactGroup;
       setName(name: string): ContactGroup;
-      /** @deprecated DO NOT USE */getGroupName(): string;
-      /** @deprecated DO NOT USE */setGroupName(name: string): void;
+      /** @deprecated DO NOT USE */ getGroupName(): string;
+      /** @deprecated DO NOT USE */ setGroupName(name: string): void;
     }
     /**
      * This class allows users to access their own Google Contacts and create, remove, and update
@@ -174,9 +175,9 @@ declare namespace GoogleAppsScript {
       getContactsByUrl(query: string): Contact[];
       getContactsByUrl(query: string, label: Field): Contact[];
       getContactsByUrl(query: string, label: string): Contact[];
-      /** @deprecated DO NOT USE */findByEmailAddress(email: string): Contact;
-      /** @deprecated DO NOT USE */findContactGroup(name: string): ContactGroup;
-      /** @deprecated DO NOT USE */getAllContacts(): Contact[];
+      /** @deprecated DO NOT USE */ findByEmailAddress(email: string): Contact;
+      /** @deprecated DO NOT USE */ findContactGroup(name: string): ContactGroup;
+      /** @deprecated DO NOT USE */ getAllContacts(): Contact[];
     }
     /**
      * A custom field in a Contact.

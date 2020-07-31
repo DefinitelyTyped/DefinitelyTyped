@@ -29,7 +29,7 @@ declare namespace requestPromise {
         resolveWithFullResponse?: boolean;
     }
 
-    type RequestPromiseAPI = request.RequestAPI<RequestPromise, RequestPromiseOptions, request.RequiredUriUrl>;
+    type RequestPromiseAPI<T= any> = request.RequestAPI<RequestPromise<T>, RequestPromiseOptions, request.RequiredUriUrl>;
     type OptionsWithUri = request.UriOptions & RequestPromiseOptions;
     type OptionsWithUrl = request.UrlOptions & RequestPromiseOptions;
     type Options = OptionsWithUri | OptionsWithUrl;

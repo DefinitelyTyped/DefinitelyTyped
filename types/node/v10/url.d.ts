@@ -7,7 +7,6 @@ declare module "url" {
         host?: string;
         hostname?: string;
         href?: string;
-        path?: string;
         pathname?: string;
         protocol?: string;
         search?: string;
@@ -24,6 +23,7 @@ declare module "url" {
     interface Url extends UrlObjectCommon {
         port?: string;
         query?: string | null | ParsedUrlQuery;
+        path?: string;
     }
 
     interface UrlWithParsedQuery extends Url {

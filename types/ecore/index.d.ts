@@ -63,6 +63,7 @@ export interface EObject {
     eClass: EClass;
     eContents: () => EObject[];
     eContainer: EObject;
+    eContainingFeature: EObject;
     _id: string;
     getEStructuralFeature: (feature: string | EObject) => any;
 }

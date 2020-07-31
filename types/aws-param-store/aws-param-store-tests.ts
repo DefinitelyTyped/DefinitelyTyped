@@ -65,8 +65,8 @@ promiseParamResult = getParameter(psName, options);
 promiseParamsResult = getParameters(psNames);
 promiseParamsResult = getParameters(psNames, options);
 
-promiseParamsByPathResult = getParametersByPath(psNames);
-promiseParamsByPathResult = getParametersByPath(psNames, options);
+promiseParamsByPathResult = getParametersByPath(psName);
+promiseParamsByPathResult = getParametersByPath(psName, options);
 
 paramResult = getParameterSync(psName);
 paramResult = getParameterSync(psName, options);
@@ -74,5 +74,5 @@ paramResult = getParameterSync(psName, options);
 paramsResult = getParametersSync(psNames);
 paramsResult = getParametersSync(psNames, options);
 
-paramsByPathResult = getParametersByPathSync(psNames);
-paramsByPathResult = getParametersByPathSync(psNames, options);
+paramsByPathResult = getParametersByPathSync(psName);
+paramsByPathResult = getParametersByPathSync(psName, options);

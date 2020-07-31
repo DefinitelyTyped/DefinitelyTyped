@@ -1,7 +1,18 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODO
-        "no-any-union": false
+        "no-any-union": false,
+        "npm-naming": [
+            true,
+            {
+                "errors": [
+                    [
+                        "NeedsExportEquals",
+                        false
+                    ]
+                ],
+                "mode": "code"
+            }
+        ]
     }
 }

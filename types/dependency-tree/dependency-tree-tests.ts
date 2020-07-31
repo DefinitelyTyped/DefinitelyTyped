@@ -5,6 +5,7 @@ const tree = dependencyTree({
   directory: 'path/to/all/files',
   requireConfig: 'path/to/requirejs/config',
   webpackConfig: 'path/to/webpack/config',
+  tsConfig: 'path/to/typescript/config',
   nodeModulesConfig: {
     entry: 'module'
   },

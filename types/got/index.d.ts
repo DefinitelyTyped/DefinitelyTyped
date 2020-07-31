@@ -12,6 +12,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+// Got v10 comes bundled with typings so these should only be maintained for Got v9.
+
 /// <reference types="node"/>
 
 import { Url, URL, URLSearchParams } from 'url';

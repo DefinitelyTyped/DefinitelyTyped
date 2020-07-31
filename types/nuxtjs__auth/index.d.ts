@@ -44,10 +44,11 @@ export interface Auth<T = any> {
   setUser(user?: Partial<T>): any;
   reset(): Promise<never>;
   redirect(name: string): any;
+  onRedirect(listener: () => void): void;
   strategy(): string;
   registerStrategy(strategyName: string, strategy: object): void;
   setStrategy(strategyName: string): void;
-  setUserToken(): Promise<never>;
+  setUserToken(token: string): Promise<void>;
   getRefreshToken(strategyName: string): string;
   setRefreshToken(strategyName: string, token?: string): string;
   syncRefreshToken(strategyName: string): string;

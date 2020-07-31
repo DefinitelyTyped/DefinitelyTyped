@@ -1,10 +1,9 @@
 {
-	"extends": "dtslint/dt.json",
-	"rules": {
-		// TODOs
-		"dt-header": false,
-        "npm-naming": false,
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
         "no-angle-bracket-type-assertion": false,
-		"no-any-union": false
-	}
+        "no-any-union": false,
+        "npm-naming": false
+    }
 }
