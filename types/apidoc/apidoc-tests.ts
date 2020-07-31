@@ -1,50 +1,29 @@
 import { createDoc } from 'apidoc';
 
 const apidocOutput = createDoc({
+    excludeFilters: [''],
+    includeFilters: [''],
     src: '',
     dest: '',
     template: '',
     templateSingleFile: '',
-    debug: true,
-    single: true,
-    silent: true,
-    verbose: true,
-    simulate: true,
-    parse: true,
-    colorize: true,
-    markdown: true,
     config: '',
     apiprivate: true,
+    verbose: true,
+    single: true,
+    debug: true,
+    parse: true,
+    colorize: true,
+    filters: { aFilter: '' },
+    languages: { aLanguage: '' },
+    parsers: { aParser: '' },
+    workers: { aWorker: '' },
+    silent: true,
+    simulate: true,
+    markdown: true,
+    lineEnding: '',
     encoding: '',
-    excludeFilters: [],
-    includeFilters: [],
-    filters: {
-        api: {
-            postFilter: (parsedFiles, parsedFilenames) => { }
-        }
-    },
-    languages: {
-        default: {
-            docBlocksRegExp: /\/\*\*.*\*\//,
-            inlineRegExp: /\@/,
-        }
-    },
-    parsers: {
-        parse: (content, source, messagesg) => ({
-            name: '',
-            title: '',
-            description: '',
-        }),
-        path: '',
-        getGroup: () => '',
-        markdownFields: [],
-        markdownRemovePTags: [],
-    },
-    workers: {
-        work: {}
-    },
-    lineEnding: 'LF',
-    copyDefinitions: false,
+    copyDefinitions: true,
     filterBy: '',
 });
 
