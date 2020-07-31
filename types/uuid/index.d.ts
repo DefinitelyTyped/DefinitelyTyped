@@ -1,4 +1,4 @@
-// Type definitions for uuid 8.0
+// Type definitions for uuid 8.1
 // Project: https://github.com/uuidjs/uuid
 // Definitions by: Oliver Hoffmann <https://github.com/iamolivinius>
 //                 Felipe Ochoa <https://github.com/felipeochoa>
@@ -8,9 +8,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { v1, v3, v4, v5 } from './interfaces';
+import { parse, v1, v3, v4, v5, validate, version } from './interfaces';
 
+export const parse: parse;
 export const v1: v1;
 export const v3: v3;
 export const v4: v4;
 export const v5: v5;
+export const validate: validate;
+export const version: version;

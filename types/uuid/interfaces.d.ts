@@ -48,3 +48,12 @@ export interface v5Static {
     URL: string;
 }
 export type v5 = v5Buffer & v5String & v5Static;
+
+// https://github.com/uuidjs/uuid/blob/master/src/parse.js
+export type parse = (uuid: string) => Uint8Array;
+
+// https://github.com/uuidjs/uuid/blob/master/src/validate.js
+export type validate = (candidateUuid: string) => boolean;
+
+// https://github.com/uuidjs/uuid/blob/master/src/version.js
+export type version = (uuid: string) => number;
