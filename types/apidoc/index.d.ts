@@ -25,10 +25,31 @@ export interface DocOptions {
     debug?: boolean;
     parse?: boolean;
     colorize?: boolean;
-    filters?: Record<string, string>;
-    languages?: Record<string, string>;
-    parsers?: Record<string, string>;
-    workers?: Record<string, string>;
+    filters?: Record<string, string> | {
+        [keys: string]: {
+            postFilter: (parsedFiles: ParsedFile[], parsedFilenames: string[]) => void
+        }
+    };
+    languages?: Record<string, string> | {
+        [language: string]: {
+            docBlocksRegExp: RegExp;
+            inlineRegExp: RegExp;
+        }
+    };
+    parsers?: Record<string, string> | {
+        parse: (content: string, source: string, messages: string) => {
+            name: string;
+            title: string;
+            description: string;
+        };
+        path: string;
+        getGroup?: () => string;
+        markdownFields?: string[];
+        markdownRemovePTags?: string[];
+    };
+    workers?: Record<string, string> | {
+        [keys: string]: any;
+    };
     silent?: boolean;
     simulate?: boolean;
     markdown?: boolean;
