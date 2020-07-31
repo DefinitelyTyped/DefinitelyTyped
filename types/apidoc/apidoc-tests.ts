@@ -1,6 +1,7 @@
 import { createDoc } from 'apidoc';
 
 const apidocOutput = createDoc({
+    src: '',
     dest: '',
     template: '',
     templateSingleFile: '',
@@ -42,7 +43,7 @@ const apidocOutput = createDoc({
     workers: {
         work: {}
     },
-    lineEnding: "LF",
+    lineEnding: 'LF',
     copyDefinitions: false,
     filterBy: '',
 });
