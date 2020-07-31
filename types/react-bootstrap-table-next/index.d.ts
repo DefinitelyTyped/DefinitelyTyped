@@ -438,7 +438,7 @@ export interface BootstrapTableProps<T extends object = any> {
     columns: ColumnDescription[];
     bootstrap4?: boolean;
     remote?: boolean | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean; search: boolean }>;
-    noDataIndication?: () => JSX.Element | JSX.Element | string;
+    noDataIndication?: (() => JSX.Element) | JSX.Element | string;
     striped?: boolean;
     bordered?: boolean;
     hover?: boolean;
