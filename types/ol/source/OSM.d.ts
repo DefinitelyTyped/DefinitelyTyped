@@ -9,7 +9,7 @@ import XYZ from './XYZ';
 export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
-    crossOrigin?: string;
+    crossOrigin?: string | null;
     maxZoom?: number;
     opaque?: boolean;
     reprojectionErrorThreshold?: number;
