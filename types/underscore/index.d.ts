@@ -112,13 +112,13 @@ declare module _ {
     // temporary iteratee type for _Chain until _Chain return types have been fixed
     type _ChainIteratee<V, R, T> = Iteratee<V extends Collection<T> ? V : T[], R>;
 
-    type IterateeResult<I, T, TAnyResult = EnumerableKey | EnumerableKey[], TDefault = never> =
+    type IterateeResult<I, T> =
         I extends (...args: any[]) => infer R ? R
         : I extends keyof T ? T[I]
-        : I extends TAnyResult ? any
+        : I extends EnumerableKey | EnumerableKey[] ? any
         : I extends object ? boolean
         : I extends null | undefined ? T
-        : TDefault;
+        : never;
 
     type PropertyTypeOrAny<T, K> = K extends keyof T ? T[K] : any;
 
@@ -3450,7 +3450,7 @@ declare module _ {
             object: V,
             iteratee: I,
             context?: any
-        ): { [K in keyof V]: IterateeResult<I, V[K], EnumerableKey[], undefined> };
+        ): { [K in keyof V]: IterateeResult<I, V[K]> };
 
         /**
          * Converts `object` into a list of [key, value] pairs. The opposite
@@ -4641,7 +4641,7 @@ declare module _ {
         mapObject<I extends Iteratee<V, any, TypeOfDictionary<V, any>>>(
             iteratee: I,
             context?: any
-        ): { [K in keyof V]: IterateeResult<I, V[K], EnumerableKey[], undefined> };
+        ): { [K in keyof V]: IterateeResult<I, V[K]> };
 
         /**
          * Convert the wrapped object into a list of [key, value] pairs. The
@@ -5705,7 +5705,7 @@ declare module _ {
         mapObject<I extends Iteratee<V, any, TypeOfDictionary<V, any>>>(
             iteratee: I,
             context?: any
-        ): _Chain<IterateeResult<I, TypeOfDictionary<V>, EnumerableKey[]>, { [K in keyof V]: IterateeResult<I, V[K], EnumerableKey[], undefined> }>;
+        ): _Chain<IterateeResult<I, TypeOfDictionary<V>>, { [K in keyof V]: IterateeResult<I, V[K]> }>;
 
         /**
          * Convert the wrapped object into a list of [key, value] pairs. The

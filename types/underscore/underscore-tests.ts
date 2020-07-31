@@ -667,16 +667,6 @@ type StringRecordOrUndefined = StringRecord | undefined;
 
 const stringRecordOrUndefinedList: _.List<StringRecordOrUndefined> = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: undefined, length: 3 };
 
-interface MixedTypeRecord {
-    a: StringRecord;
-    b: number;
-    c: boolean;
-}
-
-declare const mixedTypeRecord: MixedTypeRecord;
-declare const mixedTypeRecordValueIterator: (element: any, key: string, object: MixedTypeRecord) => string;
-declare const mixedTypeRecordBooleanIterator: (element: any, key: string, object: MixedTypeRecord) => boolean;
-
 interface IntersectingMixedTypeRecord {
     a: boolean;
     c: string;
@@ -694,6 +684,16 @@ type NonIntersectingProperties = StringRecord | NonIntersectingStringRecord;
 
 const nonIntersectingPropertiesList: _.List<NonIntersectingProperties> = { 0: { a: 'a', b: 'c' }, 1: { onlyNonIntersectingStringRecord: 'b' }, length: 2 };
 declare const level2NonIntersectingPropertiesList: _.List<_.List<NonIntersectingProperties>>;
+
+interface MixedTypeRecord {
+    a: StringRecord;
+    b: number;
+    c: NonIntersectingProperties;
+}
+
+declare const mixedTypeRecord: MixedTypeRecord;
+declare const mixedTypeRecordValueIterator: (element: any, key: string, object: MixedTypeRecord) => string;
+declare const mixedTypeRecordBooleanIterator: (element: any, key: string, object: MixedTypeRecord) => boolean;
 
 interface NumberRecord {
     a: number;
@@ -2773,9 +2773,9 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     extractChainTypes(_.chain(anyValue).mapObject(partialStringRecord)); // $ExpectType ChainType<{ [x: string]: boolean; }, boolean>
 
     // property name iteratee - objects
-    _.mapObject(mixedTypeRecord, stringRecordProperty); // $ExpectType { a: string; b: undefined; c: undefined; }
-    _(mixedTypeRecord).mapObject(stringRecordProperty); // $ExpectType { a: string; b: undefined; c: undefined; }
-    extractChainTypes(_.chain(mixedTypeRecord).mapObject(stringRecordProperty)); // $ExpectType ChainType<{ a: string; b: undefined; c: undefined; }, never>
+    _.mapObject(mixedTypeRecord, stringRecordProperty); // $ExpectType { a: string; b: any; c: any; }
+    _(mixedTypeRecord).mapObject(stringRecordProperty); // $ExpectType { a: string; b: any; c: any; }
+    const result: ChainType<{ a: string; b: any; c: any; }, any> = extractChainTypes(_.chain(mixedTypeRecord).mapObject(stringRecordProperty));
 
     // property name iteratee - any
     _.mapObject(anyValue, stringRecordProperty); // $ExpectType { [x: string]: any; }
