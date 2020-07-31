@@ -1,7 +1,7 @@
 // Type definitions for apidoc 0.22
 // Project: https://github.com/apidoc/apidoc
 // Definitions by: rigwild <https://github.com/rigwild>
-//                 hoonga <https://github.com/hoonga
+//                 hoonga <https://github.com/hoonga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ParsedFile {
