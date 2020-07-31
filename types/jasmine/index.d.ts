@@ -15,6 +15,7 @@
 //                 Alex Povar <https://github.com/zvirja>
 //                 Dominik Ehrenberg <https://github.com/djungowski>
 //                 Chives <https://github.com/chivesrs>
+//                 kirjs <https://github.com/kirjs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -224,6 +225,7 @@ declare namespace jasmine {
     }
 
     function clock(): Clock;
+    function DiffBuilder(): DiffBuilder;
 
     var matchersUtil: MatchersUtil;
 
@@ -371,8 +373,15 @@ declare namespace jasmine {
         message?: string;
     }
 
+    interface DiffBuilder {
+        setRoots(actual: any, expected: any): void;
+        recordMismatch(formatter?: (actual: any, expected: any, path?: any, prettyPrinter?: any) => string): void;
+        withPath(pathComponent: string, block: () => void): void;
+        getMessage(): string;
+    }
+
     interface MatchersUtil {
-        equals(a: any, b: any, customTesters?: ReadonlyArray<CustomEqualityTester>): boolean;
+        equals(a: any, b: any, customTesters?: ReadonlyArray<CustomEqualityTester>, diffBuilder?: DiffBuilder): boolean;
         contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: ReadonlyArray<CustomEqualityTester>): boolean;
         buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: any[]): string;
     }
