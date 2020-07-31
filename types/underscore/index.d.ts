@@ -3446,7 +3446,7 @@ declare module _ {
          * @returns A new object with all of `object`'s property values
          * transformed through `iteratee`.
          */
-        mapObject<V extends object, I extends Iteratee<V, any, TypeOfDictionary<V, any>>>(
+        mapObject<V extends object, I extends Iteratee<V, any, TypeOfCollection<V, any>>>(
             object: V,
             iteratee: I,
             context?: any
@@ -3458,7 +3458,7 @@ declare module _ {
          * @param object The object to convert.
          * @returns The list of [key, value] pairs from `object`.
          **/
-        pairs<V extends object>(object: V): [string, TypeOfDictionary<V, any>][];
+        pairs<V extends object>(object: V): [string, TypeOfCollection<V, any>][];
 
         /**
         * Returns a copy of the object where the keys have become the values and the values the keys.
@@ -3518,7 +3518,7 @@ declare module _ {
          */
         findKey<V extends object>(
             object: V,
-            iteratee?: Iteratee<V, boolean, TypeOfDictionary<V, any>>,
+            iteratee?: Iteratee<V, boolean, TypeOfCollection<V, any>>,
             context?: any
         ): Strings<keyof V> | undefined;
 
@@ -4638,7 +4638,7 @@ declare module _ {
          * @returns A new object with all of the wrapped object's property
          * values transformed through `iteratee`.
          */
-        mapObject<I extends Iteratee<V, any, TypeOfDictionary<V, any>>>(
+        mapObject<I extends Iteratee<V, any, TypeOfCollection<V, any>>>(
             iteratee: I,
             context?: any
         ): { [K in keyof V]: IterateeResult<I, V[K]> };
@@ -4648,7 +4648,7 @@ declare module _ {
          * opposite of the single-argument signature of `_.object`.
          * @returns The list of [key, value] pairs from the wrapped object.
          **/
-        pairs(): [string, TypeOfDictionary<V, any>][];
+        pairs(): [string, TypeOfCollection<V, any>][];
 
         /**
         * Wrapped type `object`.
@@ -4682,7 +4682,7 @@ declare module _ {
          * truth test or undefined if no elements pass.
          */
         findKey(
-            iteratee?: Iteratee<V, boolean, TypeOfDictionary<V, any>>,
+            iteratee?: Iteratee<V, boolean, TypeOfCollection<V, any>>,
             context?: any
         ): Strings<keyof V> | undefined;
 
@@ -5702,10 +5702,10 @@ declare module _ {
          * @returns A chain wrapper around a new object with all of the wrapped
          * object's property values transformed through `iteratee`.
          */
-        mapObject<I extends Iteratee<V, any, TypeOfDictionary<V, any>>>(
+        mapObject<I extends Iteratee<V, any, TypeOfCollection<V, any>>>(
             iteratee: I,
             context?: any
-        ): _Chain<IterateeResult<I, TypeOfDictionary<V>>, { [K in keyof V]: IterateeResult<I, V[K]> }>;
+        ): _Chain<IterateeResult<I, T>, { [K in keyof V]: IterateeResult<I, V[K]> }>;
 
         /**
          * Convert the wrapped object into a list of [key, value] pairs. The
@@ -5713,7 +5713,7 @@ declare module _ {
          * @returns A chain wrapper around the list of [key, value] pairs from
          * the wrapped object.
          **/
-        pairs(): _Chain<[string, TypeOfDictionary<V, any>], [string, TypeOfDictionary<V, any>][]>;
+        pairs(): _Chain<[string, TypeOfCollection<V, any>], [string, TypeOfCollection<V, any>][]>;
 
         /**
         * Wrapped type `object`.
@@ -5747,7 +5747,7 @@ declare module _ {
          * truth test or undefined if no elements pass.
          */
         findKey(
-            iteratee?: Iteratee<V, boolean, TypeOfDictionary<V, any>>,
+            iteratee?: Iteratee<V, boolean, TypeOfCollection<V, any>>,
             context?: any
         ): _ChainSingle<Strings<keyof V> | undefined>;
 
