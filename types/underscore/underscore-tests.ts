@@ -2775,6 +2775,7 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     // property name iteratee - objects
     _.mapObject(mixedTypeRecord, stringRecordProperty); // $ExpectType { a: string; b: any; c: any; }
     _(mixedTypeRecord).mapObject(stringRecordProperty); // $ExpectType { a: string; b: any; c: any; }
+    // linting seems to be confused about whether the resulting collection item type here will be any or never; use assignment to get around that for now
     const result: ChainType<{ a: string; b: any; c: any; }, any> = extractChainTypes(_.chain(mixedTypeRecord).mapObject(stringRecordProperty));
 
     // property name iteratee - any
