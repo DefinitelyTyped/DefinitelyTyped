@@ -1,5 +1,3 @@
-/// <reference types="meteor"/>
-
 // Tests based on https://github.com/meteor/validated-method/blob/master/validated-method-tests.js
 // Some new tests added
 
