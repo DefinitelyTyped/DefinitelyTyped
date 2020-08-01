@@ -1346,6 +1346,19 @@ type UpdateOptionalId<T> = T extends { _id?: any } ? OptionalId<T> : T;
 
 export type SortValues = -1 | 1;
 
+/** https://docs.mongodb.com/manual/reference/operator/aggregation/meta/#proj._S_meta */
+export type MetaSortOperators =  'textScore' | 'indexKey';
+
+export type MetaProjectionOperators = MetaSortOperators
+    /** Only for Atlas Search https://docs.atlas.mongodb.com/reference/atlas-search/scoring/ */
+    | 'searchScore'
+    /** Only for Atlas Search https://docs.atlas.mongodb.com/reference/atlas-search/highlighting/ */
+    | 'searchHighlights';
+
+export type SchemaMemeber<T, V> = {[P in keyof T]?: V} | {[key: string]: V};
+
+export type SortOptionObject<T> = SchemaMemeber<T, number | {$meta?: MetaSortOperators}>;
+
 export type AddToSetOperators<Type> = {
     $each: Type;
 };
@@ -1956,12 +1969,22 @@ export interface FindAndModifyWriteOpResultObject<TSchema> {
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndReplace */
 export interface FindOneAndReplaceOption<T> extends CommonOptions {
-    projection?: {[P in keyof T]?: number|boolean};
-    sort?: object | {[P in keyof T]?: number};
+    projection?: SchemaMemeber<T, ProjectionOperators | number | boolean>;
+    sort?: SortOptionObject<T>;
     maxTimeMS?: number;
     upsert?: boolean;
     returnOriginal?: boolean;
     collation?: CollationDocument;
+}
+
+
+/** https://docs.mongodb.com/manual/reference/operator/projection/ */
+export interface ProjectionOperators {
+    /** https://docs.mongodb.com/manual/reference/operator/projection/elemMatch/#proj._S_elemMatch */
+    $elemMatch?: object;
+    /** https://docs.mongodb.com/manual/reference/operator/projection/slice/#proj._S_slice */
+    $slice?: number | [number, number];
+    $meta?: MetaProjectionOperators;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndUpdate */
@@ -1971,8 +1994,8 @@ export interface FindOneAndUpdateOption<T> extends FindOneAndReplaceOption<T> {
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndDelete */
 export interface FindOneAndDeleteOption<T> {
-    projection?: {[P in keyof T]?: number|boolean};
-    sort?: object | {[P in keyof T]?: number};
+    projection?: SchemaMemeber<T, ProjectionOperators | number | boolean>;
+    sort?: SortOptionObject<T>;
     maxTimeMS?: number;
     session?: ClientSession;
     collation?: CollationDocument;
@@ -2144,12 +2167,12 @@ export interface FindOperatorsUnordered {
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOne */
 export interface FindOneOptions<T> {
     limit?: number;
-    sort?: any[] | {[P in keyof T]?: number};
-    projection?: {[P in keyof T]?: boolean|number};
+    sort?: Array<[string, number]> | SortOptionObject<T>;
+    projection?: SchemaMemeber<T, ProjectionOperators | number | boolean>;
     /**
      * @deprecated Use options.projection instead
      */
-    fields?: {[P in keyof T]: boolean|number};
+    fields?: {[P in keyof T]: boolean | number};
     skip?: number;
     hint?: object;
     explain?: boolean;
@@ -2338,7 +2361,7 @@ export class Cursor<T = Default> extends Readable {
     next(): Promise<T | null>;
     next(callback: MongoCallback<T | null>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#project */
-    project(value: {[P in keyof T]?: number|boolean}): Cursor<T>;
+    project(value: SchemaMemeber<T, ProjectionOperators | number | boolean>): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#read */
     read(size: number): string | Buffer | void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#next */
@@ -2356,7 +2379,7 @@ export class Cursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#snapshot */
     snapshot(snapshot: object): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#sort */
-    sort(keyOrList: string | Array<[string, number]> | {[P in keyof T]?: number}, direction?: number): Cursor<T>;
+    sort(keyOrList: string | Array<[string, number]> | SortOptionObject<T>, direction?: number): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#stream */
     stream(options?: { transform?: (document: T) => any }): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#toArray */
