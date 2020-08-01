@@ -1,7 +1,0 @@
-{
-  "extends": "dtslint/dt.json",
-  "rules": {
-    "strict-export-declare-modifiers": false,
-    "prefer-method-signature": false
-  }
-}

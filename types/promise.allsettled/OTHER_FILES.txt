@@ -1,2 +1,0 @@
-auto.d.ts
-requirePromise.d.ts

@@ -1,6 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "mqtt": "^2.13.0"
-  }
-}

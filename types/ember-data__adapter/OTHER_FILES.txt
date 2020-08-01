@@ -1,3 +1,0 @@
-error.d.ts
-json-api.d.ts
-rest.d.ts

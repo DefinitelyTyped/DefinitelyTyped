@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "preact": "^8.4.2"
-    }
-}

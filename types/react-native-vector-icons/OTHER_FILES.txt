@@ -1,8 +1,0 @@
-Entypo.d.ts
-EvilIcons.d.ts
-Feather.d.ts
-Foundation.d.ts
-MaterialCommunityIcons.d.ts
-Octicons.d.ts
-SimpleLineIcons.d.ts
-Zocial.d.ts

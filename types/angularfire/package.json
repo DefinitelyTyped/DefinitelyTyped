@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/firebase": "^2.4.1"
-    }
-}

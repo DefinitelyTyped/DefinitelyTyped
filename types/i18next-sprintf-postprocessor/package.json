@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "i18next": ">=17.0.11"
-    }
-}

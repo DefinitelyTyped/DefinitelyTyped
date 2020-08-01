@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "rxjs": ">=6.4.0"
-    }
-}

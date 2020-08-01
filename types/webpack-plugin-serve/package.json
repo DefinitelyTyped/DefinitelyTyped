@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "fast-glob": "^2.2.6"
-    }
-}

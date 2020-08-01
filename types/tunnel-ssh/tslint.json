@@ -1,7 +1,0 @@
-{
-    "defaultSeverity": "error",
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "indent": [true, "spaces", 4]
-    }
-}
