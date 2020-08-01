@@ -1,10 +1,10 @@
-// Type definitions for BaiduMap v3.0
-// Project: http://lbsyun.baidu.com/index.php?title=jspopular3.0
-// Definitions by: Codemonk <http://www.youxianxueche.com/>
+// Type definitions for BaiduMap JsAPI GL v1.0
+// Project: http://lbsyun.baidu.com/index.php?title=jspopularGL
+// Definitions by: Junior2ran <http://github.com/Junior2ran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* *****************************************************************************
-Copyright [Codemonk] [Codemonk@live.cn]
+Copyright [Junior2ran] [hdr01@126.com]
 
 This project is licensed under the MIT license.
 Copyrights are respective of each contributor listed at the beginning of each definition file.
@@ -28,10 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************** */
 
-/// <reference path="./baidumap.base.d.ts" />
-/// <reference path="./baidumap.maptype.d.ts" />
-/// <reference path="./baidumap.panorama.d.ts" />
-declare namespace BMap {
+/// <reference path="./bmapgl.base.d.ts" />
+/// <reference path="./bmapgl.maptype.d.ts" />
+/// <reference path="./bmapgl.panorama.d.ts" />
+declare namespace BMapGL {
     class Map {
         constructor(container: string | HTMLElement, opts?: MapOptions);
         enableDragging(): void;
@@ -183,4 +183,4 @@ declare namespace BMap {
     }
     type MapStyleV2 = { styleJson: MapStyleItem[] } | { styleId: string };
 }
-declare const BMAP_API_VERSION: BMap.APIVersion;
+declare const BMAP_API_VERSION: BMapGL.APIVersion;
