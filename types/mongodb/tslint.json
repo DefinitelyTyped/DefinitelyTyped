@@ -12,6 +12,8 @@
         "no-consecutive-blank-lines": false,
         "no-padding": false,
         "no-unnecessary-generics": false,
+        "no-redundant-jsdoc": false,
+        "no-redundant-jsdoc-2": false,
         "object-literal-shorthand": false,
         "prefer-method-signature": false,
         "space-before-function-paren": false,
