@@ -1,4 +1,4 @@
-import { Comment } from 'estree';
+import { Comment, WhileStatement } from 'estree';
 import { AST, SourceCode, Rule, Linter, ESLint, CLIEngine, RuleTester, Scope } from 'eslint';
 
 const SOURCE = `var foo = bar;`;
