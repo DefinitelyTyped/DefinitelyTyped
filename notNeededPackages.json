@@ -1669,6 +1669,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "gl-matrix",
+            "typingsPackageName": "gl-matrix",
+            "sourceRepoURL": "https://github.com/toji/gl-matrix.git",
+            "asOfVersion": "3.2.0"
+        },
+        {
             "libraryName": "global-dirs",
             "typingsPackageName": "global-dirs",
             "sourceRepoURL": "https://github.com/sindresorhus/global-dirs",
