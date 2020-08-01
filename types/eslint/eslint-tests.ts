@@ -381,6 +381,7 @@ rule = {
             onCodePathSegmentEnd(segment, node) {},
             onCodePathSegmentLoop(fromSegment, toSegment, node) {},
             IfStatement(node) {},
+            WhileStatement(node: WhileStatement) {},
             'Program:exit'() {},
         };
     },
