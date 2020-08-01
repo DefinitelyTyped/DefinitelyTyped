@@ -29,6 +29,7 @@
 //                 Igor Strebezhev <https://github.com/xamgore>
 //                 Valentin Agachi <https://github.com/avaly>
 //                 HitkoDev <https://github.com/HitkoDev>
+//                 TJT <https://github.com/Celend>
 //                 Julien TASSIN <https://github.com/jtassin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
