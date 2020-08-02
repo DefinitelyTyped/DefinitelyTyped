@@ -41,43 +41,43 @@ export function ThemeProvider<Theme>(props: ThemeProviderProps<Theme>): React.Re
  * the name for the root color palette.
  */
 export type ColorMode = {
-    [k: string]: CSS.ColorProperty | ObjectOrArray<CSS.ColorProperty>;
+    [k: string]: CSS.Property.Color | ObjectOrArray<CSS.Property.Color>;
 } & {
     /**
      * Body background color
      */
-    background: CSS.ColorProperty;
+    background: CSS.Property.Color;
 
     /**
      * Body foreground color
      */
-    text: CSS.ColorProperty;
+    text: CSS.Property.Color;
 
     /**
      * Primary brand color for links, buttons, etc.
      */
-    primary?: CSS.ColorProperty;
+    primary?: CSS.Property.Color;
 
     /**
      * A secondary brand color for alternative styling
      */
-    secondary?: CSS.ColorProperty;
+    secondary?: CSS.Property.Color;
 
     /**
      * A contrast color for emphasizing UI
      */
-    accent?: CSS.ColorProperty;
+    accent?: CSS.Property.Color;
 
     /**
      * A background color for highlighting text
      */
-    highlight?: CSS.ColorProperty;
+    highlight?: CSS.Property.Color;
 
     /**
      * A faint color for backgrounds, borders, and accents that do not require
      * high contrast with the background color
      */
-    muted?: CSS.ColorProperty;
+    muted?: CSS.Property.Color;
 };
 
 export interface Theme extends Omit<StyledSystemTheme, 'colors' | 'buttons'> {

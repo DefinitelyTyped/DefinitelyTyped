@@ -1,11 +1,11 @@
-// Type definitions for @testing-library/react-hooks 3.3
+// Type definitions for @testing-library/react-hooks 3.4
 // Project: https://github.com/testing-library/react-hooks-testing-library
 // Definitions by: Michael Peyper <https://github.com/mpeyper>
-//                 Sarah Dayan <https://github.com/sarahdayan>
+//                Sarah Dayan <https://github.com/sarahdayan>
+//                SeoYeon Lee <https://github.com/iamssen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { ComponentType } from 'react';
 export { act } from 'react-test-renderer';
 
 export interface RenderHookOptions<P> {
@@ -19,15 +19,21 @@ export interface HookResult<R> {
 }
 
 export interface WaitOptions {
+    interval?: number;
     timeout?: number;
     suppressErrors?: boolean;
 }
 
 export interface RenderHookResult<P, R> {
     readonly result: HookResult<R>;
-    readonly waitForNextUpdate: (options?: WaitOptions) => Promise<void>;
+    readonly waitForNextUpdate: (options?: Pick<WaitOptions, 'timeout'>) => Promise<void>;
     readonly waitForValueToChange: (selector: () => any, options?: WaitOptions) => Promise<void>;
-    readonly wait: (callback: () => boolean | void, options?: WaitOptions) => Promise<void>;
+    /** @deprecated use waitFor instead */
+    readonly wait: (
+        callback: () => boolean | void,
+        options?: Pick<WaitOptions, 'timeout' | 'suppressErrors'>,
+    ) => Promise<void>;
+    readonly waitFor: (callback: () => boolean | void, options?: WaitOptions) => Promise<void>;
     readonly unmount: () => boolean;
     readonly rerender: (newProps?: P) => void;
 }

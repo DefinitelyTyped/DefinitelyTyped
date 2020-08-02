@@ -67,6 +67,8 @@ class SingleDatePickerFullTest extends React.Component {
                     verticalHeight={5}
                     regular={true}
                     small={true}
+                    navPosition="navPositionTop"
+                    dayPickerNavigationInlineStyles={{width: '10'}}
                     />
     }
 }
@@ -125,6 +127,8 @@ class DateRangePickerFullTest extends React.Component {
                     monthFormat="MM"
                     renderDayContents={day => day.toString()}
                     onClose={(final:any) =>{}}
+                    navPosition="navPositionTop"
+                    dayPickerNavigationInlineStyles={{width: '10'}}
                     />
     }
 }

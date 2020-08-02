@@ -178,11 +178,11 @@ export class ReplaceSource extends Source implements SourceAndMapMixin {
     /**
      * Replaces chars from start (0-indexed, inclusive) to end (0-indexed, inclusive) with replacement.
      */
-    replace(start: number, end: number, newValue: string, name: string): void;
+    replace(start: number, end: number, newValue: string, name?: string): void;
     /**
      * Inserts the insertion before char pos (0-indexed).
      */
-    insert(pos: number, newValue: string, name: string): void;
+    insert(pos: number, newValue: string, name?: string): void;
     /**
      * Get decorated Source.
      */

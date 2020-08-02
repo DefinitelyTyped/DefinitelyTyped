@@ -25,6 +25,9 @@ const ForwardComp = React.forwardRef<View, CompProps>(({ width }, ref) => {
 
 type X = React.PropsWithoutRef<React.ComponentProps<typeof ForwardComp>>;
 
+type Props = React.ComponentPropsWithoutRef<typeof Animated.Text>;
+const AnimatedWrapperComponent: React.FunctionComponent<Props> = (props) => <Animated.Text {...props} />
+
 function TestAnimatedAPI() {
     // Value
     const v1 = new Animated.Value(0);

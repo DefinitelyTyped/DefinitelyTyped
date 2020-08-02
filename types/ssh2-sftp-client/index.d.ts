@@ -1,4 +1,4 @@
-// Type definitions for ssh2-sftp-client 5.1
+// Type definitions for ssh2-sftp-client 5.2
 // Project: https://github.com/theophilusx/ssh2-sftp-client
 // Definitions by: igrayson <https://github.com/igrayson>
 //                 Ascari Andrea <https://github.com/ascariandrea>
@@ -17,7 +17,7 @@ import * as ssh2Stream from 'ssh2-streams';
 export = sftp;
 
 declare class sftp {
-    connect(options: ssh2.ConnectConfig): Promise<ssh2.SFTPWrapper>;
+    connect(options: sftp.ConnectOptions): Promise<ssh2.SFTPWrapper>;
 
     list(remoteFilePath: string, pattern?: string | RegExp): Promise<sftp.FileInfo[]>;
 
@@ -70,9 +70,17 @@ declare class sftp {
     on(event: string, callback: (...args: any[]) => void): void;
 
     removeListener(event: string, callback: (...args: any[]) => void): void;
+
+    posixRename(fromPath: string, toPath: string): Promise<string>;
 }
 
 declare namespace sftp {
+    interface ConnectOptions extends ssh2.ConnectConfig {
+        retries?: number;
+        retry_factor?: number;
+        retry_minTimeout?: number;
+    }
+
     interface FileInfo {
         type: string;
         name: string;

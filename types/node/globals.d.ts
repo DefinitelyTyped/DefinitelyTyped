@@ -36,6 +36,9 @@ interface NodeRequire extends NodeJS.Require {}
 interface RequireResolve extends NodeJS.RequireResolve {}
 interface NodeModule extends NodeJS.Module {}
 
+declare var process: NodeJS.Process;
+declare var console: Console;
+
 declare var __filename: string;
 declare var __dirname: string;
 
