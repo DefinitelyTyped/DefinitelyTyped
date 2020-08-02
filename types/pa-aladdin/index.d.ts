@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Aladdin {
-    export interface Env {
+    interface Env {
         isPro: boolean;
         isDev: boolean;
     }
 
-    export interface count {
+    interface count {
         (n: number): number;
     }
 }
 
-export default Aladdin
+export default Aladdin;
