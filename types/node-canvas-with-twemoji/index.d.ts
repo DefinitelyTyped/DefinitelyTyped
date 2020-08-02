@@ -4,5 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-declare function fillTextWithTwemoji(context:object,text:string,x:number,y:number): void;
-export = fillTextWithTwemoji
+declare function fillTextWithTwemoji(context: object, text: string, x: number, y: number): void;
+export = fillTextWithTwemoji;
