@@ -1969,7 +1969,7 @@ export interface FindAndModifyWriteOpResultObject<TSchema> {
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndReplace */
 export interface FindOneAndReplaceOption<T> extends CommonOptions {
-    projection?: SchemaMemeber<T, ProjectionOperators | number | boolean>;
+    projection?: SchemaMemeber<T, ProjectionOperators | number | boolean | any>;
     sort?: SortOptionObject<T>;
     maxTimeMS?: number;
     upsert?: boolean;
@@ -1994,7 +1994,7 @@ export interface FindOneAndUpdateOption<T> extends FindOneAndReplaceOption<T> {
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndDelete */
 export interface FindOneAndDeleteOption<T> {
-    projection?: SchemaMemeber<T, ProjectionOperators | number | boolean>;
+    projection?: SchemaMemeber<T, ProjectionOperators | number | boolean | any>;
     sort?: SortOptionObject<T>;
     maxTimeMS?: number;
     session?: ClientSession;
@@ -2168,7 +2168,7 @@ export interface FindOperatorsUnordered {
 export interface FindOneOptions<T> {
     limit?: number;
     sort?: Array<[string, number]> | SortOptionObject<T>;
-    projection?: SchemaMemeber<T, ProjectionOperators | number | boolean>;
+    projection?: SchemaMemeber<T, ProjectionOperators | number | boolean | any>;
     /**
      * @deprecated Use options.projection instead
      */
@@ -2361,7 +2361,7 @@ export class Cursor<T = Default> extends Readable {
     next(): Promise<T | null>;
     next(callback: MongoCallback<T | null>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#project */
-    project(value: SchemaMemeber<T, ProjectionOperators | number | boolean>): Cursor<T>;
+    project(value: SchemaMemeber<T, ProjectionOperators | number | boolean | any>): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#read */
     read(size: number): string | Buffer | void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#next */
