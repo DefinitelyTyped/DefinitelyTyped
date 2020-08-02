@@ -254,7 +254,9 @@ export namespace DS {
      * subclasses are used to indicate specific error states. The following
      * subclasses are provided:
      */
-    class AdapterError extends Ember.Object {}
+    class AdapterError extends Ember.Object {
+        constructor(errors: any[], message?: 'string')
+    }
     /**
      * A `DS.InvalidError` is used by an adapter to signal the external API
      * was unable to process a request because the content was not
@@ -264,9 +266,7 @@ export namespace DS {
      * transition to the `invalid` state and the errors will be set to the
      * `errors` property on the record.
      */
-    class InvalidError extends AdapterError {
-        constructor(errors: any[]);
-    }
+    class InvalidError extends AdapterError {}
     /**
      * A `DS.TimeoutError` is used by an adapter to signal that a request
      * to the external API has timed out. I.e. no response was received from
