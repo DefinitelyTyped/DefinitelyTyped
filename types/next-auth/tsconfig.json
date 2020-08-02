@@ -5,12 +5,12 @@
             "es6",
             "dom"
         ],
+        "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "esModuleInterop": true,
-        "moduleResolution": "node",
         "baseUrl": "../",
         "typeRoots": [
             "../"
