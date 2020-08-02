@@ -5,8 +5,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
+/// <reference types="node" />
+
 import { ConnectionOptions } from 'typeorm';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { IncomingMessage, ServerResponse } from 'http';
 import { PossibleProviders } from './providers';
 import { Adapter } from './adapters';
 
@@ -75,3 +77,38 @@ interface Callbacks {
 
 declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options?: InitOptions): Promise<void>;
 export default NextAuth;
+
+/**
+ * TODO: `dtslint` throws when parsing Next types... the following types are copied directly from `next/types` ...
+ * @see https://github.com/microsoft/dtslint/issues/297
+ */
+
+interface NextApiRequest extends IncomingMessage {
+    query: {
+        [key: string]: string | string[];
+    };
+    cookies: {
+        [key: string]: string;
+    };
+    body: any;
+    env: Env;
+}
+
+type NextApiResponse<T = any> = ServerResponse & {
+    send: Send<T>;
+    json: Send<T>;
+    status: (statusCode: number) => NextApiResponse<T>;
+    setPreviewData: (
+        data: object | string,
+        options?: {
+            maxAge?: number;
+        },
+    ) => NextApiResponse<T>;
+    clearPreviewData: () => NextApiResponse<T>;
+};
+
+interface Env {
+    [key: string]: string;
+}
+
+type Send<T> = (body: T) => void;

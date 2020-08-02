@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { NextPageContext } from 'next';
+import { IncomingMessage } from 'http';
 
 interface Session {
     user: {
@@ -52,3 +52,27 @@ declare function signout(context: NextPageContext): Promise<void>;
 declare const Provider: ContextProvider;
 
 export { useSession, getSession, session, getProviders, providers, getCsrfToken, csrfToken, signin, signout, Provider };
+
+/**
+ * TODO: `dtslint` throws when parsing Next types... the following types are copied directly from `next/types` ...
+ * @see https://github.com/microsoft/dtslint/issues/297
+ */
+
+interface NextApiRequest extends IncomingMessage {
+    query: {
+        [key: string]: string | string[];
+    };
+    cookies: {
+        [key: string]: string;
+    };
+    body: any;
+    env: Env;
+}
+
+interface NextPageContext {
+    req: NextApiRequest;
+}
+
+interface Env {
+    [key: string]: string;
+}
