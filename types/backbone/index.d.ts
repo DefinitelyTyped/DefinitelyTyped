@@ -26,10 +26,12 @@ declare namespace Backbone {
         sort?: boolean;
     }
 
-    interface CollectionSetOptions extends Silenceable {
+    interface CollectionSetOptions extends Parseable, Silenceable {
         add?: boolean;
         remove?: boolean;
         merge?: boolean;
+        at?: number;
+        sort?: boolean;
     }
 
     interface HistoryOptions extends Silenceable {
@@ -59,15 +61,23 @@ declare namespace Backbone {
     }
 
     interface Parseable {
-        parse?: any;
+        parse?: boolean;
     }
 
     interface PersistenceOptions {
         url?: string;
         data?: any;
         beforeSend?: (jqxhr: JQueryXHR) => void;
+        timeout?: number;
+        // TODO: copy all parameters from JQueryAjaxSettings except success/error callbacks?
         success?: (modelOrCollection?: any, response?: any, options?: any) => void;
         error?: (modelOrCollection?: any, jqxhr?: JQueryXHR, options?: any) => void;
+        emulateJSON?: boolean;
+        emulateHTTP?: boolean;
+    }
+
+    interface ModelConstructorOptions<TModel extends Model = Model> extends ModelSetOptions, Parseable {
+        collection?: Backbone.Collection<TModel>;
     }
 
     interface ModelSetOptions extends Silenceable, Validable {
@@ -212,7 +222,7 @@ declare namespace Backbone {
         changed: any[];
         cidPrefix: string;
         cid: string;
-        collection: Collection<any>;
+        collection: Collection<this>;
 
         private _changing: boolean;
         private _previousAttributes : any;
@@ -243,10 +253,10 @@ declare namespace Backbone {
          * any instantiation logic is run for the Model.
          * @see https://backbonejs.org/#Model-preinitialize
          */
-        preinitialize(attributes?: T, options?: any): void;
+        preinitialize(attributes?: T, options?: ModelConstructorOptions<this>): void;
 
-        constructor(attributes?: T, options?: any);
-        initialize(attributes?: T, options?: any): void;
+        constructor(attributes?: T, options?: ModelConstructorOptions);
+        initialize(attributes?: T, options?: ModelConstructorOptions<this>): void;
 
         fetch(options?: ModelFetchOptions): JQueryXHR;
 
@@ -287,7 +297,7 @@ declare namespace Backbone {
         isNew(): boolean;
         isValid(options?:any): boolean;
         previous(attribute: string): any;
-        previousAttributes(): any[];
+        previousAttributes(): any;
         save(attributes?: any, options?: ModelSaveOptions): any;
         unset(attribute: string, options?: Silenceable): Model;
         validate(attributes: any, options?: any): any;
@@ -355,7 +365,7 @@ declare namespace Backbone {
         pop(options?: Silenceable): TModel;
         remove(model: {}|TModel, options?: Silenceable): TModel;
         remove(models: ({}|TModel)[], options?: Silenceable): TModel[];
-        reset(models?: TModel[], options?: Silenceable): TModel[];
+        reset(models?: ({}|TModel)[], options?: Silenceable): TModel[];
 
         /**
          *
@@ -368,7 +378,7 @@ declare namespace Backbone {
          * @param models
          * @param options
          */
-        set(models?: TModel[], options?: CollectionSetOptions): TModel[];
+        set(models?: ({}|TModel)[], options?: CollectionSetOptions): TModel[];
         shift(options?: Silenceable): TModel;
         sort(options?: Silenceable): Collection<TModel>;
         unshift(model: TModel, options?: AddOptions): TModel;
