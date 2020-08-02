@@ -181,7 +181,7 @@ render(
         data={products}
         bootstrap4
         keyField="id"
-        noDataIndication={<p>No data available</p>}
+        noDataIndication={<div>No data available</div>}
         columns={productColumns}
     />,
     document.getElementById('app'),
