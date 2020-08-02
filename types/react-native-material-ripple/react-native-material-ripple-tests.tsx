@@ -10,6 +10,7 @@ const RippleTest: React.FC = () => {
     const aNumber = 10;
     const aString = 'string';
     const callback = () => {};
+    const predicate = () => true;
 
     const insets: Insets = {
         top: aNumber,
@@ -76,8 +77,8 @@ const RippleTest: React.FC = () => {
             onLayout={callback}
             onLongPress={callback}
             onMagicTap={callback}
-            onMoveShouldSetResponder={callback}
-            onMoveShouldSetResponderCapture={callback}
+            onMoveShouldSetResponder={predicate}
+            onMoveShouldSetResponderCapture={predicate}
             onPress={callback}
             onPressIn={callback}
             onPressOut={callback}
@@ -88,9 +89,9 @@ const RippleTest: React.FC = () => {
             onResponderRelease={callback}
             onResponderStart={callback}
             onResponderTerminate={callback}
-            onResponderTerminationRequest={callback}
-            onStartShouldSetResponder={callback}
-            onStartShouldSetResponderCapture={callback}
+            onResponderTerminationRequest={predicate}
+            onStartShouldSetResponder={predicate}
+            onStartShouldSetResponderCapture={predicate}
             onTouchCancel={callback}
             onTouchEnd={callback}
             onTouchEndCapture={callback}
