@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { IncomingMessage } from 'http';
 
 interface Session {
     user: {
@@ -58,7 +57,7 @@ export { useSession, getSession, session, getProviders, providers, getCsrfToken,
  * @see https://github.com/microsoft/dtslint/issues/297
  */
 
-interface NextApiRequest extends IncomingMessage {
+interface NextApiRequest {
     query: {
         [key: string]: string | string[];
     };

@@ -1,4 +1,4 @@
-// Type definitions for next-auth 2.2.0
+// Type definitions for next-auth 2.2
 // Project: https://github.com/iaincollins/next-auth#readme
 // Definitions by: Lluis <https://github.com/lluia>
 //                 Iain <https://github.com/iaincollins>
@@ -8,13 +8,12 @@
 /// <reference types="node" />
 
 import { ConnectionOptions } from 'typeorm';
-import { IncomingMessage, ServerResponse } from 'http';
 import { PossibleProviders } from './providers';
 import { Adapter } from './adapters';
 
 interface InitOptions {
     site: string;
-    providers: ReturnType<PossibleProviders>[];
+    providers: Array<ReturnType<PossibleProviders>>;
     database?: ConnectionOptions | string;
     secret?: string;
     jwt?: boolean;
@@ -83,7 +82,7 @@ export default NextAuth;
  * @see https://github.com/microsoft/dtslint/issues/297
  */
 
-interface NextApiRequest extends IncomingMessage {
+interface NextApiRequest {
     query: {
         [key: string]: string | string[];
     };
@@ -94,7 +93,7 @@ interface NextApiRequest extends IncomingMessage {
     env: Env;
 }
 
-type NextApiResponse<T = any> = ServerResponse & {
+type NextApiResponse<T = any> = {
     send: Send<T>;
     json: Send<T>;
     status: (statusCode: number) => NextApiResponse<T>;

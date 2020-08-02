@@ -5,7 +5,6 @@
  * in the sense of typing and call signature consistency. They
  * are not intended as functional tests.
  */
-
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 import Adapters from 'next-auth/adapters';
@@ -33,9 +32,9 @@ const req = {
 const res = {
     send: () => undefined,
     json: () => undefined,
-    status: (code: number) => ({}),
-    setPreviewData: (data: object | string) => ({}),
-    clearPreviewData: () => ({}),
+    status: (code: number) => res,
+    setPreviewData: (data: object | string) => res,
+    clearPreviewData: () => res,
 };
 
 const pageOptions = {
