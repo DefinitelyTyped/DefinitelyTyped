@@ -93,7 +93,7 @@ interface NextApiRequest {
     env: Env;
 }
 
-type NextApiResponse<T = any> = {
+interface NextApiResponse<T = any> {
     send: Send<T>;
     json: Send<T>;
     status: (statusCode: number) => NextApiResponse<T>;
@@ -104,7 +104,7 @@ type NextApiResponse<T = any> = {
         },
     ) => NextApiResponse<T>;
     clearPreviewData: () => NextApiResponse<T>;
-};
+}
 
 interface Env {
     [key: string]: string;
