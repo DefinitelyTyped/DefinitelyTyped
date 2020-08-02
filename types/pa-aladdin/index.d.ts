@@ -3,7 +3,7 @@
 // Definitions by: pole1419 <https://github.com/pole1419>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace Aladdin {
+declare namespace aladdin {
     interface Env {
         isPro: boolean;
         isDev: boolean;
@@ -14,4 +14,4 @@ declare namespace Aladdin {
     }
 }
 
-export default Aladdin;
+export default aladdin;

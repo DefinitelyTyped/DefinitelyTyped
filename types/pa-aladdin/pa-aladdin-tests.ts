@@ -1,1 +1,1 @@
-import Aladdin from 'pa-aladdin';
+import aladdin from 'pa-aladdin';
