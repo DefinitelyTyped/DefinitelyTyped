@@ -1,22 +1,37 @@
 import { createDoc } from 'apidoc';
 
 const apidocOutput = createDoc({
+    excludeFilters: [''],
+    includeFilters: [''],
+    src: '',
     dest: '',
     template: '',
     templateSingleFile: '',
-    debug: true,
-    single: true,
-    silent: true,
-    verbose: true,
-    simulate: true,
-    parse: true,
-    colorize: true,
-    markdown: true,
     config: '',
     apiprivate: true,
+    verbose: true,
+    single: true,
+    debug: true,
+    parse: true,
+    colorize: true,
+    filters: { aFilter: '' },
+    languages: { aLanguage: '' },
+    parsers: { aParser: '' },
+    workers: { aWorker: '' },
+    silent: true,
+    simulate: true,
+    markdown: true,
+    lineEnding: '',
     encoding: '',
-    excludeFilters: [],
-    includeFilters: [],
+    copyDefinitions: true,
+    filterBy: '',
+});
+
+if (typeof apidocOutput !== 'boolean') {
+    const { data, project } = apidocOutput;
+}
+
+createDoc({
     filters: {
         api: {
             postFilter: (parsedFiles, parsedFilenames) => { }
@@ -42,11 +57,5 @@ const apidocOutput = createDoc({
     workers: {
         work: {}
     },
-    lineEnding: "LF",
-    copyDefinitions: false,
-    filterBy: '',
+    filterBy: [''],
 });
-
-if (typeof apidocOutput !== 'boolean') {
-    const { data, project } = apidocOutput;
-}

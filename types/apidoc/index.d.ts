@@ -8,38 +8,35 @@ export interface ParsedFile {
     filename: string;
     extension: string;
     src: string;
-
     blocks: Array<{ global: any; local: any; }>;
 }
+
 export interface DocOptions {
-    dest?: string | string[];
-    template?: string;
-    templateSingleFile?: string;
-    debug?: boolean;
-    single?: boolean;
-    silent?: boolean;
-    verbose?: boolean;
-    simulate?: boolean;
-    parse?: boolean;
-    colorize?: boolean;
-    markdown?: boolean;
-    config?: string;
-    apiprivate?: boolean;
-    encoding?: string;
     excludeFilters?: string[];
     includeFilters?: string[];
-    filters?: {
+    src?: string;
+    dest?: string;
+    template?: string;
+    templateSingleFile?: string;
+    config?: string;
+    apiprivate?: boolean;
+    verbose?: boolean;
+    single?: boolean;
+    debug?: boolean;
+    parse?: boolean;
+    colorize?: boolean;
+    filters?: Record<string, string> | {
         [keys: string]: {
             postFilter: (parsedFiles: ParsedFile[], parsedFilenames: string[]) => void
         }
     };
-    languages?: {
+    languages?: Record<string, string> | {
         [language: string]: {
             docBlocksRegExp: RegExp;
             inlineRegExp: RegExp;
         }
     };
-    parsers?: {
+    parsers?: Record<string, string> | {
         parse: (content: string, source: string, messages: string) => {
             name: string;
             title: string;
@@ -50,10 +47,14 @@ export interface DocOptions {
         markdownFields?: string[];
         markdownRemovePTags?: string[];
     };
-    workers?: {
+    workers?: Record<string, string> | {
         [keys: string]: any;
     };
+    silent?: boolean;
+    simulate?: boolean;
+    markdown?: boolean;
     lineEnding?: string;
+    encoding?: string;
     copyDefinitions?: boolean;
     filterBy?: string | string[];
 }
