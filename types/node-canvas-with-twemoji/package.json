@@ -1,0 +1,7 @@
+{
+    "private":true,
+    "dependencies": {
+        "canvas":">=2.6.1",
+        "twemoji-parser":">=13.0.0"
+    }
+}
