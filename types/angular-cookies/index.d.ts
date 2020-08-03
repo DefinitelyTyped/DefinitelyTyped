@@ -61,17 +61,6 @@ declare module 'angular' {
 
         /**
          * CookiesService
-         * see https://code.angularjs.org/1.3.20/docs/api/ngCookies/service/$cookies
-         */
-        interface ICookiesService {
-            /**
-             * DEPRECATED
-             */
-            [index: string]: any;
-        }
-
-        /**
-         * CookiesService
          * see https://docs.angularjs.org/api/ngCookies/service/$cookies
          */
         interface ICookiesService {
@@ -82,29 +71,6 @@ declare module 'angular' {
             put(key: string, value: string, options?: ICookiesOptions): void;
             putObject(key: string, value: any, options?: ICookiesOptions): void;
             remove(key: string, options?: ICookiesOptions): void;
-        }
-
-        /**
-         * CookieStoreService DEPRECATED
-         * see https://code.angularjs.org/1.3.20/docs/api/ngCookies/service/$cookieStore
-         */
-        interface ICookieStoreService {
-            /**
-             * Returns the value of given cookie key
-             * @param key Id to use for lookup
-             */
-            get(key: string): any;
-            /**
-             * Sets a value for given cookie key
-             * @param key Id for the value
-             * @param value Value to be stored
-             */
-            put(key: string, value: any): void;
-            /**
-             * Remove given cookie
-             * @param key Id of the key-value pair to delete
-             */
-            remove(key: string): void;
         }
     }
 }
