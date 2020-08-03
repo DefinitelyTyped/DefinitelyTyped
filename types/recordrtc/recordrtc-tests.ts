@@ -1,4 +1,6 @@
-import RecordRTC from 'recordrtc';
+import RecordRTC, { Options } from 'recordrtc';
+
+const opts: Options = {};
 
 navigator.getUserMedia(
     { audio: true, video: true },
