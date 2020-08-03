@@ -68,11 +68,11 @@ interface JWTSignInOptions {
 
 interface JWTVerificationOptions {
     maxTokenAge: string;
-    algorithms: Array<string>;
+    algorithms: string[];
 }
 
 interface JWTDecryptionOptions {
-    algorithms: Array<string>;
+    algorithms: string[];
 }
 
 interface JWTDecodeParams {
