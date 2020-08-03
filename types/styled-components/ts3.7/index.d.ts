@@ -55,8 +55,8 @@ export type StyledComponentProps<
     // Distribute O if O is a union type
     O extends object
     ? WithOptionalTheme<
-          Omit<ReactDefaultizedProps<C, React.ComponentPropsWithRef<C extends keyof JSX.IntrinsicElements ? C : never>> & O, A> &
-              Partial<Pick<React.ComponentPropsWithRef<C extends keyof JSX.IntrinsicElements ? C : never> & O, A>>,
+          Omit<ReactDefaultizedProps<C, React.ComponentPropsWithRef<C extends keyof JSX.IntrinsicElements | React.ComponentType<any> ? C : never>> & O, A> &
+              Partial<Pick<React.ComponentPropsWithRef<C extends keyof JSX.IntrinsicElements | React.ComponentType<any> ? C : never> & O, A>>,
           T
       > &
           WithChildrenIfReactComponentClass<C>
