@@ -43,7 +43,7 @@ declare module 'meteor/dburles:collection-helpers' {
     export type Helpers<T> = SetThisArg<Full<T>, Required<HelpersOf<NonData<T>>>>;
     /**
      * Just the non-method/Helper properties of the type, with the methods and Helpers made optional.
-     * No need to declare a Collection<Data<T>>; "new Collection<T>" already returns one.
+     * No need to declare a Collection<Data<T>>; all Collection methods already accept a Data<T>.
      */
     export type Data<T> = DataBrand<NonData<T>> & NonHelpersOf<NonData<T>> & Partial<HelpersOf<NonData<T>>>;
     /**

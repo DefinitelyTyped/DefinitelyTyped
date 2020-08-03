@@ -1,31 +1,14 @@
 import { Helpers, Full, Data } from 'meteor/dburles:collection-helpers';
+import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 // tslint:disable-next-line no-single-declare-module
 
-// CollectionStatic, Collection.find, and Collection.findOne are pulled from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/meteor/mongo.d.ts
+// Cursor<T> and Collection<T> are pulled from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/meteor/mongo.d.ts
 // and should be kept in sync with any changes to it
+// only modified properties are included
 
 declare module 'meteor/mongo' {
     namespace Mongo {
-        // tslint:disable-next-line no-var-keyword
-        var Collection: CollectionStatic;
-        interface CollectionStatic {
-            // modifications: return type Collection<T> -> Collection<Data<T>>
-            new <T>(
-                name: string | null,
-                options?: {
-                    // using Object because @types/meteor still uses it here
-                    // tslint:disable-next-line ban-types
-                    connection?: Object | null;
-                    idGeneration?: string;
-                    // ditto for Function
-                    // tslint:disable-next-line ban-types
-                    transform?: Function | null;
-                },
-            // this is a collection type
-            // tslint:disable-next-line no-unnecessary-generics
-            ): Collection<Data<T>>;
-        }
         interface Collection<T> {
             /**
              * Provide the definitions here for the methods and Helper<T>s you declared on your item interface.
@@ -40,21 +23,28 @@ declare module 'meteor/mongo' {
              */
             helpers(helpers: Helpers<T>): void;
 
-            // modifications: replaced T in return type with Full<T>
+            // modifications:
+            // - replaced T with Full<T> & T everywhere Collection._transform is applied
+            // - replaced T with Data<T> everywhere the user provides a T
 
-            find(
-                selector?: Selector<T> | ObjectID | string,
-                options?: {
-                    sort?: SortSpecifier;
-                    skip?: number;
-                    limit?: number;
-                    fields?: FieldSpecifier;
-                    reactive?: boolean;
-                    // ditto
-                    // tslint:disable-next-line ban-types
-                    transform?: Function | null;
-                },
-            ): Cursor<Full<T>>;
+            allow(options: {
+                insert?: (userId: string, doc: Full<T> & T) => boolean;
+                update?: (userId: string, doc: Full<T> & T, fieldNames: string[], modifier: any) => boolean;
+                remove?: (userId: string, doc: Full<T> & T) => boolean;
+                fetch?: string[];
+                // ditto
+                // tslint:disable-next-line ban-types
+                transform?: Function | null;
+            }): boolean;
+            deny(options: {
+                insert?: (userId: string, doc: Full<T> & T) => boolean;
+                update?: (userId: string, doc: Full<T> & T, fieldNames: string[], modifier: any) => boolean;
+                remove?: (userId: string, doc: Full<T> & T) => boolean;
+                fetch?: string[];
+                // ditto
+                // tslint:disable-next-line ban-types
+                transform?: Function | null;
+            }): boolean;
             findOne(
                 selector?: Selector<T> | ObjectID | string,
                 options?: {
@@ -66,7 +56,19 @@ declare module 'meteor/mongo' {
                     // tslint:disable-next-line ban-types
                     transform?: Function | null;
                 },
-            ): Full<T> | undefined;
+            ): (Full<T> & T) | undefined;
+            // ditto
+            // tslint:disable-next-line ban-types
+            insert(doc: OptionalId<Data<T>>, callback?: Function): string;
+        }
+
+        // modifications: replaced T with Full<T> & T everywhere Collection._transform is applied
+        // note: it's not applied for observeChanges; however, ObserveChangesCallbacks uses Partial<T> anyway
+        interface Cursor<T> {
+            fetch(): Array<Full<T> & T>;
+            forEach(callback: (doc: Full<T> & T, index: number, cursor: Cursor<T>) => void, thisArg?: any): void;
+            map<U>(callback: (doc: Full<T> & T, index: number, cursor: Cursor<T>) => U, thisArg?: any): U[];
+            observe(callbacks: ObserveCallbacks<Full<T> & T>): Meteor.LiveQueryHandle;
         }
     }
 }

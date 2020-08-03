@@ -22,6 +22,9 @@ interface Book {
 const Books = new Mongo.Collection<Book>('books');
 const Authors = new Mongo.Collection<Author>('authors');
 
+// $ExpectType Collection<Book>
+Books;
+
 // when inserting items, only data properties are required
 const author1 = Authors.insert({
     firstName: 'Charles',
