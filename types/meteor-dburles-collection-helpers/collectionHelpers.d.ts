@@ -8,21 +8,23 @@ declare module 'meteor/dburles:collection-helpers' {
         [K in keyof T]: T[K] extends TPred ? never : K;
     }[keyof T];
 
-    type NonHelpers<T> = { [K in keyof T]: T[K] & ConflictsWithHelper<T[K]> }[keyof T];
+    // "T extends T ? ... : never" looks tautological, but actually serves to distribute over union types
+    // https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
+    type NonHelpers<T> = T extends T ? { [K in keyof T]: T[K] & ConflictsWithHelper<T[K]> }[keyof T] : never;
 
-    type HelpersOf<T> = Pick<T, PropertyNamesMatching<Required<T>, Func> | PropertyNamesNotMatching<T, NonHelpers<T>>>;
-    type NonHelpersOf<T> = Pick<
+    type HelpersOf<T> = T extends T ? Pick<T, PropertyNamesMatching<Required<T>, Func> | PropertyNamesNotMatching<T, NonHelpers<T>>> : never;
+    type NonHelpersOf<T> = T extends T ? Pick<
         T,
         PropertyNamesNotMatching<Required<T>, Func> & PropertyNamesMatching<T, NonHelpers<T>>
-    >;
+    > : never;
 
     type Func = (...args: any[]) => any;
 
-    type SetThisArg<TThis, T> = {
+    type SetThisArg<TThis, T> = T extends T ? {
         [K in keyof T]: T[K] extends (...args: infer TArgs) => infer TRet
             ? (this: TThis, ...args: TArgs) => TRet
             : T[K];
-    };
+    } : never;
 
     interface HelperBrand {
         _meteor_dburles_collection_helpers_isHelper: true;
@@ -40,14 +42,14 @@ declare module 'meteor/dburles:collection-helpers' {
      * All methods and Helper<T>s declared on the type, made non-optional.
      * This is what's required when defining helpers for a collection.
      */
-    export type Helpers<T> = SetThisArg<Full<T>, Required<HelpersOf<NonData<T>>>>;
+    export type Helpers<T> = SetThisArg<Full<T>, T extends T ? Required<HelpersOf<NonData<T>>> : never>;
     /**
      * Just the non-method/Helper properties of the type, with the methods and Helpers made optional.
      * No need to declare a Collection<Data<T>>; all Collection methods already accept a Data<T>.
      */
-    export type Data<T> = DataBrand<T> & NonHelpersOf<T> & Partial<HelpersOf<T>>;
+    export type Data<T> = DataBrand<T> & NonHelpersOf<T> & (T extends T ? Partial<HelpersOf<T>> : never);
     /**
      * The version of a type that comes out of the collection (with helpers attached).
      */
-    export type Full<T> = NonData<T> & Required<HelpersOf<NonData<T>>>;
+    export type Full<T> = NonData<T> & (T extends T ? Required<HelpersOf<NonData<T>>> : never);
 }

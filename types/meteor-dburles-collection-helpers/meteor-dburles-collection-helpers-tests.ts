@@ -167,3 +167,20 @@ recursiveHelpers.helpers({
 const roh1 = recursiveOptionalHelpers.insert({ value: 3 });
 // $ExpectType number
 recursiveHelpers.findOne(rh1)!.factorial(4);
+
+// regression test:
+// { ...OptionalId<Data<T>>, _id: T['id'] } should be assignable to Data<T>
+// (tested here with upsert)
+
+interface MandatoryId {
+    _id: string;
+    value: number;
+}
+const mandatoryIds = new Mongo.Collection<MandatoryId>('mandatoryIds');
+mandatoryIds.helpers({});
+const withoutId: Mongo.OptionalId<MandatoryId> = {
+    value: 3
+};
+
+// $ExpectType number | undefined
+mandatoryIds.upsert("new ID", { ...withoutId, _id: "new ID" }).numberAffected;
