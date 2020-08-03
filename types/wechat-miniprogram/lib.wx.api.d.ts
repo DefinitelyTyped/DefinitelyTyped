@@ -13977,7 +13977,7 @@ wx.openBluetoothAdapter({
 *
 * 最低基础库： `1.1.0` */
         openBluetoothAdapter<TOption extends OpenBluetoothAdapterOption>(
-            option: TOption
+            option?: TOption
         ): PromisifySuccessResult<TOption, OpenBluetoothAdapterOption>
         /** [wx.openCard(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/card/wx.openCard.html)
 *
