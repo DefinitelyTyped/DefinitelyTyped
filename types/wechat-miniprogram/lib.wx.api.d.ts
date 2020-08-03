@@ -3489,14 +3489,6 @@ innerAudioContext.onError((res) => {
          * - 'none': 无网络; */
         networkType: 'wifi' | '2g' | '3g' | '4g' | 'unknown' | 'none'
     }
-    interface OnOnVoIPVideoMembersChangedCallbackResult {
-        /** 错误码 */
-        errCode: number
-        /** 调用结果 */
-        errMsg: string
-        /** 开启视频的成员名单 */
-        openIdList: string[]
-    }
     interface OnOpenCallbackResult {
         /** 连接成功的 HTTP 响应 Header
          *
@@ -3563,6 +3555,14 @@ innerAudioContext.onError((res) => {
         /** 调用结果（错误原因） */
         errMsg: string
         /** 还在实时语音通话中的成员 openId 名单 */
+        openIdList: string[]
+    }
+    interface OnVoIPVideoMembersChangedCallbackResult {
+        /** 错误码 */
+        errCode: number
+        /** 调用结果 */
+        errMsg: string
+        /** 开启视频的成员名单 */
         openIdList: string[]
     }
     interface OnWifiConnectedCallbackResult {
@@ -5493,6 +5493,16 @@ innerAudioContext.onError((res) => {
         /** 接口调用成功的回调函数 */
         success?: StopWifiSuccessCallback
     }
+    interface SubscribeVoIPVideoMembersOption {
+        /** 订阅的成员列表 */
+        openIdList: string[]
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: SubscribeVoIPVideoMembersCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: SubscribeVoIPVideoMembersFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: SubscribeVoIPVideoMembersSuccessCallback
+    }
     /** 订阅消息设置 */
     interface SubscriptionsSetting {
         /** 每一项订阅消息的订阅状态。itemSettings对象的键为**一次性订阅消息的模板id**或**系统订阅消息的类型**，值为'accept'、'reject'、'ban'中的其中一种。'accept'表示用户同意订阅这条消息，'reject'表示用户拒绝订阅这条消息，'ban'表示已被后台封禁。一次性订阅消息使用方法详见 [wx.requestSubscribeMessage](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/subscribe-message/wx.requestSubscribeMessage.html)，永久订阅消息（仅小游戏可用）使用方法详见[wx.requestSubscribeSystemMessage](/minigame/dev/api/open-api/subscribe-message/wx.requestSubscribeSystemMessage.html) */
@@ -6290,7 +6300,7 @@ innerAudioContext.onError((res) => {
          * 最低基础库： `2.10.3` */
         offCharacteristicReadRequest(
             /** 已连接的设备请求读当前外围设备的特征值事件的回调函数 */
-            callback: OffCharacteristicReadRequestCallback
+            callback?: OffCharacteristicReadRequestCallback
         ): void
         /** [BLEPeripheralServer.offCharacteristicWriteRequest(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/bluetooth-peripheral/BLEPeripheralServer.offCharacteristicWriteRequest.html)
          *
@@ -6299,7 +6309,7 @@ innerAudioContext.onError((res) => {
          * 最低基础库： `2.10.3` */
         offCharacteristicWriteRequest(
             /** 已连接的设备请求写当前外围设备的特征值事件的回调函数 */
-            callback: OffCharacteristicWriteRequestCallback
+            callback?: OffCharacteristicWriteRequestCallback
         ): void
         /** [BLEPeripheralServer.onCharacteristicReadRequest(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/bluetooth-peripheral/BLEPeripheralServer.onCharacteristicReadRequest.html)
          *
@@ -6475,6 +6485,7 @@ innerAudioContext.onError((res) => {
          * | 错误码 | 错误信息 | 说明 |
          * | - | - | - |
          * | 0 | ok | 正常 |
+         * | -1 | already connet | 已连接 |
          * | 10000 | not init | 未初始化蓝牙适配器 |
          * | 10001 | not available | 当前蓝牙适配器不可用 |
          * | 10002 | no device | 没有找到指定设备 |
@@ -6492,6 +6503,7 @@ innerAudioContext.onError((res) => {
          * | 错误码 | 错误信息 | 说明 |
          * | - | - | - |
          * | 0 | ok | 正常 |
+         * | -1 | already connet | 已连接 |
          * | 10000 | not init | 未初始化蓝牙适配器 |
          * | 10001 | not available | 当前蓝牙适配器不可用 |
          * | 10002 | no device | 没有找到指定设备 |
@@ -8168,7 +8180,7 @@ ctx.draw()
          * 最低基础库： `2.1.0` */
         offHeadersReceived(
             /** HTTP Response Header 事件的回调函数 */
-            callback: OffHeadersReceivedCallback
+            callback?: OffHeadersReceivedCallback
         ): void
         /** [DownloadTask.offProgressUpdate(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/download/DownloadTask.offProgressUpdate.html)
          *
@@ -8177,7 +8189,7 @@ ctx.draw()
          * 最低基础库： `2.1.0` */
         offProgressUpdate(
             /** 下载进度变化事件的回调函数 */
-            callback: DownloadTaskOffProgressUpdateCallback
+            callback?: DownloadTaskOffProgressUpdateCallback
         ): void
         /** [DownloadTask.onHeadersReceived(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/download/DownloadTask.onHeadersReceived.html)
          *
@@ -8699,7 +8711,7 @@ this.editorCtx.insertImage({
          * 最低基础库： `1.9.0` */
         offCanplay(
             /** 音频进入可以播放状态的事件的回调函数 */
-            callback: OffCanplayCallback
+            callback?: OffCanplayCallback
         ): void
         /** [InnerAudioContext.offEnded(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/audio/InnerAudioContext.offEnded.html)
          *
@@ -8708,7 +8720,7 @@ this.editorCtx.insertImage({
          * 最低基础库： `1.9.0` */
         offEnded(
             /** 音频自然播放至结束的事件的回调函数 */
-            callback: OffEndedCallback
+            callback?: OffEndedCallback
         ): void
         /** [InnerAudioContext.offError(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/audio/InnerAudioContext.offError.html)
          *
@@ -8717,7 +8729,7 @@ this.editorCtx.insertImage({
          * 最低基础库： `1.9.0` */
         offError(
             /** 音频播放错误事件的回调函数 */
-            callback: InnerAudioContextOffErrorCallback
+            callback?: InnerAudioContextOffErrorCallback
         ): void
         /** [InnerAudioContext.offPause(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/audio/InnerAudioContext.offPause.html)
          *
@@ -8726,7 +8738,7 @@ this.editorCtx.insertImage({
          * 最低基础库： `1.9.0` */
         offPause(
             /** 音频暂停事件的回调函数 */
-            callback: OffPauseCallback
+            callback?: OffPauseCallback
         ): void
         /** [InnerAudioContext.offPlay(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/audio/InnerAudioContext.offPlay.html)
          *
@@ -8735,7 +8747,7 @@ this.editorCtx.insertImage({
          * 最低基础库： `1.9.0` */
         offPlay(
             /** 音频播放事件的回调函数 */
-            callback: OffPlayCallback
+            callback?: OffPlayCallback
         ): void
         /** [InnerAudioContext.offSeeked(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/audio/InnerAudioContext.offSeeked.html)
          *
@@ -8744,7 +8756,7 @@ this.editorCtx.insertImage({
          * 最低基础库： `1.9.0` */
         offSeeked(
             /** 音频完成跳转操作的事件的回调函数 */
-            callback: OffSeekedCallback
+            callback?: OffSeekedCallback
         ): void
         /** [InnerAudioContext.offSeeking(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/audio/InnerAudioContext.offSeeking.html)
          *
@@ -8753,7 +8765,7 @@ this.editorCtx.insertImage({
          * 最低基础库： `1.9.0` */
         offSeeking(
             /** 音频进行跳转操作的事件的回调函数 */
-            callback: OffSeekingCallback
+            callback?: OffSeekingCallback
         ): void
         /** [InnerAudioContext.offStop(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/audio/InnerAudioContext.offStop.html)
          *
@@ -8762,7 +8774,7 @@ this.editorCtx.insertImage({
          * 最低基础库： `1.9.0` */
         offStop(
             /** 音频停止事件的回调函数 */
-            callback: OffStopCallback
+            callback?: OffStopCallback
         ): void
         /** [InnerAudioContext.offTimeUpdate(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/audio/InnerAudioContext.offTimeUpdate.html)
          *
@@ -8771,7 +8783,7 @@ this.editorCtx.insertImage({
          * 最低基础库： `1.9.0` */
         offTimeUpdate(
             /** 音频播放进度更新事件的回调函数 */
-            callback: OffTimeUpdateCallback
+            callback?: OffTimeUpdateCallback
         ): void
         /** [InnerAudioContext.offWaiting(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/audio/InnerAudioContext.offWaiting.html)
          *
@@ -8780,7 +8792,7 @@ this.editorCtx.insertImage({
          * 最低基础库： `1.9.0` */
         offWaiting(
             /** 音频加载中事件的回调函数 */
-            callback: OffWaitingCallback
+            callback?: OffWaitingCallback
         ): void
         /** [InnerAudioContext.onCanplay(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/audio/InnerAudioContext.onCanplay.html)
          *
@@ -8934,21 +8946,21 @@ Page({
          * 取消监听插屏广告关闭事件 */
         offClose(
             /** 插屏广告关闭事件的回调函数 */
-            callback: UDPSocketOffCloseCallback
+            callback?: UDPSocketOffCloseCallback
         ): void
         /** [InterstitialAd.offError(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/ad/InterstitialAd.offError.html)
          *
          * 取消监听插屏错误事件 */
         offError(
             /** 插屏错误事件的回调函数 */
-            callback: InterstitialAdOffErrorCallback
+            callback?: InterstitialAdOffErrorCallback
         ): void
         /** [InterstitialAd.offLoad(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/ad/InterstitialAd.offLoad.html)
          *
          * 取消监听插屏广告加载事件 */
         offLoad(
             /** 插屏广告加载事件的回调函数 */
-            callback: OffLoadCallback
+            callback?: OffLoadCallback
         ): void
         /** [InterstitialAd.onClose(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/ad/InterstitialAd.onClose.html)
          *
@@ -9283,7 +9295,7 @@ Page({
          * 将地图中心移置当前定位点，此时需设置地图组件 show-location 为true。[2.8.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) 起支持将地图中心移动到指定位置。
          *
          * 最低基础库： `1.2.0` */
-        moveToLocation(option: MoveToLocationOption): void
+        moveToLocation(option?: MoveToLocationOption): void
         /** [MapContext.removeCustomLayer(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.removeCustomLayer.html)
          *
          * 移除个性化图层。
@@ -9496,7 +9508,7 @@ Page({
          * 最低基础库： `2.11.2` */
         offDiscovered(
             /** 的回调函数 */
-            callback: OffDiscoveredCallback
+            callback?: OffDiscoveredCallback
         ): void
         /** [NFCAdapter.onDiscovered(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/NFCAdapter.onDiscovered.html)
          *
@@ -10193,7 +10205,7 @@ Page({
          * 最低基础库： `2.1.0` */
         offHeadersReceived(
             /** HTTP Response Header 事件的回调函数 */
-            callback: OffHeadersReceivedCallback
+            callback?: OffHeadersReceivedCallback
         ): void
         /** [RequestTask.onHeadersReceived(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/request/RequestTask.onHeadersReceived.html)
          *
@@ -10225,21 +10237,21 @@ Page({
          * 取消监听用户点击 `关闭广告` 按钮的事件 */
         offClose(
             /** 用户点击 `关闭广告` 按钮的事件的回调函数 */
-            callback: RewardedVideoAdOffCloseCallback
+            callback?: RewardedVideoAdOffCloseCallback
         ): void
         /** [RewardedVideoAd.offError(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/ad/RewardedVideoAd.offError.html)
          *
          * 取消监听激励视频错误事件 */
         offError(
             /** 激励视频错误事件的回调函数 */
-            callback: RewardedVideoAdOffErrorCallback
+            callback?: RewardedVideoAdOffErrorCallback
         ): void
         /** [RewardedVideoAd.offLoad(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/ad/RewardedVideoAd.offLoad.html)
          *
          * 取消监听激励视频广告加载事件 */
         offLoad(
             /** 激励视频广告加载事件的回调函数 */
-            callback: OffLoadCallback
+            callback?: OffLoadCallback
         ): void
         /** [RewardedVideoAd.onClose(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/ad/RewardedVideoAd.onClose.html)
          *
@@ -10413,28 +10425,28 @@ Component({
          * 取消监听关闭事件 */
         offClose(
             /** 关闭事件的回调函数 */
-            callback: UDPSocketOffCloseCallback
+            callback?: UDPSocketOffCloseCallback
         ): void
         /** [UDPSocket.offError(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/udp/UDPSocket.offError.html)
          *
          * 取消监听错误事件 */
         offError(
             /** 错误事件的回调函数 */
-            callback: UDPSocketOffErrorCallback
+            callback?: UDPSocketOffErrorCallback
         ): void
         /** [UDPSocket.offListening(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/udp/UDPSocket.offListening.html)
          *
          * 取消监听开始监听数据包消息的事件 */
         offListening(
             /** 开始监听数据包消息的事件的回调函数 */
-            callback: OffListeningCallback
+            callback?: OffListeningCallback
         ): void
         /** [UDPSocket.offMessage(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/udp/UDPSocket.offMessage.html)
          *
          * 取消监听收到消息的事件 */
         offMessage(
             /** 收到消息的事件的回调函数 */
-            callback: OffMessageCallback
+            callback?: OffMessageCallback
         ): void
         /** [UDPSocket.onClose(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/udp/UDPSocket.onClose.html)
          *
@@ -10519,7 +10531,7 @@ Component({
          * 最低基础库： `2.1.0` */
         offHeadersReceived(
             /** HTTP Response Header 事件的回调函数 */
-            callback: OffHeadersReceivedCallback
+            callback?: OffHeadersReceivedCallback
         ): void
         /** [UploadTask.offProgressUpdate(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/upload/UploadTask.offProgressUpdate.html)
          *
@@ -10528,7 +10540,7 @@ Component({
          * 最低基础库： `2.1.0` */
         offProgressUpdate(
             /** 上传进度变化事件的回调函数 */
-            callback: UploadTaskOffProgressUpdateCallback
+            callback?: UploadTaskOffProgressUpdateCallback
         ): void
         /** [UploadTask.onHeadersReceived(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/upload/UploadTask.onHeadersReceived.html)
          *
@@ -13070,7 +13082,7 @@ wx.notifyBLECharacteristicValueChange({
          * 最低基础库： `2.1.2` */
         offAppHide(
             /** 小程序切后台事件的回调函数 */
-            callback: OffAppHideCallback
+            callback?: OffAppHideCallback
         ): void
         /** [wx.offAppShow(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.offAppShow.html)
          *
@@ -13079,7 +13091,7 @@ wx.notifyBLECharacteristicValueChange({
          * 最低基础库： `2.1.2` */
         offAppShow(
             /** 小程序切前台事件的回调函数 */
-            callback: OffAppShowCallback
+            callback?: OffAppShowCallback
         ): void
         /** [wx.offAudioInterruptionBegin(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.offAudioInterruptionBegin.html)
          *
@@ -13088,7 +13100,7 @@ wx.notifyBLECharacteristicValueChange({
          * 最低基础库： `2.6.2` */
         offAudioInterruptionBegin(
             /** 音频因为受到系统占用而被中断开始事件的回调函数 */
-            callback: OffAudioInterruptionBeginCallback
+            callback?: OffAudioInterruptionBeginCallback
         ): void
         /** [wx.offAudioInterruptionEnd(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.offAudioInterruptionEnd.html)
          *
@@ -13097,7 +13109,7 @@ wx.notifyBLECharacteristicValueChange({
          * 最低基础库： `2.6.2` */
         offAudioInterruptionEnd(
             /** 音频中断结束事件的回调函数 */
-            callback: OffAudioInterruptionEndCallback
+            callback?: OffAudioInterruptionEndCallback
         ): void
         /** [wx.offBLECharacteristicValueChange(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/bluetooth-ble/wx.offBLECharacteristicValueChange.html)
          *
@@ -13124,7 +13136,7 @@ wx.notifyBLECharacteristicValueChange({
          * 最低基础库： `2.10.3` */
         offBLEPeripheralConnectionStateChanged(
             /** 当前外围设备被连接或断开连接事件的回调函数 */
-            callback: OffBLEPeripheralConnectionStateChangedCallback
+            callback?: OffBLEPeripheralConnectionStateChangedCallback
         ): void
         /** [wx.offBeaconServiceChange(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/ibeacon/wx.offBeaconServiceChange.html)
          *
@@ -13133,7 +13145,7 @@ wx.notifyBLECharacteristicValueChange({
          * 最低基础库： `2.8.1` */
         offBeaconServiceChange(
             /** iBeacon 服务状态变化事件的回调函数 */
-            callback: OffBeaconServiceChangeCallback
+            callback?: OffBeaconServiceChangeCallback
         ): void
         /** [wx.offBeaconUpdate(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/ibeacon/wx.offBeaconUpdate.html)
          *
@@ -13142,7 +13154,7 @@ wx.notifyBLECharacteristicValueChange({
          * 最低基础库： `2.8.1` */
         offBeaconUpdate(
             /** iBeacon 设备更新事件的回调函数 */
-            callback: OffBeaconUpdateCallback
+            callback?: OffBeaconUpdateCallback
         ): void
         /** [wx.offBluetoothAdapterStateChange(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/bluetooth/wx.offBluetoothAdapterStateChange.html)
          *
@@ -13232,7 +13244,7 @@ wx.notifyBLECharacteristicValueChange({
          * 最低基础库： `2.4.0` */
         offLocalServiceDiscoveryStop(
             /** mDNS 服务停止搜索的事件的回调函数 */
-            callback: OffLocalServiceDiscoveryStopCallback
+            callback?: OffLocalServiceDiscoveryStopCallback
         ): void
         /** [wx.offLocalServiceFound(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/mdns/wx.offLocalServiceFound.html)
          *
@@ -13241,7 +13253,7 @@ wx.notifyBLECharacteristicValueChange({
          * 最低基础库： `2.4.0` */
         offLocalServiceFound(
             /** mDNS 服务发现的事件的回调函数 */
-            callback: OffLocalServiceFoundCallback
+            callback?: OffLocalServiceFoundCallback
         ): void
         /** [wx.offLocalServiceLost(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/mdns/wx.offLocalServiceLost.html)
          *
@@ -13250,7 +13262,7 @@ wx.notifyBLECharacteristicValueChange({
          * 最低基础库： `2.4.0` */
         offLocalServiceLost(
             /** mDNS 服务离开的事件的回调函数 */
-            callback: OffLocalServiceLostCallback
+            callback?: OffLocalServiceLostCallback
         ): void
         /** [wx.offLocalServiceResolveFail(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/mdns/wx.offLocalServiceResolveFail.html)
          *
@@ -13259,7 +13271,7 @@ wx.notifyBLECharacteristicValueChange({
          * 最低基础库： `2.4.0` */
         offLocalServiceResolveFail(
             /** mDNS 服务解析失败的事件的回调函数 */
-            callback: OffLocalServiceResolveFailCallback
+            callback?: OffLocalServiceResolveFailCallback
         ): void
         /** [wx.offLocationChange(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.offLocationChange.html)
          *
@@ -13268,7 +13280,7 @@ wx.notifyBLECharacteristicValueChange({
          * 最低基础库： `2.8.1` */
         offLocationChange(
             /** 实时地理位置变化事件的回调函数 */
-            callback: OffLocationChangeCallback
+            callback?: OffLocationChangeCallback
         ): void
         /** [wx.offMemoryWarning(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/performance/wx.offMemoryWarning.html)
          *
@@ -13288,15 +13300,6 @@ wx.notifyBLECharacteristicValueChange({
             /** 网络状态变化事件的回调函数 */
             callback: (...args: any[]) => any
         ): void
-        /** [wx.offOnVoIPVideoMembersChanged(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/voip/wx.offOnVoIPVideoMembersChanged.html)
-         *
-         * 取消监听实时语音通话成员视频状态变化事件
-         *
-         * 最低基础库： `2.11.0` */
-        offOnVoIPVideoMembersChanged(
-            /** 实时语音通话成员视频状态变化事件的回调函数 */
-            callback: OffOnVoIPVideoMembersChangedCallback
-        ): void
         /** [wx.offPageNotFound(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.offPageNotFound.html)
          *
          * 取消监听小程序要打开的页面不存在事件
@@ -13304,7 +13307,7 @@ wx.notifyBLECharacteristicValueChange({
          * 最低基础库： `2.1.2` */
         offPageNotFound(
             /** 小程序要打开的页面不存在事件的回调函数 */
-            callback: OffPageNotFoundCallback
+            callback?: OffPageNotFoundCallback
         ): void
         /** [wx.offThemeChange(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.offThemeChange.html)
          *
@@ -13313,7 +13316,7 @@ wx.notifyBLECharacteristicValueChange({
          * 最低基础库： `2.11.0` */
         offThemeChange(
             /** 系统主题改变事件的回调函数 */
-            callback: OffThemeChangeCallback
+            callback?: OffThemeChangeCallback
         ): void
         /** [wx.offUnhandledRejection(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.offUnhandledRejection.html)
          *
@@ -13322,7 +13325,7 @@ wx.notifyBLECharacteristicValueChange({
          * 最低基础库： `2.10.0` */
         offUnhandledRejection(
             /** 未处理的 Promise 拒绝事件的回调函数 */
-            callback: OffUnhandledRejectionCallback
+            callback?: OffUnhandledRejectionCallback
         ): void
         /** [wx.offUserCaptureScreen(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/screen/wx.offUserCaptureScreen.html)
          *
@@ -13351,6 +13354,15 @@ wx.notifyBLECharacteristicValueChange({
             /** 实时语音通话成员在线状态变化事件的回调函数 */
             callback: (...args: any[]) => any
         ): void
+        /** [wx.offVoIPVideoMembersChanged(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/voip/wx.offVoIPVideoMembersChanged.html)
+         *
+         * 取消监听实时语音通话成员视频状态变化事件
+         *
+         * 最低基础库： `2.11.0` */
+        offVoIPVideoMembersChanged(
+            /** 实时语音通话成员视频状态变化事件的回调函数 */
+            callback?: OffVoIPVideoMembersChangedCallback
+        ): void
         /** [wx.offWifiConnected(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/wifi/wx.offWifiConnected.html)
          *
          * 取消监听连接上 Wi-Fi 的事件。
@@ -13367,7 +13379,7 @@ wx.notifyBLECharacteristicValueChange({
          * 最低基础库： `2.3.0` */
         offWindowResize(
             /** 窗口尺寸变化事件的回调函数 */
-            callback: OffWindowResizeCallback
+            callback?: OffWindowResizeCallback
         ): void
         /** [wx.onAccelerometerChange(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/accelerometer/wx.onAccelerometerChange.html)
 *
@@ -13785,15 +13797,6 @@ wx.onNetworkStatusChange(function (res) {
             /** 网络状态变化事件的回调函数 */
             callback: OnNetworkStatusChangeCallback
         ): void
-        /** [wx.onOnVoIPVideoMembersChanged(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/voip/wx.onOnVoIPVideoMembersChanged.html)
-         *
-         * 监听实时语音通话成员视频状态变化事件。
-         *
-         * 最低基础库： `2.11.0` */
-        onOnVoIPVideoMembersChanged(
-            /** 实时语音通话成员视频状态变化事件的回调函数 */
-            callback: OnOnVoIPVideoMembersChangedCallback
-        ): void
         /** [wx.onPageNotFound(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.onPageNotFound.html)
          *
          * 监听小程序要打开的页面不存在事件。该事件与 [`App.onPageNotFound`](https://developers.weixin.qq.com/miniprogram/dev/reference/api/App.html#onpagenotfoundobject-object) 的回调时机一致。
@@ -13911,6 +13914,15 @@ wx.onUserCaptureScreen(function (res) {
         onVoIPChatSpeakersChanged(
             /** 实时语音通话成员通话状态变化事件的回调函数 */
             callback: OnVoIPChatSpeakersChangedCallback
+        ): void
+        /** [wx.onVoIPVideoMembersChanged(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/voip/wx.onVoIPVideoMembersChanged.html)
+         *
+         * 监听实时语音通话成员视频状态变化事件。
+         *
+         * 最低基础库： `2.11.0` */
+        onVoIPVideoMembersChanged(
+            /** 实时语音通话成员视频状态变化事件的回调函数 */
+            callback: OnVoIPVideoMembersChangedCallback
         ): void
         /** [wx.onWifiConnected(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/wifi/wx.onWifiConnected.html)
          *
@@ -15154,7 +15166,7 @@ wx.startAccelerometer({
 *
 * 最低基础库： `1.1.0` */
         startAccelerometer<TOption extends StartAccelerometerOption>(
-            option: TOption
+            option?: TOption
         ): PromisifySuccessResult<TOption, StartAccelerometerOption>
         /** [wx.startBeaconDiscovery(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/ibeacon/wx.startBeaconDiscovery.html)
 *
@@ -15221,7 +15233,7 @@ wx.startCompass()
         startDeviceMotionListening<
             TOption extends StartDeviceMotionListeningOption
         >(
-            option: TOption
+            option?: TOption
         ): PromisifySuccessResult<TOption, StartDeviceMotionListeningOption>
         /** [wx.startGyroscope(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/gyroscope/wx.startGyroscope.html)
          *
@@ -15229,7 +15241,7 @@ wx.startCompass()
          *
          * 最低基础库： `2.3.0` */
         startGyroscope<TOption extends StartGyroscopeOption>(
-            option: TOption
+            option?: TOption
         ): PromisifySuccessResult<TOption, StartGyroscopeOption>
         /** [wx.startHCE(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/wx.startHCE.html)
 *
@@ -15614,6 +15626,16 @@ wx.stopWifi({
         stopWifi<TOption extends StopWifiOption>(
             option?: TOption
         ): PromisifySuccessResult<TOption, StopWifiOption>
+        /** [wx.subscribeVoIPVideoMembers(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/voip/wx.subscribeVoIPVideoMembers.html)
+         *
+         * 订阅视频画面成员。对于视频房间，当成员超过两人时需进行订阅，否则只能看到最先加入房间的两人画面。
+         *
+         * 最低基础库： `2.11.0` */
+        subscribeVoIPVideoMembers<
+            TOption extends SubscribeVoIPVideoMembersOption
+        >(
+            option: TOption
+        ): PromisifySuccessResult<TOption, SubscribeVoIPVideoMembersOption>
         /** [wx.switchTab(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/route/wx.switchTab.html)
 *
 * 跳转到 tabBar 页面，并关闭其他所有非 tabBar 页面
@@ -16775,10 +16797,6 @@ wx.writeBLECharacteristicValue({
     ) => void
     /** 收到消息的事件的回调函数 */
     type OffMessageCallback = (result: UDPSocketOnMessageCallbackResult) => void
-    /** 实时语音通话成员视频状态变化事件的回调函数 */
-    type OffOnVoIPVideoMembersChangedCallback = (
-        result: OnOnVoIPVideoMembersChangedCallbackResult
-    ) => void
     /** 小程序要打开的页面不存在事件的回调函数 */
     type OffPageNotFoundCallback = (
         result: OnPageNotFoundCallbackResult
@@ -16800,6 +16818,10 @@ wx.writeBLECharacteristicValue({
     /** 未处理的 Promise 拒绝事件的回调函数 */
     type OffUnhandledRejectionCallback = (
         result: OnUnhandledRejectionCallbackResult
+    ) => void
+    /** 实时语音通话成员视频状态变化事件的回调函数 */
+    type OffVoIPVideoMembersChangedCallback = (
+        result: OnVoIPVideoMembersChangedCallbackResult
     ) => void
     /** 音频加载中事件的回调函数 */
     type OffWaitingCallback = (res: GeneralCallbackResult) => void
@@ -16942,10 +16964,6 @@ wx.writeBLECharacteristicValue({
     ) => void
     /** 用户在系统音乐播放面板点击下一曲事件的回调函数 */
     type OnNextCallback = (res: GeneralCallbackResult) => void
-    /** 实时语音通话成员视频状态变化事件的回调函数 */
-    type OnOnVoIPVideoMembersChangedCallback = (
-        result: OnOnVoIPVideoMembersChangedCallbackResult
-    ) => void
     /** WebSocket 连接打开事件的回调函数 */
     type OnOpenCallback = (result: OnOpenCallbackResult) => void
     /** 小程序要打开的页面不存在事件的回调函数 */
@@ -16998,6 +17016,10 @@ wx.writeBLECharacteristicValue({
     /** 实时语音通话成员通话状态变化事件的回调函数 */
     type OnVoIPChatSpeakersChangedCallback = (
         result: OnVoIPChatSpeakersChangedCallbackResult
+    ) => void
+    /** 实时语音通话成员视频状态变化事件的回调函数 */
+    type OnVoIPVideoMembersChangedCallback = (
+        result: OnVoIPVideoMembersChangedCallbackResult
     ) => void
     /** 音频加载中事件的回调函数 */
     type OnWaitingCallback = (res: GeneralCallbackResult) => void
@@ -17895,6 +17917,18 @@ wx.writeBLECharacteristicValue({
     type StopWifiFailCallback = (res: WifiError) => void
     /** 接口调用成功的回调函数 */
     type StopWifiSuccessCallback = (res: WifiError) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type SubscribeVoIPVideoMembersCompleteCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用失败的回调函数 */
+    type SubscribeVoIPVideoMembersFailCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用成功的回调函数 */
+    type SubscribeVoIPVideoMembersSuccessCallback = (
+        res: GeneralCallbackResult
+    ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type SwitchCameraCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
