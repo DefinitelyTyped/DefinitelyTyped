@@ -798,7 +798,15 @@ const personSchema = yup.object({
     // handle nested optional property
     address: yup.object({
         line1: yup.string().required(),
-        line2: yup.string().optional()
+        line2: yup.string().optional(),
+        area: yup.object({
+            country: yup.string().required(),
+            region: yup.string().optional()
+        }).required(),
+    }).required(),
+    addressBook: yup.object({
+        phoneNumbers: yup.array(yup.string()).defined(),
+        lastUpdated: yup.date().optional()
     }).required(),
     email: yup
         .string()
@@ -856,7 +864,11 @@ const minimalPerson: Person = {
     canBeNull: null,
     mustBeAString: '',
     address: {
-        line1: '123 Fake Street'
+        line1: '123 Fake Street',
+        area: { country: 'Australia' }
+    },
+    addressBook: {
+        phoneNumbers: ['123-456-789']
     }
 };
 
@@ -871,7 +883,11 @@ const person: Person = {
     children: null,
     address: {
         line1: 'Unit 1',
-        line2: '456 Fake Street'
+        line2: '456 Fake Street',
+        area: { country: 'America', region: 'WA' }
+    },
+    addressBook: {
+        phoneNumbers: []
     }
 };
 
@@ -886,6 +902,12 @@ person.friends = new Set(["Amy", "Beth"]);
 
 // $ExpectError
 person.address = {};
+// $ExpectError
+person.address = { area: {}, line1: '' };
+// $ExpectError
+person.addressBook = {};
+// $ExpectError
+person.addressBook = { phoneNumbers: null };
 // $ExpectError
 person.gender = 1;
 // $ExpectError
