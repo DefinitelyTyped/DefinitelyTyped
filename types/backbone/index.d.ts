@@ -8,6 +8,7 @@
 //                 Julian Gonggrijp <https://github.com/jgonggrijp>
 //                 Kyle Scully <https://github.com/zieka>
 //                 Robert Kesterson <https://github.com/rkesters>
+//                 Bulat Khasanov <https://github.com/khasanovbi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -79,6 +80,8 @@ declare namespace Backbone {
     interface ModelConstructorOptions<TModel extends Model = Model> extends ModelSetOptions, Parseable {
         collection?: Backbone.Collection<TModel>;
     }
+
+    type CombinedModelConstructorOptions<E, M extends Model<any, any, E> = Model> = ModelConstructorOptions<M> & E;
 
     interface ModelSetOptions extends Silenceable, Validable {
     }
@@ -211,7 +214,7 @@ declare namespace Backbone {
         sync(...arg: any[]): JQueryXHR;
     }
 
-    class Model<T = any, S = Backbone.ModelSetOptions> extends ModelBase implements Events {
+    class Model<T = any, S = Backbone.ModelSetOptions, E = {}> extends ModelBase implements Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -253,10 +256,10 @@ declare namespace Backbone {
          * any instantiation logic is run for the Model.
          * @see https://backbonejs.org/#Model-preinitialize
          */
-        preinitialize(attributes?: T, options?: ModelConstructorOptions<this>): void;
+        preinitialize(attributes?: T, options?: CombinedModelConstructorOptions<E, this>): void;
 
-        constructor(attributes?: T, options?: ModelConstructorOptions);
-        initialize(attributes?: T, options?: ModelConstructorOptions<this>): void;
+        constructor(attributes?: T, options?: CombinedModelConstructorOptions<E>);
+        initialize(attributes?: T, options?: CombinedModelConstructorOptions<E, this>): void;
 
         fetch(options?: ModelFetchOptions): JQueryXHR;
 
