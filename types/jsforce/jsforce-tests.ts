@@ -716,7 +716,8 @@ batch.on("response", (rets: sf.BatchResultInfo[]) => {
 
 salesforceConnection.streaming.topic("InvoiceStatementUpdates").subscribe((message) => {
     console.log('Event Type : ' + message.event.type);
-    console.log('Event Created : ' + message.event.createdDate);
+    console.log('Replay Id : ' + message.event.replayId);
+    console.log('Object Id : ' + message.sobject.Id);
     console.log('Object Id : ' + message.sobject.Id);
 });
 const exitCallback = () => process.exit(1);
