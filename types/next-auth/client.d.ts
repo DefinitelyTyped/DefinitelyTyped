@@ -37,20 +37,43 @@ interface ContextProviderOptions {
     clientMaxAge?: number;
 }
 
+interface SetOptionsParams {
+    baseUrl?: string;
+    basePath?: string;
+    clientMaxAge?: string;
+    keepAlive?: boolean;
+}
+
+interface DefaultExport {
+    useSession: typeof useSession;
+    getSession: typeof session;
+    session: typeof session;
+    getProviders: typeof providers;
+    providers: typeof providers;
+    getCsrfToken: typeof csrfToken;
+    csrfToken: typeof csrfToken;
+    signin: typeof signin;
+    signIn: typeof signin;
+    signout: typeof signout;
+    signOut: typeof signout;
+    options: typeof setOptions;
+    setOptions: typeof setOptions;
+    Provider: typeof Provider;
+}
+
 type ContextProvider = FC<ContextProviderProps>;
 
 declare function useSession(): [Session, boolean];
-declare function getSession(context: NextPageContext): Promise<Session | null>;
 declare function session(context: NextPageContext): Promise<Session | null>;
-declare function getProviders(context: NextPageContext): Promise<GetProvidersResponse | null>;
 declare function providers(context: NextPageContext): Promise<GetProvidersResponse | null>;
-declare function getCsrfToken(context: NextPageContext): Promise<string | null>;
 declare function csrfToken(context: NextPageContext): Promise<string | null>;
 declare function signin(provider: SessionProvider, data: GenericObject): Promise<void>;
 declare function signout(context: NextPageContext): Promise<void>;
+declare function setOptions(options: SetOptionsParams): void;
 declare const Provider: ContextProvider;
 
-export { useSession, getSession, session, getProviders, providers, getCsrfToken, csrfToken, signin, signout, Provider };
+declare const _default: DefaultExport;
+export default _default;
 
 /**
  * TODO: `dtslint` throws when parsing Next types... the following types are copied directly from `next/types` ...
@@ -69,7 +92,9 @@ interface NextApiRequest {
 }
 
 interface NextPageContext {
-    req: NextApiRequest;
+    req?: NextApiRequest;
+    ctx?: NextPageContext;
+    triggerEvent?: boolean;
 }
 
 interface Env {

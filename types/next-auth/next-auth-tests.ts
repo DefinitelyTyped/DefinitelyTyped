@@ -8,7 +8,7 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 import Adapters from 'next-auth/adapters';
-import * as client from 'next-auth/client';
+import client from 'next-auth/client';
 
 // --------------------------------------------------------------------------
 // Server
@@ -112,7 +112,7 @@ NextAuth(req, res, allConfig);
 // Client
 // --------------------------------------------------------------------------
 
-const pageContext = {
+const baseContext = {
     req: {
         query: {
             foo: 'bar',
@@ -127,6 +127,12 @@ const pageContext = {
             FOO: 'FOO',
         },
     },
+    triggerEvent: false,
+};
+
+const pageContext = {
+    ...baseContext,
+    ctx: { ...baseContext },
 };
 
 const githubProvider = {
@@ -390,5 +396,3 @@ Adapters.TypeORM.Adapter({
     database: ':memory:',
     synchronize: true,
 });
-
-const { Models } = Adapters.TypeORM;
