@@ -6,7 +6,7 @@
 declare namespace google {
 
     // https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-    function load(visualization: string, version: string, packages: any): Promise<void>;
+    function load(visualization: string, version: string | number, packages: any): Promise<void>;
     function setOnLoadCallback(handler: Function): void;
     function setOnLoadCallback(handler: () => void): void;
 
