@@ -16,7 +16,7 @@ interface InitOptions {
     providers: Array<ReturnType<PossibleProviders>>;
     database?: ConnectionOptions | string;
     secret?: string;
-    jwt?: boolean;
+    jwt?: JWTOptions;
     jwtSecret?: string;
     sessionMaxAge?: number;
     sessionUpdateAge?: number;
@@ -31,11 +31,11 @@ interface InitOptions {
 }
 
 interface PageOptions {
-    signin?: string;
-    signout?: string;
+    signIn?: string;
+    signOut?: string;
     error?: string;
     verifyRequest?: string;
-    newUsers?: string | null;
+    newUser?: string | null;
 }
 
 interface Cookies {
@@ -53,6 +53,49 @@ interface CookieOptions {
     sameSite: string;
     path: string;
     secure: boolean;
+}
+
+interface JWTOptions {
+    secret: string;
+    maxAge: number;
+    encode(options: JWTEncodeParams): Promise<string>;
+    decode(options: JWTDecodeParams): Promise<string>;
+}
+
+interface JWTSignInOptions {
+    expiresIn: string;
+}
+
+interface JWTVerificationOptions {
+    maxTokenAge: string;
+    algorithms: Array<string>;
+}
+
+interface JWTDecryptionOptions {
+    algorithms: Array<string>;
+}
+
+interface JWTDecodeParams {
+    secret: string;
+    token: GenericObject;
+    maxAge?: number;
+    signingKey?: string;
+    verificationKey?: string;
+    verificationOptions?: JWTVerificationOptions;
+    decryptionKey?: string;
+    decryptionOptions?: JWTDecryptionOptions;
+    encryption?: boolean;
+}
+
+interface JWTEncodeParams {
+    secret: string;
+    token: GenericObject;
+    signingKey?: string;
+    encryptionKey?: string;
+    signingOptions?: JWTSignInOptions;
+    encryptionOptions?: GenericObject;
+    encryption?: boolean;
+    maxAge?: number;
 }
 
 interface CallbackURLOptions {

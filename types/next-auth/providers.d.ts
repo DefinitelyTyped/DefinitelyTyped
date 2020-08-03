@@ -63,9 +63,18 @@ export { PossibleProviders };
  */
 type Email = (options: ProviderEmailOptions) => GenericReturnConfig;
 
+interface VerificationRequestParams {
+    identifier: string;
+    url: string;
+    baseUrl: string;
+    provider: ProviderEmailOptions;
+}
+
 interface ProviderEmailOptions {
-    server: string | ProviderEmailServer;
-    from: string;
+    server?: string | ProviderEmailServer;
+    from?: string;
+    maxAge?: number;
+    sendVerificationRequest?: (options: VerificationRequestParams) => Promise<void>;
 }
 
 interface ProviderEmailServer {

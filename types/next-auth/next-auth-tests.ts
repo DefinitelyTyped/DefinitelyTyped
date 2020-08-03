@@ -68,7 +68,12 @@ const allConfig = {
     database: 'path/to/db',
     debug: true,
     secret: 'my secret',
-    jwt: true,
+    jwt: {
+        secret: 'secret-thing',
+        maxAge: 365,
+        encode: () => Promise.resolve('foo'),
+        decode: () => Promise.resolve('foo'),
+    },
     jwtSecret: 'foo',
     sessionMaxAge: 100,
     sessionUpdateAge: 200,
