@@ -351,6 +351,30 @@ Providers.Yandex({
     clientSecret: 'bar123',
 });
 
+// $ExpectType GenericReturnConfig
+Providers.LinkedIn({
+    clientId: 'foo123',
+    clientSecret: 'bar123',
+});
+
+// $ExpectType GenericReturnConfig
+Providers.Spotify({
+    clientId: 'foo123',
+    clientSecret: 'bar123',
+});
+
+// $ExpectType GenericReturnConfig
+Providers.Basecamp({
+    clientId: 'foo123',
+    clientSecret: 'bar123',
+});
+
+// $ExpectType GenericReturnConfig
+Providers.Reddit({
+    clientId: 'foo123',
+    clientSecret: 'bar123',
+});
+
 // --------------------------------------------------------------------------
 // Adapters
 // --------------------------------------------------------------------------

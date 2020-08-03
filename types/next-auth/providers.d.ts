@@ -18,6 +18,10 @@ interface Providers {
     Box: Box;
     Cognito: Cognito;
     Yandex: Yandex;
+    LinkedIn: LinkedIn;
+    Spotify: Spotify;
+    Basecamp: Basecamp;
+    Reddit: Reddit;
 }
 
 type PossibleProviders =
@@ -39,7 +43,11 @@ type PossibleProviders =
     | BattleNet
     | Box
     | Cognito
-    | Yandex;
+    | Yandex
+    | LinkedIn
+    | Spotify
+    | Basecamp
+    | Reddit;
 
 // TODO: type return objects from providers properly
 interface GenericReturnConfig {
@@ -266,6 +274,46 @@ interface ProviderCognitoOptions {
 type Yandex = (options: ProviderYandexOptions) => GenericReturnConfig;
 
 interface ProviderYandexOptions {
+    clientId: string;
+    clientSecret: string;
+}
+
+/**
+ * LinkedIn
+ */
+type LinkedIn = (options: ProviderLinkedInOptions) => GenericReturnConfig;
+
+interface ProviderLinkedInOptions {
+    clientId: string;
+    clientSecret: string;
+}
+
+/**
+ * Spotify
+ */
+type Spotify = (options: ProviderSpotifyOptions) => GenericReturnConfig;
+
+interface ProviderSpotifyOptions {
+    clientId: string;
+    clientSecret: string;
+}
+
+/**
+ * Basecamp
+ */
+type Basecamp = (options: ProviderBasecampOptions) => GenericReturnConfig;
+
+interface ProviderBasecampOptions {
+    clientId: string;
+    clientSecret: string;
+}
+
+/**
+ * Reddit
+ */
+type Reddit = (options: ProviderRedditOptions) => GenericReturnConfig;
+
+interface ProviderRedditOptions {
     clientId: string;
     clientSecret: string;
 }
