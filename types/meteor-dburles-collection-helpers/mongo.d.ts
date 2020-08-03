@@ -60,6 +60,20 @@ declare module 'meteor/mongo' {
             // ditto
             // tslint:disable-next-line ban-types
             insert(doc: OptionalId<Data<T>>, callback?: Function): string;
+            update(selector: Selector<T> | ObjectID | string, modifier: Modifier<Data<T>>, options?: {
+                multi?: boolean;
+                upsert?: boolean;
+                arrayFilters?: Array<{ [identifier: string]: any }>;
+				// ditto
+				// tslint:disable-next-line ban-types
+            }, callback?: Function): number;
+            upsert(selector: Selector<T> | ObjectID | string, modifier: Modifier<Data<T>>, options?: {
+                multi?: boolean;
+				// ditto
+				// tslint:disable-next-line ban-types
+            }, callback?: Function): {
+                numberAffected?: number; insertedId?: string;
+            };
         }
 
         // modifications: replaced T with Full<T> & T everywhere Collection._transform is applied
