@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Animated, View, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
+import { Animated, View, NativeSyntheticEvent, NativeScrollEvent, StyleProp } from 'react-native';
 
 interface CompProps {
     width: number;
@@ -25,8 +25,11 @@ const ForwardComp = React.forwardRef<View, CompProps>(({ width }, ref) => {
 
 type X = React.PropsWithoutRef<React.ComponentProps<typeof ForwardComp>>;
 
-type Props = React.ComponentPropsWithoutRef<typeof Animated.Text>;
-const AnimatedWrapperComponent: React.FunctionComponent<Props> = (props) => <Animated.Text {...props} />
+type Props = React.ComponentPropsWithRef<typeof Animated.Text>;
+const AnimatedWrapperComponent: React.FunctionComponent<Props> = ({
+                                                                      key, // $ExpectType string | number | undefined
+                                                                      ...props
+}) => <Animated.Text {...props} />
 
 function TestAnimatedAPI() {
     // Value
