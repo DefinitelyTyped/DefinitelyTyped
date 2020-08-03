@@ -64,13 +64,13 @@ declare module 'meteor/mongo' {
                 multi?: boolean;
                 upsert?: boolean;
                 arrayFilters?: Array<{ [identifier: string]: any }>;
-				// ditto
-				// tslint:disable-next-line ban-types
+                                // ditto
+                                // tslint:disable-next-line ban-types
             }, callback?: Function): number;
             upsert(selector: Selector<T> | ObjectID | string, modifier: Modifier<Data<T>>, options?: {
                 multi?: boolean;
-				// ditto
-				// tslint:disable-next-line ban-types
+                                // ditto
+                                // tslint:disable-next-line ban-types
             }, callback?: Function): {
                 numberAffected?: number; insertedId?: string;
             };

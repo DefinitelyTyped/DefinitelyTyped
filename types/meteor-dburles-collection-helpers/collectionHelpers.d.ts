@@ -45,7 +45,7 @@ declare module 'meteor/dburles:collection-helpers' {
      * Just the non-method/Helper properties of the type, with the methods and Helpers made optional.
      * No need to declare a Collection<Data<T>>; all Collection methods already accept a Data<T>.
      */
-    export type Data<T> = DataBrand<NonData<T>> & NonHelpersOf<NonData<T>> & Partial<HelpersOf<NonData<T>>>;
+    export type Data<T> = DataBrand<T> & NonHelpersOf<T> & Partial<HelpersOf<T>>;
     /**
      * The version of a type that comes out of the collection (with helpers attached).
      */
