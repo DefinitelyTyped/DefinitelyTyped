@@ -19,7 +19,8 @@
         "forceConsistentCasingInFileNames": true,
         "paths":{
             "@apollo/client": ["apollo__client"]
-        }
+        },
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
