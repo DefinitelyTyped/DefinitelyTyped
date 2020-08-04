@@ -640,12 +640,12 @@ type PreserveNull<T> = T extends null ? null : never;
 type PreserveUndefined<T> = T extends undefined ? undefined : never;
 type PreserveOptionals<T> = PreserveNull<T> | PreserveUndefined<T>;
 type Id<T> = {
-    [K in keyof T]: T[K] extends object ? InnerInferType<T[K]> : T[K];
+    [K in keyof T]: InnerInferType<T[K]>
 };
 type RequiredProps<T> = Pick<T, Exclude<keyof T, KeyOfUndefined<T>>>;
 type NotRequiredProps<T> = Partial<Pick<T, KeyOfUndefined<T>>>;
 type InnerInferType<T> =
-    | (T extends Array<infer T> ? InnerInferTypeArray<T> : Id<NotRequiredProps<T> & RequiredProps<T>>)
+    | (T extends Array<infer T> ? InnerInferTypeArray<T> : T extends Date ? T : T extends object ? Id<NotRequiredProps<T> & RequiredProps<T>> : T)
     | PreserveOptionals<T>;
 interface InnerInferTypeArray<T> extends Array<InnerInferType<T>> {}
 type InferredArrayType<T> = T extends Array<infer U> ? U : T;
