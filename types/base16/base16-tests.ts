@@ -1,6 +1,6 @@
 import * as base16 from 'base16';
 
-const colorScheme: base16.ColorScheme = base16.solarized
+const colorScheme: base16.Base16Theme = base16.solarized
 
 const scheme: string = colorScheme.scheme
 const author: string = colorScheme.author
@@ -20,3 +20,6 @@ const base0C: string = colorScheme.base0C
 const base0D: string = colorScheme.base0D
 const base0E: string = colorScheme.base0E
 const base0F: string = colorScheme.base0F
+
+const defaultColorScheme = base16.default;
+const defaultSchemeAuthor = defaultColorScheme.author;
