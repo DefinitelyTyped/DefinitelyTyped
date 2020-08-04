@@ -554,10 +554,7 @@ function test_formatter_PatternFormat() {
     }
 }
 
-function test_ChartsLoad() {
-    google.charts.load('current', {packages: ['corechart', 'table', 'sankey']});
-
-    function drawChart() {
+function test_drawChart() {
         // Define the chart to be drawn.
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Element');
@@ -576,9 +573,14 @@ function test_ChartsLoad() {
         }
     }
 
+function test_ChartsLoadWithCallback() {
+    google.charts.load('current', {packages: ['corechart', 'table', 'sankey']});
     google.charts.setOnLoadCallback(drawChart);
 }
 
+function test_ChartsLoadWithPromise() {
+    google.charts.load('current', {packages: ['corechart', 'table', 'sankey']}).then(drawChart);
+}
 
 function test_ChartAnnotations() {
     var annotations:google.visualization.ChartAnnotations = {
