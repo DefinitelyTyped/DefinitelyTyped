@@ -56,6 +56,7 @@ export const harmonic: Base16Theme;
 export const hopscotch: Base16Theme;
 export const isotope: Base16Theme;
 export const marrakesh: Base16Theme;
+export const mocha: Base16Theme;
 export const monokai: Base16Theme;
 export const ocean: Base16Theme;
 export const paraiso: Base16Theme;
