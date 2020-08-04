@@ -808,6 +808,22 @@ const personSchema = yup.object({
         phoneNumbers: yup.array(yup.string()).defined(),
         lastUpdated: yup.date().optional()
     }).required(),
+    nestedArrays: yup.object({
+        requiredStrings: yup.array(yup.string().required()).defined(),
+        requiredObjects: yup.array(
+            yup.object({
+                required: yup.string().required(),
+                optional: yup.string().optional()
+            })
+        ).defined()
+    }),
+    requiredObjectsArray: yup.array(
+        yup.object({
+            required: yup.string().required(),
+            optional: yup.string().optional()
+        })
+    ),
+    nullableDate: yup.date().nullable().optional(),
     email: yup
         .string()
         .nullable()
@@ -888,8 +904,20 @@ const person: Person = {
     },
     addressBook: {
         phoneNumbers: []
-    }
+    },
+    nestedArrays: {
+        requiredStrings: ['123', '456', '789'],
+        requiredObjects: [{ required: '' }]
+    },
+    requiredObjectsArray: [{ required: '' }],
+    nullableDate: new Date()
 };
+
+function readPhoneNumbers(arg: string[]) {}
+readPhoneNumbers(person.nestedArrays!.requiredStrings);
+
+function readDate(arg?: Date | null) {}
+readDate(person.nullableDate);
 
 person.email = 'some@email.com';
 person.email = undefined;
@@ -908,6 +936,12 @@ person.address = { area: {}, line1: '' };
 person.addressBook = {};
 // $ExpectError
 person.addressBook = { phoneNumbers: null };
+// $ExpectError
+person.requiredObjectsArray = [{ optional: '' }];
+// $ExpectError
+person.nestedArrays = { requiredObjects: [{ optional: '' }], requiredStrings: [] };
+// $ExpectError
+person.nestedArrays = { requiredObjects: [], requiredStrings: [undefined] };
 // $ExpectError
 person.gender = 1;
 // $ExpectError
