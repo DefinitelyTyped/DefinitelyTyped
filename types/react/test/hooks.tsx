@@ -83,6 +83,23 @@ export function App() {
     </>;
 }
 
+class ClassComponent extends React.Component {
+    render() {
+        return <div />;
+    }
+}
+export function UseRefApp() {
+    const classComponentRef = React.useRef<ClassComponent>(null);
+    const classComponentMutableRef = React.useRef<ClassComponent>();
+
+    return (
+        <>
+            <ClassComponent ref={classComponentRef} />
+            <ClassComponent  ref={classComponentMutableRef} />
+        </>
+    );
+}
+
 interface Context {
     test: true;
 }

@@ -119,7 +119,7 @@ declare namespace React {
         // otherwise it will infer `{}` instead of `never`
         "ref" extends keyof ComponentPropsWithRef<C>
             ? NonNullable<ComponentPropsWithRef<C>["ref"]> extends Ref<
-                infer Instance
+                infer Instance | undefined
             >
                 ? Instance
                 : never
@@ -137,10 +137,10 @@ declare namespace React {
         key?: Key;
     }
     interface RefAttributes<T> extends Attributes {
-        ref?: Ref<T>;
+        ref?: Ref<T> | MutableRefObject<T | undefined>;
     }
     interface ClassAttributes<T> extends Attributes {
-        ref?: LegacyRef<T>;
+        ref?: LegacyRef<T> | MutableRefObject<T | undefined>;
     }
 
     interface ReactElement<P = any, T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>> {
