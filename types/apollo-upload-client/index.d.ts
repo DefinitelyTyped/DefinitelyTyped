@@ -1,11 +1,10 @@
-// Type definitions for apollo-upload-client 8.1
+// Type definitions for apollo-upload-client 14.0
 // Project: https://github.com/jaydenseric/apollo-upload-client#readme
 // Definitions by: Edward Sammut Alessi <https://github.com/Slessi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { ApolloLink } from "apollo-link";
-import { HttpOptions } from "apollo-link-http-common";
+import { ApolloLink, HttpOptions } from "@apollo/client";
 
 export { ReactNativeFile } from "extract-files";
 
