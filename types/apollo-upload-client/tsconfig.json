@@ -20,7 +20,7 @@
         "paths":{
             "@apollo/client": ["apollo__client"]
         },
-        "esModuleInterop": true
+        "moduleResolution": "node"
     },
     "files": [
         "index.d.ts",
