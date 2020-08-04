@@ -4,7 +4,6 @@
         "lib": [
             "es6",
             "dom",
-            "esnext.asynciterable"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -20,7 +19,7 @@
         "paths":{
             "@apollo/client": ["apollo__client"]
         },
-        "moduleResolution": "node"
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
