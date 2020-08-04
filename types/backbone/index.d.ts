@@ -7,6 +7,7 @@
 //                 jjoekoullas <https://github.com/jjoekoullas>
 //                 Julian Gonggrijp <https://github.com/jgonggrijp>
 //                 Kyle Scully <https://github.com/zieka>
+//                 Robert Kesterson <https://github.com/rkesters>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -200,7 +201,7 @@ declare namespace Backbone {
         sync(...arg: any[]): JQueryXHR;
     }
 
-    class Model extends ModelBase implements Events {
+    class Model<T = any, S = Backbone.ModelSetOptions> extends ModelBase implements Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -242,10 +243,10 @@ declare namespace Backbone {
          * any instantiation logic is run for the Model.
          * @see https://backbonejs.org/#Model-preinitialize
          */
-        preinitialize(attributes?: any, options?: any): void;
+        preinitialize(attributes?: T, options?: any): void;
 
-        constructor(attributes?: any, options?: any);
-        initialize(attributes?: any, options?: any): void;
+        constructor(attributes?: T, options?: any);
+        initialize(attributes?: T, options?: any): void;
 
         fetch(options?: ModelFetchOptions): JQueryXHR;
 
@@ -256,7 +257,7 @@ declare namespace Backbone {
         *    return super.get("name");
         * }
         **/
-        /*private*/ get(attributeName: string): any;
+        get<a extends keyof T & string>(attributeName: a): T[a];
 
         /**
         * For strongly-typed assignment of attributes, use the `set` method only privately in public setter properties.
@@ -265,8 +266,9 @@ declare namespace Backbone {
         *    super.set("name", value);
         * }
         **/
-        /*private*/ set(attributeName: string, value: any, options?: ModelSetOptions): Model;
-        set(obj: any, options?: ModelSetOptions): Model;
+        set<a extends keyof T & string>(attributeName: a, value?: T[a], options?: S): Backbone.Model;
+        set(attributeName: Partial<T>, options?: S): Backbone.Model;
+        set<a extends keyof T & string>(attributeName: a | Partial<T>, value?: T[a] | S, options?: S): Backbone.Model;
 
         /**
          * Return an object containing all the attributes that have changed, or
@@ -373,6 +375,11 @@ declare namespace Backbone {
         where(properties: any): TModel[];
         findWhere(properties: any): TModel;
         modelId(attrs: any) : any
+
+        values(): Iterator<TModel>;
+        keys(): Iterator<any>;
+        entries(): Iterator<[any, TModel]>;
+        [Symbol.iterator](): Iterator<TModel>;
 
         private _prepareModel(attributes?: any, options?: any): any;
         private _removeReference(model: TModel): void;

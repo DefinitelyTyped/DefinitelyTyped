@@ -57,6 +57,12 @@ function test_public_methods() {
             responsiveSlides: false,
             parallax: false,
             parallaxOptions: {type: 'reveal', percentage: 62, property: 'translate'},
+            cards: true,
+            cardsOptions: {
+                fadeBackground: true,
+                fadeContent: true,
+                perspective: 100,
+            },
 
             //Custom selectors
             sectionSelector: '.section',

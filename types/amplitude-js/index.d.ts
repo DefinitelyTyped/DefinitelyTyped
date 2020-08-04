@@ -1,4 +1,4 @@
-// Type definitions for Amplitude SDK 5.8
+// Type definitions for Amplitude SDK 5.11
 // Project: https://github.com/amplitude/Amplitude-Javascript
 // Definitions by: Arvydas Sidorenko <https://github.com/Asido>
 //                 Dan Manastireanu <https://github.com/danmana>
@@ -35,6 +35,7 @@ export interface Config {
     saveParamsReferrerOncePerSession?: boolean;
     secureCookie?: boolean;
     sessionTimeout?: number;
+    sameSiteCookie?: 'Lax' | 'Strict' | 'None';
     useNativeDeviceInfo?: boolean;
     trackingOptions?: {
         city?: boolean;

@@ -2,7 +2,7 @@
 // Project: https://github.com/wulkano/kap/blob/master/docs/plugins.md
 // Definitions by: Connor Peet <https://github.com/connor4312>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
+// Minimum TypeScript Version: 3.8
 
 import * as got from 'got';
 import * as ElectronStore from 'electron-store';

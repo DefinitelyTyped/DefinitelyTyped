@@ -41,53 +41,96 @@ export function ThemeProvider<Theme>(props: ThemeProviderProps<Theme>): React.Re
  * the name for the root color palette.
  */
 export type ColorMode = {
-    [k: string]: CSS.ColorProperty | ObjectOrArray<CSS.ColorProperty>;
+    [k: string]: CSS.Property.Color | ObjectOrArray<CSS.Property.Color>;
 } & {
     /**
      * Body background color
      */
-    background: CSS.ColorProperty;
+    background: CSS.Property.Color;
 
     /**
      * Body foreground color
      */
-    text: CSS.ColorProperty;
+    text: CSS.Property.Color;
 
     /**
      * Primary brand color for links, buttons, etc.
      */
-    primary?: CSS.ColorProperty;
+    primary?: CSS.Property.Color;
 
     /**
      * A secondary brand color for alternative styling
      */
-    secondary?: CSS.ColorProperty;
+    secondary?: CSS.Property.Color;
+
+    /**
+     * A contrast color for emphasizing UI
+     */
+    accent?: CSS.Property.Color;
+
+    /**
+     * A background color for highlighting text
+     */
+    highlight?: CSS.Property.Color;
 
     /**
      * A faint color for backgrounds, borders, and accents that do not require
      * high contrast with the background color
      */
-    muted?: CSS.ColorProperty;
-
-    /**
-     * A contrast color for emphasizing UI
-     */
-    accent?: CSS.ColorProperty;
+    muted?: CSS.Property.Color;
 };
 
-export interface Theme extends Omit<StyledSystemTheme, 'colors'> {
+export interface Theme extends Omit<StyledSystemTheme, 'colors' | 'buttons'> {
     /**
      * Enable/disable custom CSS properties/variables if lower browser
      * support is required (for eg. IE 11).
      *
-     * References: https://theme-ui.com/color-modes/#turn-off-custom-properties
+     * @defaultValue true
+     * @see https://theme-ui.com/color-modes/#turn-off-custom-properties
      */
     useCustomProperties?: boolean;
 
     /**
-     * Provide a value here to enable color modes
+     * Adds styles defined in `theme.styles.roo`t to the `<body>` element along
+     * with `color` and `background-color`.
+     *
+     * @defaultValue true
+     * @see https://theme-ui.com/color-modes#applying-colors
+     */
+    useBodyStyles?: boolean;
+
+    /**
+     * The key used for the top-level color palette in `theme.colors`.
+     *
+     * @defaultValue 'default'
+     * @see https://theme-ui.com/theming#configuration-flags
      */
     initialColorModeName?: string;
+
+    /**
+     * Initializes the color mode based on the `prefers-color-scheme` media
+     * query.
+     *
+     * @defaultValue false
+     * @see https://theme-ui.com/color-modes#initialize-mode-with-prefers-color-scheme-media-query
+     */
+    useColorSchemeMediaQuery?: boolean;
+
+    /**
+     * Adds a global `box-sizing: border-box` style.
+     *
+     * @defaultValue true
+     * @see https://theme-ui.com/theming#configuration-flags
+     */
+    useBorderBox?: boolean;
+
+    /**
+     * Persists the color mode in `localStorage`.
+     *
+     * @defaultValue true
+     * @see https://theme-ui.com/color-modes#disable-persisting-color-mode-on-localstorage
+     */
+    useLocalStorage?: boolean;
 
     /**
      * Define the colors that are available through this theme
@@ -112,6 +155,140 @@ export interface Theme extends Omit<StyledSystemTheme, 'colors'> {
     styles?: {
         [P in StyledTags]?: SystemStyleObject;
     };
+
+    /**
+     * You can define additional CSS grid layouts by adding variants to the
+     * `theme.grids` object. These styles can be used to create a wide variety of
+     * different reusable layouts.
+     *
+     * @see https://theme-ui.com/theme-spec#variants
+     * @see https://theme-ui.com/components/variants
+     * @see https://theme-ui.com/components/grid#variants
+     */
+    grids?: Record<string, SystemStyleObject>;
+
+    /**
+     * Button variants can be defined in the `theme.buttons` object. The `Button`
+     * component uses `theme.buttons.primary` as its default variant style.
+     *
+     * @see https://theme-ui.com/theme-spec#variants
+     * @see https://theme-ui.com/components/variants
+     * @see https://theme-ui.com/components/button#variants
+     */
+    buttons?: Record<string, SystemStyleObject>;
+
+    /**
+     * Text style variants can be defined in the `theme.text` object. The `Text`
+     * component uses `theme.text.default` as its default variant style.
+     *
+     * @see https://theme-ui.com/theme-spec#variants
+     * @see https://theme-ui.com/components/variants
+     * @see https://theme-ui.com/components/text#variants
+     */
+    text?: Record<string, SystemStyleObject>;
+
+    /**
+     * Link variants can be defined in the `theme.links` object. By default the
+     * `Link` component will use styles defined in `theme.styles.a`.
+     *
+     * @see https://theme-ui.com/theme-spec#variants
+     * @see https://theme-ui.com/components/variants
+     * @see https://theme-ui.com/components/link#variants
+     */
+    links?: Record<string, SystemStyleObject>;
+
+    /**
+     * Image style variants can be defined in the `theme.images` object.
+     *
+     * @see https://theme-ui.com/theme-spec#variants
+     * @see https://theme-ui.com/components/variants
+     * @see https://theme-ui.com/components/image#variants
+     */
+    images?: Record<string, SystemStyleObject>;
+
+    /**
+     * Card style variants can be defined in `the theme.cards` object. By default
+     * the `Card` component uses the `theme.cards.primary` variant.
+     *
+     * @see https://theme-ui.com/theme-spec#variants
+     * @see https://theme-ui.com/components/variants
+     * @see https://theme-ui.com/components/card#variants
+     */
+    cards?: Record<string, SystemStyleObject>;
+
+    /**
+     * Container variants can be defined in the `theme.layout` object. The
+     * `Container` component uses `theme.layout.container` as its default variant
+     * style.
+     *
+     * @see https://theme-ui.com/theme-spec#variants
+     * @see https://theme-ui.com/components/variants
+     * @see https://theme-ui.com/components/container#variants
+     */
+    layout?: Record<string, SystemStyleObject>;
+
+    /**
+     * Label variants can be defined in `theme.forms` and the component uses the
+     * `theme.forms.label` variant by default.
+     *
+     * Input variants can be defined in `theme.forms` and the component uses the
+     * `theme.forms.input` variant by default.
+     *
+     * Select variants can be defined in `theme.forms` and the component uses the
+     * `theme.forms.select` variant by default.
+     *
+     * Textarea variants can be defined in `theme.forms` and the component uses
+     * the `theme.forms.textarea` variant by default.
+     *
+     * Radio variants can be defined in `theme.forms` and the component uses the
+     * `theme.forms.radio` variant by default.
+     *
+     * Checkbox variants can be defined in `theme.forms` and the component uses
+     * the `theme.forms.checkbox` variant by default.
+     *
+     * Slider variants can be defined in the `theme.forms` object. The `Slider`
+     * component uses `theme.forms.slider` as its default variant style.
+     *
+     * @see https://theme-ui.com/theme-spec#variants
+     * @see https://theme-ui.com/components/variants
+     * @see https://theme-ui.com/components/label#variants
+     * @see https://theme-ui.com/components/input#variants
+     * @see https://theme-ui.com/components/select#variants
+     * @see https://theme-ui.com/components/textarea#variants
+     * @see https://theme-ui.com/components/radio#variants
+     * @see https://theme-ui.com/components/checkbox#variants
+     * @see https://theme-ui.com/components/slider#variants
+     */
+    forms?: Record<string, SystemStyleObject>;
+
+    /**
+     * Badge variants can be defined in `theme.badges`. The `Badge` component uses
+     * `theme.badges.primary` as its default variant.
+     *
+     * @see https://theme-ui.com/theme-spec#variants
+     * @see https://theme-ui.com/components/variants
+     * @see https://theme-ui.com/components/badge#variants
+     */
+    badges?: Record<string, SystemStyleObject>;
+
+    /**
+     * Alert variants can be defined in `theme.alerts`. The `Alert` component uses
+     * `theme.alerts.primary` as its default variant.
+     *
+     * @see https://theme-ui.com/theme-spec#variants
+     * @see https://theme-ui.com/components/variants
+     * @see https://theme-ui.com/components/alert#variants
+     */
+    alerts?: Record<string, SystemStyleObject>;
+
+    /**
+     * Message variants can be defined in the `theme.messages` object.
+     *
+     * @see https://theme-ui.com/theme-spec#variants
+     * @see https://theme-ui.com/components/variants
+     * @see https://theme-ui.com/components/message#variants
+     */
+    messages?: Record<string, SystemStyleObject>;
 }
 
 /**
@@ -210,8 +387,6 @@ export function useThemeUI(): ThemeUIContext;
 /**
  * A hook retrieving the current color mode and a setter for a new color mode
  * in the theme.
- *
- * @param initialMode - the default color mode to use
  */
 export function useColorMode<Modes extends string>(
     initialMode?: Modes,
@@ -231,3 +406,5 @@ declare global {
         interface IntrinsicAttributes extends SxProps {}
     }
 }
+
+export function merge(a: Theme, b: Theme): Theme;

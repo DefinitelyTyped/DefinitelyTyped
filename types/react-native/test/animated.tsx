@@ -25,6 +25,9 @@ const ForwardComp = React.forwardRef<View, CompProps>(({ width }, ref) => {
 
 type X = React.PropsWithoutRef<React.ComponentProps<typeof ForwardComp>>;
 
+type Props = React.ComponentPropsWithoutRef<typeof Animated.Text>;
+const AnimatedWrapperComponent: React.FunctionComponent<Props> = (props) => <Animated.Text {...props} />
+
 function TestAnimatedAPI() {
     // Value
     const v1 = new Animated.Value(0);
@@ -91,6 +94,7 @@ function TestAnimatedAPI() {
 
     spring1.start();
     spring1.stop();
+    spring1.reset();
 
     Animated.parallel(
         [
@@ -163,6 +167,40 @@ function TestAnimatedAPI() {
             <ForwardComp ref={ForwardCompRef} width={1} />
             <AnimatedForwardComp ref={AnimatedForwardCompRef} width={10} />
             <Animated.Image style={position.getTranslateTransform()} source={{ uri: 'https://picsum.photos/200' }} />
+
+            <Animated.View
+              testID='expect-type-animated-view'
+              style={{opacity: v1}}
+              onLayout={event => {
+                event; // $ExpectType LayoutChangeEvent
+              }}
+            />;
+
+            <Animated.FlatList
+              testID='expect-type-animated-flatlist'
+              style={{opacity: v1}}
+              data={[1]}
+              renderItem={info => {
+                info; // $ExpectType ListRenderItemInfo<number>
+                return <View testID={info.item.toFixed(1)}/>
+              }}
+            />;
+
+            <Animated.SectionList
+              testID='expect-type-animated-sectionlist'
+              style={{opacity: v1}}
+              sections={[{ title: 'test', data: [1] }]}
+              renderItem={info => {
+                /*
+                 * Original <SectionList> expects:
+                 * SectionListRenderItemInfo<any>    on TS@3.5,
+                 * SectionListRenderItemInfo<number> on TS@4.0.
+                 * Skip until original is adjusted and type can be asserted
+                 */
+                info; // Should expect SectionListRenderItemInfo<number>
+                return <View testID={info.item.toFixed(1)}/>
+              }}
+            />;
         </View>
     );
 }

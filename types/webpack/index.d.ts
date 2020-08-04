@@ -7,8 +7,6 @@
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Jonathan Creamer <https://github.com/jcreamer898>
 //                 Alan Agius <https://github.com/alan-agius4>
-//                 Spencer Elliott <https://github.com/elliottsj>
-//                 Jason Cheatham <https://github.com/jason0x43>
 //                 Dennis George <https://github.com/dennispg>
 //                 Christophe Hurpeau <https://github.com/christophehurpeau>
 //                 ZSkycat <https://github.com/ZSkycat>
@@ -23,6 +21,7 @@
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Dion Shi <https://github.com/dionshihk>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Michał Grzegorzewski <https://github.com/spamshaker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -153,12 +152,12 @@ declare namespace webpack {
     }
 
     type ConfigurationFactory = ((
-        env: string | Record<string, boolean | number | string>,
+        env: string | Record<string, boolean | number | string> | undefined,
         args: CliConfigOptions,
     ) => Configuration | Promise<Configuration>);
 
     type MultiConfigurationFactory = ((
-        env: string | Record<string, boolean | number | string>,
+        env: string | Record<string, boolean | number | string> | undefined,
         args: CliConfigOptions,
     ) => Configuration[] | Promise<Configuration[]>);
 
@@ -409,7 +408,21 @@ declare namespace webpack {
         [key: string]: boolean | string | string[] | Record<string, string | string[]>;
     }
 
-    type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;
+    interface ExternalsFunctionCallback {
+        /**
+         * Invoke with no arguments to not externalize
+         */
+        (): void;
+        /**
+         * Callback with an Error
+         */
+        (error: {}): void; /* tslint:disable-line */
+        /**
+         * Externalize the dependency
+         */
+        (error: null, result: string | string[] | ExternalsObjectElement, type?: string): void;
+    }
+    type ExternalsFunctionElement = (context: any, request: any, callback: ExternalsFunctionCallback) => any;
 
     interface Node {
         console?: boolean | 'mock';
@@ -1154,10 +1167,12 @@ declare namespace webpack {
         class MainTemplate extends Tapable {
           hooks: {
             jsonpScript?: SyncWaterfallHook<string, Chunk, string>;
+            require: SyncWaterfallHook<string, Chunk, string>;
             requireExtensions: SyncWaterfallHook<string, Chunk, string>;
             requireEnsure: SyncWaterfallHook<string, Chunk, string>;
             localVars: SyncWaterfallHook<string, Chunk, string>;
             afterStartup: SyncWaterfallHook<string, Chunk, string>;
+            hash: SyncHook<CryptoHash>;
             hashForChunk: SyncHook<CryptoHash, Chunk>;
           };
           outputOptions: Output;
@@ -1242,7 +1257,17 @@ declare namespace webpack {
             addModule(module: CompilationModule, cacheGroup: any): any;
             // tslint:disable-next-line:ban-types
             addEntry(context: any, entry: any, name: any, callback: Function): void;
-            getPath(filename: string, data: {hash?: any, chunk?: any, filename?: string, basename?: string, query?: any}): string;
+
+            getPath(filename: string, data: {
+                hash?: any,
+                chunk?: any,
+                filename?: string,
+                basename?: string,
+                query?: any,
+                contentHashType?: string,
+                contentHash?: string,
+            }): string;
+
             /**
              * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
              */
@@ -1280,6 +1305,14 @@ declare namespace webpack {
         interface MultiStats {
             stats: Stats[];
             hash: string;
+            /** Returns true if there were errors while compiling. */
+            hasErrors(): boolean;
+            /** Returns true if there were warnings while compiling. */
+            hasWarnings(): boolean;
+            /** Returns compilation information as a JSON object. */
+            toJson(options?: Stats.ToJsonOptions): Stats.ToJsonOutput;
+            /** Returns a formatted string of the compilation information (similar to CLI output). */
+            toString(options?: Stats.ToStringOptions): string;
         }
 
         interface MultiCompilerHooks {
@@ -1292,13 +1325,14 @@ declare namespace webpack {
     }
     // tslint:disable-next-line:interface-name
     interface ICompiler {
-        run(handler: ICompiler.Handler): void;
-        watch(watchOptions: ICompiler.WatchOptions, handler: ICompiler.Handler): Watching;
+        run(handler: ICompiler.Handler | ICompiler.MultiHandler): void;
+        watch(watchOptions: ICompiler.WatchOptions, handler: ICompiler.Handler | ICompiler.MultiHandler): Watching;
     }
 
     namespace ICompiler {
+        import MultiStats = compilation.MultiStats;
         type Handler = (err: Error, stats: Stats) => void;
-
+        type MultiHandler = (err: Error, stats: MultiStats) => void;
         interface WatchOptions {
             /**
              * Add a delay before rebuilding once the first file changed. This allows webpack to aggregate any other
@@ -1393,7 +1427,7 @@ declare namespace webpack {
     }
 
     namespace MultiCompiler {
-        type Handler = ICompiler.Handler;
+        type Handler = ICompiler.MultiHandler;
         type WatchOptions = ICompiler.WatchOptions;
     }
 
@@ -1726,7 +1760,7 @@ declare namespace webpack {
         constructor(definitions: {[key: string]: DefinePlugin.CodeValueObject});
         static runtimeValue(
             fn: ({ module }: { module: compilation.Module }) => DefinePlugin.CodeValuePrimitive,
-            fileDependencies?: string[]
+            fileDependencies?: true | string[]
         ): DefinePlugin.RuntimeValue;
     }
 
@@ -1838,6 +1872,10 @@ declare namespace webpack {
 
     class ExtendedAPIPlugin extends Plugin {
         constructor();
+    }
+
+    class ExternalsPlugin extends Plugin {
+        constructor(type: string, externals: ExternalsElement);
     }
 
     class HashedModuleIdsPlugin extends Plugin {

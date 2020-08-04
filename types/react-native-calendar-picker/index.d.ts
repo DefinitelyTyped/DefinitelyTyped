@@ -1,4 +1,4 @@
-// Type definitions for react-native-calendar-picker 6.0
+// Type definitions for react-native-calendar-picker 6.1
 // Project: https://github.com/stephy/CalendarPicker
 // Definitions by: Tobias Hann <https://github.com/automatensalat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,7 +19,9 @@ export interface CalendarPickerProps {
     weekdays?: string[];
     months?: string[];
     startFromMonday?: boolean;
+    showDayStragglers?: boolean;
     allowRangeSelection?: boolean;
+    allowBackwardRangeSelect?: boolean;
     previousTitle?: string;
     nextTitle?: string;
     selectedDayColor?: string;
@@ -37,7 +39,11 @@ export interface CalendarPickerProps {
     todayBackgroundColor?: string;
     todayTextStyle?: StyleProp<TextStyle>;
     textStyle?: StyleProp<TextStyle>;
-    customDatesStyles?: CustomDateStyle[];
+    customDatesStyles?: CustomDateStyle[] | CustomDatesStylesFunc;
+    /**
+     * @deprecated Use customDatesStyles & customDayHeaderStyles callbacks to style individual dates, days of week, and/or header.
+     */
+    customDatesStylesPriority?: 'dayOfWeek' | 'customDates';
     scaleFactor?: number;
     minDate?: Date;
     maxDate?: Date;
@@ -55,8 +61,15 @@ export interface CalendarPickerProps {
     headingLevel?: number;
     previousTitleStyle?: StyleProp<TextStyle>;
     nextTitleStyle?: StyleProp<TextStyle>;
+    previousComponent?: React.ReactNode;
+    nextComponent?: React.ReactNode;
     dayLabelsWrapper?: StyleProp<ViewStyle>;
+    /**
+     * @deprecated Use customDatesStyles & customDayHeaderStyles callbacks to style individual dates, days of week, and/or header.
+     */
     dayOfWeekStyles?: DayOfWeekStyle;
+    monthYearHeaderWrapperStyle?: StyleProp<ViewStyle>;
+    customDayHeaderStyles?: CustomDayHeaderStylesFunc;
 }
 
 export type DayOfWeekStyle = {
@@ -64,6 +77,27 @@ export type DayOfWeekStyle = {
 };
 
 export type DisabledDatesFunc = (date: Moment) => boolean;
+
+export type CustomDatesStylesFunc = (
+    date: Moment,
+) => {
+    containerStyle?: ViewStyle;
+    style?: ViewStyle;
+    textStyle?: TextStyle;
+};
+
+export interface CustomDayHeaderStylesFuncDateArg {
+    dayOfWeek: number;
+    month: number;
+    year: number;
+}
+
+export type CustomDayHeaderStylesFunc = (
+    date: CustomDayHeaderStylesFuncDateArg,
+) => {
+    textStyle?: TextStyle;
+    style?: ViewStyle;
+};
 
 export type MomentParsable = MomentInput;
 
@@ -84,7 +118,7 @@ export interface CustomDateStyle {
     textStyle?: TextStyle;
 }
 
-export type DateChangedCallback = (date: Moment) => void;
+export type DateChangedCallback = (date: Moment, type?: 'START_DATE' | 'END_DATE') => void;
 
 export interface SwipeConfig {
     velocityThreshold?: number;

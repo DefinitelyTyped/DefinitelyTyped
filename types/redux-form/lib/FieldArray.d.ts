@@ -45,6 +45,7 @@ export interface FieldArrayFieldsProps<FieldValue> {
     push(value: FieldValue): void;
     remove(index: number): void;
     shift(): FieldValue;
+    splice(index: number, removeNum: number | null, value: FieldValue): void;
     swap(indexA: number, indexB: number): void;
     move(from: number, to: number): void;
     unshift(value: FieldValue): void;

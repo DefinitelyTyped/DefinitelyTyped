@@ -1,10 +1,13 @@
 import * as React from 'react';
+import { View, TextInput } from 'react-native';
 
 import CalendarPicker, {
     DateChangedCallback,
     SwipeCallback,
     CustomDateStyle,
     DisabledDatesFunc,
+    CustomDatesStylesFunc,
+    CustomDayHeaderStylesFunc,
 } from 'react-native-calendar-picker';
 
 const TestSimpleProps = () => (
@@ -25,7 +28,9 @@ const TestSimpleProps = () => (
             'Dezembro',
         ]}
         startFromMonday
+        showDayStragglers
         allowRangeSelection
+        allowBackwardRangeSelect
         previousTitle="string"
         nextTitle="string"
         selectedDayColor="string"
@@ -43,6 +48,7 @@ const TestSimpleProps = () => (
         todayBackgroundColor="string"
         todayTextStyle={{ fontSize: 10 }}
         textStyle={{ fontSize: 10 }}
+        customDatesStylesPriority="dayOfWeek"
         scaleFactor={3}
         minDate={new Date()}
         maxDate={new Date()}
@@ -57,6 +63,7 @@ const TestSimpleProps = () => (
         previousTitleStyle={{ fontSize: 10 }}
         nextTitleStyle={{ fontSize: 10 }}
         dayLabelsWrapper={{ flex: 1 }}
+        monthYearHeaderWrapperStyle={{ flex: 1 }}
     />
 );
 
@@ -96,7 +103,50 @@ const TestCustomDateStyle = () => {
         },
     ];
 
-    return <CalendarPicker customDatesStyles={customStyles} />;
+    return <CalendarPicker customDatesStyles={customStyles} customDatesStylesPriority="customDates" />;
+};
+
+const TestCustomDateFuncs = () => {
+    const customDatesStylesFn: CustomDatesStylesFunc = date => {
+        if (date.weekday() === 0) {
+            return {
+                containerStyle: {
+                    backgroundColor: 'red',
+                },
+                textStyle: {
+                    color: 'black',
+                },
+            };
+        } else {
+            return {
+                containerStyle: {
+                    backgroundColor: 'white',
+                },
+                style: {
+                    alignContent: 'center',
+                },
+                textStyle: {
+                    color: 'black',
+                },
+            };
+        }
+    };
+
+    const customDayHeaderStylesFn: CustomDayHeaderStylesFunc = (date: {
+        dayOfWeek: number;
+        year: number;
+        month: number;
+    }) => {
+        return {
+            textStyle: {
+                color: date.year === 2020 ? 'red' : 'blue',
+            },
+            style: {
+                backgroundColor: 'yellow',
+            },
+        };
+    };
+    return <CalendarPicker customDatesStyles={customDatesStylesFn} customDayHeaderStyles={customDayHeaderStylesFn} />;
 };
 
 const TestCallbacks = () => {
@@ -153,4 +203,8 @@ const TestSwipe = () => {
             onSwipe={onSwipe}
         />
     );
+};
+
+const TestCustomComponents = () => {
+    return <CalendarPicker nextComponent={<View></View>} previousComponent={[<TextInput />]} />;
 };

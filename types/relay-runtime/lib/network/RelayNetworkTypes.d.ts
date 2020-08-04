@@ -46,7 +46,25 @@ export interface GraphQLResponseWithoutData {
     label?: string;
     path?: Array<string | number>;
 }
-export type GraphQLResponse = GraphQLResponseWithData | GraphQLResponseWithoutData;
+export interface GraphQLResponseWithExtensionsOnly {
+    // Per https://spec.graphql.org/June2018/#sec-Errors
+    // > If the data entry in the response is not present, the errors entry
+    // > in the response must not be empty. It must contain at least one error
+    // This means a payload has to have either a data key or an errors key:
+    // but the spec leaves room for the combination of data: null plus extensions
+    // since `data: null` is a *required* output if there was an error during
+    // execution, but the inverse is not described in the sepc: `data: null`
+    // does not necessarily indicate that there was an error.
+    data: null;
+    extensions: PayloadExtensions;
+}
+
+export type GraphQLSingularResponse =
+    | GraphQLResponseWithData
+    | GraphQLResponseWithExtensionsOnly
+    | GraphQLResponseWithoutData;
+
+export type GraphQLResponse = GraphQLSingularResponse | ReadonlyArray<GraphQLSingularResponse>;
 
 /**
  * A function that returns an Observable representing the response of executing

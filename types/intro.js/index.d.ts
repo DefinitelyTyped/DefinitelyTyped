@@ -81,7 +81,14 @@ declare namespace introJs {
         onafterchange(callback: (element: HTMLElement) => any): IntroJs;
         onchange(callback: (element: HTMLElement) => any): IntroJs;
         oncomplete(callback: Function): IntroJs;
-
+        /**
+         * @link https://introjs.com/docs/intro/api/#introjsaddstepoptions
+         */
+        addStep(options: Step): IntroJs;
+        /**
+         * @link https://introjs.com/docs/intro/api/#introjsaddstepssteps
+         */
+        addSteps(steps: Step[]): IntroJs;
         addHints(): IntroJs;
         showHint(stepId: number): IntroJs;
         showHints(): IntroJs;

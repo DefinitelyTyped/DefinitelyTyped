@@ -1,22 +1,22 @@
 /* tests from examples in the documentation at http://iamceege.github.io/tooltipster */
 
 $(document).ready(function () {
-	$('.tooltip').tooltipster();
+    $('.tooltip').tooltipster();
 });
 
 $('.tooltip').tooltipster({
-	theme: 'tooltipster-noir'
+    theme: 'tooltipster-noir'
 });
 
 $('.tooltip').tooltipster({
-	contentCloning: true
+    contentCloning: true
 });
 
 $('.tooltip').tooltipster({
-	animation: 'fade',
-	delay: 200,
-	theme: 'tooltipster-punk',
-	trigger: 'click'
+    animation: 'fade',
+    delay: 200,
+    theme: 'tooltipster-punk',
+    trigger: 'click'
 });
 
 // initialize your tooltip as usual:
@@ -28,19 +28,19 @@ $('#my-tooltip').tooltipster('open');
 
 // NOTE: most methods are actually chainable, as you would expect them to be:
 $('#my-other-tooltip')
-	.tooltipster({})
-	.tooltipster('content', 'My new content')
-	.tooltipster('open');
+    .tooltipster({})
+    .tooltipster('content', 'My new content')
+    .tooltipster('open');
 
 $('.tooltip').tooltipster({
-	functionBefore: function (instance, helper) {
-		instance.content('My new content');
-	}
+    functionBefore: function (instance, helper) {
+        instance.content('My new content');
+    }
 });
 
 // Set default options for all future tooltip instantiations
 $.tooltipster.setDefaults({
-	side: 'bottom'
+    side: 'bottom'
 });
 
 
@@ -48,7 +48,7 @@ $.tooltipster.setDefaults({
 // That may be useful to close all tooltips at once for example:
 var instances = $.tooltipster.instances();
 $.each(instances, function (i, instance) {
-	instance.close();
+    instance.close();
 });
 
 
@@ -58,7 +58,7 @@ $('.tooltip2').tooltipster();
 var instances = $.tooltipster.instancesLatest();
 
 $('.tooltip').tooltipster({
-	theme: ['tooltipster-noir', 'tooltipster-noir-customized']
+    theme: ['tooltipster-noir', 'tooltipster-noir-customized']
 });
 
 $('#myelement').tooltipster('content', 'My new content');
@@ -68,160 +68,160 @@ let instance: JQueryTooltipster.ITooltipsterInstance;
 instance.content('My new content');
 
 $('.tooltip').tooltipster({
-	content: 'Loading...',
-	// 'instance' is basically the tooltip. More details in the "Object-oriented Tooltipster" section.
-	functionBefore: function (instance, helper) {
+    content: 'Loading...',
+    // 'instance' is basically the tooltip. More details in the "Object-oriented Tooltipster" section.
+    functionBefore: function (instance, helper) {
 
-		var $origin = $(helper.origin);
+        var $origin = $(helper.origin);
 
-		// we set a variable so the data is only loaded once via Ajax, not every time the tooltip opens
-		if ($origin.data('loaded') !== true) {
+        // we set a variable so the data is only loaded once via Ajax, not every time the tooltip opens
+        if ($origin.data('loaded') !== true) {
 
-			$.get('http://example.com/ajax.php', function (data) {
+            $.get('http://example.com/ajax.php', function (data) {
 
-				// call the 'content' method to update the content of our tooltip with the returned data.
-				// note: this content update will trigger an update animation (see the updateAnimation option)
-				instance.content(data);
+                // call the 'content' method to update the content of our tooltip with the returned data.
+                // note: this content update will trigger an update animation (see the updateAnimation option)
+                instance.content(data);
 
-				// to remember that the data has been loaded
-				$origin.data('loaded', true);
-			});
-		}
-	}
+                // to remember that the data has been loaded
+                $origin.data('loaded', true);
+            });
+        }
+    }
 });
 
 $(document).ready(function () {
 
-	$('.tooltip').tooltipster();
+    $('.tooltip').tooltipster();
 
-	$('#example').tooltipster('open', function (instance, helper) {
-		alert('The tooltip is now fully shown. Its content is: ' + instance.content());
-	});
+    $('#example').tooltipster('open', function (instance, helper) {
+        alert('The tooltip is now fully shown. Its content is: ' + instance.content());
+    });
 
-	$(window).keypress(function () {
-		$('#example').tooltipster('close', function (instance, helper) {
-			alert('The tooltip is now fully hidden');
-		});
-	});
+    $(window).keypress(function () {
+        $('#example').tooltipster('close', function (instance, helper) {
+            alert('The tooltip is now fully hidden');
+        });
+    });
 });
 
 $('#example').tooltipster({
-	trigger: 'custom',
-	triggerOpen: {
-		mouseenter: true
-	},
-	triggerClose: {
-		click: true,
-		scroll: true
-	}
+    trigger: 'custom',
+    triggerOpen: {
+        mouseenter: true
+    },
+    triggerClose: {
+        click: true,
+        scroll: true
+    }
 });
 
 $('#example').tooltipster({
-	trigger: 'custom',
-	triggerOpen: {
-		mouseenter: true,
-		touchstart: true
-	},
-	triggerClose: {
-		click: true,
-		scroll: true,
-		tap: true
-	}
+    trigger: 'custom',
+    triggerOpen: {
+        mouseenter: true,
+        touchstart: true
+    },
+    triggerClose: {
+        click: true,
+        scroll: true,
+        tap: true
+    }
 });
 
 $('#example').tooltipster({
-	trigger: 'custom',
-	triggerOpen: {
-		mouseenter: true,
-		touchstart: true
-	},
-	triggerClose: {
-		mouseleave: true,
-		originClick: true,
-		touchleave: true
-	}
+    trigger: 'custom',
+    triggerOpen: {
+        mouseenter: true,
+        touchstart: true
+    },
+    triggerClose: {
+        mouseleave: true,
+        originClick: true,
+        touchleave: true
+    }
 });
 
 $('#example').tooltipster({
-	trigger: 'custom',
-	triggerOpen: {
-		click: true,
-		tap: true
-	},
-	triggerClose: {
-		click: true,
-		tap: true
-	}
+    trigger: 'custom',
+    triggerOpen: {
+        click: true,
+        tap: true
+    },
+    triggerClose: {
+        click: true,
+        tap: true
+    }
 });
 
 $(document).ready(function () {
 
-	// first on page load, initialize all tooltips
-	$('.tooltip').tooltipster();
+    // first on page load, initialize all tooltips
+    $('.tooltip').tooltipster();
 
-	// then immediately open the tooltip of the element named "example"
-	$('#example').tooltipster('open');
+    // then immediately open the tooltip of the element named "example"
+    $('#example').tooltipster('open');
 
-	// as soon as a key is pressed on the keyboard, close the tooltip.
-	$(window).keypress(function () {
-		$('#example').tooltipster('close');
-	});
+    // as soon as a key is pressed on the keyboard, close the tooltip.
+    $(window).keypress(function () {
+        $('#example').tooltipster('close');
+    });
 });
 
 $('#my-tooltip').tooltipster({
-	functionPosition: function (instance, helper, position) {
-		position.coord.top += 10;
-		position.coord.left += 10;
-		return position;
-	}
+    functionPosition: function (instance, helper, position) {
+        position.coord.top += 10;
+        position.coord.left += 10;
+        return position;
+    }
 });
 
 $('#tooltip').tooltipster({
-	content: $('#tooltip_content'),
-	// if you use a single element as content for several tooltips, set this option to true
-	contentCloning: false
+    content: $('#tooltip_content'),
+    // if you use a single element as content for several tooltips, set this option to true
+    contentCloning: false
 });
 
 $('.tooltip').tooltipster({
-	functionInit: function (instance, helper) {
-		var content = $(helper.origin).find('.tooltip_content').detach();
-		instance.content(content);
-	}
+    functionInit: function (instance, helper) {
+        var content = $(helper.origin).find('.tooltip_content').detach();
+        instance.content(content);
+    }
 });
 
 $('.tooltip').tooltipster({
-	functionInit: function (instance, helper) {
+    functionInit: function (instance, helper) {
 
-		var $origin = $(helper.origin);
-		const dataOptionsJson = $origin.attr('data-tooltipster');
+        var $origin = $(helper.origin);
+        const dataOptionsJson = $origin.attr('data-tooltipster');
 
-		if (dataOptionsJson) {
+        if (dataOptionsJson) {
 
-			const dataOptions = JSON.parse(dataOptionsJson);
+            const dataOptions = JSON.parse(dataOptionsJson);
 
-			// example in the documentation isn't valid:
-			// $.each(dataOptions, function(name, option){
-			// 		instance.option(name, option);
-			// });
-			Object.keys(dataOptions).forEach(key => {
-				instance.option(key, dataOptions[key]);
-			});
-		}
-	}
+            // example in the documentation isn't valid:
+            // $.each(dataOptions, function(name, option){
+            //         instance.option(name, option);
+            // });
+            Object.keys(dataOptions).forEach(key => {
+                instance.option(key, dataOptions[key]);
+            });
+        }
+    }
 });
 
 $('#example').tooltipster({
-	functionInit: function (instance, helper) {
+    functionInit: function (instance, helper) {
 
-		// parse the content
-		var content = instance.content(),
-			people = JSON.parse(content),
-			// and use it to make a sentence
-			newContent = 'We have ' + people.length + ' people today. Say hello to ' + people.join(', ');
+        // parse the content
+        var content = instance.content(),
+            people = JSON.parse(content),
+            // and use it to make a sentence
+            newContent = 'We have ' + people.length + ' people today. Say hello to ' + people.join(', ');
 
-		// save the edited content
-		instance.content(newContent);
-	}
+        // save the edited content
+        instance.content(newContent);
+    }
 });
 
 // this logs: "We have 3 people today. Say hello to Sarah, John, Matthew"
@@ -229,20 +229,20 @@ console.log($('#example').tooltipster('content'));
 
 $('#example').tooltipster({
 
-	functionInit: function (instance, helper) {
+    functionInit: function (instance, helper) {
 
-		var content = instance.content(),
-			people = JSON.parse(content);
+        var content = instance.content(),
+            people = JSON.parse(content);
 
-		instance.content(people);
-	},
-	// this formats the content on the fly when it needs to be displayed but does not modify its value
-	functionFormat: function (instance, helper, content) {
+        instance.content(people);
+    },
+    // this formats the content on the fly when it needs to be displayed but does not modify its value
+    functionFormat: function (instance, helper, content) {
 
-		var displayedContent = 'We have ' + content.length + ' people today. Say hello to ' + content.join(', ');
+        var displayedContent = 'We have ' + content.length + ' people today. Say hello to ' + content.join(', ');
 
-		return displayedContent;
-	}
+        return displayedContent;
+    }
 });
 
 // Alright! this logs: ["Sarah", "John", "Matthew"]
@@ -259,25 +259,25 @@ instance = $('#my-element').tooltipster('instance');
 instance.open().content('My new content');
 
 $('#origin').tooltipster({
-	functionBefore: function (instance, helper) {
-		instance.content('Random content');
-	}
+    functionBefore: function (instance, helper) {
+        instance.content('Random content');
+    }
 });
 
 var $myElement = $('#my-element');
 
 // create a first tooltip as usual. The multiple option is actually optional for the first tooltip
 $myElement.tooltipster({
-	content: 'My first tooltip',
-	side: 'top'
+    content: 'My first tooltip',
+    side: 'top'
 });
 
 // initialize a second tooltip
 $myElement.tooltipster({
-	// don't forget to provide content here as the first tooltip will have deleted the original title attribute of the element
-	content: 'My second tooltip',
-	multiple: true,
-	side: 'bottom'
+    // don't forget to provide content here as the first tooltip will have deleted the original title attribute of the element
+    content: 'My second tooltip',
+    multiple: true,
+    side: 'bottom'
 });
 
 var instances = $.tooltipster.instances($myElement);
@@ -290,80 +290,80 @@ instances[1].content('New content for my second tooltip').open();
 $myElement.tooltipster('content', 'New content for my first tooltip')
 
 $('#my-element').tooltipster({
-	content: 'HELLO',
-	functionInit: function (instance, helper) {
-		var string = instance.content();
-		instance.content(string.toLowerCase());
-	},
-	multiple: true
+    content: 'HELLO',
+    functionInit: function (instance, helper) {
+        var string = instance.content();
+        instance.content(string.toLowerCase());
+    },
+    multiple: true
 });
 
 $('body').on('mouseenter', '.tooltip:not(.tooltipstered)', function () {
-	$(this)
-		.tooltipster({})
-		.tooltipster('open');
+    $(this)
+        .tooltipster({})
+        .tooltipster('open');
 });
 
 const doThis = () => { };
 const doThat = () => { };
 
 $("#my-tooltip").tooltipster({
-	functionBefore: function (instance, helper) {
-		doThis();
-		doThat();
-	}
+    functionBefore: function (instance, helper) {
+        doThis();
+        doThat();
+    }
 });
 
 instance = $("#my-tooltip").tooltipster({}).tooltipster('instance');
 
 instance
-	.on('before', doThis)
-	.on('before', doThat);
+    .on('before', doThis)
+    .on('before', doThat);
 
 $.tooltipster.on('init', function (event) {
-	doThis();
+    doThis();
 });
 
 $("#my-tooltip").tooltipster({
-	functionInit: doThat
+    functionInit: doThat
 });
 
 $('#example').tooltipster({
-	plugins: ['pluginNamespace.pluginName']
+    plugins: ['pluginNamespace.pluginName']
 });
 
 $('#example').tooltipster({
-	plugins: ['laa.follower']
+    plugins: ['laa.follower']
 });
 
 $('#example').tooltipster({
-	content: 'Hello',
-	theme: 'tooltipster-noir',
-	'laa.follower': {
-			anchor: 'top-center'
-	},
-	'some.otherPlugin': {
-			anchor: 'value'
-	}
+    content: 'Hello',
+    theme: 'tooltipster-noir',
+    'laa.follower': {
+            anchor: 'top-center'
+    },
+    'some.otherPlugin': {
+            anchor: 'value'
+    }
 });
 
 $('#example').tooltipster({
-	functionBefore: function(instance, helper) {
-			instance['laa.follower'].methodName();
-	}
+    functionBefore: function(instance, helper) {
+            instance['laa.follower'].methodName();
+    }
 });
 
 $('#nesting').tooltipster({
-	content: $('<span>Hover me too!</span>'),
-	functionReady: function(instance, helper){
-			
-			// the nested tooltip must be initialized once the first tooltip is open, that's why we do this inside functionReady()
-			instance.content().tooltipster({
-					content: 'I am a nested tooltip!',
-					distance: 0
-			});
-	},
-	interactive: true
+    content: $('<span>Hover me too!</span>'),
+    functionReady: function(instance, helper){
+            
+            // the nested tooltip must be initialized once the first tooltip is open, that's why we do this inside functionReady()
+            instance.content().tooltipster({
+                    content: 'I am a nested tooltip!',
+                    distance: 0
+            });
+    },
+    interactive: true
 });
 
 // initialize tooltips in the page as usual
@@ -419,23 +419,23 @@ $.tooltipster.on('start', function(event) {
 });
 
 $('#myfield').tooltipster({
-	functionInit: function(instance, helper){
-			var content = $('#myfield_description').html();
-			instance.content(content);
-	},
-	functionReady: function(instance, helper){
-			$('#myfield_description').attr('aria-hidden', 'false');
-	},
-	functionAfter: function(instance, helper){
-			$('#myfield_description').attr('aria-hidden', 'true');
-	}
+    functionInit: function(instance, helper){
+            var content = $('#myfield_description').html();
+            instance.content(content);
+    },
+    functionReady: function(instance, helper){
+            $('#myfield_description').attr('aria-hidden', 'false');
+    },
+    functionAfter: function(instance, helper){
+            $('#myfield_description').attr('aria-hidden', 'true');
+    }
 });
 
 // if in addition you want the tooltip to be displayed when the field gets focus, add these custom triggers :
 $('#myfield')
-	.focus(function(){
-			$(this).tooltipster('open');
-	})
-	.blur(function(){
-			$(this).tooltipster('close');
-	});
+    .focus(function(){
+            $(this).tooltipster('open');
+    })
+    .blur(function(){
+            $(this).tooltipster('close');
+    });

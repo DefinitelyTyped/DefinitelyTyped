@@ -5,11 +5,11 @@ declare var mixinFn: Function;
 
 function TestComponent() {
     var self: Flight.Component = this;      
-	
+    
     self.attributes({
        fooSelector: '.bar'
     });    
-	
+    
     self.defaultAttrs({
        fooSelector: '.bar'
     });

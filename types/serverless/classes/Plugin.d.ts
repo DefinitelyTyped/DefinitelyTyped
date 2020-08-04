@@ -20,6 +20,16 @@ declare namespace Plugin {
         };
     }
 
+    type VariableResolver = (variableSource: string) => Promise<any>;
+
+    interface VariableResolvers {
+        [variablePrefix: string]: VariableResolver | {
+            resolver: VariableResolver,
+            isDisabledAtPrepopulation?: boolean,
+            serviceName?: string
+        };
+    }
+
     interface PluginStatic {
         new (serverless: Serverless, options: Serverless.Options): Plugin;
     }
@@ -28,6 +38,7 @@ declare namespace Plugin {
 interface Plugin {
     hooks: Plugin.Hooks;
     commands?: Plugin.Commands;
+    variableResolvers?: Plugin.VariableResolvers;
 }
 
 export = Plugin;

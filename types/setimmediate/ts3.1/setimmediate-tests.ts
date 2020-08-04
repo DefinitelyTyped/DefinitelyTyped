@@ -2,19 +2,19 @@ import 'setimmediate';
 
 // $ExpectType number
 const i1 = setImmediate((...args) => {
-	args; // $ExpectType []
+    args; // $ExpectType []
 });
 
 // $ExpectType number
 const i2 = setImmediate((...args) => {
-	args; // $ExpectType [number]
+    args; // $ExpectType [number]
 }, 1);
 
 // $ExpectType number
 const i3 = setImmediate((foo, bar, baz) => {
-	foo; // $ExpectType number
-	bar; // $ExpectType string
-	baz; // $ExpectType boolean
+    foo; // $ExpectType number
+    bar; // $ExpectType string
+    baz; // $ExpectType boolean
 }, 1, 'a', true);
 
 clearImmediate(i1);

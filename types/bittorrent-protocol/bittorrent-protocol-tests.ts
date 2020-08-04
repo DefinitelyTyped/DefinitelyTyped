@@ -27,4 +27,7 @@ net.createServer(socket => {
 
     // Extend wire using the test extension
     wire.extended('extname', {});
+
+    // Confirm extension has been added to Wire instance.
+    console.log(wire.extname.name);
 }).listen(6881);

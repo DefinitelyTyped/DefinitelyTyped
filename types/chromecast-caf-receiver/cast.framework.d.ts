@@ -31,6 +31,11 @@ export enum ContentProtection {
 }
 
 /**
+ * Version of CAF receiver SDK.
+ */
+export const VERSION: string;
+
+/**
  * Manages text tracks.
  */
 export class TextTracksManager {
@@ -925,6 +930,19 @@ export class PlayerManager {
     setPreferredTextLanguage(preferredTextLanguage: string): void;
 
     /**
+     * Set receiver supported media commands.
+     * Flags describing which media commands the media player supports:
+     * 1  Pause
+     * 2  Seek
+     * 4  Stream volume
+     * 8  Stream mute
+     * 16  Skip forward
+     * 32  Skip backward
+     * Combinations are described as summations; for example, Pause+Seek+StreamVolume+Mute == 15.
+     */
+    setSupportedMediaCommands(supportedMediaCommands: number, broadcastStatus?: boolean): void;
+
+    /**
      * Stops currently playing media.
      */
     stop(): void;
@@ -1128,12 +1146,12 @@ export class CastReceiverContext {
     /**
      * Sets message listener on custom message channel.
      */
-    addCustomMessageListener(namespace: string, listener: EventHandler): void;
+    addCustomMessageListener(namespace: string, listener: SystemEventHandler): void;
 
     /**
      * Add listener to cast system events.
      */
-    addEventListener(type: system.EventType | system.EventType[], handler: EventHandler): void;
+    addEventListener(type: system.EventType | system.EventType[], handler: SystemEventHandler): void;
 
     /**
      * Checks if the given media params of video or audio streams are supported by the platform.
@@ -1196,12 +1214,12 @@ export class CastReceiverContext {
     /**
      * Remove a message listener on custom message channel.
      */
-    removeCustomMessageListener(namespace: string, listener: EventHandler): void;
+    removeCustomMessageListener(namespace: string, listener: SystemEventHandler): void;
 
     /**
      * Remove listener to cast system events.
      */
-    removeEventListener(type: system.EventType, handler: EventHandler): void;
+    removeEventListener(type: system.EventType, handler: SystemEventHandler): void;
 
     /**
      * Sends a message to a specific sender or broadcasts it to all connected senders (to broadcast pass undefined as a senderId).

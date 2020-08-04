@@ -4,6 +4,7 @@
 //                 Ron Buckton <https://github.com/rbuckton>
 //                 Will Boyce <https://github.com/wrboyce>
 //                 Lucas Motta <https://github.com/lucasmotta>
+//                 Tom Xu <https://github.com/hengkx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -1453,6 +1454,14 @@ export interface SFTPWrapper extends events.EventEmitter {
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
     stat(path: string, callback: (err: any, stats: Stats) => void): boolean;
+
+    /**
+     * (Client-only)
+     * `path` exists.
+     *
+     * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+     */
+    exists(path: string, callback: (err: any) => void): boolean;
 
     /**
      * (Client-only)

@@ -59,8 +59,8 @@ declare namespace Dockerode {
         unpause(callback: Callback<any>): void;
         unpause(options?: {}): Promise<any>;
 
-        exec(options: {}, callback: Callback<any>): void;
-        exec(options: {}): Promise<any>;
+        exec(options: ExecCreateOptions, callback: Callback<Exec>): void;
+        exec(options: ExecCreateOptions): Promise<Exec>;
 
         commit(options: {}, callback: Callback<any>): void;
         commit(callback: Callback<any>): void;
@@ -300,11 +300,11 @@ declare namespace Dockerode {
         modem: any;
         id: string;
 
-        inspect(callback: Callback<any>): void;
-        inspect(): Promise<any>;
+        inspect(callback: Callback<ExecInspectInfo>): void;
+        inspect(): Promise<ExecInspectInfo>;
 
-        start(options: {}, callback: Callback<any>): void;
-        start(options: {}): Promise<any>;
+        start(options: ExecStartOptions, callback: Callback<stream.Duplex>): void;
+        start(options: ExecStartOptions): Promise<stream.Duplex>;
 
         resize(options: {}, callback: Callback<any>): void;
         resize(options: {}): Promise<any>;
@@ -407,6 +407,19 @@ declare namespace Dockerode {
         Labels?: { [key: string]: string };
     }
 
+    interface NetworkCreateOptions {
+        Name: string;
+        CheckDuplicate?: boolean;
+        Driver?: string;
+        Internal?: boolean;
+        Attachable?: boolean;
+        Ingress?: boolean;
+        IPAM?: IPAM;
+        EnableIPv6?: boolean;
+        Options?: { [option: string]: string};
+        Labels?: { [label: string]: string};
+      }
+
     interface NetworkContainer {
         Name: string;
         EndpointID: string;
@@ -418,8 +431,8 @@ declare namespace Dockerode {
     /* tslint:disable:interface-name */
     interface IPAM {
         Driver: string;
-        Config?: { [key: string]: string };
-        Options?: Array<{ [key: string]: string }>;
+        Config?: Array<{[key: string]: string }>;
+        Options?: { [key: string]: string };
     }
     /* tslint:enable:interface-name */
 
@@ -475,10 +488,11 @@ declare namespace Dockerode {
         Name: string;
         RestartCount: number;
         Driver: string;
+        Platform: string;
         MountLabel: string;
         ProcessLabel: string;
         AppArmorProfile: string;
-        ExecIDs?: any;
+        ExecIDs?: string[];
         HostConfig: HostConfig;
         GraphDriver: {
             Name: string;
@@ -861,6 +875,48 @@ declare namespace Dockerode {
 
     interface EndpointsConfig {
         [key: string]: EndpointSettings;
+    }
+
+    interface ExecCreateOptions {
+        AttachStdin?: boolean;
+        AttachStdout?: boolean;
+        AttachStderr?: boolean;
+        DetachKeys?: string;
+        Tty?: boolean;
+        Env?: string[];
+        Cmd?: string[];
+        Privileged?: boolean;
+        User?: string;
+        WorkingDir?: string;
+    }
+
+    interface ExecInspectInfo {
+        CanRemove: boolean;
+        DetachKeys: string;
+        ID: string;
+        Running: boolean;
+        ExitCode: number | null;
+        ProcessConfig: {
+            privileged: boolean;
+            user: string;
+            tty: boolean;
+            entrypoint: string;
+            arguments: string[];
+        };
+        OpenStdin: boolean;
+        OpenStderr: boolean;
+        OpenStdout: boolean;
+        ContainerID: string;
+        Pid: number;
+    }
+
+    interface ExecStartOptions {
+        // hijack and stdin are used by docker-modem
+        hijack?: boolean;
+        stdin?: boolean;
+        // Detach and Tty are used by Docker's API
+        Detach?: boolean;
+        Tty?: boolean;
     }
 
     type MountType = 'bind' | 'volume' | 'tmpfs';
@@ -1300,8 +1356,8 @@ declare class Dockerode {
     createService(options: {}, callback: Callback<any>): void;
     createService(options: {}): Promise<any>;
 
-    createNetwork(options: {}, callback: Callback<any>): void;
-    createNetwork(options: {}): Promise<any>;
+    createNetwork(options: Dockerode.NetworkCreateOptions, callback: Callback<Dockerode.Network>): void;
+    createNetwork(options: Dockerode.NetworkCreateOptions): Promise<Dockerode.Network>;
 
     searchImages(options: {}, callback: Callback<any>): void;
     searchImages(options: {}): Promise<any>;
@@ -1339,7 +1395,7 @@ declare class Dockerode {
     getEvents(options?: Dockerode.GetEventsOptions): Promise<NodeJS.ReadableStream>;
 
     pull(repoTag: string, options: {}, callback: Callback<any>, auth?: {}): Dockerode.Image;
-    pull(repoTag: string, options: {}, auth?: {}): Promise<any>;
+    pull(repoTag: string, options?: {}): Promise<any>;
 
     run(
         image: string,

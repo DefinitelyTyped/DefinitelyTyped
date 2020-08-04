@@ -9,7 +9,7 @@ import { ComponentType } from 'react';
  * @example
  * ```jsx
  * function MyMobileComponent() {
- * 	return <div>I'm only rendered on mobile viewports!</div>;
+ *     return <div>I'm only rendered on mobile viewports!</div>;
  * }
  *
  * MyMobileComponent = ifViewportMatches( '< small' )( MyMobileComponent );

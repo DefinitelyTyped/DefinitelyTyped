@@ -29,6 +29,7 @@ assertType<string>(user.get('id'));
 assertType<string>(user.get('username'));
 assertType<boolean>(user.get('verified'));
 assertType<Date>(user.get('createdAt'));
+assertType<DS.Store>(user.get('store'));
 
 user.serialize();
 user.serialize({ includeId: true });

@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/audio.ts",
+        "test/config.ts",
+        "test/engine.ts",
+        "test/events.ts",
+        "test/extensions.ts",
+        "test/functions.ts",
+        "test/macro.ts",
+        "test/save.ts",
+        "test/scripting.ts",
+        "test/settings.ts",
+        "test/state.ts",
+        "test/story.ts",
+        "test/template.ts",
+        "test/ui.ts",
+        "test/wiki.ts"
+    ]
+}
