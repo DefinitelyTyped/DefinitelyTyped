@@ -985,6 +985,10 @@ declare namespace SpotifyApi {
          */
         collaborative: boolean;
         /**
+         * The playlist description. Only returned for modified, verified playlists, otherwise null.
+         */
+        description: string | null;
+        /**
          * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the playlist.
          */
         id: string;
@@ -1023,10 +1027,6 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/#playlist-object-full)
      */
     interface PlaylistObjectFull extends PlaylistBaseObject {
-        /**
-         * The playlist description. Only returned for modified, verified playlists, otherwise null.
-         */
-        description: string | null;
         /**
          * Information about the followers of the playlist.
          */
