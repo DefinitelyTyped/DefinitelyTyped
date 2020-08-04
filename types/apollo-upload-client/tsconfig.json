@@ -2,8 +2,9 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6", 
+            "dom", 
+            "esnext.asynciterable"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -18,8 +19,7 @@
         "forceConsistentCasingInFileNames": true,
         "paths":{
             "@apollo/client": ["apollo__client"]
-        },
-        "esModuleInterop": true
+        }
     },
     "files": [
         "index.d.ts",
