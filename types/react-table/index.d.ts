@@ -812,6 +812,7 @@ export type UseSortByColumnOptions<D extends object> = Partial<{
 export interface UseSortByInstanceProps<D extends object> {
     rows: Array<Row<D>>;
     preSortedRows: Array<Row<D>>;
+    setSortBy: (sortBy: Array<SortingRule<D>>) => void;
     toggleSortBy: (columnId: IdType<D>, descending: boolean, isMulti: boolean) => void;
 }
 
