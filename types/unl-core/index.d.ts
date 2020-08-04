@@ -1,19 +1,19 @@
-// Type definitions for unl-core 1.0
-// Project: https://github.com/u-n-l/core-js, http://www.movable-type.co.uk/scripts/geohash.html
+// Type definitions for unl-core 2.0
+// Project: https://github.com/u-n-l/core-js
 // Definitions by: UNL Network B.V. <https://github.com/u-n-l>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 export enum Direction {
-    North = "N",
-    South = "S",
-    East = "E",
-    West = "W"
+    North = 'N',
+    South = 'S',
+    East = 'E',
+    West = 'W',
 }
 
 export enum ElevationType {
-    floor = "floor",
-    heightincm = "heightincm"
+    floor = 'floor',
+    heightincm = 'heightincm',
 }
 
 export interface Neighbours {
@@ -46,96 +46,104 @@ export interface EncodeOptions {
     elevationType: ElevationType;
 }
 
-export interface GeohashWithElevation {
+export interface LocationIdWithElevation {
     elevation: number;
     elevationType: ElevationType;
-    geohash: string;
+    locationId: string;
 }
 
- /**
-  * Encodes latitude/longitude to geohash, either to specified precision or to automatically
-  * evaluated precision.
-  *
-  * @param   lat - Latitude in degrees.
-  * @param   lon - Longitude in degrees.
-  * @param   [precision] - Number of characters in resulting geohash.
-  * @param   [options] - Number of options. Including elevation
-  * @returns Geohash of supplied latitude/longitude.
-  * @throws  Invalid geohash.
-  *
-  * @example
-  *     var geohash = Geohash.encode(52.205, 0.119, 7); // => 'u120fxw'
-  *     var geohash = Geohash.encode(52.205, 0.119, 7, { elevation: 9, elevationType: 'floor'}); // => 'u120fxw@9'
-  */
-
-export function encode(
-    latitude: number,
-    longitude: number,
-    precision?: number,
-    options?: EncodeOptions
-): string;
-
 /**
- * Decode geohash to latitude/longitude and elevation (location is approximate centre of geohash cell,
- *     to reasonable precision).
+ * Encodes latitude/longitude to locationId, either to specified precision or to automatically
+ * evaluated precision.
  *
- * @param   geohash - Geohash string to be converted to latitude/longitude.
- * @returns (Center of and elevation) geohashed location.
- * @throws  Invalid geohash.
+ * @param   lat - Latitude in degrees.
+ * @param   lon - Longitude in degrees.
+ * @param   [precision] - Number of characters in resulting locationId.
+ * @param   [options] - Number of options. Including elevation
+ * @returns LocationId of supplied latitude/longitude.
+ * @throws  Invalid coordinates.
  *
  * @example
- *     var latlon = Geohash.decode('u120fxw'); // => { lat: 52.205, lon: 0.1188, elevation:0, elevationType:floor }
- *     var latlon = Geohash.decode('u120fxw@3'); // => { lat: 52.205, lon: 0.1188, elevation:3, elevationType:floor }
- *     var latlon = Geohash.decode('u120fxw#87'); // => { lat: 52.205, lon: 0.1188, elevation:87, elevationType:heightincm }
+ *     var locationId = LocationId.encode(52.205, 0.119, 7); // => 'u120fxw'
+ *     var locationId = LocationId.encode(52.205, 0.119, 7, { elevation: 9, elevationType: 'floor'}); // => 'u120fxw@9'
  */
-export function decode(geohash: string): Point;
+
+export function encode(latitude: number, longitude: number, precision?: number, options?: EncodeOptions): string;
 
 /**
- * Returns SW/NE latitude/longitude bounds of specified geohash.
+ * Decode locationId to latitude/longitude and elevation (location is approximate centre of locationId cell,
+ *     to reasonable precision).
  *
- * @param   geohash - Cell that bounds are required of.
- * @returns Bounds
- * @throws  Invalid geohash.
+ * @param   locationId - LocationId string to be converted to latitude/longitude.
+ * @returns Center of locationId and elevation.
+ * @throws  Invalid locationId.
+ *
+ * @example
+ *     var latlon = LocationId.decode('u120fxw'); // => { lat: 52.205, lon: 0.1188, elevation:0, elevationType:floor }
+ *     var latlon = LocationId.decode('u120fxw@3'); // => { lat: 52.205, lon: 0.1188, elevation:3, elevationType:floor }
+ *     var latlon = LocationId.decode('u120fxw#87'); // => { lat: 52.205, lon: 0.1188, elevation:87, elevationType:heightincm }
  */
-export function bounds(geohash: string): Bounds;
+export function decode(locationId: string): Point;
+
+/**
+ * Returns SW/NE latitude/longitude bounds of specified locationId.
+ *
+ * @param   locationId - Cell that bounds are required of.
+ * @returns Bounds
+ * @throws  Invalid locationId.
+ */
+export function bounds(locationId: string): Bounds;
 
 /**
  * Determines adjacent cell in given direction.
  *
- * @param   geohash - Cell to which adjacent cell is required.
- * @param   direction - Direction from geohash (N/S/E/W).
- * @returns Geocode of adjacent cell.
- * @throws  Invalid geohash.
+ * @param   locationId - Cell to which adjacent cell is required.
+ * @param   direction - Direction from locationId (N/S/E/W).
+ * @returns LocationId of adjacent cell.
+ * @throws  Invalid locationId.
  */
-export function adjacent(geohash: string, direction: Direction | string): string;
+export function adjacent(locationId: string, direction: Direction | string): string;
 
 /**
- * Returns all 8 adjacent cells to specified geohash.
+ * Returns all 8 adjacent cells to specified locationId.
  *
- * @param   geohash - Geohash neighbours are required of.
+ * @param   locationId - LocationId neighbours are required of.
  * @returns The neighbours
- * @throws  Invalid geohash.
+ * @throws  Invalid locationId.
  */
-export function neighbours(geohash: string): Neighbours;
+export function neighbours(locationId: string): Neighbours;
 
 /**
- * Returns geohash and elevation properties.
+ * Returns locationId and elevation properties.
  * It is mainly used by internal functions
  *
- * @param   geohashWithElevation - Geohash with elevation chars.
- * @returns GeohashWithElevation
- * @throws  Invalid geohash.
+ * @param   locationIdWithElevation - LocationId with elevation chars.
+ * @returns LocationIdWithElevation
+ * @throws  Invalid locationId.
  */
-export function excludeElevation(geohashWithElevation: string): GeohashWithElevation;
+export function excludeElevation(locationIdWithElevation: string): LocationIdWithElevation;
 
 /**
  * Adds elevation chars and elevation
  * It is mainly used by internal functions
  *
- * @param   geohashWithoutElevation - Geohash without elevation chars.
+ * @param   locationIdWithoutElevation - LocationId without elevation chars.
  * @param   elevation - Height of the elevation.
  * @param   elevationType - floor | heightincm.
- * @returns
- * @throws  Invalid geohash.
+ * @returns locationId with elevation
+ * @throws  Invalid locationId.
  */
-export function appendElevation(geohashWithoutElevation: string, elevation: number, elevationType: ElevationType): string;
+export function appendElevation(
+    locationIdWithoutElevation: string,
+    elevation: number,
+    elevationType: ElevationType,
+): string;
+
+/**
+ * Returns grid lines for specified SW/NE latitude/longitude bounds and precision.
+ *
+ * @param   bounds - The bound whithin to return the grid lines.
+ * @param   precision - Number of characters to consider for the locationId of a grid cell.
+ * @returns grid lines
+ */
+export function gridLines(bounds: Bounds, precision: number): Array<[[number, number], [number, number]]>;
