@@ -645,7 +645,7 @@ type Id<T> = {
 type RequiredProps<T> = Pick<T, Exclude<keyof T, KeyOfUndefined<T>>>;
 type NotRequiredProps<T> = Partial<Pick<T, KeyOfUndefined<T>>>;
 type InnerInferType<T> =
-    | (T extends Array<infer T> ? InnerInferTypeArray<T> : T extends Date ? T : T extends object ? Id<NotRequiredProps<T> & RequiredProps<T>> : T)
+    | (T extends Array<infer T> ? InnerInferTypeArray<T> : T extends Date | Set<infer P> | Map<infer K, infer V> ? T : T extends object ? Id<NotRequiredProps<T> & RequiredProps<T>> : T)
     | PreserveOptionals<T>;
 interface InnerInferTypeArray<T> extends Array<InnerInferType<T>> {}
 type InferredArrayType<T> = T extends Array<infer U> ? U : T;

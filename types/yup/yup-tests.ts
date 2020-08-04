@@ -857,7 +857,16 @@ const personSchema = yup.object({
             // tslint:disable-next-line:no-invalid-template-strings
             "${path} must be a Set of strings",
             (value): value is undefined | null | Set<string> =>
-                value === null || value === undefined || (value instanceof Set && Array.from(value.values()).every(el => typeof el === "string")))
+                value === null || value === undefined || (value instanceof Set && Array.from(value.values()).every(el => typeof el === "string"))),
+    mapObject: yup
+        .mixed()
+        .test(
+            'is-Map',
+            // tslint:disable-next-line:no-invalid-template-strings
+            "${path} must be a Map of string:string",
+            (value): value is undefined | null | Map<string, string> => value === null || value === undefined ||
+                (value instanceof Map && Array.from(value.entries()).every(([key, val]) => typeof key === 'string' && typeof val === 'string'))
+        )
 }).defined();
 
 type Person = yup.InferType<typeof personSchema>;
@@ -910,7 +919,8 @@ const person: Person = {
         requiredObjects: [{ required: '' }]
     },
     requiredObjectsArray: [{ required: '' }],
-    nullableDate: new Date()
+    nullableDate: new Date(),
+    mapObject: new Map()
 };
 
 function readPhoneNumbers(arg: string[]) {}
@@ -954,6 +964,8 @@ person.mustBeAString = null;
 person.mustBeAString = undefined;
 // $ExpectError
 person.friends = new Set([1, 2, 3]);
+// $ExpectError
+person.mapObject = new Map([ ['number', 3] ]);
 // $ExpectError
 person.friends = ["Amy", "Beth"];
 
