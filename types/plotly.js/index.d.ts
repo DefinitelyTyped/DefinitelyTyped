@@ -434,6 +434,7 @@ export interface Layout {
     polar8: Partial<PolarLayout>;
     polar9: Partial<PolarLayout>;
     transition: Transition;
+    template: Template;
 }
 
 export interface Legend extends Label {
@@ -965,6 +966,11 @@ export interface PlotNumber {
     font: Partial<Font>;
     prefix: string;
     suffix: string;
+}
+
+export interface Template {
+    data?: { [type in PlotType]?: Partial<PlotData> };
+    layout?: Partial<Layout>;
 }
 
 // Data
