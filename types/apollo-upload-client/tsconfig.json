@@ -21,7 +21,6 @@
             "@apollo/client": ["apollo__client"]
         },
         "esModuleInterop": true,
-        "jsx": "react"
     },
     "files": [
         "index.d.ts",

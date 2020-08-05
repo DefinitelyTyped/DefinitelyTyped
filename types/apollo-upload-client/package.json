@@ -2,6 +2,7 @@
     "private": true,
     "dependencies": {
         "@apollo/client": "^3.0.2",
+        "csstype": "^3.0.2",
         "graphql": "^15.3.0"
     }
 }
