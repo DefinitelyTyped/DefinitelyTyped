@@ -117,7 +117,7 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * Country <select/> component props. Along with the usual DOM properties such as aria-label
      * and tabIndex, some custom properties are supported, such as arrowComponent and unicodeFlags.
      */
-    countrySelectProps?: number;
+    countrySelectProps?: object;
     /**
      * A two-letter country code for formatting `value`
      * when a user inputs a national phone number (example: `(213) 373-4253`).
