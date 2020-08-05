@@ -20,7 +20,7 @@
         "paths":{
             "@apollo/client": ["apollo__client"]
         },
-        "esModuleInterop": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
