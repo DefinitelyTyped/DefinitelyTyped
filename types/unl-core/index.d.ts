@@ -39,6 +39,7 @@ export interface Point {
     lon: number;
     elevation: number;
     elevationType: ElevationType;
+    bounds: Bounds;
 }
 
 export interface EncodeOptions {
@@ -58,7 +59,7 @@ export interface LocationIdWithElevation {
  *
  * @param   lat - Latitude in degrees.
  * @param   lon - Longitude in degrees.
- * @param   [precision] - Number of characters in resulting locationId.
+ * @param   [precision] - Number of characters in resulting locationId. Default value is 9.
  * @param   [options] - Number of options. Including elevation
  * @returns LocationId of supplied latitude/longitude.
  * @throws  Invalid coordinates.
@@ -79,9 +80,9 @@ export function encode(latitude: number, longitude: number, precision?: number, 
  * @throws  Invalid locationId.
  *
  * @example
- *     var latlon = LocationId.decode('u120fxw'); // => { lat: 52.205, lon: 0.1188, elevation:0, elevationType:floor }
- *     var latlon = LocationId.decode('u120fxw@3'); // => { lat: 52.205, lon: 0.1188, elevation:3, elevationType:floor }
- *     var latlon = LocationId.decode('u120fxw#87'); // => { lat: 52.205, lon: 0.1188, elevation:87, elevationType:heightincm }
+ *     var latlon = LocationId.decode('u120fxw'); // => { lat: 52.205, lon: 0.1188, elevation: 0, elevationType:  floor, bounds: {...}}
+ *     var latlon = LocationId.decode('u120fxw@3'); // => { lat: 52.205, lon: 0.1188, elevation: 3, elevationType: floor, bounds: {...}}
+ *     var latlon = LocationId.decode('u120fxw#87'); // => { lat: 52.205, lon: 0.1188, elevation: 87, elevationType: heightincm, bounds: {...}}
  */
 export function decode(locationId: string): Point;
 
@@ -143,7 +144,7 @@ export function appendElevation(
  * Returns grid lines for specified SW/NE latitude/longitude bounds and precision.
  *
  * @param   bounds - The bound whithin to return the grid lines.
- * @param   precision - Number of characters to consider for the locationId of a grid cell.
+ * @param   [precision] - Number of characters to consider for the locationId of a grid cell. Default value is 9.
  * @returns grid lines
  */
-export function gridLines(bounds: Bounds, precision: number): Array<[[number, number], [number, number]]>;
+export function gridLines(bounds: Bounds, precision?: number): Array<[[number, number], [number, number]]>;
