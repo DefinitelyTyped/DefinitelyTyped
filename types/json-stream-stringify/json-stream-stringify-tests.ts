@@ -162,4 +162,5 @@ jsonStream = new JsonStreamStringify({}, undefined, undefined, true);
     const a = { foo: 'bar' };
     const arr = [a, a];
     jsonStream = new JsonStreamStringify(arr);
+    jsonStream.stack.join('');
 }
