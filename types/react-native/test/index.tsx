@@ -105,6 +105,7 @@ import {
     LogBox,
     ColorValue,
     TextLayoutEventData,
+    LayoutChangeEvent,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -865,6 +866,15 @@ class TextInputTest extends React.Component<{}, { username: string }> {
 }
 
 class TextTest extends React.Component {
+    handleOnLayout = (e: LayoutChangeEvent) => {
+        testNativeSyntheticEvent(e);
+
+        const x = e.nativeEvent.layout.x; // $ExpectType number
+        const y = e.nativeEvent.layout.y; // $ExpectType number
+        const width = e.nativeEvent.layout.width; // $ExpectType number
+        const height = e.nativeEvent.layout.height; // $ExpectType number
+    };
+
     handleOnTextLayout = (e: NativeSyntheticEvent<TextLayoutEventData>) => {
         testNativeSyntheticEvent(e);
 
@@ -888,6 +898,7 @@ class TextTest extends React.Component {
                 ellipsizeMode="head"
                 lineBreakMode="clip"
                 numberOfLines={2}
+                onLayout={this.handleOnLayout}
                 onTextLayout={this.handleOnTextLayout}
             >
                 Test text
