@@ -349,6 +349,11 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * Provides the functionality to log messages.
      */
     log: Logger;
+                  
+    /**
+     * The path from where the user is running `yo`
+     */
+    contextRoot: string;
 
     /**
      * Reads the options or a single option at the specified property-path from the `.yo-rc` config-store.
