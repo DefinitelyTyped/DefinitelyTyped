@@ -1,5 +1,12 @@
 import { Mongo } from 'meteor/mongo';
-import { Helper, Data, Full } from 'meteor/dburles:collection-helpers';
+import {
+    Helper,
+    OptionalHelper,
+    Data,
+    Full,
+    Helpers,
+    AllowPartial,
+} from 'meteor/dburles:collection-helpers';
 
 interface Author {
     _id?: string;
@@ -62,10 +69,16 @@ Books.helpers({
     },
 });
 
-Authors.helpers({
+// you can override this behavior if you explicitly request to
+// (don't do this unless you intend to provide all the helpers sooner or later!)
+// $ExpectType void
+Authors.helpers<AllowPartial>({
     fullName() {
         return `${this.firstName} ${this.lastName}`;
     },
+});
+// $ExpectType void
+Authors.helpers<AllowPartial>({
     books() {
         return Books.find({ authorId: this._id });
     },
@@ -130,6 +143,24 @@ const foundOptionalHelpers1Full: Full<OptionalHelpers> = optionalHelpers.findOne
 // $ExpectType void
 foundOptionalHelpers1Full.increment();
 
+// the benefit of this declaration style is that you can pass around instances without ever putting them in a collection:
+const takesOptionalHelpers = (arg: OptionalHelpers) => {
+    return arg.value;
+};
+const literalOptHelp: OptionalHelpers = {
+    _id: "id",
+    value: 4,
+};
+// $ExpectType number
+takesOptionalHelpers(literalOptHelp);
+// $ExpectType number
+takesOptionalHelpers({
+    _id: "another id",
+    value: 13
+});
+// this might be a better choice if your interface is a general data type that you just happen to put in collections sometimes,
+// rather than a collection schema you work with retrieved instances of often
+
 // helpers can call themselves recursively
 interface RecursiveHelpers {
     _id: string;
@@ -179,8 +210,251 @@ interface MandatoryId {
 const mandatoryIds = new Mongo.Collection<MandatoryId>('mandatoryIds');
 mandatoryIds.helpers({});
 const withoutId: Mongo.OptionalId<MandatoryId> = {
-    value: 3
+    value: 3,
 };
 
 // $ExpectType number | undefined
-mandatoryIds.upsert("new ID", { ...withoutId, _id: "new ID" }).numberAffected;
+mandatoryIds.upsert('new ID', { ...withoutId, _id: 'new ID' }).numberAffected;
+
+// regression test:
+// union properties on interfaces:
+// - are helpers if all their members are helpers
+// - aren't helpers if none of their members are helpers
+// - may or may not be helpers if only some of their members are helpers
+//   (consider this undefined behavior; I don't think there's *any* correct behavior
+//   for this situation, so I'm just letting it work out however it does without intervention)
+// unions of Helper<T> and unmarked methods don't work; if you legitimately need this functionality,
+// tell me and I'll fix it; use Helper<T | YourMethodType> as a workaround until then
+//
+// null does not count as a helper type
+// however, Helper<null> and Helper<T | null> should work more or less correctly
+interface ComplicatedMembers {
+    _id?: string;
+    nullable: number | null;
+    alwaysNull: null;
+    helperNull: Helper<null>;
+    helperNumber: Helper<number>;
+    helperNullableFalse: Helper<false | null>;
+    optionalHelperString?: Helper<string>;
+    // tslint:disable-next-line void-return
+    helperVoidableNumber: Helper<number | void>;
+    methodUnion: (() => boolean) | ((arg: number) => boolean);
+    helperUnion: Helper<string> | Helper<number>;
+    nonHelperUnion: number | string;
+    helperMethodOrString: Helper<(() => string) | string>;
+}
+const complicatedMembers = new Mongo.Collection<ComplicatedMembers>('complicatedMembers');
+
+// every member recognized as a helper is required when providing helpers
+// $ExpectType void
+complicatedMembers.helpers({
+    methodUnion: () => true,
+    helperUnion: 3,
+    helperNumber: 5,
+    helperNullableFalse: null,
+    helperNull: null,
+    helperVoidableNumber: undefined,
+    optionalHelperString: 'foo',
+    helperMethodOrString: () => "method",
+});
+
+// $ExpectError
+complicatedMembers.helpers({
+    helperUnion: 3,
+    helperNumber: 5,
+    helperNullableFalse: null,
+    helperNull: null,
+    helperVoidableNumber: undefined,
+    optionalHelperString: 'foo',
+    helperMethodOrString: () => "method",
+});
+
+// $ExpectError
+complicatedMembers.helpers({
+    methodUnion: () => true,
+    helperNumber: 5,
+    helperNullableFalse: null,
+    helperNull: null,
+    helperVoidableNumber: undefined,
+    optionalHelperString: 'foo',
+    helperMethodOrString: () => "method",
+});
+
+// $ExpectError
+complicatedMembers.helpers({
+    methodUnion: () => true,
+    helperUnion: 3,
+    helperNullableFalse: null,
+    helperNull: null,
+    helperVoidableNumber: undefined,
+    optionalHelperString: 'foo',
+    helperMethodOrString: () => "method",
+});
+
+// $ExpectError
+complicatedMembers.helpers({
+    methodUnion: () => true,
+    helperUnion: 3,
+    helperNumber: 5,
+    helperNull: null,
+    helperVoidableNumber: undefined,
+    optionalHelperString: 'foo',
+    helperMethodOrString: () => "method",
+});
+
+// $ExpectError
+complicatedMembers.helpers({
+    methodUnion: () => true,
+    helperUnion: 3,
+    helperNumber: 5,
+    helperNullableFalse: null,
+    helperNull: null,
+    helperVoidableNumber: undefined,
+    helperMethodOrString: () => "method",
+});
+
+// $ExpectError
+complicatedMembers.helpers({
+    methodUnion: () => true,
+    helperUnion: 3,
+    helperNumber: 5,
+    helperNullableFalse: null,
+    helperVoidableNumber: undefined,
+    optionalHelperString: 'foo',
+    helperMethodOrString: () => "method",
+});
+
+// $ExpectError
+complicatedMembers.helpers({
+    methodUnion: () => true,
+    helperUnion: 3,
+    helperNumber: 5,
+    helperNullableFalse: null,
+    helperNull: null,
+    optionalHelperString: 'foo',
+    helperMethodOrString: () => "method",
+});
+
+// $ExpectError
+complicatedMembers.helpers({
+    methodUnion: () => true,
+    helperUnion: 3,
+    helperNumber: 5,
+    helperNullableFalse: null,
+    helperVoidableNumber: undefined,
+    helperNull: null,
+    optionalHelperString: 'foo',
+});
+
+const complicatedMembersId = complicatedMembers.insert({
+    nullable: 2,
+    alwaysNull: null,
+    nonHelperUnion: 'test',
+});
+
+const complicatedMembersInstance = complicatedMembers.findOne(complicatedMembersId)!;
+// $ExpectType number
+complicatedMembersInstance.helperNumber + 1;
+// $ExpectType string
+complicatedMembersInstance.optionalHelperString.slice();
+// $ExpectType boolean
+complicatedMembersInstance.methodUnion(3);
+const strOrNum: string | number = complicatedMembersInstance.helperUnion;
+const falseOrNull: false | null = complicatedMembersInstance.helperNullableFalse;
+const helperNullAccess: null = complicatedMembersInstance.helperNull;
+
+// Limitation: null/undefined helpers, and helpers whose types are unions with null or undefined, can't be properly
+// read off a raw ComplicatedMembers
+const asComplicatedMembers: ComplicatedMembers = complicatedMembersInstance;
+
+// const falseOrNull2 : false | null = asComplicatedMembers.helperNullableFalse;
+
+// you can work with these by:
+// - accepting Helper<null> rather than null
+const falseOrNull2: false | Helper<null> = asComplicatedMembers.helperNullableFalse;
+
+// - using a "voidable" rather than a nullable
+// tslint:disable-next-line void-return
+const numberOrVoid: number | void = asComplicatedMembers.helperVoidableNumber;
+
+// - or, the recommended solution: using OptionalHelper<T>
+// OptionalHelper<T> defines a helper which can be left undefined when providing a collection's helpers
+// that property can be required or optional on the interface; either way, it'll be optional on Helpers<T> and
+// on Full<T>
+// and it even works on methods
+interface ActuallyOptionalHelpers {
+    _id?: string;
+    value: number;
+    getValue: OptionalHelper<() => number>;
+    incrementValue?: OptionalHelper<() => void>;
+    optionalHelperValue: OptionalHelper<number>;
+    optionalHelperName?: OptionalHelper<string>;
+}
+const actuallyOptionalHelpers = new Mongo.Collection<ActuallyOptionalHelpers>('actuallyOptionalHelpers');
+
+// every one of those helpers is totally optional - we can even provide an empty object!
+// $ExpectType void
+actuallyOptionalHelpers.helpers({});
+// $ExpectType void
+actuallyOptionalHelpers.helpers({
+    getValue() {
+        return this.value;
+    },
+});
+// $ExpectType void
+actuallyOptionalHelpers.helpers({
+    incrementValue() {
+        this.value++;
+    },
+});
+// $ExpectType void
+actuallyOptionalHelpers.helpers({
+    optionalHelperValue: 3,
+});
+// $ExpectType void
+actuallyOptionalHelpers.helpers({
+    optionalHelperName: 'foo',
+});
+// $ExpectType void
+actuallyOptionalHelpers.helpers({
+    getValue() {
+        return this.value;
+    },
+    incrementValue() {
+        this.value++;
+    },
+    optionalHelperValue: 3,
+    optionalHelperName: 'foo',
+});
+
+// as usual, only non-helper properties are required when inserting an item
+const aohId = actuallyOptionalHelpers.insert({
+    value: 7,
+});
+
+const aohInstance = actuallyOptionalHelpers.findOne(aohId)!;
+
+// since they don't have to be provided, users of an item with optional helpers aren't promised those helpers will be present
+let aohName: string | undefined = aohInstance.optionalHelperName;
+const aohValue: number | undefined = aohInstance.optionalHelperValue;
+// $ExpectError
+aohInstance.getValue();
+
+// asserting their existence works
+// $ExpectType number
+aohInstance.getValue!();
+// as does control-flow analysis
+if (aohInstance.getValue) {
+    // $ExpectType number
+    aohInstance.getValue();
+}
+
+// can still put retrieved items back into the container
+actuallyOptionalHelpers.insert(aohInstance);
+
+// unlike with Helper<T | null>, these work directly from the original interface type
+const asAoh: ActuallyOptionalHelpers = aohInstance;
+
+aohName = asAoh.optionalHelperName;
+// $ExpectType number
+asAoh.getValue!();

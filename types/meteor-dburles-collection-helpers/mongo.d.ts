@@ -1,17 +1,18 @@
-import { Helpers, Full, Data } from 'meteor/dburles:collection-helpers';
+import { Helpers, Full, Data, AllowPartial, PartialHelpers } from 'meteor/dburles:collection-helpers';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-// tslint:disable-next-line no-single-declare-module
 
 // Cursor<T> and Collection<T> are pulled from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/meteor/mongo.d.ts
 // and should be kept in sync with any changes to it
 // only modified properties are included
 
+// tslint:disable-next-line no-single-declare-module
 declare module 'meteor/mongo' {
     namespace Mongo {
         interface Collection<T> {
             /**
              * Provide the definitions here for the methods and Helper<T>s you declared on your item interface.
+             * Use helpers<AllowPartial> if you want to provide the helpers across multiple calls.
              * Tip: If you make those properties non-optional, they still won't be required when inserting items,
              * but you'll know that any object of your interface type has them.
              * Alternatively, if they're marked optional on your interface, they'll still be guaranteed on any
@@ -21,7 +22,10 @@ declare module 'meteor/mongo' {
              * If you plan to mostly pass around items that came out of a collection, make them required and use Data<T>
              * when creating new items.
              */
-            helpers(helpers: Helpers<T>): void;
+            helpers<allowPartial extends (false | AllowPartial) = false>(
+                // tslint:disable-next-line no-unnecessary-generics
+                helpers: (allowPartial extends AllowPartial ? PartialHelpers<T> : Helpers<T>)
+            ): void;
 
             // modifications:
             // - replaced T with Full<T> & T everywhere Collection._transform is applied
@@ -60,19 +64,30 @@ declare module 'meteor/mongo' {
             // ditto
             // tslint:disable-next-line ban-types
             insert(doc: OptionalId<Data<T>>, callback?: Function): string;
-            update(selector: Selector<T> | ObjectID | string, modifier: Modifier<Data<T>>, options?: {
-                multi?: boolean;
-                upsert?: boolean;
-                arrayFilters?: Array<{ [identifier: string]: any }>;
-                                // ditto
-                                // tslint:disable-next-line ban-types
-            }, callback?: Function): number;
-            upsert(selector: Selector<T> | ObjectID | string, modifier: Modifier<Data<T>>, options?: {
-                multi?: boolean;
-                                // ditto
-                                // tslint:disable-next-line ban-types
-            }, callback?: Function): {
-                numberAffected?: number; insertedId?: string;
+            update(
+                selector: Selector<T> | ObjectID | string,
+                modifier: Modifier<Data<T>>,
+                options?: {
+                    multi?: boolean;
+                    upsert?: boolean;
+                    arrayFilters?: Array<{ [identifier: string]: any }>;
+                },
+                // ditto
+                // tslint:disable-next-line ban-types
+                callback?: Function,
+            ): number;
+            upsert(
+                selector: Selector<T> | ObjectID | string,
+                modifier: Modifier<Data<T>>,
+                options?: {
+                    multi?: boolean;
+                },
+                // ditto
+                // tslint:disable-next-line ban-types
+                callback?: Function,
+            ): {
+                numberAffected?: number;
+                insertedId?: string;
             };
         }
 
