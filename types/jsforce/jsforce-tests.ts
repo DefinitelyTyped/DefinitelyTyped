@@ -850,3 +850,14 @@ async function testApex(conn: sf.Connection): Promise<void> {
         });
     }
 }
+
+function testSfDate(): void {
+    const today = new Date();
+    const sfDateFromDate = sf.SfDate.toDateLiteral(today);
+    const sfDateFromString = sf.SfDate.toDateLiteral('01-01-2000');
+    const sfDateFromNumber = sf.SfDate.toDateLiteral(0);
+
+    const sfDateTimeFromDate = sf.SfDate.toDateTimeLiteral(today);
+    const sfDateTimeFromString = sf.SfDate.toDateTimeLiteral('01-01-2000');
+    const sfDateTimeFromNumber = sf.SfDate.toDateTimeLiteral(0);
+}
