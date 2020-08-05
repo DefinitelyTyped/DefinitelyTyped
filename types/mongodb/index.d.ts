@@ -1119,8 +1119,12 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndUpdate */
     findOneAndUpdate(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     findOneAndUpdate(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: FindOneAndUpdateOption<TSchema>): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
-    findOneAndUpdate(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options: FindOneAndUpdateOption<TSchema>,
-                     callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    findOneAndUpdate(
+      filter: FilterQuery<TSchema>,
+      update: UpdateQuery<TSchema> | TSchema,
+      options: FindOneAndUpdateOption<TSchema>,
+      callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>
+    ): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#geoHaystackSearch */
     geoHaystackSearch(x: number, y: number, callback: MongoCallback<any>): void;
     geoHaystackSearch(x: number, y: number, options?: GeoHaystackSearchOptions): Promise<any>;
