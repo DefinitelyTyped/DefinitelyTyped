@@ -26,6 +26,3 @@ function testCreateNumberMask() {
     createNumberMask(undefined);
     createNumberMask(maskOptions);
 }
-
-testCreateAutoCorrectedDatePipe();
-testCreateNumberMask();
