@@ -8,9 +8,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { v1, v3, v4, v5 } from './interfaces';
+import { v1, v3, v4, v5, validate } from './interfaces';
 
 export const v1: v1;
 export const v3: v3;
 export const v4: v4;
 export const v5: v5;
+export const validate: validate;
