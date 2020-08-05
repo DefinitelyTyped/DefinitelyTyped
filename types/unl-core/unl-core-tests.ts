@@ -19,4 +19,4 @@ const atx_neighbors: LocationId.Neighbours = LocationId.neighbours(atx_locationI
 const atx_adj_cell3: string = atx_neighbors.n;
 
 // Grid Lines
-const atx_gridLines: Array<[[number, number], [number, number]]> = LocationId.gridLines(atx_bounds, 9);
+const atx_gridLines: Array<[[number, number], [number, number]]> = LocationId.gridLines(atx_bounds);
