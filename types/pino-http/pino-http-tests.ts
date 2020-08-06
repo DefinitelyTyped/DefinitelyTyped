@@ -9,6 +9,7 @@ const httpLogger = pinoHttp();
 function handle(req: http.IncomingMessage, res: http.ServerResponse) {
   httpLogger(req, res);
   req.log.info('something else');
+  res[pinoHttp.startTime] = Date.now();
 }
 
 pinoHttp({ logger });

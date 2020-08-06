@@ -33,10 +33,16 @@ declare namespace PinoHttp {
     interface GenReqId {
         (req: IncomingMessage): number | string | object;
     }
+
+    const startTime: unique symbol;
 }
 
 declare module 'http' {
     interface IncomingMessage {
         log: Logger;
+    }
+
+    interface OutgoingMessage {
+        [PinoHttp.startTime]: number;
     }
 }
