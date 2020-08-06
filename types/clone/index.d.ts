@@ -1,4 +1,4 @@
-// Type definitions for clone 2.1.2
+// Type definitions for clone 2.1
 // Project: https://github.com/pvorb/node-clone
 // Definitions by: Kieran Simpson <https://github.com/kierans>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
