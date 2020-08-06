@@ -9384,7 +9384,7 @@ declare namespace Office {
          */
         seriesId: string;
         /**
-         * Gets an object that provides methods for managing the {@link Office.SessionData | SessionData} of an item in Compose mode.
+         * Manages the {@link Office.SessionData | SessionData} of an item in Compose mode.
          *
          * [Api set: Mailbox Preview]
          *
@@ -14167,7 +14167,7 @@ declare namespace Office {
          */
         seriesId: string;
         /**
-         * Gets an object that provides methods for managing the {@link Office.SessionData | SessionData} of an item in Compose mode.
+         * Manages the {@link Office.SessionData | SessionData} of an item in Compose mode.
          *
          * [Api set: Mailbox Preview]
          *
