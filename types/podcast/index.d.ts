@@ -71,7 +71,7 @@ declare namespace Podcast {
         itunesExplicit?: boolean;
         itunesSubtitle?: string;
         itunesSummary?: string;
-        itunesDuration?: number;
+        itunesDuration?: number | string;
         itunesImage?: string;
         itunesSeason?: number;
         itunesEpisode?: number;
