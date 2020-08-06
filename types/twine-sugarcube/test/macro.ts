@@ -21,7 +21,7 @@ Macro.add('if', {
 Macro.delete("if"); // $ExpectType void
 Macro.delete(["if", "iif"]); // $ExpectType void
 
-Macro.get("if");  // $ExpectType object
+Macro.get("if");  // $ExpectType MacroDefinition
 
 let b: boolean = Macro.has("if");
 Macro.tags.get("str");  // $ExpectType string[]

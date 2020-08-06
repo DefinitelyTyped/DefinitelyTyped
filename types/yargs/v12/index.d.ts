@@ -185,8 +185,9 @@ declare namespace yargs {
         options<K extends string, O extends Options>(key: K, options: O): Argv<T & { [key in K]: InferredOptionType<O> }>;
         options<O extends { [key: string]: Options }>(options: O): Argv<Omit<T, keyof O> & InferredOptionTypes<O>>;
 
-        parse(): { [key in keyof Arguments<T>]: Arguments<T>[key] };
-        parse(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parse(arg?: string | ReadonlyArray<string>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parse(arg: string | ReadonlyArray<string>, parseCallback: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parse(arg: string | ReadonlyArray<string>, context: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
 
         parsed: DetailedArguments | false;
 

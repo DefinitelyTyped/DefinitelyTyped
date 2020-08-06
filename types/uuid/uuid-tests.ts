@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { v1 as uuidv1, v4 as uuidv4, v3 as uuidv3, v5 as uuidv5 } from 'uuid';
+import { v1 as uuidv1, v4 as uuidv4, v3 as uuidv3, v5 as uuidv5, validate as uuidValidate } from 'uuid';
 
 const randoms = [
     0x10, 0x91, 0x56, 0xbe, 0xc4, 0xfb, 0xc1, 0xea,
@@ -61,3 +61,5 @@ uuidv4(null, g); // $ExpectType Buffer
 class CustomBuffer extends Uint8Array {}
 const h = new CustomBuffer(10);
 uuidv4(null, h); // $ExpectType CustomBuffer
+
+const av: boolean = uuidValidate('6ec0bd7f-11c0-43da-975e-2a8ad9ebae0b');

@@ -14,7 +14,9 @@ declare namespace yargs {
     interface Argv {
         argv: Arguments;
         (args?: string[], cwd?: string): Arguments;
-        parse(args: string | string[], context?: object, parseCallback?: ParseCallback): Arguments;
+        parse(arg: string | ReadonlyArray<string>): Arguments;
+        parse(arg: string | ReadonlyArray<string>, parseCallback: ParseCallback): Arguments;
+        parse(arg: string | ReadonlyArray<string>, context: object, parseCallback?: ParseCallback): Arguments;
 
         reset(): Argv;
 

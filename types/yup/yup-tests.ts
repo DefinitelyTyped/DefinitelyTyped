@@ -795,6 +795,19 @@ enum Gender {
 const personSchema = yup.object({
     firstName: yup.string().defined(), // $ExpectType StringSchema<string>
     gender: yup.mixed<Gender>().defined().oneOf([Gender.Male, Gender.Female]),
+    // handle nested optional property
+    address: yup.object({
+        line1: yup.string().required(),
+        line2: yup.string().optional(),
+        area: yup.object({
+            country: yup.string().required(),
+            region: yup.string().optional()
+        }).required(),
+    }).required(),
+    addressBook: yup.object({
+        phoneNumbers: yup.array(yup.string()).defined(),
+        lastUpdated: yup.date().optional()
+    }).required(),
     email: yup
         .string()
         .nullable()
@@ -850,6 +863,13 @@ const minimalPerson: Person = {
     gender: Gender.Female,
     canBeNull: null,
     mustBeAString: '',
+    address: {
+        line1: '123 Fake Street',
+        area: { country: 'Australia' }
+    },
+    addressBook: {
+        phoneNumbers: ['123-456-789']
+    }
 };
 
 const person: Person = {
@@ -861,6 +881,14 @@ const person: Person = {
     isAlive: null,
     mustBeAString: '',
     children: null,
+    address: {
+        line1: 'Unit 1',
+        line2: '456 Fake Street',
+        area: { country: 'America', region: 'WA' }
+    },
+    addressBook: {
+        phoneNumbers: []
+    }
 };
 
 person.email = 'some@email.com';
@@ -872,6 +900,14 @@ person.children = ['1', '2', '3'];
 person.children = undefined;
 person.friends = new Set(["Amy", "Beth"]);
 
+// $ExpectError
+person.address = {};
+// $ExpectError
+person.address = { area: {}, line1: '' };
+// $ExpectError
+person.addressBook = {};
+// $ExpectError
+person.addressBook = { phoneNumbers: null };
 // $ExpectError
 person.gender = 1;
 // $ExpectError

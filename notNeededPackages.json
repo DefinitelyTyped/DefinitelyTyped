@@ -4255,6 +4255,12 @@
             "asOfVersion": "4.2.4"
         },
         {
+            "libraryName": "react-visibility-sensor",
+            "typingsPackageName": "react-visibility-sensor",
+            "sourceRepoURL": "https://github.com/joshwnj/react-visibility-sensor",
+            "asOfVersion": "5.1.0"
+        },
+        {
             "libraryName": "react-webcam",
             "typingsPackageName": "react-webcam",
             "sourceRepoURL": "https://github.com/mozmorris/react-webcam",
