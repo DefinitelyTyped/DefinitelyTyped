@@ -1,3 +1,5 @@
+// tslint:disable:space-before-function-paren
+
 import * as nodered from 'node-red';
 
 interface MyFantasticNode extends nodered.Node {
