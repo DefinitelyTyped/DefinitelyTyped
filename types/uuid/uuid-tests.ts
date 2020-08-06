@@ -10,6 +10,8 @@ import {
   stringify as uuidStringify,
   validate as uuidValidate,
   version as uuidVersion,
+  V1Options,
+  V4Options,
 } from 'uuid';
 
 const randoms = [
@@ -35,6 +37,13 @@ stringv1 = uuidv1({
     rng: () => randoms,
 });
 
+const v1Options: V1Options = {
+    msecs: new Date('2011-11-01').getTime(),
+    nsecs: 5678,
+    rng: () => randoms,
+};
+stringv1 = uuidv1(v1Options);
+
 let bufferv1 = new Uint8Array(32);
 bufferv1 = uuidv1(null, bufferv1);
 bufferv1 = uuidv1(undefined, bufferv1, 16);
@@ -42,6 +51,9 @@ bufferv1 = uuidv1(undefined, bufferv1, 16);
 let stringv4: string = uuidv4();
 stringv4 = uuidv4({ random: randoms });
 stringv4 = uuidv4({ rng: () => randoms });
+
+const v4Options: V4Options = { random: randoms };
+stringv4 = uuidv4(v4Options);
 
 let bufferv4: number[] = new Array(32);
 bufferv4 = uuidv4(undefined, bufferv4);

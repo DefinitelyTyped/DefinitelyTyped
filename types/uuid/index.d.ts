@@ -8,6 +8,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+// disable automatic export
+export {};
+
 // Uses ArrayLike to admit Unit8 and co.
 type OutputBuffer = ArrayLike<number>;
 type InputBuffer = ArrayLike<number>;
@@ -28,8 +31,8 @@ interface V1BaseOptions {
 interface V1RandomOptions extends V1BaseOptions, RandomOptions {}
 interface V1RngOptions extends V1BaseOptions, RngOptions {}
 
-type V1Options = V1RandomOptions | V1RngOptions;
-type V4Options = RandomOptions | RngOptions;
+export type V1Options = V1RandomOptions | V1RngOptions;
+export type V4Options = RandomOptions | RngOptions;
 
 type v1String = (options?: V1Options) => string;
 type v1Buffer = <T extends OutputBuffer>(options: V1Options | null | undefined, buffer: T, offset?: number) => T;
@@ -65,9 +68,6 @@ type parse = (uuid: string) => OutputBuffer;
 type stringify = (buffer: InputBuffer, offset?: number) => string;
 type validate = (uuid: string) => boolean;
 type version = (uuid: string) => number;
-
-// disable automatic export
-export {};
 
 export const NIL: NIL;
 export const parse: parse;
