@@ -31,7 +31,7 @@ declare namespace kurento {
         create(type: 'MediaPipeline'): Promise<MediaPipeline>;
         create(type: 'WebRtcEndpoint'): Promise<WebRtcEndpoint>;
         create(type: 'RecorderEndpoint', options: RecorderEndpointOptions): Promise<RecorderEndpoint>;
-        on(event: 'OnIceCandidate', callback: (event: IceCandidate) => void): void;
+        on(event: 'OnIceCandidate', callback: (event: IceCandidateEvent) => void): void;
         on(event: 'Error', callback: (error: Error) => void): void;
         on(event: 'Recording' | 'Paused' | 'Stopped', callback: () => void): void;
         getMediaobjectById(objectId: string): Promise<MediaPipeline | WebRtcEndpoint | RecorderEndpoint>;
@@ -158,6 +158,15 @@ declare namespace kurento {
         candidate: string;
         sdpMid: string;
         sdpMLineIndex: number;
+    }
+
+    interface IceCandidateEvent {
+        candidate: IceCandidate;
+        souce: string;
+        tags: object;
+        timestamp: string;
+        timestampMillis: string;
+        type: 'OnIceCandidate';
     }
 
     type Callback<T> = (error: Error, result: T) => void;
