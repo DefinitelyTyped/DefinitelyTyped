@@ -1175,7 +1175,9 @@ export interface PlotData {
         | 'bottom center'
         | 'bottom right'
         | 'inside'
-        | 'outside';
+        | 'outside'
+        | 'auto'
+        | 'none';
     textfont: Partial<Font>;
     fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
     fillcolor: string;
