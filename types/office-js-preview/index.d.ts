@@ -9384,6 +9384,20 @@ declare namespace Office {
          */
         seriesId: string;
         /**
+         * Manages the {@link Office.SessionData | SessionData} of an item in Compose mode.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Appointment Organizer
+         *
+         * @beta
+         */
+        sessionData: SessionData;
+        /**
          * Gets or sets the date and time that the appointment is to begin.
          *
          * The `start` property is a {@link Office.Time | Time} object expressed as a Coordinated Universal Time (UTC) date and time value.
@@ -14152,6 +14166,20 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Compose
          */
         seriesId: string;
+        /**
+         * Manages the {@link Office.SessionData | SessionData} of an item in Compose mode.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Compose
+         *
+         * @beta
+         */
+        sessionData: SessionData;
         /**
          * Gets or sets the description that appears in the subject field of an item.
          *
