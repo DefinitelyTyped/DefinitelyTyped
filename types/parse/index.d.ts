@@ -938,7 +938,7 @@ namespace Parse {
      * schema.save();
      * ```
      */
-    class Schema {
+    class Schema<T extends Object = any> {
         constructor(className: string);
 
         /**
@@ -949,12 +949,12 @@ namespace Parse {
          */
         static all(): Promise<Schema[]>;
 
-        addArray(name: string, options?: Schema.FieldOptions<any[]>): this;
-        addBoolean(name: string, options?: Schema.FieldOptions<boolean>): this;
-        addDate(name: string, options?: Schema.FieldOptions<Date>): this;
+        addArray(key: Schema.AttrType<T, any[]>, options?: Schema.FieldOptions<any[]>): this;
+        addBoolean(key: Schema.AttrType<T, boolean>, options?: Schema.FieldOptions<boolean>): this;
+        addDate(key: Schema.AttrType<T, Date>, options?: Schema.FieldOptions<Date>): this;
         addField<T extends Schema.TYPE = any>(name: string, type?: T, options?: Schema.FieldOptions): this;
-        addFile(name: string, options?: Schema.FieldOptions<File>): this;
-        addGeoPoint(name: string, options?: Schema.FieldOptions<GeoPoint>): this;
+        addFile(key: Schema.AttrType<T, File>, options?: Schema.FieldOptions<File>): this;
+        addGeoPoint(key: Schema.AttrType<T, GeoPoint>, options?: Schema.FieldOptions<GeoPoint>): this;
 
         /**
          * Adding an Index to Create / Update a Schema
@@ -968,8 +968,9 @@ namespace Parse {
          */
         addIndex(name: string, index: Schema.Index): this;
 
-        addNumber(name: string, options?: Schema.FieldOptions<number>): this;
-        addObject(name: string, options?: Schema.FieldOptions<object>): this;
+        addNumber(key: Schema.AttrType<T, number>, options?: Schema.FieldOptions<number>): this;
+
+        addObject(key: Schema.AttrType<T, object>, options?: Schema.FieldOptions<object>): this;
 
         /**
          * Adding Pointer Field
@@ -977,9 +978,9 @@ namespace Parse {
          * @param targetClass  Name of the target Pointer Class
          * @return Returns the schema, so you can chain this call.
          */
-        addPointer(name: string, targetClass: string, options?: Schema.FieldOptions<Pointer>): this;
+        addPointer(key: Schema.AttrType<T, Object | Pointer>, targetClass: string, options?: Schema.FieldOptions<Pointer>): this;
 
-        addPolygon(name: string, options?: Schema.FieldOptions<Polygon>): this;
+        addPolygon(key: Schema.AttrType<T, Polygon>, options?: Schema.FieldOptions<Polygon>): this;
 
         /**
          * Adding Relation Field
@@ -987,9 +988,9 @@ namespace Parse {
          * @param targetClass  Name of the target Pointer Class
          * @return Returns the schema, so you can chain this call.
          */
-        addRelation(name: string, targetClass: string, options?: Schema.FieldOptions<Relation>): this;
+        addRelation(key: Schema.AttrType<T, Relation>, targetClass: string, options?: Schema.FieldOptions<Relation>): this;
 
-        addString(name: string, options?: Schema.FieldOptions<string>): this;
+        addString(key: Schema.AttrType<T, string>, options?: Schema.FieldOptions<string>): this;
 
         /**
          * Removing a Schema from Parse Can only be used on Schema without objects
@@ -1018,7 +1019,7 @@ namespace Parse {
         get(): Promise<Schema>;
 
         /**
-         * Removes all objects from a Schema (class) in Parse. EXERCISE CAUTION, running this will delete all objects for this schema and cannot be reversed
+         * Removes all objects from a Schema (class) in  EXERCISE CAUTION, running this will delete all objects for this schema and cannot be reversed
          */
         // TODO Fix Promise<any>
         purge(): Promise<any>;
@@ -1029,6 +1030,12 @@ namespace Parse {
         save(): Promise<Schema>;
 
         /**
+         * Sets Class Level Permissions when creating / updating a Schema.
+         * EXERCISE CAUTION, running this may override CLP for this schema and cannot be reversed
+         */
+        setCLP(clp: Schema.CLP): this;
+
+        /**
          * Update a Schema on Parse
          */
         update(): Promise<Schema>;
@@ -1036,6 +1043,8 @@ namespace Parse {
 
     namespace Schema {
         type TYPE = 'String' | 'Number' | 'Boolean' | 'Date' | 'File' | 'GeoPoint' | 'Polygon' | 'Array' | 'Object' | 'Pointer' | 'Relation';
+        type FieldType = string | number | boolean | Date | File | GeoPoint | Polygon | any[] | object | Pointer | Relation;
+        type AttrType<T extends Object, V> = Extract<{ [K in keyof T['attributes']]: T['attributes'][K] extends V ? K : never }[keyof T['attributes']], string>;
 
         interface FieldOptions
             <T extends string | number | boolean | Date | File | GeoPoint | Polygon | any[] | object | Pointer | Relation = any> {
@@ -1045,6 +1054,35 @@ namespace Parse {
 
         interface Index {
             [fieldName: string]: TYPE;
+        }
+
+        /**
+         * The id of a `_User` object or a role name prefixed by `'role:'`.
+         * @example
+         *  '*': false, // public
+         *  requiresAuthentication: false,
+         * 'role:Admin': true,
+         *  'idOfASpecificUser': true
+         */
+        interface CLPField {
+            '*'?: boolean;
+            requiresAuthentication?: boolean;
+            /** `role:Admin` */
+            [userIdOrRoleName: string]: boolean | undefined;
+        }
+
+        interface CLP {
+            find?: CLPField;
+            get?: CLPField;
+            count?: CLPField;
+            create?: CLPField;
+            update?: CLPField;
+            delete?: CLPField;
+            addField?: CLPField;
+            /** Array of fields that point to a `_User` object's ID or a `Role` object's name */
+            readUserFields?: string[];
+            /** Array of fields that point to a `_User` object's ID or a `Role` object's name */
+            writeUserFields?: string[];
         }
     }
 
