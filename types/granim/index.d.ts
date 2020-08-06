@@ -3,7 +3,9 @@
 // Definitions by: Raiper34 <https://github.com/Raiper34>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export class Granim {
+export as namespace Granim;
+
+declare class Granim {
     constructor(options: Options);
     play(): void;
     pause(): void;
@@ -13,41 +15,50 @@ export class Granim {
     changeBlendingMode(blendingModeName: string): void;
     destroy(): void;
 }
-export interface OnGradientChangeObject {
-    activeState: string;
-    colorsFrom: [string, string];
-    colorsTo: [string, string];
-    isLooping: boolean;
+declare namespace Granim {
+    export interface OnGradientChangeObject {
+        activeState: string;
+        colorsFrom: [string, string];
+        colorsTo: [string, string];
+        isLooping: boolean;
+    }
+
+    export interface Options {
+        element: string | HTMLCanvasElement;
+        name?: string;
+        elToSetClassOn?: string;
+        direction?: 'diagonal' | 'left-right' | 'top-bottom' | 'radial' | 'custom';
+        customDirection?: { x0: string; y0: string; x1: string; y1: string };
+        isPausedWhenNotInView?: boolean;
+        scrollDebounceThreshold?: number;
+        stateTransitionSpeed?: number;
+        defaultStateName?: string;
+        states: { [stateName: string]: State };
+        image?: Image;
+        onStart?: () => void;
+        onGradientChange?: (colorDetails: OnGradientChangeObject) => void;
+        onEnd?: () => void;
+    }
+
+    export interface Gradient {
+        color: string;
+        pos: number;
+    }
+
+    export interface State {
+        gradients: string[][] | Gradient[][];
+        transitionSpeed?: number;
+        loop?: boolean;
+    }
+
+    export type stretchMode = 'none' | 'stretch' | 'stretch-if-smaller' | 'stretch-if-bigger';
+
+    export interface Image {
+        source: string;
+        position?: ['left' | 'center' | 'right', 'top' | 'center' | 'bottom'];
+        stretchMode?: [stretchMode, stretchMode];
+        blendingMode?: string;
+    }
 }
-export interface Options {
-    element: string | HTMLCanvasElement;
-    name?: string;
-    elToSetClassOn?: string;
-    direction?: 'diagonal' | 'left-right' | 'top-bottom' | 'radial' | 'custom';
-    customDirection?: { x0: string; y0: string; x1: string; y1: string };
-    isPausedWhenNotInView?: boolean;
-    scrollDebounceThreshold?: number;
-    stateTransitionSpeed?: number;
-    defaultStateName?: string;
-    states: { [stateName: string]: State };
-    image?: Image;
-    onStart?: () => void;
-    onGradientChange?: (colorDetails: OnGradientChangeObject) => void;
-    onEnd?: () => void;
-}
-export interface Gradient {
-    color: string;
-    pos: number;
-}
-export interface State {
-    gradients: string[][] | Gradient[][];
-    transitionSpeed?: number;
-    loop?: boolean;
-}
-export type stretchMode = 'none' | 'stretch' | 'stretch-if-smaller' | 'stretch-if-bigger';
-export interface Image {
-    source: string;
-    position?: ['left' | 'center' | 'right', 'top' | 'center' | 'bottom'];
-    stretchMode?: [stretchMode, stretchMode];
-    blendingMode?: string;
-}
+
+export = Granim;
