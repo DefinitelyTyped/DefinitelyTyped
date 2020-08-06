@@ -6,6 +6,9 @@ const weakReference = weak(obj, () => {
     // collected
 });
 
+// should also work with create alias
+weak.create(obj, () => {}); // $ExpectType WeakRef<{ a: number; }>
+
 const sameType = weak.get(weakReference);
 
 function foo(a: {a: number}) {}
