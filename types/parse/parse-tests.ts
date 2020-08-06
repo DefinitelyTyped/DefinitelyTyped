@@ -1168,6 +1168,18 @@ function testObject() {
 
         // $ExpectError
         objTyped.fetchWithInclude([[[ 'example' ]]]);
+
+        // $ExpectType Promise<Object<{ example: string; }>[]>
+        Parse.Object.fetchAllIfNeededWithInclude([objTyped], 'example');
+
+        // $ExpectError
+        Parse.Object.fetchAllIfNeededWithInclude([objTyped], 'notAnAttribute');
+
+        // $ExpectType Promise<Object<{ example: string; }>[]>
+        Parse.Object.fetchAllWithInclude([objTyped], 'example');
+
+        // $ExpectError
+        Parse.Object.fetchAllWithInclude([objTyped], 'notAnAttribute');
     }
 
     function testGet(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: number }>) {

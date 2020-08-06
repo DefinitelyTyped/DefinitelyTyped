@@ -486,12 +486,12 @@ namespace Parse {
         fetchAllIfNeeded<T extends Object>(list: T[], options?: Object.FetchAllOptions): Promise<T[]>;
         fetchAllIfNeededWithInclude<T extends Object>(
             list: T[],
-            keys: string | Array<string | string[]>,
+            keys: keyof T['attributes'] | Array<keyof T['attributes']>,
             options?: RequestOptions
         ): Promise<T[]>;
         fetchAllWithInclude<T extends Object>(
             list: T[],
-            keys: string | Array<string | string[]>,
+            keys: keyof T['attributes'] | Array<keyof T['attributes']>,
             options?: RequestOptions,
         ): Promise<T[]>;
         fromJSON<T extends Object>(json: any, override?: boolean): T;
