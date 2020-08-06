@@ -214,6 +214,10 @@ declare namespace Backbone {
         sync(...arg: any[]): JQueryXHR;
     }
 
+    /**
+     * E - Extensions to the model constructor options. You can accept additional constructor options
+     * by listing them in the E parameter.
+     */
     class Model<T = any, S = Backbone.ModelSetOptions, E = {}> extends ModelBase implements Events {
 
         /**
