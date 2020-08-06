@@ -2723,6 +2723,99 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     extractChainTypes(_.chain(simpleString).chunk(length)); // $ExpectType ChainType<string[][], string[]>
 }
 
+// indexOf
+{
+    // not sorted, from zero
+    _.indexOf(stringRecordList, stringRecordList[0]); // $ExpectType number
+    _(stringRecordList).indexOf(stringRecordList[0]); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).indexOf(stringRecordList[0])); // $ExpectType ChainType<number, never>
+
+    // sorted
+    _.indexOf(stringRecordList, stringRecordList[0], true); // $ExpectType number
+    _(stringRecordList).indexOf(stringRecordList[0], true); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).indexOf(stringRecordList[0], true)); // $ExpectType ChainType<number, never>
+
+    // from index
+    _.indexOf(stringRecordList, stringRecordList[0], simpleNumber); // $ExpectType number
+    _(stringRecordList).indexOf(stringRecordList[0], simpleNumber); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).indexOf(stringRecordList[0], simpleNumber)); // $ExpectType ChainType<number, never>
+}
+
+// lastIndexOf
+{
+    // from zero
+    _.lastIndexOf(stringRecordList, stringRecordList[0]); // $ExpectType number
+    _(stringRecordList).lastIndexOf(stringRecordList[0]); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).lastIndexOf(stringRecordList[0])); // $ExpectType ChainType<number, never>
+
+    // from index
+    _.lastIndexOf(stringRecordList, stringRecordList[0], simpleNumber); // $ExpectType number
+    _(stringRecordList).lastIndexOf(stringRecordList[0], simpleNumber); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).lastIndexOf(stringRecordList[0], simpleNumber)); // $ExpectType ChainType<number, never>
+}
+
+// findIndex
+{
+    // function iteratee
+    _.findIndex(stringRecordList, stringRecordListBooleanIterator); // $ExpectType number
+    _.findIndex(stringRecordList, stringRecordListBooleanIterator, context); // $ExpectType number
+    _(stringRecordList).findIndex(stringRecordListBooleanIterator); // $ExpectType number
+    _(stringRecordList).findIndex(stringRecordListBooleanIterator, context); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).findIndex(stringRecordListBooleanIterator)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(stringRecordList).findIndex(stringRecordListBooleanIterator, context)); // $ExpectType ChainType<number, never>
+
+    // partial object iteratee
+    _.findIndex(stringRecordList, partialStringRecord); // $ExpectType number
+    _(stringRecordList).findIndex(partialStringRecord); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).findIndex(partialStringRecord)); // $ExpectType ChainType<number, never>
+
+    // property name iteratee
+    _.findIndex(stringRecordList, stringRecordProperty); // $ExpectType number
+    _(stringRecordList).findIndex(stringRecordProperty); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).findIndex(stringRecordProperty)); // $ExpectType ChainType<number, never>
+
+    // property path iteratee
+    _.findIndex(stringRecordList, stringRecordPropertyPath); // $ExpectType number
+    _(stringRecordList).findIndex(stringRecordPropertyPath); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).findIndex(stringRecordPropertyPath)); // $ExpectType ChainType<number, never>
+
+    // identity iteratee
+    _.findIndex(stringRecordList); // $ExpectType number
+    _(stringRecordList).findIndex(); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).findIndex()); // $ExpectType ChainType<number, never>
+}
+
+// findLastIndex
+{
+    // function iteratee
+    _.findLastIndex(stringRecordList, stringRecordListBooleanIterator); // $ExpectType number
+    _.findLastIndex(stringRecordList, stringRecordListBooleanIterator, context); // $ExpectType number
+    _(stringRecordList).findLastIndex(stringRecordListBooleanIterator); // $ExpectType number
+    _(stringRecordList).findLastIndex(stringRecordListBooleanIterator, context); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).findLastIndex(stringRecordListBooleanIterator)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(stringRecordList).findLastIndex(stringRecordListBooleanIterator, context)); // $ExpectType ChainType<number, never>
+
+    // partial object iteratee
+    _.findLastIndex(stringRecordList, partialStringRecord); // $ExpectType number
+    _(stringRecordList).findLastIndex(partialStringRecord); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).findLastIndex(partialStringRecord)); // $ExpectType ChainType<number, never>
+
+    // property name iteratee
+    _.findLastIndex(stringRecordList, stringRecordProperty); // $ExpectType number
+    _(stringRecordList).findLastIndex(stringRecordProperty); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).findLastIndex(stringRecordProperty)); // $ExpectType ChainType<number, never>
+
+    // property path iteratee
+    _.findLastIndex(stringRecordList, stringRecordPropertyPath); // $ExpectType number
+    _(stringRecordList).findLastIndex(stringRecordPropertyPath); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).findLastIndex(stringRecordPropertyPath)); // $ExpectType ChainType<number, never>
+
+    // identity iteratee
+    _.findLastIndex(stringRecordList); // $ExpectType number
+    _(stringRecordList).findLastIndex(); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).findLastIndex()); // $ExpectType ChainType<number, never>
+}
+
 // sortedIndex
 {
     // identity iteratee
@@ -2752,19 +2845,6 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _.sortedIndex(stringRecordList, stringRecordList[0], stringRecordPropertyPath); // $ExpectType number
     _(stringRecordList).sortedIndex(stringRecordList[0], stringRecordPropertyPath); // $ExpectType number
     extractChainTypes(_.chain(stringRecordList).sortedIndex(stringRecordList[0], stringRecordPropertyPath)); // $ExpectType ChainType<number, never>
-}
-
-// findIndex and findLastIndex
-{
-    _([1, 2, 3, 1, 2, 3]).findIndex(num => num % 2 === 0); // $ExpectType number
-    _([{a: 'a'}, {a: 'b'}]).findIndex({a: 'b'}); // $ExpectType number
-    _.chain([1, 2, 3, 1, 2, 3]).findIndex(num => num % 2 === 0).value(); // $ExpectType number
-    _.chain([{a: 'a'}, {a: 'b'}]).findIndex({a: 'b'}).value(); // $ExpectType number
-
-    _([1, 2, 3, 1, 2, 3]).findLastIndex(num => num % 2 === 0); // $ExpectType number
-    _([{a: 'a'}, {a: 'b'}]).findLastIndex({ a: 'b' }); // $ExpectType number
-    _.chain([1, 2, 3, 1, 2, 3]).findLastIndex(num => num % 2 === 0).value(); // $ExpectType number
-    _.chain([{a: 'a'}, {a: 'b'}]).findLastIndex({ a: 'b' }).value(); // $ExpectType number
 }
 
 // range
