@@ -1138,11 +1138,11 @@ declare namespace Foxx {
     }
 
     interface Configuration {
-        [key: string]: any
+        [key: string]: any;
     }
 
     interface Dependencies {
-        [key: string]: any
+        [key: string]: any;
     }
 
     interface Context {
