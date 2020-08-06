@@ -1,12 +1,8 @@
-import { Handler } from "../handler";
-
-// Result type is weird: docs and samples say to return the mutated event, but it only requires an object
-// with a "response" field, the type of which is specific to the event.triggerType. Leave as any for now.
-export type CognitoUserPoolTriggerHandler = Handler<CognitoUserPoolTriggerEvent>;
-// TODO: Different event/handler types for each event trigger so we can type the result?
+import { Handler } from '../../handler';
 
 /**
  * Cognito User Pool event
+ * @deprecated Please use specific event types instead
  * http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html
  */
 export interface CognitoUserPoolTriggerEvent {
@@ -99,4 +95,24 @@ export interface CognitoUserPoolTriggerEvent {
         };
     };
 }
+
+/**
+ * @deprecated Please use specific event types instead
+ */
 export type CognitoUserPoolEvent = CognitoUserPoolTriggerEvent;
+
+/**
+ * @deprecated Please use specific event handler types instead
+ */
+export type CognitoUserPoolTriggerHandler = Handler<CognitoUserPoolTriggerEvent>;
+
+export * from './create-auth-challenge';
+export * from './custom-message';
+export * from './define-auth-challenge';
+export * from './post-authentication';
+export * from './post-confirmation';
+export * from './pre-authentication';
+export * from './pre-signup';
+export * from './pre-token-generation';
+export * from './user-migration';
+export * from './verify-auth-challenge-response';

@@ -1,117 +1,256 @@
-// TODO: Update test to read all event properties, and write all result
-//       properties, like the user will.
+import {
+    Handler,
+    PreSignUpTriggerEvent, PreSignUpTriggerHandler,
+    PostConfirmationTriggerEvent, PostConfirmationTriggerHandler,
+    PreAuthenticationTriggerEvent, PreAuthenticationTriggerHandler,
+    PostAuthenticationTriggerEvent, PostAuthenticationTriggerHandler,
+    CreateAuthChallengeTriggerEvent, CreateAuthChallengeTriggerHandler,
+    DefineAuthChallengeTriggerEvent, DefineAuthChallengeTriggerHandler,
+    VerifyAuthChallengeResponseTriggerEvent, VerifyAuthChallengeResponseTriggerHandler,
+    PreTokenGenerationTriggerEvent, PreTokenGenerationTriggerHandler,
+    UserMigrationTriggerEvent, UserMigrationTriggerHandler,
+    CustomMessageTriggerEvent, CustomMessageTriggerHandler,
+} from 'aws-lambda';
 
-import { CognitoUserPoolTriggerHandler } from "aws-lambda";
+type CognitoTriggerEvent =
+    | PreSignUpTriggerEvent
+    | PostConfirmationTriggerEvent
+    | PreAuthenticationTriggerEvent
+    | PostAuthenticationTriggerEvent
+    | DefineAuthChallengeTriggerEvent
+    | CreateAuthChallengeTriggerEvent
+    | VerifyAuthChallengeResponseTriggerEvent
+    | PreTokenGenerationTriggerEvent
+    | UserMigrationTriggerEvent
+    | CustomMessageTriggerEvent;
 
-const handler: CognitoUserPoolTriggerHandler = async (event, context, callback) => {
-    num = event.version;
-    event.triggerSource === 'PreSignUp_SignUp';
-    event.triggerSource === 'PreSignUp_ExternalProvider';
-    event.triggerSource === 'PostConfirmation_ConfirmSignUp';
-    event.triggerSource === 'PreAuthentication_Authentication';
-    event.triggerSource === 'PostAuthentication_Authentication';
-    event.triggerSource === 'CustomMessage_SignUp';
-    event.triggerSource === 'CustomMessage_AdminCreateUser';
-    event.triggerSource === 'CustomMessage_ResendCode';
-    event.triggerSource === 'CustomMessage_ForgotPassword';
-    event.triggerSource === 'CustomMessage_UpdateUserAttribute';
-    event.triggerSource === 'CustomMessage_VerifyUserAttribute';
-    event.triggerSource === 'CustomMessage_Authentication';
-    event.triggerSource === 'DefineAuthChallenge_Authentication';
-    event.triggerSource === 'CreateAuthChallenge_Authentication';
-    event.triggerSource === 'VerifyAuthChallengeResponse_Authentication';
-    event.triggerSource === 'PreSignUp_AdminCreateUser';
-    event.triggerSource === 'PostConfirmation_ConfirmForgotPassword';
-    event.triggerSource === 'TokenGeneration_HostedAuth';
-    event.triggerSource === 'TokenGeneration_Authentication';
-    event.triggerSource === 'TokenGeneration_NewPasswordChallenge';
-    event.triggerSource === 'TokenGeneration_AuthenticateDevice';
-    event.triggerSource === 'TokenGeneration_RefreshTokens';
-    event.triggerSource === 'UserMigration_Authentication';
-    event.triggerSource === 'UserMigration_ForgotPassword';
-    // $ExpectError
-    event.triggerSource === 'NoSuch_Trigger';
-
+const baseTest: Handler<CognitoTriggerEvent> = async (event: CognitoTriggerEvent, _, callback) => {
+    str = event.version;
     str = event.region;
     str = event.userPoolId;
-    strOrUndefined = event.userName;
+    str = event.triggerSource;
+    str = event.userName;
     str = event.callerContext.awsSdkVersion;
     str = event.callerContext.clientId;
-    str = event.request.userAttributes['email'];
-    str = event.request.validationData!['k1'];
-    strOrUndefined = event.request.codeParameter;
-    strOrUndefined = event.request.linkParameter;
-    strOrUndefined = event.request.usernameParameter;
-    boolOrUndefined = event.request.newDeviceUsed;
-    event.request.session![0].challengeName === 'CUSTOM_CHALLENGE';
-    event.request.session![0].challengeName === 'PASSWORD_VERIFIER';
-    event.request.session![0].challengeName === 'SMS_MFA';
-    event.request.session![0].challengeName === 'DEVICE_SRP_AUTH';
-    event.request.session![0].challengeName === 'DEVICE_PASSWORD_VERIFIER';
-    event.request.session![0].challengeName === 'ADMIN_NO_SRP_AUTH';
-    event.request.session![0].challengeName === 'SRP_A';
-    bool = event.request.session![0].challengeResult;
-    strOrUndefined = event.request.session![0].challengeMetadata;
-    strOrUndefined = event.request.challengeName;
-    str = event.request.privateChallengeParameters!['answer'];
-    str = event.request.challengeAnswer!;
-    strOrUndefined = event.request.password;
-    str = event.request.clientMetadata!['action'];
-    boolOrUndefined = event.request.userNotFound;
-    boolOrUndefined = event.response.answerCorrect;
-    strOrUndefined = event.response.smsMessage;
-    strOrUndefined = event.response.emailMessage;
-    strOrUndefined = event.response.emailSubject;
-    strOrUndefined = event.response.challengeName;
-    boolOrUndefined = event.response.issueTokens;
-    boolOrUndefined = event.response.failAuthentication;
-    str = event.response.publicChallengeParameters!['captchaUrl'];
-    str = event.response.privateChallengeParameters!['answer'];
-    strOrUndefined = event.response.challengeMetadata;
-    boolOrUndefined = event.response.answerCorrect;
-    str = event.response.userAttributes!['username'];
-    event.response.finalUserStatus === 'CONFIRMED';
-    event.response.finalUserStatus === 'RESET_REQUIRED';
-    event.response.messageAction === 'SUPPRESS';
-    event.response.desiredDeliveryMediums === ['EMAIL'];
-    event.response.desiredDeliveryMediums === ['SMS'];
-    event.response.desiredDeliveryMediums === ['SMS', 'EMAIL'];
-    boolOrUndefined = event.response.forceAliasCreation;
 
-    // From AWS examples
-    event.response = {
-        claimsOverrideDetails: {
-            claimsToAddOrOverride: {
-                attribute_key2: 'attribute_value2',
-                attribute_key: 'attribute_value',
-            },
-            claimsToSuppress: ['email'],
-        },
-    };
-    event.response = {
-        claimsOverrideDetails: {
-            claimsToAddOrOverride: {
-                attribute_key2: 'attribute_value2',
-                attribute_key: 'attribute_value',
-            },
-            claimsToSuppress: ['email'],
-            groupOverrideDetails: {
-                groupsToOverride: ['group-A', 'group-B', 'group-C'],
-                iamRolesToOverride: [
-                    'arn:aws:iam::XXXXXXXXXXXX:role/sns_callerA',
-                    'arn:aws:iam::XXXXXXXXX:role/sns_callerB',
-                    'arn:aws:iam::XXXXXXXXXX:role/sns_callerC',
-                ],
-                preferredRole: 'arn:aws:iam::XXXXXXXXXXX:role/sns_caller',
-            },
-        },
-    };
-    event.response.claimsOverrideDetails!.groupOverrideDetails = null;
+    obj = event.request;
+    obj = event.response;
 
     callback(new Error());
     callback(null, event);
-    callback(null, {
-        response: event.response,
-    });
+    callback(null, { response: event.response });
     return event;
+};
+
+const preSignUp: PreSignUpTriggerHandler = async (event, _, callback) => {
+    const { request, response, triggerSource } = event;
+
+    obj = request.userAttributes;
+    str = request.userAttributes.email;
+    str = request.validationData!['k1'];
+    str = request.clientMetadata!['action'];
+
+    bool = response.autoConfirmUser;
+    bool = response.autoVerifyEmail;
+    bool = response.autoVerifyPhone;
+
+    triggerSource === 'PreSignUp_SignUp';
+    triggerSource === 'PreSignUp_ExternalProvider';
+    triggerSource === 'PreSignUp_AdminCreateUser';
+
+    // $ExpectError
+    triggerSource === 'PostConfirmation_ConfirmSignUp';
+
+    // $ExpectError
+    request.session![0].challengeName === 'CUSTOM_CHALLENGE';
+};
+
+const postConfirmation: PostConfirmationTriggerHandler = async (event, _, callback) => {
+    const { request, response, triggerSource } = event;
+
+    obj = request.userAttributes;
+    str = request.userAttributes.email;
+    str = request.clientMetadata!['action'];
+
+    objectOrUndefined = response;
+
+    triggerSource === 'PostConfirmation_ConfirmSignUp';
+    triggerSource === 'PostConfirmation_ConfirmForgotPassword';
+
+    // $ExpectError
+    triggerSource === 'PreSignUp_ExternalProvider';
+    // $ExpectError
+    request.session![0].challengeName === 'CUSTOM_CHALLENGE';
+    // $ExpectError
+    str = request.validationData!['k1'];
+    // $ExpectError
+    bool = response.autoVerifyEmail;
+    // $ExpectError
+    bool = response.autoVerifyPhone;
+};
+
+const defineAuthChallenge: DefineAuthChallengeTriggerHandler = async (event, _, callback) => {
+    const { request, response, triggerSource } = event;
+
+    obj = request.userAttributes;
+    str = request.userAttributes.email;
+    array = request.session;
+
+    const session = request.session[0];
+    session.challengeName === 'CUSTOM_CHALLENGE';
+    session.challengeName === 'PASSWORD_VERIFIER';
+    session.challengeName === 'SMS_MFA';
+    session.challengeName === 'DEVICE_SRP_AUTH';
+    session.challengeName === 'DEVICE_PASSWORD_VERIFIER';
+    session.challengeName === 'ADMIN_NO_SRP_AUTH';
+    session.challengeName === 'SRP_A';
+    bool = session.challengeResult;
+    boolOrUndefined = request.userNotFound;
+
+    str = response.challengeName;
+    bool = response.failAuthentication;
+    bool = response.issueTokens;
+
+    triggerSource === 'DefineAuthChallenge_Authentication';
+
+    // $ExpectError
+    nullOrUndefined = request.userAttributes;
+};
+
+const createAuthChallenge: CreateAuthChallengeTriggerHandler = async (event, _, callback) => {
+    const { request, response, triggerSource } = event;
+
+    obj = request.userAttributes;
+    str = request.userAttributes.email;
+    str = request.challengeName;
+    array = request.session;
+    str = request.session[0].challengeName;
+    bool = request.session[0].challengeResult;
+    strOrUndefined = request.session[0].challengeMetadata;
+    boolOrUndefined = request.userNotFound;
+
+    obj = response.publicChallengeParameters;
+    str = response.publicChallengeParameters['foo'];
+    obj = response.privateChallengeParameters;
+    str = response.privateChallengeParameters['bar'];
+    str = response.challengeMetadata;
+
+    triggerSource === 'CreateAuthChallenge_Authentication';
+
+    // $ExpectError
+    nullOrUndefined = request.userAttributes;
+};
+
+const validateAuthChallengeResponse: VerifyAuthChallengeResponseTriggerHandler = async (event, _, callback) => {
+    const { request, response, triggerSource } = event;
+
+    obj = request.userAttributes;
+    str = request.userAttributes.email;
+    obj = request.privateChallengeParameters;
+    str = request.privateChallengeParameters['foo'];
+    str = request.challengeAnswer;
+    boolOrUndefined = request.userNotFound;
+
+    bool = response.answerCorrect;
+
+    triggerSource === 'VerifyAuthChallengeResponse_Authentication';
+};
+
+const preAuthentication: PreAuthenticationTriggerHandler = async (event, _, callback) => {
+    const { request, response, triggerSource } = event;
+
+    obj = request.userAttributes;
+    str = request.userAttributes.email;
+    boolOrUndefined = request.userNotFound;
+
+    objectOrUndefined = response;
+
+    triggerSource === 'PreAuthentication_Authentication';
+};
+
+const postAuthentication: PostAuthenticationTriggerHandler = async (event, _, callback) => {
+    const { request, response, triggerSource } = event;
+
+    obj = request.userAttributes;
+    str = request.userAttributes.email;
+    bool = request.newDeviceUsed;
+
+    objectOrUndefined = response;
+
+    triggerSource === 'PostAuthentication_Authentication';
+};
+
+const preTokenGeneration: PreTokenGenerationTriggerHandler = async (event, _, callback) => {
+    const { request, response, triggerSource } = event;
+
+    obj = request.userAttributes;
+    str = request.userAttributes.email;
+    obj = request.groupConfiguration;
+    strArrayOrUndefined = request.groupConfiguration.groupsToOverride;
+    strArrayOrUndefined = request.groupConfiguration.iamRolesToOverride;
+    strOrUndefined = request.groupConfiguration.preferredRole;
+
+    obj = response.claimsOverrideDetails;
+    objectOrUndefined = response.claimsOverrideDetails.claimsToAddOrOverride;
+    strArrayOrUndefined = response.claimsOverrideDetails.claimsToSuppress;
+
+    const groupOverrideDetails = response.claimsOverrideDetails.groupOverrideDetails!;
+    strArrayOrUndefined = groupOverrideDetails.groupsToOverride;
+    strArrayOrUndefined = groupOverrideDetails.iamRolesToOverride;
+    strOrUndefined = groupOverrideDetails.preferredRole;
+
+    triggerSource === 'TokenGeneration_AuthenticateDevice';
+    triggerSource === 'TokenGeneration_Authentication';
+    triggerSource === 'TokenGeneration_HostedAuth';
+    triggerSource === 'TokenGeneration_NewPasswordChallenge';
+    triggerSource === 'TokenGeneration_RefreshTokens';
+};
+
+const userMigration: UserMigrationTriggerHandler = async (event, _, callback) => {
+    const { request, response, triggerSource } = event;
+
+    str = request.password;
+    objectOrUndefined = request.validationData;
+    str = request.validationData!.foobar;
+
+    obj = response.userAttributes;
+    str = response.userAttributes.email;
+    strOrUndefined = response.finalUserStatus;
+    response.finalUserStatus === 'UNCONFIRMED';
+    response.finalUserStatus === 'CONFIRMED';
+    response.finalUserStatus === 'ARCHIVED';
+    response.finalUserStatus === 'COMPROMISED';
+    response.finalUserStatus === 'UNKNOWN';
+    response.finalUserStatus === 'RESET_REQUIRED';
+    response.finalUserStatus === 'FORCE_CHANGE_PASSWORD';
+    boolOrUndefined = response.forceAliasCreation;
+    response.messageAction === 'RESEND';
+    response.messageAction === 'SUPPRESS';
+    response.desiredDeliveryMediums === ['EMAIL'];
+    response.desiredDeliveryMediums === ['SMS'];
+    response.desiredDeliveryMediums === ['SMS', 'EMAIL'];
+
+    triggerSource === 'UserMigration_Authentication';
+    triggerSource === 'UserMigration_ForgotPassword';
+};
+
+const customMessage: CustomMessageTriggerHandler = async (event, _, callback) => {
+    const { request, response, triggerSource } = event;
+
+    obj = request.userAttributes;
+    str = request.userAttributes.email;
+    str = request.codeParameter;
+    str = request.usernameParameter;
+
+    str = response.smsMessage;
+    str = response.emailMessage;
+    str = response.emailSubject;
+
+    triggerSource === 'CustomMessage_AdminCreateUser';
+    triggerSource === 'CustomMessage_Authentication';
+    triggerSource === 'CustomMessage_ForgotPassword';
+    triggerSource === 'CustomMessage_ResendCode';
+    triggerSource === 'CustomMessage_SignUp';
+    triggerSource === 'CustomMessage_UpdateUserAttribute';
+    triggerSource === 'CustomMessage_VerifyUserAttribute';
 };
