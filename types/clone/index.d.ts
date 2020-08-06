@@ -1,6 +1,7 @@
 // Type definitions for clone 2.1
 // Project: https://github.com/pvorb/node-clone
 // Definitions by: Kieran Simpson <https://github.com/kierans>
+//                 DG-za <https://github.com/DG-za>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
