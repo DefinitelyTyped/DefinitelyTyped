@@ -9,7 +9,7 @@ export type hosts = ReadonlyArray<string>;
 export interface packageMetadata {
     version: string;
     resolved?: string;
-    dependencies?: {};
+    dependencies?: Record<string, string>; // e.g. {'balanced-match': '^1.0.0', 'concat-map': '0.0.1'}
 }
 
 export type packages = Record<string, packageMetadata>;
