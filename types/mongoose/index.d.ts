@@ -297,8 +297,16 @@ declare module "mongoose" {
   ): U;
 
   /**
-   * Returns an array of model names created on this instance of Mongoose.
-   * Does not include names of models created using connection.model().
+   * Removes the model named `name` from the default connection on this instance
+   * of Mongoose. You can use this function to clean up any models you created
+   * in your tests to prevent OverwriteModelErrors.
+   */
+  export function deleteModel(name: string | RegExp): Connection;
+
+  /**
+   * Returns an array of model names created on the default connection for this
+   * instance of Mongoose. Does not include names of models created
+   * on additional connections that were created with `createConnection()`.
    */
   export function modelNames(): string[];
 
