@@ -1,6 +1,6 @@
 // Project: https://miniprogram.alipay.com/docs/miniprogram/mpdev/quick-start_overview
 // Definitions by: RockSandy <https://github.com/rockSandy>
-//                 
+//                 LynneXu <https://github.com/LynneXu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
