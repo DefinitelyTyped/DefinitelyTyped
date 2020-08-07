@@ -820,7 +820,7 @@ declare module _ {
          * @param list A list of [key, value] pairs or a list of keys.
          * @param values If `list` is a list of keys, a list of values
          * corresponding to those keys.
-         * @retursn An object comprised of the provided keys and values.
+         * @returns An object comprised of the provided keys and values.
          **/
         object<TList extends List<EnumerableKey>, TValue>(
             list: TList,
@@ -831,64 +831,72 @@ declare module _ {
         ): Dictionary<PairValue<TypeOfList<TList>>>;
 
         /**
-        * Returns the index at which value can be found in the array, or -1 if value is not present in the array.
-        * Uses the native indexOf function unless it's missing. If you're working with a large array, and you know
-        * that the array is already sorted, pass true for isSorted to use a faster binary search ... or, pass a number
-        * as the third argument in order to look for the first matching value in the array after the given index.
-        * @param array The array to search for the index of `value`.
-        * @param value The value to search for within `array`.
-        * @param isSorted True if the array is already sorted, optional, default = false.
-        * @return The index of `value` within `array`.
-        **/
-        indexOf<T>(
-            array: _.List<T>,
-            value: T,
-            isSorted?: boolean): number;
+         * Returns the index at which `value` can be found in `list`, or -1 if
+         * `value` is not present. If you're working with a large list and you
+         * know that the list is already sorted, pass true for
+         * `isSortedOrFromIndex` to use a faster binary search...or, pass a
+         * number in order to look for the first matching value in the list
+         * after the given index.
+         * @param list The list to search for the index of `value`.
+         * @param value The value to search for within `list`.
+         * @param isSortedOrFromIndex True if `list` is already sorted OR the
+         * starting index for the search, optional.
+         * @returns The index of the first occurrence of `value` within `list`
+         * or -1 if `value` is not found.
+         **/
+        indexOf<V extends List<any>>(
+            list: V,
+            value: TypeOfList<V>,
+            isSortedOrFromIndex?: boolean | number
+        ): number;
 
         /**
-        * @see _indexof
-        **/
-        indexOf<T>(
-            array: _.List<T>,
-            value: T,
-            startFrom: number): number;
+         * Returns the index of the last occurrence of `value` in `list`, or -1
+         * if `value` is not present. Pass `fromIndex` to start your search at
+         * a given index.
+         * @param list The list to search for the last occurrence of `value`.
+         * @param value The value to search for within `list`.
+         * @param fromIndex The starting index for the search, optional.
+         * @returns The index of the last occurrence of `value` within `list`
+         * or -1 if `value` is not found.
+         **/
+        lastIndexOf<V extends List<any>>(
+            list: V,
+            value: TypeOfList<V>,
+            fromIndex?: number
+        ): number;
 
         /**
-        * Returns the index of the last occurrence of value in the array, or -1 if value is not present. Uses the
-        * native lastIndexOf function if possible. Pass fromIndex to start your search at a given index.
-        * @param array The array to search for the last index of `value`.
-        * @param value The value to search for within `array`.
-        * @param from The starting index for the search, optional.
-        * @return The index of the last occurrence of `value` within `array`.
-        **/
-        lastIndexOf<T>(
-            array: _.List<T>,
-            value: T,
-            from?: number): number;
+         * Returns the first index of an element in `list` where the `iteratee`
+         * truth test passes, otherwise returns -1.
+         * @param list The list to search for the index of the first element
+         * that passes the truth test.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The index of the first element in `list` where the
+         * truth test passes or -1 if no elements pass.
+         **/
+        findIndex<V extends List<any>>(
+            list: V,
+            iteratee?: Iteratee<V, boolean>,
+            context?: any
+        ): number;
 
         /**
-        * Returns the first index of an element in `array` where the predicate truth test passes
-        * @param array The array to search for the index of the first element where the predicate truth test passes.
-        * @param predicate Predicate function.
-        * @param context `this` object in `predicate`, optional.
-        * @return Returns the index of an element in `array` where the predicate truth test passes or -1.`
-        **/
-        findIndex<T>(
-            array: _.List<T>,
-            predicate: _.ListIterator<T, boolean> | {},
-            context?: any): number;
-
-        /**
-        * Returns the last index of an element in `array` where the predicate truth test passes
-        * @param array The array to search for the index of the last element where the predicate truth test passes.
-        * @param predicate Predicate function.
-        * @param context `this` object in `predicate`, optional.
-        * @return Returns the index of an element in `array` where the predicate truth test passes or -1.`
-        **/
-        findLastIndex<T>(
-            array: _.List<T>,
-            predicate: _.ListIterator<T, boolean> | {},
-            context?: any): number;
+         * Returns the last index of an element in `list` where the `iteratee`
+         * truth test passes, otherwise returns -1.
+         * @param list The list to search for the index of the last element
+         * that passes the truth test.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The index of the last element in `list` where the
+         * truth test passes or -1 if no elements pass.
+         **/
+        findLastIndex<V extends List<any>>(
+            list: V,
+            iteratee?: Iteratee<V, boolean>,
+            context?: any
+        ): number;
 
         /**
          * Uses a binary search to determine the lowest index at which the
@@ -4457,31 +4465,62 @@ declare module _ {
         object(): Dictionary<PairValue<T>>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.indexOf
-        **/
-        indexOf(value: T, isSorted?: boolean): number;
+         * Returns the index at which `value` can be found in the wrapped list,
+         * or -1 if `value` is not present. If you're working with a large list
+         * and you know that the list is already sorted, pass true for
+         * `isSortedOrFromIndex` to use a faster binary search...or, pass a
+         * number in order to look for the first matching value in the list
+         * after the given index.
+         * @param value The value to search for within the wrapped list.
+         * @param isSortedOrFromIndex True if the wrapped list is already
+         * sorted OR the starting index for the search, optional.
+         * @returns The index of the first occurrence of `value` within the
+         * wrapped list or -1 if `value` is not found.
+         **/
+        indexOf(
+            value: T,
+            isSortedOrFromIndex?: boolean | number
+        ): number;
 
         /**
-        * @see _.indexOf
-        **/
-        indexOf(value: T, startFrom: number): number;
+         * Returns the index of the last occurrence of `value` in the wrapped
+         * list, or -1 if `value` is not present. Pass `fromIndex` to start
+         * your search at a given index.
+         * @param value The value to search for within the wrapped list.
+         * @param fromIndex The starting index for the search, optional.
+         * @returns The index of the last occurrence of `value` within the
+         * wrapped list or -1 if `value` is not found.
+         **/
+        lastIndexOf(
+            value: T,
+            fromIndex?: number
+        ): number;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.lastIndexOf
-        **/
-        lastIndexOf(value: T, from?: number): number;
+         * Returns the first index of an element in the wrapped list where the
+         * `iteratee` truth test passes, otherwise returns -1.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The index of the first element in the wrapped list where
+         * the truth test passes or -1 if no elements pass.
+         **/
+        findIndex(
+            iteratee?: Iteratee<V, boolean>,
+            context?: any
+        ): number;
 
         /**
-        * @see _.findIndex
-        **/
-        findIndex(predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
-
-        /**
-        * @see _.findLastIndex
-        **/
-        findLastIndex(predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
+         * Returns the last index of an element in the wrapped list where the
+         * `iteratee` truth test passes, otherwise returns -1.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns The index of the last element in the wrapped list where the
+         * truth test passes or -1 if no elements pass.
+         **/
+        findLastIndex(
+            iteratee?: Iteratee<V, boolean>,
+            context?: any
+        ): number;
 
         /**
          * Uses a binary search to determine the lowest index at which the
@@ -5535,31 +5574,63 @@ declare module _ {
         object(): _Chain<PairValue<T>, Dictionary<PairValue<T>>>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.indexOf
-        **/
-        indexOf(value: T, isSorted?: boolean): _ChainSingle<number>;
+         * Returns the index at which `value` can be found in the wrapped list,
+         * or -1 if `value` is not present. If you're working with a large list
+         * and you know that the list is already sorted, pass true for
+         * `isSortedOrFromIndex` to use a faster binary search...or, pass a
+         * number in order to look for the first matching value in the list
+         * after the given index.
+         * @param value The value to search for within the wrapped list.
+         * @param isSortedOrFromIndex True if the wrapped list is already
+         * sorted OR the starting index for the search, optional.
+         * @returns A chain wrapper around the index of the first occurrence of
+         * `value` within the wrapped list or -1 if `value` is not found.
+         **/
+        indexOf(
+            value: T,
+            isSortedOrFromIndex?: boolean | number
+        ): _ChainSingle<number>;
 
         /**
-        * @see _.indexOf
-        **/
-        indexOf(value: T, startFrom: number): _ChainSingle<number>;
+         * Returns the index of the last occurrence of `value` in the wrapped
+         * list, or -1 if `value` is not present. Pass `fromIndex` to start
+         * your search at a given index.
+         * @param value The value to search for within the wrapped list.
+         * @param fromIndex The starting index for the search, optional.
+         * @returns A chain wrapper around the index of the last occurrence of
+         * `value` within the wrapped list or -1 if `value` is not found.
+         **/
+        lastIndexOf(
+            value: T,
+            fromIndex?: number
+        ): _ChainSingle<number>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.lastIndexOf
-        **/
-        lastIndexOf(value: T, from?: number): _ChainSingle<number>;
+         * Returns the first index of an element in the wrapped list where the
+         * `iteratee` truth test passes, otherwise returns -1.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A chain wrapper around the index of the first element in
+         * the wrapped list where the truth test passes or -1 if no elements
+         * pass.
+         **/
+        findIndex(
+            iteratee?: Iteratee<V, boolean>,
+            context?: any
+        ): _ChainSingle<number>;
 
         /**
-        * @see _.findIndex
-        **/
-        findIndex(predicate: _.ListIterator<T, boolean> | {}, context?: any): _ChainSingle<number>;
-
-        /**
-        * @see _.findLastIndex
-        **/
-        findLastIndex(predicate: _.ListIterator<T, boolean> | {}, context?: any): _ChainSingle<number>;
+         * Returns the last index of an element in the wrapped list where the
+         * `iteratee` truth test passes, otherwise returns -1.
+         * @param iteratee The truth test to apply.
+         * @param context `this` object in `iteratee`, optional.
+         * @returns A chain wrapper around the index of the last element in the
+         * wrapped list where the truth test passes or -1 if no elements pass.
+         **/
+        findLastIndex(
+            iteratee?: Iteratee<V, boolean>,
+            context?: any
+        ): _ChainSingle<number>;
 
         /**
          * Uses a binary search to determine the lowest index at which the
