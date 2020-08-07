@@ -1,3 +1,9 @@
+// Project: https://miniprogram.alipay.com/docs/miniprogram/mpdev/quick-start_overview
+// Definitions by: RockSandy <https://github.com/rockSandy>
+//                 
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+
 interface AsyncCallbackFailObject {
     errCode: string;
     errorMessage: string;
