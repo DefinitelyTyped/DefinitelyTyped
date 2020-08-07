@@ -39,7 +39,7 @@ declare namespace rosie {
      * @param {object=} options
      * @return {Array.<*>}
      */
-    buildList(name: string, size: number, attributes?: any, options?: any): any[];
+    buildList<T>(name: string, size: number, attributes?: { [k in keyof T]?: T[k] | boolean }, options?: any): T[];
 
     /**
      * Locates a factory by name and calls #attributes on it.
