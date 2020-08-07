@@ -5,15 +5,15 @@
 // TypeScript Version: 2.4
 
 export enum Direction {
-    North = 'N',
-    South = 'S',
-    East = 'E',
-    West = 'W',
+    NORTH = 'N',
+    SOUTH = 'S',
+    EAST = 'E',
+    WEST = 'W',
 }
 
 export enum ElevationType {
-    floor = 'floor',
-    heightincm = 'heightincm',
+    FLOOR = 'floor',
+    HEIGHT_IN_CM = 'heightincm',
 }
 
 export interface Neighbours {
@@ -27,6 +27,11 @@ export interface Neighbours {
     nw: string;
 }
 
+export interface Point {
+    lat: number;
+    lon: number;
+}
+
 export interface Bounds {
     sw: Point;
     ne: Point;
@@ -34,9 +39,7 @@ export interface Bounds {
     elevationType: ElevationType;
 }
 
-export interface Point {
-    lat: number;
-    lon: number;
+export interface PointWithElevation extends Point {
     elevation: number;
     elevationType: ElevationType;
     bounds: Bounds;
@@ -54,8 +57,8 @@ export interface LocationIdWithElevation {
 }
 
 /**
- * Encodes latitude/longitude to locationId, either to specified precision or to automatically
- * evaluated precision.
+ * Encodes latitude/longitude coordinates to locationId, either to specified precision or
+ * to default precision. Elevation information can be optionally specified in options parameter.
  *
  * @param   lat - Latitude in degrees.
  * @param   lon - Longitude in degrees.
@@ -69,7 +72,7 @@ export interface LocationIdWithElevation {
  *     var locationId = LocationId.encode(52.205, 0.119, 7, { elevation: 9, elevationType: 'floor'}); // => 'u120fxw@9'
  */
 
-export function encode(latitude: number, longitude: number, precision?: number, options?: EncodeOptions): string;
+export function encode(lat: number, lon: number, precision?: number, options?: EncodeOptions): string;
 
 /**
  * Decode locationId to latitude/longitude and elevation (location is approximate centre of locationId cell,
@@ -84,10 +87,10 @@ export function encode(latitude: number, longitude: number, precision?: number, 
  *     var latlon = LocationId.decode('u120fxw@3'); // => { lat: 52.205, lon: 0.1188, elevation: 3, elevationType: floor, bounds: {...}}
  *     var latlon = LocationId.decode('u120fxw#87'); // => { lat: 52.205, lon: 0.1188, elevation: 87, elevationType: heightincm, bounds: {...}}
  */
-export function decode(locationId: string): Point;
+export function decode(locationId: string): PointWithElevation;
 
 /**
- * Returns SW/NE latitude/longitude bounds of specified locationId.
+ * Returns SW/NE latitude/longitude bounds of specified locationId cell.
  *
  * @param   locationId - Cell that bounds are required of.
  * @returns Bounds
@@ -103,7 +106,7 @@ export function bounds(locationId: string): Bounds;
  * @returns LocationId of adjacent cell.
  * @throws  Invalid locationId.
  */
-export function adjacent(locationId: string, direction: Direction | string): string;
+export function adjacent(locationId: string, direction: Direction): string;
 
 /**
  * Returns all 8 adjacent cells to specified locationId.
@@ -141,7 +144,9 @@ export function appendElevation(
 ): string;
 
 /**
- * Returns grid lines for specified SW/NE latitude/longitude bounds and precision.
+ * Returns the vertical and horizontal lines that can be used to draw a UNL grid in the specified
+ * SW/NE latitude/longitude bounds and precision. Each line is represented by an array of two
+ * coordinates in the format: [[startLon, startLat], [endLon, endLat]].
  *
  * @param   bounds - The bound whithin to return the grid lines.
  * @param   [precision] - Number of characters to consider for the locationId of a grid cell. Default value is 9.
