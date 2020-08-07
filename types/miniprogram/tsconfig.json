@@ -18,6 +18,6 @@
   },
   "files": [
       "index.d.ts",
-      "miniprogram-global.test.ts"
+      "miniprogram-tests.ts"
   ]
 }
