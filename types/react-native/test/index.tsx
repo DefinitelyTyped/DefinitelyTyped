@@ -445,6 +445,7 @@ let appState: AppStateStatus = 'active';
 appState = 'background';
 appState = 'inactive';
 appState = 'unknown';
+appState = 'extension';
 
 // ViewPagerAndroid
 export class ViewPagerAndroidTest {
