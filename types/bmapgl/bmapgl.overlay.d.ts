@@ -323,7 +323,7 @@ declare namespace BMapGL {
         anchor?: Size;
         imageOffset?: Size;
         imageSize?: Size;
-        srcset?: Object;
+        srcset?: object;
         infoWindowAnchor?: Size;
         printImageUrl?: string;
     }
