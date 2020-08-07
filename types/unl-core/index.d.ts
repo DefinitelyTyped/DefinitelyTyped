@@ -57,8 +57,8 @@ export interface LocationIdWithElevation {
 }
 
 /**
- * Encodes latitude/longitude to locationId, either to specified precision or to automatically
- * evaluated precision.
+ * Encodes latitude/longitude coordinates to locationId, either to specified precision or
+ * to default precision. Elevation information can be optionally specified in options parameter.
  *
  * @param   lat - Latitude in degrees.
  * @param   lon - Longitude in degrees.
@@ -90,7 +90,7 @@ export function encode(lat: number, lon: number, precision?: number, options?: E
 export function decode(locationId: string): PointWithElevation;
 
 /**
- * Returns SW/NE latitude/longitude bounds of specified locationId.
+ * Returns SW/NE latitude/longitude bounds of specified locationId cell.
  *
  * @param   locationId - Cell that bounds are required of.
  * @returns Bounds
@@ -144,7 +144,9 @@ export function appendElevation(
 ): string;
 
 /**
- * Returns grid lines for specified SW/NE latitude/longitude bounds and precision.
+ * Returns the vertical and horizontal lines that can be used to draw a UNL grid in the specified
+ * SW/NE latitude/longitude bounds and precision. Each line is represented by an array of two
+ * coordinates in the format: [[startLon, startLat], [endLon, endLat]].
  *
  * @param   bounds - The bound whithin to return the grid lines.
  * @param   [precision] - Number of characters to consider for the locationId of a grid cell. Default value is 9.
