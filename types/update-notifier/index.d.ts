@@ -6,6 +6,7 @@
 //                 Michael Grinich <https://github.com/grinich>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.2
 
 import boxen = require('boxen');
 import ConfigStore = require('configstore');
