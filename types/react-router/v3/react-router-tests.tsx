@@ -172,15 +172,15 @@ const CreateForm: React.FC<WithRouterProps> = ({ router }) => {
 
     React.useEffect(() => {
         const unbind = router.setRouteLeaveHook('/create', () => {
-            if(dirty) return 'Are you sure?';
-        })
+            if (dirty) return 'Are you sure?';
+        });
         return () => {
             unbind();
-        }
+        };
     }, [router, dirty]);
 
-    return <form></form>
-}
+    return <form></form>;
+};
 
 ReactDOM.render((
     <Router history={hashHistory}>
