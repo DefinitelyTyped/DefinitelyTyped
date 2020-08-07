@@ -82,8 +82,8 @@ interface NavigateBackArgs extends AsyncCallback<void> {
 interface RedirectToArgs extends AsyncCallback<void> {
     /**
      * The application for the jumping does not include the destination
-     *  page path of the tabBar. The path can be followed by parameters.
-     *  Rules for the parameters: The path and parameter are separated
+     * page path of the tabBar. The path can be followed by parameters.
+     * Rules for the parameters: The path and parameter are separated
      * with ?, the parameter key and the parameter value are connected
      * with =, and different parameters must be separated with &, such
      * as path?key1=value1&key2=value2.
@@ -323,7 +323,7 @@ interface Animation {
     scaleY: (sy: number) => Animation;
 
     /**
-     * 	Scale sz times on Z axis.
+     * Scale sz times on Z axis.
      */
     scaleZ: (sz: number) => Animation;
 
@@ -334,8 +334,8 @@ interface Animation {
 
     /**
      * When there is only one parameter, it indicates translating
-     *  by tx on X axis. When there are two parameters, it indicates
-     *  translating by tx on X axis and ty on Y axis.
+     * by tx on X axis. When there are two parameters, it indicates
+     * translating by tx on X axis and ty on Y axis.
      */
     translate: (tx: number, ty?: number) => Animation;
 
