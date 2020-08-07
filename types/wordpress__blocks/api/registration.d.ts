@@ -1,4 +1,4 @@
-import { Block, BlockConfiguration, BlockInstance, BlockStyle, BlockSupports } from '../';
+import { Block, BlockConfiguration, BlockIcon, BlockInstance, BlockStyle, BlockSupports } from '../';
 
 /**
  * Returns the block support value for a feature, if defined.
@@ -89,6 +89,18 @@ export function hasChildBlocksWithInserterSupport(blockName: string): boolean;
  * @param blockOrType - Block or Block Type to test.
  */
 export function isReusableBlock(blockOrType: Block<any> | BlockInstance): boolean;
+
+/**
+ * Registers a new block collection to group blocks in the same namespace in the inserter.
+ *
+ * @param namespace - The namespace to group blocks by in the inserter;
+ *                    corresponds to the block namespace.
+ * @param settings The block collection settings.
+ */
+export function registerBlockCollection(
+    namespace: string,
+    settings: {title: string, icon?: BlockIcon}
+): void;
 
 /**
  * Registers a new block style variation for the given block.
