@@ -56,6 +56,8 @@ declare namespace BMapGL {
         getDraggingCursor(): string;
         setMinZoom(zoom: number): void;
         setMaxZoom(zoom: number): void;
+        setHeading(zoom: number): void;
+        setTilt(zoom: number): void;
         setMapStyle(mapStyle: MapStyle): void;
         setMapStyleV2(style: MapStyleV2): void;
         setPanorama(pano: Panorama): void;
