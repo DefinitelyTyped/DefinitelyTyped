@@ -1,5 +1,7 @@
 import * as React from 'react';
 import {
+    AddDocument,
+    Backpack,
     Airplane,
     ClientFinancing_01,
     GlobalMarkets,
@@ -13,3 +15,5 @@ import {
 <GlobalMarkets />; // $ExpectType Element
 <SolarField />; // $ExpectType Element
 <SystemsDevopsAnalyze />; // $ExpectType Element
+<AddDocument />; // $ExpectType Element
+<Backpack />; // $ExpectType Element

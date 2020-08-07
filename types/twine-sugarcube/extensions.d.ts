@@ -290,7 +290,7 @@ declare global {
         clamp(min: number, max: number): number;
     }
 
-    interface JQueryAreaClickOptions {
+    interface JQueryAriaClickOptions {
         /**
          * A period-separated list of event namespaces.
          */
@@ -321,6 +321,17 @@ declare global {
          * Value for the aria-label and title attributes.
          */
         label?: string;
+    }
+
+    interface RegExpConstructor {
+        /**
+         * Returns the given string with all regular expression metacharacters escaped. Does not modify the original.
+         * @param text The string to escape.
+         * @since 2.0.0
+         * @example
+         * RegExp.escape('That will be $5 (cash only)') // Returns 'That will be \$5 \(cash only\)'
+         */
+        escape(text: string): string;
     }
 
     interface String {
@@ -428,7 +439,7 @@ declare global {
          *         })
          * .appendTo(output);
          */
-        ariaClick(options: JQueryAreaClickOptions, handler: (event: JQuery.Event) => void): this;
+        ariaClick(options: JQueryAriaClickOptions, handler: (event: JQuery.Event) => void): this;
         /**
          * Changes the disabled state of the target WAI-ARIA-compatible clickable element(s). Returns a reference to the current
          * jQuery object for chaining.
@@ -458,8 +469,28 @@ declare global {
          */
         ariaIsDisabled(): boolean;
 
-        wikiWithOptions(options: any, ...sources: string[]): this;
+        /**
+         * Wikifies the given content source(s) and appends the result to the target element(s). Returns a reference to the
+         * current jQuery object for chaining.
+         * @param sources The list of content sources.
+         * @since 2.0.0
+         * @example
+         * // Given an element: <div id="the-box"></div>
+         * $('#the-box').wiki('Who //are// you?'); // Appends "Who <em>are</em> you?" to the target element
+         */
         wiki(...sources: string[]): this;
+    }
+
+    interface JQueryStatic {
+        /**
+         * Wikifies the given content source(s) and discards the result. If there were errors, an exception is thrown. This is only
+         * really useful when you want to invoke a macro for its side-effects and aren't interested in its output.
+         * @param sources The list of content sources.
+         * @since 2.17.0
+         * @example
+         * $.wiki('<<somemacro>>'); // Invokes the <<somemacro>> macro, discarding any output
+         */
+        wiki(...sources: string[]): void;
     }
 }
 

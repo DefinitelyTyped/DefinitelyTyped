@@ -639,7 +639,9 @@ type KeyOfUndefined<T> = {
 type PreserveNull<T> = T extends null ? null : never;
 type PreserveUndefined<T> = T extends undefined ? undefined : never;
 type PreserveOptionals<T> = PreserveNull<T> | PreserveUndefined<T>;
-type Id<T> = { [K in keyof T]: T[K] };
+type Id<T> = {
+    [K in keyof T]: T[K] extends object ? InnerInferType<T[K]> : T[K];
+};
 type RequiredProps<T> = Pick<T, Exclude<keyof T, KeyOfUndefined<T>>>;
 type NotRequiredProps<T> = Partial<Pick<T, KeyOfUndefined<T>>>;
 type InnerInferType<T> =

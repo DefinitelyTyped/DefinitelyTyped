@@ -71,23 +71,6 @@ type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
         : 'fallback'
 ];
 
-interface NodeRequire {
-    /**
-     * Returns the actual module instead of a mock, bypassing all checks on
-     * whether the module should receive a mock implementation or not.
-     *
-     * @deprecated Use `jest.requireActual` instead.
-     */
-    requireActual(moduleName: string): any;
-    /**
-     * Returns a mock module instead of the actual module, bypassing all checks
-     * on whether the module should be required normally or not.
-     *
-     * @deprecated Use `jest.requireMock`instead.
-     */
-    requireMock(moduleName: string): any;
-}
-
 declare namespace jest {
     /**
      * Provides a way to add Jasmine-compatible matchers into your Jest context.
@@ -1042,7 +1025,7 @@ declare namespace jest {
         /**
          * Used to test that a function throws a error matching the most recent snapshot when it is called.
          */
-        toThrowErrorMatchingSnapshot(): R;
+        toThrowErrorMatchingSnapshot(snapshotName?: string): R;
         /**
          * Used to test that a function throws a error matching the most recent snapshot when it is called.
          * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.

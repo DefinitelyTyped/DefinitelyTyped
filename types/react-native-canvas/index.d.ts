@@ -131,7 +131,7 @@ export interface CanvasRenderingContext2D {
 export default class Canvas extends React.Component<CanvasProps> {
     width: number;
     height: number;
-    toDataURL: () => string;
+    toDataURL: () => Promise<string>;
     getContext: (context: string) => CanvasRenderingContext2D;
 }
 

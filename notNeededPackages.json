@@ -4183,6 +4183,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-overlays",
+            "typingsPackageName": "react-overlays",
+            "sourceRepoURL": "https://github.com/react-bootstrap/react-overlays",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "react-owl-carousel",
             "typingsPackageName": "react-owl-carousel",
             "sourceRepoURL": "https://github.com/seal789ie/react-owl-carousel",
@@ -4247,6 +4253,12 @@
             "typingsPackageName": "react-tooltip",
             "sourceRepoURL": "https://github.com/wwayne/react-tooltip",
             "asOfVersion": "4.2.4"
+        },
+        {
+            "libraryName": "react-visibility-sensor",
+            "typingsPackageName": "react-visibility-sensor",
+            "sourceRepoURL": "https://github.com/joshwnj/react-visibility-sensor",
+            "asOfVersion": "5.1.0"
         },
         {
             "libraryName": "react-webcam",

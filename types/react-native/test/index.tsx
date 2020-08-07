@@ -104,6 +104,7 @@ import {
     ListRenderItemInfo,
     LogBox,
     ColorValue,
+    TextLayoutEventData,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -859,6 +860,38 @@ class TextInputTest extends React.Component<{}, { username: string }> {
 
                 <TextInput contextMenuHidden={true} textAlignVertical="top" />
             </View>
+        );
+    }
+}
+
+class TextTest extends React.Component {
+    handleOnTextLayout = (e: NativeSyntheticEvent<TextLayoutEventData>) => {
+        testNativeSyntheticEvent(e);
+
+        e.nativeEvent.lines.forEach(line => {
+            const ascender = line.ascender; // $ExpectType number
+            const capHeight = line.capHeight; // $ExpectType number
+            const descender = line.descender; // $ExpectType number
+            const height = line.height; // $ExpectType number
+            const text = line.text; // $ExpectType string
+            const width = line.width; // $ExpectType number
+            const x = line.x; // $ExpectType number
+            const xHeight = line.xHeight; // $ExpectType number
+            const y = line.y; // $ExpectType number
+        });
+    };
+
+    render() {
+        return (
+            <Text
+                allowFontScaling={false}
+                ellipsizeMode="head"
+                lineBreakMode="clip"
+                numberOfLines={2}
+                onTextLayout={this.handleOnTextLayout}
+            >
+                Test text
+            </Text>
         );
     }
 }

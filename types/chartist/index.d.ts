@@ -1,6 +1,6 @@
-// Type definitions for Chartist v0.9.81
+// Type definitions for Chartist v0.11.4
 // Project: https://github.com/gionkunz/chartist-js
-// Definitions by: Matt Gibbs <https://github.com/mtgibbs>, Simon Pfeifer <https://github.com/psimonski>, Anastasiia Antonova <https://github.com/affilnost>, Sunny Juneja <https://github.com/sunnyrjuneja>, Sam Raudabaugh <https://github.com/raudabaugh>, Manuel Borrajo <https://github.com/borrajo>
+// Definitions by: Matt Gibbs <https://github.com/mtgibbs>, Simon Pfeifer <https://github.com/psimonski>, Anastasiia Antonova <https://github.com/affilnost>, Sunny Juneja <https://github.com/sunnyrjuneja>, Sam Raudabaugh <https://github.com/raudabaugh>, Manuel Borrajo <https://github.com/borrajo>, Alexander Goooseman <https://github.com/goooseman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Chartist {
@@ -257,6 +257,92 @@ declare namespace Chartist {
         bottom?: number;
         left?: number;
     }
+
+    interface IChartRect {
+        height: () => void;
+        width: () => void;
+        padding: IChartPadding;
+        x1: number;
+        x2: number;
+        y1: number;
+        y2: number;
+    }
+
+    interface IChartUnits {
+        dir: "vertical" | "horizontal";
+        len: "height" | "width";
+        pos: "x" | "y";
+        rectEnd: string;
+        rectOffset: string;
+        rectStart: string;
+    }
+
+    interface IChartAxis {
+        axisLength: number;
+        chartRect: IChartRect;
+        counterUnits: IChartUnits;
+        divisor: number;
+        gridOffset: number;
+        options: unknown;
+        range: {
+            min: number;
+            max: number;
+        };
+        stepLength: number;
+        ticks: number[];
+        units: IChartUnits;
+    }
+
+    interface IChartDrawLabelData {
+        type: "label";
+        axis: IChartAxis;
+        element: IChartistSvg;
+        group: IChartistSvg;
+        height: number;
+        index: number;
+        text: number;
+        width: number;
+        x: number;
+        y: number;
+    }
+
+    interface IChartDrawGridData {
+        type: "grid";
+        axis: IChartAxis;
+        element: IChartistSvg;
+        group: IChartistSvg;
+        index: number;
+        x1: number;
+        x2: number;
+        y1: number;
+        y2: number;
+    }
+
+    interface IChartDrawBarData {
+        type: "bar";
+        axisX: IChartAxis;
+        axisY: IChartAxis;
+        chartRect: IChartRect;
+        element: IChartistSvg;
+        group: IChartistSvg;
+        index: number;
+        meta: unknown;
+        series: number[];
+        seriesIndex: number;
+        value: {
+          x?: number;
+          y?: number;
+        };
+        x1: number;
+        x2: number;
+        y1: number;
+        y2: number;
+    }
+
+    type ChartDrawData =
+        | IChartDrawLabelData
+        | IChartDrawGridData
+        | IChartDrawBarData;
 
     interface IPieChartClasses {
         chartPie?: string;

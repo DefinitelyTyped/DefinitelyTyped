@@ -85,7 +85,7 @@ export interface ReactDatePickerProps {
     onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
     onCalendarClose?(): void;
     onCalendarOpen?(): void;
-    onChange(date: Date | null, event: React.SyntheticEvent<any> | undefined): void;
+    onChange(date: Date | [Date, Date] /* for selectsRange */ | null, event: React.SyntheticEvent<any> | undefined): void;
     onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
     onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void;
     onDayMouseEnter?: (date: Date) => void;

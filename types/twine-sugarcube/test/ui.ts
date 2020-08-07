@@ -14,8 +14,9 @@ let b = false;
 const e: HTMLElement = document.getElementById("") as HTMLElement;
 let n = 123;
 
-Dialog.append("str");
-Dialog.append(["str"]);
+Dialog.append("");
+Dialog.append(new DocumentFragment(), "");
+Dialog.append(document.createTextNode(""), "");
 
 Dialog.body(); // $ExpectType HTMLElement
 
