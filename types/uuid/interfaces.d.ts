@@ -48,3 +48,5 @@ export interface v5Static {
     URL: string;
 }
 export type v5 = v5Buffer & v5String & v5Static;
+
+export type validate = (uuid: string) => boolean;

@@ -16,6 +16,8 @@ declare class WeakRef<T> {}
 declare function weak<T extends object>(object: T, callback?: () => void): WeakRef<T>;
 
 declare namespace weak {
+    // export alias
+    const create: typeof weak;
     /**
      * Returns the actual reference to the Object that this weak reference was created with. If this is called with a dead reference, undefined is returned.
      * @param ref weak reference object

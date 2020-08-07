@@ -3413,7 +3413,7 @@ declare module "mongoose" {
 
      /**
      * Issue a mongodb findOneAndDelete command by a document's _id field.
-     * findByIdAndDelete(id, ...) is equivalent to findByIdAndDelete({ _id: id }, ...).
+     * findByIdAndDelete(id, ...) is equivalent to findOneAndDelete({ _id: id }, ...).
      * Finds a matching document, removes it, passing the found document (if any) to the callback.
      * Executes immediately if callback is passed, else a Query object is returned.
      *

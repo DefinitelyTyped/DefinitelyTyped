@@ -1999,7 +1999,7 @@ declare namespace _ {
     type LodashIsSafeInteger = (value: any) => boolean;
     type LodashIsSet = (value: any) => value is Set<any>;
     type LodashIsString = (value: any) => value is string;
-    type LodashIsSymbol = (value: any) => boolean;
+    type LodashIsSymbol = (value: any) => value is symbol;
     type LodashIsTypedArray = (value: any) => boolean;
     type LodashIsUndefined = (value: any) => value is undefined;
     type LodashIsWeakMap = (value: any) => value is WeakMap<object, any>;

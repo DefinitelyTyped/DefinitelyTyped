@@ -390,9 +390,18 @@ redis
     .get('foo', (err, result) => {
         // result === 'QUEUED'
     })
+    .sscan('set', 0)
+    .sscan('set', '0')
+    .hscan('hash', 0)
+    .hscan('hash', '0')
+    .zscan('zset', 0)
+    .zscan('zset', '0')
     .exec((err, results) => {
         // results = [[null, 'OK'], [null, 'OK'], [null, 'baz']]
     });
+
+redis.multi().options;
+redis.multi().redis;
 
 redis
     .multi([

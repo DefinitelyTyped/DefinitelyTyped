@@ -17,6 +17,7 @@ const test1 = (
         placeholder="Place holder"
         international={true}
         country={'US'}
+        countrySelectProps={{ tabIndex: '-1' }}
     >
         <div>panel 1</div>
         <div>panel 2</div>

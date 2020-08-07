@@ -112,24 +112,6 @@ const _ = webpack({
                     banner: false,
                 },
             }),
-            // warningsFilter
-            new TerserPlugin({
-                warningsFilter: (warning, file, source) => {
-                    if (/Dropping unreachable code/i.test(warning)) {
-                        return true;
-                    }
-
-                    if (/file\.js/i.test(file)) {
-                        return true;
-                    }
-
-                    if (/source\.js/i.test(source!)) {
-                        return true;
-                    }
-
-                    return false;
-                },
-            }),
             // varia
             new TerserPlugin({
                 terserOptions: {

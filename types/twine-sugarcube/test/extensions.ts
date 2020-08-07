@@ -74,4 +74,9 @@ s2 = s.toUpperFirst();
 
 s2 = String.format("{0}, {1}", 1, true);
 
+RegExp.escape(s);
+
+$(s).wiki(s);
+$.wiki(s);
+
 export {};

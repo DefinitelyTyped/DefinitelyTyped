@@ -22,6 +22,10 @@ breaker = new CircuitBreaker(async () => true, {
     allowWarmUp: true,
     volumeThreshold: 1,
     cache: true,
+    errorFilter: (err) => {
+        err; // $ExpectType any
+        return true;
+    }
 });
 
 breaker.name; // $ExpectType string

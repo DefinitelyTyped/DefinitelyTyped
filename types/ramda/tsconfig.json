@@ -242,6 +242,7 @@
         "test/where-tests.ts",
         "test/whereEq-tests.ts",
         "test/without-tests.ts",
+        "test/xor-tests.ts",
         "test/xprod-tests.ts",
         "test/zip-tests.ts",
         "test/zipObj-tests.ts",

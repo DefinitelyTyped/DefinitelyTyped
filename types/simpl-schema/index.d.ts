@@ -141,7 +141,7 @@ interface SimpleSchemaStatic {
   objectKeys(keyPrefix: any): any[];
   validate(obj: any, options?: ValidationOption): void;
   validator(options?: ValidationOption): (obj: any) => boolean;
-  extend(otherSchema: SimpleSchemaStatic): SimpleSchemaStatic;
+  extend(otherSchema: SimpleSchemaStatic | SimpleSchemaDefinition): SimpleSchemaStatic;
   extendOptions(options: string[]): void;
   RegEx: {
       Email: RegExp;
