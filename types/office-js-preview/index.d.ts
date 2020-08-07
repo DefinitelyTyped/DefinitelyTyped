@@ -11596,7 +11596,10 @@ declare namespace Office {
          *
          * If the user is running add-ins that implement the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-on-send-addins?tabs=windows | on-send feature using `ItemSend` in the manifest},
-         * append on send runs before on-send functionality.
+         * append-on-send runs before on-send functionality.
+         *
+         * **Important**: If your add-in implements the on-send feature and calls `appendOnSendAsync` in the `ItemSend` handler,
+         * an error is returned as this scenario is not supported.
          *
          * **Important**: To use `appendOnSendAsync`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node of the manifest.
          *
@@ -11631,7 +11634,10 @@ declare namespace Office {
          *
          * If the user is running add-ins that implement the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-on-send-addins?tabs=windows | on-send feature using `ItemSend` in the manifest},
-         * append on send runs before on-send functionality.
+         * append-on-send runs before on-send functionality.
+         * 
+         * **Important**: If your add-in implements the on-send feature and calls `appendOnSendAsync` in the `ItemSend` handler,
+         * an error is returned as this scenario is not supported.
          *
          * **Important**: To use `appendOnSendAsync`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node of the manifest.
          *
