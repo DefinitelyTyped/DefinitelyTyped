@@ -219,6 +219,20 @@ declare var $: (arg?: any) => JQuery;
     parts.urn === true;
 
     /*
+    Tests for URI.buildQuery()
+    From: https://medialize.github.io/URI.js/docs.html#static-buildQuery
+    */
+    const buildQueryData = {
+      foo: 'bar',
+      hello: ['world', 'mars', 'mars'],
+      bam: '',
+      yup: null,
+      removed: undefined,
+    };
+    test(URI.buildQuery(buildQueryData), 'foo=bar&hello=world&hello=mars&bam=&yup');
+    test(URI.buildQuery(buildQueryData, true), 'foo=bar&hello=world&hello=mars&hello=mars&bam=&yup');
+
+    /*
     Tests for URI.search(), URI.query()
     From: https://medialize.github.io/URI.js/docs.html#accessors-search
     */
