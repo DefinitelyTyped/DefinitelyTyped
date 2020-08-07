@@ -79,7 +79,7 @@ declare const URI: {
             port?: string;
         },
     ): string;
-    parseQuery(url: string): object;
+    parseQuery(url: string): URI.QueryDataMap;
     parseUserinfo(
         url: string,
         parts: {
@@ -117,7 +117,9 @@ declare namespace URI {
         preventInvalidHostname: boolean;
     }
 
-    interface QueryDataMap { [key: string]: string | string[]; }
+    interface QueryDataMap {
+        [key: string]: string | null | Array<string | null>;
+    }
 }
 
 interface URI {
@@ -210,7 +212,7 @@ interface URI {
 
     query(): string;
     query(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap)): URI;
-    query(qry: boolean): object;
+    query(qry: boolean): URI.QueryDataMap;
 
     readable(): string;
     relativeTo(path: string): URI;
@@ -227,7 +229,7 @@ interface URI {
     scheme(protocol: string): URI;
     search(): string;
     search(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap)): URI;
-    search(qry: boolean): any;
+    search(qry: boolean): URI.QueryDataMap;
     segment(): string[];
     segment(segments: string[] | string): URI;
     segment(position: number): string | undefined;
