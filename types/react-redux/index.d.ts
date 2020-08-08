@@ -573,7 +573,7 @@ export function useSelector<TState = DefaultRootState, TSelected = unknown>(
  *
  * const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
  *
- * @depreciated Use `createSelectorHook<State, Action>()`
+ * @deprecated Use `createSelectorHook<State, Action>()`
  */
 export interface TypedUseSelectorHook<TState> {
     <TSelected>(
