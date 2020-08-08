@@ -170,13 +170,15 @@ function TestAnimatedAPI() {
             <ForwardComp ref={ForwardCompRef} width={1} />
             <AnimatedForwardComp ref={AnimatedForwardCompRef} width={10} />
             <Animated.Image style={position.getTranslateTransform()} source={{ uri: 'https://picsum.photos/200' }} />
-
             <Animated.View
-              testID='expect-type-animated-view'
-              style={{opacity: v1}}
-              onLayout={event => {
-                event; // $ExpectType LayoutChangeEvent
-              }}
+                testID="expect-type-animated-view"
+                style={{ opacity: v1 }}
+                onLayout={event => {
+                    const x = event.nativeEvent.layout.x; // $ExpectType number
+                    const y = event.nativeEvent.layout.y; // $ExpectType number
+                    const width = event.nativeEvent.layout.width; // $ExpectType number
+                    const height = event.nativeEvent.layout.height; // $ExpectType number
+                }}
             />;
 
             <Animated.FlatList

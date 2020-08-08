@@ -847,11 +847,7 @@ export interface LayoutRectangle {
 }
 
 // @see TextProps.onLayout
-export interface LayoutChangeEvent {
-    nativeEvent: {
-        layout: LayoutRectangle;
-    };
-}
+export type LayoutChangeEvent = NativeSyntheticEvent<{ layout: LayoutRectangle }>;
 
 interface TextLayoutLine {
     ascender: number;
@@ -2924,7 +2920,7 @@ export interface ActivityIndicatorIOSProps extends ViewProps {
     /**
      * Invoked on mount and layout changes with
      */
-    onLayout?: (event: { nativeEvent: { layout: { x: number; y: number; width: number; height: number } } }) => void;
+    onLayout?: (event: LayoutChangeEvent) => void;
 
     /**
      * Size of the indicator.
