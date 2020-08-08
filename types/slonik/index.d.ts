@@ -468,13 +468,15 @@ export interface ClientConfigurationInputType extends ClientConfigurationType {}
 // ERRORS
 // ----------------------------------------------------------------------
 export class SlonikError extends Error {}
+export class InvalidConfigurationError extends SlonikError {}
 export class InvalidInputError extends SlonikError {}
 export class UnexpectedStateError extends SlonikError {}
 export class ConnectionError extends SlonikError {}
-export class QueryCancelledError extends SlonikError {
+export class StatementCancelledError extends SlonikError {
     originalError: Error;
     constructor(error: Error);
 }
+export class StatementTimeoutError extends StatementCancelledError {}
 export class BackendTerminatedError extends SlonikError {
     originalError: Error;
     constructor(error: Error);
