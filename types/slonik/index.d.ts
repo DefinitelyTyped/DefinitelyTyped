@@ -141,18 +141,6 @@ export type DatabasePoolType = CommonQueryMethodsType & {
     transaction: <T>(handler: TransactionFunctionType<T>) => Promise<T>;
 };
 
-export type DatabaseConfigurationType =
-    | string
-    | {
-          database?: string;
-          host?: string;
-          idleTimeoutMillis?: number;
-          max?: number;
-          password?: string;
-          port?: number;
-          user?: string;
-      };
-
 export type ConnectionTypeType = 'EXPLICIT' | 'IMPLICIT_QUERY' | 'IMPLICIT_TRANSACTION';
 
 export interface ConnectionContextType {
@@ -341,7 +329,7 @@ export interface PoolContextType {
 }
 
 export function createPool(
-    connectionConfiguration: DatabaseConfigurationType,
+    connectionUri: string,
     clientUserConfiguration?: ClientConfigurationInputType,
 ): DatabasePoolType;
 
