@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "bee-queue": "^1.2.3"
+    }
+}
