@@ -597,6 +597,12 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
         console.log(event);
     };
 
+    scrollView: ScrollView | null = null;
+
+    testNativeMethods() {
+        this.scrollView && this.scrollView.setNativeProps({ scrollEnabled: false });
+    }
+
     render() {
         const scrollViewStyle1 = StyleSheet.create({
             scrollView: {
@@ -616,6 +622,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
 
                     return (
                         <ScrollView
+                            ref={ref => (this.scrollView = ref)}
                             horizontal={true}
                             nestedScrollEnabled={true}
                             invertStickyHeaders={true}
