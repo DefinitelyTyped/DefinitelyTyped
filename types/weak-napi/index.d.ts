@@ -1,4 +1,4 @@
-// Type definitions for weak-napi 1.0
+// Type definitions for weak-napi 2.0
 // Project: https://github.com/node-ffi-napi/weak-napi
 // Definitions by: Hieu Lam <https://github.com/lamhieu-vk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
