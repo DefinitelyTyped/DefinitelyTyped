@@ -1137,13 +1137,21 @@ declare namespace Foxx {
         tests?: string[];
     }
 
+    interface Configuration {
+        [key: string]: any;
+    }
+
+    interface Dependencies {
+        [key: string]: any;
+    }
+
     interface Context {
         argv: any[];
         basePath: string;
         baseUrl: string;
         collectionPrefix: string;
-        configuration: { [key: string]: any };
-        dependencies: { [key: string]: any };
+        configuration: Configuration;
+        dependencies: Dependencies;
         isDevelopment: boolean;
         isProduction: boolean;
         manifest: Manifest;
