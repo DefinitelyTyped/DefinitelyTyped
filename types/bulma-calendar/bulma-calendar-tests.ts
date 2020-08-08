@@ -35,6 +35,7 @@ const calendar = new BulmaCalendar('.selector', {
     maxDate: new Date(),
     disabledDates: [],
     disabledWeekDays: [],
+    highlightedDates: [],
     weekStart: 1,
     startTime: new Date(),
     endTime: new Date(),
@@ -62,7 +63,25 @@ calendar.value('1970-01-01T00:00:00Z').endDate;
 calendar.value().startDate;
 calendar.value().endDate;
 calendar.refresh();
+calendar.toggle();
+calendar.snapshot();
+calendar.render();
+calendar.enableDate(new Date());
+calendar.disableDate(new Date());
+calendar.highlightDate(new Date());
+calendar.unhighlightDate(new Date());
+calendar.enableWeekDay('1');
+calendar.disableWeekDay('0');
 calendar.save();
+
+// @ts-expect-error
+calendar.enableDate('Sunday');
+// @ts-expect-error
+calendar.enableDate(12345);
+// @ts-expect-error
+calendar.enableWeekDay(1);
+// @ts-expect-error
+calendar.enableWeekDay(new Date());
 
 console.log(calendar.id);
 
