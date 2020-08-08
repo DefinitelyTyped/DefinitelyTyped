@@ -1,9 +1,9 @@
-// Type definitions for bulma-calendar 6.0.9
+// Type definitions for bulma-calendar 6.0
 // Project: https://creativebulma.net/product/calendar/demo
 // Definitions by: Remco Haszing <https://github.com/remcohaszing>
 //                 Aaron Ross <https://github.com/superhawk610>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
+// Minimum TypeScript Version: 3.9
 
 declare namespace bulmaCalendar {
     interface Options {
