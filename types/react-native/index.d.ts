@@ -8984,15 +8984,15 @@ export namespace Animated {
 
     type NonAnimatedProps = 'key' | 'ref';
 
-    export type AnimatedProps<T> =
-        | {
-              [key in keyof T]: key extends NonAnimatedProps ? T[key] : WithAnimatedValue<T[key]>;
-          }
-        | (T extends {
-              ref?: React.Ref<infer R>;
-          }
-              ? { ref?: React.Ref<LegacyRef<R>> }
-              : {});
+    type TAugmentRef<T> = T extends React.Ref<infer R> ? React.Ref<R | LegacyRef<R>> : never;
+
+    export type AnimatedProps<T> = {
+        [key in keyof T]: key extends NonAnimatedProps
+            ? key extends 'ref'
+                ? TAugmentRef<T[key]>
+                : T[key]
+            : WithAnimatedValue<T[key]>;
+    };
 
     export interface AnimatedComponent<T extends React.ComponentType<any>>
         extends React.FC<AnimatedProps<React.ComponentPropsWithRef<T>>> {}
