@@ -341,11 +341,7 @@ createTimestampWithTimeZoneTypeParser();
 
     let normalizeIdentifier: IdentifierNormalizerType;
 
-    normalizeIdentifier = (input: string) =>
-        input
-            .split('')
-            .reverse()
-            .join('');
+    normalizeIdentifier = (input: string) => input.split('').reverse().join('');
 
     sql = createSqlTag({
         normalizeIdentifier,
