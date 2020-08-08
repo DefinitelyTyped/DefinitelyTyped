@@ -941,7 +941,7 @@ export class PlayerManager {
      * Combinations are described as summations; for example, Pause+Seek+StreamVolume+Mute == 15.
      */
     setSupportedMediaCommands(supportedMediaCommands: number, broadcastStatus?: boolean): void;
-    
+
     /**
      * Remove commands from receiver supported media commands.
      * @param supportedMediaCommands A bitmask of media commands supported by the application.
@@ -960,7 +960,7 @@ export class PlayerManager {
      * Gets the current receiver supported media commands.
      * Should only be called after calling receiver start, otherwise it returns 0.
      * This reflects the current media status. E.g. during ads playback, SEEK might not be supported.
-     * 
+     *
      * @returns A bitmask of media commands supported by the application.
      */
     getCurrentSupportedMediaCommands(): number;
@@ -969,7 +969,7 @@ export class PlayerManager {
      * Gets receiver supported media commands. Should only be called after calling receiver start, otherwise it returns 0.
      * This is the static supported media commands set by receiver application.
      * It won't be updated based on current media status.
-     * 
+     *
      * @returns A bitmask of media commands supported by the application.
      */
     getSupportedMediaCommands(): number;
