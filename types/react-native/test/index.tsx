@@ -310,10 +310,9 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
     };
 
     testNativeMethods() {
-        // this.setNativeProps({});
-
         const { rootView } = this.refs;
 
+        rootView.setNativeProps({});
         rootView.measure((x: number, y: number, width: number, height: number) => {});
     }
 
