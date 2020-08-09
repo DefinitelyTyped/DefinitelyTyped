@@ -3937,7 +3937,7 @@ declare module _ {
         readonly VERSION: string;
     }
 
-    interface Underscore<T, V = T> {
+    interface Underscore<T, V = T[]> {
 
         /* *************
         * Collections *
