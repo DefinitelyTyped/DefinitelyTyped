@@ -1,6 +1,7 @@
 // Type definitions for mockjs 1.0
 // Project: http://mockjs.com/
 // Definitions by: lavyun <httpS://github.com/lavyun>
+//                 ChenKS12138 <https://github.com/ChenKS12138>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -236,12 +237,19 @@ declare namespace mockjs {
     increment(step?: N): N;
   }
 
+  interface MockjsRandomExtendOption {
+      [randomType:string]: (...args:any) => any
+  }
+
   // Mockjs.Random
   // see https://github.com/nuysoft/Mock/wiki/Mock.Random
   interface MockjsRandom extends MockjsRandomBasic, MockjsRandomDate,
     MockjsRandomImage, MockjsRandomColor, MockjsRandomAddress,
     MockjsRandomHelper, MockjsRandomMiscellaneous, MockjsRandomName,
-    MockjsRandomText, MockjsRandomWeb { }
+    MockjsRandomText, MockjsRandomWeb,MockjsRandomExtendOption {
+        // Random.extend
+        extend(extendOption:MockjsRandomExtendOption):MockjsRandom
+    }
 
   interface MockjsValidRsItem {
     action: S;
