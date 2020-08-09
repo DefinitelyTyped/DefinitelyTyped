@@ -2999,7 +2999,7 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _(anyValue).pick(['a'], ['b']); // $ExpectType Pick<any, "a" | "b">
     extractChainTypes(_.chain(anyValue).pick(['a'], ['b'])); // $ExpectType ChainType<Pick<any, "a" | "b">, any>
 
-    // the generics in the below cases are only required in TS versions below 3.6
+    // the explicit generics in the below cases are only required in TS versions below 3.6
     // constant strings and string arrays - record
     _.pick<MixedTypeRecord, 'a' | 'b' | 'notAKey'>(mixedTypeRecord, 'a', ['b'], 'notAKey'); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
     _(mixedTypeRecord).pick<'a' | 'b' | 'notAKey'>('a', ['b'], 'notAKey'); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
@@ -3068,7 +3068,7 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _(anyValue).omit(['a'], ['b']); // $ExpectType any
     extractChainTypes(_.chain(anyValue).omit(['a'], ['b'])); // $ExpectType ChainType<any, any>
 
-    // the generics in the below cases are only required in TS versions below 3.6
+    // the explicit generics in the below cases are only required in TS versions below 3.6
     // constant strings and string arrays - record
     _.omit<MixedTypeRecord, 'a' | 'b' | 'notAKey'>(mixedTypeRecord, 'a', ['b'], 'notAKey'); // $ExpectType Pick<MixedTypeRecord, "c">
     _(mixedTypeRecord).omit<'a' | 'b' | 'notAKey'>('a', ['b'], 'notAKey'); // $ExpectType Pick<MixedTypeRecord, "c">
