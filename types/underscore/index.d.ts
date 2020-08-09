@@ -3552,7 +3552,7 @@ declare module _ {
          * @param keys The keys to keep on `object`.
          * @returns A copy of `object` with only the `keys` properties.
          **/
-        pick<V extends object, K extends string>(obj: V, ...keys: K[]): _Pick<V, K>;
+        pick<V extends object, K extends string>(object: V, ...keys: K[]): _Pick<V, K>;
 
         /**
          * Return a copy of `object` that is filtered to only have values for
@@ -3563,7 +3563,7 @@ declare module _ {
          * @returns A copy of `object` with only the keys selected by
          * `keysOrIterator`.
          **/
-        pick<V extends object, I extends PickSelector<V>>(obj: V, keysOrIterator: I): _Pick<V, ListItemOrSelf<I>>;
+        pick<V extends object, I extends PickSelector<V>>(object: V, keysOrIterator: I): _Pick<V, ListItemOrSelf<I>>;
 
         /**
          * Return a copy of `object` that is filtered to omit the blacklisted
@@ -3572,7 +3572,7 @@ declare module _ {
          * @param keys The keys to omit from `object`.
          * @returns A copy of `object` without the `keys` properties.
          **/
-        omit<V extends object, K extends string>(obj: V, ...keys: K[]): _Omit<V, K>;
+        omit<V extends object, K extends string>(object: V, ...keys: K[]): _Omit<V, K>;
 
         /**
          * Return a copy of `object` that is filtered to not have values for
@@ -3583,7 +3583,7 @@ declare module _ {
          * @returns A copy of `object` without the keys selected by
          * `keysOrIterator`.
          **/
-        omit<V extends object, I extends PickSelector<V>>(obj: V, keysOrIterator: I): _Omit<V, ListItemOrSelf<I>>;
+        omit<V extends object, I extends PickSelector<V>>(object: V, keysOrIterator: I): _Omit<V, ListItemOrSelf<I>>;
 
         /**
         * Fill in null and undefined properties in object with values from the defaults objects,
@@ -4788,7 +4788,6 @@ declare module _ {
         /**
          * Return a copy of the wrapped object that is filtered to not have
          * values for the keys selected by a truth test.
-         * @param object The object to omit specific keys from.
          * @param keysOrIterator A set of keys or a truth test that selects the
          * keys to omit from the wrapped object.
          * @returns A copy of the wrapped object without the keys selected by
@@ -5922,7 +5921,6 @@ declare module _ {
         /**
          * Return a copy of the wrapped object that is filtered to not have
          * values for the keys selected by a truth test.
-         * @param object The object to omit specific keys from.
          * @param keysOrIterator A set of keys or a truth test that selects the
          * keys to omit from the wrapped object.
          * @returns A chain wrapper around a copy of the wrapped object without
