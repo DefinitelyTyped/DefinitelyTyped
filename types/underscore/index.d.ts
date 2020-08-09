@@ -3544,7 +3544,7 @@ declare module _ {
 
         /**
          * Return a copy of `object` that is filtered to only have values for
-         * the whitelisted keys (or array of keys).
+         * the allowed keys (or array of keys).
          * @param object The object to pick specific keys in.
          * @param keys The keys to keep on `object`.
          * @returns A copy of `object` with only the `keys` properties.
@@ -3563,7 +3563,7 @@ declare module _ {
         pick<V>(object: V, iterator: ObjectIterator<TypeOfDictionary<V, any>, boolean, V>): Partial<V>;
 
         /**
-         * Return a copy of `object` that is filtered to omit the blacklisted
+         * Return a copy of `object` that is filtered to omit the disallowed
          * keys (or array of keys).
          * @param object The object to omit specific keys from.
          * @param keys The keys to omit from `object`.
@@ -4757,7 +4757,7 @@ declare module _ {
 
         /**
          * Return a copy of the wrapped object that is filtered to only have
-         * values for the whitelisted keys (or array of keys).
+         * values for the allowed keys (or array of keys).
          * @param keys The keys to keep on the wrapped object.
          * @returns A copy of the wrapped object with only the `keys`
          * properties.
@@ -4776,7 +4776,7 @@ declare module _ {
 
         /**
          * Return a copy of the wrapped object that is filtered to omit the
-         * blacklisted keys (or array of keys).
+         * disallowed keys (or array of keys).
          * @param keys The keys to omit from the wrapped object.
          * @returns A copy of the wrapped object without the `keys` properties.
          **/
@@ -5889,7 +5889,7 @@ declare module _ {
 
         /**
          * Return a copy of the wrapped object that is filtered to only have
-         * values for the whitelisted keys (or array of keys).
+         * values for the allowed keys (or array of keys).
          * @param keys The keys to keep on the wrapped object.
          * @returns A chain wrapper around a copy of the wrapped object with
          * only the `keys` properties.
@@ -5908,7 +5908,7 @@ declare module _ {
 
         /**
          * Return a copy of the wrapped object that is filtered to omit the
-         * blacklisted keys (or array of keys).
+         * disallowed keys (or array of keys).
          * @param keys The keys to omit from the wrapped object.
          * @returns A chain wrapper around a copy of the wrapped object without
          * the `keys` properties.
