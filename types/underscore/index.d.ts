@@ -85,8 +85,11 @@ declare module _ {
 
     type EnumerableKey = string | number;
 
-    type CollectionKey<V> = V extends List<any> ? number
+    type CollectionKey<V> =
+        V extends never ? any
+        : V extends List<any> ? number
         : V extends Dictionary<any> ? string
+        : V extends undefined ? undefined
         : never;
 
     interface Predicate<T> {
@@ -911,7 +914,7 @@ declare module _ {
         sortedIndex<V extends List<any>>(
             list: V,
             value: TypeOfList<V>,
-            iteratee?: Iteratee<V, any>,
+            iteratee?: Iteratee<V | undefined, any>,
             context?: any
         ): number;
 
@@ -4533,7 +4536,7 @@ declare module _ {
          * @return The index where `value` should be inserted into the wrapped
          * list.
          **/
-        sortedIndex(value: T, iteratee?: Iteratee<V, any>, context?: any): number;
+        sortedIndex(value: T, iteratee?: Iteratee<V | undefined, any>, context?: any): number;
 
         /**
          * A function to create flexibly-numbered lists of integers, handy for
@@ -5643,7 +5646,7 @@ declare module _ {
          * @return A chain wrapper around the index where `value` should be
          * inserted into the wrapped list.
          **/
-        sortedIndex(value: T, iteratee?: Iteratee<V, any>, context?: any): _ChainSingle<number>;
+        sortedIndex(value: T, iteratee?: Iteratee<V | undefined, any>, context?: any): _ChainSingle<number>;
 
         /**
          * A function to create flexibly-numbered lists of integers, handy for

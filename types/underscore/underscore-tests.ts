@@ -650,6 +650,7 @@ declare const recordListArray: _.List<StringRecord>[];
 
 const stringRecordAugmentedListVoidIterator = (value: StringRecord, index: number, list: StringRecordAugmentedList) => { value.a += 'b'; };
 const stringRecordListValueIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => value.a;
+declare const stringRecordOptionalListValueIterator: (value: StringRecord, index?: number, list?: _.List<StringRecord>) => string;
 const stringRecordListBooleanIterator = (value: StringRecord, index: number, list: _.List<StringRecord>) => value.a === 'b';
 const stringRecordPartialBooleanIterator = (value: StringRecord) => value.a === 'b';
 declare const stringRecordListUnionVoidIterator: (element: StringRecord, key: number, list: StringRecord[] | _.List<StringRecord>) => void;
@@ -2824,12 +2825,12 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     extractChainTypes(_.chain(simpleStringList).sortedIndex(simpleString)); // $ExpectType ChainType<number, never>
 
     // function iteratee
-    _.sortedIndex(stringRecordList, stringRecordList[0], stringRecordListValueIterator); // $ExpectType number
-    _.sortedIndex(stringRecordList, stringRecordList[0], stringRecordListValueIterator, context); // $ExpectType number
-    _(stringRecordList).sortedIndex(stringRecordList[0], stringRecordListValueIterator); // $ExpectType number
-    _(stringRecordList).sortedIndex(stringRecordList[0], stringRecordListValueIterator, context); // $ExpectType number
-    extractChainTypes(_.chain(stringRecordList).sortedIndex(stringRecordList[0], stringRecordListValueIterator)); // $ExpectType ChainType<number, never>
-    extractChainTypes(_.chain(stringRecordList).sortedIndex(stringRecordList[0], stringRecordListValueIterator, context)); // $ExpectType ChainType<number, never>
+    _.sortedIndex(stringRecordList, stringRecordList[0], stringRecordOptionalListValueIterator); // $ExpectType number
+    _.sortedIndex(stringRecordList, stringRecordList[0], stringRecordOptionalListValueIterator, context); // $ExpectType number
+    _(stringRecordList).sortedIndex(stringRecordList[0], stringRecordOptionalListValueIterator); // $ExpectType number
+    _(stringRecordList).sortedIndex(stringRecordList[0], stringRecordOptionalListValueIterator, context); // $ExpectType number
+    extractChainTypes(_.chain(stringRecordList).sortedIndex(stringRecordList[0], stringRecordOptionalListValueIterator)); // $ExpectType ChainType<number, never>
+    extractChainTypes(_.chain(stringRecordList).sortedIndex(stringRecordList[0], stringRecordOptionalListValueIterator, context)); // $ExpectType ChainType<number, never>
 
     // partial object iteratee
     _.sortedIndex(stringRecordList, stringRecordList[0], partialStringRecord); // $ExpectType number
