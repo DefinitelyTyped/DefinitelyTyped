@@ -166,12 +166,12 @@ declare module _ {
 
     type Truthy<T> = Exclude<T, AnyFalsy>;
 
-    type _Pick<V, K> =
+    type _Pick<V, K extends string> =
         Extract<K, keyof V> extends never ? Partial<V>
         : Pick<V, Extract<K, keyof V>>;
 
     // switch to Omit when the minimum TS version moves past 3.5
-    type _Omit<V, K> =
+    type _Omit<V, K extends string> =
         V extends never ? any
         : Extract<K, keyof V> extends never ? Partial<V>
         : Pick<V, Exclude<keyof V, K>>;
