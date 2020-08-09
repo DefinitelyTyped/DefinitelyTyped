@@ -412,7 +412,7 @@ declare namespace chroma {
     interface Scale<OutType = Color> {
         (c: string[]): Scale;
 
-        (value: number): OutType;
+        (value: number | null | undefined): OutType;
 
         domain(d?: number[], n?: number, mode?: string): this;
 

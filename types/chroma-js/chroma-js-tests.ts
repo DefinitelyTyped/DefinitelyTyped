@@ -131,6 +131,8 @@ function test_scale() {
     f(0.25);
     f(0.5);
     f(0.75);
+    f(null);
+    f(undefined);
     chroma.scale(['yellow', '008ae5']);
     chroma.scale(['yellow', 'red', 'black']);
     // default domain is [0,1]
