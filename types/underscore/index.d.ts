@@ -166,6 +166,19 @@ declare module _ {
 
     type Truthy<T> = Exclude<T, AnyFalsy>;
 
+    type PickSelector<V> = (keyof V)[] | string[] | ObjectIterator<TypeOfDictionary<V, any>, boolean, V>;
+
+    type _Pick<V, I> =
+        V extends never ? any
+        : Extract<I, keyof V> extends never ? Partial<V>
+        : Pick<V, Extract<I, keyof V>>;
+
+    // switch to Omit when the minimum TS version moves past 3.5
+    type _Omit<V, I> =
+        V extends never ? any
+        : Extract<I, keyof V> extends never ? Partial<V>
+        : Pick<V, Exclude<keyof V, I>>;
+
     type _ChainSingle<V> = _Chain<TypeOfCollection<V>, V>;
 
     interface Cancelable {
@@ -3533,39 +3546,44 @@ declare module _ {
         ): Extract<keyof V, string> | undefined;
 
         /**
-        * Return a copy of the object, filtered to only have values for the whitelisted keys
-        * (or array of valid keys).
-        * @param object Object to strip unwanted key/value pairs.
-        * @keys The key/value pairs to keep on `object`.
-        * @return Copy of `object` with only the `keys` properties.
-        **/
-        pick<T, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K>;
-        pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K>;
-        pick<T, K extends keyof T>(obj: T, predicate: ObjectIterator<T[K], boolean>): Pick<T, K>;
+         * Return a copy of `object` that is filtered to only have values for
+         * the whitelisted keys (or array of keys).
+         * @param object The object to pick specific keys in.
+         * @param keys The keys to keep on `object`.
+         * @returns A copy of `object` with only the `keys` properties.
+         **/
+        pick<V extends object, K extends string>(obj: V, ...keys: K[]): _Pick<V, K>;
 
         /**
-        * Return a copy of the object, filtered to omit the blacklisted keys (or array of keys).
-        * @param object Object to strip unwanted key/value pairs.
-        * @param keys The key/value pairs to remove on `object`.
-        * @return Copy of `object` without the `keys` properties.
-        **/
-        omit(
-            object: any,
-            ...keys: string[]): any;
+         * Return a copy of `object` that is filtered to only have values for
+         * the keys selected by a truth test.
+         * @param object The object to pick specific keys in.
+         * @param keysOrIterator A set of keys or a truth test that selects the
+         * keys to keep on `object`.
+         * @returns A copy of `object` with only the keys selected by
+         * `keysOrIterator`.
+         **/
+        pick<V extends object, I extends PickSelector<V>>(obj: V, keysOrIterator: I): _Pick<V, ListItemOrSelf<I>>;
 
         /**
-        * @see _.omit
-        **/
-        omit(
-            object: any,
-            keys: string[]): any;
+         * Return a copy of `object` that is filtered to omit the blacklisted
+         * keys (or array of keys).
+         * @param object The object to omit specific keys from.
+         * @param keys The keys to omit from `object`.
+         * @returns A copy of `object` without the `keys` properties.
+         **/
+        omit<V extends object, K extends string>(obj: V, ...keys: K[]): _Omit<V, K>;
 
         /**
-        * @see _.omit
-        **/
-        omit(
-            object: any,
-            iteratee: Function): any;
+         * Return a copy of `object` that is filtered to not have values for
+         * the keys selected by a truth test.
+         * @param object The object to omit specific keys from.
+         * @param keysOrIterator A set of keys or a truth test that selects the
+         * keys to omit from `object`.
+         * @returns A copy of `object` without the keys selected by
+         * `keysOrIterator`.
+         **/
+        omit<V extends object, I extends PickSelector<V>>(obj: V, keysOrIterator: I): _Omit<V, ListItemOrSelf<I>>;
 
         /**
         * Fill in null and undefined properties in object with values from the defaults objects,
@@ -4741,20 +4759,42 @@ declare module _ {
         ): Extract<keyof V, string> | undefined;
 
         /**
-        * Wrapped type `object`.
-        * @see _.pick
-        **/
-        pick<K extends keyof V>(...keys: K[]): Pick<V, K>;
-        pick<K extends keyof V>(keys: K[]): Pick<V, K>;
-        pick<K extends keyof V>(predicate: ObjectIterator<V[K], boolean>): Pick<V, K>;
+         * Return a copy of the wrapped object that is filtered to only have
+         * values for the whitelisted keys (or array of keys).
+         * @param keys The keys to keep on the wrapped object.
+         * @returns A copy of the wrapped object with only the `keys`
+         * properties.
+         **/
+        pick<K extends string>(...keys: K[]): _Pick<V, K>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.omit
-        **/
-        omit(...keys: string[]): any;
-        omit(keys: string[]): any;
-        omit(fn: Function): any;
+         * Return a copy of the wrapped object that is filtered to only have
+         * values for the keys selected by a truth test.
+         * @param keysOrIterator A set of keys or a truth test that selects the
+         * keys to keep on the wrapped object.
+         * @returns A copy of the wrapped object with only the keys selected by
+         * `keysOrIterator`.
+         **/
+        pick<I extends PickSelector<V>>(keysOrIterator: I): _Pick<V, ListItemOrSelf<I>>;
+
+        /**
+         * Return a copy of the wrapped object that is filtered to omit the
+         * blacklisted keys (or array of keys).
+         * @param keys The keys to omit from the wrapped object.
+         * @returns A copy of the wrapped object without the `keys` properties.
+         **/
+        omit<K extends string>(...keys: K[]): _Omit<V, K>;
+
+        /**
+         * Return a copy of the wrapped object that is filtered to not have
+         * values for the keys selected by a truth test.
+         * @param object The object to omit specific keys from.
+         * @param keysOrIterator A set of keys or a truth test that selects the
+         * keys to omit from the wrapped object.
+         * @returns A copy of the wrapped object without the keys selected by
+         * `keysOrIterator`.
+         **/
+        omit<I extends PickSelector<V>>(keysOrIterator: I): _Omit<V, ListItemOrSelf<I>>;
 
         /**
         * Wrapped type `object`.
@@ -5852,20 +5892,43 @@ declare module _ {
         ): _ChainSingle<Extract<keyof V, string> | undefined>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.pick
-        **/
-        pick<K extends keyof V>(...keys: K[]): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
-        pick<K extends keyof V>(keys: K[]): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
-        pick<K extends keyof V>(predicate: ObjectIterator<V[K], boolean>): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
+         * Return a copy of the wrapped object that is filtered to only have
+         * values for the whitelisted keys (or array of keys).
+         * @param keys The keys to keep on the wrapped object.
+         * @returns A chain wrapper around a copy of the wrapped object with
+         * only the `keys` properties.
+         **/
+        pick<K extends string>(...keys: K[]): _ChainSingle<_Pick<V, K>>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.omit
-        **/
-        omit(...keys: string[]): _Chain<T>;
-        omit(keys: string[]): _Chain<T>;
-        omit(iteratee: Function): _Chain<T>;
+         * Return a copy of the wrapped object that is filtered to only have
+         * values for the keys selected by a truth test.
+         * @param keysOrIterator A set of keys or a truth test that selects the
+         * keys to keep on the wrapped object.
+         * @returns A chain wrapper around a copy of the wrapped object with
+         * only the keys selected by `keysOrIterator`.
+         **/
+        pick<I extends PickSelector<V>>(keysOrIterator: I): _ChainSingle<_Pick<V, ListItemOrSelf<I>>>;
+
+        /**
+         * Return a copy of the wrapped object that is filtered to omit the
+         * blacklisted keys (or array of keys).
+         * @param keys The keys to omit from the wrapped object.
+         * @returns A chain wrapper around a copy of the wrapped object without
+         * the `keys` properties.
+         **/
+        omit<K extends string>(...keys: K[]): _ChainSingle<_Omit<V, K>>;
+
+        /**
+         * Return a copy of the wrapped object that is filtered to not have
+         * values for the keys selected by a truth test.
+         * @param object The object to omit specific keys from.
+         * @param keysOrIterator A set of keys or a truth test that selects the
+         * keys to omit from the wrapped object.
+         * @returns A chain wrapper around a copy of the wrapped object without
+         * the keys selected by `keysOrIterator`.
+         **/
+        omit<I extends PickSelector<V>>(keysOrIterator: I): _ChainSingle<_Omit<V, ListItemOrSelf<I>>>;
 
         /**
         * Wrapped type `object`.

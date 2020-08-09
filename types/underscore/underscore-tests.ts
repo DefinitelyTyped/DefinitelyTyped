@@ -743,6 +743,7 @@ declare const stringListMemoIterator: (prev: _.Dictionary<number>, value: string
 declare const resultUnionStringListMemoIterator: (prev: string | number, value: string, index: number, str: string) => string | number;
 
 declare const anyCollectionVoidIterator: (element: any, index: string | number, collection: any) => void;
+declare const anyBooleanIterator: (element: any, key: string | number, obj: any) => boolean;
 
 const simpleNumber = 7;
 declare const simpleNumberList: _.List<number>;
@@ -2974,6 +2975,102 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     _.findKey(mixedTypeRecord); // $ExpectType "a" | "b" | "c" | undefined
     _(mixedTypeRecord).findKey(); // $ExpectType "a" | "b" | "c" | undefined
     extractChainTypes(_.chain(mixedTypeRecord).findKey()); // $ExpectType ChainType<"a" | "b" | "c" | undefined, string>
+}
+
+// pick
+{
+    // individual key parameters - record
+    _.pick(mixedTypeRecord, 'a', 'b'); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
+    _(mixedTypeRecord).pick('a', 'b'); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
+    extractChainTypes(_.chain(mixedTypeRecord).pick('a', 'b')); // $ExpectType ChainType<Pick<MixedTypeRecord, "a" | "b">, number | StringRecord>
+
+    // individual key parameters - any
+    _.pick(anyValue, 'a', 'b'); // $ExpectType any
+    _(anyValue).pick('a', 'b'); // $ExpectType any
+    extractChainTypes(_.chain(anyValue).pick('a', 'b')); // $ExpectType ChainType<any, any>
+
+    // key array - record
+    _.pick(mixedTypeRecord, ['a', 'b']); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
+    _(mixedTypeRecord).pick(['a', 'b']); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
+    extractChainTypes(_.chain(mixedTypeRecord).pick(['a', 'b'])); // $ExpectType ChainType<Pick<MixedTypeRecord, "a" | "b">, number | StringRecord>
+
+    // key array - any
+    _.pick(anyValue, ['a', 'b']); // $ExpectType any
+    _(anyValue).pick(['a', 'b']); // $ExpectType any
+    extractChainTypes(_.chain(anyValue).pick(['a', 'b'])); // $ExpectType ChainType<any, any>
+
+    // string list - record
+    _.pick(mixedTypeRecord, simpleStringArray); // $ExpectType Partial<MixedTypeRecord>
+    _(mixedTypeRecord).pick(simpleStringArray); // $ExpectType Partial<MixedTypeRecord>
+    extractChainTypes(_.chain(mixedTypeRecord).pick(simpleStringArray)); // $ExpectType ChainType<Partial<MixedTypeRecord>, number | StringRecord | NonIntersectingStringRecord | undefined>
+
+    // string array - any
+    _.pick(anyValue, simpleStringArray); // $ExpectType any
+    _(anyValue).pick(simpleStringArray); // $ExpectType any
+    extractChainTypes(_.chain(anyValue).pick(simpleStringArray)); // $ExpectType ChainType<any, any>
+
+    // function iteratee - record
+    _.pick(mixedTypeRecord, mixedTypeRecordBooleanIterator); // $ExpectType Partial<MixedTypeRecord>
+    _(mixedTypeRecord).pick(mixedTypeRecordBooleanIterator); // $ExpectType Partial<MixedTypeRecord>
+    extractChainTypes(_.chain(mixedTypeRecord).pick(mixedTypeRecordBooleanIterator)); // $ExpectType ChainType<Partial<MixedTypeRecord>, number | StringRecord | NonIntersectingStringRecord | undefined>
+
+    // function iteratee - dictionary
+    _.pick(stringRecordDictionary, stringRecordDictionaryBooleanIterator); // $ExpectType Partial<Dictionary<StringRecord>>
+    _(stringRecordDictionary).pick(stringRecordDictionaryBooleanIterator); // $ExpectType Partial<Dictionary<StringRecord>>
+    extractChainTypes(_.chain(stringRecordDictionary).pick(stringRecordDictionaryBooleanIterator)); // $ExpectType ChainType<Partial<Dictionary<StringRecord>>, StringRecordOrUndefined>
+
+    // function iteratee - any
+    _.pick(anyValue, anyBooleanIterator); // $ExpectType any
+    _(anyValue).pick(anyBooleanIterator); // $ExpectType any
+    extractChainTypes(_.chain(anyValue).pick(anyBooleanIterator)); // $ExpectType ChainType<any, any>
+}
+
+// omit
+{
+    // individual key parameters - record
+    _.omit(mixedTypeRecord, 'a', 'b'); // $ExpectType Pick<MixedTypeRecord, "c">
+    _(mixedTypeRecord).omit('a', 'b'); // $ExpectType Pick<MixedTypeRecord, "c">
+    extractChainTypes(_.chain(mixedTypeRecord).omit('a', 'b')); // $ExpectType ChainType<Pick<MixedTypeRecord, "c">, NonIntersectingProperties>
+
+    // individual key parameters - any
+    _.omit(anyValue, 'a', 'b'); // $ExpectType any
+    _(anyValue).omit('a', 'b'); // $ExpectType any
+    extractChainTypes(_.chain(anyValue).omit('a', 'b')); // $ExpectType ChainType<any, any>
+
+    // key array - record
+    _.omit(mixedTypeRecord, ['a', 'b']); // $ExpectType Pick<MixedTypeRecord, "c">
+    _(mixedTypeRecord).omit(['a', 'b']); // $ExpectType Pick<MixedTypeRecord, "c">
+    extractChainTypes(_.chain(mixedTypeRecord).omit(['a', 'b'])); // $ExpectType ChainType<Pick<MixedTypeRecord, "c">, NonIntersectingProperties>
+
+    // key array - any
+    _.omit(anyValue, ['a', 'b']); // $ExpectType any
+    _(anyValue).omit(['a', 'b']); // $ExpectType any
+    extractChainTypes(_.chain(anyValue).omit(['a', 'b'])); // $ExpectType ChainType<any, any>
+
+    // string list - record
+    _.omit(mixedTypeRecord, simpleStringArray); // $ExpectType Partial<MixedTypeRecord>
+    _(mixedTypeRecord).omit(simpleStringArray); // $ExpectType Partial<MixedTypeRecord>
+    extractChainTypes(_.chain(mixedTypeRecord).omit(simpleStringArray)); // $ExpectType ChainType<Partial<MixedTypeRecord>, number | StringRecord | NonIntersectingStringRecord | undefined>
+
+    // string array - any
+    _.omit(anyValue, simpleStringArray); // $ExpectType any
+    _(anyValue).omit(simpleStringArray); // $ExpectType any
+    extractChainTypes(_.chain(anyValue).omit(simpleStringArray)); // $ExpectType ChainType<any, any>
+
+    // function iteratee - record
+    _.omit(mixedTypeRecord, mixedTypeRecordBooleanIterator); // $ExpectType Partial<MixedTypeRecord>
+    _(mixedTypeRecord).omit(mixedTypeRecordBooleanIterator); // $ExpectType Partial<MixedTypeRecord>
+    extractChainTypes(_.chain(mixedTypeRecord).omit(mixedTypeRecordBooleanIterator)); // $ExpectType ChainType<Partial<MixedTypeRecord>, number | StringRecord | NonIntersectingStringRecord | undefined>
+
+    // function iteratee - dictionary
+    _.omit(stringRecordDictionary, stringRecordDictionaryBooleanIterator); // $ExpectType Partial<Dictionary<StringRecord>>
+    _(stringRecordDictionary).omit(stringRecordDictionaryBooleanIterator); // $ExpectType Partial<Dictionary<StringRecord>>
+    extractChainTypes(_.chain(stringRecordDictionary).omit(stringRecordDictionaryBooleanIterator)); // $ExpectType ChainType<Partial<Dictionary<StringRecord>>, StringRecordOrUndefined>
+
+    // function iteratee - any
+    _.omit(anyValue, anyBooleanIterator); // $ExpectType any
+    _(anyValue).omit(anyBooleanIterator); // $ExpectType any
+    extractChainTypes(_.chain(anyValue).omit(anyBooleanIterator)); // $ExpectType ChainType<any, any>
 }
 
 // isEqual
