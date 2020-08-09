@@ -3551,7 +3551,7 @@ declare module _ {
          * @param keys The keys to keep on `object`.
          * @returns A copy of `object` with only the `keys` properties.
          **/
-        pick<V extends object, K extends string>(object: V, ...keys: K[]): _Pick<V, K>;
+        pick<V, K extends string>(object: V, ...keys: K[]): _Pick<V, K>;
 
         /**
          * Return a copy of `object` that is filtered to only have values for
@@ -3562,7 +3562,7 @@ declare module _ {
          * @returns A copy of `object` with only the keys selected by
          * `keysOrIterator`.
          **/
-        pick<V extends object, I extends PickSelector<V>>(object: V, keysOrIterator: I): _Pick<V, ListItemOrSelf<I>>;
+        pick<V, I extends PickSelector<V>>(object: V, keysOrIterator: I): _Pick<V, ListItemOrSelf<I>>;
 
         /**
          * Return a copy of `object` that is filtered to omit the blacklisted
@@ -3571,7 +3571,7 @@ declare module _ {
          * @param keys The keys to omit from `object`.
          * @returns A copy of `object` without the `keys` properties.
          **/
-        omit<V extends object, K extends string>(object: V, ...keys: K[]): _Omit<V, K>;
+        omit<V, K extends string>(object: V, ...keys: K[]): _Omit<V, K>;
 
         /**
          * Return a copy of `object` that is filtered to not have values for
@@ -3582,7 +3582,7 @@ declare module _ {
          * @returns A copy of `object` without the keys selected by
          * `keysOrIterator`.
          **/
-        omit<V extends object, I extends PickSelector<V>>(object: V, keysOrIterator: I): _Omit<V, ListItemOrSelf<I>>;
+        omit<V, I extends PickSelector<V>>(object: V, keysOrIterator: I): _Omit<V, ListItemOrSelf<I>>;
 
         /**
         * Fill in null and undefined properties in object with values from the defaults objects,
