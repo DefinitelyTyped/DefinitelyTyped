@@ -37,24 +37,24 @@ export type validationResult = validationError | validationSuccess;
 
 export class ValidateHost {
     constructor(packages: { packages: packages });
-    validate: (hosts: hosts, options?: validationOptions) => validationResult;
-    validateSingle: (packageName: string, hosts: hosts) => boolean;
+    validate(hosts: hosts, options?: validationOptions): validationResult;
+    validateSingle(packageName: string, hosts: hosts): boolean;
 }
 
 export class ValidateHttps {
     constructor(packages: { packages: packages });
-    validate: () => validationResult;
+    validate(): validationResult;
 }
 
 export class ValidateScheme {
     constructor(packages: { packages: packages });
-    validate: (schemes: ReadonlyArray<string>) => validationResult;
+    validate(schemes: ReadonlyArray<string>): validationResult;
 }
 
 export class ValidateUrl {
     constructor(packages: { packages: packages });
-    validate: (allowedUrls: ReadonlyArray<string>, options?: validationOptions) => validationResult;
-    validateSingle: (packageName: string, allowedUrls: hosts) => boolean;
+    validate(allowedUrls: ReadonlyArray<string>, options?: validationOptions): validationResult;
+    validateSingle(packageName: string, allowedUrls: hosts): boolean;
 }
 
 export interface ParseLockfileOptions {
@@ -69,5 +69,5 @@ export interface ParseLockfileResult {
 
 export class ParseLockfile {
     constructor(options: ParseLockfileOptions);
-    parseSync: () => ParseLockfileResult;
+    parseSync(): ParseLockfileResult;
 }
