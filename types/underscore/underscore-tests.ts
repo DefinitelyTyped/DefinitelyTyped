@@ -2985,9 +2985,9 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     extractChainTypes(_.chain(mixedTypeRecord).pick('a', 'b')); // $ExpectType ChainType<Pick<MixedTypeRecord, "a" | "b">, number | StringRecord>
 
     // individual key parameters - any
-    _.pick(anyValue, 'a', 'b'); // $ExpectType any
-    _(anyValue).pick('a', 'b'); // $ExpectType any
-    extractChainTypes(_.chain(anyValue).pick('a', 'b')); // $ExpectType ChainType<any, any>
+    _.pick(anyValue, 'a', 'b'); // $ExpectType Pick<any, "a" | "b">
+    _(anyValue).pick('a', 'b'); // $ExpectType Pick<any, "a" | "b">
+    extractChainTypes(_.chain(anyValue).pick('a', 'b')); // $ExpectType ChainType<Pick<any, "a" | "b">, any>
 
     // key array - record
     _.pick(mixedTypeRecord, ['a', 'b']); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
@@ -2995,9 +2995,9 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     extractChainTypes(_.chain(mixedTypeRecord).pick(['a', 'b'])); // $ExpectType ChainType<Pick<MixedTypeRecord, "a" | "b">, number | StringRecord>
 
     // key array - any
-    _.pick(anyValue, ['a', 'b']); // $ExpectType any
-    _(anyValue).pick(['a', 'b']); // $ExpectType any
-    extractChainTypes(_.chain(anyValue).pick(['a', 'b'])); // $ExpectType ChainType<any, any>
+    _.pick(anyValue, ['a', 'b']); // $ExpectType Pick<any, "a" | "b">
+    _(anyValue).pick(['a', 'b']); // $ExpectType Pick<any, string>
+    extractChainTypes(_.chain(anyValue).pick(['a', 'b'])); // $ExpectType ChainType<Pick<any, string>, any>
 
     // string list - record
     _.pick(mixedTypeRecord, simpleStringArray); // $ExpectType Partial<MixedTypeRecord>
@@ -3005,9 +3005,9 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     extractChainTypes(_.chain(mixedTypeRecord).pick(simpleStringArray)); // $ExpectType ChainType<Partial<MixedTypeRecord>, number | StringRecord | NonIntersectingStringRecord | undefined>
 
     // string array - any
-    _.pick(anyValue, simpleStringArray); // $ExpectType any
-    _(anyValue).pick(simpleStringArray); // $ExpectType any
-    extractChainTypes(_.chain(anyValue).pick(simpleStringArray)); // $ExpectType ChainType<any, any>
+    _.pick(anyValue, simpleStringArray); // $ExpectType Pick<any, string>
+    _(anyValue).pick(simpleStringArray); // $ExpectType Pick<any, string>
+    extractChainTypes(_.chain(anyValue).pick(simpleStringArray)); // $ExpectType ChainType<Pick<any, string>, any>
 
     // function iteratee - record
     _.pick(mixedTypeRecord, mixedTypeRecordBooleanIterator); // $ExpectType Partial<MixedTypeRecord>
@@ -3020,9 +3020,9 @@ undefinedIdentityIterateeResult; // $ExpectType StringRecord
     extractChainTypes(_.chain(stringRecordDictionary).pick(stringRecordDictionaryBooleanIterator)); // $ExpectType ChainType<Partial<Dictionary<StringRecord>>, StringRecordOrUndefined>
 
     // function iteratee - any
-    _.pick(anyValue, anyBooleanIterator); // $ExpectType any
-    _(anyValue).pick(anyBooleanIterator); // $ExpectType any
-    extractChainTypes(_.chain(anyValue).pick(anyBooleanIterator)); // $ExpectType ChainType<any, any>
+    _.pick(anyValue, anyBooleanIterator); // $ExpectType Partial<any>
+    _(anyValue).pick(anyBooleanIterator); // $ExpectType Partial<any>
+    extractChainTypes(_.chain(anyValue).pick(anyBooleanIterator)); // $ExpectType ChainType<Partial<any>, any>
 }
 
 // omit

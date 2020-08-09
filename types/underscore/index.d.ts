@@ -169,8 +169,7 @@ declare module _ {
     type PickSelector<V> = (keyof V)[] | string[] | ObjectIterator<TypeOfDictionary<V, any>, boolean, V>;
 
     type _Pick<V, I> =
-        V extends never ? any
-        : Extract<I, keyof V> extends never ? Partial<V>
+        Extract<I, keyof V> extends never ? Partial<V>
         : Pick<V, Extract<I, keyof V>>;
 
     // switch to Omit when the minimum TS version moves past 3.5
