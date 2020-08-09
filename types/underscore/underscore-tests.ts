@@ -822,7 +822,7 @@ declare const extractChainTypes: ChainTypeExtractor;
 
     const anyFunctionIteratee: _.Iteratee<any, string> = (element, key, collection) => {
         element; // $ExpectType any
-        key; // $ExpectType string | number
+        key; // $ExpectType any
         collection; // $ExpectType any
         return element.a;
     };
