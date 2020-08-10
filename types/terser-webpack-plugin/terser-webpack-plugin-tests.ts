@@ -50,10 +50,8 @@ const _ = webpack({
                 minify: (file, sourceMap) => {
                     const results: TerserPlugin.MinifyResult = {
                         code: '',
-                        error: '',
                         extractedComments: [''],
                         map: '',
-                        warnings: [''],
                     };
                     return results;
                 },
@@ -129,6 +127,22 @@ const _ = webpack({
                 },
                 extractComments: false,
             }),
+            new TerserPlugin({
+                terserOptions: {
+                  ecma: undefined,
+                  parse: {},
+                  compress: {},
+                  mangle: true, // Note `mangle.properties` is `false` by default.
+                  module: false,
+                  output: undefined,
+                  toplevel: false,
+                  nameCache: undefined,
+                  ie8: false,
+                  keep_classnames: undefined,
+                  keep_fnames: false,
+                  safari10: false,
+                },
+              }),
         ],
     },
 });

@@ -1,4 +1,4 @@
-// Type definitions for terser-webpack-plugin 4.0
+// Type definitions for terser-webpack-plugin 4.1
 // Project: https://github.com/webpack-contrib/terser-webpack-plugin
 // Definitions by: Daniel Schopf <https://github.com/Danscho>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -13,10 +13,8 @@ import { MinifyOptions } from 'terser';
  */
 declare namespace TerserPlugin {
     interface MinifyResult {
-        error: any;
         map: any;
         code: any;
-        warnings: any;
         extractedComments: any;
     }
 
