@@ -1101,22 +1101,22 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
     estimatedDocumentCount(query: FilterQuery<TSchema>, callback: MongoCallback<number>): void;
     estimatedDocumentCount(query?: FilterQuery<TSchema>, options?: MongoCountPreferences): Promise<number>;
     estimatedDocumentCount(query: FilterQuery<TSchema>, options: MongoCountPreferences, callback: MongoCallback<number>): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#find */
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#find */
     find<T = TSchema>(query?: FilterQuery<TSchema>): Cursor<T>;
     find<T = TSchema>(query: FilterQuery<TSchema>, options?: FindOneOptions<T>): Cursor<T>;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOne */
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne */
     findOne<T = TSchema>(filter: FilterQuery<TSchema>, callback: MongoCallback<T | null>): void;
     findOne<T = TSchema>(filter: FilterQuery<TSchema>, options?: FindOneOptions<T>): Promise<T | null>;
     findOne<T = TSchema>(filter: FilterQuery<TSchema>, options: FindOneOptions<T>, callback: MongoCallback<T | null>): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndDelete */
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndDelete */
     findOneAndDelete(filter: FilterQuery<TSchema>, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     findOneAndDelete(filter: FilterQuery<TSchema>, options?: FindOneAndDeleteOption<TSchema>): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
     findOneAndDelete(filter: FilterQuery<TSchema>, options: FindOneAndDeleteOption<TSchema>, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndReplace */
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndReplace */
     findOneAndReplace(filter: FilterQuery<TSchema>, replacement: object, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     findOneAndReplace(filter: FilterQuery<TSchema>, replacement: object, options?: FindOneAndReplaceOption<TSchema>): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
     findOneAndReplace(filter: FilterQuery<TSchema>, replacement: object, options: FindOneAndReplaceOption<TSchema>, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndUpdate */
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndUpdate */
     findOneAndUpdate(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     findOneAndUpdate(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: FindOneAndUpdateOption<TSchema>): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
     findOneAndUpdate(
@@ -1971,7 +1971,7 @@ export interface FindAndModifyWriteOpResultObject<TSchema> {
     ok?: number;
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndReplace */
+/** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndReplace */
 export interface FindOneAndReplaceOption<T> extends CommonOptions {
     projection?: SchemaMember<T, ProjectionOperators | number | boolean | any>;
     sort?: SortOptionObject<T>;
@@ -1991,12 +1991,12 @@ export interface ProjectionOperators {
     $meta?: MetaProjectionOperators;
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndUpdate */
+/** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndUpdate */
 export interface FindOneAndUpdateOption<T> extends FindOneAndReplaceOption<T> {
     arrayFilters?: object[];
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndDelete */
+/** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndDelete */
 export interface FindOneAndDeleteOption<T> {
     projection?: SchemaMember<T, ProjectionOperators | number | boolean | any>;
     sort?: SortOptionObject<T>;
@@ -2168,7 +2168,7 @@ export interface FindOperatorsUnordered {
     upsert(): FindOperatorsUnordered;
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOne */
+/** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne */
 export interface FindOneOptions<T> {
     limit?: number;
     sort?: Array<[string, number]> | SortOptionObject<T>;
@@ -2364,7 +2364,7 @@ export class Cursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#next */
     next(): Promise<T | null>;
     next(callback: MongoCallback<T | null>): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#project */
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#project */
     project(value: SchemaMember<T, ProjectionOperators | number | boolean | any>): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#read */
     read(size: number): string | Buffer | void;
@@ -2382,7 +2382,7 @@ export class Cursor<T = Default> extends Readable {
     skip(value: number): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#snapshot */
     snapshot(snapshot: object): Cursor<T>;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#sort */
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#sort */
     sort(keyOrList: string | Array<[string, number]> | SortOptionObject<T>, direction?: number): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#stream */
     stream(options?: { transform?: (document: T) => any }): Cursor<T>;
