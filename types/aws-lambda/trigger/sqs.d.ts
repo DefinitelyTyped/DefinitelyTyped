@@ -28,7 +28,7 @@ export interface SQSRecordAttributes {
     ApproximateFirstReceiveTimestamp: string;
     SequenceNumber?: string;
     MessageGroupId?: string;
-    MessageDuplicationId?: string;
+    MessageDeduplicationId?: string;
 }
 
 export type SQSMessageAttributeDataType = 'String' | 'Number' | 'Binary' | string;
