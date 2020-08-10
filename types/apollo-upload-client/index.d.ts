@@ -1,10 +1,9 @@
-// Type definitions for apollo-upload-client 14.0.0
+// Type definitions for apollo-upload-client 14.0
 // Project: https://github.com/jaydenseric/apollo-upload-client#readme
 // Definitions by: Edward Sammut Alessi <https://github.com/Slessi>
 //                 Jordan Overbye <https://github.com/jordanoverbye>
-//                 Simen Bekkhus <https://github.com/SimenB>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.9
 
 import { ApolloLink, HttpOptions } from '@apollo/client';
 
