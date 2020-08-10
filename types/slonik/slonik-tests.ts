@@ -23,6 +23,9 @@ import {
     SqlTaggedTemplateType,
     QueryContextType,
     InterceptorType,
+    StatementCancelledError,
+    InvalidConfigurationError,
+    StatementTimeoutError,
 } from 'slonik';
 import { ArrayTokenSymbol, BinaryTokenSymbol } from 'slonik/symbols';
 
@@ -341,11 +344,7 @@ createTimestampWithTimeZoneTypeParser();
 
     let normalizeIdentifier: IdentifierNormalizerType;
 
-    normalizeIdentifier = (input: string) =>
-        input
-            .split('')
-            .reverse()
-            .join('');
+    normalizeIdentifier = (input: string) => input.split('').reverse().join('');
 
     sql = createSqlTag({
         normalizeIdentifier,
@@ -360,6 +359,9 @@ createTimestampWithTimeZoneTypeParser();
 new SlonikError();
 new NotFoundError();
 new DataIntegrityError();
+new InvalidConfigurationError();
+new StatementCancelledError(new Error('Foo'));
+new StatementTimeoutError(new Error('Foo'));
 new IntegrityConstraintViolationError(new Error('Foo'), 'some-constraint');
 new NotNullIntegrityConstraintViolationError(new Error('Foo'), 'some-constraint');
 new ForeignKeyIntegrityConstraintViolationError(new Error('Foo'), 'some-constraint');
