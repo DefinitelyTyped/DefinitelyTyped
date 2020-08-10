@@ -529,7 +529,7 @@ export interface ExpandRowProps<T> {
     onlyOneExpanding?: boolean;
     expandByColumnOnly?: boolean;
     expandColumnRenderer?: (props: ExpandColumnRendererProps) => JSX.Element;
-    expandHeaderColumnRenderer?: (renderer: ExpandHeaderColumnRenderer) => JSX.Element;
+    expandHeaderColumnRenderer?: (props: ExpandHeaderColumnRenderer) => JSX.Element;
     expandColumnPosition?: 'left' | 'right';
     className?: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
 }
