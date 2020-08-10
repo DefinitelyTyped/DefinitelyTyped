@@ -12,7 +12,33 @@ import {
         isSameDay,
         toISODateString,
         toLocalizedDateString,
-        toMomentObject } from "react-dates";
+        toMomentObject,
+        CalendarDay} from "react-dates";
+
+class CalendarDayFullTest extends React.Component {
+    render() {
+        return <CalendarDay
+            day={null}
+            daySize={39}
+            isOutsideDay={false}
+            modifiers={new Set<string>()}
+            isFocused={false}
+            tabIndex={-1}
+            onDayClick={() => {}}
+            onDayMouseEnter={() => {}}
+            onDayMouseLeave={() => {}}
+            renderDayContents={(day: moment.Moment) => ""}
+            ariaLabelFormat={"dddd, LL"}
+            phrases={{
+                chooseAvailableDate: ({ date }) => date,
+                dateIsUnavailable: ({ date }) => `Not available. ${date}`,
+                dateIsSelected: ({ date }) => `Selected. ${date}`,
+                dateIsSelectedAsStartDate: ({ date }) => `Selected as start date. ${date}`,
+                dateIsSelectedAsEndDate: ({ date }) => `Selected as end date. ${date}`,
+              }}
+          />
+    }
+}
 
 class SingleDatePickerMinimumTest extends React.Component {
     render() {
@@ -69,6 +95,7 @@ class SingleDatePickerFullTest extends React.Component {
                     small={true}
                     navPosition="navPositionTop"
                     dayPickerNavigationInlineStyles={{width: '10'}}
+                    renderCalendarDay={(props) => <CalendarDay {...props} />}
                     />
     }
 }

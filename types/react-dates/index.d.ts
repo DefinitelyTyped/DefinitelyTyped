@@ -2,6 +2,7 @@
 // Project: https://github.com/airbnb/react-dates
 // Definitions by: Artur Ampilogov <https://github.com/ArturAmpilogov>
 //                 Nathan Holland <https://github.com/NathanNZ>
+//                 Chris Griebel <https://github.com/cgriebel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // Required fields are made according to 'minimum REQUIRED setup' in https://github.com/airbnb/react-dates/blob/master/README.md
@@ -113,7 +114,7 @@ declare namespace ReactDates {
         onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void;
 
         // day presentation and interaction related props
-        renderCalendarDay?: (day: momentPropTypes.momentObj) => string | JSX.Element;
+        renderCalendarDay?: (props: CalendarDayShape) => JSX.Element;
         renderDayContents?: (day: momentPropTypes.momentObj) => string | JSX.Element;
         minimumNights?: number;
         minDate?: momentPropTypes.momentObj;
@@ -143,10 +144,13 @@ declare namespace ReactDates {
     // shape/IconPositionShape.js
     type IconPositionShape = 'before' | 'after';
 
-    // type/OpenDirectionShape.js
+    // shape/ModifiersShape.js
+    type ModifiersShape = Set<string>;
+
+    // shape/OpenDirectionShape.js
     type OpenDirectionShape = 'down' | 'up';
 
-    // shpae/OrientationShape.js
+    // shape/OrientationShape.js
     type OrientationShape = 'horizontal' | 'vertical';
 
     // shape/ScrollableOrientationShape.js
@@ -227,7 +231,7 @@ declare namespace ReactDates {
         ) => void;
 
         // day presentation and interaction related props
-        renderCalendarDay?: (day: momentPropTypes.momentObj) => string | JSX.Element;
+        renderCalendarDay?: (props: CalendarDayShape) => JSX.Element;
         renderDayContents?: (day: momentPropTypes.momentObj) => string | JSX.Element;
         enableOutsideDays?: boolean;
         isDayBlocked?: (day: any) => boolean;
@@ -391,8 +395,29 @@ declare namespace ReactDates {
 
     // COMPONENTS
     //
-    // components/DateRangePicker.js
 
+    // components/CalendarDay.jsx
+    type DayMouseEventHandler = (day: momentPropTypes.momentObj | null, event: React.MouseEvent) => void;
+
+    interface CalendarDayShape {
+        day?: momentPropTypes.momentObj | null;
+        daySize?: number;
+        isOutsideDay?: boolean;
+        modifiers?: ModifiersShape;
+        isFocused?: boolean;
+        tabIndex?: 0 | -1;
+        onDayClick?: DayMouseEventHandler;
+        onDayMouseEnter?: DayMouseEventHandler;
+        onDayMouseLeave?: DayMouseEventHandler;
+        renderDayContents?: (day: momentPropTypes.momentObj) => string | JSX.Element;
+        ariaLabelFormat?: string;
+        phrases?: CalendarDayPhrases;
+    }
+
+    type CalendarDay = React.ClassicComponentClass<CalendarDayShape>;
+    var CalendarDay: React.ClassicComponentClass<CalendarDayShape>;
+
+    // components/DateRangePicker.js
     type DateRangePicker = React.ClassicComponentClass<DateRangePickerShape>;
     var DateRangePicker: React.ClassicComponentClass<DateRangePickerShape>;
 
@@ -461,7 +486,7 @@ declare namespace ReactDates {
         onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void;
         onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void;
         onOutsideClick?: (e: any) => void;
-        renderCalendarDay?: (day: momentPropTypes.momentObj) => string | JSX.Element;
+        renderCalendarDay?: (props: CalendarDayShape) => JSX.Element;
         renderDayContents?: (day: momentPropTypes.momentObj) => string | JSX.Element;
         renderCalendarInfo?: () => string | JSX.Element;
         calendarInfoPosition?: CalendarInfoPositionShape;
