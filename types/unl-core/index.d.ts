@@ -4,17 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-export enum Direction {
-    NORTH = 'N',
-    SOUTH = 'S',
-    EAST = 'E',
-    WEST = 'W',
-}
+export type Direction = 'N' | 'S' | 'E' | 'W';
 
-export enum ElevationType {
-    FLOOR = 'floor',
-    HEIGHT_IN_CM = 'heightincm',
-}
+export type ElevationType = 'floor' | 'heightincm';
 
 export interface Neighbours {
     n: string;
@@ -35,6 +27,9 @@ export interface Point {
 export interface Bounds {
     sw: Point;
     ne: Point;
+}
+
+export interface BoundsWithElevation extends Bounds {
     elevation: number;
     elevationType: ElevationType;
 }
@@ -42,7 +37,7 @@ export interface Bounds {
 export interface PointWithElevation extends Point {
     elevation: number;
     elevationType: ElevationType;
-    bounds: Bounds;
+    bounds: BoundsWithElevation;
 }
 
 export interface EncodeOptions {
@@ -51,9 +46,9 @@ export interface EncodeOptions {
 }
 
 export interface LocationIdWithElevation {
+    locationId: string;
     elevation: number;
     elevationType: ElevationType;
-    locationId: string;
 }
 
 /**
@@ -96,7 +91,7 @@ export function decode(locationId: string): PointWithElevation;
  * @returns Bounds
  * @throws  Invalid locationId.
  */
-export function bounds(locationId: string): Bounds;
+export function bounds(locationId: string): BoundsWithElevation;
 
 /**
  * Determines adjacent cell in given direction.
