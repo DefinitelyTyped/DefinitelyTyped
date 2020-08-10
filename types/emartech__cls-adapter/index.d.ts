@@ -8,7 +8,7 @@ import * as Koa from "koa";
 import * as Express from 'express';
 import * as CLS from "cls-hooked";
 
-declare class ClsAdapter {
+declare class ContextFactory {
     private _namespace: CLS.Namespace;
 
     /**
@@ -18,7 +18,8 @@ declare class ClsAdapter {
     static getKoaMiddleware: () => Koa.Middleware;
 
     /**
-     * Returns a middleware function compatible with Express that stores (or generates if missing) the request identifier from the header (X-Request-Id) and sets it on the storage as request_id.
+     * Returns a middleware function compatible with Express that stores (or generates if missing)
+     * the request identifier from the header (X-Request-Id) and sets it on the storage as request_id.
      */
     static getExpressMiddleware: () => Express.Handler;
 
@@ -32,7 +33,9 @@ declare class ClsAdapter {
     /**
      * Returns the all the values set on the storage.
      */
-    static getContextStorage: () => Partial<({ requestId: string })>;
+    static getContextStorage: <T = Record<string, unknown>>() => T & {
+        requestId: string;
+    };
 
     /**
      * Returns the the request identifier set on the storage. The identifiers key is request_id.
@@ -62,4 +65,4 @@ declare class ClsAdapter {
     static createNamespace: () => CLS.Namespace;
 }
 
-export = ClsAdapter;
+export = ContextFactory;

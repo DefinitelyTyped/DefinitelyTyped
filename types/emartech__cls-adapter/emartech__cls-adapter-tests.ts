@@ -1,4 +1,4 @@
-import ClsAdapter from '@emartech/cls-adapter';
+import ClsAdapter = require('@emartech/cls-adapter');
 
 ClsAdapter.createNamespace();
 
