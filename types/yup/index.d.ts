@@ -129,7 +129,7 @@ export interface StringSchema<T extends string | null | undefined = string | und
     ): StringSchema<T>;
     email(message?: StringLocale['email']): StringSchema<T>;
     url(message?: StringLocale['url']): StringSchema<T>;
-    ensure(): StringSchema<T>;
+    ensure(): StringSchema<Exclude<T, undefined | null>>;
     trim(message?: StringLocale['trim']): StringSchema<T>;
     lowercase(message?: StringLocale['lowercase']): StringSchema<T>;
     uppercase(message?: StringLocale['uppercase']): StringSchema<T>;

@@ -370,6 +370,7 @@ function strSchemaTests(strSchema: yup.StringSchema) {
 const strSchema = yup.string(); // $ExpectType StringSchema<string | undefined>
 strSchema.oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world" | undefined>
 strSchema.required().oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world">
+strSchema.ensure(); // $ExpectType StringSchema<string>
 strSchemaTests(strSchema);
 
 // $ExpectError
