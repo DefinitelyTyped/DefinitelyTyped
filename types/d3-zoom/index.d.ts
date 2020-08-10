@@ -460,8 +460,9 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      *
      * @param selection A D3 selection of elements.
      * @param k New scale.
+     * @param p The reference point p does move. If p is not specified, it defaults to the center of the viewport extent.
      */
-    scaleTo(selection: Selection<ZoomRefElement, Datum, any, any>, k: number): void;
+    scaleTo(selection: Selection<ZoomRefElement, Datum, any, any>, k: number, p?: number[]): void;
     /**
      * Scales the current zoom transform of the selected elements to k, such that the new k(1) = k.
      *

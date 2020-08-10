@@ -565,6 +565,7 @@ svgZoom.scaleBy(svgOverlayTransition, function(datum, index, groups) {
 
 // use on selection
 svgZoom.scaleTo(svgOverlay, 3);
+svgZoom.scaleTo(svgOverlay, 3, [0, 0]);
 // $ExpectError
 svgZoom.scaleBy(groupsSelection, 3); // fails, as groupSelection mismatches DOM Element type and datum type
 
