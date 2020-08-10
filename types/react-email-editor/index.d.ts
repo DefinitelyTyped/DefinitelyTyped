@@ -71,7 +71,6 @@ export interface Features {
     readonly preview?: boolean;
     readonly imageEditor?: boolean;
     readonly undoRedo?: boolean;
-    readonly imageEditor?: boolean;
     readonly stockImages?: boolean;
     readonly textEditor?: TextEditor;
 }

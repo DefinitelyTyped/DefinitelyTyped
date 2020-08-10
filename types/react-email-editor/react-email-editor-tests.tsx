@@ -121,7 +121,6 @@ class App extends React.Component {
               preview: true,
               imageEditor: false,
               undoRedo: true,
-              imageEditor: false,
               stockImages: false,
               textEditor: {
                 spellChecker: true,
