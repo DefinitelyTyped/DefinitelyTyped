@@ -128,6 +128,7 @@ class App extends React.Component {
                 tables: false,
                 cleanPaste: true,
                 emojis: true,
+              },
             },
             translations: {
               en: {
