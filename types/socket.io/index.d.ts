@@ -81,7 +81,7 @@ interface SocketIOStatic {
 
 declare namespace SocketIO {
     interface Server {
-        engine: { ws: any };
+        engine: { ws: any, generateId: () => {} };
 
         /**
          * A dictionary of all the namespaces currently on this Server
