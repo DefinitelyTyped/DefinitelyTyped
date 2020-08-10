@@ -9,12 +9,6 @@ import { ApolloLink, HttpOptions } from '@apollo/client';
 
 export { ReactNativeFile } from 'extract-files';
 
-declare global {
-    interface GlobalFetch {
-        fetch: WindowOrWorkerGlobalScope['fetch'];
-    }
-}
-
 interface UploadHttpOptions extends HttpOptions {
     // Function that checks if a value is an extractable file
     isExtractableFile?: (value: any) => boolean;
