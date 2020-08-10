@@ -158,7 +158,7 @@ declare module _ {
     // if T is a list, assume that it contains pairs of some type, so any
     // if T isn't a list, there's no way that it can provide pairs, so never
     type PairValue<T> =
-        T extends [EnumerableKey, infer TValue] ? TValue
+        T extends Readonly<[EnumerableKey, infer TValue]> ? TValue
         : T extends List<infer TValue> ? TValue
         : never;
 
