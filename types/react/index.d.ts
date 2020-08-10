@@ -1200,6 +1200,7 @@ declare namespace React {
 
     interface KeyboardEvent<T = Element> extends SyntheticEvent<T, NativeKeyboardEvent> {
         altKey: boolean;
+        /** @deprecated */
         charCode: number;
         ctrlKey: boolean;
         /**
@@ -1210,6 +1211,7 @@ declare namespace React {
          * See the [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values). for possible values
          */
         key: string;
+        /** @deprecated */
         keyCode: number;
         locale: string;
         location: number;
