@@ -182,7 +182,6 @@ render(
     document.getElementById('app'),
 );
 
-
 const expandRow: ExpandRowProps<Product> = {
     renderer: (row: Product) => {
         return (
@@ -190,8 +189,8 @@ const expandRow: ExpandRowProps<Product> = {
         );
     },
     expanded: [1, 2],
-    onExpand: (row: Product, isExpand: boolean, rowIndex: number, e: React.SyntheticEvent<Element, Event>) => <div></div>,
-    onExpandAll: (isExpandAll: boolean, results: Product[]) => <div></div>,
+    onExpand: (row, isExpand, rowIndex, e) => <div></div>,
+    onExpandAll: (isExpandAll, results) => <div></div>,
     showExpandColumn: true,
     expandColumnPosition: 'right',
     expandByColumnOnly: true,
