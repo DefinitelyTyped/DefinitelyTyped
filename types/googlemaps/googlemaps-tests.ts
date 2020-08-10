@@ -42,7 +42,7 @@ let mapOptions: google.maps.MapOptions = {
 };
 
 /***** Create map *****/
-let map: google.maps.Map = new google.maps.Map(document.createElement('div'), mapOptions);
+let map: google.maps.Map = new google.maps.Map(document.createElement('div'), mapOptions); // $ExpectType Map<HTMLDivElement>
 
 /***** Fitting map to bounds *****/
 map.fitBounds(

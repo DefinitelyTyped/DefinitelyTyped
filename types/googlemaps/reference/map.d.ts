@@ -135,6 +135,12 @@ declare namespace google.maps {
     /** @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map Maps JavaScript API} */
     class Map<E extends Element = Element> extends MVCObject {
         /**
+         * Store generic type to allow inference.
+         * @see {@link https://github.com/Microsoft/TypeScript/wiki/FAQ#why-doesnt-type-inference-work-on-this-interface-interface-foot--}
+         */
+        private mapDiv: E;
+
+        /**
          * Creates a new map inside of the given HTML container, which is typically a DIV element.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.constructor Maps JavaScript API}
          */
