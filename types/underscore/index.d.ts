@@ -166,6 +166,16 @@ declare module _ {
 
     type Truthy<T> = Exclude<T, AnyFalsy>;
 
+    type _Pick<V, K extends string> =
+        Extract<K, keyof V> extends never ? Partial<V>
+        : Pick<V, Extract<K, keyof V>>;
+
+    // switch to Omit when the minimum TS version moves past 3.5
+    type _Omit<V, K extends string> =
+        V extends never ? any
+        : Extract<K, keyof V> extends never ? Partial<V>
+        : Pick<V, Exclude<keyof V, K>>;
+
     type _ChainSingle<V> = _Chain<TypeOfCollection<V>, V>;
 
     interface Cancelable {
@@ -3533,39 +3543,44 @@ declare module _ {
         ): Extract<keyof V, string> | undefined;
 
         /**
-        * Return a copy of the object, filtered to only have values for the whitelisted keys
-        * (or array of valid keys).
-        * @param object Object to strip unwanted key/value pairs.
-        * @keys The key/value pairs to keep on `object`.
-        * @return Copy of `object` with only the `keys` properties.
-        **/
-        pick<T, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K>;
-        pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K>;
-        pick<T, K extends keyof T>(obj: T, predicate: ObjectIterator<T[K], boolean>): Pick<T, K>;
+         * Return a copy of `object` that is filtered to only have values for
+         * the allowed keys (or array of keys).
+         * @param object The object to pick specific keys in.
+         * @param keys The keys to keep on `object`.
+         * @returns A copy of `object` with only the `keys` properties.
+         **/
+        pick<V, K extends string>(object: V, ...keys: (K | K[])[]): _Pick<V, K>;
 
         /**
-        * Return a copy of the object, filtered to omit the blacklisted keys (or array of keys).
-        * @param object Object to strip unwanted key/value pairs.
-        * @param keys The key/value pairs to remove on `object`.
-        * @return Copy of `object` without the `keys` properties.
-        **/
-        omit(
-            object: any,
-            ...keys: string[]): any;
+         * Return a copy of `object` that is filtered to only have values for
+         * the keys selected by a truth test.
+         * @param object The object to pick specific keys in.
+         * @param iterator A truth test that selects the keys to keep on
+         * `object`.
+         * @returns A copy of `object` with only the keys selected by
+         * `iterator`.
+         **/
+        pick<V>(object: V, iterator: ObjectIterator<TypeOfDictionary<V, any>, boolean, V>): Partial<V>;
 
         /**
-        * @see _.omit
-        **/
-        omit(
-            object: any,
-            keys: string[]): any;
+         * Return a copy of `object` that is filtered to omit the disallowed
+         * keys (or array of keys).
+         * @param object The object to omit specific keys from.
+         * @param keys The keys to omit from `object`.
+         * @returns A copy of `object` without the `keys` properties.
+         **/
+        omit<V, K extends string>(object: V, ...keys: (K | K[])[]): _Omit<V, K>;
 
         /**
-        * @see _.omit
-        **/
-        omit(
-            object: any,
-            iteratee: Function): any;
+         * Return a copy of `object` that is filtered to not have values for
+         * the keys selected by a truth test.
+         * @param object The object to omit specific keys from.
+         * @param iterator A truth test that selects the keys to omit from
+         * `object`.
+         * @returns A copy of `object` without the keys selected by
+         * `iterator`.
+         **/
+        omit<V>(object: V, iterator: ObjectIterator<TypeOfDictionary<V, any>, boolean, V>): Partial<V>;
 
         /**
         * Fill in null and undefined properties in object with values from the defaults objects,
@@ -4741,20 +4756,41 @@ declare module _ {
         ): Extract<keyof V, string> | undefined;
 
         /**
-        * Wrapped type `object`.
-        * @see _.pick
-        **/
-        pick<K extends keyof V>(...keys: K[]): Pick<V, K>;
-        pick<K extends keyof V>(keys: K[]): Pick<V, K>;
-        pick<K extends keyof V>(predicate: ObjectIterator<V[K], boolean>): Pick<V, K>;
+         * Return a copy of the wrapped object that is filtered to only have
+         * values for the allowed keys (or array of keys).
+         * @param keys The keys to keep on the wrapped object.
+         * @returns A copy of the wrapped object with only the `keys`
+         * properties.
+         **/
+        pick<K extends string>(...keys: (K | K[])[]): _Pick<V, K>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.omit
-        **/
-        omit(...keys: string[]): any;
-        omit(keys: string[]): any;
-        omit(fn: Function): any;
+         * Return a copy of the wrapped object that is filtered to only have
+         * values for the keys selected by a truth test.
+         * @param iterator A truth test that selects the keys to keep on the
+         * wrapped object.
+         * @returns A copy of the wrapped object with only the keys selected by
+         * `iterator`.
+         **/
+        pick(iterator: ObjectIterator<TypeOfDictionary<V, any>, boolean, V>): Partial<V>;
+
+        /**
+         * Return a copy of the wrapped object that is filtered to omit the
+         * disallowed keys (or array of keys).
+         * @param keys The keys to omit from the wrapped object.
+         * @returns A copy of the wrapped object without the `keys` properties.
+         **/
+        omit<K extends string>(...keys: (K | K[])[]): _Omit<V, K>;
+
+        /**
+         * Return a copy of the wrapped object that is filtered to not have
+         * values for the keys selected by a truth test.
+         * @param iterator A truth test that selects the keys to omit from the
+         * wrapped object.
+         * @returns A copy of the wrapped object without the keys selected by
+         * `iterator`.
+         **/
+        omit(iterator: ObjectIterator<TypeOfDictionary<V, any>, boolean, V>): Partial<V>;
 
         /**
         * Wrapped type `object`.
@@ -5852,20 +5888,42 @@ declare module _ {
         ): _ChainSingle<Extract<keyof V, string> | undefined>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.pick
-        **/
-        pick<K extends keyof V>(...keys: K[]): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
-        pick<K extends keyof V>(keys: K[]): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
-        pick<K extends keyof V>(predicate: ObjectIterator<V[K], boolean>): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
+         * Return a copy of the wrapped object that is filtered to only have
+         * values for the allowed keys (or array of keys).
+         * @param keys The keys to keep on the wrapped object.
+         * @returns A chain wrapper around a copy of the wrapped object with
+         * only the `keys` properties.
+         **/
+        pick<K extends string>(...keys: (K | K[])[]): _ChainSingle<_Pick<V, K>>;
 
         /**
-        * Wrapped type `object`.
-        * @see _.omit
-        **/
-        omit(...keys: string[]): _Chain<T>;
-        omit(keys: string[]): _Chain<T>;
-        omit(iteratee: Function): _Chain<T>;
+         * Return a copy of the wrapped object that is filtered to only have
+         * values for the keys selected by a truth test.
+         * @param iterator A truth test that selects the keys to keep on the
+         * wrapped object.
+         * @returns A chain wrapper around a copy of the wrapped object with
+         * only the keys selected by `iterator`.
+         **/
+        pick(iterator: ObjectIterator<TypeOfDictionary<V, any>, boolean, V>): _ChainSingle<Partial<V>>;
+
+        /**
+         * Return a copy of the wrapped object that is filtered to omit the
+         * disallowed keys (or array of keys).
+         * @param keys The keys to omit from the wrapped object.
+         * @returns A chain wrapper around a copy of the wrapped object without
+         * the `keys` properties.
+         **/
+        omit<K extends string>(...keys: (K | K[])[]): _ChainSingle<_Omit<V, K>>;
+
+        /**
+         * Return a copy of the wrapped object that is filtered to not have
+         * values for the keys selected by a truth test.
+         * @param iterator A truth test that selects the keys to omit from the
+         * wrapped object.
+         * @returns A chain wrapper around a copy of the wrapped object without
+         * the keys selected by `iterator`.
+         **/
+        omit(iterator: ObjectIterator<TypeOfDictionary<V, any>, boolean, V>): _ChainSingle<Partial<V>>;
 
         /**
         * Wrapped type `object`.
