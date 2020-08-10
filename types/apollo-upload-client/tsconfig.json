@@ -5,7 +5,6 @@
             "es6",
             "dom"
         ],
-        "target": "ES5",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -16,8 +15,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
