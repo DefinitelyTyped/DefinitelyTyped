@@ -25,4 +25,4 @@ export interface NumberMaskOptions {
     allowLeadingZeroes: boolean;
     integerLimit: number | null;
 }
-export function createNumberMask(maskOptions?: Partial<NumberMaskOptions>): Mask;
+export function createNumberMask(maskOptions?: Partial<NumberMaskOptions>): (rawValue: string) => Mask;
