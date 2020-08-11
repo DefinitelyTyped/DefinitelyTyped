@@ -1,6 +1,6 @@
 // Type definitions for geometric 2.2
 // Project: https://github.com/HarryStevens/geometric#readme
-// Definitions by: Linda Paiste <https://github.com/DefinitelyTyped>
+// Definitions by: Linda Paiste <https://github.com/lindapaiste>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // -------------------------------PRIMITIVES-------------------------------------------//
