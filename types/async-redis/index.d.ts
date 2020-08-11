@@ -6,15 +6,15 @@
 
 import { Commands, RedisClient, ClientOpts } from 'redis';
 
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-type Omitted = Omit<RedisClient, keyof Commands<boolean>>;
+export type Omitted = Omit<RedisClient, keyof Commands<boolean>>;
 
-interface Promisified<T = RedisClient>
+export interface Promisified<T = RedisClient>
     extends Omitted,
         Commands<Promise<boolean>> {}
 
-interface AsyncRedisConstructor {
+export interface AsyncRedisConstructor {
   new (port: number, host?: string, options?: ClientOpts): Promisified;
   new (unix_socket: string, options?: ClientOpts): Promisified;
   new (redis_url: string, options?: ClientOpts): Promisified;
