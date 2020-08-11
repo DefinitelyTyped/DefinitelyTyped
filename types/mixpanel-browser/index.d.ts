@@ -172,6 +172,7 @@ export interface Mixpanel {
     ): void;
     track_forms(query: Query, event_name: string, properties?: Dict | (() => void)): void;
     track_links(query: Query, event_name: string, properties?: Dict | (() => void)): void;
+    track_with_groups(event_name: string, properties: Dict, groups: Dict, callback?: Callback): void;
     unregister(property: string): void;
     people: People;
 }
