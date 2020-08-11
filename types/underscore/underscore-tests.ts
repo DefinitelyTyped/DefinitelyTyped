@@ -622,6 +622,13 @@ _.chain([1, 3, 5])
     .intersection([2, 4, 6, 8], [4, 8])
     .value();
 
+// "as const" isn't supported until TS3.4; the Readonly assertion below mimics its effect
+// $ExpectType Dictionary<number>
+_.chain([{ id: 1, name: 'a' }, { id: 2, name: 'b' }])
+    .map(o => [o.name, o.id] as Readonly<[string, number]>)
+    .object()
+    .value();
+
 // common testing types and objects
 const context = {};
 
