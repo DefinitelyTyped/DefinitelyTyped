@@ -189,3 +189,16 @@ function testSocketUse() {
         });
     });
 }
+
+function testOverwriteGenerateId() {
+    var io = socketIO.listen(80);
+    io.use((socket, next) => {
+        io.engine.generateId = () => {
+            return socket.handshake.query.deviceCode;
+        }
+        next();
+    })
+    .on('connection', (socket) => {
+        console.log(socket.id);
+    });
+}
