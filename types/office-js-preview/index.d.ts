@@ -17516,7 +17516,24 @@ declare namespace Office {
          *
          * @beta
          */
-        clearAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        clearAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Clears all session data key-value pairs.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         *
+         * @beta
+         */
+        clearAsync(callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Gets all session data key-value pairs.
          *
@@ -17571,7 +17588,25 @@ declare namespace Office {
          *
          * @beta
          */
-        removeAsync(name:string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        removeAsync(name: string, options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Removes a session data key-value pair.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param name - The session data key.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         *
+         * @beta
+         */
+        removeAsync(name: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Sets a session data key-value pair.
          *
@@ -17592,7 +17627,26 @@ declare namespace Office {
          *
          * @beta
          */
-        setAsync(name:string, value:string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        setAsync(name: string, value: string, options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Sets a session data key-value pair.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+
+         * @param name - The session data key.
+         * @param value - The session data value as a string.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
+         *                 type `Office.AsyncResult`.
+         *
+         * @beta
+         */
+        setAsync(name: string, value: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
      * Represents the properties of an appointment or message in a shared folder, mailbox, or calendar.
