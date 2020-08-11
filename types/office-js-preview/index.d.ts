@@ -1661,7 +1661,7 @@ declare namespace Office {
          * - DialogEventReceived. Triggered when the dialog box has been closed or otherwise unloaded.
          * 
          * @param eventType Must be either DialogMessageReceived or DialogEventReceived.
-         * @param handler Takes an object with a `message` property if eventType is DialogMessageReceived. Takes an object with an `error` property if eventType is DialogEventReceived.
+         * @param handler A function which accepts either an object with a `message` property, if eventType is DialogMessageReceived, or an object with an `error` property, if eventType is DialogEventReceived.
          */
         addEventHandler(eventType: Office.EventType, handler: (args: {message: string | boolean} | {error: number}) => void): void;
         /**
