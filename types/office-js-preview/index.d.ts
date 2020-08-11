@@ -894,7 +894,7 @@ declare namespace Office {
          * @param options Optional. Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the handler registration returns, whose only parameter is of type {@link Office.AsyncResult}.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: (result: any) => void, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
+        addHandlerAsync(eventType: Office.EventType, handler: (result: DialogParentMessageReceivedEventArgs) => void, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
         /**
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
         *
@@ -1659,8 +1659,11 @@ declare namespace Office {
          * - DialogMessageReceived. Triggered when the dialog box sends a message to its parent.
          *
          * - DialogEventReceived. Triggered when the dialog box has been closed or otherwise unloaded.
+         * 
+         * @param eventType Must be either DialogMessageReceived or DialogEventReceived.
+         * @param handler A function which accepts either an object with a `message` property, if eventType is DialogMessageReceived, or an object with an `error` property, if eventType is DialogEventReceived.
          */
-        addEventHandler(eventType: Office.EventType, handler: Function): void;
+        addEventHandler(eventType: Office.EventType, handler: (args: {message: string | boolean} | {error: number}) => void): void;
         /**
          * Delivers a message from the host page, such as a task pane or a UI-less function file, to a dialog that was opened from the page.
          *
