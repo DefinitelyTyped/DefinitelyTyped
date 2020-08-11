@@ -215,6 +215,10 @@ function testSocketUse() {
     });
 }
 
+function testError() {
+    throw Error();
+}
+
 function testServerEventEmitter() {
     var io = socketIO.listen(80);
     const fn = () => {};
