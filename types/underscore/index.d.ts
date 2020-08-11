@@ -85,8 +85,11 @@ declare module _ {
 
     type EnumerableKey = string | number;
 
-    type CollectionKey<V> = V extends List<any> ? number
+    type CollectionKey<V> =
+        V extends never ? any
+        : V extends List<any> ? number
         : V extends Dictionary<any> ? string
+        : V extends undefined ? undefined
         : never;
 
     interface Predicate<T> {
@@ -108,9 +111,6 @@ declare module _ {
         Partial<T> |
         null |
         undefined;
-
-    // temporary iteratee type for _Chain until _Chain return types have been fixed
-    type _ChainIteratee<V, R, T> = Iteratee<V extends Collection<T> ? V : T[], R>;
 
     type IterateeResult<I, T> =
         I extends (...args: any[]) => infer R ? R
@@ -924,7 +924,7 @@ declare module _ {
         sortedIndex<V extends List<any>>(
             list: V,
             value: TypeOfList<V>,
-            iteratee?: Iteratee<V, any>,
+            iteratee?: Iteratee<V | undefined, any>,
             context?: any
         ): number;
 
@@ -3952,7 +3952,7 @@ declare module _ {
         readonly VERSION: string;
     }
 
-    interface Underscore<T, V = T> {
+    interface Underscore<T, V = T[]> {
 
         /* *************
         * Collections *
@@ -4551,7 +4551,7 @@ declare module _ {
          * @return The index where `value` should be inserted into the wrapped
          * list.
          **/
-        sortedIndex(value: T, iteratee?: Iteratee<V, any>, context?: any): number;
+        sortedIndex(value: T, iteratee?: Iteratee<V | undefined, any>, context?: any): number;
 
         /**
          * A function to create flexibly-numbered lists of integers, handy for
@@ -5066,7 +5066,7 @@ declare module _ {
         value(): V;
     }
 
-    interface _Chain<T, V = T> {
+    interface _Chain<T, V = T[]> {
 
         /* *************
         * Collections *
@@ -5097,7 +5097,7 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The mapped result in a chain wrapper.
          **/
-        map<I extends _ChainIteratee<V, any, T>>(
+        map<I extends Iteratee<V, any>>(
             iteratee: I,
             context?: any
         ): _Chain<IterateeResult<I, T>, IterateeResult<I, T>[]>;
@@ -5174,7 +5174,7 @@ declare module _ {
          * @return A chain wrapper containing the first element in the wrapped collection that passes
          * the truth test or undefined if no elements pass.
          **/
-        find(iteratee?: _ChainIteratee<V, boolean, T>, context?: any): _ChainSingle<T | undefined>;
+        find(iteratee?: Iteratee<V, boolean>, context?: any): _ChainSingle<T | undefined>;
 
         /**
          * @see find
@@ -5188,7 +5188,7 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @returns The set of values that pass a truth test in a chain wrapper.
          **/
-        filter(iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
+        filter(iteratee?: Iteratee<V, any>, context?: any): _Chain<T>;
 
         /**
          * @see filter
@@ -5201,7 +5201,7 @@ declare module _ {
          * @param properties The properties to check for on the elements within the wrapped collection.
          * @return The elements in the wrapped collection that match `properties` in a chain wrapper.
          **/
-        where(properties: Partial<T>): _Chain<T, T[]>;
+        where(properties: Partial<T>): _Chain<T>;
 
         /**
          * Looks through the wrapped collection and returns the first value that matches all of the key-value
@@ -5220,7 +5220,7 @@ declare module _ {
          * @param context `this` object in `iteratee`, optional.
          * @return The set of values that fail the truth test in a chain wrapper.
          **/
-        reject(iteratee?: _ChainIteratee<V, boolean, T>, context?: any): _Chain<T, T[]>;
+        reject(iteratee?: Iteratee<V, boolean>, context?: any): _Chain<T>;
 
         /**
          * Returns true if all of the values in the wrapped collection pass the
@@ -5231,7 +5231,7 @@ declare module _ {
          * @returns A chain wrapper around true if all elements pass the truth
          * test, otherwise around false.
          **/
-        every(iterator?: _ChainIteratee<V, boolean, T>, context?: any): _ChainSingle<boolean>;
+        every(iterator?: Iteratee<V, boolean>, context?: any): _ChainSingle<boolean>;
 
         /**
          * @see every
@@ -5247,7 +5247,7 @@ declare module _ {
          * @returns A chain wrapper around true if any element passed the truth
          * test, otherwise around false.
          **/
-        some(iterator?: _ChainIteratee<V, boolean, T>, context?: any): _ChainSingle<boolean>;
+        some(iterator?: Iteratee<V, boolean>, context?: any): _ChainSingle<boolean>;
 
         /**
          * @see some
@@ -5286,7 +5286,7 @@ declare module _ {
          * @returns A chain wrapper around an array containing the result of
          * the method call for each item in the wrapped collection.
          **/
-        invoke(methodName: string, ...args: any[]): _Chain<any, any[]>;
+        invoke(methodName: string, ...args: any[]): _Chain<any>;
 
         /**
          * A convenient version of what is perhaps the most common use-case for map: extracting a list of
@@ -5296,7 +5296,7 @@ declare module _ {
          **/
         pluck<K extends EnumerableKey>(
             propertyName: K
-        ): _Chain<PropertyTypeOrAny<T, K>, PropertyTypeOrAny<T, K>[]>;
+        ): _Chain<PropertyTypeOrAny<T, K>>;
 
         /**
          * Returns the maximum value in the wrapped collection. If an
@@ -5312,7 +5312,7 @@ declare module _ {
          * wrapped collection or around -Infinity if the wrapped collection is
          * empty.
          **/
-        max(iteratee?: _ChainIteratee<V, any, T>, context?: any): _ChainSingle<T | number>;
+        max(iteratee?: Iteratee<V, any>, context?: any): _ChainSingle<T | number>;
 
         /**
          * Returns the minimum value in the wrapped collection. If an
@@ -5328,7 +5328,7 @@ declare module _ {
          * wrapped collection or around Infinity if the wrapped collection is
          * empty.
          **/
-        min(iteratee?: _ChainIteratee<V, any, T>, context?: any): _ChainSingle<T | number>;
+        min(iteratee?: Iteratee<V, any>, context?: any): _ChainSingle<T | number>;
 
         /**
          * Returns a (stably) sorted copy of the wrapped collection, ranked in
@@ -5340,7 +5340,7 @@ declare module _ {
          * @returns A chain wrapper around a sorted copy of the wrapped
          * collection.
          **/
-        sortBy(iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
+        sortBy(iteratee?: Iteratee<V, any>, context?: any): _Chain<T>;
 
         /**
          * Splits the warpped collection into sets that are grouped by the
@@ -5353,7 +5353,7 @@ declare module _ {
          * provided by `iteratee` as properties where each property contains
          * the grouped elements from the wrapped collection.
          **/
-        groupBy(iteratee?: _ChainIteratee<V, EnumerableKey, T>, context?: any): _Chain<T[], Dictionary<T[]>>;
+        groupBy(iteratee?: Iteratee<V, EnumerableKey>, context?: any): _Chain<T[], Dictionary<T[]>>;
 
         /**
          * Given the warpped collection and an `iteratee` function that returns
@@ -5368,7 +5368,7 @@ declare module _ {
          * wrapped collection is assigned to the property designated by
          * `iteratee`.
          **/
-        indexBy(iteratee?: _ChainIteratee<V, EnumerableKey, T>, context?: any): _Chain<T, Dictionary<T>>;
+        indexBy(iteratee?: Iteratee<V, EnumerableKey>, context?: any): _Chain<T, Dictionary<T>>;
 
         /**
          * Sorts the wrapped collection into groups and returns a count for the
@@ -5383,13 +5383,13 @@ declare module _ {
          * provided by `iteratee` as properties where each property contains
          * the count of the grouped elements from the wrapped collection.
          **/
-        countBy(iterator?: _ChainIteratee<V, EnumerableKey, T>, context?: any): _Chain<number, Dictionary<number>>;
+        countBy(iterator?: Iteratee<V, EnumerableKey>, context?: any): _Chain<number, Dictionary<number>>;
 
         /**
          * Returns a shuffled copy of the wrapped collection, using a version of the Fisher-Yates shuffle.
          * @return A shuffled copy of the wrapped collection in a chain wrapper.
          **/
-        shuffle(): _Chain<T, T[]>;
+        shuffle(): _Chain<T>;
 
         /**
          * Produce a random sample from the wrapped collection. Pass a number to return `n` random elements from the
@@ -5398,7 +5398,7 @@ declare module _ {
          * @return A random sample of `n` elements from the wrapped collection or a single element if `n` is not specified.
          * The result will be wrapped in a chain wrapper.
          **/
-        sample(n: number): _Chain<T, T[]>;
+        sample(n: number): _Chain<T>;
         sample(): _ChainSingle<T | undefined>;
 
         /**
@@ -5407,7 +5407,7 @@ declare module _ {
          * @returns A chain wrapper around an array containing the elements
          * of the wrapped collection.
          **/
-        toArray(): _Chain<T, T[]>;
+        toArray(): _Chain<T>;
 
         /**
          * Determines the number of values in the wrapped collection.
@@ -5428,7 +5428,7 @@ declare module _ {
          * collection that satisfied the predicate and the second element
          * contains the elements that did not.
          **/
-        partition(iteratee?: _ChainIteratee<V, boolean, T>, context?: any): _Chain<T[], [T[], T[]]>;
+        partition(iteratee?: Iteratee<V, boolean>, context?: any): _Chain<T[], [T[], T[]]>;
 
         /*********
         * Arrays *
@@ -5442,7 +5442,7 @@ declare module _ {
          * wrapped list or around the first element if `n` is omitted.
          **/
         first(): _ChainSingle<T | undefined>;
-        first(n: number): _Chain<T, T[]>;
+        first(n: number): _Chain<T>;
 
         /**
          * @see first
@@ -5463,7 +5463,7 @@ declare module _ {
          * @returns A chain wrapper around the elements of the wrapped list
          * with the last `n` items omitted.
          **/
-        initial(n?: number): _Chain<T, T[]>;
+        initial(n?: number): _Chain<T>;
 
         /**
          * Returns the last element of the wrapped list. Passing `n` will
@@ -5473,7 +5473,7 @@ declare module _ {
          * list or around the last element if `n` is omitted.
          **/
         last(): _ChainSingle<T | undefined>;
-        last(n: number): _Chain<T, T[]>;
+        last(n: number): _Chain<T>;
 
         /**
          * Returns the rest of the elements in the wrapped list. Pass an
@@ -5483,7 +5483,7 @@ declare module _ {
          * @returns A chain wrapper around the elements of the wrapped list
          * from `index` to the end of the list.
          **/
-        rest(n?: number): _Chain<T, T[]>;
+        rest(n?: number): _Chain<T>;
 
         /**
          * @see rest
@@ -5501,7 +5501,7 @@ declare module _ {
          * @returns A chain wrapper around an array containing the elements of
          * the wrapped list without falsy values.
          **/
-        compact(): _Chain<Truthy<T>, Truthy<T>[]>;
+        compact(): _Chain<Truthy<T>>;
 
         /**
          * Flattens the wrapped nested list (the nesting can be to any depth). If you pass shallow, the list will
@@ -5519,7 +5519,7 @@ declare module _ {
          * @return A chain wrapper around an array that contains all elements
          * of the wrapped list except for `values`.
          **/
-        without(...values: T[]): _Chain<T, T[]>;
+        without(...values: T[]): _Chain<T>;
 
         /**
          * Computes the union of the wrapped list and the passed-in `lists`:
@@ -5530,7 +5530,7 @@ declare module _ {
          * @returns A chain wrapper around the union of elements within the
          * wrapped list and `lists`.
          **/
-        union(...lists: List<T>[]): _Chain<T, T[]>;
+        union(...lists: List<T>[]): _Chain<T>;
 
         /**
          * Computes the list of values that are the intersection of the wrapped
@@ -5541,7 +5541,7 @@ declare module _ {
          * @returns A chain wrapper around the intersection of elements within
          * the the wrapped list and `lists`.
          **/
-        intersection(...lists: List<T>[]): _Chain<T, T[]>;
+        intersection(...lists: List<T>[]): _Chain<T>;
 
         /**
          * Similar to without, but returns the values from the wrapped list
@@ -5551,7 +5551,7 @@ declare module _ {
          * @returns A chain wrapper around the contents of the wrapped list
          * without the values in `others`.
          **/
-        difference(...others: List<T>[]): _Chain<T, T[]>;
+        difference(...others: List<T>[]): _Chain<T>;
 
         /**
          * Produces a duplicate-free version of the wrapped list, using === to
@@ -5567,8 +5567,8 @@ declare module _ {
          * @return A chain wrapper around an array containing only the unique
          * elements in the wrapped list.
          **/
-        uniq(isSorted?: boolean, iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
-        uniq(iteratee?: _ChainIteratee<V, any, T>, context?: any): _Chain<T, T[]>;
+        uniq(isSorted?: boolean, iteratee?: Iteratee<V, any>, context?: any): _Chain<T>;
+        uniq(iteratee?: Iteratee<V, any>, context?: any): _Chain<T>;
 
         /**
         * Wrapped type List<T>.
@@ -5584,7 +5584,7 @@ declare module _ {
          * @returns A chain wrapper around the zipped version of the wrapped
          * list and `lists`.
          **/
-        zip(...arrays: List<any>[]): _Chain<any[], any[][]>;
+        zip(...arrays: List<any>[]): _Chain<any[]>;
 
         /**
          * The opposite of zip. Given the wrapped list of lists, returns a
@@ -5594,7 +5594,7 @@ declare module _ {
          * @returns A chain wrapper aoround the unzipped version of the wrapped
          * lists.
          **/
-        unzip(): _Chain<any[], any[][]>;
+        unzip(): _Chain<any[]>;
 
         /**
          * Converts lists into objects. Call on either a wrapped list of
@@ -5682,7 +5682,7 @@ declare module _ {
          * @return A chain wrapper around the index where `value` should be
          * inserted into the wrapped list.
          **/
-        sortedIndex(value: T, iteratee?: _ChainIteratee<V, any, T>, context?: any): _ChainSingle<number>;
+        sortedIndex(value: T, iteratee?: Iteratee<V | undefined, any>, context?: any): _ChainSingle<number>;
 
         /**
          * A function to create flexibly-numbered lists of integers, handy for
@@ -5700,14 +5700,14 @@ declare module _ {
          * @returns A chain wrapper around an array of numbers from start to
          * `stop` with increments of `step`.
          **/
-        range(stop?: number, step?: number): _Chain<number, number[]>;
+        range(stop?: number, step?: number): _Chain<number>;
 
         /**
          * Chunks a wrapped list into multiple arrays, each containing length or fewer items.
          * @param length The maximum size of the inner arrays.
          * @returns The wrapped chunked list.
          **/
-        chunk(length: number): _Chain<T[], T[][]>;
+        chunk(length: number): _Chain<T[]>;
 
         /* ***********
         * Functions *
