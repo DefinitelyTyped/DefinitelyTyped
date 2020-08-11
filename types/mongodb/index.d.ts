@@ -38,7 +38,7 @@
 /// <reference types="node" />
 /// <reference lib="esnext.asynciterable" />
 
-import { Binary, ObjectId, Timestamp } from 'bson';
+import { Binary, Decimal128, ObjectId, Timestamp } from 'bson';
 import { EventEmitter } from 'events';
 import { Readable, Writable } from 'stream';
 import { checkServerIdentity } from 'tls';
@@ -1387,10 +1387,10 @@ export type PullAllOperator<TSchema> = ({
 export type UpdateQuery<TSchema> = {
     /** https://docs.mongodb.com/manual/reference/operator/update-field/ */
     $currentDate?: OnlyFieldsOfType<TSchema, Date, true | { $type: 'date' | 'timestamp' }>;
-    $inc?: OnlyFieldsOfType<TSchema, number | undefined>;
+    $inc?: OnlyFieldsOfType<TSchema, number | Decimal128 | undefined>;
     $min?: MatchKeysAndValues<TSchema>;
     $max?: MatchKeysAndValues<TSchema>;
-    $mul?: OnlyFieldsOfType<TSchema, number | undefined>;
+    $mul?: OnlyFieldsOfType<TSchema, number | Decimal128 | undefined>;
     $rename?: { [key: string]: string };
     $set?: MatchKeysAndValues<TSchema>;
     $setOnInsert?: MatchKeysAndValues<TSchema>;
