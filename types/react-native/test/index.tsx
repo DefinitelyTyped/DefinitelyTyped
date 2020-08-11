@@ -106,6 +106,7 @@ import {
     ColorValue,
     TextLayoutEventData,
     LayoutChangeEvent,
+    AppStateStatus,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -439,6 +440,12 @@ function appStateTest() {
     AppState.addEventListener('blur', appStateListener);
     AppState.addEventListener('focus', appStateListener);
 }
+
+let appState: AppStateStatus = 'active';
+appState = 'background';
+appState = 'inactive';
+appState = 'unknown';
+appState = 'extension';
 
 // ViewPagerAndroid
 export class ViewPagerAndroidTest {
