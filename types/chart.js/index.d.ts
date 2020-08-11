@@ -737,6 +737,7 @@ declare namespace Chart {
         scaleLabel?: ScaleTitleOptions;
         time?: TimeScale;
         offset?: boolean;
+        labels?: Array<string | string[] | number | number[] | Date | Date[] | Moment | Moment[]>;
         beforeUpdate?(scale?: any): void;
         beforeSetDimension?(scale?: any): void;
         beforeDataLimits?(scale?: any): void;
