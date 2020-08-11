@@ -17,10 +17,12 @@ async function run() {
     stringField: string;
     numberField?: number;
     fruitTags: string[];
+    readonlyFruitTags: ReadonlyArray<string>;
   }
   const collectionT = db.collection<TestModel>('testCollection');
   collectionT.find({
     $and: [{ numberField: { $gt: 0 } }, { numberField: { $lt: 100 } }],
+    readonlyFruitTags: {$all: ['apple', 'pear']}
   });
   const res: Cursor<TestModel> = collectionT.find({});
 

@@ -7,6 +7,7 @@ async function run() {
     foo: number;
     nested: { num: number; };
     array: string[];
+    readonlyArray: ReadonlyArray<string>;
     test: string;
   }
 
@@ -40,4 +41,8 @@ async function run() {
   collection.distinct('array'); // $ExpectType Promise<string[]>
   collection.distinct('array', { foo: 1 }); // $ExpectType Promise<string[]>
   collection.distinct('array', { foo: 1 }, { maxTimeMS: 400 }); // $ExpectType Promise<string[]>
+
+  collection.distinct('readonlyArray'); // $ExpectType Promise<string[]>
+  collection.distinct('readonlyArray', { foo: 1 }); // $ExpectType Promise<string[]>
+  collection.distinct('readonlyArray', { foo: 1 }, { maxTimeMS: 400 }); // $ExpectType Promise<string[]>
 }
