@@ -3,6 +3,9 @@
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>
 //                 Igor Strebezhev <https://github.com/xamgore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="node" />
+
 export function toJson(xml: string | Buffer, options?: { object?: false } & JsonOptions): string;
 export function toJson(xml: string | Buffer, options?: { object: true } & JsonOptions): {};
 
