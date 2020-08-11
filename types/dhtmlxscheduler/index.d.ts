@@ -1004,6 +1004,7 @@ interface SchedulerConfigOptions {
 
 interface SchedulerDateHelpers {
     add(origin: Date, count: number, unit: string): Date;
+    add_map(origin: Date, count: number): Date;
     copy(origin: Date): Date;
 
     date_part(origin: Date): Date;
