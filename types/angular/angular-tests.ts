@@ -178,7 +178,10 @@ mod.controller('name', class {
 mod.controller({
     MyCtrl: class {},
     MyCtrl2() {},
-    MyCtrl3: ['$fooService', ($fooService: any) => { }]
+    MyCtrl3: ['$fooService', ($fooService: any) => { }],
+    MyCtrl4: class implements ng.IController {
+        static $inject: [];
+    }
 });
 mod.directive('myDirectiveA', ($rootScope: ng.IRootScopeService) => {
     return (scope, el, attrs) => {

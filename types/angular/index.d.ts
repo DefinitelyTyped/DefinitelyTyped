@@ -1993,7 +1993,8 @@ declare namespace angular {
      * https://docs.angularjs.org/api/ng/service/$compile#life-cycle-hooks
      * https://docs.angularjs.org/guide/component
      */
-    interface IController {
+    abstract class IController {
+        static $inject?: ReadonlyArray<string>;
         /**
          * Called on each controller after all the controllers on an element have been constructed and had their bindings
          * initialized (and before the pre & post linking functions for the directives on this element). This is a good
