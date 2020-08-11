@@ -309,6 +309,7 @@ declare module 'twit' {
             stringify_ids?: boolean;
             in_reply_to_status_id?: number | string;
             page?: number;
+            auto_populate_reply_metadata?: boolean;
         }
         export interface PromiseResponse {
             data: Response;
