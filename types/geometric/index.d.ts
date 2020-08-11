@@ -3,6 +3,8 @@
 // Definitions by: Linda Paiste <https://github.com/lindapaiste>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export as namespace geometric;
+
 // -------------------------------PRIMITIVES-------------------------------------------//
 
     /**
