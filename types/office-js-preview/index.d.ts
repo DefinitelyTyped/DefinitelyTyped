@@ -1201,7 +1201,7 @@ declare namespace Office {
          * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign in with Organizational
          * Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
          *
-         * @param options - Optional. Accepts an `AuthOptions object` to define sign-on behaviors.
+         * @param options - Optional. Accepts an `AuthOptions` object to define sign-on behaviors.
          * @param callback - Optional. Accepts a callback method that can parse the token for the user's ID or use the token in the "on behalf of" flow to get access to Microsoft Graph.
          *                   If `AsyncResult.status` is "succeeded", then `AsyncResult.value` is the raw AAD v. 2.0-formatted access token.
          */
