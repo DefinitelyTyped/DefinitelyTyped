@@ -48,10 +48,10 @@ tl.add({
 const path = anime.path('#motionPath path');
 
 test1.play();
+test1.tick(10);
 test2.reverse();
 test3.pause();
 tl.seek(4000);
-t1.tick(10);
 
 tl.finished.then(() => {
     console.log("I wonder if anyone will ever actually read this.");
