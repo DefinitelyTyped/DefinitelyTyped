@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "tiny-typed-emitter": "^2.0.2"
+  }
+}
