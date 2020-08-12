@@ -26,5 +26,3 @@ export function clearTimeout(timer: Timeout): void;
 export function setInterval(listener: Listener, ms: number): Interval;
 
 export function setTimeout(listener: Listener, ms: number): Timeout;
-
-export as namespace LongTimeout;
