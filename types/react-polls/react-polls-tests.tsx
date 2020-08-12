@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import Polls from 'react-polls';
+import Poll from 'react-polls';
 
-class Test extends React.Component {
+class PollTest extends React.Component<{}> {
     render() {
         return (
-            <Polls
+            <Poll
                 question={'Test Question?'}
                 answers={[
                     { option: 'Yes', votes: 0 },
