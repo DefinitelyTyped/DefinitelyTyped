@@ -1,4 +1,4 @@
-// Type definitions for ua-parser-js v0.7.10
+// Type definitions for udp-discovery 2.0.0
 // Project: https://github.com/stdarg/udp-discovery
 // Definitions by: Scott Page <https://github.com/scottpage>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
