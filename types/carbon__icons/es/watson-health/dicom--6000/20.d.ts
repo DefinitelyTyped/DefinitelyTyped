@@ -1,6 +1,5 @@
-
-import { Attrs20 } from '../../../../utils/Attrs';
-import { Content } from '../../../../utils/Content';
+import { Attrs20 } from '../../../utils/Attrs';
+import { Content } from '../../../utils/Content';
 
 interface _20 {
     elem: 'svg';

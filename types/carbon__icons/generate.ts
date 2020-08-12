@@ -9,8 +9,7 @@ const testFile = 'carbon__icons-tests.ts';
 
 const sizes = ['16', '20', '24', '32'];
 
-const template = `
-import { Attrs{{size}} } from '{{pathToRoot}}/utils/Attrs';
+const template = `import { Attrs{{size}} } from '{{pathToRoot}}/utils/Attrs';
 import { Content } from '{{pathToRoot}}/utils/Content';
 
 interface {{name}} {
@@ -94,7 +93,7 @@ svgFiles.forEach(file => {
             sizes.forEach(size => {
                 fs.writeFileSync(
                     folder + '/' + size + '.d.ts',
-                    getContent('../../..', name, size)
+                    getContent('../..', name, size)
                 );
             })
         } else if(parts.length === 3) {
@@ -107,7 +106,7 @@ svgFiles.forEach(file => {
             sizes.forEach(size => {
                 fs.writeFileSync(
                     folder + '/' + size + '.d.ts',
-                    getContent('../../../..', name, size)
+                    getContent('../../..', name, size)
                 );
             })
         } else {
