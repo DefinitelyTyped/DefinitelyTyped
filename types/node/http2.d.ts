@@ -356,7 +356,7 @@ declare module "http2" {
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
         emit(event: "altsvc", alt: string, origin: string, stream: number): boolean;
-        emit(event: "origin", origins: string[]): boolean;
+        emit(event: "origin", origins: ReadonlyArray<string>): boolean;
         emit(event: "connect", session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket): boolean;
         emit(event: "stream", stream: ClientHttp2Stream, headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
@@ -571,7 +571,7 @@ declare module "http2" {
     }
 
     export class Http2ServerRequest extends stream.Readable {
-        constructor(stream: ServerHttp2Stream, headers: IncomingHttpHeaders, options: stream.ReadableOptions, rawHeaders: string[]);
+        constructor(stream: ServerHttp2Stream, headers: IncomingHttpHeaders, options: stream.ReadableOptions, rawHeaders: ReadonlyArray<string>);
 
         readonly aborted: boolean;
         readonly authority: string;
@@ -662,7 +662,7 @@ declare module "http2" {
         getHeaders(): OutgoingHttpHeaders;
         hasHeader(name: string): boolean;
         removeHeader(name: string): void;
-        setHeader(name: string, value: number | string | string[]): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
         setTimeout(msecs: number, callback?: () => void): void;
         write(chunk: string | Uint8Array, callback?: (err: Error) => void): boolean;
         write(chunk: string | Uint8Array, encoding: BufferEncoding, callback?: (err: Error) => void): boolean;

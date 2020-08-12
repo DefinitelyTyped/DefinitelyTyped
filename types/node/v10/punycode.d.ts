@@ -55,7 +55,7 @@ declare module "punycode" {
          * Users currently depending on the punycode module should switch to using
          * the userland-provided Punycode.js module instead.
          */
-        encode(codePoints: number[]): string;
+        encode(codePoints: ReadonlyArray<number>): string;
     }
     /**
      * @deprecated since v7.0.0

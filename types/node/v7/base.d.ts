@@ -93,7 +93,7 @@ declare var SlowBuffer: {
     prototype: Buffer;
     isBuffer(obj: any): boolean;
     byteLength(string: string, encoding?: string): number;
-    concat(list: Buffer[], totalLength?: number): Buffer;
+    concat(list: ReadonlyArray<Buffer>, totalLength?: number): Buffer;
 };
 
 
@@ -160,7 +160,7 @@ declare var Buffer: {
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    from(data: any[] | string | Buffer | ArrayBuffer /*| TypedArray*/): Buffer;
+    from(data: ReadonlyArray<any> | string | Buffer | ArrayBuffer /*| TypedArray*/): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
@@ -199,7 +199,7 @@ declare var Buffer: {
      * @param totalLength Total length of the buffers when concatenated.
      *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
      */
-    concat(list: Buffer[], totalLength?: number): Buffer;
+    concat(list: ReadonlyArray<Buffer>, totalLength?: number): Buffer;
     /**
      * The same as buf1.compare(buf2).
      */
@@ -802,7 +802,7 @@ declare module "http" {
         statusCode: number;
         statusMessage: string;
         headersSent: boolean;
-        setHeader(name: string, value: string | string[]): void;
+        setHeader(name: string, value: string | ReadonlyArray<string>): void;
         setTimeout(msecs: number, callback: Function): ServerResponse;
         sendDate: boolean;
         getHeader(name: string): string;
@@ -833,7 +833,7 @@ declare module "http" {
         setNoDelay(noDelay?: boolean): void;
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
 
-        setHeader(name: string, value: string | string[]): void;
+        setHeader(name: string, value: string | ReadonlyArray<string>): void;
         getHeader(name: string): string;
         removeHeader(name: string): void;
         addTrailers(headers: OutgoingHttpHeaders): void;
@@ -1543,7 +1543,7 @@ declare module "punycode" {
     export var ucs2: ucs2;
     interface ucs2 {
         decode(string: string): number[];
-        encode(codePoints: number[]): string;
+        encode(codePoints: ReadonlyArray<number>): string;
     }
     export var version: any;
 }
@@ -1880,11 +1880,11 @@ declare module "child_process" {
     // usage. child_process.execFile("file.sh", {encoding: null as string}, (err, stdout, stderr) => {});
     export function execFile(file: string, options?: ExecFileOptionsWithBufferEncoding, callback?: (error: Error, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
     export function execFile(file: string, options?: ExecFileOptions, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
-    export function execFile(file: string, args?: string[], callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
-    export function execFile(file: string, args?: string[], options?: ExecFileOptionsWithStringEncoding, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args?: ReadonlyArray<string>, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args?: ReadonlyArray<string>, options?: ExecFileOptionsWithStringEncoding, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
     // usage. child_process.execFile("file.sh", ["foo"], {encoding: null as string}, (err, stdout, stderr) => {});
-    export function execFile(file: string, args?: string[], options?: ExecFileOptionsWithBufferEncoding, callback?: (error: Error, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
-    export function execFile(file: string, args?: string[], options?: ExecFileOptions, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args?: ReadonlyArray<string>, options?: ExecFileOptionsWithBufferEncoding, callback?: (error: Error, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+    export function execFile(file: string, args?: ReadonlyArray<string>, options?: ExecFileOptions, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
 
     export interface ForkOptions {
         cwd?: string;
@@ -1896,7 +1896,7 @@ declare module "child_process" {
         uid?: number;
         gid?: number;
     }
-    export function fork(modulePath: string, args?: string[], options?: ForkOptions): ChildProcess;
+    export function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
     export interface SpawnSyncOptions {
         cwd?: string;
@@ -1930,9 +1930,9 @@ declare module "child_process" {
     export function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
     export function spawnSync(command: string, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
     export function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
-    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
-    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
-    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
+    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
 
     export interface ExecSyncOptions {
         cwd?: string;
@@ -1980,9 +1980,9 @@ declare module "child_process" {
     export function execFileSync(command: string, options?: ExecFileSyncOptionsWithStringEncoding): string;
     export function execFileSync(command: string, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
     export function execFileSync(command: string, options?: ExecFileSyncOptions): Buffer;
-    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptionsWithStringEncoding): string;
-    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
-    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptions): Buffer;
+    export function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithStringEncoding): string;
+    export function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    export function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): Buffer;
 }
 
 declare module "url" {
@@ -2022,7 +2022,7 @@ declare module "url" {
     }
 
     export class URLSearchParams implements Iterable<string[]> {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] } | Iterable<string[]> );
+        constructor(init?: URLSearchParams | string | { [key: string]: string | ReadonlyArray<string> } | ReadonlyArray<Iterable<string>> );
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): Iterator<string[]>;
@@ -2164,7 +2164,7 @@ declare module "dns" {
     export function resolveTxt(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
 
     export function reverse(ip: string, callback: (err: NodeJS.ErrnoException, hostnames: string[]) => void): void;
-    export function setServers(servers: string[]): void;
+    export function setServers(servers: ReadonlyArray<string>): void;
 
     //Error codes
     export var NODATA: string;
@@ -2428,8 +2428,8 @@ declare module "dgram" {
     export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     export interface Socket extends events.EventEmitter {
-        send(msg: Buffer | String | any[], port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
-        send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
+        send(msg: Buffer | String | ReadonlyArray<any>, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
+        send(msg: Buffer | String | ReadonlyArray<any>, offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
         bind(options: BindOptions, callback?: Function): void;
         close(callback?: () => void): void;
@@ -3240,7 +3240,7 @@ declare module "tls" {
            * An array of strings or a Buffer naming possible NPN protocols.
            * (Protocols should be ordered by their priority.)
            */
-          NPNProtocols?: string[] | Buffer,
+          NPNProtocols?: ReadonlyArray<string> | Buffer,
           /**
            * An array of strings or a Buffer naming possible ALPN protocols.
            * (Protocols should be ordered by their priority.) When the server
@@ -3248,7 +3248,7 @@ declare module "tls" {
            * precedence over NPN and the server does not send an NPN extension
            * to the client.
            */
-          ALPNProtocols?: string[] | Buffer,
+          ALPNProtocols?: ReadonlyArray<string> | Buffer,
           /**
            * SNICallback(servername, cb) <Function> A function that will be
            * called if the client supports SNI TLS extension. Two arguments
