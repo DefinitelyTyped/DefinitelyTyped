@@ -65,12 +65,13 @@ export interface DiscoveryEvents {
 }
 
 /**
-* This module provides discovery services using UDP multicast. udp-discovery implements the zero-configuration UDP multicast discovery and works only between nodes on the same subnet as typically, broadcast packets don't route.
-*/
+ * This module provides discovery services using UDP multicast. udp-discovery implements the zero-configuration UDP multicast discovery and works only between nodes on the same subnet as typically,
+ * broadcast packets don't route.
+ */
 export class Discovery extends EventEmitter {
     /**
      * Invokes the constructor to create an instance of Discovery to receive discovery events. The config options object is optional, but if included, the following options are available:
-     * @param {DiscoveryConstructorOptions} options constructor options
+     * @param options constructor options
      */
     constructor(options?: DiscoveryConstructorOptions);
 
@@ -106,12 +107,12 @@ export class Discovery extends EventEmitter {
     getData(name: string): any;
 
     /**
-    * Updates the existing service.
-    * @param name The name of the service being announced. It must be unique, or it will collide with another.
-    * @param userData The duration between announcements in milliseconds.
-    * @param interval Any data that can be serialized into JSON.
-    * @param available Optional parameter to set availability of the service. If not specified, the default is 'true', meaning available.
-    */
+     * Updates the existing service.
+     * @param name The name of the service being announced. It must be unique, or it will collide with another.
+     * @param userData The duration between announcements in milliseconds.
+     * @param interval Any data that can be serialized into JSON.
+     * @param available Optional parameter to set availability of the service. If not specified, the default is 'true', meaning available.
+     */
     update(name: string, userData: any, interval?: number, available?: boolean): void;
 
     /**
