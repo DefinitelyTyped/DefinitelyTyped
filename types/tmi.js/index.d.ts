@@ -120,6 +120,7 @@ export interface Badges {
     staff?: string;
     turbo?: string;
     premium?: string;
+    founder?: string;
 }
 
 export interface SubMethods {
