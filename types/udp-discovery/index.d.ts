@@ -8,7 +8,7 @@ import { EventEmitter } from 'events';
 /**
  * Discovery constructor options
  */
-interface DiscoveryConstructorOptions {
+export interface DiscoveryConstructorOptions {
     /**
      * The port to listen upon for service announcements. Default: 44201.
      */
@@ -28,12 +28,12 @@ interface DiscoveryConstructorOptions {
 /**
  * Reason for available or unavailable event to be fired.
  */
-type ReasonType = 'new' | 'availabilityChange' | 'timedOut';
+export type ReasonType = 'new' | 'availabilityChange' | 'timedOut';
 
 /**
  * Discovery events
  */
-interface DiscoveryEvents {
+export interface DiscoveryEvents {
     /**
      * This event can happen when:
      *  - The first announcement for a service is received.
