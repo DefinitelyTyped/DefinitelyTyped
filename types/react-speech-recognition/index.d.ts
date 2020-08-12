@@ -5,7 +5,7 @@
 
 interface Command {
     command: string | RegExp;
-    callback: Function;
+    callback: (...args: any[]) => unknown;
     isFuzzyMatch?: boolean;
     matchInterim?: boolean;
     fuzzyMatchingThreshold?: number;
