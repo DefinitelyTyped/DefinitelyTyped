@@ -5,7 +5,11 @@ import React = require('react');
 function useExperimentalHooks() {
     const [toggle, setToggle] = React.useState(false);
 
-    const [startTransition, done] = React.unstable_useTransition({ busyMinDurationMs: 100, busyDelayMs: 200, timeoutMs: 300 });
+    const [startTransition, done] = React.unstable_useTransition({
+        busyMinDurationMs: 100,
+        busyDelayMs: 200,
+        timeoutMs: 300,
+    });
     // $ExpectType boolean
     done;
 
@@ -46,7 +50,6 @@ function useExperimentalHooks() {
     }
 }
 
-
 function Dialog() {
     const nameId = React.unstable_useOpaqueIdentifier();
 
@@ -55,4 +58,14 @@ function Dialog() {
             <h2 id={nameId}></h2>
         </div>
     );
+}
+
+function InvalidOpaqueIdentifierUsage() {
+    const id = React.unstable_useOpaqueIdentifier();
+    // undesired, would warn in React should not type-check
+    const stringified1: string = id.toString();
+    // undesired, would warn in React should not type-check
+    const stringified2: string = id + '';
+
+    return null;
 }
