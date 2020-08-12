@@ -3,18 +3,12 @@
 // Definitions by: Scott Page <https://github.com/scottpage>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { EventEmitter } from 'events';
+
 /**
- * This module provides discovery services using UDP multicast. udp-discovery implements the zero-configuration UDP multicast discovery and works only between nodes on the same subnet as typically,
- * broadcast packets don't route.
+ * Discovery constructor options
  */
-declare module 'udp-discovery'{
-
-  import { EventEmitter } from 'events';
-
-  /**
-   * Discovery constructor options
-   */
-  interface DiscoveryConstructorOptions {
+interface DiscoveryConstructorOptions {
     /**
      * The port to listen upon for service announcements. Default: 44201.
      */
@@ -29,17 +23,17 @@ declare module 'udp-discovery'{
      * Either 'udp4' or 'udp6'. Default: 'udp4'.
      */
     dgramType?: string;
-  }
+}
 
-  /**
-   * Reason for available or unavailable event to be fired.
-   */
-  type ReasonType = 'new' | 'availabilityChange' | 'timedOut';
+/**
+ * Reason for available or unavailable event to be fired.
+ */
+type ReasonType = 'new' | 'availabilityChange' | 'timedOut';
 
-  /**
-   * Discovery events
-   */
-  interface DiscoveryEvents {
+/**
+ * Discovery events
+ */
+interface DiscoveryEvents {
     /**
      * This event can happen when:
      *  - The first announcement for a service is received.
@@ -68,12 +62,12 @@ declare module 'udp-discovery'{
      * @param data The payload for the event.
      */
     MessageBus?: (eventName: string, data: any) => void;
-  }
+}
 
-  /**
-  * This module provides discovery services using UDP multicast. udp-discovery implements the zero-configuration UDP multicast discovery and works only between nodes on the same subnet as typically, broadcast packets don't route.
-  */
-  class Discovery extends EventEmitter {
+/**
+* This module provides discovery services using UDP multicast. udp-discovery implements the zero-configuration UDP multicast discovery and works only between nodes on the same subnet as typically, broadcast packets don't route.
+*/
+export class Discovery extends EventEmitter {
     /**
      * Invokes the constructor to create an instance of Discovery to receive discovery events. The config options object is optional, but if included, the following options are available:
      * @param {DiscoveryConstructorOptions} options constructor options
@@ -111,13 +105,13 @@ declare module 'udp-discovery'{
      */
     getData(name: string): any;
 
-     /**
-     * Updates the existing service.
-     * @param name The name of the service being announced. It must be unique, or it will collide with another.
-     * @param userData The duration between announcements in milliseconds.
-     * @param interval Any data that can be serialized into JSON.
-     * @param available Optional parameter to set availability of the service. If not specified, the default is 'true', meaning available.
-     */
+    /**
+    * Updates the existing service.
+    * @param name The name of the service being announced. It must be unique, or it will collide with another.
+    * @param userData The duration between announcements in milliseconds.
+    * @param interval Any data that can be serialized into JSON.
+    * @param available Optional parameter to set availability of the service. If not specified, the default is 'true', meaning available.
+    */
     update(name: string, userData: any, interval?: number, available?: boolean): void;
 
     /**
@@ -127,5 +121,4 @@ declare module 'udp-discovery'{
      * @param data The payload for the event.
      */
     sendEvent(eventName: string, data: any): void;
-  }
 }
