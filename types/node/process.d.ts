@@ -41,6 +41,7 @@ declare module "process" {
                 zlib: string;
                 modules: string;
                 openssl: string;
+                pnp?: string;
             }
 
             type Platform = 'aix'
