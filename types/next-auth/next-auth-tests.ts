@@ -14,6 +14,16 @@ import * as client from 'next-auth/client';
 // Server
 // --------------------------------------------------------------------------
 
+interface GenericObject {
+    [key: string]: any;
+}
+
+interface Session {
+    jwt?: boolean;
+    maxAge?: number;
+    updateAge?: number;
+}
+
 const req = {
     query: {
         foo: 'bar',
@@ -68,19 +78,50 @@ const allConfig = {
     database: 'path/to/db',
     debug: true,
     secret: 'my secret',
+    session: {
+        jwt: true,
+        maxAge: 365,
+        updateAge: 60,
+    },
     jwt: {
         secret: 'secret-thing',
         maxAge: 365,
         encode: () => Promise.resolve('foo'),
         decode: () => Promise.resolve('foo'),
     },
-    jwtSecret: 'foo',
-    sessionMaxAge: 100,
-    sessionUpdateAge: 200,
-    verificationMaxAge: 300,
     pages: pageOptions,
-    basePath: 'base/path',
-    callbackUrlHandler: () => Promise.resolve(),
+    callbacks: {
+        signIgn: (user: GenericObject, account: GenericObject, profile: GenericObject) => Promise.resolve(true),
+        redirect: (url: string, baseUrl: string) => Promise.resolve('path/to/foo'),
+        session: (session: Session, user: GenericObject) => Promise.resolve({}),
+        jwt: (
+            token: GenericObject,
+            user: GenericObject,
+            account: GenericObject,
+            profile: GenericObject,
+            isNewUser: boolean,
+        ) => Promise.resolve({}),
+    },
+    events: {
+        signIn: async (message: string) => {
+            return undefined;
+        },
+        signOut: async (message: string) => {
+            return undefined;
+        },
+        createUser: async (message: string) => {
+            return undefined;
+        },
+        linkAccount: async (message: string) => {
+            return undefined;
+        },
+        session: async (message: string) => {
+            return undefined;
+        },
+        error: async (message: string) => {
+            return undefined;
+        },
+    },
     adapter: () => {
         async function getAdapter() {
             return Promise.resolve({

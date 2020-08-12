@@ -1,4 +1,4 @@
-// Type definitions for next-auth 2.2
+// Type definitions for next-auth 3.1
 // Project: https://github.com/iaincollins/next-auth#readme
 // Definitions by: Lluis <https://github.com/lluia>
 //                 Iain <https://github.com/iaincollins>
@@ -12,20 +12,16 @@ import { PossibleProviders } from './providers';
 import { Adapter } from './adapters';
 
 interface InitOptions {
-    site: string;
     providers: Array<ReturnType<PossibleProviders>>;
     database?: ConnectionOptions | string;
     secret?: string;
+    session?: Session;
     jwt?: JWTOptions;
-    jwtSecret?: string;
-    sessionMaxAge?: number;
-    sessionUpdateAge?: number;
-    verificationMaxAge?: number;
     pages?: PageOptions;
+    callbacks?: Callbacks;
     debug?: boolean;
-    basePath?: string;
-    callbackUrlHandler?: (url: string, options: CallbackURLOptions) => Promise<void>;
     adapter?: Adapter;
+    events?: Events;
     useSecureCookies?: boolean;
     cookies?: Cookies;
 }
@@ -55,11 +51,27 @@ interface CookieOptions {
     secure: boolean;
 }
 
+interface Events {
+    signIn?(message: string): Promise<void>;
+    signOut?(message: string): Promise<void>;
+    createUser?(message: string): Promise<void>;
+    updateUser?(message: string): Promise<void>;
+    linkAccount?(message: string): Promise<void>;
+    session?(message: string): Promise<void>;
+    error?(message: string): Promise<void>;
+}
+
+interface Session {
+    jwt?: boolean;
+    maxAge?: number;
+    updateAge?: number;
+}
+
 interface JWTOptions {
     secret: string;
-    maxAge: number;
-    encode(options: JWTEncodeParams): Promise<string>;
-    decode(options: JWTDecodeParams): Promise<string>;
+    maxAge?: number;
+    encode?(options: JWTEncodeParams): Promise<string>;
+    decode?(options: JWTDecodeParams): Promise<string>;
 }
 
 interface JWTSignInOptions {
@@ -111,10 +123,16 @@ interface GenericObject {
 
 // TODO: Improve callback typings
 interface Callbacks {
-    signin(profile: GenericObject, account: GenericObject, metadata: GenericObject): Promise<void>;
-    redirect(url: string, baseUrl: string): Promise<string>;
-    session(session: GenericObject, token: GenericObject): Promise<GenericObject>;
-    jwt(token: GenericObject, oAuthProfile: GenericObject): Promise<GenericObject>;
+    signIn?(user: GenericObject, account: GenericObject, profile: GenericObject): Promise<boolean>;
+    redirect?(url: string, baseUrl: string): Promise<string>;
+    session?(session: Session, user: GenericObject): Promise<Session>;
+    jwt?(
+        token: GenericObject,
+        user: GenericObject,
+        account: GenericObject,
+        profile: GenericObject,
+        isNewUser: boolean,
+    ): Promise<GenericObject>;
 }
 
 declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options?: InitOptions): Promise<void>;
