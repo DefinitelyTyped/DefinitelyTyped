@@ -205,7 +205,7 @@ declare namespace OfficeRuntime {
        */
       authChallenge?: string;
       /**
-       * A user-defined item of any type that is returned, unchanged, in the `asyncContext property` of the `AsyncResult` object that is passed to a callback.
+       * A user-defined item of any type that is returned, unchanged, in the `asyncContext` property of the `AsyncResult` object that is passed to a callback.
        */
       asyncContext?: any;
       /**
@@ -232,7 +232,7 @@ declare namespace OfficeRuntime {
      *
      * **Hosts**: Excel, Outlook, PowerPoint, Word
      *
-     * @param options - Optional. Accepts an `AuthOption`s object to define sign-on behaviors.
+     * @param options - Optional. Accepts an `AuthOptions` object to define sign-on behaviors.
      * returns: Promise to the access token.
      */
     getAccessToken(options?: AuthOptions): Promise<string>;
