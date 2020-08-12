@@ -12,7 +12,7 @@
  * If the arg you provide doesn't have a specifier part, eg foo then the specifier will default to latest.
  * @param where Optionally the path to resolve file paths relative to. Defaults to process.cwd()
  */
-declare function npa(arg: string, where?: string): npa.Result;
+declare function npa(arg: string, where?: string): npa.AliasResult | npa.FileResult | npa.RegistryResult | npa.HostedGitResult | npa.URLResult;
 
 declare namespace npa {
     /**
