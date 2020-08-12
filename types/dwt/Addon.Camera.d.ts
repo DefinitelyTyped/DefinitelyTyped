@@ -27,7 +27,7 @@ export interface Camera {
     /**
      * Return the resolutions supported by the current camera.
      */
-    getResolution(): Promise<Resolution[]>
+    getResolution(): Promise<Resolution[]>;
     /**
      * Set the resolution for the current camera.
      * @param resolution Specify the resolution.

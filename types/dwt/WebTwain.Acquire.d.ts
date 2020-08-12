@@ -92,7 +92,7 @@ export interface WebTwainAcquire extends WebTwainEdit {
     SelectSourceAsync(
         successCallBack?: () => void,
         failureCallBack?: (errorCode: number, errorString: string) => void
-    ): Promise<boolean | void>;
+    ): Promise<boolean>;
     /**
      * Select a data source by its index.
      * @param index The index of the data source.
@@ -124,7 +124,7 @@ export interface WebTwainAcquire extends WebTwainEdit {
     /**
      * Closes and unloads Data Source Manager.
      */
-    CloseSourceManagerAsync(): boolean;
+    CloseSourceManagerAsync(): Promise<boolean>;
     /**
      * Closes the scanning process to release resources on the machine.
      */

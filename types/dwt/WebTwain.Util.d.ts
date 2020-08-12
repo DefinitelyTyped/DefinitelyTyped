@@ -90,5 +90,5 @@ export interface Authorization {
     /**
      * Details of the authorization.
      */
-    Detail: Array<any>;
+    Detail: any;
 }
