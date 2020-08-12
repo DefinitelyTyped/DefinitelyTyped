@@ -7,7 +7,7 @@ declare global {
     /**
      * Zumly powers your apps with a zoomable user interface (ZUI) taste.
      */
-    class Zumly {
+    class zumly {
         /**
          * Creates a Zumly instance
          * @params options
@@ -60,4 +60,4 @@ declare global {
     }
 }
 
-export default Zumly;
+export default zumly;

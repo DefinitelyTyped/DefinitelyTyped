@@ -2,7 +2,7 @@ const homeView = `<div class="z-view">
     <div class='card zoom-me' data-to='newView'></div>
   </div>`;
 
-const app = new Zumly({
+const app = new zumly({
     mount: '.className',
     initialView: 'homeView',
     views: {
