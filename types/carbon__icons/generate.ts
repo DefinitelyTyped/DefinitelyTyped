@@ -3,7 +3,7 @@ import * as mkdirp from 'mkdirp';
 import * as rimraf from 'rimraf';
 import * as fs from 'fs';
  
-const rootFolder = 'typings/es';
+const rootFolder = 'es';
 const indexFile = 'index.d.ts';
 const testFile = 'carbon__icons-tests.ts';
 
@@ -29,6 +29,7 @@ const indexHeader = `
 // TypeScript Version: 3.8
 
 // Automatically generated
+export as namespace CarbonIcons;
 `;
 
 const indexContent = `
@@ -180,6 +181,13 @@ fs.appendFileSync(
 names.forEach(name => {
     fs.appendFileSync(
         testFile,
-        'item = ' + name + ';\n'
+        `
+item = ${name};
+item.elem;
+item.attrs;
+item.content;
+item.name;
+item.size;
+        `
     );
 })
