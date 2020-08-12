@@ -164,16 +164,14 @@ declare namespace OfficeRuntime {
   }
   /**
    * Contains authorization related APIs.
-   * @beta
    */
   const auth: Auth;
   /**
    * Provides options for the user experience when Office obtains an access token to the add-in from AAD v. 2.0 with the getAccessToken method.
-   * @beta
    */
   interface AuthOptions {
     /**
-     * Allows Office to get an access token silectly or through interactive consent, if one is required.
+     * Allows Office to get an access token silently or through interactive consent, if one is required.
      * If set to false, Office will silently try to get an access token. If it fails to do so, Office will return a descriptive error.
      * If set to true, Office will show an interactive consent UI after it fails to silently get an access token.
      * The prompt will only allow consent to the AAD profile scope, not to any Microsoft Graph scopes.
@@ -186,11 +184,16 @@ declare namespace OfficeRuntime {
      */
     allowSignInPrompt?: boolean;
     /**
-     * Deprecated
+     * Deprecated:
      * Prompts the user to add their Office account (or to switch to it, if it is already added).
      */
     forceAddAccount?: boolean;
-
+    /**
+     * Deprecated:
+     * Causes Office to display the add-in consent experience. Useful if the add-in's Azure permissions have changed or if the user's consent has
+     * been revoked.
+     */
+    forceConsent?: boolean;
     /**
      * Causes Office to prompt the user to provide the additional factor when the tenancy being targeted by Microsoft Graph requires multifactor
      * authentication. The string value identifies the type of additional factor that is required. In most cases, you won't know at development
@@ -212,7 +215,6 @@ declare namespace OfficeRuntime {
   }
   /**
    * Interface that contains authorization related APIs.
-   * @beta
    */
   interface Auth {
     /**
@@ -226,9 +228,7 @@ declare namespace OfficeRuntime {
      *
      * @remarks
      *
-     * **Hosts**: Excel, PowerPoint, Word
-     *
-     * @beta
+     * **Hosts**: Excel, PowerPoint, Word, Outlook
      *
      * @param options - Optional. Accepts an AuthOptions object to define sign-on behaviors.
      * returns: Promise to the access token.

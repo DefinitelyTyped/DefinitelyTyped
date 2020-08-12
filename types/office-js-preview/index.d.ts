@@ -1183,8 +1183,6 @@ declare namespace Office {
     /**
      * The Office Auth namespace, Office.context.auth, provides a method that allows the Office host to obtain an access token to the add-in's web application.
      * Indirectly, this also enables the add-in to access the signed-in user's Microsoft Graph data without requiring the user to sign in a second time.
-     *
-     * @beta
      */
     interface Auth {
         /**
@@ -1206,8 +1204,6 @@ declare namespace Office {
          * @param options - Optional. Accepts an AuthOptions object to define sign-on behaviors.
          * @param callback - Optional. Accepts a callback method that can use parse the token for the user's ID or use the token in the "on behalf of" flow to get access to Microsoft Graph.
          *                   If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
-         *
-         * @beta
          */
         getAccessTokenAsync(options?: AuthOptions, callback?: (result: AsyncResult<string>) => void): void;
         /**
@@ -1228,8 +1224,6 @@ declare namespace Office {
          *
          * @param callback - Optional. Accepts a callback method that can use parse the token for the user's ID or use the token in the "on behalf of" flow to get access to Microsoft Graph.
          *                   If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
-         *
-         * @beta
          */
         getAccessTokenAsync(callback?: (result: AsyncResult<string>) => void): void;
     }
@@ -1238,27 +1232,48 @@ declare namespace Office {
      */
     interface AuthOptions {
         /**
+         * Allows Office to get an access token silently or through interactive consent, if one is required.
+         * If set to false, Office will silently try to get an access token. If it fails to do so, Office will return a descriptive error.
+         * If set to true, Office will show an interactive consent UI after it fails to silently get an access token.
+         * The prompt will only allow consent to the AAD profile scope, not to any Microsoft Graph scopes.
+         */
+        allowConsentPrompt?: boolean;
+        /**
+         * Allows Office to get an access token silently provided consent is present or show interactive UI to sign in the user.
+         * If set to false, office will silently try to get an access token. If it fails to do so, Office will return a descriptive error.
+         * If set to true, Office will show an interactive sign-in UI after it fails to silently get an access token.
+         */
+        allowSignInPrompt?: boolean;
+        /**
+         * Deprecated:
+         * Prompts the user to add their Office account (or to switch to it, if it is already added).
+         */
+        forceAddAccount?: boolean;
+        /**
+         * Deprecated:
          * Causes Office to display the add-in consent experience. Useful if the add-in's Azure permissions have changed or if the user's consent has
          * been revoked.
          */
-        forceConsent?: boolean,
-        /**
-         * Prompts the user to add their Office account (or to switch to it, if it is already added).
-         */
-        forceAddAccount?: boolean,
+        forceConsent?: boolean;
         /**
          * Causes Office to prompt the user to provide the additional factor when the tenancy being targeted by Microsoft Graph requires multifactor
          * authentication. The string value identifies the type of additional factor that is required. In most cases, you won't know at development
          * time whether the user's tenant requires an additional factor or what the string should be. So this option would be used in a "second try"
-         * call of getAccessTokenAsync after Microsoft Graph has sent an error requesting the additional factor and containing the string that should
+         * call of getAccessToken after Microsoft Graph has sent an error requesting the additional factor and containing the string that should
          * be used with the authChallenge option.
          */
-        authChallenge?: string
+        authChallenge?: string;
         /**
          * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
-        asyncContext?: any
-    }
+        asyncContext?: any;
+        /**
+         * Causes Office to return descriptive error when the add-in wants to access MS Graph and the user/admin has not granted consent to MS Graph scopes.
+         * Office only supports consent to graph scopes when the add-in has been deployed by a tenant admin. This information will not be available during development.
+         * Setting this option to true will allow Office to inform your add-in beforehand if MS graph access will fail by returning back a descriptive error.
+         */
+        forMSGraphAccess?: boolean;
+      }
     /**
      * Provides an option for preserving context data of any type, unchanged, for use in a callback.
      */
