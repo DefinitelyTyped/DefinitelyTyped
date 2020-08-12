@@ -4,57 +4,57 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.9
 
-export type hosts = ReadonlyArray<string>;
+export type Hosts = ReadonlyArray<string>;
 
-export interface packageMetadata {
+export interface PackageMetadata {
     version: string;
     resolved?: string;
     dependencies?: Record<string, string>; // e.g. {'balanced-match': '^1.0.0', 'concat-map': '0.0.1'}
 }
 
-export type packages = Record<string, packageMetadata>;
+export type Packages = Record<string, PackageMetadata>;
 
-export interface validationOptions {
+export interface ValidationOptions {
     emptyHostname?: boolean;
 }
 
-export interface error {
+export interface Error {
     message: string;
     package: string;
 }
 
-export interface validationError {
+export interface ValidationError {
     type: 'error';
-    errors: error[];
+    errors: Error[];
 }
 
-export interface validationSuccess {
+export interface ValidationSuccess {
     type: 'success';
-    object: packages;
+    object: Packages;
 }
 
-export type validationResult = validationError | validationSuccess;
+export type ValidationResult = ValidationError | ValidationSuccess;
 
 export class ValidateHost {
-    constructor(packages: { packages: packages });
-    validate(hosts: hosts, options?: validationOptions): validationResult;
-    validateSingle(packageName: string, hosts: hosts): boolean;
+    constructor(packages: { packages: Packages });
+    validate(hosts: Hosts, options?: ValidationOptions): ValidationResult;
+    validateSingle(packageName: string, hosts: Hosts): boolean;
 }
 
 export class ValidateHttps {
-    constructor(packages: { packages: packages });
-    validate(): validationResult;
+    constructor(packages: { packages: Packages });
+    validate(): ValidationResult;
 }
 
 export class ValidateScheme {
-    constructor(packages: { packages: packages });
-    validate(schemes: ReadonlyArray<string>): validationResult;
+    constructor(packages: { packages: Packages });
+    validate(schemes: ReadonlyArray<string>): ValidationResult;
 }
 
 export class ValidateUrl {
-    constructor(packages: { packages: packages });
-    validate(allowedUrls: ReadonlyArray<string>, options?: validationOptions): validationResult;
-    validateSingle(packageName: string, allowedUrls: hosts): boolean;
+    constructor(packages: { packages: Packages });
+    validate(allowedUrls: ReadonlyArray<string>, options?: ValidationOptions): ValidationResult;
+    validateSingle(packageName: string, allowedUrls: Hosts): boolean;
 }
 
 export interface ParseLockfileOptions {
@@ -64,7 +64,7 @@ export interface ParseLockfileOptions {
 
 export interface ParseLockfileResult {
     type: 'success';
-    object: packages;
+    object: Packages;
 }
 
 export class ParseLockfile {
