@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.3
 
-/// https://novadocs.panic.com/extensions/
+// https://novadocs.panic.com/extensions/#javascript-runtime
 
 // This runs in an extension of Apple's JavaScriptCore, manually set libs
 
