@@ -11,8 +11,8 @@
 /// <reference no-default-lib="true"/>
 /// <reference lib="es2015" />
 
-type ReadableStream = unknown;
-type WritableStream = unknown;
+type ReadableStream<T = any> = unknown;
+type WritableStream<T = any> = unknown;
 
 /// https://novadocs.panic.com/api-reference/assistants-registry/
 
@@ -29,7 +29,7 @@ interface ColorAssistant {
 }
 
 interface CompletionAssistant {
-    provideCompletionItems(editor: TextEditor, context: CompletionContext): CompletionItem[];
+    provideCompletionItems(editor: TextEditor, context: CompletionContext): void | CompletionItem[];
 }
 
 interface IssueAssistant {
@@ -268,11 +268,11 @@ interface File {
 }
 
 interface FileBinaryMode extends File {
-    read(size?: string): ArrayBuffer | null;
+    read(size?: number): ArrayBuffer | null;
 }
 
 interface FileTextMode extends File {
-    read(size?: string): string | null;
+    read(size?: number): string | null;
     readline(): string;
     readlines(): string[];
 }
@@ -310,13 +310,15 @@ type Encoding =
 declare class FileSystem {
     private constructor();
 
-    static F_OK: FileSystemBitField;
-    static R_OK: FileSystemBitField;
-    static W_OK: FileSystemBitField;
-    static X_OK: FileSystemBitField;
-    static START: FileSystemBitField;
-    static CURRENT: FileSystemBitField;
-    static END: FileSystemBitField;
+    constants: {
+        F_OK: FileSystemBitField;
+        R_OK: FileSystemBitField;
+        W_OK: FileSystemBitField;
+        X_OK: FileSystemBitField;
+        START: FileSystemBitField;
+        CURRENT: FileSystemBitField;
+        END: FileSystemBitField;
+    }
 
     F_OK: FileSystemBitField;
     R_OK: FileSystemBitField;
@@ -355,6 +357,7 @@ interface FileSystemWatcher extends Disposable {
 declare class Issue {
     constructor();
     code: number | string;
+    message: string;
     severity: IssueSeverity;
     source: string | null;
     textRange?: Range;
@@ -549,7 +552,7 @@ declare class Scanner {
     constructor(string: string);
 
     readonly string: string;
-    readonly location: number;
+    location: number;
     readonly atEnd: boolean;
     skipChars: Charset;
     caseSensitive: boolean;
@@ -623,18 +626,18 @@ declare class TextEditor {
     static isTextEditor(object: any): object is TextEditor;
 
     readonly document: TextDocument;
-    readonly selectedRange: Range;
-    readonly selectedRanges: Range[];
+    selectedRange: Range;
+    selectedRanges: Range[];
     readonly selectedText: string;
-    readonly softTabs: boolean;
-    readonly tabLength: number;
+    softTabs: boolean;
+    tabLength: number;
     readonly tabText: string;
 
     edit(callback: (edit: TextEditorEdit) => void, options?: unknown): Promise<void>;
     insert(string: string): Promise<void>;
     save(): void;
     getTextInRange(range: Range): string;
-    getLineRangeForRange(range: Range): string;
+    getLineRangeForRange(range: Range): Range;
     onDidChange(callback: (textEditor: TextEditor) => void): void;
     onDidStopChanging(callback: (textEditor: TextEditor) => void): void;
     onWillSave(callback: (textEditor: TextEditor) => void): void;
