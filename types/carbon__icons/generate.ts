@@ -24,8 +24,7 @@ const el: {{name}};
 export default el;
 `;
 
-const indexHeader = `
-// Type definitions for @carbon/icons 10.15.0
+const indexHeader = `// Type definitions for @carbon/icons 10.15.0
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/icons
 // Definitions by: Sébastien Grégoire <https://github.com/sgregoire>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -36,8 +35,8 @@ export as namespace CarbonIcons;
 `;
 
 const indexContent = `
-import _{{name}} from "{{path}}";
-export { _{{name}} as {{finalname}} };
+import _{{name}} from '{{path}}';
+export { {{export}} };
 `
 
 function getContent(pathToRoot: string, name: string, size: string) {
@@ -50,11 +49,19 @@ function getContent(pathToRoot: string, name: string, size: string) {
 }
 
 function getIndexContent(path: string, name: string, finalname: string) {
+    
     return indexContent
         .split('{{name}}').join(name)
         .split('{{path}}').join(path)
-        .split('{{finalname}}').join(finalname)
+        .split('{{export}}').join(getExport(name, finalname))
         ;
+}
+
+function getExport(name, finalname) {
+    if(name === finalName) {
+        return name;
+    }
+    return finalname;
 }
 
 function finalName(name) {
