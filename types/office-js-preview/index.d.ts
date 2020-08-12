@@ -1181,7 +1181,7 @@ declare namespace Office {
     }
 
     /**
-     * The Office Auth namespace, Office.context.auth, provides a method that allows the Office client application to obtain an access token to the add-in's web application.
+     * The Office Auth namespace, `Office.context.auth`, provides a method that allows the Office client application to obtain an access token to the add-in's web application.
      * Indirectly, this also enables the add-in to access the signed-in user's Microsoft Graph data without requiring the user to sign in a second time.
      */
     interface Auth {
