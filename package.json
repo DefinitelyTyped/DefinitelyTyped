@@ -37,7 +37,4 @@
             "pre-commit": "npm uninstall husky"
         }
     },
-    "dependencies": {
-        "react-polls": "^1.2.0"
-    }
 }
