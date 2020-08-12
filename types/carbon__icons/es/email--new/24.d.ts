@@ -2,10 +2,12 @@
 import { Attrs24 } from '../../../utils/Attrs';
 import { Content } from '../../../utils/Content';
 
-export default interface _24 {
-    readonly elem: 'svg';
-    readonly attrs: Attrs24;
-    readonly content: Content;
-    readonly name: 'email--new';
-    readonly size: 24;
+interface _24 {
+    elem: 'svg';
+    attrs: Attrs24;
+    content: Content;
+    name: 'email--new';
+    size: 24;
 }
+const el: _24;
+export default el;

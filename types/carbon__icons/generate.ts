@@ -13,13 +13,16 @@ const template = `
 import { Attrs{{size}} } from '{{pathToRoot}}/utils/Attrs';
 import { Content } from '{{pathToRoot}}/utils/Content';
 
-export default interface {{name}} {
-    readonly elem: 'svg';
-    readonly attrs: Attrs{{size}};
-    readonly content: Content;
-    readonly name: '{{imgName}}';
-    readonly size: {{size}};
-}`;
+interface {{name}} {
+    elem: 'svg';
+    attrs: Attrs{{size}};
+    content: Content;
+    name: '{{imgName}}';
+    size: {{size}};
+}
+const el: {{name}};
+export default el;
+`;
 
 const indexHeader = `
 // Type definitions for @carbon/icons 10.15.0

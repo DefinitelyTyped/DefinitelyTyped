@@ -2,10 +2,12 @@
 import { Attrs16 } from '../../../utils/Attrs';
 import { Content } from '../../../utils/Content';
 
-export default interface _16 {
-    readonly elem: 'svg';
-    readonly attrs: Attrs16;
-    readonly content: Content;
-    readonly name: 'face--mask';
-    readonly size: 16;
+interface _16 {
+    elem: 'svg';
+    attrs: Attrs16;
+    content: Content;
+    name: 'face--mask';
+    size: 16;
 }
+const el: _16;
+export default el;

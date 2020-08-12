@@ -2,10 +2,12 @@
 import { Attrs32 } from '../../../utils/Attrs';
 import { Content } from '../../../utils/Content';
 
-export default interface _32 {
-    readonly elem: 'svg';
-    readonly attrs: Attrs32;
-    readonly content: Content;
-    readonly name: 'microphone';
-    readonly size: 32;
+interface _32 {
+    elem: 'svg';
+    attrs: Attrs32;
+    content: Content;
+    name: 'microphone';
+    size: 32;
 }
+const el: _32;
+export default el;
