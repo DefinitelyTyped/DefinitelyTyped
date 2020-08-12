@@ -44,36 +44,39 @@ interface SetOptionsParams {
     keepAlive?: boolean;
 }
 
-interface DefaultExport {
-    useSession: typeof useSession;
-    getSession: typeof session;
-    session: typeof session;
-    getProviders: typeof providers;
-    providers: typeof providers;
-    getCsrfToken: typeof csrfToken;
-    csrfToken: typeof csrfToken;
-    signin: typeof signin;
-    signIn: typeof signin;
-    signout: typeof signout;
-    signOut: typeof signout;
-    options: typeof setOptions;
-    setOptions: typeof setOptions;
-    Provider: typeof Provider;
-}
-
 type ContextProvider = FC<ContextProviderProps>;
 
 declare function useSession(): [Session, boolean];
-declare function session(context: NextPageContext): Promise<Session | null>;
 declare function providers(context: NextPageContext): Promise<GetProvidersResponse | null>;
+declare const getProviders: typeof providers;
+declare function session(context: NextPageContext): Promise<Session | null>;
+declare const getSession: typeof session;
 declare function csrfToken(context: NextPageContext): Promise<string | null>;
+declare const getCsrfToken: typeof csrfToken;
 declare function signin(provider: SessionProvider, data: GenericObject): Promise<void>;
+declare const signIn: typeof signin;
 declare function signout(context: NextPageContext): Promise<void>;
-declare function setOptions(options: SetOptionsParams): void;
+declare const signOut: typeof signout;
+declare function options(options: SetOptionsParams): void;
+declare const setOptions: typeof options;
 declare const Provider: ContextProvider;
 
-declare const _default: DefaultExport;
-export default _default;
+export {
+    useSession,
+    session,
+    getSession,
+    providers,
+    getProviders,
+    csrfToken,
+    getCsrfToken,
+    signin,
+    signIn,
+    signout,
+    signOut,
+    options,
+    setOptions,
+    Provider,
+};
 
 /**
  * TODO: `dtslint` throws when parsing Next types... the following types are copied directly from `next/types` ...

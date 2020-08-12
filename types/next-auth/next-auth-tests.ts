@@ -8,7 +8,7 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 import Adapters from 'next-auth/adapters';
-import client from 'next-auth/client';
+import * as client from 'next-auth/client';
 
 // --------------------------------------------------------------------------
 // Server
