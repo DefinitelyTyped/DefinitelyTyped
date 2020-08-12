@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
- * This module provides discovery services using UDP multicast. udp-discovery implements the zero-configuration UDP multicast discovery and works only between nodes on the same subnet as typically, broadcast packets don't route.
+ * This module provides discovery services using UDP multicast. udp-discovery implements the zero-configuration UDP multicast discovery and works only between nodes on the same subnet as typically,
+ * broadcast packets don't route.
  */
 declare module 'udp-discovery'{
 
@@ -13,8 +14,7 @@ declare module 'udp-discovery'{
   /**
    * Discovery constructor options
    */
-  export interface DiscoveryConstructorOptions {
-
+  interface DiscoveryConstructorOptions {
     /**
      * The port to listen upon for service announcements. Default: 44201.
      */
@@ -73,8 +73,7 @@ declare module 'udp-discovery'{
   /**
   * This module provides discovery services using UDP multicast. udp-discovery implements the zero-configuration UDP multicast discovery and works only between nodes on the same subnet as typically, broadcast packets don't route.
   */
-  export class Discovery extends EventEmitter {
-
+  class Discovery extends EventEmitter {
     /**
      * Invokes the constructor to create an instance of Discovery to receive discovery events. The config options object is optional, but if included, the following options are available:
      * @param {DiscoveryConstructorOptions} options constructor options
