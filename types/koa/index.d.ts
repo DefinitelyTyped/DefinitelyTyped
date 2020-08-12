@@ -25,6 +25,7 @@ import { EventEmitter } from 'events';
 import { IncomingMessage, ServerResponse, Server } from 'http';
 import { Http2ServerRequest, Http2ServerResponse } from 'http2';
 import httpAssert = require('http-assert');
+import { HttpError } from 'http-errors';
 import * as Keygrip from 'keygrip';
 import * as compose from 'koa-compose';
 import { Socket, ListenOptions } from 'net';
@@ -512,6 +513,12 @@ declare class Application<
      * @api private
      */
     onerror(err: Error): void;
+
+    /**
+     * Make HttpError available to consumers of the library so that consumers don't
+     * have a direct dependency upon `http-errors`
+     */
+    static HttpError: typeof HttpError;
 }
 
 declare namespace Application {

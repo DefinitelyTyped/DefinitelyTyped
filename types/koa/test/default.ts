@@ -55,6 +55,13 @@ app.use(ctx => {
     });
 });
 
+app.on('error', error => {
+    if (error instanceof Koa.HttpError) {
+        throw error;
+    }
+    throw error;
+});
+
 app.listen(3000);
 
 const server = app.listen();
