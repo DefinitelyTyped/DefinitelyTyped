@@ -102,7 +102,7 @@ interface ExtensionMenuItemComplex {
     text: string;
 }
 
-interface ScratchExtension {
+declare class ScratchExtension {
     /** Returns data about the extension. */
     getInfo(): ExtensionMetadata;
 }
