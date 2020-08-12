@@ -45,3 +45,14 @@ function useExperimentalHooks() {
         return '';
     }
 }
+
+
+function Dialog() {
+    const nameId = React.unstable_useOpaqueIdentifier();
+
+    return (
+        <div role="dialog" aria-labelledby={nameId}>
+            <h2 id={nameId}></h2>
+        </div>
+    );
+}
