@@ -8,7 +8,7 @@
  */
 declare module 'udp-discovery'{
 
-  import { TypedEmitter } from 'tiny-typed-emitter';
+  import { EventEmitter } from 'events';
 
   /**
    * Discovery constructor options
@@ -73,7 +73,7 @@ declare module 'udp-discovery'{
   /**
   * This module provides discovery services using UDP multicast. udp-discovery implements the zero-configuration UDP multicast discovery and works only between nodes on the same subnet as typically, broadcast packets don't route.
   */
-  export class Discovery extends TypedEmitter<DiscoveryEvents> {
+  export class Discovery extends EventEmitter {
 
     /**
      * Invokes the constructor to create an instance of Discovery to receive discovery events. The config options object is optional, but if included, the following options are available:
