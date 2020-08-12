@@ -56,6 +56,8 @@ declare namespace BMapGL {
     type PerspectiveProjection = Projection;
 }
 declare const BMAP_NORMAL_MAP: BMapGL.MapType;
+declare const BMAPGL_NORMAL_MAP: BMapGL.MapType;
+declare const BMAP_EARTH_MAP: BMapGL.MapType;
 declare const BMAP_PERSPECTIVE_MAP: BMapGL.MapType;
 declare const BMAP_SATELLITE_MAP: BMapGL.MapType;
 declare const BMAP_HYBRID_MAP: BMapGL.MapType;
