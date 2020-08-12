@@ -1,4 +1,4 @@
-// Type definitions for udp-discovery 2.0.0
+// Type definitions for udp-discovery 2.0
 // Project: https://github.com/stdarg/udp-discovery
 // Definitions by: Scott Page <https://github.com/scottpage>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
