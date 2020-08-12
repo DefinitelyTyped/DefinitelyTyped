@@ -427,6 +427,12 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "bulma-calendar",
+            "typingsPackageName": "bulma-calendar",
+            "sourceRepoURL": "https://github.com/wikiki/bulma-calendar",
+            "asOfVersion": "6.0.2"
+        },
+        {
             "libraryName": "bunyan-bugsnag",
             "typingsPackageName": "bunyan-bugsnag",
             "sourceRepoURL": "https://github.com/marnusw/bunyan-bugsnag",
