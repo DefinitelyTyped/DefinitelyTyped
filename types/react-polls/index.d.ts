@@ -1,4 +1,4 @@
-// Type definitions for react-polls 1.2.0
+// Type definitions for react-polls 1.2
 // Project: https://github.com/viniciusmeneses/react-polls
 // Definitions by: Andrew Qu <https://github.com/quuu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
