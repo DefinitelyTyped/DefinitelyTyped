@@ -502,9 +502,9 @@ declare class Process {
     readonly stdout?: ReadableStream | WritableStream | null;
     readonly stderr?: ReadableStream | WritableStream | null;
 
-    onStdout(callback: (line: string) => void): void;
-    onStderr(callback: (line: string) => void): void;
-    onDidExit(callback: (status: number) => void): void;
+    onStdout(callback: (line: string) => void): Disposable;
+    onStderr(callback: (line: string) => void): Disposable;
+    onDidExit(callback: (status: number) => void): Disposable;
     start(): void;
     signal(signal: string | number): void;
     kill(): void;
@@ -512,8 +512,8 @@ declare class Process {
     // see no-unnecessary-generics for why these aren't stricter
     notify(methodName: string, params?: any): void;
     request(methodName: string, params?: any): Promise<any>;
-    onNotify(methodName: string, callback: (message: ProcessMessage<any, any, any>) => void): void;
-    onRequest(methodName: string, callback: (message: ProcessMessage<any, any, any>) => any): void;
+    onNotify(methodName: string, callback: (message: ProcessMessage<any, any, any>) => void): Disposable;
+    onRequest(methodName: string, callback: (message: ProcessMessage<any, any, any>) => any): Disposable;
 }
 
 /// https://novadocs.panic.com/api-reference/process-message/
@@ -614,8 +614,8 @@ interface TextDocument {
 
     getTextInRange(range: Range): string;
     getLineRangeForRange(range: Range): Range;
-    onDidChangePath(callback: (document: TextDocument, path: string | null) => void): void;
-    onDidChangeSyntax(callback: (document: TextDocument, syntax: string | null) => void): void;
+    onDidChangePath(callback: (document: TextDocument, path: string | null) => void): Disposable;
+    onDidChangeSyntax(callback: (document: TextDocument, syntax: string | null) => void): Disposable;
 }
 
 /// https://novadocs.panic.com/api-reference/text-editor/
@@ -638,12 +638,12 @@ declare class TextEditor {
     save(): void;
     getTextInRange(range: Range): string;
     getLineRangeForRange(range: Range): Range;
-    onDidChange(callback: (textEditor: TextEditor) => void): void;
-    onDidStopChanging(callback: (textEditor: TextEditor) => void): void;
-    onWillSave(callback: (textEditor: TextEditor) => void): void;
-    onDidSave(callback: (textEditor: TextEditor) => void): void;
-    onDidChangeSelection(callback: (textEditor: TextEditor) => void): void;
-    onDidDestroy(callback: (textEditor: TextEditor) => void): void;
+    onDidChange(callback: (textEditor: TextEditor) => void): Disposable;
+    onDidStopChanging(callback: (textEditor: TextEditor) => void): Disposable;
+    onWillSave(callback: (textEditor: TextEditor) => void): Disposable;
+    onDidSave(callback: (textEditor: TextEditor) => void): Disposable;
+    onDidChangeSelection(callback: (textEditor: TextEditor) => void): Disposable;
+    onDidDestroy(callback: (textEditor: TextEditor) => void): Disposable;
     addSelectionForRange(range: Range): void;
     selectToPosition(position: number): void;
     selectUp(rowCount: number): void;
@@ -728,9 +728,9 @@ interface Workspace {
     readonly textEditors: ReadonlyArray<TextEditor>;
     readonly activeTextEditor: TextEditor;
 
-    onDidAddTextEditor(callback: (editor: TextEditor) => void): void;
-    onDidChangePath(callback: (newPath: TextEditor) => void): void;
-    onDidOpenTextDocument(callback: (textDocument: TextDocument) => void): void;
+    onDidAddTextEditor(callback: (editor: TextEditor) => void): Disposable;
+    onDidChangePath(callback: (newPath: TextEditor) => void): Disposable;
+    onDidOpenTextDocument(callback: (textDocument: TextDocument) => void): Disposable;
     contains(path: string): boolean;
     relativizePath(path: string): string;
     openConfig(identifier?: string): void;
