@@ -15,8 +15,8 @@
             "es6"
         ],
         "paths": {
-            "react": ["react/v17-rc"],
-            "react-dom": ["react-dom/v17-rc"]
+            "react": ["react/v17"],
+            "react-dom": ["react-dom/v17"]
         },
         "noImplicitAny": true,
         "noImplicitThis": true,
