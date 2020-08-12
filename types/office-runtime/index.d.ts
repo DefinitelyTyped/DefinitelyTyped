@@ -215,7 +215,7 @@ declare namespace OfficeRuntime {
        */
       forMSGraphAccess?: boolean;
   }
-/**
+  /** 
    * Interface that contains authorization related APIs.
    */
   interface Auth {
