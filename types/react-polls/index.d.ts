@@ -1,3 +1,9 @@
+// Type definitions for react-polls 1.2.0
+// Project: https://github.com/viniciusmeneses/react-pollse
+// Definitions by: Andrew Qu <https://github.com/quuu>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
+
 import * as React from 'react';
 
 interface AnswerStruct {
