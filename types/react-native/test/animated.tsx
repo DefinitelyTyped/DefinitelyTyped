@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Animated, View, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
+import { Animated, View, NativeSyntheticEvent, NativeScrollEvent, StyleProp } from 'react-native';
 
 interface CompProps {
     width: number;
@@ -25,8 +25,11 @@ const ForwardComp = React.forwardRef<View, CompProps>(({ width }, ref) => {
 
 type X = React.PropsWithoutRef<React.ComponentProps<typeof ForwardComp>>;
 
-type Props = React.ComponentPropsWithoutRef<typeof Animated.Text>;
-const AnimatedWrapperComponent: React.FunctionComponent<Props> = (props) => <Animated.Text {...props} />
+type Props = React.ComponentPropsWithRef<typeof Animated.Text>;
+const AnimatedWrapperComponent: React.FunctionComponent<Props> = ({
+                                                                      key, // $ExpectType string | number | null | undefined
+                                                                      ...props
+}) => <Animated.Text {...props} />
 
 function TestAnimatedAPI() {
     // Value
@@ -167,13 +170,15 @@ function TestAnimatedAPI() {
             <ForwardComp ref={ForwardCompRef} width={1} />
             <AnimatedForwardComp ref={AnimatedForwardCompRef} width={10} />
             <Animated.Image style={position.getTranslateTransform()} source={{ uri: 'https://picsum.photos/200' }} />
-
             <Animated.View
-              testID='expect-type-animated-view'
-              style={{opacity: v1}}
-              onLayout={event => {
-                event; // $ExpectType LayoutChangeEvent
-              }}
+                testID="expect-type-animated-view"
+                style={{ opacity: v1 }}
+                onLayout={event => {
+                    const x = event.nativeEvent.layout.x; // $ExpectType number
+                    const y = event.nativeEvent.layout.y; // $ExpectType number
+                    const width = event.nativeEvent.layout.width; // $ExpectType number
+                    const height = event.nativeEvent.layout.height; // $ExpectType number
+                }}
             />;
 
             <Animated.FlatList

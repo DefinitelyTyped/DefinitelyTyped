@@ -1669,6 +1669,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "gl-matrix",
+            "typingsPackageName": "gl-matrix",
+            "sourceRepoURL": "https://github.com/toji/gl-matrix.git",
+            "asOfVersion": "3.2.0"
+        },
+        {
             "libraryName": "global-dirs",
             "typingsPackageName": "global-dirs",
             "sourceRepoURL": "https://github.com/sindresorhus/global-dirs",
@@ -4253,6 +4259,12 @@
             "typingsPackageName": "react-tooltip",
             "sourceRepoURL": "https://github.com/wwayne/react-tooltip",
             "asOfVersion": "4.2.4"
+        },
+        {
+            "libraryName": "react-visibility-sensor",
+            "typingsPackageName": "react-visibility-sensor",
+            "sourceRepoURL": "https://github.com/joshwnj/react-visibility-sensor",
+            "asOfVersion": "5.1.0"
         },
         {
             "libraryName": "react-webcam",

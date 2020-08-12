@@ -38,6 +38,8 @@ declare namespace BMapGL {
         draw?(): void;
         show?(): void;
         hide?(): void;
+        addEventListener(event: string, handler: Callback): void;
+        removeEventListener(event: string, handler: Callback): void;
     }
     type SymbolShapeType = number;
     interface PolylineOptions {
@@ -320,6 +322,8 @@ declare namespace BMapGL {
     interface IconOptions {
         anchor?: Size;
         imageOffset?: Size;
+        imageSize?: Size;
+        srcset?: object;
         infoWindowAnchor?: Size;
         printImageUrl?: string;
     }

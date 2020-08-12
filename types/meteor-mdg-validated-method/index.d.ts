@@ -1,10 +1,12 @@
 // Type definitions for non-npm package Atmosphere package mdg:validated-method 1.2
 // Project: https://github.com/meteor/validated-method
 // Definitions by: Artemis Kearney <https://github.com/artemiswkearney>
+//                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
-// Inspiration taken from https://github.com/nicu-chiciuc/typed-meteor-methods, which is Copyright (c) 2020 Chiciuc Nicușor
+// Inspiration taken from https://github.com/nicu-chiciuc/typed-meteor-methods,
+// which was based on https://github.com/meteor-typings/validated-method/blob/master/main.d.ts by Dave Allen
 
 /// <reference types="meteor"/>
 

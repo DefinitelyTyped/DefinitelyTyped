@@ -847,10 +847,25 @@ export interface LayoutRectangle {
 }
 
 // @see TextProps.onLayout
-export interface LayoutChangeEvent {
-    nativeEvent: {
-        layout: LayoutRectangle;
-    };
+export type LayoutChangeEvent = NativeSyntheticEvent<{ layout: LayoutRectangle }>;
+
+interface TextLayoutLine {
+    ascender: number;
+    capHeight: number;
+    descender: number;
+    height: number;
+    text: string;
+    width: number;
+    x: number;
+    xHeight: number;
+    y: number;
+}
+
+/**
+ * @see TextProps.onTextLayout
+ */
+export interface TextLayoutEventData extends TargetedEvent {
+    lines: TextLayoutLine[];
 }
 
 export type FontVariant = 'small-caps' | 'oldstyle-nums' | 'lining-nums' | 'tabular-nums' | 'proportional-nums';
@@ -976,6 +991,11 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      * {nativeEvent: { layout: {x, y, width, height}}}.
      */
     onLayout?: (event: LayoutChangeEvent) => void;
+
+    /**
+     * Invoked on Text layout
+     */
+    onTextLayout?: (event: NativeSyntheticEvent<TextLayoutEventData>) => void;
 
     /**
      * This function is called on press.
@@ -2900,7 +2920,7 @@ export interface ActivityIndicatorIOSProps extends ViewProps {
     /**
      * Invoked on mount and layout changes with
      */
-    onLayout?: (event: { nativeEvent: { layout: { x: number; y: number; width: number; height: number } } }) => void;
+    onLayout?: (event: LayoutChangeEvent) => void;
 
     /**
      * Size of the indicator.
@@ -7218,13 +7238,15 @@ export type AlertType = 'default' | 'plain-text' | 'secure-text' | 'login-passwo
  *      active - The app is running in the foreground
  *      background - The app is running in the background. The user is either in another app or on the home screen
  *      inactive [iOS] - This is a transition state that currently never happens for typical React Native apps.
+ *      unknown [iOS] - Initial value until the current app state is determined
+ *      extension [iOS] - The app is running as an app extension
  *
  * For more information, see Apple's documentation: https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/TheAppLifeCycle/TheAppLifeCycle.html
  *
  * @see https://facebook.github.io/react-native/docs/appstate#app-states
  */
 export type AppStateEvent = 'change' | 'memoryWarning' | 'blur' | 'focus';
-export type AppStateStatus = 'active' | 'background' | 'inactive';
+export type AppStateStatus = 'active' | 'background' | 'inactive' | 'unknown' | 'extension';
 
 export interface AppStateStatic {
     currentState: AppStateStatus;
@@ -8960,15 +8982,15 @@ export namespace Animated {
 
     type NonAnimatedProps = 'key' | 'ref';
 
-    export type AnimatedProps<T> =
-        | {
-              [key in keyof T]: key extends NonAnimatedProps ? T[key] : WithAnimatedValue<T[key]>;
-          }
-        | (T extends {
-              ref?: React.Ref<infer R>;
-          }
-              ? { ref?: React.Ref<LegacyRef<R>> }
-              : {});
+    type TAugmentRef<T> = T extends React.Ref<infer R> ? React.Ref<R | LegacyRef<R>> : never;
+
+    export type AnimatedProps<T> = {
+        [key in keyof T]: key extends NonAnimatedProps
+            ? key extends 'ref'
+                ? TAugmentRef<T[key]>
+                : T[key]
+            : WithAnimatedValue<T[key]>;
+    };
 
     export interface AnimatedComponent<T extends React.ComponentType<any>>
         extends React.FC<AnimatedProps<React.ComponentPropsWithRef<T>>> {}

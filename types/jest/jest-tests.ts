@@ -1007,9 +1007,13 @@ describe('', () => {
         expect(jest.fn(willThrow)).toThrow(/foo/);
 
         expect(() => {}).toThrowErrorMatchingSnapshot();
+        expect(() => {}).toThrowErrorMatchingSnapshot('snapshotName');
         expect(willThrow).toThrowErrorMatchingSnapshot();
+        expect(willThrow).toThrowErrorMatchingSnapshot('snapshotName');
         expect(jest.fn()).toThrowErrorMatchingSnapshot();
+        expect(jest.fn()).toThrowErrorMatchingSnapshot('snapshotName');
         expect(jest.fn(willThrow)).toThrowErrorMatchingSnapshot();
+        expect(jest.fn(willThrow)).toThrowErrorMatchingSnapshot('snapshotName');
 
         expect(() => {}).toThrowErrorMatchingInlineSnapshot();
         expect(() => {}).toThrowErrorMatchingInlineSnapshot('Error Message');
