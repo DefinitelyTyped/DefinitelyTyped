@@ -66,7 +66,7 @@ interface EventInit {
 }
 
 interface MessageEventInit<T = any> extends EventInit {
-  data?: T | undefined;
+  data?: T;
   lastEventId?: string;
   origin?: string;
 }
