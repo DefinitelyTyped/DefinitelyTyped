@@ -219,6 +219,10 @@ declare namespace umzug {
         testFileName(needle:string): boolean;
     }
 
+    interface MigrationDefinitionWithName extends Migration {
+        name: string;
+    }
+    
     interface Umzug extends EventEmitter {
         /**
          * The execute method is a general purpose function that runs for
@@ -258,6 +262,7 @@ declare namespace umzug {
 
     interface UmzugStatic {
         new(options?: UmzugOptions): Umzug;
+        migrationsList(migrations: MigrationDefinitionWithName[], parameters: any[]): Migration[];
     }
 }
 
