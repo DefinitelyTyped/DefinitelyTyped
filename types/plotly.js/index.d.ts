@@ -434,6 +434,7 @@ export interface Layout {
     polar8: Partial<PolarLayout>;
     polar9: Partial<PolarLayout>;
     transition: Transition;
+    template: Template;
 }
 
 export interface Legend extends Label {
@@ -967,6 +968,11 @@ export interface PlotNumber {
     suffix: string;
 }
 
+export interface Template {
+    data?: { [type in PlotType]?: Partial<PlotData> };
+    layout?: Partial<Layout>;
+}
+
 // Data
 
 export type Datum = string | number | Date | null;
@@ -1169,7 +1175,9 @@ export interface PlotData {
         | 'bottom center'
         | 'bottom right'
         | 'inside'
-        | 'outside';
+        | 'outside'
+        | 'auto'
+        | 'none';
     textfont: Partial<Font>;
     fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
     fillcolor: string;
