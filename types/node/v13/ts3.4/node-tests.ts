@@ -242,7 +242,7 @@ import * as trace_events from "trace_events";
         console.log('message', 'foo', 'bar');
         console.table({ foo: 'bar' });
         console.table([{ foo: 'bar' }]);
-        console.table([{ foo: 'bar' }], ['foo']);
+        console.table([{ foo: 'bar' }], ['foo'] as ReadonlyArray<string>);
         console.time();
         console.time('label');
         console.timeEnd();

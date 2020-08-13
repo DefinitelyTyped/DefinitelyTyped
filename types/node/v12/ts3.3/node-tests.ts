@@ -136,7 +136,7 @@ import Module = require("module");
     {
         const searchParams = new url.URLSearchParams({
             user: 'abc',
-            query: ['first', 'second']
+            query: ['first', 'second'] as ReadonlyArray<string>
         });
 
         assert.equal(searchParams.toString(), 'user=abc&query=first%2Csecond');
@@ -151,7 +151,7 @@ import Module = require("module");
             ['query', 'second'],
         // ts 2.1/2.* compatibility
         // tslint:disable-next-line no-unnecessary-type-assertion
-        ] as Array<[string, string]>);
+        ] as ReadonlyArray<[string, string]>);
         assert.equal(params.toString(), 'user=abc&query=first&query=second');
     }
 
@@ -390,7 +390,7 @@ import Module = require("module");
         console.log('message', 'foo', 'bar');
         console.table({ foo: 'bar' });
         console.table([{ foo: 'bar' }]);
-        console.table([{ foo: 'bar' }], ['foo']);
+        console.table([{ foo: 'bar' }], ['foo'] as ReadonlyArray<string>);
         console.time();
         console.time('label');
         console.timeEnd();
@@ -526,7 +526,7 @@ import Module = require("module");
     }
     {
         const resolver = new dns.Resolver();
-        resolver.setServers(["4.4.4.4"]);
+        resolver.setServers(["4.4.4.4"] as ReadonlyArray<string>);
         resolver.resolve("nodejs.org", (err, addresses) => {
             const _addresses: string[] = addresses;
         });
