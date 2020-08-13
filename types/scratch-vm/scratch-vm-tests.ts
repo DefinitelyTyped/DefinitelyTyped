@@ -7,11 +7,11 @@ class ExampleExtension implements ScratchExtension {
             name: "Hello World",
             blocks: [{
                 opcode: "helloWorld",
-                blockType: "reporter",
+                blockType: Scratch.BlockType.REPORTER,
                 text: "Return text [input]",
                 arguments: {
                     input: {
-                        type: Scratch.extensions.ArgumentType.STRING,
+                        type: Scratch.ArgumentType.STRING,
                         defaultValue: "Hello World"
                     }
                 }

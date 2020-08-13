@@ -39,7 +39,7 @@ interface ExtensionBlockMetadata {
     func?: string;
 
     /** The type of block (command, reporter, etc.) being described. */
-    blockType: ValueOf<Scratch.extensions.BlockType>;
+    blockType: ValueOf<Scratch.BlockType>;
 
     /** The text on the block, with [PLACEHOLDERS] for arguments. */
     text: string;
@@ -72,7 +72,7 @@ interface ExtensionBlockMetadata {
 /** All the metadata needed to register an argument for an extension block. */
 interface ExtensionArgumentMetadata {
     /** The type of the argument (number, string, etc.) */
-    type: ValueOf<Scratch.extensions.ArgumentType>;
+    type: ValueOf<Scratch.ArgumentType>;
 
     /** The default value of this argument. */
     defaultValue?: any;
@@ -121,79 +121,79 @@ declare enum ReporterScope {
 
 declare namespace Scratch {
     namespace extensions {
-        /** Block argument types. */
-        enum ArgumentType {
-            /** Numeric value with angle picker. */
-            ANGLE = "angle",
-
-            /** Boolean value with hexagonal placeholder. */
-            BOOLEAN = "Boolean",
-
-            /** Numeric value with color picker. */
-            COLOR = "color",
-
-            /** Numeric value with text field. */
-            NUMBER = "number",
-
-            /** String value with text field. */
-            STRING = "string",
-
-            /** String value with matrix field. */
-            MATRIX = "matrix",
-
-            /** MIDI note number with note picker (piano) field. */
-            NOTE = "note",
-
-            /** Inline image on block (as part of the label). */
-            IMAGE = "image"
-        }
-
-        /** Types of blocks. */
-        enum BlockType {
-            /** Boolean reporter with hexagonal shape. */
-            BOOLEAN = "Boolean",
-
-            /** A button (not an actual block) for some special action, like making a variable. */
-            BUTTON = "button",
-
-            /** Command block. */
-            COMMAND = "command",
-
-            /**
-             * Specialized command block which may or may not run a child branch.
-             * The thread continues with the next block whether or not a child branch ran.
-             */
-            CONDITIONAL = "conditional",
-
-            /**
-             * Specialized hat block with no implementation function.
-             * This stack only runs if the corresponding event is emitted by other code.
-             */
-            EVENT = "event",
-
-            /** Hat block which conditionally starts a block stack. */
-            HAT = "hat",
-
-            /**
-             * Specialized command block which may or may not run a child branch.
-             * If a child branch runs, the thread evaluates the loop block again.
-             */
-            LOOP = "loop",
-
-            /** General reporter with numeric or string value. */
-            REPORTER = "reporter"
-        }
-
-        /** Default types of target supported by the VM. */
-        enum TargetType {
-            /** Rendered target which can move, change costumes, etc. */
-            SPRITE = "sprite",
-
-            /** Rendered target which cannot move but can change backdrops. */
-            STAGE = "stage"
-        }
-
         /** Register an extension. */
         function register(extension: ScratchExtension): void;
+    }
+
+    /** Block argument types. */
+    enum ArgumentType {
+        /** Numeric value with angle picker. */
+        ANGLE = "angle",
+
+        /** Boolean value with hexagonal placeholder. */
+        BOOLEAN = "Boolean",
+
+        /** Numeric value with color picker. */
+        COLOR = "color",
+
+        /** Numeric value with text field. */
+        NUMBER = "number",
+
+        /** String value with text field. */
+        STRING = "string",
+
+        /** String value with matrix field. */
+        MATRIX = "matrix",
+
+        /** MIDI note number with note picker (piano) field. */
+        NOTE = "note",
+
+        /** Inline image on block (as part of the label). */
+        IMAGE = "image"
+    }
+
+    /** Types of blocks. */
+    enum BlockType {
+        /** Boolean reporter with hexagonal shape. */
+        BOOLEAN = "Boolean",
+
+        /** A button (not an actual block) for some special action, like making a variable. */
+        BUTTON = "button",
+
+        /** Command block. */
+        COMMAND = "command",
+
+        /**
+         * Specialized command block which may or may not run a child branch.
+         * The thread continues with the next block whether or not a child branch ran.
+         */
+        CONDITIONAL = "conditional",
+
+        /**
+         * Specialized hat block with no implementation function.
+         * This stack only runs if the corresponding event is emitted by other code.
+         */
+        EVENT = "event",
+
+        /** Hat block which conditionally starts a block stack. */
+        HAT = "hat",
+
+        /**
+         * Specialized command block which may or may not run a child branch.
+         * If a child branch runs, the thread evaluates the loop block again.
+         */
+        LOOP = "loop",
+
+        /** General reporter with numeric or string value. */
+        REPORTER = "reporter"
+    }
+
+    /** Default types of target supported by the VM. */
+    enum TargetType {
+        /** Rendered target which can move, change costumes, etc. */
+        SPRITE = "sprite",
+
+        /** Rendered target which cannot move but can change backdrops. */
+        STAGE = "stage"
     }
 }
