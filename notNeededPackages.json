@@ -2932,7 +2932,7 @@
             "libraryName": "moment-timezone",
             "typingsPackageName": "moment-timezone",
             "sourceRepoURL": "https://github.com/moment/moment-timezone",
-            "asOfVersion": "0.5.30" 
+            "asOfVersion": "0.5.30"
         },
         {
             "libraryName": "mongodb-memory-server",
@@ -4481,6 +4481,12 @@
             "typingsPackageName": "riot",
             "sourceRepoURL": "https://github.com/riot/riot",
             "asOfVersion": "4.1.0"
+        },
+        {
+            "libraryName": "rn-swipeable-panel",
+            "typingsPackageName": "rn-swipeable-panel",
+            "sourceRepoURL": "https://github.com/enesozturk/rn-swipeable-panel",
+            "asOfVersion": "1.2"
         },
         {
             "libraryName": "roads",
