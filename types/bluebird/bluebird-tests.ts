@@ -244,6 +244,14 @@ barProm = barProm.then((value: Bar) => {
     return Bluebird.resolve(bar);
 });
 
+Bluebird.resolve()
+    .then(() => ["" as string, Bluebird.resolve(0 as number)])
+    .all()
+    .then(([x1, x2]) => {
+        const y1: string = x1;
+        const y2: number = x2;
+    });
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // $ExpectType Bluebird<void | Foo>

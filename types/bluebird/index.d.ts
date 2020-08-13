@@ -58,7 +58,12 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * The new promise will be rejected or resolved depending on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
    */
   // Based on PromiseLike.then, but returns a Bluebird instance.
-  then<U>(onFulfill?: (value: R) => Resolvable<U>, onReject?: (error: any) => Resolvable<U>): Bluebird<U>; // For simpler signature help.
+  then<T1, T2, T3, T4, T5>(onFulfill?: (value: R) => [T1, T2, T3, T4, T5], onReject?: (error: any) => [T1, T2, T3, T4, T5]): Bluebird<[T1, T2, T3, T4, T5]>;
+  then<T1, T2, T3, T4>(onFulfill?: (value: R) => [T1, T2, T3, T4], onReject?: (error: any) => [T1, T2, T3, T4]): Bluebird<[T1, T2, T3, T4]>;
+  then<T1, T2, T3>(onFulfill?: (value: R) => [T1, T2, T3], onReject?: (error: any) => [T1, T2, T3]): Bluebird<[T1, T2, T3]>;
+  then<T1, T2>(onFulfill?: (value: R) => [T1, T2], onReject?: (error: any) => [T1, T2]): Bluebird<[T1, T2]>;
+  then<T1>(onFulfill?: (value: R) => [T1], onReject?: (error: any) => [T1]): Bluebird<[T1]>;
+  then<T1>(onFulfill?: (value: R) => Resolvable<T1>, onReject?: (error: any) => Resolvable<T1>): Bluebird<T1>;
   then<TResult1 = R, TResult2 = never>(
       onfulfilled?: ((value: R) => Resolvable<TResult1>) | null,
       onrejected?: ((reason: any) => Resolvable<TResult2>) | null
