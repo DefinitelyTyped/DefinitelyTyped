@@ -1,4 +1,4 @@
-// Type definitions for Umzug v2.2.0
+// Type definitions for Umzug v2.3.0
 // Project: https://github.com/sequelize/umzug
 // Definitions by: Ivan Drinchev <https://github.com/drinchev>
 //                 Margus Lamp <https://github.com/mlamp>
