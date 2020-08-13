@@ -184,6 +184,8 @@ const poolConfig = {
 
 let pool = mysql.createPool(poolConfig);
 
+console.log('Connection timezone config:', pool.config.connectionConfig.timezone);
+
 pool.query('SELECT 1 + 1 AS solution', (err, rows, fields) => {
     if (err) throw err;
 
@@ -257,6 +259,11 @@ const poolClusterWithOptions = mysql.createPoolCluster({
     restoreNodeTimeout: 1000,
     defaultSelector: 'RR'
 });
+
+// raw
+// $ExpectType { toSqlString: () => string; }
+const CURRENT_TIMESTAMP = mysql.raw('CURRENT_TIMESTAMP()');
+const sqlString = mysql.format('UPDATE posts SET modified = ? WHERE id = ?', [CURRENT_TIMESTAMP, 42]);
 
 // destroy
 poolCluster.end();

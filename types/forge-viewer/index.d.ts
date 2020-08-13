@@ -1,6 +1,6 @@
 // Type definitions for non-npm package Forge Viewer 7.5
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
-// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Alan Smith <https://github.com/alansmithnbs>
+// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Alan Smith <https://github.com/alansmithnbs>, Jan Liska <https://github.com/liskaj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -386,7 +386,7 @@ declare namespace Autodesk {
             myData: any;
 
             downloadAecModelData(onFinished?: (data: any) => void): Promise<any>;
-            getAecModelData(node: BubbleNode): any;
+            static getAecModelData(node: BubbleNode): any;
             getFullPath(urn: string): string;
             getItemById(id: string): object;
             getMessages(itemId: string, excludeGlobal: boolean): object;

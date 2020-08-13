@@ -81,7 +81,9 @@ export function createPoolCluster(config?: PoolClusterConfig): PoolCluster;
  * format().
  * @param sql
  */
-export function raw(sql: string): () => string;
+export function raw(sql: string): {
+    toSqlString: () => string
+};
 
 export interface Connection extends EscapeFunctions {
     config: ConnectionConfig;
@@ -187,7 +189,7 @@ export interface PoolConnection extends Connection {
 }
 
 export interface Pool extends EscapeFunctions {
-    config: PoolConfig;
+    config: PoolActualConfig;
 
     getConnection(callback: (err: MysqlError, connection: PoolConnection) => void): void;
 
@@ -581,7 +583,7 @@ export interface ConnectionConfig extends ConnectionOptions {
     ssl?: string | (tls.SecureContextOptions & { rejectUnauthorized?: boolean });
 }
 
-export interface PoolConfig extends ConnectionConfig {
+export interface PoolSpecificConfig {
     /**
      * The milliseconds before a timeout occurs during the connection acquisition. This is slightly different from connectTimeout,
      * because acquiring a pool connection does not always involve making a connection. (Default: 10 seconds)
@@ -605,6 +607,13 @@ export interface PoolConfig extends ConnectionConfig {
      * is no limit to the number of queued connection requests. (Default: 0)
      */
     queueLimit?: number;
+}
+
+export interface PoolConfig extends PoolSpecificConfig, ConnectionConfig {
+}
+
+export interface PoolActualConfig extends PoolSpecificConfig {
+    connectionConfig: ConnectionConfig;
 }
 
 export interface PoolClusterConfig {

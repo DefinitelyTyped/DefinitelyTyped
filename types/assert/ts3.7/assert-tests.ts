@@ -57,3 +57,7 @@ assert['fail'](true, true, 'works like a charm');
     assert.deepStrictEqual(a, { b: 2 });
     a; // $ExpectType { b: number; }
 }
+
+assert.strict; // $ExpectType typeof assert
+
+assert.fail(); // $ExpectType never

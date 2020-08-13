@@ -71,7 +71,18 @@ export interface Features {
     readonly preview?: boolean;
     readonly imageEditor?: boolean;
     readonly undoRedo?: boolean;
+    readonly stockImages?: boolean;
+    readonly textEditor?: TextEditor;
 }
+
+export interface TextEditor {
+    readonly spellChecker?: boolean;
+    readonly tables?: boolean;
+    readonly cleanPaste?: boolean;
+    readonly emojis?: boolean;
+}
+
+export type Translations = Record<string, Record<string, string>>;
 
 export type DisplayMode = 'email' | 'web';
 export interface UnlayerOptions {
@@ -91,6 +102,7 @@ export interface UnlayerOptions {
     readonly customJS?: string[];
     readonly customCSS?: string[];
     readonly features?: Features;
+    readonly translations?: Translations;
 }
 
 export interface EmailEditorProps {

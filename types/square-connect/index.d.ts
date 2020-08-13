@@ -9191,6 +9191,18 @@ export class LocationsApi {
      * [`Location`](#type-location) objects returned by this endpoint correspond to that `location_id` parameter.
      */
     listLocations(): Promise<ListLocationsResponse>;
+  /**
+   * Creates a location.
+   */
+    createLocation(body: Location): Promise<CreateLocationResponse>;
+  /**
+   * Retrieves details of a location.
+   */
+    retrieveLocation(locationId: string): Promise<RetrieveLocationResponse>;
+  /**
+   * Updates a location.
+   */
+    updateLocation(locationId: string, body: Location): Promise<UpdateLocationResponse>;
 }
 
 // @todo describe methods
@@ -9301,7 +9313,7 @@ export class OrdersApi {
      * To pay for an order, please refer to the [Pay for Orders](/orders-api/pay-for-orders) guide.
      * To learn more about the Orders API, see the [Orders API Overview](/orders-api/what-it-does).
      */
-    updateOrder(body: UpdateOrderRequest): Promise<UpdateOrderResponse>;
+    updateOrder(locationId: string, orderId: string, body: UpdateOrderRequest): Promise<UpdateOrderResponse>;
 }
 
 export class PaymentsApi {

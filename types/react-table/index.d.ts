@@ -169,7 +169,7 @@ export type UseTableOptions<D extends object> = {
     data: D[];
 } & Partial<{
     initialState: Partial<TableState<D>>;
-    stateReducer: (newState: TableState<D>, action: ActionType, previousState: TableState<D>) => TableState<D>;
+    stateReducer: (newState: TableState<D>, action: ActionType, previousState: TableState<D>, instance?: TableInstance<D>) => TableState<D>;
     useControlledState: (state: TableState<D>, meta: Meta<D>) => TableState<D>;
     defaultColumn: Partial<Column<D>>;
     getSubRows: (originalRow: D, relativeIndex: number) => D[];
@@ -297,6 +297,7 @@ export interface UseTableColumnProps<D extends object> {
 
 export interface UseTableRowProps<D extends object> {
     cells: Array<Cell<D>>;
+    allCells: Array<Cell<D>>;
     values: Record<IdType<D>, CellValue>;
     getRowProps: (propGetter?: RowPropGetter<D>) => TableRowProps;
     index: number;
@@ -811,6 +812,7 @@ export type UseSortByColumnOptions<D extends object> = Partial<{
 export interface UseSortByInstanceProps<D extends object> {
     rows: Array<Row<D>>;
     preSortedRows: Array<Row<D>>;
+    setSortBy: (sortBy: Array<SortingRule<D>>) => void;
     toggleSortBy: (columnId: IdType<D>, descending: boolean, isMulti: boolean) => void;
 }
 

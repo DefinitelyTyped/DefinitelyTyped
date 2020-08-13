@@ -1,5 +1,6 @@
 /// <reference types="node" />
 
+import boxen = require('boxen');
 import UpdateNotifier = require('update-notifier');
 
 let notifier = UpdateNotifier();
@@ -26,10 +27,15 @@ if (notifier.update) {
         isGlobal: true,
         boxenOptions: {
             padding: 1,
-            margin: 1,
+            margin: {
+                top: 1,
+                bottom: 1,
+                left: 2,
+                right: 2,
+            },
             align: 'center',
             borderColor: 'yellow',
-            borderStyle: 'round',
+            borderStyle: boxen.BorderStyle.Round,
         },
     });
 }

@@ -2,6 +2,7 @@
 // Project: https://github.com/rdfjs/representation-task-force
 // Definitions by: Ruben Taelman <https://github.com/rubensworks>
 //                 Laurens Rietveld <https://github.com/LaurensRietveld>
+//                 Tomasz Pluskiewicz <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -317,7 +318,7 @@ export interface Stream<Q extends BaseQuad = Quad> extends EventEmitter {
      *
      * @return A quad from the internal buffer, or null if none is available.
      */
-    read(): Q;
+    read(): Q | null;
 }
 
 /**
@@ -449,7 +450,7 @@ export interface DatasetCore<OutQuad extends BaseQuad = Quad, InQuad extends Bas
      * @param object    The optional exact object to match.
      * @param graph     The optional exact graph to match.
      */
-    match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): this;
+    match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): DatasetCore<OutQuad, InQuad>;
 
     [Symbol.iterator](): Iterator<OutQuad>;
 }
@@ -494,7 +495,7 @@ export interface Dataset<OutQuad extends BaseQuad = Quad, InQuad extends BaseQua
     /**
      * Returns a new dataset that contains all quads from the current dataset, not included in the given dataset.
      */
-    difference(other: Dataset<InQuad>): this;
+    difference(other: Dataset<InQuad>): Dataset<OutQuad, InQuad>;
 
     /**
      * Returns true if the current instance contains the same graph structure as the given dataset.
@@ -520,7 +521,7 @@ export interface Dataset<OutQuad extends BaseQuad = Quad, InQuad extends BaseQua
      *
      * This method is aligned with Array.prototype.filter() in ECMAScript-262.
      */
-    filter(iteratee: QuadFilterIteratee<OutQuad>['test']): this;
+    filter(iteratee: QuadFilterIteratee<OutQuad>['test']): Dataset<OutQuad, InQuad>;
 
     /**
      * Executes the provided `iteratee` once on each quad in the dataset.
@@ -544,7 +545,7 @@ export interface Dataset<OutQuad extends BaseQuad = Quad, InQuad extends BaseQua
     /**
      * Returns a new dataset containing all quads returned by applying `iteratee` to each quad in the current dataset.
      */
-    map(iteratee: QuadMapIteratee<OutQuad>['map']): this;
+    map(iteratee: QuadMapIteratee<OutQuad>['map']): Dataset<OutQuad, InQuad>;
 
     /**
      * This method calls the `iteratee` on each `quad` of the `Dataset`. The first time the `iteratee` is called, the
@@ -597,7 +598,9 @@ export interface Dataset<OutQuad extends BaseQuad = Quad, InQuad extends BaseQua
     /**
      * Returns a new `Dataset` that is a concatenation of this dataset and the quads given as an argument.
      */
-    union(quads: Dataset<InQuad>): this;
+    union(quads: Dataset<InQuad>): Dataset<OutQuad, InQuad>;
+
+    match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): Dataset<OutQuad, InQuad>;
 }
 
 export interface DatasetFactory<OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad, D extends Dataset<OutQuad, InQuad> = Dataset<OutQuad, InQuad>>

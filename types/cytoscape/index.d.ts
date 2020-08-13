@@ -411,6 +411,11 @@ declare namespace cytoscape {
         collection(eles?: Selector | CollectionArgument[]): CollectionReturnValue;
 
         /**
+         * check whether the specified id is in the collection
+         */
+        hasElementWithId(id: string): boolean;
+
+        /**
          * Get an element from its ID in a very performant way.
          * http://js.cytoscape.org/#cy.getElementById
          */
@@ -1952,8 +1957,8 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#collection/style
      */
     type ClassName = string;
-    /** A space-separated list of class names */
-    type ClassNames = string;
+    /** A space-separated list of class names or an array */
+    type ClassNames = string | ClassName[];
 
     interface CollectionStyle {
         /**
@@ -3560,7 +3565,8 @@ declare namespace cytoscape {
          * http://js.cytoscape.org/#style/node-body
          */
         interface Node extends Partial<Overlay>, PaddingNode, Partial<Labels<NodeSingular>>, BackgroundImage,
-            Partial<Ghost>, Partial<Visibility<NodeSingular>>, Partial<PieChartBackground>, Partial<Events<NodeSingular>> {
+            Partial<Ghost>, Partial<Visibility<NodeSingular>>, Partial<PieChartBackground>, Partial<Events<NodeSingular>>,
+            Partial<TransitionAnimation> {
             /**
              * The CSS content field
              */
@@ -3758,7 +3764,8 @@ declare namespace cytoscape {
 
         interface Edge extends EdgeLine, EdgeArrow, Partial<Gradient>, Partial<Overlay>, Partial<BezierEdges>,
             Partial<UnbundledBezierEdges>, Partial<HaystackEdges>, Partial<SegmentsEdges>, Partial<Visibility<EdgeSingular>>,
-            Partial<Labels<EdgeSingular>>, Partial<Events<EdgeSingular>>, Partial<EdgeEndpoints<EdgeSingular>> { }
+            Partial<Labels<EdgeSingular>>, Partial<Events<EdgeSingular>>, Partial<EdgeEndpoints<EdgeSingular>>,
+            Partial<TransitionAnimation> { }
 
         /**
          * These properties affect the styling of an edge’s line:
@@ -3819,9 +3826,9 @@ declare namespace cytoscape {
          */
         interface Gradient {
             /**
-             * The colours of the gradient stops.
+             * The colors of the gradient stops.
              */
-            "line-gradient-stop-colours"?: Array<PropertyValueEdge<Colour>>;
+            "line-gradient-stop-colors"?: Array<PropertyValueEdge<Colour>>;
             /**
              * The positions of the gradient stops.
              * If not specified (or invalid), the stops will divide equally.

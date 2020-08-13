@@ -4,7 +4,6 @@
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
 //                 Parambir Singh <https://github.com/parambirs>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
-//                 Nicolas Voigt <https://github.com/octo-sniffle>
 //                 Chigozirim C. <https://github.com/smac89>
 //                 Flarna <https://github.com/Flarna>
 //                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>

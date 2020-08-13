@@ -771,6 +771,21 @@ tr = d3Selection.select('body')
     .data<number[]>([{test: 1}, {test: 2}]) // fails, using this data statement instead, would fail because of its type parameter not being met by input
     .enter().append('tr');
 
+let li: d3Selection.Selection<HTMLLIElement, number, HTMLElement, any>;
+li = d3Selection.select('li')
+    .data(matrix[0], d => <number> d)
+    .enter().append('li');
+
+const tr1 = d3Selection.select("body")
+    .append("table")
+    .selectAll("tr")
+    .data(matrix)
+    .join("tr")
+    .selectAll("td")
+    .data(d => d, e => <number> e)
+    .join("td")
+    .text(d => d);
+
 nMatrix = tr.data(); // i.e. matrix
 
 let td: d3Selection.Selection<HTMLTableDataCellElement, number, HTMLTableRowElement, number[]>;

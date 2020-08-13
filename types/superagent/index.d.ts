@@ -143,6 +143,7 @@ declare namespace request {
         field(name: string, val: MultipartValue): this;
         field(fields: { [fieldName: string]: MultipartValue }): this;
         get(field: string): string;
+        http2(enable?: boolean): this;
         key(cert: string | string[] | Buffer | Buffer[]): this;
         ok(callback: (res: Response) => boolean): this;
         on(name: 'error', handler: (err: any) => void): this;
@@ -168,7 +169,7 @@ declare namespace request {
         unset(field: string): this;
         use(fn: Plugin): this;
         withCredentials(): this;
-        write(data: string | Buffer, encoding?: string): this;
+        write(data: string | Buffer, encoding?: string): boolean;
         maxResponseSize(size: number): this;
     }
 

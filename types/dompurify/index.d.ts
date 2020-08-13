@@ -6,7 +6,7 @@
 //                 Exigerr <https://github.com/Exigerr>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 3.1
 /// <reference types="trusted-types"/>
 
 export as namespace DOMPurify;

@@ -279,6 +279,7 @@ new Redis({
     port: 6379, // Redis port
     host: '127.0.0.1', // Redis host
     family: 4, // 4 (IPv4) or 6 (IPv6)
+    username: 'user',
     password: 'auth',
     db: 0,
     retryStrategy() {
@@ -389,9 +390,18 @@ redis
     .get('foo', (err, result) => {
         // result === 'QUEUED'
     })
+    .sscan('set', 0)
+    .sscan('set', '0')
+    .hscan('hash', 0)
+    .hscan('hash', '0')
+    .zscan('zset', 0)
+    .zscan('zset', '0')
     .exec((err, results) => {
         // results = [[null, 'OK'], [null, 'OK'], [null, 'baz']]
     });
+
+redis.multi().options;
+redis.multi().redis;
 
 redis
     .multi([
@@ -659,3 +669,8 @@ redis.pipeline()
     .zremrangebylex('foo', '-', '+', (err: Error | null, res: number) => {
         // do something with res or err
     });
+
+redis.options.host;
+redis.status;
+cluster.options.maxRedirections;
+cluster.status;

@@ -228,16 +228,6 @@ describe('', () => {
     });
 });
 
-/* NodeRequire interface (require extensions) */
-
-declare const nodeRequire: NodeRequire;
-
-// $ExpectType any
-nodeRequire.requireActual('moduleName');
-
-// $ExpectType any
-nodeRequire.requireMock('moduleName');
-
 /* Top-level jest namespace functions */
 
 const customMatcherFactories: jasmine.CustomMatcherFactories = {};
@@ -290,6 +280,18 @@ jest.useFakeTimers('modern');
 jest.useFakeTimers('legacy');
 // $ExpectError
 jest.useFakeTimers('foo');
+
+// https://jestjs.io/docs/en/jest-object#jestsetsystemtimenow-number--date
+jest.setSystemTime();
+jest.setSystemTime(0);
+jest.setSystemTime(new Date(0));
+// $ExpectError
+jest.setSystemTime('foo');
+
+// https://jestjs.io/docs/en/jest-object#jestgetrealsystemtime
+const realSystemTime1: number = jest.getRealSystemTime();
+// $ExpectError
+const realSystemTime2: number = jest.getRealSystemTime('foo');
 
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
 // $ExpectType any
@@ -1005,9 +1007,13 @@ describe('', () => {
         expect(jest.fn(willThrow)).toThrow(/foo/);
 
         expect(() => {}).toThrowErrorMatchingSnapshot();
+        expect(() => {}).toThrowErrorMatchingSnapshot('snapshotName');
         expect(willThrow).toThrowErrorMatchingSnapshot();
+        expect(willThrow).toThrowErrorMatchingSnapshot('snapshotName');
         expect(jest.fn()).toThrowErrorMatchingSnapshot();
+        expect(jest.fn()).toThrowErrorMatchingSnapshot('snapshotName');
         expect(jest.fn(willThrow)).toThrowErrorMatchingSnapshot();
+        expect(jest.fn(willThrow)).toThrowErrorMatchingSnapshot('snapshotName');
 
         expect(() => {}).toThrowErrorMatchingInlineSnapshot();
         expect(() => {}).toThrowErrorMatchingInlineSnapshot('Error Message');

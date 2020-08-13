@@ -1,4 +1,4 @@
-import { Key, MemoryDatastore, Result, Query, Batch, Errors, utils, Datastore } from 'interface-datastore';
+import { Key, MemoryDatastore, Pair, Query, Batch, Errors, utils, Datastore, Adapter } from 'interface-datastore';
 
 const store: Datastore = new MemoryDatastore();
 
@@ -41,6 +41,51 @@ store.put(k, Buffer.from('hello')).then(() => {
     });
 });
 
+const putMany = async () => {
+    const source = [];
+    for (let i = 0; i < 100; i++) {
+        source.push({ key: new Key(`/z/key${i}`), value: Buffer.from(`data${i}`) });
+    }
+    for await (const { key, value } of store.putMany(source)) {
+        console.log(key, value);
+    }
+};
+
+putMany();
+
+const getMany = async () => {
+    const k = new Key('/z/one');
+    await store.put(k, Buffer.from('hello'));
+    const source = [k];
+
+    for await (const value of store.getMany(source)) {
+        console.log(value);
+    }
+};
+
+getMany();
+
+const deleteMany = async () => {
+    const data = [];
+    for (let i = 0; i < 100; i++) {
+        data.push({ key: new Key(`/a/key${i}`), value: Buffer.from(`data${i}`) });
+    }
+
+    // Drain them all
+    for await (const { key, value } of store.putMany(data)) {
+        console.log(key, value);
+    }
+
+    const res0 = await Promise.all(data.map(d => store.has(d.key)));
+    res0.forEach(res => typeof res === 'boolean');
+
+    for await (const key of store.deleteMany(data.map(d => d.key))) {
+        console.log(key.toString());
+    }
+};
+
+deleteMany();
+
 const b: Batch = store.batch();
 
 store.put(new Key('/z/old'), Buffer.from('old')).then(() => {
@@ -61,10 +106,10 @@ const hello = { key: new Key('/q/1hello'), value: Buffer.from('1') };
 const world = { key: new Key('/z/2world'), value: Buffer.from('2') };
 const hello2 = { key: new Key('/z/3hello2'), value: Buffer.from('3') };
 
-const filter1: Query.Filter = (entry: Result) => !entry.key.toString().endsWith('hello');
-const filter2 = (entry: Result) => entry.key.toString().endsWith('hello2');
+const filter1: Query.Filter = (entry: Pair) => !entry.key.toString().endsWith('hello');
+const filter2 = (entry: Pair) => entry.key.toString().endsWith('hello2');
 
-const order: Query.Order = (res: Result[]) => {
+const order: Query.Order = (res: Pair[]) => {
     return res.sort((a, b) => {
         if (a.value.toString() < b.value.toString()) {
             return -1;
@@ -89,11 +134,11 @@ const query: Query = {
     filters: [filter1, filter2],
     orders: [order],
     offset: 1,
-    limit: 1
+    limit: 1,
 };
 
 const test = async () => {
-    const res: Result[] = [];
+    const res: Pair[] = [];
     for await (const item of store.query(query)) {
         res.push(item);
         const key = item.key.toString();

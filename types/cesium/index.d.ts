@@ -916,7 +916,7 @@ declare namespace Cesium {
         projectPointOntoPlane(cartesian: Cartesian3, result?: Cartesian2): Cartesian2;
         projectPointsOntoPlane(cartesians: Cartesian3[], result?: Cartesian2[]): Cartesian2[];
         projectPointsOntoEllipsoid(cartesians: Cartesian2[], result?: Cartesian3[]): Cartesian3[];
-        static fromPoints(ellipsoid: Ellipsoid, cartesians: Cartesian3): EllipsoidTangentPlane;
+        static fromPoints(cartesians: Cartesian3[], ellipsoid?: Ellipsoid): EllipsoidTangentPlane;
     }
 
     class EllipsoidTerrainProvider extends TerrainProvider {
@@ -5920,6 +5920,7 @@ declare namespace Cesium {
     }
 
     namespace Transforms {
+        function fixedFrameToHeadingPitchRoll(transform: Matrix4, ellipsoid?: Ellipsoid, fixedFrameTransform?: LocalFrameToFixedFrame, result?: HeadingPitchRoll): HeadingPitchRoll;
         function eastNorthUpToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
         function northEastDownToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
         function northUpEastToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;

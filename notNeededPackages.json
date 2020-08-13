@@ -193,6 +193,12 @@
             "asOfVersion": "2.2.11"
         },
         {
+            "libraryName": "asynciterator",
+            "typingsPackageName": "asynciterator",
+            "sourceRepoURL": "https://github.com/RubenVerborgh/AsyncIterator/",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "aurelia-knockout",
             "typingsPackageName": "aurelia-knockout",
             "sourceRepoURL": "https://github.com/code-chris/aurelia-knockout",
@@ -397,6 +403,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "@braintree/sanitize-url",
+            "typingsPackageName": "braintree__sanitize-url",
+            "sourceRepoURL": "https://github.com/braintree/sanitize-url",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "broccoli-plugin",
             "typingsPackageName": "broccoli-plugin",
             "sourceRepoURL": "https://github.com/broccolijs/broccoli-plugin",
@@ -413,6 +425,12 @@
             "typingsPackageName": "builtin-modules",
             "sourceRepoURL": "https://github.com/sindresorhus/builtin-modules",
             "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "bulma-calendar",
+            "typingsPackageName": "bulma-calendar",
+            "sourceRepoURL": "https://github.com/wikiki/bulma-calendar",
+            "asOfVersion": "6.0.2"
         },
         {
             "libraryName": "bunyan-bugsnag",
@@ -461,6 +479,12 @@
             "typingsPackageName": "camljs",
             "sourceRepoURL": "https://github.com/andrei-markeev/camljs",
             "asOfVersion": "2.8.1"
+        },
+        {
+            "libraryName": "card-validator",
+            "typingsPackageName": "card-validator",
+            "sourceRepoURL": "https://github.com/braintree/card-validator",
+            "asOfVersion": "7.0.1"
         },
         {
             "libraryName": "cash-dom",
@@ -805,6 +829,12 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "credit-card-type",
+            "typingsPackageName": "credit-card-type",
+            "sourceRepoURL": "https://github.com/braintree/credit-card-type",
+            "asOfVersion": "9.0.0"
+        },
+        {
             "libraryName": "cropperjs",
             "typingsPackageName": "cropperjs",
             "sourceRepoURL": "https://github.com/fengyuanchen/cropperjs",
@@ -1109,6 +1139,12 @@
             "typingsPackageName": "electron-is-dev",
             "sourceRepoURL": "https://github.com/sindresorhus/electron-is-dev",
             "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "electron-packager",
+            "typingsPackageName": "electron-packager",
+            "sourceRepoURL": "https://github.com/electron/electron-packager",
+            "asOfVersion": "15.0.0"
         },
         {
             "libraryName": "electron-store",
@@ -1637,6 +1673,12 @@
             "typingsPackageName": "gitlab",
             "sourceRepoURL": "https://github.com/jdalrymple/node-gitlab",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "gl-matrix",
+            "typingsPackageName": "gl-matrix",
+            "sourceRepoURL": "https://github.com/toji/gl-matrix.git",
+            "asOfVersion": "3.2.0"
         },
         {
             "libraryName": "global-dirs",
@@ -2887,6 +2929,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "moment-timezone",
+            "typingsPackageName": "moment-timezone",
+            "sourceRepoURL": "https://github.com/moment/moment-timezone",
+            "asOfVersion": "0.5.30" 
+        },
+        {
             "libraryName": "mongodb-memory-server",
             "typingsPackageName": "mongodb-memory-server",
             "sourceRepoURL": "https://github.com/nodkz/mongodb-memory-server",
@@ -2993,6 +3041,12 @@
             "typingsPackageName": "negative-zero",
             "sourceRepoURL": "https://github.com/sindresorhus/negative-zero",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "net-keepalive",
+            "typingsPackageName": "net-keepalive",
+            "sourceRepoURL": "https://github.com/hertzg/node-net-keepalive",
+            "asOfVersion": "1.0.0"
         },
         {
             "libraryName": "new-github-issue-url",
@@ -3859,6 +3913,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "raygun",
+            "typingsPackageName": "raygun",
+            "sourceRepoURL": "https://github.com/MindscapeHQ/raygun4node",
+            "asOfVersion": "0.11.0"
+        },
+        {
             "libraryName": "rc-progress",
             "typingsPackageName": "rc-progress",
             "sourceRepoURL": "http://github.com/react-component/progress",
@@ -3953,6 +4013,12 @@
             "typingsPackageName": "react-dropzone",
             "sourceRepoURL": "https://github.com/react-dropzone/react-dropzone",
             "asOfVersion": "5.1.0"
+        },
+        {
+            "libraryName": "react-easy-crop",
+            "typingsPackageName": "react-easy-crop",
+            "sourceRepoURL": "https://github.com/ricardo-ch/react-easy-crop",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "react-flip-move",
@@ -4135,6 +4201,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-overlays",
+            "typingsPackageName": "react-overlays",
+            "sourceRepoURL": "https://github.com/react-bootstrap/react-overlays",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "react-owl-carousel",
             "typingsPackageName": "react-owl-carousel",
             "sourceRepoURL": "https://github.com/seal789ie/react-owl-carousel",
@@ -4199,6 +4271,12 @@
             "typingsPackageName": "react-tooltip",
             "sourceRepoURL": "https://github.com/wwayne/react-tooltip",
             "asOfVersion": "4.2.4"
+        },
+        {
+            "libraryName": "react-visibility-sensor",
+            "typingsPackageName": "react-visibility-sensor",
+            "sourceRepoURL": "https://github.com/joshwnj/react-visibility-sensor",
+            "asOfVersion": "5.1.0"
         },
         {
             "libraryName": "react-webcam",
@@ -4747,6 +4825,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "split.js",
+            "typingsPackageName": "split.js",
+            "sourceRepoURL": "https://github.com/nathancahill/split/tree/master/packages/splitjs",
+            "asOfVersion": "1.6.0"
+        },
+        {
             "libraryName": "spotify-web-api-js",
             "typingsPackageName": "spotify-web-api-js",
             "sourceRepoURL": "https://github.com/JMPerez/spotify-web-api-js",
@@ -4963,6 +5047,12 @@
             "asOfVersion": "3.1.1"
         },
         {
+            "libraryName": "stylelint-webpack-plugin",
+            "typingsPackageName": "stylelint-webpack-plugin",
+            "sourceRepoURL": "https://github.com/webpack-contrib/stylelint-webpack-plugin",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "subsume",
             "typingsPackageName": "subsume",
             "sourceRepoURL": "https://github.com/sindresorhus/subsume",
@@ -5093,6 +5183,24 @@
             "typingsPackageName": "terser",
             "sourceRepoURL": "https://github.com/terser-js/terser",
             "asOfVersion": "3.12.0"
+        },
+        {
+            "libraryName": "@testing-library/dom",
+            "typingsPackageName": "testing-library__dom",
+            "sourceRepoURL": "https://github.com/testing-library/dom-testing-library",
+            "asOfVersion": "7.5.0"
+        },
+        {
+            "libraryName": "@testing-library/react",
+            "typingsPackageName": "testing-library__react",
+            "sourceRepoURL": "https://github.com/testing-library/react-testing-library",
+            "asOfVersion": "10.2.0"
+        },
+        {
+            "libraryName": "@testing-library/user-event",
+            "typingsPackageName": "testing-library__user-event",
+            "sourceRepoURL": "https://github.com/testing-library/user-event",
+            "asOfVersion": "4.2.0"
         },
         {
             "libraryName": "text-clipper",
@@ -5551,6 +5659,12 @@
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "@wordpress/dependency-extraction-webpack-plugin",
+            "typingsPackageName": "wordpress__dependency-extraction-webpack-plugin",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.7.0"
+        },
+        {
             "libraryName": "@wordpress/dom-ready",
             "typingsPackageName": "wordpress__dom-ready",
             "sourceRepoURL": "https://github.com/WordPress/gutenberg",
@@ -5651,6 +5765,12 @@
             "typingsPackageName": "xlsx",
             "sourceRepoURL": "https://github.com/sheetjs/js-xlsx",
             "asOfVersion": "0.0.36"
+        },
+        {
+            "libraryName": "xml-formatter",
+            "typingsPackageName": "xml-formatter",
+            "sourceRepoURL": "https://github.com/chrisbottin/xml-formatter",
+            "asOfVersion": "2.1.1"
         },
         {
             "libraryName": "xml-js",

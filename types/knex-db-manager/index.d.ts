@@ -15,7 +15,7 @@ export interface KnexDbManager {
     dbVersion(): Promise<string>;
     populateDb(glob?: string): Promise<void>;
     copyDb(fromDbName?: string, toDbName?: string): Promise<void>;
-    truncateDb(ignoreTables?: [string]): Promise<void>;
+    truncateDb(ignoreTables?: string[]): Promise<void>;
     knexInstance(): QueryBuilder;
 }
 

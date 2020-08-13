@@ -26,6 +26,9 @@ declare namespace ReactDates {
     // shapes/CalendarInfoPositionShape.js
     type CalendarInfoPositionShape = 'top' | 'bottom' | 'before' | 'after';
 
+    // shapes/NavPositionShape.js
+    type NavPositionShape = 'navPositionTop' | 'navPositionBottom';
+
     // shapes/DateRangePickerShape.js
     interface DateRangePickerShape {
         // required props for a functional interactive DateRangePicker
@@ -102,6 +105,8 @@ declare namespace ReactDates {
         verticalSpacing?: number;
 
         // navigation related props
+        dayPickerNavigationInlineStyles?: Record<string, any>;
+        navPosition?: NavPositionShape;
         navPrev?: string | JSX.Element;
         navNext?: string | JSX.Element;
         onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void;
@@ -198,7 +203,7 @@ declare namespace ReactDates {
         firstDayOfWeek?: DayOfWeekShape;
         numberOfMonths?: number;
         keepOpenOnDateSelect?: boolean;
-        reopenPickerOnClearDates?: boolean;
+        reopenPickerOnClearDate?: boolean;
         renderCalendarInfo?: () => string | JSX.Element;
         calendarInfoPosition?: CalendarInfoPositionShape;
         hideKeyboardShortcutsPanel?: boolean;
@@ -209,6 +214,8 @@ declare namespace ReactDates {
         horizontalMonthPadding?: number;
 
         // navigation related props
+        dayPickerNavigationInlineStyles?: Record<string, any>;
+        navPosition?: NavPositionShape;
         navPrev?: string | JSX.Element;
         navNext?: string | JSX.Element;
         onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void;
@@ -268,7 +275,7 @@ declare namespace ReactDates {
         keyboardNavigationInstructions?: string;
         chooseAvailableStartDate?: (phraseArg: PhraseArg) => string;
         chooseAvailableEndDate?: (phraseArg: PhraseArg) => string;
-        dateIsUnavailable?: (phraseArg: PhraseArg)  => string;
+        dateIsUnavailable?: (phraseArg: PhraseArg) => string;
         dateIsSelected?: (phraseArg: PhraseArg) => string;
         dateIsSelectedAsStartDate?: (phraseArg: PhraseArg) => string;
         dateIsSelectedAsEndDate?: (phraseArg: PhraseArg) => string;

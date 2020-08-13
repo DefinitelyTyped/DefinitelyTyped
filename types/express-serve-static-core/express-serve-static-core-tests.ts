@@ -79,3 +79,7 @@ app.post<never, { foo: string }, { bar: number }>('/', (req, res) => {
     res.json({ baz: "fail" }); // $ExpectError
     req.body.baz; // $ExpectError
 });
+
+app.engine('ntl', (_filePath, _options, callback) => {
+    callback(new Error("not found."));
+});

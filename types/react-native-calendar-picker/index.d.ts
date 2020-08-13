@@ -39,7 +39,10 @@ export interface CalendarPickerProps {
     todayBackgroundColor?: string;
     todayTextStyle?: StyleProp<TextStyle>;
     textStyle?: StyleProp<TextStyle>;
-    customDatesStyles?: CustomDateStyle[];
+    customDatesStyles?: CustomDateStyle[] | CustomDatesStylesFunc;
+    /**
+     * @deprecated Use customDatesStyles & customDayHeaderStyles callbacks to style individual dates, days of week, and/or header.
+     */
     customDatesStylesPriority?: 'dayOfWeek' | 'customDates';
     scaleFactor?: number;
     minDate?: Date;
@@ -61,8 +64,12 @@ export interface CalendarPickerProps {
     previousComponent?: React.ReactNode;
     nextComponent?: React.ReactNode;
     dayLabelsWrapper?: StyleProp<ViewStyle>;
+    /**
+     * @deprecated Use customDatesStyles & customDayHeaderStyles callbacks to style individual dates, days of week, and/or header.
+     */
     dayOfWeekStyles?: DayOfWeekStyle;
     monthYearHeaderWrapperStyle?: StyleProp<ViewStyle>;
+    customDayHeaderStyles?: CustomDayHeaderStylesFunc;
 }
 
 export type DayOfWeekStyle = {
@@ -70,6 +77,27 @@ export type DayOfWeekStyle = {
 };
 
 export type DisabledDatesFunc = (date: Moment) => boolean;
+
+export type CustomDatesStylesFunc = (
+    date: Moment,
+) => {
+    containerStyle?: ViewStyle;
+    style?: ViewStyle;
+    textStyle?: TextStyle;
+};
+
+export interface CustomDayHeaderStylesFuncDateArg {
+    dayOfWeek: number;
+    month: number;
+    year: number;
+}
+
+export type CustomDayHeaderStylesFunc = (
+    date: CustomDayHeaderStylesFuncDateArg,
+) => {
+    textStyle?: TextStyle;
+    style?: ViewStyle;
+};
 
 export type MomentParsable = MomentInput;
 

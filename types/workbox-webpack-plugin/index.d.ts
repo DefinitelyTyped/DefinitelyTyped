@@ -4,7 +4,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type ChacheStrategy = 'CacheFirst' | 'CacheOnly' | 'NetworkFirst' | 'NetworkOnly' | 'StaleWhileRevalidate';
+export type CacheStrategy = 'CacheFirst' | 'CacheOnly' | 'NetworkFirst' | 'NetworkOnly' | 'StaleWhileRevalidate';
 
 export interface ManifestEntry {
     revision: string;
@@ -87,13 +87,13 @@ export interface RuntimeCacheRule {
     /**
      * Cache any same-origin request that matches the pattern.
      */
-    urlPattern?: string | RegExp;
+    urlPattern: string | RegExp;
 
     /**
      * The `handler` values are strings, corresponding to names of the strategies supported by
      * [`workbox.strategies`](https://developers.google.com/web/tools/workbox/reference-docs/latest/workbox.strategies#methods).
      */
-    handler?: ChacheStrategy;
+    handler: CacheStrategy;
 
     /**
      * The `options` properties can be used to configure instances of the cache expiration, cacheable response, and broadcast cache update plugins to apply to a given route.
@@ -427,9 +427,9 @@ export interface GenerateSWOptions extends CommonOptions {
      * Those URL parameters would normally cause the cache lookup to fail, since the URL strings used as cache keys would not be expected to include them.
      *
      * @default [/^utm_/]
-     * @example ignoreUrlParametersMatching: [/./]
+     * @example ignoreURLParametersMatching: [/./]
      */
-    ignoreUrlParametersMatching?: RegExp[];
+    ignoreURLParametersMatching?: RegExp[];
 
     /**
      * If a [navigation request](https://developers.google.com/web/fundamentals/primers/service-workers/high-performance-loading#first_what_are_navigation_requests)

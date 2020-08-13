@@ -794,6 +794,18 @@ describe("A spy", () => {
 
         expect(foo.setBar.calls.any()).toBe(false);
     });
+
+    it("can save arguments by value.", () => {
+        const arr = [1];
+        foo.setBar.calls.saveArgumentsByValue();
+
+        foo.setBar(arr);
+        arr.push(2);
+        foo.setBar(arr);
+
+        expect(foo.setBar.calls.argsFor(0)[0]).toEqual([1]);
+        expect(foo.setBar.calls.argsFor(1)[0]).toEqual([1, 2]);
+    });
 });
 
 describe("A spy, when created manually", () => {
@@ -1010,6 +1022,39 @@ describe("jasmine.any", () => {
 
             expect(foo).toHaveBeenCalledWith(jasmine.any(Number), jasmine.any(Function));
         });
+    });
+});
+
+describe('DiffBuilder', function() {
+    it('can be passed to matchersUtil.equals', () => {
+        const differ = jasmine.DiffBuilder();
+        jasmine.matchersUtil.equals(1, 1, undefined, differ);
+    });
+
+    it('records the actual and expected objects', () => {
+        const diffBuilder = jasmine.DiffBuilder();
+        diffBuilder.setRoots({ x: 'actual' }, { x: 'expected' });
+        diffBuilder.recordMismatch();
+
+        expect(diffBuilder.getMessage()).toEqual(
+            "Expected Object({ x: 'actual' }) to equal Object({ x: 'expected' }).",
+        );
+    });
+
+    it("allows customization of the message", function() {
+        const diffBuilder = jasmine.DiffBuilder();
+        diffBuilder.setRoots({x: 'bar'}, {x: 'foo'});
+
+        function darthVaderFormatter(actual: any, expected: any, path: any) {
+            return `I find your lack of ${expected} disturbing. (was ${actual}, at ${path})`;
+        }
+
+        diffBuilder.withPath('x', () => {
+            diffBuilder.recordMismatch(darthVaderFormatter);
+        });
+
+        expect(diffBuilder.getMessage())
+            .toEqual("I find your lack of foo disturbing. (was bar, at $.x)");
     });
 });
 

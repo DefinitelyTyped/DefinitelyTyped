@@ -1,12 +1,12 @@
 import leveldown from 'leveldown';
 import levelup from 'levelup';
-import { Key, Result, Query, Batch, Datastore } from 'interface-datastore';
-import LevelDatastore, { LevelDatastore as Interface } from 'datastore-level';
+import { Key, Pair, Query, Batch, Datastore } from 'interface-datastore';
+import * as LevelDatastore from 'datastore-level';
 
 const levelStore: Datastore = new LevelDatastore('init-default');
 levelStore.open();
 
-const store: Interface = new LevelDatastore('path', { db: (path, opts) => levelup(leveldown(path), opts) });
+const store = new LevelDatastore('path', { db: (path, opts) => levelup(leveldown(path), opts) });
 store.open();
 
 const k = new Key('/z/one');
@@ -68,10 +68,10 @@ const hello = { key: new Key('/q/1hello'), value: Buffer.from('1') };
 const world = { key: new Key('/z/2world'), value: Buffer.from('2') };
 const hello2 = { key: new Key('/z/3hello2'), value: Buffer.from('3') };
 
-const filter1: Query.Filter = (entry: Result) => !entry.key.toString().endsWith('hello');
-const filter2 = (entry: Result) => entry.key.toString().endsWith('hello2');
+const filter1: Query.Filter = (entry: Pair) => !entry.key.toString().endsWith('hello');
+const filter2 = (entry: Pair) => entry.key.toString().endsWith('hello2');
 
-const order: Query.Order = (res: Result[]) => {
+const order: Query.Order = (res: Pair[]) => {
     return res.sort((a, b) => {
         if (a.value.toString() < b.value.toString()) {
             return -1;
@@ -96,11 +96,11 @@ const query: Query = {
     filters: [filter1, filter2],
     orders: [order],
     offset: 1,
-    limit: 1
+    limit: 1,
 };
 
 const test = async () => {
-    const res: Result[] = [];
+    const res: Pair[] = [];
     for await (const item of store.query(query)) {
         res.push(item);
         const key = item.key.toString();

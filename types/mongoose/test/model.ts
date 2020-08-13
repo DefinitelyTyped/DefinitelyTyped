@@ -607,10 +607,52 @@ LocModel.create({ address: "foo", coords: [1, 2], facilities: ["foo", "bar"] });
 LocModel.create({ address: "foo", coords: [1, 2], facilities: ["foo", "bar"], name: "bar", openingTimes: ["foo"], rating: 10, reviews: ["foo"], notes: [] });
 LocModel.create<{address: string}>({ address: "foo" });
 
+enum SchemaEnum {
+    Foo,
+    Bar
+}
+
+enum StringSchemaEnum {
+    Foo = "foo",
+    Bar = "bar"
+}
+
 interface ModelWithFunction extends mongoose.Document {
     name: string;
 
     someFunc: () => any;
+
+    objectId?: mongoose.Types.ObjectId;
+
+    date?: Date;
+
+    boolean?: boolean;
+
+    decimal?: mongodb.Decimal128;
+
+    number?: number;
+
+    enum?: SchemaEnum;
+
+    enum2?: StringSchemaEnum;
+
+
+    selfRef?: ModelWithFunction | mongodb.ObjectID;
+
+    selfRef2?: ModelWithFunction | mongodb.ObjectID;
+
+    selfRefArray?: (ModelWithFunction | mongodb.ObjectID | undefined)[];
+
+    selfRefArray2?: ModelWithFunction[] | mongodb.ObjectID[];
+
+    parent?: {
+        ref: { 
+            _id: mongodb.ObjectId; 
+            child: ModelWithFunction
+        } | mongodb.ObjectID;
+    }
+
+    enumArray?: SchemaEnum[];
 
     deeperFuncTest?: {
         test: string;
@@ -626,6 +668,7 @@ interface ModelWithFunction extends mongoose.Document {
             title: string, 
             func: () => {}, // should be excluded in CreateQuery<T>
             tuple?: [number, number]
+            objectId?: mongoose.Types.ObjectId;
 
             mapWithFuncs?: Map<string, { 
                 title: string, 
@@ -634,6 +677,7 @@ interface ModelWithFunction extends mongoose.Document {
                     title: string, 
                     func: () => {} // should be excluded in CreateQuery<T>
                     readonly readonly: unknown; // should be excluded in CreateQuery<T>
+                    objectId?: mongoose.Types.ObjectId;
                 }> 
             }>;
         }>
@@ -675,13 +719,15 @@ ModelWithFunctionInSchema.create({
         deepArray: [{ 
             title: "test", 
             tuple: [1, 2], 
+            objectId: "valid-object-id-source",
             mapWithFuncs: { 
                 test: { 
                     title: "test", 
                     innerMap: { 
                         test: { 
-                            title: "hello" 
-                        }
+                            title: "hello",
+                            objectId: "valid-object-id-source"
+                        },
                     }
                 }
             } 
@@ -690,14 +736,26 @@ ModelWithFunctionInSchema.create({
 });
 
 
-//! note that these tests does not properly pass $ExpectError on TS 3.3
+// ------------------------------------------------------------------------------------
+// TESTS DISABLED: note that these tests does not properly pass $ExpectError on TS 3.3
 // they can be re-enabled once minimum TS version is bumped 
 
-// !$ExpectError
-// ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { deepArray: [{ title1: "test" }] } });
+//! $ExpectError
+//ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { deepArray: [{ title1: "test" }] } });
 
-// !$ExpectError
-//ModelWithFunctionInSchema.create({ name: "test", jobs:[], deeperFuncTest: { test: "hello", deepArray: [{ title1: "test" }] } });
+//! $ExpectError
+//ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { test: "hello", deepArray: [{ title1: "test" }] } });
+
+//! $ExpectError
+//ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { foo: "bar" } });
+// ------------------------------------------------------------------------------------
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ foo: "bar" });
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], foo: "bar" });
+
 
 // $ExpectError
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], someFunc: {} as any });
@@ -715,3 +773,44 @@ ModelWithFunctionInSchema.create({ name: "test", jobs: [{ title: "hello" }] });
 ModelWithFunctionInSchema.create({ name: "test", jobs: [{ title: "hello" }], titles: [{ title: "test" }] });
 
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], mapWithFuncs: { test: { title: "hello", innerMap: { test: { title: "hello" } } }} });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], enum: SchemaEnum.Bar });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], enumArray: [SchemaEnum.Bar, SchemaEnum.Foo] });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [] }).then(ref => {
+    const id: mongodb.ObjectID = ref._id;
+    ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRef: ref, selfRef2: ref._id, selfRefArray: [ref, id] });
+    ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRefArray2: [id, id] });
+    ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRefArray2: [ref, ref] });
+});
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], objectId: "valid-object-id-source" });
+ModelWithFunctionInSchema.create({ 
+    name: "test", 
+    jobs: [], 
+    objectId: new mongodb.ObjectID("valid-object-id-source") 
+});
+
+ModelWithFunctionInSchema.create({ 
+    name: "test", 
+    jobs: [], 
+    date: new Date() 
+});
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], date: "2020-01-01" });
+
+// allow strings, since mongoose can cast them
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], boolean: "true" });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], boolean: 1 });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], decimal: "1" });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], decimal: 1 });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], number: "1" });
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], enum2: "bad value" });
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], date: [123] });
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], objectId: [123] });
