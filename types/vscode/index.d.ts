@@ -1395,7 +1395,7 @@ declare module 'vscode' {
          * the `skipEncoding`-argument: `uri.toString(true)`.
          *
          * @param skipEncoding Do not percentage-encode the result, defaults to `false`. Note that
-         *	the `#` and `?` characters occurring in the path will always be encoded.
+         *    the `#` and `?` characters occurring in the path will always be encoded.
          * @returns A string representation of this Uri.
          */
         toString(skipEncoding?: boolean): string;
@@ -1735,8 +1735,8 @@ declare module 'vscode' {
          * like "TypeScript", and an array of extensions, e.g.
          * ```ts
          * {
-         * 	'Images': ['png', 'jpg']
-         * 	'TypeScript': ['ts', 'tsx']
+         *     'Images': ['png', 'jpg']
+         *     'TypeScript': ['ts', 'tsx']
          * }
          * ```
          */
@@ -1770,8 +1770,8 @@ declare module 'vscode' {
          * like "TypeScript", and an array of extensions, e.g.
          * ```ts
          * {
-         * 	'Images': ['png', 'jpg']
-         * 	'TypeScript': ['ts', 'tsx']
+         *     'Images': ['png', 'jpg']
+         *     'TypeScript': ['ts', 'tsx']
          * }
          * ```
          */
@@ -1976,23 +1976,23 @@ declare module 'vscode' {
      *
      * ```ts
      * let a: HoverProvider = {
-     * 	provideHover(doc, pos, token): ProviderResult<Hover> {
-     * 		return new Hover('Hello World');
-     * 	}
+     *     provideHover(doc, pos, token): ProviderResult<Hover> {
+     *         return new Hover('Hello World');
+     *     }
      * }
      *
      * let b: HoverProvider = {
-     * 	provideHover(doc, pos, token): ProviderResult<Hover> {
-     * 		return new Promise(resolve => {
-     * 			resolve(new Hover('Hello World'));
-     * 	 	});
-     * 	}
+     *     provideHover(doc, pos, token): ProviderResult<Hover> {
+     *         return new Promise(resolve => {
+     *             resolve(new Hover('Hello World'));
+     *          });
+     *     }
      * }
      *
      * let c: HoverProvider = {
-     * 	provideHover(doc, pos, token): ProviderResult<Hover> {
-     * 		return; // undefined
-     * 	}
+     *     provideHover(doc, pos, token): ProviderResult<Hover> {
+     *         return; // undefined
+     *     }
      * }
      * ```
      */
@@ -4818,19 +4818,19 @@ declare module 'vscode' {
          * @param section Configuration name, supports _dotted_ names.
          * @param value The new value.
          * @param configurationTarget The [configuration target](#ConfigurationTarget) or a boolean value.
-         *	- If `true` updates [Global settings](#ConfigurationTarget.Global).
-         *	- If `false` updates [Workspace settings](#ConfigurationTarget.Workspace).
-         *	- If `undefined` or `null` updates to [Workspace folder settings](#ConfigurationTarget.WorkspaceFolder) if configuration is resource specific,
-         * 	otherwise to [Workspace settings](#ConfigurationTarget.Workspace).
+         *    - If `true` updates [Global settings](#ConfigurationTarget.Global).
+         *    - If `false` updates [Workspace settings](#ConfigurationTarget.Workspace).
+         *    - If `undefined` or `null` updates to [Workspace folder settings](#ConfigurationTarget.WorkspaceFolder) if configuration is resource specific,
+         *     otherwise to [Workspace settings](#ConfigurationTarget.Workspace).
          * @param overrideInLanguage Whether to update the value in the scope of requested languageId or not.
-         *	- If `true` updates the value under the requested languageId.
-         *	- If `undefined` updates the value under the requested languageId only if the configuration is defined for the language.
+         *    - If `true` updates the value under the requested languageId.
+         *    - If `undefined` updates the value under the requested languageId only if the configuration is defined for the language.
          * @throws error while updating
-         *	- configuration which is not registered.
-         *	- window configuration to workspace folder
-         *	- configuration to workspace or workspace folder when no workspace is opened.
-         *	- configuration to workspace folder when there is no workspace folder settings.
-         *	- configuration to workspace folder when [WorkspaceConfiguration](#WorkspaceConfiguration) is not scoped to a resource.
+         *    - configuration which is not registered.
+         *    - window configuration to workspace folder
+         *    - configuration to workspace or workspace folder when no workspace is opened.
+         *    - configuration to workspace folder when there is no workspace folder settings.
+         *    - configuration to workspace folder when [WorkspaceConfiguration](#WorkspaceConfiguration) is not scoped to a resource.
          */
         update(section: string, value: any, configurationTarget?: ConfigurationTarget | boolean, overrideInLanguage?: boolean): Thenable<void>;
 
@@ -5395,7 +5395,7 @@ declare module 'vscode' {
          * ```typescript
          * window.onDidCloseTerminal(t => {
          *   if (t.exitStatus && t.exitStatus.code) {
-         *   	vscode.window.showInformationMessage(`Exit code: ${t.exitStatus.code}`);
+         *       vscode.window.showInformationMessage(`Exit code: ${t.exitStatus.code}`);
          *   }
          * });
          * ```
@@ -7506,18 +7506,18 @@ declare module 'vscode' {
      * register a command handler with the identifier `extension.sayHello`.
      * ```javascript
      * commands.registerCommand('extension.sayHello', () => {
-     * 	window.showInformationMessage('Hello World!');
+     *     window.showInformationMessage('Hello World!');
      * });
      * ```
      * Second, bind the command identifier to a title under which it will show in the palette (`package.json`).
      * ```json
      * {
-     * 	"contributes": {
-     * 		"commands": [{
-     * 			"command": "extension.sayHello",
-     * 			"title": "Hello World"
-     * 		}]
-     * 	}
+     *     "contributes": {
+     *         "commands": [{
+     *             "command": "extension.sayHello",
+     *             "title": "Hello World"
+     *         }]
+     *     }
      * }
      * ```
      */
@@ -8421,16 +8421,16 @@ declare module 'vscode' {
          * For example, a tree item is given a context value as `folder`. When contributing actions to `view/item/context`
          * using `menus` extension point, you can specify context value for key `viewItem` in `when` expression like `viewItem == folder`.
          * ```
-         *	"contributes": {
-         *		"menus": {
-         *			"view/item/context": [
-         *				{
-         *					"command": "extension.deleteFolder",
-         *					"when": "viewItem == folder"
-         *				}
-         *			]
-         *		}
-         *	}
+         *    "contributes": {
+         *        "menus": {
+         *            "view/item/context": [
+         *                {
+         *                    "command": "extension.deleteFolder",
+         *                    "when": "viewItem == folder"
+         *                }
+         *            ]
+         *        }
+         *    }
          * ```
          * This will show action `extension.deleteFolder` only for items with `contextValue` is `folder`.
          */
@@ -9212,11 +9212,11 @@ declare module 'vscode' {
          *
          * ```ts
          * workspace.onWillSaveTextDocument(event => {
-         * 	// async, will *throw* an error
-         * 	setTimeout(() => event.waitUntil(promise));
+         *     // async, will *throw* an error
+         *     setTimeout(() => event.waitUntil(promise));
          *
-         * 	// sync, OK
-         * 	event.waitUntil(promise);
+         *     // sync, OK
+         *     event.waitUntil(promise);
          * })
          * ```
          *
@@ -9256,11 +9256,11 @@ declare module 'vscode' {
          *
          * ```ts
          * workspace.onWillCreateFiles(event => {
-         * 	// async, will *throw* an error
-         * 	setTimeout(() => event.waitUntil(promise));
+         *     // async, will *throw* an error
+         *     setTimeout(() => event.waitUntil(promise));
          *
-         * 	// sync, OK
-         * 	event.waitUntil(promise);
+         *     // sync, OK
+         *     event.waitUntil(promise);
          * })
          * ```
          *
@@ -9311,11 +9311,11 @@ declare module 'vscode' {
          *
          * ```ts
          * workspace.onWillCreateFiles(event => {
-         * 	// async, will *throw* an error
-         * 	setTimeout(() => event.waitUntil(promise));
+         *     // async, will *throw* an error
+         *     setTimeout(() => event.waitUntil(promise));
          *
-         * 	// sync, OK
-         * 	event.waitUntil(promise);
+         *     // sync, OK
+         *     event.waitUntil(promise);
          * })
          * ```
          *
@@ -9366,11 +9366,11 @@ declare module 'vscode' {
          *
          * ```ts
          * workspace.onWillCreateFiles(event => {
-         * 	// async, will *throw* an error
-         * 	setTimeout(() => event.waitUntil(promise));
+         *     // async, will *throw* an error
+         *     setTimeout(() => event.waitUntil(promise));
          *
-         * 	// sync, OK
-         * 	event.waitUntil(promise);
+         *     // sync, OK
+         *     event.waitUntil(promise);
          * })
          * ```
          *
@@ -9904,9 +9904,9 @@ declare module 'vscode' {
      *
      * ```javascript
      * languages.registerHoverProvider('javascript', {
-     * 	provideHover(document, position, token) {
-     * 		return new Hover('I am a hover!');
-     * 	}
+     *     provideHover(document, position, token) {
+     *         return new Hover('I am a hover!');
+     *     }
      * });
      * ```
      *
@@ -11051,7 +11051,7 @@ declare module 'vscode' {
      */
     export enum DebugConfigurationProviderTriggerKind {
         /**
-         *	`DebugConfigurationProvider.provideDebugConfigurations` is called to provide the initial debug configurations for a newly created launch.json.
+         *    `DebugConfigurationProvider.provideDebugConfigurations` is called to provide the initial debug configurations for a newly created launch.json.
          */
         Initial = 1,
         /**
@@ -11194,16 +11194,16 @@ declare module 'vscode' {
      *
      * ```javascript
      * export function activate(context: vscode.ExtensionContext) {
-     * 	let api = {
-     * 		sum(a, b) {
-     * 			return a + b;
-     * 		},
-     * 		mul(a, b) {
-     * 			return a * b;
-     * 		}
-     * 	};
-     * 	// 'export' public api-surface
-     * 	return api;
+     *     let api = {
+     *         sum(a, b) {
+     *             return a + b;
+     *         },
+     *         mul(a, b) {
+     *             return a * b;
+     *         }
+     *     };
+     *     // 'export' public api-surface
+     *     return api;
      * }
      * ```
      * When depending on the API of another extension add an `extensionDependencies`-entry
@@ -11310,16 +11310,16 @@ declare module 'vscode' {
          * For example, a comment thread is given a context value as `editable`. When contributing actions to `comments/commentThread/title`
          * using `menus` extension point, you can specify context value for key `commentThread` in `when` expression like `commentThread == editable`.
          * ```
-         *	"contributes": {
-         *		"menus": {
-         *			"comments/commentThread/title": [
-         *				{
-         *					"command": "extension.deleteCommentThread",
-         *					"when": "commentThread == editable"
-         *				}
-         *			]
-         *		}
-         *	}
+         *    "contributes": {
+         *        "menus": {
+         *            "comments/commentThread/title": [
+         *                {
+         *                    "command": "extension.deleteCommentThread",
+         *                    "when": "commentThread == editable"
+         *                }
+         *            ]
+         *        }
+         *    }
          * ```
          * This will show action `extension.deleteCommentThread` only for comment threads with `contextValue` is `editable`.
          */
@@ -11402,16 +11402,16 @@ declare module 'vscode' {
          * For example, a comment is given a context value as `editable`. When contributing actions to `comments/comment/title`
          * using `menus` extension point, you can specify context value for key `comment` in `when` expression like `comment == editable`.
          * ```json
-         *	"contributes": {
-         *		"menus": {
-         *			"comments/comment/title": [
-         *				{
-         *					"command": "extension.deleteComment",
-         *					"when": "comment == editable"
-         *				}
-         *			]
-         *		}
-         *	}
+         *    "contributes": {
+         *        "menus": {
+         *            "comments/comment/title": [
+         *                {
+         *                    "command": "extension.deleteComment",
+         *                    "when": "comment == editable"
+         *                }
+         *            ]
+         *        }
+         *    }
          * ```
          * This will show action `extension.deleteComment` only for comments with `contextValue` is `editable`.
          */
