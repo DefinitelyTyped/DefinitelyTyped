@@ -598,6 +598,7 @@ let panoramaOptions: google.maps.StreetViewPanoramaOptions = {
     visible: true,
     motionTracking: true,
     motionTrackingControl: true,
+    showRoadLabels: true,
 };
 let panorama = new google.maps.StreetViewPanorama(document.createElement('div'), panoramaOptions);
 
