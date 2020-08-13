@@ -4486,7 +4486,7 @@
             "libraryName": "rn-swipeable-panel",
             "typingsPackageName": "rn-swipeable-panel",
             "sourceRepoURL": "https://github.com/enesozturk/rn-swipeable-panel",
-            "asOfVersion": "1.2"
+            "asOfVersion": "1.2.0"
         },
         {
             "libraryName": "roads",
