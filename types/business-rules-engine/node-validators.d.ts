@@ -3,8 +3,6 @@
 // Definitions by: Roman Samec <https://github.com/rsamec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 import Validation = require("business-rules-engine");
 export as namespace Validators;
 

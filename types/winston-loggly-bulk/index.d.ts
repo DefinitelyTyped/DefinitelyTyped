@@ -3,8 +3,6 @@
 // Definitions by: Simcha Wood <https://github.com/SimchaWood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 import { Url } from 'url';
 import TransportStream = require('winston-transport');
 

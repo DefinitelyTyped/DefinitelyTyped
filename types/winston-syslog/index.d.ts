@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/// <reference types="node" />
 import * as Transport from 'winston-transport';
 import * as dgram from 'dgram';
 import * as net from 'net';

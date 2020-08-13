@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import Transport from '../transport/transport';
 import { EventEmitter } from 'events';
 import System from './system/system';

@@ -1,7 +1,5 @@
 // Usage: ts-node generate-modules.ts
 
-/// <reference types="node" />
-
 import * as fs from "fs";
 import { STATUS_CODES } from "http";
 import { get } from "https";

@@ -3,8 +3,6 @@
 // Definitions by: flying-sheep <https://github.com/flying-sheep>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 import { EventEmitter } from 'events'
 
 type EventSource = EventEmitter | EventTarget

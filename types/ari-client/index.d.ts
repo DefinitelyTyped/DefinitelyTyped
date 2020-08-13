@@ -3,8 +3,6 @@
 // Definitions by: Dioris Moreno <https://github.com/dioris-moreno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 /**
  *  Create an instance of Client using the provided connection options and call
  *  the provided callback once the API has been attached to the Client.

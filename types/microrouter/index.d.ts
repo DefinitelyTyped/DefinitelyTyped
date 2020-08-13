@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/// <reference types="node"/>
-
 import { IncomingMessage, ServerResponse as HttpServerResponse, Server } from 'http';
 import { RequestHandler } from 'micro';
 export type ServerResponse = HttpServerResponse;

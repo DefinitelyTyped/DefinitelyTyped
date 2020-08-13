@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import { Dispatcher, DispatcherInterface, DispatcherContext, Store } from '../index';
 import { EventEmitter } from 'events';
 

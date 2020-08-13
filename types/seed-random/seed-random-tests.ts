@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import * as assert from 'assert';
 import * as seed from 'seed-random';
 

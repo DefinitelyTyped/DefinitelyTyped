@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { EventEmitter } from 'events';
 import { Wire, READY_STATE } from './wire';
 export default class ElIPCTransport extends EventEmitter implements Wire {

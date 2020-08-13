@@ -1,7 +1,5 @@
 // Usage: ts-node generate-tsconfigs.ts
 
-/// <reference types="node" />
-
 import * as fs from 'fs';
 import * as path from 'path';
 

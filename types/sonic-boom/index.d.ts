@@ -3,8 +3,6 @@
 // Definitions by: Alex Ferrando <https://github.com/alferpal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node"/>
-
 import { EventEmitter } from 'events';
 
 export = SonicBoom;

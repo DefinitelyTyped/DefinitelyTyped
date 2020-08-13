@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import assert = require("assert");
 import MIMEType = require('whatwg-mimetype');
 

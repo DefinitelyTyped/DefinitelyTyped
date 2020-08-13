@@ -5,8 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-/// <reference types="node" />
-
 import * as React from 'react';
 
 export interface ThemeProps<T> {

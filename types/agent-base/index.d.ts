@@ -3,7 +3,6 @@
 // Definitions by: Christopher Quadflieg <https://github.com/Shinigami92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
 import { EventEmitter } from 'events';
 
 declare namespace Agent {

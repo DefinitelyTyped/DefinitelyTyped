@@ -2,7 +2,6 @@
 // Project: https://github.com/algolia/places
 // Definitions by: Ghizlane LOTFI <https://github.com/ghizlanelotfi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="node" />
 
 import { EventEmitter } from 'events';
 

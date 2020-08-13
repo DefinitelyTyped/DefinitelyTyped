@@ -4,7 +4,6 @@
 //                 John Hamelink <https://johnhamelink.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
 import { SQS } from "aws-sdk";
 
 export interface Options {

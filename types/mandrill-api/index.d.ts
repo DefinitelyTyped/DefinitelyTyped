@@ -9,8 +9,6 @@
 
  =============================================== */
 
-/// <reference types="node" />
-
 
 
 export interface ICallback {

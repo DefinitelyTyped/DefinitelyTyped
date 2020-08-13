@@ -3,8 +3,6 @@
 // Definitions by: Aankhen <https://github.com/Aankhen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 export = Rename;
 
 declare function Rename(filepath: string | Rename.FileObject, transformer: Rename.Transformer): Rename.FilePath;

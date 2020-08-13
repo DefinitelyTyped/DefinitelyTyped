@@ -3,7 +3,6 @@
 // Definitions by: Jason Gray <https://github.com/jasonthomasgray>, Nathan Oertel <https://github.com/nathanoertel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
 import { SSM } from 'aws-sdk';
 
 export function getParameter(

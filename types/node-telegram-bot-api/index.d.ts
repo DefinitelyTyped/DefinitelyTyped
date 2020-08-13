@@ -12,8 +12,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="node" />
-
 import { EventEmitter } from 'events';
 import { Stream, Readable } from 'stream';
 import { ServerOptions } from 'https';

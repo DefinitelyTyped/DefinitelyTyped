@@ -3,8 +3,6 @@
 // Definitions by: Carl Fürstenberg <https://github.com/azatoth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 import { S3 } from 'aws-sdk';
 import { Readable, Writable } from 'stream';
 

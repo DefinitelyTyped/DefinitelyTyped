@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-/// <reference types="node" />
-
 import { EventEmitter } from 'events';
 
 export class VASTTracker extends EventEmitter {

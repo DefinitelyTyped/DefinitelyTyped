@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import { promisify } from 'es6-promisify';
 
 function callbackFunction(a: string, b: string, callback: (error: any, combined: string) => void): void {

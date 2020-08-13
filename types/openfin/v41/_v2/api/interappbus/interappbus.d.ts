@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { Base } from '../base';
 import { Identity } from '../../identity';
 import Transport, { Message } from '../../transport/transport';

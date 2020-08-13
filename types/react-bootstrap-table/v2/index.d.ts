@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-/// <reference types="node" />
-
 // documentation taken from http://allenfang.github.io/react-bootstrap-table/docs.html
 
 import { ComponentClass, Props, ReactElement } from 'react';

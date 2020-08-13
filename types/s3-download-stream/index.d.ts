@@ -3,8 +3,6 @@
 // Definitions by: Caleb Everett <https://github.com/everettcaleb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 import { Readable } from "stream";
 import { S3 } from "aws-sdk";
 

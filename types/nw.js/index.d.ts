@@ -3,7 +3,6 @@
 // Definitions by: Alireza Dabiri Nejad <https://github.com/alirdn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
 import { EventEmitter } from 'events';
 
 declare global {
