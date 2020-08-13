@@ -1509,15 +1509,15 @@ function testRef() {
     <ConnectedClassComponent ref={(ref: string) => {}}></ConnectedClassComponent>; // $ExpectError
 }
 
-function testConnectPredefinedState() {
+function testConnectDefaultState() {
     connect((state) => {
         // $ExpectType DefaultRootState
         const s = state;
         return state;
     });
 
-    const predefinedStateConnect: Connect<{value: number}> = connect;
-    predefinedStateConnect((state) => {
+    const connectWithDefaultState: Connect<{value: number}> = connect;
+    connectWithDefaultState((state) => {
         // $ExpectType { value: number; }
         const s = state;
         return state;
