@@ -1,21 +1,20 @@
 const x = 0;
 const y = 0;
 const fontSize = 72;
-let ctx: CanvasRenderingContext2D;
+const ctx: CanvasRenderingContext2D = (document.getElementById('canvas') as HTMLCanvasElement).getContext('2d')!;
 
 opentype.load('fonts/Roboto-Black.ttf', (err, font) => {
     if (err) {
         alert('Font could not be loaded: ' + err);
     } else {
-        const path = font.getPath('Hello, World!', 0, 150, 72);
-        // If you just want to draw the text you can also use font.draw(ctx, text, x, y, fontSize).
+        const path = font!.getPath('Hello, World!', 0, 150, 72);
         path.draw(ctx);
     }
 });
 
-let myBuffer: ArrayBuffer;
+let myBuffer = new ArrayBuffer(1024);
 let font = opentype.parse(myBuffer);
-font = opentype.loadSync('fonts/Roboto-Black.ttf');
+font = opentype.loadSync('fonts/Roboto-Black.ttf', { lowMemory: true});
 
 const notdefGlyph = new opentype.Glyph({
     name: '.notdef',
@@ -119,3 +118,9 @@ aPath.draw(ctx);
 const pathData: string = aPath.toPathData(7);
 const pathSvg: string = aPath.toSVG(7);
 const pathDom: SVGPathElement = aPath.toDOMElement(7);
+
+async function make() {
+    const font = await opentype.load('fonts/Roboto-Black.ttf');
+    const path = font.getPath('Hello, World!', 0, 150, 72);
+    console.log(path);
+}
