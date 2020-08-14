@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************** */
 
-
 /// <reference path="./bmapgl.core.d.ts" />
 declare namespace MapVGL {
     class View {
@@ -59,7 +58,7 @@ declare namespace MapVGL {
         data?: GeoJSON[];
         [x: string]: any;
     }
-    type GeoJSON = {
+    interface GeoJSON {
         geometry: {
             type: 'Point' | 'LineString' | 'Polygon',
             coordinates: any[];

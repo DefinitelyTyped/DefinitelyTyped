@@ -35,30 +35,30 @@ declare namespace BMapGL {
     type DrawingType = 'marker' | 'polyline' | 'polygon' | 'rectangle' | 'circle';
     interface DrawingManagerOptions {
         isOpen?: boolean;
-        drawingMode?: BMapGL.DrawingType;
+        drawingMode?: DrawingType;
         enableDrawingTool?: boolean;
         enableCalculate?: boolean;
         enableSorption?: boolean;
         enableGpc?: boolean;
         enableLimit?: boolean;
         sorptionDistance?: number;
-        limitOptions?: BMapGL.DrawingLimitOptions;
-        drawingToolOptions?: BMapGL.DrawingToolOptions;
-        markerOptions?: BMapGL.MarkerOptions;
-        circleOptions?: BMapGL.CircleOptions;
-        polylineOptions?: BMapGL.PolylineOptions;
-        polygonOptions?: BMapGL.PolygonOptions;
-        rectangleOptions?: BMapGL.PolygonOptions;
+        limitOptions?: DrawingLimitOptions;
+        drawingToolOptions?: DrawingToolOptions;
+        markerOptions?: MarkerOptions;
+        circleOptions?: CircleOptions;
+        polylineOptions?: PolylineOptions;
+        polygonOptions?: PolygonOptions;
+        rectangleOptions?: PolygonOptions;
     }
 
     interface DrawingToolOptions {
         enableTips?: boolean;
         customContainer?: string | HTMLElement;
         hasCustomStyle?: boolean;
-        anchor?: BMapGL.ControlAnchor;
-        offset?: BMapGL.Size;
+        anchor?: ControlAnchor;
+        offset?: Size;
         scale?: number;
-        drawingModes?: BMapGL.DrawingType[];
+        drawingModes?: DrawingType[];
     }
 
     interface DrawingLimitOptions {
@@ -69,7 +69,7 @@ declare namespace BMapGL {
 
 declare namespace BMapGLLib {
     type Callback = (...args: any[]) => void;
-    type CallbackWithOverlay<T> = (e: any, overlay: T) => void;
+    type CallbackWithOverlay = (e: any, overlay: any) => void;
 
     class DrawingManager {
         constructor(map: BMapGL.Map, opts?: BMapGL.DrawingManagerOptions);
@@ -80,7 +80,7 @@ declare namespace BMapGLLib {
         getDrawingMode(): BMapGL.DrawingType;
         setDrawingMode(drawingType: BMapGL.DrawingType): void;
         addEventListener(event: string, handler: Callback): void;
-        addEventListener<T>(event: string, handler: CallbackWithOverlay<T>): void;
+        addEventListener<T>(event: string, handler: CallbackWithOverlay): void;
         removeEventListener(event: string, handler: Callback): void;
     }
 }
