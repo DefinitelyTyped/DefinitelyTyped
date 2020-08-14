@@ -1,4 +1,4 @@
-// Type definitions for scratch-env 3.0
+// Type definitions for scratch-vm (extension environment) 3.0
 // Project: https://github.com/LLK/scratch-vm#readme
 // Definitions by: Richie Bendall <https://github.com/Richienb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
