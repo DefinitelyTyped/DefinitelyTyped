@@ -62,6 +62,10 @@ declare namespace BMapGL {
         anchor?: ControlAnchor;
         offset?: Size;
     }
+    interface ZoomControlOptions {
+        anchor?: ControlAnchor;
+        offset?: Size;
+    }
     type ControlAnchor = number;
     class OverviewMapControl extends Control {
         constructor(opts: OverviewMapControlOptions);
@@ -122,6 +126,9 @@ declare namespace BMapGL {
     type StatusCode = number;
     class PanoramaControl extends Control {
         constructor();
+    }
+    class ZoomControl extends Control {
+        constructor(opts?: ZoomControlOptions);
     }
 }
 declare const BMAP_UNIT_METRIC: BMapGL.LengthUnit;

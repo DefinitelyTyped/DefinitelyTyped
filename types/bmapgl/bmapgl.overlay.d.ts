@@ -40,6 +40,7 @@ declare namespace BMapGL {
         hide?(): void;
         addEventListener(event: string, handler: Callback): void;
         removeEventListener(event: string, handler: Callback): void;
+        setOptions(obj: object): void;
     }
     type SymbolShapeType = number;
     interface PolylineOptions {
