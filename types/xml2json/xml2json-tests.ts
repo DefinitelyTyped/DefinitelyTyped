@@ -18,8 +18,8 @@ const jsonObject: { [key: string]: unknown } = parser.toJson(xml, {
     arrayNotation: false,
 });
 
-const a: { [key: string]: string } = parser.toJson(xml, { object: true });
-const b: { [key: string]: number } = parser.toJson<{ [key: string]: number }>(xml, { object: true });
+const a = parser.toJson(xml, { object: true }) as { [key: string]: string };
+const b = parser.toJson(xml, { object: true }) as { [key: string]: number };
 
 // json to xml with XmlOptions
 xml = parser.toXml(jsonObject, {
