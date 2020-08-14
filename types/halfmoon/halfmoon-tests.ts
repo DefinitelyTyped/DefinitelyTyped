@@ -1,5 +1,8 @@
 import halfmoon = require('halfmoon');
 
+halfmoon.pageWrapper; // $ExpectType Element
+halfmoon.stickyAlerts; // $ExpectType Element
+
 halfmoon.darkModeOn; // $ExpectType "yes" | "no"
 
 halfmoon.createCookie('darkModeOn', 'yes'); // $ExpectType void
