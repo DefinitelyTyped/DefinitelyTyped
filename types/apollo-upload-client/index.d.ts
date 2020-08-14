@@ -8,16 +8,17 @@
 // imports
 // ==============================================================================
 
-import { ApolloLink } from "@apollo/client";
-import { HttpOptions as OriginHttpOptions } from "@apollo/client/link/http";
-import { isExtractableFile as OriginIsExtractableFile } from "extract-files"
+import { ApolloLink } from '@apollo/client';
+import { HttpOptions as OriginHttpOptions } from '@apollo/client/link/http';
+import { isExtractableFile as OriginIsExtractableFile } from 'extract-files';
+
 // ==============================================================================
 // declare
 // ==============================================================================
 
 declare global {
     interface GlobalFetch {
-        fetch: WindowOrWorkerGlobalScope["fetch"];
+        fetch: WindowOrWorkerGlobalScope['fetch'];
     }
 }
 
@@ -25,21 +26,22 @@ declare global {
 // types
 // ==============================================================================
 
-export type HttpOptions = OriginHttpOptions & Partial<{
-    isExtractableFile: typeof OriginIsExtractableFile,
-    formDataAppendFile: typeof formDataAppendFile
-}>
+export type HttpOptions = OriginHttpOptions &
+    Partial<{
+        isExtractableFile: typeof OriginIsExtractableFile;
+        formDataAppendFile: typeof formDataAppendFile;
+    }>;
 export type FormDataFileAppender = {
     formData: FormData;
     fieldName: string;
-    file: any
-}
+    file: any;
+};
 
 // ==============================================================================
 // export
 // ==============================================================================
 
-export { ReactNativeFile, isExtractableFile } from "extract-files"
+export { ReactNativeFile, isExtractableFile } from 'extract-files';
 
 /**
  * Creates a [terminating Apollo Link](https://www.apollographql.com/docs/link/overview/#terminating-links) capable of file uploads.

@@ -4,24 +4,24 @@ import {
     FormDataFileAppender,
     formDataAppendFile,
     ReactNativeFile,
-    isExtractableFile
-} from "apollo-upload-client";
+    isExtractableFile,
+} from 'apollo-upload-client';
 
 // ==============================================================================
 // HttpOptions
 // ==============================================================================
 
 const httpOptions: HttpOptions = {
-    uri: "http://localhost",
+    uri: 'http://localhost',
     isExtractableFile,
     formDataAppendFile,
     useGETForQueries: true,
     fetch: (uri, options) => fetch(`http://localhost/${uri}`, options),
-    fetchOptions: { method: "GET" },
-    headers: { special: "Special header value" },
+    fetchOptions: { method: 'GET' },
+    headers: { special: 'Special header value' },
     includeExtensions: true,
-    credentials: "beepboop",
-}
+    credentials: 'beepboop',
+};
 
 // ==============================================================================
 // createUploadLink
@@ -36,28 +36,24 @@ const formData = new FormData(form);
 const formDataFileAppender: FormDataFileAppender = {
     fieldName: 'field name',
     formData,
-    file: ''
-}
+    file: '',
+};
 
 // ==============================================================================
 // formDataAppendFile
 // ==============================================================================
-formDataAppendFile(formDataFileAppender)
+formDataAppendFile(formDataFileAppender);
 
 // ==============================================================================
 // ReactNativeFile
 // ==============================================================================
 new ReactNativeFile({
-    name: "its coming home",
-    type: "its coming",
+    name: 'its coming home',
+    type: 'its coming',
     uri: "football's coming home",
 });
 
 // ==============================================================================
 // isExtractableFile
 // ==============================================================================
-isExtractableFile('')
-
-
-
-
+isExtractableFile('');
