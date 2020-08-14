@@ -1825,6 +1825,12 @@
             "asOfVersion": "6.0.0"
         },
         {
+            "libraryName": "@hapi/joi",
+            "typingsPackageName": "hapi__joi",
+            "sourceRepoURL": "https://github.com/sideway/joi",
+            "asOfVersion": "17.1.4"
+        },
+        {
             "libraryName": "@hapi/lab",
             "typingsPackageName": "hapi__lab",
             "sourceRepoURL": "https://github.com/hapijs/lab",
