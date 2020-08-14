@@ -9,7 +9,7 @@ const jsonString: string = parser.toJson(xml);
 xml = parser.toXml(jsonString);
 
 // xml to json in object mode and JsonOptions
-const jsonObject: {} = parser.toJson(xml, {
+const jsonObject: Record<string, unknown> = parser.toJson(xml, {
     object: true,
     reversible: false,
     coerce: false,

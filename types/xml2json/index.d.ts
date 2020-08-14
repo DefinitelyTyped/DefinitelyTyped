@@ -6,10 +6,10 @@
 
 /// <reference types="node" />
 
-export function toJson(xml: string | Buffer, options?: { object?: false } & JsonOptions): string;
-export function toJson(xml: string | Buffer, options?: { object: true } & JsonOptions): {};
+export function toJson(xml: string, options?: { object?: false } & JsonOptions): string;
+export function toJson(xml: string, options?: { object: true } & JsonOptions): Record<string, unknown>;
 
-export function toXml(json: {} | string | Buffer, options?: XmlOptions): string;
+export function toXml(json: Record<string, unknown> | string, options?: XmlOptions): string;
 
 export interface XmlOptions {
     /**
