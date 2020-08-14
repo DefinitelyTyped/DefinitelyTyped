@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "scratch-vm-tests.ts"
+        "scratch-env-tests.ts"
     ]
 }
