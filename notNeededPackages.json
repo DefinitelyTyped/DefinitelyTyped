@@ -1828,7 +1828,7 @@
             "libraryName": "@hapi/joi",
             "typingsPackageName": "hapi__joi",
             "sourceRepoURL": "https://github.com/sideway/joi",
-            "asOfVersion": "17.1.4"
+            "asOfVersion": "17.1.5"
         },
         {
             "libraryName": "@hapi/lab",
