@@ -1,14 +1,14 @@
-// Type definitions for apollo-upload-client 14.1.1
+// Type definitions for apollo-upload-client 14.1
 // Project: https://github.com/jaydenseric/apollo-upload-client#readme
 // Definitions by: Edward Sammut Alessi <https://github.com/Slessi>, tyankatsu <https://github.com/tyankatsu0105>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.6
 
 // ==============================================================================
 // imports
 // ==============================================================================
 
-import { ApolloLink } from '@apollo/client';
+import { ApolloLink } from '@apollo/client/core';
 import { HttpOptions as OriginHttpOptions } from '@apollo/client/link/http';
 import { isExtractableFile as OriginIsExtractableFile } from 'extract-files';
 
@@ -31,11 +31,12 @@ export type HttpOptions = OriginHttpOptions &
         isExtractableFile: typeof OriginIsExtractableFile;
         formDataAppendFile: typeof formDataAppendFile;
     }>;
-export type FormDataFileAppender = {
+
+export interface FormDataFileAppender {
     formData: FormData;
     fieldName: string;
     file: any;
-};
+}
 
 // ==============================================================================
 // export
@@ -50,7 +51,8 @@ export { ReactNativeFile, isExtractableFile } from 'extract-files';
 export function createUploadLink(httpOptions?: HttpOptions): ApolloLink;
 
 /**
- * The default implementation for [`createUploadLink`](https://github.com/jaydenseric/apollo-upload-client#function-createuploadlink) `options.formDataAppendFile` that uses the standard [`FormData.append`](https://developer.mozilla.org/en-US/docs/Web/API/FormData/append) method.
+ * The default implementation for [`createUploadLink`](https://github.com/jaydenseric/apollo-upload-client#function-createuploadlink) `options.formDataAppendFile`
+ * that uses the standard [`FormData.append`](https://developer.mozilla.org/en-US/docs/Web/API/FormData/append) method.
  * @see https://github.com/jaydenseric/apollo-upload-client#function-formdataappendfile
  */
 export function formDataAppendFile(formDataFileAppender?: FormDataFileAppender): void;

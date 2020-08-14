@@ -31,7 +31,7 @@ createUploadLink(httpOptions);
 // ==============================================================================
 // FormDataFileAppender
 // ==============================================================================
-let form: HTMLFormElement | undefined;
+const form: HTMLFormElement | undefined = undefined;
 const formData = new FormData(form);
 const formDataFileAppender: FormDataFileAppender = {
     fieldName: 'field name',
