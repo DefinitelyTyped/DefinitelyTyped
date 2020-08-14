@@ -3,7 +3,7 @@
 // Definitions by: Esri <https://github.com/Esri>
 //                 Mike Tschudi <https://github.com/MikeTschudi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 3.9
 
 /*
  | Copyright 2018 Esri
