@@ -66,6 +66,10 @@ declare namespace BMapGL {
         anchor?: ControlAnchor;
         offset?: Size;
     }
+    interface NavigationControl3DOptions {
+        anchor?: ControlAnchor;
+        offset?: Size;
+    }
     type ControlAnchor = number;
     class OverviewMapControl extends Control {
         constructor(opts: OverviewMapControlOptions);
@@ -129,6 +133,9 @@ declare namespace BMapGL {
     }
     class ZoomControl extends Control {
         constructor(opts?: ZoomControlOptions);
+    }
+    class NavigationControl3D extends Control {
+        constructor(opts?: NavigationControl3DOptions);
     }
 }
 declare const BMAP_UNIT_METRIC: BMapGL.LengthUnit;
