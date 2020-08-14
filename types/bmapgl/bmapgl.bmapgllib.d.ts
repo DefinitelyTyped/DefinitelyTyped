@@ -80,7 +80,7 @@ declare namespace BMapGLLib {
         getDrawingMode(): BMapGL.DrawingType;
         setDrawingMode(drawingType: BMapGL.DrawingType): void;
         addEventListener(event: string, handler: Callback): void;
-        addEventListener<T>(event: string, handler: CallbackWithOverlay): void;
+        addEventListener(event: string, handler: CallbackWithOverlay): void;
         removeEventListener(event: string, handler: Callback): void;
     }
 }
