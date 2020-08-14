@@ -390,7 +390,7 @@ export interface RequestLog {
 }
 
 export interface RequestQuery {
-    [key: string]: string | string[];
+    [key: string]: any;
 }
 
 /**
@@ -478,7 +478,7 @@ export interface Request extends Podium {
     /**
      * An object where each key is a path parameter name with matching value as described in [Path parameters](https://github.com/hapijs/hapi/blob/master/API.md#path-parameters).
      */
-    readonly params: Util.Dictionary<string>;
+    readonly params: Util.Dictionary<any>;
 
     /**
      * An array containing all the path params values in the order they appeared in the path.
