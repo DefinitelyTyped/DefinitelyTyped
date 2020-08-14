@@ -1,6 +1,6 @@
 import * as parser from 'xml2json';
 
-let xml = "<foo attr=\"value\">bar</foo>";
+let xml = '<foo attr="value">bar</foo>';
 
 // xml to json
 const jsonString: string = parser.toJson(xml);
@@ -15,10 +15,14 @@ const jsonObject: {} = parser.toJson(xml, {
     coerce: false,
     sanitize: true,
     trim: true,
-    arrayNotation: false
+    arrayNotation: false,
 });
 
 // json to xml with XmlOptions
 xml = parser.toXml(jsonObject, {
-    sanitize: true
+    sanitize: true,
 });
+
+// Test `alternateTextNode`.
+parser.toJson(xml, { alternateTextNode: true });
+parser.toJson(xml, { alternateTextNode: 'value' });

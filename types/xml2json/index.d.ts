@@ -80,5 +80,5 @@ export interface JsonOptions {
      * Changes the default textNode property from $t to _t when option is set to true.
      * Alternatively a string can be specified which will override $t to what ever the string is.
      */
-    alternateTextNode?: boolean;
+    alternateTextNode?: boolean | string;
 }
