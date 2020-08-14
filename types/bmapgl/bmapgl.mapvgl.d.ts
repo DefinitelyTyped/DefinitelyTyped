@@ -62,11 +62,11 @@ declare namespace MapVGL {
         geometry: {
             type: 'Point' | 'LineString' | 'Polygon',
             coordinates: any[];
-        },
+        };
         properties?: {
             [x: string]: any
-        },
-        [x: string]: any
+        };
+        [x: string]: any;
     }
 
     class Effects {

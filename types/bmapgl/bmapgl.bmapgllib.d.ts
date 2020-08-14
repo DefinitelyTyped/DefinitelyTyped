@@ -69,7 +69,6 @@ declare namespace BMapGL {
 
 declare namespace BMapGLLib {
     type Callback = (...args: any[]) => void;
-    type CallbackWithOverlay = (e: any, overlay: any) => void;
 
     class DrawingManager {
         constructor(map: BMapGL.Map, opts?: BMapGL.DrawingManagerOptions);
@@ -80,7 +79,6 @@ declare namespace BMapGLLib {
         getDrawingMode(): BMapGL.DrawingType;
         setDrawingMode(drawingType: BMapGL.DrawingType): void;
         addEventListener(event: string, handler: Callback): void;
-        addEventListener(event: string, handler: CallbackWithOverlay): void;
         removeEventListener(event: string, handler: Callback): void;
     }
 }
