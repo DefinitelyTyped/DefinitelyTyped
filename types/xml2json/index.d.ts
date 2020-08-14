@@ -3,10 +3,13 @@
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>
 //                 Igor Strebezhev <https://github.com/xamgore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-export function toJson(xml: string, options?: { object?: false } & JsonOptions): string;
-export function toJson(xml: string, options?: { object: true } & JsonOptions): {};
 
-export function toXml(json: {} | string, options?: XmlOptions): string;
+/// <reference types="node" />
+
+export function toJson(xml: string | Buffer, options?: { object?: false } & JsonOptions): string;
+export function toJson(xml: string | Buffer, options?: { object: true } & JsonOptions): {};
+
+export function toXml(json: {} | string | Buffer, options?: XmlOptions): string;
 
 export interface XmlOptions {
     /**
