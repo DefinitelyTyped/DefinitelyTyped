@@ -7,9 +7,12 @@
 /// <reference types="node" />
 
 export function toJson(xml: string | Buffer, options?: { object?: false } & JsonOptions): string;
-export function toJson(xml: string | Buffer, options?: { object: true } & JsonOptions): Record<string, unknown>;
+export function toJson<T = { [key: string]: unknown }>(
+    xml: string | Buffer,
+    options?: { object: true } & JsonOptions,
+): T;
 
-export function toXml(json: Record<string, unknown> | string | Buffer, options?: XmlOptions): string;
+export function toXml(json: { [key: string]: unknown } | string | Buffer, options?: XmlOptions): string;
 
 export interface XmlOptions {
     /**
