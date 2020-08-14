@@ -3,6 +3,9 @@
 // Definitions by: Jadie Wadie <https://github.com/Jadie-Wadie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export const pageWrapper: Element;
+export const stickyAlerts: Element;
+
 /** The value of the `darkModeOn` cookie. */
 export let darkModeOn: 'yes' | 'no';
 
