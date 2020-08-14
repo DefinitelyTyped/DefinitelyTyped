@@ -860,7 +860,7 @@ declare namespace chrome {
      * @description
      * The chrome.audio API is provided to allow users to get information
      * about and control the audio devices attached to the system.
-     * This API is currently only implemented for ChromeOS.
+     * This API is currently only available in kiosk mode for ChromeOS.
      */
     namespace audio {
         type StreamType =
