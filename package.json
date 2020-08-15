@@ -23,10 +23,9 @@
         "prettier": "prettier"
     },
     "devDependencies": {
-        "@definitelytyped/definitions-parser": "latest",
         "@definitelytyped/dtslint-runner": "latest",
+        "@definitelytyped/definitions-parser": "latest",
         "@definitelytyped/utils": "latest",
-        "@types/node": "^14.0.27",
         "danger": "^10.1.1",
         "dtslint": "latest",
         "prettier": "^2.0.2",
