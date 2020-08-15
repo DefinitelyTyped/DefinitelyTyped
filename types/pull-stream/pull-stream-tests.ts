@@ -65,10 +65,6 @@ nothing = pull(
     pull.infinite(() => 'value'),
     sink,
 );
-nothing = pull(
-    pull.infinite(() => 'value'),
-    sink,
-);
 
 // keys
 nothing = pull(pull.keys({ hello: 'world' }), sink);
