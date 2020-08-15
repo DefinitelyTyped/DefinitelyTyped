@@ -470,7 +470,7 @@ interface Path {
     splitext(path: string): [string, string];
     expanduser(path: string): string;
     isAbsolute(path: string): boolean;
-    join(path: string, ...paths: string[]): string;
+    join(...paths: string[]): string;
     normalize(path: string): string;
     split(path: string): string[];
 }
