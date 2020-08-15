@@ -73,7 +73,6 @@ nothing = pull(
 // keys
 nothing = pull(pull.keys({ hello: 'world' }), sink);
 nothing = pull(pull.keys([]), sink);
-nothing = pull(pull.keys([]), sink);
 
 // once
 nothing = pull(pull.once('value'), sink);
