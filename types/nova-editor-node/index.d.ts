@@ -690,8 +690,8 @@ interface TreeDataProvider<E> {
 declare class TreeItem {
     constructor(name: string, collapsibleState?: TreeItemCollapsibleState);
 
-    readonly name: string;
-    readonly collapsibleState: TreeItemCollapsibleState;
+    name: string;
+    collapsibleState: TreeItemCollapsibleState;
     command?: unknown; // https://dev.panic.com/panic/nova-issues/-/issues/909
     contextValue?: string;
     descriptiveText?: string;
