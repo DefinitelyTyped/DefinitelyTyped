@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+export * from "./UsersClient";
+
 export interface AuthInfo {
     sessionAuthToken: string;
     kmAuthToken: string;
@@ -12,41 +14,6 @@ export interface AuthInfo {
 export interface AppInfo {
     appId: string;
     appToken: string;
-}
-
-export interface Avatar {
-    size: string;
-    url: string;
-}
-
-export interface User {
-    id: string;
-    emailAddress: string;
-    firstName: string;
-    lastName: string;
-    displayName: string;
-    company: string;
-    username: string;
-    avatars: Array<Avatar>;
-}
-
-export interface UsersList {
-    users: Array<User>
-}
-
-export interface UserFilter {
-    title?: string;
-    location?: string;
-    company?: string;
-}
-
-export interface SearchUserResponse extends UsersList {
-    count: number;
-    skip: number;
-    limit: number;
-    query: string;
-    filters: UserFilter;
-    users: Array<User>
 }
 
 export interface SymphonyConfiguration {
@@ -87,7 +54,6 @@ export interface SymphonyConfiguration {
     nodeTlsRejectUnauthorized?: number;
     maxRetries?: number;
     maxWaitInterval?: number;
-
 }
 
 export const MESSAGEML_FORMAT: string;
@@ -187,19 +153,11 @@ export function getSignalSubscribers(id: any, skip: any, limit: any, sessionToke
 
 export function getUser(id: string): void;
 
-export function getUserFromEmail(email: string, local: boolean): Promise<User>;
-
-export function getUserFromUsername(username: string): Promise<User>;
-
 export function getUserIMStreamId(userIDs: any): void;
 
 export function getUserPresence(userId: any, local: any): void;
 
 export function getUserStreams(skip: any, limit: any, streamTypes: any, includeInactiveStreams: any): any;
-
-export function getUsersFromEmailList(commaSeparatedEmails: string, local: boolean): Promise<UsersList>;
-
-export function getUsersFromIdList(commaSeparatedIds: string, local: boolean): Promise<UsersList>;
 
 export function importMessages(messageList: any): any;
 
@@ -241,8 +199,6 @@ export function searchRooms(
     member?: any,
     sortOrder?: any,
 ): any;
-
-export function searchUsers(query: string, local?: boolean, skip?: number, limit?: number, filter?: UserFilter): Promise<SearchUserResponse>;
 
 export function sendConnectionRequest(userId: any, sessionToken: string): void;
 
