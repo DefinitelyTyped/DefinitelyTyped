@@ -118,6 +118,18 @@ p.onDidExit(code => {
 
 p.start();
 
+/// https://novadocs.panic.com/api-reference/issue/
+
+const issue = new Issue();
+
+issue.message = "Undefined name 'foobar'";
+issue.code = "E12";
+issue.severity = IssueSeverity.Error;
+issue.line = 10;
+issue.column = 12;
+
+(new IssueCollection()).set("fileURI", [issue]);
+
 /// https://novadocs.panic.com/api-reference/notification-request/
 
 const request = new NotificationRequest('foobar-not-found');
@@ -161,9 +173,6 @@ process.request('getNames', { sort: 'alpha' }).then(reply => {
 
 process.onNotify('didConnect', message => {});
 
-type ParamType = string & { __t: 'ParamType' };
-type ReplyType = string & { __t: 'ReplyType' };
-type ErrorType = string & { __t: 'ErrorType' };
 process.onRequest('getCount', request => {
     return new Promise((resolve, reject) => {
         resolve({ count: 10 });
@@ -185,10 +194,16 @@ scanner.scanFloat(); // => null
 
 scanner.atEnd; // => true
 
+scanner.location = 42;
+
 /// https://novadocs.panic.com/api-reference/text-editor/
 
 // $ExpectError
 new TextEditor();
+
+declare const editor: TextEditor;
+
+editor.selectedRange = editor.getLineRangeForRange(new Range(4, 2));
 
 /// https://novadocs.panic.com/api-reference/tree-view/
 
