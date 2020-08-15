@@ -21,7 +21,11 @@ type AssistantsRegistrySelector = string | { syntax: string };
 interface AssistantsRegistry {
     registerColorAssistant(selector: AssistantsRegistrySelector, object: ColorAssistant): Disposable;
     registerCompletionAssistant(selector: AssistantsRegistrySelector, object: CompletionAssistant): Disposable;
-    registerIssueAssistant(selector: AssistantsRegistrySelector, object: IssueAssistant): Disposable;
+    registerIssueAssistant(
+        selector: AssistantsRegistrySelector,
+        object: IssueAssistant,
+        options?: { event: "onChange" | "onSave" }
+    ): Disposable;
 }
 
 interface ColorAssistant {
