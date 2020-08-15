@@ -57,6 +57,8 @@ app.use(ctx => {
 
 app.on('error', error => {
     if (error instanceof Koa.HttpError) {
+        // $ExpectType number
+        error.status;
         throw error;
     }
     throw error;
