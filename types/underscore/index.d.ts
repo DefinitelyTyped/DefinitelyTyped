@@ -191,9 +191,9 @@ declare module _ {
          **/
         <V>(value: V): Underscore<TypeOfCollection<V>, V>;
 
-        /* *************
-        * Collections *
-        ************* */
+        /***************
+         * Collections *
+         ***************/
 
         /**
          * Iterates over a collection of elements, yielding each in turn to an
@@ -632,9 +632,9 @@ declare module _ {
             context?: any
         ): [TypeOfCollection<V>[], TypeOfCollection<V>[]];
 
-        /*********
-        * Arrays *
-        **********/
+        /**********
+         * Arrays *
+         **********/
 
         /**
          * Returns the first element of `list`. Passing `n` will return the
@@ -3425,9 +3425,9 @@ declare module _ {
         **/
         compose(...functions: Function[]): Function;
 
-        /**********
-        * Objects *
-        ***********/
+        /***********
+         * Objects *
+         ***********/
 
         /**
         * Retrieve all the names of the object's properties.
@@ -3797,9 +3797,9 @@ declare module _ {
          **/
         isUndefined(object: any): object is undefined;
 
-        /* *********
-        * Utility *
-        ********** */
+        /***********
+         * Utility *
+         ***********/
 
         /**
         * Give control of the "_" variable back to its previous owner.
@@ -3934,9 +3934,9 @@ declare module _ {
         **/
         now(): number;
 
-        /* **********
-        * Chaining *
-        *********** */
+        /************
+         * Chaining *
+         ************/
 
         /**
          * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
@@ -3954,9 +3954,9 @@ declare module _ {
 
     interface Underscore<T, V = T[]> {
 
-        /* *************
-        * Collections *
-        ************* */
+        /***************
+         * Collections *
+         ***************/
 
         /**
          * Iterates over the wrapped collection of elements, yielding each in
@@ -4305,9 +4305,9 @@ declare module _ {
          **/
         partition(iteratee?: Iteratee<V, boolean>, context?: any): [T[], T[]];
 
-        /*********
-        * Arrays *
-        **********/
+        /**********
+         * Arrays *
+         **********/
 
         /**
          * Returns the first element of the wrapped list. Passing `n` will
@@ -4578,9 +4578,9 @@ declare module _ {
          **/
         chunk(length: number): T[][];
 
-        /* ***********
-        * Functions *
-        ************ */
+        /*************
+         * Functions *
+         *************/
 
         /**
         * Wrapped type `Function`.
@@ -4677,9 +4677,9 @@ declare module _ {
         **/
         compose(...functions: Function[]): Function;
 
-        /********* *
+        /***********
          * Objects *
-        ********** */
+         ***********/
 
         /**
         * Wrapped type `object`.
@@ -4967,9 +4967,9 @@ declare module _ {
          **/
         isUndefined(): boolean;
 
-        /********* *
+        /***********
          * Utility *
-        ********** */
+         ***********/
 
         /**
         * Wrapped type `any`.
@@ -5048,9 +5048,9 @@ declare module _ {
         **/
         template(settings?: _.TemplateSettings): CompiledTemplate;
 
-        /********** *
+        /************
          * Chaining *
-        *********** */
+         ************/
 
         /**
          * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
@@ -5068,9 +5068,9 @@ declare module _ {
 
     interface _Chain<T, V = T[]> {
 
-        /* *************
-        * Collections *
-        ************* */
+        /***************
+         * Collections *
+         ***************/
 
         /**
          * Iterates over the wrapped collection of elements, yielding each in
@@ -5430,9 +5430,9 @@ declare module _ {
          **/
         partition(iteratee?: Iteratee<V, boolean>, context?: any): _Chain<T[], [T[], T[]]>;
 
-        /*********
-        * Arrays *
-        **********/
+        /**********
+         * Arrays *
+         **********/
 
         /**
          * Returns the first element of the wrapped list. Passing `n` will
@@ -5709,9 +5709,9 @@ declare module _ {
          **/
         chunk(length: number): _Chain<T[]>;
 
-        /* ***********
-        * Functions *
-        ************ */
+        /*************
+         * Functions *
+         *************/
 
         /**
         * Wrapped type `Function`.
@@ -5808,9 +5808,9 @@ declare module _ {
         **/
         compose(...functions: Function[]): _Chain<T>;
 
-        /********* *
+        /***********
          * Objects *
-        ********** */
+         ***********/
 
         /**
         * Wrapped type `object`.
@@ -6119,9 +6119,9 @@ declare module _ {
          **/
         isUndefined(): _ChainSingle<boolean>;
 
-        /********* *
+        /***********
          * Utility *
-        ********** */
+         ***********/
 
         /**
         * Wrapped type `any`.
@@ -6200,9 +6200,9 @@ declare module _ {
         **/
         template(settings?: _.TemplateSettings): _Chain<CompiledTemplate>;
 
-        /************* *
-        * Array proxy *
-        ************** */
+        /***************
+         * Array proxy *
+         ***************/
 
         /**
         * Returns a new array comprised of the array on which it is called
@@ -6281,9 +6281,9 @@ declare module _ {
         **/
         unshift(...items: Array<T>): _Chain<T>;
 
-        /********** *
+        /************
          * Chaining *
-        *********** */
+         ************/
 
         /**
           * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
