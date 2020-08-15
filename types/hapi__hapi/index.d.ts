@@ -1,4 +1,4 @@
-// Type definitions for @hapi/hapi 19.0
+// Type definitions for @hapi/hapi 20.0
 // Project: https://github.com/hapijs/hapi, https://hapijs.com
 // Definitions by: Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
 //                 Justin Simms <https://github.com/jhsimms>
@@ -30,7 +30,7 @@ import * as zlib from 'zlib';
 
 import { MimosOptions } from '@hapi/mimos';
 import { SealOptions, SealOptionsSub } from '@hapi/iron';
-import { ValidationOptions, SchemaMap, Schema, Root } from '@hapi/joi';
+import { ValidationOptions, SchemaMap, Schema, Root } from 'joi';
 import Podium = require('@hapi/podium');
 import { PolicyOptionVariants, EnginePrototypeOrObject, PolicyOptions, EnginePrototype, Policy, ClientApi, ClientOptions } from '@hapi/catbox';
 
