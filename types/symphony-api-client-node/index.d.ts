@@ -9,6 +9,87 @@ export interface AuthInfo {
     kmAuthToken: string;
 }
 
+export interface AppInfo {
+    appId: string;
+    appToken: string;
+}
+
+export interface Avatar {
+    size: string;
+    url: string;
+}
+
+export interface User {
+    id: string;
+    emailAddress: string;
+    firstName: string;
+    lastName: string;
+    displayName: string;
+    company: string;
+    username: string;
+    avatars: Array<Avatar>;
+}
+
+export interface UsersList {
+    users: Array<User>
+}
+
+export interface UserFilter {
+    title?: string;
+    location?: string;
+    company?: string;
+}
+
+export interface SearchUserResponse extends UsersList {
+    count: number;
+    skip: number;
+    limit: number;
+    query: string;
+    filters: UserFilter;
+    users: Array<User>
+}
+
+export interface SymphonyConfiguration {
+    sessionAuthHost?: string;
+    sessionAuthPort?: number;
+    sessionAuthContextPath?: string;
+    keyAuthHost?: string;
+    keyAuthPort?: number;
+    keyAuthContextPath?: string;
+    podHost?: string;
+    podPort?: number;
+    podContextPath?: string;
+    agentHost?: string;
+    agentPort?: number;
+    agentContextPath?: string;
+    botUsername?: string;
+    botEmailAddress?: string;
+    botPrivateKeyPath?: string;
+    botPrivateKeyName?: string;
+    botCertPath?: string;
+    botCertName?: string;
+    botCertPassword?: string;
+    appId?: string;
+    appPrivateKeyPath?: string;
+    appPrivateKeyName?: string;
+    appCertPath?: string;
+    appCertName?: string;
+    appCertPassword?: string;
+    podProxyURL?: string;
+    podProxyUsername?: string;
+    podProxyPassword?: string;
+    proxyURL?: string;
+    proxyUsername?: string;
+    proxyPassword?: string;
+    keyManagerProxyURL?: string;
+    keyManagerProxyUsername?: string;
+    keyManagerProxyPassword?: string;
+    nodeTlsRejectUnauthorized?: number;
+    maxRetries?: number;
+    maxWaitInterval?: number;
+
+}
+
 export const MESSAGEML_FORMAT: string;
 
 export const PRESENTATIONML_FORMAT: string;
@@ -33,9 +114,9 @@ export function adminListEnterpriseStreamsV2(
     limit: any,
 ): any;
 
-export function authenticateBot(SymConfig: any): any;
+export function authenticateBot(SymConfig: SymphonyConfiguration): Promise<AuthInfo>;
 
-export function authenticateExtApp(): any;
+export function authenticateExtApp(): Promise<AppInfo>;
 
 export function authenticateOboApp(): any;
 
@@ -104,11 +185,11 @@ export function getSignal(id: any, sessionToken: string): void;
 
 export function getSignalSubscribers(id: any, skip: any, limit: any, sessionToken: string): void;
 
-export function getUser(id: any): void;
+export function getUser(id: string): void;
 
-export function getUserFromEmail(email: any, local: any): void;
+export function getUserFromEmail(email: string, local: boolean): Promise<User>;
 
-export function getUserFromUsername(username: any): void;
+export function getUserFromUsername(username: string): Promise<User>;
 
 export function getUserIMStreamId(userIDs: any): void;
 
@@ -116,9 +197,9 @@ export function getUserPresence(userId: any, local: any): void;
 
 export function getUserStreams(skip: any, limit: any, streamTypes: any, includeInactiveStreams: any): any;
 
-export function getUsersFromEmailList(email: any, local: any): void;
+export function getUsersFromEmailList(commaSeparatedEmails: string, local: boolean): Promise<UsersList>;
 
-export function getUsersFromIdList(id: any, local: any): void;
+export function getUsersFromIdList(commaSeparatedIds: string, local: boolean): Promise<UsersList>;
 
 export function importMessages(messageList: any): any;
 
@@ -161,7 +242,7 @@ export function searchRooms(
     sortOrder?: any,
 ): any;
 
-export function searchUsers(query: any, local?: any, skip?: any, limit?: any, filter?: any): any;
+export function searchUsers(query: string, local?: boolean, skip?: number, limit?: number, filter?: UserFilter): Promise<SearchUserResponse>;
 
 export function sendConnectionRequest(userId: any, sessionToken: string): void;
 
@@ -177,7 +258,7 @@ export function sendMessageWithAttachment(
     format: any,
 ): any;
 
-export function setDebugMode(mode: any): void;
+export function setDebugMode(mode: string): void;
 
 export function setPresence(status: any): any;
 
@@ -216,4 +297,4 @@ export function updateSignal(
     sessionToken?: any,
 ): any;
 
-export function verifyJwt(jwt: any): any;
+export function verifyJwt(jwt: string): string;
