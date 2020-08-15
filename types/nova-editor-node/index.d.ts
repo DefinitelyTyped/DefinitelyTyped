@@ -9,7 +9,7 @@
 // This runs in an extension of Apple's JavaScriptCore, manually set libs
 
 /// <reference no-default-lib="true"/>
-/// <reference lib="es2015" />
+/// <reference lib="es7" />
 
 type ReadableStream<T = any> = unknown;
 type WritableStream<T = any> = unknown;
