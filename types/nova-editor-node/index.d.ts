@@ -693,6 +693,7 @@ declare class TreeItem {
     name: string;
     collapsibleState: TreeItemCollapsibleState;
     command?: unknown; // https://dev.panic.com/panic/nova-issues/-/issues/909
+    color?: Color;
     contextValue?: string;
     descriptiveText?: string;
     identifier?: string;
