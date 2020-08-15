@@ -25,7 +25,7 @@ interface ExplicitDictionary extends _.Dictionary<StringRecord> {
 }
 
 declare const shallowProperty: 'a';
-declare const deepProperty: string[];
+declare const deepProperty: ['a', 'length'];
 declare const matcher: Partial<StringRecord>;
 declare const recordTester: (value: StringRecord) => boolean;
 declare const recordStringReducer: (prev: string, value: StringRecord) => string;
