@@ -15,9 +15,9 @@ function test_equalTime(){
 
 function test_closeToTime(){
     const date: Date = new Date(2014, 1, 1);
-    const closeTime: Date = new Date(2014, 1, 1, 0, 0, 0, 100);
-    expect(date).to.be.closeToTime(closeTime, 200);
-    expect(date).not.to.be.closeToTime(closeTime, 50);
+    const closeTime: Date = new Date(2014, 1, 1, 0, 0, 30);
+    expect(date).to.be.closeToTime(closeTime, 40);
+    expect(date).not.to.be.closeToTime(closeTime, 20);
 }
 
 function test_beforeTime(){
