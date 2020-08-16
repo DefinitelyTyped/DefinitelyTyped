@@ -61,6 +61,8 @@ declare global {
         type ObjectType = 'state' | 'channel' | 'device';
         type CommonType = 'number' | 'string' | 'boolean' | 'array' | 'object' | 'mixed' | 'file';
 
+        type Languages = "en" | "de" | "ru" | "pt" | "nl" | "fr" | "it" | "es" | "pl" | "zh-cn";
+
         // Objects are JSON-serializable
         type ObjectField =
             | string
@@ -138,6 +140,17 @@ declare global {
 
             /** Custom settings for this state */
             custom?: Record<string, any>;
+
+            /**
+             * Settings for IOT adapters and how the state should be named in e.g. Alexa.
+             * The string "ignore" is a special case, causing the state to be ignored.
+             */
+            smartName?: string | ({ [lang in Languages]?: string; } & {
+                /** Which kind of device this is */
+                smartType?: string | null;
+                /** Which value to set when the ON command is issued */
+                byOn?: string | null;
+            });
         }
         interface ChannelCommon extends ObjectCommon {
             /** description of this channel */
