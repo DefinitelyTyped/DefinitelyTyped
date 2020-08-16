@@ -230,7 +230,7 @@ declare global {
             common: OtherCommon;
         }
         interface PartialOtherObject extends Partial<Omit<OtherObject, 'common'>> {
-            common?: Partial<ObjectCommon>;
+            common?: Partial<OtherCommon>;
         }
 
         // Base type for Objects. Should not be used directly
