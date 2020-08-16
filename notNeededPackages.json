@@ -2827,6 +2827,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "@material-ui/core",
+            "typingsPackageName": "material-ui",
+            "sourceRepoURL": "https://github.com/mui-org/material-ui",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "maxmind",
             "typingsPackageName": "maxmind",
             "sourceRepoURL": "https://github.com/runk/node-maxmind",
@@ -2932,7 +2938,7 @@
             "libraryName": "moment-timezone",
             "typingsPackageName": "moment-timezone",
             "sourceRepoURL": "https://github.com/moment/moment-timezone",
-            "asOfVersion": "0.5.30" 
+            "asOfVersion": "0.5.30"
         },
         {
             "libraryName": "mongodb-memory-server",
