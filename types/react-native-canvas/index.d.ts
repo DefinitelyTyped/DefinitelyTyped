@@ -43,7 +43,7 @@ export interface CanvasRenderingContext2D {
     font: string;
     globalAlpha: number;
     globalCompositionOperation: string;
-    linecap: string;
+    lineCap: string;
     lineDashOffset: number;
     lineJoin: string;
     lineWidth: number;
