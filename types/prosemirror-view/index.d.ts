@@ -275,7 +275,7 @@ export class EditorView<S extends Schema = any> {
    * given as argument. Equivalent to `view.update(Object.assign({},
    * view.props, props))`.
    */
-  setProps(props: DirectEditorProps<S>): void;
+  setProps(props: Partial<DirectEditorProps<S>>): void;
   /**
    * Update the editor's `state` prop, without touching any of the
    * other props.
