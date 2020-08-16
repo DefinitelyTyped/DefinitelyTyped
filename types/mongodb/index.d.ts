@@ -31,6 +31,7 @@
 //                 HitkoDev <https://github.com/HitkoDev>
 //                 TJT <https://github.com/Celend>
 //                 Julien TASSIN <https://github.com/jtassin>
+//                 Guy Ellis <https://github.com/guyellis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -2171,7 +2172,7 @@ export interface FindOperatorsUnordered {
 /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne */
 export interface FindOneOptions<T> {
     limit?: number;
-    sort?: Array<[string, number]> | SortOptionObject<T>;
+    sort?: Array<[string, 1 | -1]> | SortOptionObject<T>;
     projection?: SchemaMember<T, ProjectionOperators | number | boolean | any>;
     /**
      * @deprecated Use options.projection instead
