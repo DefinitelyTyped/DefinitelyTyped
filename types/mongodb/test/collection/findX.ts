@@ -1,4 +1,4 @@
-import { connect, MongoError, Cursor } from 'mongodb';
+import { connect, MongoError, Cursor, FindOneOptions } from 'mongodb';
 import { connectionString } from '../index';
 
 // collection.findX tests
@@ -39,15 +39,19 @@ async function run() {
     sort: {stringField: -1, text: {$meta: 'textScore'}, notExistingField: -1}
   });
 
-  // 2nd element of sort sub-array can only be 1 or -1
-  await collectionT.findOne({}, {
+  // Happy path: 2nd element of sort sub-array can only be 1 or -1
+  const findOptions: FindOneOptions<TestModel> =  {
     projection: {
       stringField: {$meta: 'textScore'},
       fruitTags: {$min: 'fruitTags'},
       max: {$max: ['$max', 0]},
     },
     sort: [['stringField', -1], ['numberField', 1]],
-  });
+  }
+
+  // Error path: expect error if sort sub-array not 1 or -1
+  // $ExpectError
+  findOptions.sort = [['stringField', -5], ['numberField', 'i am a string']];
 
   // collection.findX<T>() generic tests
   interface Bag {
