@@ -16,6 +16,7 @@ export default StateManager;
 export * from './src/types';
 export { createFilter } from './src/filters';
 export { mergeStyles, Styles, StylesConfig } from './src/styles';
+export { defaultTheme } from './src/theme';
 
 export { NonceProvider } from './src/NonceProvider';
 export { Props, FormatOptionLabelMeta } from './src/Select';

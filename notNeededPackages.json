@@ -427,6 +427,12 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "bulma-calendar",
+            "typingsPackageName": "bulma-calendar",
+            "sourceRepoURL": "https://github.com/wikiki/bulma-calendar",
+            "asOfVersion": "6.0.2"
+        },
+        {
             "libraryName": "bunyan-bugsnag",
             "typingsPackageName": "bunyan-bugsnag",
             "sourceRepoURL": "https://github.com/marnusw/bunyan-bugsnag",
@@ -2921,6 +2927,12 @@
             "typingsPackageName": "moment-range",
             "sourceRepoURL": "https://github.com/rotaready/moment-range",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "moment-timezone",
+            "typingsPackageName": "moment-timezone",
+            "sourceRepoURL": "https://github.com/moment/moment-timezone",
+            "asOfVersion": "0.5.30" 
         },
         {
             "libraryName": "mongodb-memory-server",

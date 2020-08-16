@@ -358,6 +358,9 @@ mock8.mockImplementation((arg: string) => 1);
 // mockImplementation not required to declare all arguments
 mock9.mockImplementation((a: number) => Promise.resolve(a === 0));
 
+const createMockFromModule1: {} = jest.createMockFromModule('moduleName');
+const createMockFromModule2: { a: 'b' } = jest.createMockFromModule<{ a: 'b' }>('moduleName');
+
 const genMockModule1: {} = jest.genMockFromModule('moduleName');
 const genMockModule2: { a: 'b' } = jest.genMockFromModule<{ a: 'b' }>('moduleName');
 

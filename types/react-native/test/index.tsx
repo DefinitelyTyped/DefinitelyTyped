@@ -310,10 +310,9 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
     };
 
     testNativeMethods() {
-        // this.setNativeProps({});
-
         const { rootView } = this.refs;
 
+        rootView.setNativeProps({});
         rootView.measure((x: number, y: number, width: number, height: number) => {});
     }
 
@@ -597,6 +596,12 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
         console.log(event);
     };
 
+    scrollView: ScrollView | null = null;
+
+    testNativeMethods() {
+        this.scrollView && this.scrollView.setNativeProps({ scrollEnabled: false });
+    }
+
     render() {
         const scrollViewStyle1 = StyleSheet.create({
             scrollView: {
@@ -616,6 +621,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
 
                     return (
                         <ScrollView
+                            ref={ref => (this.scrollView = ref)}
                             horizontal={true}
                             nestedScrollEnabled={true}
                             invertStickyHeaders={true}

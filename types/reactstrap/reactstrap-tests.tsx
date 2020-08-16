@@ -94,7 +94,13 @@ import {
 const Examplea = (props: any) => {
   return (
     <div>
-      <Alert color="success">
+      <Alert
+        color="success"
+        closeClassName="close"
+        closeAriaLabel="close"
+        fade={false}
+        innerRef={React.createRef()}
+      >
         <strong>Well done!</strong> You successfully read this important alert message.
       </Alert>
       <Alert color="info">

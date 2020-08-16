@@ -38,7 +38,8 @@ class ImageGallery extends React.Component {
             items: [galleryItem],
             autoPlay: false,
             showFullscreenButton: false,
-            renderThumbInner: this.renderThumbInner
+            renderThumbInner: this.renderThumbInner,
+            disableKeyDown: false
         };
 
         return <ReactImageGallery ref={(r) => this.gallery = r} {...props} />;
