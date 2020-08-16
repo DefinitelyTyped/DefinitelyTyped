@@ -21,6 +21,7 @@ declare class StackUtils {
 declare namespace StackUtils {
     interface Options {
         internals?: RegExp[];
+        ignoredPackages?: string[];
         cwd?: string;
         wrapCallSite?(callSite: CallSite): CallSite;
     }
