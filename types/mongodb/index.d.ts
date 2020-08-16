@@ -2384,7 +2384,7 @@ export class Cursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#snapshot */
     snapshot(snapshot: object): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#sort */
-    sort(keyOrList: string | Array<[string, number]> | SortOptionObject<T>, direction?: number): Cursor<T>;
+    sort(keyOrList: string | Array<[string, SortValues]> | SortOptionObject<T>, direction?: SortValues): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#stream */
     stream(options?: { transform?: (document: T) => any }): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#toArray */
@@ -2567,7 +2567,7 @@ export class GridFSBucketReadStream extends Readable {
 
 /** https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucketReadStream.html */
 export interface GridFSBucketReadStreamOptions {
-    sort?: number;
+    sort?: SortValues;
     skip?: number;
     start?: number;
     end?: number;
