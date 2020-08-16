@@ -47,7 +47,7 @@ async function run() {
       max: {$max: ['$max', 0]},
     },
     sort: [['stringField', -1], ['numberField', 1]],
-  }
+  };
 
   // Error path: expect error if sort sub-array not 1 or -1
   // $ExpectError
