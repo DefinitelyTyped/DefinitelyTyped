@@ -1,4 +1,4 @@
-// Type definitions for stack-utils 1.0
+// Type definitions for stack-utils 2.0
 // Project: https://github.com/tapjs/stack-utils#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
