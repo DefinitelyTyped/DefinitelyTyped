@@ -2172,7 +2172,7 @@ export interface FindOperatorsUnordered {
 /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne */
 export interface FindOneOptions<T> {
     limit?: number;
-    sort?: Array<[string, 1 | -1]> | SortOptionObject<T>;
+    sort?: Array<[string, SortValues]> | SortOptionObject<T>;
     projection?: SchemaMember<T, ProjectionOperators | number | boolean | any>;
     /**
      * @deprecated Use options.projection instead

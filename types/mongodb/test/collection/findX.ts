@@ -39,6 +39,15 @@ async function run() {
     sort: {stringField: -1, text: {$meta: 'textScore'}, notExistingField: -1}
   });
 
+  // 2nd element of sort sub-array can only be 1 or -1
+  await collectionT.findOne({}, {
+    projection: {
+      stringField: {$meta: 'textScore'},
+      fruitTags: {$min: 'fruitTags'},
+      max: {$max: ['$max', 0]},
+    },
+    sort: [['stringField', -1], ['numberField', 1]],
+  });
 
   // collection.findX<T>() generic tests
   interface Bag {
