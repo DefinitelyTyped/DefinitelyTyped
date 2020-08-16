@@ -52,7 +52,7 @@ export class Writer extends events.EventEmitter {
 
     publish(topic: string, msgs: string|Buffer|object|string[]|Buffer[]|object[], callback?: (err?: Error) => void): void;
 
-    deferPublish(topic: string, msgs: string|Buffer|object|string[]|Buffer[]|object[], timeMs: number, callback?: (err: Error) => void): void;
+    deferPublish(topic: string, msgs: string|Buffer|object|string[]|Buffer[]|object[], timeMs: number, callback?: (err?: Error) => void): void;
 
     close(): void;
 
