@@ -1,4 +1,4 @@
-// Type definitions for @carbon/pictograms-react 10.15
+// Type definitions for @carbon/pictograms-react 10.16
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/pictograms-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -292,7 +292,9 @@ export const Humid: CarbonPictogramType;
 export const Hurricane: CarbonPictogramType;
 export const HybridCloud: CarbonPictogramType;
 export const HybridCloudServices: CarbonPictogramType;
+export const IbmCloud: CarbonPictogramType;
 export const IbmIx: CarbonPictogramType;
+export const IbmWatson: CarbonPictogramType;
 export const IbmZ: CarbonPictogramType;
 export const Icon: CarbonPictogramType;
 export const IdBadge: CarbonPictogramType;

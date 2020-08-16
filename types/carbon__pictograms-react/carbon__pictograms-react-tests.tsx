@@ -7,6 +7,8 @@ import {
     GlobalMarkets,
     SolarField,
     SystemsDevopsAnalyze,
+    IbmCloud,
+    IbmWatson,
 } from '@carbon/pictograms-react';
 
 <Airplane />; // $ExpectType Element
@@ -17,3 +19,5 @@ import {
 <SystemsDevopsAnalyze />; // $ExpectType Element
 <AddDocument />; // $ExpectType Element
 <Backpack />; // $ExpectType Element
+<IbmCloud />; // $ExpectType Element
+<IbmWatson />; // $ExpectType Element
