@@ -93,7 +93,7 @@ const allConfig = {
     callbacks: {
         signIgn: (user: GenericObject, account: GenericObject, profile: GenericObject) => Promise.resolve(true),
         redirect: (url: string, baseUrl: string) => Promise.resolve('path/to/foo'),
-        session: (session: Session, user: GenericObject) => Promise.resolve({}),
+        session: (session: Session, user: GenericObject) => Promise.resolve<any>(user),
         jwt: (
             token: GenericObject,
             user: GenericObject,
