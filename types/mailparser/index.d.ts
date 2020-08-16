@@ -56,7 +56,7 @@ interface EmailAddress {
     /**
      * The email address.
      */
-    address: string;
+    address?: string;
     /**
      * The name part of the email/group.
      */
