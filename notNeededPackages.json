@@ -3247,6 +3247,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "openapi-v3",
+            "typingsPackageName": "openapi-v3",
+            "sourceRepoURL": "https://github.com/TsTypes/TypescriptTypes",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "openid-client",
             "typingsPackageName": "openid-client",
             "sourceRepoURL": "https://github.com/panva/node-openid-client",
