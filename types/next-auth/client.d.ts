@@ -6,7 +6,7 @@ interface Session {
         email: string;
         image: string;
     };
-    accessToken: string;
+    accessToken?: string;
     expires: string;
 }
 
