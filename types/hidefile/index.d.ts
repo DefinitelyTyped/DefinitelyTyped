@@ -1,4 +1,4 @@
-// Type definitions for hidefile v3.0.0
+// Type definitions for hidefile 3.0
 // Project: https://github.com/stevenvachon/hidefile
 // Definitions by: Nicholas Nelson <https://github.com/nelsonni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
