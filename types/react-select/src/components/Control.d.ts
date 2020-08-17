@@ -21,7 +21,7 @@ export interface ControlProps<OptionType extends OptionTypeBase> extends CommonP
     children: ReactNode;
 }
 
-export function css(state: State): React.CSSProperties;
+export function css(state: ControlProps<{}>): React.CSSProperties;
 
 declare const Control: ComponentType<ControlProps<any>>;
 
