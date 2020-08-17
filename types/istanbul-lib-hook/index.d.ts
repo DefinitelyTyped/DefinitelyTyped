@@ -5,40 +5,40 @@
 // TypeScript Version: 2.4
 
 export interface Options {
-	verbose: boolean;
+    verbose: boolean;
 }
 
 export interface HookRequireOptions extends Options {
-	extensions: string[];
-	postLoadHook(filename: string): void;
+    extensions: string[];
+    postLoadHook(filename: string): void;
 }
 
 export function hookRequire(
-	matcher: Matcher,
-	transformer: Transformer,
-	options?: Partial<HookRequireOptions>
+    matcher: Matcher,
+    transformer: Transformer,
+    options?: Partial<HookRequireOptions>
 ): () => void;
 
 export function hookCreateScript(
-	matcher: Matcher,
-	transformer: Transformer,
-	options?: Partial<Options>
+    matcher: Matcher,
+    transformer: Transformer,
+    options?: Partial<Options>
 ): void;
 
 export function unhookCreateScript(): void;
 
 export function hookRunInThisContext(
-	matcher: Matcher,
-	transformer: Transformer,
-	options?: Partial<Options>
+    matcher: Matcher,
+    transformer: Transformer,
+    options?: Partial<Options>
 ): void;
 
 export function unhookRunInThisContext(): void;
 
 export function hookRunInContext(
-	matcher: Matcher,
-	transformer: Transformer,
-	options?: Partial<HookRunInContextOptions>
+    matcher: Matcher,
+    transformer: Transformer,
+    options?: Partial<HookRunInContextOptions>
 ): void;
 
 export function unhookRunInContext(): void;
@@ -49,9 +49,9 @@ export type Matcher = (filename: string) => boolean;
 export type Transformer = (code: string, options: TransformerOptions) => string;
 
 export interface TransformerOptions {
-	filename: string;
+    filename: string;
 }
 
 export interface HookRunInContextOptions extends Options {
-	coverageVariable: string;
+    coverageVariable: string;
 }

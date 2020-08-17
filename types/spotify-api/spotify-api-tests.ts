@@ -2,6 +2,7 @@
 // Project: https://developer.spotify.com/web-api/
 // Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
 //                 Nils Måsén <https://github.com/piksel>
+//                 Basti Ortiz <https://github.com/Some-Dood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -3378,6 +3379,7 @@ const featuredPlaylists : SpotifyApi.ListOfFeaturedPlaylistsResponse = {
     "href" : "https://api.spotify.com/v1/browse/featured-playlists?country=SE&timestamp=2015-12-25T15:10:15&offset=0&limit=2",
     "items" : [ {
       "collaborative" : false,
+      "description": "",
       "external_urls" : {
         "spotify" : "http://open.spotify.com/user/spotify/playlist/16BpjqQV1Ey0HeDueNDSYz"
       },
@@ -3408,6 +3410,7 @@ const featuredPlaylists : SpotifyApi.ListOfFeaturedPlaylistsResponse = {
       "uri" : "spotify:user:spotify:playlist:16BpjqQV1Ey0HeDueNDSYz"
     }, {
       "collaborative" : false,
+      "description": "",
       "external_urls" : {
         "spotify" : "http://open.spotify.com/user/spotify/playlist/7nUikuZL4MgIXS43cMpQZE"
       },
@@ -4071,6 +4074,7 @@ const categoryPlaylists : SpotifyApi.CategoryPlaylistsReponse = {
     "href" : "https://api.spotify.com/v1/browse/categories/party/playlists?country=BR&offset=0&limit=2",
     "items" : [ {
       "collaborative" : false,
+      "description": "",
       "external_urls" : {
         "spotify" : "http://open.spotify.com/user/spotifybrazilian/playlist/6U9RHRz1G477YpMNeLy9uI"
       },
@@ -4101,6 +4105,7 @@ const categoryPlaylists : SpotifyApi.CategoryPlaylistsReponse = {
       "uri" : "spotify:user:spotifybrazilian:playlist:6U9RHRz1G477YpMNeLy9uI"
     }, {
       "collaborative" : false,
+      "description": "",
       "external_urls" : {
         "spotify" : "http://open.spotify.com/user/spotifybrazilian/playlist/4k7EZPI3uKMz4aRRrLVfen"
       },
@@ -5532,7 +5537,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
   "items": [
     {
       "album": {
-        "album_type": "ALBUM",
+        "album_type": "album",
         "artists": [
           {
             "external_urls": {
@@ -5783,7 +5788,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     },
     {
       "album": {
-        "album_type": "ALBUM",
+        "album_type": "album",
         "artists": [
           {
             "external_urls": {
@@ -6016,7 +6021,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     },
     {
       "album": {
-        "album_type": "ALBUM",
+        "album_type": "album",
         "artists": [
           {
             "external_urls": {
@@ -6251,7 +6256,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     },
     {
       "album": {
-        "album_type": "COMPILATION",
+        "album_type": "album",
         "artists": [
           {
             "external_urls": {
@@ -6340,7 +6345,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     },
     {
       "album": {
-        "album_type": "ALBUM",
+        "album_type": "album",
         "artists": [
           {
             "external_urls": {
@@ -6884,6 +6889,7 @@ const searchPlaylists : SpotifyApi.PlaylistSearchResponse = {
     "href" : "https://api.spotify.com/v1/search?query=Summer&offset=20&limit=2&type=playlist",
     "items" : [ {
       "collaborative" : false,
+      "description": "",
       "external_urls" : {
         "spotify" : "http://open.spotify.com/user/twistoffame/playlist/4atqr0nDMUxQFLd09yhk9w"
       },
@@ -6922,6 +6928,7 @@ const searchPlaylists : SpotifyApi.PlaylistSearchResponse = {
       "uri" : "spotify:user:twistoffame:playlist:4atqr0nDMUxQFLd09yhk9w"
     }, {
       "collaborative" : false,
+      "description": "",
       "external_urls" : {
         "spotify" : "http://open.spotify.com/user/1174077483/playlist/3fAKyVYIkAiinuipRUGJHj"
       },
@@ -7663,6 +7670,7 @@ const usersPlaylists : SpotifyApi.ListOfUsersPlaylistsResponse = {
   "href" : "https://api.spotify.com/v1/users/wizzler/playlists?offset=0&limit=2",
   "items" : [ {
     "collaborative" : false,
+    "description": "",
     "external_urls" : {
       "spotify" : "http://open.spotify.com/user/wizzler/playlist/6yRf9SJ1YiAhNAu7UCwgXQ"
     },
@@ -7693,6 +7701,7 @@ const usersPlaylists : SpotifyApi.ListOfUsersPlaylistsResponse = {
     "uri" : "spotify:user:wizzler:playlist:6yRf9SJ1YiAhNAu7UCwgXQ"
   }, {
     "collaborative" : false,
+    "description": "",
     "external_urls" : {
       "spotify" : "http://open.spotify.com/user/wizzler/playlist/3FJd21jWvCjGCLx7eKrext"
     },
@@ -7742,6 +7751,7 @@ const currentUsersPlaylists : SpotifyApi.ListOfUsersPlaylistsResponse = {
   "href" : "https://api.spotify.com/v1/users/wizzler/playlists?offset=0&limit=2",
   "items" : [ {
     "collaborative" : false,
+    "description": "",
     "external_urls" : {
       "spotify" : "http://open.spotify.com/user/wizzler/playlist/6yRf9SJ1YiAhNAu7UCwgXQ"
     },
@@ -7772,6 +7782,7 @@ const currentUsersPlaylists : SpotifyApi.ListOfUsersPlaylistsResponse = {
     "uri" : "spotify:user:wizzler:playlist:6yRf9SJ1YiAhNAu7UCwgXQ"
   }, {
     "collaborative" : false,
+    "description": "",
     "external_urls" : {
       "spotify" : "http://open.spotify.com/user/wizzler/playlist/3FJd21jWvCjGCLx7eKrext"
     },

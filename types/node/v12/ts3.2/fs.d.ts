@@ -2,14 +2,14 @@
 /// <reference path="../fs.d.ts" />
 
 declare module 'fs' {
-    interface BigIntStats extends StatsBase<BigInt> {
+    interface BigIntStats extends StatsBase<bigint> {
     }
 
     class BigIntStats {
-        atimeNs: BigInt;
-        mtimeNs: BigInt;
-        ctimeNs: BigInt;
-        birthtimeNs: BigInt;
+        atimeNs: bigint;
+        mtimeNs: bigint;
+        ctimeNs: bigint;
+        birthtimeNs: bigint;
     }
 
     interface BigIntOptions {

@@ -24,4 +24,10 @@ net.createServer(socket => {
     wire.on('unchoke', () => {
         console.log('peer is no longer choking us: ' + wire.peerChoking);
     });
+
+    // Extend wire using the test extension
+    wire.extended('extname', {});
+
+    // Confirm extension has been added to Wire instance.
+    console.log(wire.extname.name);
 }).listen(6881);

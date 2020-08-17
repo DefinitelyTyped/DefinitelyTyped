@@ -164,7 +164,6 @@ interface ImportMeta {
  *                                               *
  ------------------------------------------------*/
 declare var process: NodeJS.Process;
-declare var global: NodeJS.Global;
 declare var console: Console;
 
 declare var __filename: string;
@@ -229,6 +228,12 @@ interface NodeModule {
     loaded: boolean;
     parent: NodeModule | null;
     children: NodeModule[];
+    /**
+     * @since 11.14.0
+     *
+     * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
+     */
+    path: string;
     paths: string[];
 }
 
@@ -310,6 +315,12 @@ declare class Buffer extends Uint8Array {
      */
     static from(data: number[]): Buffer;
     static from(data: Uint8Array): Buffer;
+    /**
+     * Creates a new buffer containing the coerced value of an object
+     * A `TypeError` will be thrown if {obj} has not mentioned methods or is not of other type appropriate for `Buffer.from()` variants.
+     * @param obj An object supporting `Symbol.toPrimitive` or `valueOf()`.
+     */
+    static from(obj: { valueOf(): string | object } | { [Symbol.toPrimitive](hint: 'string'): string }, byteOffset?: number, length?: number): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
@@ -888,7 +899,7 @@ declare namespace NodeJS {
                 visibility: string;
             };
         };
-        kill(pid: number, signal?: string | number): void;
+        kill(pid: number, signal?: string | number): true;
         pid: number;
         ppid: number;
         title: string;
@@ -1151,6 +1162,12 @@ declare namespace NodeJS {
         loaded: boolean;
         parent: Module | null;
         children: Module[];
+        /**
+         * @since 11.14.0
+         *
+         * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
+         */
+        path: string;
         paths: string[];
 
         constructor(id: string, parent?: Module);
@@ -1159,7 +1176,10 @@ declare namespace NodeJS {
     type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
     type ArrayBufferView = TypedArray | DataView;
 
-    // The value type here is a "poor man's `unknown`". When these types support TypeScript
-    // 3.0+, we can replace this with `unknown`.
-    type PoorMansUnknown = {} | null | undefined;
+    // TODO: The value type here is a version of `unknown` with an acceptably lossy amount of accuracy.
+    // Now that TypeScript's DT support is  3.0+, we can look into replacing this with `unknown`.
+    type UnknownFacade = {} | null | undefined;
+
+    /** @deprecated - Use `UnknownFacade` instead. It is a better classifier for the type */
+    type PoorMansUnknown = UnknownFacade;
 }

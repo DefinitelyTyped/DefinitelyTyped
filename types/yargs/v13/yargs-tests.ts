@@ -148,6 +148,24 @@ function Argv$parsing() {
         .boolean('update')
         .boolean('extern')
         .argv;
+
+    yargs.parse([], (err, argv, msg) => {
+        // $ExpectType Error | undefined
+        err;
+        // $ExpectType { [argName: string]: unknown; _: string[]; $0: string; }
+        argv;
+        // $ExpectType string
+        msg;
+    });
+
+    yargs.parse([], {}, (err, argv, msg) => {
+        // $ExpectType Error | undefined
+        err;
+        // $ExpectType { [argName: string]: unknown; _: string[]; $0: string; }
+        argv;
+        // $ExpectType string
+        msg;
+    });
 }
 
 function Argv$options() {
@@ -320,6 +338,22 @@ function Argv$command() {
         })
         .help()
         .argv;
+}
+
+function Argv$positional() {
+    const module: yargs.CommandModule<{}, { paths: string[] }> = {
+        command: 'test <paths...>',
+        builder(yargs) {
+            return yargs.positional('paths', {
+                type: 'string',
+                array: true,
+                demandOption: true
+            });
+        },
+        handler(argv) {
+            argv.paths.map((path) => path);
+        }
+    };
 }
 
 function Argv$commandModule() {
@@ -735,6 +769,7 @@ function Argv$parserConfiguration() {
         'populate--': false,
         'set-placeholder-key': false,
         'short-option-groups': false,
+        'sort-commands': true,
     }).parse();
 
     const argv2 = yargs.parserConfiguration({

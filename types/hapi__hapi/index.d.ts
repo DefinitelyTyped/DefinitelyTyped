@@ -199,6 +199,8 @@ export interface AuthCredentials {
      * If set, will only work with routes that set `access.entity` to `app`.
      */
     app?: AppCredentials;
+
+    [key: string]: unknown;
 }
 
 export type AuthMode = 'required' | 'optional' | 'try';
@@ -1729,6 +1731,12 @@ export interface RouteOptionsApp {
 
 export interface CommonRouteProperties {
     /**
+     * Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
+     */
+    app?: RouteOptionsApp;
+
+    /**
      * @default null.
      * An object passed back to the provided handler (via this) when called. Ignored if the method is an arrow function.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsbind)
@@ -1986,12 +1994,6 @@ export interface RouteSettings extends CommonRouteProperties {
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#route-options)
  */
 export interface RouteOptions extends CommonRouteProperties {
-    /**
-     * Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
-     */
-    app?: RouteOptionsApp;
-
     /**
      * Route authentication configuration. Value can be:
      * false to disable authentication if a default strategy is set.
@@ -3365,7 +3367,7 @@ export interface ServerState {
  * If the property is set to a function, the function uses the signature function(method) and returns the route default configuration.
  */
 export interface HandlerDecorationMethod {
-    (route: RouteOptions, options: any): Lifecycle.Method;
+    (route: RequestRoute, options: any): Lifecycle.Method;
     defaults?: RouteOptions | ((method: any) => RouteOptions);
 }
 
@@ -3963,6 +3965,11 @@ export class Server {
      */
     validator(joi: Root): void;
 }
+
+/**
+ * Factory function to create a new server object (introduced in v17).
+ */
+export function server(opts?: ServerOptions): Server;
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +

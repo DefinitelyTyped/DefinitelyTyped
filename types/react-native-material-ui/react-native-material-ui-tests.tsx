@@ -38,6 +38,10 @@ const Example = () =>
             <Avatar icon="mic" size={75} />
 
             <Badge />
+            <Badge text="3" />
+            <Badge icon="grade" />
+            <Badge icon={{ name: 'grade', color: 'blue', size: 10 }} />
+            <Badge size={10} />
 
             <IconToggle testID="iconToggleTestID" name="anIconToggle" />
             <Button testID="buttonTestID" text="I'm a button" />
@@ -140,3 +144,7 @@ class ToolbarExample extends React.Component<{}, {search: string}> {
         );
     }
 }
+
+const CheckboxExample = () => (
+    <Checkbox value="checked" onCheck={console.log} label="Check Me" style={{ icon: { color: 'pink' }}} />
+);

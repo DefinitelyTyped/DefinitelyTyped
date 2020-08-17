@@ -1,6 +1,7 @@
-// Type definitions for react-email-editor 0.9
+// Type definitions for react-email-editor 1.0
 // Project: https://github.com/unlayer/react-email-editor
 // Definitions by: Nikita Granko <https://github.com/ngranko>
+//                 Vladimir Penyazkov <https://github.com/mindtraveller>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -23,10 +24,29 @@ export interface User {
     readonly email?: string;
 }
 
-export interface MergeTag {
+export interface GroupedMergeTag {
+    readonly name: string;
+    readonly mergeTags: Array<SimpleMergeTag | GroupedMergeTag>;
+}
+
+export interface SimpleMergeTag {
     readonly name: string;
     readonly value: string;
 }
+
+export interface ConditionalMergeTagRule {
+    readonly name: string;
+    readonly before: string;
+    readonly after: string;
+}
+
+export interface ConditionalMergeTag {
+    readonly name: string;
+    readonly rules: ConditionalMergeTagRule[];
+    readonly mergeTags?: SimpleMergeTag[];
+}
+
+export type MergeTag = SimpleMergeTag | ConditionalMergeTag | GroupedMergeTag;
 
 export interface DesignTagConfig {
     readonly delimeter: [string, string];
@@ -51,7 +71,18 @@ export interface Features {
     readonly preview?: boolean;
     readonly imageEditor?: boolean;
     readonly undoRedo?: boolean;
+    readonly stockImages?: boolean;
+    readonly textEditor?: TextEditor;
 }
+
+export interface TextEditor {
+    readonly spellChecker?: boolean;
+    readonly tables?: boolean;
+    readonly cleanPaste?: boolean;
+    readonly emojis?: boolean;
+}
+
+export type Translations = Record<string, Record<string, string>>;
 
 export type DisplayMode = 'email' | 'web';
 export interface UnlayerOptions {
@@ -71,6 +102,7 @@ export interface UnlayerOptions {
     readonly customJS?: string[];
     readonly customCSS?: string[];
     readonly features?: Features;
+    readonly translations?: Translations;
 }
 
 export interface EmailEditorProps {

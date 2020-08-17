@@ -5,8 +5,9 @@
 //                 woutgg <https://github.com/woutgg>
 //                 oktapodia <https://github.com/oktapodia>
 //                 Dongjun Lee <https://github.com/ChazEpps>
+//                 gamsterX <https://github.com/gamsterx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.2
 //
 // Based on type declarations for mongoose-paginate 5.0.0.
 
@@ -43,6 +44,8 @@ declare module 'mongoose' {
         read?: ReadOptions;
         /* If pagination is set to `false`, it will return all docs without adding limit condition. (Default: `true`) */
         pagination?: boolean;
+        projection?: any;
+        options?: QueryFindOptions;
     }
 
     interface QueryPopulateOptions {
@@ -62,17 +65,22 @@ declare module 'mongoose' {
 
     interface PaginateResult<T> {
         docs: T[];
-        total: number;
+        totalDocs: number;
         limit: number;
         page?: number;
-        pages?: number;
-        offset?: number;
-        [customLabel: string]: T[] | number | undefined;
+        totalPages: number;
+        nextPage?: number | null;
+        prevPage?: number | null;
+        pagingCounter: number;
+        hasPrevPage: boolean;
+        hasNextPage: boolean;
+        meta?: any;
+        [customLabel: string]: T[] | number | boolean | null | undefined;
     }
 
     interface PaginateModel<T extends Document> extends Model<T> {
         paginate(
-            query?: object,
+            query?: FilterQuery<T>,
             options?: PaginateOptions,
             callback?: (err: any, result: PaginateResult<T>) => void,
         ): Promise<PaginateResult<T>>;
@@ -84,3 +92,6 @@ declare module 'mongoose' {
 import mongoose = require('mongoose');
 declare function _(schema: mongoose.Schema): void;
 export = _;
+declare namespace _ {
+    const paginate: { options: mongoose.PaginateOptions };
+}

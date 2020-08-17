@@ -21,7 +21,7 @@
 {
     let $facebook: angular.ngFacebook.IFacebookService;
 
-    let customInit: FBInitParams = $facebook.config<FBInitParams>("customInit");
+    let customInit: facebook.InitParams = $facebook.config<facebook.InitParams>("customInit");
     let version: string = $facebook.config<string>("version");
     let appId: string = $facebook.config<string>("appId");
 

@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "forceConsistentCasingInFileNames": true,
+        "lib": ["es6"],
+        "module": "commonjs",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "typeRoots": ["../"],
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "moment-locales-webpack-plugin-tests.ts"
+    ]
+}

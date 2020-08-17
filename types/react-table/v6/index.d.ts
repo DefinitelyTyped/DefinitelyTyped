@@ -6,6 +6,7 @@
 //                 Andy S <https://github.com/andys8>,
 //                 Grzegorz Rozdzialik <https://github.com/Gelio>
 //                 Cam Pepin <https://github.com/cpepin>
+//                 Andrew Luca <https://github.com/iamandrewluca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as React from 'react';
@@ -520,9 +521,6 @@ export namespace Column {
          * 'column' == the column that the filter is on
          */
         filterMethod: FilterFunction | DefaultFilterFunction;
-
-        /** Default: false */
-        hideFilter: boolean;
 
         /** Default: ... */
         Filter: FilterRender;

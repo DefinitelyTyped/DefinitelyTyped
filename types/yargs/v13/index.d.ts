@@ -30,6 +30,11 @@ import { DetailedArguments, Configuration } from 'yargs-parser';
 declare namespace yargs {
     type BuilderCallback<T, R> = ((args: Argv<T>) => Argv<R>) | ((args: Argv<T>) => void);
 
+    type ParserConfigurationOptions = Configuration & {
+        /** Sort commands alphabetically. Default is `false` */
+        'sort-commands': boolean;
+    };
+
     /**
      * The type parameter `T` is the expected shape of the parsed options.
      * `Arguments<T>` is those options plus `_` and `$0`, and an indexer falling
@@ -410,8 +415,9 @@ declare namespace yargs {
          * Note: Providing a callback to parse() disables the `exitProcess` setting until after the callback is invoked.
          * @param [context]  Provides a useful mechanism for passing state information to commands
          */
-        parse(): { [key in keyof Arguments<T>]: Arguments<T>[key] };
-        parse(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parse(arg?: string | ReadonlyArray<string>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parse(arg: string | ReadonlyArray<string>, parseCallback: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parse(arg: string | ReadonlyArray<string>, context: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
 
         /**
          * If the arguments have not been parsed, this property is `false`.
@@ -421,7 +427,7 @@ declare namespace yargs {
         parsed: DetailedArguments | false;
 
         /** Allows to configure advanced yargs features. */
-        parserConfiguration(configuration: Partial<Configuration>): Argv<T>;
+        parserConfiguration(configuration: Partial<ParserConfigurationOptions>): Argv<T>;
 
         /**
          * Similar to `config()`, indicates that yargs should interpret the object from the specified key in package.json as a configuration object.
@@ -671,6 +677,8 @@ declare namespace yargs {
     interface PositionalOptions {
         /** string or array of strings, see `alias()` */
         alias?: string | ReadonlyArray<string>;
+        /** boolean, interpret option as an array, see `array()` */
+        array?: boolean;
         /** value or array of values, limit valid option arguments to a predefined set, see `choices()` */
         choices?: Choices;
         /** function, coerce or transform parsed command line values into another value, see `coerce()` */
@@ -679,6 +687,8 @@ declare namespace yargs {
         conflicts?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> };
         /** value, set a default value for the option, see `default()` */
         default?: any;
+        /** boolean or string, demand the option be given, with optional error message, see `demandOption()` */
+        demandOption?: boolean | string;
         /** string, the option description for help content, see `describe()` */
         desc?: string;
         /** string, the option description for help content, see `describe()` */

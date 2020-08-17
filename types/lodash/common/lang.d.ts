@@ -978,8 +978,6 @@ declare module "../index" {
 
     // isMatch
 
-    type isMatchCustomizer = (value: any, other: any, indexOrKey?: PropertyName) => boolean;
-
     interface LoDashStatic {
         /**
          * Performs a deep comparison between `object` and `source` to determine if
@@ -1020,7 +1018,7 @@ declare module "../index" {
 
     // isMatchWith
 
-    type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName, object: object, source: object) => boolean;
+    type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName, object: object, source: object) => boolean | undefined;
 
     interface LoDashStatic {
         /**
@@ -1449,7 +1447,7 @@ declare module "../index" {
          * _.isSymbol('abc');
          * // => false
          */
-        isSymbol(value: any): boolean;
+        isSymbol(value: any): value is symbol;
     }
 
     interface LoDashImplicitWrapper<TValue> {

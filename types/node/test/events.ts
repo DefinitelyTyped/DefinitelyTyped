@@ -78,3 +78,14 @@ const any: any = 1;
         }
     }, 'name');
 }
+
+async function test() {
+    for await (const e of events.on(new events.EventEmitter(), 'test')) {
+        console.log(e);
+    }
+}
+
+{
+    emitter.on(events.errorMonitor, listener);
+    emitter.on(events.EventEmitter.errorMonitor, listener);
+}

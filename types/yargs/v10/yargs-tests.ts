@@ -298,6 +298,17 @@ function Argv$command() {
         .argv;
 }
 
+function Argv$positional() {
+    yargs
+        .command('test [paths...]', 'run tests', yargs => {
+            yargs.positional('paths', {
+                type: 'string',
+                array: true,
+            });
+        })
+        .help().argv;
+}
+
 function Argv$completion_sync() {
     const argv = yargs
         .completion('completion', (current, argv) => {

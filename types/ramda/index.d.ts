@@ -1,9 +1,8 @@
-// Type definitions for ramda 0.26
+// Type definitions for ramda 0.27
 // Project: https://ramdajs.com
 // Definitions by: Scott O'Malley <https://github.com/TheHandsomeCoder>
 //                 Erwin Poeze <https://github.com/donnut>
 //                 Matt DeKrey <https://github.com/mdekrey>
-//                 Matt Dziuban <https://github.com/mrdziuban>
 //                 Stephen King <https://github.com/sbking>
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
 //                 Vítor Castro <https://github.com/teves-castro>
@@ -24,13 +23,14 @@
 //                 Nitesh Phadatare <https://github.com/minitesh>
 //                 Krantisinh Deshmukh <https://github.com/krantisinh>
 //                 Pierre-Antoine Mills <https://github.com/pirix-gh>
-//                 Brekk Bockrath <https://github.com/brekk>
 //                 Aram Kharazyan <https://github.com/nemo108>
 //                 Jituan Lin <https://github.com/jituanlin>
 //                 Philippe Mills <https://github.com/Philippe-mills>
 //                 Saul Mirone <https://github.com/Saul-Mirone>
+//                 Nicholai Nissen <https://github.com/Nicholaiii>
+//                 Mike Deverell <https://github.com/devrelm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.7
 
 import * as _ from "ts-toolbelt";
 import {
@@ -69,12 +69,10 @@ export * from './tools';
 export const __: Placeholder; /* This is used in examples throughout the docs, but I it only seems to be directly explained here: https://ramdajs.com/0.9/docs/#op */
 
 /**
- * Adds two numbers (or strings). Equivalent to a + b but curried.
+ * Adds two numbers. Equivalent to a + b but curried.
  */
 export function add(a: number, b: number): number;
-export function add(a: string, b: string): string;
 export function add(a: number): (b: number) => number;
-export function add(a: string): (b: string) => string;
 
 /**
  * Creates a new list iteration function from an existing one by adding two new parameters to its callback
@@ -115,6 +113,12 @@ export function always<T>(val: T): () => T;
  */
 export function and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T, val2: any): boolean;
 export function and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
+
+/**
+ * Returns the result of applying the onSuccess function to the value inside a successfully resolved promise. This is useful for working with promises inside function compositions.
+ */
+export function andThen<A, B>(onSuccess: (a: A) => B | Promise<B>, promise: Promise<A>): Promise<B>;
+export function andThen<A, B>(onSuccess: (a: A) => B | Promise<B>): (promise: Promise<A>) => Promise<B>;
 
 /**
  * Returns true if at least one of elements of the list match the predicate, false otherwise.
@@ -175,8 +179,8 @@ export function apply<T, TResult>(fn: (arg0: T, ...args: readonly T[]) => TResul
 export function applySpec<Obj extends Record<string, (...args: readonly any[]) => any>>(
     obj: Obj
 ): (
-    ...args: Parameters<ValueOfRecord<Obj>>
-) => { [Key in keyof Obj]: ReturnType<Obj[Key]> };
+        ...args: Parameters<ValueOfRecord<Obj>>
+    ) => { [Key in keyof Obj]: ReturnType<Obj[Key]> };
 export function applySpec<T>(obj: any): (...args: readonly any[]) => T;
 
 /**
@@ -244,7 +248,7 @@ export function call(fn: (...args: readonly any[]) => (...args: readonly any[]) 
  */
 export function chain<T, U>(fn: (n: T) => readonly U[], list: readonly T[]): U[];
 export function chain<T, U>(fn: (n: T) => readonly U[]): (list: readonly T[]) => U[];
-export function chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
+export function chain<X0, X1, R>(fn: (x0: X0) => (x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
 
 /**
  * Restricts a number to be within a range.
@@ -574,6 +578,7 @@ export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
  * Returns true if its arguments are equivalent, false otherwise. Dispatches to an equals method if present.
  * Handles cyclical data structures.
  */
+export function equals<T>(__: Placeholder, b: T): (a: T) => boolean;
 export function equals<T>(a: T, b: T): boolean;
 export function equals<T>(a: T): (b: T) => boolean;
 
@@ -743,8 +748,12 @@ export function inc(n: number): number;
  * Given a string, this function checks for the string in another string or list and returns
  * a boolean.
  */
+export function includes(__: Placeholder, list: readonly string[] | string): (s: string) => boolean;
+export function includes<T>(__: Placeholder, list: readonly T[]): (target: T) => boolean;
+export function includes(__: Placeholder): (list: readonly string[] | string, s: string) => boolean;
+export function includes<T>(__: Placeholder): (list: readonly T[], target: T) => boolean;
 export function includes(s: string, list: readonly string[] | string): boolean;
-export function includes(s: string): (list: readonly string[] | string)  => boolean;
+export function includes(s: string): (list: readonly string[] | string) => boolean;
 export function includes<T>(target: T, list: readonly T[]): boolean;
 export function includes<T>(target: T): (list: readonly T[]) => boolean;
 
@@ -809,14 +818,6 @@ export function intersection<T>(list1: readonly T[], list2: readonly T[]): T[];
 export function intersection<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
 
 /**
- * Combines two lists into a set (i.e. no duplicates) composed of those
- * elements common to both lists.  Duplication is determined according
- * to the value returned by applying the supplied predicate to two list
- * elements.
- */
-export function intersectionWith<T>(pred: (a: T, b: T) => boolean, list1: readonly T[], list2: readonly T[]): T[];
-
-/**
  * Creates a new list with the separator interposed between elements.
  */
 export function intersperse<T>(separator: T, list: readonly T[]): T[];
@@ -827,6 +828,7 @@ export function intersperse<T>(separator: T): (list: readonly T[]) => T[];
  * using an appropriate iterator function based on the accumulator type.
  */
 export function into<T>(acc: any, xf: (...a: readonly any[]) => any, list: readonly T[]): T[];
+export function into<T, R>(acc: any, xf: (...a: readonly any[]) => R[], list: readonly T[]): R[];
 export function into(acc: any, xf: (...a: readonly any[]) => any): <T>(list: readonly T[]) => T[];
 export function into(acc: any): <T>(xf: (...a: readonly any[]) => any, list: readonly T[]) => T[];
 
@@ -1001,7 +1003,7 @@ export function mapObjIndexed<T, TResult, TKey extends string>(
 ): Record<TKey, TResult>;
 export function mapObjIndexed<T, TResult, TKey extends string>(
     fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult
-): (obj: Record<TKey, T>) =>  Record<TKey, TResult>;
+): (obj: Record<TKey, T>) => Record<TKey, TResult>;
 export function mapObjIndexed<T, TResult>(
     fn: (value: T, key: string, obj?: {
         [key: string]: T
@@ -1300,6 +1302,7 @@ export function over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
  * Takes two arguments, fst and snd, and returns [fst, snd].
  */
 export function pair<F, S>(fst: F, snd: S): [F, S];
+export function pair<F>(fst: F): <S>(snd: S) => [F, S];
 
 /**
  * Takes a function `f` and a list of arguments, and returns a function `g`.
@@ -1365,6 +1368,12 @@ export function pathOr<T>(defaultValue: T, path: Path): (obj: any) => T;
 export function pathOr<T>(defaultValue: T): _.F.Curry<(a: Path, b: any) => T>;
 
 /**
+ * Retrieves the values at given paths of an object.
+ */
+export function paths<T>(paths: Path[], obj: any): Array<T | undefined>;
+export function paths<T>(paths: Path[]): (obj: any) => Array<T | undefined>;
+
+/**
  * Returns true if the specified object property at given path satisfies the given predicate; false otherwise.
  */
 export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path, obj: U): boolean;
@@ -1375,8 +1384,8 @@ export function pathSatisfies<T, U>(pred: (val: T) => boolean): _.F.Curry<(a: Pa
  * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
  * property is ignored.
  */
-export function pick<T, K extends string>(names: readonly K[], obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
-export function pick<K extends string>(names: readonly K[]): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<T, K extends string | number | symbol>(names: readonly K[], obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<K extends string | number | symbol>(names: readonly K[]): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
 
 /**
  * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
@@ -1533,11 +1542,11 @@ export function prop<P extends string, T>(p: P): (obj: Record<P, T>) => T;
  * value according to strict equality (`===`).  Most likely used to
  * filter a list.
  */
-export function propEq<T>(name: string | number, val: T, obj: any): boolean;
-export function propEq<T>(name: string | number, val: T): (obj: any) => boolean;
-export function propEq(name: string | number): {
-    <T>(val: T, obj: any): boolean;
-    <T>(val: T): (obj: any) => boolean;
+export function propEq<K extends string | number, V>(name: K, val: V, obj: Record<K, V>): boolean;
+export function propEq<K extends string | number, V>(name: K, val: V): (obj: Record<K, V>) => boolean;
+export function propEq<K extends string | number>(name: K): {
+    <V>(val: V, obj: Record<K, V>): boolean;
+    <V>(val: V): (obj: Record<K, V>) => boolean;
 };
 
 /**
@@ -1846,12 +1855,6 @@ export function test(regexp: RegExp, str: string): boolean;
 export function test(regexp: RegExp): (str: string) => boolean;
 
 /**
- * Returns the result of applying the onSuccess function to the value inside a successfully resolved promise. This is useful for working with promises inside function compositions.
- */
-export function then<A, B>(onSuccess: (a: A) => B | Promise<B>, promise: Promise<A>): Promise<B>;
-export function then<A, B>(onSuccess: (a: A) => B | Promise<B>): (promise: Promise<A>) => Promise<B>;
-
-/**
  * Creates a thunk out of a function.
  * A thunk delays a calculation until its result is needed, providing lazy evaluation of arguments.
  */
@@ -2109,6 +2112,14 @@ export function whereEq<T>(spec: T): <U>(obj: U) => boolean;
  */
 export function without<T>(list1: readonly T[], list2: readonly T[]): T[];
 export function without<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
+
+/**
+ * Exclusive disjunction logical operation.
+ * Returns `true` if one of the arguments is truthy and the other is falsy.
+ * Otherwise, it returns `false`.
+ */
+export function xor(a: any, b: any): boolean;
+export function xor(a: any): (b: any) => boolean;
 
 /**
  * Creates a new list out of the two supplied by creating each possible pair from the lists.

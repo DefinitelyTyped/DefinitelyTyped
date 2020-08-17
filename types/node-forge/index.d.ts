@@ -12,6 +12,9 @@
 //                 Anders Kaseorg   <https://github.com/andersk>
 //                 Sascha Zarhuber  <https://github.com/saschazar21>
 //                 Rogier Schouten  <https://github.com/rogierschouten>
+//                 Ivan Aseev       <https://github.com/aseevia>
+//                 Wiktor Kwapisiewicz <https://github.com/wiktor-k>
+//                 Ligia Frangello  <https://github.com/frangello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -348,7 +351,7 @@ declare module "node-forge" {
 
         function certificateToAsn1(cert: Certificate): asn1.Asn1;
 
-        function decryptRsaPrivateKey(pem: PEM, passphrase?: string): PrivateKey;
+        function decryptRsaPrivateKey(pem: PEM, passphrase?: string): rsa.PrivateKey;
 
         function createCertificate(): Certificate;
 
@@ -374,9 +377,11 @@ declare module "node-forge" {
 
         function publicKeyToPem(key: PublicKey, maxline?: number): PEM;
 
-        function publicKeyFromPem(pem: PEM): PublicKey;
+        function publicKeyToRSAPublicKeyPem(key: PublicKey, maxline?: number): PEM;
 
-        function privateKeyFromPem(pem: PEM): PrivateKey;
+        function publicKeyFromPem(pem: PEM): rsa.PublicKey;
+
+        function privateKeyFromPem(pem: PEM): rsa.PrivateKey;
 
         function decryptPrivateKeyInfo(obj: asn1.Asn1, password: string): asn1.Asn1;
 
@@ -386,7 +391,7 @@ declare module "node-forge" {
 
         function encryptedPrivateKeyToPem(obj: asn1.Asn1): PEM;
 
-        function decryptRsaPrivateKey(pem: PEM, password: string): PrivateKey;
+        function decryptRsaPrivateKey(pem: PEM, password: string): rsa.PrivateKey;
 
         function encryptRsaPrivateKey(privateKey: PrivateKey, password: string, options?: EncryptionOptions): PEM;
 
@@ -675,6 +680,15 @@ declare module "node-forge" {
         }
 
         function createSignedData(): PkcsSignedData;
+
+        interface PkcsEnvelopedData {
+            content?: string | util.ByteBuffer;
+            addRecipient(certificate: pki.Certificate): void;
+            encrypt(): void;
+            toAsn1(): asn1.Asn1;
+        }
+
+        function createEnvelopedData(): PkcsEnvelopedData;
     }
 
     namespace pkcs5 {

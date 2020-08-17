@@ -5,10 +5,10 @@ import * as jspb from "../../index";
 
 export class Timestamp extends jspb.Message {
   getSeconds(): number;
-  setSeconds(value: number): void;
+  setSeconds(value: number): Timestamp;
 
   getNanos(): number;
-  setNanos(value: number): void;
+  setNanos(value: number): Timestamp;
 
   toDate(): Date;
   fromDate(date: Date): void;
@@ -29,4 +29,3 @@ export namespace Timestamp {
     nanos: number,
   }
 }
-

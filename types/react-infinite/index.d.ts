@@ -12,24 +12,24 @@ export = Infinite;
 export as namespace Infinite;
 
 declare namespace Infinite {
-	interface InfiniteProps extends React.Props<Infinite> {
-		elementHeight: number | number[];
-		containerHeight?: number;
-		preloadBatchSize?: number | Object;
-		preloadAdditionalHeight?: number | Object;
-		handleScroll?: (node: React.ReactElement) => void;
-		infiniteLoadBeginBottomOffset?: number;
-		infiniteLoadBeginEdgeOffset?: number;
-		onInfiniteLoad?: () => void;
-		loadingSpinnerDelegate?: React.ReactElement;
-		isInfiniteLoading?: boolean;
-		timeScrollStateLastsForAfterUserScrolls?: number;
-		className?: string;
-		useWindowAsScrollContainer?: boolean;
-		displayBottomUpwards?: boolean;
-	}
+    interface InfiniteProps extends React.Props<Infinite> {
+        elementHeight: number | number[];
+        containerHeight?: number;
+        preloadBatchSize?: number | Object;
+        preloadAdditionalHeight?: number | Object;
+        handleScroll?: (node: React.ReactElement) => void;
+        infiniteLoadBeginBottomOffset?: number;
+        infiniteLoadBeginEdgeOffset?: number;
+        onInfiniteLoad?: () => void;
+        loadingSpinnerDelegate?: React.ReactElement;
+        isInfiniteLoading?: boolean;
+        timeScrollStateLastsForAfterUserScrolls?: number;
+        className?: string;
+        useWindowAsScrollContainer?: boolean;
+        displayBottomUpwards?: boolean;
+    }
 }
 
 declare class Infinite extends React.Component<Infinite.InfiniteProps> {
-	static containerHeightScaleFactor(n: number): any;
+    static containerHeightScaleFactor(n: number): any;
 }

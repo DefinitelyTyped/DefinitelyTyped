@@ -1,0 +1,12 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-unnecessary-generics": false,
+        "npm-naming": [
+            true,
+            {
+                "mode": "name-only"
+            }
+        ]
+    }
+}

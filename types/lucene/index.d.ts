@@ -1,6 +1,7 @@
 // Type definitions for lucene 2.1
 // Project: https://github.com/bripkens/lucene#readme
 // Definitions by: Ben Grynhaus <https://github.com/bengry>
+//                 Hugo Muller <https://github.com/HugoMuller>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface TermLocation {
@@ -18,7 +19,10 @@ export interface Node {
     regex: boolean;
     similarity: null;
     term: string;
-    termLocation: TermLocation;
+    termLocation: {
+        start: TermLocation;
+        end: TermLocation;
+    };
 }
 
 export type Operator = '<implicit>' | 'NOT' | 'OR' | 'AND' | 'AND NOT' | 'OR NOT';

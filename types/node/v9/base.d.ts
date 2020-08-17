@@ -2414,6 +2414,8 @@ declare module "child_process" {
         stdio: StdioStreams;
         killed: boolean;
         pid: number;
+        readonly exitCode: number | null;
+        readonly signalCode: number | null;
         kill(signal?: string): void;
         send(message: any, callback?: (error: Error) => void): boolean;
         send(message: any, sendHandle?: net.Socket | net.Server, callback?: (error: Error) => void): boolean;
@@ -2626,6 +2628,7 @@ declare module "child_process" {
         gid?: number;
         windowsVerbatimArguments?: boolean;
     }
+    export function fork(modulePath: string, options?: ForkOptions): ChildProcess;
     export function fork(modulePath: string, args?: string[], options?: ForkOptions): ChildProcess;
 
     export interface SpawnSyncOptions {

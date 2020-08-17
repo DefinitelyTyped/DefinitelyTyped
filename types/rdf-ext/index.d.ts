@@ -6,7 +6,7 @@
 
 import { Sink } from 'rdf-js';
 import DataFactory = require('./lib/DataFactory');
-import EventEmitter = require('events');
+import { EventEmitter } from 'events';
 import { Stream } from 'stream';
 
 type SinkMap<InputStream extends EventEmitter, OutputStream extends EventEmitter> = {

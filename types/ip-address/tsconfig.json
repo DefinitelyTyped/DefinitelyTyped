@@ -4,7 +4,7 @@
     "lib": ["es6"],
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "strictFunctionTypes": true,
     "baseUrl": "../",
     "typeRoots": ["../"],
@@ -13,7 +13,7 @@
     "forceConsistentCasingInFileNames": true
   },
   "files": [
-		"index.d.ts",
-		"ip-address-tests.ts"
-	]
+        "index.d.ts",
+        "ip-address-tests.ts"
+    ]
 }

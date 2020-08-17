@@ -61,7 +61,7 @@ declare class XDate {
      * @param {number} [milliseconds] - milliseconds
      */
     public constructor( year : number , month : number , date : number ,
-			hours? : number , minutes? : number , seconds? : number , milliseconds? : number , utcmode? : boolean );
+            hours? : number , minutes? : number , seconds? : number , milliseconds? : number , utcmode? : boolean );
 
     /**
      * constructor
@@ -362,7 +362,7 @@ declare class XDate {
      *Returns a milliseconds time since the epoch for the given UTC date
      */
     public static UTC(year : number , month : number , date : number , hours : number,
-		      minutes : number , seconds : number , milliseconds : number ) : XDate;
+              minutes : number , seconds : number , milliseconds : number ) : XDate;
 
     public static locales : { [key: string]: locale_detail; };
 

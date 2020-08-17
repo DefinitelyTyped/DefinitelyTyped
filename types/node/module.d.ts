@@ -1,6 +1,37 @@
 declare module "module" {
     import { URL } from "url";
-    namespace Module {}
+    namespace Module {
+        /**
+         * Updates all the live bindings for builtin ES Modules to match the properties of the CommonJS exports.
+         * It does not add or remove exported names from the ES Modules.
+         */
+        function syncBuiltinESMExports(): void;
+
+        function findSourceMap(path: string, error?: Error): SourceMap;
+        interface SourceMapPayload {
+            file: string;
+            version: number;
+            sources: string[];
+            sourcesContent: string[];
+            names: string[];
+            mappings: string;
+            sourceRoot: string;
+        }
+
+        interface SourceMapping {
+            generatedLine: number;
+            generatedColumn: number;
+            originalSource: string;
+            originalLine: number;
+            originalColumn: number;
+        }
+
+        class SourceMap {
+            readonly payload: SourceMapPayload;
+            constructor(payload: SourceMapPayload);
+            findEntry(line: number, column: number): SourceMapping;
+        }
+    }
     interface Module extends NodeModule {}
     class Module {
         static runMain(): void;

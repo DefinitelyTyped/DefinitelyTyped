@@ -7,6 +7,9 @@ const credentials = new kdbxweb.Credentials(
     "nFWx&e5SzT"
 );
 
+// allow null credentials
+new kdbxweb.Credentials(null, null);
+
 kdbxweb.Kdbx.load(dataarr, credentials).then(db => db);
 kdbxweb.Kdbx.loadXml("data", credentials).then(db => db);
 
@@ -32,3 +35,6 @@ newDb.cleanup({
 });
 
 newDb.upgrade();
+
+// check error types
+new kdbxweb.KdbxError(kdbxweb.Consts.ErrorCodes.NotImplemented, 'SHA256 not implemented');

@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps, ReactNode } from '@wordpress/element';
+import { ComponentType, HTMLProps, ReactNode } from 'react';
 
 declare namespace Modal {
     interface Props extends HTMLProps<HTMLDivElement> {
@@ -46,8 +46,15 @@ declare namespace Modal {
          * If this property is set to false, the modal will not display a close
          * icon and cannot be dismissed.
          * @defaultValue true
+         * @deprecated Use isDismissible
          */
         isDismissable?: boolean;
+        /**
+         * If this property is set to false, the modal will not display a close
+         * icon and cannot be dismissed.
+         * @defaultValue true
+         */
+        isDismissible?: boolean;
         /**
          * If this property is added, it will an additional class name to the
          * modal overlay div.

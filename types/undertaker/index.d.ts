@@ -5,6 +5,7 @@
 //                 Evan Yamanishi <https://github.com/sh0ji>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
 import * as Registry from "undertaker-registry";
 import { Duplex } from "stream";
 import { EventEmitter } from "events";

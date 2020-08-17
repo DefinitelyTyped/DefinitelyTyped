@@ -1,10 +1,21 @@
 import rdf = require('rdf-ext');
-import { Literal, Quad, Dataset, NamedNode, Stream, Sink, DatasetCore } from 'rdf-js';
+import { Literal, Quad, NamedNode, Stream, Sink, DataFactory, DatasetCoreFactory } from 'rdf-js';
+import { DatasetIndexed as Dataset } from 'rdf-dataset-indexed/dataset';
 import QuadExt = require('rdf-ext/lib/Quad');
 import DataFactoryExt = require('rdf-ext/lib/DataFactory');
 import DatasetExt = require('rdf-ext/lib/Dataset');
 import { EventEmitter } from 'events';
 import { Readable } from 'stream';
+
+const factory: DataFactory = rdf;
+
+function rdfExt_factory() {
+    const baseFactory: DatasetCoreFactory = rdf;
+    const factory: DatasetCoreFactory<QuadExt, Quad> = rdf;
+
+    const baseDataset: Dataset = rdf.dataset();
+    const dataset: Dataset<QuadExt> = rdf.dataset();
+}
 
 function NamedNode_toCanonical(): string {
     const iri = 'http://example.org';
@@ -167,10 +178,9 @@ function static_Triple_fromBaseTerms(): Quad {
     const predicate: NamedNode = <any> {};
     const object: NamedNode = <any> {};
 
-    return rdf.triple(subject, predicate, object);
+    return rdf.quad(subject, predicate, object);
 }
 
-// tslint:disable:use-default-type-parameter
 function instance_Quad_fromBaseTerms(): Quad {
     const factory: DataFactoryExt = <any> {};
     const subject: NamedNode = <any> {};
@@ -178,7 +188,7 @@ function instance_Quad_fromBaseTerms(): Quad {
     const object: NamedNode = <any> {};
     const graph: NamedNode = <any> {};
 
-    return factory.quad<QuadExt>(subject, predicate, object, graph);
+    return factory.quad(subject, predicate, object, graph);
 }
 
 function instance_Triple_fromBaseTerms(): Quad {
@@ -187,9 +197,8 @@ function instance_Triple_fromBaseTerms(): Quad {
     const predicate: NamedNode = <any> {};
     const object: NamedNode = <any> {};
 
-    return factory.triple<QuadExt>(subject, predicate, object);
+    return factory.quad(subject, predicate, object);
 }
-// tslint:enable:use-default-type-parameter
 
 function Quad_toJSON(): boolean {
     const quad = rdf.quad(
@@ -233,7 +242,7 @@ function dataset_merge(): DatasetExt {
     return rdf.dataset().merge(other);
 }
 
-function dataset_merge_arrau(): DatasetExt {
+function dataset_merge_array(): DatasetExt {
     const other: Quad[] = <any> {};
     return rdf.dataset().merge(other);
 }

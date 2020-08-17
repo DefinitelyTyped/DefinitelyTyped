@@ -1,8 +1,6 @@
 import { BlankNode, DataFactory, Dataset, DatasetCore, DatasetCoreFactory, DatasetFactory, DefaultGraph, Literal,
-  NamedNode, Quad, BaseQuad, Sink, Source, Store, Stream, Triple, Term, Variable, Quad_Graph } from "rdf-js";
+  NamedNode, Quad, BaseQuad, Sink, Source, Store, Stream, Term, Variable, Quad_Graph } from "rdf-js";
 import { EventEmitter } from "events";
-
-const factory: DataFactory = <any> {};
 
 function test_terms() {
     // Only types are checked in this tests,
@@ -18,6 +16,14 @@ function test_terms() {
     let namedNodeEqual: boolean = namedNode.equals(someTerm);
     namedNodeEqual = namedNode.equals(null);
     namedNodeEqual = namedNode.equals(undefined);
+
+    const namedNodeConstant: NamedNode<'http://example.org'> = <any> {};
+    const constantIri: 'http://example.org' = namedNodeConstant.value;
+    // $ExpectError
+    const otherConstantIri: 'http://not-example.org' = namedNodeConstant.value;
+    // $ExpectError
+    const otherNamedNodeConstant: NamedNode<'http://not-example.org'> = namedNodeConstant;
+    const regularNamedNode: NamedNode = namedNodeConstant;
 
     const blankNode: BlankNode = <any> {};
     const termType2: string = blankNode.termType;
@@ -57,14 +63,6 @@ function test_quads() {
     const o1: Term = quad.object;
     const g1: Term = quad.graph;
     quad.equals(quad);
-
-    const triple: Triple = quad;
-    const s2: Term = triple.subject;
-    const p2: Term = triple.predicate;
-    const o2: Term = triple.object;
-    const g2: Term = triple.graph;
-    triple.equals(quad);
-    quad.equals(triple);
 }
 
 function test_datafactory() {
@@ -82,20 +80,21 @@ function test_datafactory() {
     const variable: Variable = dataFactory.variable ? dataFactory.variable('v1') : <any> {};
 
     const term: NamedNode = <any> {};
-    const triple: Quad = dataFactory.triple(term, term, term);
     interface QuadBnode extends BaseQuad {
       subject: Term;
       predicate: Term;
       object: Term;
       graph: Term;
     }
-    const quad = dataFactory.quad<QuadBnode>(literal1, blankNode1, term, term);
+
+    const quadBnodeFactory: DataFactory<QuadBnode> = <any> {};
+    const quad = quadBnodeFactory.quad(literal1, blankNode1, term, term);
     const hasBnode = quad.predicate.termType === "BlankNode";
 }
 
 function test_stream() {
     const stream: Stream = <any> {};
-    const quad: Quad = stream.read();
+    const quad: Quad | null = stream.read();
 
     const term: Term = <any> {};
     const source: Source = <any> {};
@@ -147,7 +146,7 @@ function test_datasetcore() {
 
     const dataset1: DatasetCore = datasetCoreFactory1.dataset();
     const dataset2: DatasetCore = datasetCoreFactory1.dataset([quad, quad]);
-    const dataset3: DatasetCore<QuadBnode> = datasetCoreFactory2.dataset([quadBnode, quad]);
+    const dataset3: DatasetCore<QuadBnode, QuadBnode> = datasetCoreFactory2.dataset([quadBnode, quad]);
 
     const dataset2Size: number = dataset2.size;
     const dataset2Add: DatasetCore = dataset2.add(quad);
@@ -283,4 +282,166 @@ function test_dataset() {
     const dataset4Union: Dataset<QuadBnode> = dataset4.union(dataset3);
     const dataset4Iterable: Iterable<QuadBnode> = dataset4;
     const dataset4Core: DatasetCore<QuadBnode> = dataset4;
+}
+
+function test_datasetCoreFactory_covariance() {
+    const quad: BaseQuad = <any> {};
+    const factory: DatasetCoreFactory<Quad, BaseQuad> = <any> {};
+
+    const fromQuads = factory.dataset([quad, quad]);
+}
+
+function test_datasetFactory_covariance() {
+    const quad: BaseQuad = <any> {};
+    const dataset: Dataset = <any> {};
+    const factory: DatasetFactory<Quad, BaseQuad> = <any> {};
+
+    const fromQuads = factory.dataset([quad, quad]);
+    const fromDataset = factory.dataset(dataset);
+}
+
+async function test_dataset_covariance(): Promise<Dataset> {
+    const quad: Quad = <any> {};
+    const dataset: Dataset = <any> {};
+
+    // rdf-ext-like quad
+    interface QuadExt extends Quad {
+        toCanonical(): string;
+    }
+    let datasetExt: Dataset<QuadExt, Quad> = <any> {};
+
+    // stream coming from a generic parser
+    const stream: Stream = <any> {};
+
+    datasetExt = datasetExt.add(quad);
+    datasetExt = datasetExt.delete(quad);
+    datasetExt = datasetExt.addAll([quad, quad]);
+    datasetExt = datasetExt.addAll(dataset);
+    datasetExt.contains(dataset);
+    datasetExt = datasetExt.difference(dataset);
+    datasetExt.equals(dataset);
+    datasetExt.has(quad);
+    datasetExt.intersection(dataset);
+    datasetExt.union(dataset);
+    return datasetExt.import(stream);
+}
+
+class DatasetCoreExt implements DatasetCore {
+    size: number;
+
+    add(): this {
+        throw new Error("Method not implemented.");
+    }
+
+    delete(): this {
+        throw new Error("Method not implemented.");
+    }
+
+    has(): boolean {
+        throw new Error("Method not implemented.");
+    }
+
+    match(): DatasetCore<Quad, Quad> {
+        const newInstance: DatasetCoreExt = <any> {};
+        return newInstance;
+    }
+
+    [Symbol.iterator](): Iterator<Quad> {
+        throw new Error("Method not implemented.");
+    }
+}
+
+class DatasetExt extends DatasetCoreExt implements Dataset {
+    addAll(): this {
+        throw new Error("Method not implemented.");
+    }
+
+    contains(): boolean {
+        throw new Error("Method not implemented.");
+    }
+
+    deleteMatches(): this {
+        throw new Error("Method not implemented.");
+    }
+
+    difference(): Dataset<Quad, Quad> {
+        const newInstance: DatasetExt = <any> {};
+        return newInstance;
+    }
+
+    equals(): boolean {
+        throw new Error("Method not implemented.");
+    }
+
+    every(): boolean {
+        throw new Error("Method not implemented.");
+    }
+
+    filter(): Dataset<Quad, Quad> {
+        const newInstance: DatasetExt = <any> {};
+        return newInstance;
+    }
+
+    forEach(): void {
+        throw new Error("Method not implemented.");
+    }
+
+    import(): Promise<this> {
+        throw new Error("Method not implemented.");
+    }
+
+    intersection(): this {
+        throw new Error("Method not implemented.");
+    }
+
+    map(): Dataset<Quad, Quad> {
+        const newInstance: DatasetExt = <any> {};
+        return newInstance;
+    }
+
+    match(): Dataset<Quad, Quad> {
+        const newInstance: DatasetExt = <any> {};
+        return newInstance;
+    }
+
+    reduce(): any {
+        throw new Error("Method not implemented.");
+    }
+
+    some(): boolean {
+        throw new Error("Method not implemented.");
+    }
+
+    toArray(): Quad[] {
+        throw new Error("Method not implemented.");
+    }
+
+    toCanonical(): string {
+        throw new Error("Method not implemented.");
+    }
+
+    toStream(): Stream {
+        throw new Error("Method not implemented.");
+    }
+
+    toString(): string {
+        throw new Error("Method not implemented.");
+    }
+
+    union(): Dataset<Quad, Quad> {
+        const newInstance: DatasetExt = <any> {};
+        return newInstance;
+    }
+}
+
+function testInheritance() {
+    const datasetCoreExt: DatasetCoreExt = new DatasetCoreExt();
+    const datasetCoreMatch: DatasetCore = datasetCoreExt.match();
+
+    const datasetExt: DatasetExt = new DatasetExt();
+    const datasetMatch: Dataset = datasetExt.match();
+    const datasetMap: Dataset = datasetExt.map();
+    const datasetUnion: Dataset = datasetExt.union();
+    const datasetFilter: Dataset = datasetExt.filter();
+    const datasetDifference: Dataset = datasetExt.difference();
 }

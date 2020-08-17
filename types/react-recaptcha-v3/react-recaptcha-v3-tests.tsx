@@ -1,4 +1,4 @@
-import * as ReCaptcha from "react-recaptcha-v3";
+import { ReCaptcha } from "react-recaptcha-v3";
 import * as ReactDOM from "react-dom";
 import * as React from "react";
 

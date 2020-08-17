@@ -973,6 +973,18 @@ testPixel.toFixed();
 testPixel.toFixed(2);
 
 /**
+ * plugin.ts
+ */
+
+AMap.plugin('plugin name', () => {
+ // callback
+});
+
+AMap.service('plugin name', () => {
+ // callback
+});
+
+/**
  * size.ts
  */
 

@@ -1,7 +1,7 @@
 export {};
 import { PusherUser } from './user';
 import { PusherRoom, PusherReadCursor } from './room';
-import { PusherMessage, MessagePart } from './message';
+import { PusherMessage, SendMessagePayload } from './message';
 import { UserHook, UserPresenceHook, ReadCursorHook, RoomParams, UserAndRoomParams } from './hooks';
 
 export interface RoomSubscriptionHooks {
@@ -63,7 +63,7 @@ interface SendSimpleMessageParams {
 
 interface SendMultipartMessageParams {
     roomId: string;
-    parts: MessagePart[];
+    parts: SendMessagePayload[];
 }
 
 interface SetReadCursorParams {

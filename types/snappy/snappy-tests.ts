@@ -13,7 +13,7 @@ snappy.uncompress(data, (err, data) => {
   if (err) {
     throw err;
   }
-  console.log(data.toString('UTF8'));
+  console.log(data.toString('utf8'));
 });
 snappy.uncompress(otherData, { asBuffer: false }, (err, original) => {
   if (err) {

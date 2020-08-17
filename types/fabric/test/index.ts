@@ -48,6 +48,8 @@ function sample2() {
   const rainbow = ["#ffcc66", "#ccff66", "#66ccff", "#ff6fcf", "#ff6666"];
   const rainbowEnd = rainbow.length - 1;
 
+  fabric.Object.NUM_FRACTION_DIGITS = 2;
+
   //
   // Rendering canvas #1
   //
@@ -347,6 +349,8 @@ function sample6() {
         obj.set('opacity', (1 / (dist / 20)));
       });
     });
+  }, null, {
+      crossOrigin:'anonymous'
   });
 }
 

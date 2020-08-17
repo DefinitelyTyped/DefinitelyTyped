@@ -1,10 +1,11 @@
-// Type definitions for Auth0.js 9.12
+// Type definitions for Auth0.js 9.13
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
 //                 Matt Durrant <https://github.com/mdurrant>
 //                 Peter Blazejewicz <https://github.com/peterblazejewicz>
 //                 Bartosz Kotrys <https://github.com/bkotrys>
 //                 Mark Nelissen <https://github.com/marknelissen>
+//                 Tyler Lindell <https://github.com/tylerlindell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace auth0;
@@ -58,13 +59,13 @@ export class Authentication {
      * Makes a call to the `/ssodata` endpoint
      *
      */
-    getSSOData(callback?: Auth0Callback<any>): void;
+    getSSOData(callback?: Auth0Callback<SsoDataResult | undefined>): void;
 
     /**
      * Makes a call to the `/ssodata` endpoint
      *
      */
-    getSSOData(withActiveDirectories: boolean, callback?: Auth0Callback<any>): void;
+    getSSOData(withActiveDirectories: boolean, callback?: Auth0Callback<SsoDataResult | undefined>): void;
 
     /**
      * Makes a call to the `/userinfo` endpoint and returns the user profile
@@ -113,11 +114,10 @@ export class DBConnection {
     constructor(request: any, option: any);
 
     /**
-     * Signup a new user
-     *
-     * @param options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
+     * Creates a new user in a Auth0 Database connection
+     * @param options https://auth0.com/docs/api/authentication#signup
      */
-    signup(options: DbSignUpOptions, callback: Auth0Callback<any>): void;
+    signup(options: DbSignUpOptions, callback: Auth0Callback<DbSignUpResults>): void;
 
     /**
      * Initializes the change password flow
@@ -247,10 +247,17 @@ export class WebAuth {
     login(options: CrossOriginLoginOptions, callback: Auth0Callback<any>): void;
 
     /**
-     * Runs the callback code for the cross origin authentication call. This method is meant to be called by the cross origin authentication callback url.
-     *
+     * Runs the callback code for the cross origin authentication call.
+     * This method is meant to be called by the cross origin authentication callback url.
+     * @deprecated Use {@link crossOriginVerification} instead.
      */
     crossOriginAuthenticationCallback(): void;
+
+    /**
+     * Runs the callback code for the cross origin authentication call.
+     * This method is meant to be called by the cross origin authentication callback url.
+     */
+    crossOriginVerification(): void;
 
     /**
      * Redirects to the auth0 logout endpoint
@@ -289,9 +296,10 @@ export class WebAuth {
      * Renews an existing session on Auth0's servers using `response_mode=web_message` (i.e. Auth0's hosted login page)
      *
      * @param options options used in {@link authorize} call
-     * @param callback: any(err, token_payload)
+     * @param cb
+     * @see {@link https://auth0.com/docs/libraries/auth0js/v9#using-checksession-to-acquire-new-tokens}
      */
-    checkSession(options: CheckSessionOptions, callback: Auth0Callback<any>): void;
+    checkSession(options: CheckSessionOptions, cb: Auth0Callback<any>): void;
 }
 
 export class Redirect {
@@ -529,7 +537,22 @@ export interface AuthOptions {
      */
     maxAge?: number;
     leeway?: number;
-    plugins?: any[];
+    jwksURI?: string;
+    overrides?: {
+      __tenant?: string;
+      __token_issuer?: string;
+      __jwks_uri?: string;
+    };
+    plugins?: any;
+    popupOrigin?: string;
+    protocol?: string;
+    response_type?: string;
+    state?: string;
+    tenant?: string;
+    universalLoginPage?: boolean;
+    _csrf?: string;
+    _intstate?: string;
+    _timesToRetryFailedRequests?: number;
     _disableDeprecationWarnings?: boolean;
     _sendTelemetry?: boolean;
     _telemetryInfo?: any;
@@ -827,13 +850,25 @@ export interface DelegationOptions {
 }
 
 export interface DbSignUpOptions {
+    /** user email address */
     email: string;
+    /** user password */
     password: string;
+    /** name of the connection where the user will be created */
     connection: string;
     /** User desired username. Required if you use a database connection and you have enabled `Requires Username` */
     username?: string;
     scope?: string;
-    user_metadata?: any;
+    /** additional signup attributes used for creating the user. Will be stored in `user_metadata` */
+    userMetadata?: any;
+}
+
+/** result of the signup request */
+export interface DbSignUpResults {
+    /** user's email */
+    email: string;
+    /** if the user's email was verified */
+    emailVerified: boolean;
 }
 
 export interface ParseHashOptions {
@@ -925,18 +960,42 @@ export interface AuthorizeOptions {
     nonce?: string;
     scope?: string;
     audience?: string;
-	language?: string;
+    language?: string;
     login_hint?: string;
-	prompt?: string;
+    prompt?: string;
     mode?: "login" | "signUp";
+    screen_hint?: "signup";
     accessType?: string;
     approvalPrompt?: string;
     appState?: any;
+    connection_scope?: string | string[];
+}
+
+export type SsoDataResult = SsoSessionFoundResult | SsoSessionNotFoundResult;
+
+export interface SsoSessionFoundResult {
+    lastUsedClientID: string;
+    lastUsedConnection: {
+        name: string;
+        strategy?: string;
+    };
+    lastUsedUserID: string;
+    lastUsedUsername: string;
+    sessionClients: string[];
+    sso: true;
+}
+
+export interface SsoSessionNotFoundResult {
+    sso: false;
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {
-	/**
-	 * optional parameter for auth0 to use postMessage to communicate between the silent callback and the SPA.
-	 */
-	usePostMessage?: boolean;
+    /**
+     * optional parameter for auth0 to use postMessage to communicate between the silent callback and the SPA.
+     */
+    usePostMessage?: boolean;
 }
+
+export const version: {
+    raw: string;
+};

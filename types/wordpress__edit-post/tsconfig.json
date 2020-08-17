@@ -27,9 +27,6 @@
             "@wordpress/edit-post": [
                 "wordpress__edit-post"
             ],
-            "@wordpress/element": [
-                "wordpress__element"
-            ],
             "@wordpress/notices": [
                 "wordpress__notices"
             ],

@@ -1,9 +1,20 @@
 import * as assert from "power-assert";
-import { setDefinitionFunctionWrapper, setWorldConstructor, defineParameterType, After, AfterAll, Before, BeforeAll, Given, When, Then } from "cucumber";
+import {
+    setDefinitionFunctionWrapper,
+    setWorldConstructor,
+    defineParameterType,
+    After,
+    AfterAll,
+    Before,
+    BeforeAll,
+    Given,
+    When,
+    Then,
+    TableDefinition as Table
+} from "cucumber";
 import cucumber = require("cucumber");
 
 type Callback = cucumber.CallbackStepDefinition;
-type Table = cucumber.TableDefinition;
 type HookScenarioResult = cucumber.HookScenarioResult;
 const Status = cucumber.Status;
 
@@ -157,6 +168,24 @@ function StepSampleWithoutDefineSupportCode() {
         ];
         const actual: Array<{ [colName: string]: string }> = table.hashes();
         assert.deepEqual(actual, expected);
+    });
+
+    interface MyTableType {
+        Vegetable: string;
+        Rating: string;
+    }
+
+    Given(/^a table step with a Type$/, (table: Table<MyTableType>) => {
+        const expected = [
+            { Vegetable: 'Apricot', Rating: '5' },
+            { Vegetable: 'Brocolli', Rating: '2' },
+            { Vegetable: 'Cucumber', Rating: '10' }
+        ];
+        const [actual] = table.hashes();
+        assert.deepEqual(actual.Vegetable, 'Apricot');
+        assert.deepEqual(actual.Rating, '5');
+
+        assert.deepEqual(actual.WrongField, '5'); // $ExpectError
     });
 
     defineParameterType({
