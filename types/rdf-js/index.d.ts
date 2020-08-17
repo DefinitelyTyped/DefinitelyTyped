@@ -264,10 +264,7 @@ export interface DataFactory<OutQuad extends BaseQuad = Quad, InQuad extends Bas
      * @return A new instance of NamedNode.
      * @see NamedNode
      */
-    // TODO: This could be changed into a Generic method that returns a NamedNode constained to the
-    //       given `value` - but note that that would be a breaking change. See commit
-    //       16d29e86cd6fe34e6ac6f53bba6ba1a1988d7401.
-    namedNode(value: string): NamedNode;
+    namedNode<Iri extends string = string>(value: Iri): NamedNode<Iri>;
 
     /**
      * @param value The optional blank node identifier.
