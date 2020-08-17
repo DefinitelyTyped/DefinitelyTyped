@@ -11,8 +11,8 @@ import { ConfigOptions } from './Config';
 
 import { EditingConfig } from './EditingConfig';
 
-export type WidgetComponent = FC<{ widget: Widget, [key: string]: any }>;
-export type ObjComponent = FC<{ page: Obj, params: {}, [key: string]: any }>;
+type WidgetComponent = FC<{ widget: Widget, [key: string]: any }>;
+type ObjComponent = FC<{ page: Obj, params: {}, [key: string]: any }>;
 
 export function canWrite(): boolean;
 export function configure(options: ConfigOptions): void;
@@ -46,3 +46,6 @@ export function updateMenuExtensions(): void;
 export function urlFor(target: Obj | Binary | Link, options?: { query?: string; hash?: string }): void;
 export function useHistory(history: History): void;
 export function validationResults(model: Obj | Widget, attribute: string): object[];
+
+// Fix automatic exports
+export {};
