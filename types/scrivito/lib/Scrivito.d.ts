@@ -3,6 +3,7 @@ import { Binary } from './Binary';
 import { CSSProperties, Component, FC } from 'react';
 import { Widget } from './Widget';
 import { Link } from './Link';
+import { History } from "history";
 
 import { ObjClass, ObjClassOptions, AbstractObjClass } from './ObjClass';
 import { WidgetClass, WidgetClassOptions, AbstractWidgetClass } from './WidgetClass';

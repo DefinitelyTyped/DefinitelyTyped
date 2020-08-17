@@ -11,8 +11,9 @@ export interface OptimizeDefinition {
 
 export class Binary {
     private constructor();
-    static upload(source: Blob, options: { filename: string, contentType?: string }): FutureBinary;
+    static upload(source: Blob | File, options: { filename: string, contentType?: string }): FutureBinary;
     static uplload(source: File, options?: { filename?: string, contentType?: string }): FutureBinary;
+    contentLength(): number;
     contentType(): string;
     copy(options?: { filename?: string; contentType?: string }): FutureBinary;
     filename(): string;
