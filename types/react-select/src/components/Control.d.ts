@@ -3,8 +3,7 @@ import { ComponentType, ReactNode, Ref as ElementRef } from 'react';
 import { borderRadius, colors, spacing } from '../theme';
 import { CommonProps, OptionTypeBase, PropsWithStyles } from '../types';
 
-export type ControlProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> &
-  PropsWithStyles & {
+export interface ControlProps<OptionType extends OptionTypeBase> extends CommonProps<OptionType> {
     className?: string;
     innerRef: RefCallback<HTMLDivElement>;
     /** The mouse down event and the innerRef to pass down to the controller element. */
