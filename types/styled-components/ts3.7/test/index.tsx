@@ -1185,3 +1185,20 @@ function unionTest2() {
     <C />; // $ExpectError
     <C foo={123} bar="foobar" />; // $ExpectError
 }
+
+function unionTest3() {
+    // Can occur when working with styled-system
+    // and the `color` prop.
+    interface Props {
+        color: number | string | Array<string | number | null> | { [x: string]: string | number; [x: number]: string | number; } | null;
+    }
+
+    const C = styled.p<Props>``;
+
+    <C color="test" />;
+    <C color={2} />;
+    <C color={["test", null, 2]} />;
+    <C color={null} />;
+    <C color={{ foo: "bar" }} />;
+    <C color={{ 1: "foo" }} />;
+}
