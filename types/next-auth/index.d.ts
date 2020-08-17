@@ -125,7 +125,7 @@ interface GenericObject {
 interface Callbacks {
     signIn?(user: GenericObject, account: GenericObject, profile: GenericObject): Promise<boolean>;
     redirect?(url: string, baseUrl: string): Promise<string>;
-    session?<T = any>(session: Session, user: GenericObject): Promise<Session & T>;
+    session?(session: Session, user: GenericObject): Promise<GenericObject>;
     jwt?(
         token: GenericObject,
         user: GenericObject,
