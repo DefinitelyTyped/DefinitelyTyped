@@ -1,5 +1,5 @@
 import SemVer = require('../classes/semver');
-import semver = require('../');
+import semver = require('../index');
 
 /**
  * Return the version incremented by the release type (major, minor, patch, or prerelease), or null if it's not valid.
