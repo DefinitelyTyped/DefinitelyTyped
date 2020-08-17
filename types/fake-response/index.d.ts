@@ -11,7 +11,7 @@ import * as express from "express";
 import { Server } from "http";
 import { Config, Db, Globals, Middleware, RouteResult, UserDB, Injectors } from "./model";
 import { Middlewares } from "./middlewares";
-export declare class FakeResponse extends Middlewares {
+export class FakeResponse extends Middlewares {
     app: express.Application;
     server: Server;
     availableRoutes: string[];
@@ -34,7 +34,7 @@ export declare class FakeResponse extends Middlewares {
     }>;
     createExpressApp: () => express.Application;
     startServer: (port?: number) => Promise<Server>;
-    stopServer: () => Promise<Boolean>;
+    stopServer: () => Promise<boolean>;
     loadResources: () => Promise<RouteResult[]>;
     private generateRoutes;
     private generateRoute;

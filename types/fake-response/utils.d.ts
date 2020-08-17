@@ -1,5 +1,5 @@
 import { DataType, Injectors, Middleware, ConfigDelay, ConfigMiddleware } from "./model";
-export declare class Utils {
+export class Utils {
     protected getInjector: (route: string, injectors: Injectors[], type: string) => Middleware | number | undefined;
     protected getConfigMiddleware: (middleware: any, d_middleware: any) => ConfigMiddleware;
     protected getConfigDelay: (delay: any, d_delay: any) => ConfigDelay;

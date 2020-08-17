@@ -1,9 +1,9 @@
 import * as express from "express";
 import { Middlewares } from "./middlewares";
-export declare type UserDB = string | Object | Db[];
+export type UserDB = string | object | Db[];
 export interface Db {
     _d_index?: number;
-    data?: string | DataUrl | Object;
+    data?: string | DataUrl | object;
     dataType?: DataType;
     routes: string | string[];
     middlewares?: Middleware | Array<Middleware | undefined>;
@@ -16,8 +16,8 @@ export interface DataUrl {
     url: string;
     config?: object;
 }
-export declare type DataType = "default" | "file" | "url";
-export declare type Middleware = (params: MiddlewareParams) => any;
+export type DataType = "default" | "file" | "url";
+export type Middleware = (params: MiddlewareParams) => any;
 export interface Config {
     port?: number;
     rootPath?: string;
@@ -81,5 +81,5 @@ export interface RouteResult {
     status: Status;
     error?: string;
 }
-export declare type Status = "success" | "failure";
+export type Status = "success" | "failure";
 export {};

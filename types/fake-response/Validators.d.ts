@@ -1,6 +1,6 @@
 import { Config, Db, Globals, Injectors, UserDB } from "./model";
 import { Utils } from "./utils";
-export declare class Validators extends Utils {
+export class Validators extends Utils {
     protected db?: UserDB;
     protected config?: Config;
     protected globals?: Globals;
