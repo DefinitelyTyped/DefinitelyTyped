@@ -19,9 +19,12 @@ const jsonObject: { [key: string]: unknown } = parser.toJson(xml, {
     arrayNotation: false,
 });
 
-type Foo = {}
+type Foo = {};
 
 const c: Foo = parser.toJson<Foo>(xml, { object: true });
+
+const c2 = parser.toJson<{ [key: string]: string }>(xml, { object: true });
+const c3 = parser.toJson<{ [key: string]: number }>(xml, { object: true });
 
 // json to xml with XmlOptions
 xml = parser.toXml(jsonObject, {
