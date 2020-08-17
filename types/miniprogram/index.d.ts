@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface AsyncCallbackFailObject {
-    errCode: string;
-    errorMessage: string;
+    error: number;
+    errorMessage?: string;
     [key: string]: string;
 }
 
