@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode, Ref as ElementRef } from 'react';
+import { ComponentType, ReactNode, RefCallback, MouseEventHandler, TouchEventHandler } from 'react';
 
 import { borderRadius, colors, spacing } from '../theme';
 import { CommonProps, OptionTypeBase, PropsWithStyles } from '../types';
