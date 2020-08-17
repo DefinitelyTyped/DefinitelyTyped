@@ -1,6 +1,7 @@
 /// <reference types="node" />
 
 import ejs = require('ejs');
+import utils = require('ejs/utils');
 import { readFileSync as read } from 'fs';
 import LRU = require('lru-cache');
 
@@ -78,3 +79,10 @@ const renderOptions: ejs.Options = {
     beautify: true,
     filename: fileName,
 };
+
+// utils and aliases
+utils.cache; // $ExpectType Cache
+ejs.cache; // $ExpectType Cache
+utils.escapeXML('<p>Some paragraph</p>'); // $ExpectType string
+ejs.escapeXML('<p>Some paragraph</p>'); // $ExpectType string
+utils.hyphenToCamel('hyphen-case'); // $ExpectType string

@@ -1,10 +1,10 @@
-// Type definitions for ejs 3.0
+// Type definitions for ejs 3.1
 // Project: http://ejs.co/, https://github.com/mde/ejs
 // Definitions by: Ben Liddicott <https://github.com/benliddicott>
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+import utils = require('./utils');
 
 export as namespace ejs;
 
@@ -72,7 +72,7 @@ export function clearCache(): void;
  * NPM module. By default, it is `utils.cache`, a simple in-process
  * cache that grows continuously.
  */
-export let cache: Cache;
+export let cache: typeof utils.cache;
 
 /**
  * Custom file loader. Useful for template preprocessing or restricting access
@@ -136,7 +136,7 @@ export let promiseImpl: PromiseConstructorLike | undefined;
  *
  * If `markup` is `undefined` or `null`, the empty string is returned.
  */
-export function escapeXML(markup?: any): string;
+export const escapeXML: typeof utils.escapeXML;
 
 export class Template {
     /**

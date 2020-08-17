@@ -45,3 +45,7 @@ const renderOptions: ejs.Options = {
     beautify: true,
     filename: './index.ejs',
 };
+
+// utils and aliases
+ejs.cache; // $ExpectType Cache
+ejs.escapeXML('<p>Some paragraph</p>'); // $ExpectType string
