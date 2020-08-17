@@ -1,17 +1,12 @@
-// Type definitions for @google-cloud/tasks 0.2
-// Project: https://github.com/googleapis/nodejs-tasks
-// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 
 import { Transform } from "stream";
-export type GoogleError = any;
-export type GoogleAuthOptions = any;
-export type CallOptions = any;
-export type GoogleAuth = any;
+import {
+  GoogleAuthOptions,
+  GoogleError,
+  CallOptions,
+  GoogleAuth
+} from "google-gax";
 
 export interface CloudTasksConfig extends GoogleAuthOptions {
   key?: string;
