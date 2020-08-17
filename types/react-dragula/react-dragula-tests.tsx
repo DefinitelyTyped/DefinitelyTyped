@@ -1,5 +1,5 @@
 import * as React from 'react';
-import dragula from 'react-dragula';
+import reactDragula from 'react-dragula';
 import { Drake } from 'dragula';
 
 function DraggableItemss() {
@@ -9,7 +9,7 @@ function DraggableItemss() {
     React.useEffect(() => {
         if (draggableContainer.current) {
             setDrake(
-                dragula([draggableContainer.current], {
+                reactDragula([draggableContainer.current], {
                     moves: (_el, _container, handle) => {
                         if (!handle) {
                             return false;
