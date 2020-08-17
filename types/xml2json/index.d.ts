@@ -7,7 +7,7 @@
 /// <reference types="node" />
 
 export function toJson(xml: string | Buffer, options?: { object?: false } & JsonOptions): string;
-export function toJson(xml: string | Buffer, options?: { object: true } & JsonOptions): { [key: string]: unknown };
+export function toJson<T extends { [key: string]: unknown }>(xml: string | Buffer, options?: { object: true } & JsonOptions): T;
 
 export function toXml(json: { [key: string]: unknown } | string | Buffer, options?: XmlOptions): string;
 
