@@ -1,15 +1,12 @@
 import { Widget } from './Widget';
 
-
 export interface CreateAttributes {
-    attributes: any
+    attributes: any;
 }
 
 export class Obj {
     constructor(arg: object);
 
-    //@ts-ignore
-    private readonly id: string;
     private readonly _createdAt: Date;
     private readonly _firstPublishedAt: Date;
     private readonly _lastChanged: Date;
@@ -29,7 +26,6 @@ export class Obj {
     static where(attribute: string, operator: any, value: string, boost?: any): Obj[];
 
     // Instance methods
-    //@ts-ignore
     id(): string;
     ancestors(): Obj[];
     backlings(): Obj[];
@@ -41,7 +37,7 @@ export class Obj {
     createdAt(): Date;
     destroy(): void;
     firstPublishedAt(): Date | null;
-    get(attributeName: string): any | null;
+    get(attributeName: string): unknown | null;
     isBinary(): boolean;
     isRestricted(): boolean;
     lastChanged(): Date | null;
@@ -52,7 +48,7 @@ export class Obj {
     permalink(): string | null;
     publishedAt(): Date | null;
     restrict(): void;
-    slug(): String;
+    slug(): string;
     unrestrict(): void;
     update(attributes: any): void;
     widget(id: string): Widget | null;

@@ -1,11 +1,8 @@
 import { Obj } from './Obj';
 
-
-
-export class Widget{
+export class Widget {
     constructor(arg: object);
-    //@ts-ignore
-    private readonly id: string;
+    private readonly _id: string;
     private _objClass: string;
 
     // Instace methods
@@ -13,10 +10,8 @@ export class Widget{
     copy(): void;
     destroy(): void;
     get(attributeName: string): any;
-     //@ts-ignore
     id(): string;
     obj(): Obj;
-    objClass(): String;
+    objClass(): string;
     update(attributes: any): void;
-
 }

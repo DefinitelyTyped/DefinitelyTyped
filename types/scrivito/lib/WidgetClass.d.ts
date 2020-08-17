@@ -1,17 +1,14 @@
 import { Widget } from './Widget';
 import { Attribute, AttributeWithOptions } from './Attribute';
 
-
-
 export interface WidgetClassOptions {
-    attributes: Record<string, Attribute | AttributeWithOptions>,
+    attributes: Record<string, Attribute | AttributeWithOptions>;
     extractTextAttributes?: string[];
     extend?: WidgetClass;
-    onlyInside?: string | string[]
+    onlyInside?: string | string[];
 }
 
 export type WidgetClass = typeof Widget;
 
-export class AbstractWidgetClass {
-    private constructor();
+export abstract class AbstractWidgetClass {
 }
