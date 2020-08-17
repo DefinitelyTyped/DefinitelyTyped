@@ -17,7 +17,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d_old.ts",
+        "index.d.ts",
         "fake-response-tests.ts"
     ]
 }
