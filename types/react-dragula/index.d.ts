@@ -5,6 +5,8 @@
 
 import { DragulaOptions, Drake } from 'dragula';
 
-declare module 'react-dragula' {
-    export default function dragula(containers: Array<HTMLElement>, options?: DragulaOptions): Drake;
-}
+export as namespace reactDragula;
+
+export = reactDragula;
+
+declare function reactDragula(containers: Array<HTMLElement>, options?: DragulaOptions): Drake;
