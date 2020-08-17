@@ -5,4 +5,6 @@
 
 import { DragulaOptions, Drake } from 'dragula';
 
-export default function dragula(containers: Array<HTMLElement>, options?: DragulaOptions): Drake;
+type dragula = (containers: Array<HTMLElement>, options?: DragulaOptions) => Drake;
+
+export = dragula;
