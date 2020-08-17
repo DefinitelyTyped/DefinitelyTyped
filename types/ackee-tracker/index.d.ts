@@ -1,6 +1,7 @@
 // Type definitions for ackee-tracker 4.0
 // Project: https://github.com/electerious/ackee-tracker
-// Definitions by: Spencer Elliott <https://github.com/elliottsj>
+// Definitions by: Pablo Sáez <https://github.com/PabloSzx>
+//                 Spencer Elliott <https://github.com/elliottsj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ServerDetails {
