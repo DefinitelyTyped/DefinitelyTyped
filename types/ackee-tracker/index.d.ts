@@ -1,39 +1,52 @@
 // Type definitions for ackee-tracker 4.0
 // Project: https://github.com/electerious/ackee-tracker
-// Definitions by: Spencer Elliott <https://github.com/me>
+// Definitions by: Spencer Elliott <https://github.com/elliottsj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-export as namespace myLib;
-
-/*~ If this module has methods, declare them as functions like so.
- */
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
-
-/*~ You can declare types that are available via importing the module */
-export interface someType {
-    name: string;
-    length: number;
-    extras?: string[];
+export interface ServerDetails {
+    server: string;
+    domainId: string;
 }
 
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
-
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
- */
-export namespace subProp {
-    /*~ For example, given this definition, someone could write:
-     *~   import { subProp } from 'yourModule';
-     *~   subProp.foo();
-     *~ or
-     *~   import * as yourMod from 'yourModule';
-     *~   yourMod.subProp.foo();
+export interface TrackingOptions {
+    /**
+     * Defaults to `true`
      */
-    function foo(): void;
+    ignoreLocalhost?: boolean;
+    /**
+     * Defaults to `false`
+     */
+    detailed?: boolean;
 }
+
+export interface AckeeInstance {
+    record: (attrs?: ReturnType<typeof attributes>) => { stop: () => void };
+}
+
+export interface DefaultData {
+    siteLocation: string;
+    siteReferrer: string;
+}
+
+// Based on https://github.com/bestiejs/platform.js/blob/master/platform.js
+export interface DetailedData {
+    siteLanguage: string;
+    screenWidth: number;
+    screenHeight: number;
+    screenColorDepth: number;
+    deviceName: string | null;
+    deviceManufacturer: string | null;
+    osName: string | null;
+    osVersion: string | null;
+    browserName: string | null;
+    browserVersion: string | null;
+    browserWidth: number;
+    browserHeight: number;
+}
+
+export function create(server: ServerDetails, options?: TrackingOptions): AckeeInstance;
+
+export function attributes(detailed?: false): DefaultData;
+export function attributes(detailed: true): DefaultData & DetailedData;
+
+export function detect(): void;
