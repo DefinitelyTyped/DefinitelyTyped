@@ -400,6 +400,18 @@ Sortable.create(simpleList, {
     },
 });
 
+Sortable.create(simpleList, {
+    handle: '.glyphicon-move',
+    animation: 150,
+    filter: '.disabled',
+    onMove: function(evt, originalEvent) {
+        if (evt.related.className.indexOf('disabled') !== -1) {
+            return false;
+        }
+        // Keep the default insertion place based on the direction.
+    },
+});
+
 // plugins
 const { AutoScroll, MultiDrag, OnSpill, Swap } = Sortable;
 Sortable.mount(new AutoScroll(), new MultiDrag(), new OnSpill(), new Swap());
