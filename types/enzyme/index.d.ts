@@ -414,6 +414,7 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
     ): ShallowWrapper<C2['props'], C2['state'], C2>;
     find(props: EnzymePropSelector): ShallowWrapper<any, any>;
     find(selector: string): ShallowWrapper<HTMLAttributes, any>;
+    find<P2>(componentName: string): ShallowWrapper<P2, any>;
 
     /**
      * Removes nodes in the current wrapper that do not match the provided selector.
@@ -549,8 +550,8 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
       componentClass: ComponentClass<C2['props']>,
     ): ReactWrapper<C2['props'], C2['state'], C2>;
     find(props: EnzymePropSelector): ReactWrapper<any, any>;
-    find<P2>(componentName: string): ReactWrapper<P2, any>;
     find(selector: string): ReactWrapper<HTMLAttributes, any>;
+    find<P2>(componentName: string): ReactWrapper<P2, any>;
 
     /**
      * Finds every node in the render tree that returns true for the provided predicate function.
