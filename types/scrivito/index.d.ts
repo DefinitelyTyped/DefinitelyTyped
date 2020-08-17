@@ -1,4 +1,4 @@
-// Type definitions for Scrivito 1.14.0
+// Type definitions for Scrivito 1.16.0
 // Project: https://www.scrivito.com/
 // Definitions by: Julian Krieger https://github.com/juliankrieger
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
