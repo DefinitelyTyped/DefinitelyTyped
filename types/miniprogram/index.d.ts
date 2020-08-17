@@ -7,7 +7,7 @@
 interface AsyncCallbackFailObject {
     error: number;
     errorMessage?: string;
-    [key: string]: string;
+    [key: string]: any;
 }
 
 interface AsyncCallback<T> {
