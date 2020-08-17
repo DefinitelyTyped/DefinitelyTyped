@@ -1,6 +1,7 @@
 // Type definitions for Azure Data Studio 1.21
 // Project: https://github.com/microsoft/azuredatastudio
 // Definitions by: Charles Gagnon <https://github.com/Charles-Gagnon>
+//                 Alan Ren: <https://github.com/alanrenmsft>
 //                 Anthony Dresser: <https://github.com/anthonydresser>
 //                 Karl Burtram: <https://github.com/kburtram>
 //                 Ken Van Hyning: <https://github.com/kenvanhyning>
