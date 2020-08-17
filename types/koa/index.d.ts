@@ -720,8 +720,9 @@ declare namespace Application {
     type Next = () => Promise<any>;
 
     /**
-     * Make HttpError available to consumers of the library so that consumers don't
-     * have a direct dependency upon `http-errors`
+     * A re-export of `HttpError` from the `http-assert` package.
+     *
+     * This is the error type that is thrown by `ctx.assert()` and `ctx.throw()`.
      */
     const HttpError: typeof HttpErrors.HttpError;
 }
