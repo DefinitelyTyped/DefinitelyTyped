@@ -23,6 +23,7 @@ export { Props, FormatOptionLabelMeta } from './src/Select';
 
 export { components, SelectComponentsConfig, IndicatorComponentType } from './src/components';
 export { IndicatorProps } from './src/components/indicators';
+export { IndicatorContainerProps } from './src/components/containers';
 export { ControlProps } from './src/components/Control';
 export { GroupProps } from './src/components/Group';
 export { InputProps } from './src/components/Input';
