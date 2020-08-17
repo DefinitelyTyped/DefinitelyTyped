@@ -4,7 +4,6 @@ import { borderRadius, colors, spacing } from '../theme';
 import { CommonProps, OptionTypeBase, PropsWithStyles } from '../types';
 
 export interface ControlProps<OptionType extends OptionTypeBase> extends CommonProps<OptionType> {
-    className?: string;
     innerRef: RefCallback<HTMLDivElement>;
     /** The mouse down event and the innerRef to pass down to the controller element. */
     innerProps: {
