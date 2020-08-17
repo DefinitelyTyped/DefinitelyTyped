@@ -549,6 +549,7 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
       componentClass: ComponentClass<C2['props']>,
     ): ReactWrapper<C2['props'], C2['state'], C2>;
     find(props: EnzymePropSelector): ReactWrapper<any, any>;
+    find<P2>(componentName: string): ReactWrapper<P2, any>;
     find(selector: string): ReactWrapper<HTMLAttributes, any>;
 
     /**

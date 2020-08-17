@@ -649,6 +649,7 @@ function ReactWrapperTest() {
 
     function test_find() {
         elementWrapper = reactWrapper.find('.selector');
+        anotherComponentWrapper = reactWrapper.find<AnotherComponentProps>("AnotherComponent");
         anotherComponentWrapper = reactWrapper.find(AnotherComponent);
         anotherStatelessWrapper = reactWrapper.find(AnotherStatelessComponent);
         reactWrapper = reactWrapper.find({ prop: 'myprop' });
