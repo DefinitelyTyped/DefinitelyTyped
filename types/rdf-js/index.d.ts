@@ -211,7 +211,7 @@ export interface BaseQuad {
    * @param other The term to compare with.
    * @return True if and only if the argument is a) of the same type b) has all components equal.
    */
-  equals(other: BaseQuad | Term | null | undefined): boolean;
+  equals(other: Term | null | undefined): boolean;
 }
 
 /**
