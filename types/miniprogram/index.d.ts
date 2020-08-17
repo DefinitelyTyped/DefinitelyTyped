@@ -5,9 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface AsyncCallbackFailObject {
-    errCode: string;
-    errorMessage: string;
-    [key: string]: string;
+    error: number;
+    errorMessage?: string;
+    [key: string]: any;
 }
 
 interface AsyncCallback<T> {
