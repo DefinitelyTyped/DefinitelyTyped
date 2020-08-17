@@ -3,7 +3,8 @@ import * as parser from 'xml2json';
 let xml = '<foo attr="value">bar</foo>';
 
 // xml to json
-const jsonString: string = parser.toJson(xml);
+const a: string = parser.toJson(xml);
+const b: string = parser.toJson(xml, { object: false });
 
 // json to xml
 xml = parser.toXml(jsonString);
@@ -18,8 +19,9 @@ const jsonObject: { [key: string]: unknown } = parser.toJson(xml, {
     arrayNotation: false,
 });
 
-const a = parser.toJson(xml, { object: true }) as { [key: string]: string };
-const b = parser.toJson<Record<string, number>>(xml, { object: true });
+type Foo = {}
+
+const c: Foo = parser.toJson<Foo>(xml, { object: true });
 
 // json to xml with XmlOptions
 xml = parser.toXml(jsonObject, {
