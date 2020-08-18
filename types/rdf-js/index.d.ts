@@ -219,15 +219,6 @@ export interface BaseQuad {
  */
 export interface Quad extends BaseQuad {
     /**
-     * Contains the constant "Quad".
-     */
-    termType: "Quad";
-    /**
-     * Contains an empty string as constant value.
-     */
-    value: "";
-
-    /**
      * The subject.
      * @see Quad_Subject
      */
