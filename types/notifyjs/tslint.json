@@ -1,6 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        "npm-naming": false,
         "ban-types": false,
         "callable-types": false,
         "comment-format": false,

@@ -5,7 +5,7 @@
 //                 eikendev <https://github.com/eikendev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class Notify {
+export default class Notify {
     constructor(title: string, options?: INotifyOption);
 
     /**
@@ -115,4 +115,3 @@ export interface INotifyOption {
      */
     requireInteraction?: boolean;
 }
-export default Notify
