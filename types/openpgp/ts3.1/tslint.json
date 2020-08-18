@@ -8,10 +8,21 @@
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
         "no-redundant-jsdoc": false,
+        "no-trailing-whitespace": false,
         "no-var-keyword": false,
-        "only-arrow-functions": false,
+        "npm-naming": [
+            true,
+            {
+                "errors": [
+                    [
+                        "NeedsExportEquals",
+                        false
+                    ]
+                ],
+                "mode": "code"
+            }
+        ],
         "prefer-const": false,
-        "semicolon": false,
-        "space-before-function-paren": false
+        "semicolon": false
     }
 }
