@@ -20,8 +20,7 @@ eventSource.dispatchEvent = (event: Event) => true;
 eventSource.removeEventListener = (type: string, listener: EventListener) => {};
 eventSource.close();
 
-// tslint:disable-next-line:no-relative-import-in-test Rule does not apply to nested typesVersions tests
-import EventSourcePolyfill = require("../lib/eventsource-polyfill");
+import EventSourcePolyfill = require("eventsource/lib/eventsource-polyfill");
 
 const eventSourcePolyfill = new EventSourcePolyfill("http://foobar");
 readyState = eventSourcePolyfill.readyState;
