@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 1.14
+// Type definitions for non-npm package microsoft-graph 1.16
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -2511,6 +2511,7 @@ export interface Application extends DirectoryObject {
     identifierUris?: string[];
     // The date and time the application was registered. Read-only.
     createdDateTime?: NullableOption<string>;
+    description?: NullableOption<string>;
     // Specifies settings for installed clients such as desktop or mobile devices.
     publicClient?: NullableOption<PublicClientApplication>;
     // The display name for the application.
@@ -2533,6 +2534,7 @@ export interface Application extends DirectoryObject {
     keyCredentials?: KeyCredential[];
     // The main logo for the application. Not nullable.
     logo?: any;
+    notes?: NullableOption<string>;
     oauth2RequirePostResponse?: boolean;
     /**
      * Application developers can configure optional claims in their Azure AD apps to specify which claims they want in tokens
@@ -3289,6 +3291,7 @@ export interface ServicePrincipal extends DirectoryObject {
     alternativeNames?: string[];
     // The display name exposed by the associated application.
     appDisplayName?: NullableOption<string>;
+    appDescription?: NullableOption<string>;
     // The unique identifier for the associated application (its appId property).
     appId?: NullableOption<string>;
     // Unique identifier of the applicationTemplate that the servicePrincipal was created from. Read-only.
@@ -3308,6 +3311,7 @@ export interface ServicePrincipal extends DirectoryObject {
      * property definition on the application entity. Not nullable.
      */
     appRoles?: AppRole[];
+    description?: NullableOption<string>;
     // The display name for the service principal.
     displayName?: NullableOption<string>;
     // Home page or landing page of the application.
@@ -3332,6 +3336,7 @@ export interface ServicePrincipal extends DirectoryObject {
      * front-channel, back-channel or SAML logout protocols.
      */
     logoutUrl?: NullableOption<string>;
+    notes?: NullableOption<string>;
     /**
      * Specifies the list of email addresses where Azure AD sends a notification when the active certificate is near the
      * expiration date. This is only for the certificates used to sign the SAML token issued for Azure AD Gallery
@@ -9447,13 +9452,13 @@ export interface TeamsApp extends Entity {
     externalId?: NullableOption<string>;
     // The name of the catalog app provided by the app developer in the Microsoft Teams zip app package.
     displayName?: NullableOption<string>;
-    // The method of distribution for the app.
+    // The method of distribution for the app. Read-only.
     distributionMethod?: NullableOption<TeamsAppDistributionMethod>;
     // The details for each version of the app.
     appDefinitions?: NullableOption<TeamsAppDefinition[]>;
 }
 export interface TeamsAppDefinition extends Entity {
-    // The id from the Teams App manifest.
+    // The ID from the Teams app manifest.
     teamsAppId?: NullableOption<string>;
     // The name of the app provided by the app developer.
     displayName?: NullableOption<string>;
