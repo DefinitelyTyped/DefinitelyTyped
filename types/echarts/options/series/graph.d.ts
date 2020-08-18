@@ -311,6 +311,18 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.force.layoutAnimation
                  */
                 layoutAnimation?: boolean;
+
+                /**
+                 * It will slow down the nodes' movement. The value range is from 0 to 1.
+                 * But it is still an experimental option, see [#11024](https://github.com/apache/incubator-echarts/issues/11024).
+                 *
+                 * Since v4.5.0
+                 *
+                 * @default
+                 * 0.6
+                 * @see https://echarts.apache.org/en/option.html#series-graph.force.friction
+                 */
+                friction?: number;
             };
 
             /**
