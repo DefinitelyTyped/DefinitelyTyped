@@ -7,6 +7,8 @@ import VariableExt = require('./Variable');
 import DefaultGraphExt = require('./DefaultGraph');
 
 interface QuadExt extends Quad {
+  termType: 'Quad';
+  value: '';
   subject: NamedNodeExt | BlankNodeExt | VariableExt;
   predicate: NamedNodeExt | VariableExt;
   object: NamedNodeExt | LiteralExt | BlankNodeExt | VariableExt;
