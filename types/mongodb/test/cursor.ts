@@ -48,7 +48,7 @@ async function run() {
   const typedCollection = db.collection<TypedDoc>('test');
   typedCollection.find({name: 'name'}, {}).map(x => x.tag);
   typedCollection.find({'tag.name': 'name'}, {});
-  typedCollection.find({'tag.name': 'name'}, {projection: {name: 1, max: {$max: []}}})
+  typedCollection.find({'tag.name': 'name'}, {projection: {'tag.name': 1, max: {$max: []}}})
     .sort({score: {$meta: 'textScore'}})
     .map(x => x.tag);
   typedCollection.find({'tag.name': 'name'}, {projection: {name: 1, max: {$max: []}}}).toArray().then(docs => {
