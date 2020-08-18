@@ -22,3 +22,9 @@ t.post('lists/members/create_all', {
     list_id: '1',
     user_id: '1,2,3'
 });
+
+t.post('lists/create', {
+    name: 'foo',
+    description: 'foobar',
+    mode: 'public'
+});

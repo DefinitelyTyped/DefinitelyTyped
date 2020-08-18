@@ -311,6 +311,9 @@ declare module 'twit' {
             page?: number;
             auto_populate_reply_metadata?: boolean;
             list_id?: number | string;
+            name?: string;
+            description?: string;
+            mode?: string;
         }
         export interface PromiseResponse {
             data: Response;
