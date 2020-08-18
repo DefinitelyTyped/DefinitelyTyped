@@ -28,10 +28,10 @@ const sliceBoundThisAndStart = expectType<(end?: number) => any[]>(
 slice(['a']);
 
 // $ExpectType (...args: string[]) => boolean
-bind.call(Boolean, null, String(), '2', '3', '4', '5');
+expectType<(...args: string[]) => boolean>(bind.call(Boolean, null, String(), '2', '3', '4', '5'));
 
 // $ExpectType (...args: string[]) => boolean
-bind.apply(Boolean, [null, '1', '2', '3', '4', '5']);
+expectType<(...args: string[]) => boolean>(bind.apply(Boolean, [null, '1', '2', '3', '4', '5']));
 
 // Class compatibility:
 class Foo {
