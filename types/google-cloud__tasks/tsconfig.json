@@ -9,8 +9,8 @@
         "paths": {
             "@google-cloud/tasks": ["google-cloud__tasks"]
         },
-        "baseUrl": "../../",
-        "typeRoots": ["../../"],
+        "baseUrl": "../",
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
