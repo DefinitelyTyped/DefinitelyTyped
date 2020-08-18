@@ -340,6 +340,7 @@ const AttrsWithOnlyNewProps = styled.h2.attrs({ as: "h1" })`
 
 const AttrsInputExtra = styled(AttrsInput).attrs({ autoComplete: "off" })``;
 <AttrsInputExtra />;
+
 /**
  * withConfig
  */
@@ -474,11 +475,10 @@ class MyComponent extends React.Component<ThemeProps<{}>> {
 
 const ThemedMyComponent = withTheme(MyComponent);
 
-// TODO: passes in TS@3.1, not in TS@3.0
-// <ThemedMyComponent ref={ref => {
-//     // $ExpectType MyComponent | null
-//     ref;
-// }}/>;
+<ThemedMyComponent ref={ref => {
+    // $ExpectType MyComponent | null
+    ref;
+}}/>;
 const themedRef = React.createRef<MyComponent>();
 <ThemedMyComponent ref={themedRef} />;
 
@@ -680,9 +680,7 @@ class Test2Container extends React.Component<Test2ContainerProps> {
 }
 
 const containerTest = (
-    // TODO (TypeScript 3.2): once the polymorphic overload is un-commented-out this should be the correct test
-    // <StyledTestContainer as={Test2Container} type='foo' />
-    <StyledTestContainer as={Test2Container} size="small" />
+    <StyledTestContainer as={Test2Container} type='foo' />
 );
 
 // 4.0 refs
@@ -782,6 +780,22 @@ async function typedThemes() {
         ${themedCssWithNesting}
     `;
 
+    const WithProp = styled.div`
+        ${({ ok, theme: { color } }: { ok: boolean; theme: typeof theme }) =>
+            ok &&
+            css`
+                color: ${color};
+            `}
+    `;
+
+    const WithPropNested = styled.div`
+        ${({ ok }: { ok: boolean }) =>
+            ok &&
+            css`
+                color: ${({ theme: { color } }) => color};
+            `}
+    `;
+
     return (
         <ThemeProvider theme={theme}>
             <>
@@ -796,6 +810,8 @@ async function typedThemes() {
                         return theme.color;
                     }}
                 </ThemeConsumer>
+                <WithProp ok />
+                <WithPropNested ok />
             </>
         </ThemeProvider>
     );
@@ -1039,8 +1055,7 @@ function validateDefaultProps() {
         color: red
     `;
 
-    // this test is failing in TS 2.9 but not in 3.0
-    // <MyComponent requiredProp />;
+    <MyComponent requiredProp />;
 
     <StyledComponent requiredProp optionalProp="x" />;
 
@@ -1061,8 +1076,7 @@ function validateDefaultProps() {
         { requiredProp: true }
     );
 
-    // this test is failing in TS 3.1 but not in 3.2
-    // <OtherStyledComponent />;
+    <OtherStyledComponent />;
 
     <OtherStyledComponent requiredProp="1" />; // $ExpectError
 }
@@ -1101,7 +1115,7 @@ function staticPropertyPassthrough() {
     interface BProps { b?: string; }
     interface BState { b?: string; }
     class A extends React.Component<AProps> {}
-    class B extends React.Component<BProps, BState> {
+    class B extends React.Component {
         static A = A;
         PUBLIC = 'PUBIC_VAL';
         static F = (props: BProps, state: BState) => props && state;
@@ -1109,14 +1123,21 @@ function staticPropertyPassthrough() {
             return state;
         }
     }
+    // Test FunctionComponent as well which can't be tested in <= TS 3.0
+    const C: React.FC & { A: typeof A; F: () => void } = () => <div></div>;
+    C.A = A;
+    C.F = () => {};
     const StyledB = styled(B)``;
+    const StyledC = styled(C)``;
     <StyledB.A />; // $ExpectError
     <StyledB.A a='a' />; // $ExpectError
     <StyledB.A a={0} />;
     StyledB.PUBLIC; // $ExpectError
     StyledB.componentDidMount(); // $ExpectError
-    StyledB.F({ b: 'b' } , { b: 'b' });
+    StyledB.F({ b: 'b' } , {  b: 'b' });
     StyledB.getDerivedStateFromProps({ b: 'b' } , { b: 'b' }); // $ExpectError
+    <StyledC.A a={0} />;
+    StyledC.F();
 }
 
 function unionTest() {
