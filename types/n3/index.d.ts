@@ -24,7 +24,7 @@ export type PrefixedToIri = (suffix: string) => NamedNode;
 export class NamedNode<Iri extends string = string> implements RDF.NamedNode<Iri> {
     readonly termType: "NamedNode";
     readonly value: Iri;
-    constructor(iri: string);
+    constructor(iri: Iri);
     readonly id: string;
     toJSON(): {};
     equals(other: RDF.Term): boolean;
