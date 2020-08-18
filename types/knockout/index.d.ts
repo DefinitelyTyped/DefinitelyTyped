@@ -10,7 +10,6 @@
 //                 Retsam <https://github.com/Retsam>
 //                 Rey Pena <https://github.com/ReyPena>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 interface KnockoutSubscribableFunctions<T> {
     /**
@@ -286,6 +285,7 @@ interface KnockoutObservableStatic {
     fn: KnockoutObservableFunctions<any>;
 
     <T>(value: T): KnockoutObservable<T>;
+    <T>(value: any): KnockoutObservable<T>;
     <T = any>(value: null): KnockoutObservable<T | null>
     <T = any>(): KnockoutObservable<T | undefined>
 }
