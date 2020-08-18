@@ -1,5 +1,5 @@
-import * as React from 'react';
-import reactDragula from 'react-dragula';
+import React = require('react');
+import reactDragula = require('react-dragula');
 import { Drake } from 'dragula';
 
 function DraggableItemss() {
