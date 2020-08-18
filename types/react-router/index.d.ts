@@ -20,6 +20,8 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
 //                 Pawel Fajfer <https://github.com/pawfa>
+//                 Nathan Weber <https://github.com/nweber-gh>
+//                 Bryan Wain <https://github.com/bdwain>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -152,6 +154,12 @@ export interface WithRouterStatics<C extends React.ComponentType<any>> {
 // you will see a bunch of errors from TypeScript. The current workaround is to use withRouter() as a function call
 // on a separate line instead of as a decorator.
 export function withRouter<P extends RouteComponentProps<any>, C extends React.ComponentType<P>>(
+    component: C & React.ComponentType<P>,
+): React.ComponentClass<Omit<P, keyof RouteComponentProps<any>> & WithRouterProps<C>> & WithRouterStatics<C>;
+
+// Add a `Partial` as an overload so that components are capable of defining their shape instead
+// of the HOC forcing a shape onto components.
+export function withRouter<P extends Partial<RouteComponentProps<any>>, C extends React.ComponentType<P>>(
     component: C & React.ComponentType<P>,
 ): React.ComponentClass<Omit<P, keyof RouteComponentProps<any>> & WithRouterProps<C>> & WithRouterStatics<C>;
 

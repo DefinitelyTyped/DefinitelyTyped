@@ -2,16 +2,61 @@ import * as React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { StaticContext } from 'react-router';
 
+interface TPartialProps extends Partial<RouteComponentProps> {
+    username: string;
+}
+
+const PartialComponentFunction = (props: TPartialProps) => (
+    props.location
+        ? <h2>Welcome {props.username} from {props.location.pathname}</h2>
+        : <h2>Welcome {props.username}</h2>
+);
+
+const PartialFunctionComponent: React.FunctionComponent<TPartialProps> = props => (
+    <h2>Welcome {props.username}</h2>
+);
+
+class PartialComponentClass extends React.Component<TPartialProps> {
+    render() {
+        return <h2>Welcome {this.props.username}</h2>;
+    }
+}
+
+const TestComponent = () => (
+    <PartialComponentFunction username="foobar" />
+);
+
+const PartialWithRouterComponentFunction = withRouter(PartialComponentFunction);
+const PartialWithRouterFunctionComponent = withRouter(PartialFunctionComponent);
+const PartialWithRouterComponentClass = withRouter(PartialComponentClass);
+PartialWithRouterComponentClass.WrappedComponent; // $ExpectType typeof PartialComponentClass
+
+// can use unwrapped component with partials
+{
+    type FooProps = { username: string } & Partial<RouteComponentProps>;
+
+    const FooComp: React.FC<FooProps> = props => {
+        props.location; // $ExpectType Location<UnknownFacade> | undefined
+        props.history; // $ExpectType History<UnknownFacade> | undefined
+
+        return <div>user: {props.username}</div>;
+    };
+
+    const RoutedFoo = withRouter(FooComp);
+
+    <FooComp username="Joe" />;
+}
+
 interface TOwnProps extends RouteComponentProps {
     username: string;
 }
 
 const ComponentFunction = (props: TOwnProps) => (
-    <h2>Welcome {props.username}</h2>
+    <h2>Welcome {props.username} from {props.location.pathname}</h2>
 );
 
 const FunctionComponent: React.FunctionComponent<TOwnProps> = props => (
-  <h2>Welcome {props.username}</h2>
+    <h2>Welcome {props.username}</h2>
 );
 
 class ComponentClass extends React.Component<TOwnProps> {
@@ -56,7 +101,7 @@ const WithRouterTestClass2 = () => <WithRouterComponentClass username="John" wra
 
     type SomethingToRead = (Book | Magazine) & RouteComponentProps<{}, StaticContext, State>;
 
-    const Readable: React.SFC<SomethingToRead> = props => {
+    const Readable: React.FC<SomethingToRead> = props => {
         props.location.state; // $ExpectType State
         props.history.location.state; // $ExpectType State
 
