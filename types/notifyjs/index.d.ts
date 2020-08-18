@@ -57,7 +57,7 @@ declare class Notify {
 /**
  * Interface for the Notify's optional parameter.
  */
-interface INotifyOption {
+export interface INotifyOption {
 
     /**
      * notification message body
@@ -115,4 +115,4 @@ interface INotifyOption {
      */
     requireInteraction?: boolean;
 }
-export = Notify
+export default Notify
