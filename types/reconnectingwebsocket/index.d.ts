@@ -1,13 +1,3 @@
-// Type definitions for reconnectingwebsocket 1.0
-// Project: https://github.com/joewalnes/reconnecting-websocket
-// Definitions by: Nicholas Guarracino <https://github.com/nguarracino>
-//                 AppLover69 <https://github.com/AppLover69>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-type GlobalMessageEvent = MessageEvent;
-type GlobalCloseEvent = CloseEvent;
-
 declare namespace ReconnectingWebSocket {
     interface Options {
         /**
@@ -20,7 +10,7 @@ declare namespace ReconnectingWebSocket {
          * The binary type, possible values `'blob'` or `'arraybuffer'`.
          * @default `'blob'`
          */
-        binaryType?: WebSocket['binaryType'];
+        binaryType?: globalThis.WebSocket['binaryType'];
         /**
          * Whether this instance should log debug messages.
          * @default `false`
@@ -57,28 +47,28 @@ declare namespace ReconnectingWebSocket {
         timeoutInterval?: number;
     }
 
-    interface OpenEvent extends CustomEvent {
+    interface OpenEvent extends CustomEvent<undefined> {
         type: 'open';
         isReconnect: boolean;
     }
 
-    interface CloseEvent extends CustomEvent {
+    interface CloseEvent extends CustomEvent<undefined> {
         type: 'close';
     }
 
-    interface ConnectingEvent extends CustomEvent {
+    interface ConnectingEvent extends CustomEvent<undefined> {
         type: 'connecting';
-        code: GlobalCloseEvent['code'];
-        reason: GlobalCloseEvent['reason'];
-        wasClean: GlobalCloseEvent['wasClean'];
+        code: globalThis.CloseEvent['code'];
+        reason: globalThis.CloseEvent['reason'];
+        wasClean: globalThis.CloseEvent['wasClean'];
     }
 
-    interface MessageEvent extends CustomEvent {
+    interface MessageEvent extends CustomEvent<undefined> {
         type: 'message';
-        data: GlobalMessageEvent['data'];
+        data: globalThis.MessageEvent['data'];
     }
 
-    interface ErrorEvent extends CustomEvent {
+    interface ErrorEvent extends CustomEvent<undefined> {
         type: 'error';
     }
 
@@ -136,10 +126,10 @@ declare class ReconnectingWebSocket extends EventTarget {
      */
     static debugAll: boolean;
 
-    static CONNECTING: WebSocket['CONNECTING'];
-    static OPEN: WebSocket['OPEN'];
-    static CLOSING: WebSocket['CLOSING'];
-    static CLOSED: WebSocket['CLOSED'];
+    static CONNECTING: globalThis.WebSocket['CONNECTING'];
+    static OPEN: globalThis.WebSocket['OPEN'];
+    static CLOSING: globalThis.WebSocket['CLOSING'];
+    static CLOSED: globalThis.WebSocket['CLOSED'];
 
     /**
      * An event listener to be called when the WebSocket connection's `readyState` changes to `OPEN`;
@@ -172,7 +162,7 @@ declare class ReconnectingWebSocket extends EventTarget {
      * Closes the WebSocket connection or connection attempt, if any.
      * If the connection is already `CLOSED`, this method does nothing.
      */
-    close: WebSocket['close'];
+    close: globalThis.WebSocket['close'];
     open(reconnectAttempt?: boolean): void;
     /**
      * Additional public API method to refresh the connection if still open (close, re-open).
@@ -180,7 +170,7 @@ declare class ReconnectingWebSocket extends EventTarget {
      */
     refresh(): void;
     /** Transmits data to the server over the WebSocket connection. */
-    send: WebSocket['send'];
+    send: globalThis.WebSocket['send'];
 
     /**
      * Whether or not the WebSocket should attempt to connect immediately upon instantiation.
@@ -219,21 +209,21 @@ declare class ReconnectingWebSocket extends EventTarget {
     /**
      * The binary type, possible values `'blob'` or `'arraybuffer'`.
      */
-    readonly binaryType: WebSocket['binaryType'];
+    readonly binaryType: globalThis.WebSocket['binaryType'];
     /**
      * The current state of the connection.
      * Can be one of: `WebSocket.CONNECTING`, `WebSocket.OPEN`, `WebSocket.CLOSING`, `WebSocket.CLOSED`.
      */
-    readonly readyState: WebSocket['readyState'];
+    readonly readyState: globalThis.WebSocket['readyState'];
     /**
      * A string indicating the name of the sub-protocol the server selected; this will be one of
      * the strings specified in the protocols parameter when creating the `WebSocket` object.
      */
-    readonly protocol: WebSocket['protocol'] | null;
+    readonly protocol: globalThis.WebSocket['protocol'] | null;
     /**
      * The URL as resolved by the constructor. This is always an absolute URL.
      */
-    readonly url: WebSocket['url'];
+    readonly url: globalThis.WebSocket['url'];
 }
 
 export = ReconnectingWebSocket;
