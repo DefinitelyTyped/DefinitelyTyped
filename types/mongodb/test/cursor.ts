@@ -34,10 +34,27 @@ async function run() {
     .stream();
 
   collection.find().project({});
-  collection.find().project({notExistingField: 1});
-  collection.find().sort({'fruitTags.name': -1, numberField: -1, notExistingField: -1});
+  collection.find().project({notExistingField: 1, });
   collection.find().sort({text: {$meta: 'textScore'}, notExistingField: -1});
   collection.find().sort({});
+
+  interface TypedDoc {
+    name: string;
+    age: number;
+    tag: {
+      name: string;
+    }
+  }
+  const typedCollection = db.collection<TypedDoc>('test')
+  typedCollection.find({name: 'name'}, {}).map(x => x.tag)
+  typedCollection.find({'tag.name': 'name'}, {})
+  typedCollection.find({'tag.name': 'name'}, {projection: {name: 1, max: {$max: []}}})
+    .sort({score: {$meta: 'textScore'}})
+    .map(x => x.tag)
+
+  typedCollection.find().project({name: 1})
+  typedCollection.find().project({notExistingField: 1})
+  typedCollection.find().project({max: {$max: []}})
 
   for await (const item of cursor) {
     item.foo; // $ExpectType number
