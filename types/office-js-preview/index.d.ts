@@ -11951,7 +11951,7 @@ declare namespace Office {
          * and calls `setSignatureAsync` in the event handler, the following behavior applies.
          *
          * - When the user composes a new item (including reply or forward), the signature is set but doesn't modify the form. This means
-         * if the user closes the form without making other edits, they won't be prompted to save changes and a draft won't be created.
+         * if the user closes the form without making other edits, they won't be prompted to save changes.
          *
          * [Api set: Mailbox Preview]
          *
@@ -11988,7 +11988,7 @@ declare namespace Office {
          * and calls `setSignatureAsync` in the event handler, the following behavior applies.
          *
          * - When the user composes a new item (including reply or forward), the signature is set but doesn't modify the form. This means
-         * if the user closes the form without making other edits, they won't be prompted to save changes and a draft won't be created.
+         * if the user closes the form without making other edits, they won't be prompted to save changes.
          *
          * [Api set: Mailbox Preview]
          *
