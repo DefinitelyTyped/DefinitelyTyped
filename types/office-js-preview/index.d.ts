@@ -11621,8 +11621,7 @@ declare namespace Office {
          * **Important**: If your add-in implements the on-send feature and calls `appendOnSendAsync` in the `ItemSend` handler,
          * the `appendOnSendAsync` call returns an error as this scenario is not supported.
          *
-         * **Important**: To use `appendOnSendAsync`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node
-         * of the manifest.
+         * **Important**: To use `appendOnSendAsync`, the `ExtendedPermissions` manifest node must include the `AppendOnSend` extended permission.
          *
          * **Note**: To clear data from a previous `appendOnSendAsync` call, you can call it again with the `data` parameter set to `null`.
          *
@@ -11660,8 +11659,7 @@ declare namespace Office {
          * **Important**: If your add-in implements the on-send feature and calls `appendOnSendAsync` in the `ItemSend` handler,
          * the `appendOnSendAsync` call returns an error as this scenario is not supported.
          *
-         * **Important**: To use `appendOnSendAsync`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node
-         * of the manifest.
+         * **Important**: To use `appendOnSendAsync`, the `ExtendedPermissions` manifest node must include the `AppendOnSend` extended permission.
          *
          * **Note**: To clear data from a previous `appendOnSendAsync` call, you can call it again with the `data` parameter set to `null`.
          *
@@ -11950,11 +11948,10 @@ declare namespace Office {
          *
          * **Important**: If your add-in implements the 
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation feature using `LaunchEvent` in the manifest},
-         * and calls `setSignatureAsync` in the event handler, the following behaviors apply.
+         * and calls `setSignatureAsync` in the event handler, the following behavior applies.
          *
-         * - If the user is editing a meeting, the `setSignatureAsync` call returns an error.
          * - When the user composes a new item (including reply or forward), the signature is set but doesn't modify the form. This means
-         * if the user closes the form without making other edits, they won't be prompted to save changes.
+         * if the user closes the form without making other edits, they won't be prompted to save changes and a draft won't be created.
          *
          * [Api set: Mailbox Preview]
          *
@@ -11988,11 +11985,10 @@ declare namespace Office {
          *
          * **Important**: If your add-in implements the 
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation feature using `LaunchEvent` in the manifest},
-         * and calls `setSignatureAsync` in the event handler, the following behaviors apply.
+         * and calls `setSignatureAsync` in the event handler, the following behavior applies.
          *
-         * - If the user is editing a meeting, the `setSignatureAsync` call returns an error.
          * - When the user composes a new item (including reply or forward), the signature is set but doesn't modify the form. This means
-         * if the user closes the form without making other edits, they won't be prompted to save changes.
+         * if the user closes the form without making other edits, they won't be prompted to save changes and a draft won't be created.
          *
          * [Api set: Mailbox Preview]
          *
