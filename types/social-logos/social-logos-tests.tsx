@@ -10,11 +10,11 @@ import * as React from 'react';
 import SocialLogo from 'social-logos';
 
 export default class SocialLogos extends React.PureComponent {
-    public makeHandleClick = (icon: string) => () => {
+    makeHandleClick = (icon: string) => () => {
         alert(`click ${icon}`);
-    };
+    }
 
-    public render() {
+    render() {
         return (
             <div>
                 <SocialLogo icon="amazon" size={48} onClick={this.makeHandleClick('amazon')} />
