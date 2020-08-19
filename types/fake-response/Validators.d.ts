@@ -1,5 +1,5 @@
-import { Config, Db, Globals, Injectors, UserDB } from "./model";
-import { Utils } from "./utils";
+import { Config, Db, Globals, Injectors, UserDB } from './model';
+import { Utils } from './utils';
 export class Validators extends Utils {
     protected db?: UserDB;
     protected config?: Config;
@@ -7,12 +7,17 @@ export class Validators extends Utils {
     protected injectors?: Injectors[];
     isValidated: boolean;
     constructor(db?: UserDB, config?: Config, globals?: Globals, injectors?: Injectors[]);
-    loadData: (userDb?: Db[] | object | string, userConfig?: Config, userGlobals?: Globals, userInjectors?: Injectors[]) => void;
-    getValidData: (db?: UserDB, config?: Config, globals?: Globals, injectors?: Injectors[]) => {
-        valid_db: Db[];
-        valid_config: Config;
-        valid_globals: Globals;
-        valid_injectors: Injectors[];
+    setData: (
+        userDb?: Db[] | object | string,
+        userConfig?: Config,
+        userGlobals?: Globals,
+        userInjectors?: Injectors[],
+    ) => void;
+    getData: () => {
+        db: UserDB;
+        config: Config;
+        globals: Globals;
+        injectors: Injectors[];
     };
     getValidConfig: (config?: Config) => Config;
     getValidGlobals: (globals?: Globals) => Globals;
@@ -21,9 +26,7 @@ export class Validators extends Utils {
     getValidDbList: (db?: Db[], injectors?: Injectors[]) => Db[];
     transformJson: (data?: object | string, injectors?: Injectors[]) => Db[];
     isValidURL: (str: string) => boolean;
-    emptyMiddleware: ({ next }: {
-        next: any;
-    }) => void;
+    emptyMiddleware: ({ next }: { next: any }) => void;
     parseUrl: (relativeUrl: string) => string;
     isDirectoryExist: (value: any) => any;
 }

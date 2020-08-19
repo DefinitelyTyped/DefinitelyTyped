@@ -7,10 +7,10 @@
 
 export as namespace FakeResponse;
 
-import * as express from "express";
-import { Server } from "http";
-import { Config, Db, Globals, Middleware, RouteResult, UserDB, Injectors } from "./model";
-import { Middlewares } from "./middlewares";
+import * as express from 'express';
+import { Server } from 'http';
+import { Config, Db, Globals, Middleware, RouteResult, UserDB, Injectors } from './model';
+import { Middlewares } from './middlewares';
 export class FakeResponse extends Middlewares {
     app: express.Application;
     server: Server;
@@ -41,8 +41,4 @@ export class FakeResponse extends Middlewares {
     createRoute: (data: any, route: string, dataType?: string, middleware?: Middleware, delay?: number) => void;
     private getMiddlewareList;
     createDefaultRoutes: () => void;
-    getDb: () => UserDB;
-    getConfig: () => Config;
-    getGlobals: () => Globals;
-    getInjectors: () => Injectors[];
 }

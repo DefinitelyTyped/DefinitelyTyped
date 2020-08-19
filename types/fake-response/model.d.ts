@@ -1,5 +1,5 @@
-import * as express from "express";
-import { Middlewares } from "./middlewares";
+import * as express from 'express';
+import { Middlewares } from './middlewares';
 export type UserDB = string | object | Db[];
 export interface Db {
     _d_index?: number;
@@ -16,12 +16,15 @@ export interface DataUrl {
     url: string;
     config?: object;
 }
-export type DataType = "default" | "file" | "url";
+export type DataType = 'default' | 'file' | 'url';
 export type Middleware = (params: MiddlewareParams) => any;
 export interface Config {
     port?: number;
     rootPath?: string;
     env?: string;
+    proxy?: {
+        [key: string]: string;
+    };
     excludeRoutes?: string[];
     middleware?: Middleware | ConfigMiddleware;
     delay?: number | ConfigDelay;
@@ -81,5 +84,5 @@ export interface RouteResult {
     status: Status;
     error?: string;
 }
-export type Status = "success" | "failure";
+export type Status = 'success' | 'failure';
 export {};
