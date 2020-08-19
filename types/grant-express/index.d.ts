@@ -7,25 +7,28 @@
 
 import express = require('express');
 
-export function grant(providers: { defaults: DefaultOptions } | ProvidersOptions): express.RequestHandler;
+export = grant;
 
-type Provider = string;
+declare function grant(providers: { defaults: grant.DefaultOptions } | grant.ProvidersOptions): express.RequestHandler;
+declare namespace grant {
+    export type Provider = string;
 
-type ProvidersOptions = {
-    [key in Provider]?: GrantOptions;
-};
+    export type ProvidersOptions = {
+        [key in Provider]?: GrantOptions;
+    };
 
-interface DefaultOptions {
-    protocol: 'http' | 'https';
-    host: string;
-    transport: 'querystring' | 'session';
-    state: boolean;
-}
-interface GrantOptions {
-    key: string;
-    secret: string;
-    scope: string[];
-    nonce?: boolean;
-    custom_params?: any;
-    callback: string;
+    export interface DefaultOptions {
+        protocol: 'http' | 'https';
+        host: string;
+        transport: 'querystring' | 'session';
+        state: boolean;
+    }
+    export interface GrantOptions {
+        key: string;
+        secret: string;
+        scope: string[];
+        nonce?: boolean;
+        custom_params?: any;
+        callback: string;
+    }
 }
