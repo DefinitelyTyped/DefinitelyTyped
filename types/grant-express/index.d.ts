@@ -5,30 +5,27 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.9
 
-declare module 'grant-express' {
-    import express from 'express';
+import express = require('express');
 
-    type Provider = string;
-    function grant(providers: { defaults: DefaultOptions } | ProvidersOptions): express.RequestHandler;
+export function grant(providers: { defaults: DefaultOptions } | ProvidersOptions): express.RequestHandler;
 
-    type ProvidersOptions = {
-        [key in Provider]?: GrantOptions;
-    };
+type Provider = string;
 
-    interface DefaultOptions {
-        protocol: 'http' | 'https';
-        host: string;
-        transport: 'querystring' | 'session';
-        state: boolean;
-    }
-    interface GrantOptions {
-        key: string;
-        secret: string;
-        scope: string[];
-        nonce?: boolean;
-        custom_params?: any;
-        callback: string;
-    }
+type ProvidersOptions = {
+    [key in Provider]?: GrantOptions;
+};
 
-    export = grant;
+interface DefaultOptions {
+    protocol: 'http' | 'https';
+    host: string;
+    transport: 'querystring' | 'session';
+    state: boolean;
+}
+interface GrantOptions {
+    key: string;
+    secret: string;
+    scope: string[];
+    nonce?: boolean;
+    custom_params?: any;
+    callback: string;
 }
