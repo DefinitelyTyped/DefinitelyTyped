@@ -189,7 +189,7 @@ declare global {
             enums?: Record<string, string>;
             type: string; // specified in the derived interfaces
             // Be strict with what we allow here. Read objects overwrite this with any.
-            common: StateCommon | ChannelCommon | DeviceCommon | OtherCommon;
+            common: StateCommon | ChannelCommon | DeviceCommon | FolderObject | EnumObject | OtherCommon;
             acl?: ObjectACL;
             from?: string;
             ts?: number;
