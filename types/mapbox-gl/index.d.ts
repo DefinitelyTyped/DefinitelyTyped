@@ -315,7 +315,7 @@ declare namespace mapboxgl {
 
         getLayer(id: string): mapboxgl.Layer;
 
-        setFilter(layer: string, filter?: any[] | boolean | null): this;
+        setFilter(layer: string, filter?: any[] | boolean | null, options?: { validate?: boolean }): this;
 
         setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
 

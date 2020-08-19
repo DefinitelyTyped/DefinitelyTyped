@@ -823,6 +823,11 @@ map.showPadding = false;
 expectType<mapboxgl.Map>(map.setFilter('layerId', true));
 expectType<mapboxgl.Map>(map.setFilter('layerId', false));
 
+map.setFilter('layerId', true, { validate: true });
+map.setFilter('layerId', true, {});
+// $ExpectError
+map.setFilter('layerId', true, { some_option: 'some_string' });
+
 // $ExpectType Map
 map.setMinZoom(5);
 // $ExpectType Map
