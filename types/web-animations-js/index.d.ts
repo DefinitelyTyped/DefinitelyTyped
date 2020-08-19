@@ -1,3 +1,8 @@
+// Type definitions for web-animations-js 2.2
+// Project: https://github.com/web-animations/web-animations-js, https://github.com/web-animations
+// Definitions by: Kristian Moerch <https://github.com/kritollm>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 type AnimationEffectTimingFillMode = "none" | "forwards" | "backwards" | "both" | "auto";
 type AnimationEffectTimingPlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";
 

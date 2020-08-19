@@ -1,3 +1,9 @@
+// Type definitions for reconnectingwebsocket 1.0
+// Project: https://github.com/joewalnes/reconnecting-websocket
+// Definitions by: Nicholas Guarracino <https://github.com/nguarracino>
+//                 AppLover69 <https://github.com/AppLover69>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare namespace ReconnectingWebSocket {
     interface Options {
         /**

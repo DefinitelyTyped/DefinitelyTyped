@@ -1,3 +1,10 @@
+// Type definitions for commonjs-assert 1.5
+// Project: https://github.com/browserify/commonjs-assert, https://github.com/defunctzombie/commonjs-assert
+// Definitions by: Nico Gallinal <https://github.com/nicoabie>
+//                 Linus Unnebäck <https://github.com/LinusU>
+//                 ExE Boss <https://github.com/ExE-Boss>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare function assert(value: any, message?: string): asserts value;
 
 declare namespace assert {

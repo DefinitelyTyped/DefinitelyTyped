@@ -10,7 +10,6 @@
 //                 Sergey Bakulin <https://github.com/vansergen>
 //                 Wiktor Kwapisiewicz <https://metacode.biz/@wiktor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 import BN = require('bn.js');
 import stream = require('stream');
 
