@@ -1,5 +1,5 @@
-// Type definitions for express-jwt
-// Project: https://www.npmjs.org/package/express-jwt
+// Type definitions for grant-express 5.2.0
+// Project: https://www.npmjs.org/package/grant-express
 // Definitions by:  Gordon Lau <https://gitlab.com/gordon-tecky>
 //                  Beeno Tung <https://github.com/beenotung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
