@@ -1,4 +1,4 @@
-import * as _ from 'jquery';
+import * as _ from 'underscore';
 
 declare const wp: {
 	customize: typeof import('wordpress__customize');
@@ -28,7 +28,7 @@ id = wp.customize.section('sidebar-widgets-sidebar-1').panel(); // returns widge
 const sections = wp.customize.panel('widgets').sections();
 const controls = wp.customize.section('title_tagline').controls();
 
-_.each(wp.customize.section('title_tagline').controls(), (_, control) => {
+_.each(wp.customize.section('title_tagline').controls(), (control) => {
     control.section('nav');
     }
 );
