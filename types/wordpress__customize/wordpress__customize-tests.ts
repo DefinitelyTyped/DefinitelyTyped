@@ -9,8 +9,8 @@ declare const wp: {
 wp.customize('page_for_posts', setting => {
     setting.bind(pageId => {
         pageId = parseInt(pageId, 10);
-        // tslint:disable-next-line:prefer-template
         if (pageId > 0) {
+            // tslint:disable-next-line:prefer-template
             wp.customize.previewer.previewUrl.set(wp.customize.settings.url.home + '?page_id=' + pageId);
         }
     });
