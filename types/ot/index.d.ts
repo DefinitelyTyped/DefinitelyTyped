@@ -4,6 +4,7 @@
 //                 Ives van Hoorne <https://github.com/CompuIves>
 //                 Michaël De Boey <https://github.com/MichaelDeBoey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.1
 
 import { EventEmitter } from "events";
 
@@ -312,15 +313,15 @@ export namespace SimpleTextOperation {
     class Noop extends SimpleTextOperation {}
 }
 
-export type EditorSocketIOServer<S extends { id: string } = any, C = any> = EventEmitter & Server & {
-    new(document: string, operations: TextOperation[], docId: string, mayWrite?: (_: any, cb: (b: boolean) => void) => void): EditorSocketIOServer;
+export interface EditorSocketIOServer<S extends { id: string } = any, C = any> extends EventEmitter, Server {
+    // new(document: string, operations: TextOperation[], docId: string, mayWrite?: (_: any, cb: (b: boolean) => void) => void): EditorSocketIOServer;
     addClient(socket: S): void;
     onOperation(socket: S, revision: number, operation: string, selection: string): void;
     updateSelection(socket: S, selection: string): void;
     setName(socket: S, name: string): void;
     getClient(clientId: string): C;
     onDisconnect(socket: S): void;
-};
+}
 
 export {};
 type UndoState = 'normal' | 'undoing' | 'redoing';
