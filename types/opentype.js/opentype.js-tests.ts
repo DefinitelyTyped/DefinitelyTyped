@@ -3,7 +3,8 @@ import { load, loadSync, parse, Glyph, Font, Path, PathCommand } from "opentype.
 const x = 0;
 const y = 0;
 const fontSize = 72;
-let ctx: CanvasRenderingContext2D;
+const canvas: HTMLCanvasElement = document.createElement("canvas");
+const ctx = canvas.getContext("2d");
 
 load('fonts/Roboto-Black.ttf', (err, font) => {
     if (err) {
@@ -15,8 +16,7 @@ load('fonts/Roboto-Black.ttf', (err, font) => {
     }
 });
 
-let myBuffer: ArrayBuffer;
-let font = parse(myBuffer);
+let font = parse(new ArrayBuffer(0));
 font = loadSync('fonts/Roboto-Black.ttf');
 
 const notdefGlyph = new Glyph({
@@ -123,5 +123,5 @@ const pathSvg: string = aPath.toSVG(7);
 const pathDom: SVGPathElement = aPath.toDOMElement(7);
 const pathCommands: PathCommand[] = aPath.commands;
 const pathFill: string | null = aPath.fill;
-const pathStroke: string | null = aPath.stroke
-const pathStrokeWidth: number =  aPath.strokeWidth
+const pathStroke: string | null = aPath.stroke;
+const pathStrokeWidth: number =  aPath.strokeWidth;
