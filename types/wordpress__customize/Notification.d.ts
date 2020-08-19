@@ -4,7 +4,7 @@ export interface Notification_Params {
 	message: string;
 	type?: string;
 	setting?: string;
-	template?: Function;
+	template?: (data: Notification) => void;
 	templateId?: string;
 	containerClasses?: string;
 	dismissible?: boolean;
@@ -12,7 +12,7 @@ export interface Notification_Params {
 
 export class Notification extends Class {
 	code: string;
-	template: null|Function;
+	template: null|((data: Notification) => void);
 	templateId: string;
 	containerClasses: string;
 	initialize(code?: string, params?: Notification_Params): void;
