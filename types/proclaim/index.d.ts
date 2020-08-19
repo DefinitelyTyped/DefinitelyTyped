@@ -17,7 +17,7 @@ interface AssertionError {
 /**
  * Throw an assertion error.
  */
-export function fail(actual: any, expected: any, msg: string, operator: string): AssertionError;
+export function fail(actual: any, expected: any, msg?: string, operator?: string): AssertionError;
 
 /**
  * Assert that value is truthy.
