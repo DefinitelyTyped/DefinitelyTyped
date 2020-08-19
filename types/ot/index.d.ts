@@ -247,8 +247,8 @@ export namespace Client {
      * to the server and is still waiting for an acknowledgement.
      */
     interface AwaitingConfirm extends Sync<AwaitingWithBuffer, AwaitingConfirm, Synchronized> {
-        outstanding: TextOperation
-        new(outstanding: TextOperation);
+        outstanding: TextOperation;
+        new(outstanding: TextOperation): AwaitingConfirm;
         resend(client: Client): void;
     }
     /**
@@ -258,19 +258,21 @@ export namespace Client {
     interface AwaitingWithBuffer extends Sync<AwaitingWithBuffer, AwaitingWithBuffer, AwaitingConfirm> {
         outstanding: TextOperation;
         buffer: TextOperation
-        new(outstanding: TextOperation, buffer: TextOperation);
+        new(outstanding: TextOperation, buffer: TextOperation): AwaitingWithBuffer;
         resend(client: Client): void;
     }
 }
 
 export class Server {
+    document: string;
+    operations?: TextOperation[];
     /**
      * Constructor. Takes the current document as a string and optionally the array
      * of all operations.
      * @param document The doc
      * @param operations The ops
      */
-    constructor(public document: string, public operations?: TextOperation[])
+    constructor(document: string, operations?: TextOperation[])
     /**
      * Call this method whenever you receive an operation from a client.
      * @param revision The revision
@@ -320,9 +322,9 @@ export type EditorSocketIOServer<S extends { id: string } = any, C = any> = Even
     setName(socket: S, name: string): void;
     getClient(clientId: string): C;
     onDisconnect(socket: S): void;
-}
+};
 
-export {}
+export {};
 type UndoState = 'normal' | 'undoing' | 'redoing';
 
 export class UndoManager {
@@ -450,7 +452,7 @@ export class EditorClient extends Client {
 
     // not sure about all those signatures
     addClient(clientId: string, clientObj: ClientObj): void;
-    initializeClients(clients: Clients<any>): void;
+    initializeClients(clients: Clients): void;
     getClientObject(clientId: string): ClientObj;
     onClientLeft(clientId: string): void;
     initializeClientList(): void;
@@ -468,7 +470,7 @@ export class EditorClient extends Client {
 
 // TODO
 export namespace EditorClient {
-     export class SelfMeta {}
-     export class OtherClient {}
+     class SelfMeta {}
+     class OtherClient {}
 }
 export const version: string;
