@@ -1,5 +1,7 @@
 // Type definitions for ffprobe
+// Project: https://github.com/eugeneware/ffprobe
 // Definitions by: Sergey <https://github.com/SergeyAlexsandrovich>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace getInfo {
 
