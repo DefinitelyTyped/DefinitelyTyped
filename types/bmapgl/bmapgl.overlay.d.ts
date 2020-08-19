@@ -41,6 +41,12 @@ declare namespace BMapGL {
         addEventListener(event: string, handler: Callback): void;
         removeEventListener(event: string, handler: Callback): void;
         setOptions(obj: object): void;
+        getZIndex(lat: number, coordTyppe?: string): number;
+    }
+    class Overlay {
+        constructor();
+        static getZIndex(lat: number, coordTyppe?: string): number;
+        [x: string]: any;
     }
     type SymbolShapeType = number;
     interface PolylineOptions {
