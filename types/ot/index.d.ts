@@ -16,7 +16,6 @@ export class Selection {
     ranges: Selection.Range[];
     position: number;
     selectionEnd?: any;
-
     equals(other: Selection): boolean;
     somethingSelected(): boolean;
     /**
@@ -29,7 +28,6 @@ export class Selection {
      * @param operation The op
      */
     transform(operation: TextOperation): Selection;
-
     /**
      * Convenience method for creating selections only containing a single cursor
      * and no real selection range.
@@ -37,7 +35,6 @@ export class Selection {
      */
     static createCursor(position: number): Selection;
     static fromJSON(obj: string): Selection;
-
 }
 
 export namespace Selection {
@@ -50,13 +47,10 @@ export namespace Selection {
     class Range {
         anchor: number;
         head: number;
-
         constructor(anchor: number, head: number);
-
         equals(other: Range): boolean;
         isEmpty(): boolean;
         transform(operation: TextOperation): Range;
-
         static fromJSON(object: { anchor: number; head: number; }): Range;
     }
 }
@@ -65,13 +59,13 @@ export type SerializedTextOperation = Array<string | number>;
 
 /**
  * Operation are essentially lists of ops. There are three types of ops:
- * 
+ *
  * * Retain ops: Advance the cursor position by a given number of characters.
  *   Represented by positive ints.
  * * Insert ops: Insert a given string at the current cursor position.
  *   Represented by strings.
  * * Delete ops: Delete the next n characters. Represented by negative ints.
- * 
+ *
  * After an operation is constructed, the user of the library can specify the
  * actions of an operation (skip/insert/delete) with the three builder
  * methods. They all return the operation for convenient chaining.
@@ -94,7 +88,6 @@ export class TextOperation {
      * the operation on a valid input string.
      */
     targetLength: number;
-
     equals(other: TextOperation): boolean;
     /**
      * Apply an operation to a string, returning a new string. Throws an error if
@@ -169,7 +162,6 @@ export class TextOperation {
      * Converts operation into a JSON value.
      */
     toJSON(): SerializedTextOperation;
-
     /**
      * Converts a plain JS object into an operation and validates it.
      * @param operation The op
@@ -201,28 +193,25 @@ export class TextOperation {
      * @param right The right op
      */
     static transform(left: TextOperation, right: TextOperation): TextOperation;
-
 }
 
 export class Client {
     revision: number;
     state: Client.Synchronized;
-
     constructor(revision: number);
-
-    setState(state: Client.Synchronized);
+    setState(state: Client.Synchronized): void;
     /**
      * Call this method when the user changes the document.
      * @param operation The op
      */
-    applyClient(operation: TextOperation);
+    applyClient(operation: TextOperation): void;
     /**
      * Call this method with a new operation from the server
      * @param operation The op
      */
-    applyServer(operation: TextOperation);
-    serverAck();
-    serverReconnect();
+    applyServer(operation: TextOperation): void;
+    serverAck(): void;
+    serverReconnect(): void;
     /**
      * Transforms a selection from the latest known server state to the current
      * client state. For example, if we get from the server the information that
@@ -232,19 +221,18 @@ export class Client {
      * document is 8.
      * @param selection The selection
      */
-    transformSelection(selection: Selection);
+    transformSelection(selection: Selection): Selection;
     /**
      * Override this method.
      * @param revision The revision
      * @param operation The op
      */
-    sendOperation(revision: number, operation: TextOperation);
+    sendOperation(revision: number, operation: TextOperation): void;
     /**
      * Override this method.
      * @param operation The op
      */
-    applyOperation(operation: TextOperation);
-
+    applyOperation(operation: TextOperation): void;
 }
 
 export namespace Client {
@@ -254,36 +242,31 @@ export namespace Client {
         serverAck(): A;
         transformSelection(selection: Selection): Selection;
     }
-
     /**
      * In the 'Synchronized' state, there is no pending operation that the client
      * has sent to the server.
      */
-    export class Synchronized implements Sync<AwaitingConfirm, Synchronized, never> {}
-
+    interface Synchronized extends Sync<AwaitingConfirm, Synchronized, never> {}
     /**
      * In the 'AwaitingConfirm' state, there's one operation the client has sent
      * to the server and is still waiting for an acknowledgement.
      */
-    export class AwaitingConfirm implements Sync<AwaitingWithBuffer, AwaitingConfirm, Synchronized> {
-        constructor(public outstanding: TextOperation);
+    interface AwaitingConfirm extends Sync<AwaitingWithBuffer, AwaitingConfirm, Synchronized> {
+        new(public outstanding: TextOperation);
 
-        resend(client: Client);
+        resend(client: Client): void;
     }
-
     /**
      * In the 'AwaitingWithBuffer' state, the client is waiting for an operation
      * to be acknowledged by the server while buffering the edits the user makes
      */
-    export class AwaitingWithBuffer implements Sync<AwaitingWithBuffer, AwaitingWithBuffer, AwaitingConfirm> {
-        constructor(public outstanding: TextOperation, public buffer: TextOperation);
-
-        resend(client: Client);
+    interface AwaitingWithBuffer extends Sync<AwaitingWithBuffer, AwaitingWithBuffer, AwaitingConfirm> {
+        new(public outstanding: TextOperation, public buffer: TextOperation);
+        resend(client: Client): void;
     }
 }
 
 export class Server {
-
     /**
      * Constructor. Takes the current document as a string and optionally the array
      * of all operations.
@@ -291,7 +274,6 @@ export class Server {
      * @param operations The ops
      */
     constructor(public document: string, public operations?: TextOperation[])
-
     /**
      * Call this method whenever you receive an operation from a client.
      * @param revision The revision
@@ -304,7 +286,6 @@ export class SimpleTextOperation {
     apply(doc: string): string;
     toString(): string;
     equals(other: SimpleTextOperation): boolean;
-
     static transform(a: SimpleTextOperation, b: SimpleTextOperation): [SimpleTextOperation, SimpleTextOperation];
     /**
      * Convert a normal, composable `TextOperation` into an array of
@@ -318,32 +299,30 @@ export namespace SimpleTextOperation {
     /**
      * Insert the string `str` at the zero-based `position` in the document.
      */
-    export class Insert extends SimpleTextOperation {
+    class Insert extends SimpleTextOperation {
         constructor(str: string, position: number);
     }
     /**
      * Delete `count` many characters at the zero-based `position` in the document.
      */
-    export class Delete extends SimpleTextOperation {
+    class Delete extends SimpleTextOperation {
         constructor(count: number, position: number);
     }
     /**
      * An operation that does nothing. This is needed for the result of the
      * transformation of two deletions of the same character.
      */
-    export class Noop extends SimpleTextOperation {}
-
+    class Noop extends SimpleTextOperation {}
 }
 
 export type EditorSocketIOServer<S extends { id: string } = any, C = any> = EventEmitter & Server & {
     new(document: string, operations: TextOperation[], docId: string, mayWrite?: (_: any, cb: (b: boolean) => void) => void);
-
-    addClient(socket: S);
-    onOperation(socket: S, revision: number, operation: string, selection: string);
-    updateSelection(socket: S, selection: string);
-    setName(socket: S, name);
+    addClient(socket: S): void;
+    onOperation(socket: S, revision: number, operation: string, selection: string): void;
+    updateSelection(socket: S, selection: string): void;
+    setName(socket: S, name): void;
     getClient(clientId: string): C;
-    onDisconnect(socket: S);
+    onDisconnect(socket: S): void;
 }
 
 type UndoState = 'normal' | 'undoing' | 'redoing';
@@ -354,12 +333,10 @@ export class UndoManager {
      * @param maxItems The max history size
      */
     constructor(maxItems?: number);
-
     state: UndoState;
     dontCompose: boolean;
     undoStack: WrappedOperation[];
     redoStack: WrappedOperation[];
-
     /**
      * Add an operation to the undo or redo stack, depending on the current state
      * of the UndoManager.
@@ -369,48 +346,40 @@ export class UndoManager {
      * unless the last operation was alread pushed on the redo stack or was hidden
      * by a newer operation on the undo stack
      */
-    add(operation: TextOperation | WrappedOperation, compose?: boolean);
-
+    add(operation: TextOperation | WrappedOperation, compose?: boolean): void;
     /**
      * Transform the undo and redo stacks against a operation by another client.
      * @param operation The op
      */
-    transform(operation: TextOperation | WrappedOperation);
-
+    transform(operation: TextOperation | WrappedOperation): void;
     /**
      * Perform an undo by calling a function with the latest operation on the undo
-     * stack. 
+     * stack.
      * @param fun The function is expected to call the `add` method with the inverse
      * of the operation, which pushes the inverse on the redo stack.
      */
-    performUndo(fun: (op: WrappedOperation) => void);
-
+    performUndo(fun: (op: WrappedOperation) => void): void;
     /**
      * The inverse of `performUndo`.
      * @param fun The function
      */
-    performRedo(fun: (op: WrappedOperation) => void);
-
+    performRedo(fun: (op: WrappedOperation) => void): void;
     /**
      * Is the undo stack not empty?
      */
     canUndo(): boolean;
-
     /**
      * Is the redo stack not empty?
      */
     canRedo(): boolean;
-
     /**
      * Whether the UndoManager is currently performing an undo.
      */
     isUndoing(): boolean;
-
     /**
      * Whether the UndoManager is currently performing a redo.
      */
     isRedoing(): boolean;
-
 }
 
 /**
@@ -419,25 +388,20 @@ export class UndoManager {
 export class WrappedOperation<T = any> {
     wrapped: TextOperation;
     meta: T;
-
     constructor(operation: TextOperation, meta?: T);
-
     apply(doc: string): string;
     invert(doc: string): WrappedOperation<T>;
     compose(operation: WrappedOperation<T>): WrappedOperation<T>;
-
-    static transform(left: WrappedOperation<T>, right: WrappedOperation<T>): WrappedOperation<T>;
-
+    static transform<T>(left: WrappedOperation<T>, right: WrappedOperation<T>): WrappedOperation<T>;
 }
 
-export interface ClientAdapter {
+export interface ClientAdapter {                                
     registerUndo(fun: () => void): void;
     registerRedo(fun: () => void): void;
     getValue(): string;
     applyOperation(operation: TextOperation): void;
     setSelection(selection?: Selection): void;
     getSelection(): Selection;
-    applyOperation(operation: TextOperation): void;
     registerCallbacks(callbacks: ClientAdapterCallbacks): void;
     setOtherSelection(selection: Selection, color: string, otherClientId: string): Mark;
 }
@@ -470,8 +434,8 @@ export type ClientObj = {
     selection : string;
 }
 
-export type Clients<T = any> = {
-    [clientId: string] : T;
+export interface Clients<T = any> {
+    [clientId: string]: T;
 }
 
 interface Mark {
@@ -499,9 +463,9 @@ export class EditorClient extends Client {
     updateSelection(): void;
     onSelectionChange(): void;
     onBlur(): void;
-    sendSelection(selection: Selection);
-    sendOperation(revision: number, operation: TextOperation);
-    applyOperation(operation: TextOperation);
+    sendSelection(selection: Selection): void;
+    sendOperation(revision: number, operation: TextOperation): void;
+    applyOperation(operation: TextOperation): void;
 }
 
 // TODO
