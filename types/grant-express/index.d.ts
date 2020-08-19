@@ -3,7 +3,7 @@
 // Definitions by:  Gordon Lau <https://gitlab.com/gordon-tecky>
 //                  Beeno Tung <https://github.com/beenotung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9.7
+// TypeScript Version: 3.9
 
 declare module 'grant-express' {
     import express from 'express';
