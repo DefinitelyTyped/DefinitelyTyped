@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "express": "^4.17.1",
+        "grant-express": "^5.2.0"
+    }
+}
