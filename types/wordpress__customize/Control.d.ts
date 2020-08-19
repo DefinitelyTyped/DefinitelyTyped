@@ -4,10 +4,7 @@ import { Notifications } from './Notifications';
 import { Setting } from './Setting';
 import { Value } from './Value';
 
-export interface Control_Settings {
-	[_: number|string]: Setting<any>|Value<any>;
-	default: string|Setting<any>;
-}
+export type Control_Settings = (Record<string, Setting<any>|Value<any>>|Array<Setting<any>|Value<any>>) & {default?: string|Setting<any>};
 
 export interface Control_Params {
 	label: string;
@@ -49,7 +46,7 @@ export class Control extends Class {
 	setupNotifications(): void;
 	renderNotifications(): void;
 	expand(params: Container_Arguments): void;
-	focus(): void;
+	focus(params: any): void;
 	onChangeActive(active: boolean, args: Container_Arguments): void;
 	toggle(active: boolean): void;
 	activate(params: Container_Arguments): boolean;

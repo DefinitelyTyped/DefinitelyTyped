@@ -22,7 +22,7 @@ export class ThemesSection extends Section {
 	updateCountDebounced: ((count: number) => void)|null;
 	initialize(id?: string, options?: Section_Params): void;
 	loadThemes(): void;
-	loadControls(themes: any[], page: number): void; // TODO
+	loadControls(themes: Theme[], page: number): void;
 	loadMore(): void;
 	filterSearch(term: string): void;
 	checkTerm(section: ThemesSection): void;
