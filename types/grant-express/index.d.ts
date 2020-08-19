@@ -10,19 +10,19 @@ export = grant;
 
 declare function grant(providers: { defaults: grant.DefaultOptions } | grant.ProvidersOptions): express.RequestHandler;
 declare namespace grant {
-    export type Provider = string;
+    type Provider = string;
 
-    export type ProvidersOptions = {
+    type ProvidersOptions = {
         [key in Provider]?: GrantOptions;
     };
 
-    export interface DefaultOptions {
+    interface DefaultOptions {
         protocol: 'http' | 'https';
         host: string;
         transport: 'querystring' | 'session';
         state: boolean;
     }
-    export interface GrantOptions {
+    interface GrantOptions {
         key: string;
         secret: string;
         scope: string[];

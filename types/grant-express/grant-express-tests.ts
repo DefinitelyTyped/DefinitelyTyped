@@ -1,7 +1,7 @@
 import express = require('express');
 import grant = require('grant-express');
 
-let app = express();
+const app = express();
 
 app.use(
     grant({
