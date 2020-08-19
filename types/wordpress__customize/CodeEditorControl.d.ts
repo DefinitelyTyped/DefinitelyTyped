@@ -1,4 +1,4 @@
-import {Control} from './Control';
+import { Control } from './Control';
 
 export class CodeEditorControl extends Control {
 	initEditor(): void;
@@ -6,6 +6,6 @@ export class CodeEditorControl extends Control {
 	initSyntaxHighlightingEditor(codeEditorSettings: any): void; // TODO
 	onTabNext(): void;
 	onTabPrevious(): void;
-	onUpdateErrorNotice(errorAnnotations: Array<any>): void; // TODO
+	onUpdateErrorNotice(errorAnnotations: any[]): void; // TODO
 	initPlainTextareaEditor(): void;
 }

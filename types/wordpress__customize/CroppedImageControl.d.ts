@@ -1,5 +1,5 @@
-import {MediaControl} from './MediaControl';
-import {Attachment, Cropper} from './external';
+import { MediaControl } from './MediaControl';
+import { Attachment, Cropper } from './external';
 
 export interface ImageSelectOptions {
 	handles: boolean;
@@ -17,7 +17,6 @@ export interface ImageSelectOptions {
 	aspectRatio?: string;
 	maxWidth?: number;
 	maxHeight?: number;
-
 }
 
 export class CroppedImageControl extends MediaControl {

@@ -1,5 +1,5 @@
-import {Notification} from './Notification';
-import {Values} from './Values';
+import { Notification } from './Notification';
+import { Values } from './Values';
 
 export interface Notifications_Options {
 	container?: JQuery;
@@ -15,9 +15,9 @@ export class Notifications extends Values<Notification> {
 	defaultConstructor: Notification;
 	initialize(options: Notifications_Options): void;
 	count(): number;
-	add(notification: string|Notification, notificationObject?: Notification): Notification
+	add(notification: string|Notification, notificationObject?: Notification): Notification;
 	remove(code: string): Notification;
-	get(args: Notifications_Get_Options): Array<Notification>;
+	get(args: Notifications_Get_Options): Notification[];
 	render(): void;
-	constrainFocus(event: JQuery.Event): void
+	constrainFocus(event: JQuery.Event): void;
 }

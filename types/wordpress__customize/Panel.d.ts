@@ -1,9 +1,10 @@
-import {Container_Arguments, Container} from './Container';
+import { Container_Arguments, Container } from './Container';
+import { Section } from './Section';
 
 export class Panel extends Container {
 	embed(): void;
 	attachEvents(): void;
-	sections(): Array<Section>;
+	sections(): Section[];
 	isContextuallyActive(): boolean;
 	onChangeExpanded(expanded: boolean, args: Container_Arguments): void;
 	renderContent(): void;

@@ -1,4 +1,4 @@
-import {Class} from './Class';
+import { Class } from './Class';
 
 export interface Notification_Params {
 	message: string;
@@ -7,11 +7,11 @@ export interface Notification_Params {
 	template?: Function;
 	templateId?: string;
 	containerClasses?: string;
-	dismissible?: boolean
+	dismissible?: boolean;
 }
 
 export class Notification extends Class {
-	code: string
+	code: string;
 	template: null|Function;
 	templateId: string;
 	containerClasses: string;

@@ -1,6 +1,6 @@
-import {Class} from './Class';
-import {Notifications} from './Notifications';
-import {Value} from './Value';
+import { Class } from './Class';
+import { Notifications } from './Notifications';
+import { Value } from './Value';
 
 export interface Container_Arguments {
 	duration?: string;
@@ -37,14 +37,14 @@ export abstract class Container extends Class {
 	deferred: Container_Deferred;
 	priority: Value<number>;
 	active: Value<boolean>;
-	activeArgumentsQueue: Array<Container_Arguments>;
+	activeArgumentsQueue: Container_Arguments[];
 	expanded: Value<boolean>;
-	expandedArgumentsQueue: Array<Container_Arguments>;
+	expandedArgumentsQueue: Container_Arguments[];
 	initialize(id?: string, options?: Container_Params): void;
 	getNotificationsContainerElement(): JQuery;
 	setupNotifications(): void;
 	ready(): void;
-	_children(parentType: string, childType: string): Array<any>;
+	_children(parentType: string, childType: string): any[];
 	isContextuallyActive(): boolean|never;
 	onChangeActive(active: boolean, args?: Container_Arguments): void;
 	_toggleActive(active: boolean, params: Container_Arguments): boolean;

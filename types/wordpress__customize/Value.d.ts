@@ -1,4 +1,4 @@
-import {Class} from './Class';
+import { Class } from './Class';
 
 export class Value<T> extends Class {
 	_value: T;
@@ -11,7 +11,7 @@ export class Value<T> extends Class {
 	_setter(to: T): T;
 	setter(callback: (to: T) => T): this;
 	resetSetter(): this;
-	validate(value: T): T
+	validate(value: T): T;
 	bind(...args: Array<JQuery.TypeOrArray<Function>>): this;
 	unbind(...args: Array<JQuery.TypeOrArray<Function>>): this;
 	link(...args: Array<JQuery.TypeOrArray<Function>>): this;

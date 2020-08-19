@@ -1,12 +1,12 @@
-import {Class} from './Class';
-import {Container_Arguments, Container_Deferred} from './Container';
-import {Notifications} from './Notifications';
-import {Setting} from './Setting';
-import {Value} from './Value';
+import { Class } from './Class';
+import { Container_Arguments, Container_Deferred } from './Container';
+import { Notifications } from './Notifications';
+import { Setting } from './Setting';
+import { Value } from './Value';
 
 export interface Control_Settings {
 	[_: number|string]: Setting<any>|Value<any>;
-	default: string|Setting<any>
+	default: string|Setting<any>;
 }
 
 export interface Control_Params {
@@ -37,11 +37,11 @@ export class Control extends Class {
 	section: Value<string>;
 	priority: Value<number>;
 	active: Value<boolean>;
-	activeArgumentsQueue: Array<Container_Arguments>;
+	activeArgumentsQueue: Container_Arguments[];
 	notifications: Notifications;
-	elements: Array<Element>;
+	elements: Element[];
 	settings: Control_Settings;
-	initialize(id?: string, options?: Control_Params): void
+	initialize(id?: string, options?: Control_Params): void;
 	linkElements(): void;
 	embed(): void;
 	ready(): void;

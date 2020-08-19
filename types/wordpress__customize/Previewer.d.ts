@@ -1,7 +1,7 @@
-import {Messenger_Params, Messenger} from './Messenger';
+import { Messenger_Params, Messenger } from './Messenger';
 
 export interface Previewer_Params extends Messenger_Params {
-	allowedUrls: Array<any>; // TODO
+	allowedUrls: any[]; // TODO
 	container: string;
 	form: string;
 	previewUrl: string;
@@ -22,7 +22,7 @@ export class Previewer<T> extends Messenger<T> {
 	refreshBuffer: null|number;
 	deferred: Previewer_Deferred;
 	container: JQuery;
-	allowedUrls: Array<string>;
+	allowedUrls: string[];
 	initialize(params: Previewer_Params, options?: object): void;
 	refresh(): void;
 	ready(data: Previewer_Data): void;

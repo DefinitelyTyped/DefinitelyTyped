@@ -1,39 +1,39 @@
-import {BackgroundControl} from './BackgroundControl';
-import {BackgroundPositionControl} from './BackgroundPositionControl';
-import {Class} from './Class';
-import {CodeEditorControl} from './CodeEditorControl';
-import {ColorControl} from './ColorControl';
-import {Control} from './Control';
-import {Control_Constructor} from './Control_Constructor';
-import {CroppedImageControl} from './CroppedImageControl';
-import {DateTimeControl} from './DateTimeControl';
-import {Element} from './Element';
-import {Events} from './Events';
-import {HeaderControl} from './HeaderControl';
-import {ImageControl} from './ImageControl';
-import {MediaControl} from './MediaControl';
-import {Messenger} from './Messenger';
-import {Notification} from './Notification';
-import {Notifications} from './Notifications';
-import {OverlayNotification} from './OverlayNotification';
-import {OuterSection} from './OuterSection';
-import {Panel} from './Panel';
-import {Panel_Constructor} from './Panel_Constructor';
-import {Previewer} from './Previewer';
-import {PreviewFrame} from './PreviewFrame';
-import {PreviewLinkControl} from './PreviewLinkControl';
-import {Section} from './Section';
-import {Section_Constructor} from './Section_Constructor';
-import {Setting} from './Setting';
-import {Setting_Constructor} from './Setting_Constructor';
-import {SiteIconControl} from './SiteIconControl';
-import {ThemeControl} from './ThemeControl';
-import {ThemesPanel} from './ThemesPanel';
-import {ThemesSection} from './ThemesSection';
-import {UploadControl} from './UploadControl';
-import {Utils} from './Utils';
-import {Value} from './Value';
-import {Values} from './Values';
+import { BackgroundControl } from './BackgroundControl';
+import { BackgroundPositionControl } from './BackgroundPositionControl';
+import { Class } from './Class';
+import { CodeEditorControl } from './CodeEditorControl';
+import { ColorControl } from './ColorControl';
+import { Control } from './Control';
+import { Control_Constructor } from './Control_Constructor';
+import { CroppedImageControl } from './CroppedImageControl';
+import { DateTimeControl } from './DateTimeControl';
+import { Element } from './Element';
+import { Events } from './Events';
+import { HeaderControl } from './HeaderControl';
+import { ImageControl } from './ImageControl';
+import { MediaControl } from './MediaControl';
+import { Messenger } from './Messenger';
+import { Notification } from './Notification';
+import { Notifications } from './Notifications';
+import { OverlayNotification } from './OverlayNotification';
+import { OuterSection } from './OuterSection';
+import { Panel } from './Panel';
+import { Panel_Constructor } from './Panel_Constructor';
+import { Previewer } from './Previewer';
+import { PreviewFrame } from './PreviewFrame';
+import { PreviewLinkControl } from './PreviewLinkControl';
+import { Section } from './Section';
+import { Section_Constructor } from './Section_Constructor';
+import { Setting } from './Setting';
+import { Setting_Constructor } from './Setting_Constructor';
+import { SiteIconControl } from './SiteIconControl';
+import { ThemeControl } from './ThemeControl';
+import { ThemesPanel } from './ThemesPanel';
+import { ThemesSection } from './ThemesSection';
+import { UploadControl } from './UploadControl';
+import { Utils } from './Utils';
+import { Value } from './Value';
+import { Values } from './Values';
 
 export interface DirtyValuesOptions {
 	unsaved?: boolean;
@@ -55,7 +55,7 @@ export interface Customize extends Values<Setting<any>> {
 	_latestRevision: number;
 	_lastSavedRevision: number;
 	_latestSettingRevision: Record<string, number>;
-	//(a: any, b?: any): any;
+	// (a: any, b?: any): any; // TODO
 
 	Class: typeof Class;
 	Events: typeof Events;
@@ -88,10 +88,10 @@ export interface Customize extends Values<Setting<any>> {
 	PreviewLinkControl: typeof PreviewLinkControl;
 	PreviewFrame: typeof PreviewFrame;
 	Previewer: typeof Previewer;
-	utils: Utils
+	utils: Utils;
 	ensure(element: string|JQuery): JQuery;
 	dirtyValues(options?: DirtyValuesOptions): Record<string, any>;
-	requestChangesetUpdate(changes?: Record<string, any>, args?: RequestChangesetUpdateOptions): JQuery.Promise<any, any, any>
+	requestChangesetUpdate(changes?: Record<string, any>, args?: RequestChangesetUpdateOptions): JQuery.Promise<any, any, any>;
 	get(): Record<string, any>;
 	defaultConstructor: Setting<Class>;
 	control: Values<Control>;
@@ -104,10 +104,10 @@ export interface Customize extends Values<Setting<any>> {
 	panelConstructor: Panel_Constructor;
 	sectionConstructor: Section_Constructor;
 	_handleSettingValidities(args: HandleSettingValiditiesArgs): void;
-	findControlsForSettings(settingIds: Array<string>): Record<string, Control>;
+	findControlsForSettings(settingIds: string[]): Record<string, Control>;
 	reflowPaneContents(): void;
 	state: Values<Class>;
 	settings: any; // TODO
-	l10n: Record<string, string>
+	l10n: Record<string, string>;
 	previewer: Previewer<string>;
 }

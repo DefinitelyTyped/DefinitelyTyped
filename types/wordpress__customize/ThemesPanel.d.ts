@@ -1,7 +1,7 @@
-import {Panel} from './Panel';
+import { Panel } from './Panel';
 
 export class ThemesPanel extends Panel {
-	installingThemes: Array<string>;
+	installingThemes: string[];
 	canSwitchTheme(slug?: string): boolean;
 	installTheme(event: JQuery.Event): JQuery.Promise<any, any, any>;
 	loadThemePreview(themeId: string): JQuery.Promise<any, any, any>;
