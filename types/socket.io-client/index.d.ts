@@ -3,7 +3,7 @@
 // Definitions by: PROGRE <https://github.com/progre>
 //                 Damian Connolly <https://github.com/divillysausages>
 //                 Florent Poujol <https://github.com/florentpoujol>
-//                 OpportunityLiu < https://github.com/OpportunityLiu>
+//                 OpportunityLiu <https://github.com/OpportunityLiu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { SocketOptions, Socket as Engine } from 'engine.io-client';
@@ -466,7 +466,10 @@ interface ManagerOptions extends SocketOptions {
     /**
      * The parser to use. Defaults to an instance of the Parser that ships with socket.io. See socket.io-parser.
      */
-    parser?: Object;
+    parser?: {
+        Encoder: new () => object;
+        Decoder: new () => object;
+    };
 }
 
 /**
