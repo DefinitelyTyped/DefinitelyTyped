@@ -313,7 +313,7 @@ declare module 'twit' {
             list_id?: number | string;
             name?: string;
             description?: string;
-            mode?: string;
+            mode?: 'public' | 'private';
         }
         export interface PromiseResponse {
             data: Response;
