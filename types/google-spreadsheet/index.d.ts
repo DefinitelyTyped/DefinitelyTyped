@@ -1015,6 +1015,13 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
 
     /**
      * @description
+     * object of child worksheets
+     * - keyed by the worksheet title
+     */
+    readonly sheetsByTitle: { [title: string]: GoogleSpreadsheetWorksheet };
+
+    /**
+     * @description
      * count of child worksheets
      * - shorthand for spreadsheetDoc.sheetsByIndex.length
      */
