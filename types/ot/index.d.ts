@@ -243,7 +243,7 @@ export namespace Client {
      * has sent to the server.
      */
     interface Synchronized extends Sync<AwaitingConfirm, Synchronized, never> {}
-    function Synchronized();
+    function Synchronized(): Synchronized;
     /**
      * In the 'AwaitingConfirm' state, there's one operation the client has sent
      * to the server and is still waiting for an acknowledgement.
@@ -252,7 +252,7 @@ export namespace Client {
         outstanding: TextOperation;
         resend(client: Client): void;
     }
-    function AwaitingConfirm (outstanding: TextOperation);
+    function AwaitingConfirm (outstanding: TextOperation): AwaitingConfirm;
     /**
      * In the 'AwaitingWithBuffer' state, the client is waiting for an operation
      * to be acknowledged by the server while buffering the edits the user makes
@@ -262,7 +262,7 @@ export namespace Client {
         buffer: TextOperation;
         resend(client: Client): void;
     }
-    function AwaitingWithBuffer(outstanding: TextOperation, buffer: TextOperation);
+    function AwaitingWithBuffer(outstanding: TextOperation, buffer: TextOperation): AwaitingWithBuffer;
 }
 
 export class Server {
