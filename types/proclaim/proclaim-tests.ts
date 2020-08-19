@@ -4,6 +4,7 @@ proclaim.fail('foo', 'bar', 'Foo equals bar', '===');
 proclaim.fail('foo', 'bar', 'Foo equals bar');
 proclaim.fail('foo', 'bar');
 proclaim.ok(5, '5 equals true');
+proclaim.ok.ok.ok.ok.ok.ok.fail('foo', 'bar', 'Foo equals bar', '===');
 proclaim.ok(5);
 proclaim.notOk(5, '5 equals false');
 proclaim.notOk(5);
