@@ -250,9 +250,9 @@ declare module "../index" {
         flush(): void;
     }
 
-    type PartialDeep<T> = {
-        [P in keyof T]?: PartialDeep<T[P]>;
-    };
+    type PartialDeep<T> = T extends object ? {
+        [P in keyof T]?: PartialDeep<T[P]>
+    } : T;
 
     // For backwards compatibility
     type LoDashImplicitArrayWrapper<T> = LoDashImplicitWrapper<T[]>;
