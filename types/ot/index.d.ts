@@ -132,14 +132,9 @@ export class TextOperation {
     shouldBeComposedWithInverted(operation: TextOperation): boolean;
     /**
      * Delete a string at the current position.
-     * @param length The length
+     * @param str The string or its length
      */
-    delete(length: number): TextOperation;
-    /**
-     * Delete a string at the current position.
-     * @param string The string
-     */
-    delete(str: string): TextOperation;
+    delete(str: number | string): TextOperation;
     /**
      * Insert a string at the current position.
      * @param str The string
@@ -252,8 +247,8 @@ export namespace Client {
      * to the server and is still waiting for an acknowledgement.
      */
     interface AwaitingConfirm extends Sync<AwaitingWithBuffer, AwaitingConfirm, Synchronized> {
-        new(public outstanding: TextOperation);
-
+        outstanding: TextOperation
+        new(outstanding: TextOperation);
         resend(client: Client): void;
     }
     /**
@@ -261,7 +256,9 @@ export namespace Client {
      * to be acknowledged by the server while buffering the edits the user makes
      */
     interface AwaitingWithBuffer extends Sync<AwaitingWithBuffer, AwaitingWithBuffer, AwaitingConfirm> {
-        new(public outstanding: TextOperation, public buffer: TextOperation);
+        outstanding: TextOperation;
+        buffer: TextOperation
+        new(outstanding: TextOperation, buffer: TextOperation);
         resend(client: Client): void;
     }
 }
@@ -320,11 +317,12 @@ export type EditorSocketIOServer<S extends { id: string } = any, C = any> = Even
     addClient(socket: S): void;
     onOperation(socket: S, revision: number, operation: string, selection: string): void;
     updateSelection(socket: S, selection: string): void;
-    setName(socket: S, name): void;
+    setName(socket: S, name: string): void;
     getClient(clientId: string): C;
     onDisconnect(socket: S): void;
 }
 
+export {}
 type UndoState = 'normal' | 'undoing' | 'redoing';
 
 export class UndoManager {
@@ -395,7 +393,7 @@ export class WrappedOperation<T = any> {
     static transform<T>(left: WrappedOperation<T>, right: WrappedOperation<T>): WrappedOperation<T>;
 }
 
-export interface ClientAdapter {                                
+export interface ClientAdapter {
     registerUndo(fun: () => void): void;
     registerRedo(fun: () => void): void;
     getValue(): string;
@@ -414,7 +412,7 @@ export interface ClientAdapterCallbacks {
 
 export interface ServerAdapter {
     sendSelection(selection?: Selection): void;
-    sendOperation(revision: number, operation: SerializedTextOperation, selection?: Selection): void;    
+    sendOperation(revision: number, operation: SerializedTextOperation, selection?: Selection): void;
     registerCallbacks(callbacks: ServerAdapterCallbacks): void;
 }
 
@@ -428,10 +426,10 @@ export interface ServerAdapterCallbacks {
     reconnect(): void;
 }
 
-export type ClientObj = {
+export interface ClientObj {
     clientId: string;
-    name? : string;
-    selection : string;
+    name?: string;
+    selection: string;
 }
 
 export interface Clients<T = any> {
@@ -444,7 +442,7 @@ interface Mark {
 
 export class EditorClient extends Client {
     revision: number;
-    clients: { [key: string] : EditorClient.OtherClient };
+    clients: { [key: string]: EditorClient.OtherClient };
     serverAdapter: any;
     editorAdapter: any;
 
@@ -452,7 +450,7 @@ export class EditorClient extends Client {
 
     // not sure about all those signatures
     addClient(clientId: string, clientObj: ClientObj): void;
-    initializeClients<T>(clients: Clients<T>): void;
+    initializeClients(clients: Clients<any>): void;
     getClientObject(clientId: string): ClientObj;
     onClientLeft(clientId: string): void;
     initializeClientList(): void;
@@ -469,8 +467,8 @@ export class EditorClient extends Client {
 }
 
 // TODO
-// export namespace EditorClient {
-//     export class SelfMeta {}
-//     export class OtherClient {}
-// }
+export namespace EditorClient {
+     export class SelfMeta {}
+     export class OtherClient {}
+}
 export const version: string;
