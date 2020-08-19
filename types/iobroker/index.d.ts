@@ -164,6 +164,12 @@ declare global {
             custom?: undefined;
             // TODO: any other definition for device?
         }
+        interface EnumCommon extends ObjectCommon {
+            // Only states can have common.custom
+            custom?: undefined;
+            /** The IDs of the enum members */
+            members?: string[];
+        }
         interface OtherCommon extends ObjectCommon {
             [propName: string]: ObjectField | undefined;
 
@@ -225,8 +231,16 @@ declare global {
             common?: Partial<OtherCommon>;
         }
 
+        interface EnumObject extends BaseObject {
+            type: 'enum';
+            common: EnumCommon;
+        }
+        interface PartialEnumObject extends Partial<Omit<EnumObject, 'common'>> {
+            common?: Partial<EnumCommon>;
+        }
+
         interface OtherObject extends BaseObject {
-            type: 'adapter' | 'config' | 'enum' | 'group' | 'host' | 'info' | 'instance' | 'meta' | 'script' | 'user';
+            type: 'adapter' | 'config' | 'group' | 'host' | 'info' | 'instance' | 'meta' | 'script' | 'user';
             common: OtherCommon;
         }
         interface PartialOtherObject extends Partial<Omit<OtherObject, 'common'>> {
@@ -234,7 +248,7 @@ declare global {
         }
 
         // Base type for Objects. Should not be used directly
-        type AnyObject = StateObject | ChannelObject | DeviceObject | FolderObject | OtherObject;
+        type AnyObject = StateObject | ChannelObject | DeviceObject | FolderObject | EnumObject | OtherObject;
 
         // For all objects that are exposed to the user we need to tone the strictness down.
         // Otherwise, every operation on objects becomes a pain to work with
@@ -254,8 +268,9 @@ declare global {
             | SettableObjectWorker<ChannelObject>
             | SettableObjectWorker<DeviceObject>
             | SettableObjectWorker<FolderObject>
+            | SettableObjectWorker<EnumObject>
             | SettableObjectWorker<OtherObject>;
-        type PartialObject = PartialStateObject | PartialChannelObject | PartialDeviceObject | PartialFolderObject | PartialOtherObject;
+        type PartialObject = PartialStateObject | PartialChannelObject | PartialDeviceObject | PartialFolderObject | PartialEnumObject | PartialOtherObject;
 
         /** Defines access rights for a single file */
         interface FileACL {

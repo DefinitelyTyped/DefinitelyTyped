@@ -503,3 +503,6 @@ if (typeof state.common.smartName === "object") {
     state.common.smartName.de && state.common.smartName.de.toUpperCase();
     state.common.smartName.byOn && state.common.smartName.byOn.toUpperCase();
 }
+
+declare let enumObj: ioBroker.EnumObject;
+enumObj.common.members && enumObj.common.members.map(() => 1);
