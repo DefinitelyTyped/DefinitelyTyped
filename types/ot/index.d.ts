@@ -252,7 +252,7 @@ export namespace Client {
         outstanding: TextOperation;
         resend(client: Client): void;
     }
-    function AwaitingConfirm (outstanding: TextOperation): AwaitingConfirm;
+    function AwaitingConfirm(outstanding: TextOperation): AwaitingConfirm;
     /**
      * In the 'AwaitingWithBuffer' state, the client is waiting for an operation
      * to be acknowledged by the server while buffering the edits the user makes
