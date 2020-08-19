@@ -1,3 +1,5 @@
+import * as io from 'socket.io-client';
+
 function testUsingWithNodeHTTPServer() {
     var socket = io('http://localhost');
     socket.on('news', function (data: any) {
@@ -23,8 +25,8 @@ function testUsingWithTheExpressFramework() {
 }
 
 function testRestrictingYourselfToANamespace() {
-    var chat = io.connect('http://localhost/chat')
-        , news = io.connect('http://localhost/news');
+    var chat = io.connect('http://localhost/chat'),
+        news = io.connect('http://localhost/news');
 
     chat.on('connect', function () {
         chat.emit('hi!');
@@ -36,7 +38,7 @@ function testRestrictingYourselfToANamespace() {
 }
 
 function testSendingAndGettingData() {
-    var socket = io();
+    var socket = io('http://localhost/');
     socket.on('connect', function () {
         socket.emit('ferret', 'tobi', function (data: any) {
             console.log(data);
@@ -45,15 +47,32 @@ function testSendingAndGettingData() {
 }
 
 function testUsingItJustAsACrossBrowserWebSocket() {
-    var socket = io('http://localhost/');
+    var socket = io('http://localhost/', {
+        transports: ['websocket']
+    });
     socket.on('connect', function () {
         socket.emit('hi');
 
-        socket.on('message', function (msg: any) {
-        });
+        socket.on('message', function (msg: any) {});
     });
 }
 
 function testSettingReconnectionAttempts() {
-    var manager = io.Manager({ reconnection: true, timeout: 0, reconnectionAttempts: 2, reconnectionDelay: 10 });
+    var manager = new io.Manager('http://localhost', {
+        reconnection: true,
+        timeout: 0,
+        reconnectionAttempts: 2,
+        reconnectionDelay: 10,
+    });
+}
+
+
+function testCreateSocket() {
+    var manager = new io.Manager('http://localhost', {
+        reconnection: true,
+        timeout: 0,
+        reconnectionAttempts: 2,
+        reconnectionDelay: 10,
+    });
+    var socket = new io.Socket(manager, '/');
 }
