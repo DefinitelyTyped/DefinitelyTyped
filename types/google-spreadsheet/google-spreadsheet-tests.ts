@@ -25,7 +25,9 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
      console.log(sheet.rowCount);
 
      // adding / removing sheets
-     const newSheet = await doc.addSheet({ title: 'hot new sheet!' });
+     const title = 'hot new sheet!';
+     await doc.addSheet({ title });
+     const newSheet = doc.sheetsByTitle[title];
      await newSheet.delete();
 
      // create a sheet and set the header row
