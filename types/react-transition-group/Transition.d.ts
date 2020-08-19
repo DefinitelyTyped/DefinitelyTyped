@@ -196,7 +196,7 @@ interface EndListenerProps<Ref extends undefined | HTMLElement> extends BaseTran
     addEndListener: EndHandler<Ref>;
 }
 
-export type TransitionProps<RefElement extends undefined | HTMLElement = undefined> =
+export type TransitionProps<RefElement extends undefined | HTMLElement> =
     | TimeoutProps<RefElement>
     | EndListenerProps<RefElement>;
 
@@ -241,6 +241,6 @@ export type TransitionProps<RefElement extends undefined | HTMLElement = undefin
  * ```
  *
  */
-declare class Transition<RefElement extends HTMLElement | undefined> extends Component<TransitionProps<RefElement>> {}
+declare class Transition<RefElement extends HTMLElement | undefined = undefined> extends Component<TransitionProps<RefElement>> {}
 
 export default Transition;
