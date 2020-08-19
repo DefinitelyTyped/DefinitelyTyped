@@ -1,4 +1,4 @@
-// Type definitions for ffprobe 1.1.0
+// Type definitions for ffprobe 1.1
 // Project: https://github.com/eugeneware/ffprobe
 // Definitions by: Sergey <https://github.com/SergeyAlexsandrovich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
