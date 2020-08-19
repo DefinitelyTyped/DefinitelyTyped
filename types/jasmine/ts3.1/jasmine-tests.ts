@@ -214,6 +214,8 @@ describe("Included matchers:", () => {
         await expectAsync(Promise.reject(badness)).toBeRejectedWithError("badness");
         await expectAsync(Promise.reject(badness)).toBeRejectedWithError(/badness/);
         await expectAsync(Promise.resolve()).withContext("additional info").toBeResolved();
+        await expectAsync(new Promise(() => {})).toBePending();
+        await expectAsync(new Promise(() => {})).toBePending("good job");
     });
 
     it("async matchers - not", async () => {
@@ -229,6 +231,7 @@ describe("Included matchers:", () => {
         await expectAsync(Promise.reject(badness)).not.toBeRejectedWithError(/malady/);
         await expectAsync(Promise.reject(badness)).not.withContext("additional info").toBeResolved();
         await expectAsync(Promise.reject(badness)).withContext("additional info").not.toBeResolved();
+        await expectAsync(Promise.resolve()).not.toBePending();
     });
 });
 

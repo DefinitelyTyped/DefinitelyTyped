@@ -688,6 +688,12 @@ declare namespace jasmine {
 
     interface AsyncMatchers<T, U> {
         /**
+         * Expect a promise to be pending, ie. the promise is neither resolved nor rejected.
+         * @param expectationFailOutput
+         */
+        toBePending(expectationFailOutput?: any): Promise<void>;
+
+        /**
          * Expect a promise to be resolved.
          * @param expectationFailOutput
          */
