@@ -46,7 +46,7 @@ export class Control extends Class {
 	setupNotifications(): void;
 	renderNotifications(): void;
 	expand(params: Container_Arguments): void;
-	focus(params: any): void;
+	focus(params?: any): void; // TODO
 	onChangeActive(active: boolean, args: Container_Arguments): void;
 	toggle(active: boolean): void;
 	activate(params: Container_Arguments): boolean;

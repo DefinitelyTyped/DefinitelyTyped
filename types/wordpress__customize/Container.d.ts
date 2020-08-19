@@ -3,7 +3,7 @@ import { Notifications } from './Notifications';
 import { Value } from './Value';
 
 export interface Container_Arguments {
-	duration?: string;
+	duration?: string|number;
 	unchanged?: boolean;
 	completeCallback?: () => void;
 }
@@ -47,9 +47,9 @@ export abstract class Container extends Class {
 	_children(parentType: string, childType: string): any[];
 	isContextuallyActive(): boolean|never;
 	onChangeActive(active: boolean, args?: Container_Arguments): void;
-	_toggleActive(active: boolean, params: Container_Arguments): boolean;
-	activate(params: Container_Arguments): boolean;
-	deactivate(params: Container_Arguments): boolean;
+	_toggleActive(active: boolean, params?: Container_Arguments): boolean;
+	activate(params?: Container_Arguments): boolean;
+	deactivate(params?: Container_Arguments): boolean;
 	abstract onChangeExpanded(expanded: boolean, args: Container_Arguments): void|never;
 	_toggleExpanded(expanded: boolean, params: Container_Arguments): boolean;
 	expand(params: Container_Arguments): boolean;

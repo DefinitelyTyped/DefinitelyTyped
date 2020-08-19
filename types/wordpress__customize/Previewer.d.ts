@@ -1,4 +1,5 @@
 import { Messenger_Params, Messenger } from './Messenger';
+import { Value } from './Value';
 
 export interface Previewer_Params extends Messenger_Params {
 	allowedUrls: any[]; // TODO
@@ -21,6 +22,7 @@ export interface Previewer_Data {
 export class Previewer<T> extends Messenger<T> {
 	refreshBuffer: null|number;
 	deferred: Previewer_Deferred;
+	previewUrl: Value<string>;
 	container: JQuery;
 	allowedUrls: string[];
 	initialize(params: Previewer_Params, options?: object): void;

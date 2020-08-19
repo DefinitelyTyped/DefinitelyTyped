@@ -12,14 +12,15 @@ export class Value<T> extends Class {
 	setter(callback: (to: T) => T): this;
 	resetSetter(): this;
 	validate(value: T): T;
-	bind(...args: Array<JQuery.TypeOrArray<(toAndFrom: T[]) => void>>): this;
-	unbind(...args: Array<JQuery.TypeOrArray<(toAndFrom: T[]) => void>>): this;
-	link(...args: Array<JQuery.TypeOrArray<(toAndFrom: T[]) => void>>): this;
-	unlink(...args: Array<JQuery.TypeOrArray<(toAndFrom: T[]) => void>>): this;
-	sync(...args: Array<JQuery.TypeOrArray<(toAndFrom: T[]) => void>>): this;
-	unsync(...args: Array<JQuery.TypeOrArray<(toAndFrom: T[]) => void>>): this;
+	bind(...args: Array<JQuery.TypeOrArray<(to: T, from: T) => void>>): this;
+	unbind(...args: Array<JQuery.TypeOrArray<(to: T, from: T) => void>>): this;
+	link(...args: Array<JQuery.TypeOrArray<(to: T, from: T) => void>>): this;
+	unlink(...args: Array<JQuery.TypeOrArray<(to: T, from: T) => void>>): this;
+	sync(...args: Array<JQuery.TypeOrArray<(to: T, from: T) => void>>): this;
+	unsync(...args: Array<JQuery.TypeOrArray<(to: T, from: T) => void>>): this;
 }
 
 export interface Value<T> {
-	(args: T): this|T;
+	(): T;
+	(args: T): this;
 }
