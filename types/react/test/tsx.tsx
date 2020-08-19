@@ -23,6 +23,25 @@ FunctionComponent2.defaultProps = {
 };
 <FunctionComponent2>24</FunctionComponent2>;
 
+const VoidFunctionComponent: React.VoidFunctionComponent<SCProps> = ({ foo }: SCProps) => {
+    return <div>{foo}</div>;
+};
+VoidFunctionComponent.displayName = "VoidFunctionComponent1";
+VoidFunctionComponent.defaultProps = {
+    foo: 42
+};
+<VoidFunctionComponent />;
+
+// $ExpectError
+const VoidFunctionComponent2: React.VoidFunctionComponent<SCProps> = ({ foo, children }) => {
+    return <div>{foo}{children}</div>;
+};
+VoidFunctionComponent2.displayName = "VoidFunctionComponent2";
+VoidFunctionComponent2.defaultProps = {
+    foo: 42
+};
+<VoidFunctionComponent2>24</VoidFunctionComponent2>; // $ExpectError
+
 // svg sanity check
 <svg viewBox="0 0 1000 1000">
     <g>

@@ -551,6 +551,16 @@ declare namespace React {
         displayName?: string;
     }
 
+    type VFC<P = {}> = VoidFunctionComponent<P>;
+
+    interface VoidFunctionComponent<P = {}> {
+        (props: P, context?: any): ReactElement<any, any> | null;
+        propTypes?: WeakValidationMap<P>;
+        contextTypes?: ValidationMap<any>;
+        defaultProps?: Partial<P>;
+        displayName?: string;
+    }
+
     interface ForwardRefRenderFunction<T, P = {}> {
         (props: PropsWithChildren<P>, ref: ((instance: T | null) => void) | MutableRefObject<T | null> | null): ReactElement | null;
         displayName?: string;
