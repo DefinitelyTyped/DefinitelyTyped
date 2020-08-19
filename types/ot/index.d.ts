@@ -1,4 +1,4 @@
-// Type definitions for ot 0.0.15
+// Type definitions for ot 0.0
 // Project: https://github.com/Operational-Transformation/ot.js
 // Definitions by: Christian Alfoni <https://github.com/christianalfoni>
 //                 Ives van Hoorne <https://github.com/CompuIves>
