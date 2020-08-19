@@ -1,3 +1,4 @@
+// Type definitions for ffprobe
 // Definitions by: Sergey <https://github.com/SergeyAlexsandrovich>
 
 declare namespace getInfo {
