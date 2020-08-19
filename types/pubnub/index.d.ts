@@ -7,7 +7,7 @@
 //                  danduh <https://github.com/danduh>,
 //                  ChristianBoehlke <https://github.com/ChristianBoehlke>,
 //                  divyun <https://github.com/divyun>
-//                  elviswolcot <https://github.com/elviswolcott>
+//                  elviswolcott <https://github.com/elviswolcott>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // @see https://www.pubnub.com/docs/web-javascript/api-reference-configuration
 // TypeScript Version: 3.5
@@ -1316,7 +1316,7 @@ declare namespace Pubnub {
         limit?: number;
         page?: {
             next?: string;
-            prev: string;
+            prev?: string;
         };
     }
 
@@ -1332,7 +1332,7 @@ declare namespace Pubnub {
         limit?: number;
         page?: {
             next?: string;
-            prev: string;
+            prev?: string;
         };
     }
 
