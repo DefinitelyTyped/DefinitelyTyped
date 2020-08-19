@@ -241,24 +241,22 @@ export namespace Client {
      * In the 'Synchronized' state, there is no pending operation that the client
      * has sent to the server.
      */
-    declare class Synchronized implements Sync<AwaitingConfirm, Synchronized, never> {}
+    interface Synchronized extends Sync<AwaitingConfirm, Synchronized, never> {}
     /**
      * In the 'AwaitingConfirm' state, there's one operation the client has sent
      * to the server and is still waiting for an acknowledgement.
      */
-    declare class AwaitingConfirm implements Sync<AwaitingWithBuffer, AwaitingConfirm, Synchronized> {
+    interface AwaitingConfirm extends Sync<AwaitingWithBuffer, AwaitingConfirm, Synchronized> {
         outstanding: TextOperation;
-        constructor(outstanding: TextOperation);
         resend(client: Client): void;
     }
     /**
      * In the 'AwaitingWithBuffer' state, the client is waiting for an operation
      * to be acknowledged by the server while buffering the edits the user makes
      */
-    declare class AwaitingWithBuffer implements Sync<AwaitingWithBuffer, AwaitingWithBuffer, AwaitingConfirm> {
+    interface AwaitingWithBuffer extends Sync<AwaitingWithBuffer, AwaitingWithBuffer, AwaitingConfirm> {
         outstanding: TextOperation;
         buffer: TextOperation;
-        constructor(outstanding: TextOperation, buffer: TextOperation);
         resend(client: Client): void;
     }
 }
