@@ -251,7 +251,7 @@ declare namespace mapboxgl {
          */
         queryRenderedFeatures(
             pointOrBox?: PointLike | [PointLike, PointLike],
-            options?: { layers?: string[]; filter?: any[]; validate?: boolean },
+            options?: { layers?: string[]; filter?: any[] } & FilterOptions,
         ): MapboxGeoJSONFeature[];
 
         /**
@@ -269,8 +269,7 @@ declare namespace mapboxgl {
             parameters?: {
                 sourceLayer?: string;
                 filter?: any[];
-                validate?: boolean;
-            },
+            } & FilterOptions,
         ): MapboxGeoJSONFeature[];
 
         setStyle(style: mapboxgl.Style | string, options?: { diff?: boolean; localIdeographFontFamily?: string }): this;
@@ -315,7 +314,7 @@ declare namespace mapboxgl {
 
         getLayer(id: string): mapboxgl.Layer;
 
-        setFilter(layer: string, filter?: any[] | boolean | null): this;
+        setFilter(layer: string, filter?: any[] | boolean | null, options?: FilterOptions | null): this;
 
         setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
 
@@ -1645,6 +1644,18 @@ declare namespace mapboxgl {
     export class ErrorEvent extends MapboxEvent {
         type: 'error';
         error: Error;
+    }
+
+    /**
+     * FilterOptions
+     */
+    export interface FilterOptions {
+        /**
+         * Whether to check if the filter conforms to the Mapbox GL Style Specification.
+         * Disabling validation is a performance optimization that should only be used
+         * if you have previously validated the values you will be passing to this function.
+         */
+        validate?: boolean | null;
     }
 
     /**
