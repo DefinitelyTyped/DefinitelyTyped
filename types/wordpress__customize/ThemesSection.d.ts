@@ -36,7 +36,7 @@ export class ThemesSection extends Section {
 	previousTheme(): void;
 	getPreviousTheme(): ThemeControl|false;
 	updateLimits(): void;
-	loadThemePreview(themeId: string): JQuery.Promise<any, any, any>;
+	loadThemePreview(themeId: string): JQuery.Promise<any>;
 	showDetails(theme: Theme, callback?: () => void): void;
 	closeDetails(): void;
 	containFocus(el: JQuery): void;

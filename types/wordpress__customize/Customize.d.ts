@@ -91,7 +91,7 @@ export interface Customize extends Values<Setting<any>> {
 	utils: Utils;
 	ensure(element: string|JQuery): JQuery;
 	dirtyValues(options?: DirtyValuesOptions): Record<string, any>;
-	requestChangesetUpdate(changes?: Record<string, any>, args?: RequestChangesetUpdateOptions): JQuery.Promise<any, any, any>;
+	requestChangesetUpdate(changes?: Record<string, any>, args?: RequestChangesetUpdateOptions): JQuery.Promise<any>;
 	get(): Record<string, any>;
 	defaultConstructor: Setting<Class>;
 	control: Values<Control>;

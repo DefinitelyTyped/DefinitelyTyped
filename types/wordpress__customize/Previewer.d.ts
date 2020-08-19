@@ -29,7 +29,7 @@ export class Previewer<T> extends Messenger<T> {
 	keepPreviewAlive(): void;
 	query(): void;
 	abort(): void;
-	login(): JQuery.Promise<any, any, any>;
+	login(): JQuery.Promise<any>;
 	cheatin(): void;
 	refreshNonces(): JQuery.Deferred<any>;
 }
