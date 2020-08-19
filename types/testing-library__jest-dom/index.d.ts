@@ -210,12 +210,9 @@ declare namespace jest {
          * @description
          * Assert whether a string representing a HTML element is contained in another element.
          * @example
-         * <span data-testid="parent">
-         *   <span data-testid="child"></span>
-         * </span>
+         * <span data-testid="parent"><span data-testid="child"></span></span>
          *
-         * const parent = getByTestId('parent')
-         * expect(parent).toContainerHTML(<span data-testid="child"></span>)
+         * expect(getByTestId('parent')).toContainHTML('<span data-testid="child"></span>')
          * @see
          * [testing-library/jest-dom#tocontainhtml](https:github.com/testing-library/jest-dom#tocontainhtml)
          */

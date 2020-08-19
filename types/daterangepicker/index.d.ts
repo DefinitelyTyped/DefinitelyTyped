@@ -174,7 +174,7 @@ declare namespace daterangepicker {
         /**
          * jQuery selector of the parent element that the date range picker will be added to, if not provided this will be 'body'
          */
-        parentEl?: string;
+        parentEl?: Element | string;
     }
 
     interface Locale {

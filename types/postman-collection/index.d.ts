@@ -242,11 +242,18 @@ export class Cookie extends PropertyBase<CookieDefinition> implements Exclude<Co
 
   valueOf(): string;
 
+  /** Check whether an object is an instance of PostmanCookie. */
   static isCookie(obj: any): boolean;
-
+  /** Unparses a single Cookie. */
+  static unparseSingle(cookie: CookieDefinition): string;
+  /** Stringifies an Array or {@link PropertyList} of Cookies into a single string. */
+  static unparse(cookies: CookieDefinition[]): string;
+  /**
+   * Converts the Cookie to a single Set-Cookie header string.
+   */
+  static stringify(cookie: CookieDefinition): string;
+  /** Cookie header parser */
   static parse(str: string): CookieDefinition;
-
-  static splitParam(param: string): { key: string; value: string | boolean };
 }
 
 export class CookieList extends PropertyList<Cookie> {

@@ -111,6 +111,7 @@ export interface ParseConfig<T = any> {
     fastMode?: boolean; // default: undefined
     withCredentials?: boolean; // default: undefined
     delimitersToGuess?: GuessableDelimiters[]; // default: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
+    chunkSize?: number; // default: undefined
 
     // Callbacks
     step?(results: ParseResult<T>, parser: Parser): void; // default: undefined
@@ -119,7 +120,7 @@ export interface ParseConfig<T = any> {
     chunk?(results: ParseResult<T>, parser: Parser): void; // default: undefined
     beforeFirstChunk?(chunk: string): string | void; // default: undefined
     transform?(value: string, field: string | number): any; // default: undefined
-    transformHeader?(header: string): string; // default: undefined
+    transformHeader?(header: string, index?: number): string; // default: undefined
 }
 
 export interface UnparseConfig {

@@ -731,6 +731,7 @@ declare namespace NodeJS {
         destroy(error?: Error): void;
     }
     interface ReadStream extends Socket {
+        readonly readableFlowing: boolean | null;
         readonly readableHighWaterMark: number;
         readonly readableLength: number;
         isRaw?: boolean;
@@ -1136,7 +1137,10 @@ declare namespace NodeJS {
 
     type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
 
-    // The value type here is a "poor man's `unknown`". When these types support TypeScript
-    // 3.0+, we can replace this with `unknown`.
-    type PoorMansUnknown = {} | null | undefined;
+    // TODO: The value type here is a version of `unknown` with an acceptably lossy amount of accuracy.
+    // Now that TypeScript's DT support is  3.0+, we can look into replacing this with `unknown`.
+    type UnknownFacade = {} | null | undefined;
+
+    /** @deprecated - Use `UnknownFacade` instead. It is a better classifier for the type */
+    type PoorMansUnknown = UnknownFacade;
 }

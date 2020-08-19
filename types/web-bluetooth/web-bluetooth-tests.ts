@@ -22,6 +22,13 @@ function handleBodySensorLocationCharacteristic(characteristic: BluetoothRemoteG
         console.log("Unknown sensor location.");
         return Promise.resolve();
     }
+
+    // not from the spec - exercising additional APIs
+    const buffer = new Uint8Array(0);
+    characteristic.writeValue(buffer);
+    characteristic.writeValueWithResponse(buffer);
+    characteristic.writeValueWithoutResponse(buffer);
+
     return characteristic.readValue()
         .then(sensorLocationData => {
             let sensorLocation = sensorLocationData.getUint8(0);

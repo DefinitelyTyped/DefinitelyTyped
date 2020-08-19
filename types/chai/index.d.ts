@@ -67,7 +67,7 @@ declare namespace Chai {
         getOwnEnumerableProperties(obj: object): Array<string | symbol>;
         getMessage(errorLike: Error | string): string;
         getMessage(obj: any, args: AssertionArgs): string;
-        inspect(obj: any, showHidden?: boolean, depth?: number, colors?: boolean): void;
+        inspect(obj: any, showHidden?: boolean, depth?: number, colors?: boolean): string;
         isProxyEnabled(): boolean;
         objDisplay(obj: object): void;
         proxify(obj: object, nonChainableMethodName: string): object;

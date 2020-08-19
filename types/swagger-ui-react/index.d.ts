@@ -20,7 +20,7 @@ type PluginGenerator = (system: System) => object;
 type Plugin = object | PluginGenerator;
 
 export interface SwaggerUIProps {
-    spec?: object;
+    spec?: object | string;
     url?: string;
     onComplete?: (system: System) => void;
     requestInterceptor?: (req: Request) => Request | Promise<Request>;

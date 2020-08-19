@@ -250,13 +250,13 @@ export interface IColumn extends ISqlType {
     primary: boolean;
 }
 
-declare class columns extends Array {
+declare class columns extends Array<IColumn> {
     public add(name: string, type: (() => ISqlType) | ISqlType, options?: IColumnOptions): number;
 }
 
 type IRow = (string | number | boolean | Date | Buffer | undefined)[];
 
-declare class rows extends Array {
+declare class rows extends Array<IRow> {
     public add(...row: IRow): number;
 }
 

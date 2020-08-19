@@ -85,6 +85,34 @@ const exampleSendDataWithTemplate2: mailgunFactory.messages.SendTemplateData = {
     },
 };
 
+const exampleBatchDataWithRecipientVariables1: mailgunFactory.messages.BatchData = {
+    to: 'someone@email.com',
+    subject: 'Hello, %recipient.name%',
+    text: 'You have %recipient.invitations% new invitations',
+    'recipient-variables': {
+        'alice@example.com': {
+            name: 'Alice',
+            invitations: 3
+        },
+        'bob@example.com': {
+            name: 'Bob',
+            invitations: 2
+        },
+    }
+};
+
+const exampleBatchDataWithRecipientVariables2: mailgunFactory.messages.BatchData = {
+    to: 'someone@email.com',
+    subject: 'Hello, %recipient.name%',
+    text: 'You have %recipient.invitations% new invitations',
+    'recipient-variables': JSON.stringify({
+        'alice@example.com': {
+            name: 'Alice',
+            invitations: 3
+        },
+    })
+};
+
 const exampleSendDataTemplateResponse: Promise<mailgunFactory.messages.SendResponse> = mailgun
     .messages()
     .send(exampleSendDataWithTemplate);
@@ -114,5 +142,9 @@ const validationResult6: mailgunFactory.validation.ValidateResponse = {
 };
 
 // Generic requests
-mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] }, (error: any, body: any) => {});
-const response: Promise<any> = mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] });
+mailgun.get('/samples.mailgun.org/stats', (error: any, body: any) => {});
+const response1: Promise<any> = mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] });
+const response2: Promise<any> = mailgun.get('/samples.mailgun.org/stats');
+
+// Delete mailing list
+mailgun.lists('example@mailgun.net').delete((error, body) => { });

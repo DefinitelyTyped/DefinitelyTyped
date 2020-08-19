@@ -98,7 +98,7 @@ import webpack = require('webpack');
     navigationPreload: true,
     importScripts: ['push-notifications.abcd1234.js'],
     // This will ignore all parameters:
-    ignoreUrlParametersMatching: [/./],
+    ignoreURLParametersMatching: [/./],
     directoryIndex: 'index.html',
     cacheId: 'my-app',
     offlineGoogleAnalytics: true,

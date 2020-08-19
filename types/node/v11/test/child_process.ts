@@ -46,6 +46,20 @@ import { Writable, Readable, Pipe } from 'stream';
     const ipc: Pipe = forked.channel!;
 }
 
+{
+    const forked = childProcess.fork('./', {
+        windowsVerbatimArguments: true,
+        silent: false,
+        stdio: ["inherit"],
+        execPath: '',
+        execArgv: ['asda']
+    });
+}
+
+{
+    const forked = childProcess.fork('./');
+}
+
 async function testPromisify() {
     const execFile = promisify(childProcess.execFile);
     let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");

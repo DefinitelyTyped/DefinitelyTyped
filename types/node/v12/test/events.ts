@@ -82,3 +82,8 @@ const any: any = 1;
         }
     }, 'name');
 }
+
+{
+    emitter.on(events.errorMonitor, listener);
+    emitter.on(events.EventEmitter.errorMonitor, listener);
+}

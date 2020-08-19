@@ -17,6 +17,8 @@ const defaultLocale = getDefaultLocale();
     calendarContainer={props => <div />}
     className=""
     clearButtonTitle=""
+    // closeOnScroll={false} // Or as function:
+    closeOnScroll={e => e.target === document}
     customInput={<input />}
     customInputRef=""
     chooseDayAriaLabelPrefix=""
@@ -59,7 +61,7 @@ const defaultLocale = getDefaultLocale();
     onBlur={event => null}
     onCalendarClose={() => null}
     onCalendarOpen={() => null}
-    onChange={(date: Date | null) => {}}
+    onChange={(date: Date | [Date, Date] | null) => {}}
     onChangeRaw={event => null}
     onClickOutside={event => null}
     onDayMouseEnter={(date: Date) => {}}

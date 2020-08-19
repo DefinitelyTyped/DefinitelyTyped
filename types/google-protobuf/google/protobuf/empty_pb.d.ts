@@ -18,4 +18,3 @@ export namespace Empty {
   export type AsObject = {
   }
 }
-

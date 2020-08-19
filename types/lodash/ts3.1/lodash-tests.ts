@@ -4462,6 +4462,12 @@ fp.now(); // $ExpectType number
     _(42).isSymbol(); // $ExpectType boolean
     _.chain([]).isSymbol(); // $ExpectType PrimitiveChain<boolean>
     fp.isSymbol(anything); // $ExpectType boolean
+    if (fp.isSymbol(anything)) {
+        anything; // $ExpectType symbol
+    }
+    if (_.isSymbol(anything)) {
+        anything; // $ExpectType symbol
+    }
 }
 
 // _.isTypedArray
@@ -6427,16 +6433,29 @@ fp.now(); // $ExpectType number
 
 // _.split
 {
+    _.split(undefined); // $ExpectType string[]
+    _.split(null); // $ExpectType string[]
     _.split("a-b-c"); // $ExpectType string[]
+    _.split(null, "-"); // $ExpectType string[]
     _.split("a-b-c", "-"); // $ExpectType string[]
+    _.split(null, "-", 2); // $ExpectType string[]
     _.split("a-b-c", "-", 2); // $ExpectType string[]
+    _(null).split();  // $ExpectType Collection<string>
     _("a-b-c").split(); // $ExpectType Collection<string>
+    _(null).split("-");  // $ExpectType Collection<string>
     _("a-b-c").split("-"); // $ExpectType Collection<string>
+    _(null).split("-", 2);  // $ExpectType Collection<string>
     _("a-b-c").split("-", 2); // $ExpectType Collection<string>
+    _.chain(null).split(); // $ExpectType CollectionChain<string>
     _.chain("a-b-c").split(); // $ExpectType CollectionChain<string>
+    _.chain(null).split("-"); // $ExpectType CollectionChain<string>
     _.chain("a-b-c").split("-"); // $ExpectType CollectionChain<string>
+    _.chain(null).split("-", 2); // $ExpectType CollectionChain<string>
     _.chain("a-b-c").split("-", 2); // $ExpectType CollectionChain<string>
+    fp.split("-", undefined); // $ExpectType string[]
+    fp.split("-", null); // $ExpectType string[]
     fp.split("-", "a-b-c"); // $ExpectType string[]
+    fp.split("-")(null); // $ExpectType string[]
     fp.split("-")("a-b-c"); // $ExpectType string[]
 
     _.map(["abc", "def"], _.split); // $ExpectType string[][]

@@ -5,7 +5,10 @@
 // TypeScript Version: 3.7
 
 declare namespace Glider {
-    type Selector = HTMLElement | string;
+    // Selectors are either results of querying document DOM or a string
+    // Let's default to nullable Element to allow friction free migration
+    // from JS to TS
+    type Selector =  Element | string;
 
     type EasingFunction = (x: number, t: number, b: number, c: number, d: number) => number;
 
@@ -75,14 +78,14 @@ declare namespace Glider {
          * An object containing the prev/next arrow settings
          */
         arrows?: {
-            prev: Selector;
-            next: Selector;
+            prev: Selector | null;
+            next: Selector | null;
         };
 
         /**
          * An HTML element or selector containing the dot container
          */
-        dots?: Selector;
+        dots?: Selector | null;
 
         /**
          * If true, the list can be scrolled by click and dragging with the
@@ -119,12 +122,6 @@ declare namespace Glider {
         itemWidth?: number;
 
         /**
-         * Whether or not Glider.js events should bubble (useful for binding
-         * events to all carousels)
-         */
-        propagateEvent?: boolean;
-
-        /**
          * If true, Glider.js will lock to the nearest slide on resizing of
          * the window
          */
@@ -158,6 +155,12 @@ declare namespace Glider {
          * Whether or not to release the scroll events from the container
          */
         scrollPropagate?: boolean;
+
+        /**
+         * Whether or not the event bubbles up from the container
+         * @default true
+         */
+        eventPropagate?: boolean;
 
         /**
          * Whether or not Glider.js should skip wrapping its children with a

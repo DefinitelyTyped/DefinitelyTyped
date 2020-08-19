@@ -306,6 +306,7 @@ $el.css('width', '50px');
 $.html();
 $.html('.class');
 $.xml();
+$.xml($el);
 
 /**
  * Miscellaneous

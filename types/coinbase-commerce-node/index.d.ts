@@ -594,6 +594,13 @@ declare namespace Webhook {
      * @link https://github.com/coinbase/coinbase-commerce-node#verify-signature-header
      */
     function verifySigHeader(rawBody: string, signature: string, sharedSecret: string): void;
+
+    /**
+     * Verify event body.
+     *
+     * @link https://github.com/coinbase/coinbase-commerce-node/blob/v1.0.4/lib/Webhook.js#L10
+     */
+    function verifyEventBody(rawBody: string, signature: string, sharedSecret: string): resources.Event;
 }
 
 export {

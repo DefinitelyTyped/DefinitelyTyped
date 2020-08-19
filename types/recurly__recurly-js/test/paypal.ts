@@ -27,6 +27,5 @@ export default function paypal() {
       description: "description"
     }
   });
-
   paypal.destroy();
 }

@@ -1,4 +1,4 @@
-// Type definitions for terser-webpack-plugin 3.0
+// Type definitions for terser-webpack-plugin 4.1
 // Project: https://github.com/webpack-contrib/terser-webpack-plugin
 // Definitions by: Daniel Schopf <https://github.com/Danscho>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -13,10 +13,8 @@ import { MinifyOptions } from 'terser';
  */
 declare namespace TerserPlugin {
     interface MinifyResult {
-        error: any;
         map: any;
         code: any;
-        warnings: any;
         extractedComments: any;
     }
 
@@ -107,13 +105,6 @@ declare namespace TerserPlugin {
          * @default true
          */
         extractComments?: boolean | string | RegExp | ExtractCommentFn | ExtractCommentOptions;
-
-        /**
-         * Allow to filter terser warnings.
-         * ⚠️ The source argument will contain undefined if you don't use source maps.
-         * @default () => true
-         */
-        warningsFilter?: (warning: string, file: string, source?: string) => boolean | null | undefined;
     }
 }
 

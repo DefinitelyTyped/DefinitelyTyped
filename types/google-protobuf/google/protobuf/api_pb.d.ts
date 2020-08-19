@@ -7,33 +7,33 @@ import * as google_protobuf_type_pb from "./type_pb";
 
 export class Api extends jspb.Message {
   getName(): string;
-  setName(value: string): void;
+  setName(value: string): Api;
 
-  clearMethodsList(): void;
+  clearMethodsList(): Api;
   getMethodsList(): Array<Method>;
-  setMethodsList(value: Array<Method>): void;
+  setMethodsList(value: Array<Method>): Api;
   addMethods(value?: Method, index?: number): Method;
 
-  clearOptionsList(): void;
+  clearOptionsList(): Api;
   getOptionsList(): Array<google_protobuf_type_pb.Option>;
-  setOptionsList(value: Array<google_protobuf_type_pb.Option>): void;
+  setOptionsList(value: Array<google_protobuf_type_pb.Option>): Api;
   addOptions(value?: google_protobuf_type_pb.Option, index?: number): google_protobuf_type_pb.Option;
 
   getVersion(): string;
-  setVersion(value: string): void;
+  setVersion(value: string): Api;
 
   hasSourceContext(): boolean;
-  clearSourceContext(): void;
+  clearSourceContext(): Api;
   getSourceContext(): google_protobuf_source_context_pb.SourceContext | undefined;
-  setSourceContext(value?: google_protobuf_source_context_pb.SourceContext): void;
+  setSourceContext(value?: google_protobuf_source_context_pb.SourceContext): Api;
 
-  clearMixinsList(): void;
+  clearMixinsList(): Api;
   getMixinsList(): Array<Mixin>;
-  setMixinsList(value: Array<Mixin>): void;
+  setMixinsList(value: Array<Mixin>): Api;
   addMixins(value?: Mixin, index?: number): Mixin;
 
   getSyntax(): google_protobuf_type_pb.Syntax;
-  setSyntax(value: google_protobuf_type_pb.Syntax): void;
+  setSyntax(value: google_protobuf_type_pb.Syntax): Api;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Api.AsObject;
@@ -59,27 +59,27 @@ export namespace Api {
 
 export class Method extends jspb.Message {
   getName(): string;
-  setName(value: string): void;
+  setName(value: string): Method;
 
   getRequestTypeUrl(): string;
-  setRequestTypeUrl(value: string): void;
+  setRequestTypeUrl(value: string): Method;
 
   getRequestStreaming(): boolean;
-  setRequestStreaming(value: boolean): void;
+  setRequestStreaming(value: boolean): Method;
 
   getResponseTypeUrl(): string;
-  setResponseTypeUrl(value: string): void;
+  setResponseTypeUrl(value: string): Method;
 
   getResponseStreaming(): boolean;
-  setResponseStreaming(value: boolean): void;
+  setResponseStreaming(value: boolean): Method;
 
-  clearOptionsList(): void;
+  clearOptionsList(): Method;
   getOptionsList(): Array<google_protobuf_type_pb.Option>;
-  setOptionsList(value: Array<google_protobuf_type_pb.Option>): void;
+  setOptionsList(value: Array<google_protobuf_type_pb.Option>): Method;
   addOptions(value?: google_protobuf_type_pb.Option, index?: number): google_protobuf_type_pb.Option;
 
   getSyntax(): google_protobuf_type_pb.Syntax;
-  setSyntax(value: google_protobuf_type_pb.Syntax): void;
+  setSyntax(value: google_protobuf_type_pb.Syntax): Method;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Method.AsObject;
@@ -105,10 +105,10 @@ export namespace Method {
 
 export class Mixin extends jspb.Message {
   getName(): string;
-  setName(value: string): void;
+  setName(value: string): Mixin;
 
   getRoot(): string;
-  setRoot(value: string): void;
+  setRoot(value: string): Mixin;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Mixin.AsObject;
@@ -126,4 +126,3 @@ export namespace Mixin {
     root: string,
   }
 }
-

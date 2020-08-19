@@ -98,6 +98,22 @@ auth0.webAuth.authorize(
     },
 );
 
+auth0.webAuth.authorize({
+    state: 'state',
+    nonce: 'nonce',
+    scope: 'openid',
+    language: 'en',
+    prompt: 'login',
+}).then(credentials => credentials.accessToken);
+
+auth0.webAuth.authorize({
+    state: 'state',
+    nonce: 'nonce',
+    scope: 'openid',
+    language: 'en',
+    prompt: 'login',
+}).then(credentials => credentials.doesNotExist); // $ExpectError
+
 auth0.webAuth.clearSession({ federated: false });
 auth0.webAuth.clearSession();
 
