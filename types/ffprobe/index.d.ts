@@ -1,15 +1,14 @@
-// Type definitions for ffprobe
+// Type definitions for ffprobe 1.1.0
 // Project: https://github.com/eugeneware/ffprobe
 // Definitions by: Sergey <https://github.com/SergeyAlexsandrovich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace getInfo {
-
-    export interface IOptions {
+    interface Options {
         path: string;
     }
 
-    export interface IFFProbeStream {
+    interface FFProbeStream {
         index: number;
         codec_name: string;
         codec_long_name: string;
@@ -66,13 +65,11 @@ declare namespace getInfo {
         };
     }
 
-    export interface IFFProbeResult {
-        streams: IFFProbeStream[];
+    interface FFProbeResult {
+        streams: FFProbeStream[];
     }
-
 }
 
-declare function getInfo(options: getInfo.IOptions): Promise<getInfo.IFFProbeResult>;
-declare function getInfo(path: string): Promise<getInfo.IFFProbeResult>;
+declare function getInfo(options: getInfo.Options | string): Promise<getInfo.FFProbeResult>;
 
 export = getInfo;
