@@ -21,19 +21,19 @@ export class Selection {
     somethingSelected(): boolean;
     /**
      * Return the more current selection information.
-     * @param operation 
+     * @param operation The op
      */
     compose(operation: TextOperation): Selection;
     /**
      * Update the selection with respect to an operation.
-     * @param operation 
+     * @param operation The op
      */
     transform(operation: TextOperation): Selection;
 
     /**
      * Convenience method for creating selections only containing a single cursor
      * and no real selection range.
-     * @param position 
+     * @param position The pos
      */
     static createCursor(position: number): Selection;
     static fromJSON(obj: string): Selection;
@@ -99,7 +99,7 @@ export class TextOperation {
     /**
      * Apply an operation to a string, returning a new string. Throws an error if
      * there's a mismatch between the input string and the operation.
-     * @param doc 
+     * @param doc The doc
      */
     apply(doc: string): string;
     /**
@@ -107,7 +107,7 @@ export class TextOperation {
      * operation that reverts the effects of the operation, e.g. when you have an
      * operation 'insert("hello "); skip(6);' then the inverse is 'delete("hello ");
      * skip(6);'. The inverse should be used for implementing undo.
-     * @param doc 
+     * @param doc The doc
      */
     invert(doc: string): TextOperation;
     /**
@@ -115,7 +115,7 @@ export class TextOperation {
      * preserves the changes of both. Or, in other words, for each input string S
      * and a pair of consecutive operations A and B,
      * apply(apply(S, A), B) = apply(S, compose(A, B)) must hold.
-     * @param operation 
+     * @param operation The op
      */
     compose(operation: TextOperation): TextOperation;
     /**
@@ -127,34 +127,34 @@ export class TextOperation {
      * returns true if the operations are consecutive insert operations or both
      * operations delete text at the same position. You may want to include other
      * factors like the time since the last change in your decision.
-     * @param operation 
+     * @param operation The op
      */
     shouldBeComposedWith(operation: TextOperation): boolean;
     /**
      * Decides whether two operations should be composed with each other
      * if they were inverted, that is
      * `shouldBeComposedWith(a, b) = shouldBeComposedWithInverted(b^{-1}, a^{-1})`.
-     * @param operation 
+     * @param operation The op
      */
     shouldBeComposedWithInverted(operation: TextOperation): boolean;
     /**
      * Delete a string at the current position.
-     * @param length 
+     * @param length The length
      */
     delete(length: number): TextOperation;
     /**
      * Delete a string at the current position.
-     * @param string 
+     * @param string The string
      */
     delete(str: string): TextOperation;
     /**
      * Insert a string at the current position.
-     * @param str 
+     * @param str The string
      */
     insert(str: string): TextOperation;
     /**
      * Skip over a given number of characters.
-     * @param length 
+     * @param length The length
      */
     retain(length: number): TextOperation;
     /**
@@ -172,24 +172,24 @@ export class TextOperation {
 
     /**
      * Converts a plain JS object into an operation and validates it.
-     * @param operation 
+     * @param operation The op
      */
     static fromJSON(operation: SerializedTextOperation): TextOperation;
     /**
      * Delete ops: Delete the next n characters. Represented by negative ints.
-     * @param operation 
+     * @param operation The op
      */
     static isDelete(operation: string | number): boolean;
     /**
      * Insert ops: Insert a given string at the current cursor position.
      *   Represented by strings.
-     * @param operation 
+     * @param operation The op
      */
     static isInsert(operation: string | number): boolean;
     /**
      * Retain ops: Advance the cursor position by a given number of characters.
      *   Represented by positive ints.
-     * @param operation 
+     * @param operation The op
      */
     static isRetain(operation: string | number): boolean;
     /**
@@ -197,8 +197,8 @@ export class TextOperation {
      * produces two operations A' and B' (in an array) such that
      * `apply(apply(S, A), B') = apply(apply(S, B), A')`. This function is the
      * heart of OT.
-     * @param left 
-     * @param right 
+     * @param left The left op
+     * @param right The right op
      */
     static transform(left: TextOperation, right: TextOperation): TextOperation;
 
@@ -213,12 +213,12 @@ export class Client {
     setState(state: Client.Synchronized);
     /**
      * Call this method when the user changes the document.
-     * @param operation 
+     * @param operation The op
      */
     applyClient(operation: TextOperation);
     /**
      * Call this method with a new operation from the server
-     * @param operation 
+     * @param operation The op
      */
     applyServer(operation: TextOperation);
     serverAck();
@@ -230,18 +230,18 @@ export class Client {
      * our newest operation, an insertion of 5 characters at the beginning of the
      * document, the correct position of the other user's cursor in our current
      * document is 8.
-     * @param selection 
+     * @param selection The selection
      */
     transformSelection(selection: Selection);
     /**
      * Override this method.
-     * @param revision 
-     * @param operation 
+     * @param revision The revision
+     * @param operation The op
      */
     sendOperation(revision: number, operation: TextOperation);
     /**
      * Override this method.
-     * @param operation 
+     * @param operation The op
      */
     applyOperation(operation: TextOperation);
 
@@ -287,15 +287,15 @@ export class Server {
     /**
      * Constructor. Takes the current document as a string and optionally the array
      * of all operations.
-     * @param document 
-     * @param operations 
+     * @param document The doc
+     * @param operations The ops
      */
     constructor(public document: string, public operations?: TextOperation[])
 
     /**
      * Call this method whenever you receive an operation from a client.
-     * @param revision 
-     * @param operation 
+     * @param revision The revision
+     * @param operation The op
      */
     receiveOperation(revision: number, operation: TextOperation): TextOperation;
 }
@@ -309,7 +309,7 @@ export class SimpleTextOperation {
     /**
      * Convert a normal, composable `TextOperation` into an array of
      * `SimpleTextOperation`s.
-     * @param operation 
+     * @param operation The op
      */
     static fromTextOperation(operation: TextOperation): SimpleTextOperation[];
 }
@@ -351,7 +351,7 @@ type UndoState = 'normal' | 'undoing' | 'redoing';
 export class UndoManager {
     /**
      * Create a new UndoManager with an optional maximum history size.
-     * @param maxItems 
+     * @param maxItems The max history size
      */
     constructor(maxItems?: number);
 
@@ -373,7 +373,7 @@ export class UndoManager {
 
     /**
      * Transform the undo and redo stacks against a operation by another client.
-     * @param operation 
+     * @param operation The op
      */
     transform(operation: TextOperation | WrappedOperation);
 
@@ -418,9 +418,9 @@ export class UndoManager {
  */
 export class WrappedOperation<T = any> {
     wrapped: TextOperation;
-    meta: T
+    meta: T;
 
-    constructor(operation: TextOperation, meta?: T)
+    constructor(operation: TextOperation, meta?: T);
 
     apply(doc: string): string;
     invert(doc: string): WrappedOperation<T>;
@@ -455,23 +455,23 @@ export interface ServerAdapter {
 }
 
 export interface ServerAdapterCallbacks {
-    client_left(clientId: string): void,
-    set_name(clientId: string, name: string): void,
-    ack(): void,
-    operation(operation: SerializedTextOperation): void
-    selection(clientId: string, selection: string): void
-    clients(clients: any): void
-    reconnect(): void
+    client_left(clientId: string): void;
+    set_name(clientId: string, name: string): void;
+    ack(): void;
+    operation(operation: SerializedTextOperation): void;
+    selection(clientId: string, selection: string): void;
+    clients(clients: any): void;
+    reconnect(): void;
 }
 
 export type ClientObj = {
-    clientId: string,
-    name? : string,
-    selection : string
+    clientId: string;
+    name? : string;
+    selection : string;
 }
 
 export type Clients<T = any> = {
-    [clientId: string] : T
+    [clientId: string] : T;
 }
 
 interface Mark {
@@ -487,21 +487,21 @@ export class EditorClient extends Client {
     constructor(revision: number, clients: ClientObj[], serverAdapter: ServerAdapter, editorAdapter: ClientAdapter);
 
     // not sure about all those signatures
-    addClient(clientId: string, clientObj: ClientObj): void
-    initializeClients<T>(clients: Clients<T>): void
-    getClientObject(clientId: string): ClientObj
-    onClientLeft(clientId: string): void
-    initializeClientList(): void
-    applyUnredo(operation: TextOperation): void
-    undo(): void
-    redo(): void
-    onChange(textOperation: TextOperation, inverse: TextOperation): void
-    updateSelection(): void
-    onSelectionChange(): void
-    onBlur(): void
-    sendSelection(selection: Selection)
-    sendOperation(revision: number, operation: TextOperation)
-    applyOperation(operation: TextOperation)
+    addClient(clientId: string, clientObj: ClientObj): void;
+    initializeClients<T>(clients: Clients<T>): void;
+    getClientObject(clientId: string): ClientObj;
+    onClientLeft(clientId: string): void;
+    initializeClientList(): void;
+    applyUnredo(operation: TextOperation): void;
+    undo(): void;
+    redo(): void;
+    onChange(textOperation: TextOperation, inverse: TextOperation): void;
+    updateSelection(): void;
+    onSelectionChange(): void;
+    onBlur(): void;
+    sendSelection(selection: Selection);
+    sendOperation(revision: number, operation: TextOperation);
+    applyOperation(operation: TextOperation);
 }
 
 // TODO
