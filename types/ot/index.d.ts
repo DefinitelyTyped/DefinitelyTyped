@@ -241,24 +241,24 @@ export namespace Client {
      * In the 'Synchronized' state, there is no pending operation that the client
      * has sent to the server.
      */
-    interface Synchronized extends Sync<AwaitingConfirm, Synchronized, never> {}
+    declare class Synchronized implements Sync<AwaitingConfirm, Synchronized, never> {}
     /**
      * In the 'AwaitingConfirm' state, there's one operation the client has sent
      * to the server and is still waiting for an acknowledgement.
      */
-    interface AwaitingConfirm extends Sync<AwaitingWithBuffer, AwaitingConfirm, Synchronized> {
+    declare class AwaitingConfirm implements Sync<AwaitingWithBuffer, AwaitingConfirm, Synchronized> {
         outstanding: TextOperation;
-        new(outstanding: TextOperation): AwaitingConfirm;
+        constructor(outstanding: TextOperation);
         resend(client: Client): void;
     }
     /**
      * In the 'AwaitingWithBuffer' state, the client is waiting for an operation
      * to be acknowledged by the server while buffering the edits the user makes
      */
-    interface AwaitingWithBuffer extends Sync<AwaitingWithBuffer, AwaitingWithBuffer, AwaitingConfirm> {
+    declare class AwaitingWithBuffer implements Sync<AwaitingWithBuffer, AwaitingWithBuffer, AwaitingConfirm> {
         outstanding: TextOperation;
-        buffer: TextOperation
-        new(outstanding: TextOperation, buffer: TextOperation): AwaitingWithBuffer;
+        buffer: TextOperation;
+        constructor(outstanding: TextOperation, buffer: TextOperation);
         resend(client: Client): void;
     }
 }
@@ -315,7 +315,7 @@ export namespace SimpleTextOperation {
 }
 
 export type EditorSocketIOServer<S extends { id: string } = any, C = any> = EventEmitter & Server & {
-    new(document: string, operations: TextOperation[], docId: string, mayWrite?: (_: any, cb: (b: boolean) => void) => void);
+    new(document: string, operations: TextOperation[], docId: string, mayWrite?: (_: any, cb: (b: boolean) => void) => void): EditorSocketIOServer;
     addClient(socket: S): void;
     onOperation(socket: S, revision: number, operation: string, selection: string): void;
     updateSelection(socket: S, selection: string): void;
