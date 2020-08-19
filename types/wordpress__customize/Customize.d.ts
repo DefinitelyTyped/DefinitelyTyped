@@ -104,7 +104,7 @@ export interface Customize extends Values<Setting<any>> {
     panelConstructor: Panel_Constructor;
     sectionConstructor: Section_Constructor;
     _handleSettingValidities(args: HandleSettingValiditiesArgs): void;
-    findControlsForSettings(settingIds: string[]): Record<string, Control>;
+    findControlsForSettings(settingIds: ReadonlyArray<string>): Record<string, Control>;
     reflowPaneContents(): void;
     state: Values<Class>;
     settings: any; // TODO
