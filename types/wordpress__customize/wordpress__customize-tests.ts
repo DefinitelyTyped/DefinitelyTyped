@@ -1,23 +1,30 @@
 import * as _ from 'underscore';
 
 declare const wp: {
-	customize: typeof import('wordpress__customize');
+    customize: typeof import('wordpress__customize');
 };
 
 // Code snippets from https://developer.wordpress.org/themes/customize-api/the-customizer-javascript-api/
 
-wp.customize('page_for_posts', (setting) => {
-    setting.bind((pageId) => {
+wp.customize('page_for_posts', setting => {
+    setting.bind(pageId => {
         pageId = parseInt(pageId, 10);
         // tslint:disable-next-line:prefer-template
-        if (pageId > 0) {    wp.customize.previewer.previewUrl.set(wp.customize.settings.url.home + '?page_id=' + pageId);
+        if (pageId > 0) {
+            wp.customize.previewer.previewUrl.set(wp.customize.settings.url.home + '?page_id=' + pageId);
         }
     });
 });
 
-wp.customize.panel.each((panel) => { /* ... */ });
-wp.customize.section.each((section) => { /* ... */ });
-wp.customize.control.each((control) => { /* ... */ });
+wp.customize.panel.each(panel => {
+    /* ... */
+});
+wp.customize.section.each(section => {
+    /* ... */
+});
+wp.customize.control.each(control => {
+    /* ... */
+});
 
 let id = wp.customize.control('blogname').section(); // returns title_tagline by default
 
@@ -28,18 +35,17 @@ id = wp.customize.section('sidebar-widgets-sidebar-1').panel(); // returns widge
 const sections = wp.customize.panel('widgets').sections();
 const controls = wp.customize.section('title_tagline').controls();
 
-_.each(wp.customize.section('title_tagline').controls(), (control) => {
+_.each(wp.customize.section('title_tagline').controls(), control => {
     control.section('nav');
-    }
-);
+});
 
 wp.customize.section('nav').deactivate(); // slide up
 wp.customize.section('nav').activate({ duration: 1000 }); // slide down slowly
 wp.customize.section('colors').deactivate({ duration: 0 }); // hide immediately
-wp.customize.section('nav').deactivate({ completeCallback:
-() => {
-    wp.customize.section('colors').activate(); // show after nav hides completely
-    }
+wp.customize.section('nav').deactivate({
+    completeCallback: () => {
+        wp.customize.section('colors').activate(); // show after nav hides completely
+    },
 });
 
 wp.customize.control('page_on_front').focus();
