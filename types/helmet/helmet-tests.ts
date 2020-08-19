@@ -35,7 +35,7 @@ function helmetTest() {
  */
 function contentSecurityPolicyTest() {
     const emptyArray: string[] =  [];
-    const config: helmet.IHelmetContentSecurityPolicyConfiguration = {
+    const camelCasedConfig: helmet.IHelmetContentSecurityPolicyConfiguration = {
         directives: {
             baseUri: ['base.example.com'],
             blockAllMixedContent: true,
@@ -67,6 +67,36 @@ function contentSecurityPolicyTest() {
         setAllHeaders: false,
         disableAndroid: false
     };
+    const kebabCasedConfig: helmet.IHelmetContentSecurityPolicyConfiguration = {
+        directives: {
+            "base-uri": camelCasedConfig.directives.baseUri,
+            "block-all-mixed-content": camelCasedConfig.directives.blockAllMixedContent,
+            "child-src": camelCasedConfig.directives.childSrc,
+            "connect-src": camelCasedConfig.directives.connectSrc,
+            "default-src": camelCasedConfig.directives.defaultSrc,
+            "font-src": camelCasedConfig.directives.fontSrc,
+            "form-action": camelCasedConfig.directives.formAction,
+            "frame-ancestors": camelCasedConfig.directives.frameAncestors,
+            "frame-src": camelCasedConfig.directives.frameSrc,
+            "img-src": camelCasedConfig.directives.imgSrc,
+            "media-src": camelCasedConfig.directives.mediaSrc,
+            "manifest-src": camelCasedConfig.directives.manifestSrc,
+            "object-src": camelCasedConfig.directives.objectSrc,
+            "plugin-types": camelCasedConfig.directives.pluginTypes,
+            "prefetch-src": camelCasedConfig.directives.prefetchSrc,
+            "report-uri": camelCasedConfig.directives.reportUri,
+            "report-to": camelCasedConfig.directives.reportTo,
+            "require-sri-for": camelCasedConfig.directives.requireSriFor,
+            sandbox: camelCasedConfig.directives.sandbox, // quoting sandbox results in an unnecessary quoting error
+            "script-src": camelCasedConfig.directives.scriptSrc,
+            "style-src": camelCasedConfig.directives.styleSrc,
+            "upgrade-insecure-requests": camelCasedConfig.directives.upgradeInsecureRequests,
+            "worker-src": camelCasedConfig.directives.workerSrc
+        },
+        reportOnly: camelCasedConfig.reportOnly,
+        setAllHeaders: camelCasedConfig.setAllHeaders,
+        disableAndroid: camelCasedConfig.disableAndroid
+    };
 
     function reportUriCb(req: express.Request, res: express.Response) { return '/some-uri'; }
     function reportOnlyCb(req: express.Request, res: express.Response) { return false; }
@@ -74,7 +104,8 @@ function contentSecurityPolicyTest() {
     app.use(helmet.contentSecurityPolicy({ directives: {
         imgSrc: ['self']
     } }));
-    app.use(helmet.contentSecurityPolicy(config));
+    app.use(helmet.contentSecurityPolicy(camelCasedConfig));
+    app.use(helmet.contentSecurityPolicy(kebabCasedConfig));
     app.use(helmet.contentSecurityPolicy({
         directives: {
             defaultSrc: ["'self'"],

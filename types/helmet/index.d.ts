@@ -110,10 +110,10 @@ declare namespace helmet {
         'report-uri'?: HelmetCspDirectiveValue;
         'require-sri-for'?: HelmetCspRequireSriForValue[];
         'sandbox'?: HelmetCspSandboxDirective[];
-        'script-src'?: HelmetCspDirectiveValue;
-        'style-src'?: HelmetCspDirectiveValue;
+        'script-src'?: HelmetCspDirectiveValue[];
+        'style-src'?: HelmetCspDirectiveValue[];
         'upgrade-insecure-requests'?: boolean;
-        'worker-src'?: HelmetCspDirectiveValue;
+        'worker-src'?: HelmetCspDirectiveValue[];
     }
 
     export interface IHelmetContentSecurityPolicyConfiguration {
