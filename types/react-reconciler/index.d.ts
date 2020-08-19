@@ -220,6 +220,7 @@ declare namespace ReactReconciler {
         supportsMutation: boolean;
         supportsPersistence: boolean;
         supportsHydration: boolean;
+        clearContainer(container: Container): void;
 
         // -------------------
         //      Mutation
