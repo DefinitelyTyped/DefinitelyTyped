@@ -32,7 +32,6 @@ export type UploadLinkOptions = HttpOptions &
         formDataAppendFile: typeof formDataAppendFile;
     }>;
 
-
 // ==============================================================================
 // export
 // ==============================================================================

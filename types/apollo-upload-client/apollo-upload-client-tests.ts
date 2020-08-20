@@ -26,15 +26,13 @@ const uploadLinkOptions: UploadLinkOptions = {
 // ==============================================================================
 createUploadLink(uploadLinkOptions);
 
-
 // ==============================================================================
 // formDataAppendFile
 // ==============================================================================
 const form: HTMLFormElement | undefined = undefined;
 const formData = new FormData(form);
 const fieldName = 'field name';
-const file = new Blob;
-
+const file = new Blob();
 formDataAppendFile(formData, fieldName, file);
 
 // ==============================================================================
