@@ -2,7 +2,7 @@
 // Project: https://github.com/petkaantonov/bluebird
 // Definitions by: Leonard Hecker <https://github.com/lhecker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 4.0
 
 /*!
  * The code following this comment originates from:
@@ -72,6 +72,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    *
    * Alias `.caught();` for compatibility with earlier ECMAScript version.
    */
+  catch<T extends unknown[]>(onReject?: (error: any) => [...T] | undefined | null): Bluebird<[...T] | R>;
   catch<U = R>(onReject: ((error: any) => Resolvable<U>) | undefined | null): Bluebird<U | R>;
 
   /**
@@ -678,6 +679,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Create a promise that is resolved with the given `value`. If `value` is a thenable or promise, the returned promise will assume its state.
    */
+  static resolve<T extends unknown[]>(value: Bluebird<[...T]>): Bluebird<[...T]>;
   static resolve(): Bluebird<void>;
   static resolve<R>(value: Resolvable<R>): Bluebird<R>;
 

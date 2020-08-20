@@ -1,10 +1,11 @@
 // Tests by: Bart van der Schoor <https://github.com/Bartvds>
+// Minimum TypeScript Version: 4.0
 
 // Note: replicate changes to all overloads in both definition and test file
 // Note: keep both static and instance members inline (so similar)
 
 // Note: try to maintain the ordering and separators, and keep to the pattern
-// Minimum TypeScript Version: 4.0
+
 
 import * as Bluebird from "bluebird";
 
