@@ -17,7 +17,7 @@ export interface ValidatorFormProps {
     [key: string]: any;
 }
 export class ValidatorForm extends React.Component<ValidatorFormProps> {
-    static addValidationRule(name: string, callback: (value: any) => boolean): void;
+    static addValidationRule(name: string, callback: (value: any) => boolean | Promise<boolean>): void;
     static removeValidationRule(name: string): void;
     isFormValid(dryRun: boolean): Promise<boolean>;
     resetValidations(): void;
@@ -33,11 +33,11 @@ export interface ValidatorComponentProps {
     [key: string]: any;
 }
 export class ValidatorComponent extends React.Component<ValidatorComponentProps> {
-    // getErrorMessage?: () => string | boolean;
-    // isValid?: () => boolean;
-    // makeInvalid?: () => void;
-    // makeValid?: () => void;
-    // validate?: (value: string, includeRequired?: boolean, dryRun?: boolean) => void;
+    getErrorMessage(): string | boolean;
+    isValid(): boolean;
+    makeInvalid(): void;
+    makeValid(): void;
+    validate(value: string, includeRequired?: boolean, dryRun?: boolean): void;
 }
 export class TextValidator extends React.Component<ValidatorComponentProps & TextFieldProps> {}
 export class SelectValidator extends React.Component<ValidatorComponentProps & SelectFieldProps> {}
