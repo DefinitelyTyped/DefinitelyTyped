@@ -99,7 +99,70 @@ declare namespace Twitch.ext {
     /**
      * @see https://dev.twitch.tv/docs/extensions/reference#helper-bits
      */
-    const bits: Bits;
+    namespace bits {
+        /**
+         * This function returns a promise which resolves to an array of products available for Bits,
+         * for the extension, if the context supports Bits in Extensions actions. Otherwise, the
+         * promise rejects with an error; this can occur, for instance, if the extension is running in
+         * an older version of the developer rig or the mobile app, which does not support Bits in
+         * Extensions actions.
+         *
+         * @see https://dev.twitch.tv/docs/extensions/bits/#getproducts
+         */
+        function getProducts(): Promise<ReadonlyArray<BitsProduct>>;
+
+        /**
+         * This function takes a callback that is fired whenever a transaction is cancelled.
+         * @param callback The callback that is fired whenever a transaction is cancelled.
+         *
+         * @see https://dev.twitch.tv/docs/extensions/bits/#ontransactioncancelledcallback
+         */
+        function onTransactionCancelled(callback: () => void): void;
+
+        /**
+         * This function registers a callback that is fired whenever a Bits in Extensions transaction
+         * is completed.
+         * @param callback The callback that is fired.
+         *
+         * @see https://dev.twitch.tv/docs/extensions/bits/#ontransactioncompletecallbacktransactionobject
+         */
+        function onTransactionComplete(callback: (transaction: BitsTransaction) => void): void;
+
+        /**
+         * This function sets the state of the extension helper, so it does not call live services for
+         * usage of Bits. Instead, it does a local loopback to the completion handler, after a fixed
+         * delay to simulate user approval and process latency.
+         * @param useLoopback Whether to use local looback.
+         *
+         * @see https://dev.twitch.tv/docs/extensions/bits/#setuseloopbackboolean
+         */
+        function setUseLoopback(useLoopback: boolean): void;
+
+        /**
+         * Call this function when the viewer hovers over a product in your extension UI, to cause the
+         * Twitch UI to display a dialog showing the viewer’s Bits balance.
+         * The dialog displays for 1.5 seconds, unless your extension calls showBitsBalance again, in
+         * which case the 1.5-second timer resets.
+         *
+         * This is a “fire-and-forget” function: the extension developer does not need to tell Twitch
+         * when the viewer stops hovering over the product.
+         *
+         * On mobile, this function is ignored.
+         *
+         * @see https://dev.twitch.tv/docs/extensions/bits/#showbitsbalance
+         */
+        function showBitsBalance(): void;
+
+        /**
+         * This function redeems a product with the specified SKU for the number of Bits specified in
+         * the catalog entry of that product.
+         * @param sku
+         *
+         * @see https://dev.twitch.tv/docs/extensions/bits/#usebitssku
+         * @see https://dev.twitch.tv/docs/extensions/bits/#exchanging-bits-for-a-product
+         */
+        function useBits(sku: string): void;
+    }
 
     /**
      * @see https://dev.twitch.tv/docs/extensions/reference#helper-viewer
@@ -298,74 +361,6 @@ declare namespace Twitch.ext {
          * Twitch ID of the user who executed the transaction.
          */
         userId: string;
-    }
-
-    /**
-     * @see bits
-     */
-    interface Bits {
-        /**
-         * This function returns a promise which resolves to an array of products available for Bits,
-         * for the extension, if the context supports Bits in Extensions actions. Otherwise, the
-         * promise rejects with an error; this can occur, for instance, if the extension is running in
-         * an older version of the developer rig or the mobile app, which does not support Bits in
-         * Extensions actions.
-         *
-         * @see https://dev.twitch.tv/docs/extensions/bits/#getproducts
-         */
-        getProducts(): Promise<ReadonlyArray<BitsProduct>>;
-
-        /**
-         * This function takes a callback that is fired whenever a transaction is cancelled.
-         * @param callback The callback that is fired whenever a transaction is cancelled.
-         *
-         * @see https://dev.twitch.tv/docs/extensions/bits/#ontransactioncancelledcallback
-         */
-        onTransactionCancelled(callback: () => void): void;
-
-        /**
-         * This function registers a callback that is fired whenever a Bits in Extensions transaction
-         * is completed.
-         * @param callback The callback that is fired.
-         *
-         * @see https://dev.twitch.tv/docs/extensions/bits/#ontransactioncompletecallbacktransactionobject
-         */
-        onTransactionComplete(callback: (transaction: BitsTransaction) => void): void;
-
-        /**
-         * This function sets the state of the extension helper, so it does not call live services for
-         * usage of Bits. Instead, it does a local loopback to the completion handler, after a fixed
-         * delay to simulate user approval and process latency.
-         * @param useLoopback Whether to use local looback.
-         *
-         * @see https://dev.twitch.tv/docs/extensions/bits/#setuseloopbackboolean
-         */
-        setUseLoopback(useLoopback: boolean): void;
-
-        /**
-         * Call this function when the viewer hovers over a product in your extension UI, to cause the
-         * Twitch UI to display a dialog showing the viewer’s Bits balance.
-         * The dialog displays for 1.5 seconds, unless your extension calls showBitsBalance again, in
-         * which case the 1.5-second timer resets.
-         *
-         * This is a “fire-and-forget” function: the extension developer does not need to tell Twitch
-         * when the viewer stops hovering over the product.
-         *
-         * On mobile, this function is ignored.
-         *
-         * @see https://dev.twitch.tv/docs/extensions/bits/#showbitsbalance
-         */
-        showBitsBalance(): void;
-
-        /**
-         * This function redeems a product with the specified SKU for the number of Bits specified in
-         * the catalog entry of that product.
-         * @param sku
-         *
-         * @see https://dev.twitch.tv/docs/extensions/bits/#usebitssku
-         * @see https://dev.twitch.tv/docs/extensions/bits/#exchanging-bits-for-a-product
-         */
-        useBits(sku: string): void;
     }
 
     interface ViewerSubscriptionStatus {
