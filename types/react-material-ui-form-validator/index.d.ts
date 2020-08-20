@@ -1,4 +1,4 @@
-// Type definitions for react-material-ui-form-validator 2.1.1
+// Type definitions for react-material-ui-form-validator 2.1
 // Project: https://github.com/NewOldMax/react-material-ui-form-validator
 // Definitions by: Frank Brullo <https://github.com/FrankBrullo>
 //                 J.R <https://github.com/jrguenin>
