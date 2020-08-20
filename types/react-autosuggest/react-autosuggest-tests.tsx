@@ -68,6 +68,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
         suggestions: this.getSuggestions('')
     };
     // endregion region Rendering methods
+    inputRef = React.createRef<HTMLInputElement>();
     render(): JSX.Element {
         const {value, suggestions} = this.state;
 
@@ -91,7 +92,8 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
                 placeholder: `Type 'c'`,
                 value,
                 onChange: (e, changeEvent) => this.onChange(e, changeEvent),
-                onBlur: (e) => { console.log(e.relatedTarget); }
+                onBlur: (e) => { console.log(e.relatedTarget); },
+                ref: this.inputRef
             }}
             theme={theme}/>;
     }
