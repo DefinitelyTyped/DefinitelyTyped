@@ -4,16 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class TaskQueue<T extends TaskQueue.TaskDescriptor = any> {
-    constructor(options?: TaskQueue.Options);
+    constructor(options?: Options);
     postTask<U extends T = any>(taskName: U['name'], ...args: Parameters<U>): TaskQueue.Task<ReturnType<U>>;
     addModule(moduleURL: string): Promise<void>;
 }
 
-declare namespace TaskQueue {
-    interface Options {
-        size?: number;
-    }
+interface Options {
+    size?: number;
+}
 
+declare namespace TaskQueue {
     interface TaskDescriptor {
         name: string;
         (...args: any): any;
