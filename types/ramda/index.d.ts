@@ -58,6 +58,7 @@ import {
     Reduced,
     SafePred,
     ValueOfRecord,
+    ValueOfUnion
 } from "./tools";
 
 export * from './tools';
@@ -969,13 +970,6 @@ export function lte(__: Placeholder, b: number): (a: number) => boolean;
 export function lte(__: Placeholder): (b: number, a: number) => boolean;
 export function lte(a: number, b: number): boolean;
 export function lte(a: number): (b: number) => boolean;
-
-/**
- * If `T` is a union, `T[keyof T]` (analogue to below) contains the types of object values that are common across the union (i.e., an intersection).
- * Because we want to include the types of all values, including those that occur in some, but not all members of the union, we first define `ValueOfUnion`.
- * @see https://stackoverflow.com/a/60085683
- */
-type ValueOfUnion<T> = T extends infer U ? U[keyof U] : never;
 
 /**
  * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
@@ -2065,7 +2059,7 @@ export function useWith(fn: ((...a: readonly any[]) => any), transformers: Array
  * Note that the order of the output array is not guaranteed across
  * different JS platforms.
  */
-export function values<T extends object, K extends keyof T>(obj: T): Array<T[K]>;
+export function values<T extends object, K extends keyof T>(obj: T): Array<T[K] | ValueOfUnion<T>>;
 
 /**
  * Returns a list of all the properties, including prototype properties, of the supplied
