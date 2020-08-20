@@ -3,7 +3,6 @@
 // Definitions by: Jim Geurts <https://github.com/jgeurts>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
-/// <reference types="node" />
 
 export interface CustomSource {
     source: string;

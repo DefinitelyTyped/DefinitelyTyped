@@ -1,4 +1,4 @@
-// Type definitions for react-autosuggest 9.3
+// Type definitions for react-autosuggest 10.0
 // Project: http://react-autosuggest.js.org/, https://github.com/moroshko/react-autosuggest
 // Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>
 //                 Philip Ottesen <https://github.com/pjo256>
@@ -68,6 +68,7 @@ declare namespace Autosuggest {
         onChange(event: React.FormEvent<any>, params: ChangeEvent): void;
         onBlur?(event: React.FocusEvent<any>, params?: BlurEvent<TSuggestion>): void;
         value: string;
+        ref?: React.Ref<HTMLInputElement>;
     }
 
     interface SuggestionSelectedEventData<TSuggestion> {

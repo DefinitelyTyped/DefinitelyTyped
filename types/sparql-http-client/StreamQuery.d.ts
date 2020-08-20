@@ -7,7 +7,7 @@ declare namespace StreamQuery {
         factory?: DataFactory<Q>;
     }
 
-    type StreamQuery<Q extends BaseQuad = Quad> = Query<boolean, Stream<Q>, Readable, void>;
+    type StreamQuery<Q extends BaseQuad = Quad> = Query<boolean, Stream<Q> & Readable, Readable, void>;
 }
 
 interface StreamQuery<Q extends BaseQuad = Quad> extends StreamQuery.StreamQuery<Q> {}

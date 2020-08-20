@@ -3,8 +3,15 @@ import webpack = require('webpack');
 import webpackDevMiddleware = require('webpack-dev-middleware');
 
 const compiler = webpack({});
+const compilerWithPublicPath = webpack({
+    output: {
+        publicPath: '/assets/'
+    }
+});
 
 let webpackDevMiddlewareInstance = webpackDevMiddleware(compiler);
+
+webpackDevMiddlewareInstance = webpackDevMiddleware(compilerWithPublicPath, {});
 
 webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
     logLevel: 'silent',

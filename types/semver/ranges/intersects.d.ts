@@ -1,5 +1,5 @@
 import Range = require('../classes/range');
-import semver = require('../');
+import semver = require('../index');
 
 /**
  * Return true if any of the ranges comparators intersect

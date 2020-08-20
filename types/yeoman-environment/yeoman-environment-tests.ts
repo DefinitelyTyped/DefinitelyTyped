@@ -29,6 +29,8 @@ createLogger({
 Env.util.log({});
 
 defaultLogger.skip("");
+defaultLogger();
+defaultLogger("");
 customLogger.help("");
 
 /* Lookup */

@@ -352,9 +352,9 @@ export interface NativeMethods {
      * This function sends props straight to native. They will not participate in
      * future diff process - this means that if you do not include them in the
      * next render, they will remain active (see [Direct
-     * Manipulation](docs/direct-manipulation.html)).
+     * Manipulation](https://reactnative.dev/docs/direct-manipulation)).
      */
-    setNativeProps(nativeProps: Object): void;
+    setNativeProps(nativeProps: object): void;
 
     /**
      * Requests focus for the given input or view. The exact behavior triggered
@@ -847,10 +847,25 @@ export interface LayoutRectangle {
 }
 
 // @see TextProps.onLayout
-export interface LayoutChangeEvent {
-    nativeEvent: {
-        layout: LayoutRectangle;
-    };
+export type LayoutChangeEvent = NativeSyntheticEvent<{ layout: LayoutRectangle }>;
+
+interface TextLayoutLine {
+    ascender: number;
+    capHeight: number;
+    descender: number;
+    height: number;
+    text: string;
+    width: number;
+    x: number;
+    xHeight: number;
+    y: number;
+}
+
+/**
+ * @see TextProps.onTextLayout
+ */
+export interface TextLayoutEventData extends TargetedEvent {
+    lines: TextLayoutLine[];
 }
 
 export type FontVariant = 'small-caps' | 'oldstyle-nums' | 'lining-nums' | 'tabular-nums' | 'proportional-nums';
@@ -976,6 +991,11 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      * {nativeEvent: { layout: {x, y, width, height}}}.
      */
     onLayout?: (event: LayoutChangeEvent) => void;
+
+    /**
+     * Invoked on Text layout
+     */
+    onTextLayout?: (event: NativeSyntheticEvent<TextLayoutEventData>) => void;
 
     /**
      * This function is called on press.
@@ -2900,7 +2920,7 @@ export interface ActivityIndicatorIOSProps extends ViewProps {
     /**
      * Invoked on mount and layout changes with
      */
-    onLayout?: (event: { nativeEvent: { layout: { x: number; y: number; width: number; height: number } } }) => void;
+    onLayout?: (event: LayoutChangeEvent) => void;
 
     /**
      * Size of the indicator.
@@ -6790,6 +6810,14 @@ export class ScrollView extends ScrollViewBase {
      * @deprecated Use scrollTo instead
      */
     scrollWithoutAnimationTo?: (y: number, x: number) => void;
+
+    /**
+     * This function sends props straight to native. They will not participate in
+     * future diff process - this means that if you do not include them in the
+     * next render, they will remain active (see [Direct
+     * Manipulation](https://reactnative.dev/docs/direct-manipulation)).
+     */
+    setNativeProps(nativeProps: object): void;
 }
 
 export interface NativeScrollRectangle {
@@ -7218,13 +7246,15 @@ export type AlertType = 'default' | 'plain-text' | 'secure-text' | 'login-passwo
  *      active - The app is running in the foreground
  *      background - The app is running in the background. The user is either in another app or on the home screen
  *      inactive [iOS] - This is a transition state that currently never happens for typical React Native apps.
+ *      unknown [iOS] - Initial value until the current app state is determined
+ *      extension [iOS] - The app is running as an app extension
  *
  * For more information, see Apple's documentation: https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/TheAppLifeCycle/TheAppLifeCycle.html
  *
  * @see https://facebook.github.io/react-native/docs/appstate#app-states
  */
 export type AppStateEvent = 'change' | 'memoryWarning' | 'blur' | 'focus';
-export type AppStateStatus = 'active' | 'background' | 'inactive';
+export type AppStateStatus = 'active' | 'background' | 'inactive' | 'unknown' | 'extension';
 
 export interface AppStateStatic {
     currentState: AppStateStatus;
@@ -8939,24 +8969,39 @@ export namespace Animated {
 
     export type LegacyRef<C> = { getNode(): C };
 
-    export interface WithAnimatedValue<T>
-        extends ThisType<
-            T extends object
-                ? { [K in keyof T]?: WithAnimatedValue<T[K]> }
-                : T extends (infer P)[]
-                ? WithAnimatedValue<P>[]
-                : T | Value | AnimatedInterpolation
-        > {}
+    type Nullable = undefined | null;
+    type Primitive = string | number | boolean | symbol;
+    type Builtin = Function | Date | Error | RegExp;
 
-    export type AnimatedProps<T> = { [key in keyof T]: WithAnimatedValue<T[key]> } &
-        (T extends {
-            ref?: React.Ref<infer R>;
-        }
-            ? { ref?: React.Ref<R | { getNode(): R }> }
-            : {});
+    interface WithAnimatedArray<P> extends Array<WithAnimatedValue<P>> {}
+    type WithAnimatedObject<T> = {
+        [K in keyof T]: WithAnimatedValue<T[K]>;
+    };
+
+    export type WithAnimatedValue<T> = T extends Builtin | Nullable
+        ? T
+        : T extends Primitive
+        ? T | Value | AnimatedInterpolation // add `Value` and `AnimatedInterpolation` but also preserve original T
+        : T extends Array<infer P>
+        ? WithAnimatedArray<P>
+        : T extends {}
+        ? WithAnimatedObject<T>
+        : T; // in case it's something we don't yet know about (for .e.g bigint)
+
+    type NonAnimatedProps = 'key' | 'ref';
+
+    type TAugmentRef<T> = T extends React.Ref<infer R> ? React.Ref<R | LegacyRef<R>> : never;
+
+    export type AnimatedProps<T> = {
+        [key in keyof T]: key extends NonAnimatedProps
+            ? key extends 'ref'
+                ? TAugmentRef<T[key]>
+                : T[key]
+            : WithAnimatedValue<T[key]>;
+    };
 
     export interface AnimatedComponent<T extends React.ComponentType<any>>
-        extends React.FC<ComponentProps<T> | AnimatedProps<React.ComponentPropsWithRef<T>>> {}
+        extends React.FC<AnimatedProps<React.ComponentPropsWithRef<T>>> {}
 
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
@@ -8975,8 +9020,8 @@ export namespace Animated {
     /**
      * FlatList and SectionList infer generic Type defined under their `data` and `section` props.
      */
-    export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT> | AnimatedProps<FlatListProps<ItemT>>> {}
-    export class SectionList<SectionT = any> extends React.Component<SectionListProps<SectionT> | AnimatedProps<SectionListProps<SectionT>>> {}
+    export class FlatList<ItemT = any> extends React.Component<AnimatedProps<FlatListProps<ItemT>>> {}
+    export class SectionList<SectionT = any> extends React.Component<AnimatedProps<SectionListProps<SectionT>>> {}
 }
 
 // tslint:disable-next-line:interface-name

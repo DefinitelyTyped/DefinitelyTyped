@@ -228,16 +228,6 @@ describe('', () => {
     });
 });
 
-/* NodeRequire interface (require extensions) */
-
-declare const nodeRequire: NodeRequire;
-
-// $ExpectType any
-nodeRequire.requireActual('moduleName');
-
-// $ExpectType any
-nodeRequire.requireMock('moduleName');
-
 /* Top-level jest namespace functions */
 
 const customMatcherFactories: jasmine.CustomMatcherFactories = {};
@@ -367,6 +357,9 @@ mock8.mockImplementation((arg: string) => 1);
 
 // mockImplementation not required to declare all arguments
 mock9.mockImplementation((a: number) => Promise.resolve(a === 0));
+
+const createMockFromModule1: {} = jest.createMockFromModule('moduleName');
+const createMockFromModule2: { a: 'b' } = jest.createMockFromModule<{ a: 'b' }>('moduleName');
 
 const genMockModule1: {} = jest.genMockFromModule('moduleName');
 const genMockModule2: { a: 'b' } = jest.genMockFromModule<{ a: 'b' }>('moduleName');
@@ -1017,9 +1010,13 @@ describe('', () => {
         expect(jest.fn(willThrow)).toThrow(/foo/);
 
         expect(() => {}).toThrowErrorMatchingSnapshot();
+        expect(() => {}).toThrowErrorMatchingSnapshot('snapshotName');
         expect(willThrow).toThrowErrorMatchingSnapshot();
+        expect(willThrow).toThrowErrorMatchingSnapshot('snapshotName');
         expect(jest.fn()).toThrowErrorMatchingSnapshot();
+        expect(jest.fn()).toThrowErrorMatchingSnapshot('snapshotName');
         expect(jest.fn(willThrow)).toThrowErrorMatchingSnapshot();
+        expect(jest.fn(willThrow)).toThrowErrorMatchingSnapshot('snapshotName');
 
         expect(() => {}).toThrowErrorMatchingInlineSnapshot();
         expect(() => {}).toThrowErrorMatchingInlineSnapshot('Error Message');

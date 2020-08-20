@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Select, { components } from 'react-select';
-import { colourOptions } from '../data';
+import Select, { components, IndicatorContainerProps } from 'react-select';
+import { colourOptions, ColourOption } from '../data';
 
-const IndicatorsContainer = (props: any) => {
+const IndicatorsContainer = (props: IndicatorContainerProps<ColourOption>) => {
   return (
     <div style={{ background: colourOptions[2].color }}>
       <components.IndicatorsContainer {...props}/>

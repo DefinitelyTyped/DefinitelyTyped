@@ -1,10 +1,7 @@
-// Type definitions for alex 8.1
+// Type definitions for alex 8.2
 // Project: https://alexjs.com
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
-/// <reference types="node" />
 
 import * as vfile from 'vfile';
 
@@ -22,6 +19,11 @@ declare namespace alex {
     interface AlexOptions {
         /** an array of rules (the default is []) */
         allow?: string[];
+        /**
+         * When provided, only the rules specified are reported.
+         * @default []
+         */
+        deny?: string[];
         /**
          * When turned on (`true`), pairs such as `he` and `she` and `garbageman` or `garbagewoman` are seen as errors.
          * When turned off (`false`, the default), such pairs are okay

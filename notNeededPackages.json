@@ -427,6 +427,12 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "bulma-calendar",
+            "typingsPackageName": "bulma-calendar",
+            "sourceRepoURL": "https://github.com/wikiki/bulma-calendar",
+            "asOfVersion": "6.0.2"
+        },
+        {
             "libraryName": "bunyan-bugsnag",
             "typingsPackageName": "bunyan-bugsnag",
             "sourceRepoURL": "https://github.com/marnusw/bunyan-bugsnag",
@@ -1667,6 +1673,12 @@
             "typingsPackageName": "gitlab",
             "sourceRepoURL": "https://github.com/jdalrymple/node-gitlab",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "gl-matrix",
+            "typingsPackageName": "gl-matrix",
+            "sourceRepoURL": "https://github.com/toji/gl-matrix.git",
+            "asOfVersion": "3.2.0"
         },
         {
             "libraryName": "global-dirs",
@@ -2915,6 +2927,12 @@
             "typingsPackageName": "moment-range",
             "sourceRepoURL": "https://github.com/rotaready/moment-range",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "moment-timezone",
+            "typingsPackageName": "moment-timezone",
+            "sourceRepoURL": "https://github.com/moment/moment-timezone",
+            "asOfVersion": "0.5.30" 
         },
         {
             "libraryName": "mongodb-memory-server",
@@ -4183,6 +4201,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-overlays",
+            "typingsPackageName": "react-overlays",
+            "sourceRepoURL": "https://github.com/react-bootstrap/react-overlays",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "react-owl-carousel",
             "typingsPackageName": "react-owl-carousel",
             "sourceRepoURL": "https://github.com/seal789ie/react-owl-carousel",
@@ -4247,6 +4271,12 @@
             "typingsPackageName": "react-tooltip",
             "sourceRepoURL": "https://github.com/wwayne/react-tooltip",
             "asOfVersion": "4.2.4"
+        },
+        {
+            "libraryName": "react-visibility-sensor",
+            "typingsPackageName": "react-visibility-sensor",
+            "sourceRepoURL": "https://github.com/joshwnj/react-visibility-sensor",
+            "asOfVersion": "5.1.0"
         },
         {
             "libraryName": "react-webcam",

@@ -170,6 +170,10 @@ function testNext() {
         // code to be executed in the next run loop,
         // which will be scheduled after the current one
     });
+    run.next(() => {
+        // code to be executed in the next run loop,
+        // which will be scheduled after the current one
+    });
 }
 
 function testOnce() {

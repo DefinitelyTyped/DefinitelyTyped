@@ -104,6 +104,9 @@ import {
     ListRenderItemInfo,
     LogBox,
     ColorValue,
+    TextLayoutEventData,
+    LayoutChangeEvent,
+    AppStateStatus,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -307,10 +310,9 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
     };
 
     testNativeMethods() {
-        // this.setNativeProps({});
-
         const { rootView } = this.refs;
 
+        rootView.setNativeProps({});
         rootView.measure((x: number, y: number, width: number, height: number) => {});
     }
 
@@ -437,6 +439,12 @@ function appStateTest() {
     AppState.addEventListener('blur', appStateListener);
     AppState.addEventListener('focus', appStateListener);
 }
+
+let appState: AppStateStatus = 'active';
+appState = 'background';
+appState = 'inactive';
+appState = 'unknown';
+appState = 'extension';
 
 // ViewPagerAndroid
 export class ViewPagerAndroidTest {
@@ -588,6 +596,12 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
         console.log(event);
     };
 
+    scrollView: ScrollView | null = null;
+
+    testNativeMethods() {
+        this.scrollView && this.scrollView.setNativeProps({ scrollEnabled: false });
+    }
+
     render() {
         const scrollViewStyle1 = StyleSheet.create({
             scrollView: {
@@ -607,6 +621,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
 
                     return (
                         <ScrollView
+                            ref={ref => (this.scrollView = ref)}
                             horizontal={true}
                             nestedScrollEnabled={true}
                             invertStickyHeaders={true}
@@ -859,6 +874,48 @@ class TextInputTest extends React.Component<{}, { username: string }> {
 
                 <TextInput contextMenuHidden={true} textAlignVertical="top" />
             </View>
+        );
+    }
+}
+
+class TextTest extends React.Component {
+    handleOnLayout = (e: LayoutChangeEvent) => {
+        testNativeSyntheticEvent(e);
+
+        const x = e.nativeEvent.layout.x; // $ExpectType number
+        const y = e.nativeEvent.layout.y; // $ExpectType number
+        const width = e.nativeEvent.layout.width; // $ExpectType number
+        const height = e.nativeEvent.layout.height; // $ExpectType number
+    };
+
+    handleOnTextLayout = (e: NativeSyntheticEvent<TextLayoutEventData>) => {
+        testNativeSyntheticEvent(e);
+
+        e.nativeEvent.lines.forEach(line => {
+            const ascender = line.ascender; // $ExpectType number
+            const capHeight = line.capHeight; // $ExpectType number
+            const descender = line.descender; // $ExpectType number
+            const height = line.height; // $ExpectType number
+            const text = line.text; // $ExpectType string
+            const width = line.width; // $ExpectType number
+            const x = line.x; // $ExpectType number
+            const xHeight = line.xHeight; // $ExpectType number
+            const y = line.y; // $ExpectType number
+        });
+    };
+
+    render() {
+        return (
+            <Text
+                allowFontScaling={false}
+                ellipsizeMode="head"
+                lineBreakMode="clip"
+                numberOfLines={2}
+                onLayout={this.handleOnLayout}
+                onTextLayout={this.handleOnTextLayout}
+            >
+                Test text
+            </Text>
         );
     }
 }

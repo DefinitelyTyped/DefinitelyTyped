@@ -164,7 +164,7 @@ export interface ScanFileAdvanced {
 }
 
 export interface ScanWebsite {
-    (input: string, callback: (error: any, data: WebsiteScanResult, response: any) => any): any;
+    (input: WebsiteScanRequest, callback: (error: any, data: WebsiteScanResult, response: any) => any): any;
 }
 
 export interface VirusFound {

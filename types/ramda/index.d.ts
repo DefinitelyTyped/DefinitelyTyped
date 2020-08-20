@@ -28,6 +28,7 @@
 //                 Philippe Mills <https://github.com/Philippe-mills>
 //                 Saul Mirone <https://github.com/Saul-Mirone>
 //                 Nicholai Nissen <https://github.com/Nicholaiii>
+//                 Mike Deverell <https://github.com/devrelm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
@@ -2111,6 +2112,14 @@ export function whereEq<T>(spec: T): <U>(obj: U) => boolean;
  */
 export function without<T>(list1: readonly T[], list2: readonly T[]): T[];
 export function without<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
+
+/**
+ * Exclusive disjunction logical operation.
+ * Returns `true` if one of the arguments is truthy and the other is falsy.
+ * Otherwise, it returns `false`.
+ */
+export function xor(a: any, b: any): boolean;
+export function xor(a: any): (b: any) => boolean;
 
 /**
  * Creates a new list out of the two supplied by creating each possible pair from the lists.

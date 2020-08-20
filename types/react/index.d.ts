@@ -134,7 +134,7 @@ declare namespace React {
      * inside your component or have to validate them.
      */
     interface Attributes {
-        key?: Key;
+        key?: Key | null;
     }
     interface RefAttributes<T> extends Attributes {
         ref?: Ref<T>;
@@ -1200,6 +1200,7 @@ declare namespace React {
 
     interface KeyboardEvent<T = Element> extends SyntheticEvent<T, NativeKeyboardEvent> {
         altKey: boolean;
+        /** @deprecated */
         charCode: number;
         ctrlKey: boolean;
         /**
@@ -1210,6 +1211,7 @@ declare namespace React {
          * See the [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values). for possible values
          */
         key: string;
+        /** @deprecated */
         keyCode: number;
         locale: string;
         location: number;
@@ -2025,6 +2027,7 @@ declare namespace React {
         allowTransparency?: boolean;
         frameBorder?: number | string;
         height?: number | string;
+        loading?: "eager" | "lazy";
         marginHeight?: number;
         marginWidth?: number;
         name?: string;

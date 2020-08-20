@@ -6,18 +6,18 @@
 import * as React from 'react';
 import { TouchableWithoutFeedback, Animated, ViewProps } from 'react-native';
 
-export type RippleProps =   TouchableWithoutFeedback['props'] &
-Animated.AnimatedProps<ViewProps> & {
-    rippleColor?: string;
-    rippleOpacity?: number;
-    rippleDuration?: number;
-    rippleSize?: number;
-    rippleContainerBorderRadius?: number;
-    rippleCentered?: boolean;
-    rippleSequential?: boolean;
-    rippleFades?: boolean;
-    disabled?: boolean;
-    onRippleAnimation?(animation: Animated.CompositeAnimation, callback: () => void): void;
-};
+export type RippleProps = TouchableWithoutFeedback['props'] &
+    Animated.AnimatedProps<ViewProps> & {
+        rippleColor?: string;
+        rippleOpacity?: number;
+        rippleDuration?: number;
+        rippleSize?: number;
+        rippleContainerBorderRadius?: number;
+        rippleCentered?: boolean;
+        rippleSequential?: boolean;
+        rippleFades?: boolean;
+        disabled?: boolean;
+        onRippleAnimation?(animation: Animated.CompositeAnimation, callback: () => void): void;
+    };
 
 export default class Ripple extends React.Component<RippleProps> {}

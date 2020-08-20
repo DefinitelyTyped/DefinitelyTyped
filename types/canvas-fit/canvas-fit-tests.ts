@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import fit = require('canvas-fit');
 
 const canvas = document.createElement('canvas');

@@ -4449,6 +4449,12 @@ fp.now(); // $ExpectType number
     _(42).isSymbol(); // $ExpectType boolean
     _.chain([]).isSymbol(); // $ExpectType LoDashExplicitWrapper<boolean>
     fp.isSymbol(anything); // $ExpectType boolean
+    if (fp.isSymbol(anything)) {
+        anything; // $ExpectType symbol
+    }
+    if (_.isSymbol(anything)) {
+        anything; // $ExpectType symbol
+    }
 }
 
 // _.isTypedArray

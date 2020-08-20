@@ -24,7 +24,7 @@ export type ReactTestRendererNode = ReactTestRendererJSON | string;
 export interface ReactTestRendererTree extends ReactTestRendererJSON {
     nodeType: 'component' | 'host';
     instance: any;
-    rendered: null | ReactTestRendererTree;
+    rendered: null | ReactTestRendererTree | ReactTestRendererTree[];
 }
 export interface ReactTestInstance {
     instance: any;
@@ -42,7 +42,7 @@ export interface ReactTestInstance {
     findAllByProps(props: { [propName: string]: any }, options?: { deep: boolean }): ReactTestInstance[];
 }
 export interface ReactTestRenderer {
-    toJSON(): null | ReactTestRendererJSON;
+    toJSON(): null | ReactTestRendererJSON | ReactTestRendererJSON[];
     toTree(): null | ReactTestRendererTree;
     unmount(nextElement?: ReactElement): void;
     update(nextElement: ReactElement): void;

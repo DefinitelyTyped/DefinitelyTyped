@@ -9,7 +9,7 @@
 //                 David Baumgold <https://github.com/singingwolfboy>
 //                 Ilja Reznik <https://github.com/ireznik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.4
 
 /// <reference lib='dom' />
 
