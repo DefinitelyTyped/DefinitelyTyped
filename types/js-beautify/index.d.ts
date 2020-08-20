@@ -1,6 +1,9 @@
-// Type definitions for js_beautify 1.11.0
+// Type definitions for js_beautify 1.13
 // Project: https://github.com/beautify-web/js-beautify/
-// Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>, Hans Windhoff <https://github.com/hansrwindhoff>, Gavin Rehkemper <https://github.com/gavinr/>
+// Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
+//                 Hans Windhoff <https://github.com/hansrwindhoff>
+//                 Gavin Rehkemper <https://github.com/gavinr/>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface CoreBeautifyOptions {
@@ -80,6 +83,21 @@ interface jsb {
 }
 
 declare var js_beautify: jsb;
+
+// tslint:disable:no-single-declare-module backward compatible change requires this exclusion
+// tslint:disable:no-declare-current-package backward compatible change requires this exclusion
 declare module 'js-beautify' {
+    // re-exports types for CJS without redefinition of the global exports
+    type _CoreBeautifyOptions = CoreBeautifyOptions;
+    type _CSSBeautifyOptions =  CSSBeautifyOptions;
+    type _JSBeautifyOptions = JSBeautifyOptions;
+    type _HTMLBeautifyOptions = HTMLBeautifyOptions;
+    namespace js_beautify {
+        type CoreBeautifyOptions = _CoreBeautifyOptions;
+        type CSSBeautifyOptions = _CSSBeautifyOptions;
+        type JSBeautifyOptions = _JSBeautifyOptions;
+        type HTMLBeautifyOptions = _HTMLBeautifyOptions;
+    }
+
     export = js_beautify;
 }
