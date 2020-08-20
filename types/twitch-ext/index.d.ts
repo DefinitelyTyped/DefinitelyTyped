@@ -22,9 +22,38 @@ declare namespace Twitch.ext {
     const environment: 'production';
 
     /**
-     * @see https://dev.twitch.tv/docs/extensions/reference/#twitch-extension-actions
+     * @see https://dev.twitch.tv/docs/extensions/reference/#helper-actions
      */
-    const actions: Actions;
+    namespace actions {
+        /**
+         * This function prompts users to follow the specified channel, with a dialog controlled by Twitch.
+         *
+         * @see https://dev.twitch.tv/docs/extensions/reference/#followchannel
+         */
+        function followChannel(channelName: string): void;
+
+        /**
+         * This function causes your video-component or video-overlay extension to be minimized.
+         *
+         * @see https://dev.twitch.tv/docs/extensions/reference/#minimize
+         */
+        function minimize(): void;
+
+        /**
+         * This function registers a callback that is invoked whenever a user completes an interaction prompted by the followChannel action.
+         *
+         * @see https://dev.twitch.tv/docs/extensions/reference/#onfollow
+         */
+        function onFollow(callback: (didFollow: boolean, channelName: string) => void): void;
+
+        /**
+         * This function opens a prompt for users to share their identity.
+         * After a successful identity link, the Twitch.ext.onAuthorized callback is invoked with the user’s ID.
+         *
+         * @see https://dev.twitch.tv/docs/extensions/reference/#requestidshare
+         */
+        function requestIdShare(): void;
+    }
 
     /**
      * @see https://dev.twitch.tv/docs/extensions/reference/#helper-configuration
@@ -136,42 +165,6 @@ declare namespace Twitch.ext {
      * @see https://dev.twitch.tv/docs/extensions/reference/#unlisten
      */
     function unlisten(target: string, callback: (target: string, contentType: string, message: string) => void): void;
-
-    /**
-     * Twitch actions add first-party Twitch functionality to extensions.
-     *
-     * @see actions
-     */
-    interface Actions {
-        /**
-         * This function prompts users to follow the specified channel, with a dialog controlled by Twitch.
-         *
-         * @see https://dev.twitch.tv/docs/extensions/reference/#followchannel
-         */
-        followChannel(channelName: string): void;
-
-        /**
-         * This function causes your video-component or video-overlay extension to be minimized.
-         *
-         * @see https://dev.twitch.tv/docs/extensions/reference/#minimize
-         */
-        minimize(): void;
-
-        /**
-         * This function registers a callback that is invoked whenever a user completes an interaction prompted by the followChannel action.
-         *
-         * @see https://dev.twitch.tv/docs/extensions/reference/#onfollow
-         */
-        onFollow(callback: (didFollow: boolean, channelName: string) => void): void;
-
-        /**
-         * This function opens a prompt for users to share their identity.
-         * After a successful identity link, the Twitch.ext.onAuthorized callback is invoked with the user’s ID.
-         *
-         * @see https://dev.twitch.tv/docs/extensions/reference/#requestidshare
-         */
-        requestIdShare(): void;
-    }
 
     /**
      * @see configuration
