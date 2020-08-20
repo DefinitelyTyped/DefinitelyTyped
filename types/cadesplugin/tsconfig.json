@@ -1,5 +1,4 @@
 {
-    "extends": "../tsconfig",
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
