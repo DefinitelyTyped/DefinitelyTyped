@@ -17,11 +17,8 @@ export interface withDragAndDropProps<TEvent extends object = Event> {
   step?: number;
 }
 
-type DragAndDropCalendarProps<TEvent extends object = Event, TResource extends object = object> = CalendarProps<
-    TEvent,
-    TResource
-> &
-    withDragAndDropProps<TEvent>;
+interface DragAndDropCalendarProps<TEvent extends object = Event, TResource extends object = object>
+  extends CalendarProps<TEvent, TResource>, withDragAndDropProps<TEvent> {}
 
 declare class DragAndDropCalendar<TEvent extends object = Event, TResource extends object = object>
   extends React.Component<DragAndDropCalendarProps<TEvent, TResource>> {}
