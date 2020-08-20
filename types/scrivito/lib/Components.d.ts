@@ -31,9 +31,9 @@ export interface BackgroundImageBackgroundProp {
 }
 
 export interface BackgroundImageTagProps {
-    tag: string;
+    tag?: string;
     style: CSSPropsWithoutBackground & BackgroundImageBackgroundProp;
-    className: string;
+    className?: string;
 }
 export class BackgroundImageTag extends Component<BackgroundImageTagProps, any> { }
 
