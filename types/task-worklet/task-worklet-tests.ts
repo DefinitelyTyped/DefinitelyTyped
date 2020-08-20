@@ -1,21 +1,21 @@
-import TaskQueue = require('task-worklet');
+import TaskQueue, { Task, State } from 'task-worklet';
 
 interface Fetcher {
   name: 'fetch';
   (input: RequestInfo, init?: RequestInit): Promise<Response>;
 }
 
-const unsafe = new TaskQueue();                                       // $ExpectType TaskQueue
-const withEmptyOptions = new TaskQueue({});                           // $ExpectType TaskQueue
-const withValidOptions = new TaskQueue({ size: 2 });                  // $ExpectType TaskQueue
+const unsafe = new TaskQueue();                                       // $ExpectType TaskQueue<any>
+const withEmptyOptions = new TaskQueue({});                           // $ExpectType TaskQueue<any>
+const withValidOptions = new TaskQueue({ size: 2 });                  // $ExpectType TaskQueue<any>
 
-const queue = new TaskQueue();                                        // $ExpectType TaskQueue
+const queue = new TaskQueue<Fetcher>();                               // $ExpectType TaskQueue<Fetcher>
 queue.addModule('/fetcher-worklet.js');                               // $ExpectType Promise<void>
-const task = queue.postTask('fetch', 'https://example.com');          // $ExpectType Task
+const task = queue.postTask<Fetcher>('fetch', 'https://example.com'); // $ExpectType Task<Promise<Response>>
 
 async () => {
   await task.result.then(result => {
-    result;                                                           // $ExpectType any
+    result;                                                           // $ExpectType Response
   });
   const id = task.id;                                                 // $ExpectType number
   const state = task.state;                                           // $ExpectType State
