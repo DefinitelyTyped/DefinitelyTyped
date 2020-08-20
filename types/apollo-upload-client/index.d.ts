@@ -10,7 +10,7 @@
 
 import { ApolloLink } from '@apollo/client/core';
 import { HttpOptions as OriginHttpOptions } from '@apollo/client/link/http';
-import { isExtractableFile as OriginIsExtractableFile } from 'extract-files';
+import { isExtractableFile as OriginIsExtractableFile, ExtractableFile } from 'extract-files';
 
 // ==============================================================================
 // declare
@@ -32,11 +32,6 @@ export type HttpOptions = OriginHttpOptions &
         formDataAppendFile: typeof formDataAppendFile;
     }>;
 
-export interface FormDataFileAppender {
-    formData: FormData;
-    fieldName: string;
-    file: any;
-}
 
 // ==============================================================================
 // export
@@ -55,4 +50,4 @@ export function createUploadLink(httpOptions?: HttpOptions): ApolloLink;
  * that uses the standard [`FormData.append`](https://developer.mozilla.org/en-US/docs/Web/API/FormData/append) method.
  * @see https://github.com/jaydenseric/apollo-upload-client#function-formdataappendfile
  */
-export function formDataAppendFile(formDataFileAppender?: FormDataFileAppender): void;
+export function formDataAppendFile(formData: FormData, fieldName: string, file: ExtractableFile): void;

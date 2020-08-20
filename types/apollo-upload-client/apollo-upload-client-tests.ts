@@ -1,7 +1,6 @@
 import {
     HttpOptions,
     createUploadLink,
-    FormDataFileAppender,
     formDataAppendFile,
     ReactNativeFile,
     isExtractableFile,
@@ -28,21 +27,16 @@ const httpOptions: HttpOptions = {
 // ==============================================================================
 createUploadLink(httpOptions);
 
-// ==============================================================================
-// FormDataFileAppender
-// ==============================================================================
-const form: HTMLFormElement | undefined = undefined;
-const formData = new FormData(form);
-const formDataFileAppender: FormDataFileAppender = {
-    fieldName: 'field name',
-    formData,
-    file: '',
-};
 
 // ==============================================================================
 // formDataAppendFile
 // ==============================================================================
-formDataAppendFile(formDataFileAppender);
+const form: HTMLFormElement | undefined = undefined;
+const formData = new FormData(form);
+const fieldName = 'field name';
+const file = new Blob;
+
+formDataAppendFile(formData, fieldName, file);
 
 // ==============================================================================
 // ReactNativeFile
