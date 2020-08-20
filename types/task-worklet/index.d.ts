@@ -3,33 +3,35 @@
 // Definitions by: Karol Majewski <https://github.com/karol-majewski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class TaskQueue<T extends TaskDescriptor = any> {
-    constructor(options?: Options);
-    postTask<U extends T = any>(taskName: U['name'], ...args: Parameters<U>): Task<ReturnType<U>>;
+declare class TaskQueue<T extends TaskQueue.TaskDescriptor = any> {
+    constructor(options?: TaskQueue.Options);
+    postTask<U extends T = any>(taskName: U['name'], ...args: Parameters<U>): TaskQueue.Task<ReturnType<U>>;
     addModule(moduleURL: string): Promise<void>;
 }
 
-interface Options {
-    size?: number;
+declare namespace TaskQueue {
+    interface Options {
+        size?: number;
+    }
+
+    interface TaskDescriptor {
+        name: string;
+        (...args: any): any;
+    }
+
+    interface Task<T = unknown> {
+        id: number;
+        state: State;
+        result: Promise<T extends PromiseLike<infer U> ? U : T>;
+    }
+
+    type State =
+        | 'cancelled'
+        | 'completed'
+        | 'fulfilled'
+        | 'pending'
+        | 'scheduled';
 }
 
-interface TaskDescriptor {
-    name: string;
-    (...args: any): any;
-}
-
-export interface Task<T = unknown> {
-    id: number;
-    state: State;
-    result: Promise<T extends PromiseLike<infer U> ? U : T>;
-}
-
-export type State =
-    | 'cancelled'
-    | 'completed'
-    | 'fulfilled'
-    | 'pending'
-    | 'scheduled';
-
-export default TaskQueue;
+export = TaskQueue;
 export as namespace TaskQueue;
