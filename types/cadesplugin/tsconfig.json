@@ -1,4 +1,5 @@
 {
+    "extends": "../tsconfig",
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
@@ -18,6 +19,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "cadesplugin-tests.ts"
     ]
 }
