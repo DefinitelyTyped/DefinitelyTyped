@@ -94,7 +94,36 @@ declare namespace Twitch.ext {
     /**
      * @see https://dev.twitch.tv/docs/extensions/reference/#twitch-extension-feature-flags
      */
-    const features: Features;
+    namespace features {
+        type ChangedKey = 'isBitsEnabled' | 'isChatEnabled' | 'isSubscriptionStatusAvailable';
+
+        /**
+         * If this flag is true, Bits in Extensions features will work in your extension on the current channel.
+         * If this flag is false, disable or hide the Bits in Extensions features in your extension.
+         */
+        const isBitsEnabled: boolean;
+
+        /**
+         * If this flag is true, you can send a chat message to the current channel using Send Extension Chat Message
+         * (subject to the authentication requirements documented for that endpoint).
+         */
+        const isChatEnabled: boolean;
+
+        /**
+         * If this flag is true, your extension has the ability to get the subscription status of identity-linked viewers
+         * from both the helper in the twitch.ext.viewer.subscriptionStatus object and via the Twitch API.
+         */
+        const isSubscriptionStatusAvailable: boolean;
+
+        /**
+         * This function enables you to receive real-time updates to changes of the features object.
+         * If this callback is invoked, you should re-check the Twitch.ext.features object for a change
+         * to any feature flag your extension cares about.
+         *
+         * @param callback The callback is called with an array of feature flags which were updated.
+         */
+        function onChanged(callback: (changed: ReadonlyArray<ChangedKey>) => void): void;
+    }
 
     /**
      * @see https://dev.twitch.tv/docs/extensions/reference#helper-bits
@@ -259,40 +288,6 @@ declare namespace Twitch.ext {
      * @see https://dev.twitch.tv/docs/extensions/reference/#unlisten
      */
     function unlisten(target: string, callback: (target: string, contentType: string, message: string) => void): void;
-
-    interface FeatureFlags {
-        /**
-         * If this flag is true, Bits in Extensions features will work in your extension on the current channel.
-         * If this flag is false, disable or hide the Bits in Extensions features in your extension.
-         */
-        isBitsEnabled: boolean;
-
-        /**
-         * If this flag is true, you can send a chat message to the current channel using Send Extension Chat Message
-         * (subject to the authentication requirements documented for that endpoint).
-         */
-        isChatEnabled: boolean;
-
-        /**
-         * If this flag is true, your extension has the ability to get the subscription status of identity-linked viewers
-         * from both the helper in the twitch.ext.viewer.subscriptionStatus object and via the Twitch API.
-         */
-        isSubscriptionStatusAvailable: boolean;
-    }
-
-    /**
-     * @see features
-     */
-    interface Features extends FeatureFlags {
-        /**
-         * This function enables you to receive real-time updates to changes of the features object.
-         * If this callback is invoked, you should re-check the Twitch.ext.features object for a change
-         * to any feature flag your extension cares about.
-         *
-         * @param callback The callback is called with an array of feature flags which were updated.
-         */
-        onChanged(callback: (changed: ReadonlyArray<keyof FeatureFlags>) => void): void;
-    }
 
     interface BitsProductCost {
         /**
