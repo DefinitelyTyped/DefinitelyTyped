@@ -9,7 +9,7 @@
 // ==============================================================================
 
 import { ApolloLink } from '@apollo/client/core';
-import { HttpOptions as OriginHttpOptions } from '@apollo/client/link/http';
+import { HttpOptions } from '@apollo/client/link/http';
 import { isExtractableFile, ExtractableFile } from 'extract-files';
 
 // ==============================================================================
@@ -26,7 +26,7 @@ declare global {
 // types
 // ==============================================================================
 
-export type HttpOptions = OriginHttpOptions &
+export type UploadLinkOptions = HttpOptions &
     Partial<{
         isExtractableFile: typeof isExtractableFile;
         formDataAppendFile: typeof formDataAppendFile;
@@ -43,7 +43,7 @@ export { ReactNativeFile, isExtractableFile } from 'extract-files';
  * Creates a [terminating Apollo Link](https://www.apollographql.com/docs/link/overview/#terminating-links) capable of file uploads.
  * @see https://github.com/jaydenseric/apollo-upload-client#function-createuploadlink
  */
-export function createUploadLink(httpOptions?: HttpOptions): ApolloLink;
+export function createUploadLink(uploadLinkOptions?: UploadLinkOptions): ApolloLink;
 
 /**
  * The default implementation for [`createUploadLink`](https://github.com/jaydenseric/apollo-upload-client#function-createuploadlink) `options.formDataAppendFile`

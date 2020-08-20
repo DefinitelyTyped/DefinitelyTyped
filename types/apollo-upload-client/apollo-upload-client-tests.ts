@@ -1,5 +1,5 @@
 import {
-    HttpOptions,
+    UploadLinkOptions,
     createUploadLink,
     formDataAppendFile,
     ReactNativeFile,
@@ -7,10 +7,9 @@ import {
 } from 'apollo-upload-client';
 
 // ==============================================================================
-// HttpOptions
+// UploadLinkOptions
 // ==============================================================================
-
-const httpOptions: HttpOptions = {
+const uploadLinkOptions: UploadLinkOptions = {
     uri: 'http://localhost',
     isExtractableFile,
     formDataAppendFile,
@@ -25,7 +24,7 @@ const httpOptions: HttpOptions = {
 // ==============================================================================
 // createUploadLink
 // ==============================================================================
-createUploadLink(httpOptions);
+createUploadLink(uploadLinkOptions);
 
 
 // ==============================================================================
