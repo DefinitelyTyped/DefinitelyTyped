@@ -971,8 +971,8 @@ export function lte(a: number, b: number): boolean;
 export function lte(a: number): (b: number) => boolean;
 
 /**
- * If `T` is a union, `T[keyof T]` (analogue to below) contains the object keys that are common across the union (i.e., an intersection).
- * Because we want to include all keys, including those that occur in some, but not all members of the union, we first define `KeyOfUnion`.
+ * If `T` is a union, `T[keyof T]` (analogue to below) contains the types of object values that are common across the union (i.e., an intersection).
+ * Because we want to include the types of all values, including those that occur in some, but not all members of the union, we first define `ValueOfUnion`.
  * @see https://stackoverflow.com/a/60085683
  */
 type ValueOfUnion<T> = T extends infer U ? U[keyof U] : never;
