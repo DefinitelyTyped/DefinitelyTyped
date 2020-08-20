@@ -1,3 +1,8 @@
+// Type definitions for task-worklet 0.1
+// Project: https://github.com/developit/task-worklet, https://github.com/googlechromelabs/task-worklet
+// Definitions by: Karol Majewski <https://github.com/karol-majewski>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare class TaskQueue<T extends TaskDescriptor = any> {
     constructor(options?: Options);
     postTask<U extends T = any>(taskName: U['name'], ...args: Parameters<U>): Task<ReturnType<U>>;
