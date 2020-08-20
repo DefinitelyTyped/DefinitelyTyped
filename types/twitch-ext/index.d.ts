@@ -58,7 +58,38 @@ declare namespace Twitch.ext {
     /**
      * @see https://dev.twitch.tv/docs/extensions/reference/#helper-configuration
      */
-    const configuration: Configuration;
+    namespace configuration {
+        /**
+         * This property returns the record for the broadcaster segment if one is found; otherwise, undefined.
+         */
+        const broadcaster: { version: string; content: string } | undefined;
+
+        /**
+         * This property returns the record for the developer segment if one is found; otherwise, undefined.
+         */
+        const developer: { version: string; content: string } | undefined;
+
+        /**
+         * This property returns the record for the global segment if one is found; otherwise, undefined.
+         */
+        const global: { version: string; content: string } | undefined;
+
+        /**
+         * This function registers a callback that is called whenever an extension configuration is received.
+         * The callback function takes no input and returns nothing. After this is called for the first time,
+         * the records for the global, developer and broadcaster segments will be set if the data is available.
+         * @param callback The callback that is fired.
+         */
+        function onChanged(callback: () => void): void;
+
+        /**
+         * This function can be called by the front end to set an extension configuration.
+         * @param segment The configuration segment to set. Valid value. "broadcaster".
+         * @param version The version of configuration with which the segment is stored.
+         * @param content The string-encoded configuration.
+         */
+        function set(segment: 'broadcaster', version: string, content: string): void;
+    }
 
     /**
      * @see https://dev.twitch.tv/docs/extensions/reference/#twitch-extension-feature-flags
@@ -165,42 +196,6 @@ declare namespace Twitch.ext {
      * @see https://dev.twitch.tv/docs/extensions/reference/#unlisten
      */
     function unlisten(target: string, callback: (target: string, contentType: string, message: string) => void): void;
-
-    /**
-     * @see configuration
-     */
-    interface Configuration {
-        /**
-         * This property returns the record for the broadcaster segment if one is found; otherwise, undefined.
-         */
-        broadcaster?: { version: string; content: string };
-
-        /**
-         * This property returns the record for the developer segment if one is found; otherwise, undefined.
-         */
-        developer?: { version: string; content: string };
-
-        /**
-         * This property returns the record for the global segment if one is found; otherwise, undefined.
-         */
-        global?: { version: string; content: string };
-
-        /**
-         * This function registers a callback that is called whenever an extension configuration is received.
-         * The callback function takes no input and returns nothing. After this is called for the first time,
-         * the records for the global, developer and broadcaster segments will be set if the data is available.
-         * @param callback The callback that is fired.
-         */
-        onChanged(callback: () => void): void;
-
-        /**
-         * This function can be called by the front end to set an extension configuration.
-         * @param segment The configuration segment to set. Valid value. "broadcaster".
-         * @param version The version of configuration with which the segment is stored.
-         * @param content The string-encoded configuration.
-         */
-        set(segment: 'broadcaster', version: string, content: string): void;
-    }
 
     interface FeatureFlags {
         /**
