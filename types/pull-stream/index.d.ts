@@ -58,6 +58,10 @@ declare namespace pull {
     type Duplex<In, Out> = DuplexSource<In> & DuplexSink<Out>;
     type DuplexThrough<In, Out> = DuplexSource<In> & DuplexSink<Out>;
 
+    type PossibleSource<T> = Source<T> | DuplexSource<T>;
+    type PossibleSink<T> = Sink<T> | DuplexSink<T>;
+    type PossibleThrough<In, Out> = Through<In, Out> | DuplexThrough<In, Out>;
+
     const count: typeof countImport;
     const empty: typeof emptyImport;
     const error: typeof errorImport;
@@ -90,146 +94,150 @@ declare namespace pull {
  */
 declare function pull(): void;
 
-declare function pull<Out>(source: pull.Source<Out>): pull.Source<Out>;
-declare function pull<In, Out>(source: pull.Source<In>, t1: pull.Through<In, Out>): pull.Source<Out>;
+declare function pull<Out>(source: pull.PossibleSource<Out>): pull.Source<Out>;
+declare function pull<In, Out>(source: pull.PossibleSource<In>, t1: pull.PossibleThrough<In, Out>): pull.Source<Out>;
 declare function pull<In, P1, Out>(
-    source: pull.Source<In>,
-    t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, Out>,
+    source: pull.PossibleSource<In>,
+    t1: pull.PossibleThrough<In, P1>,
+    t2: pull.PossibleThrough<P1, Out>,
 ): pull.Source<Out>;
 declare function pull<In, P1, P2, Out>(
-    source: pull.Source<In>,
-    t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, P2>,
-    t3: pull.Through<P2, Out>,
+    source: pull.PossibleSource<In>,
+    t1: pull.PossibleThrough<In, P1>,
+    t2: pull.PossibleThrough<P1, P2>,
+    t3: pull.PossibleThrough<P2, Out>,
 ): pull.Source<Out>;
 declare function pull<In, P1, P2, P3, Out>(
-    source: pull.Source<In>,
-    t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, P2>,
-    t3: pull.Through<P2, P3>,
-    t4: pull.Through<P3, Out>,
+    source: pull.PossibleSource<In>,
+    t1: pull.PossibleThrough<In, P1>,
+    t2: pull.PossibleThrough<P1, P2>,
+    t3: pull.PossibleThrough<P2, P3>,
+    t4: pull.PossibleThrough<P3, Out>,
 ): pull.Source<Out>;
 declare function pull<In, P1, P2, P3, P4, Out>(
-    source: pull.Source<In>,
-    t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, P2>,
-    t3: pull.Through<P2, P3>,
-    t4: pull.Through<P3, P4>,
-    t5: pull.Through<P4, Out>,
+    source: pull.PossibleSource<In>,
+    t1: pull.PossibleThrough<In, P1>,
+    t2: pull.PossibleThrough<P1, P2>,
+    t3: pull.PossibleThrough<P2, P3>,
+    t4: pull.PossibleThrough<P3, P4>,
+    t5: pull.PossibleThrough<P4, Out>,
 ): pull.Source<Out>;
 declare function pull<In, P1, P2, P3, P4, P5, Out>(
-    source: pull.Source<In>,
-    t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, P2>,
-    t3: pull.Through<P2, P3>,
-    t4: pull.Through<P3, P4>,
-    t5: pull.Through<P4, P5>,
-    t6: pull.Through<P5, Out>,
+    source: pull.PossibleSource<In>,
+    t1: pull.PossibleThrough<In, P1>,
+    t2: pull.PossibleThrough<P1, P2>,
+    t3: pull.PossibleThrough<P2, P3>,
+    t4: pull.PossibleThrough<P3, P4>,
+    t5: pull.PossibleThrough<P4, P5>,
+    t6: pull.PossibleThrough<P5, Out>,
 ): pull.Source<Out>;
 
 declare function pull<In, Out>(t1: pull.Through<In, Out>): pull.Through<In, Out>;
-declare function pull<In, P1, Out>(t1: pull.Through<In, P1>, t2: pull.Through<P1, Out>): pull.Through<In, Out>;
+declare function pull<In, P1, Out>(t1: pull.Through<In, P1>, t2: pull.PossibleThrough<P1, Out>): pull.Through<In, Out>;
 declare function pull<In, P1, P2, Out>(
     t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, P2>,
-    t3: pull.Through<P2, Out>,
+    t2: pull.PossibleThrough<P1, P2>,
+    t3: pull.PossibleThrough<P2, Out>,
 ): pull.Through<In, Out>;
 declare function pull<In, P1, P2, P3, Out>(
     t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, P2>,
-    t3: pull.Through<P2, P3>,
-    t4: pull.Through<P3, Out>,
+    t2: pull.PossibleThrough<P1, P2>,
+    t3: pull.PossibleThrough<P2, P3>,
+    t4: pull.PossibleThrough<P3, Out>,
 ): pull.Through<In, Out>;
 declare function pull<In, P1, P2, P3, P4, Out>(
     t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, P2>,
-    t3: pull.Through<P2, P3>,
-    t4: pull.Through<P3, P4>,
-    t5: pull.Through<P4, Out>,
+    t2: pull.PossibleThrough<P1, P2>,
+    t3: pull.PossibleThrough<P2, P3>,
+    t4: pull.PossibleThrough<P3, P4>,
+    t5: pull.PossibleThrough<P4, Out>,
 ): pull.Through<In, Out>;
 declare function pull<In, P1, P2, P3, P4, P5, Out>(
     t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, P2>,
-    t3: pull.Through<P2, P3>,
-    t4: pull.Through<P3, P4>,
-    t5: pull.Through<P4, P5>,
-    t6: pull.Through<P5, Out>,
+    t2: pull.PossibleThrough<P1, P2>,
+    t3: pull.PossibleThrough<P2, P3>,
+    t4: pull.PossibleThrough<P3, P4>,
+    t5: pull.PossibleThrough<P4, P5>,
+    t6: pull.PossibleThrough<P5, Out>,
 ): pull.Through<In, Out>;
 
-declare function pull<In>(sink: pull.Sink<In>): pull.Sink<In>;
-declare function pull<In, Out>(t1: pull.Through<In, Out>, sink: pull.Sink<Out>): pull.Sink<In>;
+declare function pull<In>(sink: pull.PossibleSink<In>): pull.Sink<In>;
+declare function pull<In, Out>(t1: pull.PossibleThrough<In, Out>, sink: pull.PossibleSink<Out>): pull.Sink<In>;
 declare function pull<In, P1, Out>(
-    t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, Out>,
-    sink: pull.Sink<Out>,
+    t1: pull.PossibleThrough<In, P1>,
+    t2: pull.PossibleThrough<P1, Out>,
+    sink: pull.PossibleSink<Out>,
 ): pull.Sink<In>;
 declare function pull<In, P1, P2, Out>(
-    t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, P2>,
-    t3: pull.Through<P2, Out>,
-    sink: pull.Sink<Out>,
+    t1: pull.PossibleThrough<In, P1>,
+    t2: pull.PossibleThrough<P1, P2>,
+    t3: pull.PossibleThrough<P2, Out>,
+    sink: pull.PossibleSink<Out>,
 ): pull.Sink<In>;
 declare function pull<In, P1, P2, P3, Out>(
-    t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, P2>,
-    t3: pull.Through<P2, P3>,
-    t4: pull.Through<P3, Out>,
-    sink: pull.Sink<Out>,
+    t1: pull.PossibleThrough<In, P1>,
+    t2: pull.PossibleThrough<P1, P2>,
+    t3: pull.PossibleThrough<P2, P3>,
+    t4: pull.PossibleThrough<P3, Out>,
+    sink: pull.PossibleSink<Out>,
 ): pull.Sink<In>;
 declare function pull<In, P1, P2, P3, P4, Out>(
-    t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, P2>,
-    t3: pull.Through<P2, P3>,
-    t4: pull.Through<P3, P4>,
-    t5: pull.Through<P4, Out>,
-    sink: pull.Sink<Out>,
+    t1: pull.PossibleThrough<In, P1>,
+    t2: pull.PossibleThrough<P1, P2>,
+    t3: pull.PossibleThrough<P2, P3>,
+    t4: pull.PossibleThrough<P3, P4>,
+    t5: pull.PossibleThrough<P4, Out>,
+    sink: pull.PossibleSink<Out>,
 ): pull.Sink<In>;
 declare function pull<In, P1, P2, P3, P4, P5, Out>(
-    t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, P2>,
-    t3: pull.Through<P2, P3>,
-    t4: pull.Through<P3, P4>,
-    t5: pull.Through<P4, P5>,
-    t6: pull.Through<P5, Out>,
-    sink: pull.Sink<Out>,
+    t1: pull.PossibleThrough<In, P1>,
+    t2: pull.PossibleThrough<P1, P2>,
+    t3: pull.PossibleThrough<P2, P3>,
+    t4: pull.PossibleThrough<P3, P4>,
+    t5: pull.PossibleThrough<P4, P5>,
+    t6: pull.PossibleThrough<P5, Out>,
+    sink: pull.PossibleSink<Out>,
 ): pull.Sink<In>;
 
-declare function pull<InOut>(source: pull.Source<InOut>, sink: pull.Sink<InOut>): void;
-declare function pull<In, Out>(source: pull.Source<In>, t1: pull.Through<In, Out>, sink: pull.Sink<Out>): void;
+declare function pull<InOut>(source: pull.PossibleSource<InOut>, sink: pull.PossibleSink<InOut>): void;
+declare function pull<In, Out>(
+    source: pull.PossibleSource<In>,
+    t1: pull.PossibleThrough<In, Out>,
+    sink: pull.PossibleSink<Out>,
+): void;
 declare function pull<In, P1, Out>(
-    source: pull.Source<In>,
-    t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, Out>,
-    sink: pull.Sink<Out>,
+    source: pull.PossibleSource<In>,
+    t1: pull.PossibleThrough<In, P1>,
+    t2: pull.PossibleThrough<P1, Out>,
+    sink: pull.PossibleSink<Out>,
 ): void;
 declare function pull<In, P1, P2, Out>(
-    source: pull.Source<In>,
-    t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, P2>,
-    t3: pull.Through<P2, Out>,
-    sink: pull.Sink<Out>,
+    source: pull.PossibleSource<In>,
+    t1: pull.PossibleThrough<In, P1>,
+    t2: pull.PossibleThrough<P1, P2>,
+    t3: pull.PossibleThrough<P2, Out>,
+    sink: pull.PossibleSink<Out>,
 ): void;
 declare function pull<In, P1, P2, P3, Out>(
-    source: pull.Source<In>,
-    t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, P2>,
-    t3: pull.Through<P2, P3>,
-    t4: pull.Through<P3, Out>,
-    sink: pull.Sink<Out>,
+    source: pull.PossibleSource<In>,
+    t1: pull.PossibleThrough<In, P1>,
+    t2: pull.PossibleThrough<P1, P2>,
+    t3: pull.PossibleThrough<P2, P3>,
+    t4: pull.PossibleThrough<P3, Out>,
+    sink: pull.PossibleSink<Out>,
 ): void;
 declare function pull<In, P1, P2, P3, P4, Out>(
-    source: pull.Source<In>,
-    t1: pull.Through<In, P1>,
-    t2: pull.Through<P1, P2>,
-    t3: pull.Through<P2, P3>,
-    t4: pull.Through<P3, P4>,
-    t5: pull.Through<P4, Out>,
-    sink: pull.Sink<Out>,
+    source: pull.PossibleSource<In>,
+    t1: pull.PossibleThrough<In, P1>,
+    t2: pull.PossibleThrough<P1, P2>,
+    t3: pull.PossibleThrough<P2, P3>,
+    t4: pull.PossibleThrough<P3, P4>,
+    t5: pull.PossibleThrough<P4, Out>,
+    sink: pull.PossibleSink<Out>,
 ): void;
 
 declare function pull(
-    ...pullStreams: ReadonlyArray<pull.Source<any> | pull.Sink<any> | pull.Through<any, any>>
+    ...pullStreams: ReadonlyArray<pull.PossibleSource<any> | pull.PossibleSink<any> | pull.PossibleThrough<any, any>>
 ): pull.Source<any> | pull.Sink<any> | pull.Through<any, any> | void;
 
 export = pull;
