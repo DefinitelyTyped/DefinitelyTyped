@@ -239,7 +239,7 @@ declare namespace Bull {
     /**
      * Update a specific job's data. Promise resolves when the job has been updated.
      */
-    update(data: any): Promise<void>;
+    update(data: T): Promise<void>;
 
     /**
      * Removes a job from the queue and from any lists it may be included in.
