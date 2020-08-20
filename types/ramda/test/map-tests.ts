@@ -49,7 +49,10 @@ import * as R from 'ramda';
 
   type KeyOfUnion<T> = T extends infer U ? keyof U : never;
 
-  R.map<A | C, Record<KeyOfUnion<A | C>, void>>(value => {
-    if (typeof value === 'string') console.log(value.toUpperCase());
-  }, { a: 1, b: 2 });
+  // $ExpectType Record<"a" | "b" | "c", void>
+  R.map<A | C, Record<KeyOfUnion<A | C>, void>>(
+    // $ExpectType (value: string | number) => void
+    value => {
+        value;
+    }, { a: 1, b: 2 });
 };
