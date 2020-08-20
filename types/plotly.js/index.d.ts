@@ -22,7 +22,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _d3 from 'd3';
+import { BoxPlotData } from './lib/traces/box';
+import { ViolinData } from './lib/traces/violin';
+
 export as namespace Plotly;
+export { BoxPlotData, ViolinData };
 
 export interface StaticPlots {
     resize(root: Root): void;
@@ -1060,7 +1064,7 @@ export type PlotType =
     | 'volume'
     | 'waterfall';
 
-export type Data = Partial<PlotData>;
+export type Data = Partial<PlotData> | Partial<BoxPlotData> | Partial<ViolinData>;
 export type Color =
     | string
     | number
