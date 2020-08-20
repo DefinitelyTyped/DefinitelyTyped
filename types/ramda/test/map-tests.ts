@@ -36,9 +36,20 @@ import * as R from 'ramda';
     b: string;
   }
 
+  interface C {
+    b: number;
+    c: string;
+  }
+
   R.map<A, A>(R.inc, { a: 1, b: 2 });
   R.map<A, B>(R.toString, { a: 1, b: 2 });
 
   R.map<A, A>(R.inc)({ a: 1, b: 2 });
   R.map<A, B>(R.toString)({ a: 1, b: 2 });
+
+  type KeyOfUnion<T> = T extends infer U ? keyof U : never;
+
+  R.map<A | C, Record<KeyOfUnion<A | C>, void>>(value => {
+    if (typeof value === 'string') console.log(value.toUpperCase());
+  }, { a: 1, b: 2 });
 };
