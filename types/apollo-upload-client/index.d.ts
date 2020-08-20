@@ -10,7 +10,7 @@
 
 import { ApolloLink } from '@apollo/client/core';
 import { HttpOptions as OriginHttpOptions } from '@apollo/client/link/http';
-import { isExtractableFile as OriginIsExtractableFile, ExtractableFile } from 'extract-files';
+import { isExtractableFile, ExtractableFile } from 'extract-files';
 
 // ==============================================================================
 // declare
@@ -28,7 +28,7 @@ declare global {
 
 export type HttpOptions = OriginHttpOptions &
     Partial<{
-        isExtractableFile: typeof OriginIsExtractableFile;
+        isExtractableFile: typeof isExtractableFile;
         formDataAppendFile: typeof formDataAppendFile;
     }>;
 
