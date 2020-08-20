@@ -54,14 +54,14 @@ declare global {
             /** Optional comment */
             c?: string;
         }
-        type SettableState = Partial<Omit<State, "val">> & Pick<State, "val">;
+        type SettableState = Partial<Omit<State, 'val'>> & Pick<State, 'val'>;
 
         type Session = any; // TODO: implement
 
         type ObjectType = 'state' | 'channel' | 'device';
         type CommonType = 'number' | 'string' | 'boolean' | 'array' | 'object' | 'mixed' | 'file';
 
-        type Languages = "en" | "de" | "ru" | "pt" | "nl" | "fr" | "it" | "es" | "pl" | "zh-cn";
+        type Languages = 'en' | 'de' | 'ru' | 'pt' | 'nl' | 'fr' | 'it' | 'es' | 'pl' | 'zh-cn';
 
         // Objects are JSON-serializable
         type ObjectField =
@@ -189,7 +189,7 @@ declare global {
             enums?: Record<string, string>;
             type: string; // specified in the derived interfaces
             // Be strict with what we allow here. Read objects overwrite this with any.
-            common: StateCommon | ChannelCommon | DeviceCommon | FolderObject | EnumObject | OtherCommon;
+            common: StateCommon | ChannelCommon | DeviceCommon | EnumCommon | OtherCommon;
             acl?: ObjectACL;
             from?: string;
             ts?: number;
