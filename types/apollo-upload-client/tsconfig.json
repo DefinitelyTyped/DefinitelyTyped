@@ -17,8 +17,7 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
-        "target": "ES2015"
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
