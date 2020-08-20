@@ -4,6 +4,7 @@
 // Note: keep both static and instance members inline (so similar)
 
 // Note: try to maintain the ordering and separators, and keep to the pattern
+// Minimum TypeScript Version: 4.0
 
 import * as Bluebird from "bluebird";
 
@@ -244,7 +245,6 @@ barProm = barProm.then((value: Bar) => {
     return Bluebird.resolve(bar);
 });
 
-// Minimum TypeScript Version: 4.0
 Bluebird.resolve()
     .then(() => ["", Bluebird.resolve(0)])
     .all()
