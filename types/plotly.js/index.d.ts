@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.50
+// Type definitions for plotly.js 1.54
 // Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -1013,31 +1013,52 @@ export type ErrorBar = Partial<ErrorOptions> &
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 export type PlotType =
     | 'bar'
+    | 'barpolar'
     | 'box'
     | 'candlestick'
+    | 'carpet'
     | 'choropleth'
+    | 'choroplethmapbox'
+    | 'cone'
     | 'contour'
+    | 'contourcarpet'
+    | 'contourgl'
+    | 'densitymapbox'
+    | 'funnel'
+    | 'funnelarea'
     | 'heatmap'
+    | 'heatmapgl'
     | 'histogram'
+    | 'histogram2d'
+    | 'histogram2dcontour'
+    | 'image'
     | 'indicator'
+    | 'isosurface'
     | 'mesh3d'
     | 'ohlc'
+    | 'parcats'
     | 'parcoords'
     | 'pie'
     | 'pointcloud'
+    | 'sankey'
     | 'scatter'
     | 'scatter3d'
+    | 'scattercarpet'
     | 'scattergeo'
     | 'scattergl'
+    | 'scattermapbox'
     | 'scatterpolar'
+    | 'scatterpolargl'
     | 'scatterternary'
+    | 'splom'
+    | 'streamtube'
     | 'sunburst'
     | 'surface'
+    | 'table'
     | 'treemap'
-    | 'waterfall'
-    | 'funnel'
-    | 'funnelarea'
-    | 'scattermapbox';
+    | 'violin'
+    | 'volume'
+    | 'waterfall';
 
 export type Data = Partial<PlotData>;
 export type Color =
