@@ -30,13 +30,13 @@ export interface AbiInput {
     name: string;
     type: string;
     indexed?: boolean;
-	components?: AbiInput[];
+    components?: AbiInput[];
     internalType?: string;
 }
 export interface AbiOutput {
     name: string;
     type: string;
-	components?: AbiOutput[];
+    components?: AbiOutput[];
     internalType?: string;
 }
 export interface AbiItem {
