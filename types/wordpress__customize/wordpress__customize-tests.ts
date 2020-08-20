@@ -1,9 +1,5 @@
 import * as _ from 'underscore';
 
-declare const wp: {
-    customize: typeof import('wordpress__customize');
-};
-
 // Code snippets from https://developer.wordpress.org/themes/customize-api/the-customizer-javascript-api/
 
 wp.customize('page_for_posts', setting => {

@@ -57,37 +57,6 @@ export interface Customize extends Values<Setting<any>> {
     _latestSettingRevision: Record<string, number>;
     // (a: any, b?: any): any; // TODO
 
-    Class: typeof Class;
-    Events: typeof Events;
-    Value: typeof Value;
-    Values: typeof Values;
-    Element: typeof Element;
-    Messenger: typeof Messenger;
-    Notification: typeof Notification;
-    OverlayNotification: typeof OverlayNotification;
-    Notifications: typeof Notifications;
-    Setting: typeof Setting;
-    Section: typeof Section;
-    ThemesPanel: typeof ThemesPanel;
-    ThemesSection: typeof ThemesSection;
-    OuterSection: typeof OuterSection;
-    Panel: typeof Panel;
-    Control: typeof Control;
-    ColorControl: typeof ColorControl;
-    MediaControl: typeof MediaControl;
-    UploadControl: typeof UploadControl;
-    ImageControl: typeof ImageControl;
-    BackgroundControl: typeof BackgroundControl;
-    BackgroundPositionControl: typeof BackgroundPositionControl;
-    CroppedImageControl: typeof CroppedImageControl;
-    SiteIconControl: typeof SiteIconControl;
-    HeaderControl: typeof HeaderControl;
-    ThemeControl: typeof ThemeControl;
-    CodeEditorControl: typeof CodeEditorControl;
-    DateTimeControl: typeof DateTimeControl;
-    PreviewLinkControl: typeof PreviewLinkControl;
-    PreviewFrame: typeof PreviewFrame;
-    Previewer: typeof Previewer;
     utils: Utils;
     ensure(element: string | JQuery): JQuery;
     dirtyValues(options?: DirtyValuesOptions): Record<string, any>;
