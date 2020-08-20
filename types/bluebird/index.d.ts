@@ -58,12 +58,8 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * The new promise will be rejected or resolved depending on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
    */
   // Based on PromiseLike.then, but returns a Bluebird instance.
-  then<T1, T2, T3, T4, T5>(onFulfill?: (value: R) => [T1, T2, T3, T4, T5], onReject?: (error: any) => [T1, T2, T3, T4, T5]): Bluebird<[T1, T2, T3, T4, T5]>;
-  then<T1, T2, T3, T4>(onFulfill?: (value: R) => [T1, T2, T3, T4], onReject?: (error: any) => [T1, T2, T3, T4]): Bluebird<[T1, T2, T3, T4]>;
-  then<T1, T2, T3>(onFulfill?: (value: R) => [T1, T2, T3], onReject?: (error: any) => [T1, T2, T3]): Bluebird<[T1, T2, T3]>;
-  then<T1, T2>(onFulfill?: (value: R) => [T1, T2], onReject?: (error: any) => [T1, T2]): Bluebird<[T1, T2]>;
-  then<T1>(onFulfill?: (value: R) => [T1], onReject?: (error: any) => [T1]): Bluebird<[T1]>;
-  then<T1>(onFulfill?: (value: R) => Resolvable<T1>, onReject?: (error: any) => Resolvable<T1>): Bluebird<T1>;
+  then<T extends any[]>(onFulfill?: (value: R) => Resolvable<[...T]>, onReject?: (error: any) => Resolvable<[...T]>): Bluebird<[...T]>;
+  then<T>(onFulfill?: (value: R) => Resolvable<T>, onReject?: (error: any) => Resolvable<T>): Bluebird<T>;
   then<TResult1 = R, TResult2 = never>(
       onfulfilled?: ((value: R) => Resolvable<TResult1>) | null,
       onrejected?: ((reason: any) => Resolvable<TResult2>) | null
@@ -571,11 +567,8 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  all<T1, T2, T3, T4, T5>(this: Bluebird<[Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>, Resolvable<T5>]>): Bluebird<[T1, T2, T3, T4, T5]>;
-  all<T1, T2, T3, T4>(this: Bluebird<[Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>]>): Bluebird<[T1, T2, T3, T4]>;
-  all<T1, T2, T3>(this: Bluebird<[Resolvable<T1>, Resolvable<T2>, Resolvable<T3>]>): Bluebird<[T1, T2, T3]>;
-  all<T1, T2>(this: Bluebird<[Resolvable<T1>, Resolvable<T2>]>): Bluebird<[T1, T2]>;
-  all<T1>(this: Bluebird<[Resolvable<T1>]>): Bluebird<[T1]>;
+
+  all<T extends unknown[]>(this: Bluebird<[...T]>): Bluebird<{ [P in keyof T]: T[P] extends Resolvable<infer U> ? U : T[P] }>;
   all<R>(this: Bluebird<Iterable<Resolvable<R>>>): Bluebird<R[]>;
 
   /**

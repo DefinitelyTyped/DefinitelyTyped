@@ -245,7 +245,7 @@ barProm = barProm.then((value: Bar) => {
 });
 
 Bluebird.resolve()
-    .then(() => ["" as string, Bluebird.resolve(0 as number)])
+    .then(() => ["", Bluebird.resolve(0)])
     .all()
     .then(([x1, x2]) => {
         const y1: string = x1;
