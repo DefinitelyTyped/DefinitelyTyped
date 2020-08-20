@@ -12,7 +12,7 @@
         "typeRoots": [
             "../"
         ],
-        "types": ["node"],
+        "types": [],
         "esModuleInterop": true,
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
