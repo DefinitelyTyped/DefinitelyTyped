@@ -32,6 +32,7 @@ export interface ValidatorComponentProps {
     withRequiredValidator?: boolean;
     [key: string]: any;
 }
+
 export class ValidatorComponent extends React.Component<ValidatorComponentProps> {
     getErrorMessage(): string | boolean;
     isValid(): boolean;
@@ -39,5 +40,17 @@ export class ValidatorComponent extends React.Component<ValidatorComponentProps>
     makeValid(): void;
     validate(value: string, includeRequired?: boolean, dryRun?: boolean): void;
 }
-export class TextValidator extends React.Component<ValidatorComponentProps & TextFieldProps> {}
-export class SelectValidator extends React.Component<ValidatorComponentProps & SelectFieldProps> {}
+export class TextValidator extends React.Component<ValidatorComponentProps & TextFieldProps> {
+    getErrorMessage(): string | boolean;
+    isValid(): boolean;
+    makeInvalid(): void;
+    makeValid(): void;
+    validate(value: string, includeRequired?: boolean, dryRun?: boolean): void;
+}
+export class SelectValidator extends React.Component<ValidatorComponentProps & SelectFieldProps> {
+    getErrorMessage(): string | boolean;
+    isValid(): boolean;
+    makeInvalid(): void;
+    makeValid(): void;
+    validate(value: string, includeRequired?: boolean, dryRun?: boolean): void;
+}
