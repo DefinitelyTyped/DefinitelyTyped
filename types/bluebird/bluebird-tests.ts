@@ -244,6 +244,7 @@ barProm = barProm.then((value: Bar) => {
     return Bluebird.resolve(bar);
 });
 
+// Minimum TypeScript Version: 4.0
 Bluebird.resolve()
     .then(() => ["", Bluebird.resolve(0)])
     .all()
