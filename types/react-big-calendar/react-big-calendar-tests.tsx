@@ -18,6 +18,7 @@ import {
     EventWrapperProps,
     NavigateAction,
     Culture, DayLayoutAlgorithm, DayLayoutFunction,
+    stringOrDate
 } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
@@ -145,7 +146,10 @@ class CalendarResource {
 
 // overriding 'views' props
 {
-    class DayComponent extends React.Component {
+    interface DayComponentProps {
+        date: stringOrDate;
+    }
+    class DayComponent extends React.Component<DayComponentProps> {
         static title() {
             return 'title';
         }
@@ -160,6 +164,34 @@ class CalendarResource {
                         localizer={momentLocalizer(moment)}
                         views={{
                             day: DayComponent,
+                            work_week: true
+                        }}
+    />, document.body);
+}
+
+// overriding 'views' with incompatible component <IncompatibleDayComponent>, by
+// requiring a mandatory prop "aRequiredProp" that <Calendar/> won't provide when
+// using this component as a view
+{
+    interface IncompatibleDayComponentProps {
+        aRequiredProp: string;
+    }
+    class IncompatibleDayComponent extends React.Component<IncompatibleDayComponentProps> {
+        static title() {
+            return 'title';
+        }
+
+        static navigate() {
+            return new Date();
+        }
+    }
+    // supplying object to 'views' prop with only some of the supported views.
+    // A view can be a boolean or implement title() and navigate()
+    ReactDOM.render(<Calendar
+                        localizer={momentLocalizer(moment)}
+                        // $ExpectError
+                        views={{
+                            day: IncompatibleDayComponent,
                             work_week: true
                         }}
     />, document.body);
@@ -364,7 +396,7 @@ function EventWrapper(props: EventWrapperProps<CalendarEvent>) {
     );
 }
 
-class Toolbar extends React.Component<ToolbarProps> {
+class Toolbar extends React.Component<ToolbarProps<CalendarEvent, CalendarResource>> {
     render() {
         const { date, label, view } = this.props;
         return (
