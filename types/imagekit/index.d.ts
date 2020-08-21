@@ -62,13 +62,7 @@ interface UrlOptionsBase {
     expireSeconds?: number;
 }
 
-interface UrlOptionsSrc extends UrlOptionsBase {
-    src: string;
-}
-
-interface UrlOptionsPath extends UrlOptionsBase {
-    path: string;
-}
+type UrlOptions = ({src: string; path?: never; } | {path: string; src?: never; }) & UrlOptionsBase;
 
 interface UploadOptions {
     file: number | string;
@@ -241,7 +235,7 @@ declare class ImageKit {
         transformationPosition?: TransformationPosition;
     });
 
-    url(urlOptions: UrlOptionsPath | UrlOptionsSrc): string;
+    url(urlOptions: UrlOptions): string;
 
     listFiles(listFilesOptions: ListFileOptions, callback: Callback<ListFileResponse>): void;
     listFiles(listFilesOptions: ListFileOptions): Promise<ListFileResponse>;
