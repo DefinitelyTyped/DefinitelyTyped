@@ -244,7 +244,7 @@ interface Callback<T extends ImagekitResponse, E extends Error = Error> {
     (error: E, response: T): void;
 }
 
-export interface ImageKit {
+interface ImageKit {
 
     new (options: {
         publicKey: string;
@@ -288,3 +288,5 @@ export interface ImageKit {
     pHashDistance(hashA: string, hashB: string): number;
 
 }
+
+export = ImageKit;
