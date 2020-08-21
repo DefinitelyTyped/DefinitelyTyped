@@ -244,14 +244,14 @@ interface Callback<T extends ImagekitResponse, E extends Error = Error> {
     (error: E, response: T): void;
 }
 
-interface ImageKit {
+declare class ImageKit {
 
-    new (options: {
+    constructor(options: {
         publicKey: string;
         privateKey: string;
         urlEndpoint: string;
         transformationPosition?: TransformationPosition;
-    }) : ImageKit;
+    });
 
     url(urlOptions: UrlOptionsPath | UrlOptionsSrc): string;
 
@@ -286,7 +286,6 @@ interface ImageKit {
     getAuthenticationParameters(token?: string, expire?: number): {token: string; expire: number; signature: string};
 
     pHashDistance(hashA: string, hashB: string): number;
-
 }
 
 export = ImageKit;
