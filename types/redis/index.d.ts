@@ -15,7 +15,7 @@
 //                 Thomas de Barochez <https://github.com/tdebarochez>
 //                 David Stephens <https://github.com/dwrss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
- 
+
 // Imported from: https://github.com/types/npm-redis
 
 /// <reference types="node" />
