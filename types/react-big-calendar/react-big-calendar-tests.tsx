@@ -18,7 +18,8 @@ import {
     EventWrapperProps,
     NavigateAction,
     Culture, DayLayoutAlgorithm, DayLayoutFunction,
-    stringOrDate
+    stringOrDate,
+    ViewProps
 } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
@@ -144,7 +145,7 @@ class CalendarResource {
     ReactDOM.render(<DnD localizer={localizer} />, document.body);
 }
 
-// overriding 'views' props
+// overriding 'views' props, with custom day view
 {
     interface DayComponentProps {
         date: stringOrDate;
@@ -169,14 +170,9 @@ class CalendarResource {
     />, document.body);
 }
 
-// overriding 'views' with incompatible component <IncompatibleDayComponent>, by
-// requiring a mandatory prop "aRequiredProp" that <Calendar/> won't provide when
-// using this component as a view
+// overriding 'views' props, with custom day view using ViewProps interface
 {
-    interface IncompatibleDayComponentProps {
-        aRequiredProp: string;
-    }
-    class IncompatibleDayComponent extends React.Component<IncompatibleDayComponentProps> {
+    class DayComponent extends React.Component<ViewProps> {
         static title() {
             return 'title';
         }
@@ -189,15 +185,14 @@ class CalendarResource {
     // A view can be a boolean or implement title() and navigate()
     ReactDOM.render(<Calendar
                         localizer={momentLocalizer(moment)}
-                        // $ExpectError
                         views={{
-                            day: IncompatibleDayComponent,
+                            day: DayComponent,
                             work_week: true
                         }}
     />, document.body);
 }
 
-// optional 'views' prop
+// optional 'localizer' prop
 {
     ReactDOM.render(<Calendar localizer={momentLocalizer(moment)} />, document.body);
 }

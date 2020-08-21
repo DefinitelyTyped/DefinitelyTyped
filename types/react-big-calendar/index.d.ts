@@ -34,11 +34,11 @@ export type stringOrDate = string | Date;
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
 export type ViewProps<TEvent extends object = Event, TResource extends object = object> =
- Partial<Omit<
+ Omit<
     CalendarProps<TEvent, TResource>,
     'elementProps' | 'className' | 'style' | 'view' | 'toolbar' | 'components' |
     'formats' | 'messages' | 'culture'
->> & {
+> & {
     date: stringOrDate; // date has always a value, in contrast to optional date in CalendarProps
 
     // props assigned from Calendar's this.state.context, see there if you want to improve the type defs:
@@ -56,11 +56,11 @@ export type ViewProps<TEvent extends object = Event, TResource extends object = 
     onSelectSlot: any; // = this.handleSelectSlot
 };
 export type ViewsProps<TEvent extends object = Event, TResource extends object = object> = View[] | {
-    work_week?: boolean | React.ComponentType<ViewProps<TEvent, TResource>> & ViewStatic,
-    day?: boolean | React.ComponentType<ViewProps<TEvent, TResource>> & ViewStatic,
-    agenda?: boolean | React.ComponentType<ViewProps<TEvent, TResource>> & ViewStatic,
-    month?: boolean | React.ComponentType<ViewProps<TEvent, TResource>> & ViewStatic,
-    week?: boolean | React.ComponentType<ViewProps<TEvent, TResource>> & ViewStatic
+    work_week?: boolean | React.ComponentType<any> & ViewStatic,
+    day?: boolean | React.ComponentType<any> & ViewStatic,
+    agenda?: boolean | React.ComponentType<any> & ViewStatic,
+    month?: boolean | React.ComponentType<any> & ViewStatic,
+    week?: boolean | React.ComponentType<any> & ViewStatic
 };
 export type DayLayoutFunction<TEvent extends object = Event> = (_: {
     events: TEvent[],
