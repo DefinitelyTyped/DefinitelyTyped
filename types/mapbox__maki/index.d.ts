@@ -12,7 +12,7 @@ declare namespace maki {
 }
 
 declare const maki: {
-    /** bject that can be used to organize and display icons in your app or website */
+    /** Object that can be used to organize and display icons in your app or website */
     layouts: {
         all: maki.IconName[];
     };
