@@ -1,4 +1,4 @@
-// Type definitions for imagekit 3.0.5
+// Type definitions for imagekit 3.1
 // Project: https://github.com/imagekit-developer/imagekit-nodejs
 // Definitions by: Kevin Faulhaber <https://github.com/kemicofa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
