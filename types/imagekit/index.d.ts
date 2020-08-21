@@ -51,6 +51,12 @@ interface Transformation {
     original?: string;
 }
 
+/**
+ * base response type
+ *
+ * primarily used to ensure compatibility amongst the inherited
+ * response types when Callback is used.
+ */
 interface ImagekitResponse {}
 
 interface UrlOptionsBase {
@@ -231,51 +237,52 @@ interface PurgeCacheStatusResponse {
 }
 
 // TODO: should possibly not force the ImagekitResponse extends
+// TODO: check if error/response return objects can be optional
 interface Callback<T extends ImagekitResponse, E extends Error = Error> {
     (error: E, response: T): void;
 }
 
-export class ImageKit {
+export interface ImageKit {
 
-    constructor(options: {
+    new (options: {
         publicKey: string;
         privateKey: string;
         urlEndpoint: string;
         transformationPosition?: TransformationPosition;
-    });
+    }) : ImageKit;
 
-    public url(urlOptions: UrlOptionsPath | UrlOptionsSrc): string;
+    url(urlOptions: UrlOptionsPath | UrlOptionsSrc): string;
 
-    public listFiles(listFilesOptions: ListFileOptions, callback: Callback<ListFileResponse>): void;
-    public listFiles(listFilesOptions: ListFileOptions): Promise<ListFileResponse>;
+    listFiles(listFilesOptions: ListFileOptions, callback: Callback<ListFileResponse>): void;
+    listFiles(listFilesOptions: ListFileOptions): Promise<ListFileResponse>;
 
-    public upload(uploadOptions: UploadOptions, callback: Callback<UploadResponse>): void;
-    public upload(uploadOptions: UploadOptions): Promise<UploadResponse>;
+    upload(uploadOptions: UploadOptions, callback: Callback<UploadResponse>): void;
+    upload(uploadOptions: UploadOptions): Promise<UploadResponse>;
 
-    public getFileDetails(fileId: string, callback: Callback<FileDetailsResponse>): void;
-    public getFileDetails(fileId: string): Promise<FileDetailsResponse>;
+    getFileDetails(fileId: string, callback: Callback<FileDetailsResponse>): void;
+    getFileDetails(fileId: string): Promise<FileDetailsResponse>;
 
-    public getFileMetadata(fileId: string, callback: Callback<FileMetadataResponse>): void;
-    public getFileMetadata(fileId: string): Promise<FileMetadataResponse>;
+    getFileMetadata(fileId: string, callback: Callback<FileMetadataResponse>): void;
+    getFileMetadata(fileId: string): Promise<FileMetadataResponse>;
 
-    public updateFileDetails(fileId: string, optionsFileDetails: FileDetailsOptions, callback: Callback<FileDetailsResponse>): void;
-    public updateFileDetails(fileId: string, optionsFileDetails: FileDetailsOptions): Promise<FileDetailsResponse>;
+    updateFileDetails(fileId: string, optionsFileDetails: FileDetailsOptions, callback: Callback<FileDetailsResponse>): void;
+    updateFileDetails(fileId: string, optionsFileDetails: FileDetailsOptions): Promise<FileDetailsResponse>;
 
     // TODO: should probably pass 'void' instead of {}
-    public deleteFile(fileId: string, callback: Callback<{}>): void;
-    public deleteFile(fileId: string): Promise<void>;
+    deleteFile(fileId: string, callback: Callback<{}>): void;
+    deleteFile(fileId: string): Promise<void>;
 
-    public bulkDeleteFiles(fileIds: string[], callback: Callback<BulkDeleteFilesResponse, BulkDeleteFilesError>): void;
-    public bulkDeleteFiles(fileIds: string[]): Promise<BulkDeleteFilesResponse>;
+    bulkDeleteFiles(fileIds: string[], callback: Callback<BulkDeleteFilesResponse, BulkDeleteFilesError>): void;
+    bulkDeleteFiles(fileIds: string[]): Promise<BulkDeleteFilesResponse>;
 
-    public purgeCache(fullUrl: string, callback: Callback<PurgeCacheResponse>): void;
-    public purgeCache(fullUrl: string): Promise<PurgeCacheResponse>;
+    purgeCache(fullUrl: string, callback: Callback<PurgeCacheResponse>): void;
+    purgeCache(fullUrl: string): Promise<PurgeCacheResponse>;
 
-    public getPurgeCacheStatus(cacheRequestId: string, caellback: Callback<PurgeCacheStatusResponse>): void;
-    public getPurgeCacheStatus(cacheRequestId: string): Promise<PurgeCacheStatusResponse>;
+    getPurgeCacheStatus(cacheRequestId: string, caellback: Callback<PurgeCacheStatusResponse>): void;
+    getPurgeCacheStatus(cacheRequestId: string): Promise<PurgeCacheStatusResponse>;
 
-    public getAuthenticationParameters(token?: string, expire?: number): {token: string; expire: number; signature: string};
+    getAuthenticationParameters(token?: string, expire?: number): {token: string; expire: number; signature: string};
 
-    public pHashDistance(hashA: string, hashB: string): number;
+    pHashDistance(hashA: string, hashB: string): number;
 
 }
