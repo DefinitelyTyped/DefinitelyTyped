@@ -84,5 +84,27 @@ export interface RouteResult {
     status: Status;
     error?: string;
 }
+export interface HAR {
+    log: {
+        [key: string]: any;
+        entries: HarEntry[];
+    };
+}
+export interface HarEntry {
+    [key: string]: any;
+    _resourceType: string;
+    request: {
+        [key: string]: any;
+        url: string;
+    };
+    response: {
+        [key: string]: any;
+        status: number;
+        content: {
+            [key: string]: any;
+            text: string;
+        };
+    };
+}
 export type Status = 'success' | 'failure';
 export {};

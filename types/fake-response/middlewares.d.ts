@@ -21,9 +21,5 @@ export class Middlewares extends DefaultMiddlewares {
     ) => (req: express.Request, res: express.Response, next: express.NextFunction) => void;
     protected commonMiddlewareWrapper: (globals: Globals) => (req: any, res: any, next: any) => void;
     protected defaultMiddleware: (req: express.Request, res: express.Response, next: any) => void;
-    private getParsedDynamicUrl;
-    private getResponseFromFile;
-    private getDynamicUrlObj;
-    private redirectIfMissingParams;
 }
 export {};

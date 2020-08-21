@@ -1,4 +1,4 @@
-import { Config, Db, Globals, Injectors, UserDB } from './model';
+import { Config, Db, Globals, Injectors, UserDB, HAR } from './model';
 import { Utils } from './utils';
 export class Validators extends Utils {
     protected db?: UserDB;
@@ -25,6 +25,7 @@ export class Validators extends Utils {
     getValidDb: (db?: UserDB, injectors?: Injectors[]) => Db[];
     getValidDbList: (db?: Db[], injectors?: Injectors[]) => Db[];
     transformJson: (data?: object | string, injectors?: Injectors[]) => Db[];
+    transformHar: (harData?: HAR, filters?: string[]) => {};
     isValidURL: (str: string) => boolean;
     emptyMiddleware: ({ next }: { next: any }) => void;
     parseUrl: (relativeUrl: string) => string;
