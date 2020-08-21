@@ -32,7 +32,7 @@ declare namespace KoaWebsocket {
     }
 
     class Server<StateT = any, CustomT = {}> {
-        app: App<StateT, CustomT>;
+        app: App;
         middleware: Array<Middleware<StateT, CustomT>>;
         server?: ws.Server;
 
@@ -43,7 +43,7 @@ declare namespace KoaWebsocket {
         use(middleware: Middleware<StateT, CustomT>): this;
     }
 
-    interface App<StateT = any, CustomT = {}> extends Koa<StateT, CustomT> {
+    interface App<StateT = any, CustomT = Koa.Context> extends Koa<StateT, CustomT> {
         ws: Server<StateT, CustomT>;
     }
 }
