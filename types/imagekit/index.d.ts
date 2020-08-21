@@ -262,7 +262,7 @@ declare module "imagekit" {
         public listFiles(listFilesOptions: ListFileOptions, callback: Callback<ListFileResponse>): void;
         public listFiles(listFilesOptions: ListFileOptions): Promise<ListFileResponse>;
 
-        public upload(uploadOptions: UploadOptions, callback: Callback<ListFileResponse>): void;
+        public upload(uploadOptions: UploadOptions, callback: Callback<UploadResponse>): void;
         public upload(uploadOptions: UploadOptions): Promise<UploadResponse>;
 
         public getFileDetails(fileId: string, callback: Callback<FileDetailsResponse>): void;
@@ -284,7 +284,7 @@ declare module "imagekit" {
         public purgeCache(fullUrl: string, callback: Callback<PurgeCacheResponse>): void;
         public purgeCache(fullUrl: string): Promise<PurgeCacheResponse>;
 
-        public getPurgeCacheStatus(cacheRequestId: string, callback: Callback<PurgeCacheStatusResponse>): void;
+        public getPurgeCacheStatus(cacheRequestId: string, caellback: Callback<PurgeCacheStatusResponse>): void;
         public getPurgeCacheStatus(cacheRequestId: string): Promise<PurgeCacheStatusResponse>;
 
         public getAuthenticationParameters(token?: string, expire?: number): {token: string; expire: number; signature: string};
