@@ -13,6 +13,7 @@ interface FooBar {
     bar: number;
 }
 
+// $ExpectType Store<FooBar>
 data.registerStore<FooBar>('foo', {
     reducer(state = { foo: 'foo', bar: 21 }, action) {
         return state;
