@@ -70,6 +70,8 @@ declare namespace getInfo {
     }
 }
 
-declare function getInfo(options: getInfo.Options | string): Promise<getInfo.FFProbeResult>;
+declare function getInfo(filePath: string, options: getInfo.Options, cb: (err: Error, info: getInfo.FFProbeResult) => void): void;
+
+declare function getInfo(filePath: string, options: getInfo.Options): Promise<getInfo.FFProbeResult>;
 
 export = getInfo;
