@@ -2567,7 +2567,7 @@ export class GridFSBucketReadStream extends Readable {
 
 /** https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucketReadStream.html */
 export interface GridFSBucketReadStreamOptions {
-    sort?: SortValues;
+    sort?: Array<[string, SortValues]> | SortOptionObject<T>;
     skip?: number;
     start?: number;
     end?: number;
