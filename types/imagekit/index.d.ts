@@ -287,7 +287,7 @@ declare module "imagekit" {
         public getPurgeCacheStatus(cacheRequestId: string, callback: Callback<PurgeCacheStatusResponse>): void;
         public getPurgeCacheStatus(cacheRequestId: string): Promise<PurgeCacheStatusResponse>;
 
-        public getAuthenticationParameters(token: string, expire: number): {token: string; expire: number; signature: string};
+        public getAuthenticationParameters(token?: string, expire?: number): {token: string; expire: number; signature: string};
 
         public pHashDistance(hashA: string, hashB: string): number;
 
