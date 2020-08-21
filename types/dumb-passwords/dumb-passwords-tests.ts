@@ -1,7 +1,6 @@
-import { check, checkPassword, rateOfUsage } from 'dumb-passwords';
+import { check, rateOfUsage } from 'dumb-passwords';
 
 check('some-value'); // $ExpectType boolean
-checkPassword('some-value'); // $ExpectType boolean
 
 const { frequency, message, password } = rateOfUsage('someValue');
 

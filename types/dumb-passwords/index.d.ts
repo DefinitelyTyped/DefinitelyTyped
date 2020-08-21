@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function check(password: string): boolean;
-export function checkPassword(password: string): boolean;
 export function rateOfUsage(
     password: string,
 ): {
