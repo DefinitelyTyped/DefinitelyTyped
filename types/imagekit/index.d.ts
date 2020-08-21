@@ -56,13 +56,13 @@ interface Transformation {
 interface UrlOptionsBase {
     transformation?: Transformation[];
     transformationPosition: TransformationPosition;
-    queryParameters?: {[key: string]: string|number};
+    queryParameters?: { [key: string]: string | number };
     urlEndpoint?: string;
     signed?: boolean;
     expireSeconds?: number;
 }
 
-type UrlOptions = ({src: string; path?: never; } | {path: string; src?: never; }) & UrlOptionsBase;
+type UrlOptions = ({ src: string; path?: never } | { path: string; src?: never }) & UrlOptionsBase;
 
 interface UploadOptions {
     file: number | string;
@@ -87,7 +87,7 @@ interface UploadResponse {
     fileType: FileType;
     tags?: string[];
     isPrivateFile?: boolean;
-    customCoordinates?: string|null;
+    customCoordinates?: string | null;
     metadata?: string;
 }
 
@@ -151,7 +151,7 @@ interface FileMetadataResponse {
             YCbCrPositioning: number;
             ExifOffset: number;
             GPSInfo: number;
-        },
+        };
         thumbnail: {
             Compression: number;
             XResolution: number;
@@ -159,7 +159,7 @@ interface FileMetadataResponse {
             ResolutionUnit: number;
             ThumbnailOffset: number;
             ThumbnailLength: number;
-        },
+        };
         exif: {
             ExposureTime: number;
             FNumber: number;
@@ -189,15 +189,15 @@ interface FileMetadataResponse {
             ExposureMode: number;
             WhiteBalance: number;
             SceneCaptureType: number;
-        },
+        };
         gps: {
             GPSVersionID: number[];
-        },
+        };
         interoperability: {
             InteropIndex: string;
             InteropVersion: string;
-        },
-        makernote: {[key: string]: string; };
+        };
+        makernote: { [key: string]: string };
     };
 }
 
@@ -249,7 +249,11 @@ declare class ImageKit {
     getFileMetadata(fileId: string, callback: Callback<FileMetadataResponse>): void;
     getFileMetadata(fileId: string): Promise<FileMetadataResponse>;
 
-    updateFileDetails(fileId: string, optionsFileDetails: FileDetailsOptions, callback: Callback<FileDetailsResponse>): void;
+    updateFileDetails(
+        fileId: string,
+        optionsFileDetails: FileDetailsOptions,
+        callback: Callback<FileDetailsResponse>,
+    ): void;
     updateFileDetails(fileId: string, optionsFileDetails: FileDetailsOptions): Promise<FileDetailsResponse>;
 
     deleteFile(fileId: string, callback: Callback<void>): void;
@@ -264,7 +268,7 @@ declare class ImageKit {
     getPurgeCacheStatus(cacheRequestId: string, caellback: Callback<PurgeCacheStatusResponse>): void;
     getPurgeCacheStatus(cacheRequestId: string): Promise<PurgeCacheStatusResponse>;
 
-    getAuthenticationParameters(token?: string, expire?: number): {token: string; expire: number; signature: string};
+    getAuthenticationParameters(token?: string, expire?: number): { token: string; expire: number; signature: string };
 
     pHashDistance(hashA: string, hashB: string): number;
 }
