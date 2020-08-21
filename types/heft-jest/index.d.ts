@@ -1,6 +1,7 @@
 // Type definitions for heft-jest 1.0
 // Project: https://github.com/octogonz/heft-jest
 // Definitions by: Pete Gonzalez <https://github.com/octogonz>
+//                 Ian Clanton-Thuon <https://github.com/iclanton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
