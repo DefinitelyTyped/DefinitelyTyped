@@ -53,14 +53,6 @@ interface Transformation {
     original?: string;
 }
 
-/**
- * base response type
- *
- * primarily used to ensure compatibility amongst the inherited
- * response types when Callback is used.
- */
-interface ImagekitResponse {}
-
 interface UrlOptionsBase {
     transformation?: Transformation[];
     transformationPosition: TransformationPosition;
@@ -89,14 +81,14 @@ interface UploadOptions {
     responseFields: string;
 }
 
-interface UploadResponse extends ImagekitResponse {
+interface UploadResponse {
     fileId: string;
     name: string;
     url: string;
     thumbnailUrl: string;
     height: number;
     width: number;
-    size: number,
+    size: number;
     filePath: string;
     fileType: FileType;
     tags?: string[];
@@ -115,7 +107,7 @@ interface ListFileOptions {
     skip?: number;
 }
 
-interface ListFileResponse extends ImagekitResponse {
+interface ListFileResponse {
     fileId: string;
     type: Item;
     name: string;
@@ -128,7 +120,7 @@ interface ListFileResponse extends ImagekitResponse {
     fileType: FileType;
 }
 
-interface FileDetailsResponse extends ImagekitResponse {
+interface FileDetailsResponse {
     fileId: string;
     type: Item;
     name: string;
@@ -141,7 +133,7 @@ interface FileDetailsResponse extends ImagekitResponse {
     fileType: FileType;
 }
 
-interface FileMetadataResponse extends ImagekitResponse {
+interface FileMetadataResponse {
     height: number;
     width: number;
     size: number;
@@ -202,7 +194,7 @@ interface FileMetadataResponse extends ImagekitResponse {
             CustomRendered: number;
             ExposureMode: number;
             WhiteBalance: number;
-            SceneCaptureType: number
+            SceneCaptureType: number;
         },
         gps: {
             GPSVersionID: number[];
@@ -212,16 +204,16 @@ interface FileMetadataResponse extends ImagekitResponse {
             InteropVersion: string;
         },
         // TODO: determine structure of this object
-        makernote: {[key: string]: string}
-    }
+        makernote: {[key: string]: string; };
+    };
 }
 
 interface FileDetailsOptions {
     tags?: string[];
-    customCoordinates?: string
+    customCoordinates?: string;
 }
 
-interface BulkDeleteFilesResponse extends ImagekitResponse{
+interface BulkDeleteFilesResponse {
     successfullyDeletedFileIds: string[];
 }
 
@@ -238,14 +230,11 @@ interface PurgeCacheStatusResponse {
     status: 'Pending' | 'Completed';
 }
 
-// TODO: should possibly not force the ImagekitResponse extends
-// TODO: check if error/response return objects can be optional
-interface Callback<T extends ImagekitResponse, E extends Error = Error> {
-    (error: E, response: T): void;
+interface Callback<T, E extends Error = Error> {
+    (error?: E, response?: T): void;
 }
 
 declare class ImageKit {
-
     constructor(options: {
         publicKey: string;
         privateKey: string;
