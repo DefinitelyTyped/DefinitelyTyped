@@ -5,6 +5,7 @@
 //                 Martin Ždila <https://github.com/zdila>
 //                 Eunchong Yu <https://github.com/Kroisse>
 //                 Christopher N. Katoyi-Kaba <https://github.com/Christopher2K>
+//                 Zuo Jiazi <https://github.com/Aoiujz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
