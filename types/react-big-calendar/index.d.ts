@@ -40,23 +40,20 @@ export type ViewProps<TEvent extends object = Event, TResource extends object = 
     'formats' | 'messages' | 'culture'
 >> & {
     date: stringOrDate; // date has always a value, in contrast to optional date in CalendarProps
-    /*
-from this.state.context:
 
-- accessors
-- components
-- getters
-- localizer
+    // props assigned from Calendar's this.state.context, see there if you want to improve the type defs:
+    accessors: any;
+    components: any;
+    getters: any;
+    localizer: any;
 
-plus aus instanz (this):
-
-- getDrilldownView={this.getDrilldownView}
-- onNavigate={this.handleNavigate}
-- onDrillDown={this.handleDrillDown}
-- onSelectEvent={this.handleSelectEvent}
-- onDoubleClickEvent={this.handleDoubleClickEvent}
-- onSelectSlot={this.handleSelectSlot}
-*/
+    // props assigned from Calendar instance, see there if you want to improve the type defs:
+    getDrilldownView: any; // = this.getDrilldownView
+    onNavigate: any; // = this.handleNavigate
+    onDrillDown: any; // = this.handleDrillDown
+    onSelectEvent: any; // = this.handleSelectEvent
+    onDoubleClickEvent: any; // = this.handleDoubleClickEvent
+    onSelectSlot: any; // = this.handleSelectSlot
 };
 export type ViewsProps<TEvent extends object = Event, TResource extends object = object> = View[] | {
     work_week?: boolean | React.ComponentType<ViewProps<TEvent, TResource>> & ViewStatic,
