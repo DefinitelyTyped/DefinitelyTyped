@@ -259,8 +259,7 @@ declare class ImageKit {
     updateFileDetails(fileId: string, optionsFileDetails: FileDetailsOptions, callback: Callback<FileDetailsResponse>): void;
     updateFileDetails(fileId: string, optionsFileDetails: FileDetailsOptions): Promise<FileDetailsResponse>;
 
-    // TODO: should probably pass 'void' instead of {}
-    deleteFile(fileId: string, callback: Callback<{}>): void;
+    deleteFile(fileId: string, callback: Callback<void>): void;
     deleteFile(fileId: string): Promise<void>;
 
     bulkDeleteFiles(fileIds: string[], callback: Callback<BulkDeleteFilesResponse, BulkDeleteFilesError>): void;
