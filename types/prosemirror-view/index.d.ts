@@ -108,6 +108,27 @@ export class Decoration<T extends object = { [key: string]: any }> {
    */
   spec: T;
   /**
+   * `true` if this Decoration is an inline Decoration
+   */
+  inline: boolean;
+  /**
+   * Creates a new copy of this Decoration with the `from` and `to`
+   * properties set to the passed values.
+   */
+  copy(from: number, to: number): Decoration<T>;
+  /**
+   * Returns `true` if the other Decoration's type matches this Decoration's
+   * type and if the other's `from` and `to` both match this's `from` and `to`,
+   * adding offset to the values if passed.
+   */
+  eq(other: Decoration<any>, offset?: number): boolean;
+  /**
+   * Maps a Decoration in response to a change in offset, returning either
+   * a new Decoration with updated `from` and `to` properties or `null`
+   * if the Decoration was deleted.
+   */
+  map(mapping: Mapping, offset: number, oldOffset: number): Decoration<T> | null;
+  /**
    * Creates a widget decoration, which is a DOM node that's shown in
    * the document at the given position. It is recommended that you
    * delay rendering the widget by passing a function that will be

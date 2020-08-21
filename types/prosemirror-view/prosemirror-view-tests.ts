@@ -2,12 +2,22 @@ import * as model from 'prosemirror-model';
 import * as schema from 'prosemirror-schema-basic';
 import * as state from 'prosemirror-state';
 import * as view from 'prosemirror-view';
+import * as transform from 'prosemirror-transform';
 
 const { Decoration } = view;
 const decoration = new Decoration();
 
 const plainDecoration = new Decoration<{ a: number }>();
 plainDecoration.spec.a; // $ExpectType number
+plainDecoration.inline; // $ExpectType boolean
+
+const copied = plainDecoration.copy(0, 0);
+copied.spec.a; // $ExpectType number
+
+const mapped = plainDecoration.map(new transform.Mapping(), 0, 0)!;
+mapped.spec.a; // $ExpectType number
+
+const equal = plainDecoration.eq(copied); // $ExpectType boolean
 
 Decoration.widget<{a: number}>(0, (x) => x.dom, { a: '' }); // $ExpectError
 Decoration.widget(0, (x) => x.dom, 'this argument should be an object, not a string!'); // $ExpectError
