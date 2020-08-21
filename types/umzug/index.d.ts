@@ -262,7 +262,7 @@ declare namespace umzug {
 
     interface UmzugStatic {
         new(options?: UmzugOptions): Umzug;
-        migrationsList(migrations: MigrationDefinitionWithName[], parameters?: any[]): Migration[];
+        migrationsList: (migrations: MigrationDefinitionWithName[], parameters?: any[]) => Migration[];
     }
 }
 
