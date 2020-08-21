@@ -3,6 +3,8 @@
 // Definitions by: Kevin Faulhaber <https://github.com/kemicofa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 type TransformationPosition = 'path' | 'query';
 type FileType = 'image' | 'non-image';
 type Item = 'file' | 'folder';
