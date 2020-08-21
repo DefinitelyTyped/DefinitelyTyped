@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "wordpress__customize-tests.ts"
+        "wordpress__customize-browser-tests.ts"
     ]
 }
