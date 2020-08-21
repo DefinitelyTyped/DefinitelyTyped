@@ -203,7 +203,6 @@ interface FileMetadataResponse {
             InteropIndex: string;
             InteropVersion: string;
         },
-        // TODO: determine structure of this object
         makernote: {[key: string]: string; };
     };
 }
