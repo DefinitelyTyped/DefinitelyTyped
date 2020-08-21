@@ -2,7 +2,7 @@
 // Project: https://github.com/paulmillr/es6-shim
 // Definitions by: Ron Buckton <https://github.com/rbuckton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
- 
+
 interface IteratorResult<T> {
     done: boolean;
     value?: T;

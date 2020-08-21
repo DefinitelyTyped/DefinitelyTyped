@@ -4,6 +4,7 @@
         "ban-types": false,
         "dt-header": false,
         "jsdoc-format": false,
+        "no-declare-current-package": false,
         "no-single-declare-module": false,
         "no-unnecessary-generics": false,
         "no-var-keyword": false,
