@@ -1,5 +1,5 @@
 /// <reference types=".">
 
-class X { }
+class X {}
 
 mocked(X).mockClear();

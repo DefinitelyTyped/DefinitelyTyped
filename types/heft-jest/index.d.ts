@@ -2,13 +2,13 @@
 // Project: https://github.com/octogonz/heft-jest
 // Definitions by: Pete Gonzalez <https://github.com/octogonz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.5
 
 /// <reference types="jest" />
 
-
 declare namespace mocked {
-  // Todo - fill out this definition in the next release.
-  type Mocked<T> = any;
+    // Todo - fill out this definition in the next release.
+    type Mocked<T> = any;
 }
 
 /**
