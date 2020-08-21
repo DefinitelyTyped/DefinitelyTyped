@@ -3,14 +3,12 @@
 // Definitions by: Kevin Brown <https://github.com/thekevinbrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'dumb-passwords' {
-    export function check(password: string): boolean;
-    export function checkPassword(password: string): boolean;
-    export function rateOfUsage(
-        password: string,
-    ): {
-        password: string;
-        frequency: number;
-        message?: string;
-    };
-}
+export function check(password: string): boolean;
+export function checkPassword(password: string): boolean;
+export function rateOfUsage(
+    password: string,
+): {
+    password: string;
+    frequency: number;
+    message?: string;
+};
