@@ -53,7 +53,7 @@ interface Transformation {
 
 interface ImagekitResponse {}
 
-interface UrlOptionsBasics {
+interface UrlOptionsBase {
     transformation?: Transformation[];
     transformationPosition: TransformationPosition;
     queryParameters?: {[key: string]: string|number};
@@ -62,11 +62,11 @@ interface UrlOptionsBasics {
     expireSeconds?: number;
 }
 
-interface UrlOptionsSrc extends UrlOptionsBasics {
+interface UrlOptionsSrc extends UrlOptionsBase {
     src: string;
 }
 
-interface UrlOptionsPath extends UrlOptionsBasics {
+interface UrlOptionsPath extends UrlOptionsBase {
     path: string;
 }
 
