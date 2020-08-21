@@ -1677,21 +1677,21 @@ interface TextInputState {
      * Returns the ref of the currently focused text field, if one exists
      * If no text field is focused it returns null
      */
-    currentlyFocusedInput(): React.ElementRef<HostComponent<any>>;
+    currentlyFocusedInput(): React.ElementRef<HostComponent<unknown>>;
 
     /**
      * @param textField ref of the text field to focus
      * Focuses the specified text field
      * noop if the text field was already focused
      */
-    focusTextInput(textField?: React.ElementRef<HostComponent<any>>): void;
+    focusTextInput(textField?: React.ElementRef<HostComponent<unknown>>): void;
 
     /**
      * @param textField ref of the text field to focus
      * Unfocuses the specified text field
      * noop if it wasn't focused
      */
-    blurTextInput(textField?: React.ElementRef<HostComponent<any>>): void;
+    blurTextInput(textField?: React.ElementRef<HostComponent<unknown>>): void;
 }
 
 /**
