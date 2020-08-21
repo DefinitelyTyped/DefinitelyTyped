@@ -368,6 +368,32 @@ declare module "../index" {
          */
         trailing?: boolean;
     }
+    interface DebouncedFunc<T extends (...args: any[]) => any> {
+        /**
+         * Call the original function, but applying the debounce rules.
+         *
+         * If the debounced function can be run immediately, this calls it and returns its return
+         * value.
+         *
+         * Otherwise, it returns the return value of the last invokation, or undefined if the debounced
+         * function was not invoked yet.
+         */
+        (...args: Parameters<T>): ReturnType<T> | undefined;
+
+        /**
+         * Throw away any pending invokation of the debounced function.
+         */
+        cancel(): void;
+
+        /**
+         * If there is a pending invokation of the debounced function, invoke it immediately and return
+         * its return value.
+         *
+         * Otherwise, return the value from the last invokation, or undefined if the debounced function
+         * was never invoked.
+         */
+        flush(): ReturnType<T> | undefined;
+    }
     interface LoDashStatic {
         /**
          * Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since
@@ -389,19 +415,25 @@ declare module "../index" {
          * @param options.trailing Specify invoking on the trailing edge of the timeout.
          * @return Returns the new debounced function.
          */
-        debounce<T extends (...args: any) => any>(func: T, wait?: number, options?: DebounceSettings): T & Cancelable;
+        debounce<T extends (...args: any) => any>(func: T, wait?: number, options?: DebounceSettings): DebouncedFunc<T>;
     }
     interface Function<T extends (...args: any) => any> {
         /**
          * @see _.debounce
          */
-        debounce(wait?: number, options?: DebounceSettings): Function<T & Cancelable>;
+        debounce(
+            wait?: number,
+            options?: DebounceSettings
+        ): T extends (...args: any[]) => any ? Function<DebouncedFunc<T>> : never;
     }
     interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.debounce
          */
-        debounce(wait?: number, options?: DebounceSettings): FunctionChain<T & Cancelable>;
+        debounce(
+            wait?: number,
+            options?: DebounceSettings
+        ): T extends (...args: any[]) => any ? FunctionChain<DebouncedFunc<T>> : never;
     }
     interface LoDashStatic {
         /**
@@ -1324,19 +1356,25 @@ declare module "../index" {
          * @param options.trailing Specify invoking on the trailing edge of the timeout.
          * @return Returns the new throttled function.
          */
-        throttle<T extends (...args: any) => any>(func: T, wait?: number, options?: ThrottleSettings): T & Cancelable;
+        throttle<T extends (...args: any) => any>(func: T, wait?: number, options?: ThrottleSettings): DebouncedFunc<T>;
     }
     interface Function<T extends (...args: any) => any> {
         /**
          * @see _.throttle
          */
-        throttle(wait?: number, options?: ThrottleSettings): Function<T & Cancelable>;
+        throttle(
+            wait?: number,
+            options?: ThrottleSettings
+        ): T extends (...args: any[]) => any ? Function<DebouncedFunc<T>> : never;
     }
     interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.throttle
          */
-        throttle(wait?: number, options?: ThrottleSettings): FunctionChain<T & Cancelable>;
+        throttle(
+            wait?: number,
+            options?: ThrottleSettings
+        ): T extends (...args: any[]) => any ? FunctionChain<DebouncedFunc<T>> : never;
     }
     interface LoDashStatic {
         /**
