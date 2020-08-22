@@ -518,21 +518,76 @@ declare class Range {
 /// https://novadocs.panic.com/api-reference/symbol/
 
 type NovaSymbolType =
-    | 'function'
-    | 'method'
-    | 'property'
-    | 'class'
+    // Types
     | 'type'
-    | 'interface'
-    | 'constant'
-    | 'variable'
+    | 'class'
     | 'category'
-    | 'package'
+    | 'interface'
     | 'enum'
     | 'union'
     | 'struct'
+
+    // Callables
+    | 'function'
+    | 'method'
+    | 'closure'
+    | 'constructor'
+    | 'getter'
+    | 'setter'
+    | 'destructor'
+
+    // Values
+    | 'constant'
+    | 'variable'
+    | 'property'
+    | 'argument'
+    | 'color'
+    | 'enum-member'
+
+    // Expressions
+    | 'expression'
+    | 'statement'
+    | 'block'
     | 'heading'
-    | 'bookmark';
+    | 'comment'
+    | 'package'
+    | 'file'
+    | 'reference'
+    | 'keyword'
+    | 'bookmark'
+    | 'separator'
+    | 'todo'
+
+    // Stylesets
+    | 'style-ruleset'
+    | 'style-directive'
+    | 'style-id'
+    | 'style-class'
+    | 'style-pseudoclass'
+    | 'style-pseudoelement'
+
+    // Tags
+    | 'tag'
+    | 'tag-head'
+    | 'tag-title'
+    | 'tag-meta'
+    | 'tag-link'
+    | 'tag-body'
+    | 'tag-script'
+    | 'tag-style'
+    | 'tag-heading'
+    | 'tag-section'
+    | 'tag-container'
+    | 'tag-ul'
+    | 'tag-ol'
+    | 'tag-li'
+    | 'tag-anchor'
+    | 'tag-image'
+    | 'tag-media'
+    | 'tag-form'
+    | 'tag-form-field'
+    | 'tag-framework'
+    ;
 
 // name change to avoid conflict with base ecmascript Symbol
 
