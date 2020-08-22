@@ -14,6 +14,9 @@ const MuiCustomTable: React.FC<Props> = props => {
         {
             name: 'id',
             label: 'id',
+            options: {
+                draggable: true
+            }
         },
         {
             name: 'name',
@@ -45,7 +48,12 @@ const MuiCustomTable: React.FC<Props> = props => {
         {
             name: 'amount',
             label: 'Amount',
-        },
+            options: {
+                customHeadLabelRender: (dataIndex: number, rowIndex: number) => {
+                    return <p>Some customize Header</p>;
+                }
+            }
+        }
     ];
 
     const TableOptions: MUIDataTableOptions = {
@@ -59,6 +67,9 @@ const MuiCustomTable: React.FC<Props> = props => {
         downloadOptions: {
             filename: 'filename.csv',
             separator: ',',
+        },
+        draggableColumns: {
+            enabled: true
         },
         sortFilterList: false,
         customRowRender: (data, dataIndex, rowIndex) => {
@@ -97,29 +108,24 @@ const MuiCustomTable: React.FC<Props> = props => {
         onTableChange: (action, tableState) => {
             switch (action) {
                 case 'changeRowsPerPage':
-                    console.log('rowsPerPage', tableState.rowsPerPage);
                     break;
                 case 'changePage':
-                    console.log('page', tableState.page);
                     break;
                 case 'sort':
-                    console.log(
-                        'sortOrder',
-                        tableState.sortOrder,
-                        tableState.sortOrder.name,
-                        tableState.sortOrder.direction,
-                    );
                     break;
                 case 'search ':
-                    console.log('searchText', tableState.searchText);
-                    console.log('searchText', tableState.searchProps);
                     break;
                 case 'filterChange':
-                    console.log('filterChange ', tableState.filterList);
                     break;
                 default:
                     console.warn('action not handled.');
             }
+        },
+        setFilterChipProps: () => {
+            return {
+                color: "secondary",
+                variant: "outlined"
+            };
         },
         textLabels: {
             body: {
@@ -181,3 +187,19 @@ const options: MUIDataTableOptions = {
 };
 
 <MuiCustomTable title="Awesome Table" data={TableFruits} options={options} />;
+
+const Todos = [
+    { id: 1, name: 'Buy apples', color: 'Red', amount: 4 },
+    { id: 2, name: 'Eat apple', color: 'Green', amount: 1 },
+    { id: 3, name: 'Eat some more apple', color: 'Yellow', amount: 3 }
+];
+
+const todoOptions: MUIDataTableOptions = {
+    textLabels: {
+        body: {
+            noMatch: <p>You have no apples, go an buy some.</p>
+        }
+    }
+};
+
+<MuiCustomTable title="Todo Table" data={Todos} options={todoOptions} />;

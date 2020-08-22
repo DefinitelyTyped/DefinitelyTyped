@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import boxen = require('boxen');
 import UpdateNotifier = require('update-notifier');
 

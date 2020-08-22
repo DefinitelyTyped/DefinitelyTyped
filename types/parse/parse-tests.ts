@@ -172,6 +172,17 @@ function test_query() {
     const testQuery = Parse.Query.or(query, query);
 }
 
+function test_query_exclude() {
+    const gameScore = new GameScore();
+
+    const query = new Parse.Query(GameScore);
+
+    // Show all keys, except the specified key.
+    query.exclude('place');
+
+    const testQuery = Parse.Query.or(query, query);
+}
+
 async function test_query_promise() {
     // Test promise with a query
     const findQuery = new Parse.Query('Test');
@@ -936,6 +947,59 @@ async function test_schema(
     schema.purge().then(results => {});
     schema.save().then(results => {});
     schema.update().then(results => {});
+
+    function testGenericType() {
+        interface iTestAttributes {
+            arrField: any[];
+            boolField: boolean;
+            stringField: string;
+            numField: number;
+            dateField: Date;
+            fileField: Parse.File;
+            geoPointField: Parse.GeoPoint;
+            polygonField: Parse.Polygon;
+            objectField: object;
+            relationField: Parse.Relation;
+            pointerField: Parse.Pointer | Parse.Object;
+        }
+        class TestObject extends Parse.Object<iTestAttributes> { }
+
+        const schema = new Parse.Schema<TestObject>('TestObject');
+        schema.addArray('arrField');
+        schema.addBoolean('boolField');
+        schema.addDate('dateField');
+        schema.addFile('fileField');
+        schema.addGeoPoint('geoPointField');
+        schema.addNumber('numField');
+        schema.addObject('objectField');
+        schema.addPointer('pointerField', 'FooClass');
+        schema.addPolygon('polygonField');
+        schema.addRelation('relationField', 'FooClass');
+        schema.addString('stringField');
+
+        // $ExpectError
+        schema.addArray('wrong');
+        // $ExpectError
+        schema.addBoolean('wrong');
+        // $ExpectError
+        schema.addDate('wrong');
+        // $ExpectError
+        schema.addFile('wrong');
+        // $ExpectError
+        schema.addGeoPoint('wrong');
+        // $ExpectError
+        schema.addNumber('wrong');
+        // $ExpectError
+        schema.addObject('wrong');
+        // $ExpectError
+        schema.addPointer('wrong', 'FooClass');
+        // $ExpectError
+        schema.addPolygon('wrong');
+        // $ExpectError
+        schema.addRelation('wrong', 'FooClass');
+        // $ExpectError
+        schema.addString('wrong');
+    }
 }
 
 function testObject() {
@@ -1120,6 +1184,18 @@ function testObject() {
 
         // $ExpectError
         objTyped.fetchWithInclude([[[ 'example' ]]]);
+
+        // $ExpectType Promise<Object<{ example: string; }>[]>
+        Parse.Object.fetchAllIfNeededWithInclude([objTyped], 'example');
+
+        // $ExpectError
+        Parse.Object.fetchAllIfNeededWithInclude([objTyped], 'notAnAttribute');
+
+        // $ExpectType Promise<Object<{ example: string; }>[]>
+        Parse.Object.fetchAllWithInclude([objTyped], 'example');
+
+        // $ExpectError
+        Parse.Object.fetchAllWithInclude([objTyped], 'notAnAttribute');
     }
 
     function testGet(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: number }>) {

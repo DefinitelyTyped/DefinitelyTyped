@@ -1,4 +1,4 @@
-// Type definitions for mui-datatables 3.1
+// Type definitions for mui-datatables 3.2
 // Project: https://github.com/gregnb/mui-datatables
 // Definitions by: Jeroen "Favna" Claassens <https://github.com/favna>
 //                 Ankith Konda <https://github.com/ankithkonda>
@@ -14,6 +14,8 @@ export type Display = 'true' | 'false' | 'excluded';
 export type FilterType = 'dropdown' | 'checkbox' | 'multiselect' | 'textField' | 'custom';
 export type Responsive = 'vertical' | 'standard' | 'simple';
 export type SelectableRows = 'multiple' | 'single' | 'none';
+export type ChipVariant = 'outlined' | 'default';
+export type ChipColor = 'primary' | 'secondary' | 'default';
 
 export interface MUISortOptions {
     name: string;
@@ -23,6 +25,11 @@ export interface MUISortOptions {
 export interface MUIDataTableData {
     data: Array<object | number[] | string[]>;
     index: number;
+}
+
+export interface MUIDataTableCurrentData {
+    rowIndex: number;
+    dataIndex: number;
 }
 
 export interface MUIDataTableStateRows {
@@ -53,6 +60,7 @@ export interface MUIDataTableState {
 }
 
 export interface MUIDataTableMeta {
+    currentTableData: MUIDataTableCurrentData[];
     columnData: MUIDataTableColumnState;
     columnIndex: number;
     rowData: any[];
@@ -66,7 +74,7 @@ export interface MUIDataTableCustomHeadRenderer extends MUIDataTableColumn {
 }
 
 export interface MUIDataTableTextLabelsBody {
-    noMatch: string;
+    noMatch: string | React.ReactNode;
     toolTip: string;
     columnHeaderTooltip: (column: MUIDataTableColumn) => string;
 }
@@ -168,13 +176,15 @@ export interface MUIDataTableColumnOptions {
      * 2. This method only gives you the dataIndex and rowIndex, leaving you to lookup the column value.
      */
     customBodyRenderLite?: (dataIndex: number, rowIndex: number) => string | React.ReactNode;
+    customHeadLabelRender?: (dataIndex: number, rowIndex: number) => string | React.ReactNode;
     customFilterListOptions?: MUIDataTableCustomFilterListOptions;
     customFilterListRender?: (value: any) => string;
     customHeadRender?: (
         columnMeta: MUIDataTableCustomHeadRenderer,
         updateDirection: (params: any) => any,
     ) => string | React.ReactNode;
-    display?: 'true' | 'false' | 'excluded';
+    draggable?: boolean;
+    display?: boolean | string;
     download?: boolean;
     empty?: boolean;
     filter?: boolean;
@@ -200,7 +210,7 @@ export interface MUIDataTableIsRowCheck {
         {
             index: number;
             dataIndex: number;
-        }
+        },
     ];
 }
 
@@ -234,6 +244,7 @@ export type MUIDataTableOptions = Partial<{
     ) => React.ReactNode;
     /** @deprecated use `selectToolbarPlacement` instead */
     disableToolbarSelect: boolean;
+    draggableColumns: MUIDataTableDraggableColumns;
     download: boolean;
     downloadOptions: Partial<{
         filename: string;
@@ -327,6 +338,7 @@ export type MUIDataTableOptions = Partial<{
     selectableRowsOnClick: boolean;
     selectToolbarPlacement: 'replace' | 'above' | 'none';
     serverSide: boolean;
+    setFilterChipProps: (colIndex: number, colName: string, data: ReadonlyArray<any[]>) => MUIDataTableChip;
     setRowProps: (row: any[], rowIndex: number) => object;
     setTableProps: () => object;
     sort: boolean;
@@ -383,6 +395,12 @@ export interface MUIDataTableBody {
     toggleExpandRow?: (...args: any) => any;
 }
 
+export interface MUIDataTableChip {
+    color?: ChipColor;
+    variant?: ChipVariant;
+    className?: string;
+}
+
 export interface MUIDataTableBodyCell {
     children?: any;
     classes?: object;
@@ -425,6 +443,11 @@ export interface MUIDataTableFooter {
     page?: number;
     rowCount?: number;
     rowsPerPage?: number;
+}
+
+export interface MUIDataTableDraggableColumns {
+    enabled: boolean;
+    transitionTime?: number;
 }
 
 export interface MUIDataTableHead {

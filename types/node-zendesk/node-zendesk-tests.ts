@@ -160,3 +160,33 @@ client.useridentities.requestVerification(123, 234, zendeskCallback);
 client.useridentities.requestVerification(123, 234).then(zendeskCallback);
 client.useridentities.delete(123, 234, zendeskCallback);
 client.useridentities.delete(123, 234).then(zendeskCallback);
+
+/** User Fields */
+client.userfields.create({
+    title: 'Support description (type text is default)',
+    description: 'This field describes the support plan this user has',
+    position: 0,
+    active: true,
+    key: 'support_description'
+}, zendeskCallback);
+client.userfields.create({
+    type: 'textarea',
+    title: 'Support description',
+    description: 'This field describes the support plan this user has',
+    position: 0,
+    active: true,
+    key: 'support_description'
+}, zendeskCallback);
+client.userfields.create({
+    type: 'tagger',
+    title: 'Support description',
+    description: 'This field describes the support plan this user has',
+    position: 0,
+    active: true,
+    key: 'support_description',
+    custom_field_options: [{
+        id: 1,
+        name: "Custom Fielld Option",
+        value: 5,
+    }]
+}, zendeskCallback);

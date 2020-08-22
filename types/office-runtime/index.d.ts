@@ -233,7 +233,7 @@ declare namespace OfficeRuntime {
      * **Hosts**: Excel, Outlook, PowerPoint, Word
      *
      * @param options - Optional. Accepts an `AuthOptions` object to define sign-on behaviors.
-     * returns: Promise to the access token.
+     * @returns Promise to the access token.
      */
     getAccessToken(options?: AuthOptions): Promise<string>;
   }
