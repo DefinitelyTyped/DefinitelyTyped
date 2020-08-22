@@ -1,5 +1,4 @@
 import * as express from 'express';
-import { Middlewares } from './middlewares';
 export type UserDB = string | object | Db[];
 export interface Db {
     _d_index?: number;
@@ -54,8 +53,10 @@ export interface MiddlewareParams {
 export interface Locals {
     data: any;
     dataType: string;
-    specificMiddleware: Middlewares;
-    commonMiddleware: Middlewares;
+    specificMiddleware: (
+        globals: Globals,
+    ) => (req: express.Request, res: express.Response, next: express.NextFunction) => void;
+    commonMiddleware: (globals: Globals) => (req: any, res: any, next: any) => void;
     delay: number;
     fileType: FileType;
     urlType: URLType;
@@ -107,4 +108,3 @@ export interface HarEntry {
     };
 }
 export type Status = 'success' | 'failure';
-export {};
