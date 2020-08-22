@@ -1,4 +1,4 @@
-import * as Chain from 'stream-chain';
+import Chain = require('stream-chain');
 import { Transform, TransformOptions } from 'stream';
 
 export = Batch;

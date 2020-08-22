@@ -465,12 +465,14 @@ export class ServerStyleSheet {
 
 export type StylisPlugin = (
     context: number,
+    content: string,
     selector: string[],
     parent: string[],
-    content: string,
     line: number,
     column: number,
     length: number,
+    at: number,
+    depth: number
 ) => string | void;
 
 export interface StyleSheetManagerProps {

@@ -22,6 +22,7 @@ nodeDecoration.spec.a; // $ExpectType number
 const res1_1 = new view.EditorView({} as any, {} as any);
 const res1_2: { pos: number, inside: number } = res1_1.posAtCoords({ left: 0, top: 0})!;
 const res1_3: boolean = res1_1.editable;
+res1_1.setProps({ scrollThreshold: 42 });
 
 const res2_1: view.EditorProps = {} as any;
 const res2_plugin = new state.Plugin({});

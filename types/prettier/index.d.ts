@@ -418,7 +418,9 @@ export namespace doc {
             | Indent
             | Line
             | LineSuffix
-            | LineSuffixBoundary;
+            | LineSuffixBoundary
+            | Trim
+            | Cursor;
 
         interface Align {
             type: 'align';
@@ -474,6 +476,15 @@ export namespace doc {
             type: 'line-suffix-boundary';
         }
 
+        interface Trim {
+            type: 'trim';
+        }
+
+        interface Cursor {
+            type: 'cursor';
+            placeholder: symbol;
+        }
+
         function addAlignmentToDoc(doc: Doc, size: number, tabWidth: number): Doc;
         function align(n: Align['n'], contents: Doc): Align;
         const breakParent: BreakParent;
@@ -493,6 +504,8 @@ export namespace doc {
         const literalline: Concat;
         function markAsRoot(contents: Doc): Align;
         const softline: Line;
+        const trim: Trim;
+        const cursor: Cursor;
     }
     namespace debug {
         function printDocToDebug(doc: Doc): string;

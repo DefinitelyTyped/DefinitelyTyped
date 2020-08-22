@@ -11,6 +11,7 @@ const audioQueue = new Queue('audio transcoding', {
     settings: {},
 });
 const imageQueue: Queue.Queue<{ image: string }> = new Queue('image transcoding');
+const rateLimitedQueue = new Queue('api calls', { limiter: { max: 1, duration: 500, groupKey: "apiKey", bounceBack: true }});
 
 videoQueue.getWorkers();
 videoQueue.setWorkerName();

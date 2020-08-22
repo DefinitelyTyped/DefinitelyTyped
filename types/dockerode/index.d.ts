@@ -59,8 +59,8 @@ declare namespace Dockerode {
         unpause(callback: Callback<any>): void;
         unpause(options?: {}): Promise<any>;
 
-        exec(options: {}, callback: Callback<any>): void;
-        exec(options: {}): Promise<any>;
+        exec(options: ExecCreateOptions, callback: Callback<Exec>): void;
+        exec(options: ExecCreateOptions): Promise<Exec>;
 
         commit(options: {}, callback: Callback<any>): void;
         commit(callback: Callback<any>): void;
@@ -300,11 +300,11 @@ declare namespace Dockerode {
         modem: any;
         id: string;
 
-        inspect(callback: Callback<any>): void;
-        inspect(): Promise<any>;
+        inspect(callback: Callback<ExecInspectInfo>): void;
+        inspect(): Promise<ExecInspectInfo>;
 
-        start(options: {}, callback: Callback<any>): void;
-        start(options: {}): Promise<any>;
+        start(options: ExecStartOptions, callback: Callback<stream.Duplex>): void;
+        start(options: ExecStartOptions): Promise<stream.Duplex>;
 
         resize(options: {}, callback: Callback<any>): void;
         resize(options: {}): Promise<any>;
@@ -492,7 +492,7 @@ declare namespace Dockerode {
         MountLabel: string;
         ProcessLabel: string;
         AppArmorProfile: string;
-        ExecIDs?: any;
+        ExecIDs?: string[];
         HostConfig: HostConfig;
         GraphDriver: {
             Name: string;
@@ -875,6 +875,48 @@ declare namespace Dockerode {
 
     interface EndpointsConfig {
         [key: string]: EndpointSettings;
+    }
+
+    interface ExecCreateOptions {
+        AttachStdin?: boolean;
+        AttachStdout?: boolean;
+        AttachStderr?: boolean;
+        DetachKeys?: string;
+        Tty?: boolean;
+        Env?: string[];
+        Cmd?: string[];
+        Privileged?: boolean;
+        User?: string;
+        WorkingDir?: string;
+    }
+
+    interface ExecInspectInfo {
+        CanRemove: boolean;
+        DetachKeys: string;
+        ID: string;
+        Running: boolean;
+        ExitCode: number | null;
+        ProcessConfig: {
+            privileged: boolean;
+            user: string;
+            tty: boolean;
+            entrypoint: string;
+            arguments: string[];
+        };
+        OpenStdin: boolean;
+        OpenStderr: boolean;
+        OpenStdout: boolean;
+        ContainerID: string;
+        Pid: number;
+    }
+
+    interface ExecStartOptions {
+        // hijack and stdin are used by docker-modem
+        hijack?: boolean;
+        stdin?: boolean;
+        // Detach and Tty are used by Docker's API
+        Detach?: boolean;
+        Tty?: boolean;
     }
 
     type MountType = 'bind' | 'volume' | 'tmpfs';

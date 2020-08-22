@@ -267,6 +267,7 @@ googletag.pubads().addEventListener("slotRenderEnded", (event) => {
     console.log(event.isEmpty);
     console.log(event.lineItemId);
     console.log(event.creativeId);
+    console.log(event.campaignId);
 });
 
 // 2. Slot render ended listener, slot specific logic.

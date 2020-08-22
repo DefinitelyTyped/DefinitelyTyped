@@ -10,7 +10,6 @@
 //                 Hunter Perrin <https://github.com/hperrin>
 //                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = QueryString;
 export as namespace qs;
 
@@ -55,13 +54,16 @@ declare namespace QueryString {
         interpretNumericEntities?: boolean;
     }
 
-    interface ParsedQs { [key: string]: undefined | string | string[] | ParsedQs | ParsedQs[] }
+    // TODO: The value type here is a version of `unknown` which replicates with an acceptably lossy amount of accuracy.
+    // When these types support TypeScript 3.0+, we can replace this with `unknown`.
+    type UnknownFacade = {} | null | undefined;
 
-    // TODO: The value type here is a "poor man's `unknown`". When these types support TypeScript
-    // 3.0+, we can replace this with `unknown`.
-    type PoorMansUnknown = {} | null | undefined;
+    /** @deprecated - UnknownFacade is more clear about what's going on */
+    type PoorMansUnknown = UnknownFacade
+
+    interface ParsedQs { [key: string]: undefined | string | string[] | ParsedQs | ParsedQs[] }
 
     function stringify(obj: any, options?: IStringifyOptions): string;
     function parse(str: string, options?: IParseOptions & { decoder?: never }): ParsedQs;
-    function parse(str: string, options?: IParseOptions): { [key: string]: PoorMansUnknown };
+    function parse(str: string, options?: IParseOptions): { [key: string]: UnknownFacade };
 }

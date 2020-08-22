@@ -8,8 +8,6 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/semver
 
-/// <reference types="node" />
-
 // re-exports for index file
 
 // functions for working with versions

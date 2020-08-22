@@ -261,6 +261,7 @@ class CalendarResource {
                     resourceAccessor={event => event.resourceId}
                     resourceIdAccessor={resource => resource.id}
                     resourceTitleAccessor={resource => resource.title}
+                    style={{ height: 500 }}
                 />
             );
         }

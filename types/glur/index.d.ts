@@ -2,7 +2,6 @@
 // Project: https://github.com/andr83/glur/issues
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="node" />
 
 /**
  * Fast Gaussian Blur in pure JavaScript, via IIR filer.

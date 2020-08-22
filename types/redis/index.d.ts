@@ -30,7 +30,7 @@ export interface RetryStrategyOptions {
     attempt: number;
 }
 
-export type RetryStrategy = (options: RetryStrategyOptions) => number | Error | undefined;
+export type RetryStrategy = (options: RetryStrategyOptions) => number | Error | unknown;
 
 export interface ClientOpts {
     host?: string;
@@ -105,6 +105,7 @@ export interface OverloadedSetCommand<T, U, R> {
     (key: string, arg1: T, arg2: T, cb?: Callback<U>): R;
     (key: string, arg1: T | { [key: string]: T } | T[], cb?: Callback<U>): R;
     (key: string, ...args: Array<T | Callback<U>>): R;
+    (args: [string, ...T[]], cb?: Callback<U>): R;
 }
 
 export interface OverloadedLastCommand<T1, T2, U, R> {
@@ -524,8 +525,8 @@ export interface Commands<R> {
     /**
      * Set the string value of a hash field.
      */
-    hset(key: string, field: string, value: string, cb?: Callback<number>): R;
-    HSET(key: string, field: string, value: string, cb?: Callback<number>): R;
+    hset: OverloadedSetCommand<string, number, R>;
+    HSET: OverloadedSetCommand<string, number, R>;
 
     /**
      * Set the value of a hash field, only if the field does not exist.
@@ -1257,15 +1258,17 @@ export function createClient(options?: ClientOpts): RedisClient;
 
 export function print(err: Error | null, reply: any): void;
 
-export class RedisError extends Error { }
+export class RedisError extends Error {
+    name: string;
+}
 export class ReplyError extends RedisError {
     command: string;
-    args?: any[];
+    args?: unknown[];
     code: string;
 }
 export class AbortError extends RedisError {
     command: string;
-    args?: any[];
+    args?: unknown[];
     code?: string;
 }
 export class ParserError extends RedisError {

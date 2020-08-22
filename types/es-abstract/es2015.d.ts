@@ -1,225 +1,114 @@
-import toPrimitive = require('es-to-primitive/es2015');
-
 import ES5 = require('./es5');
-import { Intrinsics } from './GetIntrinsic';
-import { PropertyKey as ESPropertyKey } from './index';
+import type { PropertyKey as ESPropertyKey } from './index';
 
-interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive' | 'Type'> {
-    Call<T, R>(F: (this: T) => R, thisArg: T): R;
-    Call<T, A extends readonly unknown[], R>(F: (this: T, ...args: A) => R, thisArg: T, args: Readonly<A>): R;
-
-    Invoke<O extends {}, P extends ESPropertyKey>(
-        O: O,
-        P: P,
-        args?: P extends keyof O
-            ? O[P] extends (...args: infer A) => any ? Readonly<A> : ArrayLike<unknown>
-            : ArrayLike<unknown>,
-    ): P extends keyof O ? (O[P] extends (...args: any) => infer R ? R : never) : unknown;
-
-    readonly ToPrimitive: typeof toPrimitive;
-    ToInt16(value: unknown): number;
-    ToInt8(value: unknown): number;
-    ToUint8(value: unknown): number;
-    ToUint8Clamp(value: unknown): number;
-    ToPropertyKey(value: unknown): ESPropertyKey;
-    ToLength(value: unknown): number;
-
-    CanonicalNumericIndexString(value: unknown): number | undefined;
-    readonly RequireObjectCoercible: typeof ES5.CheckObjectCoercible;
-
-    readonly IsArray: typeof Array.isArray;
-    IsConstructor(arg: unknown): arg is new (...args: any) => any;
-    readonly IsExtensible: typeof Object.isExtensible;
-    IsInteger(arg: unknown): arg is number;
-    IsPropertyKey(arg: unknown): arg is ESPropertyKey;
-    IsRegExp(arg: unknown): arg is RegExp;
-    SameValueZero(x: unknown, y: unknown): boolean;
-
-    GetV<O, P extends ESPropertyKey>(O: O, P: P): P extends keyof O ? O[P] : any;
-    GetMethod<O, P extends ESPropertyKey>(
-        O: O,
-        P: P,
-    ): P extends keyof O // tslint:disable-next-line: ban-types
-        ? NonNullable<O[P]> extends Function
-            ? O[P]
-            : never
-        : ((...args: any) => any) | undefined;
-    Get<O extends object, P extends ESPropertyKey>(O: O, P: P): P extends keyof O ? O[P] : any;
-
-    // prettier-ignore
-    Type<T>(x: T)
-        : T extends string ? 'String'
-        : T extends number ? 'Number'
-        : T extends boolean ? 'Boolean'
-        : T extends symbol ? 'Symbol'
-        : T extends null ? 'Null'
-        : T extends undefined ? 'Undefined'
-        : T extends object ? 'Object'
-        : 'String' | 'Number' | 'Boolean' | 'Symbol' | 'Null' | 'Undefined' | 'Object' | undefined;
-
-    // tslint:disable-next-line: ban-types
-    SpeciesConstructor<C extends Function = new (...args: any) => any>(
-        O: object,
-        defaultConstructor?: C,
-    ): C | (new (...args: any) => any);
-
-    CompletePropertyDescriptor<D extends ES5.PropertyDescriptor>(
-        Desc: D & ThisType<any>,
-    ): Required<
-        D extends { '[[Value]]': infer T }
-            ? ES5.GenericDescriptor & {
-                '[[Value]]': T;
-                '[[Writable]]': boolean;
-            }
-            : D extends { '[[Value]]'?: infer T } | { '[[Writable]]'?: boolean }
-            ? ES5.GenericDescriptor & {
-                '[[Value]]': T | undefined;
-                '[[Writable]]': boolean;
-            }
-            : D extends { '[[Get]]'?: () => infer T } | { '[[Set]]'?: (value: infer T) => void }
-            ? ES5.GenericDescriptor & {
-                '[[Get]]': (() => T) | undefined;
-                '[[Set]]': ((value: T) => void) | undefined;
-            }
-            : D & ES5.PropertyDescriptor
-    >;
-    CompletePropertyDescriptor(Desc: ES5.PropertyDescriptor & ThisType<any>): Required<ES5.PropertyDescriptor>;
-
-    Set<O extends object, P extends ESPropertyKey>(
-        O: O,
-        P: P,
-        V: P extends keyof O ? O[P] : unknown,
-        Throw: true,
-    ): true | never;
-    Set<O extends object, P extends ESPropertyKey>(
-        O: O,
-        P: P,
-        V: P extends keyof O ? O[P] : unknown,
-        Throw: boolean,
-    ): boolean;
-
-    HasOwnProperty(O: object, P: ESPropertyKey): boolean;
-    HasProperty(O: object, P: ESPropertyKey): boolean;
-
-    IsConcatSpreadable(O: object): boolean;
-
-    /**
-     * @param obj The iterable
-     * @param method The method to use to get the `Iterator`
-     */
-    GetIterator<I extends Iterator<any, any, any>>(obj: { [Symbol.iterator](): I }): I;
-    GetIterator<O, I extends Iterator<any, any, any>>(obj: O, method: (this: O) => I): I;
-
-    IteratorNext<T, TReturn = any, TNext = undefined>(
-        iterator: Iterator<T, TReturn, TNext>,
-        value?: TNext,
-    ): IteratorResult<T, TReturn>;
-    IteratorNext<T, TReturn = any, TNext = undefined>(
-        iterator: AsyncIterator<T, TReturn, TNext>,
-        value?: TNext,
-    ): Promise<IteratorResult<T, TReturn>>;
-    IteratorNext<T, TReturn = any, TNext = undefined>(
-        iterator: Iterator<T, TReturn, TNext> | AsyncIterator<T, TReturn, TNext>,
-        value?: TNext,
-    ): IteratorResult<T, TReturn> | Promise<IteratorResult<T, TReturn>>;
-    IteratorComplete(iterResult: IteratorResult<unknown, unknown>): iterResult is IteratorReturnResult<unknown>;
-    IteratorValue<T = never, TReturn = never>(iterResult: IteratorResult<T, TReturn>): T | TReturn;
-    IteratorStep<T>(iterator: Iterator<T>): IteratorYieldResult<T> | false;
-    IteratorClose<T>(iterator: Iterator<unknown, unknown, unknown>, completion: () => T): T;
-    CreateIterResultObject<T>(value: T, done: boolean): IteratorResult<T, T>;
-
-    RegExpExec(R: RegExp | { exec(string: string): RegExpExecArray | null }, S: string): RegExpExecArray | null;
-    ArraySpeciesCreate<T>(originalArray: readonly T[], length: number): T[];
-
-    CreateDataProperty(O: object, P: ESPropertyKey, V: unknown): boolean;
-    CreateDataPropertyOrThrow(O: object, P: ESPropertyKey, V: unknown): boolean;
-
-    ObjectCreate(proto: object | null, internalSlotsList?: readonly []): any;
-    AdvanceStringIndex(S: string, index: number, unicode: boolean): number;
-
-    CreateMethodProperty(O: object, P: ESPropertyKey, V: unknown): boolean;
-    DefinePropertyOrThrow(O: object, P: ESPropertyKey, desc: ES5.PropertyDescriptor & ThisType<any>): boolean;
-    DeletePropertyOrThrow(O: object, P: ESPropertyKey): boolean;
-
-    readonly EnumerableOwnNames: typeof Object.keys;
-
-    // tslint:disable-next-line: ban-types
-    thisNumberValue(value: number | Number): number;
-
-    // tslint:disable-next-line: ban-types
-    thisBooleanValue(value: boolean | Boolean): boolean;
-
-    // tslint:disable-next-line: ban-types
-    thisStringValue(value: string | String): string;
-    thisTimeValue(value: Date): number;
-
-    SetIntegrityLevel(O: object, level: 'sealed' | 'frozen'): boolean;
-    TestIntegrityLevel(O: object, level: 'sealed' | 'frozen'): boolean;
-
-    OrdinaryHasInstance(C: unknown, O: object): boolean;
-    OrdinaryHasProperty(O: object, P: ESPropertyKey): boolean;
-
-    // tslint:disable-next-line: ban-types
-    InstanceofOperator(O: object, C: Function | { [Symbol.hasInstance](O: unknown): boolean }): boolean;
-
-    IsPromise(x: unknown): x is Promise<unknown>;
-    ValidateAndApplyPropertyDescriptor(
-        O: undefined,
-        P: unknown,
-        extensible: boolean,
-        Desc: ES5.PropertyDescriptor & ThisType<any>,
-        current?: ES5.PropertyDescriptor & ThisType<any>,
-    ): boolean;
-    ValidateAndApplyPropertyDescriptor(
-        O: object | undefined,
-        P: ESPropertyKey,
-        extensible: boolean,
-        Desc: ES5.PropertyDescriptor & ThisType<any>,
-        current?: ES5.PropertyDescriptor & ThisType<any>,
-    ): boolean;
-    OrdinaryDefineOwnProperty(O: object, P: ESPropertyKey, Desc: ES5.PropertyDescriptor & ThisType<any>): boolean;
-    OrdinaryGetOwnProperty<O extends object, P extends ESPropertyKey>(
-        O: O,
-        P: P,
-    ):
-        | {
-            '[[Configurable]]': boolean;
-            '[[Enumerable]]': boolean;
-            '[[Writable]]': boolean;
-            '[[Value]]': P extends keyof O ? O[P] : unknown;
-        }
-        | {
-            '[[Configurable]]': boolean;
-            '[[Enumerable]]': boolean;
-            '[[Get]]': (() => P extends keyof O ? O[P] : unknown) | undefined;
-            '[[Set]]': ((value: P extends keyof O ? O[P] : unknown) => void) | undefined;
-        }
-        | undefined;
-
-    ArrayCreate(length: number, proto?: object | null): unknown[];
-    ArraySetLength(A: unknown[], Desc: ES5.PropertyDescriptor & ThisType<any>): boolean;
-    CreateHTML(string: unknown, tag: string, attribute: string, value?: unknown): string;
-
-    GetOwnPropertyKeys(O: object, Type: 'String'): string[];
-    GetOwnPropertyKeys(O: object, Type: 'Symbol'): symbol[];
-    GetOwnPropertyKeys(O: object, Type: 'String' | 'Symbol'): string[] | symbol[];
-
-    SymbolDescriptiveString(sym: symbol): string;
-    GetSubstitution(matched: string, str: string, position: number, captures: string[], replacement: string): string;
-    ToDateString(tv: number): string;
-
-    CreateListFromArrayLike<T>(
-        obj: ArrayLike<T>,
-        types?: Array<'Undefined' | 'Null' | 'Boolean' | 'String' | 'Symbol' | 'Number' | 'Object'>,
-    ): T[];
-    GetPrototypeFromConstructor<K extends keyof Intrinsics>(
-        constructor: new (...args: any) => any,
-        intrinsicDefaultProto: K,
-    ): {} | Intrinsics[K];
-    GetPrototypeFromConstructor(constructor: new (...args: any) => any, intrinsicDefaultProto: string): any;
-
-    // tslint:disable-next-line: ban-types
-    SetFunctionName(F: Function, name: string | symbol, prefix?: string): boolean;
+interface ES2015 {
+    readonly 'Abstract Equality Comparison': typeof import('./2015/AbstractEqualityComparison');
+    readonly 'Abstract Relational Comparison': typeof import('./2015/AbstractRelationalComparison');
+    readonly 'Strict Equality Comparison': typeof import('./2015/StrictEqualityComparison');
+    readonly AdvanceStringIndex: typeof import('./2015/AdvanceStringIndex');
+    readonly ArrayCreate: typeof import('./2015/ArrayCreate');
+    readonly ArraySetLength: typeof import('./2015/ArraySetLength');
+    readonly ArraySpeciesCreate: typeof import('./2015/ArraySpeciesCreate');
+    readonly Call: typeof import('./2015/Call');
+    readonly CanonicalNumericIndexString: typeof import('./2015/CanonicalNumericIndexString');
+    readonly CompletePropertyDescriptor: typeof import('./2015/CompletePropertyDescriptor');
+    readonly CreateDataProperty: typeof import('./2015/CreateDataProperty');
+    readonly CreateDataPropertyOrThrow: typeof import('./2015/CreateDataPropertyOrThrow');
+    readonly CreateHTML: typeof import('./2015/CreateHTML');
+    readonly CreateIterResultObject: typeof import('./2015/CreateIterResultObject');
+    readonly CreateListFromArrayLike: typeof import('./2015/CreateListFromArrayLike');
+    readonly CreateMethodProperty: typeof import('./2015/CreateMethodProperty');
+    readonly DateFromTime: typeof import('./2015/DateFromTime');
+    readonly Day: typeof import('./2015/Day');
+    readonly DayFromYear: typeof import('./2015/DayFromYear');
+    readonly DaysInYear: typeof import('./2015/DaysInYear');
+    readonly DayWithinYear: typeof import('./2015/DayWithinYear');
+    readonly DefinePropertyOrThrow: typeof import('./2015/DefinePropertyOrThrow');
+    readonly DeletePropertyOrThrow: typeof import('./2015/DeletePropertyOrThrow');
+    readonly EnumerableOwnNames: typeof import('./2015/EnumerableOwnNames');
+    readonly FromPropertyDescriptor: typeof import('./2015/FromPropertyDescriptor');
+    readonly Get: typeof import('./2015/Get');
+    readonly GetIterator: typeof import('./2015/GetIterator');
+    readonly GetMethod: typeof import('./2015/GetMethod');
+    readonly GetOwnPropertyKeys: typeof import('./2015/GetOwnPropertyKeys');
+    readonly GetPrototypeFromConstructor: typeof import('./2015/GetPrototypeFromConstructor');
+    readonly GetSubstitution: typeof import('./2015/GetSubstitution');
+    readonly GetV: typeof import('./2015/GetV');
+    readonly HasOwnProperty: typeof import('./2015/HasOwnProperty');
+    readonly HasProperty: typeof import('./2015/HasProperty');
+    readonly HourFromTime: typeof import('./2015/HourFromTime');
+    readonly InLeapYear: typeof import('./2015/InLeapYear');
+    readonly InstanceofOperator: typeof import('./2015/InstanceofOperator');
+    readonly Invoke: typeof import('./2015/Invoke');
+    readonly IsAccessorDescriptor: typeof import('./2015/IsAccessorDescriptor');
+    readonly IsArray: typeof import('./2015/IsArray');
+    readonly IsCallable: typeof import('./2015/IsCallable');
+    readonly IsConcatSpreadable: typeof import('./2015/IsConcatSpreadable');
+    readonly IsConstructor: typeof import('./2015/IsConstructor');
+    readonly IsDataDescriptor: typeof import('./2015/IsDataDescriptor');
+    readonly IsExtensible: typeof import('./2015/IsExtensible');
+    readonly IsGenericDescriptor: typeof import('./2015/IsGenericDescriptor');
+    readonly IsInteger: typeof import('./2015/IsInteger');
+    readonly IsPromise: typeof import('./2015/IsPromise');
+    readonly IsPropertyDescriptor: typeof import('./2015/IsPropertyDescriptor');
+    readonly IsPropertyKey: typeof import('./2015/IsPropertyKey');
+    readonly IsRegExp: typeof import('./2015/IsRegExp');
+    readonly IteratorClose: typeof import('./2015/IteratorClose');
+    readonly IteratorComplete: typeof import('./2015/IteratorComplete');
+    readonly IteratorNext: typeof import('./2015/IteratorNext');
+    readonly IteratorStep: typeof import('./2015/IteratorStep');
+    readonly IteratorValue: typeof import('./2015/IteratorValue');
+    readonly MakeDate: typeof import('./2015/MakeDate');
+    readonly MakeDay: typeof import('./2015/MakeDay');
+    readonly MakeTime: typeof import('./2015/MakeTime');
+    readonly MinFromTime: typeof import('./2015/MinFromTime');
+    readonly modulo: typeof import('./2015/modulo');
+    readonly MonthFromTime: typeof import('./2015/MonthFromTime');
+    readonly msFromTime: typeof import('./2015/msFromTime');
+    readonly ObjectCreate: typeof import('./2015/ObjectCreate');
+    readonly OrdinaryDefineOwnProperty: typeof import('./2015/OrdinaryDefineOwnProperty');
+    readonly OrdinaryGetOwnProperty: typeof import('./2015/OrdinaryGetOwnProperty');
+    readonly OrdinaryHasInstance: typeof import('./2015/OrdinaryHasInstance');
+    readonly OrdinaryHasProperty: typeof import('./2015/OrdinaryHasProperty');
+    readonly RegExpExec: typeof import('./2015/RegExpExec');
+    readonly RequireObjectCoercible: typeof import('./2015/RequireObjectCoercible');
+    readonly SameValue: typeof import('./2015/SameValue');
+    readonly SameValueZero: typeof import('./2015/SameValueZero');
+    readonly SecFromTime: typeof import('./2015/SecFromTime');
+    readonly Set: typeof import('./2015/Set');
+    readonly SetFunctionName: typeof import('./2015/SetFunctionName');
+    readonly SetIntegrityLevel: typeof import('./2015/SetIntegrityLevel');
+    readonly SpeciesConstructor: typeof import('./2015/SpeciesConstructor');
+    readonly SymbolDescriptiveString: typeof import('./2015/SymbolDescriptiveString');
+    readonly TestIntegrityLevel: typeof import('./2015/TestIntegrityLevel');
+    readonly thisBooleanValue: typeof import('./2015/thisBooleanValue');
+    readonly thisNumberValue: typeof import('./2015/thisNumberValue');
+    readonly thisStringValue: typeof import('./2015/thisStringValue');
+    readonly thisTimeValue: typeof import('./2015/thisTimeValue');
+    readonly TimeClip: typeof import('./2015/TimeClip');
+    readonly TimeFromYear: typeof import('./2015/TimeFromYear');
+    readonly TimeWithinDay: typeof import('./2015/TimeWithinDay');
+    readonly ToBoolean: typeof import('./2015/ToBoolean');
+    readonly ToDateString: typeof import('./2015/ToDateString');
+    readonly ToInt16: typeof import('./2015/ToInt16');
+    readonly ToInt32: typeof import('./2015/ToInt32');
+    readonly ToInt8: typeof import('./2015/ToInt8');
+    readonly ToInteger: typeof import('./2015/ToInteger');
+    readonly ToLength: typeof import('./2015/ToLength');
+    readonly ToNumber: typeof import('./2015/ToNumber');
+    readonly ToObject: typeof import('./2015/ToObject');
+    readonly ToPrimitive: typeof import('./2015/ToPrimitive');
+    readonly ToPropertyDescriptor: typeof import('./2015/ToPropertyDescriptor');
+    readonly ToPropertyKey: typeof import('./2015/ToPropertyKey');
+    readonly ToString: typeof import('./2015/ToString');
+    readonly ToUint16: typeof import('./2015/ToUint16');
+    readonly ToUint32: typeof import('./2015/ToUint32');
+    readonly ToUint8: typeof import('./2015/ToUint8');
+    readonly ToUint8Clamp: typeof import('./2015/ToUint8Clamp');
+    readonly Type: typeof import('./2015/Type');
+    readonly ValidateAndApplyPropertyDescriptor: typeof import('./2015/ValidateAndApplyPropertyDescriptor');
+    readonly WeekDay: typeof import('./2015/WeekDay');
+    readonly YearFromTime: typeof import('./2015/YearFromTime');
 }
 
 declare namespace ES2015 {

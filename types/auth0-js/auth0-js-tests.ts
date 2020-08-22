@@ -238,6 +238,15 @@ webAuth.checkSession({
     // Renewed tokens or error
 });
 
+//  use case; get a new token for the API
+webAuth.checkSession({}, (err, authResult: auth0.Auth0Result) => {
+    if (err) {
+        err; // $ExpectType Auth0Error
+    } else {
+        authResult.accessToken; // $ExpectType string
+    }
+});
+
 const authentication = new auth0.Authentication({
     domain: 'me.auth0.com',
     clientID: '...',

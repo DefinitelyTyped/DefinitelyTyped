@@ -1447,7 +1447,7 @@ declare module "../index" {
          * _.isSymbol('abc');
          * // => false
          */
-        isSymbol(value: any): boolean;
+        isSymbol(value: any): value is symbol;
     }
 
     interface LoDashImplicitWrapper<TValue> {

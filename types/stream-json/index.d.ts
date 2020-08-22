@@ -5,26 +5,7 @@
 
 /// <reference types="node" />
 
-import * as Assembler from './Assembler';
-import * as Disassembler from './Disassembler';
-import * as Emitter from './Emitter';
-import * as Parser from './Parser';
-import * as Stringer from './Stringer';
-
-import * as FilterBase from './filters/FilterBase';
-import * as Pick from './filters/Pick';
-import * as Replace from './filters/Replace';
-import * as Ignore from './filters/Ignore';
-import * as Filter from './filters/Filter';
-
-import * as StreamArray from './streamers/StreamArray';
-import * as StreamObject from './streamers/StreamObject';
-import * as StreamValues from './streamers/StreamValues';
-
-import * as Batch from "./utils/Batch";
-import * as Verifier from "./utils/Verifier";
-import * as emit from './utils/emit';
-import * as withParser from './utils/withParser';
+import Parser = require('./Parser');
 
 export = make;
 

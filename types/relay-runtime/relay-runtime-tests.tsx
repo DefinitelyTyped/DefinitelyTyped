@@ -14,6 +14,7 @@ import {
     commitLocalUpdate,
     ReaderFragment,
     isPromise,
+    __internal,
 } from 'relay-runtime';
 
 const source = new RecordSource();
@@ -138,9 +139,11 @@ function handlerProvider(handle: any) {
 }
 
 function storeUpdater(store: RecordSourceSelectorProxy) {
+    store.invalidateStore();
     const mutationPayload = store.getRootField('sendConversationMessage');
     const newMessageEdge = mutationPayload!.getLinkedRecord('messageEdge');
     const conversationStore = store.get('a-conversation-id');
+    conversationStore!.invalidateRecord();
     const connection = ConnectionHandler.getConnection(conversationStore!, 'Messages_messages');
     if (connection) {
         ConnectionHandler.insertEdgeBefore(connection, newMessageEdge!);
@@ -168,10 +171,12 @@ function passToHelper(edge: RecordProxy<MessageEdge>) {
 }
 
 function storeUpdaterWithTypes(store: RecordSourceSelectorProxy<SendConversationMessageMutationResponse>) {
+    store.invalidateStore();
     const mutationPayload = store.getRootField('sendConversationMessage');
     const newMessageEdge = mutationPayload.getLinkedRecord('messageEdge');
     const id = newMessageEdge.getValue('id');
     const conversationStore = store.get<TConversation>(id);
+    conversationStore!.invalidateRecord();
     const connection = ConnectionHandler.getConnection(conversationStore!, 'Messages_messages');
     if (connection) {
         ConnectionHandler.insertEdgeBefore(connection, newMessageEdge);
@@ -264,6 +269,7 @@ const node: ConcreteRequest = (function () {
             operationKind: 'query',
             name: 'FooQuery',
             id: null,
+            cacheID: null,
             text: 'query FooQuery {\n  __typename\n}\n',
             metadata: {},
         },
@@ -296,13 +302,11 @@ const nodeFragment: ReaderFragment = {
             defaultValue: null,
             kind: 'LocalArgument',
             name: 'latArg',
-            type: 'String',
         },
         {
             defaultValue: null,
             kind: 'LocalArgument',
             name: 'lonArg',
-            type: 'String',
         },
     ],
     kind: 'Fragment',

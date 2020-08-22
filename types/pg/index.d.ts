@@ -10,7 +10,7 @@ import events = require('events');
 import stream = require('stream');
 import pgTypes = require('pg-types');
 
-import { ConnectionOptions } from "tls";
+import { ConnectionOptions } from 'tls';
 
 export interface ClientConfig {
     user?: string;
@@ -27,6 +27,7 @@ export interface ClientConfig {
     query_timeout?: number;
     keepAliveInitialDelayMillis?: number;
     idle_in_transaction_session_timeout?: number;
+    application_name?: string;
 }
 
 export type ConnectionConfig = ClientConfig;
@@ -46,8 +47,6 @@ export interface PoolConfig extends ClientConfig {
     connectionTimeoutMillis?: number;
     idleTimeoutMillis?: number;
     log?: (...messages: any[]) => void;
-
-    application_name?: string;
     Promise?: PromiseConstructorLike;
 }
 

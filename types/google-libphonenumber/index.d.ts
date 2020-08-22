@@ -145,6 +145,7 @@ declare namespace libphonenumber {
         parseAndKeepRawInput(number: string, regionCode?: string): PhoneNumber;
         truncateTooLongNumber(number: PhoneNumber): boolean;
         isNumberMatch(firstNumber: string | PhoneNumber, secondNumber: string | PhoneNumber): PhoneNumberUtil.MatchType;
+        getLengthOfGeographicalAreaCode(number: PhoneNumber): number;
     }
 
     export class AsYouTypeFormatter {

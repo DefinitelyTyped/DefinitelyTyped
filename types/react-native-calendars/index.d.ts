@@ -62,6 +62,7 @@ export interface CalendarTheme {
     "stylesheet.day.single"?: CalendarThemeIdStyle;
     "stylesheet.day.multiDot"?: CalendarThemeIdStyle;
     "stylesheet.day.period"?: CalendarThemeIdStyle;
+    "stylesheet.dot"?: CalendarThemeIdStyle;
 }
 
 export type DateCallbackHandler = (date: DateObject) => void;
@@ -311,7 +312,15 @@ export interface CalendarBaseProps {
     webAriaLevel?: number;
 }
 
-export class Calendar extends React.Component<CalendarMarkingProps & CalendarBaseProps> { }
+export type CalendarProps = CalendarMarkingProps &
+    CalendarBaseProps & {
+        /**
+         * Enable the option to swipe between months. Default = false
+         */
+        enableSwipeMonths?: boolean;
+    };
+
+export class Calendar extends React.Component<CalendarProps> {}
 
 export interface CalendarListBaseProps extends CalendarBaseProps {
     /**

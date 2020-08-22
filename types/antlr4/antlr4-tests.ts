@@ -2165,3 +2165,11 @@ function getOriginalText(ctx: ParserRuleContext): string {
     const text = ctx.start.getInputStream().getText(a, b);
     return text;
 }
+
+// fix InputStream.d.ts
+function LA(code: string, offset: number): number {
+    return new InputStream(code).LA(offset);
+}
+function LT(code: string, offset: number): number {
+    return new InputStream(code).LT(offset);
+}

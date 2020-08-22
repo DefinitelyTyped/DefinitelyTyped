@@ -52,6 +52,8 @@ declare namespace PinoHttp {
         err?: string;
         responseTime?: string;
     }
+
+    const startTime: unique symbol;
 }
 
 declare module 'http' {
@@ -59,7 +61,12 @@ declare module 'http' {
         id: PinoHttp.ReqId;
         log: Logger;
     }
+
     interface ServerResponse {
         err?: Error;
+    }
+
+    interface OutgoingMessage {
+        [PinoHttp.startTime]: number;
     }
 }
