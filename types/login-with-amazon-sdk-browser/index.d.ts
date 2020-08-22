@@ -96,10 +96,6 @@ interface AccessTokenRequest extends AuthorizeRequestBase<AccessTokenRequest> {
      * The number of seconds until the access token expires.
      */
     expires_in: number;
-    /**
-     * The scope granted by the authorization server for the access token.
-     */
-    scope: AuthorizationScopeOptions | AuthorizationScopeOptions[];
 }
 
 /**
@@ -289,5 +285,20 @@ declare namespace amazon {
          * Logs out the current user after a call to `authorize`.
          */
         function logout(): void;
+
+        /**
+         * Login With Amazon has multiple authorization and resource endpoints.
+         * This API determines the region of the authorization and resource
+         * endpoints Login with Amazon SDK should talk to. This needs to be
+         * called before the authorize and retreiveProfile APIs.
+         * When not set, it defaults to “NorthAmerica”
+         */
+        function setRegion(region: Region): void;
+
+        enum Region {
+            NorthAmerica,
+            Europe,
+            AsiaPacific
+        }
     }
 }

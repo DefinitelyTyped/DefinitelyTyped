@@ -77,7 +77,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
     );
 
     assert(
-        info.bindNames.includes('MYDATE'),
+        info.bindNames.findIndex(s => s === 'MYDATE') >= 0,
         'connection.getStatementInfo() has invalid bindNames field in its response',
     );
     assert(info.statementType === 1, 'connection.getStatementInfo() has invalid statementType field in its response');

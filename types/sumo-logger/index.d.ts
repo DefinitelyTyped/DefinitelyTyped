@@ -2,6 +2,7 @@
 // Project: https://github.com/SumoLogic/js-sumo-logger
 // Definitions by: forabi <https://github.com/forabi>
 //                 clementallen <https://github.com/clementallen>
+//                 kristians-salna <https://github.com/kristians-salna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -27,13 +28,13 @@ declare namespace SumoLogger {
          * The only information you can be sure of in the callback is that the call succeeded.
          * There is no other response information.
          */
-        onSuccess(): void;
+        onSuccess?(): void;
 
         /**
          * You can provide a function that is executed if an error
          * occurs when the logs are sent.
          */
-        onError(): void;
+        onError?(): void;
 
         /**
          * You can provide a URL, in the Node version of this SDK only,
@@ -78,6 +79,20 @@ declare namespace SumoLogger {
          * This value enables and disables sending data as a raw string
          */
         raw?: boolean;
+
+        /**
+         * An integer specifying total log length.
+         * This can be used by itself or in addition to interval but is ignored when useIntervalOnly is true.
+         * For higher volume applications, Sumo Logic recommends using between 100000 and 1000000 to optimize the tradeoff between network calls and load.
+         * If both batchSize and interval are configured sending will be triggered when the pending logs' aggregate message length
+         * is reached or when the specified interval is hit, and in either case the interval will be reset on send.
+         */
+        batchSize?: number;
+
+        /**
+         * If enabled batchSize is ignored and only interval is used to trigger when the pending logs will be sent.
+         */
+        useIntervalOnly?: boolean;
     }
 
     interface PerMessageOptions {
@@ -118,7 +133,7 @@ declare class SumoLogger {
      * If you call the function with a JSON object, each field in the object is included as a separate field.
      * Fields called `sessionId`, `url`, and `timestamp` are sent in both cases.
      */
-    log(message: string, options?: SumoLogger.PerMessageOptions): void;
+    log(message: string, options?: SumoLogger.PerMessageOptions): boolean | Promise<any>;
 
     /**
      * Set a log message to be sent.
@@ -127,7 +142,7 @@ declare class SumoLogger {
      * If you call the function with a JSON object, each field in the object is included as a separate field.
      * Fields called `sessionId`, `url`, and `timestamp` are sent in both cases.
      */
-    log<T extends object>(event: Partial<SumoLogger.PerMessageOptions> & T): void;
+    log<T extends object>(event: Partial<SumoLogger.PerMessageOptions> & T): boolean | Promise<any>;
 
     /**
      * Force any pending logs to be sent immediately. This is mainly for use in a

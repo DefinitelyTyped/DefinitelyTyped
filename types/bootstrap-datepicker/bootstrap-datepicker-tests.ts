@@ -13,7 +13,7 @@ function tests_simple() {
     var endDate = new Date(2012, 1, 25);
     $('#date-start')
         .datepicker()
-        //.on("changeDate", function (ev) {		// bug https://typescript.codeplex.com/workitem/1976
+        //.on("changeDate", function (ev) {        // bug https://typescript.codeplex.com/workitem/1976
         .on("changeDate", function (ev: DatepickerEventObject) {
             if (ev.date.valueOf() > endDate.valueOf()) {
                 $('#alert').show().find('strong').text('The start date must be before the end date.');
@@ -26,7 +26,7 @@ function tests_simple() {
         });
     $('#date-end')
         .datepicker()
-        //.on('changeDate', function (ev) {		// bug https://typescript.codeplex.com/workitem/1976
+        //.on('changeDate', function (ev) {        // bug https://typescript.codeplex.com/workitem/1976
         .on('changeDate', function (ev: DatepickerEventObject) {
             if (ev.date.valueOf() < startDate.valueOf()) {
                 $('#alert').show().find('strong').text('The end date must be after the start date.');
@@ -53,8 +53,8 @@ $(function () {
     var startDate = new Date(2012, 1, 20);
     var endDate = new Date(2012, 1, 25);
     $('#dp4').datepicker()
-        //.on('changeDate', function (ev) {		// bug https://typescript.codeplex.com/workitem/1976
-		.on('changeDate', function (ev: DatepickerEventObject) {
+        //.on('changeDate', function (ev) {        // bug https://typescript.codeplex.com/workitem/1976
+        .on('changeDate', function (ev: DatepickerEventObject) {
             if (ev.date.valueOf() > endDate.valueOf()) {
                 $('#alert').show().find('strong').text('The start date can not be greater then the end date');
             } else {
@@ -65,8 +65,8 @@ $(function () {
             $('#dp4').datepicker('hide');
         });
     $('#dp5').datepicker()
-        //.on('changeDate', function (ev) {		// bug https://typescript.codeplex.com/workitem/1976
-		.on('changeDate', function (ev: DatepickerEventObject) {
+        //.on('changeDate', function (ev) {        // bug https://typescript.codeplex.com/workitem/1976
+        .on('changeDate', function (ev: DatepickerEventObject) {
             if (ev.date.valueOf() < startDate.valueOf()) {
                 $('#alert').show().find('strong').text('The end date can not be less then the start date');
             } else {
@@ -77,3 +77,28 @@ $(function () {
             $('#dp5').datepicker('hide');
         });
 });
+
+$("#dp6").datepicker({
+    startView: "days",
+    daysOfWeekDisabled: "12345"
+})
+$("#dp6").datepicker({
+    startView: "months",
+    daysOfWeekDisabled: [1, 2, 3, 4, 5]
+})
+$("#dp6").datepicker({
+    startView: "years",
+    daysOfWeekDisabled: "12345"
+})
+$("#dp6").datepicker({
+    startView: "decades",
+    daysOfWeekDisabled: "12345"
+})
+$("#dp6").datepicker({
+    startView: "centuries",
+    daysOfWeekDisabled: "12345"
+})
+$("#dp6").datepicker({
+    startView: "millenium",
+    daysOfWeekDisabled: "12345"
+})

@@ -4,8 +4,7 @@
         "module": "commonjs",
         "baseUrl": "../..",
         "esModuleInterop": true,
-        "noEmit": false,
-        "noImplicitAny": true,
+        "noEmit": true,
         "pretty": true,
         "strict": true,
         "typeRoots": [

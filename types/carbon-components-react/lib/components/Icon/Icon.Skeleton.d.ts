@@ -1,9 +1,7 @@
 import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
+import { ReactAttr, ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps {
-    style?: ReactAttr["style"],
-}
+interface InheritedProps extends ReactDivAttr { }
 
 export interface IconSkeletonProps extends InheritedProps { }
 

@@ -20,6 +20,16 @@ const salesforceConnection: sf.Connection = new sf.Connection({
     },
 });
 
+async function testIdentity(connection: sf.Connection) {
+    // Callback style.
+    connection.identity((err: Error | null, identityInfo: sf.IdentityInfo) => {
+    });
+    // Promise style.
+    const userInfo = await connection.identity();
+    userInfo.id; // $ExpectType string
+    userInfo.active; // $ExpectType boolean
+}
+
 async function testSObject(connection: sf.Connection) {
     interface DummyRecord {
         thing: boolean;
@@ -403,6 +413,26 @@ async function testSObject(connection: sf.Connection) {
             ret; // $ExpectType RecordResult[]
         });
     }
+
+    { // Test salesforceConnection.recent
+        // $ExpectType RecordResult[]
+        await salesforceConnection.recent();
+
+        // $ExpectType RecordResult[]
+        await salesforceConnection.recent('Account');
+
+        // $ExpectType RecordResult[]
+        await salesforceConnection.recent(5);
+
+        // $ExpectType RecordResult[]
+        await salesforceConnection.recent('Account', 5);
+
+        // with callback
+        salesforceConnection.recent((err, ret) => {
+            err; // $ExpectType Error
+            ret; // $ExpectType RecordResult[]
+        });
+    }
 }
 
 const requestInfo: sf.RequestInfo = {
@@ -686,7 +716,8 @@ batch.on("response", (rets: sf.BatchResultInfo[]) => {
 
 salesforceConnection.streaming.topic("InvoiceStatementUpdates").subscribe((message) => {
     console.log('Event Type : ' + message.event.type);
-    console.log('Event Created : ' + message.event.createdDate);
+    console.log('Replay Id : ' + message.event.replayId);
+    console.log('Object Id : ' + message.sobject.Id);
     console.log('Object Id : ' + message.sobject.Id);
 });
 const exitCallback = () => process.exit(1);
@@ -818,4 +849,15 @@ async function testApex(conn: sf.Connection): Promise<void> {
             }
         });
     }
+}
+
+function testSfDate(): void {
+    const today = new Date();
+    const sfDateFromDate = sf.SfDate.toDateLiteral(today);
+    const sfDateFromString = sf.SfDate.toDateLiteral('01-01-2000');
+    const sfDateFromNumber = sf.SfDate.toDateLiteral(0);
+
+    const sfDateTimeFromDate = sf.SfDate.toDateTimeLiteral(today);
+    const sfDateTimeFromString = sf.SfDate.toDateTimeLiteral('01-01-2000');
+    const sfDateTimeFromNumber = sf.SfDate.toDateTimeLiteral(0);
 }

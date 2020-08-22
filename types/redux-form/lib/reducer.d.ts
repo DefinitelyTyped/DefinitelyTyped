@@ -32,6 +32,7 @@ export interface FormState {
 export interface RegisteredFieldState {
     name: string;
     type: FieldType;
+    count: number;
 }
 
 export interface FieldState {

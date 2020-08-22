@@ -2,6 +2,11 @@ declare module "dns" {
     // Supported getaddrinfo flags.
     const ADDRCONFIG: number;
     const V4MAPPED: number;
+    /**
+     * If `dns.V4MAPPED` is specified, return resolved IPv6 addresses as
+     * well as IPv4 mapped IPv6 addresses.
+     */
+    const ALL: number;
 
     interface LookupOptions {
         family?: number;
@@ -55,7 +60,7 @@ declare module "dns" {
         ttl: number;
     }
 
-    /** @deprecated Use AnyARecord or AnyAaaaRecord instead. */
+    /** @deprecated Use `AnyARecord` or `AnyAaaaRecord` instead. */
     type AnyRecordWithTtl = AnyARecord | AnyAaaaRecord;
 
     interface AnyARecord extends RecordWithTtl {

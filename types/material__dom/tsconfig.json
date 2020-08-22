@@ -1,7 +1,6 @@
 {
     "files": [
-        "index.d.ts",
-        "ponyfill.d.ts"
+        "index.d.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

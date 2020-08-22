@@ -6,11 +6,12 @@ const handler = cors();
 cors({ allowMethods: ['PUT', 'POST'] });
 
 cors({
-    maxAge: '1000',
+    maxAge: 1000,
     origin: '*',
     allowHeaders: [],
     allowMethods: [],
-    exposeHeaders: []
+    exposeHeaders: [],
+    allowCredentials: true
 });
 
 handler(async (req, res) => {});

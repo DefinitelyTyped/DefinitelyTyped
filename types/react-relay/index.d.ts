@@ -9,12 +9,15 @@
 //                 Matt Krick <https://github.com/mattkrick>
 //                 Jared Kass <https://github.com/jdk243>
 //                 Renan Machado <https://github.com/renanmav>
+//                 Janic Duplessis <https://github.com/janicduplessis>
+//                 Christian Ivicevic <https://github.com/ChristianIvicevic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
 import * as React from 'react';
 import {
     Environment,
+    IEnvironment,
     Variables,
     Disposable,
     Observer,
@@ -109,7 +112,7 @@ export {
 export type FetchPolicy = 'store-and-network' | 'network-only';
 
 interface QueryRendererProps<TOperation extends OperationType> {
-    environment: Environment;
+    environment: IEnvironment;
     query: GraphQLTaggedNode | null | undefined;
     render: (renderProps: {
         error: Error | null;

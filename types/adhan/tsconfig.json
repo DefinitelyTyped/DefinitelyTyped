@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "esModuleInterop": true,
+        "module": "commonjs",
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "allowSyntheticDefaultImports": true,
+        "types": [],
+        "lib": [
+            "es6"
+        ]
+    },
+    "files": [
+        "index.d.ts", "adhan-tests.ts"
+    ]
+}

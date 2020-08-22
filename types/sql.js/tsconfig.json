@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "module.d.ts",
         "sql.js-tests.ts"
     ]
 }

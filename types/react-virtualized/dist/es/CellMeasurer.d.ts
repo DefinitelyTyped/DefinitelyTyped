@@ -46,9 +46,14 @@ export type MeasuredCellParent = {
     recomputeGridSize?: (cell: CellPosition) => void;
 };
 
+export type CellMeasurerChildProps = {
+    measure: () => void,
+    registerChild?: (element: Element) => void
+}
+
 export type CellMeasurerProps = {
     cache: CellMeasurerCacheInterface;
-    children: ((props: { measure: () => void }) => React.ReactNode) | React.ReactNode;
+    children: ((props: CellMeasurerChildProps) => React.ReactNode) | React.ReactNode;
     columnIndex?: number;
     index?: number;
     parent: MeasuredCellParent;

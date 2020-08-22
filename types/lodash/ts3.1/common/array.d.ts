@@ -670,19 +670,19 @@ declare module "../index" {
          * @param arrays The arrays to inspect.
          * @return Returns the new array of shared values.
          */
-        intersection<T>(...arrays: Array<List<T>>): T[];
+        intersection<T>(...arrays: Array<List<T> | null | undefined>): T[];
     }
     interface Collection<T> {
         /**
          * @see _.intersection
          */
-        intersection(...arrays: Array<List<T>>): Collection<T>;
+        intersection(...arrays: Array<List<T> | null | undefined>): Collection<T>;
     }
     interface CollectionChain<T> {
         /**
          * @see _.intersection
          */
-        intersection(...arrays: Array<List<T>>): CollectionChain<T>;
+        intersection(...arrays: Array<List<T> | null | undefined>): CollectionChain<T>;
     }
     interface LoDashStatic {
         /**
@@ -771,7 +771,7 @@ declare module "../index" {
         /**
          * @see _.intersectionWith
          */
-        intersectionWith<T>(array?: List<T> | null, ...values: Array<List<T>>): T[];
+        intersectionWith<T>(array?: List<T> | null, ...values: Array<List<T> | Comparator2<T, never>>): T[];
     }
     interface Collection<T> {
         /**

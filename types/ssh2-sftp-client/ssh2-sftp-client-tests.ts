@@ -10,6 +10,16 @@ client.connect({
     readyTimeout: 1000,
 }).then(() => null);
 
+client.connect({
+    host: 'asdb',
+    port: 1234,
+    privateKey: 'my private key rsa in openssh format',
+    readyTimeout: 1000,
+    retries: 2,
+    retry_factor: 2,
+    retry_minTimeout: 2000,
+}).then(() => null);
+
 client.list('/remote/path').then(() => null);
 
 client.exists('/remote/path').then(() => null);
@@ -42,3 +52,5 @@ client.chmod('/remote/path', 777).then(() => null);
 client.end().then(() => null);
 
 client.on('event', () => null);
+
+client.posixRename('remote/path/from', 'remote/path/to').then(() => null);

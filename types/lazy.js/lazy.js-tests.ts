@@ -225,3 +225,8 @@ stringSeq = stringSeq.substring(num);
 stringSeq = stringSeq.substring(num, num);
 stringSeq = stringSeq.toLowerCase();
 stringSeq = stringSeq.toUpperCase();
+
+// flatten
+var fooSeqSeqSequence: LazyJS.Sequence<LazyJS.Sequence<LazyJS.Sequence<Foo>>>;
+fooSequence = fooSeqSeqSequence.flatten();
+fooSequence = fooSeqSeqSequence.flatten(true).flatten(true);

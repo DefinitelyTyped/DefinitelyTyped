@@ -54,13 +54,17 @@ validOpts = { context: obj };
 validOpts = { noDefaults: bool };
 validOpts = {
     abortEarly: true,
-    errors: { wrapArrays: bool },
     messages: {
         'any.ref': str,
         'string.email': str
     },
     dateFormat: 'iso'
 };
+// Test various permutations of string, `false`, or `undefined` for both parameters:
+validOpts = { errors: { wrap: { label: str, array: str }}};
+validOpts = { errors: { wrap: { label: false, array: false }}};
+validOpts = { errors: { wrap: { label: str }}};
+validOpts = { errors: { wrap: { array: str }}};
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -134,6 +138,9 @@ whenOpts = { is: x };
 whenOpts = { is: schema, then: schema };
 whenOpts = { is: schema, otherwise: schema };
 whenOpts = { is: schemaLike, then: schemaLike, otherwise: schemaLike };
+whenOpts = { not: schema, then: schema };
+whenOpts = { not: schema, otherwise: schema };
+whenOpts = { not: schemaLike, then: schemaLike, otherwise: schemaLike };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -159,7 +166,7 @@ stringRegexOpts = { invert: bool };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-declare const validErr: Joi.ValidationError;
+const validErr = new Joi.ValidationError("message", "details", "original");
 let validErrItem: Joi.ValidationErrorItem;
 let validErrFunc: Joi.ValidationErrorFunction;
 
@@ -177,15 +184,38 @@ validErrItem = {
 };
 
 validErrItem = {
-  message: str,
-  type: str,
-  path: [str, num, str],
-  context: obj,
+    message: str,
+    type: str,
+    path: [str, num, str],
+    context: obj,
 };
 
 validErrFunc = errs => errs[0];
 validErrFunc = errs => 'Some error';
 validErrFunc = errs => err;
+
+// error() can take function with ErrorReport argument
+validErrFunc = errors => {
+    const path: string = errors[0].path[0];
+    const code: string = errors[0].code;
+    const messages = errors[0].prefs.messages;
+
+    const message: string = messages ? messages[code].rendered : 'Error';
+
+    const validationErr = new Error();
+    validationErr.message = `[${path}]: ${message}`;
+    return validationErr;
+};
+
+Joi.any().error(validErrFunc);
+
+Joi.isError(validErr);
+
+const maybeValidErr = <any> new Joi.ValidationError("message", "details", "original");
+if (Joi.isError(maybeValidErr)) {
+    // isError is a type guard that allows accessing these properties:
+    maybeValidErr.isJoi;
+}
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -273,6 +303,13 @@ anySchema = Joi.any();
 
     anySchema = anySchema.default();
     anySchema = anySchema.default(x);
+    anySchema = anySchema.default("string");
+    anySchema = anySchema.default(3.14);
+    anySchema = anySchema.default(true);
+    anySchema = anySchema.default({ foo: "bar" });
+    anySchema = anySchema.default((parent, helpers) => {
+        return helpers.state;
+    });
 
     anySchema = anySchema.required();
     anySchema = anySchema.optional();
@@ -710,6 +747,7 @@ objSchema = objSchema.without(str, str);
 objSchema = objSchema.without(str, strArr);
 
 objSchema = objSchema.rename(str, str);
+objSchema = objSchema.rename(exp, str);
 objSchema = objSchema.rename(str, str, renOpts);
 
 objSchema = objSchema.assert(str, schema);
@@ -724,6 +762,8 @@ objSchema = objSchema.instance(func);
 objSchema = objSchema.instance(func, str);
 
 objSchema = objSchema.ref();
+
+objSchema = objSchema.regex();
 
 { // common
     objSchema = objSchema.allow(x);
@@ -892,7 +932,7 @@ expr = Joi.expression('{{foo}}', { adjust: (value) => value });
 expr = Joi.expression('{{foo}}', { ancestor: 3 });
 expr = Joi.expression('{{foo}}', { in: true });
 expr = Joi.expression('{{foo}}', { iterables: true });
-expr = Joi.expression('{{foo}}', { map: [[ 'key', 'value' ]] });
+expr = Joi.expression('{{foo}}', { map: [['key', 'value']] });
 expr = Joi.expression('{{foo}}', { prefix: { local: '%' } });
 expr = Joi.expression('{{foo}}', { separator: '_' });
 
@@ -901,7 +941,7 @@ expr = Joi.x('{{foo}}', { adjust: (value) => value });
 expr = Joi.x('{{foo}}', { ancestor: 3 });
 expr = Joi.x('{{foo}}', { in: true });
 expr = Joi.x('{{foo}}', { iterables: true });
-expr = Joi.x('{{foo}}', { map: [[ 'key', 'value' ]] });
+expr = Joi.x('{{foo}}', { map: [['key', 'value']] });
 expr = Joi.x('{{foo}}', { prefix: { local: '%' } });
 expr = Joi.x('{{foo}}', { separator: '_' });
 
@@ -944,6 +984,9 @@ schema = Joi.link(str);
         value = schema.validate(value).value;
 
         result = schema.validate(value);
+        if (result.error) {
+            throw Error('error should not be set');
+        }
         result = schema.validate(value, validOpts);
         asyncResult = schema.validateAsync(value);
         asyncResult = schema.validateAsync(value, validOpts);
@@ -951,7 +994,13 @@ schema = Joi.link(str);
         asyncResult
             .then(val => JSON.stringify(val, null, 2))
             .then(val => { throw new Error('one error'); })
-            .catch(e => {});
+            .catch(e => { });
+
+        const falsyValue = { username: 'example' };
+        result = schema.validate(falsyValue);
+        if (!result.error) {
+            throw Error('error should be set');
+        }
     }
 }
 
@@ -1003,11 +1052,18 @@ const Joi3 = Joi.extend({
         asd: {
             args: [
                 {
-                    name: 'allowFalse'
+                    name: 'allowFalse',
+                    ref: true,
+                    assert: Joi.boolean(),
                 }
             ],
-            method(allowFalse) {
-                this.$_createError(str, {}, {}, {}, {});
+            method(allowFalse: boolean) {
+                return this.$_addRule({
+                    name: 'asd',
+                    args: {
+                        allowFalse,
+                    }
+                });
             },
             validate(value: boolean, helpers, params, options) {
                 if (value || params.allowFalse && !value) {
@@ -1099,4 +1155,92 @@ schema = Joi.symbol();
 schema = Joi.symbol().map(new Map<string, symbol>());
 schema = Joi.symbol().map({
     key: Symbol('asd'),
+});
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+const rule = Joi.string().case('upper').$_getRule('case');
+if (rule && rule.args) {
+    const direction = rule.args.direction;
+}
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+schema = Joi.any();
+const terms = schema.$_terms;
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// Test Joi.object, Joi.append and Joi.extends (with `any` type)
+
+// should be able to append any new properties
+let anyObject = Joi.object({
+    name: Joi.string().required(),
+    family: Joi.string(),
+});
+
+anyObject = anyObject.append({
+    age: Joi.number(),
+}).append({
+    height: Joi.number(),
+});
+
+anyObject = anyObject.keys({
+    length: Joi.string()
+});
+
+// test with keys
+Joi.object().keys({
+    name: Joi.string().required(),
+    family: Joi.string(),
+}).append({
+    age: Joi.number(),
+}).append({
+    height: Joi.number(),
+}).keys({
+    length: Joi.string()
+});
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// Test generic types
+
+interface User {
+    name: string;
+    family?: string;
+    age: number;
+}
+
+const userSchemaObject = Joi.object<User>({
+    name: Joi.string().required(),
+    family: Joi.string(),
+});
+
+let userSchema = Joi.object<User>().keys({
+    name: Joi.string().required(),
+    family: Joi.string(),
+});
+
+userSchema = userSchema.append({
+    age: Joi.number(),
+});
+
+userSchema = userSchema.append({
+    height: Joi.number(), // $ExpectError
+});
+
+const userSchema2 = Joi.object<User>().keys({
+    name: Joi.string().required(),
+}).keys({
+    family: Joi.string(),
+});
+
+const userSchemaError = Joi.object<User>().keys({
+    name: Joi.string().required(),
+    family: Joi.string(),
+    height: Joi.number(), // $ExpectError
+});
+
+const userSchemaObjectError = Joi.object<User>({
+    name: Joi.string().required(),
+    family: Joi.string(),
+    height: Joi.number(), // $ExpectError
 });

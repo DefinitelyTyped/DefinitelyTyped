@@ -111,3 +111,7 @@ jexl.eval('"Guest" _= "gUeSt"');
     const binaryOp = await jexl.eval('"Guest" _= "gUeSt"');
     console.log('10. Binary Op', binaryOp); // true
 })().then(() => console.log('Testing done'));
+
+// Compile expressions
+// $ExpectType Expression
+jexl.compile('1 + 2');

@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isISRC: typeof validator.isISRC;
-export = isISRC;
+import validator from '../';
+export default validator.isISRC;

@@ -29,8 +29,7 @@ function capture(resultContainer: HTMLElement, map: H.Map, ui: H.ui.UI) {
  */
 // Step 1: initialize communication with the platform
 let platform = new H.service.Platform({
-    app_id: 'DemoAppId01082013GAL',
-    app_code: 'AJKnXv84fjrb0KIHawS0Tg',
+    apikey: '{YOUR_APIKEY}',
     useHTTPS: true,
     useCIT: true
 });
@@ -40,7 +39,7 @@ let defaultLayers = platform.createDefaultLayers();
 let mapContainer = document.getElementById('map');
 
 // Step 2: initialize a map
-let map = new H.Map(mapContainer, defaultLayers.normal.map, {
+let map = new H.Map(mapContainer, defaultLayers.vector.normal.map, {
     // initial center and zoom level of the map
     zoom: 16,
     // Champs-Elysees
@@ -81,7 +80,7 @@ captureBtn.onclick = () => {
 
 let icon = new H.map.Icon('svg', { size: 5, crossOrigin: false });
 
-let polyline = new H.map.Polyline(new H.geo.Strip());
+let polyline = new H.map.Polyline(new H.geo.LineString());
 // tslint:disable-next-line:array-type
 let clipArr: Array<Array<number>>;
 clipArr = polyline.clip(new H.geo.Rect(5, 5, 5, 5));

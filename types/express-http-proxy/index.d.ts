@@ -1,4 +1,4 @@
-// Type definitions for express-http-proxy 1.5
+// Type definitions for express-http-proxy 1.6
 // Project: https://github.com/villadora/express-http-proxy#readme
 // Definitions by:  ulrichb <https://github.com/ulrichb>
 //                  Daniel Schopf <https://github.com/Danscho>
@@ -25,7 +25,7 @@ declare namespace proxy {
             res: Response,
             next: NextFunction
         ) => any;
-        proxyReqPathResolver?: (req: Request) => string;
+        proxyReqPathResolver?: (req: Request) => string | Promise<string>;
         proxyReqOptDecorator?: (
             proxyReqOpts: RequestOptions,
             srcReq: Request
@@ -43,7 +43,11 @@ declare namespace proxy {
             userReq: Request,
             userRes: Response
         ) => Buffer | string | Promise<Buffer | string>;
-        filter?: (req: Request, res: Response) => boolean;
+        /**
+         * The filter option can be used to limit what requests are proxied.
+         * Return true to continue to execute proxy; return false-y to skip proxy for this request.
+         */
+        filter?: (req: Request, res: Response) => boolean | Promise<boolean>;
         skipToNextHandlerFilter?: (proxyRes: Response) => boolean;
         proxyReqBodyDecorator?: (bodyContent: any, srcReq: Request) => any;
         preserveHostHdr?: boolean;

@@ -17,8 +17,8 @@ interface Window {
 
 interface MochaPhantomJSOptions {
     headers?: any;
-	cookies?: any[];
-	viewportSize?: number;
+    cookies?: any[];
+    viewportSize?: number;
     timeout?: number;
     file?: string;
 }
@@ -29,7 +29,7 @@ interface MochaPhantomJS {
     mochaStartWait: number;
     startTime: Date;
     output: any;
-	
+    
     run(): void;
     customizeMocha(options: MochaPhantomJSOptions): void;    
 }

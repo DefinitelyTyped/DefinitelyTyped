@@ -6,7 +6,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -21,6 +21,7 @@
     },
     "files": [
         "index.d.ts",
-        "ejs-tests.ts"
+        "test/ejs.cjs.test.ts",
+        "test/ejs.umd.test.ts"
     ]
 }

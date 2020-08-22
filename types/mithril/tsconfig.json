@@ -31,14 +31,7 @@
         "test/test-route.ts",
         "test/test-stream.ts",
         "test/test-tsx.tsx",
-        "index.d.ts",
-        "hyperscript.d.ts",
-        "mount.d.ts",
-        "redraw.d.ts",
-        "render.d.ts",
-        "request.d.ts",
-        "route.d.ts",
-        "stream/index.d.ts"
+        "index.d.ts"
     ],
     "atom": {
         "rewriteTsconfig": false

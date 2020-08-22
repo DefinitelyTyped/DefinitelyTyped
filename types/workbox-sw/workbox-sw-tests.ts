@@ -1,16 +1,27 @@
-import WorkboxSW = require("workbox-sw");
+/* tslint:disable:comment-format no-namespace */
 
-WorkboxSW.routing.registerRoute("/", new WorkboxSW.strategies.NetworkFirst()); // $ExpectType Route
+"use strict";
 
-WorkboxSW.routing.registerRoute("/", WorkboxSW.strategies.networkFirst()); // $ExpectType Route
+//==============================================================================
+// workbox.loadModule
+//==============================================================================
 
-// $ExpectError
-WorkboxSW.precaching.precacheAndRoute(/foo/);
+export namespace LoadModuleTest {
+    declare const name: string;
 
-WorkboxSW.precaching.precacheAndRoute(["some-resource.js"], {directoryIndex: "/"}); // $ExpectType void
+    // $ExpectType void
+    workbox.loadModule(name);
+}
 
-new WorkboxSW.backgroundSync.Queue('queue-name', {
-    onSync: ({ queue }) => {
-        queue; // $ExpectType Queue
-    },
-});
+//==============================================================================
+// workbox.setConfig
+//==============================================================================
+
+export namespace SetConfigTest {
+    declare const options: workbox.WorkboxOptions;
+
+    // $ExpectType void
+    workbox.setConfig();
+    // $ExpectType void
+    workbox.setConfig(options);
+}

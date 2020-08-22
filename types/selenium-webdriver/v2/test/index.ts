@@ -657,7 +657,7 @@ function TestWebDriver() {
     booleanPromise = driver.wait(booleanPromise);
     booleanPromise = driver.wait(booleanCondition);
     booleanPromise = driver.wait((driver: webdriver.WebDriver) => true);
-    let conditionFunction: Function; // tslint:disable-line:prefer-const
+    const conditionFunction: Function = undefined!;
     booleanPromise = driver.wait(conditionFunction);
     booleanPromise = driver.wait(booleanPromise, 123);
     booleanPromise = driver.wait(booleanPromise, 123, 'Message');
@@ -789,7 +789,7 @@ function TestPromiseModule() {
     let str: string = cancellationError.message;
     str = cancellationError.name;
 
-    let stringPromise: webdriver.promise.Promise<string>;
+    let stringPromise: webdriver.promise.Promise<string> = undefined!;
     let numberPromise: webdriver.promise.Promise<number>;
     let voidPromise: webdriver.promise.Promise<void>;
 

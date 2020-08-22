@@ -1,4 +1,4 @@
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 /**
  * Higher-order component creator, creating a new component which renders with the given prop names,
@@ -11,9 +11,9 @@ import { ComponentType } from '@wordpress/element';
  *
  * ```jsx
  * function MyComponent( { isMobile } ) {
- * 	return (
- * 		<div>Currently: { isMobile ? 'Mobile' : 'Not Mobile' }</div>
- * 	);
+ *     return (
+ *         <div>Currently: { isMobile ? 'Mobile' : 'Not Mobile' }</div>
+ *     );
  * }
  *
  * MyComponent = withViewportMatch( { isMobile: '< small' } )( MyComponent );

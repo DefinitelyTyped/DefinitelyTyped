@@ -1,8 +1,8 @@
 import * as React from "react";
-import { ReactDivAttr } from "../../../typings/shared";
+import { ReactLIAttr } from "../../../typings/shared";
 import { LinkProps } from "../Link";
 
-interface InheritedProps extends ReactDivAttr {
+interface InheritedProps extends ReactLIAttr {
     href?: LinkProps["href"],
 }
 

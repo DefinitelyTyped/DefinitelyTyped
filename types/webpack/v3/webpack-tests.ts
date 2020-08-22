@@ -440,8 +440,11 @@ plugin = new webpack.optimize.UglifyJsPlugin({
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     compress: {
-        warnings: false
-    }
+        dead_code: true,
+        collapse_vars: true,
+        drop_debugger: true,
+    },
+    warnings: false,
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     sourceMap: false,

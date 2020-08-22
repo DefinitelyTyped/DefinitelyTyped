@@ -867,6 +867,9 @@ class Monster {
   }
 
   static finishMonsterBuffer(builder: flatbuffers.Builder, offset: flatbuffers.Offset) {
+    builder.finish(offset);
     builder.finish(offset, 'MONS');
+    builder.finish(offset, 'MONS', false);
+    builder.finishSizePrefixed(offset, 'MONS');
   }
 }

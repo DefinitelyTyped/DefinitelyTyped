@@ -1,7 +1,8 @@
 declare enum EventType {
-    POSTCOMPOSE = 'postcompose',
+    PRERENDER = 'prerender',
+    POSTRENDER = 'postrender',
     PRECOMPOSE = 'precompose',
-    RENDER = 'render',
+    POSTCOMPOSE = 'postcompose',
     RENDERCOMPLETE = 'rendercomplete',
 }
 

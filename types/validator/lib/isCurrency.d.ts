@@ -1,3 +1,3 @@
-import * as validator from "validator";
-declare const isCurrency: typeof validator.isCurrency;
-export = isCurrency;
+import validator from '../';
+export type IsCurrencyOptions = validator.IsCurrencyOptions;
+export default validator.isCurrency;

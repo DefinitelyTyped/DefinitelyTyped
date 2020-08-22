@@ -10,11 +10,12 @@ class App extends React.PureComponent {
         super(props);
 
         this.handleResize = this.handleResize.bind;
+        this.resizeRef = React.createRef();
     }
 
     render(): JSX.Element {
         return (
-            <div>
+            <div ref={this.resizeRef}>
                 <div>Some child content</div>
                 <ReactResizeDetector
                     onResize={this.handleResize}
@@ -26,6 +27,7 @@ class App extends React.PureComponent {
                     refreshOptions={{ leading: true, trailing: true }}
                     querySelector="someElement"
                     nodeType="span"
+                    targetDomEl={this.resizeRef.current}
                 />
                 <ReactResizeDetector handleWidth handleHeight>
                     {({ width, height }: { width: number; height: number }) => <div>{`${width}x${height}`}</div>}
@@ -51,6 +53,8 @@ class App extends React.PureComponent {
         console.log(`width = ${width}`);
         console.log(`height = ${height}`);
     }
+
+    private readonly resizeRef: React.RefObject<any>;
 }
 
 interface WrappedComponentProps {

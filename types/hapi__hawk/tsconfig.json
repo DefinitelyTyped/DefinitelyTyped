@@ -1,0 +1,59 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "paths": {
+            "@hapi/basic": [
+                "hapi__basic"
+            ],
+            "@hapi/boom": [
+                "hapi__boom"
+            ],
+            "@hapi/catbox": [
+                "hapi__catbox"
+            ],
+            "@hapi/hapi": [
+                "hapi__hapi"
+            ],
+            "@hapi/hawk": [
+                "hapi__hawk"
+            ],
+            "@hapi/iron": [
+                "hapi__iron"
+            ],
+            "@hapi/joi": [
+                "hapi__joi"
+            ],
+            "@hapi/mimos": [
+                "hapi__mimos"
+            ],
+            "@hapi/podium": [
+                "hapi__podium"
+            ],
+            "@hapi/shot": [
+                "hapi__shot"
+            ],
+            "@hapi/sntp": [
+                "hapi__sntp"
+            ]
+        },
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "hapi__hawk-tests.ts"
+    ]
+}

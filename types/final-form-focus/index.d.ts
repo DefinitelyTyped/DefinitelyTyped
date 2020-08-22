@@ -15,9 +15,11 @@ export type GetInputs = () => FocusableInput[];
 
 export type FindInput = (inputs: FocusableInput[], errors: object) => FocusableInput | undefined;
 
-export default function createDecorator(
+// tslint:disable:no-unnecessary-generics
+export default function createDecorator<FormValues = object>(
   getInputs?: GetInputs,
   findInput?: FindInput,
-): Decorator;
+): Decorator<FormValues>;
+// tslint:enable:no-unnecessary-generics
 
 export function getFormInputs(formName: string): GetInputs;

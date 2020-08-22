@@ -1,17 +1,14 @@
-// Type definitions for ftp 0.3.8
+// Type definitions for ftp 0.3.9
 // Project: https://github.com/mscdex/node-ftp
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
+//                 Nathan Rajlich <https://github.com/TooTallNate>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-
-
-
-import events = require("events");
 import tls = require("tls");
+import events = require("events");
 
 declare namespace Client {
-
     /**
      * Options for Client#connect()
      */
@@ -53,10 +50,29 @@ declare namespace Client {
          * How often (in milliseconds) to send a 'dummy' (NOOP) command to keep the connection alive. Default: 10000
          */
         keepalive?: number;
+        /**
+         * Debug function to invoke to enable debug logging.
+         */
+        debug?: (message: string) => void;
+    }
+
+    export interface FilePermissions {
+        /**
+         * An empty string or any combination of 'r', 'w', 'x'.
+         */
+        user: string;
+        /**
+         * An empty string or any combination of 'r', 'w', 'x'.
+         */
+        group: string;
+        /**
+         * An empty string or any combination of 'r', 'w', 'x'.
+         */
+        other: string;
     }
 
     /**
-     * Element returned by Client#list()
+     * Element returned by `Client#list()`
      */
     export interface ListingElement {
         /**
@@ -70,7 +86,7 @@ declare namespace Client {
         /**
          * The size of the entry in bytes
          */
-        size: string;
+        size: number;
         /**
          * The last modified date of the entry
          */
@@ -78,20 +94,7 @@ declare namespace Client {
         /**
          * The various permissions for this entry **(*NIX only)**
          */
-        rights?: {
-			/**
-			 * An empty string or any combination of 'r', 'w', 'x'.
-			 */
-            user: string;
-			/**
-			 * An empty string or any combination of 'r', 'w', 'x'.
-			 */
-            group: string;
-			/**
-			 * An empty string or any combination of 'r', 'w', 'x'.
-			 */
-            other: string;
-        };
+        rights?: Client.FilePermissions;
         /**
          * The user name or ID that this entry belongs to **(*NIX only)**.
          */
@@ -124,7 +127,6 @@ declare namespace Client {
  *                              a 'code' property that references the related 3-digit FTP response code.
  */
 declare class Client extends events.EventEmitter {
-
     /**
      * Creates and returns a new FTP client instance.
      */
@@ -233,7 +235,6 @@ declare class Client extends events.EventEmitter {
     mkdir(path: string, recursive: boolean, callback: (error: Error) => void): void;
     mkdir(path: string, callback: (error: Error) => void): void;
 
-
     /**
      * Optional "standard" commands (RFC 959)
      * Removes a directory, path, on the server. If recursive, this call will delete the contents of the directory if it is not empty
@@ -287,7 +288,6 @@ declare class Client extends events.EventEmitter {
      * Sets the file byte offset for the next file transfer action (get/put) to byteOffset
      */
     restart(byteOffset: number, callback: (error: Error) => void): void;
-
 }
 
 export = Client;

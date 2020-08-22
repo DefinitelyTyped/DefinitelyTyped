@@ -725,7 +725,7 @@ export class DocumentClient {
      * @param documentsFeedOrDatabaseLink    - The self-link of the collection.
      * @param document          - Represents the body of the document. Can contain any number of user defined properties.
      * @param [options]         - The request options.
-     * @param callback 			- The callback for the request.
+     * @param callback             - The callback for the request.
      */
     createDocument<TDocument>(documentsFeedOrDatabaseLink: string, document: NewDocument, options: DocumentOptions, callback: RequestCallback<RetrievedDocument>): void;
     createDocument<TDocument>(documentsFeedOrDatabaseLink: string, document: NewDocument, callback: RequestCallback<RetrievedDocument>): void;

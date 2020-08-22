@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { StaticContext } from 'react-router';
 
 interface TOwnProps extends RouteComponentProps {
     username: string;
@@ -51,9 +52,14 @@ const WithRouterTestClass2 = () => <WithRouterComponentClass username="John" wra
         issue: number;
     }
 
-    type SomethingToRead = (Book | Magazine) & RouteComponentProps;
+    interface State { foo: number; }
+
+    type SomethingToRead = (Book | Magazine) & RouteComponentProps<{}, StaticContext, State>;
 
     const Readable: React.SFC<SomethingToRead> = props => {
+        props.location.state; // $ExpectType State
+        props.history.location.state; // $ExpectType State
+
         if (props.kind === 'magazine') {
             return <div>magazine #{props.issue}</div>;
         }

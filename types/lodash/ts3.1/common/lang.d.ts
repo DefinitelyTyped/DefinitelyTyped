@@ -838,7 +838,6 @@ declare module "../index" {
         isMap(): PrimitiveChain<boolean>;
     }
 
-    type isMatchCustomizer = (value: any, other: any, indexOrKey?: PropertyName) => boolean;
     interface LoDashStatic {
         /**
          * Performs a deep comparison between `object` and `source` to determine if
@@ -875,7 +874,7 @@ declare module "../index" {
         isMatch(source: object): PrimitiveChain<boolean>;
     }
 
-    type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName, object: object, source: object) => boolean;
+    type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName, object: object, source: object) => boolean | undefined;
     interface LoDashStatic {
         /**
          * This method is like `_.isMatch` except that it accepts `customizer` which
@@ -1251,7 +1250,7 @@ declare module "../index" {
          * _.isSymbol('abc');
          * // => false
          */
-        isSymbol(value: any): boolean;
+        isSymbol(value: any): value is symbol;
     }
     interface LoDashImplicitWrapper<TValue> {
         /**

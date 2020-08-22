@@ -351,6 +351,12 @@ declare const Buffer: {
     from(data: any[]): Buffer;
     from(data: Uint8Array): Buffer;
     /**
+     * Creates a new buffer containing the coerced value of an object
+     * A `TypeError` will be thrown if {obj} has not mentioned methods or is not of other type appropriate for `Buffer.from()` variants.
+     * @param obj An object supporting `Symbol.toPrimitive` or `valueOf()`.
+     */
+    from(obj: { valueOf(): string | object } | { [Symbol.toPrimitive](hint: 'string'): string }, byteOffset?: number, length?: number): Buffer;
+    /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
      * If not provided, {encoding} defaults to 'utf8'.
@@ -686,6 +692,7 @@ declare namespace NodeJS {
         destroy(error?: Error): void;
     }
     interface ReadStream extends Socket {
+        readonly readableFlowing: boolean | null;
         readonly readableHighWaterMark: number;
         readonly readableLength: number;
         isRaw?: boolean;
@@ -837,6 +844,7 @@ declare namespace NodeJS {
         on(event: "newListener", listener: NewListenerListener): this;
         on(event: "removeListener", listener: RemoveListenerListener): this;
         on(event: "multipleResolves", listener: MultipleResolveListener): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
         once(event: "beforeExit", listener: BeforeExitListener): this;
         once(event: "disconnect", listener: DisconnectListener): this;

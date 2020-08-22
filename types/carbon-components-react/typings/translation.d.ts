@@ -4,18 +4,18 @@ import {
     TableHeaderTranslationKey,
     TableToolbarTranslationKey,
 } from '../lib/components/DataTable';
-import { ListBoxFieldTranslationKey } from '../lib/components/ListBox/ListBoxField';
 import { ListBoxMenuIconTranslationKey } from '../lib/components/ListBox/ListBoxMenuIcon';
 import { ListBoxSelectionTranslationKey } from '../lib/components/ListBox/ListBoxSelection';
 import { NumberInputTranslationKey } from '../lib/components/NumberInput';
 import { SideNavTranslationKey } from '../lib/components/UIShell/SideNav';
+import { ProgressStepTranslationKey } from "../lib/components/ProgressIndicator";
 
 export type CarbonTranslationKey =
     DataTableTranslationKey
-    | ListBoxFieldTranslationKey
     | ListBoxMenuIconTranslationKey
     | ListBoxSelectionTranslationKey
     | NumberInputTranslationKey
+    | ProgressStepTranslationKey
     | SideNavTranslationKey
     | TableBatchActionsTranslationKey
     | TableHeaderTranslationKey

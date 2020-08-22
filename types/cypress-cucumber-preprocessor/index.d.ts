@@ -1,6 +1,8 @@
 // Type definitions for cypress-cucumber-preprocessor 1.14
 // Project: https://github.com/TheBrainFamily/cypress-cucumber-preprocessor
-// Definitions by: Alec Brunelle <https://github.com/aleccool213>, Falcon Taylor-Carter <https://github.com/falconertc>
+// Definitions by: Alec Brunelle <https://github.com/aleccool213>
+//                 Falcon Taylor-Carter <https://github.com/falconertc>
+//                 Jens Peters <https://github.com/jp7677>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 

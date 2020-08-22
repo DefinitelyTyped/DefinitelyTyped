@@ -9,6 +9,16 @@ mixpanel.track_links('#nav', 'Clicked Nav Link');
 mixpanel.track_forms('#register', 'Created Account');
 mixpanel.time_event('Registered');
 mixpanel.track('Registered', {Gender: 'Male', Age: 21});
+mixpanel.track('Left page', {duration_seconds: 35}, {transport: 'sendBeacon'});
+mixpanel.track('Left page', { duration_seconds: 35 }, () => { /* callback function */ });
+mixpanel.track('Left page', { duration_seconds: 35 }, { transport: 'sendBeacon' }, () => { /* callback function */ });
+mixpanel.track('Left page', { duration_seconds: 35 }, (response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
 mixpanel.register({Gender: 'Female'});
 mixpanel.register({
   Email: 'jdoe@example.com',
@@ -51,41 +61,195 @@ mixpanel.clear_opt_in_out_tracking({
     secure_cookie: true
 });
 mixpanel.people.set('gender', 'm');
+mixpanel.people.set('gender', 'm', (response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
 mixpanel.people.set({
     Company: 'Acme',
     Plan: 'Premium',
     'Upgrade date': new Date()
 });
+mixpanel.people.set({
+    Company: 'Acme',
+    Plan: 'Premium',
+    'Upgrade date': new Date()
+}, (response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
+
 mixpanel.people.set_once('First Login Date', new Date());
+mixpanel.people.set_once('First Login Date', new Date(), (response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
 mixpanel.people.set_once({
     'First Login Date': new Date(),
     'Starting Plan': 'Premium'
 });
+mixpanel.people.set_once({
+    'First Login Date': new Date(),
+    'Starting Plan': 'Premium'
+}, (response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
+
 mixpanel.people.unset('gender');
 mixpanel.people.unset(['gender', 'Company']);
+mixpanel.people.unset(['gender', 'Company'], (response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
+
 mixpanel.people.increment('page_views', 1);
+mixpanel.people.increment('page_views', 1, (response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
 mixpanel.people.increment('page_views');
+mixpanel.people.increment('page_views', (response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
 mixpanel.people.increment('credits_left', -1);
 mixpanel.people.increment({
     counter1: 1,
     counter2: 6
 });
+mixpanel.people.increment({
+    counter1: 1,
+    counter2: 6
+}, (response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
+
+mixpanel.people.remove('School', 'UCB');
+mixpanel.people.remove('School', 'UCB', (response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
+mixpanel.people.remove({
+    School: 'UCB',
+});
+mixpanel.people.remove({
+    School: 'UCB',
+}, (response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
+
 mixpanel.people.append('pages_visited', 'homepage');
+mixpanel.people.append('pages_visited', 'homepage', (response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
 mixpanel.people.append({
     list1: 'bob',
     list2: 123
 });
+mixpanel.people.append({
+    list1: 'bob',
+    list2: 123
+}, (response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
+
 mixpanel.people.union('pages_visited', 'homepage');
+mixpanel.people.union('pages_visited', 'homepage', (response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
 mixpanel.people.union({
     list1: 'bob',
     list2: 123
 });
 mixpanel.people.union({
+    list1: 'bob',
+    list2: 123
+}, (response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
+mixpanel.people.union({
     list1: ['bob', 'billy']
 });
+
 mixpanel.people.track_charge(50);
+mixpanel.people.track_charge(50, (response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
 mixpanel.people.track_charge(30.50, {
     $time: new Date('jan 1 2012')
 });
+mixpanel.people.track_charge(30.50, {
+    $time: new Date('jan 1 2012')
+}, (response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
+
 mixpanel.people.clear_charges();
+mixpanel.people.clear_charges((response) => {
+    if (response === 1) {
+    } else if (response === 0) {
+    } else if (response.status === 1 && response.error === null) {
+    } else if (response.status === 0 && response.error.includes('bad')) {
+    }
+});
 mixpanel.people.delete_user();
+mixpanel.init('YOUR PROJECT TOKEN', {
+    ignore_dnt: true,
+});

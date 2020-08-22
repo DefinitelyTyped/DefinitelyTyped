@@ -1,3 +1,5 @@
+import { Json2CsvTransform } from './transforms';
+
 export declare namespace json2csv {
     export interface FieldValueCallbackInfo {
         label: string;
@@ -18,24 +20,26 @@ export declare namespace json2csv {
         label?: string;
         default?: string;
         value: string | FieldValueCallback<T>;
-        stringify?: boolean;
+    }
+
+    export interface NormalizedFieldInfo<T> {
+        label: string;
+        value: FieldValueCallback<T>;
     }
 
     export interface Options<T> {
         fields?: Array<string | FieldInfo<T>>;
         ndjson?: boolean;
-        unwind?: string | Array<string>;
-        unwindBlank?: boolean;
-        flatten?: boolean;
         defaultValue?: string;
         quote?: string;
-        doubleQuote?: string;
+        escapedQuote?: string;
         delimiter?: string;
         eol?: string;
         excelStrings?: boolean;
         header?: boolean;
         includeEmptyRows?: boolean;
         withBOM?: boolean;
+        transforms?: Array<Json2CsvTransform<any, any>>;
     }
 }
 
@@ -50,6 +54,15 @@ declare abstract class JSON2CSVBase<T> {
      * @returns {json2csv.Options} preprocessed Options object
      */
     protected preprocessOpts(opts?: json2csv.Options<T>) : json2csv.Options<T>;
+
+    /**
+     * Check and normalize the fields configuration.
+     *
+     * @param {(string|json2csv.FieldInfo)[]} fields Fields configuration provided by the user
+     * or inferred from the data
+     * @returns {json2csv.NormalizedFieldInfo} preprocessed FieldsInfo array
+     */
+    preprocessFieldsInfo<T>(fields: Array<string | json2csv.FieldInfo<T>>): Array<json2csv.NormalizedFieldInfo<T>>;
 
     /**
      * Create the title row with all the provided fields as column headings
@@ -80,43 +93,15 @@ declare abstract class JSON2CSVBase<T> {
      * @param {object} fieldInfo Details of the field to process to be a CSV cell
      * @returns {string} CSV string (cell)
      */
-    protected processCell(row: T, fieldInfo: json2csv.FieldInfo<T>) : string;
-
-    /**
-     * Create the content of a specfic CSV row cell
-     *
-     * @param {object} row JSON object representing the  CSV row that the cell belongs to
-     * @param {json2csv.FieldInfo} fieldInfo Details of the field to process to be a CSV cell
-     * @returns {any} Field value
-     */
-    protected getValue(row: T, fieldInfo: json2csv.FieldInfo<T>): any;
+    protected processCell(row: T, fieldInfo: json2csv.NormalizedFieldInfo<T>) : string;
 
     /**
      * Create the content of a specfic CSV row cell
      *
      * @param {any} value Value to be included in a CSV cell
-     * @param {Boolean} stringify Details of the field to process to be a CSV cell
      * @returns {string} Value stringified and processed
      */
-    protected processValue(value: any, stringify: Boolean): string;
-
-    /**
-     * Performs the flattening of a data row recursively
-     *
-     * @param {object} dataRow Original JSON object
-     * @param {string} separator Separator to be used as the flattened field name
-     * @returns {object} Flattened object
-     */
-    protected flatten(dataRow: T, separator: string): object;
-
-    /**
-     * Performs the unwind recursively in specified sequence
-     *
-     * @param {object[]} dataRow Original JSON object
-     * @param {string[]} unwindPaths The paths as strings to be used to deconstruct the array
-     * @returns {Array} Array of objects containing all rows after unwind of chosen paths
-     */
-    protected unwindData(dataRow: Array<T>, unwindPaths: Array<string>): Array<object>;
+    protected processValue(value: any): string;
 }
 
 export default JSON2CSVBase;

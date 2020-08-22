@@ -1,13 +1,14 @@
-// Type definitions for non-npm package Atom 1.36
+// Type definitions for non-npm package Atom 1.40
 // Project: https://github.com/atom/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
 //                 lierdakil <https://github.com/lierdakil>
+//                 aminya <https://github.com/aminya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // NOTE: only those classes exported within this file should be retain that status below.
-// https://github.com/atom/atom/blob/v1.36.0/exports/atom.js
+// https://github.com/atom/atom/blob/v1.40.0/exports/atom.js
 
 /// <reference types="node" />
 
@@ -121,20 +122,26 @@ export interface AtomEnvironment {
     /** Returns a boolean that is true if the current window is running specs. */
     inSpecMode(): boolean;
 
+    /** Get the full name of this Atom release (e.g. "Atom", "Atom Beta") */
+    getAppName(): string;
+
     /** Get the version of the Atom application. */
     getVersion(): string;
 
     /**
      *  Gets the release channel of the Atom application.
-     *  Returns the release channel, which can be 'dev', 'beta', or 'stable'.
+     *  Returns the release channel, which can be 'dev', 'nightly', 'beta', or 'stable'.
      */
-    getReleaseChannel(): "dev"|"beta"|"stable";
+    getReleaseChannel(): "dev"|"nightly"|"beta"|"stable";
 
     /** Returns a boolean that is true if the current version is an official release. */
     isReleasedVersion(): boolean;
 
     /** Get the time taken to completely load the current window. */
     getWindowLoadTime(): number;
+
+    /** Get the all the markers with the information about startup time. */
+    getStartupMarkers(): TimingMarker[];
 
     /** Get the load settings for the current window. */
     getLoadSettings(): WindowLoadSettings;
@@ -198,6 +205,23 @@ export interface AtomEnvironment {
 
     /** Toggle the full screen state of the current window. */
     toggleFullScreen(): void;
+
+    /**
+     * Restores the full screen and maximized state after the window has resized to prevent resize
+     * glitches.
+     */
+    displayWindow(): Promise<undefined>;
+
+    /** Get the dimensions of this window. */
+    getWindowDimensions(): { x: number, y: number, width: number, height: number };
+
+    /** Set the dimensions of the window. */
+    setWindowDimensions(dimensions: {
+        x?: number,
+        y?: number,
+        width?: number,
+        height?: number
+    }): Promise<object>;
 
     // Messaging the User
     /** Visually and audibly trigger a beep. */
@@ -2952,7 +2976,7 @@ export interface Workspace {
         item: T,
         visible?: boolean,
         priority?: number,
-        autoFocus?: boolean,
+        autoFocus?: boolean | FocusableHTMLElement,
     }): Panel<T>;
 
     /**
@@ -4650,6 +4674,7 @@ export interface Selection {
 
     /** Modifies the buffer Range for the selection. */
     setBufferRange(bufferRange: RangeCompatible, options?: {
+        reversed?: boolean,
         preserveFolds?: boolean,
         autoscroll?: boolean,
     }): void;
@@ -5223,7 +5248,10 @@ export class TextBuffer {
     /** Determine whether the buffer is empty. */
     isEmpty(): boolean;
 
-    /** Get the entire text of the buffer. */
+    /**
+     *  Get the entire text of the buffer. Avoid using this unless you know that
+     *  the buffer's text is reasonably short.
+     */
     getText(): string;
 
     /** Get the text in a range. */
@@ -5677,7 +5705,7 @@ export interface CursorPositionChangedEvent {
     newBufferPosition: Point;
     newScreenPosition: Point;
     textChanged: boolean;
-    cursor:	Cursor;
+    cursor: Cursor;
 }
 
 export interface DecorationPropsChangedEvent {
@@ -5968,7 +5996,7 @@ export interface TextEditorObservedEvent {
 // information under certain contexts.
 
 // NOTE: the config schema with these defaults can be found here:
-//   https://github.com/atom/atom/blob/v1.36.0/src/config-schema.js
+//   https://github.com/atom/atom/blob/v1.40.0/src/config-schema.js
 /**
  *  Allows you to strongly type Atom configuration variables. Additional key:value
  *  pairings merged into this interface will result in configuration values under
@@ -6083,7 +6111,7 @@ export interface ConfigValues {
      */
     "core.fileSystemWatcher": "native"|"experimental"|"poll"|"atom";
 
-    /** Experimental: Use the new Tree-sitter parsing system for supported languages. */
+    /** Use the new Tree-sitter parsing system for supported languages. */
     "core.useTreeSitterParsers": boolean;
 
     /**
@@ -6387,7 +6415,7 @@ export interface CopyMarkerOptions {
      */
     exclusive?: boolean;
 
-    /** -DEPRECATED- Custom properties to be associated with the marker. */
+    /** Custom properties to be associated with the marker. */
     properties?: object;
 }
 
@@ -6841,6 +6869,14 @@ export interface JQueryCompatible<Element extends Node = HTMLElement> extends It
     jquery: string;
 }
 
+/**
+ *  The type used by the `focus-trap` library to target a specific DOM node.
+ *
+ *  A DOM node, a selector string (which will be passed to `document.querySelector()`
+ *  to find the DOM node), or a function that returns a DOM node.
+ */
+export type FocusableHTMLElement = HTMLElement | string | { (): HTMLElement };
+
 /** The types usable when constructing a point via the Point::fromObject method. */
 export type PointCompatible = PointLike|[number, number];
 
@@ -7059,6 +7095,11 @@ export interface TextChange {
     newText: string;
     oldText: string;
     start: Point;
+}
+
+export interface TimingMarker {
+    label: string;
+    time: number;
 }
 
 /** Result returned by `Grammar.tokenizeLine`. */

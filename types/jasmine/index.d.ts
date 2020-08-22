@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 3.4
+// Type definitions for Jasmine 3.5
 // Project: http://jasmine.github.io
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
@@ -10,13 +10,14 @@
 //                 Giles Roadnight <https://github.com/Roaders>
 //                 Yaroslav Admin <https://github.com/devoto13>
 //                 Domas Trijonis <https://github.com/fdim>
-//                 Peter Safranek <https://github.com/pe8ter>
 //                 Moshe Kolodny <https://github.com/kolodny>
 //                 Stephen Farrar <https://github.com/stephenfarrar>
-//                 Mochamad Arfin <https://github.com/ndunks>
 //                 Alex Povar <https://github.com/zvirja>
+//                 Dominik Ehrenberg <https://github.com/djungowski>
+//                 Chives <https://github.com/chivesrs>
+//                 kirjs <https://github.com/kirjs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
 /**
@@ -112,7 +113,7 @@ declare function afterAll(action: jasmine.ImplementationCallback, timeout?: numb
  * @checkReturnValue see https://tsetse.info/check-return-value
  * @param spy
  */
-declare function expect(spy: Function): jasmine.Matchers<any>;
+declare function expect<T extends jasmine.Func>(spy: T | jasmine.Spy<T>): jasmine.FunctionMatchers<T>;
 
 /**
  * Create an expectation for a spec.
@@ -141,7 +142,7 @@ declare function expect(): jasmine.NothingMatcher;
  * @checkReturnValue see https://tsetse.info/check-return-value
  * @param actual - Actual computed value to test expectations against.
  */
-declare function expectAsync<T, U>(actual: PromiseLike<T>): jasmine.AsyncMatchers<T, U>;
+declare function expectAsync<T, U>(actual: T|Promise<T>): jasmine.AsyncMatchers<T, U>;
 
 /**
  * Explicitly mark a spec as failed.
@@ -164,7 +165,13 @@ interface DoneFn extends Function {
  * @param object The object upon which to install the `Spy`.
  * @param method The name of the method to replace with a `Spy`.
  */
-declare function spyOn<T>(object: T, method: keyof T): jasmine.Spy;
+declare function spyOn<T, K extends keyof T = keyof T>(
+    object: T, method: T[K] extends Function ? K : never,
+): jasmine.Spy<
+    T[K] extends jasmine.Func ? T[K] :
+    T[K] extends { new (...args: infer A): infer V } ? (...args: A) => V :
+    never
+>;
 
 /**
  * Install a spy on a property installed with `Object.defineProperty` onto an existing object.
@@ -203,6 +210,25 @@ declare namespace jasmine {
         T extends undefined ?
             (ReadonlyArray<string> | { [methodName: string]: any }) :
             (ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] extends Func ? ReturnType<T[P]> : any });
+
+    type SpyObjPropertyNames<T = undefined> =
+        T extends undefined ?
+                (ReadonlyArray<string> | { [propertyName: string]: any }) :
+                (ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] });
+
+    /**
+     * Configuration that can be used when configuring Jasmine via {@link jasmine.Env.configure}
+     */
+    interface EnvConfiguration {
+        random?: boolean;
+        seed?: number;
+        failFast?: boolean;
+        failSpecWithNoExpectations?: boolean;
+        oneFailurePerSpec?: boolean;
+        hideDisabled?: boolean;
+        specFilter?: Function;
+        promise?: Function;
+    }
 
     function clock(): Clock;
 
@@ -244,14 +270,14 @@ declare namespace jasmine {
 
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
-    function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
-    function createSpy(name?: string, originalFn?: Function): Spy;
+    function objectContaining<T>(sample: {[K in keyof T]?: ExpectedRecursive<T[K]>}): ObjectContaining<T>;
 
-    function createSpyObj(baseName: string, methodNames: SpyObjMethodNames): any;
-    function createSpyObj<T>(baseName: string, methodNames: SpyObjMethodNames<T>): SpyObj<T>;
-
-    function createSpyObj(methodNames: SpyObjMethodNames): any;
-    function createSpyObj<T>(methodNames: SpyObjMethodNames<T>): SpyObj<T>;
+    function setDefaultSpyStrategy<Fn extends Func = Func>(and: SpyAnd<Fn>): void;
+    function createSpy<Fn extends Func>(name?: string, originalFn?: Fn): Spy<Fn>;
+    function createSpyObj(baseName: string, methodNames: SpyObjMethodNames, propertyNames?: SpyObjPropertyNames): any;
+    function createSpyObj<T>(baseName: string, methodNames: SpyObjMethodNames<T>, propertyNames?: SpyObjPropertyNames<T>): SpyObj<T>;
+    function createSpyObj(methodNames: SpyObjMethodNames, propertyNames?: SpyObjPropertyNames): any;
+    function createSpyObj<T>(methodNames: SpyObjMethodNames<T>, propertyNames?: SpyObjPropertyNames<T>): SpyObj<T>;
 
     function pp(value: any): string;
 
@@ -260,6 +286,7 @@ declare namespace jasmine {
     function addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
 
     function addMatchers(matchers: CustomMatcherFactories): void;
+    function addAsyncMatchers(matchers: CustomAsyncMatcherFactories): void;
 
     function stringMatching(str: string | RegExp): AsymmetricMatcher<string>;
 
@@ -288,7 +315,7 @@ declare namespace jasmine {
         new?(sample: ArrayLike<T>): ArrayLike<T>;
     }
 
-    interface ObjectContaining<T> extends AsymmetricMatcher<any> {
+    interface ObjectContaining<T> extends AsymmetricMatcher<T> {
         new?(sample: {[K in keyof T]?: any}): {[K in keyof T]?: any};
 
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
@@ -327,10 +354,23 @@ declare namespace jasmine {
         negativeCompare?(actual: any, ...expected: any[]): CustomMatcherResult;
     }
 
+    interface CustomAsyncMatcher {
+        compare<T>(actual: T, expected: T, ...args: any[]): Promise<CustomMatcherResult>;
+        compare(actual: any, ...expected: any[]): Promise<CustomMatcherResult>;
+        negativeCompare?<T>(actual: T, expected: T, ...args: any[]): Promise<CustomMatcherResult>;
+        negativeCompare?(actual: any, ...expected: any[]): Promise<CustomMatcherResult>;
+    }
+
     type CustomMatcherFactory = (util: MatchersUtil, customEqualityTesters: ReadonlyArray<CustomEqualityTester>) => CustomMatcher;
 
+    type CustomAsyncMatcherFactory = (util: MatchersUtil, customEqualityTesters: ReadonlyArray<CustomEqualityTester>) => CustomAsyncMatcher;
+
     interface CustomMatcherFactories {
-        [index: string]: CustomMatcherFactory;
+        [name: string]: CustomMatcherFactory;
+    }
+
+    interface CustomAsyncMatcherFactories {
+        [name: string]: CustomAsyncMatcherFactory;
     }
 
     interface CustomMatcherResult {
@@ -372,14 +412,28 @@ declare namespace jasmine {
         addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
         addMatchers(matchers: CustomMatcherFactories): void;
         specFilter(spec: Spec): boolean;
+        /**
+         * @deprecated Use oneFailurePerSpec option in {@link jasmine.Env.configure} instead.
+         */
         throwOnExpectationFailure(value: boolean): void;
+        /**
+         * @deprecated Use failFast option in {@link jasmine.Env.configure} instead.
+         */
+        stopOnSpecFailure(value: boolean): void;
+        /**
+         * @deprecated Use seed option in {@link jasmine.Env.configure} instead.
+         */
         seed(seed: string | number): string | number;
         provideFallbackReporter(reporter: Reporter): void;
         throwingExpectationFailures(): boolean;
         allowRespy(allow: boolean): void;
         randomTests(): boolean;
+        /**
+         * @deprecated Use random option in {@link jasmine.Env.configure} instead.
+         */
         randomizeTests(b: boolean): void;
         clearReporters(): void;
+        configure(configuration: EnvConfiguration): void;
     }
 
     interface FakeTimer {
@@ -538,8 +592,10 @@ declare namespace jasmine {
         toBeNaN(): boolean;
         toBeTruthy(expectationFailOutput?: any): boolean;
         toBeFalsy(expectationFailOutput?: any): boolean;
+        toBeTrue(): boolean;
+        toBeFalse(): boolean;
         toHaveBeenCalled(): boolean;
-        toHaveBeenCalledBefore(expected: Spy): boolean;
+        toHaveBeenCalledBefore(expected: Func): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
         toHaveBeenCalledTimes(expected: number): boolean;
         toContain(expected: any, expectationFailOutput?: any): boolean;
@@ -554,6 +610,7 @@ declare namespace jasmine {
         toThrowMatching(predicate: (thrown: any) => boolean): boolean;
         toBeNegativeInfinity(expectationFailOutput?: any): boolean;
         toBePositiveInfinity(expectationFailOutput?: any): boolean;
+        toBeInstanceOf(expected: Constructor): boolean;
 
         /**
          * Expect the actual value to be a DOM element that has the expected class.
@@ -612,6 +669,23 @@ declare namespace jasmine {
         not: ArrayLikeMatchers<T>;
     }
 
+    type MatchableArgs<Fn> = Fn extends (...args: infer P) => any ? { [K in keyof P]: P[K] | AsymmetricMatcher<any> } : never;
+
+    interface FunctionMatchers<Fn extends Func> extends Matchers<any> {
+        toHaveBeenCalledWith(...params: MatchableArgs<Fn>): boolean;
+
+        /**
+         * Add some context for an expect.
+         * @param message - Additional context to show when the matcher fails.
+         */
+        withContext(message: string): FunctionMatchers<Fn>;
+
+        /**
+         * Invert the matcher following this expect.
+         */
+        not: FunctionMatchers<Fn>;
+    }
+
     interface NothingMatcher {
         nothing(): void;
     }
@@ -621,25 +695,38 @@ declare namespace jasmine {
          * Expect a promise to be resolved.
          * @param expectationFailOutput
          */
-        toBeResolved(expectationFailOutput?: any): PromiseLike<void>;
+        toBeResolved(expectationFailOutput?: any): Promise<void>;
 
         /**
          * Expect a promise to be rejected.
          * @param expectationFailOutput
          */
-        toBeRejected(expectationFailOutput?: any): PromiseLike<void>;
+        toBeRejected(expectationFailOutput?: any): Promise<void>;
 
         /**
          * Expect a promise to be resolved to a value equal to the expected, using deep equality comparison.
          * @param expected - Value that the promise is expected to resolve to.
          */
-        toBeResolvedTo(expected: Expected<T>): PromiseLike<void>;
+        toBeResolvedTo(expected: Expected<T>): Promise<void>;
 
         /**
          * Expect a promise to be rejected with a value equal to the expected, using deep equality comparison.
          * @param expected - Value that the promise is expected to be rejected with.
          */
-        toBeRejectedWith(expected: Expected<U>): PromiseLike<void>;
+        toBeRejectedWith(expected: Expected<U>): Promise<void>;
+
+        /**
+         * Expect a promise to be rejected with a value matched to the expected.
+         * @param expected - Error constructor the object that was thrown needs to be an instance of. If not provided, Error will be used.
+         * @param message - The message that should be set on the thrown Error.
+         */
+        toBeRejectedWithError(expected?: new (...args: any[]) => Error, message?: string | RegExp): Promise<void>;
+
+        /**
+         * Expect a promise to be rejected with a value matched to the expected.
+         * @param message - The message that should be set on the thrown Error.
+         */
+        toBeRejectedWithError(message?: string | RegExp): Promise<void>;
 
         /**
          * Add some context for an expect.
@@ -801,61 +888,86 @@ declare namespace jasmine {
         execute(): void;
     }
 
-    interface Spy {
-        (...params: any[]): any;
+    interface Spy<Fn extends Func = Func> {
+        (...params: Parameters<Fn>): ReturnType<Fn>;
 
-        and: SpyAnd;
-        calls: Calls;
-        withArgs(...args: any[]): Spy;
+        and: SpyAnd<Fn>;
+        calls: Calls<Fn>;
+        withArgs(...args: MatchableArgs<Fn>): Spy<Fn>;
     }
 
     type SpyObj<T> = T & {
-        [K in keyof T]: T[K] extends Function ? T[K] & Spy : T[K];
+        [K in keyof T]: T[K] extends Func ? T[K] & Spy<T[K]> : T[K];
     };
 
-    interface SpyAnd {
+    /**
+     * It's like SpyObj, but doesn't verify argument/return types for functions.
+     * Useful if TS cannot correctly infer type for complex objects.
+     */
+    type NonTypedSpyObj<T> = SpyObj<{ [K in keyof T]: T[K] extends Func ? Func : T[K] }>;
+
+    /**
+     * Obtains the promised type that a promise-returning function resolves to.
+     */
+    type PromisedReturnType<Fn extends Func> =
+        Fn extends ((...args: any[]) => PromiseLike<infer TResult>) ? TResult : never;
+
+    /**
+     * Obtains the type that a promise-returning function can be rejected with.
+     * This is so we can use .and.rejectWith() only for functions that return a promise.
+     */
+    type PromisedRejectType<Fn extends Function> =
+        Fn extends ((...args: any[]) => PromiseLike<unknown>) ? any : never;
+
+    interface SpyAnd<Fn extends Func> {
         identity: string;
 
         /** By chaining the spy with and.callThrough, the spy will still track all calls to it but in addition it will delegate to the actual implementation. */
-        callThrough(): Spy;
+        callThrough(): Spy<Fn>;
         /** By chaining the spy with and.returnValue, all calls to the function will return a specific value. */
-        returnValue(val: any): Spy;
+        returnValue(val: ReturnType<Fn>): Spy<Fn>;
         /** By chaining the spy with and.returnValues, all calls to the function will return specific values in order until it reaches the end of the return values list. */
-        returnValues(...values: any[]): Spy;
+        returnValues(...values: Array<ReturnType<Fn>>): Spy<Fn>;
         /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied function. */
-        callFake(fn: Function): Spy;
+        callFake(fn: Fn): Spy<Fn>;
+        /** Tell the spy to return a promise resolving to the specified value when invoked. */
+        resolveTo(val?: PromisedReturnType<Fn>): Spy<Fn>;
+        /** Tell the spy to return a promise rejecting with the specified value when invoked. */
+        rejectWith(val?: PromisedRejectType<Fn>): Spy<Fn>;
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
-        throwError(msg: string): Spy;
+        throwError(msg: string | Error): Spy;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */
         stub(): Spy;
     }
 
-    interface Calls {
+    interface Calls<Fn extends Func> {
         /** By chaining the spy with calls.any(), will return false if the spy has not been called at all, and then true once at least one call happens. */
         any(): boolean;
         /** By chaining the spy with calls.count(), will return the number of times the spy was called */
         count(): number;
         /** By chaining the spy with calls.argsFor(), will return the arguments passed to call number index */
-        argsFor(index: number): any[];
+        argsFor(index: number): Parameters<Fn>;
         /** By chaining the spy with calls.allArgs(), will return the arguments to all calls */
-        allArgs(): any[];
+        allArgs(): ReadonlyArray<Parameters<Fn>>;
         /** By chaining the spy with calls.all(), will return the context (the this) and arguments passed all calls */
-        all(): CallInfo[];
+        all(): ReadonlyArray<CallInfo<Fn>>;
         /** By chaining the spy with calls.mostRecent(), will return the context (the this) and arguments for the most recent call */
-        mostRecent(): CallInfo;
+        mostRecent(): CallInfo<Fn>;
         /** By chaining the spy with calls.first(), will return the context (the this) and arguments for the first call */
-        first(): CallInfo;
+        first(): CallInfo<Fn>;
         /** By chaining the spy with calls.reset(), will clears all tracking for a spy */
         reset(): void;
+        /** Set this spy to do a shallow clone of arguments passed to each invocation. */
+        saveArgumentsByValue(): void;
     }
 
-    interface CallInfo {
+    interface CallInfo<Fn extends Func> {
         /** The context (the this) for the call */
         object: any;
         /** All arguments passed to the call */
-        args: any[];
+        args: Parameters<Fn>;
         /** The return value of the call */
-        returnValue: any;
+        returnValue: ReturnType<Fn>;
     }
 
     interface Util {

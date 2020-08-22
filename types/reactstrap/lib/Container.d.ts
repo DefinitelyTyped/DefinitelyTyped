@@ -4,7 +4,7 @@ import { CSSModule } from '../index';
 export interface ContainerProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
     tag?: string | React.ReactType;
-    fluid?: boolean;
+    fluid?: boolean | string;
     className?: string;
     cssModule?: CSSModule;
 }

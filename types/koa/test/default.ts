@@ -25,7 +25,7 @@ app.context.logger = {
 app.use((ctx, next) => {
     ctx.state.stateProperty = false;
     return next();
-})
+});
 
 app.use<{ a: boolean }>(async (ctx, next) => {
     ctx.state.a = true;
@@ -48,6 +48,20 @@ app.use((ctx, next) => {
 app.use(ctx => {
     ctx.body = 'Hello World';
     ctx.body = ctx.URL.toString();
+    ctx.attachment();
+    ctx.attachment('path/to/tobi.png');
+    ctx.attachment('path/to/tobi.png', {
+        type: 'inline',
+    });
+});
+
+app.on('error', error => {
+    if (error instanceof Koa.HttpError) {
+        // $ExpectType number
+        error.status;
+        throw error;
+    }
+    throw error;
 });
 
 app.listen(3000);

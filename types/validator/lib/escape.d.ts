@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const escape: typeof validator.escape;
-export = escape;
+import validator from '../';
+export default validator.escape;

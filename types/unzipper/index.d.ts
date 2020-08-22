@@ -81,7 +81,7 @@ export interface CentralDirectory {
     offsetToStartOfCentralDirectory: number;
     commentLength: number;
     files: File[];
-    extract: (opts: ParseOptions) => ParseStream;
+    extract: (opts: ParseOptions) => Promise<void>;
 }
 
 export interface File {
@@ -116,6 +116,7 @@ export interface ParseOptions {
     verbose?: boolean;
     path?: string;
     concurrency?: number;
+    forceStream?: boolean;
 }
 
 export type ParseStream = PullStream & {
@@ -123,5 +124,5 @@ export type ParseStream = PullStream & {
 };
 
 export function Parse(opts?: ParseOptions): ParseStream;
-export function ParseOne(match: RegExp, opts: ParseOptions): Duplex;
+export function ParseOne(match?: RegExp, opts?: ParseOptions): Duplex;
 export function Extract(opts?: ParseOptions): ParseStream;

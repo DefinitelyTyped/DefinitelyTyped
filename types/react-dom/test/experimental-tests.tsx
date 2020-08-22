@@ -1,8 +1,9 @@
 import React = require('react');
 import ReactDOM = require('react-dom');
+import 'react-dom/experimental';
 
 function createRoot() {
-    const root = ReactDOM.createRoot(document);
+    const root = ReactDOM.unstable_createRoot(document);
 
     // NOTE: I don't know yet how to use this; this is just the type it expects
     // in reality it will do nothing because the root isn't hydrate: true
@@ -14,7 +15,7 @@ function createRoot() {
 }
 
 function createBlockingRoot() {
-    const root = ReactDOM.createBlockingRoot(document, {
+    const root = ReactDOM.unstable_createBlockingRoot(document, {
         hydrate: true,
     });
 

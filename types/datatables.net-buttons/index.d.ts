@@ -15,6 +15,10 @@ declare namespace DataTables {
         buttons?: boolean | string[] | ButtonsSettings | ButtonSettings[];
     }
 
+    interface LanguageSettings {
+        buttons?: {};
+    }
+
     interface StaticFunctions {
         Buttons: ButtonStaticFunctions;
     }

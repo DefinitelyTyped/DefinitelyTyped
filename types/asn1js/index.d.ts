@@ -81,7 +81,7 @@ declare namespace Asn1js {
         /**
          * Convertion for the block to JSON object
          * @returns {*}
-	     */
+         */
         toJSON(): any;
     }
 
@@ -121,7 +121,7 @@ declare namespace Asn1js {
         /**
          * Convertion for the block to JSON object
          * @returns {*}
-	     */
+         */
         toJSON(): any;
     }
 

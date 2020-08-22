@@ -737,8 +737,8 @@ declare namespace l {
        * @interface
        * @property {string} path HTTP path (relative to the model) at which the method is exposed.
        * @property {'get' | 'post' | 'patch' | 'put' | 'del' | 'all'} verb HTTP method (verb) at which the method is available.
-       * @property {number} status	Default HTTP status set when the callback is called without an error.
-       * @property {number} errorStatus	Default HTTP status set when the callback is called with an error.
+       * @property {number} status    Default HTTP status set when the callback is called without an error.
+       * @property {number} errorStatus    Default HTTP status set when the callback is called with an error.
        */
       interface RemoteHttpOptions {
             /**
@@ -758,7 +758,7 @@ declare namespace l {
             verb: 'get' | 'post' | 'patch' | 'put' | 'del' | 'all';
 
             /**
-             * status	Default HTTP status set when the callback is called without an error.
+             * status    Default HTTP status set when the callback is called without an error.
              * ```
              * {status: 201}
              * ```
@@ -766,7 +766,7 @@ declare namespace l {
             status?: number;
 
             /**
-             * errorStatus	Default HTTP status set when the callback is called with an error.
+             * errorStatus    Default HTTP status set when the callback is called with an error.
              * ```
              * {errorStatus: 400}
              * ```
@@ -814,7 +814,7 @@ declare namespace l {
              * boolean. Whether the method is static (eg. `MyModel.myMethod`). Use `false` to define the method on the prototype (for example, `MyModel.prototype.myMethod`). Default is true.
              * default: true
              */
-            isStatic?:	boolean;
+            isStatic?: boolean;
 
             /**
              *
@@ -835,19 +835,19 @@ declare namespace l {
 
       /**
        * @interface
-       * @property {string} arg	Argument name
+       * @property {string} arg    Argument name
        * @property {string | string[]} description A text description of the argument.
-       * @property {any} http http	Object or Function	For input arguments: a function or an object describing mapping from HTTP request to the argument value.
-       * @property {boolean} required	True if argument is required; false otherwise.
+       * @property {any} http http    Object or Function    For input arguments: a function or an object describing mapping from HTTP request to the argument value.
+       * @property {boolean} required    True if argument is required; false otherwise.
        * @property {boolean} root For callback arguments: set this property to true if your function has a single callback argument. Otherwise the root object returned is an object
        * @property {"any" | "Array" | "Boolean" | "Buffer" | "Date" | "GeoPoint" | "null" | "Number" | "Object" | "String"} type
        * @property {string} default Default value that will be used to populate loopback-explorer input fields and swagger documentation
        */
       interface RemoteMethodArgument {
             /**
-             * 	Argument name
+             *     Argument name
              */
-            arg:	string;
+            arg: string;
             /**
              * A text description of the argument. This is used by API documentation generators like Swagger.
              You can split long descriptions into arrays of strings (lines) to keep line lengths manageable.
@@ -859,9 +859,9 @@ declare namespace l {
              ]
              ```
              */
-            description?:	string | string[];
+            description?: string | string[];
             /**
-             * http	Object or Function	For input arguments: a function or an object describing mapping from HTTP request to the argument value. See HTTP mapping of input arguments below.
+             * http    Object or Function    For input arguments: a function or an object describing mapping from HTTP request to the argument value. See HTTP mapping of input arguments below.
              * http.target
              * Map the callback argument value to the HTTP response object. The following values are supported.
 
@@ -871,26 +871,26 @@ declare namespace l {
             http?: RemoteHttpOptions;
 
             /**
-             * 	True if argument is required; false otherwise.
+             *     True if argument is required; false otherwise.
              */
-            required?:	boolean;
+            required?: boolean;
 
             /**
-             * 	For callback arguments: set this property to true if your function has a single callback argument to use as the root object returned to remote caller.
+             *     For callback arguments: set this property to true if your function has a single callback argument to use as the root object returned to remote caller.
              *    Otherwise the root object returned is a map (argument-name to argument-value).
              */
-            root?:	boolean;
+            root?: boolean;
 
             /**
-             * 	Argument datatype; must be a Loopback type. Additionally, callback arguments allow a special type "file"; see below.
+             *     Argument datatype; must be a Loopback type. Additionally, callback arguments allow a special type "file"; see below.
              */
             type: "any" | "Array" | "Boolean" | "Buffer" | "Date" | "GeoPoint" | "null" | "Number" | "Object" | "String";
 
             /**
-             *	Default value that will be used to populate loopback-explorer input fields and swagger documentation.
+             *    Default value that will be used to populate loopback-explorer input fields and swagger documentation.
              *    Note: This value will not be passed into remote methods function if argument is not present.
              */
-            default?:	string;
+            default?: string;
       }
 
       /**
@@ -1111,7 +1111,7 @@ declare namespace l {
 
             /**
              * Disable a sharedMethod with the given static or prototype method name.
-             * @param {string} methodName	The method name
+             * @param {string} methodName    The method name
              */
             disableMethodByName(methodName: string): void;
 

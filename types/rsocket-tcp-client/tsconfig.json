@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "rsocket-tcp-client-tests.ts",
-        "RSocketTcpClient.d.ts"
+        "rsocket-tcp-client-tests.ts"
     ]
 }

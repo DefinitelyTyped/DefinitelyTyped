@@ -108,13 +108,13 @@ declare enum EnumDWT_CameraControlProperty {
     CCP_ZOOM = 3,
     /** Specifies the exposure setting, in log base 2 seconds. In other words, for values less than zero, the exposure time is 1/2^n seconds, 
      *  and for values zero or above, the exposure time is 2^n seconds. For example:
-     *  Value	Seconds
-     *  -3	1/8
-     *  -2	1/4
-     *  -1	1/2
-     *  0	1
-     *  1	2
-     *  2	4
+     *  Value    Seconds
+     *  -3    1/8
+     *  -2    1/4
+     *  -1    1/2
+     *  0    1
+     *  1    2
+     *  2    4
      */
     CCP_EXPOSURE = 4,
     /** Specifies the camera's iris setting, in units of fstop* 10. */

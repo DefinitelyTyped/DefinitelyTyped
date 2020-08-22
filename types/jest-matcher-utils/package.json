@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "chalk": "^2.2.0"
-    }
-}

@@ -29,36 +29,36 @@ let reason: any;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 interface Foo {
-	foo(): string;
+    foo(): string;
 }
 interface Bar {
-	bar(): string;
+    bar(): string;
 }
 interface Baz {
-  	baz(): string;
+      baz(): string;
 }
 interface Qux {
-	qux: string;
+    qux: string;
 }
 
 // - - - - - - - - - - - - - - - - -
 
 interface StrFooMap {
-	[key: string]: Foo;
+    [key: string]: Foo;
 }
 
 interface StrBarMap {
-	[key: string]: Bar;
+    [key: string]: Bar;
 }
 
 // - - - - - - - - - - - - - - - - -
 
 interface StrFooArrMap {
-	[key: string]: Foo[];
+    [key: string]: Foo[];
 }
 
 interface StrBarArrMap {
-	[key: string]: Bar[];
+    [key: string]: Bar[];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -106,6 +106,7 @@ let anyArrProm: Bluebird<any[]>;
 
 let fooArrProm: Bluebird<Foo[]> = Bluebird.resolve(fooArr);
 let barArrProm: Bluebird<Bar[]>;
+let fooOrNullArrProm: Bluebird<Array<Foo | null>> = Bluebird.resolve(fooArr);
 
 // - - - - - - - - - - - - - - - - -
 
@@ -172,30 +173,30 @@ nativeBarProm = barProm;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 fooProm = new Bluebird((resolve: (value: Foo) => void, reject: (reason: any) => void) => {
-	if (bool) {
-		resolve(foo);
-	} else {
-		reject(new Error(str));
-	}
+    if (bool) {
+        resolve(foo);
+    } else {
+        reject(new Error(str));
+    }
 });
 fooProm = new Bluebird((resolve: (value: Foo) => void) => {
-	if (bool) {
-		resolve(foo);
-	}
+    if (bool) {
+        resolve(foo);
+    }
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - -
 
 // needs a hint when used untyped?
 fooProm = new Bluebird<Foo>((resolve, reject) => {
-	if (bool) {
-		resolve(fooThen);
-	} else {
-		reject(new Error(str));
-	}
+    if (bool) {
+        resolve(fooThen);
+    } else {
+        reject(new Error(str));
+    }
 });
 fooProm = new Bluebird<Foo>((resolve) => {
-	resolve(fooThen);
+    resolve(fooThen);
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -203,176 +204,176 @@ fooProm = new Bluebird<Foo>((resolve) => {
 fooInspectionPromise = fooProm.reflect();
 
 fooInspectionPromise.then(value => {
-	fooInspection = value;
-	bool = fooInspection.isFulfilled();
-	bool = fooInspection.isRejected();
-	bool = fooInspection.isPending();
-	foo = fooInspection.value();
-	x = fooInspection.reason();
+    fooInspection = value;
+    bool = fooInspection.isFulfilled();
+    bool = fooInspection.isRejected();
+    bool = fooInspection.isPending();
+    foo = fooInspection.value();
+    x = fooInspection.reason();
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 barProm = fooProm.then((value: Foo) => {
-	return bar;
+    return bar;
 }, (reason: any) => {
-	return bar;
+    return bar;
 });
 barProm = fooProm.then((value: Foo) => {
-	return bar;
+    return bar;
 }, (reason: any) => {
-	return barProm;
+    return barProm;
 });
 // $ExpectType Bluebird<void | Bar>
 fooProm.then((value: Foo) => {
-	return bar;
+    return bar;
 }, (reason: any) => {
-	return;
+    return;
 });
 // $ExpectType Bluebird<void | Bar>
 fooProm.then((value: Foo) => {
-	return bar;
+    return bar;
 }, (reason: any) => {
-	return voidProm;
+    return voidProm;
 });
 barProm = fooProm.then((value: Foo) => {
-	return bar;
+    return bar;
 });
 barProm = barProm.then((value: Bar) => {
-	if (value) return value;
-	return Bluebird.resolve(bar);
+    if (value) return value;
+    return Bluebird.resolve(bar);
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // $ExpectType Bluebird<void | Foo>
 fooProm.catch((reason: any) => {
-	return;
+    return;
 });
 
 // $ExpectType Bluebird<void | Foo>
 fooProm.caught((reason: any) => {
-	return;
+    return;
 });
 // $ExpectType Bluebird<void | Foo>
 fooProm.catch((error: any) => {
-	return true;
+    return true;
 }, (reason: any) => {
-	return;
+    return;
 });
 // $ExpectType Bluebird<void | Foo>
 fooProm.caught((error: any) => {
-	return true;
+    return true;
 }, (reason: any) => {
-	return;
+    return;
 });
 
 // $ExpectType Bluebird<void | Foo>
 fooProm.catch((reason: any) => {
-	return voidProm;
+    return voidProm;
 });
 // $ExpectType Bluebird<void | Foo>
 fooProm.caught((reason: any) => {
-	return voidProm;
+    return voidProm;
 });
 // $ExpectType Bluebird<void | Foo>
 fooProm.catch((error: any) => {
-	return true;
+    return true;
 }, (reason: any) => {
-	return voidProm;
+    return voidProm;
 });
 // $ExpectType Bluebird<void | Foo>
 fooProm.caught((error: any) => {
-	return true;
+    return true;
 }, (reason: any) => {
-	return voidProm;
+    return voidProm;
 });
 
 // $ExpectType Bluebird<void | Foo>
 fooProm.catch<void | Foo>((reason: any) => { // tslint:disable-line:void-return
-	// handle multiple valid return types simultaneously
-	if (foo === null) {
-		return;
-	} else if (!reason) {
-		return voidProm;
-	} else if (foo) {
-		return foo;
-	}
+    // handle multiple valid return types simultaneously
+    if (foo === null) {
+        return;
+    } else if (!reason) {
+        return voidProm;
+    } else if (foo) {
+        return foo;
+    }
 });
 
 fooOrBarProm = fooProm.catch((reason: any) => {
-	return bar;
+    return bar;
 });
 fooOrBarProm = fooProm.caught((reason: any) => {
-	return bar;
+    return bar;
 });
 
 fooOrBarProm = fooProm.catch((error: any) => {
-	return true;
+    return true;
 }, (reason: any) => {
-	return bar;
+    return bar;
 });
 fooOrBarProm = fooProm.caught((error: any) => {
-	return true;
+    return true;
 }, (reason: any) => {
-	return bar;
+    return bar;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // $ExpectType Bluebird<void | Foo>
 fooProm.catch(Error, (reason: any) => {
-	return;
+    return;
 });
 // $ExpectType Bluebird<void | Foo>
 fooProm.catch(Bluebird.CancellationError, (reason: any) => {
-	return;
+    return;
 });
 // $ExpectType Bluebird<void | Foo>
 fooProm.caught(Error, (reason: any) => {
-	return;
+    return;
 });
 // $ExpectType Bluebird<void | Foo>
 fooProm.caught(Bluebird.CancellationError, (reason: any) => {
-	return;
+    return;
 });
 
 fooOrBarProm = fooProm.catch(Error, (reason: any) => {
-	return bar;
+    return bar;
 });
 fooOrBarProm = fooProm.catch(Bluebird.CancellationError, (reason: any) => {
-	return bar;
+    return bar;
 });
 fooOrBarProm = fooProm.caught(Error, (reason: any) => {
-	return bar;
+    return bar;
 });
 fooOrBarProm = fooProm.caught(Bluebird.CancellationError, (reason: any) => {
-	return bar;
+    return bar;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 class CustomError extends Error {
-	customField: number;
+    customField: number;
 }
 // $ExpectType Bluebird<void | Foo>
 fooProm.catch(CustomError, reason => {
-	let a: number = reason.customField;
+    let a: number = reason.customField;
 });
 
 class CustomErrorWithConstructor extends Error {
-	arg1: boolean;
-	arg2: number;
-	constructor(arg1: boolean, arg2: number) {
-		super();
-		this.arg1 = arg1;
-		this.arg2 = arg2;
-	}
+    arg1: boolean;
+    arg2: number;
+    constructor(arg1: boolean, arg2: number) {
+        super();
+        this.arg1 = arg1;
+        this.arg2 = arg2;
+    }
 }
 // $ExpectType Bluebird<void | Foo>
 fooProm.catch(CustomErrorWithConstructor, reason => {
-	let a: boolean = reason.arg1;
-	let b: number = reason.arg2;
+    let a: boolean = reason.arg1;
+    let b: number = reason.arg2;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -431,33 +432,33 @@ fooProm.catch(booObject1, booObject2, booObject3, booObject4, booObject5, error 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 barProm = fooProm.error((reason: any) => {
-	return bar;
+    return bar;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 fooProm = fooProm.finally(() => {
-	// non-Thenable return is ignored
-	return "foo";
+    // non-Thenable return is ignored
+    return "foo";
 });
 fooProm = fooProm.finally(() => {
-	return fooThen;
+    return fooThen;
 });
 fooProm = fooProm.finally(() => {
-	// non-Thenable return is ignored
+    // non-Thenable return is ignored
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 fooProm = fooProm.lastly(() => {
-	// non-Thenable return is ignored
-	return "foo";
+    // non-Thenable return is ignored
+    return "foo";
 });
 fooProm = fooProm.lastly(() => {
-	return fooThen;
+    return fooThen;
 });
 fooProm = fooProm.lastly(() => {
-	// non-Thenable return is ignored
+    // non-Thenable return is ignored
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -468,60 +469,60 @@ fooProm = fooProm.bind(obj);
 
 // $ExpectType void
 fooProm.done((value: Foo) => {
-	return bar;
+    return bar;
 }, (reason: any) => {
-	return bar;
+    return bar;
 });
 // $ExpectType void
 fooProm.done((value: Foo) => {
-	return bar;
+    return bar;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // $ExpectType void
 fooProm.done((value: Foo) => {
-	return barThen;
+    return barThen;
 }, (reason: any) => {
-	return barThen;
+    return barThen;
 });
 // $ExpectType void
 fooProm.done((value: Foo) => {
-	return barThen;
+    return barThen;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 fooProm = fooProm.tap((value: Foo) => {
-	// non-Thenable return is ignored
-	return "foo";
+    // non-Thenable return is ignored
+    return "foo";
 });
 fooProm = fooProm.tap((value: Foo) => {
-	return fooThen;
+    return fooThen;
 });
 fooProm = fooProm.tap((value: Foo) => {
-	return voidThen;
+    return voidThen;
 });
 fooProm = fooProm.tap(() => {
-	// non-Thenable return is ignored
+    // non-Thenable return is ignored
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 fooProm = fooProm.tapCatch((err) => {
-	return "foo";
+    return "foo";
 });
 
 fooProm = fooProm.tapCatch(err => {
-	return Bluebird.resolve("foo");
+    return Bluebird.resolve("foo");
 });
 
 fooProm.tapCatch(CustomError, (err: CustomError) => {
-	return err.customField;
+    return err.customField;
 });
 
 fooProm.tapCatch((e: any) => e instanceof CustomError, (err: CustomError) => {
-	return err.customField;
+    return err.customField;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -598,18 +599,22 @@ obj = fooProm.toJSON();
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 barProm = fooArrProm.spread((one: Foo, two: Foo, twotwo: Foo) => {
-	return bar;
+    return bar;
 });
 
 // - - - - - - - - - - - - - - - - -
 
 barProm = fooArrProm.spread((one: Foo, two: Foo, twotwo: Foo) => {
-	return barThen;
+    return barThen;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+// $ExpectType Bluebird<Foo[]>
 fooArrProm = fooArrProm.all();
+
+// $ExpectType Bluebird<(Foo | null)[]>
+fooOrNullArrProm = fooOrNullArrProm.all();
 
 // $ExpectType Bluebird<never>
 fooProm.all();
@@ -619,7 +624,11 @@ fooProm = fooArrProm.any();
 // $ExpectType Bluebird<never>
 fooProm.any();
 
+// $ExpectType Bluebird<Foo[]>
 fooArrProm = fooArrProm.some(num);
+
+// $ExpectType Bluebird<(Foo | null)[]>
+fooOrNullArrProm = fooOrNullArrProm.some(num);
 
 // $ExpectType Bluebird<never>
 fooProm.some(num);
@@ -645,83 +654,107 @@ Bluebird.props(new Map<number, PromiseLike<string>>()).then(val => { propsMapVal
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 Bluebird.all([fooProm, barProm]).then(result => {
-  	foo = result[0];
-  	bar = result[1];
+      foo = result[0];
+      bar = result[1];
 });
 
 Bluebird.all([fooProm, fooProm]).then(result => {
-	foo = result[0];
-	foo = result[1];
+    foo = result[0];
+    foo = result[1];
 });
 
 Bluebird.all([fooProm, barProm, bazProm]).then(result => {
-	foo = result[0];
-	bar = result[1];
-	baz = result[2];
+    foo = result[0];
+    bar = result[1];
+    baz = result[2];
 });
 
 Bluebird.all([fooProm, barProm, fooProm]).then(result => {
-	foo = result[0];
-	bar = result[1];
-	foo = result[2];
+    foo = result[0];
+    bar = result[1];
+    foo = result[2];
+});
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Bluebird.allSettled([fooProm, barProm]).then(result => {
+    foo = result[0].value();
+    bar = result[1].value();
+});
+
+Bluebird.allSettled([fooProm, fooProm]).then(result => {
+    foo = result[0].value();
+    foo = result[1].value();
+});
+
+Bluebird.allSettled([fooProm, barProm, bazProm]).then(result => {
+    foo = result[0].value();
+    bar = result[1].value();
+    baz = result[2].value();
+});
+
+Bluebird.allSettled([fooProm, barProm, fooProm]).then(result => {
+    foo = result[0].value();
+    bar = result[1].value();
+    foo = result[2].value();
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 barArrProm = fooArrProm.map((item: Foo, index: number, arrayLength: number) => {
-	return bar;
+    return bar;
 });
 barArrProm = fooArrProm.map((item: Foo) => {
-	return bar;
+    return bar;
 });
 
 barArrProm = fooArrProm.map((item: Foo, index: number, arrayLength: number) => {
-	return bar;
+    return bar;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 barArrProm = fooArrProm.map((item: Foo) => {
-	return bar;
+    return bar;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 barArrProm = fooArrProm.mapSeries((item: Foo, index: number, arrayLength: number) => {
-	return bar;
+    return bar;
 });
 barArrProm = fooArrProm.mapSeries((item: Foo) => {
-	return bar;
+    return bar;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 barProm = fooArrProm.reduce((memo: Bar, item: Foo, index: number, arrayLength: number) => {
-	return memo;
+    return memo;
 });
 barProm = fooArrProm.reduce((memo: Bar, item: Foo) => {
-	return memo;
+    return memo;
 }, bar);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 fooArrProm = fooArrProm.filter((item: Foo, index: number, arrayLength: number) => {
-	return bool;
+    return bool;
 });
 fooArrProm = fooArrProm.filter((item: Foo) => {
-	return bool;
+    return bool;
 });
 
 fooArrProm = fooArrProm.filter((item: Foo, index: number, arrayLength: number) => {
-	return bool;
+    return bool;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 fooArrProm = fooArrProm.filter((item: Foo) => {
-	return bool;
+    return bool;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -734,10 +767,10 @@ fooArrProm = fooArrProm.each((item: Foo, index: number, arrayLength: number): Bl
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 fooProm = new Bluebird.Promise<Foo>((resolve, reject) => {
-	resolve(foo);
+    resolve(foo);
 });
 fooProm = Bluebird.Promise.try<Foo>(() => {
-	return foo;
+    return foo;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -747,19 +780,19 @@ function getMaybePromise(): Foo|Bluebird<Foo> {
 }
 
 fooProm = Bluebird.try(() => {
-	return getMaybePromise();
+    return getMaybePromise();
 });
 fooProm = Bluebird.try<Foo>(() => {
-	return getMaybePromise();
+    return getMaybePromise();
 });
 fooProm = Bluebird.try(() => {
-	return foo;
+    return foo;
 });
 
 // - - - - - - - - - - - - - - - - -
 
 fooProm = Bluebird.try(() => {
-	return fooThen;
+    return fooThen;
 });
 
 // - - - - - - - - - - - - - - - - -
@@ -774,13 +807,13 @@ fooProm = Bluebird.try(() => {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 fooProm = Bluebird.attempt(() => {
-	return getMaybePromise();
+    return getMaybePromise();
 });
 fooProm = Bluebird.attempt<Foo>(() => {
-	return getMaybePromise();
+    return getMaybePromise();
 });
 fooProm = Bluebird.attempt(() => {
-	return foo;
+    return foo;
 });
 
 // - - - - - - - - - - - - - - - - -
@@ -795,16 +828,16 @@ fooProm = Bluebird.attempt(() => {
 // - - - - - - - - - - - - - - - - -
 
 fooProm = Bluebird.attempt(() => {
-	return fooThen;
+    return fooThen;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 asyncfunc = Bluebird.method(() => {});
 {
-	const noArg: () => Bluebird<void> = Bluebird.method(() => {});
-	const oneArg: (x1: number) => Bluebird<void> = Bluebird.method((x1: number) => {});
-	const twoArg: (x1: number, x2: string) => Bluebird<void> = Bluebird.method((x1: number, x2: string) => {});
+    const noArg: () => Bluebird<void> = Bluebird.method(() => {});
+    const oneArg: (x1: number) => Bluebird<void> = Bluebird.method((x1: number) => {});
+    const twoArg: (x1: number, x2: string) => Bluebird<void> = Bluebird.method((x1: number, x2: string) => {});
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -883,9 +916,9 @@ function DOMPromisifier(originalMethod: (...args: any[]) => any) {
 }
 
 obj = Bluebird.promisifyAll(obj, {
-	suffix: "",
-	filter: defaultFilter,
-	promisifier: DOMPromisifier
+    suffix: "",
+    filter: defaultFilter,
+    promisifier: DOMPromisifier
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -895,8 +928,8 @@ const coroutine1 = Bluebird.coroutine<string, number, string>(generator1);
 strProm = coroutine1(5, "foo");
 
 const generator2 = function*(a: number, b: string) {
-	yield foo;
-	return bar;
+    yield foo;
+    return bar;
 };
 const coroutine2 = Bluebird.coroutine<Bar, number, string>(generator2);
 barProm = coroutine2(5, "foo");
@@ -962,74 +995,74 @@ fooArrProm = Bluebird.join(fooThen, fooThen, fooThen);
 // fooThenArrThen
 
 barArrProm = Bluebird.map(fooThenArrThen, (item: Foo) => {
-	return bar;
+    return bar;
 });
 barArrProm = Bluebird.map(fooThenArrThen, (item: Foo) => {
-	return barThen;
+    return barThen;
 });
 barArrProm = Bluebird.map(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return bar;
+    return bar;
 });
 barArrProm = Bluebird.map(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return barThen;
+    return barThen;
 });
 
 barArrProm = Bluebird.map(fooThenArrThen, (item: Foo) => {
-	return bar;
+    return bar;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 barArrProm = Bluebird.map(fooThenArrThen, (item: Foo) => {
-	return barThen;
+    return barThen;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 barArrProm = Bluebird.map(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return bar;
+    return bar;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 barArrProm = Bluebird.map(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return barThen;
+    return barThen;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // fooArrThen
 
 barArrProm = Bluebird.map(fooArrThen, (item: Foo) => {
-	return bar;
+    return bar;
 });
 barArrProm = Bluebird.map(fooArrThen, (item: Foo) => {
-	return barThen;
+    return barThen;
 });
 barArrProm = Bluebird.map(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return bar;
+    return bar;
 });
 barArrProm = Bluebird.map(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return barThen;
+    return barThen;
 });
 
 barArrProm = Bluebird.map(fooArrThen, (item: Foo) => {
-	return bar;
+    return bar;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 barArrProm = Bluebird.map(fooArrThen, (item: Foo) => {
-	return barThen;
+    return barThen;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 barArrProm = Bluebird.map(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return bar;
+    return bar;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 barArrProm = Bluebird.map(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return barThen;
+    return barThen;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1037,37 +1070,37 @@ barArrProm = Bluebird.map(fooArrThen, (item: Foo, index: number, arrayLength: nu
 // fooThenArr
 
 barArrProm = Bluebird.map(fooThenArr, (item: Foo) => {
-	return bar;
+    return bar;
 });
 barArrProm = Bluebird.map(fooThenArr, (item: Foo) => {
-	return barThen;
+    return barThen;
 });
 barArrProm = Bluebird.map(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
-	return bar;
+    return bar;
 });
 barArrProm = Bluebird.map(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
-	return barThen;
+    return barThen;
 });
 
 barArrProm = Bluebird.map(fooThenArr, (item: Foo) => {
-	return bar;
+    return bar;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 barArrProm = Bluebird.map(fooThenArr, (item: Foo) => {
-	return barThen;
+    return barThen;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 barArrProm = Bluebird.map(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
-	return bar;
+    return bar;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 barArrProm = Bluebird.map(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
-	return barThen;
+    return barThen;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1075,37 +1108,37 @@ barArrProm = Bluebird.map(fooThenArr, (item: Foo, index: number, arrayLength: nu
 // fooArr
 
 barArrProm = Bluebird.map(fooArr, (item: Foo) => {
-	return bar;
+    return bar;
 });
 barArrProm = Bluebird.map(fooArr, (item: Foo) => {
-	return barThen;
+    return barThen;
 });
 barArrProm = Bluebird.map(fooArr, (item: Foo, index: number, arrayLength: number) => {
-	return bar;
+    return bar;
 });
 barArrProm = Bluebird.map(fooArr, (item: Foo, index: number, arrayLength: number) => {
-	return barThen;
+    return barThen;
 });
 
 barArrProm = Bluebird.map(fooArr, (item: Foo) => {
-	return bar;
+    return bar;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 barArrProm = Bluebird.map(fooArr, (item: Foo) => {
-	return barThen;
+    return barThen;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 barArrProm = Bluebird.map(fooArr, (item: Foo, index: number, arrayLength: number) => {
-	return bar;
+    return bar;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 barArrProm = Bluebird.map(fooArr, (item: Foo, index: number, arrayLength: number) => {
-	return barThen;
+    return barThen;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1117,16 +1150,16 @@ barArrProm = Bluebird.map(fooArr, (item: Foo, index: number, arrayLength: number
 // fooThenArrThen
 
 barArrProm = Bluebird.mapSeries(fooThenArrThen, (item: Foo) => {
-	return bar;
+    return bar;
 });
 barArrProm = Bluebird.mapSeries(fooThenArrThen, (item: Foo) => {
-	return barThen;
+    return barThen;
 });
 barArrProm = Bluebird.mapSeries(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return bar;
+    return bar;
 });
 barArrProm = Bluebird.mapSeries(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return barThen;
+    return barThen;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1134,16 +1167,16 @@ barArrProm = Bluebird.mapSeries(fooThenArrThen, (item: Foo, index: number, array
 // fooArrThen
 
 barArrProm = Bluebird.mapSeries(fooArrThen, (item: Foo) => {
-	return bar;
+    return bar;
 });
 barArrProm = Bluebird.mapSeries(fooArrThen, (item: Foo) => {
-	return barThen;
+    return barThen;
 });
 barArrProm = Bluebird.mapSeries(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return bar;
+    return bar;
 });
 barArrProm = Bluebird.mapSeries(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return barThen;
+    return barThen;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1151,16 +1184,16 @@ barArrProm = Bluebird.mapSeries(fooArrThen, (item: Foo, index: number, arrayLeng
 // fooThenArr
 
 barArrProm = Bluebird.mapSeries(fooThenArr, (item: Foo) => {
-	return bar;
+    return bar;
 });
 barArrProm = Bluebird.mapSeries(fooThenArr, (item: Foo) => {
-	return barThen;
+    return barThen;
 });
 barArrProm = Bluebird.mapSeries(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
-	return bar;
+    return bar;
 });
 barArrProm = Bluebird.mapSeries(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
-	return barThen;
+    return barThen;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1168,16 +1201,16 @@ barArrProm = Bluebird.mapSeries(fooThenArr, (item: Foo, index: number, arrayLeng
 // fooArr
 
 barArrProm = Bluebird.mapSeries(fooArr, (item: Foo) => {
-	return bar;
+    return bar;
 });
 barArrProm = Bluebird.mapSeries(fooArr, (item: Foo) => {
-	return barThen;
+    return barThen;
 });
 barArrProm = Bluebird.mapSeries(fooArr, (item: Foo, index: number, arrayLength: number) => {
-	return bar;
+    return bar;
 });
 barArrProm = Bluebird.mapSeries(fooArr, (item: Foo, index: number, arrayLength: number) => {
-	return barThen;
+    return barThen;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1189,16 +1222,16 @@ barArrProm = Bluebird.mapSeries(fooArr, (item: Foo, index: number, arrayLength: 
 // fooThenArrThen
 
 barProm = Bluebird.reduce(fooThenArrThen, (memo: Bar, item: Foo) => {
-	return memo;
+    return memo;
 }, bar);
 barProm = Bluebird.reduce(fooThenArrThen, (memo: Bar, item: Foo) => {
-	return barThen;
+    return barThen;
 }, bar);
 barProm = Bluebird.reduce(fooThenArrThen, (memo: Bar, item: Foo, index: number, arrayLength: number) => {
-	return memo;
+    return memo;
 }, bar);
 barProm = Bluebird.reduce(fooThenArrThen, (memo: Bar, item: Foo, index: number, arrayLength: number) => {
-	return barThen;
+    return barThen;
 }, bar);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1206,16 +1239,16 @@ barProm = Bluebird.reduce(fooThenArrThen, (memo: Bar, item: Foo, index: number, 
 // fooArrThen
 
 barProm = Bluebird.reduce(fooArrThen, (memo: Bar, item: Foo) => {
-	return memo;
+    return memo;
 }, bar);
 barProm = Bluebird.reduce(fooArrThen, (memo: Bar, item: Foo) => {
-	return barThen;
+    return barThen;
 }, bar);
 barProm = Bluebird.reduce(fooArrThen, (memo: Bar, item: Foo, index: number, arrayLength: number) => {
-	return memo;
+    return memo;
 }, bar);
 barProm = Bluebird.reduce(fooArrThen, (memo: Bar, item: Foo, index: number, arrayLength: number) => {
-	return barThen;
+    return barThen;
 }, bar);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1223,16 +1256,16 @@ barProm = Bluebird.reduce(fooArrThen, (memo: Bar, item: Foo, index: number, arra
 // fooThenArr
 
 barProm = Bluebird.reduce(fooThenArr, (memo: Bar, item: Foo) => {
-	return memo;
+    return memo;
 }, bar);
 barProm = Bluebird.reduce(fooThenArr, (memo: Bar, item: Foo) => {
-	return barThen;
+    return barThen;
 }, bar);
 barProm = Bluebird.reduce(fooThenArr, (memo: Bar, item: Foo, index: number, arrayLength: number) => {
-	return memo;
+    return memo;
 }, bar);
 barProm = Bluebird.reduce(fooThenArr, (memo: Bar, item: Foo, index: number, arrayLength: number) => {
-	return barThen;
+    return barThen;
 }, bar);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1240,16 +1273,16 @@ barProm = Bluebird.reduce(fooThenArr, (memo: Bar, item: Foo, index: number, arra
 // fooArr
 
 barProm = Bluebird.reduce(fooArr, (memo: Bar, item: Foo) => {
-	return memo;
+    return memo;
 }, bar);
 barProm = Bluebird.reduce(fooArr, (memo: Bar, item: Foo) => {
-	return barThen;
+    return barThen;
 }, bar);
 barProm = Bluebird.reduce(fooArr, (memo: Bar, item: Foo, index: number, arrayLength: number) => {
-	return memo;
+    return memo;
 }, bar);
 barProm = Bluebird.reduce(fooArr, (memo: Bar, item: Foo, index: number, arrayLength: number) => {
-	return barThen;
+    return barThen;
 }, bar);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1261,37 +1294,37 @@ barProm = Bluebird.reduce(fooArr, (memo: Bar, item: Foo, index: number, arrayLen
 // fooThenArrThen
 
 fooArrProm = Bluebird.filter(fooThenArrThen, (item: Foo) => {
-	return bool;
+    return bool;
 });
 fooArrProm = Bluebird.filter(fooThenArrThen, (item: Foo) => {
-	return boolThen;
+    return boolThen;
 });
 fooArrProm = Bluebird.filter(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return bool;
+    return bool;
 });
 fooArrProm = Bluebird.filter(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return boolThen;
+    return boolThen;
 });
 
 fooArrProm = Bluebird.filter(fooThenArrThen, (item: Foo) => {
-	return bool;
+    return bool;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 fooArrProm = Bluebird.filter(fooThenArrThen, (item: Foo) => {
-	return boolThen;
+    return boolThen;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 fooArrProm = Bluebird.filter(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return bool;
+    return bool;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 fooArrProm = Bluebird.filter(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return boolThen;
+    return boolThen;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1299,37 +1332,37 @@ fooArrProm = Bluebird.filter(fooThenArrThen, (item: Foo, index: number, arrayLen
 // fooArrThen
 
 fooArrProm = Bluebird.filter(fooArrThen, (item: Foo) => {
-	return bool;
+    return bool;
 });
 fooArrProm = Bluebird.filter(fooArrThen, (item: Foo) => {
-	return boolThen;
+    return boolThen;
 });
 fooArrProm = Bluebird.filter(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return bool;
+    return bool;
 });
 fooArrProm = Bluebird.filter(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return boolThen;
+    return boolThen;
 });
 
 fooArrProm = Bluebird.filter(fooArrThen, (item: Foo) => {
-	return bool;
+    return bool;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 fooArrProm = Bluebird.filter(fooArrThen, (item: Foo) => {
-	return boolThen;
+    return boolThen;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 fooArrProm = Bluebird.filter(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return bool;
+    return bool;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 fooArrProm = Bluebird.filter(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
-	return boolThen;
+    return boolThen;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1337,37 +1370,37 @@ fooArrProm = Bluebird.filter(fooArrThen, (item: Foo, index: number, arrayLength:
 // fooThenArr
 
 fooArrProm = Bluebird.filter(fooThenArr, (item: Foo) => {
-	return bool;
+    return bool;
 });
 fooArrProm = Bluebird.filter(fooThenArr, (item: Foo) => {
-	return boolThen;
+    return boolThen;
 });
 fooArrProm = Bluebird.filter(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
-	return bool;
+    return bool;
 });
 fooArrProm = Bluebird.filter(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
-	return boolThen;
+    return boolThen;
 });
 
 fooArrProm = Bluebird.filter(fooThenArr, (item: Foo) => {
-	return bool;
+    return bool;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 fooArrProm = Bluebird.filter(fooThenArr, (item: Foo) => {
-	return boolThen;
+    return boolThen;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 fooArrProm = Bluebird.filter(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
-	return bool;
+    return bool;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 fooArrProm = Bluebird.filter(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
-	return boolThen;
+    return boolThen;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1375,37 +1408,37 @@ fooArrProm = Bluebird.filter(fooThenArr, (item: Foo, index: number, arrayLength:
 // fooArr
 
 fooArrProm = Bluebird.filter(fooArr, (item: Foo) => {
-	return bool;
+    return bool;
 });
 fooArrProm = Bluebird.filter(fooArr, (item: Foo) => {
-	return boolThen;
+    return boolThen;
 });
 fooArrProm = Bluebird.filter(fooArr, (item: Foo, index: number, arrayLength: number) => {
-	return bool;
+    return bool;
 });
 fooArrProm = Bluebird.filter(fooArr, (item: Foo, index: number, arrayLength: number) => {
-	return boolThen;
+    return boolThen;
 });
 
 fooArrProm = Bluebird.filter(fooArr, (item: Foo) => {
-	return bool;
+    return bool;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 fooArrProm = Bluebird.filter(fooArr, (item: Foo) => {
-	return boolThen;
+    return boolThen;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 fooArrProm = Bluebird.filter(fooArr, (item: Foo, index: number, arrayLength: number) => {
-	return bool;
+    return bool;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 fooArrProm = Bluebird.filter(fooArr, (item: Foo, index: number, arrayLength: number) => {
-	return boolThen;
+    return boolThen;
 }, {
-	concurrency: 1
+    concurrency: 1
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

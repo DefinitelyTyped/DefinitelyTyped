@@ -65,6 +65,12 @@ personFactory.attr('secretCode', ['firstName', 'lastName', 'age', 'age', 'firstN
 // You can go past five dependencies, but you need to specify types
 personFactory.attr('secretCode', ['firstName', 'lastName', 'age', 'age', 'firstName', 'firstName'], (firstName: string, lastName: string, age1: number, age2: number, firstNameAgain: string, firstNameThisIsTooMuch: string) => ({ name: firstNameAgain, value: age1 + age2 }));
 
+// attrs() supports subset of attributes.
+personFactory.attrs({
+  firstName: 'Bob',
+  lastName: 'Newbie'
+})
+
 // Having defined 'Person', `build` will return an object of type Person, using the generic type.
 const person = Factory.build<Person>('Person');
 let aString = '';

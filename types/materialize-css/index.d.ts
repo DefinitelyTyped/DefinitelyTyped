@@ -4,8 +4,9 @@
 //                  Maxim Balaganskiy <https://github.com/MaximBalaganskiy>
 //                  David Moniz <https://github.com/MonizDave>
 //                  Daniel Hoenes <https://github.com/broccoliarchy>
+//                  Rick Lucassen <https://github.com/SnowyLeopard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.1
 
 /// <reference types="jquery" />
 /// <reference path="./autocomplete.d.ts" />

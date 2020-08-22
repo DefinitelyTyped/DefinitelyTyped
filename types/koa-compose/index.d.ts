@@ -50,8 +50,8 @@ declare function compose<T1, U1, T2, U2, T3, U3, T4, U4, T5, U5, T6, U6, T7, U7,
 declare function compose<T>(middleware: Array<compose.Middleware<T>>): compose.ComposedMiddleware<T>;
 
 declare namespace compose {
-    type Middleware<T> = (context: T, next: () => Promise<any>) => any;
-    type ComposedMiddleware<T> = (context: T, next?: () => Promise<any>) => Promise<void>;
+    type Middleware<T> = (context: T, next: Koa.Next) => any;
+    type ComposedMiddleware<T> = (context: T, next?: Koa.Next) => Promise<void>;
 }
 
 export = compose;

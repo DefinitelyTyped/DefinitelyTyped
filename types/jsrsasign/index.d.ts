@@ -1,7 +1,7 @@
 // Type definitions for jsrsasign 8.0
 // Project: https://github.com/kjur/jsrsasign
 // Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/ffflorian/jsrsasign-types
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
 /// <reference path="./jsrsasign.d.ts" />

@@ -70,13 +70,13 @@ export interface DataTableCustomSelectionData<R extends DataTableRow = DataTable
 
 export interface DataTableCustomSelectionProps<R extends DataTableRow = DataTableRow> {
     ariaLabel?: string,
-    checked: R extends never ? boolean : R["isSelected"],
+    checked: R extends never ? boolean : NonNullable<R["isSelected"]>,
     disabled: R extends never ? never : R["disabled"],
     id: string,
     indeterminate: R extends never ? boolean : never,
     name: string,
     onSelect(event: React.MouseEvent<HTMLElement>): void,
-    radio: R extends never ? never : (Extract<DataTableProps["radio"], true> | null),
+    radio?: R extends never ? never : (Extract<DataTableProps["radio"], boolean>),
 }
 
 // endregion Row Types

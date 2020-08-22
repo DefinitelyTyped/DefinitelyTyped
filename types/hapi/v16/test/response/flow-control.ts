@@ -1,7 +1,7 @@
 
 // From https://hapijs.com/api/16.1.1#flow-control
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 
 const handler = function (request: Hapi.Request, reply: Hapi.ReplyWithContinue) {
 

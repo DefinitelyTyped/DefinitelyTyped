@@ -67,6 +67,7 @@ declare namespace Atmosphere {
         enableProtocol?: boolean;
         pollingInterval?: number;
         webSocketUrl?: string;
+        disableDisconnect?: boolean;
 
         onError?: (response?:Response) => void;
         onClose?:  (response?:Response)  => void;

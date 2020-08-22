@@ -23,8 +23,10 @@ export type ScaleType<Range, Output> =
 | ScalePower<Range, Output>
 | ScaleTime<Range, Output>;
 
+export interface AccessorFunctionProps<T> { index: number; item: T; }
+
 export type ScaleFunction = () => ScaleType<any, any> | ScaleBand<any>;
-export type AccessorFunction<T, U> = (props: { item: T, index: number }) => U;
+export type AccessorFunction<T, U> = (props: AccessorFunctionProps<T>) => U;
 export type SortFunction<T> = (a: T, b: T) => number;
 export type OffsetFunction = (series: Series<any, any>, order: number[]) => void;
 export type OrderFunction = (series: Series<any, any>) => number[];

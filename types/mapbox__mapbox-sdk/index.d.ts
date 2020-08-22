@@ -2,6 +2,7 @@
 // Project: https://github.com/mapbox/mapbox-sdk-js
 // Definitions by: Jeff Dye <https://github.com/jeffbdye>
 //                 Mike O'Meara <https://github.com/mikeomeara1>
+//                 chachan <https://github.com/chachan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1004,7 +1005,7 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         /**
          * The ISO 3166-1 country and ISO 3166-2 region code for the returned feature.
          */
-        short_coide: string;
+        short_code: string;
     }
 }
 

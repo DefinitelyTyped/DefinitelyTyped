@@ -1,3 +1,3 @@
-import * as validator from "validator";
-declare const isMACAddress: typeof validator.isMACAddress;
-export = isMACAddress;
+import validator from '../';
+export type IsMACAddressOptions = validator.IsMACAddressOptions;
+export default validator.isMACAddress;

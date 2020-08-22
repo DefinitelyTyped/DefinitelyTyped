@@ -11,6 +11,8 @@
 
 /// <reference types="node" />
 
+import { EventEmitter } from 'events';
+
 export interface SocketTypes {
     pub: number;
     xpub: number;
@@ -116,7 +118,7 @@ export const ZMQ_IO_THREADS: number;
 export const ZMQ_MAX_SOCKETS: number;
 export const ZMQ_ROUTER_HANDOVER: number;
 
-export class Socket extends NodeJS.EventEmitter {
+export class Socket extends EventEmitter {
     /**
      * Set `opt` to `val`.
      *

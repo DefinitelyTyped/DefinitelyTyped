@@ -288,11 +288,6 @@ interface FilePondErrorDescription {
     sub: string;
 }
 
-/**
- * Note that in my testing, callbacks that include an error prop
- * always give the error as the second prop, with the file as
- * the first prop.    This is contradictory to the current docs.
- */
 export interface FilePondCallbackProps {
     /** FilePond instance has been created and is ready. */
     oninit?: () => void;
@@ -307,13 +302,13 @@ export interface FilePondCallbackProps {
      * FilePond instance throws an error. Optionally receives
      * file if error is related to a file object.
      */
-    onerror?: (file?: File, error?: FilePondErrorDescription, status?: any) => void;
+    onerror?: (error: FilePondErrorDescription, file?: File, status?: any) => void;
     /** Started file load */
     onaddfilestart?: (file: File) => void;
     /** Made progress loading a file */
     onaddfileprogress?: (file: File, progress: number) => void;
     /** If no error, file has been successfully loaded */
-    onaddfile?: (file: File, error: FilePondErrorDescription) => void;
+    onaddfile?: (error: FilePondErrorDescription, file: File) => void;
     /** Started processing a file */
     onprocessfilestart?: (file: File) => void;
     /** Made progress processing a file */
@@ -323,7 +318,7 @@ export interface FilePondCallbackProps {
     /** Processing of a file has been undone */
     onprocessfileundo?: (file: File) => void;
     /** If no error, Processing of a file has been completed */
-    onprocessfile?: (file: File, error: FilePondErrorDescription) => void;
+    onprocessfile?: (error: FilePondErrorDescription, file: File) => void;
     /** File has been removed. */
     onremovefile?: (file: File) => void;
     /**

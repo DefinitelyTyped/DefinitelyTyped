@@ -534,14 +534,14 @@ declare module "../index" {
          *
          * Note: This method is based on String#split.
          *
-         * @param string The string to trim.
+         * @param string The string to split.
          * @param separator The separator pattern to split by.
          * @param limit The length to truncate results to.
          * @return Returns the new array of string segments.
          */
         split(
-            string: string,
-            separator?: RegExp|string,
+            string: string | null | undefined,
+            separator?: RegExp | string,
             limit?: number
         ): string[];
 
@@ -556,7 +556,7 @@ declare module "../index" {
          * @return Returns the new array of string segments.
          */
         split(
-            string: string,
+            string: string | null | undefined,
             index: string | number,
             guard: object
         ): string[];

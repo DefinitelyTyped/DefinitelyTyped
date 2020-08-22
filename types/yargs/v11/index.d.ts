@@ -120,7 +120,7 @@ declare namespace yargs {
 
         exitProcess(enabled: boolean): Argv;
 
-        fail(func: (msg: string, err: Error) => any): Argv;
+        fail(func: (msg: string, err: Error, yargs: Argv) => any): Argv;
 
         getCompletion(args: string[], done: (completions: string[]) => void): Argv;
 
@@ -154,8 +154,9 @@ declare namespace yargs {
         options(key: string, options: Options): Argv;
         options(options: { [key: string]: Options }): Argv;
 
-        parse(): Arguments;
-        parse(arg: string | string[], context?: object, parseCallback?: ParseCallback): Arguments;
+        parse(arg?: string | ReadonlyArray<string>): Arguments;
+        parse(arg: string | ReadonlyArray<string>, parseCallback: ParseCallback): Arguments;
+        parse(arg: string | ReadonlyArray<string>, context: object, parseCallback?: ParseCallback): Arguments;
 
         pkgConf(key: string | string[], cwd?: string): Argv;
 
@@ -299,6 +300,7 @@ declare namespace yargs {
 
     interface PositionalOptions {
         alias?: string | string[];
+        array?: boolean;
         choices?: Choices;
         coerce?: (arg: any) => any;
         conflicts?: string | string[] | { [key: string]: string | string[] };

@@ -5,7 +5,7 @@ import {
     CartesianGrid, Line, LineChart, PieChart, Pie,
     Sector, XAxis, YAxis, Tooltip, ReferenceLine,
     ReferenceArea, ResponsiveContainer, Label, LabelList, Brush,
-    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text, Area, AreaChart
+    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text, Area, AreaChart, Customized
 } from 'recharts';
 
 interface ComponentState {
@@ -29,6 +29,10 @@ class Component extends React.Component<{}, ComponentState> {
         );
     }
 
+    private renderCustomizedElement(props: any) {
+        console.log('Customized props', props);
+        return (<Text x={0} y={0} width={100} height={20} className="customized-text">Customized element</Text>);
+    }
     render() {
         const data = [
             { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
@@ -104,6 +108,9 @@ class Component extends React.Component<{}, ComponentState> {
                         <CartesianGrid vertical={true} horizontal={false} verticalFill={["#fafafa", "#c8c8c8"]} />
                         <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
                         <Line id="custom-id" type="monotone" dataKey="pv" stroke="#82ca9d" />
+                        <Line id="custom-id2" type="monotone" dataKey="pv" stroke="#82ca9d" dot={false} />
+                        <Line id="custom-id3" type="monotone" dataKey="pv" stroke="#82ca9d" dot={({ payload }) => <span>{payload.x}</span>} />
+                        <Line id="custom-id3" type="monotone" dataKey="pv" stroke="#82ca9d" dot={{ stroke: 'red', strokeWidth: 2 }} />
                         <Tooltip />
                         <Brush dataKey="name" />
                         <Brush dataKey="name" gap={3} />
@@ -116,6 +123,7 @@ class Component extends React.Component<{}, ComponentState> {
                             strokeOpacity={0.2}
                             fillOpacity={0.1}
                         />
+                        <Customized component={<Text x={0} y={0} width={100} height={20}>Customized element</Text>} />
                     </LineChart>
                 </ResponsiveContainer>
                 <ResponsiveContainer height={300}>
@@ -133,12 +141,14 @@ class Component extends React.Component<{}, ComponentState> {
                         <Brush dataKey="name" />
                         <ReferenceLine />
                         <ReferenceArea
+                            label="Reference Area"
                             stroke="red"
                             fill="red"
                             y2={1}
                             strokeOpacity={0.2}
                             fillOpacity={0.1}
                         />
+                        <Customized component={this.renderCustomizedElement} />
                     </LineChart>
                 </ResponsiveContainer>
                 <ResponsiveContainer height={300}>
@@ -207,7 +217,7 @@ class Component extends React.Component<{}, ComponentState> {
                             <LabelList dataKey="name" position="insideTop" angle={45} />
                         </Bar>
                         <Bar dataKey="uv" fill="#82ca9d" radius={[10, 10, 0, 0]}>
-                            <LabelList dataKey="uv" position="top" />
+                            <LabelList valueAccessor={(entry: any) => entry["uv"]} position="top" />
                         </Bar>
                     </BarChart>
                 </ResponsiveContainer>

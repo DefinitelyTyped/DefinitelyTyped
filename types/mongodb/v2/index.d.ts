@@ -336,8 +336,8 @@ export interface CollectionCreateOptions {
     autoIndexId?: boolean;
     size?: number;
     max?: number;
-    flags?:	number;
-    storageEngine?:	object;
+    flags?:    number;
+    storageEngine?:    object;
     validator?: object;
     validationLevel?: "off" | "strict" | "moderate";
     validationAction?: "error" | "warn";

@@ -1,4 +1,4 @@
-import * as Geohash from "latlon-geohash";
+import Geohash from "latlon-geohash";
 
 // Encoding
 const atx_geohash: string = Geohash.encode(30.2672, -97.7431);

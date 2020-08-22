@@ -21,6 +21,10 @@ export const crypto_auth_hmacsha512_KEYBYTES: number;
 export const crypto_box_curve25519xchacha20poly1305_NONCEBYTES: number;
 export const crypto_box_curve25519xchacha20poly1305_PUBLICKEYBYTES: number;
 export const crypto_box_curve25519xchacha20poly1305_SECRETKEYBYTES: number;
+export const crypto_core_hchacha20_CONSTBYTES: number;
+export const crypto_core_hchacha20_INPUTBYTES: number;
+export const crypto_core_hchacha20_KEYBYTES: number;
+export const crypto_core_hchacha20_OUTPUTBYTES: number;
 export const crypto_core_ristretto255_BYTES: number;
 export const crypto_core_ristretto255_HASHBYTES: number;
 export const crypto_core_ristretto255_NONREDUCEDSCALARBYTES: number;
@@ -56,12 +60,15 @@ export const crypto_scalarmult_ristretto255_SCALARBYTES: number;
 export const crypto_shorthash_siphashx24_BYTES: number;
 export const crypto_shorthash_siphashx24_KEYBYTES: number;
 export const crypto_stream_chacha20_ietf_KEYBYTES: number;
+export const crypto_stream_chacha20_ietf_MESSAGEBYTES_MAX: number;
 export const crypto_stream_chacha20_ietf_NONCEBYTES: number;
 export const crypto_stream_chacha20_KEYBYTES: number;
 export const crypto_stream_chacha20_NONCEBYTES: number;
 export const crypto_stream_KEYBYTES: number;
+export const crypto_stream_MESSAGEBYTES_MAX: number;
 export const crypto_stream_NONCEBYTES: number;
 export const crypto_stream_xchacha20_KEYBYTES: number;
+export const crypto_stream_xchacha20_MESSAGEBYTES_MAX: number;
 export const crypto_stream_xchacha20_NONCEBYTES: number;
 
 export function crypto_auth_hmacsha256(message: string | Uint8Array, key: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
@@ -115,16 +122,16 @@ export function crypto_core_ristretto255_scalar_mul(x: Uint8Array, y: Uint8Array
 export function crypto_core_ristretto255_scalar_negate(scalar: string | Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
 export function crypto_core_ristretto255_scalar_negate(scalar: string | Uint8Array, outputFormat: StringOutputFormat): string;
 
-export function crypto_core_ristretto255_scalar_random(outputFormat?: Uint8ArrayOutputFormat): Uint8Array;
+export function crypto_core_ristretto255_scalar_random(outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
 export function crypto_core_ristretto255_scalar_random(outputFormat: StringOutputFormat): string;
 
-export function crypto_core_ristretto255_scalar_reduce(secret: string | Uint8Array, outputFormat?: Uint8ArrayOutputFormat): Uint8Array;
+export function crypto_core_ristretto255_scalar_reduce(secret: string | Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
 export function crypto_core_ristretto255_scalar_reduce(secret: string | Uint8Array, outputFormat: StringOutputFormat): string;
 
-export function crypto_core_ristretto255_scalar_sub(x: Uint8Array, y: Uint8Array, outputFormat?: Uint8ArrayOutputFormat): Uint8Array;
+export function crypto_core_ristretto255_scalar_sub(x: Uint8Array, y: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
 export function crypto_core_ristretto255_scalar_sub(x: Uint8Array, y: Uint8Array, outputFormat: StringOutputFormat): string;
 
-export function crypto_core_ristretto255_sub(p: Uint8Array, q: Uint8Array, outputFormat?: Uint8ArrayOutputFormat): Uint8Array;
+export function crypto_core_ristretto255_sub(p: Uint8Array, q: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
 export function crypto_core_ristretto255_sub(p: Uint8Array, q: Uint8Array, outputFormat: StringOutputFormat): string;
 
 export function crypto_generichash_blake2b_salt_personal(subkey_len: number,
@@ -226,6 +233,9 @@ export function crypto_stream_chacha20_xor_ic(input_message: string | Uint8Array
     outputFormat?: Uint8ArrayOutputFormat | null,
 ): Uint8Array;
 export function crypto_stream_chacha20_xor_ic(input_message: string | Uint8Array, nonce: Uint8Array, nonce_increment: number, key: Uint8Array, outputFormat: StringOutputFormat): string;
+
+export function crypto_stream_keygen(outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_stream_keygen(outputFormat: StringOutputFormat): string;
 
 export function crypto_stream_xchacha20_keygen(outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
 export function crypto_stream_xchacha20_keygen(outputFormat: StringOutputFormat): string;

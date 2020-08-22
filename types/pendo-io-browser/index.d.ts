@@ -6,17 +6,16 @@
 
 declare namespace pendo {
     interface Identity {
-        visitor: Visitor;
-        account?: Account;
+        /** visitor.id is required if user is logged in, otherwise an anonymous ID is generated and tracked by a cookie */
+        visitor?: IdentityMetadata;
+        account?: IdentityMetadata;
     }
 
     interface Metadata {
-        [key: string]: string | number | boolean | Date | string[] | number[];
+        [key: string]: string | number | boolean;
     }
 
-    type Visitor = { id: string; } & Metadata;
-
-    type Account = { id?: string; } & Metadata;
+    type IdentityMetadata = { id?: string; } & Metadata;
 
     interface InitOptions extends Identity {
         apiKey?: string;
@@ -42,7 +41,7 @@ declare namespace pendo {
 
     interface Pendo {
         // Initialization and Identification
-        initialize(options: InitOptions): void;
+        initialize(options?: InitOptions): void;
         identify(visitorId: string, accountId?: string): void;
         identify(identity: Identity): void;
         isReady(): boolean;

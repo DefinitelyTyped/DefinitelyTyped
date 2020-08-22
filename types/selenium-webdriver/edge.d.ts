@@ -25,23 +25,7 @@ export class Driver extends webdriver.WebDriver {
 /**
  * Class for managing MicrosoftEdgeDriver specific options.
  */
-export class Options extends webdriver.Capabilities {
-  /**
-   * Sets the proxy settings for the new session.
-   * @param {capabilities.ProxyConfig} proxy The proxy configuration to use.
-   * @return {!Options} A self reference.
-   */
-  setProxy(proxy: webdriver.ProxyConfig): Options;
-
-  /**
-   * Sets the page load strategy for Edge.
-   * Supported values are 'normal', 'eager', and 'none';
-   *
-   * @param {string} pageLoadStrategy The page load strategy to use.
-   * @return {!Options} A self reference.
-   */
-  setPageLoadStrategy(pageLoadStrategy: string): Options;
-}
+export class Options extends webdriver.Capabilities {}
 
 /**
  * Creates {@link remote.DriverService} instances that manage a

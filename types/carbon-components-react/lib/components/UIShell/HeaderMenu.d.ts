@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
+import { ReactAttr, FCReturn } from '../../../typings/shared';
 
 interface InheritedProps {
     "aria-label"?: ReactAttr["aria-label"],
@@ -9,11 +9,14 @@ interface InheritedProps {
     tabIndex?: ReactAttr["tabIndex"],
 }
 
-export interface HeaderMenuProps extends InheritedProps {
-    menuLinkName?: string,
-    renderMenuContent?: React.FC,
+export interface HeaderMenuProps<RP = {}> extends InheritedProps {
+    menuLinkName: string,
+    ref?(element: HTMLElement): void;
+    renderMenuContent?: React.ComponentType<RP>,
 }
 
-declare const HeaderMenu: React.RefForwardingComponent<HTMLAnchorElement, HeaderMenuProps>;
+declare class HeaderMenu extends React.Component<HeaderMenuProps> { }
 
-export default HeaderMenu;
+declare function HeaderMenuForwardRef<RP = {}>(props: HeaderMenuProps<RP>): FCReturn;
+
+export default HeaderMenuForwardRef;

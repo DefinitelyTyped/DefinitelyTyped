@@ -1,3 +1,3 @@
-import * as validator from "validator";
-declare const isIP: typeof validator.isIP;
-export = isIP;
+import validator from '../';
+export type IPVersion = validator.IPVersion;
+export default validator.isIP;

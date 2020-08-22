@@ -1,6 +1,6 @@
 // from https://github.com/johnbrett/hapi-auth-bearer-token
 
-import { Server } from 'hapi';
+import { Server } from '@hapi/hapi';
 import * as AuthBearer from 'hapi-auth-bearer-token';
 
 const server = new Server({ port: 8080 });

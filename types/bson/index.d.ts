@@ -3,6 +3,7 @@
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
 //                 Federico Caselli <https://github.com/CaselIT>
 //                 Justin Grant <https://github.com/justingrant>
+//                 Mikael Lirbank <https://github.com/lirbank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -162,7 +163,6 @@ export class Code {
 
 /**
  * A class representation of the BSON DBRef type.
- * @deprecated
  */
 export class DBRef {
     /**
@@ -182,6 +182,12 @@ export class Double {
      * @param value The number we want to represent as a double.
      */
     constructor(value: number);
+
+    /**
+     * https://github.com/mongodb/js-bson/blob/master/lib/double.js#L17
+     */
+    value: number;
+
 
     valueOf(): number;
 }
