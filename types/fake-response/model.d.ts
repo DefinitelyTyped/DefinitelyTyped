@@ -108,3 +108,4 @@ export interface HarEntry {
     };
 }
 export type Status = 'success' | 'failure';
+export {};
