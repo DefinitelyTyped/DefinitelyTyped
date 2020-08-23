@@ -998,6 +998,8 @@ describe('', () => {
 
         expect(true).toStrictEqual(false);
         expect({}).toStrictEqual({});
+        // $ExpectError
+        expect('abc').toStrictEqual(2);
 
         const errInstance = new Error();
         const willThrow = () => {
@@ -1034,8 +1036,13 @@ describe('', () => {
 
         /* Promise matchers */
 
-        expect(Promise.reject('jest')).rejects.toEqual('jest').then(() => {});
-        expect(Promise.reject('jest')).rejects.not.toEqual('other').then(() => {});
+        expect(Promise.reject('jest')).rejects.toStrictEqual('jest').then(() => {});
+        expect(Promise.reject('jest')).rejects.not.toStrictEqual('other').then(() => {});
+
+        expect(Promise.resolve('jest')).resolves.toStrictEqual('jest').then(() => {});
+        expect(Promise.resolve('jest')).resolves.not.toStrictEqual('other').then(() => {});
+        // $ExpectError
+        expect(Promise.resolve('jest')).resolves.toStrictEqual(123).then(() => {});
 
         expect(Promise.resolve('jest')).resolves.toEqual('jest').then(() => {});
         expect(Promise.resolve('jest')).resolves.not.toEqual('other').then(() => {});
@@ -1064,6 +1071,10 @@ describe('', () => {
                 ghi: expect.stringMatching('foo'),
             })
         );
+
+        expect({ a: 2, b: 'abc' }).toEqual(expect.objectContaining({ a: 2 }));
+
+        expect({ a: 2, b: 'abc' }).toStrictEqual(expect.objectContaining({ a: 2 }));
 
         /* Inverse type matchers */
 

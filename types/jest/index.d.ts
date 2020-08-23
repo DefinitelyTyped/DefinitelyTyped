@@ -757,7 +757,7 @@ declare namespace jest {
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toBe<E = any>(expected: E): R;
+        toBe<E = T>(expected: E): R;
         /**
          * Ensures that a mock function is called.
          */
@@ -861,7 +861,7 @@ declare namespace jest {
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toEqual<E = any>(expected: E): R;
+        toEqual<E = T>(expected: E): R;
         /**
          * Ensures that a mock function is called.
          */
@@ -1025,7 +1025,7 @@ declare namespace jest {
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toStrictEqual<E = any>(expected: E): R;
+        toStrictEqual<E extends T>(expected: E): R;
         /**
          * Used to test that a function throws when it is called.
          */
