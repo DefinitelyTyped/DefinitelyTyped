@@ -3029,9 +3029,10 @@ export interface DrawerLayoutAndroidProps extends ViewProps {
 
     /**
      * Specifies the side of the screen from which the drawer will slide in.
-     * enum(DrawerLayoutAndroid.positions.Left, DrawerLayoutAndroid.positions.Right)
+     * - 'left' (the default)
+     * - 'right'
      */
-    drawerPosition?: number;
+    drawerPosition?: 'left' | 'right';
 
     /**
      * Specifies the width of the drawer, more precisely the width of the
