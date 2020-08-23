@@ -52,11 +52,11 @@ wp.customize.panel('widgets').priority(1); // move Widgets to the top
 
 // Using types directly
 function fun(section: wordpress__customize.Section): void {
-  section.deactivate({
-    completeCallback: () => {
-        wp.customize.section('colors').activate(); // show after nav hides completely
-    },
-  });
+    section.deactivate({
+        completeCallback: () => {
+            wp.customize.section('colors').activate(); // show after nav hides completely
+        },
+    });
 }
 
 wp.customize.section('nav', fun);
