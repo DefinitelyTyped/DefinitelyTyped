@@ -56,7 +56,7 @@ interface Transformation {
 
 interface UrlOptionsBase {
     transformation?: Transformation[];
-    transformationPosition: TransformationPosition;
+    transformationPosition?: TransformationPosition;
     queryParameters?: { [key: string]: string | number };
     urlEndpoint?: string;
     signed?: boolean;
