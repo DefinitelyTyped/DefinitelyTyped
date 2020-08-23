@@ -680,7 +680,7 @@ declare namespace jest {
          * This ensures that the object contains the desired structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        objectContaining<E = {}>(obj: E): any;
+        objectContaining<E = {}>(obj: Partial<E>): any;
         /**
          * Matches any string that contains the exact provided string
          */

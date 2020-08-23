@@ -1123,6 +1123,10 @@ describe('', () => {
         expect(['abc']).toBe(expect.arrayContaining(['a', 'b']));
 
         expect.objectContaining({});
+        expect.objectContaining<{ a: string, b: string }>({ a: '123' });
+        // $ExpectError
+        expect.objectContaining<{ a: string, b: string }>({ a: 123 });
+
         expect.stringMatching('foo');
         expect.stringMatching(/foo/);
         expect.stringContaining('foo');
@@ -1146,6 +1150,9 @@ describe('', () => {
         expect([1, 2, 3]).toStrictEqual(expect.arrayContaining([2]));
 
         expect([{ a: 2, b: 'abc' }]).toContain(expect.objectContaining({ a: 2 }));
+
+        const a = [{ a: "foo" }, { a: "bar" }, { b: "baz" }];
+        expect(a).toContain(expect.objectContaining({ a: "foo" }));
 
         expect([{ a: 2, b: 'abc' }]).toContainEqual(expect.objectContaining({ a: 2 }));
 
