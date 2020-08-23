@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 type TransformationPosition = 'path' | 'query';
-type FileType = 'image' | 'non-image';
+type FileType = 'all' | 'image' | 'non-image';
 type Item = 'file' | 'folder';
 
 interface Transformation {
