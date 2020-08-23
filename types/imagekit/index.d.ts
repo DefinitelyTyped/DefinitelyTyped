@@ -105,6 +105,7 @@ interface ListFileResponse {
     fileId: string;
     type: Item;
     name: string;
+    createdAt: string;
     filePath: string;
     tags: string[] | null;
     isPrivateFile: boolean;
