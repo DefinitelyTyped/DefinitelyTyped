@@ -69,7 +69,7 @@ interface UploadOptions {
     file: number | string;
     fileName: string;
     useUniqueFileName?: boolean;
-    tags?: string[];
+    tags?: string;
     folder?: string;
     isPrivateFile?: boolean;
     customCoordinates?: string;
