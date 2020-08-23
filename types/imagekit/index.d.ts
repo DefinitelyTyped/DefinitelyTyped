@@ -73,7 +73,7 @@ interface UploadOptions {
     folder?: string;
     isPrivateFile?: boolean;
     customCoordinates?: string;
-    responseFields: string;
+    responseFields?: string;
 }
 
 interface UploadResponse {
