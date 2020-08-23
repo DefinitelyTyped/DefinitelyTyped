@@ -4,7 +4,7 @@
 //                 Eric Hwang <https://github.com/ericyhwang>
 //                 Peter Xu <https://github.com/pxpeterxu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.7
 
 /// <reference path="lib/sharedb.d.ts" />
 
