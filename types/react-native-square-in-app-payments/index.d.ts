@@ -71,7 +71,7 @@ export interface CardDetails {
 // Errors
 
 /** Error Codes */
-export type ErrorCode =
+export type SQIPErrorCodes =
     /**
      * In-App Payments SDK was used in an unexpected or unsupported way.
      * Returned by all methods
@@ -101,7 +101,7 @@ export type ErrorCode =
 /** Signals that card entry exception of some sort has occurred. This class is the general class of exceptions produced by failed payment card processing operations. */
 export interface InAppPaymentsException {
     /** The enumerated error types */
-    code: ErrorCode;
+    code: SQIPErrorCodes;
     /** A description of the usage error */
     message: string;
     /** Information about error state */
@@ -113,7 +113,7 @@ export interface InAppPaymentsException {
 /** Contains information about a payment card processing error. */
 export interface Error {
     /** The enumerated error types */
-    code: ErrorCode;
+    code: SQIPErrorCodes;
     /** A description of the usage error */
     message: string;
     /** Information about error state */
