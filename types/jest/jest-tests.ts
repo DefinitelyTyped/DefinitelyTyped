@@ -914,6 +914,7 @@ describe('', () => {
 
         expect([]).toEqual([]);
         expect({}).toEqual({});
+        expect({a: 1}).toEqual({b: 'test'});
 
         expect(jest.fn()).toHaveBeenCalled();
 
@@ -1086,8 +1087,14 @@ describe('', () => {
         );
 
         expect({ a: 2, b: 'abc' }).toEqual(expect.objectContaining({ a: 2 }));
+        expect({ a: 2, b: 'abc' }).toEqual(expect.anything());
+        expect([1, 2, 3]).toEqual(expect.arrayContaining([2]));
 
         expect({ a: 2, b: 'abc' }).toStrictEqual(expect.objectContaining({ a: 2 }));
+        expect({ a: 2, b: 'abc' }).toStrictEqual(expect.anything());
+        expect([1, 2, 3]).toStrictEqual(expect.arrayContaining([2]));
+
+        expect([{ a: 2, b: 'abc' }]).toContain(expect.objectContaining({ a: 2 }));
 
         expect([{ a: 2, b: 'abc' }]).toContainEqual(expect.objectContaining({ a: 2 }));
 
