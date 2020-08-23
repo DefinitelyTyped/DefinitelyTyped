@@ -892,10 +892,25 @@ describe('', () => {
         expect([]).toContain({});
         expect(['abc']).toContain('abc');
         expect(['abc']).toContain('def');
+        expect(new Set(['abc'])).toContain('abc');
         expect('abc').toContain('bc');
+        expect([1] as any).toContain(1);
+        expect('abc' as any).toContain('abc');
+        // $ExpectError
+        expect([1, 2, 3]).toContain('2');
+        // $ExpectError
+        expect({ 1: 1, 2: 2, length: 2 }).toContain('1');
+        // $ExpectError
+        expect('abc').toContain(2);
 
         expect([]).toContainEqual({});
         expect(['abc']).toContainEqual('def');
+        expect(new Set(['abc'])).toContainEqual('abc');
+        expect([1] as any).toContainEqual(1);
+        // $ExpectError
+        expect([1, 2, 3]).toContainEqual('2');
+        // $ExpectError
+        expect({ 1: 1, 2: 2, length: 2 }).toContainEqual('1');
 
         expect([]).toEqual([]);
         expect({}).toEqual({});
@@ -1044,8 +1059,6 @@ describe('', () => {
         // $ExpectError
         expect(Promise.resolve('jest')).resolves.toStrictEqual(123).then(() => {});
 
-        expect(Promise.resolve('jest')).resolves.toEqual('jest').then(() => {});
-        expect(Promise.resolve('jest')).resolves.not.toEqual('other').then(() => {});
         /* type matchers */
 
         expect({}).toBe(expect.anything());
@@ -1075,6 +1088,8 @@ describe('', () => {
         expect({ a: 2, b: 'abc' }).toEqual(expect.objectContaining({ a: 2 }));
 
         expect({ a: 2, b: 'abc' }).toStrictEqual(expect.objectContaining({ a: 2 }));
+
+        expect([{ a: 2, b: 'abc' }]).toContainEqual(expect.objectContaining({ a: 2 }));
 
         /* Inverse type matchers */
 

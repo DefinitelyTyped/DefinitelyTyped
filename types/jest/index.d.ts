@@ -841,8 +841,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        // tslint:disable-next-line: no-unnecessary-generics
-        toContain<E = any>(expected: E): R;
+        toContain<E = T>(expected: E extends string ? string : CollectionElementType<E>): R;
         /**
          * Used when you want to check that an item is in a list.
          * For testing the items in the list, this matcher recursively checks the
@@ -852,7 +851,7 @@ declare namespace jest {
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toContainEqual<E = any>(expected: E): R;
+        toContainEqual<E = T>(expected: CollectionElementType<E>): R;
         /**
          * Used when you want to check that two objects have the same value.
          * This matcher recursively checks the equality of all fields, rather than checking for object identity.
