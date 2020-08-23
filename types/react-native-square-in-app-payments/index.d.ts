@@ -71,32 +71,33 @@ export interface CardDetails {
 // Errors
 
 /** Error Codes */
-export type SQIPErrorCodes =
+export enum SQIPErrorCodes {
     /**
      * In-App Payments SDK was used in an unexpected or unsupported way.
      * Returned by all methods
      */
-    | 'usageError'
+    USAGE_ERROR = 'usageError',
     /**
      * In-App Payments SDK could not connect to the network.
      * Returned by: `applePayNonceRequestFailureCallback`, `googlePayNonceRequestFailureCallback`
      */
-    | 'noNetwork'
+    NO_NETWORK = 'noNetwork',
     /**
      * Square Buyer Verification SDK could not verify the provided card.
      * Returned by: `BuyerVerificationErrorCallback`
      */
-    | 'failed'
+    FAILED = 'failed',
     /**
      * The result when the customer cancels the Square Buyer Verification flow before a card is successfully verified.
      * Returned by: `BuyerVerificationErrorCallback`
      */
-    | 'canceled'
+    CANCELED = 'canceled',
     /**
      * The version of the Square Buyer Verification SDK used by this application is no longer supported.
      * Returned by: `BuyerVerificationErrorCallback`
      */
-    | 'unsupportedSDKVersion';
+    UNSUPPORTED_SDK_VERSION = 'unsupportedSDKVersion',
+}
 
 /** Signals that card entry exception of some sort has occurred. This class is the general class of exceptions produced by failed payment card processing operations. */
 export interface InAppPaymentsException {
