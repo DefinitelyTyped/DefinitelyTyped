@@ -89,26 +89,26 @@ namespace MxTests {
         QUnit.module("Multiplex");
 
 
-        QUnit.test("Multiplex Array", function (assert) {
+        QUnit.test("Multiplex Array", function (assert: Assert) {
 
             var _source = mx([1, 2, 3, 4]);
             assert.ok(MxCount(_source) === 4, "Passed!");
         });
 
 
-        QUnit.test("Multiplex String", function (assert) {
+        QUnit.test("Multiplex String", function (assert: Assert) {
             var _source = mx("Multiplex");
             assert.ok(MxCount(_source) === 9, "Passed!");
         });
 
 
-        QUnit.test("Multiplex Object", function (assert) {
+        QUnit.test("Multiplex Object", function (assert: Assert) {
             var _source = mx({ name: "mx", id: 1 });
             assert.ok(MxCount(_source) === 2, "Passed!");
         });
 
 
-        QUnit.test("Multiplex Array-like", function (assert) {
+        QUnit.test("Multiplex Array-like", function (assert: Assert) {
             var _source = mx(arguments);
             assert.ok(MxCount(_source) === 1, "Passed!");
         });
@@ -125,7 +125,7 @@ namespace MxTests {
         //});
 
 
-        QUnit.test("Multiplex Custom Enumerator", function (assert) {
+        QUnit.test("Multiplex Custom Enumerator", function (assert: Assert) {
             var _source = mx(<Enumerable<number>>{
                 getEnumerator: function (): Enumerator<number> {
                     var count = 3, index = 0;
@@ -148,7 +148,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("Multiplex Generator", function (assert) {
+        QUnit.test("Multiplex Generator", function (assert: Assert) {
             try {
                 var _source = eval("mx(function* () { yield 1; yield 2; yield 3; })");
                 assert.ok(MxCount(_source) === 3, "Passed!");
@@ -157,7 +157,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("Multiplex Legacy Generator", function (assert) {
+        QUnit.test("Multiplex Legacy Generator", function (assert: Assert) {
             var _source = mx(function () {
                 var count = 3,
                     index = 0;
@@ -184,13 +184,13 @@ namespace MxTests {
         });
 
 
-        QUnit.test("mx.empty", function (assert) {
+        QUnit.test("mx.empty", function (assert: Assert) {
             var _source = mx.empty();
             assert.ok(MxCount(_source) === 0, "Passed!");
         });
 
 
-        QUnit.test("mx.is", function (assert) {
+        QUnit.test("mx.is", function (assert: Assert) {
             assert.ok(mx.is(mx.range(1, 10)), "Enumerable Passed!");
             assert.ok(mx.is([1]), "Array Passed!");
             assert.ok(mx.is("mx"), "String Passed!");
@@ -244,7 +244,7 @@ namespace MxTests {
         QUnit.module("Runtime");
 
 
-        QUnit.test("hash", function (assert) {
+        QUnit.test("hash", function (assert: Assert) {
 
             assert.ok(mx.hash(null) === 0, "hash null!");
             assert.ok(mx.hash(undefined) === 0, "hash undefined!");
@@ -260,7 +260,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("equals", function (assert) {
+        QUnit.test("equals", function (assert: Assert) {
 
             assert.ok(mx.equals(null, null) === true, "equals null!");
             assert.ok(mx.equals(undefined, undefined) === true, "equals undefined!");
@@ -276,7 +276,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("compare", function (assert) {
+        QUnit.test("compare", function (assert: Assert) {
 
             assert.ok(mx.compare(1, null) === 1 && mx.compare(null, 1) === -1 && mx.compare(null, null) === 0, "compare null!");
             assert.ok(mx.compare(1, 0) === 1 && mx.compare(0, 1) === -1 && mx.compare(1, 1) === 0, "compare numbers!");
@@ -287,7 +287,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("lambda", function (assert) {
+        QUnit.test("lambda", function (assert: Assert) {
 
             var _f1 = mx.runtime.lambda<number, number>("t => t * t"),
                 _f2 = mx.runtime.lambda<number, number, number>("(t, u) => t + u"),
@@ -307,7 +307,7 @@ namespace MxTests {
         QUnit.module("Linq");
 
 
-        QUnit.test("aggregate", function (assert) {
+        QUnit.test("aggregate", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -317,7 +317,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("all", function (assert) {
+        QUnit.test("all", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -326,7 +326,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("any", function (assert) {
+        QUnit.test("any", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -336,7 +336,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("average", function (assert) {
+        QUnit.test("average", function (assert: Assert) {
 
             assert.ok(mx(CreateNumberArray()).average() === 4.5, "Average of the first 10 numbers!");
             assert.throws(() => mx(CreateObjectLiteralArray()).average(), "throws an exception for average of non numeric values!");
@@ -344,7 +344,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("concat", function (assert) {
+        QUnit.test("concat", function (assert: Assert) {
             var _s1 = [1, 2, 3],
                 _s2 = [3, 4],
                 _arr = CreateNumberArray();
@@ -354,7 +354,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("contains", function (assert) {
+        QUnit.test("contains", function (assert: Assert) {
 
             var _arr1 = CreateNumberArray(),
                 _arr2 = CreateSimpleClassArray(),
@@ -377,7 +377,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("count", function (assert) {
+        QUnit.test("count", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -386,7 +386,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("defaultIfEmpty", function (assert) {
+        QUnit.test("defaultIfEmpty", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -396,7 +396,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("distinct", function (assert) {
+        QUnit.test("distinct", function (assert: Assert) {
 
             var _arr1 = CreateObjectLiteralArray(),
                 _arr2 = CreateComplexObjectLiteralArray(),
@@ -424,7 +424,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("except", function (assert) {
+        QUnit.test("except", function (assert: Assert) {
 
             var _arr1 = CreateNumberArray(),
                 _arr2 = CreateObjectLiteralArray(),
@@ -441,7 +441,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("elementAt", function (assert) {
+        QUnit.test("elementAt", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -450,7 +450,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("first", function (assert) {
+        QUnit.test("first", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -461,7 +461,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("firstOrDefault", function (assert) {
+        QUnit.test("firstOrDefault", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -472,7 +472,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("forEach", function (assert) {
+        QUnit.test("forEach", function (assert: Assert) {
 
             var _arr = CreateNumberArray(),
                 _sum = 0;
@@ -482,7 +482,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("groupBy", function (assert) {
+        QUnit.test("groupBy", function (assert: Assert) {
 
             var _arr1 = CreateObjectLiteralArray(),
                 _arr2 = CreateComplexObjectLiteralArray();
@@ -494,7 +494,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("groupJoin", function (assert) {
+        QUnit.test("groupJoin", function (assert: Assert) {
 
             var _arr1 = [{ name: "A", val: 1 }, { name: "B", val: 2 }, { name: "C", val: 3 }, { name: "D", val: 4 }],
                 _arr2 = [{ code: "A" }, { code: "A" }, { code: "B" }, { code: "B" }, { code: "C" }],
@@ -507,7 +507,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("intersect", function (assert) {
+        QUnit.test("intersect", function (assert: Assert) {
 
             var _arr1 = CreateNumberArray(),
                 _arr2 = CreateObjectLiteralArray(),
@@ -524,7 +524,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("join", function (assert) {
+        QUnit.test("join", function (assert: Assert) {
             var _arr1 = [{ name: "A", val: 1 }, { name: "B", val: 2 }, { name: "C", val: 3 }, { name: "D", val: 4 }],
                 _arr2 = [{ code: "A" }, { code: "A" }, { code: "B" }, { code: "B" }, { code: "C" }],
                 _arr3 = CreateObjectLiteralArray(),
@@ -537,7 +537,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("last", function (assert) {
+        QUnit.test("last", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -548,7 +548,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("lastOrDefault", function (assert) {
+        QUnit.test("lastOrDefault", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -559,7 +559,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("max", function (assert) {
+        QUnit.test("max", function (assert: Assert) {
 
             var _arr1 = CreateNumberArray(),
                 _arr2 = CreateStringArray(),
@@ -572,7 +572,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("min", function (assert) {
+        QUnit.test("min", function (assert: Assert) {
 
             var _arr1 = CreateNumberArray(),
                 _arr2 = CreateStringArray(),
@@ -585,7 +585,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("ofType", function (assert) {
+        QUnit.test("ofType", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -594,7 +594,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("orderBy", function (assert) {
+        QUnit.test("orderBy", function (assert: Assert) {
 
             var _arr1 = CreateNumberArray(),
                 _arr2 = CreateComplexObjectLiteralArray(),
@@ -611,7 +611,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("orderByDescending", function (assert) {
+        QUnit.test("orderByDescending", function (assert: Assert) {
 
             var _arr1 = CreateNumberArray(),
                 _arr2 = CreateComplexObjectLiteralArray(),
@@ -628,7 +628,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("reverse", function (assert) {
+        QUnit.test("reverse", function (assert: Assert) {
 
             var _arr1 = CreateNumberArray(),
                 _arr2 = CreateStringArray();
@@ -638,7 +638,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("sequenceEqual", function (assert) {
+        QUnit.test("sequenceEqual", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -651,7 +651,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("select", function (assert) {
+        QUnit.test("select", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -660,7 +660,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("selectMany", function (assert) {
+        QUnit.test("selectMany", function (assert: Assert) {
 
             var _arr = [{ name: "A", values: [1, 2, 3, 4] }, { name: "B", values: [5, 6, 7, 8] }];
 
@@ -669,7 +669,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("single", function (assert) {
+        QUnit.test("single", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -682,7 +682,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("singleOrDefault", function (assert) {
+        QUnit.test("singleOrDefault", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -695,7 +695,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("skip", function (assert) {
+        QUnit.test("skip", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -706,7 +706,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("skipWhile", function (assert) {
+        QUnit.test("skipWhile", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -715,7 +715,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("sum", function (assert) {
+        QUnit.test("sum", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -726,7 +726,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("take", function (assert) {
+        QUnit.test("take", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -737,7 +737,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("takeWhile", function (assert) {
+        QUnit.test("takeWhile", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -754,7 +754,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("toDictionary", function (assert) {
+        QUnit.test("toDictionary", function (assert: Assert) {
 
             var _arr = CreateComplexObjectLiteralArray();
 
@@ -774,7 +774,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("toList", function (assert) {
+        QUnit.test("toList", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -783,7 +783,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("toLookup", function (assert) {
+        QUnit.test("toLookup", function (assert: Assert) {
 
             var _arr1 = CreateNumberArray(),
                 _arr2 = CreateComplexObjectLiteralArray();
@@ -803,7 +803,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("union", function (assert) {
+        QUnit.test("union", function (assert: Assert) {
 
             var _arr = CreateNumberArray();
 
@@ -812,7 +812,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("where", function (assert) {
+        QUnit.test("where", function (assert: Assert) {
 
             var _arr1 = CreateNumberArray(),
                 _arr2 = CreateComplexObjectLiteralArray();
@@ -823,7 +823,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("zip", function (assert) {
+        QUnit.test("zip", function (assert: Assert) {
 
             assert.ok(mx([1, 2]).zip([3, 4], (t, u) => t + u).first() === 4, "Zip two numeric array!");
             assert.ok(mx([1, 2]).zip([3], (t, u) => t + u).count() === 1, "Zip two inharmonic numeric array!");
@@ -883,13 +883,13 @@ namespace MxTests {
         QUnit.module("Collection");
 
 
-        QUnit.test("constructor", function (assert) {
+        QUnit.test("constructor", function (assert: Assert) {
 
             assert.ok(CreateCollection().count() === 5, "initialize a Collection using specified collection!");
         });
 
 
-        QUnit.test("count", function (assert) {
+        QUnit.test("count", function (assert: Assert) {
 
             var _col = CreateCollection();
             assert.ok(_col.count() === 5, "collection containing count!");
@@ -931,7 +931,7 @@ namespace MxTests {
         QUnit.module("List");
 
 
-        QUnit.test("constructor", function (assert) {
+        QUnit.test("constructor", function (assert: Assert) {
             assert.ok(new List<number>().count() === 0, "an empty list!");
             assert.ok(new List<number>(10).count() === 10, "an empty list with initial capacity!");
             assert.ok(new List<number>(1, 2, 3, 4, 5).count() === 5, "list initializer!");
@@ -939,7 +939,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("indexer", function (assert) {
+        QUnit.test("indexer", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -950,7 +950,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("add", function (assert) {
+        QUnit.test("add", function (assert: Assert) {
 
             var _list = new List();
 
@@ -960,7 +960,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("addRange", function (assert) {
+        QUnit.test("addRange", function (assert: Assert) {
 
             var _list = new List();
 
@@ -969,7 +969,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("asReadOnly", function (assert) {
+        QUnit.test("asReadOnly", function (assert: Assert) {
 
             var _rlist = new List<number>(mx.range(0, 10)).asReadOnly();
 
@@ -978,7 +978,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("binarySearch", function (assert) {
+        QUnit.test("binarySearch", function (assert: Assert) {
 
             var _list1 = new List<number>(mx.range(0, 100)),
                 _list2 = new List<{ index: number }>(mx.range(0, 100).select(t => ({ index: t })));
@@ -991,7 +991,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("clear", function (assert) {
+        QUnit.test("clear", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -1000,7 +1000,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("contains", function (assert) {
+        QUnit.test("contains", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -1020,7 +1020,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("exists", function (assert) {
+        QUnit.test("exists", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -1029,7 +1029,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("find", function (assert) {
+        QUnit.test("find", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -1038,7 +1038,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("findIndex", function (assert) {
+        QUnit.test("findIndex", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -1048,7 +1048,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("findLast", function (assert) {
+        QUnit.test("findLast", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -1057,7 +1057,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("findLastIndex", function (assert) {
+        QUnit.test("findLastIndex", function (assert: Assert) {
 
             var _list = new List(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 
@@ -1067,7 +1067,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("forEach", function (assert) {
+        QUnit.test("forEach", function (assert: Assert) {
 
             var _list = CreateList(),
                 _count = 0;
@@ -1078,7 +1078,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("get", function (assert) {
+        QUnit.test("get", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -1096,7 +1096,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("indexOf", function (assert) {
+        QUnit.test("indexOf", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -1106,7 +1106,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("insert", function (assert) {
+        QUnit.test("insert", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -1118,7 +1118,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("insertRange", function (assert) {
+        QUnit.test("insertRange", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -1130,7 +1130,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("lastIndexOf", function (assert) {
+        QUnit.test("lastIndexOf", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -1140,7 +1140,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("remove", function (assert) {
+        QUnit.test("remove", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -1149,7 +1149,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("removeAll", function (assert) {
+        QUnit.test("removeAll", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -1158,7 +1158,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("removeAt", function (assert) {
+        QUnit.test("removeAt", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -1169,7 +1169,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("removeRange", function (assert) {
+        QUnit.test("removeRange", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -1194,7 +1194,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("set", function (assert) {
+        QUnit.test("set", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -1234,7 +1234,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("trueForAll", function (assert) {
+        QUnit.test("trueForAll", function (assert: Assert) {
 
             var _list = CreateList();
 
@@ -1266,13 +1266,13 @@ namespace MxTests {
         QUnit.module("ReadOnlyCollection");
 
 
-        QUnit.test("constructor", function (assert) {
+        QUnit.test("constructor", function (assert: Assert) {
             assert.ok(CreateReadOnlyCollection().count() === 5, "initialize a ReadOnlyCollection!");
             assert.throws(() => new ReadOnlyCollection<number>(null), "throws an exception creating an ampty ReadOnlyCollection!");
         });
 
 
-        QUnit.test("indexer", function (assert) {
+        QUnit.test("indexer", function (assert: Assert) {
 
             var _col = CreateReadOnlyCollection();
 
@@ -1291,7 +1291,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("get", function (assert) {
+        QUnit.test("get", function (assert: Assert) {
 
             var _col = CreateReadOnlyCollection();
 
@@ -1300,7 +1300,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("contains", function (assert) {
+        QUnit.test("contains", function (assert: Assert) {
 
             var _col = CreateReadOnlyCollection();
 
@@ -1320,7 +1320,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("indexOf", function (assert) {
+        QUnit.test("indexOf", function (assert: Assert) {
 
             var _col = CreateReadOnlyCollection();
 
@@ -1352,7 +1352,7 @@ namespace MxTests {
         QUnit.module("SortedList");
 
 
-        QUnit.test("constructor", function (assert) {
+        QUnit.test("constructor", function (assert: Assert) {
 
             var _comparer = Comparer.create((a: number, b: number) => a - b),
                 _dic = CreateDictionary(),
@@ -1373,14 +1373,14 @@ namespace MxTests {
         });
 
 
-        QUnit.test("add", function (assert) {
+        QUnit.test("add", function (assert: Assert) {
 
             assert.ok(CreateSortedList().count() == 5, "sorted-list add!");
             assert.throws(() => CreateSortedList().add(1, "AA"), "throws an error adding existing key to the list!");
         });
 
 
-        QUnit.test("get", function (assert) {
+        QUnit.test("get", function (assert: Assert) {
 
             var _list = CreateSortedList();
 
@@ -1389,7 +1389,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("capacity", function (assert) {
+        QUnit.test("capacity", function (assert: Assert) {
 
             var _list = CreateSortedList();
 
@@ -1400,7 +1400,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("clear", function (assert) {
+        QUnit.test("clear", function (assert: Assert) {
 
             var _list = CreateSortedList();
 
@@ -1409,7 +1409,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("comparer", function (assert) {
+        QUnit.test("comparer", function (assert: Assert) {
 
             var _comparer = CreateSortedList().comparer();
 
@@ -1417,7 +1417,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("containsKey", function (assert) {
+        QUnit.test("containsKey", function (assert: Assert) {
 
             var _list1 = CreateSortedList(),
                 _list2 = new SortedList<{ id: number; name: string }, number>({ compare: (a, b) => a.name.localeCompare(b.name) });
@@ -1436,7 +1436,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("containsValue", function (assert) {
+        QUnit.test("containsValue", function (assert: Assert) {
 
             var _list = CreateSortedList();
 
@@ -1463,7 +1463,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("indexOfKey", function (assert) {
+        QUnit.test("indexOfKey", function (assert: Assert) {
 
             var _list = CreateSortedList();
 
@@ -1472,7 +1472,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("indexOfValue", function (assert) {
+        QUnit.test("indexOfValue", function (assert: Assert) {
 
             var _list = CreateSortedList();
 
@@ -1481,7 +1481,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("remove", function (assert) {
+        QUnit.test("remove", function (assert: Assert) {
 
             var _list = CreateSortedList();
 
@@ -1490,7 +1490,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("removeAt", function (assert) {
+        QUnit.test("removeAt", function (assert: Assert) {
 
             var _list = CreateSortedList();
 
@@ -1500,7 +1500,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("set", function (assert) {
+        QUnit.test("set", function (assert: Assert) {
 
             var _list = CreateSortedList();
 
@@ -1512,7 +1512,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("tryGetValue", function (assert) {
+        QUnit.test("tryGetValue", function (assert: Assert) {
 
             var _list = CreateSortedList();
 
@@ -1608,7 +1608,7 @@ namespace MxTests {
         QUnit.module("Dictionary");
 
 
-        QUnit.test("constructor", function (assert) {
+        QUnit.test("constructor", function (assert: Assert) {
 
             var _comparer = EqualityComparer.create(o => mx.hash(o), (a, b) => a === b),
                 _d1 = new Dictionary<number, string>(),
@@ -1628,7 +1628,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("add", function (assert) {
+        QUnit.test("add", function (assert: Assert) {
             var _dic = new Dictionary<number, string>();
             _dic.add(1, "A");
 
@@ -1637,7 +1637,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("clear", function (assert) {
+        QUnit.test("clear", function (assert: Assert) {
             var _dic = CreateDictionary();
             _dic.clear();
 
@@ -1645,7 +1645,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("containsKey", function (assert) {
+        QUnit.test("containsKey", function (assert: Assert) {
 
             var _dic = CreateDictionary();
 
@@ -1654,7 +1654,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("containsValue", function (assert) {
+        QUnit.test("containsValue", function (assert: Assert) {
 
             var _dic = CreateDictionary();
 
@@ -1692,7 +1692,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("get", function (assert) {
+        QUnit.test("get", function (assert: Assert) {
 
             var _dic = CreateDictionary();
 
@@ -1701,7 +1701,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("set", function (assert) {
+        QUnit.test("set", function (assert: Assert) {
 
             var _dic = CreateDictionary();
 
@@ -1713,7 +1713,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("tryGetValue", function (assert) {
+        QUnit.test("tryGetValue", function (assert: Assert) {
 
             var _dic = CreateDictionary();
 
@@ -1736,7 +1736,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("remove", function (assert) {
+        QUnit.test("remove", function (assert: Assert) {
 
             var _dic = CreateDictionary();
 
@@ -1745,7 +1745,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("key-value pair", function (assert) {
+        QUnit.test("key-value pair", function (assert: Assert) {
 
             var _pair1 = new KeyValuePair(1, "A"),
                 _pair2 = new KeyValuePair(1, "A");
@@ -1758,7 +1758,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("dictionary enumerable", function (assert) {
+        QUnit.test("dictionary enumerable", function (assert: Assert) {
 
             var _dic = CreateDictionary();
 
@@ -1790,7 +1790,7 @@ namespace MxTests {
         QUnit.module("Hashset");
 
 
-        QUnit.test("constructor", function (assert) {
+        QUnit.test("constructor", function (assert: Assert) {
 
             assert.ok(new HashSet<number>().count() === 0, "initialize an empty HashSet!");
             assert.ok(new HashSet<number>(mx.range(1, 5)).count() === 5, "initialize a HashSet using specified collection!");
@@ -1799,7 +1799,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("add", function (assert) {
+        QUnit.test("add", function (assert: Assert) {
 
             var _hash1 = CreateNumericHashSet(),
                 _hash2 = CreateObjectHashSet();
@@ -1811,7 +1811,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("clear", function (assert) {
+        QUnit.test("clear", function (assert: Assert) {
 
             var _hash = CreateNumericHashSet();
 
@@ -1820,7 +1820,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("contains", function (assert) {
+        QUnit.test("contains", function (assert: Assert) {
 
             var _hash1 = CreateNumericHashSet(),
                 _hash2 = CreateObjectHashSet();
@@ -1844,7 +1844,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("comparer", function (assert) {
+        QUnit.test("comparer", function (assert: Assert) {
 
             var _hash1 = CreateNumericHashSet(),
                 _hash2 = CreateObjectHashSet();
@@ -1854,7 +1854,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("remove", function (assert) {
+        QUnit.test("remove", function (assert: Assert) {
 
             var _hash1 = CreateNumericHashSet(),
                 _hash2 = CreateObjectHashSet();
@@ -1866,7 +1866,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("removeWhere", function (assert) {
+        QUnit.test("removeWhere", function (assert: Assert) {
 
             var _hash1 = CreateNumericHashSet(),
                 _hash2 = CreateObjectHashSet();
@@ -1881,7 +1881,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("exceptWith", function (assert) {
+        QUnit.test("exceptWith", function (assert: Assert) {
 
             var _hash1 = CreateNumericHashSet(),
                 _hash2 = CreateObjectHashSet(),
@@ -1897,7 +1897,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("intersectWith", function (assert) {
+        QUnit.test("intersectWith", function (assert: Assert) {
 
             var _hash1 = CreateNumericHashSet(),
                 _hash2 = CreateObjectHashSet(),
@@ -1913,7 +1913,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("isProperSubsetOf", function (assert) {
+        QUnit.test("isProperSubsetOf", function (assert: Assert) {
 
             var _hash = CreateNumericHashSet();
 
@@ -1925,7 +1925,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("isProperSupersetOf", function (assert) {
+        QUnit.test("isProperSupersetOf", function (assert: Assert) {
 
             var _hash = CreateNumericHashSet();
 
@@ -1937,7 +1937,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("isSubsetOf", function (assert) {
+        QUnit.test("isSubsetOf", function (assert: Assert) {
 
             var _hash = CreateNumericHashSet();
 
@@ -1949,7 +1949,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("isSupersetOf", function (assert) {
+        QUnit.test("isSupersetOf", function (assert: Assert) {
 
             var _hash = CreateNumericHashSet();
 
@@ -1961,7 +1961,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("overlaps", function (assert) {
+        QUnit.test("overlaps", function (assert: Assert) {
 
             var _hash1 = CreateNumericHashSet(),
                 _hash2 = CreateObjectHashSet();
@@ -1972,7 +1972,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("setEquals", function (assert) {
+        QUnit.test("setEquals", function (assert: Assert) {
 
             var _hash1 = CreateNumericHashSet(),
                 _hash2 = CreateNumericHashSet();
@@ -1984,7 +1984,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("symmetricExceptWith", function (assert) {
+        QUnit.test("symmetricExceptWith", function (assert: Assert) {
 
             var _hash1 = CreateNumericHashSet(),
                 _hash2 = CreateObjectHashSet(),
@@ -2002,7 +2002,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("unionWith", function (assert) {
+        QUnit.test("unionWith", function (assert: Assert) {
 
             var _hash1 = CreateNumericHashSet(),
                 _hash2 = CreateObjectHashSet(),
@@ -2053,14 +2053,14 @@ namespace MxTests {
         QUnit.module("LinkedList");
 
 
-        QUnit.test("constructor", function (assert) {
+        QUnit.test("constructor", function (assert: Assert) {
 
             assert.ok(new LinkedList<number>().count() === 0, "initialize an empty LinkedList!");
             assert.ok(CreateLinkedList().count() === 5, "initialize a LinkedList using specified collection!");
         });
 
 
-        QUnit.test("add", function (assert) {
+        QUnit.test("add", function (assert: Assert) {
 
             var _list = CreateLinkedList();
 
@@ -2069,7 +2069,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("clear", function (assert) {
+        QUnit.test("clear", function (assert: Assert) {
 
             var _list = CreateLinkedList();
 
@@ -2078,7 +2078,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("contains", function (assert) {
+        QUnit.test("contains", function (assert: Assert) {
 
             var _list = CreateLinkedList();
 
@@ -2099,7 +2099,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("getFirst", function (assert) {
+        QUnit.test("getFirst", function (assert: Assert) {
 
             var _list = CreateLinkedList();
 
@@ -2108,7 +2108,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("getLast", function (assert) {
+        QUnit.test("getLast", function (assert: Assert) {
 
             var _list = CreateLinkedList();
 
@@ -2117,7 +2117,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("addAfter", function (assert) {
+        QUnit.test("addAfter", function (assert: Assert) {
 
             var _list = CreateLinkedList(),
                 _first = _list.getFirst(),
@@ -2131,7 +2131,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("addBefore", function (assert) {
+        QUnit.test("addBefore", function (assert: Assert) {
 
             var _list = CreateLinkedList(),
                 _last = _list.getLast(),
@@ -2145,7 +2145,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("addFirst", function (assert) {
+        QUnit.test("addFirst", function (assert: Assert) {
 
             var _list = CreateLinkedList(),
                 _node = new LinkedListNode(0);
@@ -2159,7 +2159,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("addLast", function (assert) {
+        QUnit.test("addLast", function (assert: Assert) {
 
             var _list = CreateLinkedList(),
                 _node = new LinkedListNode(6);
@@ -2173,7 +2173,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("find", function (assert) {
+        QUnit.test("find", function (assert: Assert) {
 
             var _list = CreateLinkedList();
 
@@ -2182,7 +2182,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("findLast", function (assert) {
+        QUnit.test("findLast", function (assert: Assert) {
 
             var _list = CreateLinkedList(),
                 _node = new LinkedListNode(1);
@@ -2194,7 +2194,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("remove", function (assert) {
+        QUnit.test("remove", function (assert: Assert) {
 
             var _list = CreateLinkedList(),
                 _last = _list.getLast();
@@ -2207,7 +2207,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("removeFirst", function (assert) {
+        QUnit.test("removeFirst", function (assert: Assert) {
 
             var _list = CreateLinkedList();
 
@@ -2218,7 +2218,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("removeLast", function (assert) {
+        QUnit.test("removeLast", function (assert: Assert) {
 
             var _list = CreateLinkedList();
 
@@ -2252,14 +2252,14 @@ namespace MxTests {
         QUnit.module("Queue");
 
 
-        QUnit.test("constructor", function (assert) {
+        QUnit.test("constructor", function (assert: Assert) {
 
             assert.ok(new Queue<number>().count() === 0, "initialize an empty Queue!");
             assert.ok(CreateQueue().count() === 5, "initialize a Queue using specified collection!");
         });
 
 
-        QUnit.test("clear", function (assert) {
+        QUnit.test("clear", function (assert: Assert) {
 
             var _queue = CreateQueue();
 
@@ -2268,7 +2268,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("contains", function (assert) {
+        QUnit.test("contains", function (assert: Assert) {
 
             var _queue = CreateQueue();
 
@@ -2288,7 +2288,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("dequeue", function (assert) {
+        QUnit.test("dequeue", function (assert: Assert) {
 
             var _queue = CreateQueue();
 
@@ -2299,7 +2299,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("enqueue", function (assert) {
+        QUnit.test("enqueue", function (assert: Assert) {
 
             var _queue = CreateQueue();
 
@@ -2308,7 +2308,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("peek", function (assert) {
+        QUnit.test("peek", function (assert: Assert) {
 
             var _queue = CreateQueue();
 
@@ -2350,14 +2350,14 @@ namespace MxTests {
         QUnit.module("Stack");
 
 
-        QUnit.test("constructor", function (assert) {
+        QUnit.test("constructor", function (assert: Assert) {
 
             assert.ok(new Stack<number>().count() === 0, "initialize an empty Stack!");
             assert.ok(CreateStack().count() === 5, "initialize a Stack using specified collection!");
         });
 
 
-        QUnit.test("clear", function (assert) {
+        QUnit.test("clear", function (assert: Assert) {
 
             var _stack = CreateStack();
 
@@ -2366,7 +2366,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("contains", function (assert) {
+        QUnit.test("contains", function (assert: Assert) {
 
             var _stack = CreateStack();
 
@@ -2386,7 +2386,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("peek", function (assert) {
+        QUnit.test("peek", function (assert: Assert) {
 
             var _stack = CreateStack();
 
@@ -2397,7 +2397,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("pop", function (assert) {
+        QUnit.test("pop", function (assert: Assert) {
 
             var _stack = CreateStack();
 
@@ -2408,7 +2408,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("push", function (assert) {
+        QUnit.test("push", function (assert: Assert) {
 
             var _stack = CreateStack();
 
@@ -2448,7 +2448,7 @@ namespace MxTests {
         QUnit.module("Lookup");
 
 
-        QUnit.test("contains", function (assert) {
+        QUnit.test("contains", function (assert: Assert) {
 
             var _lookup = CreateLookup();
 
@@ -2457,7 +2457,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("count", function (assert) {
+        QUnit.test("count", function (assert: Assert) {
 
             var _lookup = CreateLookup();
 
@@ -2465,7 +2465,7 @@ namespace MxTests {
         });
 
 
-        QUnit.test("get", function (assert) {
+        QUnit.test("get", function (assert: Assert) {
 
             var _lookup = CreateLookup();
 
