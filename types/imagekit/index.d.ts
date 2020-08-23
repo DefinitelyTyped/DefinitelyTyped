@@ -8,6 +8,7 @@
 type TransformationPosition = 'path' | 'query';
 type FileType = 'all' | 'image' | 'non-image';
 type Item = 'file' | 'folder';
+type CustomCoordinatesResponse = string | null;
 
 interface Transformation {
     height?: string;
@@ -87,7 +88,7 @@ interface UploadResponse {
     fileType: FileType;
     tags?: string[];
     isPrivateFile?: boolean;
-    customCoordinates?: string | null;
+    customCoordinates: CustomCoordinatesResponse;
     metadata?: string;
 }
 
@@ -109,7 +110,7 @@ interface ListFileResponse {
     filePath: string;
     tags: string[] | null;
     isPrivateFile: boolean;
-    customCoordinates: string;
+    customCoordinates: CustomCoordinatesResponse;
     url: string;
     thumbnail: string;
     fileType: FileType;
@@ -122,7 +123,7 @@ interface FileDetailsResponse {
     filePath: string;
     tags: string[] | null;
     isPrivateFile: boolean;
-    customCoordinates: string | null;
+    customCoordinates: CustomCoordinatesResponse;
     url: string;
     thumbnail: string;
     fileType: FileType;
