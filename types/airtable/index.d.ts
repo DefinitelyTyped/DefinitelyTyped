@@ -69,7 +69,7 @@ declare global {
         interface Query<TFields extends object> {
             all(): Promise<Records<TFields>>;
             firstPage(): Promise<Records<TFields>>;
-            eachPage(pageCallback: (records: Records<TFields>, next: () => void) => void): Promise<void>;
+            eachPage(pageCallback: (records: Records<TFields>, next: () => void) => void): Promise<string | null>;
         }
 
         interface Record<TFields> {
