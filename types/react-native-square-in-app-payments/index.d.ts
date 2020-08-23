@@ -3,6 +3,8 @@
 // Definitions by: Phillip Sgardelis <https://github.com/Phillip-Cognativ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// https://github.com/square/in-app-payments-react-native-plugin/blob/master/docs/reference.md
+
 // Types
 
 /** Supported brands for `card` payments accepted during the In-App Payments SDK checkout flow. */
