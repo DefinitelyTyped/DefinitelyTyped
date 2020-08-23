@@ -563,7 +563,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the elements via a generic.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        arrayContaining<E = any>(arr: E[]): AsymmetricMatcher;
+        arrayContaining<E = any>(arr: E[]): any;
         /**
          * `expect.not.objectContaining(object)` matches any received object
          * that does not recursively match the expected properties. That is, the
@@ -575,19 +575,19 @@ declare namespace jest {
          * This ensures that the object contains the desired structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        objectContaining<E = {}>(obj: Partial<E>): AsymmetricMatcher;
+        objectContaining<E = {}>(obj: E): any;
         /**
          * `expect.not.stringMatching(string | regexp)` matches the received
          * string that does not match the expected regexp. It is the inverse of
          * `expect.stringMatching`.
          */
-        stringMatching(str: string | RegExp): AsymmetricMatcher;
+        stringMatching(str: string | RegExp): any;
         /**
          * `expect.not.stringContaining(string)` matches the received string
          * that does not contain the exact expected string. It is the inverse of
          * `expect.stringContaining`.
          */
-        stringContaining(str: string): AsymmetricMatcher;
+        stringContaining(str: string): any;
     }
     interface MatcherState {
         assertionCalls: number;
@@ -624,7 +624,7 @@ declare namespace jest {
          * });
          *
          */
-        anything(): AsymmetricMatcher;
+        anything(): any;
         /**
          * Matches anything that was created with the given constructor.
          * You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value.
@@ -641,7 +641,7 @@ declare namespace jest {
          *   expect(mock).toBeCalledWith(expect.any(Number));
          * });
          */
-        any(classType: any): AsymmetricMatcher;
+        any(classType: any): any;
         /**
          * Matches any array made up entirely of elements in the provided array.
          * You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value.
@@ -649,7 +649,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the elements via a generic.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        arrayContaining<E = any>(arr: E[]): AsymmetricMatcher;
+        arrayContaining<E = any>(arr: E[]): any;
         /**
          * Verifies that a certain number of assertions are called during a test.
          * This is often useful when testing asynchronous code, in order to
@@ -678,15 +678,15 @@ declare namespace jest {
          * This ensures that the object contains the desired structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        objectContaining<E = {}>(obj: E): AsymmetricMatcher;
+        objectContaining<E = {}>(obj: E): any;
         /**
          * Matches any string that contains the exact provided string
          */
-        stringMatching(str: string | RegExp): AsymmetricMatcher;
+        stringMatching(str: string | RegExp): any;
         /**
          * Matches any received string that contains the exact expected string
          */
-        stringContaining(str: string): AsymmetricMatcher;
+        stringContaining(str: string): any;
 
         not: InverseAsymmetricMatchers;
 
@@ -757,7 +757,7 @@ declare namespace jest {
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toBe<E extends T>(expected: E | JestOrJasmineAsymmetricMatcher): R;
+        toBe<E = T>(expected: E): R;
         /**
          * Ensures that a mock function is called.
          */
@@ -841,7 +841,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toContain<E extends T>(expected: (E extends string ? string : CollectionElementType<E>) | JestOrJasmineAsymmetricMatcher): R;
+        toContain<E = T>(expected: E extends string ? string : CollectionElementType<E>): R;
         /**
          * Used when you want to check that an item is in a list.
          * For testing the items in the list, this matcher recursively checks the
@@ -851,7 +851,7 @@ declare namespace jest {
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toContainEqual<E extends T>(expected: CollectionElementType<E> | JestOrJasmineAsymmetricMatcher): R;
+        toContainEqual<E = T>(expected: CollectionElementType<E>): R;
         /**
          * Used when you want to check that two objects have the same value.
          * This matcher recursively checks the equality of all fields, rather than checking for object identity.
@@ -860,7 +860,7 @@ declare namespace jest {
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toEqual<E = T>(expected: E | JestOrJasmineAsymmetricMatcher): R;
+        toEqual<E = T>(expected: E): R;
         /**
          * Ensures that a mock function is called.
          */
@@ -1024,7 +1024,7 @@ declare namespace jest {
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toStrictEqual<E extends T>(expected: E | JestOrJasmineAsymmetricMatcher): R;
+        toStrictEqual<E extends T>(expected: E): R;
         /**
          * Used to test that a function throws when it is called.
          */
@@ -1352,8 +1352,6 @@ declare namespace jest {
     }
 }
 
-type JestOrJasmineAsymmetricMatcher = jest.AsymmetricMatcher | jasmine.AsymmetricMatcher;
-
 // Jest ships with a copy of Jasmine. They monkey-patch its APIs and divergence/deprecation are expected.
 // Relevant parts of Jasmine's API are below so they can be changed and removed over time.
 // This file can't reference jasmine.d.ts since the globals aren't compatible.
@@ -1395,23 +1393,19 @@ declare namespace jasmine {
         mockDate(date?: Date): void;
     }
 
-    interface AsymmetricMatcher {
-        jasmineToString(): string;
-    }
-
-    interface Any extends AsymmetricMatcher {
+    interface Any {
         new (expectedClass: any): any;
         jasmineMatches(other: any): boolean;
         jasmineToString(): string;
     }
 
-    interface ArrayContaining extends AsymmetricMatcher {
+    interface ArrayContaining {
         new (sample: any[]): any;
         asymmetricMatch(other: any): boolean;
         jasmineToString(): string;
     }
 
-    interface ObjectContaining extends AsymmetricMatcher {
+    interface ObjectContaining {
         new (sample: any): any;
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
         jasmineToString(): string;
