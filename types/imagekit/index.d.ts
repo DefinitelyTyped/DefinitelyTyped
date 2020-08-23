@@ -87,7 +87,7 @@ interface UploadResponse {
     filePath: string;
     fileType: FileType;
     tags?: string[];
-    isPrivateFile?: boolean;
+    isPrivateFile: boolean;
     customCoordinates: CustomCoordinatesResponse;
     metadata?: string;
 }
