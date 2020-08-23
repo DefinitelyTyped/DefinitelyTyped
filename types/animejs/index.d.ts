@@ -89,6 +89,7 @@ declare namespace anime {
         restart(): void;
         reverse(): void;
         seek(time: number): void;
+        tick(time: number): void;
 
         began: boolean;
         paused: boolean;

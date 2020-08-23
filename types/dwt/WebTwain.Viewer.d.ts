@@ -1,4 +1,5 @@
 import { WebTwainAcquire } from "./WebTwain.Acquire";
+import { Resolution } from "./Addon.Camera";
 
 export interface WebTwainViewer extends WebTwainAcquire {
     /**
@@ -10,13 +11,11 @@ export interface WebTwainViewer extends WebTwainAcquire {
         elementId: string,
         config?: BasicViewerConfig
     ): boolean;
-
     /**
      * Update the viewer with the new configuration.
      * @param config Configuration of the viewer.
      */
     UpdateViewer(config: BasicViewerConfig): boolean;
-
     /**
      * Unbind and destroy the viewer.
      */
@@ -76,6 +75,18 @@ export interface WebTwainViewer extends WebTwainAcquire {
     Viewer: DynamsoftViewer;
 }
 export interface DynamsoftViewer {
+    /**
+     * Start streaming video from the current camera in the viewer.
+     * @param deviceId Specify a camera.
+     * @param resolution Specify the initial resolution.
+     */
+    showVideo(deviceId?: string,
+        resolution?: Resolution
+    ): Promise<Resolution>;
+    /**
+     * Close the camera and hide the video streaming UI.
+     */
+    closeVideo(): void;
     /**
      * Remove a built-in event handler.
      * @param eventName Specify the event.

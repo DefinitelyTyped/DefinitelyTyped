@@ -45,6 +45,10 @@ const options2: lib.Options = {
             prerelease: "beta"
         },
         {
+            name: "rc*",
+            prerelease: true
+        },
+        {
             name: "legacy",
             range: "1.x"
         }

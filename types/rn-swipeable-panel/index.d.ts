@@ -84,4 +84,4 @@ export interface SwipeablePanelProps extends React.Props<SwipeablePanel> {
     onClose: () => void;
 }
 
-export default class SwipeablePanel extends React.Component<SwipeablePanelProps, any> {}
+export class SwipeablePanel extends React.Component<SwipeablePanelProps, any> {}

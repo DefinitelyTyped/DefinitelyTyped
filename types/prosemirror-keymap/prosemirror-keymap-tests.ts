@@ -4,7 +4,9 @@ import { Plugin } from 'prosemirror-state';
 const plugin1: Plugin = keymap.keymap({
     // Test that the argument types are correctly inferred
     Enter: (state, dispatch, view) => {
-        dispatch(state.tr.insertText("hello"));
+        if (dispatch) {
+            dispatch(state.tr.insertText("hello"));
+        }
         return true;
     },
 });
@@ -14,7 +16,9 @@ const plugin2 = new Plugin({
         handleKeyDown: keymap.keydownHandler({
             // Test that the argument types are correctly inferred
             Enter: (state, dispatch, view) => {
-                dispatch(state.tr.insertText("hello"));
+                if (dispatch) {
+                    dispatch(state.tr.insertText("hello"));
+                }
                 return true;
             }
         }),

@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.3
 
-// Currently at beta 10
-
 /// https://novadocs.panic.com/extensions/
 
 // This runs in an extension of Apple's JavaScriptCore, manually set libs
@@ -36,6 +34,25 @@ interface CompletionAssistant {
 
 interface IssueAssistant {
     provideIssues(editor: TextEditor): Issue[];
+}
+
+/// https://novadocs.panic.com/api-reference/charset/
+
+declare class Charset {
+    constructor(characters?: string);
+
+    static alphanumeric: Charset;
+    static digits: Charset;
+    static letters: Charset;
+    static lower: Charset;
+    static newlines: Charset;
+    static symbols: Charset;
+    static upper: Charset;
+    static whitespace: Charset;
+    static whitespaceAndNewlines: Charset;
+
+    concat(...charsets: Array<Charset>): Charset;
+    intersect(...charsets: Array<Charset>): Charset;
 }
 
 /// https://novadocs.panic.com/api-reference/color/
@@ -370,6 +387,17 @@ declare class IssueCollection {
     remove(uri: string): void;
 }
 
+/// https://novadocs.panic.com/api-reference/issue-parser/
+
+declare class IssueParser {
+    constructor(matcherNames?: string | Array<string>);
+
+    readonly issues: ReadonlyArray<Issue>;
+
+    pushLine(line: string): void;
+    clear(): void;
+}
+
 /// https://novadocs.panic.com/api-reference/language-client/
 
 declare class LanguageClient {
@@ -453,7 +481,7 @@ declare class Process {
             args?: string[];
             env?: { [key: string]: string };
             cwd?: string;
-            stdio?: ['pipe' | 'ignore', 'pipe' | 'ignore', 'pipe' | 'ignore'] | 'pipe' | 'ignore' | 'jsonrpc';
+            stdio?: ['pipe' | 'ignore', 'pipe' | 'ignore', 'pipe' | 'ignore'] | 'pipe' | 'ignore' | 'jsonrpc' | number;
             shell?: true | string;
         },
     );
@@ -513,6 +541,27 @@ declare class Range {
     union(other: Range): Range;
     intersection(other: Range): Range;
     intersectsRange(other: Range): boolean;
+}
+
+/// https://novadocs.panic.com/api-reference/scanner/
+
+declare class Scanner {
+    constructor(string: string);
+
+    readonly string: string;
+    readonly location: number;
+    readonly atEnd: boolean;
+    skipChars: Charset;
+    caseSensitive: boolean;
+
+    scanString(string: string): string | null;
+    scanUpToString(string: string): string | null;
+    scanChars(charset: Charset): string | null;
+    scanUpToChars(charset: Charset): string | null;
+    scanInt(): number | null;
+    scanFloat(): number | null;
+    scanHexInt(): number | null;
+    scanHexFloat(): number | null;
 }
 
 /// https://novadocs.panic.com/api-reference/symbol/

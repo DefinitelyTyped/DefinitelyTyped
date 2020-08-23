@@ -1,7 +1,7 @@
 // Microsoft Graph tests
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 
-import { User, Event, DateTimeTimeZone, ItemBody, ServicePrincipal } from "microsoft-graph";
+import { User, Event, DateTimeTimeZone, ItemBody, ServicePrincipal, Invitation, IdentityProvider, Application } from "microsoft-graph";
 
 const user: User = {
     officeLocation: "Bengaluru",
@@ -32,5 +32,26 @@ const event: Event = {
 
 const servicePrincipal: ServicePrincipal = {
     accountEnabled: true,
-    appDisplayName: "MyNewAppName"
+    appDisplayName: "MyNewAppName",
+    appDescription: null,
+    description: "Test-Description"
+};
+
+const servicePrincipalWithAppDescription: ServicePrincipal = {
+    appDescription: "Test-App-Description",
+    accountEnabled: null,
+    description: null
+};
+
+const invitation: Invitation = {
+    invitedUserDisplayName: null,
+    invitedUserType: undefined,
+    inviteRedeemUrl: "url"
+};
+
+const application: Application = {
+    description: null,
+    displayName: "Test-Application-Name",
+    appRoles: undefined,
+    notes: ""
 };

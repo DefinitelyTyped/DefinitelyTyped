@@ -509,6 +509,9 @@ const styler: L.StyleFunction<MyProperties> = () => style;
 geojson.setStyle(style);
 geojson.setStyle(styler);
 
+geojson.resetStyle();
+geojson.resetStyle(layer);
+
 class MyMarker extends L.Marker {
     constructor() {
         super([12, 13]);

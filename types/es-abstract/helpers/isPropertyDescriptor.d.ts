@@ -1,4 +1,4 @@
-import { PropertyDescriptor as ESPropertyDescriptor } from '../index';
+import type { PropertyDescriptor } from '../index';
 
 declare function IsPropertyDescriptor(
     ES: {
@@ -7,6 +7,6 @@ declare function IsPropertyDescriptor(
         IsDataDescriptor(Desc: unknown): boolean;
     },
     Desc: unknown,
-): Desc is ESPropertyDescriptor;
+): Desc is PropertyDescriptor;
 
 export = IsPropertyDescriptor;

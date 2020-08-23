@@ -45,6 +45,11 @@ nova.config.get('test');
 // $ExpectType string[] | null
 nova.config.get('test', 'array');
 
+/// https://novadocs.panic.com/api-reference/charset/
+
+const charset1 = new Charset('abcd1234');
+const charset2 = charset1.intersect(Charset.letters);
+
 /// https://novadocs.panic.com/api-reference/emitter/
 
 const emitter = new Emitter();
@@ -94,6 +99,24 @@ nova.fs.moveAsync(
     },
     thisValue,
 );
+
+/// https://novadocs.panic.com/api-reference/issue-parser/
+
+const p = new Process('/path', {
+    args: [],
+});
+
+const parser = new IssueParser('my-issue-matcher');
+
+p.onStdout(line => {
+    parser.pushLine(line);
+});
+
+p.onDidExit(code => {
+    const issues = parser.issues;
+});
+
+p.start();
 
 /// https://novadocs.panic.com/api-reference/notification-request/
 
@@ -146,6 +169,21 @@ process.onRequest('getCount', request => {
         resolve({ count: 10 });
     });
 });
+
+/// https://novadocs.panic.com/api-reference/scanner/
+
+const scanner = new Scanner('Foobar abc 12.0');
+
+scanner.scanString('Foo'); // => "Foo"
+scanner.scanString('Foo'); // => null
+scanner.scanString('bar'); // => "bar"
+
+scanner.scanChars(Charset.alphanumeric); // => "abc";
+
+scanner.scanFloat(); // => 12.0
+scanner.scanFloat(); // => null
+
+scanner.atEnd; // => true
 
 /// https://novadocs.panic.com/api-reference/text-editor/
 

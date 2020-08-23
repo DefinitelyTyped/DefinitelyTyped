@@ -189,3 +189,20 @@ function testSocketUse() {
         });
     });
 }
+
+function testOverwriteGenerateId() {
+    var io = socketIO.listen(80);
+    var hash = new Date().toLocaleString();
+    io.use((socket, next) => {
+        io.engine.generateId = () => {
+            return socket.handshake.query.deviceCode;
+        }
+        next();
+    })
+    .on('connection', (socket) => {
+        console.log(socket.id);
+        if (socket.id !== hash) {
+            throw new Error("GenerateId has not been overwritten");
+        }
+    });
+}

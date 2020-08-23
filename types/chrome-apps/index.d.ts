@@ -10365,7 +10365,7 @@ declare namespace chrome {
         }
 
         /** @since Chrome 39. */
-        interface DeviceFilter extends Partial<DeviceFilter> { }
+        interface DeviceFilter extends Partial<DeviceFilterStrict> { }
 
         interface TransferInfo {
             /**

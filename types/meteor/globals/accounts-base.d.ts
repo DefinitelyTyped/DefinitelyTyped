@@ -34,6 +34,7 @@ declare module Accounts {
         passwordResetTokenExpirationInDays?: number;
         passwordEnrollTokenExpirationInDays?: number;
         ambiguousErrorMessages?: boolean;
+        defaultFieldSelector?: {[key: string]: 0 | 1}
     }): void;
 
     function onLogin(func: Function): {

@@ -208,10 +208,10 @@ declare namespace IORedis {
             expiryMode?: string | any[],
             time?: number | string,
             setMode?: number | string,
-        ): Promise<Ok>;
+        ): Promise<Ok | null>;
 
         set(key: KeyType, value: ValueType, callback: Callback<Ok>): void;
-        set(key: KeyType, value: ValueType, setMode: string | any[], callback: Callback<Ok>): void;
+        set(key: KeyType, value: ValueType, setMode: string | any[], callback: Callback<Ok | null>): void;
         set(key: KeyType, value: ValueType, expiryMode: string, time: number | string, callback: Callback<Ok>): void;
         set(
             key: KeyType,
@@ -219,7 +219,7 @@ declare namespace IORedis {
             expiryMode: string,
             time: number | string,
             setMode: number | string,
-            callback: Callback<Ok>,
+            callback: Callback<Ok | null>,
         ): void;
 
         setBuffer(
@@ -921,8 +921,8 @@ declare namespace IORedis {
 
     interface Redis extends EventEmitter, Commander, Commands {
         Promise: typeof Promise;
-        options: RedisOptions;
-        status: string;
+        readonly options: RedisOptions;
+        readonly status: string;
         connect(callback?: () => void): Promise<void>;
         disconnect(): void;
         duplicate(): Redis;
@@ -931,9 +931,9 @@ declare namespace IORedis {
     }
 
     interface Pipeline {
-        readonly redis: Redis;
+        readonly redis: Redis | Cluster;
         readonly isCluster: boolean;
-        readonly options: RedisOptions;
+        readonly options: RedisOptions | ClusterOptions;
         readonly length: number;
 
         bitcount(key: KeyType, callback?: Callback<number>): Pipeline;
@@ -1340,11 +1340,11 @@ declare namespace IORedis {
             matchOption: 'match' | 'MATCH',
             pattern: string,
         ): Pipeline;
-        sscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
+        sscan(key: KeyType, cursor: number | string, ...args: ValueType[]): Pipeline;
 
-        hscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
+        hscan(key: KeyType, cursor: number | string, ...args: ValueType[]): Pipeline;
 
-        zscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
+        zscan(key: KeyType, cursor: number | string, ...args: ValueType[]): Pipeline;
 
         pfmerge(destkey: KeyType, ...sourcekeys: KeyType[]): Pipeline;
 
@@ -1400,6 +1400,8 @@ declare namespace IORedis {
     type Ok = 'OK';
 
     interface Cluster extends EventEmitter, Commander, Commands {
+        readonly options: ClusterOptions;
+        readonly status: string;
         connect(): Promise<void>;
         disconnect(): void;
         nodes(role?: NodeRole): Redis[];

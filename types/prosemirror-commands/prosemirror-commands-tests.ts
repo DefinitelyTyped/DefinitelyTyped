@@ -19,3 +19,7 @@ const keymap: commands.Keymap = {
     ArrowLeft: commands.joinBackward,  // takes three args
     ArrowRight: (state, dispatch, view) => true,  // arg types inferred
 };
+
+Object.keys(commands.baseKeymap).forEach(key => {
+    keymap[key] = keymap[key] ? commands.chainCommands(keymap[key], commands.baseKeymap[key]) : commands.baseKeymap[key];
+});

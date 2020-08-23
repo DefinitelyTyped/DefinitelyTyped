@@ -31,8 +31,11 @@ function test1() {
         barIncompleteChar: '.',
         fps: 5,
         stream: process.stdout,
-        barsize: 65
+        barsize: 65,
+        etaAsynchronousUpdate: true,
     });
+    bar.calculateETA();
+    bar.updateETA();
 }
 
 function test2() {
@@ -96,12 +99,14 @@ function test6() {
     const bar2 = new progress.SingleBar({}, progress.Presets.shades_classic);
     bar2.increment();
     bar2.increment(10);
+    bar2.increment({ speed: '42 kbps' });
 
     // MultiBar
     const multiBar = new progress.MultiBar({}, progress.Presets.shades_classic);
     const subBar1 = multiBar.create(100, 0, {});
     const subBar2 = multiBar.create(100, 30, {});
     subBar1.update(50);
+    subBar1.update({ speed: '42 kbps' });
 
     subBar1.stop();
 

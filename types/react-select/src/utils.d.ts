@@ -68,10 +68,10 @@ export function getScrollParent(element: React.Ref<any>): Element;
 // ------------------------------
 
 export function animatedScrollTo(
-  element: Element,
+  element: HTMLElement | typeof window,
   to: number,
-  duration: number,
-  callback: (element: Element) => void
+  duration?: number,
+  callback?: (element: HTMLElement | typeof window) => void
 ): void;
 
 // Scroll Into View

@@ -668,13 +668,15 @@ declare namespace Parse {
 
         // According to http://docs.parseplatform.org/rest/guide/#aggregate-queries
         interface AggregationOptions {
-            group?: { objectId?: string, [key:string]: any };
-            match?: {[key: string]: any};
-            project?: {[key: string]: any};
+            group?: { objectId?: string, [key: string]: any };
+            match?: { [key: string]: any };
+            project?: { [key: string]: any };
             limit?: number;
             skip?: number;
             // Sort documentation https://docs.mongodb.com/v3.2/reference/operator/aggregation/sort/#pipe._S_sort
-            sort?: {[key: string]: 1|-1};
+            sort?: { [key: string]: 1 | -1 };
+            // Sample documentation: https://docs.mongodb.com/v3.2/reference/operator/aggregation/sample/
+            sample?: { size: number };
         }
 
         // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText

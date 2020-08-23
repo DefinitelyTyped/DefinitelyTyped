@@ -678,7 +678,7 @@ declare module '../../index' {
          *   @return the x and y position of the element in an
          *   object
          */
-        position(): object;
+        position(): { x: number, y: number };
 
         /**
          *   Sets the position of the element relative to (0,

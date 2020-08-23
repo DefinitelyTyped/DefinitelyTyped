@@ -1021,7 +1021,102 @@ declare namespace Office {
          */
         asyncContext?: any
     }
-
+    /**
+     * The Office Auth namespace, `Office.context.auth`, provides a method that allows the Office client application to obtain an access token to the add-in's web application.
+     * Indirectly, this also enables the add-in to access the signed-in user's Microsoft Graph data without requiring the user to sign in a second time.
+     */
+    interface Auth {
+        /**
+         * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Enables add-ins to identify users.
+         * Server-side code can use this token to access Microsoft Graph for the add-in's web application by using the
+         * {@link https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}.
+         *
+         * **Important**: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
+         *
+         * @remarks
+         *
+         * **Hosts**: Excel, OneNote, Outlook, PowerPoint, Word
+         *
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/identity-api-requirement-sets | IdentityAPI}
+         *
+         * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign in with Organizational
+         * Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
+         *
+         * @param options - Optional. Accepts an `AuthOptions` object to define sign-on behaviors.
+         * @param callback - Optional. Accepts a callback method that can parse the token for the user's ID or use the token in the "on behalf of" flow to get access to Microsoft Graph.
+         *                   If `AsyncResult.status` is "succeeded", then `AsyncResult.value` is the raw AAD v. 2.0-formatted access token.
+         */
+        getAccessTokenAsync(options?: AuthOptions, callback?: (result: AsyncResult<string>) => void): void;
+        /**
+         * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Enables add-ins to identify users.
+         * Server-side code can use this token to access Microsoft Graph for the add-in's web application by using the
+         * {@link https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}.
+         *
+         * **Important**: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
+         *
+         * @remarks
+         *
+         * **Hosts**: Excel, OneNote, Outlook, PowerPoint, Word
+         *
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/identity-api-requirement-sets | IdentityAPI}
+         *
+         * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign in with Organizational
+         * Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
+         *
+         * @param callback - Optional. Accepts a callback method that can parse the token for the user's ID or use the token in the "on behalf of" flow to get access to Microsoft Graph.
+         *                   If `AsyncResult.status` is "succeeded", then `AsyncResult.value` is the raw AAD v. 2.0-formatted access token.
+         */
+        getAccessTokenAsync(callback?: (result: AsyncResult<string>) => void): void;
+    }
+    /**
+     * Provides options for the user experience when Office obtains an access token to the add-in from AAD v. 2.0 with the `getAccessTokenAsync` method.
+     */
+    interface AuthOptions {
+        /**
+         * Allows Office to get an access token silently or through interactive consent, if one is required. Default value is `false`.
+         * If set to `false`, Office will silently try to get an access token. If it fails to do so, Office will return a descriptive error.
+         * If set to `true`, Office will show an interactive consent UI after it fails to silently get an access token.
+         * The prompt will only allow consent to the AAD profile scope, not to any Microsoft Graph scopes.
+         */
+        allowConsentPrompt?: boolean;
+        /**
+         * Allows Office to get an access token silently provided consent is present or show interactive UI to sign in the user. Default value is `false`.
+         * If set to `false`, Office will silently try to get an access token. If it fails to do so, Office will return a descriptive error.
+         * If set to `true`, Office will show an interactive sign-in UI after it fails to silently get an access token.
+         */
+        allowSignInPrompt?: boolean;
+        /**
+         * Prompts the user to add their Office account (or to switch to it, if it is already added). Default value is `false`.
+         *
+         * @deprecated Use `allowSignInPrompt` instead.
+         */
+        forceAddAccount?: boolean;
+        /**
+         * Causes Office to display the add-in consent experience. Useful if the add-in's Azure permissions have changed or if the user's consent has
+         * been revoked. Default value is `false`.
+         *
+         * @deprecated Use `allowConsentPrompt` instead.
+         */
+        forceConsent?: boolean;
+        /**
+         * Causes Office to prompt the user to provide the additional factor when the tenancy being targeted by Microsoft Graph requires multifactor
+         * authentication. The string value identifies the type of additional factor that is required. In most cases, you won't know at development
+         * time whether the user's tenant requires an additional factor or what the string should be. So this option would be used in a "second try"
+         * call of `getAccessTokenAsync` after Microsoft Graph has sent an error requesting the additional factor and containing the string that should
+         * be used with the `authChallenge` option.
+         */
+        authChallenge?: string;
+        /**
+         * A user-defined item of any type that is returned, unchanged, in the `asyncContext` property of the `AsyncResult` object that is passed to a callback.
+         */
+        asyncContext?: any;
+        /**
+         * Causes Office to return a descriptive error when the add-in wants to access Microsoft Graph and the user/admin has not granted consent to Graph scopes. Default value is `false`.
+         * Office only supports consent to Graph scopes when the add-in has been deployed by a tenant admin. This information will not be available during development.
+         * Setting this option to `true` will cause Office to inform your add-in beforehand (by returning a descriptive error) if Graph access will fail.
+         */
+        forMSGraphAccess?: boolean;
+      }
     /**
      * Provides an option for preserving context data of any type, unchanged, for use in a callback.
      */
@@ -1422,8 +1517,11 @@ declare namespace Office {
          * - DialogMessageReceived. Triggered when the dialog box sends a message to its parent.
          *
          * - DialogEventReceived. Triggered when the dialog box has been closed or otherwise unloaded.
+         * 
+         * @param eventType Must be either DialogMessageReceived or DialogEventReceived.
+         * @param handler A function which accepts either an object with a `message` property, if eventType is DialogMessageReceived, or an object with an `error` property, if eventType is DialogEventReceived.
          */
-        addEventHandler(eventType: Office.EventType, handler: Function): void;
+        addEventHandler(eventType: Office.EventType, handler: (args: {message: string | boolean} | {error: number}) => void): void;
         /**
          * FOR INTERNAL USE ONLY. DO NOT CALL IN YOUR CODE.
          */
@@ -7613,17 +7711,14 @@ declare namespace Office {
              * The content of the attachment is returned as a base64-encoded string.
              */
             Base64 = "base64",
-
             /**
              * The content of the attachment is returned as a string representing a URL.
              */
             Url = "url",
-
             /**
              * The content of the attachment is returned as a string representing an .eml formatted file.
              */
             Eml = "eml",
-
             /**
              * The content of the attachment is returned as a string representing an .icalendar formatted file.
              */
@@ -7643,7 +7738,6 @@ declare namespace Office {
              * An attachment was added to the item.
              */
             Added = "added",
-
             /**
              * An attachment was removed from the item.
              */
@@ -8840,6 +8934,8 @@ declare namespace Office {
          * When you use the `Time.setAsync` method to set the end time, you should use the `convertToUtcClientTime` method to convert the local time on 
          * the client to UTC for the server.
          *
+         * **Important**: In the Windows client, you can't use this property to update the end of a recurrence.
+         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
@@ -8994,6 +9090,8 @@ declare namespace Office {
          *
          * When you use the `Time.setAsync` method to set the start time, you should use the `convertToUtcClientTime` method to convert the local time on 
          * the client to UTC for the server.
+         *
+         * **Important**: In the Windows client, you can't use this property to update the start of a recurrence.
          *
          * @remarks
          *
@@ -11222,12 +11320,15 @@ declare namespace Office {
         /**
          * Gets an item's categories.
          *
+         * **Important**: If there are no categories on the item, `null` or an empty array will be returned depending on the Outlook version
+         * so make sure to handle both cases.
+         *
+         * [Api set: Mailbox 1.8]
+         *
          * @param options - An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of
-         *                 type `Office.AsyncResult`. If adding categories fails, the `asyncResult.error` property will contain an error code.
-         *
-         * [Api set: Mailbox 1.8]
+         *                 type `Office.AsyncResult`. If getting categories fails, the `asyncResult.error` property will contain an error code.
          *
          * @remarks
          * 
@@ -11239,6 +11340,9 @@ declare namespace Office {
         /**
          * Gets an item's categories.
          *
+         * **Important**: If there are no categories on the item, `null` or an empty array will be returned depending on the Outlook version
+         * so make sure to handle both cases.
+         *
          * [Api set: Mailbox 1.8]
          *
          * @remarks
@@ -11248,7 +11352,7 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
          *
          * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of
-         *                 type `Office.AsyncResult`.
+         *                 type `Office.AsyncResult`. If getting categories fails, the `asyncResult.error` property will contain an error code.
          */
         getAsync(callback: (asyncResult: Office.AsyncResult<CategoryDetails[]>) => void): void;
         /**
@@ -14812,9 +14916,12 @@ declare namespace Office {
          */
         key?: string;
         /**
-         * Specifies the `ItemNotificationMessageType` of message. If type is `ProgressIndicator` or `ErrorMessage`, an icon is automatically supplied
+         * Specifies the `ItemNotificationMessageType` of message.
+         *
+         * If type is `ProgressIndicator` or `ErrorMessage`, an icon is automatically supplied
          * and the message is not persistent. Therefore the icon and persistent properties are not valid for these types of messages.
          * Including them will result in an `ArgumentException`.
+         *
          * If type is `ProgressIndicator`, the developer should remove or replace the progress indicator when the action is complete.
          */
         type: MailboxEnums.ItemNotificationMessageType | string;
@@ -14831,7 +14938,8 @@ declare namespace Office {
          */
         message: string;
         /**
-         * Only applicable when type is `InformationalMessage`. If true, the message remains until removed by this add-in or dismissed by the user.
+         * Specifies if the message should be persistent. Only applicable when type is `InformationalMessage`.
+         * If true, the message remains until removed by this add-in or dismissed by the user.
          * If false, it is removed when the user navigates to a different item.
          * For error notifications, the message persists until the user sees it once.
          * Specifying this parameter for an unsupported type throws an exception.
@@ -16123,6 +16231,8 @@ declare namespace Office {
          *
          * The time must be in UTC; you can get the correct UTC time by using the `convertToUtcClientTime` method.
          *
+         * **Important**: In the Windows client, you can't use this function to update the start or end of a recurrence.
+         *
          * [Api set: Mailbox 1.1]
          *
          * @remarks
@@ -16149,6 +16259,8 @@ declare namespace Office {
          * previously set. If the `setAsync` method is called on the `end` property, the duration of the appointment will be extended to the new end time.
          *
          * The time must be in UTC; you can get the correct UTC time by using the `convertToUtcClientTime` method.
+         *
+         * **Important**: In the Windows client, you can't use this function to update the start or end of a recurrence.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -69719,11 +69831,22 @@ declare namespace Word {
         tableCell = "TableCell",
     }
     /**
-     * [Api set: WordApi]
+     * This enum sets where the cursor (insertion point) in the document is after a selection.
+     * 
+     * [Api set: WordApi 1.1]
      */
     enum SelectionMode {
+        /**
+         * The entire range is selected.
+         */
         select = "Select",
+        /**
+         * The cursor is at the beginning of the selection (just before the start of the selected range).
+         */
         start = "Start",
+        /**
+         * The cursor is at the end of the selection (just after the end of the selected range).
+         */
         end = "End",
     }
     /**
