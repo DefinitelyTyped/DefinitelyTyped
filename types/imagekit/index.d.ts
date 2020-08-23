@@ -9,6 +9,8 @@ type TransformationPosition = 'path' | 'query';
 type FileType = 'all' | 'image' | 'non-image';
 type Item = 'file' | 'folder';
 type CustomCoordinatesResponse = string | null;
+// Taken from this help post: https://help.imagekit.io/en/articles/2434102-image-format-support-in-imagekit-for-resizing-compression-and-static-file-delivery
+type FileFormat = 'jpg' | 'png' | 'gif' | 'svg' | 'webp' | 'pdf' | 'js' | 'css' | 'txt' | 'mp4' | 'webm' | 'mov' | 'swf' | 'ts' | 'm3u8' | string;
 
 interface Transformation {
     height?: string;
@@ -133,8 +135,7 @@ interface FileMetadataResponse {
     height: number;
     width: number;
     size: number;
-    // TODO: specify majority of returned formats
-    format: 'jpg' | string;
+    format: FileFormat;
     hasColorProfile: boolean;
     quality: number;
     density: number;
@@ -167,7 +168,7 @@ interface FileMetadataResponse {
             FNumber: number;
             ExposureProgram: number;
             ISO: number;
-            ExifVersion: number;
+            ExifVersion: string;
             DateTimeOriginal: string;
             CreateDate: string;
             ShutterSpeedValue: number;
@@ -176,10 +177,10 @@ interface FileMetadataResponse {
             MeteringMode: number;
             Flash: number;
             FocalLength: number;
-            SubSecTime: number;
-            SubSecTimeOriginal: number;
-            SubSecTimeDigitized: number;
-            FlashpixVersion: number;
+            SubSecTime: string;
+            SubSecTimeOriginal: string;
+            SubSecTimeDigitized: string;
+            FlashpixVersion: string;
             ColorSpace: number;
             ExifImageWidth: number;
             ExifImageHeight: number;
