@@ -333,6 +333,8 @@ declare namespace jest {
         string;
     type ConstructorPropertyNames<T> = { [K in keyof T]: T[K] extends new (...args: any[]) => any ? K : never }[keyof T] &
         string;
+    type Collection<T> = Iterable<T> | ArrayLike<T>;
+    type CollectionElementType<T> = T extends Collection<never> ? any : (T extends Collection<infer U> ? U : any);
 
     interface DoneCallback {
         (...args: any[]): any;
@@ -692,19 +694,23 @@ declare namespace jest {
         getState(): MatcherState & Record<string, any>;
     }
 
-    type JestMatchers<T> = JestMatchersShape<Matchers<void, T>, Matchers<Promise<void>, T>>;
+    type JestMatchers<T> = JestMatchersShape<T, Matchers<void, T>, Matchers<Promise<void>, T>>;
 
-    type JestMatchersShape<TNonPromise extends {} = {}, TPromise extends {} = {}> = {
+    type JestMatchersShape<
+        TActual,
+        TNonPromise extends Matchers<void, TActual> = Matchers<void, TActual>,
+        TPromise extends Matchers<Promise<void>, TActual> = Matchers<Promise<void>, TActual>
+    > = {
         /**
          * Use resolves to unwrap the value of a fulfilled promise so any other
          * matcher can be chained. If the promise is rejected the assertion fails.
          */
-        resolves: AndNot<TPromise>,
+        resolves: AndNot<TPromise extends Matchers<infer U, Promise<infer V>> ? TPromise & Matchers<U, V> : never>,
         /**
          * Unwraps the reason of a rejected promise so any other matcher can be chained.
          * If the promise is fulfilled the assertion fails.
          */
-        rejects: AndNot<TPromise>
+        rejects: AndNot<TPromise extends Matchers<infer U, Promise<any>> ? TPromise & Matchers<U, any> : never>
     } & AndNot<TNonPromise>;
     type AndNot<T> = T & {
         not: T
@@ -1064,7 +1070,7 @@ declare namespace jest {
     // Use the `void` type for return types only. Otherwise, use `undefined`. See: https://github.com/Microsoft/dtslint/blob/master/docs/void-return.md
     // have added issue https://github.com/microsoft/dtslint/issues/256 - Cannot have type union containing void ( to be used as return type only
     type ExtendedMatchers<TMatchers extends ExpectExtendMap, TMatcherReturn, TActual> = Matchers<TMatcherReturn, TActual> & {[K in keyof TMatchers]: CustomJestMatcher<TMatchers[K], TMatcherReturn>};
-    type JestExtendedMatchers<TMatchers extends ExpectExtendMap, TActual> = JestMatchersShape<ExtendedMatchers<TMatchers, void, TActual>, ExtendedMatchers<TMatchers, Promise<void>, TActual>>;
+    type JestExtendedMatchers<TMatchers extends ExpectExtendMap, TActual> = JestMatchersShape<TActual, ExtendedMatchers<TMatchers, void, TActual>, ExtendedMatchers<TMatchers, Promise<void>, TActual>>;
 
     // when have called expect.extend
     type ExtendedExpectFunction<TMatchers extends ExpectExtendMap> = <TActual>(actual: TActual) => JestExtendedMatchers<TMatchers, TActual>;
@@ -1077,8 +1083,8 @@ declare namespace jest {
      * Construct a type with the properties of T except for those in type K.
      */
     type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
-    type NonPromiseMatchers<T extends JestMatchersShape> = Omit<T, 'resolves' | 'rejects' | 'not'>;
-    type PromiseMatchers<T extends JestMatchersShape> = Omit<T['resolves'], 'not'>;
+    type NonPromiseMatchers<T extends JestMatchersShape<any>> = Omit<T, 'resolves' | 'rejects' | 'not'>;
+    type PromiseMatchers<T extends JestMatchersShape<any>> = Omit<T['resolves'], 'not'>;
 
     interface Constructable {
         new (...args: any[]): any;
