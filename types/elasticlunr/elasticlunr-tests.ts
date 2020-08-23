@@ -11,7 +11,7 @@ interface TestDocument {
 
 elasticlunr<TestDocument>();
 
-elasticlunr<TestDocument>(function () {
+elasticlunr<TestDocument>(function() {
     this.addField('field');
     this.setRef('id');
     this.saveDocument(true);
@@ -74,7 +74,7 @@ index.search('query', {
 });
 
 index.search('query', {
-    expand: true,
+    expand: true
 });
 
 index.toJSON();
@@ -100,15 +100,9 @@ elasticlunr.Index.load<TestDocument>({
 
 index.pipeline.add(() => '');
 
-index.pipeline.after(
-    () => '',
-    () => '',
-);
+index.pipeline.after(() => '', () => '');
 
-index.pipeline.before(
-    () => '',
-    () => '',
-);
+index.pipeline.before(() => '', () => '');
 
 assertType<elasticlunr.PipelineFunction[]>(index.pipeline.get());
 
