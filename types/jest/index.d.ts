@@ -335,6 +335,8 @@ declare namespace jest {
         string;
     type Collection<T> = Iterable<T> | ArrayLike<T>;
     type CollectionElementType<T> = T extends Collection<never> ? any : (T extends Collection<infer U> ? U : any);
+    type MockArgsType<T> = T extends MockInstance<any, infer TArgs> ? TArgs : any;
+    type MockReturnType<T> = T extends MockInstance<infer TReturn, any> ? TReturn : any;
 
     interface DoneCallback {
         (...args: any[]): any;
@@ -724,7 +726,7 @@ declare namespace jest {
          * Note that the type must be either an array or a tuple.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        lastCalledWith<E extends any[]>(...args: E): R;
+        lastCalledWith<E extends MockArgsType<T>>(...args: E): R;
         /**
          * Ensure that the last call to a mock function has returned a specified value.
          *
@@ -732,7 +734,7 @@ declare namespace jest {
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        lastReturnedWith<E = any>(value: E): R;
+        lastReturnedWith<E extends MockReturnType<T>>(value: E): R;
         /**
          * Ensure that a mock function is called with specific arguments on an Nth call.
          *
@@ -740,7 +742,7 @@ declare namespace jest {
          * Note that the type must be either an array or a tuple.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        nthCalledWith<E extends any[]>(nthCall: number, ...params: E): R;
+        nthCalledWith<E extends MockArgsType<T>>(nthCall: number, ...params: E): R;
         /**
          * Ensure that the nth call to a mock function has returned a specified value.
          *
@@ -748,7 +750,7 @@ declare namespace jest {
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        nthReturnedWith<E = any>(n: number, value: E): R;
+        nthReturnedWith<E extends MockReturnType<T>>(n: number, value: E): R;
         /**
          * Checks that a value is what you expect. It uses `Object.is` to check strict equality.
          * Don't use `toBe` with floating-point numbers.
@@ -773,7 +775,7 @@ declare namespace jest {
          * Note that the type must be either an array or a tuple.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toBeCalledWith<E extends any[]>(...args: E): R;
+        toBeCalledWith<E extends MockArgsType<T>>(...args: E): R;
         /**
          * Using exact equality with floating point numbers is a bad idea.
          * Rounding means that intuitive things fail.
@@ -876,7 +878,7 @@ declare namespace jest {
          * Note that the type must be either an array or a tuple.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveBeenCalledWith<E extends any[]>(...params: E): R;
+        toHaveBeenCalledWith<E extends MockArgsType<T>>(...params: E): R;
         /**
          * Ensure that a mock function is called with specific arguments on an Nth call.
          *
@@ -884,7 +886,7 @@ declare namespace jest {
          * Note that the type must be either an array or a tuple.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveBeenNthCalledWith<E extends any[]>(nthCall: number, ...params: E): R;
+        toHaveBeenNthCalledWith<E extends MockArgsType<T>>(nthCall: number, ...params: E): R;
         /**
          * If you have a mock function, you can use `.toHaveBeenLastCalledWith`
          * to test what arguments it was last called with.
@@ -893,7 +895,7 @@ declare namespace jest {
          * Note that the type must be either an array or a tuple.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveBeenLastCalledWith<E extends any[]>(...params: E): R;
+        toHaveBeenLastCalledWith<E extends MockArgsType<T>>(...params: E): R;
         /**
          * Use to test the specific value that a mock function last returned.
          * If the last call to the mock function threw an error, then this matcher will fail
@@ -903,7 +905,7 @@ declare namespace jest {
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveLastReturnedWith<E = any>(expected: E): R;
+        toHaveLastReturnedWith<E extends MockReturnType<T>>(expected: E): R;
         /**
          * Used to check that an object has a `.length` property
          * and it is set to a certain numeric value.
@@ -918,7 +920,7 @@ declare namespace jest {
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveNthReturnedWith<E = any>(nthCall: number, expected: E): R;
+        toHaveNthReturnedWith<E extends MockReturnType<T>>(nthCall: number, expected: E): R;
         /**
          * Use to check if property at provided reference keyPath exists for an object.
          * For checking deeply nested properties in an object you may use dot notation or an array containing
@@ -950,7 +952,7 @@ declare namespace jest {
          * This is particuarly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveReturnedWith<E = any>(expected: E): R;
+        toHaveReturnedWith<E extends MockReturnType<T>>(expected: E): R;
         /**
          * Check that a string matches a regular expression.
          */

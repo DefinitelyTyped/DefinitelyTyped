@@ -829,15 +829,33 @@ describe('', () => {
         expect(jest.fn()).lastCalledWith();
         expect(jest.fn()).lastCalledWith('jest');
         expect(jest.fn()).lastCalledWith({}, {});
+        expect(jest.fn<void, [string]>()).lastCalledWith('abc');
+        expect(jest.fn<void, [string, string?]>()).lastCalledWith('abc');
+        // $ExpectError
+        expect(jest.fn<void, [string]>()).lastCalledWith(123);
+        // $ExpectError
+        expect(jest.fn<void, [string, string]>()).lastCalledWith('abc');
 
         expect(jest.fn()).lastReturnedWith('jest');
         expect(jest.fn()).lastReturnedWith({});
+        expect(jest.fn<string, []>()).lastReturnedWith('abc');
+        // $ExpectError
+        expect(jest.fn<string, []>()).lastReturnedWith(123);
 
         expect(jest.fn()).nthCalledWith(0, 'jest');
         expect(jest.fn()).nthCalledWith(1, {});
+        expect(jest.fn<void, [string]>()).nthCalledWith(1, 'abc');
+        expect(jest.fn<void, [string, string?]>()).nthCalledWith(1, 'abc');
+        // $ExpectError
+        expect(jest.fn<void, [string]>()).nthCalledWith(1, 123);
+        // $ExpectError
+        expect(jest.fn<void, [string, string]>()).nthCalledWith(1, 'abc');
 
         expect(jest.fn()).nthReturnedWith(0, 'jest');
         expect(jest.fn()).nthReturnedWith(1, {});
+        expect(jest.fn<string, []>()).nthReturnedWith(1, 'abc');
+        // $ExpectError
+        expect(jest.fn<string, []>()).nthReturnedWith(1, 123);
 
         expect({}).toBe({});
         expect([]).toBe([]);
@@ -850,6 +868,13 @@ describe('', () => {
         expect(jest.fn()).toBeCalledWith();
         expect(jest.fn()).toBeCalledWith('jest');
         expect(jest.fn()).toBeCalledWith({}, {});
+
+        expect(jest.fn<void, [string]>()).toBeCalledWith('abc');
+        expect(jest.fn<void, [string, string?]>()).toBeCalledWith('abc');
+        // $ExpectError
+        expect(jest.fn<void, [string]>()).toBeCalledWith(123);
+        // $ExpectError
+        expect(jest.fn<void, [string, string]>()).toBeCalledWith('abc');
 
         // $ExpectError
         expect(jest.fn()).toBeCalledWith<[string, number]>(1, 'two');
@@ -929,18 +954,40 @@ describe('', () => {
         expect(jest.fn()).toHaveBeenCalledWith(1, 'jest');
         expect(jest.fn()).toHaveBeenCalledWith(2, {}, {});
 
+        expect(jest.fn<void, [string]>()).toHaveBeenCalledWith('abc');
+        expect(jest.fn<void, [string, string?]>()).toHaveBeenCalledWith('abc');
+        // $ExpectError
+        expect(jest.fn<void, [string]>()).toHaveBeenCalledWith(123);
+        // $ExpectError
+        expect(jest.fn<void, [string, string]>()).toHaveBeenCalledWith('abc');
+
         expect(jest.fn()).toHaveBeenLastCalledWith();
         expect(jest.fn()).toHaveBeenLastCalledWith('jest');
         expect(jest.fn()).toHaveBeenLastCalledWith({}, {});
 
+        expect(jest.fn<void, [string]>()).toHaveBeenLastCalledWith('abc');
+        expect(jest.fn<void, [string, string?]>()).toHaveBeenLastCalledWith('abc');
+        // $ExpectError
+        expect(jest.fn<void, [string]>()).toHaveBeenLastCalledWith(123);
+        // $ExpectError
+        expect(jest.fn<void, [string, string]>()).toHaveBeenLastCalledWith('abc');
+
         expect(jest.fn()).toHaveLastReturnedWith('jest');
         expect(jest.fn()).toHaveLastReturnedWith({});
+
+        expect(jest.fn<string, []>()).toHaveLastReturnedWith('abc');
+        // $ExpectError
+        expect(jest.fn<string, []>()).toHaveLastReturnedWith(123);
 
         expect([]).toHaveLength(0);
         expect('').toHaveLength(1);
 
         expect(jest.fn()).toHaveNthReturnedWith(0, 'jest');
         expect(jest.fn()).toHaveNthReturnedWith(1, {});
+
+        expect(jest.fn<string, []>()).toHaveNthReturnedWith(1, 'abc');
+        // $ExpectError
+        expect(jest.fn<string, []>()).toHaveNthReturnedWith(1, 123);
 
         expect({}).toHaveProperty('property');
         expect({}).toHaveProperty('property', {});
@@ -956,6 +1003,10 @@ describe('', () => {
 
         expect(jest.fn()).toHaveReturnedWith('jest');
         expect(jest.fn()).toHaveReturnedWith({});
+
+        expect(jest.fn<string, []>()).toHaveReturnedWith('abc');
+        // $ExpectError
+        expect(jest.fn<string, []>()).toHaveReturnedWith(123);
 
         expect('').toMatch('');
         expect('').toMatch(/foo/);
