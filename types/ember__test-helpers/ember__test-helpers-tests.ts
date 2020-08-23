@@ -80,14 +80,14 @@ test('pause and resume', async () => {
     setTimeout(resumeTest, 1000);
 });
 
-test('catching errors', async (assert) => {
+test('catching errors', async (assert: Assert) => {
     setupOnerror((error) => {
         assert.ok(error);
     });
     resetOnerror();
 });
 
-test('wait helpers', async (assert) => {
+test('wait helpers', async (assert: Assert) => {
     await render(hbs`<div class="message">Hello</div>`);
 
     await waitFor('.message', { count: 1, timeout: 10, timeoutMessage: 'uh oh' });
