@@ -94,7 +94,7 @@ interface UploadResponse {
 interface ListFileOptions {
     path?: string;
     fileType?: FileType;
-    tags?: string[];
+    tags?: string;
     includeFolder?: boolean;
     name?: string;
     limit?: number;
