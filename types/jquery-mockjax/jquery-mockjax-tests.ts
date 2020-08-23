@@ -28,7 +28,7 @@ class Tests {
 
         QUnit.module('Core');
 
-        t('Return XMLHttpRequest object from $.ajax', (assert) => {
+        t('Return XMLHttpRequest object from $.ajax', (assert: Assert) => {
             $.mockjax({
                 url: '/xmlhttprequest',
                 responseText: 'Hello Word'
@@ -47,7 +47,7 @@ class Tests {
             assert.ok(xhr.done && xhr.fail, 'Got Promise methods');
         });
 
-        t('Intercept synchronized proxy calls and return synchronously', (assert) => {
+        t('Intercept synchronized proxy calls and return synchronously', (assert: Assert) => {
             $.mockjax({
                 url: '/proxy',
                 proxy: 'test_proxy.json'
@@ -64,7 +64,7 @@ class Tests {
             });
         });
 
-        t('Intercept asynchronized proxy calls', (assert) => {
+        t('Intercept asynchronized proxy calls', (assert: Assert) => {
             let done = assert.async();
             $.mockjax({
                 url: '/proxy',
@@ -82,7 +82,7 @@ class Tests {
             });
         });
 
-        t('Intercept and proxy (sub-ajax request)', (assert) => {
+        t('Intercept and proxy (sub-ajax request)', (assert: Assert) => {
             let done = assert.async();
 
             $.mockjax({
@@ -101,7 +101,7 @@ class Tests {
             });
         });
 
-        t('Proxy type specification', (assert) => {
+        t('Proxy type specification', (assert: Assert) => {
             let done = assert.async();
 
             $.mockjax({
@@ -250,7 +250,7 @@ class Tests {
             });
         });
 
-        t('Throws when ajax call is not mocked', (assert) => {
+        t('Throws when ajax call is not mocked', (assert: Assert) => {
             let done = assert.async();
 
             $.mockjaxSettings.throwUnmocked = true;
