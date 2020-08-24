@@ -89,7 +89,7 @@ export class Device {
    * @param desc_index
    * @param callback
    */
-  getStringDescriptor(desc_index: number, callback: (error?: LibUSBException, buf?: Buffer) => void): void;
+  getStringDescriptor(desc_index: number, callback: (error?: LibUSBException, data?: string) => void): void;
 
   /**
    * Perform a control transfer to retrieve an object with properties for the fields of the Binary Object Store descriptor.
