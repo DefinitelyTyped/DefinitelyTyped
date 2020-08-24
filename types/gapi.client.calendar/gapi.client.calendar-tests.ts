@@ -14,8 +14,30 @@ gapi.load('client', () => {
         const scope = [
             /** See, edit, share, and permanently delete all the calendars you can access using Google Calendar */
             'https://www.googleapis.com/auth/calendar',
+            /** See and change the sharing permissions of Google calendars you own */
+            'https://www.googleapis.com/auth/calendar.acls',
+            /** See the sharing permissions of Google calendars you own */
+            'https://www.googleapis.com/auth/calendar.acls.readonly',
+            /** Make secondary Google calendars, and see, create, change, and delete events on them */
+            'https://www.googleapis.com/auth/calendar.app.created',
+            /** See, add, and remove Google calendars you’re subscribed to */
+            'https://www.googleapis.com/auth/calendar.calendarlist',
+            /** See the list of Google calendars you’re subscribed to */
+            'https://www.googleapis.com/auth/calendar.calendarlist.readonly',
+            /** See and change the properties of Google calendars you have access to, and create secondary calendars */
+            'https://www.googleapis.com/auth/calendar.calendars',
+            /** See the title, description, default time zone, and other properties of Google calendars you have access to */
+            'https://www.googleapis.com/auth/calendar.calendars.readonly',
             /** View and edit events on all your calendars */
             'https://www.googleapis.com/auth/calendar.events',
+            /** See the availability on Google calendars you have access to */
+            'https://www.googleapis.com/auth/calendar.events.freebusy',
+            /** See, create, change, and delete events on Google calendars you own */
+            'https://www.googleapis.com/auth/calendar.events.owned',
+            /** See the events on Google calendars you own */
+            'https://www.googleapis.com/auth/calendar.events.owned.readonly',
+            /** See the events on public calendars */
+            'https://www.googleapis.com/auth/calendar.events.public.readonly',
             /** View events on all your calendars */
             'https://www.googleapis.com/auth/calendar.events.readonly',
             /** View your calendars */
