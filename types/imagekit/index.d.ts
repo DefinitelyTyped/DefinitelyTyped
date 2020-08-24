@@ -196,13 +196,48 @@ interface UploadResponse {
     metadata?: string;
 }
 
+/**
+ * List and search files options
+ *
+ * [See docs](https://docs.imagekit.io/api-reference/media-api/list-and-search-files)
+ */
 interface ListFileOptions {
+    /**
+     * Folder path if you want to limit the search within a specific folder. For example, /sales-banner/ will only search in folder sales-banner.
+     */
     path?: string;
+    /**
+     * Type of files to include in result set. Accepts three values:
+     * all - include all types of files in result set
+     * image - only search in image type files
+     * non-image - only search in files which are not image, e.g., JS or CSS or video files.
+     */
     fileType?: FileType;
+    /**
+     * Comma-separated list of tags. Files matching any of the tags are included in result response. If no tag is matched, the file is not included in result set.
+     */
     tags?: string;
+    /**
+     * Whether to include folders in search results or not. By default only files are searched.
+     * Accepts true and false. If this is set to true then tags and fileType parameters are ignored.
+     */
     includeFolder?: boolean;
+    /**
+     * The name of the file or folder.
+     */
     name?: string;
+    /**
+     * The maximum number of results to return in response:
+     * Minimum value - 1
+     * Maximum value - 1000
+     * Default value - 1000
+     */
     limit?: number;
+    /**
+     * The number of results to skip before returning results.
+     * Minimum value - 0
+     * Default value - 0
+     */
     skip?: number;
 }
 
