@@ -260,17 +260,55 @@ interface ListFileOptions {
     skip?: number;
 }
 
+/**
+ *
+ * List and search response
+ *
+ * @see {@link https://docs.imagekit.io/api-reference/media-api/list-and-search-files#response-structure-and-status-code-application-json}
+ */
 interface ListFileResponse {
+    /**
+     * The unique fileId of the uploaded file.
+     */
     fileId: string;
+    /**
+     * Type of item. It can be either file or folder.
+     */
     type: Item;
+    /**
+     * Name of the file or folder.
+     */
     name: string;
+
     createdAt: string;
+    /**
+     * The relative path of the file. In the case of an image, you can use this
+     * path to construct different transformations.
+     */
     filePath: string;
+    /**
+     * Array of tags associated with the image. If no tags are set, it will be null.
+     */
     tags: string[] | null;
+    /**
+     * Is the file marked as private. It can be either true or false.
+     */
     isPrivateFile: boolean;
+    /**
+     * Value of custom coordinates associated with the image in format x,y,width,height. If customCoordinates are not defined then it is null.
+     */
     customCoordinates: CustomCoordinatesResponse;
+    /**
+     * A publicly accessible URL of the file.
+     */
     url: string;
+    /**
+     * In case of an image, a small thumbnail URL.
+     */
     thumbnail: string;
+    /**
+     * The type of file, it could be either image or non-image.
+     */
     fileType: FileType;
 }
 
@@ -399,7 +437,30 @@ declare class ImageKit {
     listFiles(listFilesOptions: ListFileOptions, callback: Callback<ListFileResponse>): void;
     listFiles(listFilesOptions: ListFileOptions): Promise<ListFileResponse>;
 
+    /**
+     *
+     * You can upload files to ImageKit.io media library from your server-side using private API key authentication.
+     *
+     * File size limit
+     * The maximum upload file size is limited to 25MB.
+     *
+     * @see {@link https://docs.imagekit.io/api-reference/upload-file-api/server-side-file-upload}
+     *
+     * @param uploadOptions
+     * @param callback
+     */
     upload(uploadOptions: UploadOptions, callback: Callback<UploadResponse>): void;
+
+    /**
+     * You can upload files to ImageKit.io media library from your server-side using private API key authentication.
+     *
+     * File size limit
+     * The maximum upload file size is limited to 25MB.
+     *
+     * @see {@link https://docs.imagekit.io/api-reference/upload-file-api/server-side-file-upload}
+     *
+     * @param uploadOptions
+     */
     upload(uploadOptions: UploadOptions): Promise<UploadResponse>;
 
     getFileDetails(fileId: string, callback: Callback<FileDetailsResponse>): void;
