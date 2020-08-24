@@ -58,7 +58,7 @@ export type SourceMapStringifyOptions = {
     rootDir?: string;
     inlineSources?: boolean;
     fs?: {
-      readFile(path: string, encoding: string): Promise<string>
+        readFile(path: string, encoding: string): Promise<string>;
     };
     format?: 'inline' | 'string' | 'object';
 };
@@ -67,36 +67,12 @@ export type SourceMapStringifyOptions = {
  * A source map to assist in debugging during development
  */
 export default class SourceMap {
-    static generateEmptyMap(
-        sourceName: string,
-        sourceContent: string,
-        lineOffset: number
-    ): SourceMap;
-    addEmptyMap(
-        sourceName: string,
-        sourceContent: string,
-        lineOffest: number
-    ): SourceMap;
-    addRawMappings(
-        map: VLQMap,
-        lineOffset: number,
-        columnOffset: number
-    ): SourceMap;
-    addBufferMappings(
-        buffer: Buffer,
-        lineOffset: number,
-        columnOffset: number
-    ): SourceMap;
-    addIndexedMapping(
-        mapping: IndexedMapping<string>,
-        lineOffset?: number,
-        columnOffset?: number
-    ): void;
-    addIndexedMappings(
-        mappings: Array<IndexedMapping<string>>,
-        lineOffset?: number,
-        columNOffset?: number
-    ): void;
+    static generateEmptyMap(sourceName: string, sourceContent: string, lineOffset: number): SourceMap;
+    addEmptyMap(sourceName: string, sourceContent: string, lineOffest: number): SourceMap;
+    addRawMappings(map: VLQMap, lineOffset: number, columnOffset: number): SourceMap;
+    addBufferMappings(buffer: Buffer, lineOffset: number, columnOffset: number): SourceMap;
+    addIndexedMapping(mapping: IndexedMapping<string>, lineOffset?: number, columnOffset?: number): void;
+    addIndexedMappings(mappings: Array<IndexedMapping<string>>, lineOffset?: number, columNOffset?: number): void;
     addName(name: string): number;
     addNames(names: string[]): number[];
     addSource(source: string): number;
@@ -109,10 +85,7 @@ export default class SourceMap {
     getName(index: number): string;
     extends(buffer: Buffer): SourceMap;
     getMap(): ParsedMap;
-    findClosestMapping(
-        line: number,
-        column: number
-    ): IndexedMapping<string> | null;
+    findClosestMapping(line: number, column: number): IndexedMapping<string> | null;
     toBuffer(): Buffer;
     toVLQ(): VLQMap;
     delete(): void;

@@ -73,19 +73,14 @@ export type PrintableError = Error & {
     loc?: {
         column: number;
         line: number;
-    },
+    };
     source?: string;
 };
 
 /**
  * Objects that can be converted to diagnostics
  */
-export type Diagnostifiable =
-    | Diagnostic
-    | Diagnostic[]
-    | ThrowableDiagnostic
-    | PrintableError
-    | string;
+export type Diagnostifiable = Diagnostic | Diagnostic[] | ThrowableDiagnostic | PrintableError | string;
 
 /**
  * Options for creating a `ThrowableDiagnostic`
@@ -110,7 +105,7 @@ export default class ThrowableDiagnostic extends Error {
  */
 export function errorToDiagnostic(
     error: ThrowableDiagnostic | PrintableError | string,
-    realOrigin?: string
+    realOrigin?: string,
 ): Diagnostic | Diagnostic[];
 
 /**
@@ -118,9 +113,7 @@ export function errorToDiagnostic(
  * @param input The error to convert
  * @returns The resulting diagnostics
  */
-export function anyToDiagnostic(
-    input: Diagnostifiable
-): Diagnostic | Diagnostic[];
+export function anyToDiagnostic(input: Diagnostifiable): Diagnostic | Diagnostic[];
 
 /**
  * Generates code highlights from JSON
@@ -129,13 +122,11 @@ export function anyToDiagnostic(
  */
 export function generateJSONCodeHighlights(
     code: string,
-    ids: Array<{ key: string; type?: 'key' | 'value'; message?: string }>
+    ids: Array<{ key: string; type?: 'key' | 'value'; message?: string }>,
 ): DiagnosticCodeHighlight[];
 
 /**
  * Encodes a component key in the JSON in a json-source-map compatible format
  * @param component The component key to encode
  */
-export function encodeJSONKeyComponent(
-    component: string
-): string;
+export function encodeJSONKeyComponent(component: string): string;

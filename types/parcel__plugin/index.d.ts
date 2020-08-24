@@ -31,7 +31,7 @@ import {
     DependencyOptions,
     EnvironmentOptions,
     MutableAsset,
-    MutableBundleGraph
+    MutableBundleGraph,
 } from '@parcel/core';
 import { Logger } from '@parcel/logger';
 import { FileSystem } from '@parcel/fs';
@@ -45,15 +45,18 @@ declare module '@parcel/core' {
      * Options used to create an environment
      */
     type EnvironmentOptions = Readonly<{
-        context?: EnvironmentContext,
-        engines?: Engines,
-        includeNodeModules?: boolean | string[] | {
-          [name: string]: boolean
-        },
-        outputFormat?: OutputFormat,
-        isLibrary?: boolean,
-        minify?: boolean,
-        scopeHoist?: boolean,
+        context?: EnvironmentContext;
+        engines?: Engines;
+        includeNodeModules?:
+            | boolean
+            | string[]
+            | {
+                  [name: string]: boolean;
+              };
+        outputFormat?: OutputFormat;
+        isLibrary?: boolean;
+        minify?: boolean;
+        scopeHoist?: boolean;
     }>;
     /**
      * Options used to create a dependency
@@ -68,24 +71,24 @@ declare module '@parcel/core' {
         isIsolated?: boolean;
         loc?: SourceLocation;
         env?: EnvironmentOptions;
-        meta?: Meta
+        meta?: Meta;
     }>;
     /**
      * A modifiable asset for use with transformers
      */
-    interface MutableAsset<A = any> extends Omit<
-        BaseAsset<A>,
-        'isIsolated' | 'isInline' | 'isSplittable'
-    > {
+    interface MutableAsset<A = any> extends Omit<BaseAsset<A>, 'isIsolated' | 'isInline' | 'isSplittable'> {
         isIsolated: boolean;
         isInline: boolean;
         isSplittable?: boolean | null;
         type: string;
         addDependency(dep: DependencyOptions): string;
         addIncludedFile(file: ParcelFile): void;
-        addURLDependency(url: string, opts: Omit<DependencyOptions, 'moduleSpecifier'> & {
-            readonly moduleSpecifier?: string;
-        }): string;
+        addURLDependency(
+            url: string,
+            opts: Omit<DependencyOptions, 'moduleSpecifier'> & {
+                readonly moduleSpecifier?: string;
+            },
+        ): string;
         readonly symbols: MutableSymbols;
         isASTDirty(): boolean;
         /** Returns null if AST missing */
@@ -102,27 +105,30 @@ declare module '@parcel/core' {
     /**
      * Options used to create a bundle
      */
-    type CreateBundleOptions = Readonly<{
-        uniqueKey?: string;
-        entryAsset: Asset;
-        target: Target;
-        isEntry?: boolean;
-        isInline?: boolean;
-        isSplittable?: boolean;
-        type?: string;
-        env?: Environment;
-        pipeline?: string;
-    } | {
-        uniqueKey: string;
-        entryAsset?: Asset;
-        target: Target;
-        isEntry?: boolean;
-        isInline?: boolean;
-        isSplittable?: boolean;
-        type: string;
-        env: Environment;
-        pipeline?: string;
-    }>;
+    type CreateBundleOptions = Readonly<
+        | {
+              uniqueKey?: string;
+              entryAsset: Asset;
+              target: Target;
+              isEntry?: boolean;
+              isInline?: boolean;
+              isSplittable?: boolean;
+              type?: string;
+              env?: Environment;
+              pipeline?: string;
+          }
+        | {
+              uniqueKey: string;
+              entryAsset?: Asset;
+              target: Target;
+              isEntry?: boolean;
+              isInline?: boolean;
+              isSplittable?: boolean;
+              type: string;
+              env: Environment;
+              pipeline?: string;
+          }
+    >;
     /**
      * A modifiable bundle graph for use with bundlers
      */
@@ -156,35 +162,39 @@ export type FSConfigResult = {
  * Format of `package.json`
  */
 export type PackageJSON = {
-    name: string,
-    version: string,
-    main?: string,
-    module?: string,
-    types?: string,
-    browser?: string | {
-        [path: string]: string | boolean,
-    },
-    source?: string | {
-        [path: string]: string,
-    },
+    name: string;
+    version: string;
+    main?: string;
+    module?: string;
+    types?: string;
+    browser?:
+        | string
+        | {
+              [path: string]: string | boolean;
+          };
+    source?:
+        | string
+        | {
+              [path: string]: string;
+          };
     alias?: {
-        [alias: string]: string,
-    },
-    browserslist?: string[],
-    engines?: Engines,
+        [alias: string]: string;
+    };
+    browserslist?: string[];
+    engines?: Engines;
     targets?: {
-        [name: string]: TargetDescriptor
-    },
+        [name: string]: TargetDescriptor;
+    };
     dependencies?: {
-        [dep: string]: string
-    },
+        [dep: string]: string;
+    };
     devDependencies?: {
-        [devDep: string]: string
-    },
+        [devDep: string]: string;
+    };
     peerDependencies?: {
-        [peerDep: string]: string
-    },
-    sideEffects?: boolean | string | string[]
+        [peerDep: string]: string;
+    };
+    sideEffects?: boolean | string | string[];
 };
 /**
  * An object that allows plugins to configure themselves
@@ -200,16 +210,23 @@ export type Config<T> = Readonly<{
     addIncludedFile(filePath: string): void;
     addDevDependency(name: string, version: string): void;
     setWatchGlob(glob: string): void;
-    getConfigFrom(searchPath: string, filePaths: string[], option?: {
-        packageKey?: string;
-        parse?: boolean;
-        exclude?: boolean;
-    }): Promise<FSConfigResult | null>;
-    getConfig(filePaths: string[], option?: {
-        packageKey?: string;
-        parse?: boolean;
-        exclude?: boolean;
-    }): Promise<FSConfigResult | null>;
+    getConfigFrom(
+        searchPath: string,
+        filePaths: string[],
+        option?: {
+            packageKey?: string;
+            parse?: boolean;
+            exclude?: boolean;
+        },
+    ): Promise<FSConfigResult | null>;
+    getConfig(
+        filePaths: string[],
+        option?: {
+            packageKey?: string;
+            parse?: boolean;
+            exclude?: boolean;
+        },
+    ): Promise<FSConfigResult | null>;
     getPackage(): Promise<PackageJSON | null>;
     shouldRehydrate(): void;
     shouldReload(): void;
@@ -261,10 +278,13 @@ export type TransformerResult = Readonly<{
     meta?: Meta;
     pipeline?: string;
     sideEffects?: boolean;
-    symbols?: ReadonlyMap<string, {
-        local: string;
-        loc?: SourceLocation;
-    }>;
+    symbols?: ReadonlyMap<
+        string,
+        {
+            local: string;
+            loc?: SourceLocation;
+        }
+    >;
     symbolsConfident?: boolean;
     type: string;
     uniqueKey?: string;
@@ -282,25 +302,10 @@ export type TransformerGenerateResult = {
  * Options for creating a transformer
  */
 export type TransformerOpts<T, A> = {
-    canReuseAST?: (opts: {
-        ast: any;
-        options: PluginOptions;
-        logger: Logger;
-    }) => Async<boolean>;
-    loadConfig?: (opts: {
-        config: Config<T>;
-        options: PluginOptions;
-        logger: Logger;
-    }) => Async<void>;
-    preSerializeConfig?: (opts: {
-        config: Config<T>;
-        options: PluginOptions;
-    }) => Async<void>;
-    postDeserializeConfig?: (opts: {
-        config: Config<T>;
-        options: PluginOptions;
-        logger: Logger;
-    }) => Async<void>;
+    canReuseAST?: (opts: { ast: any; options: PluginOptions; logger: Logger }) => Async<boolean>;
+    loadConfig?: (opts: { config: Config<T>; options: PluginOptions; logger: Logger }) => Async<void>;
+    preSerializeConfig?: (opts: { config: Config<T>; options: PluginOptions }) => Async<void>;
+    postDeserializeConfig?: (opts: { config: Config<T>; options: PluginOptions; logger: Logger }) => Async<void>;
     parse?: (opts: {
         asset: MutableAsset<A>;
         config: T;
@@ -313,7 +318,7 @@ export type TransformerOpts<T, A> = {
         config: T;
         resolve: ResolveFn;
         options: PluginOptions;
-        logger: Logger
+        logger: Logger;
     }): Async<Array<TransformerResult | MutableAsset>>;
     generate?: (opts: {
         asset: Asset<A>;
@@ -378,22 +383,9 @@ export type ConfigOutput<T> = {
  * Options for creating a bundler
  */
 export type BundlerOpts<T> = {
-    loadConfig?: (opts: {
-        options: PluginOptions;
-        logger: Logger
-    }) => Async<ConfigOutput<T>>;
-    bundle(opts: {
-        bundleGraph: MutableBundleGraph;
-        config: T;
-        options: PluginOptions;
-        logger: Logger;
-    }): Async<void>;
-    optimize(opts: {
-        bundleGraph: MutableBundleGraph;
-        config: T;
-        options: PluginOptions;
-        logger: Logger;
-    }): Async<void>;
+    loadConfig?: (opts: { options: PluginOptions; logger: Logger }) => Async<ConfigOutput<T>>;
+    bundle(opts: { bundleGraph: MutableBundleGraph; config: T; options: PluginOptions; logger: Logger }): Async<void>;
+    optimize(opts: { bundleGraph: MutableBundleGraph; config: T; options: PluginOptions; logger: Logger }): Async<void>;
 };
 
 /**
@@ -440,7 +432,7 @@ export type RuntimeOpts = {
         bundle: NamedBundle;
         bundleGraph: BundleGraph<NamedBundle>;
         options: PluginOptions;
-        logger: Logger
+        logger: Logger;
     }): Async<undefined | null | RuntimeAsset | RuntimeAsset[]>;
 };
 
@@ -469,11 +461,11 @@ export type PackagerOpts = {
         bundle: NamedBundle;
         bundleGraph: BundleGraph<NamedBundle>;
         options: PluginOptions;
-        logger: Logger,
+        logger: Logger;
         getInlineBundleContents: (
             bundle: Bundle,
-            bundleGraph: BundleGraph<NamedBundle>
-        ) => Async<{ contents: string | Buffer | Readable; }>;
+            bundleGraph: BundleGraph<NamedBundle>,
+        ) => Async<{ contents: string | Buffer | Readable }>;
         getSourceMapReference: (map?: SourceMap) => Async<string | null>;
     }): Async<BundleResult>;
 };
@@ -495,7 +487,7 @@ export type OptimizerOpts = {
         contents: string | Buffer | Readable;
         map?: SourceMap | null;
         options: PluginOptions;
-        logger: Logger,
+        logger: Logger;
         getSourceMapReference: (map?: SourceMap) => Async<string | null>;
     }): Async<BundleResult>;
 };
@@ -511,11 +503,7 @@ export class Optimizer {
  * Options for creating a reporter
  */
 export type ReporterOpts = {
-    report(opts: {
-        event: ReporterEvent;
-        options: PluginOptions;
-        logger: Logger;
-    }): Async<void>;
+    report(opts: { event: ReporterEvent; options: PluginOptions; logger: Logger }): Async<void>;
 };
 
 /**
@@ -536,42 +524,39 @@ export type ValidateResult = {
 /**
  * Function to resolve a config file
  */
-export type ResolveConfigFn = (
-    configNames: string[]
-) => Promise<string | null>;
+export type ResolveConfigFn = (configNames: string[]) => Promise<string | null>;
 
 /**
  * Function to resolve a config file relative to the path to an asset
  */
-export type ResolveConfigWithPathFn = (
-    configNames: string[],
-    assetFilePath: string
-) => Promise<string | null>;
+export type ResolveConfigWithPathFn = (configNames: string[], assetFilePath: string) => Promise<string | null>;
 
 /**
  * Options to create a validator
  */
-export type ValidatorOpts<T> = {
-    validate(opts: {
-        asset: Asset;
-        config: T;
-        options: PluginOptions;
-        logger: Logger;
-    }): Async<ValidateResult | null | undefined>;
-    getConfig?: (opts: {
-        asset: Asset;
-        resolveConfig: ResolveConfigFn;
-        options: PluginOptions;
-        logger: Logger;
-    }) => Async<T>;
-} | {
-    validateAll(opts: {
-        assets: Asset[];
-        resolveConfigWithPath: ResolveConfigWithPathFn;
-        options: PluginOptions;
-        logger: Logger;
-    }): Async<Array<ValidateResult | null | undefined>>;
-};
+export type ValidatorOpts<T> =
+    | {
+          validate(opts: {
+              asset: Asset;
+              config: T;
+              options: PluginOptions;
+              logger: Logger;
+          }): Async<ValidateResult | null | undefined>;
+          getConfig?: (opts: {
+              asset: Asset;
+              resolveConfig: ResolveConfigFn;
+              options: PluginOptions;
+              logger: Logger;
+          }) => Async<T>;
+      }
+    | {
+          validateAll(opts: {
+              assets: Asset[];
+              resolveConfigWithPath: ResolveConfigWithPathFn;
+              options: PluginOptions;
+              logger: Logger;
+          }): Async<Array<ValidateResult | null | undefined>>;
+      };
 
 /**
  * A validator plugin

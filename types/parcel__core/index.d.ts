@@ -18,13 +18,7 @@ import { PackageManager } from '@parcel/package-manager';
 import SourceMap from '@parcel/source-map';
 import { Readable } from 'stream';
 
-type ParcelJSONValue =
-    | string
-    | number
-    | boolean
-    | null
-    | ParcelJSONValue[]
-    | ParcelJSONObject;
+type ParcelJSONValue = string | number | boolean | null | ParcelJSONValue[] | ParcelJSONObject;
 interface ParcelJSONObject {
     [k: string]: ParcelJSONValue;
 }
@@ -152,10 +146,7 @@ export type EnvironmentContext =
 export type Environment = Readonly<{
     context: EnvironmentContext;
     engines: Engines;
-    includeNodeModules:
-        | boolean
-        | string[]
-        | { [name: string]: boolean };
+    includeNodeModules: boolean | string[] | { [name: string]: boolean };
     outputFormat: OutputFormat;
     isLibrary: boolean;
     minify: boolean;
@@ -171,15 +162,16 @@ export type Environment = Readonly<{
 /**
  * The parsed target information
  */
-export interface Target extends Readonly<{
-    distEntry?: string | null;
-    distDir: string;
-    env: Environment;
-    sourceMap?: SourceMapOptions | null;
-    name: string;
-    publicUrl: string;
-    loc?: SourceLocation | null;
-}> {}
+export interface Target
+    extends Readonly<{
+        distEntry?: string | null;
+        distDir: string;
+        env: Environment;
+        sourceMap?: SourceMapOptions | null;
+        name: string;
+        publicUrl: string;
+        loc?: SourceLocation | null;
+    }> {}
 /**
  * A callback called during a graph traversal
  */
@@ -189,25 +181,29 @@ export type GraphTraversalCallback<N, C> = (
     actions: {
         skipChildren(): void;
         stop(): void;
-    }
+    },
 ) => C | null;
 /**
  * A visitor in a graph of assets, bundles, etc.
  */
-export type GraphVisitor<N, C> = GraphTraversalCallback<N, C> | {
-    enter?: GraphTraversalCallback<N, C>;
-    exit?: GraphTraversalCallback<N, C>;
-};
+export type GraphVisitor<N, C> =
+    | GraphTraversalCallback<N, C>
+    | {
+          enter?: GraphTraversalCallback<N, C>;
+          exit?: GraphTraversalCallback<N, C>;
+      };
 /**
  * A structure that allows simultaneous traversal of assets and dependencies
  */
-export type BundleTraversable = {
-    type: 'asset';
-    value: Asset;
-} | {
-    type: 'dependency';
-    value: Dependency;
-};
+export type BundleTraversable =
+    | {
+          type: 'asset';
+          value: Asset;
+      }
+    | {
+          type: 'dependency';
+          value: Dependency;
+      };
 /**
  * Stats for a processed asset
  */
@@ -218,11 +214,10 @@ export type BuildStats = {
 /**
  * Map of exports to their bindings
  */
-export type Symbols = Iterable<[
-    string,
-    { local: string, loc?: SourceLocation | null }
-]> & {
-    get(exportSymbol: string): {
+export type Symbols = Iterable<[string, { local: string; loc?: SourceLocation | null }]> & {
+    get(
+        exportSymbol: string,
+    ): {
         local: string;
         loc?: SourceLocation | null;
     };
@@ -235,11 +230,7 @@ export type Symbols = Iterable<[
  */
 export type MutableSymbols = Symbols & {
     clear(): void;
-    set(
-        exportSymbol: string,
-        local: string,
-        loc?: SourceLocation | null
-    ): void;
+    set(exportSymbol: string, local: string, loc?: SourceLocation | null): void;
 };
 /**
  * A symbol within an asset
@@ -253,105 +244,113 @@ export type SymbolResolution = Readonly<{
 /**
  * An exported symbol within an asset
  */
-export type ExportSymbolResolution = SymbolResolution & Readonly<{
-    exportAs: string;
-}>;
+export type ExportSymbolResolution = SymbolResolution &
+    Readonly<{
+        exportAs: string;
+    }>;
 /**
  * A dependency between two assets in the asset graph
  */
-export interface Dependency extends Readonly<{
-    id: string;
-    moduleSpecifier: string;
-    isAsync: boolean;
-    isEntry?: boolean | null;
-    isOptional: boolean;
-    isURL: boolean;
-    isWeak?: boolean | null;
-    isIsolated: boolean;
-    loc?: SourceLocation | null;
-    env: Environment;
-    meta: Meta;
-    target?: Target | null;
-    sourceAssetId?: string | null;
-    sourcePath?: string | null;
-    pipeline?: string | null;
-    symbols: MutableSymbols;
-}> {}
+export interface Dependency
+    extends Readonly<{
+        id: string;
+        moduleSpecifier: string;
+        isAsync: boolean;
+        isEntry?: boolean | null;
+        isOptional: boolean;
+        isURL: boolean;
+        isWeak?: boolean | null;
+        isIsolated: boolean;
+        loc?: SourceLocation | null;
+        env: Environment;
+        meta: Meta;
+        target?: Target | null;
+        sourceAssetId?: string | null;
+        sourcePath?: string | null;
+        pipeline?: string | null;
+        symbols: MutableSymbols;
+    }> {}
 /**
  * The base form of an asset
  */
-export interface BaseAsset<A = any> extends Readonly<{
-    env: Environment;
-    fs: FileSystem;
-    filePath: string;
-    id: string;
-    meta: Meta;
-    isIsolated: boolean;
-    /** Whether this asset will be inserted back into the importer */
-    isInline: boolean;
-    isSplittable?: boolean | null;
-    /**
-     * Whether this asset is part of the user's project (i.e. should be
-     * transpiled)
-     */
-    isSource: boolean;
-    /** Usually corresponds to the file extension */
-    type: string;
-    sideEffects: boolean;
-    /** Unique identifier for child assets */
-    uniqueKey?: string | null;
-    /** The AST version and type */
-    astGenerator: { type: string; version: string; };
-    pipeline?: string | null;
-    symbols: Symbols;
-    getAST(): Promise<A | null>;
-    getCode(): Promise<string>;
-    getBuffer(): Promise<Buffer>;
-    getStream(): Readable;
-    getMap(): Promise<SourceMap | null>;
-    getMapBuffer(): Promise<Buffer | null>;
-    getIncludedFiles(): ReadonlyArray<File>;
-    getDependencies(): ReadonlyArray<Dependency>;
-    // Deprecated getConfig, getPackage not included
-}> {}
+export interface BaseAsset<A = any>
+    extends Readonly<{
+        env: Environment;
+        fs: FileSystem;
+        filePath: string;
+        id: string;
+        meta: Meta;
+        isIsolated: boolean;
+        /** Whether this asset will be inserted back into the importer */
+        isInline: boolean;
+        isSplittable?: boolean | null;
+        /**
+         * Whether this asset is part of the user's project (i.e. should be
+         * transpiled)
+         */
+        isSource: boolean;
+        /** Usually corresponds to the file extension */
+        type: string;
+        sideEffects: boolean;
+        /** Unique identifier for child assets */
+        uniqueKey?: string | null;
+        /** The AST version and type */
+        astGenerator: { type: string; version: string };
+        pipeline?: string | null;
+        symbols: Symbols;
+        getAST(): Promise<A | null>;
+        getCode(): Promise<string>;
+        getBuffer(): Promise<Buffer>;
+        getStream(): Readable;
+        getMap(): Promise<SourceMap | null>;
+        getMapBuffer(): Promise<Buffer | null>;
+        getIncludedFiles(): ReadonlyArray<File>;
+        getDependencies(): ReadonlyArray<Dependency>;
+        // Deprecated getConfig, getPackage not included
+    }> {}
 /**
  * An asset represents a source file (i.e. the unaltered source code)
  */
-export interface Asset<A = any> extends Omit<BaseAsset<A>, 'getAST'>, Readonly<{
-    /** Throws if AST is missing */
-    getAST(): Promise<A>;
-    stats: BuildStats
-}> {}
+export interface Asset<A = any>
+    extends Omit<BaseAsset<A>, 'getAST'>,
+        Readonly<{
+            /** Throws if AST is missing */
+            getAST(): Promise<A>;
+            stats: BuildStats;
+        }> {}
 /**
  * A bundle represents the packaged result of Parcel's transformations on
  * the source code.
  */
-export interface Bundle extends Readonly<{
-    id: string;
-    hashReference: string;
-    type: string;
-    env: Environment;
-    filePath?: string | null;
-    isEntry?: boolean | null;
-    isInline?: boolean | null;
-    isSplittable?: boolean | null;
-    target: Target;
-    stats: BuildStats;
-    getEntryAssets(): Asset[];
-    getMainEntry(): Asset | null;
-    hasAsset(asset: Asset): boolean;
-    traverseAssets<C>(visit: GraphVisitor<Asset, C>): C | null;
-    traverse<C>(visit: GraphVisitor<BundleTraversable, C>): C | null;
-}> {}
+export interface Bundle
+    extends Readonly<{
+        id: string;
+        hashReference: string;
+        type: string;
+        env: Environment;
+        filePath?: string | null;
+        isEntry?: boolean | null;
+        isInline?: boolean | null;
+        isSplittable?: boolean | null;
+        target: Target;
+        stats: BuildStats;
+        getEntryAssets(): Asset[];
+        getMainEntry(): Asset | null;
+        hasAsset(asset: Asset): boolean;
+        traverseAssets<C>(visit: GraphVisitor<Asset, C>): C | null;
+        traverse<C>(visit: GraphVisitor<BundleTraversable, C>): C | null;
+    }> {}
 /**
  * A bundle that has been named by a namer
  */
-export interface NamedBundle extends Omit<Bundle, 'filePath'>, Readonly<{
-    publicId: string;
-    filePath: string;
-    name: string;
-    displayName: string;
-}> {}
+export interface NamedBundle
+    extends Omit<Bundle, 'filePath'>,
+        Readonly<{
+            publicId: string;
+            filePath: string;
+            name: string;
+            displayName: string;
+        }> {}
 /**
  * Contains info about a group of sibling bundles loaded together
  */
@@ -375,18 +374,21 @@ export interface BundleGraph<B extends Bundle = Bundle> {
     getReferencedBundles(bundle: Bundle): B[];
     getDependencies(asset: Asset): Dependency[];
     getIncomingDependencies(asset: Asset): Dependency[];
-    resolveAsyncDependency(dep: Dependency, bundle?: Bundle | null): {
-        type: 'bundle_group';
-        value: BundleGroup;
-    } | {
-        type: 'asset';
-        value: Asset;
-    } | null;
-    isDependencyDeferred(dep: Dependency): boolean;
-    getDependencyResolution(
+    resolveAsyncDependency(
         dep: Dependency,
-        bundle?: Bundle | null
-    ): Asset | null;
+        bundle?: Bundle | null,
+    ):
+        | {
+              type: 'bundle_group';
+              value: BundleGroup;
+          }
+        | {
+              type: 'asset';
+              value: Asset;
+          }
+        | null;
+    isDependencyDeferred(dep: Dependency): boolean;
+    getDependencyResolution(dep: Dependency, bundle?: Bundle | null): Asset | null;
     getReferencedBundle(dep: Dependency, bundle: Bundle): B | null;
     findBundlesWithAsset(asset: Asset): B[];
     findBundlesWithDependency(dep: Dependency): B[];
@@ -395,16 +397,9 @@ export interface BundleGraph<B extends Bundle = Bundle> {
     isAssetReferenced(asset: Asset): boolean;
     isAssetReferencedByDependant(bundle: Bundle, asset: Asset): boolean;
     hasParentBundleOfType(bundle: Bundle, type: string): boolean;
-    resolveSymbol(
-        asset: Asset,
-        symbol: string,
-        boundary?: Bundle | null
-    ): SymbolResolution;
+    resolveSymbol(asset: Asset, symbol: string, boundary?: Bundle | null): SymbolResolution;
     getExportedSymbols(asset: Asset): ExportSymbolResolution[];
-    traverseBundles<C>(
-        visit: GraphVisitor<B, C>,
-        startBundle?: Bundle | null
-    ): C | null;
+    traverseBundles<C>(visit: GraphVisitor<B, C>, startBundle?: Bundle | null): C | null;
 }
 /**
  * A log event for progress
@@ -422,7 +417,7 @@ export type ProgressLogEvent = Readonly<{
 export type DiagnosticLogEvent = Readonly<{
     type: 'log';
     level: 'error' | 'warn' | 'info' | 'verbose';
-    diagnostics: Diagnostic[]
+    diagnostics: Diagnostic[];
 }>;
 
 /**
@@ -612,16 +607,18 @@ export interface PluginConfig {
 /**
  * A plugin config read from the filesystem
  */
-export interface ResolvedPluginConfig extends PluginConfig, Readonly<{
-    /**
-     * Location of the config file
-     */
-    filePath: string;
-    /**
-     * Which directory to resolve the config file path from (if relative)
-     */
-    resolveFrom?: string;
-}> {}
+export interface ResolvedPluginConfig
+    extends PluginConfig,
+        Readonly<{
+            /**
+             * Location of the config file
+             */
+            filePath: string;
+            /**
+             * Which directory to resolve the config file path from (if relative)
+             */
+            resolveFrom?: string;
+        }> {}
 /**
  * Describes a target to build the project for
  */
@@ -641,10 +638,7 @@ export type TargetDescriptor = Readonly<{
      * A map of package names to booleans works similarly to an array for
      * true values.
      */
-    includeNodeModules?:
-        | boolean
-        | string[]
-        | { [name: string]: boolean };
+    includeNodeModules?: boolean | string[] | { [name: string]: boolean };
     /**
      * The module format for the generated JavaScript
      */
@@ -683,142 +677,143 @@ export type TargetDescriptor = Readonly<{
 /**
  * The options used in the creation of a Parcel instance
  */
-export interface ParcelOptions extends Readonly<{
-    /**
-     * Entry assets for Parcel to process, e.g. index.html
-     */
-    entries?: string | string[];
-    /**
-     * Root directory from which to resolve the entries, e.g. src/
-     */
-    entryRoot?: string;
-    /**
-     * Plugin configuration for Parcel to use
-     */
-    config?: ResolvedPluginConfig;
-    /**
-     * Default plugin configuration for Parcel to merge with the config
-     */
-    defaultConfig?: ResolvedPluginConfig;
-    /**
-     * Environment variables to use in combination with `process.env`
-     */
-    env?: NodeJS.ProcessEnv;
-    /**
-     * Targets to process.
-     * If an array of target names, Parcel will get the configuration for
-     * each target from package.json.
-     */
-    targets?: (string[] | { [name: string]: TargetDescriptor });
-    /**
-     * Whether or not to disable caching
-     */
-    disableCache?: boolean;
-    /**
-     * The directory at which the cache will be stored
-     */
-    cacheDir?: string;
-    /**
-     * Whether or not to kill the worker processes used by Parcel after the
-     * build completes.
-     * You usually won't need to set this.
-     */
-    killWorkers?: boolean;
-    /**
-     * The build mode (acts like `process.env.NODE_ENV`)
-     */
-    mode?: BuildMode;
-    /**
-     * Whether to minify the code.
-     * Overridden by the minify option of each target.
-     */
-    minify?: boolean;
-    /**
-     * Whether to use scope hosting.
-     * Overridden by the scope hoisting option of each target.
-     * Typically only applies to JavaScript.
-     */
-    scopeHoist?: boolean;
-    /**
-     * Whether or not to enable source mapping.
-     * Overridden by the source mapping options of each target.
-     */
-    sourceMaps?: boolean;
-    /**
-     * The public URL used to link assets in any browser targets.
-     * Overridden by the public URL specified in each target.
-     */
-    publicUrl?: string;
-    /**
-     * The output directory for the implicit target. Only applies if no
-     * targets are specified.
-     */
-    distDir?: string;
-    /**
-     * Hot module replacement options
-     */
-    hot?: HMROptions | null;
-    /**
-     * Whether to enable content hashing for bundle filename fingerprints
-     */
-    contentHash?: boolean;
-    /**
-     * Options for serving the bundle after building it
-     */
-    serve?: ServerOptions | false;
-    /**
-     * Whether or not to autoinstall missing packages
-     */
-    autoinstall?: boolean;
-    /**
-     * The level of logging that Parcel should do. 'none' means no logging,
-     * 'verbose' means Parcel will log as information much as it can.
-     */
-    logLevel?: LogLevel;
-    /**
-     * Whether or not to enable Chrome DevTools profiling.
-     * Only applies to browser builds that contain JavaScript code.
-     */
-    profile?: boolean
-    /**
-     * Whether or not to overwrite the methods of the global `console`
-     * object (i.e. `console.info`, `console.log`, etc.) with their
-     * counterparts from Parcel's internal logger.
-     * You usually won't need to set this.
-     */
-    patchConsole?: boolean;
-    /**
-     * The input filesystem from which to read the assets, package.json,
-     * etc.
-     */
-    inputFS?: FileSystem;
-    /**
-     * The output fileystem at which the bundles will be generated
-     */
-    outputFS?: FileSystem;
-    /**
-     * The worker farm that Parcel should use for bundling
-     */
-    workerFarm?: WorkerFarm;
-    /**
-     * The package manager to use for the bundling
-     */
-    packageManager?: PackageManager;
-    /**
-     * The default engines to target.
-     * Overridden by the engines specified in each target.
-     */
-    defaultEngines?: Engines;
-    /**
-     * Detailed report generation option.
-     * If a number, generates a detailed report for the largest N assets
-     * in each bundle.
-     * If true, N defaults to 10; if false, no detailed report is
-     * generated.
-     */
-    detailedReport?: number | boolean;
-    // Possible in the future: throwErrors, global (?)
-}> {}
+export interface ParcelOptions
+    extends Readonly<{
+        /**
+         * Entry assets for Parcel to process, e.g. index.html
+         */
+        entries?: string | string[];
+        /**
+         * Root directory from which to resolve the entries, e.g. src/
+         */
+        entryRoot?: string;
+        /**
+         * Plugin configuration for Parcel to use
+         */
+        config?: ResolvedPluginConfig;
+        /**
+         * Default plugin configuration for Parcel to merge with the config
+         */
+        defaultConfig?: ResolvedPluginConfig;
+        /**
+         * Environment variables to use in combination with `process.env`
+         */
+        env?: NodeJS.ProcessEnv;
+        /**
+         * Targets to process.
+         * If an array of target names, Parcel will get the configuration for
+         * each target from package.json.
+         */
+        targets?: string[] | { [name: string]: TargetDescriptor };
+        /**
+         * Whether or not to disable caching
+         */
+        disableCache?: boolean;
+        /**
+         * The directory at which the cache will be stored
+         */
+        cacheDir?: string;
+        /**
+         * Whether or not to kill the worker processes used by Parcel after the
+         * build completes.
+         * You usually won't need to set this.
+         */
+        killWorkers?: boolean;
+        /**
+         * The build mode (acts like `process.env.NODE_ENV`)
+         */
+        mode?: BuildMode;
+        /**
+         * Whether to minify the code.
+         * Overridden by the minify option of each target.
+         */
+        minify?: boolean;
+        /**
+         * Whether to use scope hosting.
+         * Overridden by the scope hoisting option of each target.
+         * Typically only applies to JavaScript.
+         */
+        scopeHoist?: boolean;
+        /**
+         * Whether or not to enable source mapping.
+         * Overridden by the source mapping options of each target.
+         */
+        sourceMaps?: boolean;
+        /**
+         * The public URL used to link assets in any browser targets.
+         * Overridden by the public URL specified in each target.
+         */
+        publicUrl?: string;
+        /**
+         * The output directory for the implicit target. Only applies if no
+         * targets are specified.
+         */
+        distDir?: string;
+        /**
+         * Hot module replacement options
+         */
+        hot?: HMROptions | null;
+        /**
+         * Whether to enable content hashing for bundle filename fingerprints
+         */
+        contentHash?: boolean;
+        /**
+         * Options for serving the bundle after building it
+         */
+        serve?: ServerOptions | false;
+        /**
+         * Whether or not to autoinstall missing packages
+         */
+        autoinstall?: boolean;
+        /**
+         * The level of logging that Parcel should do. 'none' means no logging,
+         * 'verbose' means Parcel will log as information much as it can.
+         */
+        logLevel?: LogLevel;
+        /**
+         * Whether or not to enable Chrome DevTools profiling.
+         * Only applies to browser builds that contain JavaScript code.
+         */
+        profile?: boolean;
+        /**
+         * Whether or not to overwrite the methods of the global `console`
+         * object (i.e. `console.info`, `console.log`, etc.) with their
+         * counterparts from Parcel's internal logger.
+         * You usually won't need to set this.
+         */
+        patchConsole?: boolean;
+        /**
+         * The input filesystem from which to read the assets, package.json,
+         * etc.
+         */
+        inputFS?: FileSystem;
+        /**
+         * The output fileystem at which the bundles will be generated
+         */
+        outputFS?: FileSystem;
+        /**
+         * The worker farm that Parcel should use for bundling
+         */
+        workerFarm?: WorkerFarm;
+        /**
+         * The package manager to use for the bundling
+         */
+        packageManager?: PackageManager;
+        /**
+         * The default engines to target.
+         * Overridden by the engines specified in each target.
+         */
+        defaultEngines?: Engines;
+        /**
+         * Detailed report generation option.
+         * If a number, generates a detailed report for the largest N assets
+         * in each bundle.
+         * If true, N defaults to 10; if false, no detailed report is
+         * generated.
+         */
+        detailedReport?: number | boolean;
+        // Possible in the future: throwErrors, global (?)
+    }> {}
 
 /**
  * The Parcel Node.js API
@@ -841,9 +836,7 @@ declare class Parcel {
      * Runs Parcel in watch mode
      * @param cb The callback to run on a build event
      */
-    watch(
-        cb: (err: Error | null, event: BuildEvent) => unknown
-    ): Promise<ParcelWatcherSubscription>;
+    watch(cb: (err: Error | null, event: BuildEvent) => unknown): Promise<ParcelWatcherSubscription>;
     build(opts: BuildOptions): Promise<BuildEvent>;
     startNextBuild(): Promise<void>;
     startProfiling(): Promise<void>;

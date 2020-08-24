@@ -41,20 +41,12 @@ export type ModuleResolutionOptions = {
 
 export type ResolveResult = {
     resolved: string;
-    pkg?: any
+    pkg?: any;
 };
 
 export interface PackageManager {
-    require(
-        id: string,
-        from: string,
-        opts: ModuleResolutionOptions
-    ): Promise<any>;
-    resolve(
-        id: string,
-        from: string,
-        opts: ModuleResolutionOptions
-    ): Promise<ResolveResult>;
+    require(id: string, from: string, opts: ModuleResolutionOptions): Promise<any>;
+    resolve(id: string, from: string, opts: ModuleResolutionOptions): Promise<ResolveResult>;
 }
 
 export const Npm: {
