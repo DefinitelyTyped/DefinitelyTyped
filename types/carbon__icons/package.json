@@ -1,10 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "typescript": "^3.9.7"
-    },
-    "optionalDependencies": {
-        "@types/glob": "^7.1.3",
         "glob": "^7.1.6",
         "rimraf": "^3.0.2",
         "typescript": "^3.9.7"
