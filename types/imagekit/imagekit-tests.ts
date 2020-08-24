@@ -13,8 +13,8 @@ imageKit.url({ path: '/some/path', src: '/some/src', transformationPosition: 'pa
 imageKit.listFiles({}, (error, listFileResponse) => {}); // $ExpectType void
 imageKit.listFiles({}); // $ExpectType Promise<ListFileResponse>
 
-imageKit.upload({ file: 123, fileName: 'imagekit.png', responseFields: 'somefield' }, (error, uploadResponse) => {}); // $ExpectType void
-imageKit.upload({ file: 123, fileName: 'imagekit.png', responseFields: 'somefield' }); // $ExpectType Promise<UploadResponse>
+imageKit.upload({ file: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==", fileName: 'imagekit.png', responseFields: 'somefield' }, (error, uploadResponse) => {}); // $ExpectType void
+imageKit.upload({ file: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==", fileName: 'imagekit.png', responseFields: 'somefield' }); // $ExpectType Promise<UploadResponse>
 
 imageKit.getFileDetails('someId', (error, fileDetailsResponse) => {}); // $ExpectType void
 imageKit.getFileDetails('someId'); // $ExpectType Promise<FileDetailsResponse>
