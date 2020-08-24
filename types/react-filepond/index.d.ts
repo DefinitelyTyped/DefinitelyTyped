@@ -1,8 +1,7 @@
-// Type definitions for react-filepond 7.0.1
+// Type definitions for react-filepond 7.0
 // Project: https://github.com/pqina/react-filepond, https://pqina.nl/filepond
-// Definitions by: Zach Posten <https://github.com/zposten>
+// Definitions by: Zach Posten <https://github.com/zposten>, Willem du Plessis <https://github.com/WillemDuPlessis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Contributor: Willem du Plessis <https://github.com/WillemDuPlessis>
 // TypeScript Version: 2.8
 
 // See the docs for more info on any given prop
