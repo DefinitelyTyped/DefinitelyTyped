@@ -1,8 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "glob": "^7.1.6",
-        "rimraf": "^3.0.2",
         "typescript": "^3.9.7"
     }
 }

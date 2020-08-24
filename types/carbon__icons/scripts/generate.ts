@@ -3,9 +3,10 @@ import * as mkdirp from 'mkdirp';
 import * as rimraf from 'rimraf';
 import * as fs from 'fs';
 
-const rootFolder = 'es';
-const indexFile = 'index.d.ts';
-const testFile = 'carbon__icons-tests.ts';
+const rootFolder = '../';
+const esFolder = rootFolder  + './es';
+const indexFile = rootFolder + 'index.d.ts';
+const testFile = rootFolder + 'carbon__icons-tests.ts';
 
 const sizes = ['16', '20', '24', '32'];
 
@@ -56,14 +57,14 @@ function getRootIndexContent(path: string, name: string, finalname: string) {
         ;
 }
 
-function getExport(name, finalname) {
-    if(name === finalName) {
+function getExport(name: string, finalname: string) {
+    if(name === finalname) {
         return name;
     }
     return finalname;
 }
 
-function finalName(name) {
+function finalName(name: string) {
     const firstLetter = name.charAt(0);
     if(isNaN(parseInt(firstLetter))) {
         return name;
@@ -71,7 +72,7 @@ function finalName(name) {
     return '_' + name;
 }
 
-function inline(name) {
+function inline(name: string) {
     return name
         .split('-')
         .filter(str => str.length > 0)
@@ -81,7 +82,7 @@ function inline(name) {
 
 // Generate all d.ts
 const svgFiles = glob.sync("**/*.svg", { cwd: process.argv[process.argv.length - 1] });
-rimraf.sync(rootFolder);
+rimraf.sync(esFolder);
 svgFiles.forEach(file => {
     // Avoids big generation during dev
     // if(!file.endsWith('4K.svg')) {
@@ -91,7 +92,7 @@ svgFiles.forEach(file => {
         const parts = file.split('/');
         if(parts.length === 2) {
             const name = parts[1].replace('.svg', '');
-            const folder = rootFolder + '/' + name;
+            const folder = esFolder + '/' + name;
             mkdirp.sync(folder)
 
             sizes.forEach(size => {
@@ -104,7 +105,7 @@ svgFiles.forEach(file => {
             const wrapper = parts[1];
             const name = parts[2].replace('.svg', '');
 
-            const folder = rootFolder + '/' + wrapper + '/' + name;
+            const folder = esFolder + '/' + wrapper + '/' + name;
             mkdirp.sync(folder)
 
             sizes.forEach(size => {
@@ -118,7 +119,7 @@ svgFiles.forEach(file => {
         }
     } else {
         const name = file.replace('.svg', '');
-        const folder = rootFolder + '/' + name;
+        const folder = esFolder + '/' + name;
         mkdirp.sync(folder)
         sizes.forEach(size => {
             fs.writeFileSync(
@@ -130,19 +131,19 @@ svgFiles.forEach(file => {
 })
 
 // Generate index.d.ts and the tests
-const typingFiles = glob.sync("**/*.d.ts", { cwd: process.cwd() + '/' + rootFolder });
+const typingFiles = glob.sync("**/*.d.ts", { cwd: process.cwd() + '/' + esFolder });
 fs.writeFileSync(
-    'index.d.ts',
+    indexFile,
     indexHeader
 );
 
 // Erase tests
 fs.writeFileSync(
-    'carbon__icons-tests.ts',
+    testFile,
     '// Automatically generated\n'
 );
 
-const names = [];
+const names: string[] = [];
 
 typingFiles
 // Ignoring index.d.ts files
@@ -156,7 +157,7 @@ typingFiles
             fs.appendFileSync(
                 indexFile,
                 getRootIndexContent(
-                    './' + rootFolder + '/' + name + '/' + size,
+                    './es/' + name + '/' + size,
                     inlinedName,
                     final,
                 )
@@ -175,9 +176,9 @@ typingFiles
             const inlinedName = inline(folder) + inline(name) + size
             const final = finalName(inlinedName);
             fs.appendFileSync(
-                'index.d.ts',
+                indexFile,
                 getRootIndexContent(
-                    './' + rootFolder + '/' + folder + '/' + name + '/' + size,
+                    './es/' + folder + '/' + name + '/' + size,
                     inlinedName,
                     final
                 )
