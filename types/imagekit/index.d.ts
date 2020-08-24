@@ -272,7 +272,7 @@ interface ListFileResponse {
      */
     fileId: string;
     /**
-     * Type of item. It can be either file or folder.
+     * Type of item. It can be either file or folder.
      */
     type: Item;
     /**
@@ -287,7 +287,7 @@ interface ListFileResponse {
      */
     filePath: string;
     /**
-     * Array of tags associated with the image. If no tags are set, it will be null.
+     * Array of tags associated with the image. If no tags are set, it will be null.
      */
     tags: string[] | null;
     /**
@@ -295,7 +295,7 @@ interface ListFileResponse {
      */
     isPrivateFile: boolean;
     /**
-     * Value of custom coordinates associated with the image in format x,y,width,height. If customCoordinates are not defined then it is null.
+     * Value of custom coordinates associated with the image in format x,y,width,height. If customCoordinates are not defined then it is null.
      */
     customCoordinates: CustomCoordinatesResponse;
     /**
@@ -307,7 +307,7 @@ interface ListFileResponse {
      */
     thumbnail: string;
     /**
-     * The type of file, it could be either image or non-image.
+     * The type of file, it could be either image or non-image.
      */
     fileType: FileType;
 }
