@@ -197,173 +197,50 @@ declare enum DiagramShapeType {
      * Text
      */
     Text = 0,
-    /**
-     * 
-     */
     Rectangle = 1,
-    /**
-     * 
-     */
     Ellipse = 2,
-    /**
-     * 
-     */
     Cross = 3,
-    /**
-     * 
-     */
     Triangle = 4,
-    /**
-     * 
-     */
     Diamond = 5,
-    /**
-     * 
-     */
     Heart = 6,
-    /**
-     * 
-     */
     Pentagon = 7,
-    /**
-     * 
-     */
     Hexagon = 8,
-    /**
-     * 
-     */
     Octagon = 9,
-    /**
-     * 
-     */
     Star = 10,
-    /**
-     * 
-     */
     ArrowLeft = 11,
-    /**
-     * 
-     */
     ArrowTop = 12,
-    /**
-     * 
-     */
     ArrowRight = 13,
-    /**
-     * 
-     */
     ArrowBottom = 14,
-    /**
-     * 
-     */
     ArrowNorthSouth = 15,
-    /**
-     * 
-     */
     ArrowEastWest = 16,
-    /**
-     * 
-     */
     Process = 17,
-    /**
-     * 
-     */
     Decision = 18,
-    /**
-     * 
-     */
     Terminator = 19,
-    /**
-     * 
-     */
     PredefinedProcess = 20,
-    /**
-     * 
-     */
     Document = 21,
-    /**
-     * 
-     */
     MultipleDocuments = 22,
-    /**
-     * 
-     */
     ManualInput = 23,
-    /**
-     * 
-     */
     Preparation = 24,
-    /**
-     * 
-     */
     Data = 25,
-    /**
-     * 
-     */
     Database = 26,
-    /**
-     * 
-     */
     HardDisk = 27,
-    /**
-     * 
-     */
     InternalStorage = 28,
-    /**
-     * 
-     */
     PaperTape = 29,
-    /**
-     * 
-     */
     ManualOperation = 30,
-    /**
-     * 
-     */
     Delay = 31,
-    /**
-     * 
-     */
     StoredData = 32,
-    /**
-     * 
-     */
     Display = 33,
-    /**
-     * 
-     */
     Merge = 34,
     /**
      * The connector.
      */
     Connector = 35,
-    /**
-     * 
-     */
     Or = 36,
-    /**
-     * 
-     */
     SummingJunction = 37,
-    /**
-     * 
-     */
     VerticalContainer = 38,
-    /**
-     * 
-     */
     HorizontalContainer = 39,
-    /**
-     * 
-     */
     CardWithImageOnLeft = 40,
-    /**
-     * 
-     */
     CardWithImageOnTop = 41,
-    /**
-     * 
-     */
     CardWithImageOnRight = 42,
 }
 
@@ -36034,4 +35911,3 @@ declare class ASPxClientReportPreview {
     pages: KnockoutObservableArray<any>;
     documentBuilding: KnockoutObservable<boolean>;
 }
-
