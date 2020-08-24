@@ -172,6 +172,17 @@ function test_query() {
     const testQuery = Parse.Query.or(query, query);
 }
 
+function test_query_exclude() {
+    const gameScore = new GameScore();
+
+    const query = new Parse.Query(GameScore);
+
+    // Show all keys, except the specified key.
+    query.exclude('place');
+
+    const testQuery = Parse.Query.or(query, query);
+}
+
 async function test_query_promise() {
     // Test promise with a query
     const findQuery = new Parse.Query('Test');

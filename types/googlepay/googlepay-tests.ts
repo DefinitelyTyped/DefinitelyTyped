@@ -78,8 +78,12 @@ function addGooglePayButton() {
     const buttonOptions: google.payments.api.ButtonOptions = {
         onClick: onGooglePaymentButtonClick,
         buttonColor: 'black',
-        buttonType: 'short',
     };
+    // $ExpectError
+    buttonOptions.buttonType = 'xyz';
+    buttonOptions.buttonType = 'plain';
+    buttonOptions.buttonType = 'donate';
+    buttonOptions.buttonType = 'buy';
     const client = getGooglePaymentsClient();
     const button = client.createButton(buttonOptions);
     document.appendChild(document.createElement('div').appendChild(button));

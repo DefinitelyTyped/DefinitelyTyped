@@ -22,14 +22,40 @@
 import { Validator } from 'prop-types';
 import * as React from 'react';
 
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
 export type DayPropGetter = (date: Date, resourceId?: number | string) => React.HTMLAttributes<HTMLDivElement>;
 export type EventPropGetter<T> = (event: T, start: stringOrDate, end: stringOrDate, isSelected: boolean) => React.HTMLAttributes<HTMLDivElement>;
 export type SlotPropGetter = (date: Date, resourceId?: number | string) => React.HTMLAttributes<HTMLDivElement>;
 export type SlotGroupPropGetter = () => React.HTMLAttributes<HTMLDivElement>;
+
 export type stringOrDate = string | Date;
+
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
-export type ViewsProps = View[] | {
+export type ViewProps<TEvent extends object = Event, TResource extends object = object> =
+ Omit<
+    CalendarProps<TEvent, TResource>,
+    'elementProps' | 'className' | 'style' | 'view' | 'toolbar' | 'components' |
+    'formats' | 'messages' | 'culture'
+> & {
+    date: stringOrDate; // date has always a value, in contrast to optional date in CalendarProps
+
+    // props assigned from Calendar's this.state.context, see there if you want to improve the type defs:
+    accessors: any;
+    components: any;
+    getters: any;
+    localizer: any;
+
+    // props assigned from Calendar instance, see there if you want to improve the type defs:
+    getDrilldownView: any; // = this.getDrilldownView
+    onNavigate: any; // = this.handleNavigate
+    onDrillDown: any; // = this.handleDrillDown
+    onSelectEvent: any; // = this.handleSelectEvent
+    onDoubleClickEvent: any; // = this.handleDoubleClickEvent
+    onSelectSlot: any; // = this.handleSelectSlot
+};
+export type ViewsProps<TEvent extends object = Event, TResource extends object = object> = View[] | {
     work_week?: boolean | React.ComponentType<any> & ViewStatic,
     day?: boolean | React.ComponentType<any> & ViewStatic,
     agenda?: boolean | React.ComponentType<any> & ViewStatic,
@@ -144,32 +170,32 @@ export interface ResourceHeaderProps {
     resource: object;
 }
 
-export interface Components<TEvent extends object = Event> {
+export interface Components<TEvent extends object = Event, TResource extends object = object> {
     event?: React.ComponentType<EventProps<TEvent>>;
     eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>>;
-    eventContainerWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-    dateCellWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-    timeSlotWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-    timeGutterHeader?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-    timeGutterWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-    toolbar?: React.ComponentType<ToolbarProps>;
+    eventContainerWrapper?: React.ComponentType;
+    dateCellWrapper?: React.ComponentType;
+    timeSlotWrapper?: React.ComponentType;
+    timeGutterHeader?: React.ComponentType;
+    timeGutterWrapper?: React.ComponentType;
+    toolbar?: React.ComponentType<ToolbarProps<TEvent, TResource>>;
     agenda?: {
-        date?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-        time?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-        event?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+        date?: React.ComponentType;
+        time?: React.ComponentType;
+        event?: React.ComponentType<EventProps<TEvent>>;
     };
     day?: {
-        header?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-        event?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+        header?: React.ComponentType;
+        event?: React.ComponentType<EventProps<TEvent>>;
     };
     week?: {
-        header?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-        event?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+        header?: React.ComponentType;
+        event?: React.ComponentType<EventProps<TEvent>>;
     };
     month?: {
-        header?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-        dateHeader?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-        event?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+        header?: React.ComponentType;
+        dateHeader?: React.ComponentType;
+        event?: React.ComponentType<EventProps<TEvent>>;
     };
     /**
      * component used as a header for each column in the TimeGridHeader
@@ -178,10 +204,10 @@ export interface Components<TEvent extends object = Event> {
     resourceHeader?: React.ComponentType<ResourceHeaderProps>;
 }
 
-export interface ToolbarProps {
+export interface ToolbarProps<TEvent extends object = Event, TResource extends object = object> {
     date: Date;
     view: View;
-    views: ViewsProps;
+    views: ViewsProps<TEvent, TResource>;
     label: string;
     localizer: { messages: Messages };
     onNavigate: (navigate: NavigateAction, date?: Date) => void;
@@ -280,7 +306,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     onSelecting?: (range: { start: stringOrDate; end: stringOrDate }) => boolean | undefined | null;
     onRangeChange?: (range: Date[] | { start: stringOrDate; end: stringOrDate }, view: View | undefined) => void;
     selected?: any;
-    views?: ViewsProps;
+    views?: ViewsProps<TEvent, TResource>;
     drilldownView?: View | null;
     getDrilldownView?: ((targetDate: Date, currentViewName: View, configuredViewNames: View[]) => void) | null;
     length?: number;
@@ -302,7 +328,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     scrollToTime?: Date;
     culture?: string;
     formats?: Formats;
-    components?: Components<TEvent>;
+    components?: Components<TEvent, TResource>;
     messages?: Messages;
     dayLayoutAlgorithm?: DayLayoutAlgorithm | DayLayoutFunction<TEvent>;
     titleAccessor?: keyof TEvent | ((event: TEvent) => string);
@@ -365,3 +391,6 @@ export interface Views {
     AGENDA: 'agenda';
 }
 export function move(View: ViewStatic | ViewKey, options: MoveOptions): Date;
+
+// Turn off automatic exports
+export {};

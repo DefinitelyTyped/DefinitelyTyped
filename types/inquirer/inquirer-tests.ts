@@ -73,3 +73,12 @@ inquirer.prompt([
         previewColors: true
     }
 ]);
+
+inquirer.prompt([
+    {
+        name: 'foo',
+        default: 'bar'
+    }
+], {
+    foo: 'baz'
+});
