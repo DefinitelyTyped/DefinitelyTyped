@@ -1,6 +1,7 @@
 import ImageKit = require('imagekit');
 
-const imageKit = new ImageKit({ // $ExpectType ImageKit
+const imageKit = new ImageKit({
+    // $ExpectType ImageKit
     privateKey: 'private_1234',
     publicKey: 'public_1234',
     urlEndpoint: 'https://ik.imagekit.io/your_imagekit_id/',
@@ -13,8 +14,8 @@ imageKit.url({ path: '/some/path', src: '/some/src', transformationPosition: 'pa
 imageKit.listFiles({}, (error, listFileResponse) => {}); // $ExpectType void
 imageKit.listFiles({}); // $ExpectType Promise<ListFileResponse>
 
-imageKit.upload({ file: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==", fileName: 'imagekit.png' }, (error, uploadResponse) => {}); // $ExpectType void
-imageKit.upload({ file: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==", fileName: 'imagekit.png' }); // $ExpectType Promise<UploadResponse>
+imageKit.upload({ file: 'data:image/png;base64,', fileName: 'imagekit.png' }, (error, uploadResponse) => {}); // $ExpectType void
+imageKit.upload({ file: 'data:image/png;base64,', fileName: 'imagekit.png' }); // $ExpectType Promise<UploadResponse>
 
 imageKit.getFileDetails('someId', (error, fileDetailsResponse) => {}); // $ExpectType void
 imageKit.getFileDetails('someId'); // $ExpectType Promise<FileDetailsResponse>

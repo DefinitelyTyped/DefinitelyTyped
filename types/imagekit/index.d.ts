@@ -11,7 +11,23 @@ type FileType = 'all' | 'image' | 'non-image';
 type Item = 'file' | 'folder';
 type CustomCoordinatesResponse = string | null;
 // Taken from this help post: https://help.imagekit.io/en/articles/2434102-image-format-support-in-imagekit-for-resizing-compression-and-static-file-delivery
-type FileFormat = 'jpg' | 'png' | 'gif' | 'svg' | 'webp' | 'pdf' | 'js' | 'css' | 'txt' | 'mp4' | 'webm' | 'mov' | 'swf' | 'ts' | 'm3u8' | string;
+type FileFormat =
+    | 'jpg'
+    | 'png'
+    | 'gif'
+    | 'svg'
+    | 'webp'
+    | 'pdf'
+    | 'js'
+    | 'css'
+    | 'txt'
+    | 'mp4'
+    | 'webm'
+    | 'mov'
+    | 'swf'
+    | 'ts'
+    | 'm3u8'
+    | string;
 
 interface Transformation {
     height?: string;
@@ -71,14 +87,16 @@ type UrlOptions = ({ src: string; path?: never } | { path: string; src?: never }
 /**
  * Options used when uploading a file
  *
- * [See docs](https://docs.imagekit.io/api-reference/upload-file-api/server-side-file-upload#request-structure-multipart-form-data)
+ * @see {@link https://docs.imagekit.io/api-reference/upload-file-api/server-side-file-upload#request-structure-multipart-form-data}
  */
 interface UploadOptions {
     /**
      * This field accepts three kinds of values:
      * - binary - You can send the content of the file as binary. This is used when a file is being uploaded from the browser.
      * - base64 - Base64 encoded string of file content.
-     * - url - URL of the file from where to download the content before uploading. Downloading file from URL might take longer, so it is recommended that you pass the binary or base64 content of the file. Pass the full URL, for example - https://www.example.com/rest-of-the-image-path.jpg.
+     * - url - URL of the file from where to download the content before uploading.
+     *      Downloading file from URL might take longer, so it is recommended that you pass the binary or base64 content of the file.
+     *      Pass the full URL, for example - https://www.example.com/rest-of-the-image-path.jpg.
      */
     file: string | Buffer;
     /**
@@ -117,7 +135,8 @@ interface UploadOptions {
     /**
      * Whether to mark the file as private or not. This is only relevant for image type files.
      * - Accepts true or false.
-     * - If set true, the file is marked as private which restricts access to the original image URL and unnamed image transformations without signed URLs. Without the signed URL, only named transformations work on private images
+     * - If set true, the file is marked as private which restricts access to the original image URL and unnamed image transformations without signed URLs.
+     *      Without the signed URL, only named transformations work on private images
      * Default value - false
      */
     isPrivateFile?: boolean;
@@ -139,7 +158,7 @@ interface UploadOptions {
 /**
  * Response from uploading a file
  *
- * [See docs](https://docs.imagekit.io/api-reference/upload-file-api/server-side-file-upload#response-code-and-structure-json)
+ * @see {@link https://docs.imagekit.io/api-reference/upload-file-api/server-side-file-upload#response-code-and-structure-json}
  */
 interface UploadResponse {
     /**
@@ -199,7 +218,7 @@ interface UploadResponse {
 /**
  * List and search files options
  *
- * [See docs](https://docs.imagekit.io/api-reference/media-api/list-and-search-files)
+ * @see {@link https://docs.imagekit.io/api-reference/media-api/list-and-search-files}
  */
 interface ListFileOptions {
     /**
