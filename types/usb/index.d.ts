@@ -382,6 +382,9 @@ export interface Endpoint extends EventEmitter {
 
   /** Object with fields from the endpoint descriptor -- see libusb documentation or USB spec. */
   descriptor: EndpointDescriptor;
+
+  /** Clear the halt/stall condition for this endpoint. */
+  clearHalt(callback: (error?: LibUSBException) => void): void;
 }
 
 /** Endpoints in the IN direction (device->PC) have this type. */
@@ -390,6 +393,7 @@ export class InEndpoint extends EventEmitter implements Endpoint {
   transferType: number;
   timeout: number;
   descriptor: EndpointDescriptor;
+  clearHalt(callback: (error?: LibUSBException) => void): void;
 
   constructor(device: Device, descriptor: EndpointDescriptor);
 
@@ -435,6 +439,7 @@ export class OutEndpoint extends EventEmitter implements Endpoint {
   transferType: number;
   timeout: number;
   descriptor: EndpointDescriptor;
+  clearHalt(callback: (error?: LibUSBException) => void): void;
 
   constructor(device: Device, descriptor: EndpointDescriptor);
 
