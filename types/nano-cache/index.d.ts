@@ -8,6 +8,16 @@ interface SIZE {
     MB: number;
     KB: number;
 }
+
+type Defaults = {
+    ttl?: number;
+    limit?: number;
+    bytes: number;
+    compress: boolean;
+    minFreeMem: number;
+    maxEvictBytes: number;
+}
+
 type Info = {
     key: string;
     hits: number;
@@ -50,6 +60,7 @@ declare class NanoCache {
     info<T>(key: T): Info;
     stats(): Stats;
     static SIZE: SIZE;
+    static DEFAULTS: Defaults;
 }
 
 declare module 'nano-cache' {
