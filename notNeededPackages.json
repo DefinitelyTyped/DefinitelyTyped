@@ -2932,7 +2932,7 @@
             "libraryName": "moment-timezone",
             "typingsPackageName": "moment-timezone",
             "sourceRepoURL": "https://github.com/moment/moment-timezone",
-            "asOfVersion": "0.5.30" 
+            "asOfVersion": "0.5.30"
         },
         {
             "libraryName": "mongodb-memory-server",
@@ -2981,6 +2981,12 @@
             "typingsPackageName": "multimatch",
             "sourceRepoURL": "https://github.com/sindresorhus/multimatch",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "naja",
+            "typingsPackageName": "naja",
+            "sourceRepoURL": "https://github.com/jiripudil/Naja",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "nano",
