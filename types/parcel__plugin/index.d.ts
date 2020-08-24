@@ -2,155 +2,149 @@
 // Project: https://github.com/parcel-bundler/parcel#readme
 // Definitions by: Arjun Barrett <https://github.com/101arrowz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 /// <reference types="node" />
+
+// All type literals are intentional to encourage exact types
+// tslint:disable:interface-over-type-literal
+
+// The Parcel API internally has constructor-only classes, so they are OK
+// tslint:disable:no-unnecessary-class
 
 import {
     SourceLocation,
-    EnvironmentContext,
     Engines,
-    OutputFormat,
     Meta,
-    BaseAsset,
-    File,
-    MutableSymbols,
+    ParcelFile,
     Environment,
     TargetDescriptor,
     BundleGraph,
     Asset,
     Bundle,
-    BundleGroup,
     Dependency,
-    Target,
-    GraphVisitor,
-    BundleTraversable,
     BuildMode,
     HMROptions,
     ServerOptions,
     LogLevel,
     NamedBundle,
-    ReporterEvent
-} from 'parcel__core';
-import { Logger } from 'parcel__logger';
-import { FileSystem } from 'parcel__fs';
-import { PackageManager } from 'parcel__package-manager';
-import SourceMap from 'parcel__source-map';
+    ReporterEvent,
+    DependencyOptions,
+    EnvironmentOptions,
+    MutableAsset,
+    MutableBundleGraph
+} from '@parcel/core';
+import { Logger } from '@parcel/logger';
+import { FileSystem } from '@parcel/fs';
+import { PackageManager } from '@parcel/package-manager';
+import SourceMap from '@parcel/source-map';
 import { Readable } from 'stream';
-import { Diagnostic } from 'parcel__diagnostic';
-
-type _EnvironmentOptions = Readonly<{
-    context?: EnvironmentContext,
-    engines?: Engines,
-    includeNodeModules?: boolean | string[] | {
-      [name: string]: boolean
-    },
-    outputFormat?: OutputFormat,
-    isLibrary?: boolean,
-    minify?: boolean,
-    scopeHoist?: boolean,
-}>;
-
-type _DependencyOptions = Readonly<{
-    moduleSpecifier: string;
-    isAsync?: boolean;
-    isEntry?: boolean;
-    isOptional?: boolean;
-    isURL?: boolean;
-    isWeak?: boolean;
-    isIsolated?: boolean;
-    loc?: SourceLocation;
-    env?: _EnvironmentOptions;
-    meta?: Meta
-}>;
-
-
-type _MutableAsset = Omit<
-    BaseAsset,
-    'isIsolated' | 'isInline' | 'isSplittable'
-    > & {
-    isIsolated: boolean;
-    isInline: boolean;
-    isSplittable?: boolean | null;
-    type: string;
-    addDependency(dep: _DependencyOptions): string;
-    addIncludedFile(file: File): void;
-    addURLDependency(url: string, opts: Omit<_DependencyOptions, 'moduleSpecifier'> & {
-        readonly moduleSpecifier?: string;
-    }): string;
-    readonly symbols: MutableSymbols;
-    isASTDirty(): boolean;
-    /** Returns null if AST missing */
-    getAST(): Promise<any>;
-    setAST(ast: any): void;
-    setBuffer(buf: Buffer): void;
-    setCode(code: string): void;
-    /** Throws if the AST is dirty */
-    getCode(): Promise<string>;
-    setEnvironment(opts: _EnvironmentOptions): void;
-    setMap(map?: SourceMap | null): void;
-    setStream(stream: Readable): void;
-};
-
-type _CreateBundleOptions = Readonly<{
-    uniqueKey?: string;
-    entryAsset: Asset;
-    target: Target;
-    isEntry?: boolean;
-    isInline?: boolean;
-    isSplittable?: boolean;
-    type?: string;
-    env?: Environment;
-    pipeline?: string;
-} | {
-    uniqueKey: string;
-    entryAsset?: Asset;
-    target: Target;
-    isEntry?: boolean;
-    isInline?: boolean;
-    isSplittable?: boolean;
-    type: string;
-    env: Environment;
-    pipeline?: string;
-}>;
-type _MutableBundleGraph = BundleGraph & {
-    addAssetGraphToBundle(asset: Asset, bundle: Bundle): void;
-    addEntryToBundle(asset: Asset, bundle: Bundle): void,
-    addBundleToBundleGroup(bundle: Bundle, bundleGroup: BundleGroup): void,
-    createAssetReference(dep: Dependency, asset: Asset): void,
-    createBundleReference(b1: Bundle, b2: Bundle): void,
-    createBundle(opts: _CreateBundleOptions): Bundle,
-    createBundleGroup(dep: Dependency, target: Target): BundleGroup,
-    getDependencyAssets(dep: Dependency): Array<Asset>,
-    getParentBundlesOfBundleGroup(bundleGroup: BundleGroup): Array<Bundle>,
-    getTotalSize(asset: Asset): number,
-    removeAssetGraphFromBundle(asset: Asset, bundle: Bundle): void,
-    removeBundleGroup(bundleGroup: BundleGroup): void,
-    internalizeAsyncDependency(bundle: Bundle, dependency: Dependency): void,
-    traverse<C>(visit: GraphVisitor<BundleTraversable, C>): C | null,
-    traverseContents<C>(visit: GraphVisitor<BundleTraversable, C>): C | null,
-};
+import { Diagnostic } from '@parcel/diagnostic';
 
 declare module '@parcel/core' {
     /**
      * Options used to create an environment
      */
-    export type EnvironmentOptions = _EnvironmentOptions
+    type EnvironmentOptions = Readonly<{
+        context?: EnvironmentContext,
+        engines?: Engines,
+        includeNodeModules?: boolean | string[] | {
+          [name: string]: boolean
+        },
+        outputFormat?: OutputFormat,
+        isLibrary?: boolean,
+        minify?: boolean,
+        scopeHoist?: boolean,
+    }>;
     /**
      * Options used to create a dependency
      */
-    export type DependencyOptions = _DependencyOptions
+    type DependencyOptions = Readonly<{
+        moduleSpecifier: string;
+        isAsync?: boolean;
+        isEntry?: boolean;
+        isOptional?: boolean;
+        isURL?: boolean;
+        isWeak?: boolean;
+        isIsolated?: boolean;
+        loc?: SourceLocation;
+        env?: EnvironmentOptions;
+        meta?: Meta
+    }>;
     /**
      * A modifiable asset for use with transformers
      */
-    export type MutableAsset = _MutableAsset;
+    interface MutableAsset<A = any> extends Omit<
+        BaseAsset<A>,
+        'isIsolated' | 'isInline' | 'isSplittable'
+    > {
+        isIsolated: boolean;
+        isInline: boolean;
+        isSplittable?: boolean | null;
+        type: string;
+        addDependency(dep: DependencyOptions): string;
+        addIncludedFile(file: ParcelFile): void;
+        addURLDependency(url: string, opts: Omit<DependencyOptions, 'moduleSpecifier'> & {
+            readonly moduleSpecifier?: string;
+        }): string;
+        readonly symbols: MutableSymbols;
+        isASTDirty(): boolean;
+        /** Returns null if AST missing */
+        getAST(): Promise<A | null>;
+        setAST(ast: A): void;
+        setBuffer(buf: Buffer): void;
+        setCode(code: string): void;
+        /** Throws if the AST is dirty */
+        getCode(): Promise<string>;
+        setEnvironment(opts: EnvironmentOptions): void;
+        setMap(map?: SourceMap | null): void;
+        setStream(stream: Readable): void;
+    }
     /**
      * Options used to create a bundle
      */
-    export type CreateBundleOptions = _CreateBundleOptions;
+    type CreateBundleOptions = Readonly<{
+        uniqueKey?: string;
+        entryAsset: Asset;
+        target: Target;
+        isEntry?: boolean;
+        isInline?: boolean;
+        isSplittable?: boolean;
+        type?: string;
+        env?: Environment;
+        pipeline?: string;
+    } | {
+        uniqueKey: string;
+        entryAsset?: Asset;
+        target: Target;
+        isEntry?: boolean;
+        isInline?: boolean;
+        isSplittable?: boolean;
+        type: string;
+        env: Environment;
+        pipeline?: string;
+    }>;
     /**
      * A modifiable bundle graph for use with bundlers
      */
-    export type MutableBundleGraph = _MutableBundleGraph;
+    interface MutableBundleGraph extends BundleGraph {
+        addAssetGraphToBundle(asset: Asset, bundle: Bundle): void;
+        addEntryToBundle(asset: Asset, bundle: Bundle): void;
+        addBundleToBundleGroup(bundle: Bundle, bundleGroup: BundleGroup): void;
+        createAssetReference(dep: Dependency, asset: Asset): void;
+        createBundleReference(b1: Bundle, b2: Bundle): void;
+        createBundle(opts: CreateBundleOptions): Bundle;
+        createBundleGroup(dep: Dependency, target: Target): BundleGroup;
+        getDependencyAssets(dep: Dependency): Asset[];
+        getParentBundlesOfBundleGroup(bundleGroup: BundleGroup): Bundle[];
+        getTotalSize(asset: Asset): number;
+        removeAssetGraphFromBundle(asset: Asset, bundle: Bundle): void;
+        removeBundleGroup(bundleGroup: BundleGroup): void;
+        internalizeAsyncDependency(bundle: Bundle, dependency: Dependency): void;
+        traverse<C>(visit: GraphVisitor<BundleTraversable, C>): C | null;
+        traverseContents<C>(visit: GraphVisitor<BundleTraversable, C>): C | null;
+    }
 }
+
 /**
  * A config result found from the filesystem
  */
@@ -195,13 +189,13 @@ export type PackageJSON = {
 /**
  * An object that allows plugins to configure themselves
  */
-export type Config = Readonly<{
+export type Config<T> = Readonly<{
     isSource: boolean;
     searchPath: string;
-    result: any;
+    result: T;
     env: Environment;
     includedFiles: Set<string>;
-    setResult(result: any): void;
+    setResult(result: T): void;
     setResultHash(resultHash: string): void;
     addIncludedFile(filePath: string): void;
     addDevDependency(name: string, version: string): void;
@@ -242,9 +236,12 @@ export type PluginOptions = Readonly<{
     detailedReport: number;
 }>;
 
-type Async<T> = T | Promise<T>;
+export type Async<T> = T | Promise<T>;
 
-type ResolveFn = (from: string, to: string) => Promise<string>;
+/**
+ * A function for resolving a file from another location
+ */
+export type ResolveFn = (from: string, to: string) => Promise<string>;
 
 /**
  * Data that will be used to create a new asset
@@ -252,10 +249,10 @@ type ResolveFn = (from: string, to: string) => Promise<string>;
 export type TransformerResult = Readonly<{
     ast?: any;
     content?: string | Buffer | Readable;
-    dependencies?: ReadonlyArray<_DependencyOptions>;
-    env?: _EnvironmentOptions;
+    dependencies?: ReadonlyArray<DependencyOptions>;
+    env?: EnvironmentOptions;
     filePath?: string;
-    includedFiles?: ReadonlyArray<File>;
+    includedFiles?: ReadonlyArray<ParcelFile>;
     isInline?: boolean;
     isIsolated?: boolean;
     isSource?: boolean;
@@ -284,49 +281,49 @@ export type TransformerGenerateResult = {
 /**
  * Options for creating a transformer
  */
-export type TransformerOpts = {
+export type TransformerOpts<T, A> = {
     canReuseAST?: (opts: {
         ast: any;
         options: PluginOptions;
         logger: Logger;
     }) => Async<boolean>;
     loadConfig?: (opts: {
-        config: Config;
+        config: Config<T>;
         options: PluginOptions;
-        logger: Logger
+        logger: Logger;
     }) => Async<void>;
     preSerializeConfig?: (opts: {
-        config: Config;
+        config: Config<T>;
         options: PluginOptions;
     }) => Async<void>;
     postDeserializeConfig?: (opts: {
-        config: Config;
+        config: Config<T>;
         options: PluginOptions;
         logger: Logger;
     }) => Async<void>;
     parse?: (opts: {
-        asset: _MutableAsset;
-        config: any | null;
+        asset: MutableAsset<A>;
+        config: T;
         resolve: ResolveFn;
         options: PluginOptions;
         logger: Logger;
-    }) => Async<any | null>;
+    }) => Async<A>;
     transform(opts: {
-        asset: _MutableAsset;
-        config: any | null;
+        asset: MutableAsset<A>;
+        config: T;
         resolve: ResolveFn;
         options: PluginOptions;
         logger: Logger
-    }): Async<(TransformerResult | _MutableAsset)[]>;
+    }): Async<Array<TransformerResult | MutableAsset>>;
     generate?: (opts: {
-        asset: Asset;
-        ast: any;
+        asset: Asset<A>;
+        ast: A;
         options: PluginOptions;
         logger: Logger;
     }) => Async<TransformerGenerateResult>;
     postProcess?: (opts: {
-        assets: _MutableAsset[];
-        config: any | null;
+        assets: MutableAsset[];
+        config: T;
         resolve: ResolveFn;
         options: PluginOptions;
         logger: Logger;
@@ -336,8 +333,8 @@ export type TransformerOpts = {
 /**
  * A transformer plugin
  */
-export class Transformer {
-    constructor(opts: TransformerOpts);
+export class Transformer<T, A> {
+    constructor(opts: TransformerOpts<T, A>);
 }
 
 /**
@@ -359,7 +356,7 @@ export type ResolverOpts = {
         options: PluginOptions;
         logger: Logger;
         filePath: string;
-    }): Async<ResolveResult | null | void>;
+    }): Async<ResolveResult | null | undefined>;
 };
 
 /**
@@ -372,28 +369,28 @@ export class Resolver {
 /**
  * The return value of `loadConfig` that allows for config-loading in bundlers
  */
-export type ConfigOutput = {
-    config: any;
-    files: File[];
+export type ConfigOutput<T> = {
+    config: T;
+    files: ParcelFile[];
 };
 
 /**
  * Options for creating a bundler
  */
-export type BundlerOpts = {
+export type BundlerOpts<T> = {
     loadConfig?: (opts: {
         options: PluginOptions;
         logger: Logger
-    }) => Async<ConfigOutput>;
+    }) => Async<ConfigOutput<T>>;
     bundle(opts: {
-        bundleGraph: _MutableBundleGraph;
-        config: any | null;
+        bundleGraph: MutableBundleGraph;
+        config: T;
         options: PluginOptions;
         logger: Logger;
     }): Async<void>;
     optimize(opts: {
-        bundleGraph: _MutableBundleGraph;
-        config: any | null;
+        bundleGraph: MutableBundleGraph;
+        config: T;
         options: PluginOptions;
         logger: Logger;
     }): Async<void>;
@@ -402,8 +399,8 @@ export type BundlerOpts = {
 /**
  * A bundler plugin
  */
-export class Bundler {
-    constructor(opts: BundlerOpts);
+export class Bundler<T> {
+    constructor(opts: BundlerOpts<T>);
 }
 
 /**
@@ -412,10 +409,10 @@ export class Bundler {
 export type NamerOpts = {
     name(opts: {
         bundle: Bundle;
-        bundleGraph: BundleGraph<Bundle>;
+        bundleGraph: BundleGraph;
         options: PluginOptions;
         logger: Logger;
-    }): Async<string | null | void>;
+    }): Async<string | null | undefined>;
 };
 
 /**
@@ -444,7 +441,7 @@ export type RuntimeOpts = {
         bundleGraph: BundleGraph<NamedBundle>;
         options: PluginOptions;
         logger: Logger
-    }): Async<void | RuntimeAsset | RuntimeAsset[]>;
+    }): Async<undefined | null | RuntimeAsset | RuntimeAsset[]>;
 };
 
 /**
@@ -554,31 +551,31 @@ export type ResolveConfigWithPathFn = (
 /**
  * Options to create a validator
  */
-export type ValidatorOpts = {
+export type ValidatorOpts<T> = {
     validate(opts: {
         asset: Asset;
-        config: any | void;
+        config: T;
         options: PluginOptions;
         logger: Logger;
-    }): Async<ValidateResult | void>;
+    }): Async<ValidateResult | null | undefined>;
     getConfig?: (opts: {
         asset: Asset;
         resolveConfig: ResolveConfigFn;
         options: PluginOptions;
         logger: Logger;
-    }) => Async<any | void>;
+    }) => Async<T>;
 } | {
     validateAll(opts: {
         assets: Asset[];
         resolveConfigWithPath: ResolveConfigWithPathFn;
         options: PluginOptions;
         logger: Logger;
-    }): Async<(ValidateResult | null | void)[]>;
+    }): Async<Array<ValidateResult | null | undefined>>;
 };
 
 /**
  * A validator plugin
  */
-export class Validator {
-    constructor(opts: ValidatorOpts);
+export class Validator<T> {
+    constructor(opts: ValidatorOpts<T>);
 }

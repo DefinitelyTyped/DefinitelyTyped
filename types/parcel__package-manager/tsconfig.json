@@ -12,6 +12,17 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@parcel/core": ["parcel__core"],
+            "@parcel/watcher": ["parcel__watcher"],
+            "@parcel/workers": ["parcel__workers"],
+            "@parcel/diagnostic": ["parcel__diagnostic"],
+            "@parcel/package-manager": ["parcel__package-manager"],
+            "@parcel/source-map": ["parcel__source-map"],
+            "@parcel/fs": ["parcel__fs"],
+            "@parcel/logger": ["parcel__logger"],
+            "@parcel/plugin": ["parcel__plugin"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

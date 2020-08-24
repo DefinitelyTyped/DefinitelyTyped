@@ -2,30 +2,36 @@
 // Project: https://github.com/parcel-bundler/parcel#readme
 // Definitions by: Arjun Barrett <https://github.com/101arrowz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 /// <reference types="node" />
 // For AbortSignal
 /// <reference lib="dom" />
 
-// Note that the definitions for the public API are much better documented
-// and are written in a pleasing rather than technically correct manner.
+// All type literals are intentional to encourage exact types
+// tslint:disable:interface-over-type-literal
 
-import { Diagnostic } from 'parcel__diagnostic'
-import { FileSystem } from 'parcel__fs';
-import { ParcelWatcherSubscription } from 'parcel__watcher';
-import WorkerFarm, { FarmOptions } from 'parcel__workers'
-import { PackageManager } from 'parcel__package-manager';
-import SourceMap from 'parcel__source-map'
+import { Diagnostic } from '@parcel/diagnostic';
+import { FileSystem } from '@parcel/fs';
+import { ParcelWatcherSubscription } from '@parcel/watcher';
+import WorkerFarm, { FarmOptions } from '@parcel/workers';
+import { PackageManager } from '@parcel/package-manager';
+import SourceMap from '@parcel/source-map';
 import { Readable } from 'stream';
 
-
-type JSONValue = string | number | boolean | null | JSONValue[] | JSONObject;
-type JSONObject = {
-    [k: string]: JSONValue;
-};
+type ParcelJSONValue =
+    | string
+    | number
+    | boolean
+    | null
+    | ParcelJSONValue[]
+    | ParcelJSONObject;
+interface ParcelJSONObject {
+    [k: string]: ParcelJSONValue;
+}
 /**
  * A file as seen by Parcel
  */
-export type File = {
+export type ParcelFile = {
     filePath: string;
     hash?: string;
 };
@@ -33,7 +39,7 @@ export type File = {
 /**
  * Arbitrary data passed in assets
  */
-export type Meta = JSONObject;
+export type Meta = ParcelJSONObject;
 /**
  * Engines to target in the build
  */
@@ -111,7 +117,7 @@ export type HTTPSOptions = {
      * The path to the certificate key
      */
     key: string;
-}
+};
 /**
  * Options for serving a browser-target build
  */
@@ -165,7 +171,7 @@ export type Environment = Readonly<{
 /**
  * The parsed target information
  */
-export type Target = Readonly<{
+export interface Target extends Readonly<{
     distEntry?: string | null;
     distDir: string;
     env: Environment;
@@ -173,7 +179,7 @@ export type Target = Readonly<{
     name: string;
     publicUrl: string;
     loc?: SourceLocation | null;
-}>;
+}> {}
 /**
  * A callback called during a graph traversal
  */
@@ -253,7 +259,7 @@ export type ExportSymbolResolution = SymbolResolution & Readonly<{
 /**
  * A dependency between two assets in the asset graph
  */
-export type Dependency = Readonly<{
+export interface Dependency extends Readonly<{
     id: string;
     moduleSpecifier: string;
     isAsync: boolean;
@@ -270,11 +276,11 @@ export type Dependency = Readonly<{
     sourcePath?: string | null;
     pipeline?: string | null;
     symbols: MutableSymbols;
-}>;
+}> {}
 /**
  * The base form of an asset
  */
-export type BaseAsset = Readonly<{
+export interface BaseAsset<A = any> extends Readonly<{
     env: Environment;
     fs: FileSystem;
     filePath: string;
@@ -298,7 +304,7 @@ export type BaseAsset = Readonly<{
     astGenerator: { type: string; version: string; };
     pipeline?: string | null;
     symbols: Symbols;
-    getAST(): Promise<any>;
+    getAST(): Promise<A | null>;
     getCode(): Promise<string>;
     getBuffer(): Promise<Buffer>;
     getStream(): Readable;
@@ -307,20 +313,20 @@ export type BaseAsset = Readonly<{
     getIncludedFiles(): ReadonlyArray<File>;
     getDependencies(): ReadonlyArray<Dependency>;
     // Deprecated getConfig, getPackage not included
-}>;
+}> {}
 /**
  * An asset represents a source file (i.e. the unaltered source code)
  */
-export type Asset = BaseAsset & Readonly<{
+export interface Asset<A = any> extends Omit<BaseAsset<A>, 'getAST'>, Readonly<{
     /** Throws if AST is missing */
-    getAST(): Promise<any>;
+    getAST(): Promise<A>;
     stats: BuildStats
-}>;
+}> {}
 /**
  * A bundle represents the packaged result of Parcel's transformations on
  * the source code.
  */
-export type Bundle = Readonly<{
+export interface Bundle extends Readonly<{
     id: string;
     hashReference: string;
     type: string;
@@ -336,16 +342,16 @@ export type Bundle = Readonly<{
     hasAsset(asset: Asset): boolean;
     traverseAssets<C>(visit: GraphVisitor<Asset, C>): C | null;
     traverse<C>(visit: GraphVisitor<BundleTraversable, C>): C | null;
-}>;
+}> {}
 /**
  * A bundle that has been named by a namer
  */
-export type NamedBundle = Bundle & Readonly<{
+export interface NamedBundle extends Omit<Bundle, 'filePath'>, Readonly<{
     publicId: string;
     filePath: string;
     name: string;
     displayName: string;
-}>;
+}> {}
 /**
  * Contains info about a group of sibling bundles loaded together
  */
@@ -357,7 +363,7 @@ export type BundleGroup = {
 /**
  * A bundle graph contains bundles, assets, dependencies, and bundle groups
  */
-export type BundleGraph<B extends Bundle = Bundle> = {
+export interface BundleGraph<B extends Bundle = Bundle> {
     getAssetById(id: string): Asset;
     getAssetPublicId(asset: Asset): string;
     getBundles(): B[];
@@ -399,7 +405,7 @@ export type BundleGraph<B extends Bundle = Bundle> = {
         visit: GraphVisitor<B, C>,
         startBundle?: Bundle | null
     ): C | null;
-};
+}
 /**
  * A log event for progress
  */
@@ -561,7 +567,7 @@ export type BuildOptions = {
 /**
  * Plugin configuration for Parcel
  */
-export type PluginConfig = {
+export interface PluginConfig {
     /**
      * Parcel plugin config files or packages to extend
      */
@@ -602,11 +608,11 @@ export type PluginConfig = {
      * Map of filename globs to the list of validator packages to be used
      */
     validators?: { [glob: string]: string[] };
-};
+}
 /**
  * A plugin config read from the filesystem
  */
-export type ResolvedPluginConfig = PluginConfig & Readonly<{
+export interface ResolvedPluginConfig extends PluginConfig, Readonly<{
     /**
      * Location of the config file
      */
@@ -615,7 +621,7 @@ export type ResolvedPluginConfig = PluginConfig & Readonly<{
      * Which directory to resolve the config file path from (if relative)
      */
     resolveFrom?: string;
-}>;
+}> {}
 /**
  * Describes a target to build the project for
  */
@@ -650,7 +656,7 @@ export type TargetDescriptor = Readonly<{
      */
     publicUrl?: string;
     /**
-     * The directory at which the generated bundles will be located 
+     * The directory at which the generated bundles will be located
      */
     distDir: string;
     /**
@@ -677,7 +683,7 @@ export type TargetDescriptor = Readonly<{
 /**
  * The options used in the creation of a Parcel instance
  */
-export type ParcelOptions = Readonly<{
+export interface ParcelOptions extends Readonly<{
     /**
      * Entry assets for Parcel to process, e.g. index.html
      */
@@ -812,7 +818,7 @@ export type ParcelOptions = Readonly<{
      */
     detailedReport?: number | boolean;
     // Possible in the future: throwErrors, global (?)
-}>;
+}> {}
 
 /**
  * The Parcel Node.js API

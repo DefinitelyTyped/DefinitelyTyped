@@ -2,9 +2,16 @@
 // Project: https://github.com/parcel-bundler/parcel#readme
 // Definitions by: Arjun Barrett <https://github.com/101arrowz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 /// <reference types="node" />
 
-type MappingPosition = {
+// All type literals are intentional to encourage exact types
+// tslint:disable:interface-over-type-literal
+
+/**
+ * A position for a source mapping. 1-indexed.
+ */
+export type MappingPosition = {
     line: number;
     column: number;
 };
@@ -24,36 +31,36 @@ export type IndexedMapping<T> = {
  */
 export type VLQMap = Readonly<{
     sources: ReadonlyArray<string>;
-    sourcesContent: ReadonlyArray<string | null>;
-    names: ReadonlyArray<string>,
-    mappings: string,
-    version?: number,
-    file?: string,
-    sourceRoot?: string
+    sourcesContent?: ReadonlyArray<string | null>;
+    names: ReadonlyArray<string>;
+    mappings: string;
+    version?: number;
+    file?: string;
+    sourceRoot?: string;
 }>;
 
 /**
  * A parsed source map
  */
 export type ParsedMap = {
-    sources: string[],
-    names: string[],
-    mappings: IndexedMapping<number>[],
-    sourcesContent: (string | null)[]
+    sources: string[];
+    names: string[];
+    mappings: Array<IndexedMapping<number>>;
+    sourcesContent: Array<string | null>;
 };
 
 /**
  * Options for stringifying a source map
  */
 export type SourceMapStringifyOptions = {
-    file?: string,
-    sourceRoot?: string,
-    rootDir?: string,
-    inlineSources?: boolean,
+    file?: string;
+    sourceRoot?: string;
+    rootDir?: string;
+    inlineSources?: boolean;
     fs?: {
-      readFile(path: string, encoding: string): Promise<string>,
-    },
-    format?: 'inline' | 'string' | 'object'
+      readFile(path: string, encoding: string): Promise<string>
+    };
+    format?: 'inline' | 'string' | 'object';
 };
 
 /**
@@ -86,7 +93,7 @@ export default class SourceMap {
         columnOffset?: number
     ): void;
     addIndexedMappings(
-        mappings: IndexedMapping<string>[],
+        mappings: Array<IndexedMapping<string>>,
         lineOffset?: number,
         columNOffset?: number
     ): void;

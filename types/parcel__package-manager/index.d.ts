@@ -2,9 +2,13 @@
 // Project: https://github.com/parcel-bundler/parcel#readme
 // Definitions by: Arjun Barrett <https://github.com/101arrowz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 /// <reference types="node" />
 
-import { FileSystem } from 'parcel__fs';
+// All type literals are intentional to encourage exact types
+// tslint:disable:interface-over-type-literal
+
+import { FileSystem } from '@parcel/fs';
 
 export type ModuleRequest = Readonly<{
     name: string;
@@ -17,7 +21,7 @@ export type InstallerOptions = {
     cwd: string;
     packagePath?: string;
     saveDev?: boolean;
-}
+};
 
 export interface PackageInstaller {
     install(opts: InstallerOptions): Promise<void>;
@@ -33,12 +37,12 @@ export type ModuleResolutionOptions = {
     range?: string;
     autoinstall?: boolean;
     saveDev?: boolean;
-}
+};
 
 export type ResolveResult = {
     resolved: string;
     pkg?: any
-}
+};
 
 export interface PackageManager {
     require(

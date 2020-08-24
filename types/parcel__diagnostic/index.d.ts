@@ -2,15 +2,16 @@
 // Project: https://github.com/parcel-bundler/parcel#readme
 // Definitions by: Arjun Barrett <https://github.com/101arrowz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 /// <reference types="node" />
 
-// Note that the definitions for the public API are much better documented
-// and are written in a pleasing rather than technically correct manner.
+// All type literals are intentional to encourage exact types
+// tslint:disable:interface-over-type-literal
 
 /**
  * Used to specify what section of the code should be highlighted
  */
-export type CodeHighlightLocation = {
+export type DiagnosticCodeHighlightLocation = {
     line: number;
     column: number;
 };
@@ -18,21 +19,21 @@ export type CodeHighlightLocation = {
 /**
  * The highlighted code in an error
  */
-export type CodeHighlight = {
-    start: CodeHighlightLocation;
-    end: CodeHighlightLocation;
+export type DiagnosticCodeHighlight = {
+    start: DiagnosticCodeHighlightLocation;
+    end: DiagnosticCodeHighlightLocation;
     message?: string;
 };
 /**
  * A frame showcasing errors in code
  */
-export type CodeFrame = {
+export type DiagnosticCodeFrame = {
     /**
      * The code that caused the error.
      * If not present, the code is read from the filesystem.
      */
     code?: string;
-    codeHighlights: CodeHighlight | CodeHighlight[];
+    codeHighlights: DiagnosticCodeHighlight | DiagnosticCodeHighlight[];
 };
 
 /**
@@ -51,9 +52,9 @@ export type Diagnostic = {
      * The path to the file that contained the error.
      * Either absolute or relative to the project root.
      */
-    filePath: string;
+    filePath?: string;
     language?: string;
-    codeFrame?: CodeFrame;
+    codeFrame?: DiagnosticCodeFrame;
     /**
      * Hints that may help resolve issues faster
      */
@@ -61,21 +62,29 @@ export type Diagnostic = {
     skipFormatting?: boolean;
 };
 
-export type Diagnostifiable = 
+/**
+ * A (near) standard JavaScript error
+ */
+export type PrintableError = Error & {
+    fileName?: string;
+    filePath?: string;
+    codeFrame?: string;
+    highlightedCodeFrame?: string;
+    loc?: {
+        column: number;
+        line: number;
+    },
+    source?: string;
+};
+
+/**
+ * Objects that can be converted to diagnostics
+ */
+export type Diagnostifiable =
     | Diagnostic
     | Diagnostic[]
     | ThrowableDiagnostic
-    | (Error & {
-        fileName?: string;
-        filePath?: string;
-        codeFrame?: string;
-        highlightedCodeFrame?: string;
-        loc?: {
-            column: number;
-            line: number;
-        },
-        source?: string;
-    })
+    | PrintableError
     | string;
 
 /**
@@ -92,3 +101,41 @@ export default class ThrowableDiagnostic extends Error {
     diagnostics: Diagnostic[];
     constructor(opts: ThrowableDiagnosticOpts);
 }
+
+/**
+ * Converts an error to one or more diagnostics
+ * @param error The error to convert
+ * @param realOrigin The original origin of the error
+ * @returns The resulting diagnostics
+ */
+export function errorToDiagnostic(
+    error: ThrowableDiagnostic | PrintableError | string,
+    realOrigin?: string
+): Diagnostic | Diagnostic[];
+
+/**
+ * Converts any error into a diagnostic
+ * @param input The error to convert
+ * @returns The resulting diagnostics
+ */
+export function anyToDiagnostic(
+    input: Diagnostifiable
+): Diagnostic | Diagnostic[];
+
+/**
+ * Generates code highlights from JSON
+ * @param code The JSON code
+ * @param ids The JSON IDs to generate highlights for
+ */
+export function generateJSONCodeHighlights(
+    code: string,
+    ids: Array<{ key: string; type?: 'key' | 'value'; message?: string }>
+): DiagnosticCodeHighlight[];
+
+/**
+ * Encodes a component key in the JSON in a json-source-map compatible format
+ * @param component The component key to encode
+ */
+export function encodeJSONKeyComponent(
+    component: string
+): string;

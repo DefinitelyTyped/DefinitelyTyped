@@ -2,9 +2,10 @@
 // Project: https://github.com/parcel-bundler/parcel#readme
 // Definitions by: Arjun Barrett <https://github.com/101arrowz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 
-import { LogEvent } from 'parcel__core';
-import { Diagnostic, Diagnostifiable } from 'parcel__diagnostic';
+import { LogEvent } from '@parcel/core';
+import { Diagnostic, Diagnostifiable } from '@parcel/diagnostic';
 
 export class Logger {
     onLog(cb: (event: LogEvent) => unknown): { dispose(): unknown; };

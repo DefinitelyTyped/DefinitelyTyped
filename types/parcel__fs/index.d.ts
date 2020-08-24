@@ -2,19 +2,20 @@
 // Project: https://github.com/parcel-bundler/parcel#readme
 // Definitions by: Arjun Barrett <https://github.com/101arrowz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 /// <reference types="node" />
 
-import { Stats as FSStats } from 'fs';
+// All type literals are intentional to encourage exact types
+// tslint:disable:interface-over-type-literal
+
+import { Stats } from 'fs';
 import { Readable, Writable } from 'stream';
 import {
   ParcelWatcherOptions,
   ParcelWatcherEvent,
   ParcelWatcherSubscription
-} from 'parcel__watcher';
-import WorkerFarm from 'parcel__workers';
-
-// Force interface
-type Stats = FSStats;
+} from '@parcel/watcher';
+import WorkerFarm from '@parcel/workers';
 
 export interface Dirent {
     readonly name: string;
@@ -44,7 +45,7 @@ export interface FileSystem {
     readFile(filePath: string): Promise<Buffer>;
     readFile(filePath: string, encoding: BufferEncoding): Promise<string>;
     readFileSync(filePath: string): Buffer;
-    readFileSync(filePath: string, encoding: BufferEncoding): Promise<string>;
+    readFileSync(filePath: string, encoding: BufferEncoding): string;
     writeFile(
         filePath: string,
         contents: Buffer | string,
@@ -62,11 +63,11 @@ export interface FileSystem {
     readdirSync(
         path: string,
         opts?: { withFileTypes?: false }
-    ): Promise<string[]>;
+    ): string[];
     readdirSync(
         path: string,
         opts: { withFileTypes: true }
-    ): Promise<Dirent[]>;
+    ): Dirent[];
     unlink(path: string): Promise<void>;
     realpath(path: string): Promise<string>;
     realpathSync(path: string): string;
@@ -88,7 +89,7 @@ export interface FileSystem {
       dir: string,
       snapshot: string,
       opts: ParcelWatcherOptions,
-    ): Promise<Array<ParcelWatcherEvent>>;
+    ): Promise<ParcelWatcherEvent[]>;
     writeSnapshot(
       dir: string,
       snapshot: string,

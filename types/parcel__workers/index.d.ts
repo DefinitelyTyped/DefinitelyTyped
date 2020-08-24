@@ -2,7 +2,11 @@
 // Project: https://github.com/parcel-bundler/parcel#readme
 // Definitions by: Arjun Barrett <https://github.com/101arrowz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 /// <reference types="node" />
+
+// All type literals are intentional to encourage exact types
+// tslint:disable:interface-over-type-literal
 
 import { EventEmitter } from 'events';
 
@@ -19,7 +23,7 @@ export type FarmOptions = {
     patchConsole?: boolean;
 };
 
-declare interface WorkerFarm {
+interface WorkerFarm {
     // TODO: better way?
     readonly '': unique symbol;
 }
