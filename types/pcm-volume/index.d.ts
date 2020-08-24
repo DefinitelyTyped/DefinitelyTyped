@@ -5,9 +5,9 @@
 
 /// <reference types="node" />
 
-import * as stream from "stream";
+import { Transform } from "stream";
 
-declare class Volume extends stream.Transform {
+declare class Volume extends Transform {
     setVolume(volume: number): void;
 }
 
