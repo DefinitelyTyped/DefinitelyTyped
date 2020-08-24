@@ -269,7 +269,7 @@ declare class ImageKit {
     purgeCache(fullUrl: string, callback: Callback<PurgeCacheResponse>): void;
     purgeCache(fullUrl: string): Promise<PurgeCacheResponse>;
 
-    getPurgeCacheStatus(cacheRequestId: string, caellback: Callback<PurgeCacheStatusResponse>): void;
+    getPurgeCacheStatus(cacheRequestId: string, callback: Callback<PurgeCacheStatusResponse>): void;
     getPurgeCacheStatus(cacheRequestId: string): Promise<PurgeCacheStatusResponse>;
 
     getAuthenticationParameters(token?: string, expire?: number): { token: string; expire: number; signature: string };
