@@ -39,7 +39,7 @@ declare namespace Cookies {
          * providing some protection against cross-site request forgery
          * attacks (CSRF)
          */
-        sameSite?: 'strict' | 'lax' | 'none';
+        sameSite?: 'strict' | 'Strict' | 'lax' | 'Lax' | 'none' | 'None';
 
         /**
          * An attribute which will be serialized, conformably to RFC 6265
@@ -57,7 +57,7 @@ declare namespace Cookies {
         /**
          * Create a cookie
          */
-        set(name: string, value: string | T, options?: CookieAttributes): void;
+        set(name: string, value: string | T, options?: CookieAttributes): string | undefined;
 
         /**
          * Read cookie

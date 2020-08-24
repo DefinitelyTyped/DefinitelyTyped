@@ -1,14 +1,15 @@
 // Type definitions for define-properties 1.1
 // Project: https://github.com/ljharb/define-properties#readme
 // Definitions by: ExE Boss <https://github.com/ExE-Boss>
+//                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 declare namespace defineProperties {
-	/**
-	 * Whether the current environment correctly supports property descriptors.
-	 */
-	const supportsDescriptors: boolean;
+    /**
+     * Whether the current environment correctly supports property descriptors.
+     */
+    const supportsDescriptors: boolean;
 }
 
 /**
@@ -19,9 +20,9 @@ declare namespace defineProperties {
  * @param map The map of newly defined properties.
  * @param predicates The optional predicates map, return `true` to override existing properties on `object`.
  */
-declare function defineProperties<K extends keyof any>(
-	object: object,
-	map: Record<K, any> & ThisType<any>,
-	predicates?: Partial<Record<K, () => boolean>>,
+declare function defineProperties<M extends object>(
+    object: object,
+    map: M & ThisType<any>,
+    predicates?: Partial<Record<keyof M, () => boolean>>,
 ): void;
 export = defineProperties;

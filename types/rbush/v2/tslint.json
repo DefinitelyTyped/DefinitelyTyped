@@ -1,0 +1,13 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "callable-types": false,
+        "dt-header": false,
+        "interface-name": false,
+        "no-redundant-jsdoc": false,
+        "no-single-declare-module": false,
+        "no-unnecessary-generics": false,
+        "prefer-method-signature": false,
+        "strict-export-declare-modifiers": false
+    }
+}

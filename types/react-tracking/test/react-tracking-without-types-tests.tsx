@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Track, track, TrackingProp, useTracking } from 'react-tracking';
 
-function customEventReporter(data: { page?: string }) {}
+function customEventReporter(data: { page?: string }) { }
 
 @track(
     { page: 'ClassPage' },
@@ -13,6 +13,11 @@ function customEventReporter(data: { page?: string }) {}
 )
 class ClassPage extends React.Component<any> {
     @track({ event: 'Clicked' })
+    @track((_props, _state, [e]) => {
+        if (e.ctrlKey) {
+            return { event: 'Click + ctrl key' };
+        }
+    })
     handleClick() {
         // ... other stuff
     }
@@ -26,6 +31,18 @@ class ClassPage extends React.Component<any> {
     @track((props: any, state: any) => ({ event: `got ${props.someProp} and clicked ${state.isClicked}` }))
     render() {
         return <button onClick={this.handleClick}>Click Me!</button>;
+    }
+
+    @track({ event: 'Async' })
+    @track((_props, _state, _args, [resp, err]) => {
+        if (resp) {
+            return { result: resp, error: null };
+        }
+        return { error: err, result: null };
+    })
+    async handleAsync() {
+        // ... other stuff
+        return 'response';
     }
 }
 
@@ -61,6 +78,12 @@ class Test extends React.Component<any, null> {
 
 const App = track()(({ foo }: { foo: string }) => {
     const tracking = useTracking();
+
+    React.useEffect(() =>
+        tracking.trackEvent({
+            page: 'Home - useEffect callback'
+        })
+    );
     return (
         <div
             onClick={() => {

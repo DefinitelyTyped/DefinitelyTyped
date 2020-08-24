@@ -5,6 +5,7 @@ export interface ListGroupProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
     tag?: string | React.ReactType;
     flush?: boolean;
+    horizontal?: boolean | string;
     className?: string;
     cssModule?: CSSModule;
 }

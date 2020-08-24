@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const toFloat: typeof validator.toFloat;
-export = toFloat;
+import validator from '../';
+export default validator.toFloat;

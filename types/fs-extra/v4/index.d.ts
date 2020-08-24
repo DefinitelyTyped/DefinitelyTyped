@@ -280,12 +280,12 @@ export interface ReadOptions {
     throws?: boolean;
     fs?: object;
     reviver?: any;
-    encoding?: string;
+    encoding?: BufferEncoding;
     flag?: string;
 }
 
 export interface WriteFileOptions {
-    encoding?: string;
+    encoding?: BufferEncoding | null;
     flag?: string;
     mode?: number;
 }

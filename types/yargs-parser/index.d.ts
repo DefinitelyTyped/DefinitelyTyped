@@ -1,4 +1,4 @@
-// Type definitions for yargs-parser 13.1
+// Type definitions for yargs-parser 15.0
 // Project: https://github.com/yargs/yargs-parser#readme
 // Definitions by: Miles Johnson <https://github.com/milesj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -56,6 +56,8 @@ declare namespace yargsParser {
         'strip-aliased': boolean;
         /** Should dashed keys be removed before returning results? This option has no effect if camel-case-expansion is disabled. Default is `false` */
         'strip-dashed': boolean;
+        /** Should unknown options be treated like regular arguments? An unknown option is one that is not configured in opts. Default is `false` */
+        'unknown-options-as-args': boolean;
     }
 
     interface Options {

@@ -1,4 +1,4 @@
-// Type definitions for luxon 1.15
+// Type definitions for luxon 1.24
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -7,9 +7,9 @@
 //                 Pietro Vismara <https://github.com/pietrovismara>
 //                 Janeene Beeforth <https://github.com/dawnmist>
 //                 Jason Yu <https://github.com/ycmjason>
-//                 Miklos Danka <https://github.com/mdanka>
+//                 Aitor Pérez Rodal <https://github.com/Aitor1995>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 export type DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 
@@ -65,10 +65,34 @@ export interface ToSQLOptions {
     includeZone?: boolean;
 }
 
+export type ToISOFormat = 'basic' | 'extended';
+
 export interface ToISOTimeOptions {
+    /**
+     * @default false
+     */
     suppressMilliseconds?: boolean;
+    /**
+     * @default false
+     */
     suppressSeconds?: boolean;
+    /**
+     * @default true
+     */
     includeOffset?: boolean;
+    /**
+     * choose between the basic and extended format
+     * @default 'extended'
+     */
+    format?: ToISOFormat;
+}
+
+export interface ToISODateOptions {
+    /**
+     * choose between the basic and extended format
+     * @default 'extended'
+     */
+    format?: ToISOFormat;
 }
 
 // alias for backwards compatibility
@@ -167,7 +191,13 @@ export class DateTime {
         format: string,
         options?: DateTimeOptions,
     ): ExplainedFormat;
-    static invalid(reason: any): DateTime;
+    /**
+     * Create an invalid DateTime.
+     * @param reason - simple string of why this DateTime is invalid.
+     * Should not contain parameters or anything else data-dependent
+     * @param [explanation=null] - longer explanation, may include parameters and other useful debugging information
+     */
+    static invalid(reason: string, explanation?: string): DateTime;
     static isDateTime(o: any): o is DateTime;
     static local(
         year?: number,
@@ -241,24 +271,25 @@ export class DateTime {
     toBSON(): Date;
     toFormat(format: string, options?: DateTimeFormatOptions): string;
     toHTTP(): string;
-    toISO(options?: ToISOTimeOptions): string;
-    toISODate(): string;
-    toISOTime(options?: ToISOTimeOptions): string;
-    toISOWeekDate(): string;
+    toISO(options?: ToISOTimeOptions): string | null;
+    /** Returns an ISO 8601-compliant string representation of this DateTime's date component */
+    toISODate(options?: ToISODateOptions): string | null;
+    toISOTime(options?: ToISOTimeOptions): string | null;
+    toISOWeekDate(): string | null;
     toJSDate(): Date;
-    toJSON(): string;
+    toJSON(): string | null;
     toLocal(): DateTime;
     toLocaleParts(options?: LocaleOptions & DateTimeFormatOptions): any[];
-    toLocaleString(options?: LocaleOptions & DateTimeFormatOptions): string;
+    toLocaleString(options?: LocaleOptions & DateTimeFormatOptions): string | null;
     toMillis(): number;
     toObject(options?: { includeConfig?: boolean }): DateObject;
     toRelative(options?: ToRelativeOptions): string | null;
     toRelativeCalendar(options?: ToRelativeCalendarOptions): string | null;
-    toRFC2822(): string;
+    toRFC2822(): string | null;
     toSeconds(): number;
-    toSQL(options?: ToSQLOptions): string;
-    toSQLDate(): string;
-    toSQLTime(options?: ToSQLOptions): string;
+    toSQL(options?: ToSQLOptions): string | null;
+    toSQLDate(): string | null;
+    toSQLTime(options?: ToSQLOptions): string | null;
     toString(): string;
     toUTC(offset?: number, options?: ZoneOptions): DateTime;
     until(other: DateTime): Interval;
@@ -331,11 +362,12 @@ export class Duration {
     reconfigure(objectPattern: DurationOptions): Duration;
     set(values: DurationObjectUnits): Duration;
     shiftTo(...units: DurationUnit[]): Duration;
+    mapUnits(fn: (x: number, u: DurationUnit) => number): Duration;
     toFormat(format: string, options?: DurationToFormatOptions): string;
-    toISO(): string;
-    toJSON(): string;
+    toISO(): string | null;
+    toJSON(): string | null;
     toObject(options?: { includeConfig?: boolean }): DurationObject;
-    toString(): string;
+    toString(): string | null;
     valueOf(): number;
 }
 
@@ -407,6 +439,7 @@ export interface Features {
     intl: boolean;
     intlTokens: boolean;
     zones: boolean;
+    relative: boolean;
 }
 
 export namespace Info {
@@ -476,6 +509,8 @@ export class Interval {
         },
     ): string;
     toISO(options?: ToISOTimeOptions): string;
+    toISODate(): string;
+    toISOTime(options?: ToISOTimeOptions): string;
     toString(): string;
     union(other: Interval): Interval;
     mapEndpoints(cb: (d: DateTime) => DateTime): Interval;
@@ -519,7 +554,7 @@ export class IANAZone extends Zone {
 }
 
 export class FixedOffsetZone extends Zone {
-    static utcInstance: string;
+    static utcInstance: FixedOffsetZone;
     static instance(offset: number): FixedOffsetZone;
     static parseSpecifier(s: string): FixedOffsetZone;
 }

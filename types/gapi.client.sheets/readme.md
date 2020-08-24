@@ -1,10 +1,12 @@
 # TypeScript typings for Google Sheets API v4
+
 Reads and writes Google Sheets.
 For detailed description please check [documentation](https://developers.google.com/sheets/).
 
 ## Installing
 
 Install typings for Google Sheets API:
+
 ```
 npm install @types/gapi.client.sheets@v4 --save-dev
 ```
@@ -12,59 +14,63 @@ npm install @types/gapi.client.sheets@v4 --save-dev
 ## Usage
 
 You need to initialize Google API client in your code:
+
 ```typescript
-gapi.load("client", () => { 
-    // now we can use gapi.client
-    // ... 
+gapi.load('client', () => {
+  // now we can use gapi.client
+  // ...
 });
 ```
 
 Then load api client wrapper:
+
 ```typescript
 gapi.client.load('sheets', 'v4', () => {
-    // now we can use gapi.client.sheets
-    // ... 
+  // now we can use gapi.client.sheets
+  // ...
 });
 ```
 
 Don't forget to authenticate your client before sending any request to resources:
-```typescript
 
+```typescript
 // declare client_id registered in Google Developers Console
 var client_id = '',
-    scope = [     
-        // View and manage the files in your Google Drive
-        'https://www.googleapis.com/auth/drive',
-    
-        // View and manage Google Drive files and folders that you have opened or created with this app
-        'https://www.googleapis.com/auth/drive.file',
-    
-        // View the files in your Google Drive
-        'https://www.googleapis.com/auth/drive.readonly',
-    
-        // View and manage your spreadsheets in Google Drive
-        'https://www.googleapis.com/auth/spreadsheets',
-    
-        // View your Google Spreadsheets
-        'https://www.googleapis.com/auth/spreadsheets.readonly',
+  scope = [ 
+      // See, edit, create, and delete all of your Google Drive files
+      'https://www.googleapis.com/auth/drive',
+
+      // View and manage Google Drive files and folders that you have opened or created with this app
+      'https://www.googleapis.com/auth/drive.file',
+
+      // See and download all your Google Drive files
+      'https://www.googleapis.com/auth/drive.readonly',
+
+      // See, edit, create, and delete your spreadsheets in Google Drive
+      'https://www.googleapis.com/auth/spreadsheets',
+
+      // View your Google Spreadsheets
+      'https://www.googleapis.com/auth/spreadsheets.readonly',
     ],
     immediate = true;
 // ...
 
-gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }, authResult => {
+gapi.auth.authorize(
+  { client_id: client_id, scope: scope, immediate: immediate },
+  authResult => {
     if (authResult && !authResult.error) {
-        /* handle succesfull authorization */
+        /* handle successful authorization */
     } else {
         /* handle authorization error */
     }
-});            
+});
 ```
 
 After that you can use Google Sheets API resources:
 
-```typescript 
-    
-/* 
+```typescript
+
+/*
 Applies one or more updates to the spreadsheet.
 
 Each request is validated before
@@ -83,16 +89,16 @@ the spreadsheet will reflect exactly your changes after this completes,
 however it is guaranteed that the updates in the request will be
 applied together atomically. Your changes may be altered with respect to
 collaborator changes. If there are no collaborators, the spreadsheet
-should reflect your changes.  
+should reflect your changes.
 */
-await gapi.client.spreadsheets.batchUpdate({ spreadsheetId: "spreadsheetId",  }); 
-    
-/* 
-Creates a spreadsheet, returning the newly created spreadsheet.  
+await gapi.client.sheets.spreadsheets.batchUpdate({ spreadsheetId: "spreadsheetId",  });
+
+/*
+Creates a spreadsheet, returning the newly created spreadsheet.
 */
-await gapi.client.spreadsheets.create({  }); 
-    
-/* 
+await gapi.client.sheets.spreadsheets.create({  });
+
+/*
 Returns the spreadsheet at the given ID.
 The caller must specify the spreadsheet ID.
 
@@ -113,11 +119,11 @@ To retrieve only subsets of the spreadsheet, use the
 ranges URL parameter.
 Multiple ranges can be specified.  Limiting the range will
 return only the portions of the spreadsheet that intersect the requested
-ranges. Ranges are specified using A1 notation.  
+ranges. Ranges are specified using A1 notation.
 */
-await gapi.client.spreadsheets.get({ spreadsheetId: "spreadsheetId",  }); 
-    
-/* 
+await gapi.client.sheets.spreadsheets.get({ spreadsheetId: "spreadsheetId",  });
+
+/*
 Returns the spreadsheet at the given ID.
 The caller must specify the spreadsheet ID.
 
@@ -139,7 +145,7 @@ parameter to true.  If a field mask is set, the `includeGridData`
 parameter is ignored
 
 For large spreadsheets, it is recommended to retrieve only the specific
-fields of the spreadsheet that you want.  
+fields of the spreadsheet that you want.
 */
-await gapi.client.spreadsheets.getByDataFilter({ spreadsheetId: "spreadsheetId",  });
+await gapi.client.sheets.spreadsheets.getByDataFilter({ spreadsheetId: "spreadsheetId",  });
 ```

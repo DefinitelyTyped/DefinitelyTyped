@@ -17,11 +17,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "all-off.d.ts",
-        "has-listeners.d.ts",
         "index.d.ts",
-        "pipe.d.ts",
-        "unify.d.ts",
         "event-emitter-tests.ts"
     ]
 }

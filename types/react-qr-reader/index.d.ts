@@ -24,6 +24,8 @@ declare namespace QrReader {
 
 export as namespace QrReader;
 
-declare class QrReader extends React.Component<QrReader.props> {}
+declare class QrReader extends React.Component<QrReader.props> {
+    openImageDialog: () => void;
+}
 
 export = QrReader;

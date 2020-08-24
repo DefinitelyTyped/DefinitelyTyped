@@ -6,31 +6,42 @@ const num = 0;
 const bool = false;
 
 const params: twig.Parameters = {
-	id: value,
-	path: value,
-	base: value,
-	blocks: value,
-	macros: value,
-	method: value,
-	name: value,
-	options: value,
-	href: value,
-	async: value
+    id: value,
+    path: value,
+    base: value,
+    blocks: value,
+    macros: value,
+    method: value,
+    name: value,
+    options: value,
+    href: value,
+    async: value
 };
 
 const temp: twig.Template = twig.twig(params);
 
+const result: string = temp.render();
+
+const async_result: string | Promise<string> = temp.render(undefined, undefined, true);
+
+function twig_async_param(b: boolean) {
+    const maybe_async_result: string | Promise<string> = temp.render(undefined, undefined, b);
+}
+
+twig_async_param(true);
+twig_async_param(false);
+
 const compOpts: twig.CompileOptions = {
-	filename: str,
-	settings: value
+    filename: str,
+    settings: value
 };
 
 twig.extendFilter(str, (left: any, ...params: any[]) => {
-	return str;
+    return str;
 });
 
 twig.extendFunction(str, (...params: any[]) => {
-	return str;
+    return str;
 });
 
 twig.extendTest(str, (value: any) => bool);

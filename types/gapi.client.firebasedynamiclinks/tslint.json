@@ -1,8 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "interface-name": [false],
-        "ban-types": [false],
-        "await-promise": [true, "Request"]
+        "await-promise": false,
+        "interface-name": false
     }
 }

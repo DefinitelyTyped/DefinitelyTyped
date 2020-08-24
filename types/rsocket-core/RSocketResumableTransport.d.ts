@@ -1,17 +1,12 @@
-import { ConnectionStatus, DuplexConnection, Frame, SetupFrame, ISubject, ISubscription, CONNECTION_STATUS } from 'rsocket-types';
+import { ConnectionStatus, DuplexConnection, Encodable, Frame } from 'rsocket-types';
 
 import { Flowable } from 'rsocket-flowable';
-import {
-  createErrorFromFrame,
-  isResumePositionFrameType,
-  CONNECTION_STREAM_ID,
-  FLAGS,
-  FRAME_TYPES,
-} from './RSocketFrame';
+import { Encoders } from './RSocketEncoding';
 
 export interface Options {
-  bufferSize: number;
-  resumeToken: string;
+    bufferSize: number;
+    resumeToken: Encodable;
+    sessionDurationSeconds: number;
 }
 
 /**
@@ -72,11 +67,11 @@ export interface Options {
  * have failed and the connection is set to the ERROR status.
  */
 export default class RSocketResumableTransport implements DuplexConnection {
-  constructor(source: () => DuplexConnection, options: Options)
-  close(): void;
-  connect(): void;
-  connectionStatus(): Flowable<ConnectionStatus>;
-  receive(): Flowable<Frame>;
-  sendOne(frame: Frame): void;
-  send(frames: Flowable<Frame>): void;
-}
+                   constructor(source: () => DuplexConnection, options: Options, encoders?: Encoders<any>);
+                   close(): void;
+                   connect(): void;
+                   connectionStatus(): Flowable<ConnectionStatus>;
+                   receive(): Flowable<Frame>;
+                   sendOne(frame: Frame): void;
+                   send(frames: Flowable<Frame>): void;
+               }

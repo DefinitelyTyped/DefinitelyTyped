@@ -34,6 +34,7 @@ export interface GeosuggestProps extends Omit<InputHTMLAttributes<HTMLInputEleme
     fixtures?: Fixture[];
     maxFixtures?: number;
     googleMaps?: typeof google.maps;
+    ignoreEnter?: boolean;
     ignoreTab?: boolean;
     queryDelay?: number;
     minLength?: number;

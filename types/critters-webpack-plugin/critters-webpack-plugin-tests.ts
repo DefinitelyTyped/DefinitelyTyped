@@ -9,6 +9,7 @@ new Critters({
     noscriptFallback: true,
     inlineThreshold: 0,
     mergeStylesheets: true,
+    additionalStylesheets: ['./base.css'],
     pruneSource: true,
     minimumExternalSize: 0,
 });

@@ -1,7 +1,7 @@
 import EmberObject, { computed, notifyPropertyChange } from "@ember/object";
 
 const LifetimeHooks = EmberObject.extend({
-    resource: null as {} | null,
+    resource: undefined as {} | undefined,
 
     init() {
         this._super();

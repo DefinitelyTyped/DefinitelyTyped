@@ -25,6 +25,7 @@ router
           test1: ctx.router.url('user-accounts', { id: ctx.params.id }),
           test2: ctx.router.url('user-accounts', ctx.params.id),
           test3: ctx.router.url('user-accounts', [ctx.params.id]),
+          test4: ctx.router.url('users'),
         };
     })
     .get('user-accounts', '/users/:id/accounts', (ctx, next) => {

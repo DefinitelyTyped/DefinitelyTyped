@@ -1,4 +1,4 @@
-// Type definitions for Kendo UI Professional v2019.3.917
+// Type definitions for Kendo UI Professional v2020.2.512
 // Project: http://www.telerik.com/kendo-ui
 // Definitions by: Telerik <https://github.com/telerik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -314,7 +314,7 @@ declare namespace kendo {
         first(events: string[], handlers: { [eventName: string]: Function}): Observable;
 
         trigger(eventName: string, e?: any): boolean;
-        unbind(eventName: string, handler?: any): Observable;
+        unbind(eventName?: string, handler?: any): Observable;
     }
 
     interface ViewOptions {
@@ -524,7 +524,6 @@ declare namespace kendo.data {
         preventDefault?: Function;
     }
 
-
     class Binding extends Observable {
         source: any;
         parents: any[];
@@ -555,8 +554,6 @@ declare namespace kendo.data {
         render(value: Object): string;
     }
 
-    namespace binders { }
-
     interface Bindings {
         [key: string]: Binding;
     }
@@ -573,6 +570,17 @@ declare namespace kendo.data {
         destroy(): void;
         refresh(): void;
         refresh(attribute: string): void;
+    }
+
+    class TypedBinder extends Binder {
+        dataType(): string;
+        parsedValue(): any;
+    }
+
+    interface DataSourceBinder extends Binder {
+        itemChange(e: any): string;
+        dataBinding(e: any): any;
+        dataBound(e: any): any;
     }
 
     interface BinderOptions {
@@ -743,6 +751,10 @@ declare namespace kendo.data {
         parentNode(): Node;
     }
 
+    class FileEntry extends Node {
+        children: FileManagerDataSource;
+    }
+
     class SchedulerDataSource extends DataSource {
         add(model: Object): kendo.data.SchedulerEvent;
         add(model: kendo.data.SchedulerEvent): kendo.data.SchedulerEvent;
@@ -754,6 +766,7 @@ declare namespace kendo.data {
         insert(index: number, model: kendo.data.SchedulerEvent): kendo.data.SchedulerEvent;
         insert(index: number, model: Object): kendo.data.SchedulerEvent;
         remove(model: kendo.data.SchedulerEvent): void;
+        expand(start: Date, end: Date): kendo.data.SchedulerEvent;
     }
 
     class GanttDataSource extends DataSource {
@@ -799,6 +812,23 @@ declare namespace kendo.data {
     interface HierarchicalDataSourceSchemaModel extends DataSourceSchemaModel {
         hasChildren?: any;
         children?: any;
+    }
+
+    class FileManagerDataSource extends HierarchicalDataSource {
+        constructor(options?: FileManagerDataSourceOptions);
+        init(options?: FileManagerDataSourceOptions): void;
+    }
+
+    interface FileManagerDataSourceOptions extends HierarchicalDataSourceOptions {
+        schema?: FileManagerDataSourceSchema;
+    }
+
+    interface FileManagerDataSourceSchema extends HierarchicalDataSourceSchema {
+        model?: FileManagerDataSourceSchemaModel;
+    }
+
+    interface FileManagerDataSourceSchemaModel extends HierarchicalDataSourceSchemaModel {
+        isDirectory?: any;
     }
 
     interface PivotDiscoverRequestRestrictionOptions {
@@ -1121,6 +1151,8 @@ declare namespace kendo.data {
         pageSize(size: number): void;
         pushCreate(model: Object): void;
         pushCreate(models: any[]): void;
+        pushInsert(index: number, model: Object): void;
+        pushInsert(index: number, models: any[]): void;
         pushDestroy(model: Object): void;
         pushDestroy(models: any[]): void;
         pushUpdate(model: Object): void;
@@ -1365,6 +1397,114 @@ declare namespace kendo.data {
         response?: any;
         type?: string;
     }
+}
+
+declare namespace kendo.data.binders {
+    class attr extends Binder { }
+
+    class css extends Binder { }
+
+    class style extends Binder { }
+
+    class enabled extends Binder { }
+
+    class disabled extends Binder { }
+
+    class readonly extends Binder { }
+
+    class events extends Binder { }
+
+    class text extends Binder { }
+
+    class visible extends Binder { }
+
+    class invisible extends Binder { }
+
+    class html extends Binder { }
+
+    class value extends TypedBinder {
+        change(): void;
+    }
+
+    class source extends Binder {
+        container(): Element;
+        template(): String;
+        add(index: Number, items: any[]): void;
+        remove(index: Number, items: any[]): void;
+        render(): void;
+    }
+
+    function dataSourceBinding(bindingName: String, fieldName: String, setter: String): DataSourceBinder;
+}
+
+declare namespace kendo.data.binders.input {
+    class checked extends TypedBinder {
+        change(): void;
+        value(): any;
+    }
+}
+
+declare namespace kendo.data.binders.select {
+    class source extends binders.source { }
+
+    class value extends TypedBinder {
+        change(): void;
+    }
+}
+
+declare namespace kendo.data.binders.widget {
+    class events extends Binder { }
+
+    class checked extends Binder {
+        change(): void;
+        value(): any;
+    }
+
+    class start extends Binder {
+        change(): void;
+    }
+
+    class end extends Binder {
+        change(): void;
+    }
+
+    class visible extends Binder { }
+
+    class invisible extends Binder { }
+
+    class enabled extends Binder { }
+
+    class disabled extends Binder { }
+
+    class value extends Binder {
+        change(): void;
+    }
+
+    function source(bindingName: String, fieldName: String, setter: String): DataSourceBinder;
+}
+
+declare namespace kendo.data.binders.widget.dropdowntree {
+    class value extends Binder {
+        change(): void;
+    }
+}
+
+declare namespace kendo.data.binders.widget.gantt {
+    function dependencies(bindingName: String, fieldName: String, setter: String): DataSourceBinder;
+}
+
+declare namespace kendo.data.binders.widget.multiselect {
+    class value extends Binder {
+        change(): void;
+    }
+}
+
+declare namespace kendo.data.binders.widget.scheduler {
+    function source(bindingName: String, fieldName: String, setter: String): DataSourceBinder;
+}
+
+declare namespace kendo.data.binders.widget.grid {
+    function source(bindingName: String, fieldName: String, setter: String): DataSourceBinder;
 }
 
 declare namespace kendo.data.transports {
@@ -1965,6 +2105,8 @@ declare namespace kendo.ui {
 
     interface ChatMessages {
         placeholder?: string;
+        sendButton?: string;
+        toggleButton?: string;
     }
 
     interface ChatUser {
@@ -3515,6 +3657,8 @@ declare namespace kendo.ui {
         viewHtml?: string;
         width?: string;
         wrapText?: string;
+        copyFormat?: string;
+        applyFormat?: string;
     }
 
     interface EditorPasteCleanup {
@@ -3633,6 +3777,210 @@ declare namespace kendo.ui {
     interface EditorPdfExportEvent extends EditorEvent {
         promise?: JQueryPromise<any>;
     }
+
+    class FileManager extends kendo.ui.Widget {
+
+        static fn: FileManager;
+
+        options: FileManagerOptions;
+
+        dataSource: kendo.data.DataSource;
+
+        element: JQuery;
+        wrapper: JQuery;
+
+        static extend(proto: Object): FileManager;
+
+        constructor(element: Element, options?: FileManagerOptions);
+
+
+        path(): void;
+        view(): void;
+        navigate(): void;
+        refresh(): void;
+        executeCommand(): void;
+        getSelected(): void;
+        getSize(): void;
+        destroy(): void;
+        setDataSource(dataSource: kendo.data.FileManagerDataSource): void;
+
+    }
+
+    interface FileManagerBreadcrumb {
+        rootIcon?: string;
+        delimiterIcon?: string;
+    }
+
+    interface FileManagerContextMenuItem {
+        name?: string;
+        text?: string;
+        spriteCssClass?: string;
+        command?: string;
+    }
+
+    interface FileManagerContextMenu {
+        items?: FileManagerContextMenuItem[];
+    }
+
+    interface FileManagerDialogs {
+        upload?: any;
+        moveConfirm?: any;
+        deleteConfirm?: any;
+        renamePrompt?: any;
+    }
+
+    interface FileManagerMessagesDialogsDeleteConfirm {
+        title?: string;
+        content?: string;
+        okText?: string;
+        cancel?: string;
+        close?: string;
+    }
+
+    interface FileManagerMessagesDialogsMoveConfirm {
+        title?: string;
+        content?: string;
+        okText?: string;
+        cancel?: string;
+        close?: string;
+    }
+
+    interface FileManagerMessagesDialogsRenamePrompt {
+        title?: string;
+        content?: string;
+        okText?: string;
+        cancel?: string;
+        close?: string;
+    }
+
+    interface FileManagerMessagesDialogsUpload {
+        title?: string;
+        clear?: string;
+        done?: string;
+    }
+
+    interface FileManagerMessagesDialogs {
+        upload?: FileManagerMessagesDialogsUpload;
+        moveConfirm?: FileManagerMessagesDialogsMoveConfirm;
+        deleteConfirm?: FileManagerMessagesDialogsDeleteConfirm;
+        renamePrompt?: FileManagerMessagesDialogsRenamePrompt;
+    }
+
+    interface FileManagerMessagesPreviewPane {
+        noFileSelected?: string;
+        extension?: string;
+        size?: string;
+        created?: string;
+        modified?: string;
+        items?: string;
+    }
+
+    interface FileManagerMessagesToolbar {
+        createFolder?: string;
+        uploadDialog?: string;
+        sortDirection?: string;
+        sortDirectionAsc?: string;
+        sortDirectionDesc?: string;
+        sortField?: string;
+        nameField?: string;
+        sizeField?: string;
+        typeField?: string;
+        dateModifiedField?: string;
+        dateCreatedField?: string;
+        search?: string;
+        details?: string;
+        detailsChecked?: string;
+        detailsUnchecked?: string;
+        delete?: string;
+        rename?: string;
+    }
+
+    interface FileManagerMessagesViews {
+        nameField?: string;
+        sizeField?: string;
+        typeField?: string;
+        dateModifiedField?: string;
+        dateCreatedField?: string;
+        items?: string;
+    }
+
+    interface FileManagerMessages {
+        toolbar?: FileManagerMessagesToolbar;
+        views?: FileManagerMessagesViews;
+        dialogs?: FileManagerMessagesDialogs;
+        previewPane?: FileManagerMessagesPreviewPane;
+    }
+
+    interface FileManagerPreviewPane {
+        metaFields?: any;
+        noFileTemplate?: string|Function;
+        singleFileTemplate?: string|Function;
+        multipleFilesTemplate?: string|Function;
+    }
+
+    interface FileManagerToolbarItem {
+        type?: string;
+        overflow?: string;
+        command?: string;
+        options?: string;
+        name?: string;
+        togglable?: boolean;
+        text?: string;
+        template?: string|Function;
+        showText?: string;
+        primary?: boolean;
+        attributes?: any;
+        enable?: boolean;
+        hidden?: boolean;
+        spriteCssClass?: string;
+        imageUrl?: string;
+        showIcon?: string;
+        icon?: string;
+        id?: string;
+    }
+
+    interface FileManagerToolbar {
+        items?: FileManagerToolbarItem[];
+    }
+
+    interface FileManagerViews {
+        grid?: any;
+        list?: any;
+        tree?: any;
+    }
+
+    interface FileManagerOptions {
+        name?: string;
+        width?: number|string;
+        height?: number|string;
+        initialView?: string;
+        resizable?: boolean;
+        draggable?: boolean;
+        dataSource?: any|any|kendo.data.FileManagerDataSource;
+        upload?: any;
+        uploadUrl?: string;
+        toolbar?: boolean | FileManagerToolbar;
+        dialogs?: FileManagerDialogs;
+        contextMenu?: boolean | FileManagerContextMenu;
+        views?: FileManagerViews;
+        previewPane?: FileManagerPreviewPane;
+        breadcrumb?: boolean | FileManagerBreadcrumb;
+        messages?: FileManagerMessages;
+        navigate?(e: FileManagerEvent): void;
+        select?(e: FileManagerEvent): void;
+        open?(e: FileManagerEvent): void;
+        execute?(e: FileManagerEvent): void;
+        error?(e: FileManagerEvent): void;
+        dataBinding?(e: FileManagerEvent): void;
+        dataBound?(e: FileManagerEvent): void;
+        drop?(e: FileManagerEvent): void;
+    }
+    interface FileManagerEvent {
+        sender: FileManager;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
 
 
     class Filter extends kendo.ui.Widget {
@@ -3889,6 +4237,91 @@ declare namespace kendo.ui {
 
     interface FlatColorPickerChangeEvent extends FlatColorPickerEvent {
         value?: string;
+    }
+
+    class Form extends kendo.ui.Widget {
+
+        static fn: Form;
+
+        options: FormOptions;
+
+        element: JQuery;
+        wrapper: JQuery;
+
+        static extend(proto: Object): Form;
+
+        constructor(element: Element, options?: FormOptions);
+
+        validate(): void;
+        clear(): void;
+        setOptions(options: any): void;
+        destroy(): void;
+    }
+
+    interface FormOptions {
+        name?: string;
+        orientation?: string | "horizontal" | "vertical";
+        buttonsTemplate?: string|Function;
+        items?: FormItem[];
+        formData?: FormData;
+        validatable?: FormValidatable;
+
+        change?(e: FormChangeEvent): void;
+        validate?(e: FormValidateEvent): void;
+        validateField?(e: FormValidateFieldEvent): void;
+        submit?(e: FormSubmitEvent): void;
+    }
+
+    interface FormData {
+        [key: string]: any;
+    }
+
+    interface FormItem {
+        field?: string;
+        type?: string;
+        name?: string;
+        id?: string;
+        title?: string;
+        editor?: string|Function;
+        editorOptions?: any;
+        label?: string;
+        validation?: any;
+        items?: FormItem[];
+    }
+
+    interface FormValidatable {
+        validateOnBlur: boolean;
+        validationSummary: boolean;
+        errorTemplate: string|Function;
+    }
+
+    interface FormEvent {
+        sender: Form;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+    interface FormChangeEvent extends FormEvent {
+        field?: string;
+        value?: any;
+    }
+
+    interface FormValidateEvent extends FormEvent {
+        model?: kendo.data.Model;
+        valid?: boolean;
+        errors?: any[];
+    }
+
+    interface FormValidateFieldEvent extends FormEvent {
+        model?: kendo.data.Model;
+        valid?: boolean;
+        field?: string;
+        error?: string;
+        input?: Element;
+    }
+
+    interface FormSubmitEvent extends FormEvent {
+        model?: kendo.data.Model;
     }
 
 
@@ -4570,8 +5003,10 @@ declare namespace kendo.ui {
         input?: boolean;
         pageSizes?: boolean|any;
         refresh?: boolean;
+        responsive?: boolean;
         info?: boolean;
         messages?: GridPageableMessages;
+        position?: string;
     }
 
     interface GridPdfMargin {
@@ -4603,7 +5038,7 @@ declare namespace kendo.ui {
     }
 
     interface GridScrollable {
-        virtual?: boolean;
+        virtual?: boolean|string;
         endless?: boolean;
     }
 
@@ -5083,10 +5518,16 @@ declare namespace kendo.ui {
 
     }
 
+    interface MaskedTextBoxLabel {
+        content?: string|Function;
+        floating?: boolean;
+    }
+
     interface MaskedTextBoxOptions {
         name?: string;
         clearPromptChar?: boolean;
         culture?: string;
+        label?: string | Function | MaskedTextBoxLabel;
         mask?: string;
         promptChar?: string;
         rules?: any;
@@ -5781,6 +6222,11 @@ declare namespace kendo.ui {
 
     }
 
+    interface NumericTextBoxLabel {
+        content?: string|Function;
+        floating?: boolean;
+    }
+
     interface NumericTextBoxOptions {
         name?: string;
         culture?: string;
@@ -5788,6 +6234,7 @@ declare namespace kendo.ui {
         downArrowText?: string;
         factor?: number;
         format?: string;
+        label?: string | Function | NumericTextBoxLabel;
         max?: number;
         min?: number;
         placeholder?: string;
@@ -6037,6 +6484,7 @@ declare namespace kendo.ui {
         pageSizes?: boolean|any;
         previousNext?: boolean;
         refresh?: boolean;
+        responsive?: boolean;
         messages?: PagerMessages;
         change?(e: PagerChangeEvent): void;
     }
@@ -6452,6 +6900,7 @@ declare namespace kendo.ui {
         open(): void;
         position(): void;
         setOptions(options: any): void;
+        toggle(toggle?: boolean): void;
         visible(): boolean;
 
     }
@@ -6658,6 +7107,68 @@ declare namespace kendo.ui {
     }
 
 
+    class Rating extends kendo.ui.Widget {
+
+        static fn: Rating;
+
+        options: RatingOptions;
+
+
+        element: JQuery;
+        wrapper: JQuery;
+        container: JQuery;
+
+        static extend(proto: Object): Rating;
+
+        constructor(element: Element, options?: RatingOptions);
+
+        value(value: number): void;
+        reset(): void;
+        enable(enable: boolean): void;
+        readonly(enable: boolean): void;
+        setOptions(options: any): void;
+        destroy(): void;
+    }
+
+    interface RatingOptions {
+        name?: string;
+        min?: number;
+        max?: number;
+        selection: string | "continuous" | "single";
+        precision: string | "item" | "half";
+        label?: boolean | RatingLabel;
+        tooltip?: boolean;
+        itemTemplate?: string|Function;
+        selectedTemplate?: string|Function;
+        hoveredTemplate?: string|Function;
+        selectValueOnFocus?: number;
+        enabled?: boolean;
+        readonly?: boolean;
+        change?(e: RatingChangeEvent): void;
+        select?(e: RatingSelectEvent): void;
+    }
+
+    interface RatingLabel {
+        template: string|Function;
+    }
+
+    interface RatingEvent {
+        sender: Rating;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+    interface RatingChangeEvent extends RatingEvent {
+        target?: Element;
+        oldValue?: number;
+        newValue?: number;
+    }
+
+    interface RatingSelectEvent extends RatingEvent {
+        target?: Element;
+    }
+
+
     class ResponsivePanel extends kendo.ui.Widget {
 
         static fn: ResponsivePanel;
@@ -6677,14 +7188,6 @@ declare namespace kendo.ui {
         destroy(): void;
         open(): void;
 
-    }
-
-    interface SchedulerSelectOptions {
-        events?: SchedulerEvent[] | any[];
-        resources? : any[];
-        start?: Date;
-        end?: Date;
-        isAllDay?: boolean;
     }
 
     interface ResponsivePanelOptions {
@@ -6748,6 +7251,14 @@ declare namespace kendo.ui {
         view(type?: string): void;
         viewName(): string;
 
+    }
+
+    interface SchedulerSelectOptions {
+        events?: SchedulerEvent[] | any[];
+        resources? : any[];
+        start?: Date;
+        end?: Date;
+        isAllDay?: boolean;
     }
 
     interface SchedulerCurrentTimeMarker {
@@ -6960,6 +7471,7 @@ declare namespace kendo.ui {
     }
 
     interface SchedulerView {
+        adaptiveSlotHeight?: boolean;
         allDayEventTemplate?: string|Function;
         allDaySlot?: boolean;
         allDaySlotTemplate?: string|Function;
@@ -6968,7 +7480,9 @@ declare namespace kendo.ui {
         dayTemplate?: string|Function;
         editable?: boolean | SchedulerViewEditable;
         endTime?: Date;
-        eventHeight?: number;
+        eventHeight?: number | string;
+        eventSpacing?: number;
+        eventsPerDay?: number;
         eventTemplate?: string|Function;
         eventTimeTemplate?: string|Function;
         group?: SchedulerViewGroup;
@@ -7868,65 +8382,54 @@ declare namespace kendo.ui {
         checked?: any;
     }
 
-    class Rating extends kendo.ui.Widget {
 
-        static fn: Rating;
+    class Stepper extends kendo.ui.Widget {
+        static fn: Stepper;
 
-        options: RatingOptions;
-
+        options: StepperOptions;
 
         element: JQuery;
-        wrapper: JQuery;
-        container: JQuery;
 
-        static extend(proto: Object): Rating;
+        static extend(proto: Object): Stepper;
 
-        constructor(element: Element, options?: RatingOptions);
+        constructor(element: Element, options?: StepperOptions);
 
-        value(value: number): void;
-        reset(): void;
-        enable(enable: boolean): void;
-        readonly(enable: boolean): void;
         setOptions(options: any): void;
-        destroy(): void;
+
+        enable(value: boolean): void;
+        insertAt(index: number, step: kendo.stepper.StepOptions): void;
+        next(): void;
+        previous(): void;
+        removeAt(index: number): void;
+        resize(): void;
+        select(): kendo.stepper.Step;
+        select(index: number): void;
+        steps(): kendo.stepper.Step[];
+        steps(steps: kendo.stepper.StepOptions[]): void;
     }
 
-    interface RatingOptions {
+    interface StepperOptions {
         name?: string;
-        min?: number;
-        max?: number;
-        selection: string | "continuous" | "single";
-        precision: string | "item" | "half";
-        label?: boolean | RatingLabel;
-        tooltip?: boolean;
-        itemTemplate?: string|Function;
-        selectedTemplate?: string|Function;
-        hoveredTemplate?: string|Function;
-        selectValueOnFocus?: number;
-        enabled?: boolean;
-        readonly?: boolean;
-        change?(e: RatingChangeEvent): void;
-        select?(e: RatingSelectEvent): void;
+        orientation?: string | "horizontal" | "vertical";
+        linear?: boolean;
+        indicator?: boolean;
+        label?: boolean;
+        selectOnFocus?: boolean;
+        steps: kendo.stepper.StepOptions[] | string[];
+
+        activate?(e: StepperActivateEvent): void;
+        select?(e: StepperSelectEvent): void;
     }
 
-    interface RatingLabel {
-        template: string|Function;
+    interface StepperActivateEvent {
+        sender?: Stepper;
+        originalEvent?: any;
+        step?: kendo.stepper.Step;
     }
 
-    interface RatingEvent {
-        sender: Rating;
+    interface StepperSelectEvent extends StepperActivateEvent {
         preventDefault: Function;
         isDefaultPrevented(): boolean;
-    }
-
-    interface RatingChangeEvent extends RatingEvent {
-        target?: Element;
-        oldValue?: number;
-        newValue?: number;
-    }
-
-    interface RatingSelectEvent extends RatingEvent {
-        target?: Element;
     }
 
 
@@ -8070,6 +8573,119 @@ declare namespace kendo.ui {
     interface TabStripShowEvent extends TabStripEvent {
         item?: Element;
         contentElement?: Element;
+    }
+
+    class TileLayout extends kendo.ui.Widget {
+
+        static fn: TileLayout;
+
+        options: TileLayoutOptions;
+
+
+        element: JQuery;
+        wrapper: JQuery;
+
+        static extend(proto: Object): TileLayout;
+
+        constructor(element: Element, options?: TileLayoutOptions);
+
+
+
+    }
+
+    interface TileLayoutContainerHeader {
+        template?: string|Function;
+        text?: string;
+    }
+
+    interface TileLayoutContainer {
+        bodyTemplate?: string|Function;
+        colSpan?: number;
+        header?: TileLayoutContainerHeader;
+        rowSpan?: number;
+    }
+
+    interface TileLayoutGap {
+        columns?: number;
+        rows?: number;
+    }
+
+    interface TileLayoutOptions {
+        name?: string;
+        columns?: number;
+        columnsWidth?: string|number;
+        containers?: TileLayoutContainer[];
+        gap?: TileLayoutGap;
+        height?: string|number;
+        reorderable?: boolean;
+        resizable?: boolean;
+        rows?: number;
+        rowsHeight?: string|number;
+        width?: string|number;
+        resize?(e: TileLayoutResizeEvent): void;
+        reorder?(e: TileLayoutReorderEvent): void;
+    }
+    interface TileLayoutEvent {
+        sender: TileLayout;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+    interface TileLayoutResizeEvent extends TileLayoutEvent {
+        container?: JQuery;
+    }
+
+    interface TileLayoutReorderEvent extends TileLayoutEvent {
+        newIndex?: number;
+        oldIndex?: number;
+        container?: JQuery;
+    }
+
+    class TextBox extends kendo.ui.Widget {
+
+        static fn: TextBox;
+
+        options: TextBoxOptions;
+
+
+        element: JQuery;
+        wrapper: JQuery;
+
+        static extend(proto: Object): TextBox;
+
+        constructor(element: Element, options?: TextBoxOptions);
+
+
+        destroy(): void;
+        enable(enable: boolean): void;
+        focus(): void;
+        readonly(readonly: boolean): void;
+        value(): string;
+        value(value: string): void;
+
+    }
+
+    interface TextBoxLabel {
+        content?: string|Function;
+        floating?: boolean;
+    }
+
+    interface TextBoxOptions {
+        name?: string;
+        enable?: boolean;
+        label?: string | Function | TextBoxLabel;
+        placeholder?: string;
+        readonly?: boolean;
+        value?: string;
+        change?(e: TextBoxChangeEvent): void;
+    }
+    interface TextBoxEvent {
+        sender: TextBox;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+    interface TextBoxChangeEvent extends TextBoxEvent {
     }
 
 
@@ -8813,6 +9429,7 @@ declare namespace kendo.ui {
         input?: boolean;
         pageSizes?: boolean|any;
         refresh?: boolean;
+        responsive?: boolean;
         info?: boolean;
         messages?: TreeListPageableMessages;
     }
@@ -9281,6 +9898,8 @@ declare namespace kendo.ui {
         headerStatusUploaded?: string;
         headerStatusUploading?: string;
         invalidFileExtension?: string;
+        uploadSuccess?: string;
+        uploadFail?: string;
         invalidFiles?: string;
         invalidMaxFileSize?: string;
         invalidMinFileSize?: string;
@@ -9396,10 +10015,11 @@ declare namespace kendo.ui {
 
         errors(): any;
         hideMessages(): void;
+        hideValidationSummary(): void;
+        showValidationSummary(): void;
         validate(): boolean;
         validateInput(input: Element): boolean;
         validateInput(input: JQuery): boolean;
-
     }
 
     interface ValidatorOptions {
@@ -9408,9 +10028,15 @@ declare namespace kendo.ui {
         messages?: any;
         rules?: any;
         validateOnBlur?: boolean;
+        validationSummary: boolean | ValidationSummary;
         validate?(e: ValidatorValidateEvent): void;
         validateInput?(e: ValidatorValidateInputEvent): void;
     }
+    interface ValidationSummary {
+        container?: string | JQuery;
+        template?: string | Function;
+    }
+
     interface ValidatorEvent {
         sender: Validator;
         preventDefault: Function;
@@ -9419,11 +10045,14 @@ declare namespace kendo.ui {
 
     interface ValidatorValidateEvent extends ValidatorEvent {
         valid?: boolean;
+        errors?: any[];
     }
 
     interface ValidatorValidateInputEvent extends ValidatorEvent {
         input?: JQuery;
         valid?: boolean;
+        error?: string;
+        field?: string;
     }
 
 
@@ -9468,6 +10097,7 @@ declare namespace kendo.ui {
     interface WindowAnimationClose {
         effects?: string;
         duration?: number;
+        reverse?: boolean;
     }
 
     interface WindowAnimationOpen {
@@ -10645,7 +11275,6 @@ declare namespace kendo.dataviz.ui {
         svg(): void;
         imageDataURL(): string;
         value(): void;
-
     }
 
     interface ArcGaugeColor {
@@ -10672,7 +11301,7 @@ declare namespace kendo.dataviz.ui {
         background?: string;
         border?: ArcGaugeGaugeAreaBorder;
         height?: number;
-        margin?: ArcGaugeGaugeAreaMargin;
+        margin?: number | ArcGaugeGaugeAreaMargin;
         width?: number;
     }
 
@@ -10703,8 +11332,8 @@ declare namespace kendo.dataviz.ui {
         color?: string;
         font?: string;
         format?: string;
-        margin?: ArcGaugeScaleLabelsMargin;
-        padding?: ArcGaugeScaleLabelsPadding;
+        margin?: number | ArcGaugeScaleLabelsMargin;
+        padding?: number | ArcGaugeScaleLabelsPadding;
         position?: string;
         template?: string|Function;
         visible?: boolean;
@@ -10956,9 +11585,9 @@ declare namespace kendo.dataviz.ui {
     interface ChartAxisDefaultsLabels {
         font?: string;
         format?: string;
-        margin?: ChartAxisDefaultsLabelsMargin;
+        margin?: number | ChartAxisDefaultsLabelsMargin;
         mirror?: boolean;
-        padding?: ChartAxisDefaultsLabelsPadding;
+        padding?: number | ChartAxisDefaultsLabelsPadding;
         rotation?: string | number | ChartAxisDefaultsLabelsRotation;
         skip?: number;
         step?: number;
@@ -11042,8 +11671,8 @@ declare namespace kendo.dataviz.ui {
         border?: ChartAxisDefaultsTitleBorder;
         color?: string;
         font?: string;
-        margin?: ChartAxisDefaultsTitleMargin;
-        padding?: ChartAxisDefaultsTitlePadding;
+        margin?: number | ChartAxisDefaultsTitleMargin;
+        padding?: number | ChartAxisDefaultsTitlePadding;
         position?: string;
         rotation?: number;
         text?: string;
@@ -11155,9 +11784,9 @@ declare namespace kendo.dataviz.ui {
         dateFormats?: ChartCategoryAxisItemLabelsDateFormats;
         font?: string;
         format?: string;
-        margin?: ChartCategoryAxisItemLabelsMargin;
+        margin?: number | ChartCategoryAxisItemLabelsMargin;
         mirror?: boolean;
-        padding?: ChartCategoryAxisItemLabelsPadding;
+        padding?: number | ChartCategoryAxisItemLabelsPadding;
         rotation?: string | number | ChartCategoryAxisItemLabelsRotation;
         skip?: number;
         step?: number;
@@ -11347,7 +11976,7 @@ declare namespace kendo.dataviz.ui {
         border?: ChartCategoryAxisItemTitleBorder;
         color?: string;
         font?: string;
-        margin?: ChartCategoryAxisItemTitleMargin;
+        margin?: number | ChartCategoryAxisItemTitleMargin;
         padding?: ChartCategoryAxisItemTitlePadding;
         position?: string;
         rotation?: number;
@@ -11408,7 +12037,7 @@ declare namespace kendo.dataviz.ui {
         background?: string;
         border?: ChartChartAreaBorder;
         height?: number;
-        margin?: ChartChartAreaMargin;
+        margin?: number | ChartChartAreaMargin;
         opacity?: number;
         width?: number;
     }
@@ -11451,7 +12080,7 @@ declare namespace kendo.dataviz.ui {
     interface ChartLegendLabels {
         color?: string;
         font?: string;
-        margin?: ChartLegendLabelsMargin;
+        margin?: number | ChartLegendLabelsMargin;
         padding?: ChartLegendLabelsPadding;
         template?: string|Function;
     }
@@ -11478,11 +12107,11 @@ declare namespace kendo.dataviz.ui {
         inactiveItems?: ChartLegendInactiveItems;
         item?: ChartLegendItem;
         labels?: ChartLegendLabels;
-        margin?: ChartLegendMargin;
+        margin?: number | ChartLegendMargin;
         offsetX?: number;
         offsetY?: number;
         orientation?: string;
-        padding?: ChartLegendPadding;
+        padding?: number | ChartLegendPadding;
         position?: string;
         reverse?: boolean;
         spacing?: number;
@@ -11528,7 +12157,7 @@ declare namespace kendo.dataviz.ui {
         border?: ChartPaneTitleBorder;
         color?: string;
         font?: string;
-        margin?: ChartPaneTitleMargin;
+        margin?: number | ChartPaneTitleMargin;
         position?: string;
         text?: string;
         visible?: boolean;
@@ -11540,7 +12169,7 @@ declare namespace kendo.dataviz.ui {
         border?: ChartPaneBorder;
         clip?: boolean;
         height?: number;
-        margin?: ChartPaneMargin;
+        margin?: number | ChartPaneMargin;
         name?: string;
         padding?: ChartPanePadding;
         title?: string | ChartPaneTitle;
@@ -11597,9 +12226,9 @@ declare namespace kendo.dataviz.ui {
     interface ChartPlotArea {
         background?: string;
         border?: ChartPlotAreaBorder;
-        margin?: ChartPlotAreaMargin;
+        margin?: number| ChartPlotAreaMargin;
         opacity?: number;
-        padding?: ChartPlotAreaPadding;
+        padding?: number | ChartPlotAreaPadding;
     }
 
     interface ChartSeriesItemBorder {
@@ -11698,8 +12327,8 @@ declare namespace kendo.dataviz.ui {
         color?: string|Function;
         font?: string|Function;
         format?: string|Function;
-        margin?: ChartSeriesItemLabelsFromMargin;
-        padding?: ChartSeriesItemLabelsFromPadding;
+        margin?: number | ChartSeriesItemLabelsFromMargin;
+        padding?: number | ChartSeriesItemLabelsFromPadding;
         position?: string|Function;
         template?: string|Function;
         visible?: boolean|Function;
@@ -11745,8 +12374,8 @@ declare namespace kendo.dataviz.ui {
         color?: string|Function;
         font?: string|Function;
         format?: string|Function;
-        margin?: ChartSeriesItemLabelsToMargin;
-        padding?: ChartSeriesItemLabelsToPadding;
+        margin?: number | ChartSeriesItemLabelsToMargin;
+        padding?: number | ChartSeriesItemLabelsToPadding;
         position?: string|Function;
         template?: string|Function;
         visible?: boolean|Function;
@@ -11760,8 +12389,8 @@ declare namespace kendo.dataviz.ui {
         distance?: number;
         font?: string|Function;
         format?: string|Function;
-        margin?: ChartSeriesItemLabelsMargin;
-        padding?: ChartSeriesItemLabelsPadding;
+        margin?: number | ChartSeriesItemLabelsMargin;
+        padding?: number | ChartSeriesItemLabelsPadding;
         position?: string|Function;
         rotation?: string|number;
         template?: string|Function;
@@ -11990,7 +12619,7 @@ declare namespace kendo.dataviz.ui {
         labels?: ChartSeriesItemLabels;
         line?: string | ChartSeriesItemLine;
         lowField?: string;
-        margin?: ChartSeriesItemMargin;
+        margin?: number | ChartSeriesItemMargin;
         markers?: ChartSeriesItemMarkers;
         outliers?: ChartSeriesItemOutliers;
         extremes?: ChartSeriesItemExtremes;
@@ -12065,8 +12694,8 @@ declare namespace kendo.dataviz.ui {
         color?: string;
         font?: string;
         format?: string;
-        margin?: ChartSeriesDefaultsLabelsFromMargin;
-        padding?: ChartSeriesDefaultsLabelsFromPadding;
+        margin?: number | ChartSeriesDefaultsLabelsFromMargin;
+        padding?: number | ChartSeriesDefaultsLabelsFromPadding;
         template?: string|Function;
         visible?: boolean;
     }
@@ -12111,8 +12740,8 @@ declare namespace kendo.dataviz.ui {
         color?: string;
         font?: string;
         format?: string;
-        margin?: ChartSeriesDefaultsLabelsToMargin;
-        padding?: ChartSeriesDefaultsLabelsToPadding;
+        margin?: number | ChartSeriesDefaultsLabelsToMargin;
+        padding?: number | ChartSeriesDefaultsLabelsToPadding;
         template?: string|Function;
         visible?: boolean;
     }
@@ -12123,8 +12752,8 @@ declare namespace kendo.dataviz.ui {
         color?: string;
         font?: string;
         format?: string;
-        margin?: ChartSeriesDefaultsLabelsMargin;
-        padding?: ChartSeriesDefaultsLabelsPadding;
+        margin?: number | ChartSeriesDefaultsLabelsMargin;
+        padding?: number | ChartSeriesDefaultsLabelsPadding;
         rotation?: string|number;
         template?: string|Function;
         visible?: boolean;
@@ -12263,8 +12892,8 @@ declare namespace kendo.dataviz.ui {
         border?: ChartTitleBorder;
         color?: string;
         font?: string;
-        margin?: ChartTitleMargin;
-        padding?: ChartTitlePadding;
+        margin?: number | ChartTitleMargin;
+        padding?: number | ChartTitlePadding;
         position?: string;
         text?: string;
         visible?: boolean;
@@ -12360,9 +12989,9 @@ declare namespace kendo.dataviz.ui {
         color?: string;
         font?: string;
         format?: string;
-        margin?: ChartValueAxisItemLabelsMargin;
+        margin?: number | ChartValueAxisItemLabelsMargin;
         mirror?: boolean;
-        padding?: ChartValueAxisItemLabelsPadding;
+        padding?: number | ChartValueAxisItemLabelsPadding;
         rotation?: string | number | ChartValueAxisItemLabelsRotation;
         skip?: number;
         step?: number;
@@ -12540,8 +13169,8 @@ declare namespace kendo.dataviz.ui {
         border?: ChartValueAxisItemTitleBorder;
         color?: string;
         font?: string;
-        margin?: ChartValueAxisItemTitleMargin;
-        padding?: ChartValueAxisItemTitlePadding;
+        margin?: number | ChartValueAxisItemTitleMargin;
+        padding?: number | ChartValueAxisItemTitlePadding;
         position?: string;
         rotation?: number;
         text?: string;
@@ -12649,9 +13278,9 @@ declare namespace kendo.dataviz.ui {
         dateFormats?: ChartXAxisItemLabelsDateFormats;
         font?: string;
         format?: string;
-        margin?: ChartXAxisItemLabelsMargin;
+        margin?: number | ChartXAxisItemLabelsMargin;
         mirror?: boolean;
-        padding?: ChartXAxisItemLabelsPadding;
+        padding?: number | ChartXAxisItemLabelsPadding;
         rotation?: string | number | ChartXAxisItemLabelsRotation;
         skip?: number;
         step?: number;
@@ -12828,8 +13457,8 @@ declare namespace kendo.dataviz.ui {
         border?: ChartXAxisItemTitleBorder;
         color?: string;
         font?: string;
-        margin?: ChartXAxisItemTitleMargin;
-        padding?: ChartXAxisItemTitlePadding;
+        margin?: number | ChartXAxisItemTitleMargin;
+        padding?: number | ChartXAxisItemTitlePadding;
         position?: string;
         rotation?: number;
         text?: string;
@@ -12939,9 +13568,9 @@ declare namespace kendo.dataviz.ui {
         dateFormats?: ChartYAxisItemLabelsDateFormats;
         font?: string;
         format?: string;
-        margin?: ChartYAxisItemLabelsMargin;
+        margin?: number | ChartYAxisItemLabelsMargin;
         mirror?: boolean;
-        padding?: ChartYAxisItemLabelsPadding;
+        padding?: number | ChartYAxisItemLabelsPadding;
         rotation?: number |ChartYAxisItemLabelsRotation;
         skip?: number;
         step?: number;
@@ -13118,8 +13747,8 @@ declare namespace kendo.dataviz.ui {
         border?: ChartYAxisItemTitleBorder;
         color?: string;
         font?: string;
-        margin?: ChartYAxisItemTitleMargin;
-        padding?: ChartYAxisItemTitlePadding;
+        margin?: number | ChartYAxisItemTitleMargin;
+        padding?: number | ChartYAxisItemTitlePadding;
         position?: string;
         rotation?: number;
         text?: string;
@@ -14415,7 +15044,7 @@ declare namespace kendo.dataviz.ui {
         background?: string;
         border?: LinearGaugeGaugeAreaBorder;
         height?: number;
-        margin?: LinearGaugeGaugeAreaMargin;
+        margin?: number | LinearGaugeGaugeAreaMargin;
         width?: number;
     }
 
@@ -14476,8 +15105,8 @@ declare namespace kendo.dataviz.ui {
         color?: string;
         font?: string;
         format?: string;
-        margin?: LinearGaugeScaleLabelsMargin;
-        padding?: LinearGaugeScaleLabelsPadding;
+        margin?: number | LinearGaugeScaleLabelsMargin;
+        padding?: number | LinearGaugeScaleLabelsPadding;
         template?: string|Function;
         visible?: boolean;
     }
@@ -15107,7 +15736,7 @@ declare namespace kendo.dataviz.ui {
         background?: string;
         border?: RadialGaugeGaugeAreaBorder;
         height?: number;
-        margin?: RadialGaugeGaugeAreaMargin;
+        margin?: number | RadialGaugeGaugeAreaMargin;
         width?: number;
     }
 
@@ -15150,8 +15779,8 @@ declare namespace kendo.dataviz.ui {
         color?: string;
         font?: string;
         format?: string;
-        margin?: RadialGaugeScaleLabelsMargin;
-        padding?: RadialGaugeScaleLabelsPadding;
+        margin?: number | RadialGaugeScaleLabelsMargin;
+        padding?: number | RadialGaugeScaleLabelsPadding;
         position?: string;
         template?: string|Function;
         visible?: boolean;
@@ -16628,9 +17257,9 @@ declare namespace kendo.dataviz.ui {
         dateFormats?: StockChartNavigatorCategoryAxisLabelsDateFormats;
         font?: string;
         format?: string;
-        margin?: StockChartNavigatorCategoryAxisLabelsMargin;
+        margin?: number | StockChartNavigatorCategoryAxisLabelsMargin;
         mirror?: boolean;
-        padding?: StockChartNavigatorCategoryAxisLabelsPadding;
+        padding?: number | StockChartNavigatorCategoryAxisLabelsPadding;
         rotation?: number;
         skip?: number;
         step?: number;
@@ -16804,8 +17433,8 @@ declare namespace kendo.dataviz.ui {
         border?: StockChartNavigatorCategoryAxisTitleBorder;
         color?: string;
         font?: string;
-        margin?: StockChartNavigatorCategoryAxisTitleMargin;
-        padding?: StockChartNavigatorCategoryAxisTitlePadding;
+        margin?: number | StockChartNavigatorCategoryAxisTitleMargin;
+        padding?: number | StockChartNavigatorCategoryAxisTitlePadding;
         position?: string;
         rotation?: number;
         text?: string;
@@ -16885,7 +17514,7 @@ declare namespace kendo.dataviz.ui {
         border?: StockChartNavigatorPaneTitleBorder;
         color?: string;
         font?: string;
-        margin?: StockChartNavigatorPaneTitleMargin;
+        margin?: number | StockChartNavigatorPaneTitleMargin;
         position?: string;
         text?: string;
         visible?: boolean;
@@ -16895,9 +17524,9 @@ declare namespace kendo.dataviz.ui {
         background?: string;
         border?: StockChartNavigatorPaneBorder;
         height?: number;
-        margin?: StockChartNavigatorPaneMargin;
+        margin?: number | StockChartNavigatorPaneMargin;
         name?: string;
-        padding?: StockChartNavigatorPanePadding;
+        padding?: number | StockChartNavigatorPanePadding;
         title?: string | StockChartNavigatorPaneTitle;
     }
 
@@ -19308,9 +19937,9 @@ declare namespace kendo {
     namespace drawing {
         function align(elements: any, rect: kendo.geometry.Rect, alignment: string): void;
         function drawDOM(element: JQuery, options: any): JQueryPromise<any>;
-        function exportImage(group: kendo.drawing.Group, options: any): JQueryPromise<any>;
-        function exportPDF(group: kendo.drawing.Group, options: kendo.drawing.PDFOptions): JQueryPromise<any>;
-        function exportSVG(group: kendo.drawing.Group, options: any): JQueryPromise<any>;
+        function exportImage(group: kendo.drawing.Group, options?: any): JQueryPromise<any>;
+        function exportPDF(group: kendo.drawing.Group, options?: kendo.drawing.PDFOptions): JQueryPromise<any>;
+        function exportSVG(group: kendo.drawing.Group, options?: any): JQueryPromise<any>;
         function fit(element: kendo.drawing.Element, rect: kendo.geometry.Rect): void;
         function stack(elements: any): void;
         function vAlign(elements: any, rect: kendo.geometry.Rect, alignment: string): void;
@@ -19617,6 +20246,43 @@ declare namespace kendo.spreadsheet {
 
 
 }
+
+declare namespace kendo.stepper {
+    class Step extends kendo.Class {
+        options: StepOptions;
+
+        constructor(options?: StepOptions);
+
+        deselect(): void;
+        enable(value: boolean): void;
+        select(): void;
+
+        getEnabled(): boolean;
+        getIndex(): number;
+        setPrevious(value: boolean): void;
+        getSelected(): boolean;
+        getSelectable(): boolean;
+        setValid(value: boolean): void;
+    }
+
+    interface StepOptions {
+        label?: string;
+        icon?: string;
+        successIcon?: string;
+        iconTemplate?: string|Function;
+        enabled?: boolean;
+        error?: boolean;
+        selected?: boolean;
+        isFirstStep?: boolean;
+        isLastStep?: boolean;
+        indicatorVisible?: boolean;
+        labelVisible?: boolean;
+        index?: number;
+        previous?: boolean;
+        selectable?: boolean;
+    }
+}
+
 declare namespace kendo.mobile.ui {
     class ActionSheet extends kendo.mobile.ui.Widget {
 
@@ -19662,6 +20328,52 @@ declare namespace kendo.mobile.ui {
     interface ActionSheetOpenEvent extends ActionSheetEvent {
         target?: JQuery;
         context?: JQuery;
+    }
+
+    class Badge extends kendo.ui.Widget {
+
+        static fn: Badge;
+
+        options: BadgeOptions;
+
+
+        element: JQuery;
+        wrapper: JQuery;
+
+        static extend(proto: Object): Badge;
+
+        constructor(element: Element, options?: BadgeOptions);
+
+
+        hide(): void;
+        setOptions(options: any): void;
+        show(): void;
+        value(newValue: string): void;
+        value(newValue: number): void;
+
+    }
+
+    interface BadgeOptions {
+        name?: string;
+        appearance?: string;
+        look?: string;
+        template?: string|Function;
+        type?: string;
+        value?: string|number;
+        visible?: boolean;
+        change?(e: BadgeChangeEvent): void;
+        hide?(e: BadgeEvent): void;
+        show?(e: BadgeEvent): void;
+    }
+    interface BadgeEvent {
+        sender: Badge;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+    interface BadgeChangeEvent extends BadgeEvent {
+        oldValue?: string|number;
+        newValue?: string|number;
     }
 
 
@@ -21868,6 +22580,10 @@ interface JQuery {
     kendoDialog(options: kendo.ui.DialogOptions): JQuery;
     data(key: "kendoDialog"): kendo.ui.Dialog;
 
+    kendoDrawer(): JQuery;
+    kendoDrawer(options: kendo.ui.DrawerOptions): JQuery;
+    data(key: "kendoDrawer"): kendo.ui.Drawer;
+
     kendoDraggable(): JQuery;
     kendoDraggable(options: kendo.ui.DraggableOptions): JQuery;
     data(key: "kendoDraggable"): kendo.ui.Draggable;
@@ -22084,6 +22800,10 @@ interface JQuery {
     kendoRangeSlider(options: kendo.ui.RangeSliderOptions): JQuery;
     data(key: "kendoRangeSlider"): kendo.ui.RangeSlider;
 
+    kendoRating(): JQuery;
+    kendoRating(options: kendo.ui.RatingOptions): JQuery;
+    data(key: "kendoRating"): kendo.ui.Rating;
+
     kendoResponsivePanel(): JQuery;
     kendoResponsivePanel(options: kendo.ui.ResponsivePanelOptions): JQuery;
     data(key: "kendoResponsivePanel"): kendo.ui.ResponsivePanel;
@@ -22124,13 +22844,21 @@ interface JQuery {
     kendoSwitch(options: kendo.ui.SwitchOptions): JQuery;
     data(key: "kendoSwitch"): kendo.ui.Switch;
 
-    kendoRating(): JQuery;
-    kendoRating(options: kendo.ui.RatingOptions): JQuery;
-    data(key: "kendoRating"): kendo.ui.Rating;
+    kendoStepper(): JQuery;
+    kendoStepper(options: kendo.ui.StepperOptions): JQuery;
+    data(key: "kendoStepper"): kendo.ui.Stepper;
 
     kendoTabStrip(): JQuery;
     kendoTabStrip(options: kendo.ui.TabStripOptions): JQuery;
     data(key: "kendoTabStrip"): kendo.ui.TabStrip;
+
+    kendoTextBox(): JQuery;
+    kendoTextBox(options: kendo.ui.TextBoxOptions): JQuery;
+    data(key: "kendoTextBox"): kendo.ui.TextBox;
+
+    kendoTileLayout(): JQuery;
+    kendoTileLayout(options: kendo.ui.TileLayoutOptions): JQuery;
+    data(key: "kendoTileLayout"): kendo.ui.TileLayout;
 
     kendoTimePicker(): JQuery;
     kendoTimePicker(options: kendo.ui.TimePickerOptions): JQuery;

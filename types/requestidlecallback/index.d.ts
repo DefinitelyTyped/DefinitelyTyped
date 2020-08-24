@@ -5,25 +5,30 @@
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 //                 Teramoto Daiki <https://github.com/teramotodaiki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
-export function request(callback: IdleRequestCallback, options?: IdleRequestOptions): IdleCallbackHandle;
-export function cancel(handle: IdleCallbackHandle): void;
+/// <reference lib="dom" />
 
-export type DOMHighResTimeStamp = number;
-export type IdleCallbackHandle = number;
-
-export type IdleRequestCallback = (deadline: IdleDeadline) => void;
-
-export interface IdleDeadline {
+interface IdleDeadline {
     timeRemaining(): DOMHighResTimeStamp;
     readonly didTimeout: boolean;
 }
 
-export interface IdleRequestOptions {
+interface IdleRequestOptions {
     timeout: number;
 }
 
-export interface Window {
+type IdleCallbackHandle = number;
+
+type IdleRequestCallback = (deadline: IdleDeadline) => void;
+
+interface Window {
     requestIdleCallback(callback: IdleRequestCallback, options?: IdleRequestOptions): IdleCallbackHandle;
     cancelIdleCallback(handle: number): void;
 }
+
+declare function requestIdleCallback(callback: IdleRequestCallback, options?: IdleRequestOptions): number;
+declare function cancelIdleCallback(handle: number): void;
+
+declare function request(callback: IdleRequestCallback, options?: IdleRequestOptions): IdleCallbackHandle;
+declare function cancel(handle: IdleCallbackHandle): void;

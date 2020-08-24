@@ -54,14 +54,6 @@ interface YouTubePlayerOptions {
      */
     related?: boolean;
     /**
-     * This parameter indicates whether the player should display information
-     * like the video title and uploader before the video starts playing. The
-     * default value is true.
-     * @deprecated Ignored after September 25, 2018
-     * @see https://developers.google.com/youtube/player_parameters#release_notes_08_23_2018
-     */
-    info?: boolean;
-    /**
      * The time between onTimeupdate callbacks, in milliseconds. Default is
      * 1000.
      */

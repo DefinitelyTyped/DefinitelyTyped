@@ -1,13 +1,5 @@
 {
     "files": [
-        "chip/adapter.d.ts",
-        "chip/constants.d.ts",
-        "chip/foundation.d.ts",
-        "chip/index.d.ts",
-        "chip-set/adapter.d.ts",
-        "chip-set/constants.d.ts",
-        "chip-set/foundation.d.ts",
-        "chip-set/index.d.ts",
         "index.d.ts"
     ],
     "compilerOptions": {

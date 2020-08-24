@@ -3,7 +3,7 @@ declare namespace echarts {
         /**
          * An axis with a single dimension. It can be used to display data in one dimension
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis
+         * @see https://echarts.apache.org/en/option.html#xAxis
          */
         interface SingleAxis extends BasicComponents.CartesianAxis {
             /**

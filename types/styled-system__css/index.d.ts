@@ -2,18 +2,21 @@
 // Project: https://github.com/styled-system/styled-system
 // Definitions by: Sebastian Sebald <https://github.com/sebald>
 //                 Bartosz Szewczyk <https://github.com/sztobar>
+//                 Ryan Dowling <https://github.com/RyanTheAllmighty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
 import * as CSS from 'csstype';
 
-type StandardCSSProperties = CSS.PropertiesFallback<number | string>;
+export {};
+
+export type StandardCSSProperties = CSS.PropertiesFallback<number | string>;
 
 /**
  * Omit exists in TypeScript >= v3.5, we're putting this here so typings can be
  * used with earlier versions of TypeScript.
  */
-type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 /**
  * The `css` function accepts arrays as values for mobile-first responsive styles.
@@ -41,23 +44,23 @@ export type CSSPseudoSelectorProps = { [K in CSS.Pseudos]?: SystemStyleObject };
  */
 export interface CSSObject extends CSSPropertiesWithMultiValues, CSSPseudosForCSSObject, CSSOthersObjectForCSSObject {}
 
-type CSSPropertiesWithMultiValues = {
+export type CSSPropertiesWithMultiValues = {
     [K in keyof CSSProperties]: CSSProperties[K];
 };
-type CSSPseudosForCSSObject = { [K in CSS.Pseudos]?: CSSObject };
-type CSSInterpolation = undefined | number | string | CSSObject;
-interface CSSOthersObjectForCSSObject {
+export type CSSPseudosForCSSObject = { [K in CSS.Pseudos]?: CSSObject };
+export type CSSInterpolation = undefined | number | string | CSSObject;
+export interface CSSOthersObjectForCSSObject {
     [propertiesName: string]: CSSInterpolation;
 }
 
 /**
  * Map all nested selectors
  */
-interface CSSSelectorObject {
+export interface CSSSelectorObject {
     [cssSelector: string]: SystemStyleObject;
 }
 
-interface AliasesCSSProperties {
+export interface AliasesCSSProperties {
     /**
      * The **`background-color`** CSS property sets the background color of an element.
      *
@@ -304,7 +307,7 @@ interface AliasesCSSProperties {
     paddingY?: StandardCSSProperties['paddingTop'];
 }
 
-interface OverwriteCSSProperties {
+export interface OverwriteCSSProperties {
     /**
      * The **`box-shadow`** CSS property adds shadow effects around an element's frame. You can set multiple effects separated by commas. A box shadow is described by X and Y offsets relative to the
      * element, blur and spread radii, and color.
@@ -318,7 +321,7 @@ interface OverwriteCSSProperties {
      *
      * @see https://developer.mozilla.org/docs/Web/CSS/box-shadow
      */
-    boxShadow?: CSS.BoxShadowProperty | number;
+    boxShadow?: CSS.Property.BoxShadow | number;
     /**
      * The **`font-weight`** CSS property specifies the weight (or boldness) of the font. The font weights available to you will depend on the `font-family` you are using. Some fonts are only
      * available in `normal` and `bold`.
@@ -331,7 +334,19 @@ interface OverwriteCSSProperties {
      *
      * @see https://developer.mozilla.org/docs/Web/CSS/font-weight
      */
-    fontWeight?: CSS.FontWeightProperty | string;
+    fontWeight?: CSS.Property.FontWeight | string;
+    /**
+     * The **`z-index`** CSS property sets the z-order of a positioned element and its descendants or flex items. Overlapping elements with a larger z-index cover those with a smaller one.
+     *
+     * **Initial value**: `auto`
+     *
+     * | Chrome | Firefox | Safari |  Edge  |  IE   |
+     * | :----: | :-----: | :----: | :----: | :---: |
+     * | **1**  |  **1**  | **1**  | **12** | **4** |
+     *
+     * @see https://developer.mozilla.org/docs/Web/CSS/z-index
+     */
+    zIndex?: CSS.Property.ZIndex | string;
 }
 
 /**
@@ -339,8 +354,8 @@ interface OverwriteCSSProperties {
  * Only used internally to map CCS properties to input types (responsive value,
  * theme function or nested) in `SystemCssProperties`.
  */
-interface AllSystemCSSProperties
-    extends Omit<CSSProperties, 'boxShadow' | 'fontWeight'>,
+export interface AllSystemCSSProperties
+    extends Omit<CSSProperties, 'boxShadow' | 'fontWeight' | 'zIndex'>,
         AliasesCSSProperties,
         OverwriteCSSProperties {}
 
@@ -351,7 +366,7 @@ export type SystemCssProperties = {
         | SystemStyleObject;
 };
 
-interface VariantProperty {
+export interface VariantProperty {
     /**
      * **`Variants`** can be useful for applying complex styles to a component based on a single prop.
      *
@@ -376,8 +391,12 @@ interface VariantProperty {
     variant: string;
 }
 
-interface UseThemeFunction {
+export interface UseThemeFunction {
     (theme: any): SystemStyleObject;
+}
+
+export interface EmotionLabel {
+    label?: string;
 }
 
 /**
@@ -390,13 +409,15 @@ export type SystemStyleObject =
     | CSSPseudoSelectorProps
     | CSSSelectorObject
     | VariantProperty
-    | UseThemeFunction;
+    | UseThemeFunction
+    | EmotionLabel
+    | null;
 
 /**
  * Helper to define theme values.
  *
  * Theme values can be nested, but their value eventually has to match a certain `CSSProperty`.
- * E.g. `colors.light.primary`, `primary` has to be from type `CSS.ColorProperty`.
+ * E.g. `colors.light.primary`, `primary` has to be from type `CSS.Property.Color`.
  */
 export type ThemeValue<T> =
     | T[]
@@ -415,7 +436,7 @@ export type Theme =
     | ThemeBreakPoints
     | { [variantPart: string]: Theme };
 
-interface ThemeBreakPoints {
+export interface ThemeBreakPoints {
     breakpoints: string[] | number[];
 }
 
@@ -428,11 +449,11 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#color
      */
-    colors?: ThemeValue<CSS.ColorProperty>;
+    colors?: ThemeValue<CSS.Property.Color>;
     /**
      * | Prop              | CSS Property                   | Theme Field |
      * | :---------------- | :----------------------------- | :---------- |
-     * | m, margin	       | margin                         | space       |
+     * | m, margin           | margin                         | space       |
      * | mt, marginTop     | margin-top                     | space       |
      * | mr, marginRight   | margin-right                   | space       |
      * | mb, marginBottom  | margin-bottom                  | space       |
@@ -449,7 +470,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#space
      */
-    space?: ThemeValue<CSS.MarginProperty<number> & CSS.PaddingProperty<number>>;
+    space?: ThemeValue<CSS.Property.Margin<number> & CSS.Property.Padding<number>>;
     /**
      * | Prop       | CSS Property | Theme Field |
      * | :--------- | :----------- | :---------- |
@@ -457,7 +478,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#typography
      */
-    fonts?: ThemeValue<CSS.FontFamilyProperty>;
+    fonts?: ThemeValue<CSS.Property.FontFamily>;
     /**
      * | Prop     | CSS Property | Theme Field |
      * | :------- | :----------- | :---------- |
@@ -465,7 +486,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#typography
      */
-    fontSizes?: ThemeValue<CSS.FontSizeProperty<number>>;
+    fontSizes?: ThemeValue<CSS.Property.FontSize<number>>;
     /**
      * | Prop       | CSS Property | Theme Field |
      * | :--------- | :----------- | :---------- |
@@ -473,7 +494,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#typography
      */
-    fontWeights?: ThemeValue<CSS.FontWeightProperty>;
+    fontWeights?: ThemeValue<CSS.Property.FontWeight>;
     /**
      * | Prop       | CSS Property | Theme Field |
      * | :--------- | :----------- | :---------- |
@@ -481,7 +502,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#typography
      */
-    lineHeights?: ThemeValue<CSS.LineHeightProperty<string>>;
+    lineHeights?: ThemeValue<CSS.Property.LineHeight<string>>;
     /**
      * | Prop          | CSS Property   | Theme Field    |
      * | :------------ | :------------- | :------------- |
@@ -489,7 +510,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#typography
      */
-    letterSpacings?: ThemeValue<CSS.LetterSpacingProperty<string | number>>;
+    letterSpacings?: ThemeValue<CSS.Property.LetterSpacing<string | number>>;
     /**
      * | Prop         | CSS Property               | Theme Field |
      * | :----------- | :------------------------- | :---------- |
@@ -503,7 +524,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#border
      */
-    borders?: ThemeValue<CSS.BorderProperty<{}>>;
+    borders?: ThemeValue<CSS.Property.Border<{}>>;
     /**
      * | Prop        | CSS Property | Theme Field  |
      * | :---------- | :----------- | :----------- |
@@ -511,7 +532,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#border
      */
-    borderWidths?: ThemeValue<CSS.BorderWidthProperty<{}>>;
+    borderWidths?: ThemeValue<CSS.Property.BorderWidth<{}>>;
     /**
      * | Prop        | CSS Property | Theme Field  |
      * | :---------- | :----------- | :----------- |
@@ -519,7 +540,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#border
      */
-    borderStyles?: ThemeValue<CSS.LineStyle>;
+    borderStyles?: ThemeValue<CSS.Property.BorderStyle>;
     /**
      * | Prop         | CSS Property  | Theme Field |
      * | :----------- | :------------ | :---------- |
@@ -527,7 +548,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#border
      */
-    radii?: ThemeValue<CSS.BorderRadiusProperty<{}>>;
+    radii?: ThemeValue<CSS.Property.BorderRadius<{}>>;
     /**
      * | Prop       | CSS Property | Theme Field |
      * | :--------- | :----------- | :---------- |
@@ -536,7 +557,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#shadow
      */
-    shadows?: ThemeValue<CSS.BoxShadowProperty>;
+    shadows?: ThemeValue<CSS.Property.BoxShadow>;
     /**
      * | Prop    | CSS Property | Theme Field |
      * | :------ | :----------- | :---------- |
@@ -544,7 +565,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#position
      */
-    zIndices?: ThemeValue<CSS.ZIndexProperty>;
+    zIndices?: ThemeValue<CSS.Property.ZIndex>;
     /**
      * | Prop      | CSS Property | Theme Field |
      * | :-------- | :----------- | :---------- |
@@ -558,7 +579,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#layout
      */
-    sizes?: ThemeValue<CSS.HeightProperty<{}> | CSS.WidthProperty<{}>>;
+    sizes?: ThemeValue<CSS.Property.Height<{}> | CSS.Property.Width<{}>>;
 }
 
 /**
@@ -568,7 +589,8 @@ export interface ScaleThemeProperties {
  * If you're using variants in your theme, you can access them by using the `variant`
  * property. The value of the property has to correspond to a path of your `Theme`.
  */
-export function css(input?: SystemStyleObject): (props?: Theme | { theme: Theme }) => CSSObject;
+export type CssFunctionReturnType = (props?: Theme | { theme: Theme }) => CSSObject;
+export function css(input?: SystemStyleObject): CssFunctionReturnType;
 export default css;
 
 /**

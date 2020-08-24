@@ -1,19 +1,15 @@
 import { Component, ComponentType, CSSProperties } from "react";
 import { CustomPickerProps } from "../../..";
+import { Classes } from "reactcss";
 
-export interface SliderPickerDefaultStyles {
-    hue?: CSSProperties;
-    Hue?: CSSProperties;
-}
-
-export interface SliderPickerStyles {
-    default?: SliderPickerDefaultStyles;
+export interface SliderPickerStylesProps {
+    hue: CSSProperties;
+    Hue: CSSProperties;
 }
 
 export interface SliderPickerProps extends CustomPickerProps {
     pointer?: ComponentType;
-    styles?: SliderPickerStyles;
-    className?: string;
+    styles?: Partial<Classes<SliderPickerStylesProps>>;
 }
 
-export default class SliderPicker extends Component<SliderPickerProps> {}
+export default class SliderPicker extends Component<SliderPickerProps> { }

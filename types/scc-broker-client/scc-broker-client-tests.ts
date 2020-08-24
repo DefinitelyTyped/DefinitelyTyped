@@ -1,41 +1,97 @@
-import * as scClusterBrokerClient from "scc-broker-client";
-import SCBroker = require("sc-broker/scbroker");
+import { attach } from 'scc-broker-client';
+import AGSimpleBroker = require('ag-simple-broker');
 
-const scBroker = new SCBroker();
+const agBroker = new AGSimpleBroker();
 
-const clusterBrokerClient = scClusterBrokerClient
-    .attach(scBroker, {
-        stateServerHost: "localhost",
-        stateServerPort: 8000,
-        mappingEngine: "simple",
-        clientPoolSize: 100,
-        authKey: "secret-key",
-        stateServerConnectTimeout: 10000,
-        stateServerAckTimeout: 1000,
-        stateServerReconnectRandomness: 100
-    })
-    .on("error", err => {
-        console.log(`Received ${err}`);
-    })
-    .on("subscribe", data => {
-        console.log(`Subscribed to ${data.channel}, ${data.poolIndex}, ${data.targetURI}`);
-    })
-    .on("subscribeFail", data => {
-        console.log(`Error ${data.error} while subscribing to ${data.channel}, ${data.poolIndex}, ${data.targetURI}`);
-    })
-    .on("publish", data => {
-        console.log(`Published ${data.data} to ${data.channel}, ${data.poolIndex}, ${data.targetURI}`);
-    })
-    .on("publishFail", data => {
-        console.log(`Error while publishing ${data.data} to ${data.channel}, ${data.poolIndex}, ${data.targetURI}`);
-    })
-    .on("message", (channelName, packet) => {
-        console.log(`Received ${packet} on channel ${channelName}`);
-    });
+const clusterBrokerClient = attach(agBroker, {
+    stateServerHost: 'localhost',
+    stateServerPort: 8000,
+    mappingEngine: 'simple',
+    clientPoolSize: 100,
+    authKey: 'secret-key',
+    stateServerConnectTimeout: 10000,
+    stateServerAckTimeout: 1000,
+    stateServerReconnectRandomness: 100,
+});
 
-clusterBrokerClient.subscribe("test-channel");
-clusterBrokerClient.publish("test-channel", "lalala");
+(async () => {
+    // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+    for await (const { error } of clusterBrokerClient.listener('error')) {
+        // $ExpectType Error
+        error;
+    }
 
-const subs = clusterBrokerClient.getAllSubscriptions();
+    // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+    for await (const { channel, poolIndex, targetURI } of clusterBrokerClient.listener('subscribe')) {
+        // $ExpectType string
+        channel;
 
-clusterBrokerClient.unsubscribe("test-channel");
+        // $ExpectType number
+        poolIndex;
+
+        // $ExpectType string
+        targetURI;
+    }
+
+    // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+    for await (const { channel, poolIndex, targetURI, error } of clusterBrokerClient.listener('subscribeFail')) {
+        // $ExpectType string
+        channel;
+
+        // $ExpectType number
+        poolIndex;
+
+        // $ExpectType string
+        targetURI;
+
+        // $ExpectType Error
+        error;
+    }
+
+    // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+    for await (const { targetURI, poolIndex, channel, data } of clusterBrokerClient.listener('publish')) {
+        // $ExpectType string
+        targetURI;
+
+        // $ExpectType number
+        poolIndex;
+
+        // $ExpectType string
+        channel;
+
+        // $ExpectType any
+        data;
+    }
+
+    // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+    for await (const { targetURI, poolIndex, channel, error } of clusterBrokerClient.listener('publishFail')) {
+        // $ExpectType string
+        targetURI;
+
+        // $ExpectType number
+        poolIndex;
+
+        // $ExpectType string
+        channel;
+
+        // $ExpectType Error
+        error;
+    }
+
+    // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+    for await (const { channelName, packet } of clusterBrokerClient.listener('message')) {
+        // $ExpectType string
+        channelName;
+
+        // $ExpectType any
+        packet;
+    }
+})();
+
+clusterBrokerClient.subscribe('test-channel');
+clusterBrokerClient.invokePublish('test-channel', 'lalala');
+
+// $ExpectType string[]
+clusterBrokerClient.getAllSubscriptions();
+
+clusterBrokerClient.unsubscribe('test-channel');

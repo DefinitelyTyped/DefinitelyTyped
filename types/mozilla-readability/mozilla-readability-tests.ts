@@ -1,5 +1,10 @@
 import Readability = require('mozilla-readability');
-import { JSDOM } from 'jsdom';
+
+declare class JSDOM {
+    constructor(html?: string);
+
+    readonly window: Window;
+}
 
 // Compiling requires `--noImplicitUseStrict`
 // because issue https://github.com/mozilla/readability/issues/346
@@ -20,10 +25,4 @@ function test_readability_with_options() {
         maxElemsToParse: 100,
     };
     const article = new Readability(dom.window.document, options).parse();
-}
-
-function test_is_probably_readerable() {
-    const dom = new JSDOM(`<p>Hello</p><p><strong>Hi!</strong>`);
-
-    const isReadable = new Readability(dom.window.document).isProbablyReaderable();
 }

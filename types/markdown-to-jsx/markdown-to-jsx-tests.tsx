@@ -9,9 +9,70 @@ compiler('Hello there old chap!', { forceBlock: true });
 
 <Markdown options={{ forceInline: true }}># You got it babe!</Markdown>;
 
-const MyParagraph: React.FunctionComponent = ({ children, ...props }) => (
-    <div {...props}>{children}</div>
-);
+const MyParagraph: React.SFC = ({ children, ...props }) => <div {...props}>{children}</div>;
+
+interface MySquareImageProps {
+    src: string;
+    alt?: string;
+    size?: number;
+}
+
+const MySquareImage = (props: MySquareImageProps) => {
+    let width: string | undefined;
+    let height: string | undefined;
+    if (props.size) {
+        width = `${props.size}px`;
+        height = `${props.size}px`;
+    }
+    return <img alt={props.alt} src={props.src} width={width} height={height} />;
+};
+
+interface MyStatelessRoundImageProps {
+    src: string;
+    alt?: string;
+    size?: number;
+}
+
+class MyStatelessRoundImage extends React.Component<MyStatelessRoundImageProps> {
+    render() {
+        let width: string | undefined;
+        let height: string | undefined;
+        if (this.props.size) {
+            width = `${this.props.size}px`;
+            height = `${this.props.size}px`;
+        }
+        return <img alt={this.props.alt} src={this.props.src} width={width} height={height} />;
+    }
+}
+
+interface MyRoundImageProps {
+    src: string;
+    alt?: string;
+    size?: number;
+}
+
+interface MyRoundImageState {
+    loading: boolean;
+}
+
+class MyRoundImage extends React.Component<MyRoundImageProps, MyRoundImageState> {
+    constructor(props: MyRoundImageProps) {
+        super(props);
+        this.state = {
+            loading: true,
+        };
+    }
+    render() {
+        let width: string | undefined;
+        let height: string | undefined;
+        if (this.props.size) {
+            width = `${this.props.size}px`;
+            height = `${this.props.size}px`;
+        }
+        return <img alt={this.props.alt} src={this.props.src} width={width} height={height} />;
+    }
+}
+
 render(
     <Markdown
         options={{
@@ -23,23 +84,41 @@ render(
                     },
                 },
                 h2: {
-                    component: 'div'
+                    component: 'div',
                 },
                 h3: {
                     component: 'span',
                     props: {
-                        className: 'foo'
-                    }
+                        className: 'foo',
+                    },
                 },
                 p: MyParagraph,
                 h4: 'h3',
-                MyParagraph
+                MyParagraph,
+                MySquareImage: {
+                    component: MySquareImage,
+                    props: {
+                        size: 240,
+                    },
+                },
+                MyRoundImage: {
+                    component: MyRoundImage,
+                    props: {
+                        size: 240,
+                    },
+                },
+                MyStatelessRoundImage: {
+                    component: MyStatelessRoundImage,
+                    props: {
+                        size: 240,
+                    },
+                },
             },
         }}
     >
         # Hello world!
-  </Markdown>,
-    document.body
+    </Markdown>,
+    document.body,
 );
 
 render(
@@ -47,19 +126,22 @@ render(
         children="# Hello world"
         options={{
             createElement: <P extends {}>(
-                type: React.FunctionComponent<P> | React.ComponentClass<P> | string,
+                type: React.SFC<P> | React.ComponentClass<P> | string,
                 // This typing is copied from React
                 // tslint:disable-next-line:no-null-undefined-union
-                props?: React.Attributes & P | null,
+                props?: (React.Attributes & P) | null,
                 // tslint:disable-next-line:no-null-undefined-union
-                ...children: React.ReactNode[]) => (
-                    <div className="parent">
-                        {React.createElement(type, props, children)}
-                    </div>
-                )
+                ...children: React.ReactNode[]
+            ) => <div className="parent">{React.createElement(type, props, children)}</div>,
         }}
     />,
-    document.body
+    document.body,
 );
 
 <Markdown options={{ slugify: str => str }}># 中文</Markdown>;
+
+// supports passing extra properties to the underlying element
+<Markdown className="markdown-body">{`
+# Header 1
+## Header 2
+`}</Markdown>;

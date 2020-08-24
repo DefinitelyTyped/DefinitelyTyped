@@ -1,11 +1,6 @@
 {
-    "files": [
-        "index.d.ts",
-        "workbox-sw-tests.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es2017",
         "lib": [
             "es2015",
             "webworker"
@@ -21,5 +16,9 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "workbox-sw-tests.ts"
+    ]
 }

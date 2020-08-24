@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "component.d.ts",
         "next-nprogress-tests.tsx"
     ]
 }

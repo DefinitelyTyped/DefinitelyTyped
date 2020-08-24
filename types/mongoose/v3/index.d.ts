@@ -1,9 +1,11 @@
-// Type definitions for Mongoose 3.8.5
+// Type definitions for mongoose 3.8
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
+
+import { EventEmitter } from 'events';
 
 declare module "mongoose" {
   function connect(uri: string, options?: ConnectionOptions , callback?: (err: any) => void): Mongoose;
@@ -45,7 +47,7 @@ declare module "mongoose" {
     Promise: any;
   }
 
-  export class Connection extends NodeJS.EventEmitter {
+  export class Connection extends EventEmitter {
     constructor(base: Mongoose);
 
     close(callback?: (err: any) => void): Connection;
@@ -248,7 +250,7 @@ declare module "mongoose" {
       isValid(): boolean;
       static createFromTime(time: number): ObjectId;
       static createFromHexString(hexString: string): ObjectId;
-	  static isValid(id?: string|number):boolean;
+      static isValid(id?: string|number):boolean;
     }
   }
 

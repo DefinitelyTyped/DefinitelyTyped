@@ -26,6 +26,9 @@ import {
     useDispatch,
     useSelector,
     useStore,
+    createDispatchHook,
+    createSelectorHook,
+    createStoreHook,
     TypedUseSelectorHook,
 } from 'react-redux';
 import objectAssign = require('object-assign');
@@ -1354,7 +1357,9 @@ function testUseSelector() {
         return l === r;
     });
 
-    useSelector(selector, shallowEqual);
+    const correctlyInferred: State = useSelector(selector, shallowEqual);
+    const inferredTypeIsNotString: string = useSelector(selector, shallowEqual); // $ExpectError
+
     const compare = (_l: number, _r: number) => true;
     useSelector(() => 1, compare);
     const compare2 = (_l: number, _r: string) => true;
@@ -1391,6 +1396,21 @@ function testUseStore() {
     const typedState = typedStore.getState();
     typedState.counter;
     typedState.things.stuff; // $ExpectError
+}
+
+// These should match the types of the hooks.
+function testCreateHookFunctions() {
+    // $ExpectType { <TDispatch = Dispatch<any>>(): TDispatch; <A extends Action<any> = AnyAction>(): Dispatch<A>; }
+    createDispatchHook();
+    // $ExpectType <TState = DefaultRootState, TSelected = unknown>(selector: (state: TState) => TSelected, equalityFn?: ((left: TSelected, right: TSelected) => boolean) | undefined) => TSelected
+    createSelectorHook();
+    interface RootState {
+        property: string;
+    }
+    // Should be able to create a version typed for a specific root state.
+    const useTypedSelector: TypedUseSelectorHook<RootState> = createSelectorHook();
+    // $ExpectType <S = any, A extends Action<any> = AnyAction>() => Store<S, A>
+    createStoreHook();
 }
 
 function testConnectedProps() {
@@ -1452,4 +1472,39 @@ function testConnectReturnType() {
 
     const myHoc2 = <P, >(C: React.FC<P>): React.ComponentType<P> => C;
     myHoc2(Test);
+}
+
+function testRef() {
+    const FunctionalComponent: React.FC = () => null;
+    const ForwardedFunctionalComponent = React.forwardRef<string>(() => null);
+    class ClassComponent extends React.Component {}
+
+    const ConnectedFunctionalComponent = connect()(FunctionalComponent);
+    const ConnectedForwardedFunctionalComponent = connect()(ForwardedFunctionalComponent);
+    const ConnectedClassComponent = connect()(ClassComponent);
+
+    // Should not be able to pass any type of ref to a FunctionalComponent
+    // ref is not a valid property
+    <ConnectedFunctionalComponent ref={React.createRef<any>()}></ConnectedFunctionalComponent>; // $ExpectError
+    <ConnectedFunctionalComponent ref={(ref: any) => {}}></ConnectedFunctionalComponent>; // $ExpectError
+    <ConnectedFunctionalComponent ref={''}></ConnectedFunctionalComponent>; // $ExpectError
+
+    // Should be able to pass modern refs to a ForwardRefExoticComponent
+    const modernRef: React.Ref<string> | undefined = undefined;
+    <ConnectedForwardedFunctionalComponent ref={modernRef}></ConnectedForwardedFunctionalComponent>;
+    // Should not be able to use legacy string refs
+    <ConnectedForwardedFunctionalComponent ref={''}></ConnectedForwardedFunctionalComponent>; // $ExpectError
+    // ref type should agree with type of the fowarded ref
+    <ConnectedForwardedFunctionalComponent ref={React.createRef<number>()}></ConnectedForwardedFunctionalComponent>; // $ExpectError
+    <ConnectedForwardedFunctionalComponent ref={(ref: number) => {}}></ConnectedForwardedFunctionalComponent>; // $ExpectError
+
+    // Should be able to use all refs including legacy string
+    const classLegacyRef: React.LegacyRef<ClassComponent> | undefined = undefined;
+    <ConnectedClassComponent ref={classLegacyRef}></ConnectedClassComponent>;
+    <ConnectedClassComponent ref={React.createRef<ClassComponent>()}></ConnectedClassComponent>;
+    <ConnectedClassComponent ref={(ref: ClassComponent) => {}}></ConnectedClassComponent>;
+    <ConnectedClassComponent ref={''}></ConnectedClassComponent>;
+    // ref type should be the typeof the wrapped component
+    <ConnectedClassComponent ref={React.createRef<string>()}></ConnectedClassComponent>; // $ExpectError
+    <ConnectedClassComponent ref={(ref: string) => {}}></ConnectedClassComponent>; // $ExpectError
 }

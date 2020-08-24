@@ -1,11 +1,14 @@
 import { WindowEvent, BaseEventMap, ApplicationEvent } from './base';
 import { WindowAlertRequestedEvent, WindowAuthRequestedEvent, WindowEndLoadEvent, PropagatedWindowEvents, WindowPerformanceReport } from './window';
-import { Bounds } from '../../shapes';
+import { Bounds } from '../../shapes/shapes';
+import { PropagatedViewEvents } from './view';
+import { ManifestInfo } from '../application/application';
 export interface CrashedEvent {
     reason: 'normal-termination' | 'abnormal-termination' | 'killed' | 'crashed' | 'still-running' | 'launch-failed' | 'out-of-memory';
 }
 export interface RunRequestedEvent<Topic, Type> extends ApplicationEvent<Topic, Type> {
     userAppConfigArgs: any;
+    manifest: ManifestInfo;
 }
 export interface TrayIconClicked<Topic, Type> extends ApplicationEvent<Topic, Type> {
     button: 0 | 1 | 2;
@@ -46,13 +49,16 @@ export interface PropagatedApplicationEventMapping<Topic = string, Type = string
     'application-started': ApplicationEvent<Topic, Type>;
     'application-tray-icon-clicked': TrayIconClicked<Topic, Type>;
     'window-created': WindowEvent<Topic, Type>;
+    'window-did-change-theme-color': WindowEvent<Topic, Type>;
     'window-end-load': WindowEndLoadEvent<Topic, Type>;
     'window-not-responding': WindowEvent<Topic, Type>;
+    'window-page-favicon-updated': WindowEvent<Topic, Type>;
+    'window-page-title-updated': WindowEvent<Topic, Type>;
     'window-performance-report': WindowPerformanceReport<Topic, Type>;
     'window-responding': WindowEvent<Topic, Type>;
     'window-start-load': WindowEvent<Topic, Type>;
 }
-export declare type ApplicationEvents = PropagatedWindowEvents<'application'> & {
+export declare type ApplicationEvents = PropagatedWindowEvents<'application'> & PropagatedViewEvents<'application'> & {
     [Type in keyof ApplicationEventMapping]: ApplicationEventMapping<'application', Type>[Type];
 };
 export declare type PropagatedApplicationEvents<Topic> = {

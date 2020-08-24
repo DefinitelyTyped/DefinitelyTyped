@@ -1,8 +1,9 @@
-// Type definitions for dayzed 2.2
+// Type definitions for dayzed 3.1
 // Project: https://github.com/deseretdigital/dayzed
 // Definitions by: Sam A. Horvath-Hunt <https://github.com/samhh>
+//                 Dan Fields <https://github.com/hustonf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.5
 
 import { Component, ReactNode } from 'react';
 
@@ -52,6 +53,8 @@ export interface Props {
     onOffsetChanged?(offset: number): void;
     onDateSelected(selectedDate: DateObj): void;
 }
+
+export function useDayzed(props: Omit<Props, "children" | "render">): RenderProps;
 
 declare class Dayzed extends Component<Props> {}
 

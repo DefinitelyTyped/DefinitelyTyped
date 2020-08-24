@@ -13,7 +13,7 @@ declare module ActionCable {
   }
 
   interface Subscriptions {
-    create(channel: string|ChannelNameWithParams, obj: CreateMixin): Channel;
+    create(channel: string|ChannelNameWithParams, obj?: CreateMixin): Channel;
   }
 
   interface Cable {
@@ -25,10 +25,10 @@ declare module ActionCable {
   }
 
   interface CreateMixin {
-    connected(): void;
-    disconnected(): void;
-    received(obj: any): void;
-    [key: string]: Function;
+    connected?(): void;
+    disconnected?(): void;
+    received?(obj: any): void;
+    [key: string]: any;
   }
 
   interface ChannelNameWithParams {

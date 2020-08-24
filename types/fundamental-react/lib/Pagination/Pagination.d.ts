@@ -1,30 +1,23 @@
 import * as React from "react";
 
 export type PaginationProps = {
-    /* Total number of items. itemsTotal / itemsPerPage calculates how many navigation items should be shown in the control. */
     itemsTotal: number;
-    onClick: (page: number) => void;
+    onClick: (...args: any[]) => any;
     className?: string;
-    /* Set to **true** to show total number of items along with `totalText` string. */
+    disableStyles?: boolean;
     displayTotal?: boolean;
-    /* Initial page to be selected. */
+    displayTotalProps?: any;
     initialPage?: number;
-    /* Number of items to display on page. */
     itemsPerPage?: number;
-    /* Additional props to be spread to the page number `<a>` elements. */
-    linkProps?: { [x: string]: any };
+    linkProps?: any;
     localizedText?: {
-        /* Value for aria-label on the next <a> element. */
         next: string;
-        /* Value for aria-label on the previous <a> element. */
         previous: string;
     };
-    /* Additional props to be spread to the next arrow `<a>` element. */
-    nextProps?: { [x: string]: any };
-    /* Additional props to be spread to the previous arrow `<a>` element. */
-    prevProps?: { [x: string]: any };
-    /* Localized text to display next to the total number of items.  Used with `displayTotal`. */
+    nextProps?: any;
+    prevProps?: any;
     totalText?: string;
+    visiblePageTotal?: number;
 } & { [x: string]: any };
 
 declare class Pagination extends React.Component<PaginationProps> {}

@@ -8,6 +8,7 @@
 //                 Behind The Math <https://github.com/BehindTheMath>
 //                 3af <https://github.com/3af>
 //                 Janne Liuhtonen <https://github.com/jliuhtonen>
+//                 Raphaël Barbazza <https://github.com/rbarbazz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -19,7 +20,7 @@ export as namespace Papa;
  * Parse a csv string, a csv file or a readable stream
  */
 export const parse: {
-    (input: string | File | NodeJS.ReadableStream, config?: ParseConfig): ParseResult;
+    <T>(input: string | File | NodeJS.ReadableStream, config?: ParseConfig<T>): ParseResult<T>;
     (stream: NODE_STREAM_INPUT_TYPE, config?: ParseConfig): NodeJS.ReadWriteStream;
 };
 
@@ -35,10 +36,12 @@ export const unparse: (data: Array<Object> | Array<Array<any>> | UnparseObject, 
 export const BAD_DELIMETERS: Array<string>;
 
 // The true delimiter. Invisible. ASCII code 30. Should be doing the job we strangely rely upon commas and tabs for.
-export const RECORD_SEP: string;
+declare type RECORD_SEP_TYPE = '';
+export const RECORD_SEP = '';
 
 // Also sometimes used as a delimiting character. ASCII code 31.
-export const UNIT_SEP: string;
+declare type UNIT_SEP_TYPE = '';
+export const UNIT_SEP = '';
 
 // Whether or not the browser supports HTML5 Web Workers. If false, worker: true will have no effect.
 export const WORKERS_SUPPORTED: boolean;
@@ -50,6 +53,9 @@ export let SCRIPT_PATH: string;
 // When passed to Papa Parse a Readable stream is returned.
 declare type NODE_STREAM_INPUT_TYPE = 1;
 export const NODE_STREAM_INPUT = 1;
+
+// The possible values for the ParseConfig property delimitersToGuess
+declare type GuessableDelimiters = ',' | '\t' | '|' | ';' | RECORD_SEP_TYPE | UNIT_SEP_TYPE;
 
 /**
  * Configurable Properties
@@ -84,10 +90,11 @@ export class Parser {
     resume(): void;
 }
 
-export interface ParseConfig {
+export interface ParseConfig<T = any> {
     delimiter?: string; // default: ","
     newline?: string; // default: "\r\n"
     quoteChar?: string; // default: '"'
+    escapeChar?: string; // default: '"'
     header?: boolean; // default: false
     trimHeaders?: boolean; // default: false
     dynamicTyping?:
@@ -99,18 +106,21 @@ export interface ParseConfig {
     worker?: boolean; // default: false
     comments?: boolean | string; // default: false
     download?: boolean; // default: false
+    downloadRequestHeaders?: { [headerName: string]: string }; // default: undefined
     skipEmptyLines?: boolean | 'greedy'; // default: false
     fastMode?: boolean; // default: undefined
     withCredentials?: boolean; // default: undefined
+    delimitersToGuess?: GuessableDelimiters[]; // default: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
+    chunkSize?: number; // default: undefined
 
     // Callbacks
-    step?(results: ParseResult, parser: Parser): void; // default: undefined
-    complete?(results: ParseResult, file?: File): void; // default: undefined
+    step?(results: ParseResult<T>, parser: Parser): void; // default: undefined
+    complete?(results: ParseResult<T>, file?: File): void; // default: undefined
     error?(error: ParseError, file?: File): void; // default: undefined
-    chunk?(results: ParseResult, parser: Parser): void; // default: undefined
+    chunk?(results: ParseResult<T>, parser: Parser): void; // default: undefined
     beforeFirstChunk?(chunk: string): string | void; // default: undefined
     transform?(value: string, field: string | number): any; // default: undefined
-    transformHeader?(header: string): string; // default: undefined
+    transformHeader?(header: string, index?: number): string; // default: undefined
 }
 
 export interface UnparseConfig {
@@ -152,8 +162,8 @@ export interface ParseMeta {
  * errors: is an array of errors
  * meta: contains extra information about the parse, such as delimiter used, the newline sequence, whether the process was aborted, etc. Properties in this object are not guaranteed to exist in all situations
  */
-export interface ParseResult {
-    data: Array<any>;
+export interface ParseResult<T> {
+    data: Array<T>;
     errors: Array<ParseError>;
     meta: ParseMeta;
 }

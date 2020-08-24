@@ -20,24 +20,22 @@ export interface NativeHelper {
 }
 
 export type Blocks = Record<string, () => string>;
-export type SqrlFn = (options: TemplateOptions, Sqrl: any) => string;
-export type TemplateOptions = Record<string, string | number>;
+export type SqrlFn = (options: object, Sqrl: any) => string;
+export type HelperCallback = (args: string[], content: () => string, blocks: Blocks) => string;
 
-export function __express(filePath: string, options: TemplateOptions, callback: (...args: any[]) => any): void;
+export function __express(filePath: string, options: object, callback: (...args: any[]) => any): void;
 
 export function autoEscaping<T extends boolean>(bool: T): T;
 export function Compile(str: string): SqrlFn;
 export function defaultTags(tagArray: string[]): void;
 export function defineFilter(name: string, callback: (str: string) => string): void;
-export function defineHelper(
-    name: string,
-    callback: (args: string[], content: () => string, blocks: Blocks) => string,
-): void;
+export function defineHelper(name: string, callback: HelperCallback): void;
 export function defineNativeHelper(name: string, obj: NativeHelper): void;
 export function definePartial(name: string, str: string): void;
-export function load(options: Options, str?: string): SqrlFn;
-export function Render(template: string | SqrlFn, options: TemplateOptions): string;
-export function renderFile(filePath: string, options: TemplateOptions): string;
+export function load(options: Options): SqrlFn | string;
+export function load(options: Options, str: string): SqrlFn;
+export function Render(template: string | SqrlFn, options: object): string;
+export function renderFile(filePath: string, options: object): string;
 export function setDefaultFilters(obj: 'clear' | Record<string, boolean>): void;
 
 export namespace F {

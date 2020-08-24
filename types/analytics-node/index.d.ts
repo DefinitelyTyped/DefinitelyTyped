@@ -3,11 +3,16 @@
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
 //                 Thomas Thiebaud <https://github.com/thomasthiebaud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 export = AnalyticsNode.Analytics;
 
 declare namespace AnalyticsNode {
-  interface Message {
+  type Identity =
+    | { userId: string | number }
+    | { userId?: string | number; anonymousId: string | number };
+
+  type Message = Identity & {
     type: string;
     context: {
       library: {
@@ -22,9 +27,7 @@ declare namespace AnalyticsNode {
     };
     timestamp?: Date;
     messageId?: string;
-    anonymousId?: string | number;
-    userId?: string | number;
-  }
+  };
 
   interface Data {
     batch: Message[];
@@ -43,14 +46,13 @@ declare namespace AnalyticsNode {
       flushAt?: number,
       flushInterval?: number,
       host?: string,
-      enable?: boolean
+      enable?: boolean,
+      timeout?: number | string,
     });
 
     /* The identify method lets you tie a user to their actions and record
        traits about them. */
-    identify(message: {
-      userId?: string | number;
-      anonymousId?: string | number;
+    identify(message: Identity & {
       traits?: any;
       timestamp?: Date;
       context?: any;
@@ -58,9 +60,7 @@ declare namespace AnalyticsNode {
     }, callback?: (err: Error, data: Data) => void): Analytics;
 
     /* The track method lets you record the actions your users perform. */
-    track(message: {
-      userId?: string | number;
-      anonymousId?: string | number;
+    track(message: Identity & {
       event: string;
       properties?: any;
       timestamp?: Date;
@@ -70,9 +70,7 @@ declare namespace AnalyticsNode {
 
     /* The page method lets you record page views on your website, along with
        optional extra information about the page being viewed. */
-    page(message: {
-      userId?: string | number;
-      anonymousId?: string | number;
+    page(message: Identity & {
       category?: string;
       name?: string;
       properties?: any;
@@ -82,18 +80,14 @@ declare namespace AnalyticsNode {
     }, callback?: (err: Error, data: Data) => void): Analytics;
 
     /* alias is how you associate one identity with another. */
-    alias(message: {
+    alias(message: Identity & {
       previousId: string | number;
-      userId?: string | number;
-      anonymousId?: string | number;
       integrations?: Integrations;
     }, callback?: (err: Error, data: Data) => void): Analytics;
 
     /* Group calls can be used to associate individual users with shared
        accounts or companies. */
-    group(message: {
-      userId?: string | number;
-      anonymousId?: string | number;
+    group(message: Identity & {
       groupId: string | number;
       traits?: any;
       context?: any;

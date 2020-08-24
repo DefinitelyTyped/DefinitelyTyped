@@ -10,7 +10,7 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "strictFunctionTypes": false
+        "strictFunctionTypes": true
     },
     "files": ["index.d.ts", "nextgen-events-tests.ts"]
 }

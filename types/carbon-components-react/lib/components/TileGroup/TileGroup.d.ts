@@ -12,7 +12,7 @@ interface InheritedProps {
 export interface TileGroupProps extends InheritedProps {
     defaultSelected?: TileGroupProps["valueSelected"],
     legend?: string,
-    onChange?(value: TileGroupProps["valueSelected"], name: TileGroupProps["name"], event: RadioTileChangeEvent): void,
+    onChange?(value: NonNullable<TileGroupProps["valueSelected"]>, name: NonNullable<TileGroupProps["name"]>, event: RadioTileChangeEvent): void,
     valueSelected?: string | number,
 }
 

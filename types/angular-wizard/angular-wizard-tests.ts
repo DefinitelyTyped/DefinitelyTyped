@@ -6,6 +6,7 @@ import * as ng from "angular";
 import * as angular from "angular";
 
 interface IWizardScope extends ng.IScope {
+    editMode: boolean;
     referenceCurrentStep: string;
     stepValidation: () => void;
     finishedWizard: () => void;
@@ -30,7 +31,8 @@ describe('AngularWizard', function () {
      */
     function createGenericView(scope: IWizardScope) {
         scope.referenceCurrentStep = null;
-        var element = angular.element('<wizard on-finish="finishedWizard()" current-step="referenceCurrentStep" ng-init="msg = 14" >'
+        scope.editMode = false;
+        var element = angular.element('<wizard on-finish="finishedWizard()" current-step="referenceCurrentStep" ng-init="msg = 14" edit-mode="editMode">'
             + '    <wz-step wz-title="Starting" canenter="enterValidation" description="Step description">'
             + '        <h1>This is the first step</h1>'
             + '        <p>Here you can use whatever you want. You can use other directives, binding, etc.</p>'
@@ -305,5 +307,14 @@ describe('AngularWizard', function () {
         scope.dynamicStepDisabled = 'Y';
         var view = createGenericView(scope);
         expect((<any>view.isolateScope()).steps[0].description).toEqual('Step description');
+    });
+    it("should set edit mode through custom method", () => {
+        const scope = <IWizardScope>$rootScope.$new();
+        scope.editMode = true;
+        createGenericView(scope);
+        expect(scope.editMode).toBeTrue();
+        WizardHandler.wizard().setEditMode(false);
+        $rootScope.$digest();
+        expect(scope.editMode).toBeFalse();
     });
 });

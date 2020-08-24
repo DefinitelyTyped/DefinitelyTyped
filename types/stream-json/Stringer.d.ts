@@ -12,6 +12,7 @@ declare namespace Stringer {
         useKeyValues?: boolean;
         useStringValues?: boolean;
         useNumberValues?: boolean;
+        makeArray?: boolean;
     }
 
     function make(options?: StringerOptions): Stringer;

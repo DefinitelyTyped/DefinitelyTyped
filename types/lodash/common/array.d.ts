@@ -1128,7 +1128,7 @@ declare module "../index" {
          * @param arrays The arrays to inspect.
          * @return Returns the new array of shared values.
          */
-        intersection<T>(...arrays: Array<List<T>>): T[];
+        intersection<T>(...arrays: Array<List<T> | null | undefined>): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -1137,7 +1137,7 @@ declare module "../index" {
          */
         intersection<T>(
             this: LoDashImplicitWrapper<List<T>>,
-            ...arrays: Array<List<T>>
+            ...arrays: Array<List<T> | null | undefined>
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -1147,7 +1147,7 @@ declare module "../index" {
          */
         intersection<T>(
             this: LoDashExplicitWrapper<List<T>>,
-            ...arrays: Array<List<T>>
+            ...arrays: Array<List<T> | null | undefined >
         ): LoDashExplicitWrapper<T[]>;
     }
 
@@ -1341,7 +1341,7 @@ declare module "../index" {
          */
         intersectionWith<T>(
             array?: List<T> | null,
-            ...values: Array<List<T>>
+            ...values: Array<List<T> | Comparator2<T, never>>
         ): T[];
     }
 

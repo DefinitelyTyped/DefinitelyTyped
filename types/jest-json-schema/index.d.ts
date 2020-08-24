@@ -3,14 +3,14 @@
 // Definitions by: Igor Korolev <https://github.com/deadNightTiger>
 //                 Matt Scheurich <https://github.com/lvl99>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.1
 
 /// <reference types="jest" />
 import * as ajv from 'ajv';
 
 declare global {
     namespace jest {
-        interface Matchers<R> {
+        interface Matchers<R, T> {
             toBeValidSchema(): R;
             toMatchSchema(schema: object): R;
         }

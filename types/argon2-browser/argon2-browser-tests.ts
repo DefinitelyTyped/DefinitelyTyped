@@ -24,4 +24,6 @@ const verifyOptions = {
   (await argon2.hash({ ...mandatoryOptions, type: argon2.ArgonType.Argon2i })).encoded; // string
 
   await argon2.verify(verifyOptions); // undefined
+
+  argon2.unloadRuntime(); // void
 })();

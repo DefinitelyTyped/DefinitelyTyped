@@ -1,11 +1,13 @@
-import * as React from "react";
 import ControlledPasswordInput from "./ControlledPasswordInput";
 import PasswordInput from "./PasswordInput";
-import { TextInputInheritedProps } from "./props";
+import { TextInputSharedProps } from "./props";
+import { ForwardRefReturn, CarbonInputSize } from "../../../typings/shared";
 
-export interface TextInputProps extends TextInputInheritedProps { }
+export interface TextInputProps extends TextInputSharedProps {
+    size?: Extract<CarbonInputSize, "sm" | "xl">,
+}
 
-interface TextInputFC extends React.RefForwardingComponent<HTMLInputElement, TextInputProps> {
+interface TextInputFC extends ForwardRefReturn<HTMLInputElement, TextInputProps> {
     readonly ControlledPasswordInput: typeof ControlledPasswordInput,
     readonly PasswordInput: typeof PasswordInput,
 }

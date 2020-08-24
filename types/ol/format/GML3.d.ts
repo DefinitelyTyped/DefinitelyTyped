@@ -11,7 +11,7 @@ export default class GML3 extends GMLBase {
     protected GEOMETRY_FLAT_COORDINATES_PARSERS: { [key: string]: { [key: string]: Parser } };
     protected GEOMETRY_PARSERS: { [key: string]: { [key: string]: Parser } };
     writeEnvelope(node: Element, extent: Extent, objectStack: any[]): void;
-    writeFeatureElement(node: Element, feature: Feature, objectStack: any[]): void;
-    writeFeatures(features: Feature[], opt_options?: WriteOptions): string;
+    writeFeatureElement(node: Element, feature: Feature<Geometry>, objectStack: any[]): void;
+    writeFeatures(features: Feature<Geometry>[], opt_options?: WriteOptions): string;
     writeGeometryElement(node: Node, geometry: Geometry | Extent, objectStack: any[]): void;
 }

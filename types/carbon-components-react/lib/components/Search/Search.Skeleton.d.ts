@@ -1,12 +1,10 @@
 import * as React from "react";
-import { ReactLabelAttr, SizingProps } from "../../../typings/shared";
+import { SizingProps, ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends SizingProps {
-    id?: ReactLabelAttr["htmlFor"],
-}
+interface InheritedProps extends ReactDivAttr, SizingProps { }
 
 export interface SearchSkeletonProps extends InheritedProps { }
 
-declare class SearchSkeleton extends React.Component<SearchSkeletonProps> { }
+declare const SearchSkeleton: React.FC<SearchSkeletonProps>;
 
 export default SearchSkeleton;

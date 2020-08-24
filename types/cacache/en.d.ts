@@ -13,6 +13,13 @@ export interface CacheObject {
     time: number;
 }
 
+export interface GetCacheObject {
+    metadata?: any;
+    integrity: string;
+    data: Buffer;
+    size: number;
+}
+
 export namespace get {
     interface HasContentObject {
         size: number;
@@ -256,7 +263,7 @@ export function clearMemoized(): Record<string, CacheObject>;
  * This function loads the entire cache entry into memory before returning it.
  * If you're dealing with Very Large data, consider using `get.stream` instead.
  */
-export function get(cachePath: string, key: string, options?: get.Options): Promise<CacheObject>;
+export function get(cachePath: string, key: string, options?: get.Options): Promise<GetCacheObject>;
 
 /**
  * Lists info for all entries currently in the cache as a single large object.

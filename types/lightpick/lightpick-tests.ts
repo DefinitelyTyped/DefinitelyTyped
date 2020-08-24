@@ -28,7 +28,7 @@ const inputDate = moment();
     options.startDate = inputDate;
     options.field = inputField;
     options.secondField = inputField;
-    options.firstDay = Lightpick.Options.DayOfWeek.Monday;
+    options.firstDay = 1;
     options.footer = true;
     options.footer = '<div style="background:red">FOOTER</div>';
     options.format = 'DD/MM/YYYY';
@@ -54,14 +54,16 @@ const inputDate = moment();
     options.minDays = 1;
     options.numberOfMonths = 1;
     options.numberOfColumns = 1;
-    options.orientation = Lightpick.Options.Orientation.TopRight;
+    options.orientation = 'top right';
     options.parentEl = 'body';
+    options.parentEl = document.body;
     options.repick = true;
     options.selectForward = true;
     options.selectBackward = true;
     options.separator = ' - ';
     options.singleDate = true;
     options.tooltipNights = true;
+    options.weekdayStyle = 'short';
     options.onOpen = () => console.log('open event');
     options.onClose = () => console.log('close event');
     options.onError = (errorMsg: string) => console.log(`error event: ${errorMsg}`);
@@ -71,6 +73,18 @@ const inputDate = moment();
         str += to ? to.format('Do MMMM YYYY') : '...';
         console.log(`str: ${str}`);
     };
+    options.onSelectStart = (from: Lightpick.OutputDate) => {
+        let str = '';
+        str += from ? from.format('Do MMMM YYYY') + ' to ' : '';
+        console.log(`str: ${str}`);
+    };
+    options.onSelectEnd = (to: Lightpick.OutputDate) => {
+        let str = '';
+        str += to ? to.format('Do MMMM YYYY') : '...';
+        console.log(`str: ${str}`);
+    };
+    options.onMonthsChange = (month: number) => console.log(`changing to month ${month} event`);
+    options.onYearsChange = (year: number) => console.log(`changing to year ${year} event`);
 
     new Lightpick(options);
 }

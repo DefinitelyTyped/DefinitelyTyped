@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isDataURI: typeof validator.isDataURI;
-export = isDataURI;
+import validator from '../';
+export default validator.isDataURI;

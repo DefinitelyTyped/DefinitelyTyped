@@ -20,6 +20,12 @@ import {
     createContainer,
     VictoryZoomContainerProps,
     VictoryBrushContainerProps,
+    ScatterSymbolType,
+    Flyout,
+    VictoryClipContainer,
+    VictoryPortal,
+    VictoryStringOrNumberCallback,
+    VictorySliceProps,
 } from 'victory';
 
 const commonData1 = [
@@ -30,7 +36,14 @@ const commonData1 = [
     { amount: 5, yield: 1, error: 1.5 },
 ];
 
-const commonData2 = [{ x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 1 }, { x: 4, y: 3 }, { x: 5, y: 2 }, { x: 6, y: 5 }];
+const commonData2 = [
+    { x: 1, y: 1 },
+    { x: 2, y: 2 },
+    { x: 3, y: 1 },
+    { x: 4, y: 3 },
+    { x: 5, y: 2 },
+    { x: 6, y: 5 },
+];
 
 // VictoryAnimation test
 let test = (
@@ -43,6 +56,71 @@ let test = (
     >
         {(style: AnimationStyle) => <span style={{ color: style['color'] as string }}>Hello!</span>}
     </VictoryAnimation>
+);
+
+// VictoryClipContainer test
+test = (
+    <VictoryClipContainer
+        circleComponent={<circle />}
+        className="container-class"
+        clipHeight={100}
+        clipId={10}
+        clipPadding={{
+            top: 10,
+            bottom: 20,
+            left: 30,
+            right: 40,
+        }}
+        clipPathComponent={<clipPath />}
+        clipWidth={300}
+        events={{ onClick: () => {} }}
+        groupComponent={<g />}
+        origin={{ x: 0, y: 30 }}
+        polar={true}
+        radius={45}
+        rectComponent={<rect />}
+        translateX={50}
+        translateY={70}
+    >
+        {[<span>child a</span>, <span>child b</span>]}
+    </VictoryClipContainer>
+);
+
+// Flyout test
+test = (
+    <Flyout
+        active={true}
+        center={{ x: 0, y: 2 }}
+        className="flyout-class"
+        cornerRadius={3}
+        data={[]}
+        datum={{ x: -3, y: 3 }}
+        dx={-6}
+        dy={30}
+        events={{
+            onClick: () => {},
+        }}
+        height={50}
+        id="ab"
+        index={0}
+        orientation="top"
+        origin={{ x: 0, y: 0 }}
+        pathComponent={<rect />}
+        pointerLength={5}
+        pointerWidth={10}
+        polar={false}
+        role="button"
+        shapeRendering="crispEdges"
+        style={{
+            fill: 'blue',
+        }}
+        transform="rotate(0 10 100)"
+        width={200}
+        x={0}
+        y={0}
+    >
+        {'Flyout child!'}
+    </Flyout>
 );
 
 // VictoryLabel test
@@ -68,7 +146,7 @@ test = (
 );
 
 test = (
-    <VictoryLabel text={datum => datum.label} labelPlacement="perpendicular" renderInPortal>
+    <VictoryLabel text={({ datum }) => datum.label} labelPlacement="perpendicular" renderInPortal>
         {'data viz \n is \n fun!'}
     </VictoryLabel>
 );
@@ -135,7 +213,11 @@ test = (
                     stroke: 'tomato',
                 },
             }}
-            data={[{ x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 3 }]}
+            data={[
+                { x: 1, y: 1 },
+                { x: 2, y: 2 },
+                { x: 3, y: 3 },
+            ]}
         />
         <VictoryArea
             style={{
@@ -144,7 +226,11 @@ test = (
                     stroke: 'orange',
                 },
             }}
-            data={[{ x: 1, y: 2 }, { x: 2, y: 1 }, { x: 3, y: 1 }]}
+            data={[
+                { x: 1, y: 2 },
+                { x: 2, y: 1 },
+                { x: 3, y: 1 },
+            ]}
         />
         <VictoryArea
             style={{
@@ -153,7 +239,11 @@ test = (
                     stroke: 'gold',
                 },
             }}
-            data={[{ x: 1, y: 3 }, { x: 2, y: 4 }, { x: 3, y: 2 }]}
+            data={[
+                { x: 1, y: 3 },
+                { x: 2, y: 4 },
+                { x: 3, y: 2 },
+            ]}
         />
     </VictoryStack>
 );
@@ -244,17 +334,31 @@ test = (
     />
 );
 
+const getOpacity: VictoryStringOrNumberCallback = arg1 => {
+    const { datum, horizontal, x, y, scale } = arg1;
+    const newX = scale.x(1);
+    const newY = scale.y(1);
+    const orientation = horizontal ? x : y;
+    return orientation;
+};
+
 test = (
     <VictoryBar
         height={500}
         style={{
-            data: { fill: 'blue', width: 20 },
+            data: { fill: 'blue', width: 20, opacity: getOpacity },
             labels: { fontSize: 20 },
         }}
         labels={['a', 'b', 'c', 'd', 'e']}
-        data={[{ x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 3, label: 'click me' }, { x: 4, y: 2 }, { x: 5, y: 1 }]}
+        data={[
+            { x: 1, y: 1 },
+            { x: 2, y: 2 },
+            { x: 3, y: 3, label: 'click me' },
+            { x: 4, y: 2 },
+            { x: 5, y: 1 },
+        ]}
         alignment="start"
-        barWidth={(datum, active) => (active ? datum.x : datum.y)}
+        barWidth={({ datum, active }) => (active ? datum.x : datum.y)}
         cornerRadius={{ top: 2, bottom: 4 }}
         events={[
             {
@@ -346,6 +450,12 @@ test = (
         height={500}
         labelOrientation="top"
         labels={true}
+        max="max_value"
+        min={() => 10}
+        q1="bonds.q1"
+        q3={['bonds', 'q3']}
+        q3Component={<div />}
+        q3LabelComponent={<VictoryLabel />}
         name="BoxPlot"
         style={{
             min: { stroke: 'tomato' },
@@ -362,7 +472,7 @@ test = (
 
 // VictoryChart test
 test = (
-    <VictoryChart>
+    <VictoryChart animate minDomain={5} maxDomain={{ x: 5 }}>
         <VictoryLine y={data => 0.5 * data.x * data.x} />
     </VictoryChart>
 );
@@ -441,7 +551,11 @@ test = (
     <VictoryChart horizontal>
         <VictoryBar
             categories={{ x: ['A', 'B', 'C'] }}
-            data={[{ y: 5, x: 'A' }, { y: 6, x: 'B' }, { y: 7, x: 'C' }]}
+            data={[
+                { y: 5, x: 'A' },
+                { y: 6, x: 'B' },
+                { y: 7, x: 'C' },
+            ]}
             y0={d => d.y - 1}
         />
     </VictoryChart>
@@ -450,9 +564,27 @@ test = (
 // VictoryGroup test
 test = (
     <VictoryGroup color="#46c85e" offset={40}>
-        <VictoryBar data={[{ x: 'a', y: 2 }, { x: 'b', y: 3 }, { x: 'c', y: 5 }]} />
-        <VictoryBar data={[{ x: 'a', y: 1 }, { x: 'b', y: 4 }, { x: 'c', y: 5 }]} />
-        <VictoryBar data={[{ x: 'a', y: 3 }, { x: 'b', y: 2 }, { x: 'c', y: 6 }]} />
+        <VictoryBar
+            data={[
+                { x: 'a', y: 2 },
+                { x: 'b', y: 3 },
+                { x: 'c', y: 5 },
+            ]}
+        />
+        <VictoryBar
+            data={[
+                { x: 'a', y: 1 },
+                { x: 'b', y: 4 },
+                { x: 'c', y: 5 },
+            ]}
+        />
+        <VictoryBar
+            data={[
+                { x: 'a', y: 3 },
+                { x: 'b', y: 2 },
+                { x: 'c', y: 6 },
+            ]}
+        />
     </VictoryGroup>
 );
 
@@ -493,8 +625,8 @@ test = (
         data={commonData1}
         style={{
             data: {
-                fill: d => d.x,
-                stroke: (datum, active) => (active ? datum.x : datum.y),
+                fill: ({ datum }) => datum.x,
+                stroke: ({ datum, active }) => (active ? datum.x : datum.y),
                 strokeWidth: 3,
             },
         }}
@@ -530,6 +662,7 @@ test = (
             { animal: 'Bird', pet: 15, wild: 40 },
         ]}
         x={'animal'}
+        innerRadius={(props: VictorySliceProps) => 2 }
         y={data => data.pet + data.wild}
     />
 );
@@ -559,7 +692,12 @@ test = (
 
 test = (
     <VictoryPie
-        data={[{ x: 'Cat', y: 62 }, { x: 'Dog', y: 91 }, { x: 'Fish', y: 55 }, { x: 'Bird', y: 55 }]}
+        data={[
+            { x: 'Cat', y: 62 },
+            { x: 'Dog', y: 91 },
+            { x: 'Fish', y: 55 },
+            { x: 'Bird', y: 55 },
+        ]}
         events={[
             {
                 target: 'data',
@@ -582,7 +720,12 @@ test = (
 
 test = (
     <VictoryPie
-        data={[{ x: 'Cat', y: 62 }, { x: 'Dog', y: 91 }, { x: 'Fish', y: 55 }, { x: 'Bird', y: 55 }]}
+        data={[
+            { x: 'Cat', y: 62 },
+            { x: 'Dog', y: 91 },
+            { x: 'Fish', y: 55 },
+            { x: 'Bird', y: 55 },
+        ]}
         animate={{
             duration: 1000,
             onEnter: {
@@ -647,6 +790,13 @@ test = (
     />
 );
 
+// VictoryPortal test
+test = (
+    <VictoryPortal groupComponent={<div>groupComponent</div>}>
+        <div>Child</div>
+    </VictoryPortal>
+);
+
 // createContainer test
 const VictoryZoomBrushContainer = createContainer<VictoryZoomContainerProps, VictoryBrushContainerProps>(
     'zoom',
@@ -679,6 +829,7 @@ type RecursiveRequired<T> = {
 // tslint:disable-next-line: no-object-literal-type-assertion
 const cssProps: Required<React.CSSProperties> = {} as Required<React.CSSProperties>;
 const colorScale: string[] = ['blue'];
+const scatterSymbolType: { type: ScatterSymbolType } = { type: 'square' };
 const victoryStyle: RecursiveRequired<Required<VictoryStyleInterface>> = {
     parent: cssProps,
     data: cssProps,
@@ -687,8 +838,8 @@ const victoryStyle: RecursiveRequired<Required<VictoryStyleInterface>> = {
 const fullTheme: RecursiveRequired<Required<VictoryThemeDefinition>> = {
     area: {
         style: {
-            data: victoryStyle,
-            labels: victoryStyle,
+            data: cssProps,
+            labels: cssProps,
         },
         colorScale,
         height: 0,
@@ -761,7 +912,7 @@ const fullTheme: RecursiveRequired<Required<VictoryThemeDefinition>> = {
         width: 0,
     },
     legend: {
-        style: { data: cssProps, labels: cssProps, title: cssProps },
+        style: { data: { ...cssProps, ...scatterSymbolType }, labels: cssProps, title: cssProps },
         colorScale,
         gutter: 0,
         height: 0,
@@ -811,3 +962,26 @@ const fullTheme: RecursiveRequired<Required<VictoryThemeDefinition>> = {
         width: 0,
     },
 };
+
+// Slice.props
+const sliceProps: VictorySliceProps = {
+    cornerRadius: props => props.cornerRadius, // $ExpectError
+    datum: { x: 'Cat', y: 62 },
+    innerRadius: props => props.innerRadius, // $ExpectError
+    padAngle: props => props.padAngle, // $ExpectError
+    pathFunction: sliceProps => 'M1,1',
+    radius: props => props.radius, // $ExpectError
+    slice: {
+        data: [],
+        endAngle: 0,
+        padAngle: 0,
+        startAngle: 0,
+    },
+    sliceEndAngle: props => props.sliceEndAngle, // $ExpectError
+    sliceStartAngle: props => props.slieStartAngle, // $ExpectError
+};
+
+// singleQuadrantDomainPadding test
+test = <VictoryArea singleQuadrantDomainPadding={true} />;
+test = <VictoryArea singleQuadrantDomainPadding={{ x: true }} />;
+test = <VictoryArea singleQuadrantDomainPadding={5} />; // $ExpectError

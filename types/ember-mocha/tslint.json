@@ -1,18 +1,10 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        "no-declare-current-package": false,
+        "no-empty-interface": false,
         "only-arrow-functions": false,
         "strict-export-declare-modifiers": false,
-        "no-duplicate-imports": false,
-        "unified-signatures": false,
-        "no-declare-current-package": false,
-
-        // ERROR: An interface declaring no members is equivalent to its supertype.
-        // -- Not true when augmenting an interface
-        "no-empty-interface": false,
-
-        // ERROR: interface name must not have an "I" prefix
-        // -- Augmenting @types/mocha which uses "I" prefix
-        "interface-name": false
+        "unified-signatures": false
     }
 }

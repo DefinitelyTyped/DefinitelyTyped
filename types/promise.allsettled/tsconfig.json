@@ -17,13 +17,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "auto.d.ts",
-        "implementation.d.ts",
         "index.d.ts",
-        "polyfill.d.ts",
-        "promise.allsettled-tests.ts",
-        "requirePromise.d.ts",
-        "shim.d.ts",
-        "types.d.ts"
+        "promise.allsettled-tests.ts"
     ]
 }

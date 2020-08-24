@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export interface TextProps {
   showTooltip?: boolean;
-  ellipsed?: boolean;
+  ellipsis?: boolean;
   tagName?: string;
   className?: string;
   size?: TextSize;

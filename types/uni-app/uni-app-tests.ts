@@ -104,3 +104,23 @@ const systemInfo = uni.getSystemInfoSync();
 console.log(systemInfo.swanNativeVersion);
 const safeArea = <SafeAreaResult> systemInfo.safeArea;
 console.log(safeArea.top);
+
+uni.onTabBarMidButtonTap(() => {
+    console.log('onTabBarMidButtonTap');
+});
+
+const cameraContext = uni.createCameraContext();
+cameraContext.startRecord({
+    success() {
+        setTimeout(() => {
+            cameraContext.stopRecord({
+                success(res) {
+                    console.log(res.tempThumbPath);
+                }
+            });
+        }, 1000);
+    }
+});
+cameraContext.onCameraFrame(cameraFrame => {
+    console.log(cameraFrame.data);
+});

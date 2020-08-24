@@ -34,6 +34,7 @@ declare module Accounts {
         passwordResetTokenExpirationInDays?: number;
         passwordEnrollTokenExpirationInDays?: number;
         ambiguousErrorMessages?: boolean;
+        defaultFieldSelector?: {[key: string]: 0 | 1}
     }): void;
 
     function onLogin(func: Function): {
@@ -144,7 +145,7 @@ declare module Accounts {
 }
 
 declare module Accounts {
-    function onLogout(func: (user: Meteor.User, connection: Meteor.Connection) => void): void;
+    function onLogout(func: (options: { user: Meteor.User, connection: Meteor.Connection; }) => void): void;
 }
 
 declare module Accounts {

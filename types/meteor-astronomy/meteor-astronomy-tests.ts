@@ -83,7 +83,7 @@ interface UserInterface extends Meteor.User {
 
 const User = Class.create<UserInterface>({
     name: 'User',
-    collection: Meteor.users as Mongo.Collection<UserInterface>,
+    collection: Meteor.users as unknown as Mongo.Collection<UserInterface>,
     fields: {
         createdAt: Number,
         firstName: String,

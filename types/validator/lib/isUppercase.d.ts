@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isUppercase: typeof validator.isUppercase;
-export = isUppercase;
+import validator from '../';
+export default validator.isUppercase;

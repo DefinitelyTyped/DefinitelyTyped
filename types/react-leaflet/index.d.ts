@@ -1,9 +1,9 @@
-// Type definitions for react-leaflet 2.4
+// Type definitions for react-leaflet 2.5
 // Project: https://github.com/PaulLeCam/react-leaflet
 // Definitions by: Dave Leaver <https://github.com/danzel>
 //                 David Schneider <https://github.com/davschne>
 //                 Yui T. <https://github.com/yuit>
-//                 Jeroen Claassens <https://github.com/favna>
+//                 Tom Fenech <https://github.com/fenech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -283,6 +283,14 @@ export class ImageOverlay<P extends ImageOverlayProps = ImageOverlayProps, E ext
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
 
+export interface SVGOverlayProps extends Leaflet.ImageOverlayOptions, MapComponentProps {
+    children?: Children;
+}
+export class SVGOverlay<P extends SVGOverlayProps = SVGOverlayProps, E extends Leaflet.SVGOverlay = Leaflet.SVGOverlay> extends MapComponent<P, E> {
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
+}
+
 export interface VideoOverlayProps extends Leaflet.VideoOverlayOptions, MapComponentProps {
     attribution?: string;
     bounds: Leaflet.LatLngBoundsExpression;
@@ -340,7 +348,7 @@ export class FeatureGroup<P extends FeatureGroupProps = FeatureGroupProps, E ext
 }
 
 export interface GeoJSONProps extends PathProps, FeatureGroupEvents, Leaflet.GeoJSONOptions {
-    data: GeoJSON.GeoJsonObject;
+    data: GeoJSON.GeoJsonObject | GeoJSON.GeoJsonObject[];
 }
 export class GeoJSON<P extends GeoJSONProps = GeoJSONProps, E extends Leaflet.GeoJSON = Leaflet.GeoJSON> extends FeatureGroup<P, E> {
     createLeafletElement(props: P): E;

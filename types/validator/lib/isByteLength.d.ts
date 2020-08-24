@@ -1,3 +1,3 @@
-import * as validator from "validator";
-declare const isByteLength: typeof validator.isByteLength;
-export = isByteLength;
+import validator from '../';
+export type IsByteLengthOptions = validator.IsByteLengthOptions;
+export default validator.isByteLength;

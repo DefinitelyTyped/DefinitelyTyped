@@ -1,9 +1,9 @@
-import { GraphQLCompilerContext } from '../core/GraphQLCompilerContext';
+import { CompilerContext } from '../core/CompilerContext';
 
 export interface FlattenOptions {
-  flattenAbstractTypes?: boolean;
+    flattenAbstractTypes?: boolean;
 }
 
 export function transformWithOptions(
   options: FlattenOptions,
-): (context: GraphQLCompilerContext) => GraphQLCompilerContext;
+): (context: CompilerContext) => CompilerContext;

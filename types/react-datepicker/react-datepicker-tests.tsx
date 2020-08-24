@@ -9,17 +9,27 @@ const defaultLocale = getDefaultLocale();
 <DatePicker
     adjustDateOnChange
     allowSameDay
+    ariaLabelledBy=""
+    ariaLabelClose=""
     autoComplete=""
     autoFocus
     calendarClassName=""
     calendarContainer={props => <div />}
     className=""
     clearButtonTitle=""
+    // closeOnScroll={false} // Or as function:
+    closeOnScroll={e => e.target === document}
     customInput={<input />}
     customInputRef=""
+    chooseDayAriaLabelPrefix=""
+    customTimeInput={<input />}
     dateFormat=""
     dateFormatCalendar=""
     dayClassName={date => ''}
+    weekDayClassName={date => ''}
+    monthClassName={date => ''}
+    timeClassName={date => ''}
+    disabledDayAriaLabelPrefix=""
     disabled
     disabledKeyboardNavigation
     dropdownMode="scroll"
@@ -37,6 +47,7 @@ const defaultLocale = getDefaultLocale();
     includeTimes={[new Date()]}
     injectTimes={[new Date()]}
     inline
+    focusSelectedMonth={false}
     isClearable
     locale=""
     maxDate={new Date()}
@@ -48,14 +59,18 @@ const defaultLocale = getDefaultLocale();
     nextMonthButtonLabel=""
     nextYearButtonLabel=""
     onBlur={event => null}
-    onChange={(date: Date | null) => {}}
+    onCalendarClose={() => null}
+    onCalendarOpen={() => null}
+    onChange={(date: Date | [Date, Date] | null) => {}}
     onChangeRaw={event => null}
     onClickOutside={event => null}
+    onDayMouseEnter={(date: Date) => {}}
     onFocus={event => null}
     onInputClick={() => null}
     onInputError={err => err.code + err.msg}
     onKeyDown={event => null}
     onMonthChange={date => null}
+    onMonthMouseLeave={() => {}}
     onSelect={(date, event) => null}
     onWeekSelect={(firstDayOfWeek, weekNumber, event) => null}
     onYearChange={(date: Date) => {}}
@@ -83,10 +98,14 @@ const defaultLocale = getDefaultLocale();
         changeMonth,
         decreaseMonth,
         increaseMonth,
+        decreaseYear,
+        increaseYear,
         prevMonthButtonDisabled,
         nextMonthButtonDisabled,
+        prevYearButtonDisabled,
+        nextYearButtonDisabled,
     }) => <div />}
-    renderDayContents={dayOfMonth => <div />}
+    renderDayContents={(dayOfMonth, date) => <div />}
     required
     scrollableMonthYearDropdown
     scrollableYearDropdown
@@ -96,18 +115,24 @@ const defaultLocale = getDefaultLocale();
     shouldCloseOnSelect
     showDisabledMonthNavigation
     showMonthDropdown
+    showFullMonthYearPicker
     showMonthYearDropdown
     showMonthYearPicker
     showPopperArrow
+    showPreviousMonths
+    showQuarterYearPicker
     showTimeSelect
     showTimeSelectOnly
+    showTwoColumnMonthYearPicker
     showWeekNumbers
     showYearDropdown
+    showYearPicker
     startDate={new Date()}
     startOpen
     tabIndex={1}
     timeCaption=""
     timeFormat=""
+    timeInputLabel=""
     timeIntervals={1}
     title=""
     todayButton={<div />}
@@ -116,12 +141,12 @@ const defaultLocale = getDefaultLocale();
     value=""
     weekLabel=""
     withPortal
+    portalId=""
     wrapperClassName=""
+    weekAriaLabelPrefix=""
+    excludeScrollbar={false}
+    enableTabLoop={false}
     yearDropdownItemNumber={1}
-    timeInputLabel=""
-    inlineFocusSelectedMonth={false}
-    onDayMouseEnter={(date: Date) => {}}
-    onMonthMouseLeave={() => {}}
 >
     <div />
     <span />
