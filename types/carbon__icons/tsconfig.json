@@ -18,5 +18,8 @@
     "files": [
         "index.d.ts",
         "carbon__icons-tests.ts"
+    ],
+    "exclude": [
+        "generate.ts"
     ]
 }
