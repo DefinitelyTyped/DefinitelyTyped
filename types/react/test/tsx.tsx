@@ -59,6 +59,14 @@ FunctionComponent2.defaultProps = {
     <b>bar</b>
 </div>;
 
+// Anchor target attribute
+<a target="_blank">anchor</a>;
+<a target="_parent">anchor</a>;
+<a target="_self">anchor</a>;
+<a target="_top">anchor</a>;
+<a target="_blankk">anchor</a>; // $ExpectError
+<a target={"_blank" as string}>anchor</a>; // $ExpectError
+
 // button type attribute
 <button type="submit">foo</button>;
 <button type="reset">foo</button>;

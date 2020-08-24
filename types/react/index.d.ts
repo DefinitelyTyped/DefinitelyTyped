@@ -1918,7 +1918,7 @@ declare namespace React {
         media?: string;
         ping?: string;
         rel?: string;
-        target?: string;
+        target?: '_self' | '_blank' | '_parent' | '_top';
         type?: string;
         referrerPolicy?: string;
     }
