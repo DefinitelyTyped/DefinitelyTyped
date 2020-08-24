@@ -108,7 +108,6 @@ declare namespace NPM {
         la: CommandFunction;               // ls
         ll: CommandFunction;               // ls
         i: CommandFunction;                // install
-        isntall: CommandFunction;          // install
         up: CommandFunction;               // update
         c: CommandFunction;                // config
         find: CommandFunction;             // search
