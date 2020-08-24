@@ -7,18 +7,18 @@ interface SIZE {
     GB: number;
     MB: number;
     KB: number;
-};
+}
 
-type Defaults = {
+interface Defaults {
     ttl?: number;
     limit?: number;
     bytes: number;
     compress: boolean;
     minFreeMem: number;
     maxEvictBytes: number;
-};
+}
 
-type Info = {
+interface Info {
     key: string;
     hits: number;
     accessed: number;
@@ -30,27 +30,27 @@ type Info = {
     compressed: boolean;
     cost: number;
     limit: number;
-};
+}
 
-type Stats = {
+interface Stats {
     count: number;
     age: number;
     hits: number;
     evictions: number;
     misses: number;
     bytes: number;
-};
+}
 
-type Options = {
+interface Options {
     ttl?: number;
     limit?: number;
     bytes?: number;
     compress?: boolean;
     minFreeMem?: number;
     maxEvictBytes?: number;
-};
+}
 
-class NanoCache {
+declare class NanoCache {
     constructor(options?: Options);
     get(key: unknown): unknown;
     set(key: unknown, value: unknown, options?: Options): void;
