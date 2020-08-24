@@ -8,5 +8,5 @@ interface _24 {
     name: 'iCA-2D';
     size: 24;
 }
-const el: _24;
+declare const el: _24;
 export default el;

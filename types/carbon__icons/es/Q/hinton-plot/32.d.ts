@@ -8,5 +8,5 @@ interface _32 {
     name: 'hinton-plot';
     size: 32;
 }
-const el: _32;
+declare const el: _32;
 export default el;

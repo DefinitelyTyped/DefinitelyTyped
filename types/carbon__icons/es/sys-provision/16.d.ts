@@ -8,5 +8,5 @@ interface _16 {
     name: 'sys-provision';
     size: 16;
 }
-const el: _16;
+declare const el: _16;
 export default el;

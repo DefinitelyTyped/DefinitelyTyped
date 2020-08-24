@@ -8,5 +8,5 @@ interface _16 {
     name: 'letter--Jj';
     size: 16;
 }
-const el: _16;
+declare const el: _16;
 export default el;

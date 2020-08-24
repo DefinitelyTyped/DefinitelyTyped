@@ -8,5 +8,5 @@ interface _32 {
     name: 'undefined--filled';
     size: 32;
 }
-const el: _32;
+declare const el: _32;
 export default el;

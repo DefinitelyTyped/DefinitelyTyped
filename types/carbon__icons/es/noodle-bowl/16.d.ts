@@ -8,5 +8,5 @@ interface _16 {
     name: 'noodle-bowl';
     size: 16;
 }
-const el: _16;
+declare const el: _16;
 export default el;

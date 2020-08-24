@@ -8,5 +8,5 @@ interface _16 {
     name: 'app-switcher';
     size: 16;
 }
-const el: _16;
+declare const el: _16;
 export default el;

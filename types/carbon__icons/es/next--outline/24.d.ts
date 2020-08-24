@@ -8,5 +8,5 @@ interface _24 {
     name: 'next--outline';
     size: 24;
 }
-const el: _24;
+declare const el: _24;
 export default el;

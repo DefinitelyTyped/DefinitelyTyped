@@ -2,7 +2,7 @@ import * as glob from 'glob';
 import * as mkdirp from 'mkdirp';
 import * as rimraf from 'rimraf';
 import * as fs from 'fs';
- 
+
 const rootFolder = 'es';
 const indexFile = 'index.d.ts';
 const testFile = 'carbon__icons-tests.ts';
@@ -19,23 +19,24 @@ interface {{name}} {
     name: '{{imgName}}';
     size: {{size}};
 }
-const el: {{name}};
+declare const el: {{name}};
 export default el;
 `;
 
-const indexHeader = `// Type definitions for @carbon/icons 10.15.0
+const indexHeader = `// Type definitions for @carbon/icons 10.15
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/icons
 // Definitions by: Sébastien Grégoire <https://github.com/sgregoire>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
+// TypeScript Version: 3.5
 
 // Automatically generated
 export as namespace CarbonIcons;
 `;
 
-const indexContent = `
+const rootIndexContent = `
 import _{{name}} from '{{path}}';
 export { {{export}} };
+export * from '{{path}}';
 `
 
 function getContent(pathToRoot: string, name: string, size: string) {
@@ -47,9 +48,8 @@ function getContent(pathToRoot: string, name: string, size: string) {
         ;
 }
 
-function getIndexContent(path: string, name: string, finalname: string) {
-    
-    return indexContent
+function getRootIndexContent(path: string, name: string, finalname: string) {
+    return rootIndexContent
         .split('{{name}}').join(name)
         .split('{{path}}').join(path)
         .split('{{export}}').join(getExport(name, finalname))
@@ -66,7 +66,7 @@ function getExport(name, finalname) {
 function finalName(name) {
     const firstLetter = name.charAt(0);
     if(isNaN(parseInt(firstLetter))) {
-        return name;   
+        return name;
     }
     return '_' + name;
 }
@@ -83,6 +83,10 @@ function inline(name) {
 const svgFiles = glob.sync("**/*.svg", { cwd: process.argv[process.argv.length - 1] });
 rimraf.sync(rootFolder);
 svgFiles.forEach(file => {
+    // Avoids big generation during dev
+    // if(!file.endsWith('4K.svg')) {
+    //     return;
+    // }
     if(file.includes('/')) {
         const parts = file.split('/');
         if(parts.length === 2) {
@@ -92,14 +96,14 @@ svgFiles.forEach(file => {
 
             sizes.forEach(size => {
                 fs.writeFileSync(
-                    folder + '/' + size + '.d.ts',
+                    folder  + '/' + size + '.d.ts',
                     getContent('../..', name, size)
                 );
-            })
+            });
         } else if(parts.length === 3) {
             const wrapper = parts[1];
             const name = parts[2].replace('.svg', '');
-            
+
             const folder = rootFolder + '/' + wrapper + '/' + name;
             mkdirp.sync(folder)
 
@@ -140,63 +144,70 @@ fs.writeFileSync(
 
 const names = [];
 
-typingFiles.forEach(file => {
-    const parts = file.split('/');
-    if(parts.length === 2) {
-        const name = parts[0];
-        const size = parts[1].replace('.d.ts', '');
-        const inlinedName = inline(name) + size;
-        
-        const final = finalName(inlinedName);
-        fs.appendFileSync(
-            indexFile,
-            getIndexContent(
-                './' + rootFolder + '/' + name + '/' + size, 
-                inlinedName,
-                final,
-            )
-        );
+typingFiles
+// Ignoring index.d.ts files
+    .forEach(file => {
+        const parts = file.split('/');
+        if(parts.length === 2) {
+            const name = parts[0];
+            const size = parts[1].replace('.d.ts', '');
+            const inlinedName = inline(name) + size;
+            const final = finalName(inlinedName);
+            fs.appendFileSync(
+                indexFile,
+                getRootIndexContent(
+                    './' + rootFolder + '/' + name + '/' + size,
+                    inlinedName,
+                    final,
+                )
+            );
 
-        fs.appendFileSync(
-            testFile,
-            'import ' + final + ' from "@carbon/icons/es/' + name + '/' + size + '";\n'
-        );
-        names.push(final);
-    } else if(parts.length === 3) {
-        const folder = parts[0];
-        const name = parts[1];
-        const size = parts[2].replace('.d.ts', '');
+            fs.appendFileSync(
+                testFile,
+                'import ' + final + ' from "@carbon/icons/es/' + name + '/' + size + '";\n'
+            );
+            names.push(final);
+        } else if(parts.length === 3) {
+            const folder = parts[0];
+            const name = parts[1];
+            const size = parts[2].replace('.d.ts', '');
 
-        const inlinedName = inline(folder) + inline(name) + size
+            const inlinedName = inline(folder) + inline(name) + size
+            const final = finalName(inlinedName);
+            fs.appendFileSync(
+                'index.d.ts',
+                getRootIndexContent(
+                    './' + rootFolder + '/' + folder + '/' + name + '/' + size,
+                    inlinedName,
+                    final
+                )
+            );
 
-        fs.appendFileSync(
-            'index.d.ts',
-            getIndexContent(
-                './' + rootFolder + '/' + folder + '/' + name + '/' + size, 
-                inlinedName,
-                finalName(inlinedName)
-            )
-        );
-    } else {
-        console.error('Not handled', file)
+            fs.appendFileSync(
+                testFile,
+                'import ' + final + ' from "@carbon/icons/es/' + name + '/' + size + '";\n'
+            );
+            names.push(final);
+        } else {
+            console.error('Not handled', file)
+        }
     }
-});
+);
 
 fs.appendFileSync(
     testFile,
     'let item;\n'
 );
 
-names.forEach(name => {
-    fs.appendFileSync(
-        testFile,
-        `
-item = ${name};
-item.elem;
+const testContent = `item.elem;
 item.attrs;
 item.content;
 item.name;
-item.size;
-        `
+item.size;\n`;
+
+names.forEach(name => {
+    fs.appendFileSync(
+        testFile,
+        `\nitem = ${name};\n${testContent}`
     );
 })

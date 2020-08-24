@@ -8,5 +8,5 @@ interface _20 {
     name: 'migrate--alt';
     size: 20;
 }
-const el: _20;
+declare const el: _20;
 export default el;

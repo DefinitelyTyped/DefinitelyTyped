@@ -8,5 +8,5 @@ interface _16 {
     name: 'data-vis--2';
     size: 16;
 }
-const el: _16;
+declare const el: _16;
 export default el;

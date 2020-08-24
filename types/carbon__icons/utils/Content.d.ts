@@ -1,4 +1,4 @@
-export type Content = Array<Path | Circle | Rect>;
+type Content = Array<Path | Circle | Rect>;
 
 interface Path {
     elem: 'path';
@@ -14,3 +14,5 @@ interface Rect {
     elem: 'rect';
     attrs: { width: string; height: string; x: string; y: string; rx: string };
 }
+
+export { Content };

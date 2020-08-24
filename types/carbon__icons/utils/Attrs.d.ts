@@ -6,7 +6,6 @@ export interface Attrs16 {
     readonly height: 16;
 }
 
-
 export interface Attrs20 {
     readonly xmlns: "http://www.w3.org/2000/svg";
     readonly viewBox: "0 0 32 32";
@@ -14,7 +13,6 @@ export interface Attrs20 {
     readonly width: 20;
     readonly height: 20;
 }
-
 
 export interface Attrs24 {
     readonly xmlns: "http://www.w3.org/2000/svg";

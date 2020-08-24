@@ -8,5 +8,5 @@ interface _16 {
     name: 'earth--southeast-asia--filled';
     size: 16;
 }
-const el: _16;
+declare const el: _16;
 export default el;

@@ -8,5 +8,5 @@ interface _24 {
     name: 'checkbox--checked';
     size: 24;
 }
-const el: _24;
+declare const el: _24;
 export default el;

@@ -8,5 +8,5 @@ interface _16 {
     name: 'network--3--reference';
     size: 16;
 }
-const el: _16;
+declare const el: _16;
 export default el;
