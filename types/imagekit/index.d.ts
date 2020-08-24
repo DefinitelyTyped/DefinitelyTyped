@@ -136,6 +136,11 @@ interface UploadOptions {
     responseFields?: string;
 }
 
+/**
+ * Response from uploading a file
+ *
+ * [See docs](https://docs.imagekit.io/api-reference/upload-file-api/server-side-file-upload#response-code-and-structure-json)
+ */
 interface UploadResponse {
     /**
      * Unique fileId. Store this fileld in your database, as this will be used to perform update action on this file.
