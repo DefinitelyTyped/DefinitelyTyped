@@ -1,4 +1,4 @@
-// Type definitions for nano-cache 1.1.2
+// Type definitions for nano-cache 1.1
 // Project: https://github.com/akhoury/nano-cache
 // Definitions by: Ross Coundon <https://github.com/rcoundon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@ interface SIZE {
     GB: number;
     MB: number;
     KB: number;
-}
+};
 
 type Defaults = {
     ttl?: number;
@@ -16,7 +16,7 @@ type Defaults = {
     compress: boolean;
     minFreeMem: number;
     maxEvictBytes: number;
-}
+};
 
 type Info = {
     key: string;
@@ -31,6 +31,7 @@ type Info = {
     cost: number;
     limit: number;
 };
+
 type Stats = {
     count: number;
     age: number;
@@ -39,6 +40,7 @@ type Stats = {
     misses: number;
     bytes: number;
 };
+
 type Options = {
     ttl?: number;
     limit?: number;
@@ -48,21 +50,18 @@ type Options = {
     maxEvictBytes?: number;
 };
 
-declare class NanoCache {
+export class NanoCache {
     constructor(options?: Options);
-    get<T>(key: T): unknown;
-    set<T>(key: T, value: unknown, options?: Options): void;
-    delete<T>(key: T): unknown;
+    get(key: unknown): unknown;
+    set(key: unknown, value: unknown, options?: Options): void;
+    delete(key: unknown): unknown;
     clear(): void;
     clearExpired(): void;
-    isTTLExpired<T>(key: T): boolean;
-    isLimitReached<T>(key: T): boolean;
-    info<T>(key: T): Info;
+    isTTLExpired(key: unknown): boolean;
+    isLimitReached:(key: unknown): boolean;
+    info(key: unknown): Info;
     stats(): Stats;
     static SIZE: SIZE;
     static DEFAULTS: Defaults;
-}
-
-declare module 'nano-cache' {
-    export = NanoCache;
+    static singleton: NanoCache;
 }
