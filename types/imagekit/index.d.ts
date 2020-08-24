@@ -80,7 +80,7 @@ interface UploadOptions {
      * - base64 - Base64 encoded string of file content.
      * - url - URL of the file from where to download the content before uploading. Downloading file from URL might take longer, so it is recommended that you pass the binary or base64 content of the file. Pass the full URL, for example - https://www.example.com/rest-of-the-image-path.jpg.
      */
-    file: number | string;
+    file: string | Buffer;
     /**
      * The name with which the file has to be uploaded.
      * The file name can contain:
