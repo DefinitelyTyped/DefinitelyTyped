@@ -68,7 +68,7 @@ export class Device {
   /**
    * Perform a control transfer with `libusb_control_transfer`.
    *
-   * Parameter `data_or_length` can be a integer length for an IN transfer, or a Buffer for an out transfer. The type must match the direction specified in the MSB of bmRequestType.
+   * Parameter `data_or_length` can be an integer length for an IN transfer, or a `Buffer` for an OUT transfer. The type must match the direction specified in the MSB of bmRequestType.
    *
    * The `data` parameter of the callback is always undefined for OUT transfers, or will be passed a Buffer for IN transfers.
    *
@@ -80,7 +80,7 @@ export class Device {
    * @param data_or_length
    * @param callback
    */
-  controlTransfer(bmRequestType: number, bRequest: number, wValue: number, wIndex: number, data_or_length: any, callback: (error?: LibUSBException, buf?: Buffer) => void): Device;
+  controlTransfer(bmRequestType: number, bRequest: number, wValue: number, wIndex: number, data_or_length: number | Buffer, callback: (error?: LibUSBException, buf?: Buffer) => void): Device;
 
   /**
    * Perform a control transfer to retrieve a string descriptor
