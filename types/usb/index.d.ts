@@ -113,9 +113,9 @@ export class Device {
    *
    * The device must be open to use this method.
    * @param desired
-   * @param cb
+   * @param callback
    */
-  setConfiguration(desired: number, cb: (err?: LibUSBException) => void): void;
+  setConfiguration(desired: number, callback: (error?: LibUSBException) => void): void;
 
   /**
    * Performs a reset of the device. Callback is called when complete.
@@ -123,7 +123,7 @@ export class Device {
    * The device must be open to use this method.
    * @param callback
    */
-  reset(callback: (err?: LibUSBException) => void): void;
+  reset(callback: (error?: LibUSBException) => void): void;
 }
 
 /** A structure representing the standard USB device descriptor */
@@ -276,9 +276,9 @@ export class Interface {
    * It is an error to release an interface with pending transfers.
    *
    * The device must be open to use this method.
-   * @param cb
+   * @param callback
    */
-  release(cb?: (err?: LibUSBException) => void): void;
+  release(callback?: (error?: LibUSBException) => void): void;
 
   /**
    * Releases the interface and resets the alternate setting. Calls callback when complete.
@@ -290,9 +290,9 @@ export class Interface {
    *
    * The device must be open to use this method.
    * @param closeEndpoints
-   * @param cb
+   * @param callback
    */
-  release(closeEndpoints?: boolean, cb?: (err?: LibUSBException) => void): void;
+  release(closeEndpoints?: boolean, callback?: (error?: LibUSBException) => void): void;
 
   /**
    * Returns `false` if a kernel driver is not active; `true` if active.
@@ -320,9 +320,9 @@ export class Interface {
    *
    * The device must be open to use this method.
    * @param altSetting
-   * @param cb
+   * @param callback
    */
-  setAltSetting(altSetting: number, cb: (err?: LibUSBException) => void): void;
+  setAltSetting(altSetting: number, callback: (error?: LibUSBException) => void): void;
 
   /**
    * Return the InEndpoint or OutEndpoint with the specified address.
@@ -428,9 +428,9 @@ export class InEndpoint extends EventEmitter implements Endpoint {
    * Further data may still be received. The `end` event is emitted and the callback is called once all transfers have completed or canceled.
    *
    * The device must be open to use this method.
-   * @param cb
+   * @param callback
    */
-  stopPoll(cb?: () => void): void;
+  stopPoll(callback?: () => void): void;
 }
 
 /** Endpoints in the OUT direction (PC->device) have this type. */
@@ -452,10 +452,10 @@ export class OutEndpoint extends EventEmitter implements Endpoint {
    *
    * The device must be open to use this method.
    * @param buffer
-   * @param cb
+   * @param callback
    */
-  transfer(buffer: Buffer, cb: (err?: LibUSBException) => void): OutEndpoint;
-  transferWithZLP(buf: Buffer, cb: (err?: LibUSBException) => void): void;
+  transfer(buffer: Buffer, callback: (error?: LibUSBException) => void): OutEndpoint;
+  transferWithZLP(buf: Buffer, callback: (error?: LibUSBException) => void): void;
 }
 
 /** A structure representing the standard USB endpoint descriptor */
