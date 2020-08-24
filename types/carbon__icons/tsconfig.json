@@ -17,7 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "carbon__icons-tests.ts",
-        "test/generate.ts"
+        "carbon__icons-tests.ts"
     ]
 }
