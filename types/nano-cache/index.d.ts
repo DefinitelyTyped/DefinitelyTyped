@@ -50,7 +50,7 @@ type Options = {
     maxEvictBytes?: number;
 };
 
-export class NanoCache {
+export interface NanoCache {
     new(options?: Options);
     get(key: unknown): unknown;
     set(key: unknown, value: unknown, options?: Options): void;
