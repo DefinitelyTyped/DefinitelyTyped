@@ -9,7 +9,23 @@ declare module "../index" {
          * @param value The value to inspect.
          * @return Returns the cast array.
          */
-        castArray<T>(value?: Many<T>): T[];
+        castArray<T>(value: Many<T>): T[];
+
+        /**
+         * @see _.castArray
+         */
+        castArray(value: undefined): [undefined];
+
+        /**
+         * @see _.castArray
+         */
+        castArray(): [];
+
+        /**
+         * @see _.castArray
+         */
+        castArray<T>(value: Many<T> | undefined): T[] | [undefined];
+
     }
 
     interface LoDashImplicitWrapper<TValue> {
