@@ -89,7 +89,7 @@ export class Device {
    * @param desc_index
    * @param callback
    */
-  getStringDescriptor(desc_index: number, callback: (error?: string, buf?: Buffer) => void): void;
+  getStringDescriptor(desc_index: number, callback: (error?: LibUSBException, buf?: Buffer) => void): void;
 
   /**
    * Perform a control transfer to retrieve an object with properties for the fields of the Binary Object Store descriptor.
@@ -97,7 +97,7 @@ export class Device {
    * The device must be open to use this method.
    * @param callback
    */
-  getBosDescriptor(callback: (error?: string, descriptor?: BosDescriptor) => void): void;
+  getBosDescriptor(callback: (error?: LibUSBException, descriptor?: BosDescriptor) => void): void;
 
   /**
    * Retrieve a list of Capability objects for the Binary Object Store capabilities of the device.
@@ -105,7 +105,7 @@ export class Device {
    * The device must be open to use this method.
    * @param callback
    */
-  getCapabilities(callback: (error?: string, capabilities?: Capability[]) => void): void;
+  getCapabilities(callback: (error?: LibUSBException, capabilities?: Capability[]) => void): void;
 
   /**
    * Set the device configuration to something other than the default (0). To use this, first call `.open(false)` (which tells it not to auto configure),
@@ -115,7 +115,7 @@ export class Device {
    * @param desired
    * @param cb
    */
-  setConfiguration(desired: number, cb: (err?: string) => void): void;
+  setConfiguration(desired: number, cb: (err?: LibUSBException) => void): void;
 
   /**
    * Performs a reset of the device. Callback is called when complete.
@@ -123,7 +123,7 @@ export class Device {
    * The device must be open to use this method.
    * @param callback
    */
-  reset(callback: (err?: string) => void): void;
+  reset(callback: (err?: LibUSBException) => void): void;
 }
 
 /** A structure representing the standard USB device descriptor */
@@ -278,7 +278,7 @@ export class Interface {
    * The device must be open to use this method.
    * @param cb
    */
-  release(cb?: (err?: string) => void): void;
+  release(cb?: (err?: LibUSBException) => void): void;
 
   /**
    * Releases the interface and resets the alternate setting. Calls callback when complete.
@@ -292,7 +292,7 @@ export class Interface {
    * @param closeEndpoints
    * @param cb
    */
-  release(closeEndpoints?: boolean, cb?: (err?: string) => void): void;
+  release(closeEndpoints?: boolean, cb?: (err?: LibUSBException) => void): void;
 
   /**
    * Returns `false` if a kernel driver is not active; `true` if active.
@@ -322,7 +322,7 @@ export class Interface {
    * @param altSetting
    * @param cb
    */
-  setAltSetting(altSetting: number, cb: (err?: string) => void): void;
+  setAltSetting(altSetting: number, cb: (err?: LibUSBException) => void): void;
 
   /**
    * Return the InEndpoint or OutEndpoint with the specified address.
@@ -404,7 +404,7 @@ export class InEndpoint extends EventEmitter implements Endpoint {
    * @param length
    * @param callback
    */
-  transfer(length: number, callback: (error: LibUSBException, data: Buffer) => void): InEndpoint;
+  transfer(length: number, callback: (error?: LibUSBException, data?: Buffer) => void): InEndpoint;
 
   /**
    * Start polling the endpoint.
