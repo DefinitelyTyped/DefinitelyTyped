@@ -2815,6 +2815,12 @@
             "asOfVersion": "2.1.6"
         },
         {
+            "libraryName": "markdownlint",
+            "typingsPackageName": "markdownlint",
+            "sourceRepoURL": "https://github.com/DavidAnson/markdownlint",
+            "asOfVersion": "0.18.0"
+        },
+        {
             "libraryName": "matcher",
             "typingsPackageName": "matcher",
             "sourceRepoURL": "https://github.com/sindresorhus/matcher",
