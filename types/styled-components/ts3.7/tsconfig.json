@@ -4,6 +4,7 @@
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "lib": [
+            "dom",
             "es6"
         ],
         "module": "commonjs",
