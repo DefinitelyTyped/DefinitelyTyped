@@ -306,14 +306,14 @@ export class Interface {
    *
    * The device must be open to use this method.
    */
-  detachKernelDriver(): number;
+  detachKernelDriver(): void;
 
   /**
    * Re-attaches the kernel driver for the interface.
    *
    * The device must be open to use this method.
    */
-  attachKernelDriver(): number;
+  attachKernelDriver(): void;
 
   /**
    * Sets the alternate setting. It updates the `interface.endpoints` array to reflect the endpoints found in the alternate setting.
