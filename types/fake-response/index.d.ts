@@ -1,4 +1,4 @@
-// Type definitions for fake-response 3.4
+// Type definitions for fake-response 4.0
 // Project: https://github.com/R35007/Fake-Response
 // Definitions by: r35007 <https://github.com/R35007>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
