@@ -35,7 +35,7 @@ export as namespace CarbonIcons;
 
 const rootIndexContent = `
 import _{{name}} from '{{path}}';
-export { {{export}} };
+export { _{{name}} as {{export}} };
 export * from '{{path}}';
 `
 
