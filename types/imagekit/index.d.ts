@@ -1,6 +1,7 @@
 // Type definitions for imagekit 3.1
 // Project: https://github.com/imagekit-developer/imagekit-nodejs
 // Definitions by: Kevin Faulhaber <https://github.com/kemicofa>
+//                 Romanos Tsouroplis <https://github.com/romdim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
