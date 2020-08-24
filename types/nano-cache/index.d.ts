@@ -51,14 +51,14 @@ type Options = {
 };
 
 export class NanoCache {
-    constructor(options?: Options);
+    new(options?: Options);
     get(key: unknown): unknown;
     set(key: unknown, value: unknown, options?: Options): void;
     delete(key: unknown): unknown;
     clear(): void;
     clearExpired(): void;
     isTTLExpired(key: unknown): boolean;
-    isLimitReached:(key: unknown): boolean;
+    isLimitReached(key: unknown): boolean;
     info(key: unknown): Info;
     stats(): Stats;
     static SIZE: SIZE;
