@@ -1,9 +1,9 @@
-// Type definitions for dotenv-webpack 1.7
+// Type definitions for dotenv-webpack 1.8
 // Project: https://github.com/mrsteele/dotenv-webpack
 // Definitions by: Karol Majewski <https://github.com/karol-majewski>
 //                 Dave Cardwell <https://github.com/davecardwell>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
 
 import * as webpack from 'webpack';
 
@@ -22,6 +22,13 @@ declare namespace DotenvWebpackPlugin {
      * If `false` ignore safe-mode, if `true` load `'./.env.example'`, if a `string` load that file as the sample. Default: `false`.
      */
     safe?: boolean | string;
+
+    /**
+     * Whether to allow empty strings in safe mode.
+     * If false, will throw an error if any env variables are empty (but only if safe mode is enabled).
+     * @default false
+     */
+    allowEmptyValues?: boolean;
 
     /**
      * Set to `true` if you would rather load all system variables as well (useful for CI purposes). Default: `false`.

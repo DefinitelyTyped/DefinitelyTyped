@@ -2,6 +2,6 @@
   "private": true,
   "dependencies": {
     "@emotion/serialize": "^0.11.15",
-    "csstype": "^2.6.6"
+    "csstype": "^3.0.2"
   }
 }

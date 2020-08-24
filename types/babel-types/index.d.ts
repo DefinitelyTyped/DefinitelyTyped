@@ -4,8 +4,8 @@
 //                 Sam Baxter <https://github.com/baxtersa>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Boris Cherny <https://github.com/bcherny>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 export interface Comment {
     value: string;
@@ -1539,9 +1539,15 @@ export function isIfStatement(node: object | null | undefined, opts?: object): n
 export function isLabeledStatement(node: object | null | undefined, opts?: object): node is LabeledStatement;
 export function isStringLiteral(node: object | null | undefined, opts?: object): node is StringLiteral;
 export function isNumericLiteral(node: object | null | undefined, opts?: object): node is NumericLiteral;
+
+/** @deprecated Use `isNumericLiteral` */
+export function isNumberLiteral(node: object | null | undefined, opts?: object): node is NumericLiteral;
 export function isNullLiteral(node: object | null | undefined, opts?: object): node is NullLiteral;
 export function isBooleanLiteral(node: object | null | undefined, opts?: object): node is BooleanLiteral;
 export function isRegExpLiteral(node: object | null | undefined, opts?: object): node is RegExpLiteral;
+
+/** @deprecated Use `isRegExpLiteral` */
+export function isRegexLiteral(node: object | null | undefined, opts?: object): node is RegExpLiteral;
 export function isLogicalExpression(node: object | null | undefined, opts?: object): node is LogicalExpression;
 export function isMemberExpression(node: object | null | undefined, opts?: object): node is MemberExpression;
 export function isNewExpression(node: object | null | undefined, opts?: object): node is NewExpression;
@@ -1686,8 +1692,6 @@ export function isFlow(node: object | null | undefined, opts?: object): node is 
 export function isFlowBaseAnnotation(node: object | null | undefined, opts?: object): node is FlowBaseAnnotation;
 export function isFlowDeclaration(node: object | null | undefined, opts?: object): node is FlowDeclaration;
 export function isJSX(node: object | null | undefined, opts?: object): node is JSX;
-export function isNumberLiteral(node: object | null | undefined, opts?: object): node is NumericLiteral;
-export function isRegexLiteral(node: object | null | undefined, opts?: object): node is RegExpLiteral;
 
 export function isReferencedIdentifier(node: object | null | undefined, opts?: object): node is Identifier | JSXIdentifier;
 export function isReferencedMemberExpression(node: object | null | undefined, opts?: object): node is MemberExpression;
@@ -1787,9 +1791,15 @@ export function assertIfStatement(node: object | null | undefined, opts?: object
 export function assertLabeledStatement(node: object | null | undefined, opts?: object): void;
 export function assertStringLiteral(node: object | null | undefined, opts?: object): void;
 export function assertNumericLiteral(node: object | null | undefined, opts?: object): void;
+
+/** @deprecated Use `assertNumericLiteral` */
+export function assertNumberLiteral(node: object | null | undefined, opts?: object): void;
 export function assertNullLiteral(node: object | null | undefined, opts?: object): void;
 export function assertBooleanLiteral(node: object | null | undefined, opts?: object): void;
 export function assertRegExpLiteral(node: object | null | undefined, opts?: object): void;
+
+/** @deprecated Use `assertRegExpLiteral` */
+export function assertRegexLiteral(node: object | null | undefined, opts?: object): void;
 export function assertLogicalExpression(node: object | null | undefined, opts?: object): void;
 export function assertMemberExpression(node: object | null | undefined, opts?: object): void;
 export function assertNewExpression(node: object | null | undefined, opts?: object): void;
@@ -1933,8 +1943,6 @@ export function assertFlow(node: object | null | undefined, opts?: object): void
 export function assertFlowBaseAnnotation(node: object | null | undefined, opts?: object): void;
 export function assertFlowDeclaration(node: object | null | undefined, opts?: object): void;
 export function assertJSX(node: object | null | undefined, opts?: object): void;
-export function assertNumberLiteral(node: object | null | undefined, opts?: object): void;
-export function assertRegexLiteral(node: object | null | undefined, opts?: object): void;
 
 export function assertTSAnyKeyword(node: object | null | undefined, opts?: object): void;
 export function assertTSArrayType(node: object | null | undefined, opts?: object): void;

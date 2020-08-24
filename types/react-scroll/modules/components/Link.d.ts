@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface ReactScrollLinkProps {
     to: string;
@@ -16,8 +16,9 @@ export interface ReactScrollLinkProps {
     onSetActive?(to: string): void;
     onSetInactive?(): void;
     ignoreCancelEvents?: boolean;
+    saveHashHistory?: boolean;
 }
 
 export type LinkProps = ReactScrollLinkProps & React.HTMLProps<HTMLButtonElement>;
 
-export default class Link extends React.Component<LinkProps> { }
+export default class Link extends React.Component<LinkProps> {}

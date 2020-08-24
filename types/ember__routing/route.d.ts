@@ -156,7 +156,7 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * A hook you can use to reset controller values either when the model
      * changes or the route is exiting.
      */
-    resetController(controller: Controller, isExiting: boolean, transition: any): void;
+    resetController(controller: Controller, isExiting: boolean, transition: Transition): void;
 
     /**
      * Sends an action to the router, which will delegate it to the currently active
@@ -188,7 +188,7 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * when implementing your `setupController` function, make sure to call
      * `_super`
      */
-    setupController(controller: Controller, model: {}): void;
+    setupController(controller: Controller, model: {}, transition: Transition): void;
 
     /**
      * Transition the application into another route. The route may

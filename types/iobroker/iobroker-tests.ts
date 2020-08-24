@@ -26,6 +26,10 @@ let adapterOptions: ioBroker.AdapterOptions = {
     objectChange: objectChangeHandler,
     message: messageHandler,
     unload: unloadHandler,
+    error: (err) => {
+        console.log(err);
+        return true;
+    },
 };
 
 function readyHandler() {}
@@ -210,6 +214,8 @@ adapter.setObject('id', {
         read: true,
         write: false,
         role: 'some role',
+        def: [],
+        defAck: false,
     },
     native: {},
     protectedNative: ['none'],
@@ -307,6 +313,9 @@ adapter.unsubscribeObjects('*');
 adapter.unsubscribeStates('*');
 adapter.unsubscribeForeignObjects('*');
 adapter.unsubscribeForeignStates('*');
+
+adapter.encrypt("top secret").toLocaleLowerCase();
+adapter.decrypt("garbled nonsense").toLocaleLowerCase();
 
 adapter.log.info('msg');
 adapter.log.debug('msg');
@@ -488,3 +497,12 @@ adapter.getObjectAsync('id').then(obj => {
     obj && obj.common && obj.common.alias && obj.common.alias.id;
     obj && obj.common && obj.common.unit && obj.common.workingID;
 });
+
+declare let state: ioBroker.StateObject;
+if (typeof state.common.smartName === "object") {
+    state.common.smartName.de && state.common.smartName.de.toUpperCase();
+    state.common.smartName.byOn && state.common.smartName.byOn.toUpperCase();
+}
+
+declare let enumObj: ioBroker.EnumObject;
+enumObj.common.members && enumObj.common.members.map(() => 1);

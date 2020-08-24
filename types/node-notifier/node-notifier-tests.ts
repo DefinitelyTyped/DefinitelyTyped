@@ -117,7 +117,7 @@ const notifier4 = new notifier.Growl({
 notifier4.notify({
     title: 'Foo',
     message: 'Hello World',
-    icon: fs.readFileSync(__dirname + '/coulson.jpg', 'r'),
+    icon: fs.readFileSync(__dirname + '/coulson.jpg', 'utf8'),
     wait: false, // if wait for user interaction
 
     // and other growl options like sticky etc.

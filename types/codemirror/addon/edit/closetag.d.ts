@@ -5,9 +5,9 @@
 
 // See docs https://codemirror.net/doc/manual.html#addon_closetag
 
-import * as CodeMirror from "codemirror";
+import * as CodeMirror from 'codemirror';
 
-declare module "codemirror" {
+declare module 'codemirror' {
     interface CommandActions {
         closeTag(cm: CodeMirror.Editor): void;
     }
@@ -34,7 +34,7 @@ declare module "codemirror" {
          * closing line to be indented. (default is block tags for HTML, none for XML)
          */
         indentTags?: Array<string>;
-        
+
         /**
          * An array of XML tag names that should be autoclosed with '/>'. (default is none)
          */

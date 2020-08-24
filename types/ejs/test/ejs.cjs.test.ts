@@ -15,10 +15,10 @@ let asyncResult: Promise<string>;
 let ejsAsyncFunction: ejs.AsyncTemplateFunction;
 
 const SimpleCallback = (err: any, html: string) => {
-	if (err) {
-		return null!;
-	}
-	return html;
+    if (err) {
+        return null!;
+    }
+    return html;
 };
 
 result = ejs.render(template);
@@ -75,6 +75,6 @@ ejs.delimiter = '%';
 
 // https://github.com/mde/ejs#options
 const renderOptions: ejs.Options = {
-	beautify: true,
-	filename: fileName,
+    beautify: true,
+    filename: fileName,
 };

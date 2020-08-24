@@ -7,12 +7,12 @@ const httpTerminator = createHttpTerminator({ server: httpServer });
 
 const httpsServer = createHttpsServer();
 const httpsTerminator = createHttpTerminator({
-	server: httpsServer,
-	gracefulTerminationTimeout: 10000,
+    server: httpsServer,
+    gracefulTerminationTimeout: 10000,
 });
 
 httpTerminator.terminate()
-	.then(() => httpsTerminator.terminate())
-	.then(() => {
-		// Terminated.
-	});
+    .then(() => httpsTerminator.terminate())
+    .then(() => {
+        // Terminated.
+    });

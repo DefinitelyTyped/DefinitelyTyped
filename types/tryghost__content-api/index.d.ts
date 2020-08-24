@@ -88,7 +88,7 @@ export interface Author extends Identification, Metadata {
     };
 }
 
-export type TagVisibility = 'public' | 'draft' | 'scheduled';
+export type TagVisibility = 'public' | 'internal';
 
 export interface Tag extends Identification, Metadata {
     name?: string;

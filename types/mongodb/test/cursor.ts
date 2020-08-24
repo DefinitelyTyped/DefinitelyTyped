@@ -33,6 +33,12 @@ async function run() {
     .map(result => ({ foo: result.age }))
     .stream();
 
+  collection.find().project({});
+  collection.find().project({notExistingField: 1});
+  collection.find().sort({'fruitTags.name': -1, numberField: -1, notExistingField: -1});
+  collection.find().sort({text: {$meta: 'textScore'}, notExistingField: -1});
+  collection.find().sort({});
+
   for await (const item of cursor) {
     item.foo; // $ExpectType number
   }

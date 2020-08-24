@@ -19,8 +19,8 @@ class WebSocketJSONStream extends Duplex {
             this.emit('close');
             this.emit('end');
         });
-	this.on('error', () => { ws.close(); });
-	this.on('end',   () => { ws.close(); });
+    this.on('error', () => { ws.close(); });
+    this.on('end',   () => { ws.close(); });
     }
     _read(): void {}
     _write(msg: any, encoding: string, next: () => void): void {
@@ -44,6 +44,7 @@ console.log(backend.db);
 // getOps allows for `from` and `to` to both be `null`:
 // https://github.com/share/sharedb/blob/960f5d152f6a8051ed2dcb00a57681a3ebbd7dc2/README.md#getops
 backend.db.getOps('someCollection', 'someId', null, null, {}, () => {});
+backend.db.getSnapshotBulk('someCollection', ['id1', 'id2'], null, null, () => {});
 
 console.log(backend.pubsub);
 console.log(backend.extraDbs);
@@ -198,6 +199,25 @@ function startServer() {
     });
 }
 
+const richTextType = {
+  name: 'rich-text',
+  uri: 'http://sharejs.org/types/rich-text/v1',
+  create() {},
+  apply() {},
+  transform() {},
+  compose() {},
+};
+
+ShareDBClient.types.register(richTextType);
+
+console.log(ShareDBClient.types.map);
+console.log(ShareDBClient.types.map['rich-text'].name);
+console.log(ShareDBClient.types.map['rich-text'].uri);
+
+const op1 = [{ insert: 'Hello' }];
+const op2 = [{ retain: 5 }, { insert: ' world!' }];
+const op3 = ShareDBClient.types.map['rich-text'].compose(op1, op2);
+
 function startClient(callback) {
     const socket = new WebSocket('ws://localhost:8080');
     const connection = new ShareDBClient.Connection(socket);
@@ -214,4 +234,13 @@ function startClient(callback) {
     connection.createSubscribeQuery('examples', 'numClicks >= 5', null, (err, results) => {
         console.log(err, results);
     });
+
+    const anotherDoc = doc.connection.get('examples', 'another-counter');
+    console.log(anotherDoc.collection);
+    if (anotherDoc.type !== null) {
+      console.log(anotherDoc.type.name);
+    }
+    if (anotherDoc.version !== null) {
+      Math.round(anotherDoc.version);
+    }
 }

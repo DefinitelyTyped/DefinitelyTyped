@@ -543,6 +543,9 @@ stripe.customers
         customer.subscriptions
             .create({ items: [{ plan: 'gold' }], billing: 'charge_automatically' })
             .then(subscription => {});
+        customer.subscriptions
+            .create({ items: [{ plan: 'gold' }], transfer_data: { destination: 'acct_17wV8KBoqMA9o2xk' }})
+            .then(subscription => {});
         customer.subscriptions.retrieve('sub_8Eluur5KoIKxuy').then(subscription => {
             customer.subscriptions
                 .update('sub_8Eluur5KoIKxuy', { items: [{ id: subscription.items.data[0].id, plan: 'silver' }] })
@@ -1475,88 +1478,88 @@ stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk').then(persons => {
 
 // Authorizations
 stripe.issuing.authorizations.approve('iauth_h1i4AfJvb7x60ib4t6HYQah4').then(authorization => {
-	// asynchronously called
+    // asynchronously called
 });
 stripe.issuing.authorizations.decline('iauth_h1i4AfJvb7x60ib4t6HYQah4').then(authorization => {
-	// asynchronously called
+    // asynchronously called
 });
 stripe.issuing.authorizations.list({ card: 'ic_hl1LlYJvbh660ib4viYdZdj4' }).then(authorization => {
-	// asynchronously called
+    // asynchronously called
 });
 stripe.issuing.authorizations.retrieve('iauth_h1i4AfJvb7x60ib4t6HYQah4').then(authorization => {
-	// asynchronously called
+    // asynchronously called
 });
 stripe.issuing.authorizations.update('iauth_h1i4AfJvb7x60ib4t6HYQah4', { metadata: {} }).then(authorization => {
-	// asynchronously called
+    // asynchronously called
 });
 
 // Cardholders
 stripe.issuing.cardholders.create({
-	billing: {
-		address: {
-			line1: '1 Remote Way',
-			line2: 'Mistro Inc',
-			city: 'San Francisco',
-			state: 'CA',
-			postal_code: '94104',
-			country: 'US',
-		}
-	},
-	name: 'John Doe',
-	type: 'business_entity',
+    billing: {
+        address: {
+            line1: '1 Remote Way',
+            line2: 'Mistro Inc',
+            city: 'San Francisco',
+            state: 'CA',
+            postal_code: '94104',
+            country: 'US',
+        }
+    },
+    name: 'John Doe',
+    type: 'business_entity',
 }).then(cardholder => {
-	// asynchronously called
+    // asynchronously called
 });
 stripe.issuing.cardholders.list({ email: 'hello@mistro.io' }).then(cardholder => {
-	// asynchronously called
+    // asynchronously called
 });
 stripe.issuing.cardholders.retrieve('ich_jd4b0pJvb7x60u442RQUnv2f').then(cardholder => {
-	// asynchronously called
+    // asynchronously called
 });
 stripe.issuing.cardholders.update('ich_jd4b0pJvb7x60u442RQUnv2f', { metadata: {} }).then(cardholder => {
-	// asynchronously called
+    // asynchronously called
 });
 
 stripe.issuing.cards.create({ currency: 'usd', type: 'physical' }).then(card => {
-	// asynchronously called
+    // asynchronously called
 });
 stripe.issuing.cards.list({ cardholder: 'ich_jd4b0pJvb7x60u442RQUnv2f'}).then(card => {
-	// asynchronously called
+    // asynchronously called
 });
 stripe.issuing.cards.retrieve('ic_hl1LlYJvbh660ib4viYdZdj4').then(card => {
-	// asynchronously called
+    // asynchronously called
 });
 stripe.issuing.cards.retrieveDetails('ic_hl1LlYJvbh660ib4viYdZdj4').then(card => {
-	// asynchronously called
+    // asynchronously called
 });
 stripe.issuing.cards.update('ic_hl1LlYJvbh660ib4viYdZdj4', { metadata: {} }).then(card => {
-	// asynchronously called
+    // asynchronously called
 });
 
 stripe.issuing.disputes.create({
-	disputed_transaction: 'ipi_6diQkdnvb7x60ib4j9amJDBW',
-	reason: 'fraudlent',
+    disputed_transaction: 'ipi_6diQkdnvb7x60ib4j9amJDBW',
+    reason: 'fraudlent',
 }).then(dispute => {
-	// asynchronously called
+    // asynchronously called
 });
 stripe.issuing.disputes.list({ limit: 3 }).then(dispute => {
-	// asynchronously called
+    // asynchronously called
 });
 stripe.issuing.disputes.retrieve('ipi_6diQkdnvb7x60ib4j9amJDBW').then(dispute => {
-	// asynchronously called
+    // asynchronously called
 });
 stripe.issuing.disputes.update('ipi_6diQkdnvb7x60ib4j9amJDBW', { metadata: {} }).then(dispute => {
-	// asynchronously called
+    // asynchronously called
 });
 
 stripe.issuing.transactions.list({ limit: 3}).then(dispute => {
-	// asynchronously called
+    // asynchronously called
 });
 stripe.issuing.transactions.retrieve('ipi_6diQkdnvb7x60ib4j9amJDBW').then(dispute => {
-	// asynchronously called
+    // asynchronously called
 });
 stripe.issuing.transactions.update('ipi_6diQkdnvb7x60ib4j9amJDBW', { metadata: {} }).then(dispute => {
-	// asynchronously called
+    // asynchronously called
 });
 
 // ##endregion

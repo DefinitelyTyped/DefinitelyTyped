@@ -59,7 +59,7 @@ declare namespace google.maps.infobubble {
           */
         open(map: google.maps.Map, marker: google.maps.Marker) : void;
 
-		/**
+        /**
           * Returns the position of the InfoBubble
           */
         getPosition(): google.maps.LatLng;

@@ -39,8 +39,15 @@ type HasProperty<T, K> = K extends keyof T ? true : false;
                     value: 'A'
                 },
                 {
-                    title: 'A',
+                    title: 'B',
                     value: {foo: 'bar'}
+                },
+                {
+                    title: 'C',
+                    value: 'C',
+                    disabled: false,
+                    selected: false,
+                    description: 'a description'
                 },
             ]
         }

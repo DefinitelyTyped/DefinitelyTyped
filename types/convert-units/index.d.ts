@@ -89,7 +89,7 @@ type unit = uDistance
     | uReactiveEnergy
     | uAngle;
 
-type measure = "distance"
+type measure = "length"
     | "area"
     | "mass"
     | "volume"
@@ -124,7 +124,7 @@ declare class Convert {
     toBest(options?: { exclude?: unit[], cutOffNumber?: number }): { val: number, unit: string, singular: string, plural: string };
     getUnit<T extends unit>(abbr: T): { abbr: T, measure: measure, system: system, unit: { name: { singular: string, plural: string }, to_anchor: number } };
     describe<T extends unit>(abbr: T): { abbr: T, measure: measure, system: system, singular: string, plural: string };
-    list(measure?: measure): unit[];
+    list(measure?: measure): Array<{ abbr: unit, measure: measure, system: system, singular: string, plural: string }>;
     private throwUnsupportedUnitError(what: string): void;
     possibilities(measure?: measure): unit[];
     measures(): measure[];

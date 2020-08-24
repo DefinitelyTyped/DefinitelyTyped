@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import postcss = require('postcss');
 import plugin = require('postcss-flexbugs-fixes');
 

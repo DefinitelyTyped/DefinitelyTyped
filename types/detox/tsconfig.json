@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
+        "test/detox-jest-circus-setup-tests.ts",
         "test/detox-global-tests.ts",
         "test/detox-module-tests.ts",
         "test/detox-jest-setup-tests.ts",

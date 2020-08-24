@@ -1,13 +1,17 @@
 // Type definitions for imagekit 3.1
 // Project: https://github.com/imagekit-developer/imagekit-nodejs
 // Definitions by: Kevin Faulhaber <https://github.com/kemicofa>
+//                 Romanos Tsouroplis <https://github.com/romdim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
 type TransformationPosition = 'path' | 'query';
-type FileType = 'image' | 'non-image';
+type FileType = 'all' | 'image' | 'non-image';
 type Item = 'file' | 'folder';
+type CustomCoordinatesResponse = string | null;
+// Taken from this help post: https://help.imagekit.io/en/articles/2434102-image-format-support-in-imagekit-for-resizing-compression-and-static-file-delivery
+type FileFormat = 'jpg' | 'png' | 'gif' | 'svg' | 'webp' | 'pdf' | 'js' | 'css' | 'txt' | 'mp4' | 'webm' | 'mov' | 'swf' | 'ts' | 'm3u8' | string;
 
 interface Transformation {
     height?: string;
@@ -55,7 +59,7 @@ interface Transformation {
 
 interface UrlOptionsBase {
     transformation?: Transformation[];
-    transformationPosition: TransformationPosition;
+    transformationPosition?: TransformationPosition;
     queryParameters?: { [key: string]: string | number };
     urlEndpoint?: string;
     signed?: boolean;
@@ -64,37 +68,133 @@ interface UrlOptionsBase {
 
 type UrlOptions = ({ src: string; path?: never } | { path: string; src?: never }) & UrlOptionsBase;
 
+/**
+ * Options used when uploading a file
+ *
+ * [See docs](https://docs.imagekit.io/api-reference/upload-file-api/server-side-file-upload#request-structure-multipart-form-data)
+ */
 interface UploadOptions {
+    /**
+     * This field accepts three kinds of values:
+     * - binary - You can send the content of the file as binary. This is used when a file is being uploaded from the browser.
+     * - base64 - Base64 encoded string of file content.
+     * - url - URL of the file from where to download the content before uploading. Downloading file from URL might take longer, so it is recommended that you pass the binary or base64 content of the file. Pass the full URL, for example - https://www.example.com/rest-of-the-image-path.jpg.
+     */
     file: number | string;
+    /**
+     * The name with which the file has to be uploaded.
+     * The file name can contain:
+     * - Alphanumeric Characters: a-z , A-Z , 0-9
+     * - Special Characters: . _ and -
+     * Any other character including space will be replaced by _
+     */
     fileName: string;
+    /**
+     * Whether to use a unique filename for this file or not.
+     * - Accepts true or false.
+     * - If set true, ImageKit.io will add a unique suffix to the filename parameter to get a unique filename.
+     * - If set false, then the image is uploaded with the provided filename parameter and any existing file with the same name is replaced.
+     * Default value - true
+     */
     useUniqueFileName?: boolean;
-    tags?: string[];
+    /**
+     * Set the tags while uploading the file.
+     * - Comma-separated value of tags in format tag1,tag2,tag3. For example - t-shirt,round-neck,men
+     * - The maximum length of all characters should not exceed 500.
+     * - % is not allowed.
+     * - If this field is not specified and the file is overwritten then the tags will be removed.
+     */
+    tags?: string;
+    /**
+     * The folder path (e.g. /images/folder/) in which the image has to be uploaded. If the folder(s) didn't exist before, a new folder(s) is created.
+     * The folder name can contain:
+     * - Alphanumeric Characters: a-z , A-Z , 0-9
+     * - Special Characters: / _ and -
+     * - Using multiple / creates a nested folder.
+     * Default value - /
+     */
     folder?: string;
+    /**
+     * Whether to mark the file as private or not. This is only relevant for image type files.
+     * - Accepts true or false.
+     * - If set true, the file is marked as private which restricts access to the original image URL and unnamed image transformations without signed URLs. Without the signed URL, only named transformations work on private images
+     * Default value - false
+     */
     isPrivateFile?: boolean;
+    /**
+     * Define an important area in the image. This is only relevant for image type files.
+     * To be passed as a string with the x and y coordinates of the top-left corner, and width and height of the area of interest in format x,y,width,height. For example - 10,10,100,100
+     * Can be used with fo-customtransformation.
+     * If this field is not specified and the file is overwritten, then customCoordinates will be removed.
+     */
     customCoordinates?: string;
-    responseFields: string;
+    /**
+     * Comma-separated values of the fields that you want ImageKit.io to return in response.
+     *
+     * For example, set the value of this field to tags,customCoordinates,isPrivateFile,metadata to get value of tags, customCoordinates, isPrivateFile , and metadata in the response.
+     */
+    responseFields?: string;
 }
 
 interface UploadResponse {
+    /**
+     * Unique fileId. Store this fileld in your database, as this will be used to perform update action on this file.
+     */
     fileId: string;
+    /**
+     * The name of the uploaded file.
+     */
     name: string;
+    /**
+     * The URL of the file.
+     */
     url: string;
+    /**
+     * In case of an image, a small thumbnail URL.
+     */
     thumbnailUrl: string;
+    /**
+     * Height of the uploaded image file. Only applicable when file type is image.
+     */
     height: number;
+    /**
+     * Width of the uploaded image file. Only applicable when file type is image.
+     */
     width: number;
+    /**
+     * Size of the uploaded file in bytes.
+     */
     size: number;
-    filePath: string;
+    /**
+     * Type of file. It can either be image or non-image.
+     */
     fileType: FileType;
+    /**
+     * The path of the file uploaded. It includes any folder that you specified while uploading.
+     */
+    filePath: string;
+    /**
+     * Array of tags associated with the image.
+     */
     tags?: string[];
-    isPrivateFile?: boolean;
-    customCoordinates?: string | null;
+    /**
+     * Is the file marked as private. It can be either true or false.
+     */
+    isPrivateFile: boolean;
+    /**
+     * Value of custom coordinates associated with the image in format x,y,width,height.
+     */
+    customCoordinates: CustomCoordinatesResponse;
+    /**
+     * The metadata of the upload file. Use responseFields property in request to get the metadata returned in response of upload API.
+     */
     metadata?: string;
 }
 
 interface ListFileOptions {
     path?: string;
     fileType?: FileType;
-    tags?: string[];
+    tags?: string;
     includeFolder?: boolean;
     name?: string;
     limit?: number;
@@ -105,10 +205,11 @@ interface ListFileResponse {
     fileId: string;
     type: Item;
     name: string;
+    createdAt: string;
     filePath: string;
     tags: string[] | null;
     isPrivateFile: boolean;
-    customCoordinates: string;
+    customCoordinates: CustomCoordinatesResponse;
     url: string;
     thumbnail: string;
     fileType: FileType;
@@ -121,7 +222,7 @@ interface FileDetailsResponse {
     filePath: string;
     tags: string[] | null;
     isPrivateFile: boolean;
-    customCoordinates: string | null;
+    customCoordinates: CustomCoordinatesResponse;
     url: string;
     thumbnail: string;
     fileType: FileType;
@@ -131,8 +232,7 @@ interface FileMetadataResponse {
     height: number;
     width: number;
     size: number;
-    // TODO: specify majority of returned formats
-    format: 'jpg' | string;
+    format: FileFormat;
     hasColorProfile: boolean;
     quality: number;
     density: number;
@@ -165,7 +265,7 @@ interface FileMetadataResponse {
             FNumber: number;
             ExposureProgram: number;
             ISO: number;
-            ExifVersion: number;
+            ExifVersion: string;
             DateTimeOriginal: string;
             CreateDate: string;
             ShutterSpeedValue: number;
@@ -174,10 +274,10 @@ interface FileMetadataResponse {
             MeteringMode: number;
             Flash: number;
             FocalLength: number;
-            SubSecTime: number;
-            SubSecTimeOriginal: number;
-            SubSecTimeDigitized: number;
-            FlashpixVersion: number;
+            SubSecTime: string;
+            SubSecTimeOriginal: string;
+            SubSecTimeDigitized: string;
+            FlashpixVersion: string;
             ColorSpace: number;
             ExifImageWidth: number;
             ExifImageHeight: number;
@@ -265,7 +365,7 @@ declare class ImageKit {
     purgeCache(fullUrl: string, callback: Callback<PurgeCacheResponse>): void;
     purgeCache(fullUrl: string): Promise<PurgeCacheResponse>;
 
-    getPurgeCacheStatus(cacheRequestId: string, caellback: Callback<PurgeCacheStatusResponse>): void;
+    getPurgeCacheStatus(cacheRequestId: string, callback: Callback<PurgeCacheStatusResponse>): void;
     getPurgeCacheStatus(cacheRequestId: string): Promise<PurgeCacheStatusResponse>;
 
     getAuthenticationParameters(token?: string, expire?: number): { token: string; expire: number; signature: string };

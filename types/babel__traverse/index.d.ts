@@ -5,6 +5,7 @@
 //                 Ryan Petrich <https://github.com/rpetrich>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
 //                 Dean L. <https://github.com/dlgrit>
+//                 Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 
@@ -12,20 +13,28 @@ import * as t from '@babel/types';
 
 export type Node = t.Node;
 
-export default function traverse<S>(
-    parent: Node | Node[],
-    opts: TraverseOptions<S>,
-    scope: Scope | undefined,
-    state: S,
-    parentPath?: NodePath,
-): void;
-export default function traverse(
-    parent: Node | Node[],
-    opts: TraverseOptions,
-    scope?: Scope,
-    state?: any,
-    parentPath?: NodePath,
-): void;
+declare const traverse: {
+    <S>(
+        parent: Node | Node[],
+        opts: TraverseOptions<S>,
+        scope: Scope | undefined,
+        state: S,
+        parentPath?: NodePath,
+    ): void;
+    (
+        parent: Node | Node[],
+        opts: TraverseOptions,
+        scope?: Scope,
+        state?: any,
+        parentPath?: NodePath,
+    ): void;
+
+    visitors: {
+        merge: (visitors: Visitor[]) => Visitor
+    }
+};
+
+export default traverse;
 
 export interface TraverseOptions<S = Node> extends Visitor<S> {
     scope?: Scope;
@@ -841,10 +850,21 @@ export class NodePath<T = Node> {
     assertRegexLiteral(opts?: object): void;
 }
 
-export class Hub {
+export interface HubInterface {
+    getCode(): string | undefined;
+    getScope(): Scope | undefined;
+    addHelper(name: string): any;
+    buildError(node: any, msg: string, Error: ErrorConstructor): Error;
+}
+
+export class Hub implements HubInterface {
     constructor(file: any, options: any);
     file: any;
     options: any;
+    getCode(): string | undefined;
+    getScope(): Scope | undefined;
+    addHelper(name: string): any;
+    buildError(node: any, msg: string, Constructor: typeof Error): Error;
 }
 
 export interface TraversalContext {

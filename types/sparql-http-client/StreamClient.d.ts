@@ -3,6 +3,7 @@ import BaseClient = require('./BaseClient');
 import StreamQuery = require('./StreamQuery');
 import StreamStore = require('./StreamStore');
 import { Endpoint, EndpointOptions } from './Endpoint';
+import { Readable } from 'stream';
 
 interface Constructor<T, Q extends BaseQuad = Quad> {
     new (options: { endpoint: Endpoint; factory: DataFactory<Q>; }): T;
@@ -40,7 +41,7 @@ declare namespace StreamClient {
 
     interface Store<Q extends BaseQuad = Quad> {
         endpoint: Endpoint;
-        get(graph: Quad['graph']): Promise<Stream<Q>>;
+        get(graph: Quad['graph']): Promise<Stream<Q> & Readable>;
         post(stream: Stream): Promise<void>;
         put(stream: Stream): Promise<void>;
     }

@@ -1,6 +1,7 @@
 -private/action-handler.d.ts
 -private/copyable.d.ts
 -private/types.d.ts
+compat.d.ts
 computed.d.ts
 core.d.ts
 evented.d.ts

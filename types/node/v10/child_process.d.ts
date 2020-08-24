@@ -11,6 +11,8 @@ declare module "child_process" {
         stdio: [stream.Writable, stream.Readable, stream.Readable];
         killed: boolean;
         pid: number;
+        readonly exitCode: number | null;
+        readonly signalCode: number | null;
         kill(signal?: string): void;
         send(message: any, callback?: (error: Error) => void): boolean;
         send(message: any, sendHandle?: net.Socket | net.Server, callback?: (error: Error) => void): boolean;
@@ -270,6 +272,7 @@ declare module "child_process" {
         uid?: number;
         gid?: number;
     }
+    function fork(modulePath: string, options?: ForkOptions): ChildProcess;
     function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
     interface SpawnSyncOptions {

@@ -299,6 +299,9 @@ const typographyTest = () => (
         <Typography fontWeight="sm" />
         <Typography fontWeight="bold" />
         <Typography fontWeight={{ sm: 1, md: 'sm', lg: 'bold' }} />
+        <Typography fontStyle="normal" />
+        <Typography fontStyle="italic" />
+        <Typography fontStyle="oblique" />
         <Typography textAlign="start" />
         <Typography textAlign={{ sm: 'start', md: 'end' }} />
         <Typography letterSpacing={2} />
@@ -400,6 +403,9 @@ const backgroundsTest = () => (
     <div>
         <Backgrounds background="green" />
         <Backgrounds background={{ sm: 'content-box red', md: 'green' }} />
+        <Backgrounds bg={2} />
+        <Backgrounds bg="sm" />
+        <Backgrounds bg={{ sm: 2, md: 'sm' }} />
         <Backgrounds backgroundColor={2} />
         <Backgrounds backgroundColor="sm" />
         <Backgrounds backgroundColor={{ sm: 2, md: 'sm' }} />

@@ -24,6 +24,6 @@ If changing an existing definition:
 - [ ] If you are making substantial changes, consider adding a `tslint.json` containing `{ "extends": "dtslint/dt.json" }`. If for reason the any rule need to be disabled, disable it for that line using `// tslint:disable-next-line [ruleName]` and not for whole package so that the need for disabling can be reviewed.
 
 If removing a declaration:
-- [ ] If a package was never on DefinitelyTyped, you don't need to do anything. (If you wrote a package and provided types, you don't need to register it with us.)
+- [ ] If a package was never on Definitely Typed, you don't need to do anything. (If you wrote a package and provided types, you don't need to register it with us.)
 - [ ] Delete the package's directory.
 - [ ] Add it to `notNeededPackages.json`.

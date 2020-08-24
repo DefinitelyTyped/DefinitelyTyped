@@ -227,18 +227,24 @@ MongoModel.update({ age: { $gt: 18 } }, { oldEnough: true }, cb);
 MongoModel.update({ name: 'Tobi' }, { ferret: true }, { multi: true,  arrayFilters: [{ element: { $gte: 100 } }] }, cb);
 MongoModel.where('age').gte(21).lte(65).exec(cb);
 MongoModel.where('age').gte(21).lte(65).where('name', /^b/i);
-new (mongoModel.base.model(''))();
-mongoModel.baseModelName && mongoModel.baseModelName.toLowerCase();
+new (MongoModel.base.model(''))();
+// $ExpectError
+mongoModel.baseModelName;
+MongoModel.baseModelName && MongoModel.baseModelName.toLowerCase();
 mongoModel.collection.$format(99);
 mongoModel.collection.initializeOrderedBulkOp;
 mongoModel.collection.findOne;
 mongoModel.db.openUri('');
+// $ExpectError
 mongoModel.discriminators;
-mongoModel.modelName.toLowerCase();
-MongoModel = mongoModel.base.model('new', mongoModel.schema);
-/* inherited properties */
-MongoModel.modelName;
+MongoModel.discriminators;
+// $ExpectError
 mongoModel.modelName;
+MongoModel.modelName;
+MongoModel.modelName.toLowerCase();
+MongoModel = MongoModel.base.model('new', mongoModel.schema);
+
+/* model inherited properties */
 MongoModel.collection;
 mongoModel.collection;
 mongoModel._id;
@@ -264,6 +270,10 @@ MongoModel.find({
 .exec();
 
 /* practical example */
+interface Note extends mongoose.Document {
+    text: string
+}
+const noteSchema = new mongoose.Schema({ text: String })
 
 interface Location extends mongoose.Document {
   _id: mongodb.ObjectId;
@@ -274,6 +284,7 @@ interface Location extends mongoose.Document {
   coords: number[];
   openingTimes: any[];
   reviews: any[];
+  notes: Note[]
 };
 const locationSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -282,7 +293,8 @@ const locationSchema = new mongoose.Schema({
   facilities: [String],
   coords: { type: [Number], index: "2dsphere" },
   openingTimes: [mongoose.Schema.Types.Mixed],
-  reviews: [mongoose.SchemaTypes.Mixed]
+  reviews: [mongoose.SchemaTypes.Mixed],
+  notes: [noteSchema]
 });
 
 var locDocument = <Location>{};
@@ -300,6 +312,7 @@ LocModel.findById(999)
             facility.toLowerCase();
         });
     });
+
 LocModel.find()
     .select('-reviews -rating')
     .exec(function (err, locations) {
@@ -335,6 +348,68 @@ LocModel.find({ _id: { foo: 'bar' } });
 LocModel.find({ name: 123 });
 // $ExpectError
 LocModel.find({ rating: 'foo' });
+LocModel.find({ name: 'foo' }).then(function(doc) {
+    if (doc && doc.length > 0) {
+        // $ExpectType ObjectId
+        doc[0]._id;
+        // $ExpectType string
+        doc[0].name;
+        // $ExpectError
+        doc[0].unknown;
+        doc[0].save();
+    }
+});
+LocModel.find({ name: 'foo' }, null, { lean: true }).then(function(doc) {
+    if (doc && doc.length > 0) {
+        // $ExpectType string
+        doc[0].name;
+        // $ExpectError
+        doc[0].unknown;
+        // $ExpectError
+        doc[0].save();
+    }
+});
+
+LocModel.findById('test-id').then(function(doc) {
+    if (doc) {
+        // $ExpectType string
+        doc.name;
+        // $ExpectError
+        doc.unknown;
+        doc.save();
+    }
+});
+LocModel.findById('test-id', null, { lean: true }).then(function(doc) {
+    if (doc) {
+        // $ExpectType string
+        doc.name;
+        // $ExpectError
+        doc.unknown;
+        // $ExpectError
+        doc.save();
+    }
+});
+
+LocModel.findByIdAndUpdate('test-id', { $set: { name: "bb" } }).then((doc) => {
+    if (doc) {
+        // $ExpectType string
+        doc.name;
+        // $ExpectError
+        doc.unknown;
+        doc.save();
+    }
+});
+LocModel.findByIdAndUpdate('test-id', { $set: { name: "bb" } }, { lean: true }).then((doc) => {
+    if (doc) {
+        // $ExpectType string
+        doc.name;
+        // $ExpectError
+        doc.unknown;
+        // $ExpectError
+        doc.save();
+    }
+});
+
 LocModel.count({ name: 'foo'})
     .exec(function (err, count) {
         count.toFixed();
@@ -370,7 +445,26 @@ LocModel.findByIdAndUpdate()
     });
 LocModel.findOne({}, function (err, doc) {
     if (doc) {
+        // $ExpectType ObjectId
+        doc._id;
+        // $ExpectType string
+        doc.name;
+        // $ExpectError
+        doc.unknown;
+        doc.save();
         doc.openingTimes;
+    }
+});
+LocModel.findOne({ name: 'foo', rating: 10 }, 'name', { lean: true }).then(function(doc) {
+    if (doc) {
+        // $ExpectType ObjectId
+        doc._id;
+        // $ExpectType string
+        doc.name;
+        // $ExpectError
+        doc.unknown;
+        // $ExpectError
+        doc.save();
     }
 });
 LocModel
@@ -385,6 +479,8 @@ LocModel
             doc.name;
             // $ExpectError
             doc.unknown;
+            // $ExpectError
+            doc.save();
         }
     });
 LocModel.findOneAndRemove()
@@ -395,9 +491,14 @@ LocModel.findOneAndRemove()
     });
 LocModel.findOneAndRemove({ name: 'foo', rating: 10 });
 LocModel.findOneAndDelete({ name: 'foo', rating: 10 });
-LocModel.findOneAndUpdate({ name: 'foo' }, { rating: 20 }).exec().then(function (arg) {
-    if (arg) {
-        arg.openingTimes;
+LocModel.findOneAndUpdate({ name: 'foo' }, { rating: 20 }).exec().then(function (doc) {
+    if (doc) {
+        // $ExpectType string
+        doc.name;
+        // $ExpectError
+        doc.unknown;
+        doc.save();
+        doc.openingTimes;
     }
 });
 LocModel.findOneAndUpdate(
@@ -406,8 +507,24 @@ LocModel.findOneAndUpdate(
     // document to insert when nothing was found
     { $set: { name: "bb" } },
     // options
-    {upsert: true, new: true, runValidators: true,
-        rawResult: true, multipleCastError: true });
+    {
+        upsert: true,
+        new: true,
+        runValidators: true,
+        rawResult: true,
+        multipleCastError: true
+    }
+);
+LocModel.findOneAndUpdate({ name: "aa" }, { $set: { name: "bb" } }, { lean: true }).then((doc) => {
+    if (doc) {
+        // $ExpectType string
+        doc.name;
+        // $ExpectError
+        doc.unknown;
+        // $ExpectError
+        doc.save();
+    }
+});
 LocModel.geoSearch({}, {
     near: [1, 2],
     maxDistance: 22
@@ -476,3 +593,224 @@ LocModel.updateMany({ name: 'foo' }, { name: 123 });
 LocModel.updateMany({ name: 'foo' }, { $pull: { facilities: 123 } });
 // $ExpectError
 LocModel.updateMany({ name: 'foo' }, { $push: { coords: 'bar' } });
+
+LocModel.findByIdAndUpdate('someId',
+  { $pull: { notes: { _id: ['someId'] } } }
+);
+LocModel.findByIdAndUpdate('someId',
+  { $pull: { notes: { _id: { $in: ['someId', 'someId'] } } } }
+)
+
+// $ExpectError
+LocModel.create({ address: "foo", coords: [1, 2], facilities: ["foo", "bar"] });
+
+LocModel.create({ address: "foo", coords: [1, 2], facilities: ["foo", "bar"], name: "bar", openingTimes: ["foo"], rating: 10, reviews: ["foo"], notes: [] });
+LocModel.create<{address: string}>({ address: "foo" });
+
+enum SchemaEnum {
+    Foo,
+    Bar
+}
+
+enum StringSchemaEnum {
+    Foo = "foo",
+    Bar = "bar"
+}
+
+interface ModelWithFunction extends mongoose.Document {
+    name: string;
+
+    someFunc: () => any;
+
+    objectId?: mongoose.Types.ObjectId;
+
+    date?: Date;
+
+    boolean?: boolean;
+
+    decimal?: mongodb.Decimal128;
+
+    number?: number;
+
+    enum?: SchemaEnum;
+
+    enum2?: StringSchemaEnum;
+
+
+    selfRef?: ModelWithFunction | mongodb.ObjectID;
+
+    selfRef2?: ModelWithFunction | mongodb.ObjectID;
+
+    selfRefArray?: (ModelWithFunction | mongodb.ObjectID | undefined)[];
+
+    selfRefArray2?: ModelWithFunction[] | mongodb.ObjectID[];
+
+    parent?: {
+        ref: { 
+            _id: mongodb.ObjectId; 
+            child: ModelWithFunction
+        } | mongodb.ObjectID;
+    }
+
+    enumArray?: SchemaEnum[];
+
+    deeperFuncTest?: {
+        test: string;
+        // ensure this doesn't turn required
+        optionalTest?: string;
+
+        someFunc: () => any; // should be excluded in CreateQuery<T>
+
+        tuple?: [number, number];
+        array?: number[];
+
+        deepArray?: Array<{ 
+            title: string, 
+            func: () => {}, // should be excluded in CreateQuery<T>
+            tuple?: [number, number]
+            objectId?: mongoose.Types.ObjectId;
+
+            mapWithFuncs?: Map<string, { 
+                title: string, 
+                func: () => {}, // should be excluded in CreateQuery<T>
+                innerMap: Map<string, {
+                    title: string, 
+                    func: () => {} // should be excluded in CreateQuery<T>
+                    readonly readonly: unknown; // should be excluded in CreateQuery<T>
+                    objectId?: mongoose.Types.ObjectId;
+                }> 
+            }>;
+        }>
+    }
+    
+    map?: Map<string, boolean>
+
+    mapWithFuncs?: Map<string, { 
+        title: string, 
+        func: () => {}, // should be excluded in CreateQuery<T>
+        innerMap: Map<string, {
+            title: string, 
+            func: () => {} // should be excluded in CreateQuery<T>
+            readonly readonly: unknown; // should be excluded in CreateQuery<T>
+        }> 
+    }>;
+
+
+    jobs: Array<{ 
+        title: string, 
+        readonly readonly: unknown // should be excluded in CreateQuery<T>
+    }>;
+
+    titles?: Array<{ title: string }>;
+
+    readonly readonly: unknown; // should be excluded in CreateQuery<T>
+}
+
+// we are only testing the types, not the functionality, so no mongoose.Schema needed
+var ModelWithFunctionInSchema = mongoose.model<ModelWithFunction>("ModelWithFunction", {} as any);
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { test: "test", array: [1, 2, 3], tuple: [1, 2] } });
+
+ModelWithFunctionInSchema.create({ 
+    name: "test", 
+    jobs: [], 
+    deeperFuncTest: { 
+        test: "hello", 
+        deepArray: [{ 
+            title: "test", 
+            tuple: [1, 2], 
+            objectId: "valid-object-id-source",
+            mapWithFuncs: { 
+                test: { 
+                    title: "test", 
+                    innerMap: { 
+                        test: { 
+                            title: "hello",
+                            objectId: "valid-object-id-source"
+                        },
+                    }
+                }
+            } 
+        }] 
+    } 
+});
+
+
+// ------------------------------------------------------------------------------------
+// TESTS DISABLED: note that these tests does not properly pass $ExpectError on TS 3.3
+// they can be re-enabled once minimum TS version is bumped 
+
+//! $ExpectError
+//ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { deepArray: [{ title1: "test" }] } });
+
+//! $ExpectError
+//ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { test: "hello", deepArray: [{ title1: "test" }] } });
+
+//! $ExpectError
+//ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { foo: "bar" } });
+// ------------------------------------------------------------------------------------
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ foo: "bar" });
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], foo: "bar" });
+
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], someFunc: {} as any });
+
+// works with map
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], map: new Map<string, boolean>([["test", true]]) });
+
+// works with object
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], map: { test: true } });
+
+// works with array
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], map: [["test", true]] });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [{ title: "hello" }] });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [{ title: "hello" }], titles: [{ title: "test" }] });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], mapWithFuncs: { test: { title: "hello", innerMap: { test: { title: "hello" } } }} });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], enum: SchemaEnum.Bar });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], enumArray: [SchemaEnum.Bar, SchemaEnum.Foo] });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [] }).then(ref => {
+    const id: mongodb.ObjectID = ref._id;
+    ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRef: ref, selfRef2: ref._id, selfRefArray: [ref, id] });
+    ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRefArray2: [id, id] });
+    ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRefArray2: [ref, ref] });
+});
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], objectId: "valid-object-id-source" });
+ModelWithFunctionInSchema.create({ 
+    name: "test", 
+    jobs: [], 
+    objectId: new mongodb.ObjectID("valid-object-id-source") 
+});
+
+ModelWithFunctionInSchema.create({ 
+    name: "test", 
+    jobs: [], 
+    date: new Date() 
+});
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], date: "2020-01-01" });
+
+// allow strings, since mongoose can cast them
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], boolean: "true" });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], boolean: 1 });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], decimal: "1" });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], decimal: 1 });
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], number: "1" });
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], enum2: "bad value" });
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], date: [123] });
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], objectId: [123] });

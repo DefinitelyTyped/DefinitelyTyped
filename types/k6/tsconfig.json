@@ -27,6 +27,7 @@
         "test/http.ts",
         "test/index.ts",
         "test/metrics.ts",
+        "test/options.ts",
         "test/ws.ts"
     ]
 }

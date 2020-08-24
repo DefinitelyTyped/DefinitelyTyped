@@ -21,7 +21,7 @@ Route.extend({
 
 Route.extend({
     afterModel(posts: Posts, transition: Transition) {
-        if (posts.length === 1) {
+        if (posts.firstObject) {
             this.transitionTo('post.show', posts.firstObject);
         }
     },

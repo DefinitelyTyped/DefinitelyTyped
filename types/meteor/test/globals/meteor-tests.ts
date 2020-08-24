@@ -644,6 +644,30 @@ Meteor.methods({
 });
 
 /**
+ * From Match.test section
+ */
+
+var value2: unknown;
+
+// Will return true for `{ foo: 1, bar: 'hello' }` or similar.
+if (Match.test(value2, { foo: Match.Integer, bar: String })) {
+    // $ExpectType { foo: number; bar: string; }
+    value2;
+}
+
+// Will return true if `value` is a string.
+if (Match.test(value2, String)) {
+    // $ExpectType string
+    value2;
+}
+
+// Will return true if `value` is a string or an array of numbers.
+if (Match.test(value2, Match.OneOf(String, [Number]))) {
+    // $ExpectType string | number[]
+    value2;
+}
+
+/**
  * From Match patterns section
  */
 var pat = { name: Match.Optional('test') };
@@ -873,6 +897,20 @@ if (Meteor.isServer) {
     if (check.error) {
         console.error('incorrect password');
     }
+}
+
+// Accounts.onLogout
+
+if (Meteor.isServer) {
+    Accounts.onLogout(({ user, connection }) => {
+
+    });
+}
+
+if (Meteor.isClient) {
+    Accounts.onLogout(() => {
+
+    });
 }
 
 // Covers https://github.com/meteor-typings/meteor/issues/8

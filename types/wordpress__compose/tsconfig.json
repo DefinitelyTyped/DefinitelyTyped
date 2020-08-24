@@ -20,9 +20,6 @@
         "paths": {
             "@wordpress/compose": [
                 "wordpress__compose"
-            ],
-            "@wordpress/element": [
-                "wordpress__element"
             ]
         }
     },

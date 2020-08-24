@@ -5,6 +5,7 @@ export type SideNavTranslationKey = "carbon.sidenav.state.closed" | "carbon.side
 interface InheritedProps extends InternationalProps<SideNavTranslationKey> {
     "aria-label"?: ReactAttr["aria-label"],
     "aria-labelledby"?: ReactAttr["aria-labelledby"],
+    children?: ReactAttr["children"],
     className?: ReactAttr["className"],
 }
 

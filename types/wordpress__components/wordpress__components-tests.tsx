@@ -76,7 +76,7 @@ interface MyCompleteOption {
 <C.Button href="#foo" download="foo.txt" isSmall>
     Anchor Button
 </C.Button>;
-<C.Button autoFocus isDestructive isLarge>
+<C.Button autoFocus isDestructive isLarge isSecondary>
     Button Button
 </C.Button>;
 

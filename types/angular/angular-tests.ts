@@ -1481,6 +1481,10 @@ function testIHttpParamSerializerJQLikeProvider() {
     });
 }
 
+function testJqLiteRestoreBehavior() {
+    angular.UNSAFE_restoreLegacyJqLiteXHTMLReplacement(); // $ExpectType void
+}
+
 function anyOf2<T1, T2>(v1: T1, v2: T2) {
     return Math.random() < 0.5 ? v1 : v2;
 }

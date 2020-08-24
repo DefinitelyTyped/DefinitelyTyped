@@ -3,6 +3,7 @@ import * as url from "url";
 import * as util from "util";
 import * as http from "http";
 import * as https from "https";
+import * as net from "net";
 import * as console2 from "console";
 import * as timers from "timers";
 import * as inspector from "inspector";
@@ -23,6 +24,9 @@ import * as trace_events from "trace_events";
     });
 
     agent = https.globalAgent;
+
+    let sockets: NodeJS.ReadOnlyDict<net.Socket[]> = agent.sockets;
+    sockets = agent.freeSockets;
 
     https.request({
         agent: false

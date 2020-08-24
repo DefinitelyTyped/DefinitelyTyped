@@ -1,8 +1,8 @@
-# DefinitelyTyped
+# Definitely Typed
 
 > The repository for *high quality* TypeScript type definitions.
 
-*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), and [Chinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)!*
+*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Chinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md) and [Portuguese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md)!*
 
 *Link to [Admin manual](./docs/admin.md)*
 
@@ -28,9 +28,10 @@ It may be helpful for contributors experiencing any issues with their PRs and pa
 * Most recent build [type-checked/linted](https://github.com/Microsoft/dtslint) cleanly: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * All packages are type-checking/linting cleanly on typescript@next: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
 * All packages are being [published to npm](https://github.com/microsoft/types-publisher) in under an hour: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
-* [typescript-bot](https://github.com/typescript-bot) has been active on DefinitelyTyped [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
+* [typescript-bot](https://github.com/typescript-bot) has been active on Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
+* Current [infrastructure status updates](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317)
 
-If anything here seems wrong, or any of the above are failing, please raise an issue in [the DefinitelyTyped Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped).
+If anything here seems wrong, or any of the above are failing, please raise an issue in [the Definitely Typed Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped).
 
 [![Join the chat at https://gitter.im/DefinitelyTyped/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/DefinitelyTyped/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -64,11 +65,11 @@ If you still can't find it, check if it [bundles](http://www.typescriptlang.org/
 This is usually provided in a `"types"` or `"typings"` field in the `package.json`,
 or just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
 
-#### Older versions of TypeScript (2.7 and earlier)
+#### Older versions of TypeScript (3.0 and earlier)
 
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
-Currently versions 2.8 and above are tested.
-If you're using TypeScript 2.0 to 2.7, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+Currently versions 3.1 and above are tested.
+If you're using TypeScript 2.0 to 3.0, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
@@ -76,7 +77,7 @@ Version | Released | End of Support
 -- | -- | --
 2.8 | March 2018 | March 2020
 2.9 | May 2018 | May 2020
-3.0 | July 2018 | July 2020
+3.0 | July 2018 | August 2020
 3.1 | September 2018 | September 2020
 3.2 | November 2018 | November 2020
 3.3 | January 2019 | January 2021
@@ -85,6 +86,8 @@ Version | Released | End of Support
 3.6 | August 2019 | August 2021
 3.7 | November 2019 | November 2021
 3.8 | February 2020 | February 2022
+3.9 | May 2020 | May 2022
+4.0 | August 2020 | August 2022
 
 `@types` packages have tags for versions of TypeScript that they explicitly support, so you can usually get older versions of packages that predate the 2-year window.
 For example, if you run `npm dist-tags @types/react`, you'll see that TypeScript 2.5 can use types for react@16.0, whereas TypeScript 2.6 and 2.7 can use types for react@16.4:
@@ -153,16 +156,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 * `cd types/my-package-to-edit`
 * Make changes. Remember to edit tests.
   If you make breaking changes, do not forget to [update a major version](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package).
-* You may also want to add yourself to "Definitions by" section of the package header.
-  - This will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
-  - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-  - Or if there are more people, it can be multiline
-  ```typescript
-  // Definitions by: Alice <https://github.com/alice>
-  //                 Bob <https://github.com/bob>
-  //                 Steve <https://github.com/steve>
-  //                 John <https://github.com/john>
-  ```
+
 * If there is a `tslint.json`, run `npm run lint package-name`. Otherwise, run `tsc` in the package directory.
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
@@ -230,6 +224,26 @@ Definitely Typed members routinely monitor for new PRs, though keep in mind that
 
 For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
 
+## Definition Owners
+
+DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
+
+  - Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
+  - Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
+  - The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
+
+ To Add yourself as a Definition Owner:
+
+  - Adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+  - Or if there are more people, it can be multiline
+  ```typescript
+  // Definitions by: Alice <https://github.com/alice>
+  //                 Bob <https://github.com/bob>
+  //                 Steve <https://github.com/steve>
+  //                 John <https://github.com/john>
+  ```
+
+Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS) which is our source of truth.
 
 #### Common mistakes
 
@@ -334,7 +348,13 @@ The `master` branch is automatically published to the `@types` scope on NPM than
 
 #### I've submitted a pull request. How long until it is merged?
 
-It depends, but most pull requests will be merged within a week. PRs that have been approved by an author listed in the definition's header are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or Definitely Typed team member before being merged, so please be patient as human factors may cause delays. Check the [PR Burndown Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/3?card_filter_query=is%3Aopen) to see progress as maintainers work through the open PRs.
+It depends, but most pull requests will be merged within a week.
+Some PRs can be merged by the owners of a module, and they can be merged much faster.
+Roughly:
+
+> PRs which only change the types of a module, and have corresponding tests changes will be merged much faster
+
+PRs that have been approved by an author listed in the definition's header are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or Definitely Typed team member before being merged, so please be patient as human factors may cause delays. Check the [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) to see progress as maintainers work through the open PRs.
 
 #### My PR is merged; when will the `@types` NPM package be updated?
 
@@ -348,7 +368,7 @@ If the module you're referencing is an ambient module (uses `declare module`, or
 #### I notice some packages having a `package.json` here.
 
 Usually you won't need this.
-Definitely Typed's package publisher creates a `package.json` for packages with no dependencies outside Definitely Typed.
+DefinitelyTyped's package publisher creates a `package.json` for packages with no dependencies outside Definitely Typed.
 A `package.json` may be included to specify dependencies that are not other `@types` packages.
 [Pikaday is a good example.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
 Even if you write your own `package.json`, you can only specify dependencies; other fields such as `"description"` are not allowed.
@@ -360,7 +380,7 @@ Be sure to explain this when adding to the list of allowed packages so that the 
 
 #### Some packages have no `tslint.json`, and some `tsconfig.json` are missing `"noImplicitAny": true`, `"noImplicitThis": true`, or `"strictNullChecks": true`.
 
-Then they are wrong. You can help by submitting a pull request to fix them.
+Then they are wrong, and we've not noticed yet. You can help by submitting a pull request to fix them.
 
 #### Can I request a definition?
 
@@ -395,13 +415,10 @@ compiler options.
 Do not change the type definition if it is accurate.
 For an NPM package, `export =` is accurate if `node -p 'require("foo")'` works to import a module, and `export default` is accurate if `node -p 'require("foo").default'` works to import a module.
 
-#### I want to use features from TypeScript 2.9 or above.
-
-Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.9`.
-
 #### I want to use features from TypeScript 3.1 or above.
 
-You can use the same `// TypeScript Version: 3.1` comment as above.
+Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 3.1`.
+
 However, if your project needs to maintain types that are compatible with 3.1 and above *at the same time as* types that are compatible with 3.0 or below, you will need to use the `typesVersions` feature, which is available in TypeScript 3.1 and above.
 You can find a detailed explanation of this feature in the [official TypeScript documentation](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).
 
@@ -458,7 +475,7 @@ For example, here are the first few lines of [Node's type declarations](https://
 //                 Alberto Schiabel <https://github.com/jkomyno>
 ```
 
-Because `10.12` is at the end the first line, the npm version of the `@types/node` package will also be `10.12.x`.
+Because `10.12` is at the end of the first line, the npm version of the `@types/node` package will also be `10.12.x`.
 Note that the first-line comment in the `index.d.ts` file should only contain the `major.minor` version (e.g. `10.12`) and should not contain a patch version (e.g. `10.12.4`).
 This is because only the major and minor release numbers are aligned between library packages and type declaration packages.
 The patch release number of the type declaration package (e.g. `.0` in `10.12.0`) is initialized to zero by Definitely Typed and is incremented each time a new `@types/node` package is published to NPM for the same major/minor version of the corresponding library.

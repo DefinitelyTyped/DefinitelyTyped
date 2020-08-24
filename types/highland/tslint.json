@@ -6,11 +6,6 @@
         "callable-types": false,
         "comment-format": false,
         "dt-header": false,
-        "indent": [
-            true,
-            "tabs",
-            1
-        ],
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
         "no-declare-current-package": false,

@@ -3,8 +3,8 @@
 /// <reference types="waypoints" />
 
 interface JQuery {
-	waypoint(handler: (this: Waypoint, direction?: string) => void, options?: WaypointOptionsJQuery): JQuery;
-	waypoint(options?: WaypointOptionsJQuery): JQuery;
+    waypoint(handler: (this: Waypoint, direction?: string) => void, options?: WaypointOptionsJQuery): JQuery;
+    waypoint(options?: WaypointOptionsJQuery): JQuery;
 }
 
 interface WaypointOptionsJQuery extends WaypointOptionsBase {

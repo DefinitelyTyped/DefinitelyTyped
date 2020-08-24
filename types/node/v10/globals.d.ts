@@ -692,6 +692,7 @@ declare namespace NodeJS {
         destroy(error?: Error): void;
     }
     interface ReadStream extends Socket {
+        readonly readableFlowing: boolean | null;
         readonly readableHighWaterMark: number;
         readonly readableLength: number;
         isRaw?: boolean;
@@ -843,6 +844,7 @@ declare namespace NodeJS {
         on(event: "newListener", listener: NewListenerListener): this;
         on(event: "removeListener", listener: RemoveListenerListener): this;
         on(event: "multipleResolves", listener: MultipleResolveListener): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
         once(event: "beforeExit", listener: BeforeExitListener): this;
         once(event: "disconnect", listener: DisconnectListener): this;

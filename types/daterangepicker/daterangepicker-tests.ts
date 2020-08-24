@@ -3,6 +3,9 @@ import daterangepicker = require('daterangepicker');
 
 function tests_simple() {
     $('#daterange').daterangepicker();
+    $('#daterange').daterangepicker({
+        drops: 'auto'
+    });
     $('input[name="daterange"]')
         .daterangepicker({
             timePicker: true,

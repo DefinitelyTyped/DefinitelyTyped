@@ -6,7 +6,7 @@
 //                 James C. Davis <https://github.com/jamescdavis>
 //                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 // NOTE: These types apply to ember-test-helper v0.7. The major
 // version had to be bumped for SemVer due to a breaking change

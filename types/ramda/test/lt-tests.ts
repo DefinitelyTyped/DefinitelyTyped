@@ -6,3 +6,8 @@ import * as R from 'ramda';
   R.lt(2, 2); // => false
   R.lt(5)(10); // => true
 };
+
+() => {
+  R.lt(R.__, 5)(10); // false
+  R.lt(R.__)(5, 10); // false
+};

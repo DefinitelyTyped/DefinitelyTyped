@@ -1,6 +1,6 @@
 // Type definitions for express-status-monitor 1.2
 // Project: https://github.com/RafalWilinski/express-status-monitor#readme
-// Definitions by: Alex Anderson <https://github.com/me>
+// Definitions by: Alex Anderson <https://github.com/alexanderson1993>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -20,6 +20,8 @@ declare namespace e {
             cpu?: boolean;
             mem?: boolean;
             load?: boolean;
+            /** @default true */
+            heap?: boolean;
             responseTime?: boolean;
             rps?: boolean;
             statusCodes?: boolean;

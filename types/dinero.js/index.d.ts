@@ -32,7 +32,7 @@ declare namespace DineroFactory {
 
     interface Dinero {
         getAmount(): number;
-        getCurrency(): string;
+        getCurrency(): Currency;
         getLocale(): string;
         setLocale(newLocale: string): Dinero;
         getPrecision(): number;
@@ -63,7 +63,7 @@ declare namespace DineroFactory {
         toUnit(): number;
         toRoundedUnit(digits: number, roundingMode?: RoundingMode): number;
         toObject(): DineroObject;
-        toJson(): DineroObject;
+        toJSON(): DineroObject;
     }
 
     type RoundingMode =

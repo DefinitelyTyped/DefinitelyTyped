@@ -245,6 +245,10 @@ $("#scrollspy").scrollspy({
 });
 
 $("#scrollspy").scrollspy({
+    target: $("#navbar-example2"),
+});
+
+$("#scrollspy").scrollspy({
     method: "position"
 });
 

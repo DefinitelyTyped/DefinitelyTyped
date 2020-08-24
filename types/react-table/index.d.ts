@@ -169,7 +169,7 @@ export type UseTableOptions<D extends object> = {
     data: D[];
 } & Partial<{
     initialState: Partial<TableState<D>>;
-    stateReducer: (newState: TableState<D>, action: ActionType, previousState: TableState<D>) => TableState<D>;
+    stateReducer: (newState: TableState<D>, action: ActionType, previousState: TableState<D>, instance?: TableInstance<D>) => TableState<D>;
     useControlledState: (state: TableState<D>, meta: Meta<D>) => TableState<D>;
     defaultColumn: Partial<Column<D>>;
     getSubRows: (originalRow: D, relativeIndex: number) => D[];
@@ -272,7 +272,7 @@ export interface UseTableInstanceProps<D extends object> {
 }
 
 export interface UseTableHeaderGroupProps<D extends object> {
-    headers: Array<ColumnInstance<D>>;
+    headers: Array<HeaderGroup<D>>;
     getHeaderGroupProps: (propGetter?: HeaderGroupPropGetter<D>) => TableHeaderProps;
     getFooterGroupProps: (propGetter?: FooterGroupPropGetter<D>) => TableFooterProps;
     totalHeaderCount: number; // not documented
@@ -297,6 +297,7 @@ export interface UseTableColumnProps<D extends object> {
 
 export interface UseTableRowProps<D extends object> {
     cells: Array<Cell<D>>;
+    allCells: Array<Cell<D>>;
     values: Record<IdType<D>, CellValue>;
     getRowProps: (propGetter?: RowPropGetter<D>) => TableRowProps;
     index: number;
@@ -547,7 +548,7 @@ export type UseGroupByOptions<D extends object> = Partial<{
     disableGroupBy: boolean;
     defaultCanGroupBy: boolean;
     aggregations: Record<string, AggregatorFn<D>>;
-    groupByFn: (rows: Array<Row<D>>, columnId: IdType<D>) => Record<string, Row<D>>;
+    groupByFn: (rows: Array<Row<D>>, columnId: IdType<D>) => Record<string, Array<Row<D>>>;
     autoResetGroupBy?: boolean;
 }>;
 
@@ -594,7 +595,7 @@ export interface UseGroupByColumnProps<D extends object> {
 
 export interface UseGroupByRowProps<D extends object> {
     isGrouped: boolean;
-    groupById: IdType<D>;
+    groupByID: IdType<D>;
     groupByVal: string;
     values: Record<IdType<D>, AggregatedValue>;
     subRows: Array<Row<D>>;
@@ -811,6 +812,7 @@ export type UseSortByColumnOptions<D extends object> = Partial<{
 export interface UseSortByInstanceProps<D extends object> {
     rows: Array<Row<D>>;
     preSortedRows: Array<Row<D>>;
+    setSortBy: (sortBy: Array<SortingRule<D>>) => void;
     toggleSortBy: (columnId: IdType<D>, descending: boolean, isMulti: boolean) => void;
 }
 
@@ -864,7 +866,7 @@ export function defaultOrderByFn<D extends object = {}>(
 export function defaultGroupByFn<D extends object = {}>(
     rows: Array<Row<D>>,
     columnId: IdType<D>,
-): Record<string, Row<D>>;
+): Record<string, Array<Row<D>>>;
 
 export function makePropGetter(hooks: Hooks, ...meta: any[]): any;
 

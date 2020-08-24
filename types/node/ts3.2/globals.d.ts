@@ -1,12 +1,6 @@
 // tslint:disable-next-line:no-bad-reference
 /// <reference path="../globals.d.ts" />
 
-declare namespace NodeJS {
-    interface HRTime {
-        bigint(): bigint;
-    }
-}
-
 interface Buffer extends Uint8Array {
     readBigUInt64BE(offset?: number): bigint;
     readBigUInt64LE(offset?: number): bigint;

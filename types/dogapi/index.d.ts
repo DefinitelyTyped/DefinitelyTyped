@@ -7,6 +7,7 @@
 export function initialize(opts: {
     api_key: string,
     app_key: string,
+    api_host?: string
 }): void;
 
 interface event {

@@ -94,7 +94,7 @@ function test_optional_parameters(): void {
         transform: function (xmlResponse): Object {
 
             let $tempXmlResponse: JQuery,
-                $tempItems: JQuery<Element>,
+                $tempItems: JQuery,
                 nextCallDataObj: Object;
 
             $tempXmlResponse = $(xmlResponse);
