@@ -1,7 +1,6 @@
 import ImageKit = require('imagekit');
 
 const imageKit = new ImageKit({
-    // $ExpectType ImageKit
     privateKey: 'private_1234',
     publicKey: 'public_1234',
     urlEndpoint: 'https://ik.imagekit.io/your_imagekit_id/',
