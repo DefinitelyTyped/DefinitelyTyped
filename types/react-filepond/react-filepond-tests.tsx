@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as filepond from 'react-filepond';
 
 interface AppState {
-    files: filepond.File[];
+    files: filepond.FilePondFile[];
     filenames: string[];
 }
 
@@ -27,10 +27,10 @@ class App extends React.Component<{}, AppState> {
 
     render() {
         return (
-            <div className='App'>
+            <div className="App">
                 {/* Pass FilePond properties as attributes */}
                 <filepond.FilePond
-                    ref={ref => this.pond = ref}
+                    ref={ref => (this.pond = ref)}
                     allowMultiple={true}
                     maxFiles={3}
                     server={{
@@ -40,19 +40,23 @@ class App extends React.Component<{}, AppState> {
                         load: (source, load, error, progress, abort, headers) => {},
                         fetch: (url, load, error, progress, abort, headers) => {},
                     }}
-                    oninit={() => this.handleInit() }
-                    files={this.state.files}
-                    onupdatefiles={(fileItems) => {
+                    chunkUploads={true}
+                    oninit={() => this.handleInit()}
+                    files={this.state.files.map(f => f.file)}
+                    onupdatefiles={fileItems => {
                         // Set current file objects to this.state
                         this.setState({
                             files: fileItems,
                             filenames: fileItems.map(fileItem => fileItem.file.name),
                         });
                     }}
+                    styleButtonRemoveItemPosition="bottom right"
+                    itemInsertLocationFreedom={false}
+                    itemInsertLocation="after"
                 >
                     {/* Update current files  */}
                     {this.state.filenames.map(file => (
-                        <filepond.File key={file} src={file} origin='local' />
+                        <filepond.FilePondFile key={file} src={file} origin="local" />
                     ))}
                 </filepond.FilePond>
             </div>
