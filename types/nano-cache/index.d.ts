@@ -50,8 +50,8 @@ type Options = {
     maxEvictBytes?: number;
 };
 
-export interface NanoCache {
-    new(options?: Options);
+class NanoCache {
+    constructor(options?: Options);
     get(key: unknown): unknown;
     set(key: unknown, value: unknown, options?: Options): void;
     delete(key: unknown): unknown;
@@ -65,3 +65,5 @@ export interface NanoCache {
     static DEFAULTS: Defaults;
     static singleton: NanoCache;
 }
+
+export = NanoCache;
