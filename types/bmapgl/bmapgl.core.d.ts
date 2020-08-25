@@ -61,6 +61,8 @@ declare namespace BMapGL {
         setMapStyle(mapStyle: MapStyle): void;
         setMapStyleV2(style: MapStyleV2): void;
         setPanorama(pano: Panorama): void;
+        setTrafficOn(): void;
+        setTrafficOff(): void;
         disable3DBuilding(): void;
         getBounds(): Bounds;
         getCenter(): Point;

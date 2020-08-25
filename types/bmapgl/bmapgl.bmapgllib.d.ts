@@ -65,6 +65,19 @@ declare namespace BMapGL {
         area?: number;
         distance?: number;
     }
+
+    interface DistanceToolOptions {
+        tips?: string;
+        followText?: string;
+        unit?: 'metric' | 'us';
+        lineColor?: string;
+        lineStroke?: number;
+        opacity?: number;
+        lineStyle?: 'solid' | 'dashed' | 'dotted';
+        cursor?: string;
+        secIcon?: BMapGL.Icon;
+        closeIcon?: BMapGL.Icon;
+    }
 }
 
 declare namespace BMapGLLib {
@@ -78,6 +91,14 @@ declare namespace BMapGLLib {
         disableCalculate(): void;
         getDrawingMode(): BMapGL.DrawingType;
         setDrawingMode(drawingType: BMapGL.DrawingType): void;
+        addEventListener(event: string, handler: Callback): void;
+        removeEventListener(event: string, handler: Callback): void;
+    }
+
+    class DistanceTool {
+        constructor(map: BMapGL.Map, opts?: BMapGL.DistanceToolOptions);
+        open(): void;
+        close(): void;
         addEventListener(event: string, handler: Callback): void;
         removeEventListener(event: string, handler: Callback): void;
     }
