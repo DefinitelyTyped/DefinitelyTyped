@@ -249,3 +249,8 @@ async function test_msnodesqlv8() {
     const result = await connection.query`SELECT * FROM sys.databases`;
     await connection.close();
 }
+
+function test_rows_and_columnns() {
+    var table = new sql.Table('#temp_table3');
+    table.columns.forEach(col => col.name)
+}

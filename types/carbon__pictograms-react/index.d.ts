@@ -1,4 +1,4 @@
-// Type definitions for @carbon/pictograms-react 10.15
+// Type definitions for @carbon/pictograms-react 10.17
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/pictograms-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -185,6 +185,8 @@ export const DocumentSecurity: CarbonPictogramType;
 export const DoorHandle: CarbonPictogramType;
 export const Download: CarbonPictogramType;
 export const DownloadAlt: CarbonPictogramType;
+export const Download_01: CarbonPictogramType;
+export const Download_02: CarbonPictogramType;
 export const DubaiPalmIslands: CarbonPictogramType;
 export const DubaiSkyscraper: CarbonPictogramType;
 export const DublinBrewery: CarbonPictogramType;
@@ -210,6 +212,8 @@ export const ExpandUser: CarbonPictogramType;
 export const ExpandVert: CarbonPictogramType;
 export const Export: CarbonPictogramType;
 export const ExportAlt: CarbonPictogramType;
+export const Export_01: CarbonPictogramType;
+export const Export_02: CarbonPictogramType;
 export const Eye: CarbonPictogramType;
 export const FaceDissatisfied: CarbonPictogramType;
 export const FaceNeutral: CarbonPictogramType;
@@ -292,7 +296,9 @@ export const Humid: CarbonPictogramType;
 export const Hurricane: CarbonPictogramType;
 export const HybridCloud: CarbonPictogramType;
 export const HybridCloudServices: CarbonPictogramType;
+export const IbmCloud: CarbonPictogramType;
 export const IbmIx: CarbonPictogramType;
+export const IbmWatson: CarbonPictogramType;
 export const IbmZ: CarbonPictogramType;
 export const Icon: CarbonPictogramType;
 export const IdBadge: CarbonPictogramType;
@@ -329,6 +335,7 @@ export const LockedNetworkAlt: CarbonPictogramType;
 export const London: CarbonPictogramType;
 export const LondonBigBen: CarbonPictogramType;
 export const LondonExpandedBase: CarbonPictogramType;
+export const Love: CarbonPictogramType;
 export const Lungs: CarbonPictogramType;
 export const MachineLearning_01: CarbonPictogramType;
 export const MachineLearning_02: CarbonPictogramType;
@@ -577,6 +584,8 @@ export const Unlock: CarbonPictogramType;
 export const UnlockAlt: CarbonPictogramType;
 export const Upload: CarbonPictogramType;
 export const UploadAlt: CarbonPictogramType;
+export const Upload_01: CarbonPictogramType;
+export const Upload_02: CarbonPictogramType;
 export const User: CarbonPictogramType;
 export const UserAnalytics: CarbonPictogramType;
 export const UserInsights: CarbonPictogramType;
@@ -588,6 +597,8 @@ export const Video: CarbonPictogramType;
 export const VideoAlt: CarbonPictogramType;
 export const VideoChat: CarbonPictogramType;
 export const VideoPlay: CarbonPictogramType;
+export const Video_01: CarbonPictogramType;
+export const Video_02: CarbonPictogramType;
 export const Virus: CarbonPictogramType;
 export const Vision: CarbonPictogramType;
 export const VisualInsights: CarbonPictogramType;

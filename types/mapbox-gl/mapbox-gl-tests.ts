@@ -268,6 +268,14 @@ map.flyTo({
 const features = map.queryRenderedFeatures([0, 0], { layers: ['custom'], validate: false });
 features; // $ExpectType MapboxGeoJSONFeature[]
 
+// querySourceFeatures
+const features2 = map.querySourceFeatures('some_source', {
+    sourceLayer: 'source_layer',
+    filter: ['all'],
+    validate: null,
+});
+features2; // $ExpectType MapboxGeoJSONFeature[]
+
 /**
  * GeoJSONSource
  */
@@ -822,6 +830,12 @@ map.showPadding = false;
 
 expectType<mapboxgl.Map>(map.setFilter('layerId', true));
 expectType<mapboxgl.Map>(map.setFilter('layerId', false));
+
+map.setFilter('layerId', true, { validate: true });
+map.setFilter('layerId', true, { validate: null });
+map.setFilter('layerId', true, {});
+// $ExpectError
+map.setFilter('layerId', true, { some_option: 'some_string' });
 
 // $ExpectType Map
 map.setMinZoom(5);

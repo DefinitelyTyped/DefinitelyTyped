@@ -17,7 +17,7 @@ export type UriCallback = (uri: string) => void;
 export interface RequestOptions {
     method: string;
     path: string;
-    query?: string;
+    query?: object;
     headers?: object;
 }
 

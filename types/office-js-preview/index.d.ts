@@ -9229,6 +9229,8 @@ declare namespace Office {
          * When you use the `Time.setAsync` method to set the end time, you should use the `convertToUtcClientTime` method to convert the local time on
          * the client to UTC for the server.
          *
+         * **Important**: In the Windows client, you can't use this property to update the end of a recurrence.
+         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
@@ -9425,6 +9427,8 @@ declare namespace Office {
          *
          * When you use the `Time.setAsync` method to set the start time, you should use the `convertToUtcClientTime` method to convert the local time on
          * the client to UTC for the server.
+         *
+         * **Important**: In the Windows client, you can't use this property to update the start of a recurrence.
          *
          * @remarks
          *
@@ -11619,9 +11623,9 @@ declare namespace Office {
          * append-on-send runs before on-send functionality.
          *
          * **Important**: If your add-in implements the on-send feature and calls `appendOnSendAsync` in the `ItemSend` handler,
-         * an error is returned as this scenario is not supported.
+         * the `appendOnSendAsync` call returns an error as this scenario is not supported.
          *
-         * **Important**: To use `appendOnSendAsync`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node of the manifest.
+         * **Important**: To use `appendOnSendAsync`, the `ExtendedPermissions` manifest node must include the `AppendOnSend` extended permission.
          *
          * **Note**: To clear data from a previous `appendOnSendAsync` call, you can call it again with the `data` parameter set to `null`.
          *
@@ -11657,9 +11661,9 @@ declare namespace Office {
          * append-on-send runs before on-send functionality.
          * 
          * **Important**: If your add-in implements the on-send feature and calls `appendOnSendAsync` in the `ItemSend` handler,
-         * an error is returned as this scenario is not supported.
+         * the `appendOnSendAsync` call returns an error as this scenario is not supported.
          *
-         * **Important**: To use `appendOnSendAsync`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node of the manifest.
+         * **Important**: To use `appendOnSendAsync`, the `ExtendedPermissions` manifest node must include the `AppendOnSend` extended permission.
          *
          * **Note**: To clear data from a previous `appendOnSendAsync` call, you can call it again with the `data` parameter set to `null`.
          *
@@ -11946,6 +11950,13 @@ declare namespace Office {
          *
          * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
          *
+         * **Important**: If your add-in implements the 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation feature using `LaunchEvent` in the manifest},
+         * and calls `setSignatureAsync` in the event handler, the following behavior applies.
+         *
+         * - When the user composes a new item (including reply or forward), the signature is set but doesn't modify the form. This means
+         * if the user closes the form without making other edits, they won't be prompted to save changes.
+         *
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -11975,6 +11986,13 @@ declare namespace Office {
          * Adds or replaces the signature of the item body.
          *
          * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
+         *
+         * **Important**: If your add-in implements the 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation feature using `LaunchEvent` in the manifest},
+         * and calls `setSignatureAsync` in the event handler, the following behavior applies.
+         *
+         * - When the user composes a new item (including reply or forward), the signature is set but doesn't modify the form. This means
+         * if the user closes the form without making other edits, they won't be prompted to save changes.
          *
          * [Api set: Mailbox Preview]
          *
@@ -17882,6 +17900,8 @@ declare namespace Office {
          *
          * The time must be in UTC; you can get the correct UTC time by using the `convertToUtcClientTime` method.
          *
+         * **Important**: In the Windows client, you can't use this function to update the start or end of a recurrence.
+         *
          * [Api set: Mailbox 1.1]
          *
          * @remarks
@@ -17908,6 +17928,8 @@ declare namespace Office {
          * previously set. If the `setAsync` method is called on the `end` property, the duration of the appointment will be extended to the new end time.
          *
          * The time must be in UTC; you can get the correct UTC time by using the `convertToUtcClientTime` method.
+         *
+         * **Important**: In the Windows client, you can't use this function to update the start or end of a recurrence.
          *
          * [Api set: Mailbox 1.1]
          *
