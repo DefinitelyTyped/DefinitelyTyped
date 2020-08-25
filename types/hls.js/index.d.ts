@@ -1713,6 +1713,7 @@ declare class Hls {
      * get: return last loaded fragment quality level
      * set: quality level for next loaded fragment
      * set to -1 for automatic level selection
+     */
     loadLevel: number;
     /**
      * get: return quality level that will be used to load next fragment
