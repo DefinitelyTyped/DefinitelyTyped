@@ -129,6 +129,7 @@ export interface StringSchema<T extends string | null | undefined = string | und
     ): StringSchema<T>;
     email(message?: StringLocale['email']): StringSchema<T>;
     url(message?: StringLocale['url']): StringSchema<T>;
+    uuid(message?: StringLocale['uuid']): StringSchema<T>;
     ensure(): StringSchema<T>;
     trim(message?: StringLocale['trim']): StringSchema<T>;
     lowercase(message?: StringLocale['lowercase']): StringSchema<T>;
@@ -592,6 +593,7 @@ export interface StringLocale {
     matches?: TestOptionsMessage<{ regex: RegExp }>;
     email?: TestOptionsMessage<{ regex: RegExp }>;
     url?: TestOptionsMessage<{ regex: RegExp }>;
+    uuid?: TestOptionsMessage<{ regex: RegExp }>;
     trim?: TestOptionsMessage;
     lowercase?: TestOptionsMessage;
     uppercase?: TestOptionsMessage;

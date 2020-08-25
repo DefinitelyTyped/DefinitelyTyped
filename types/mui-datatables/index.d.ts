@@ -184,7 +184,7 @@ export interface MUIDataTableColumnOptions {
         updateDirection: (params: any) => any,
     ) => string | React.ReactNode;
     draggable?: boolean;
-    display?: 'true' | 'false' | 'excluded';
+    display?: boolean | string;
     download?: boolean;
     empty?: boolean;
     filter?: boolean;
@@ -210,7 +210,7 @@ export interface MUIDataTableIsRowCheck {
         {
             index: number;
             dataIndex: number;
-        }
+        },
     ];
 }
 

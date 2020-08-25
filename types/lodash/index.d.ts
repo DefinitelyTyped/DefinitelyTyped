@@ -10,7 +10,6 @@
 //                 Dominique Rau <https://github.com/DomiR>
 //                 William Chelman <https://github.com/WilliamChelman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 /// <reference path="./common/common.d.ts" />
 /// <reference path="./common/array.d.ts" />

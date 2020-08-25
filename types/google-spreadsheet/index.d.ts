@@ -1,4 +1,4 @@
-// Type definitions for google-spreasheet 3.0
+// Type definitions for google-spreadsheet 3.0
 // Project: https://github.com/theoephraim/node-google-spreadsheet
 // Definitions by: the-vampiire <https://github.com/the-vampiire>
 //                 Federico Grandi <https://github.com/EndBug>
@@ -1012,6 +1012,13 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      * - ordered by their tab index
      */
     readonly sheetsByIndex: GoogleSpreadsheetWorksheet[];
+
+    /**
+     * @description
+     * object of child worksheets
+     * - keyed by the worksheet title
+     */
+    readonly sheetsByTitle: { [title: string]: GoogleSpreadsheetWorksheet };
 
     /**
      * @description
