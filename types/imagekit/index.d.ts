@@ -9,7 +9,6 @@
 type TransformationPosition = 'path' | 'query';
 type FileType = 'all' | 'image' | 'non-image';
 type Item = 'file' | 'folder';
-type CustomCoordinatesResponse = string | null;
 
 /**
  * @see {@link https://help.imagekit.io/en/articles/2434102-image-format-support-in-imagekit-for-resizing-compression-and-static-file-delivery}
@@ -262,7 +261,7 @@ interface UploadResponse {
     /**
      * Value of custom coordinates associated with the image in format x,y,width,height.
      */
-    customCoordinates: CustomCoordinatesResponse;
+    customCoordinates: string | null;
     /**
      * The metadata of the upload file. Use responseFields property in request to get the metadata returned in response of upload API.
      */
@@ -351,7 +350,7 @@ interface ListFileResponse {
     /**
      * Value of custom coordinates associated with the image in format x,y,width,height. If customCoordinates are not defined then it is null.
      */
-    customCoordinates: CustomCoordinatesResponse;
+    customCoordinates: string | null;
     /**
      * A publicly accessible URL of the file.
      */
@@ -403,7 +402,7 @@ interface FileDetailsResponse {
      * Value of custom coordinates associated with the image in format x,y,width,height.
      * If customCoordinates are not defined then it is null.
      */
-    customCoordinates: CustomCoordinatesResponse;
+    customCoordinates: string | null;
     /**
      * A publicly accessible URL of the file.
      */
