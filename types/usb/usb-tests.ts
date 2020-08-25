@@ -115,6 +115,9 @@ inEndpoint.startPoll();
 inEndpoint.stopPoll(() => null);
 inEndpoint.stopPoll();
 inEndpoint.clearHalt((error?: usb.LibUSBException) => null);
+const transferIn: usb.Transfer = inEndpoint.makeTransfer(0, (error?: usb.LibUSBException, buffer?: Buffer, actualLength?: number) => null);
+transferIn.submit(Buffer.alloc(0));
+const transferInCancelResult: boolean = transferIn.cancel();
 
 const outEndpoint: usb.OutEndpoint = new usb.OutEndpoint(device, endpointDesc);
 outEndpoint.direction = "out";
@@ -125,6 +128,8 @@ inEndpoint.on("error", (err) => null);
 const xferOutEndpoint: usb.OutEndpoint = outEndpoint.transfer(new Buffer([]), (error?: usb.LibUSBException) => null);
 outEndpoint.transferWithZLP(new Buffer([]), (error?: usb.LibUSBException) => null);
 outEndpoint.clearHalt((error?: usb.LibUSBException) => null);
+const transferOut: usb.Transfer = outEndpoint.makeTransfer(0, (error?: usb.LibUSBException, buffer?: Buffer, actualLength?: number) => null);
+const transferOutCancelResult: boolean = transferOut.cancel();
 
 iface.endpoints = [inEndpoint, outEndpoint];
 

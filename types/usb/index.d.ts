@@ -386,6 +386,17 @@ export interface Endpoint extends EventEmitter {
 
   /** Clear the halt/stall condition for this endpoint. */
   clearHalt(callback: (error?: LibUSBException) => void): void;
+
+  /**
+   * Create a new `Transfer` object for this endpoint.
+   *
+   * The passed callback will be called when the transfer is submitted and finishes. Its arguments are the error (if any), the submitted buffer, and the amount of data actually written (for
+   * OUT transfers) or read (for IN transfers).
+   *
+   * @param timeout Timeout for the transfer (0 means unlimited).
+   * @param callback Transfer completion callback.
+   */
+  makeTransfer(timeout: number, callback: (error?: LibUSBException, buffer?: Buffer, actualLength?: number) => void): Transfer;
 }
 
 /** Endpoints in the IN direction (device->PC) have this type. */
@@ -395,6 +406,7 @@ export class InEndpoint extends EventEmitter implements Endpoint {
   timeout: number;
   descriptor: EndpointDescriptor;
   clearHalt(callback: (error?: LibUSBException) => void): void;
+  makeTransfer(timeout: number, callback: (error?: LibUSBException, buffer?: Buffer, actualLength?: number) => void): Transfer;
 
   constructor(device: Device, descriptor: EndpointDescriptor);
 
@@ -441,6 +453,7 @@ export class OutEndpoint extends EventEmitter implements Endpoint {
   timeout: number;
   descriptor: EndpointDescriptor;
   clearHalt(callback: (error?: LibUSBException) => void): void;
+  makeTransfer(timeout: number, callback: (error?: LibUSBException, buffer?: Buffer, actualLength?: number) => void): Transfer;
 
   constructor(device: Device, descriptor: EndpointDescriptor);
 
@@ -491,6 +504,23 @@ export class EndpointDescriptor {
    * If libusb encounters unknown endpoint descriptors, it will store them here, should you wish to parse them.
    */
   extra: Buffer;
+}
+
+/** Represents a USB transfer */
+export class Transfer {
+  /**
+   * (Re-)submit the transfer.
+   *
+   * @param buf Buffer where data will be written (for IN transfers) or read from (for OUT transfers).
+   */
+  submit(buf: Buffer): Transfer;
+
+  /**
+   * Cancel the transfer.
+   *
+   * Returns `true` if the transfer was canceled, `false` if it wasn't in pending state.
+   */
+  cancel(): boolean;
 }
 
 /**
