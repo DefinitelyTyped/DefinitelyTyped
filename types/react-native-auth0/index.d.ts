@@ -192,7 +192,7 @@ export interface ClearSessionParams {
 export interface Credentials {
     accessToken: string;
     idToken: string;
-    refreshToken: string;
+    refreshToken?: string;
     expiresIn: number;
     scope: string;
     tokenType: string;
