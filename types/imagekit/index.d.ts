@@ -10,7 +10,10 @@ type TransformationPosition = 'path' | 'query';
 type FileType = 'all' | 'image' | 'non-image';
 type Item = 'file' | 'folder';
 type CustomCoordinatesResponse = string | null;
-// Taken from this help post: https://help.imagekit.io/en/articles/2434102-image-format-support-in-imagekit-for-resizing-compression-and-static-file-delivery
+
+/**
+ * @see {@link https://help.imagekit.io/en/articles/2434102-image-format-support-in-imagekit-for-resizing-compression-and-static-file-delivery}
+ */
 type FileFormat =
     | 'jpg'
     | 'png'
@@ -74,15 +77,65 @@ interface Transformation {
 }
 
 interface UrlOptionsBase {
+    /**
+     * An array of objects specifying the transformation to be applied in the URL.
+     * The transformation name and the value should be specified as a key-value pair in the object.
+     */
     transformation?: Transformation[];
+    /**
+     * Default value is path that places the transformation string as a path parameter in the URL.
+     * Can also be specified as query which adds the transformation string as the query parameter tr in the URL. If you use src parameter to create the URL, then the transformation string is always added as a query parameter.
+     */
     transformationPosition?: TransformationPosition;
+    /**
+     * These are the other query parameters that you want to add to the final URL.
+     * These can be any query parameters and not necessarily related to ImageKit.
+     * Especially useful, if you want to add some versioning parameter to your URLs.
+     */
     queryParameters?: { [key: string]: string | number };
+    /**
+     * The base URL to be appended before the path of the image.
+     * If not specified, the URL Endpoint specified at the time of SDK initialization is used.
+     */
     urlEndpoint?: string;
+    /**
+     * Default is false. If set to true, the SDK generates a signed image URL adding the image signature to the image URL.
+     * If you are creating URL using src parameter instead of path then do correct urlEndpoint for this to work.
+     * Otherwise returned URL will have wrong signature.
+     */
     signed?: boolean;
+    /**
+     * Meant to be used along with the signed parameter to specify the time in seconds from now when the URL should expire.
+     * If specified, the URL contains the expiry timestamp in the URL and the image signature is modified accordingly.
+     */
     expireSeconds?: number;
 }
 
-type UrlOptions = ({ src: string; path?: never } | { path: string; src?: never }) & UrlOptionsBase;
+interface UrlOptionsSrc extends UrlOptionsBase {
+    /**
+     * Conditional. This is the complete URL of an image already mapped to ImageKit.
+     * For example, https://ik.imagekit.io/your_imagekit_id/endpoint/path/to/image.jpg.
+     * Either the path or src parameter need to be specified for URL generation.
+     */
+    src: string;
+    path?: never;
+}
+
+interface UrlOptionsPath extends UrlOptionsBase {
+    /**
+     * Conditional. This is the path at which the image exists.
+     * For example, /path/to/image.jpg. Either the path or src parameter need to be specified for URL generation.
+     */
+    path: string;
+    src?: never;
+}
+
+/**
+ * Options for generating an URL
+ *
+ * @see {@link https://github.com/imagekit-developer/imagekit-nodejs#url-generation}
+ */
+type UrlOptions = UrlOptionsSrc | UrlOptionsPath;
 
 /**
  * Options used when uploading a file
@@ -317,6 +370,7 @@ interface ListFileResponse {
  * File details such as tags, customCoordinates, and isPrivate properties using get file detail API.
  *
  * @see {@link https://docs.imagekit.io/api-reference/media-api/get-file-details}
+ * @see {@link https://docs.imagekit.io/api-reference/media-api/update-file-details#understanding-response}
  */
 interface FileDetailsResponse {
     /**
@@ -363,6 +417,11 @@ interface FileDetailsResponse {
     fileType: FileType;
 }
 
+/**
+ * Response when getting image exif, pHash and other metadata for uploaded files in ImageKit.io media library using this API.
+ *
+ * @see {@link https://docs.imagekit.io/api-reference/metadata-api/get-image-metadata-for-uploaded-media-files}
+ */
 interface FileMetadataResponse {
     height: number;
     width: number;
@@ -436,12 +495,32 @@ interface FileMetadataResponse {
     };
 }
 
+/**
+ * Options when updating file details such as tags and customCoordinates attribute using update file detail API.
+ *
+ * @see {@link https://docs.imagekit.io/api-reference/media-api/update-file-details}
+ */
 interface FileDetailsOptions {
+    /**
+     * Array of tags associated with the file.
+     */
     tags?: string[];
+    /**
+     * Define an important area in the image.
+     * Example - 50,50,500,500
+     */
     customCoordinates?: string;
 }
 
+/**
+ * Response when deleting multiple files from the media library.
+ *
+ * @see {@link https://docs.imagekit.io/api-reference/media-api/delete-files-bulk}
+ */
 interface BulkDeleteFilesResponse {
+    /**
+     * List of file ids of successfully deleted files
+     */
     successfullyDeletedFileIds: string[];
 }
 
@@ -450,11 +529,29 @@ interface BulkDeleteFilesError extends Error {
     missingFileIds: string[];
 }
 
+/**
+ * Response when purging CDN and ImageKit.io internal cache
+ *
+ * @see {@link https://docs.imagekit.io/api-reference/media-api/purge-cache#response-structure-and-status-code}
+ */
 interface PurgeCacheResponse {
+    /**
+     * requestId can be used to fetch the status of submitted purge request.
+     */
     requestId: string;
 }
 
+/**
+ * Response when getting the status of submitted purge request.
+ *
+ * @see {@link https://docs.imagekit.io/api-reference/media-api/purge-cache-status#understanding-response}
+ */
 interface PurgeCacheStatusResponse {
+    /**
+     * Pending - The request has been successfully submitted, and purging is in progress.
+     * Complete - The purge request has been successfully completed. And now you should get a fresh object.
+     * Check the Age header in response to confirm this.
+     */
     status: 'Pending' | 'Completed';
 }
 
@@ -470,13 +567,39 @@ declare class ImageKit {
         transformationPosition?: TransformationPosition;
     });
 
+    /**
+     * You can add multiple origins in the same ImageKit.io account.
+     * URL endpoints allow you to configure which origins are accessible through your account and set their preference order as well.
+     *
+     * @see {@link https://github.com/imagekit-developer/imagekit-nodejs#url-generation}
+     * @see {@link https://docs.imagekit.io/integration/url-endpoints}
+     *
+     * @param urlOptions
+     */
     url(urlOptions: UrlOptions): string;
 
+    /**
+     * This API can list all the uploaded files in your ImageKit.io media library.
+     * For searching and filtering, you can use query parameters as described below.
+     *
+     * @see {@link https://docs.imagekit.io/api-reference/media-api/list-and-search-files}
+     *
+     * @param listFilesOptions
+     * @param callback
+     */
     listFiles(listFilesOptions: ListFileOptions, callback: Callback<ListFileResponse>): void;
+
+    /**
+     * This API can list all the uploaded files in your ImageKit.io media library.
+     * For searching and filtering, you can use query parameters as described below.
+     *
+     * @see {@link https://docs.imagekit.io/api-reference/media-api/list-and-search-files}
+     *
+     * @param listFilesOptions
+     */
     listFiles(listFilesOptions: ListFileOptions): Promise<ListFileResponse>;
 
     /**
-     *
      * You can upload files to ImageKit.io media library from your server-side using private API key authentication.
      *
      * File size limit
@@ -502,7 +625,6 @@ declare class ImageKit {
     upload(uploadOptions: UploadOptions): Promise<UploadResponse>;
 
     /**
-     *
      * Get the file details such as tags, customCoordinates, and isPrivate properties using get file detail API.
      *
      * @see {@link https://docs.imagekit.io/api-reference/media-api/get-file-details}
@@ -511,6 +633,7 @@ declare class ImageKit {
      * @param callback
      */
     getFileDetails(fileId: string, callback: Callback<FileDetailsResponse>): void;
+
     /**
      * Get the file details such as tags, customCoordinates, and isPrivate properties using get file detail API.
      *
@@ -520,30 +643,145 @@ declare class ImageKit {
      */
     getFileDetails(fileId: string): Promise<FileDetailsResponse>;
 
+    /**
+     * Get image exif, pHash and other metadata for uploaded files in ImageKit.io media library using this API.
+     *
+     * @see {@link https://docs.imagekit.io/api-reference/metadata-api/get-image-metadata-for-uploaded-media-files}
+     *
+     * @param fileId The unique fileId of the uploaded file. fileId is returned in list files API and upload API.
+     * @param callback
+     */
     getFileMetadata(fileId: string, callback: Callback<FileMetadataResponse>): void;
+
+    /**
+     * Get image exif, pHash and other metadata for uploaded files in ImageKit.io media library using this API.
+     *
+     * @see {@link https://docs.imagekit.io/api-reference/metadata-api/get-image-metadata-for-uploaded-media-files}
+     *
+     * @param fileId The unique fileId of the uploaded file. fileId is returned in list files API and upload API.
+     */
     getFileMetadata(fileId: string): Promise<FileMetadataResponse>;
 
+    /**
+     * Update file details such as tags and customCoordinates attribute using update file detail API.
+     *
+     * @see {@link https://docs.imagekit.io/api-reference/media-api/update-file-details}
+     *
+     * @param fileId The unique fileId of the uploaded file. fileId is returned in list files API and upload API.
+     * @param optionsFileDetails
+     * @param callback
+     */
     updateFileDetails(
         fileId: string,
         optionsFileDetails: FileDetailsOptions,
         callback: Callback<FileDetailsResponse>,
     ): void;
+
+    /**
+     * Update file details such as tags and customCoordinates attribute using update file detail API.
+     *
+     * @see {@link https://docs.imagekit.io/api-reference/media-api/update-file-details}
+     *
+     * @param fileId The unique fileId of the uploaded file. fileId is returned in list files API and upload API.
+     * @param optionsFileDetails
+     */
     updateFileDetails(fileId: string, optionsFileDetails: FileDetailsOptions): Promise<FileDetailsResponse>;
 
+    /**
+     * You can programmatically delete uploaded files in media library using delete file API.
+     *
+     * @see {@link https://docs.imagekit.io/api-reference/media-api/delete-file}
+     *
+     * @param fileId The unique fileId of the uploaded file. fileId is returned in list files API and upload API
+     * @param callback
+     */
     deleteFile(fileId: string, callback: Callback<void>): void;
+
+    /**
+     * You can programmatically delete uploaded files in media library using delete file API.
+     *
+     * @see {@link https://docs.imagekit.io/api-reference/media-api/delete-file}
+     *
+     * @param fileId The unique fileId of the uploaded file. fileId is returned in list files API and upload API
+     */
     deleteFile(fileId: string): Promise<void>;
 
+    /**
+     * Deletes multiple files from the media library.
+     *
+     * @see {@link https://docs.imagekit.io/api-reference/media-api/delete-files-bulk}
+     *
+     * @param fileIds Each value should be a unique fileId of the uploaded file. fileId is returned in list files API and upload API
+     * @param callback
+     */
     bulkDeleteFiles(fileIds: string[], callback: Callback<BulkDeleteFilesResponse, BulkDeleteFilesError>): void;
+
+    /**
+     * Deletes multiple files from the media library.
+     *
+     * @see {@link https://docs.imagekit.io/api-reference/media-api/delete-files-bulk}
+     *
+     * @param fileIds Each value should be a unique fileId of the uploaded file. fileId is returned in list files API and upload API
+     */
     bulkDeleteFiles(fileIds: string[]): Promise<BulkDeleteFilesResponse>;
 
+    /**
+     * This will purge CDN and ImageKit.io internal cache.
+     *
+     * @see {@link https://docs.imagekit.io/api-reference/media-api/purge-cache}
+     *
+     * @param fullUrl The exact URL of the file to be purged. For example - https://ik.imageki.io/your_imagekit_id/rest-of-the-file-path.jpg
+     * @param callback
+     */
     purgeCache(fullUrl: string, callback: Callback<PurgeCacheResponse>): void;
+
+    /**
+     * This will purge CDN and ImageKit.io internal cache.
+     *
+     * @see {@link https://docs.imagekit.io/api-reference/media-api/purge-cache}
+     *
+     * @param fullUrl The exact URL of the file to be purged. For example - https://ik.imageki.io/your_imagekit_id/rest-of-the-file-path.jpg
+     */
     purgeCache(fullUrl: string): Promise<PurgeCacheResponse>;
 
+    /**
+     * Get the status of submitted purge request.
+     *
+     * @see {@link https://docs.imagekit.io/api-reference/media-api/purge-cache-status}
+     *
+     * @param cacheRequestId The requestId returned in response of purge cache API.
+     * @param callback
+     */
     getPurgeCacheStatus(cacheRequestId: string, callback: Callback<PurgeCacheStatusResponse>): void;
+
+    /**
+     * Get the status of submitted purge request.
+     *
+     * @see {@link https://docs.imagekit.io/api-reference/media-api/purge-cache-status}
+     *
+     * @param cacheRequestId The requestId returned in response of purge cache API.
+     */
     getPurgeCacheStatus(cacheRequestId: string): Promise<PurgeCacheStatusResponse>;
 
+    /**
+     * Authentication parameter generation
+     *
+     * @see {@link https://github.com/imagekit-developer/imagekit-nodejs#authentication-parameter-generation}
+     *
+     * @param token
+     * @param expire
+     */
     getAuthenticationParameters(token?: string, expire?: number): { token: string; expire: number; signature: string };
 
+    /**
+     * Perceptual Hash (pHash)
+     * Distance between two pHash values can be calculated using utility function
+     *
+     * @see {@link https://docs.imagekit.io/api-reference/metadata-api#perceptual-hash-phash}
+     *
+     * @param hashA
+     * @param hashB
+     */
     pHashDistance(hashA: string, hashB: string): number;
 }
 
