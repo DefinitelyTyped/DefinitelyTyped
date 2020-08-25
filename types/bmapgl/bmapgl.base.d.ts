@@ -69,6 +69,6 @@ declare namespace BMapGL {
     class Projection {
         static convertMC2LL(point: Point): Point;
         static convertLL2MC(point: Point): Point;
-        static proximityCovertMC2LL(point: Point): Point;
+        static proximityConvertMC2LL(point: Point): Point;
     }
 }
