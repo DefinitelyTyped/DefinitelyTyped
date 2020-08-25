@@ -23,14 +23,13 @@ app.get<express.ParamsArray>('/*', req => {
     req.params.length; // $ExpectType number
 });
 
-// Params can be a custom type that conforms to constraint
-app.get<{ foo: string }>('/:foo', req => {
+// Params can be a custom type
+// NB. out-of-the-box all params are strings, however, other types are allowed to accomadate request validation/coersion middleware
+app.get<{ foo: string, bar: number }>('/:foo/:bar', req => {
     req.params.foo; // $ExpectType string
-    req.params.bar; // $ExpectError
+    req.params.bar; // $ExpectType number
+    req.params.baz; // $ExpectError
 });
-
-// Params cannot be a custom type that does not conform to constraint
-app.get<{ foo: number }>('/:foo', () => {}); // $ExpectError
 
 // Query can be a custom type
 app.get<{}, any, any, {q: string}>('/:foo', req => {
