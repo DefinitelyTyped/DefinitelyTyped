@@ -1,3 +1,12 @@
 {
-    "extends": "dtslint/dt.json"
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "max-line-length": [
+          true, 
+          {
+            "limit": 200, 
+            "ignore-pattern": "^import [^,]+ from |^export | implements"
+          }
+        ]
+      } 
 }
