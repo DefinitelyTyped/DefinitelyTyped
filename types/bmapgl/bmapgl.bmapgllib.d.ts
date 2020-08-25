@@ -75,8 +75,8 @@ declare namespace BMapGL {
         opacity?: number;
         lineStyle?: 'solid' | 'dashed' | 'dotted';
         cursor?: string;
-        secIcon?: BMapGL.Icon;
-        closeIcon?: BMapGL.Icon;
+        secIcon?: Icon;
+        closeIcon?: Icon;
     }
 }
 
