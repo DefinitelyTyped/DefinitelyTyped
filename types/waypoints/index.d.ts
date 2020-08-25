@@ -12,7 +12,7 @@ interface WaypointOptionsBase {
     horizontal?: boolean;
 }
 interface WaypointOptions extends WaypointOptionsBase {
-    element: HTMLElement;
+    element: HTMLElement | null;
     handler: (this: Waypoint, direction?: string) => void;
     context?: HTMLElement;
 }
@@ -34,7 +34,7 @@ declare class WaypointContext {
 }
 
 declare class WaypointAdapter {
-    constructor(element: HTMLElement);
+    constructor(element: HTMLElement | null);
     innerHeight(): number;
     innerWidth(): number;
     off(event: string): undefined;
@@ -54,7 +54,7 @@ declare class Waypoint {
     // properties
     adapter: WaypointAdapter;
     context: WaypointContext;
-    element: HTMLElement;
+    element: HTMLElement | null;
     group: WaypointGroup;
     options: WaypointOptions;
     triggerPoint: number;
@@ -78,6 +78,6 @@ declare class Waypoint {
     static Adapter: WaypointAdapter;
     // Waypoint.Context
     static Context: {
-        findByElement(element: HTMLElement): WaypointContext|undefined;
+        findByElement(element: HTMLElement | null): WaypointContext|undefined;
     };
 }
