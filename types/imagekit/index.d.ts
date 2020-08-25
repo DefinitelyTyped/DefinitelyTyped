@@ -7,7 +7,18 @@
 /// <reference types="node" />
 
 type TransformationPosition = 'path' | 'query';
+/**
+ * Type of files to include in result set. Accepts three values:
+ * all - include all types of files in result set
+ * image - only search in image type files
+ * non-image - only search in files which are not image, e.g., JS or CSS or video files.
+ * 
+ * @see {@link https://docs.imagekit.io/api-reference/media-api/list-and-search-files}
+ */
 type FileType = 'all' | 'image' | 'non-image';
+/**
+ * Type of returned item. It can be either file or folder.
+ */
 type Item = 'file' | 'folder';
 
 /**
@@ -31,54 +42,181 @@ type FileFormat =
     | 'm3u8'
     | string;
 
+/**
+ * @see {@link https://docs.imagekit.io/features/image-transformations}
+ */
 interface Transformation {
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#width-w}
+     */
     height?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#height-h}
+     */
     width?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#aspect-ratio-ar}
+     */
     aspectRatio?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#quality-q}
+     */
     quality?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#crop-crop-modes-and-focus}
+     */
     crop?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#crop-crop-modes-and-focus}
+     */
     cropMode?: string;
-    x?: string;
-    y?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#focus-fo}
+     */
     focus?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#examples-focus-using-cropped-image-coordinates}
+     */
+    x?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#examples-focus-using-cropped-image-coordinates}
+     */
+    y?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#format-f}
+     */
     format?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#radius-r}
+     */
     radius?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#background-color-bg}
+     */
     background?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#border-b}
+     */
     border?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#rotate-rt}
+     */
     rotation?: number;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#blur-bl}
+     */
     blur?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#named-transformation-n}
+     */
     named?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-image-oi}
+     */
     overlayImage?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-x-position-ox}
+     */
     overlayX?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-y-position-oy}
+     */
     overlayY?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-focus-ofo}
+     */
     overlayFocus?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-height-oh}
+     */
     overlayHeight?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-width-ow}
+     */
     overlayWidth?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-text-ot}
+     */
     overlayText?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-text-size-ots}
+     */
     overlayTextFontSize?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-text-color-otc}
+     */
     overlayTextColor?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-transparency-oa}
+     */
     overlayAlpha?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-text-typography-ott}
+     */
     overlayTextTypography?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-background-obg}
+     */
     overlayBackground?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#trimming-of-the-overlay-image}
+     */
     overlayImageTrim?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#progressive-image-pr}
+     */
     progressive?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#lossless-webp-and-png-lo}
+     */
     lossless?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#trim-edges-t}
+     */
     trim?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#image-metadata-md}
+     */
     metadata?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#color-profile-cp}
+     */
     colorProfile?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#default-image-di}
+     */
     defaultImage?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#dpr-dpr}
+     */
     dpr?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/image-enhancement-and-color-manipulation#sharpen-e-sharpen}
+     */
     effectSharpen?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/image-enhancement-and-color-manipulation#unsharp-mask-e-usm}
+     */
     effectUSM?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/image-enhancement-and-color-manipulation#contrast-stretch-e-contrast}
+     */
     effectContrast?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#grayscale-e-grayscale}
+     */
     effectGray?: string;
+    /**
+     * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#original-image-orig}
+     */
     original?: string;
 }
 
 interface UrlOptionsBase {
     /**
-     * An array of objects specifying the transformation to be applied in the URL.
-     * The transformation name and the value should be specified as a key-value pair in the object.
+     * An array of objects specifying the transformations to be applied in the URL.
+     * The transformation name and the value should be specified as a key-value pair in each object.
+     * @see {@link https://docs.imagekit.io/features/image-transformations/chained-transformations}
      */
     transformation?: Transformation[];
     /**
@@ -332,7 +470,9 @@ interface ListFileResponse {
      * Name of the file or folder.
      */
     name: string;
-
+    /**
+     * The date and time when the file was first uploaded. The format is `YYYY-MM-DDTHH:mm:ss.sssZ`.
+     */
     createdAt: string;
     /**
      * The relative path of the file. In the case of an image, you can use this
