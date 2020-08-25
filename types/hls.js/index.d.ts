@@ -353,7 +353,7 @@ declare namespace Hls {
         error?: CustomLogger;
     }
 
-    interface AudioTrack {
+    interface HlsAudioTrack {
         audioCodec: string;
         autoselect: boolean;
         default: boolean;
@@ -928,7 +928,7 @@ declare namespace Hls {
     }
 
     interface audioTracksUpdatedData {
-        audioTracks: AudioTrack[];
+        audioTracks: HlsAudioTrack[];
     }
 
     interface audioTrackSwitchingData {
@@ -1713,7 +1713,6 @@ declare class Hls {
      * get: return last loaded fragment quality level
      * set: quality level for next loaded fragment
      * set to -1 for automatic level selection
-     */
     loadLevel: number;
     /**
      * get: return quality level that will be used to load next fragment
@@ -1733,7 +1732,7 @@ declare class Hls {
     /**
      * get : array of audio tracks exposed in manifest
      */
-    readonly audioTracks: Hls.AudioTrack[];
+    readonly audioTracks: Hls.HlsAudioTrack[];
     /**
      * get/set : audio track id (returned by).
      * Returns -1 if no track is selected.
