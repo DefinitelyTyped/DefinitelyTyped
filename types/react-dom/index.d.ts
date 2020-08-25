@@ -29,12 +29,10 @@ import {
     ReactPortal,
 } from 'react';
 
-type Container = Element | HTMLElement;
-
 export function findDOMNode(instance: ReactInstance | null | undefined): Element | null | Text;
-export function unmountComponentAtNode(container: Container | DocumentFragment): boolean;
+export function unmountComponentAtNode(container: Element | HTMLElement | DocumentFragment): boolean;
 
-export function createPortal(children: ReactNode, container: Container, key?: null | string): ReactPortal;
+export function createPortal(children: ReactNode, container: Element | HTMLElement, key?: null | string): ReactPortal;
 
 export const version: string;
 export const render: Renderer;
@@ -69,46 +67,44 @@ export interface Renderer {
 
     <T extends Element>(
         element: DOMElement<DOMAttributes<T>, T>,
-        container: Container | DocumentFragment | null,
+        container: Element | HTMLElement | DocumentFragment | null,
         callback?: () => void,
     ): T;
 
     (
         element: Array<DOMElement<DOMAttributes<any>, any>>,
-        container: Container | DocumentFragment | null,
+        container: Element | HTMLElement | DocumentFragment | null,
         callback?: () => void,
     ): Element;
 
     (
-        element: SFCElement<any> | Array<SFCElement<any>>,
-        container: Container | DocumentFragment | null,
-        callback?: () => void,
-    ): void;
-
-    (
-        element: FunctionComponentElement<any> | Array<FunctionComponentElement<any>>,
-        container: Container | DocumentFragment | null,
+        element:
+            | SFCElement<any>
+            | Array<SFCElement<any>>
+            | FunctionComponentElement<any>
+            | Array<FunctionComponentElement<any>>,
+        container: Element | HTMLElement | DocumentFragment | null,
         callback?: () => void,
     ): void;
 
     <P, T extends Component<P, ComponentState>>(
         element: CElement<P, T>,
-        container: Container | DocumentFragment | null,
+        container: Element | HTMLElement | DocumentFragment | null,
         callback?: () => void,
     ): T;
 
     (
         element: Array<CElement<any, Component<any, ComponentState>>>,
-        container: Container | DocumentFragment | null,
+        container: Element | HTMLElement | DocumentFragment | null,
         callback?: () => void,
     ): Component<any, ComponentState>;
 
-    <P>(element: ReactElement<P>, container: Container | DocumentFragment | null, callback?: () => void):
+    <P>(element: ReactElement<P>, container: Element | HTMLElement | DocumentFragment | null, callback?: () => void):
         | Component<P, ComponentState>
         | Element
         | void;
 
-    (element: ReactElement[], container: Container | DocumentFragment | null, callback?: () => void):
+    (element: ReactElement[], container: Element | HTMLElement | DocumentFragment | null, callback?: () => void):
         | Component<any, ComponentState>
         | Element
         | void;
