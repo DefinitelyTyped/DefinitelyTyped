@@ -8,7 +8,6 @@
 
 /// <reference types="node" />
 
-import * as stream from "stream";
 import { EventEmitter } from "events";
 
 /* Data Model Interfaces */
@@ -23,6 +22,16 @@ import { EventEmitter } from "events";
  * @see DefaultGraph
  */
 export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
+/**
+ * Contains an object which looks like an RDF/JS term to allow external Term extensions.
+ * @see Term
+ */
+export interface TermLike {
+    /**
+     * Contains string constant to distinguish different Term types.
+     */
+    readonly termType: string;
+}
 
 /**
  * Contains an IRI.
@@ -41,7 +50,7 @@ export interface NamedNode<Iri extends string = string> {
      * @param other The term to compare with.
      * @return True if and only if other has termType "NamedNode" and the same `value`.
      */
-    equals(other: Term | null | undefined): boolean;
+    equals(other: TermLike | null | undefined): boolean;
 }
 
 /**
@@ -64,7 +73,7 @@ export interface BlankNode {
      * @param other The term to compare with.
      * @return True if and only if other has termType "BlankNode" and the same `value`.
      */
-    equals(other: Term | null | undefined): boolean;
+    equals(other: TermLike | null | undefined): boolean;
 }
 
 /**
@@ -95,7 +104,7 @@ export interface Literal {
      * @return True if and only if other has termType "Literal"
      *                   and the same `value`, `language`, and `datatype`.
      */
-    equals(other: Term | null | undefined): boolean;
+    equals(other: TermLike | null | undefined): boolean;
 }
 
 /**
@@ -115,7 +124,7 @@ export interface Variable {
      * @param other The term to compare with.
      * @return True if and only if other has termType "Variable" and the same `value`.
      */
-    equals(other: Term | null | undefined): boolean;
+    equals(other: TermLike | null | undefined): boolean;
 }
 
 /**
@@ -136,7 +145,7 @@ export interface DefaultGraph {
      * @param other The term to compare with.
      * @return True if and only if other has termType "DefaultGraph".
      */
-    equals(other: Term | null | undefined): boolean;
+    equals(other: TermLike | null | undefined): boolean;
 }
 
 /**

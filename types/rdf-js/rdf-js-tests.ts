@@ -1,5 +1,5 @@
 import { BlankNode, DataFactory, Dataset, DatasetCore, DatasetCoreFactory, DatasetFactory, DefaultGraph, Literal,
-  NamedNode, Quad, BaseQuad, Sink, Source, Store, Stream, Term, Variable, Quad_Graph } from "rdf-js";
+  NamedNode, Quad, BaseQuad, Sink, Source, Store, Stream, Term, TermLike, Variable, Quad_Graph } from "rdf-js";
 import { EventEmitter } from "events";
 
 function test_terms() {
@@ -54,6 +54,24 @@ function test_terms() {
     let defaultGraphEqual: boolean = defaultGraph.equals(someTerm);
     defaultGraphEqual = defaultGraph.equals(null);
     defaultGraphEqual = defaultGraph.equals(undefined);
+}
+
+function test_customTermEquality() {
+    interface Wildcard {
+        termType: 'Wildcard';
+        value: '*';
+        equals(term: TermLike | null | undefined): boolean;
+    }
+
+    const wildcard: Wildcard = <any> {};
+    const iri: NamedNode = <any> {};
+    const term: Term = <any> {};
+
+    let wildcardEqual = wildcard.equals(wildcard);
+    wildcardEqual = wildcard.equals(iri);
+    wildcardEqual = iri.equals(wildcard);
+    wildcardEqual = wildcard.equals(term);
+    wildcardEqual = term.equals(wildcard);
 }
 
 function test_quads() {
