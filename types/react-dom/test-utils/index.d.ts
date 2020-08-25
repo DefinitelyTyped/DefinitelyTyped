@@ -1,11 +1,19 @@
 import {
-    AbstractView, Component, ComponentClass,
-    ReactElement, ReactInstance, ClassType,
-    DOMElement, SFCElement, CElement,
-    ReactHTMLElement, DOMAttributes, SFC
+    AbstractView,
+    Component,
+    ComponentClass,
+    ReactElement,
+    ReactInstance,
+    ClassType,
+    DOMElement,
+    SFCElement,
+    CElement,
+    ReactHTMLElement,
+    DOMAttributes,
+    SFC,
 } from 'react';
 
-import * as ReactTestUtils from ".";
+import * as ReactTestUtils from '.';
 
 export interface OptionalEventProperties {
     bubbles?: boolean;
@@ -152,26 +160,21 @@ export namespace Simulate {
 /**
  * Render a React element into a detached DOM node in the document. __This function requires a DOM__.
  */
-export function renderIntoDocument<T extends Element>(
-    element: DOMElement<any, T>): T;
-export function renderIntoDocument(
-    element: SFCElement<any>): void;
+export function renderIntoDocument<T extends Element>(element: DOMElement<any, T>): T;
+export function renderIntoDocument(element: SFCElement<any>): void;
 // If we replace `P` with `any` in this overload, then some tests fail because
 // calls to `renderIntoDocument` choose the last overload on the
 // subtype-relation pass and get an undesirably broad return type.  Using `P`
 // allows this overload to match on the subtype-relation pass.
-export function renderIntoDocument<P, T extends Component<P>>(
-    element: CElement<P, T>): T;
-export function renderIntoDocument<P>(
-    element: ReactElement<P>): Component<P> | Element | void;
+export function renderIntoDocument<P, T extends Component<P>>(element: CElement<P, T>): T;
+export function renderIntoDocument<P>(element: ReactElement<P>): Component<P> | Element | void;
 
 /**
  * Pass a mocked component module to this method to augment it with useful methods that allow it to
  * be used as a dummy React component. Instead of rendering as usual, the component will become
  * a simple `<div>` (or other tag if `mockTagName` is provided) containing any provided children.
  */
-export function mockComponent(
-    mocked: MockedComponentClass, mockTagName?: string): typeof ReactTestUtils;
+export function mockComponent(mocked: MockedComponentClass, mockTagName?: string): typeof ReactTestUtils;
 
 /**
  * Returns `true` if `element` is any React element.
@@ -182,22 +185,27 @@ export function isElement(element: any): boolean;
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<T extends HTMLElement>(
-    element: ReactElement, type: string): element is ReactHTMLElement<T>;
+    element: ReactElement,
+    type: string,
+): element is ReactHTMLElement<T>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
-    element: ReactElement, type: string): element is DOMElement<P, T>;
+    element: ReactElement,
+    type: string,
+): element is DOMElement<P, T>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
-export function isElementOfType<P>(
-    element: ReactElement, type: SFC<P>): element is SFCElement<P>;
+export function isElementOfType<P>(element: ReactElement, type: SFC<P>): element is SFCElement<P>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<P, T extends Component<P>, C extends ComponentClass<P>>(
-    element: ReactElement, type: ClassType<P, T, C>): element is CElement<P, T>;
+    element: ReactElement,
+    type: ClassType<P, T, C>,
+): element is CElement<P, T>;
 
 /**
  * Returns `true` if `instance` is a DOM component (such as a `<div>` or `<span>`).
@@ -211,55 +219,48 @@ export function isCompositeComponent(instance: ReactInstance): instance is Compo
  * Returns `true` if `instance` is a component whose type is of a React `componentClass`.
  */
 export function isCompositeComponentWithType<T extends Component<any>, C extends ComponentClass<any>>(
-    instance: ReactInstance, type: ClassType<any, T, C>): boolean;
+    instance: ReactInstance,
+    type: ClassType<any, T, C>,
+): boolean;
 
 /**
  * Traverse all components in `tree` and accumulate all components where
  * `test(component)` is `true`. This is not that useful on its own, but it's used
  * as a primitive for other test utils.
  */
-export function findAllInRenderedTree(
-    root: Component<any>,
-    fn: (i: ReactInstance) => boolean): ReactInstance[];
+export function findAllInRenderedTree(root: Component<any>, fn: (i: ReactInstance) => boolean): ReactInstance[];
 
 /**
  * Finds all DOM elements of components in the rendered tree that are
  * DOM components with the class name matching `className`.
  */
-export function scryRenderedDOMComponentsWithClass(
-    root: Component<any>,
-    className: string): Element[];
+export function scryRenderedDOMComponentsWithClass(root: Component<any>, className: string): Element[];
 /**
  * Like `scryRenderedDOMComponentsWithClass()` but expects there to be one result,
  * and returns that one result, or throws exception if there is any other
  * number of matches besides one.
  */
-export function findRenderedDOMComponentWithClass(
-    root: Component<any>,
-    className: string): Element;
+export function findRenderedDOMComponentWithClass(root: Component<any>, className: string): Element;
 
 /**
  * Finds all DOM elements of components in the rendered tree that are
  * DOM components with the tag name matching `tagName`.
  */
-export function scryRenderedDOMComponentsWithTag(
-    root: Component<any>,
-    tagName: string): Element[];
+export function scryRenderedDOMComponentsWithTag(root: Component<any>, tagName: string): Element[];
 /**
  * Like `scryRenderedDOMComponentsWithTag()` but expects there to be one result,
  * and returns that one result, or throws exception if there is any other
  * number of matches besides one.
  */
-export function findRenderedDOMComponentWithTag(
-    root: Component<any>,
-    tagName: string): Element;
+export function findRenderedDOMComponentWithTag(root: Component<any>, tagName: string): Element;
 
 /**
  * Finds all instances of components with type equal to `componentClass`.
  */
 export function scryRenderedComponentsWithType<T extends Component<any>, C extends ComponentClass<any>>(
     root: Component<any>,
-    type: ClassType<any, T, C>): T[];
+    type: ClassType<any, T, C>,
+): T[];
 
 /**
  * Same as `scryRenderedComponentsWithType()` but expects there to be one result
@@ -268,7 +269,8 @@ export function scryRenderedComponentsWithType<T extends Component<any>, C exten
  */
 export function findRenderedComponentWithType<T extends Component<any>, C extends ComponentClass<any>>(
     root: Component<any>,
-    type: ClassType<any, T, C>): T;
+    type: ClassType<any, T, C>,
+): T;
 
 /**
  * Call this in your tests to create a shallow renderer.

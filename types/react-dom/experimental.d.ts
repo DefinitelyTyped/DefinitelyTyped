@@ -74,7 +74,10 @@ declare module '.' {
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#createroot
      */
-    function unstable_createRoot(container: Element | Document | DocumentFragment | Comment, options?: RootOptions): Root;
+    function unstable_createRoot(
+        container: Element | Document | DocumentFragment | Comment,
+        options?: RootOptions,
+    ): Root;
 
     function unstable_discreteUpdates<R>(callback: () => R): R;
 
