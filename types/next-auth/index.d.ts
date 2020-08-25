@@ -11,7 +11,7 @@ import { ConnectionOptions } from 'typeorm';
 import { PossibleProviders } from './providers';
 import { Adapter } from './adapters';
 
-interface InitOptions {
+export interface InitOptions {
     providers: Array<ReturnType<PossibleProviders>>;
     database?: ConnectionOptions | string;
     secret?: string;
@@ -26,7 +26,7 @@ interface InitOptions {
     cookies?: Cookies;
 }
 
-interface PageOptions {
+export interface PageOptions {
     signIn?: string;
     signOut?: string;
     error?: string;
@@ -43,7 +43,7 @@ interface Cookie {
     options: CookieOptions;
 }
 
-interface CookieOptions {
+export interface CookieOptions {
     httpOnly?: boolean;
     // TODO: type available `sameSite` identifiers
     sameSite: string;
@@ -110,19 +110,12 @@ interface JWTEncodeParams {
     maxAge?: number;
 }
 
-interface CallbackURLOptions {
-    site: string;
-    defaultCallbackUrl?: string;
-    cookies?: Cookies;
-    callbacks?: Callbacks;
-}
-
 interface GenericObject {
     [key: string]: any;
 }
 
 // TODO: Improve callback typings
-interface Callbacks {
+export interface Callbacks {
     signIn?(user: GenericObject, account: GenericObject, profile: GenericObject): Promise<boolean>;
     redirect?(url: string, baseUrl: string): Promise<string>;
     session?(session: Session, user: GenericObject): Promise<GenericObject>;

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-interface Session {
+export interface Session {
     user: {
         name: string;
         email: string;

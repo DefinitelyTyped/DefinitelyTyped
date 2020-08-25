@@ -1,4 +1,4 @@
-interface Providers {
+export interface Providers {
     Email: Email;
     Credentials: Credentials;
     Apple: Apple;
