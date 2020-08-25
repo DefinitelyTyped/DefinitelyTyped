@@ -4,15 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.3
 
-/// https://novadocs.panic.com/extensions/
+/// https://novadocs.panic.com/extensions/#javascript-runtime
 
 // This runs in an extension of Apple's JavaScriptCore, manually set libs
 
 /// <reference no-default-lib="true"/>
-/// <reference lib="es2015" />
+/// <reference lib="es7" />
 
-type ReadableStream = unknown;
-type WritableStream = unknown;
+type ReadableStream<T = any> = unknown;
+type WritableStream<T = any> = unknown;
 
 /// https://novadocs.panic.com/api-reference/assistants-registry/
 
@@ -21,7 +21,11 @@ type AssistantsRegistrySelector = string | { syntax: string };
 interface AssistantsRegistry {
     registerColorAssistant(selector: AssistantsRegistrySelector, object: ColorAssistant): Disposable;
     registerCompletionAssistant(selector: AssistantsRegistrySelector, object: CompletionAssistant): Disposable;
-    registerIssueAssistant(selector: AssistantsRegistrySelector, object: IssueAssistant): Disposable;
+    registerIssueAssistant(
+        selector: AssistantsRegistrySelector,
+        object: IssueAssistant,
+        options?: { event: "onChange" | "onSave" }
+    ): Disposable;
 }
 
 interface ColorAssistant {
@@ -29,7 +33,7 @@ interface ColorAssistant {
 }
 
 interface CompletionAssistant {
-    provideCompletionItems(editor: TextEditor, context: CompletionContext): CompletionItem[];
+    provideCompletionItems(editor: TextEditor, context: CompletionContext): void | CompletionItem[];
 }
 
 interface IssueAssistant {
@@ -268,11 +272,11 @@ interface File {
 }
 
 interface FileBinaryMode extends File {
-    read(size?: string): ArrayBuffer | null;
+    read(size?: number): ArrayBuffer | null;
 }
 
 interface FileTextMode extends File {
-    read(size?: string): string | null;
+    read(size?: number): string | null;
     readline(): string;
     readlines(): string[];
 }
@@ -310,13 +314,15 @@ type Encoding =
 declare class FileSystem {
     private constructor();
 
-    static F_OK: FileSystemBitField;
-    static R_OK: FileSystemBitField;
-    static W_OK: FileSystemBitField;
-    static X_OK: FileSystemBitField;
-    static START: FileSystemBitField;
-    static CURRENT: FileSystemBitField;
-    static END: FileSystemBitField;
+    constants: {
+        F_OK: FileSystemBitField;
+        R_OK: FileSystemBitField;
+        W_OK: FileSystemBitField;
+        X_OK: FileSystemBitField;
+        START: FileSystemBitField;
+        CURRENT: FileSystemBitField;
+        END: FileSystemBitField;
+    }
 
     F_OK: FileSystemBitField;
     R_OK: FileSystemBitField;
@@ -355,6 +361,7 @@ interface FileSystemWatcher extends Disposable {
 declare class Issue {
     constructor();
     code: number | string;
+    message: string;
     severity: IssueSeverity;
     source: string | null;
     textRange?: Range;
@@ -463,7 +470,7 @@ interface Path {
     splitext(path: string): [string, string];
     expanduser(path: string): string;
     isAbsolute(path: string): boolean;
-    join(path: string, ...paths: string[]): string;
+    join(...paths: string[]): string;
     normalize(path: string): string;
     split(path: string): string[];
 }
@@ -499,9 +506,9 @@ declare class Process {
     readonly stdout?: ReadableStream | WritableStream | null;
     readonly stderr?: ReadableStream | WritableStream | null;
 
-    onStdout(callback: (line: string) => void): void;
-    onStderr(callback: (line: string) => void): void;
-    onDidExit(callback: (status: number) => void): void;
+    onStdout(callback: (line: string) => void): Disposable;
+    onStderr(callback: (line: string) => void): Disposable;
+    onDidExit(callback: (status: number) => void): Disposable;
     start(): void;
     signal(signal: string | number): void;
     kill(): void;
@@ -509,8 +516,8 @@ declare class Process {
     // see no-unnecessary-generics for why these aren't stricter
     notify(methodName: string, params?: any): void;
     request(methodName: string, params?: any): Promise<any>;
-    onNotify(methodName: string, callback: (message: ProcessMessage<any, any, any>) => void): void;
-    onRequest(methodName: string, callback: (message: ProcessMessage<any, any, any>) => any): void;
+    onNotify(methodName: string, callback: (message: ProcessMessage<any, any, any>) => void): Disposable;
+    onRequest(methodName: string, callback: (message: ProcessMessage<any, any, any>) => any): Disposable;
 }
 
 /// https://novadocs.panic.com/api-reference/process-message/
@@ -549,7 +556,7 @@ declare class Scanner {
     constructor(string: string);
 
     readonly string: string;
-    readonly location: number;
+    location: number;
     readonly atEnd: boolean;
     skipChars: Charset;
     caseSensitive: boolean;
@@ -611,8 +618,8 @@ interface TextDocument {
 
     getTextInRange(range: Range): string;
     getLineRangeForRange(range: Range): Range;
-    onDidChangePath(callback: (document: TextDocument, path: string | null) => void): void;
-    onDidChangeSyntax(callback: (document: TextDocument, syntax: string | null) => void): void;
+    onDidChangePath(callback: (document: TextDocument, path: string | null) => void): Disposable;
+    onDidChangeSyntax(callback: (document: TextDocument, syntax: string | null) => void): Disposable;
 }
 
 /// https://novadocs.panic.com/api-reference/text-editor/
@@ -623,24 +630,24 @@ declare class TextEditor {
     static isTextEditor(object: any): object is TextEditor;
 
     readonly document: TextDocument;
-    readonly selectedRange: Range;
-    readonly selectedRanges: Range[];
+    selectedRange: Range;
+    selectedRanges: Range[];
     readonly selectedText: string;
-    readonly softTabs: boolean;
-    readonly tabLength: number;
+    softTabs: boolean;
+    tabLength: number;
     readonly tabText: string;
 
     edit(callback: (edit: TextEditorEdit) => void, options?: unknown): Promise<void>;
     insert(string: string): Promise<void>;
     save(): void;
     getTextInRange(range: Range): string;
-    getLineRangeForRange(range: Range): string;
-    onDidChange(callback: (textEditor: TextEditor) => void): void;
-    onDidStopChanging(callback: (textEditor: TextEditor) => void): void;
-    onWillSave(callback: (textEditor: TextEditor) => void): void;
-    onDidSave(callback: (textEditor: TextEditor) => void): void;
-    onDidChangeSelection(callback: (textEditor: TextEditor) => void): void;
-    onDidDestroy(callback: (textEditor: TextEditor) => void): void;
+    getLineRangeForRange(range: Range): Range;
+    onDidChange(callback: (textEditor: TextEditor) => void): Disposable;
+    onDidStopChanging(callback: (textEditor: TextEditor) => void): Disposable;
+    onWillSave(callback: (textEditor: TextEditor) => void): Disposable;
+    onDidSave(callback: (textEditor: TextEditor) => void): Disposable;
+    onDidChangeSelection(callback: (textEditor: TextEditor) => void): Disposable;
+    onDidDestroy(callback: (textEditor: TextEditor) => void): Disposable;
     addSelectionForRange(range: Range): void;
     selectToPosition(position: number): void;
     selectUp(rowCount: number): void;
@@ -683,9 +690,10 @@ interface TreeDataProvider<E> {
 declare class TreeItem {
     constructor(name: string, collapsibleState?: TreeItemCollapsibleState);
 
-    readonly name: string;
-    readonly collapsibleState: TreeItemCollapsibleState;
+    name: string;
+    collapsibleState: TreeItemCollapsibleState;
     command?: unknown; // https://dev.panic.com/panic/nova-issues/-/issues/909
+    color?: Color;
     contextValue?: string;
     descriptiveText?: string;
     identifier?: string;
@@ -725,9 +733,9 @@ interface Workspace {
     readonly textEditors: ReadonlyArray<TextEditor>;
     readonly activeTextEditor: TextEditor;
 
-    onDidAddTextEditor(callback: (editor: TextEditor) => void): void;
-    onDidChangePath(callback: (newPath: TextEditor) => void): void;
-    onDidOpenTextDocument(callback: (textDocument: TextDocument) => void): void;
+    onDidAddTextEditor(callback: (editor: TextEditor) => void): Disposable;
+    onDidChangePath(callback: (newPath: TextEditor) => void): Disposable;
+    onDidOpenTextDocument(callback: (textDocument: TextDocument) => void): Disposable;
     contains(path: string): boolean;
     relativizePath(path: string): string;
     openConfig(identifier?: string): void;
