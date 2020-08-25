@@ -56,6 +56,7 @@ const deviceInterface: usb.Interface = device.interface(1);
 device.interfaces = [deviceInterface];
 device.parent = device;
 device.configDescriptor = configDesc;
+const configDesc2: usb.ConfigDescriptor = device.__getConfigDescriptor();
 device.allConfigDescriptors = [configDesc];
 
 const iface = new usb.Interface(device, 1);

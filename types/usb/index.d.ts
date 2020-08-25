@@ -29,7 +29,7 @@ export class Device {
   /** Object with properties for the fields of the device descriptor. */
   deviceDescriptor: DeviceDescriptor;
 
-  /** Object with properties for the fields of the configuration descriptor. */
+  /** Object with properties for the fields of the active configuration descriptor. */
   configDescriptor: ConfigDescriptor;
 
   /** Contains all config descriptors of the device (same structure as .configDescriptor above) */
@@ -42,6 +42,7 @@ export class Device {
   interfaces: Interface[];
 
   __open(): void;
+  __getConfigDescriptor(): ConfigDescriptor;
   __claimInterface(addr: number): void;
 
   /**
