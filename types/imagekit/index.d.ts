@@ -84,7 +84,8 @@ interface UrlOptionsBase {
     transformation?: Transformation[];
     /**
      * Default value is path that places the transformation string as a path parameter in the URL.
-     * Can also be specified as query which adds the transformation string as the query parameter tr in the URL. If you use src parameter to create the URL, then the transformation string is always added as a query parameter.
+     * Can also be specified as query which adds the transformation string as the query parameter tr in the URL.
+     * If you use src parameter to create the URL, then the transformation string is always added as a query parameter.
      */
     transformationPosition?: TransformationPosition;
     /**
@@ -378,7 +379,7 @@ interface FileDetailsResponse {
      */
     fileId: string;
     /**
-     * Type of item. It can be either file or folder.
+     * Type of item. It can be either file or folder.
      */
     type: Item;
     /**
@@ -386,7 +387,7 @@ interface FileDetailsResponse {
      */
     name: string;
     /**
-     * The relative path of the file. In case of image, you can use this 
+     * The relative path of the file. In case of image, you can use this
      * path to construct different transformations.
      */
     filePath: string;
@@ -412,7 +413,7 @@ interface FileDetailsResponse {
      */
     thumbnail: string;
     /**
-     * The type of file, it could be either image or non-image.
+     * The type of file, it could be either image or non-image.
      */
     fileType: FileType;
 }
