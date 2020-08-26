@@ -571,7 +571,13 @@ interface FileMetadataResponse {
     quality: number;
     density: number;
     hasTransparency: boolean;
+    /**
+     * @see {@link https://docs.imagekit.io/api-reference/metadata-api#perceptual-hash-phash}
+     */
     pHash: string;
+    /**
+     * @see {@link https://docs.imagekit.io/api-reference/metadata-api#exif}
+     */
     exif: {
         image: {
             Make: string;
