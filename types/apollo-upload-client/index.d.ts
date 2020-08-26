@@ -4,8 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { ApolloLink } from "apollo-link";
-import { HttpOptions } from "apollo-link-http-common";
+import { ApolloLink, HttpOptions } from '@apollo/client';
 
 export { ReactNativeFile } from "extract-files";
 
