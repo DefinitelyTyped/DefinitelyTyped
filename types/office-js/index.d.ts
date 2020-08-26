@@ -477,6 +477,101 @@ declare namespace Office {
         value: T;
     }
     /**
+     * Message used in the `onVisibilityModeChanged` invocation.
+     */
+    interface VisibilityModeChangedMessage {
+        /**
+         * Visibility changed state.
+         */
+        visibilityMode: Office.VisibilityMode;
+    }
+    /**
+     * Function type to turn off the event.
+     */
+    type RemoveEventListener = () => Promise<void>;
+    /**
+     * Represents add-in level functionality for operating or configuring various aspects of the add-in.
+     */
+    interface Addin {
+        /**
+         * Sets the startup behavior for the add-in for when the document is opened next time.
+         * @param behavior - Specifies startup behavior of the add-in.
+         */
+        setStartupBehavior(behavior: Office.StartupBehavior): Promise<void>;
+        /**
+         * Gets the current startup behavior for the add-in.
+         */
+        getStartupBehavior(): Promise<Office.StartupBehavior>;
+        /**
+         * Shows the task pane associated with the add-in.
+         * @returns A promise that is resolved when the UI is shown.
+         */
+        showAsTaskpane(): Promise<void>;
+        /**
+         * Hides the task pane.
+         * @returns A promise that is resolved when the UI is hidden.
+         */
+        hide(): Promise<void>;
+        /**
+         * Adds a listener for the `onVisbilityModeChanged` event.
+         * @param listener - The listener function that is called when the event is emitted. This function takes in a message for the receiving component.
+         * @returns A promise that resolves when the listener is added.
+         */
+        onVisibilityModeChanged(
+            listener: (message: VisibilityModeChangedMessage) => void,
+        ): Promise<RemoveEventListener>;
+    }
+    /**
+     * An interface that contains all the functionality provided to manage the state of the OFfice ribbon.
+     */
+    interface Ribbon {
+        /**
+         * Sends a request to Office to update the ribbon.
+         * Note that this API is only to request an update. The actual UI update to the ribbon is controlled by the Office application and hence the exact timing of the ribbon update (or refresh) cannot be determined by the completion of this API.
+         * @param input - Represents the updates to be made to the ribbon. Note that only the changes specified in the input parameter are made.
+         */
+        requestUpdate(input: RibbonUpdaterData): Promise<void>;
+    }
+    /**
+     * Specifies changes to the ribbon, such as the enabled or disabled status of a button.
+     */
+    interface RibbonUpdaterData {
+        /**
+         * Collection of tabs whose state is set with the call of `requestUpdate`.
+         */
+        tabs: Tab[];
+    }
+    /**
+     * Represents an individual tab and the state it should have.
+     */
+    interface Tab {
+        /**
+         * Identifier of the tab as specified in the manifest.
+         */
+        id: string;
+        /**
+         * Specifies the controls in the tab, such as menu items, buttons, etc.
+         */
+        controls?: Control[];
+    }
+    /**
+     * Represents an individual control or command and the state it should have.
+     */
+    interface Control {
+        /**
+         * Identifier of the control as specified in the manifest.
+         */
+        id: string;
+        /**
+         * Indicates whether the control should be visible or hidden. The default is true.
+         */
+        visible?: boolean;
+        /**
+         * Indicates whether the control should be enabled or disabled. The default is true.
+         */
+        enabled?: boolean;
+    } 	
+    /**
      * Represents the runtime environment of the add-in and provides access to key objects of the API. 
      * The current context exists as a property of Office. It is accessed using `Office.context`.
      *
@@ -737,6 +832,23 @@ declare namespace Office {
      * for more information.
      */
     interface UI {
+        /**
+         * Adds an event handler to the object using the specified event type.
+         *
+         * @beta
+         *
+         * @remarks
+         *
+         * **Requirement set**: DialogApi 1.2
+         *
+         * You can add multiple event handlers for the specified event type as long as the name of each event handler function is unique.
+         *
+         * @param eventType Specifies the type of event to add. This must be `Office.EventType.DialogParentMessageReceived`.
+         * @param handler The event handler function to add, whose only parameter is of type {@link Office.DialogParentMessageReceivedEventArgs}.
+         * @param options Optional. Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback Optional. A function that is invoked when the handler registration returns, whose only parameter is of type {@link Office.AsyncResult}.
+         */
+        addHandlerAsync(eventType: Office.EventType, handler: (result: DialogParentMessageReceivedEventArgs) => void, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
         /**
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
         *
@@ -1523,6 +1635,16 @@ declare namespace Office {
          */
         addEventHandler(eventType: Office.EventType, handler: (args: {message: string | boolean} | {error: number}) => void): void;
         /**
+         * Delivers a message from the host page, such as a task pane or a UI-less function file, to a dialog that was opened from the page.
+         *
+         * @remarks
+         *
+         * **Requirement set**: DialogApi 1.2
+         *
+         * @param message Accepts a message from the host page to deliver to the dialog. Anything that can be serialized to a string, including JSON and XML, can be sent.
+         */
+        messageChild(message: string): void;
+        /**
          * FOR INTERNAL USE ONLY. DO NOT CALL IN YOUR CODE.
          */
         sendMessage(name: string): void;
@@ -1761,6 +1883,10 @@ declare namespace Office {
          * Triggers when a dialog sends a message via `messageParent`.
          */
         DialogMessageReceived,
+        /**
+         * Triggers when a host page sends a message to a child dialog box with `messageChild`.
+         */
+        DialogParentMessageReceived,
         /**
          * Triggers when a document-level selection happens.
          * 
