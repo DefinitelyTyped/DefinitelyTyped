@@ -477,72 +477,45 @@ declare namespace Office {
         value: T;
     }
     /**
-     * Message used in the `onVisibilityModeChanged` invocation.
-     */
-    interface VisibilityModeChangedMessage {
-        /**
-         * Visibility changed state.
-         */
-        visibilityMode: Office.VisibilityMode;
-    }
-    /**
-     * Function type to turn off the event.
-     */
-    type RemoveEventListener = () => Promise<void>;
-    /**
-     * Represents add-in level functionality for operating or configuring various aspects of the add-in.
-     */
-    interface Addin {
-        /**
-         * Sets the startup behavior for the add-in for when the document is opened next time.
-         * @param behavior - Specifies startup behavior of the add-in.
-         */
-        setStartupBehavior(behavior: Office.StartupBehavior): Promise<void>;
-        /**
-         * Gets the current startup behavior for the add-in.
-         */
-        getStartupBehavior(): Promise<Office.StartupBehavior>;
-        /**
-         * Shows the task pane associated with the add-in.
-         * @returns A promise that is resolved when the UI is shown.
-         */
-        showAsTaskpane(): Promise<void>;
-        /**
-         * Hides the task pane.
-         * @returns A promise that is resolved when the UI is hidden.
-         */
-        hide(): Promise<void>;
-        /**
-         * Adds a listener for the `onVisbilityModeChanged` event.
-         * @param listener - The listener function that is called when the event is emitted. This function takes in a message for the receiving component.
-         * @returns A promise that resolves when the listener is added.
-         */
-        onVisibilityModeChanged(
-            listener: (message: VisibilityModeChangedMessage) => void,
-        ): Promise<RemoveEventListener>;
-    }
-    /**
-     * An interface that contains all the functionality provided to manage the state of the OFfice ribbon.
+     * An interface that contains all the functionality provided to manage the state of the Office ribbon.
+	 *
+	 * @remarks
+     *
+     * **Requirement set**: Ribbon 1.1
      */
     interface Ribbon {
         /**
          * Sends a request to Office to update the ribbon.
+		 *
+		 * @remarks
+         *
+         * **Requirement set**: Ribbon 1.1
+		 *
          * Note that this API is only to request an update. The actual UI update to the ribbon is controlled by the Office application and hence the exact timing of the ribbon update (or refresh) cannot be determined by the completion of this API.
+		 *
          * @param input - Represents the updates to be made to the ribbon. Note that only the changes specified in the input parameter are made.
          */
         requestUpdate(input: RibbonUpdaterData): Promise<void>;
     }
     /**
      * Specifies changes to the ribbon, such as the enabled or disabled status of a button.
+	 *
+	 * @remarks
+     *
+     * **Requirement set**: Ribbon 1.1
      */
     interface RibbonUpdaterData {
         /**
          * Collection of tabs whose state is set with the call of `requestUpdate`.
-         */
+		 */
         tabs: Tab[];
     }
     /**
      * Represents an individual tab and the state it should have.
+	 *
+	 * @remarks
+     *
+     * **Requirement set**: Ribbon 1.1
      */
     interface Tab {
         /**
@@ -556,6 +529,10 @@ declare namespace Office {
     }
     /**
      * Represents an individual control or command and the state it should have.
+	 *
+	 * @remarks
+     *
+     * **Requirement set**: Ribbon 1.1
      */
     interface Control {
         /**
@@ -834,8 +811,6 @@ declare namespace Office {
     interface UI {
         /**
          * Adds an event handler to the object using the specified event type.
-         *
-         * @beta
          *
          * @remarks
          *
