@@ -5,10 +5,17 @@ declare namespace google.maps {
          * calling removeListener(handle) for the handle that is returned by this
          * function.
          */
-        function addDomListener(
+        function addDomListener<K extends keyof DocumentEventMap>(
             instance: object,
-            eventName: string,
-            handler: (event: Event) => void,
+            eventName: K,
+            handler: (event: DocumentEventMap[K]) => void,
+            capture?: boolean,
+        ): MapsEventListener;
+
+        function addDomListener<K extends keyof WindowEventMap>(
+            instance: object,
+            eventName: K,
+            handler: (event: WindowEventMap[K]) => void,
             capture?: boolean,
         ): MapsEventListener;
 
@@ -16,10 +23,17 @@ declare namespace google.maps {
          * Wrapper around addDomListener that removes the listener after the first
          * event.
          */
-        function addDomListenerOnce(
+        function addDomListenerOnce<K extends keyof DocumentEventMap>(
             instance: object,
-            eventName: string,
-            handler: (event: Event) => void,
+            eventName: K,
+            handler: (event: DocumentEventMap[K]) => void,
+            capture?: boolean,
+        ): MapsEventListener;
+
+        function addDomListenerOnce<K extends keyof WindowEventMap>(
+            instance: object,
+            eventName: K,
+            handler: (event: WindowEventMap[K]) => void,
             capture?: boolean,
         ): MapsEventListener;
 
