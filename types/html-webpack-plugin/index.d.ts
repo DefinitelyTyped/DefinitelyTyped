@@ -119,7 +119,7 @@ declare namespace HtmlWebpackPlugin {
          * Allow to use a html string instead of reading from a file.
          * Default: `false`, meaning the `template` option should be used instead.
          */
-        templateContent?: false | string | Promise<string>;
+        templateContent?: false | string | TemplateFunction;
         /**
          * Allows to overwrite the parameters used in the template.
          */
