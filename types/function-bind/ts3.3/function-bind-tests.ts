@@ -1,8 +1,8 @@
-import bind = require('function-bind');
+import bind = require('function-bind/ts3.3');
 
-const string = String(Math.random());
-const number = Math.random();
-const boolean = Math.random() >= 0.5;
+declare const string: string;
+declare const number: number;
+declare const boolean: boolean;
 
 /**
  * The `expectType` function from https://www.npmjs.com/package/tsd,
@@ -16,14 +16,10 @@ const slice = expectType<(thisArg: any, start?: number, end?: number) => any[]>(
 );
 
 // $ExpectType (start?: number | undefined, end?: number | undefined) => any[]
-const sliceBoundThis = expectType<(start?: number, end?: number) => any[]>(
-    bind.call(Function.call, Array.prototype.slice, null),
-);
+expectType<(start?: number, end?: number) => any[]>(bind.call(Function.call, Array.prototype.slice, null));
 
 // $ExpectType (end?: number | undefined) => any[]
-const sliceBoundThisAndStart = expectType<(end?: number) => any[]>(
-    bind.call(Function.call, Array.prototype.slice, ['a'], 1),
-);
+expectType<(end?: number) => any[]>(bind.call(Function.call, Array.prototype.slice, ['a'], 1));
 
 slice(['a']);
 
@@ -36,28 +32,39 @@ bind.apply(Boolean, [null, '1', '2', '3', '4', '5']);
 // Class compatibility:
 class Foo {
     constructor(public string: string, public number: number) {}
+    static bind: typeof bind;
 }
 
 // bind.call():
 // $ExpectType new (string: string, number: number) => Foo
 bind.call(Foo, null);
-// Foo.bind(null);
+
+// $ExpectType typeof Foo
+Foo.bind(null);
 
 // $ExpectType new (number: number) => Foo
 bind.call(Foo, null, string);
-// Foo.bind(null, string);
+
+// $ExpectType new (number: number) => Foo
+Foo.bind(null, string);
 
 // $ExpectType new () => Foo
 bind.call(Foo, null, string, number);
-// Foo.bind(null, string, number);
+
+// $ExpectType new () => Foo
+Foo.bind(null, string, number);
 
 // $ExpectType new () => Foo
 bind.call(Foo, null, string, number, boolean);
-// Foo.bind(null, string, number, boolean);
+
+// $ExpectType new () => Foo
+Foo.bind(null, string, number, boolean);
 
 // $ExpectType new () => Foo
 bind.call(Foo, null, string, number, boolean, undefined);
-// Foo.bind(null, string, number, boolean, undefined);
+
+// $ExpectType new () => Foo
+Foo.bind(null, string, number, boolean, undefined);
 
 // bind.apply():
 // $ExpectType new (string: string, number: number) => Foo
