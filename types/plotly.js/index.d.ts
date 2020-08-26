@@ -798,12 +798,10 @@ export interface Shape {
     layer: 'below' | 'above';
     type: 'rect' | 'circle' | 'line' | 'path';
     path: string;
-    // x-reference is assigned to the x-values
-    xref: 'x' | 'paper';
+    xref: 'paper' | 'x' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9';
     xsizemode: 'scaled' | 'pixel';
     xanchor: number | string;
-    // y-reference is assigned to the plot paper [0,1]
-    yref: 'paper' | 'y';
+    yref: 'paper' | 'y' | 'y2' | 'y3' | 'y4' | 'y5' | 'y6' | 'y7' | 'y8' | 'y9';
     ysizemode: 'scaled' | 'pixel';
     yanchor: number | string;
     x0: Datum;
@@ -1726,7 +1724,7 @@ export interface Annotations extends Label {
      * for trendline annotations which should continue to indicate
      * the correct trend when zoomed.
      */
-    axref: 'pixel';
+    axref: 'pixel' | 'x' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9';
 
     /**
      * Indicates in what terms the tail of the annotation (ax,ay)
@@ -1736,7 +1734,7 @@ export interface Annotations extends Label {
      * for trendline annotations which should continue to indicate
      * the correct trend when zoomed.
      */
-    ayref: 'pixel';
+    ayref: 'pixel' | 'y' | 'y2' | 'y3' | 'y4' | 'y5' | 'y6' | 'y7' | 'y8' | 'y9';
 
     /**
      * Sets the annotation's x coordinate axis.
@@ -1745,7 +1743,7 @@ export interface Annotations extends Label {
      * the left side of the plotting area in normalized coordinates
      * where 0 (1) corresponds to the left (right) side.
      */
-    xref: 'paper' | 'x';
+    xref: 'paper' | 'x' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9';
 
     /**
      * Sets the annotation's x position.
@@ -1780,7 +1778,7 @@ export interface Annotations extends Label {
      * the bottom of the plotting area in normalized coordinates
      * where 0 (1) corresponds to the bottom (top).
      */
-    yref: 'paper' | 'y';
+    yref: 'paper' | 'y' | 'y2' | 'y3' | 'y4' | 'y5' | 'y6' | 'y7' | 'y8' | 'y9';
 
     /**
      * Sets the annotation's y position.
@@ -1863,8 +1861,8 @@ export interface Image {
     y: number | string;
     xanchor: 'left' | 'center' | 'right';
     yanchor: 'top' | 'middle' | 'bottom';
-    xref: 'paper' | 'x';
-    yref: 'paper' | 'y';
+    xref: 'paper' | 'x' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9';
+    yref: 'paper' | 'y' | 'y2' | 'y3' | 'y4' | 'y5' | 'y6' | 'y7' | 'y8' | 'y9';
 }
 
 export interface Scene {
