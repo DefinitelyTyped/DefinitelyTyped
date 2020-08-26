@@ -1,7 +1,5 @@
-// Type definitions for fake-response 4.0
+// Type definitions for fake-response 4.1
 // Project: https://github.com/R35007/Fake-Response
-// Definitions by: r35007 <https://github.com/R35007>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
@@ -10,11 +8,6 @@ import { Server } from 'http';
 import { Config, Db, Globals, Middleware, RouteResult, UserDB, Injectors, HAR } from './model';
 /**
  * Create a Fake Response server instance using this class constructor.
- * @constructor
- * @param {string|object|array} db - The db which you would link to generate a routes
- * @param {object} config - Provide your server configs
- * @param {object} globals - Provide your global declarations
- * @param {array} injectors - Provide your injectors to inject any middleware or delay to a particular routes
  * @example
  * const {FakeResponse} = require("fake-response");
  * // validates and sets the Data
@@ -26,7 +19,6 @@ export class FakeResponse {
     constructor(db?: UserDB, config?: Config, globals?: Globals, injectors?: Injectors[]);
     /**
      * This function creates express app, starts the server loads the resources and creates default routes.
-     * @returns {object} express app, server, results, db, config, globals, fullDbData in a object
      * @example
      * const {FakeResponse} = require("fake-response");
      * const fakeResponse = new FakeResponse();
@@ -44,7 +36,6 @@ export class FakeResponse {
     }>;
     /**
      * This function creates express app with default middlewares.
-     * @returns {object} express app
      * @example
      * const {FakeResponse} = require("fake-response");
      * const fakeResponse = new FakeResponse(db);
@@ -55,8 +46,6 @@ export class FakeResponse {
     /**
      * This function starts the express server.
      * Please make sure you create the express app before starting the server
-     * @param {number} port any port number. By  default it takes from config Object
-     * @returns {object} Promise of express http server
      * @example
      * const {FakeResponse} = require("fake-response");
      * const fakeResponse = new FakeResponse(db);
@@ -67,7 +56,6 @@ export class FakeResponse {
     startServer: (port?: number) => Promise<Server>;
     /**
      * This function stops the express server
-     * @returns {boolean} Promise of boolean
      * @example
      * const {FakeResponse} = require("fake-response");
      * const fakeResponse = new FakeResponse(db);
@@ -77,7 +65,6 @@ export class FakeResponse {
     stopServer: () => Promise<boolean>;
     /**
      * This function helps to generate a route before starting the server
-     * @returns {object} Promise of routes success and failure results
      * @example
      * const {FakeResponse} = require("fake-response");
      * const fakeResponse = new FakeResponse(db);
@@ -87,11 +74,6 @@ export class FakeResponse {
     loadResources: () => Promise<RouteResult[]>;
     /**
      * This function helps to create a route explicitly
-     * @param {string|object|array} data - provide your response here
-     * @param {string} route - provide a new route to generate a local server
-     * @param {string} [dataType="default"] - provide the data Type of one of the following. "default"|"url"|"file"
-     * @param {function} [middleware] - provide your middleware for this specific route
-     * @param {number} [delay] - provide your delay for this specific route
      * @example
      * const {FakeResponse} = require("fake-response");
      * const fakeResponse = new FakeResponse(db);
@@ -120,10 +102,6 @@ export class FakeResponse {
     createDefaultRoutes: () => void;
     /**
      * This function validates and sets the Data explicitly
-     * @param {string|object|array} db - The db which you would link to generate a routes
-     * @param {object} config - Provide your server configs
-     * @param {object} globals - Provide your global declarations
-     * @param {array} injectors - Provide your injectors to inject any middleware or delay to a particular routes
      * @example
      * const {FakeResponse} = require("fake-response");
      * const fakeResponse = new FakeResponse();
@@ -133,7 +111,6 @@ export class FakeResponse {
     setData: (db?: Db[] | object | string, config?: Config, globals?: Globals, injectors?: Injectors[]) => void;
     /**
      * This function helps to get initialized data
-     * @return {object} the current valid db, config, globals, injectors
      * @example
      * const {FakeResponse} = require("fake-response");
      * const fakeResponse = new FakeResponse();
@@ -148,8 +125,6 @@ export class FakeResponse {
     };
     /**
      * This function validates and returns the config object
-     * @param {object} config
-     * @return {object} the valid config
      * @example
      * const {FakeResponse} = require("fake-response");
      * const fakeResponse = new FakeResponse();
@@ -159,8 +134,6 @@ export class FakeResponse {
     getValidConfig: (config?: Config) => Config;
     /**
      * This function validates and returns the globals object
-     * @param {object} globals
-     * @return {object} the valid globals
      * @example
      * const {FakeResponse} = require("fake-response");
      * const fakeResponse = new FakeResponse();
@@ -170,8 +143,6 @@ export class FakeResponse {
     getValidGlobals: (globals?: Globals) => Globals;
     /**
      * This function validates and returns the injectors object
-     * @param {object} injectors
-     * @return {array} the valid injectors
      * @example
      * const {FakeResponse} = require("fake-response");
      * const fakeResponse = new FakeResponse();
@@ -181,9 +152,6 @@ export class FakeResponse {
     getValidInjectors: (injectors: Injectors[]) => Injectors[];
     /**
      * This function validates and returns the db List
-     * @param {object | string | array} db
-     * @param {array} injectors
-     * @return {array} the valid db
      * @example
      * const {FakeResponse} = require("fake-response");
      * const fakeResponse = new FakeResponse();
@@ -193,9 +161,6 @@ export class FakeResponse {
     getValidDb: (db?: UserDB, injectors?: Injectors[]) => Db[];
     /**
      * This function validates and returns the db List
-     * @param {array} db
-     * @param {array} injectors
-     * @return {array} the valid db
      * @example
      * const {FakeResponse} = require("fake-response");
      * const fakeResponse = new FakeResponse();
@@ -205,9 +170,6 @@ export class FakeResponse {
     getValidDbList: (db?: Db[], injectors?: Injectors[]) => Db[];
     /**
      * This function helps to transform the db url or object to an db List
-     * @param {string|object} db
-     * @param {array} injectors
-     * @return {object} the valid db list
      * @example
      * const {FakeResponse} = require("fake-response");
      * const fakeResponse = new FakeResponse();
@@ -217,9 +179,6 @@ export class FakeResponse {
     transformJson: (data?: object | string, injectors?: Injectors[]) => Db[];
     /**
      * This function helps to transform the harJSon to a simple route and response object
-     * @param {object} harData
-     * @param {array} filters Prove the response types to be filtered
-     * @return {object} the transformed db object
      * @example
      * const {FakeResponse} = require("fake-response");
      * const fakeResponse = new FakeResponse();
@@ -227,4 +186,29 @@ export class FakeResponse {
      * @link https://github.com/R35007/Fake-Response#transformhar - For further info pls visit this ReadMe
      */
     transformHar: (harData?: HAR, filters?: string[]) => {};
+    /**
+     * This function helps to filter only those properties which are required using schema
+     * @example
+     * const {FakeResponse} = require("fake-response");
+     * const fakeResponse = new FakeResponse()
+     * const data = {
+     *  name : foo,
+     *  likes : ["xxx","yyy"],
+     *  address:[{
+     *    "city":"bar",
+     *    "state":"TN",
+     *    "country":"India"
+     *  }]
+     * };
+     *
+     * const schema:{
+     *  name:true,
+     *  address:{
+     *    city:true
+     *  }
+     * }
+     * const db = fakeResponse.filterBySchema(data, schema);
+     * @link https://github.com/R35007/Fake-Response#filterbyschema - For further info pls visit this ReadMe
+     */
+    filterBySchema: (data?: any, schema?: object);
 }
