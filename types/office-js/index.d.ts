@@ -476,6 +476,7 @@ declare namespace Office {
         */
         value: T;
     }
+	
     /**
      * An interface that contains all the functionality provided to manage the state of the Office ribbon.
 	 *
