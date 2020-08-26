@@ -33,13 +33,13 @@ declare namespace RecordRTC {
         timeSlice?: number;
 
         /** requires `timeSlice` to be set */
-        ondataavailable?(cb: (blob: Blob) => void): void;
+        ondataavailable?: (blob: Blob) => void;
 
         /** auto stop recording if camera stops */
         checkForInactiveTracks?: boolean;
 
         /** requires timeSlice above */
-        onTimeStamp?(cb: (timestamp: number) => void): void;
+        onTimeStamp?: (timestamp: number, timestamps: number[]) => void;
 
         /** both for audio and video tracks */
         bitsPerSecond?: number;
@@ -54,7 +54,7 @@ declare namespace RecordRTC {
         frameInterval?: number;
 
         /** if you are recording multiple streams into single file, this helps you see what is being recorded */
-        previewStream?(cb: (stream: MediaStream) => void): void;
+        previewStream?: (stream: MediaStream) => void;
 
         /** used by CanvasRecorder and WhammyRecorder */
         video?: HTMLVideoElement;
