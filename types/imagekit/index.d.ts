@@ -12,12 +12,12 @@ type TransformationPosition = 'path' | 'query';
  * all - include all types of files in result set
  * image - only search in image type files
  * non-image - only search in files which are not image, e.g., JS or CSS or video files.
- * 
+ *
  * @see {@link https://docs.imagekit.io/api-reference/media-api/list-and-search-files}
  */
 type FileType = 'all' | 'image' | 'non-image';
 /**
- * Type of returned item. It can be either file or folder.
+ * Type of returned item. It can be either file or folder.
  */
 type Item = 'file' | 'folder';
 
