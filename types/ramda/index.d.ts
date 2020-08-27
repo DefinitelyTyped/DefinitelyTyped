@@ -1963,7 +1963,7 @@ export function unapply<T>(fn: (args: readonly any[]) => T): (...args: readonly 
  * Wraps a function of any arity (including nullary) in a function that accepts exactly 1 parameter.
  * Any extraneous parameters will not be passed to the supplied function.
  */
-export function unary<T>(fn: (a: T, ...args: readonly any[]) => any): (a: T) => any;
+export function unary<T, R>(fn: (a: T, ...args: readonly any[]) => R): (a: T) => R;
 
 /**
  * Returns a function of arity n from a (manually) curried function.
