@@ -1,4 +1,4 @@
-import gitSemverTags = require('git-semver-tags');
+import * as gitSemverTags from "git-semver-tags";
 
 declare const callback: gitSemverTags.Callback;
 declare const options: gitSemverTags.Options;
