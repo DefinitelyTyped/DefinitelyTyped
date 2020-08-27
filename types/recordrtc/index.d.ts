@@ -14,10 +14,30 @@ declare namespace RecordRTC {
 
     type MediaStreamKind = "videoinput" | "audioinput" | "audiooutput";
 
+    /* tslint:disable:no-unnecessary-class */
+    class MediaStreamRecorder {
+        constructor(mediaStream: any, config: any);
+    }
+    class StereoAudioRecorder {
+        constructor(mediaStream: any, config: any);
+    }
+    class CanvasRecorder {
+        constructor(htmlElement: any, config: any);
+    }
+    class WhammyRecorder {
+        constructor(mediaStream: any, config: any);
+    }
+    class GifRecorder {
+        constructor(mediaStream: any, config: any);
+    }
+    class WebAssemblyRecorder {
+        constructor(stream: any, config: any);
+    }
+
     interface Options {
         type?: 'video' | 'audio' | 'canvas' | 'gif';
 
-        recorderType?: MediaStreamRecorder | StereoAudioRecorder | WebAssemblyRecorder | CanvasRecorder | GifRecorder | WhammyRecorder,
+        recorderType?: MediaStreamRecorder | StereoAudioRecorder | WebAssemblyRecorder | CanvasRecorder | GifRecorder | WhammyRecorder;
 
         mimeType?:
             | 'video/webm'
@@ -188,22 +208,4 @@ declare class RecordRTC {
     static invokeSaveAsDialog(file: Blob | File, fileName: string): void;
 }
 
-declare class MediaStreamRecorder {
-    constructor(mediaStream: any, config: any);
-}
-declare class StereoAudioRecorder {
-    constructor(mediaStream: any, config: any);
-}
-declare class CanvasRecorder {
-    constructor(htmlElement: any, config: any);
-}
-declare class WhammyRecorder {
-    constructor(mediaStream: any, config: any);
-}
-declare class GifRecorder {
-    constructor(mediaStream: any, config: any);
-}
-declare class WebAssemblyRecorder {
-    constructor(stream: any, config: any);
-}
 export = RecordRTC;
