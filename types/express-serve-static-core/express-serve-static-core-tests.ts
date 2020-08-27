@@ -58,14 +58,14 @@ app.post("/", (req, res) => {
     req.params[0]; // $ExpectType string
 
     req.body; // $ExpectType any
-    res.send("ok"); // $ExpectType Response<any>
+    res.send("ok"); // $ExpectType Response<any, number>
 });
 
 // No params, only response body type
 app.get<never, { foo: string; }>("/", (req, res) => {
     req.params.baz; // $ExpectError
 
-    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }>
+    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, number>
     req.body; // $ExpectType any
 });
 
@@ -73,7 +73,7 @@ app.get<never, { foo: string; }>("/", (req, res) => {
 app.post<never, { foo: string }, { bar: number }>('/', (req, res) => {
     req.params.baz; // $ExpectError
 
-    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }>
+    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, number>
     req.body.bar; // $ExpectType number
 
     res.json({ baz: "fail" }); // $ExpectError
@@ -83,3 +83,11 @@ app.post<never, { foo: string }, { bar: number }>('/', (req, res) => {
 app.engine('ntl', (_filePath, _options, callback) => {
     callback(new Error("not found."));
 });
+
+// Status test
+{
+    type E = express.Response<unknown, 'abc'>; // $ExpectError
+    type B = express.Response<unknown, 123>;
+    type C = Parameters<B['status']>[0];  // $ExpectType 123
+    type D = Parameters<B['sendStatus']>[0];  // $ExpectType 123
+}

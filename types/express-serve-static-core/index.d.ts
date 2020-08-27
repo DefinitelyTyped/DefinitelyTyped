@@ -502,11 +502,11 @@ export interface MediaType {
 
 export type Send<ResBody = any, T = Response<ResBody>> = (body?: ResBody) => T;
 
-export interface Response<ResBody = any> extends http.ServerResponse, Express.Response {
+export interface Response<ResBody = any, StatusCode extends number = number> extends http.ServerResponse, Express.Response {
     /**
      * Set status `code`.
      */
-    status(code: number): this;
+    status(code: StatusCode): this;
 
     /**
      * Set the response HTTP status code to `statusCode` and send its string representation as the response body.
@@ -519,7 +519,7 @@ export interface Response<ResBody = any> extends http.ServerResponse, Express.Re
      *    res.sendStatus(404); // equivalent to res.status(404).send('Not Found')
      *    res.sendStatus(500); // equivalent to res.status(500).send('Internal Server Error')
      */
-    sendStatus(code: number): this;
+    sendStatus(code: StatusCode): this;
 
     /**
      * Set Link header field with the given `links`.
