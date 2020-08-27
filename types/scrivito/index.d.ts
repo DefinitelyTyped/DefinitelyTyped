@@ -2,7 +2,7 @@
 // Project: https://www.scrivito.com/
 // Definitions by: Julian Krieger <https://github.com/juliankrieger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
+// Minimum TypeScript Version: 3.8
 
 import { CSSProperties, Component, FC } from 'react';
 
@@ -187,11 +187,11 @@ interface EditingConfigAttributes {
     [key: string]: AttributeProps;
 }
 
-//TODO talk about this with krishan
+// TODO talk about this with krishan
 interface PropertiesGroup {
     title: string;
     component?: string;
-    properties?: string[]
+    properties?: string[];
 }
 
 type ValidationReturnType = { message: string, severity: string } | string | undefined;
@@ -287,6 +287,40 @@ interface CreateAttributes {
     attributes: any;
 }
 
+type ObjSearchOperator = 'equals'|'contains'|'containsPrefix'|'equals'|'startsWith'|'isLessThan'|'isGreaterThan'|'linksTo'|'refersTo';
+
+type ObjSearchSingleAttribute = '*'|'id'|'_createdAt'|'_lastChanged'|'_objClass'|'_path'|'_permalink'|'_restriction'|'MetadataCollection'|string;
+
+type ObjSearchValue = string|Date|number|Obj|[any];
+
+type ObjSearchAttribute = ObjSearchSingleAttribute | ObjSearchSingleAttribute[];
+
+interface ObjSearchAttributeBasedBoost {
+    [key: string]: number;
+}
+
+type OrderParam = ObjSearchSingleAttribute | [ObjSearchSingleAttribute, 'asc' | 'desc'];
+
+interface ObjFacetValue {
+    count: () => number;
+    includedObjs(): Obj[];
+    name: () => string;
+}
+
+interface ObjSearch {
+    and: (attribute: ObjSearchAttribute, operator: ObjSearchOperator, value: ObjSearchValue, boost: ObjSearchAttributeBasedBoost) => ObjSearch;
+    andNot: (attribute: ObjSearchAttribute, operator: Extract<ObjSearchOperator, 'equals' | 'startsWith' |  'isGreaterThan' | 'isLessThan'>, value: ObjSearchValue) => ObjSearch;
+    boost: (attribute: ObjSearchAttribute, operator: ObjSearchOperator, value: ObjSearchValue, factor: number) => ObjSearch;
+    count: () => number;
+    facet: (attribute: ObjSearchSingleAttribute, option?: {limit: number, includeObjs: number}) => ObjFacetValue;
+    first: () => Obj | null;
+    offset: (offSet: number) => ObjSearch;
+    order: (attributeOrAttributes: OrderParam | OrderParam[], direction: 'asc' | 'desc') => ObjSearch;
+    suggest: (prefix: string, options?: {limit: number, attributes: ObjSearchSingleAttribute[]}) => string[];
+    take: (count?: number) => Obj[];
+    toArray: () => Obj[];
+}
+
 export class Obj {
     constructor(arg: object);
 
@@ -306,7 +340,7 @@ export class Obj {
     static getByPath(path: string): Obj | null;
     static getByPermalink(permalink: string): Obj | null;
     static root(): Obj;
-    static where(attribute: string, operator: any, value: string, boost?: any): Obj[];
+    static where(attribute: ObjSearchSingleAttribute, operator: ObjSearchOperator, value: string, boost?: any): ObjSearch;
 
     // Instance methods
     id(): string;
@@ -316,7 +350,7 @@ export class Obj {
     contentLength(): number;
     contentType(): string;
     contentUrl(): string;
-    copy(): Obj;
+    copy(): Promise<Obj>;
     createdAt(): Date;
     destroy(): void;
     firstPublishedAt(): Date | null;
@@ -435,4 +469,33 @@ export function useHistory(history: History): void;
 export function validationResults(model: Obj | Widget, attribute: string): object[];
 
 // Fix automatic exports
+
+export type {
+    AttributeOptions,
+    AttributeProps,
+    AttributeValue,
+    BackgroundImageBackgroundProp,
+    BackgroundImageTagProps,
+    ChildListTagProps,
+    ConfigOptions,
+    ContentTagProps,
+    CreateAttributes,
+    CSSImageStyleBackgroundProps,
+    EditingConfig,
+    EditingConfigAttributes,
+    ExternalLink,
+    ExternalLinkAttributes,
+    ImageTagProps,
+    InternalLink,
+    InternalLinkAttributes,
+    LinkTagProps,
+    ObjClassOptions,
+    ObjComponentProps,
+    OptimizeDefinition,
+    PropertiesGroup,
+    WidgetClassOptions,
+    WidgetComponentProps,
+    WidgetTagProps
+};
+
 export {};
