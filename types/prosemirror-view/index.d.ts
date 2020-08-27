@@ -568,11 +568,19 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
    */
   nodeViews?: {
     [name: string]: (
-      node: ProsemirrorNode<S> | Mark,
-      view: EditorView<S>,
-      getPos: (() => number) | boolean,
-      decorations: Decoration[]
-    ) => NodeView<S>;
+      ((
+        node: ProsemirrorNode<S>, 
+        view: EditorView<S>, 
+        getPos: (() => number), 
+        decorations: Decoration[]) 
+        => NodeView<S>) |
+      ((
+        mark: Mark<S>,
+        view: EditorView<S>,
+        getPos: boolean,
+        decorations: Decoration[]
+      ) => MarkView<S>)
+    )
   } | null;
   /**
    * The DOM serializer to use when putting content onto the
@@ -723,4 +731,23 @@ export interface NodeView<S extends Schema = any> {
    * editor is destroyed.
    */
   destroy?: (() => void) | null;
+}
+/**
+ * Mark views only support dom and contentDOM, and don't support any of the node view methods.
+ */
+export interface MarkView<S extends Schema = any> {
+  /**
+   * The outer DOM node that represents the document node. When not
+   * given, the default strategy is used to create a DOM node.
+   */
+  dom?: Node | null;
+  /**
+   * The DOM node that should hold the node's content. Only meaningful
+   * if the node view also defines a `dom` property and if its node
+   * type is not a leaf node type. When this is present, ProseMirror
+   * will take care of rendering the node's children into it. When it
+   * is not present, the node view itself is responsible for rendering
+   * (or deciding not to render) its child nodes.
+   */
+  contentDOM?: Node | null;  
 }
