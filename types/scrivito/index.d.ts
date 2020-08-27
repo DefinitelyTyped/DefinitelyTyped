@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
-import { CSSProperties, Component } from 'react';
+import { CSSProperties, Component, FC } from 'react';
 
 /**
  * Attribute definitions
@@ -187,9 +187,11 @@ interface EditingConfigAttributes {
     [key: string]: AttributeProps;
 }
 
+//TODO talk about this with krishan
 interface PropertiesGroup {
     title: string;
-    component: string;
+    component?: string;
+    properties?: string[]
 }
 
 type ValidationReturnType = { message: string, severity: string } | string | undefined;
@@ -396,8 +398,8 @@ interface ObjComponentProps {
     [key: string]: any;
 }
 
-type WidgetComponent = Component<WidgetComponentProps>;
-type ObjComponent = Component<ObjComponentProps>;
+type WidgetComponent = FC<WidgetComponentProps>;
+type ObjComponent = FC<ObjComponentProps>;
 
 export function canWrite(): boolean;
 export function configure(options: ConfigOptions): void;
