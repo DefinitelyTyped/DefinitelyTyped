@@ -78,6 +78,9 @@ for (const action of submitRelatedActions) {
             request.snapshot,
             request.ops,
             request.channels,
+            request.op.op,
+            request.op.create,
+            request.op.del,
         );
         callback();
     });
