@@ -9,7 +9,7 @@ navigator.getUserMedia(
             type: 'video',
             disableLogs: true,
             bufferSize: 2048,
-            ondataavailable: (blob: Blob) =>
+            ondataavailable: (blob: Blob) => {
                 console.log(blob);
             },
             onTimeStamp: (timestamp: number, timestamps: number[]) => {
