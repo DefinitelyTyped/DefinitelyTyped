@@ -44,6 +44,9 @@ export class Device {
   __open(): void;
   __getConfigDescriptor(): ConfigDescriptor;
   __claimInterface(addr: number): void;
+  __detachKernelDriver(addr: number): void;
+  __attachKernelDriver(addr: number): void;
+  __isKernelDriverActive(addr: number): boolean;
 
   /**
    * Open the device.

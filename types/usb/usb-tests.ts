@@ -9,6 +9,9 @@ device.portNumbers = [1, 2, 3];
 
 device.__open();
 device.__claimInterface(0);
+device.__attachKernelDriver(0);
+device.__detachKernelDriver(0);
+const isKernelActive: boolean = device.__isKernelDriverActive(0);
 
 device.open(true);
 device.close();
