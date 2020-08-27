@@ -1,14 +1,14 @@
 import event = google.maps.event;
 
-event.addDomListener({}, 'click', (e: MouseEvent) => {
+event.addDomListener({}, 'click', (e) => {
     e; // $ExpectType MouseEvent
 });
 
-event.addDomListener({}, 'keydown', (e: KeyboardEvent) => {
+event.addDomListener({}, 'keydown', (e) => {
     e; // $ExpectType KeyboardEvent
 });
 
-event.addDomListener({}, 'load', (e: Event) => {
+event.addDomListener({}, 'load', (e) => {
     e; // $ExpectType Event
 });
 
