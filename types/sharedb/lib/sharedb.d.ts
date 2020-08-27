@@ -51,9 +51,9 @@ export interface RawOp {
     d: string;
 }
 
-export type CreateOp = RawOp & { create: {type: string; data: any }; del: undefined; op: undefined; }
-export type DeleteOp = RawOp & { del: boolean; create: undefined; op: undefined; }
-export type EditOp = RawOp & { op: Op[]; create: undefined; del: undefined; }
+export type CreateOp = RawOp & { create: {type: string; data: any }; del: undefined; op: undefined; };
+export type DeleteOp = RawOp & { del: boolean; create: undefined; op: undefined; };
+export type EditOp = RawOp & { op: Op[]; create: undefined; del: undefined; };
 
 export type OTType = 'ot-text' | 'ot-json0' | 'ot-json1' | 'ot-text-tp2' | 'rich-text';
 
