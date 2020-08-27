@@ -23639,21 +23639,21 @@ declare namespace Excel {
         readonly columnIndex: number;
         /**
          *
-         * Represents the formula in A1-style notation. If the cell has no formula, the value is returned instead.
+         * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.1]
          */
         formulas: any[][];
         /**
          *
-         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If the cell has no formula, the value is returned instead.
+         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.1]
          */
         formulasLocal: any[][];
         /**
          *
-         * Represents the formula in R1C1-style notation. If the cell has no formula, the value is returned instead.
+         * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -25438,21 +25438,21 @@ declare namespace Excel {
         readonly columnCount: number;
         /**
          *
-         * Represents the formula in A1-style notation. If the cell has no formula, the value is returned instead.
+         * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */
         formulas: any[][];
         /**
          *
-         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If the cell has no formula, the value is returned instead.
+         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */
         formulasLocal: any[][];
         /**
          *
-         * Represents the formula in R1C1-style notation. If the cell has no formula, the value is returned instead.
+         * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */
