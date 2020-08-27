@@ -85,7 +85,7 @@ export interface MixedSchemaConstructor {
     // tslint:disable-next-line:no-unnecessary-generics
     <T = {} | null | undefined>(): MixedSchema<T>;
     // tslint:disable-next-line:no-unnecessary-generics
-    new <T = {} | null | undefined>(options?: { type?: string; [key: string]: any }): MixedSchema<T>;
+    new <T = {} | null | undefined>(options?: { type?: string;[key: string]: any }): MixedSchema<T>;
 }
 
 export interface MixedSchema<T extends any = {} | null | undefined> extends Schema<T> {
@@ -114,7 +114,7 @@ export interface MixedSchema<T extends any = {} | null | undefined> extends Sche
 
 export interface StringSchemaConstructor {
     (): StringSchema;
-    new (): StringSchema;
+    new(): StringSchema;
 }
 
 export interface StringSchema<T extends string | null | undefined = string | undefined> extends Schema<T> {
@@ -161,7 +161,7 @@ export interface StringSchema<T extends string | null | undefined = string | und
 
 export interface NumberSchemaConstructor {
     (): NumberSchema;
-    new (): NumberSchema;
+    new(): NumberSchema;
 }
 
 export interface NumberSchema<T extends number | null | undefined = number | undefined> extends Schema<T> {
@@ -197,7 +197,7 @@ export interface NumberSchema<T extends number | null | undefined = number | und
 
 export interface BooleanSchemaConstructor {
     (): BooleanSchema;
-    new (): BooleanSchema;
+    new(): BooleanSchema;
 }
 
 export interface BooleanSchema<T extends boolean | null | undefined = boolean | undefined> extends Schema<T> {
@@ -224,7 +224,7 @@ export interface BooleanSchema<T extends boolean | null | undefined = boolean | 
 
 export interface DateSchemaConstructor {
     (): DateSchema;
-    new (): DateSchema;
+    new(): DateSchema;
 }
 
 export interface DateSchema<T extends Date | null | undefined = Date | undefined> extends Schema<T> {
@@ -253,7 +253,7 @@ export interface DateSchema<T extends Date | null | undefined = Date | undefined
 
 export interface ArraySchemaConstructor {
     <T>(schema?: Schema<T>): NotRequiredArraySchema<T>;
-    new (): NotRequiredArraySchema<{}>;
+    new(): NotRequiredArraySchema<{}>;
 }
 
 export interface BasicArraySchema<E, T extends E[] | null | undefined> extends Schema<T> {
@@ -337,7 +337,7 @@ export type Shape<T extends object | null | undefined, U extends object> =
 
 export interface ObjectSchemaConstructor {
     <T extends object>(fields?: ObjectSchemaDefinition<T>): ObjectSchema<T | undefined>;
-    new (): ObjectSchema<{}>;
+    new(): ObjectSchema<{}>;
 }
 
 export interface ObjectSchema<T extends object | null | undefined = object | undefined> extends Schema<T> {
@@ -375,8 +375,9 @@ export interface ObjectSchema<T extends object | null | undefined = object | und
 export type TestFunction<T = unknown> = (
     this: TestContext,
     value: T,
+    ctx: TestContext
 ) => boolean | ValidationError | Promise<boolean | ValidationError>;
-export type AssertingTestFunction<T> = (this: TestContext, value: any) => value is T;
+export type AssertingTestFunction<T> = (this: TestContext, value: any, ctx: TestContext) => value is T;
 
 export type TransformFunction<T> = (this: T, value: any, originalValue: any) => any;
 
@@ -391,10 +392,10 @@ export type WhenOptionsBuilderObjectIs = ((...values: any[]) => boolean) | boole
 
 export type WhenOptionsBuilderObject =
     | {
-          is: WhenOptionsBuilderObjectIs;
-          then: any;
-          otherwise: any;
-      }
+        is: WhenOptionsBuilderObjectIs;
+        then: any;
+        otherwise: any;
+    }
     | object;
 
 export type WhenOptions<T> = WhenOptionsBuilderFunction<T> | WhenOptionsBuilderObject;
@@ -404,6 +405,7 @@ export interface TestContext {
     options: ValidateOptions;
     parent: any;
     schema: Schema<any>;
+    originalValue: any;
     resolve: (value: any) => any;
     createError: (params?: { path?: string; message?: string; params?: object }) => ValidationError;
 }
@@ -567,7 +569,7 @@ export class Ref {
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface Lazy extends Schema<any> {}
+export interface Lazy extends Schema<any> { }
 
 export interface FormatErrorParams {
     path: string;
@@ -636,7 +638,7 @@ export interface LocaleObject {
 export type InferType<T> = T extends Schema<infer P> ? InnerInferType<P> : never;
 
 // Shut off automatic exporting after this statement
-export {};
+export { };
 
 type KeyOfUndefined<T> = {
     [P in keyof T]-?: undefined extends T[P] ? P : never;
@@ -653,7 +655,7 @@ type NotRequiredProps<T> = Partial<Pick<T, KeyOfUndefined<T>>>;
 type InnerInferType<T> =
     | (T extends Array<infer T> ? InnerInferTypeArray<T> : Id<NotRequiredProps<T> & RequiredProps<T>>)
     | PreserveOptionals<T>;
-interface InnerInferTypeArray<T> extends Array<InnerInferType<T>> {}
+interface InnerInferTypeArray<T> extends Array<InnerInferType<T>> { }
 type InferredArrayType<T> = T extends Array<infer U> ? U : T;
 /** If `T` is optional, returns optional `U`. */
 type MaintainOptionality<T, U> = T extends undefined ? U | undefined : U;

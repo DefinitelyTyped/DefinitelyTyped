@@ -182,14 +182,14 @@ mixed.test('is-jimmy', '${path} is not Jimmy', value => value === 'jimmy');
 mixed.test(
     'is-jimmy',
     ({ path, value }) => `${path} has an error, it is ${value}`,
-    value => value === 'jimmy',
+    (value, ctx) => value === 'jimmy' || ctx.originalValue === 'jimmy',
 );
 mixed.test({
     name: 'lessThan5',
     exclusive: true,
     // tslint:disable-next-line:no-invalid-template-strings
     message: '${path} must be less than 5 characters',
-    test: value => value == null || value.length <= 5,
+    test: (value) => value == null || value.length <= 5,
 });
 // $ExpectType MixedSchema<Set<any>>
 mixed.test(
@@ -222,6 +222,8 @@ const testContext = function(this: TestContext) {
     this.options;
     // $ExpectType any
     this.parent;
+    // $ExpectType any
+    this.originalValue;
     // $ExpectType Schema<any>
     this.schema;
     // $ExpectType (value: any) => any
