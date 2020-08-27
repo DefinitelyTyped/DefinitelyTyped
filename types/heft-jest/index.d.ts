@@ -6,15 +6,11 @@
 // TypeScript Version: 3.5
 
 /// <reference types="jest" />
-
-declare namespace mocked {
-    // Todo - fill out this definition in the next release.
-    type Mocked<T> = any;
-}
+/// <reference path="./mocked.d.ts" />
 
 /**
  * This is a global equivalent of the mocked() API from ts-jest:
  * https://kulshekhar.github.io/ts-jest/user/test-helpers
  */
-declare function mocked<T>(item: T, deep?: false): mocked.Mocked<T>;
-declare function mocked<T>(item: T, deep: true): mocked.Mocked<T>;
+declare function mocked<T>(item: T, deep?: false): mocked.MaybeMocked<T>;
+declare function mocked<T>(item: T, deep: true): mocked.MaybeMockedDeep<T>;
