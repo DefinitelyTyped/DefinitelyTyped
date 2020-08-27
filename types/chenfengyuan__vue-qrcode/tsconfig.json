@@ -13,7 +13,7 @@
     "noEmit": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@chenfengyuan/vue-qrcode": ["chenfengyuan__vue-qrcode"]
+      "@chenfengyuan/*": ["chenfengyuan__*"]
     }
   },
   "files": [

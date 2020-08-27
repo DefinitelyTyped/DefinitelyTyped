@@ -16,7 +16,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths" :  {
-                "@rollup/plugin-virtual": ["rollup__plugin-virtual"]
+                "@rollup/*": ["rollup__*"]
         }
     },
     "files": [
