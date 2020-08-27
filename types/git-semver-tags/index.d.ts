@@ -31,7 +31,7 @@ declare namespace gitSemverTags {
         tagPrefix?: string;
 
         /**
-         * If given, unstable tags will be skipped [ e.g. x.x.x-alpha.1, x.x.x-rc.2 ]
+         * If given, unstable tags (e.g. `x.x.x-alpha.1`, `x.x.x-rc.2`) will be skipped.
          */
         skipUnstable?: boolean;
     }
