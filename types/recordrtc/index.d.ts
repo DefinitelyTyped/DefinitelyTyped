@@ -12,8 +12,12 @@ declare namespace RecordRTC {
         gif?: Blob;
     }
 
+    type MediaStreamKind = "videoinput" | "audioinput" | "audiooutput";
+
     interface Options {
         type?: 'video' | 'audio' | 'canvas' | 'gif';
+
+        recorderType?: MediaStreamRecorder | StereoAudioRecorder | WebAssemblyRecorder | CanvasRecorder | GifRecorder | WhammyRecorder,
 
         mimeType?:
             | 'video/webm'
@@ -136,6 +140,10 @@ declare class RecordRTC {
     /** get recorded blob from indexded-db storage */
     getFromDisk(type: 'all' | keyof RecordRTC.Disk, cb: (dataURL: string, type: keyof RecordRTC.Disk) => void): void;
 
+    getTracks: (stream: MediaStream, kind: RecordRTC.MediaStreamKind) => MediaStreamTrack[];
+
+    getSeekableBlob: (inputBlob: Blob, cb: (outputBlob: Blob) => void) => void;
+
     /** @deprecated */
     setAdvertisementArray(webPImages: Array<{ image: string }>): void;
 
@@ -180,4 +188,22 @@ declare class RecordRTC {
     static invokeSaveAsDialog(file: Blob | File, fileName: string): void;
 }
 
+declare class MediaStreamRecorder {
+    constructor(mediaStream: any, config: any);
+}
+declare class StereoAudioRecorder {
+    constructor(mediaStream: any, config: any);
+}
+declare class CanvasRecorder {
+    constructor(htmlElement: any, config: any);
+}
+declare class WhammyRecorder {
+    constructor(mediaStream: any, config: any);
+}
+declare class GifRecorder {
+    constructor(mediaStream: any, config: any);
+}
+declare class WebAssemblyRecorder {
+    constructor(stream: any, config: any);
+}
 export = RecordRTC;
