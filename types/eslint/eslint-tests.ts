@@ -277,6 +277,7 @@ rule = { create(context) { return {}; }, meta: {
         category: 'Possible Errors',
         recommended: true,
         url: 'https://eslint.org/docs/rules/no-console',
+        suggestion: true
     }
 }};
 rule = { create(context) { return {}; }, meta: { fixable: 'whitespace' }};
