@@ -1,4 +1,3 @@
-/// <reference types="qunit" />
 import * as ShareDB from 'sharedb';
 import * as http from 'http';
 import * as WebSocket from 'ws';
