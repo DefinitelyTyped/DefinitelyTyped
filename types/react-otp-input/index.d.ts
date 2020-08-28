@@ -8,9 +8,7 @@ import * as React from 'react';
 import { Dispatch } from 'react';
 import { SetStateAction } from 'react';
 
-export = OTPInput;
-
-declare namespace OTPInput {
+declare namespace ReactOTPInput {
     interface OTPInputProps {
         value: number | string;
         onChange: Dispatch<SetStateAction<string | number>> | any;
@@ -28,4 +26,4 @@ declare namespace OTPInput {
     }
 }
 
-declare class OTPInput extends React.Component<OTPInput.OTPInputProps> { }
+export default class extends React.Component<ReactOTPInput.OTPInputProps> { }
