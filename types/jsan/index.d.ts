@@ -1,6 +1,6 @@
 // Type definitions for jsan 3.1
 // Project: https://github.com/kolodny/jsan
-// Definitions by: Nathan Bierema <https://github.com/me>
+// Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Options {
