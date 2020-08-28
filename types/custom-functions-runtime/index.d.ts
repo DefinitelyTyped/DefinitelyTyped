@@ -3,7 +3,7 @@
 // Definitions by: OfficeDev <https://github.com/OfficeDev>,
 //                 Adam Krantz <https://github.com/akrantz>,
 //                 Michelle Scharlock <https://github.com/mscharlock>,
-//                 David Chesnut, <https://github.com/davidchesnut>, 
+//                 David Chesnut, <https://github.com/davidchesnut>,
 //                 Alison McKay, <https://github.com/alison-mk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
@@ -30,17 +30,17 @@ declare namespace CustomFunctions {
      * Use this class to handle errors and write custom error messages.
      * [Api set: CustomFunctionsRuntime 1.2]
      */
-    class Error{
-        constructor(errorCode:CustomFunctions.ErrorCode, errorMessage?:string)
+    class Error {
+        constructor(errorCode: ErrorCode, errorMessage?: string)
          /**
-         * The error code returned by your custom function.
-         * [Api set: CustomFunctionsRuntime 1.2] 
-         */
+          * The error code returned by your custom function.
+          * [Api set: CustomFunctionsRuntime 1.2]
+          */
         errorCode: ErrorCode;
          /**
-         * Your custom error message, such as "This stock price is unavailable". Custom messages are only available with certain error codes. 
-         * [Api set: CustomFunctionsRuntime 1.2]
-         */
+          * Your custom error message, such as "This stock price is unavailable". Custom messages are only available with certain error codes.
+          * [Api set: CustomFunctionsRuntime 1.2]
+          */
         errorMessage?: string;
     }
 
@@ -103,7 +103,7 @@ declare namespace CustomFunctions {
     }
 
     /**
-     * Error codes for custom functions. These errors will appear in the cell that invoked the function. 
+     * Error codes for custom functions. These errors will appear in the cell that invoked the function.
      */
     enum ErrorCode {
         /**
@@ -115,7 +115,7 @@ declare namespace CustomFunctions {
         invalidValue = "#VALUE!",
         /**
          *
-         * This error code indicates that the function or service isn't available. 
+         * This error code indicates that the function or service isn't available.
          * A custom error message can also be used in place of the error code, if desired.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
