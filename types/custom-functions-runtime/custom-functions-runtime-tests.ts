@@ -64,3 +64,11 @@ function stockPriceStream(ticker: string,
 }
 
 declare function pause(ms: number): Promise<undefined>;
+
+CustomFunctions.ErrorCode.divisionByZero;
+CustomFunctions.ErrorCode.invalidName;
+CustomFunctions.ErrorCode.invalidNumber;
+CustomFunctions.ErrorCode.invalidReference;
+CustomFunctions.ErrorCode.invalidValue;
+CustomFunctions.ErrorCode.notAvailable;
+CustomFunctions.ErrorCode.nullReference;
