@@ -8,6 +8,10 @@
 
 import alphaShape = require('alpha-shape');
 
-const sites = [[1, 2], [3, 5], [1, 7], [4, 9], [2, 3], [2, 7], [4, 4], [3, 2], [6, 2]];
+const sites: number[][] = [];
+
+for (let i = 0; i < 10; ++i) {
+    sites.push([Math.random(), Math.random()]);
+}
 
 const cells = alphaShape(0, sites);
