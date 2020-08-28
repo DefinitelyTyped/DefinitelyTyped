@@ -261,6 +261,20 @@ gapi.load('client', () => {
                                     domains: [
                                         {
                                             domain: {
+                                                aggregateType: "Test string",
+                                                columnReference: {
+                                                    name: "Test string",
+                                                },
+                                                groupRule: {
+                                                    dateTimeRule: {
+                                                        type: "Test string",
+                                                    },
+                                                    histogramRule: {
+                                                        intervalSize: 42,
+                                                        maxValue: 42,
+                                                        minValue: 42,
+                                                    },
+                                                },
                                                 sourceRange: {
                                                     sources: [
                                                         {
@@ -300,6 +314,20 @@ gapi.load('client', () => {
                                                 width: 42,
                                             },
                                             series: {
+                                                aggregateType: "Test string",
+                                                columnReference: {
+                                                    name: "Test string",
+                                                },
+                                                groupRule: {
+                                                    dateTimeRule: {
+                                                        type: "Test string",
+                                                    },
+                                                    histogramRule: {
+                                                        intervalSize: 42,
+                                                        maxValue: 42,
+                                                        minValue: 42,
+                                                    },
+                                                },
                                                 sourceRange: {
                                                     sources: [
                                                         {
@@ -334,6 +362,20 @@ gapi.load('client', () => {
                                         themeColor: "Test string",
                                     },
                                     bubbleLabels: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -349,6 +391,20 @@ gapi.load('client', () => {
                                     bubbleMinRadiusSize: 42,
                                     bubbleOpacity: 42,
                                     bubbleSizes: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -384,6 +440,20 @@ gapi.load('client', () => {
                                         underline: true,
                                     },
                                     domain: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -396,6 +466,20 @@ gapi.load('client', () => {
                                         },
                                     },
                                     groupIds: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -409,6 +493,20 @@ gapi.load('client', () => {
                                     },
                                     legendPosition: "Test string",
                                     series: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -426,6 +524,20 @@ gapi.load('client', () => {
                                         {
                                             closeSeries: {
                                                 data: {
+                                                    aggregateType: "Test string",
+                                                    columnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    groupRule: {
+                                                        dateTimeRule: {
+                                                            type: "Test string",
+                                                        },
+                                                        histogramRule: {
+                                                            intervalSize: 42,
+                                                            maxValue: 42,
+                                                            minValue: 42,
+                                                        },
+                                                    },
                                                     sourceRange: {
                                                         sources: [
                                                             {
@@ -440,6 +552,20 @@ gapi.load('client', () => {
                                             },
                                             highSeries: {
                                                 data: {
+                                                    aggregateType: "Test string",
+                                                    columnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    groupRule: {
+                                                        dateTimeRule: {
+                                                            type: "Test string",
+                                                        },
+                                                        histogramRule: {
+                                                            intervalSize: 42,
+                                                            maxValue: 42,
+                                                            minValue: 42,
+                                                        },
+                                                    },
                                                     sourceRange: {
                                                         sources: [
                                                             {
@@ -454,6 +580,20 @@ gapi.load('client', () => {
                                             },
                                             lowSeries: {
                                                 data: {
+                                                    aggregateType: "Test string",
+                                                    columnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    groupRule: {
+                                                        dateTimeRule: {
+                                                            type: "Test string",
+                                                        },
+                                                        histogramRule: {
+                                                            intervalSize: 42,
+                                                            maxValue: 42,
+                                                            minValue: 42,
+                                                        },
+                                                    },
                                                     sourceRange: {
                                                         sources: [
                                                             {
@@ -468,6 +608,20 @@ gapi.load('client', () => {
                                             },
                                             openSeries: {
                                                 data: {
+                                                    aggregateType: "Test string",
+                                                    columnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    groupRule: {
+                                                        dateTimeRule: {
+                                                            type: "Test string",
+                                                        },
+                                                        histogramRule: {
+                                                            intervalSize: 42,
+                                                            maxValue: 42,
+                                                            minValue: 42,
+                                                        },
+                                                    },
                                                     sourceRange: {
                                                         sources: [
                                                             {
@@ -483,6 +637,20 @@ gapi.load('client', () => {
                                         }                                    ],
                                     domain: {
                                         data: {
+                                            aggregateType: "Test string",
+                                            columnReference: {
+                                                name: "Test string",
+                                            },
+                                            groupRule: {
+                                                dateTimeRule: {
+                                                    type: "Test string",
+                                                },
+                                                histogramRule: {
+                                                    intervalSize: 42,
+                                                    maxValue: 42,
+                                                    minValue: 42,
+                                                },
+                                            },
                                             sourceRange: {
                                                 sources: [
                                                     {
@@ -497,6 +665,64 @@ gapi.load('client', () => {
                                         reversed: true,
                                     },
                                 },
+                                dataSourceChartProperties: {
+                                    dataExecutionStatus: {
+                                        errorCode: "Test string",
+                                        errorMessage: "Test string",
+                                        lastRefreshTime: "Test string",
+                                        state: "Test string",
+                                    },
+                                    dataSourceId: "Test string",
+                                },
+                                filterSpecs: [
+                                    {
+                                        columnIndex: 42,
+                                        dataSourceColumnReference: {
+                                            name: "Test string",
+                                        },
+                                        filterCriteria: {
+                                            condition: {
+                                                type: "Test string",
+                                                values: [
+                                                    {
+                                                        relativeDate: "Test string",
+                                                        userEnteredValue: "Test string",
+                                                    }                                                ],
+                                            },
+                                            hiddenValues: [
+                                                "Test string"                                            ],
+                                            visibleBackgroundColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            visibleBackgroundColorStyle: {
+                                                rgbColor: {
+                                                    alpha: 42,
+                                                    blue: 42,
+                                                    green: 42,
+                                                    red: 42,
+                                                },
+                                                themeColor: "Test string",
+                                            },
+                                            visibleForegroundColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            visibleForegroundColorStyle: {
+                                                rgbColor: {
+                                                    alpha: 42,
+                                                    blue: 42,
+                                                    green: 42,
+                                                    red: 42,
+                                                },
+                                                themeColor: "Test string",
+                                            },
+                                        },
+                                    }                                ],
                                 fontName: "Test string",
                                 hiddenDimensionStrategy: "Test string",
                                 histogramChart: {
@@ -521,6 +747,20 @@ gapi.load('client', () => {
                                                 themeColor: "Test string",
                                             },
                                             data: {
+                                                aggregateType: "Test string",
+                                                columnReference: {
+                                                    name: "Test string",
+                                                },
+                                                groupRule: {
+                                                    dateTimeRule: {
+                                                        type: "Test string",
+                                                    },
+                                                    histogramRule: {
+                                                        intervalSize: 42,
+                                                        maxValue: 42,
+                                                        minValue: 42,
+                                                    },
+                                                },
                                                 sourceRange: {
                                                     sources: [
                                                         {
@@ -538,6 +778,20 @@ gapi.load('client', () => {
                                 maximized: true,
                                 orgChart: {
                                     labels: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -566,6 +820,20 @@ gapi.load('client', () => {
                                     },
                                     nodeSize: "Test string",
                                     parentLabels: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -593,6 +861,20 @@ gapi.load('client', () => {
                                         themeColor: "Test string",
                                     },
                                     tooltips: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -607,6 +889,20 @@ gapi.load('client', () => {
                                 },
                                 pieChart: {
                                     domain: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -621,6 +917,20 @@ gapi.load('client', () => {
                                     legendPosition: "Test string",
                                     pieHole: 42,
                                     series: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -637,6 +947,20 @@ gapi.load('client', () => {
                                 scorecardChart: {
                                     aggregateType: "Test string",
                                     baselineValueData: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -713,6 +1037,20 @@ gapi.load('client', () => {
                                         suffix: "Test string",
                                     },
                                     keyValueData: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -755,6 +1093,44 @@ gapi.load('client', () => {
                                     numberFormatSource: "Test string",
                                     scaleFactor: 42,
                                 },
+                                sortSpecs: [
+                                    {
+                                        backgroundColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        backgroundColorStyle: {
+                                            rgbColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            themeColor: "Test string",
+                                        },
+                                        dataSourceColumnReference: {
+                                            name: "Test string",
+                                        },
+                                        dimensionIndex: 42,
+                                        foregroundColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        foregroundColorStyle: {
+                                            rgbColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            themeColor: "Test string",
+                                        },
+                                        sortOrder: "Test string",
+                                    }                                ],
                                 subtitle: "Test string",
                                 subtitleTextFormat: {
                                     bold: true,
@@ -811,6 +1187,20 @@ gapi.load('client', () => {
                                 },
                                 treemapChart: {
                                     colorData: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -902,6 +1292,20 @@ gapi.load('client', () => {
                                     hideTooltips: true,
                                     hintedLevels: 42,
                                     labels: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -917,6 +1321,20 @@ gapi.load('client', () => {
                                     maxValue: 42,
                                     minValue: 42,
                                     parentLabels: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -929,6 +1347,20 @@ gapi.load('client', () => {
                                         },
                                     },
                                     sizeData: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -971,6 +1403,20 @@ gapi.load('client', () => {
                                     },
                                     domain: {
                                         data: {
+                                            aggregateType: "Test string",
+                                            columnReference: {
+                                                name: "Test string",
+                                            },
+                                            groupRule: {
+                                                dateTimeRule: {
+                                                    type: "Test string",
+                                                },
+                                                histogramRule: {
+                                                    intervalSize: 42,
+                                                    maxValue: 42,
+                                                    minValue: 42,
+                                                },
+                                            },
                                             sourceRange: {
                                                 sources: [
                                                     {
@@ -995,6 +1441,20 @@ gapi.load('client', () => {
                                                     subtotalIndex: 42,
                                                 }                                            ],
                                             data: {
+                                                aggregateType: "Test string",
+                                                columnReference: {
+                                                    name: "Test string",
+                                                },
+                                                groupRule: {
+                                                    dateTimeRule: {
+                                                        type: "Test string",
+                                                    },
+                                                    histogramRule: {
+                                                        intervalSize: 42,
+                                                        maxValue: 42,
+                                                        minValue: 42,
+                                                    },
+                                                },
                                                 sourceRange: {
                                                     sources: [
                                                         {
@@ -1286,6 +1746,44 @@ gapi.load('client', () => {
                                 }                            ],
                         },
                     },
+                    addDataSource: {
+                        dataSource: {
+                            calculatedColumns: [
+                                {
+                                    formula: "Test string",
+                                    reference: {
+                                        name: "Test string",
+                                    },
+                                }                            ],
+                            dataSourceId: "Test string",
+                            sheetId: 42,
+                            spec: {
+                                bigQuery: {
+                                    projectId: "Test string",
+                                    querySpec: {
+                                        rawQuery: "Test string",
+                                    },
+                                    tableSpec: {
+                                        datasetId: "Test string",
+                                        tableId: "Test string",
+                                        tableProjectId: "Test string",
+                                    },
+                                },
+                                parameters: [
+                                    {
+                                        name: "Test string",
+                                        namedRangeId: "Test string",
+                                        range: {
+                                            endColumnIndex: 42,
+                                            endRowIndex: 42,
+                                            sheetId: 42,
+                                            startColumnIndex: 42,
+                                            startRowIndex: 42,
+                                        },
+                                    }                                ],
+                            },
+                        },
+                    },
                     addDimensionGroup: {
                         range: {
                             dimension: "Test string",
@@ -1339,6 +1837,55 @@ gapi.load('client', () => {
                                         themeColor: "Test string",
                                     },
                                 }                            },
+                            filterSpecs: [
+                                {
+                                    columnIndex: 42,
+                                    dataSourceColumnReference: {
+                                        name: "Test string",
+                                    },
+                                    filterCriteria: {
+                                        condition: {
+                                            type: "Test string",
+                                            values: [
+                                                {
+                                                    relativeDate: "Test string",
+                                                    userEnteredValue: "Test string",
+                                                }                                            ],
+                                        },
+                                        hiddenValues: [
+                                            "Test string"                                        ],
+                                        visibleBackgroundColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        visibleBackgroundColorStyle: {
+                                            rgbColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            themeColor: "Test string",
+                                        },
+                                        visibleForegroundColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        visibleForegroundColorStyle: {
+                                            rgbColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            themeColor: "Test string",
+                                        },
+                                    },
+                                }                            ],
                             filterViewId: 42,
                             namedRangeId: "Test string",
                             range: {
@@ -1364,6 +1911,9 @@ gapi.load('client', () => {
                                             red: 42,
                                         },
                                         themeColor: "Test string",
+                                    },
+                                    dataSourceColumnReference: {
+                                        name: "Test string",
                                     },
                                     dimensionIndex: 42,
                                     foregroundColor: {
@@ -1432,6 +1982,22 @@ gapi.load('client', () => {
                     },
                     addSheet: {
                         properties: {
+                            dataSourceSheetProperties: {
+                                columns: [
+                                    {
+                                        formula: "Test string",
+                                        reference: {
+                                            name: "Test string",
+                                        },
+                                    }                                ],
+                                dataExecutionStatus: {
+                                    errorCode: "Test string",
+                                    errorMessage: "Test string",
+                                    lastRefreshTime: "Test string",
+                                    state: "Test string",
+                                },
+                                dataSourceId: "Test string",
+                            },
                             gridProperties: {
                                 columnCount: 42,
                                 columnGroupControlAfter: true,
@@ -1583,6 +2149,117 @@ gapi.load('client', () => {
                             {
                                 values: [
                                     {
+                                        dataSourceFormula: {
+                                            dataExecutionStatus: {
+                                                errorCode: "Test string",
+                                                errorMessage: "Test string",
+                                                lastRefreshTime: "Test string",
+                                                state: "Test string",
+                                            },
+                                            dataSourceId: "Test string",
+                                        },
+                                        dataSourceTable: {
+                                            columns: [
+                                                {
+                                                    name: "Test string",
+                                                }                                            ],
+                                            columnSelectionType: "Test string",
+                                            dataExecutionStatus: {
+                                                errorCode: "Test string",
+                                                errorMessage: "Test string",
+                                                lastRefreshTime: "Test string",
+                                                state: "Test string",
+                                            },
+                                            dataSourceId: "Test string",
+                                            filterSpecs: [
+                                                {
+                                                    columnIndex: 42,
+                                                    dataSourceColumnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    filterCriteria: {
+                                                        condition: {
+                                                            type: "Test string",
+                                                            values: [
+                                                                {
+                                                                    relativeDate: "Test string",
+                                                                    userEnteredValue: "Test string",
+                                                                }                                                            ],
+                                                        },
+                                                        hiddenValues: [
+                                                            "Test string"                                                        ],
+                                                        visibleBackgroundColor: {
+                                                            alpha: 42,
+                                                            blue: 42,
+                                                            green: 42,
+                                                            red: 42,
+                                                        },
+                                                        visibleBackgroundColorStyle: {
+                                                            rgbColor: {
+                                                                alpha: 42,
+                                                                blue: 42,
+                                                                green: 42,
+                                                                red: 42,
+                                                            },
+                                                            themeColor: "Test string",
+                                                        },
+                                                        visibleForegroundColor: {
+                                                            alpha: 42,
+                                                            blue: 42,
+                                                            green: 42,
+                                                            red: 42,
+                                                        },
+                                                        visibleForegroundColorStyle: {
+                                                            rgbColor: {
+                                                                alpha: 42,
+                                                                blue: 42,
+                                                                green: 42,
+                                                                red: 42,
+                                                            },
+                                                            themeColor: "Test string",
+                                                        },
+                                                    },
+                                                }                                            ],
+                                            rowLimit: 42,
+                                            sortSpecs: [
+                                                {
+                                                    backgroundColor: {
+                                                        alpha: 42,
+                                                        blue: 42,
+                                                        green: 42,
+                                                        red: 42,
+                                                    },
+                                                    backgroundColorStyle: {
+                                                        rgbColor: {
+                                                            alpha: 42,
+                                                            blue: 42,
+                                                            green: 42,
+                                                            red: 42,
+                                                        },
+                                                        themeColor: "Test string",
+                                                    },
+                                                    dataSourceColumnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    dimensionIndex: 42,
+                                                    foregroundColor: {
+                                                        alpha: 42,
+                                                        blue: 42,
+                                                        green: 42,
+                                                        red: 42,
+                                                    },
+                                                    foregroundColorStyle: {
+                                                        rgbColor: {
+                                                            alpha: 42,
+                                                            blue: 42,
+                                                            green: 42,
+                                                            red: 42,
+                                                        },
+                                                        themeColor: "Test string",
+                                                    },
+                                                    sortOrder: "Test string",
+                                                }                                            ],
+                                        },
                                         dataValidation: {
                                             condition: {
                                                 type: "Test string",
@@ -1749,6 +2426,13 @@ gapi.load('client', () => {
                                         pivotTable: {
                                             columns: [
                                                 {
+                                                    dataSourceColumnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    groupLimit: {
+                                                        applyOrder: 42,
+                                                        countLimit: 42,
+                                                    },
                                                     groupRule: {
                                                         dateTimeRule: {
                                                             type: "Test string",
@@ -1824,8 +2508,33 @@ gapi.load('client', () => {
                                                     visibleValues: [
                                                         "Test string"                                                    ],
                                                 }                                            },
+                                            dataExecutionStatus: {
+                                                errorCode: "Test string",
+                                                errorMessage: "Test string",
+                                                lastRefreshTime: "Test string",
+                                                state: "Test string",
+                                            },
+                                            dataSourceId: "Test string",
+                                            filterSpecs: [
+                                                {
+                                                    columnOffsetIndex: 42,
+                                                    dataSourceColumnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    filterCriteria: {
+                                                        visibleValues: [
+                                                            "Test string"                                                        ],
+                                                    },
+                                                }                                            ],
                                             rows: [
                                                 {
+                                                    dataSourceColumnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    groupLimit: {
+                                                        applyOrder: 42,
+                                                        countLimit: 42,
+                                                    },
                                                     groupRule: {
                                                         dateTimeRule: {
                                                             type: "Test string",
@@ -1907,6 +2616,9 @@ gapi.load('client', () => {
                                             values: [
                                                 {
                                                     calculatedDisplayType: "Test string",
+                                                    dataSourceColumnReference: {
+                                                        name: "Test string",
+                                                    },
                                                     formula: "Test string",
                                                     name: "Test string",
                                                     sourceColumnOffset: 42,
@@ -2118,6 +2830,13 @@ gapi.load('client', () => {
                         useAlternateSeries: true,
                     },
                     autoResizeDimensions: {
+                        dataSourceSheetDimensions: {
+                            columnReferences: [
+                                {
+                                    name: "Test string",
+                                }                            ],
+                            sheetId: 42,
+                        },
                         dimensions: {
                             dimension: "Test string",
                             endIndex: 42,
@@ -2186,6 +2905,9 @@ gapi.load('client', () => {
                     deleteConditionalFormatRule: {
                         index: 42,
                         sheetId: 42,
+                    },
+                    deleteDataSource: {
+                        dataSourceId: "Test string",
                     },
                     deleteDeveloperMetadata: {
                         dataFilter: {
@@ -2359,8 +3081,146 @@ gapi.load('client', () => {
                             startRowIndex: 42,
                         },
                     },
+                    refreshDataSource: {
+                        dataSourceId: "Test string",
+                        force: true,
+                        isAll: true,
+                        references: {
+                            references: [
+                                {
+                                    chartId: 42,
+                                    dataSourceFormulaCell: {
+                                        columnIndex: 42,
+                                        rowIndex: 42,
+                                        sheetId: 42,
+                                    },
+                                    dataSourcePivotTableAnchorCell: {
+                                        columnIndex: 42,
+                                        rowIndex: 42,
+                                        sheetId: 42,
+                                    },
+                                    dataSourceTableAnchorCell: {
+                                        columnIndex: 42,
+                                        rowIndex: 42,
+                                        sheetId: 42,
+                                    },
+                                    sheetId: "Test string",
+                                }                            ],
+                        },
+                    },
                     repeatCell: {
                         cell: {
+                            dataSourceFormula: {
+                                dataExecutionStatus: {
+                                    errorCode: "Test string",
+                                    errorMessage: "Test string",
+                                    lastRefreshTime: "Test string",
+                                    state: "Test string",
+                                },
+                                dataSourceId: "Test string",
+                            },
+                            dataSourceTable: {
+                                columns: [
+                                    {
+                                        name: "Test string",
+                                    }                                ],
+                                columnSelectionType: "Test string",
+                                dataExecutionStatus: {
+                                    errorCode: "Test string",
+                                    errorMessage: "Test string",
+                                    lastRefreshTime: "Test string",
+                                    state: "Test string",
+                                },
+                                dataSourceId: "Test string",
+                                filterSpecs: [
+                                    {
+                                        columnIndex: 42,
+                                        dataSourceColumnReference: {
+                                            name: "Test string",
+                                        },
+                                        filterCriteria: {
+                                            condition: {
+                                                type: "Test string",
+                                                values: [
+                                                    {
+                                                        relativeDate: "Test string",
+                                                        userEnteredValue: "Test string",
+                                                    }                                                ],
+                                            },
+                                            hiddenValues: [
+                                                "Test string"                                            ],
+                                            visibleBackgroundColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            visibleBackgroundColorStyle: {
+                                                rgbColor: {
+                                                    alpha: 42,
+                                                    blue: 42,
+                                                    green: 42,
+                                                    red: 42,
+                                                },
+                                                themeColor: "Test string",
+                                            },
+                                            visibleForegroundColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            visibleForegroundColorStyle: {
+                                                rgbColor: {
+                                                    alpha: 42,
+                                                    blue: 42,
+                                                    green: 42,
+                                                    red: 42,
+                                                },
+                                                themeColor: "Test string",
+                                            },
+                                        },
+                                    }                                ],
+                                rowLimit: 42,
+                                sortSpecs: [
+                                    {
+                                        backgroundColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        backgroundColorStyle: {
+                                            rgbColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            themeColor: "Test string",
+                                        },
+                                        dataSourceColumnReference: {
+                                            name: "Test string",
+                                        },
+                                        dimensionIndex: 42,
+                                        foregroundColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        foregroundColorStyle: {
+                                            rgbColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            themeColor: "Test string",
+                                        },
+                                        sortOrder: "Test string",
+                                    }                                ],
+                            },
                             dataValidation: {
                                 condition: {
                                     type: "Test string",
@@ -2527,6 +3387,13 @@ gapi.load('client', () => {
                             pivotTable: {
                                 columns: [
                                     {
+                                        dataSourceColumnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupLimit: {
+                                            applyOrder: 42,
+                                            countLimit: 42,
+                                        },
                                         groupRule: {
                                             dateTimeRule: {
                                                 type: "Test string",
@@ -2602,8 +3469,33 @@ gapi.load('client', () => {
                                         visibleValues: [
                                             "Test string"                                        ],
                                     }                                },
+                                dataExecutionStatus: {
+                                    errorCode: "Test string",
+                                    errorMessage: "Test string",
+                                    lastRefreshTime: "Test string",
+                                    state: "Test string",
+                                },
+                                dataSourceId: "Test string",
+                                filterSpecs: [
+                                    {
+                                        columnOffsetIndex: 42,
+                                        dataSourceColumnReference: {
+                                            name: "Test string",
+                                        },
+                                        filterCriteria: {
+                                            visibleValues: [
+                                                "Test string"                                            ],
+                                        },
+                                    }                                ],
                                 rows: [
                                     {
+                                        dataSourceColumnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupLimit: {
+                                            applyOrder: 42,
+                                            countLimit: 42,
+                                        },
                                         groupRule: {
                                             dateTimeRule: {
                                                 type: "Test string",
@@ -2685,6 +3577,9 @@ gapi.load('client', () => {
                                 values: [
                                     {
                                         calculatedDisplayType: "Test string",
+                                        dataSourceColumnReference: {
+                                            name: "Test string",
+                                        },
                                         formula: "Test string",
                                         name: "Test string",
                                         sourceColumnOffset: 42,
@@ -2920,6 +3815,55 @@ gapi.load('client', () => {
                                         themeColor: "Test string",
                                     },
                                 }                            },
+                            filterSpecs: [
+                                {
+                                    columnIndex: 42,
+                                    dataSourceColumnReference: {
+                                        name: "Test string",
+                                    },
+                                    filterCriteria: {
+                                        condition: {
+                                            type: "Test string",
+                                            values: [
+                                                {
+                                                    relativeDate: "Test string",
+                                                    userEnteredValue: "Test string",
+                                                }                                            ],
+                                        },
+                                        hiddenValues: [
+                                            "Test string"                                        ],
+                                        visibleBackgroundColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        visibleBackgroundColorStyle: {
+                                            rgbColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            themeColor: "Test string",
+                                        },
+                                        visibleForegroundColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        visibleForegroundColorStyle: {
+                                            rgbColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            themeColor: "Test string",
+                                        },
+                                    },
+                                }                            ],
                             range: {
                                 endColumnIndex: 42,
                                 endRowIndex: 42,
@@ -2943,6 +3887,9 @@ gapi.load('client', () => {
                                             red: 42,
                                         },
                                         themeColor: "Test string",
+                                    },
+                                    dataSourceColumnReference: {
+                                        name: "Test string",
                                     },
                                     dimensionIndex: 42,
                                     foregroundColor: {
@@ -3010,6 +3957,9 @@ gapi.load('client', () => {
                                         red: 42,
                                     },
                                     themeColor: "Test string",
+                                },
+                                dataSourceColumnReference: {
+                                    name: "Test string",
                                 },
                                 dimensionIndex: 42,
                                 foregroundColor: {
@@ -3332,6 +4282,117 @@ gapi.load('client', () => {
                             {
                                 values: [
                                     {
+                                        dataSourceFormula: {
+                                            dataExecutionStatus: {
+                                                errorCode: "Test string",
+                                                errorMessage: "Test string",
+                                                lastRefreshTime: "Test string",
+                                                state: "Test string",
+                                            },
+                                            dataSourceId: "Test string",
+                                        },
+                                        dataSourceTable: {
+                                            columns: [
+                                                {
+                                                    name: "Test string",
+                                                }                                            ],
+                                            columnSelectionType: "Test string",
+                                            dataExecutionStatus: {
+                                                errorCode: "Test string",
+                                                errorMessage: "Test string",
+                                                lastRefreshTime: "Test string",
+                                                state: "Test string",
+                                            },
+                                            dataSourceId: "Test string",
+                                            filterSpecs: [
+                                                {
+                                                    columnIndex: 42,
+                                                    dataSourceColumnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    filterCriteria: {
+                                                        condition: {
+                                                            type: "Test string",
+                                                            values: [
+                                                                {
+                                                                    relativeDate: "Test string",
+                                                                    userEnteredValue: "Test string",
+                                                                }                                                            ],
+                                                        },
+                                                        hiddenValues: [
+                                                            "Test string"                                                        ],
+                                                        visibleBackgroundColor: {
+                                                            alpha: 42,
+                                                            blue: 42,
+                                                            green: 42,
+                                                            red: 42,
+                                                        },
+                                                        visibleBackgroundColorStyle: {
+                                                            rgbColor: {
+                                                                alpha: 42,
+                                                                blue: 42,
+                                                                green: 42,
+                                                                red: 42,
+                                                            },
+                                                            themeColor: "Test string",
+                                                        },
+                                                        visibleForegroundColor: {
+                                                            alpha: 42,
+                                                            blue: 42,
+                                                            green: 42,
+                                                            red: 42,
+                                                        },
+                                                        visibleForegroundColorStyle: {
+                                                            rgbColor: {
+                                                                alpha: 42,
+                                                                blue: 42,
+                                                                green: 42,
+                                                                red: 42,
+                                                            },
+                                                            themeColor: "Test string",
+                                                        },
+                                                    },
+                                                }                                            ],
+                                            rowLimit: 42,
+                                            sortSpecs: [
+                                                {
+                                                    backgroundColor: {
+                                                        alpha: 42,
+                                                        blue: 42,
+                                                        green: 42,
+                                                        red: 42,
+                                                    },
+                                                    backgroundColorStyle: {
+                                                        rgbColor: {
+                                                            alpha: 42,
+                                                            blue: 42,
+                                                            green: 42,
+                                                            red: 42,
+                                                        },
+                                                        themeColor: "Test string",
+                                                    },
+                                                    dataSourceColumnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    dimensionIndex: 42,
+                                                    foregroundColor: {
+                                                        alpha: 42,
+                                                        blue: 42,
+                                                        green: 42,
+                                                        red: 42,
+                                                    },
+                                                    foregroundColorStyle: {
+                                                        rgbColor: {
+                                                            alpha: 42,
+                                                            blue: 42,
+                                                            green: 42,
+                                                            red: 42,
+                                                        },
+                                                        themeColor: "Test string",
+                                                    },
+                                                    sortOrder: "Test string",
+                                                }                                            ],
+                                        },
                                         dataValidation: {
                                             condition: {
                                                 type: "Test string",
@@ -3498,6 +4559,13 @@ gapi.load('client', () => {
                                         pivotTable: {
                                             columns: [
                                                 {
+                                                    dataSourceColumnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    groupLimit: {
+                                                        applyOrder: 42,
+                                                        countLimit: 42,
+                                                    },
                                                     groupRule: {
                                                         dateTimeRule: {
                                                             type: "Test string",
@@ -3573,8 +4641,33 @@ gapi.load('client', () => {
                                                     visibleValues: [
                                                         "Test string"                                                    ],
                                                 }                                            },
+                                            dataExecutionStatus: {
+                                                errorCode: "Test string",
+                                                errorMessage: "Test string",
+                                                lastRefreshTime: "Test string",
+                                                state: "Test string",
+                                            },
+                                            dataSourceId: "Test string",
+                                            filterSpecs: [
+                                                {
+                                                    columnOffsetIndex: 42,
+                                                    dataSourceColumnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    filterCriteria: {
+                                                        visibleValues: [
+                                                            "Test string"                                                        ],
+                                                    },
+                                                }                                            ],
                                             rows: [
                                                 {
+                                                    dataSourceColumnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    groupLimit: {
+                                                        applyOrder: 42,
+                                                        countLimit: 42,
+                                                    },
                                                     groupRule: {
                                                         dateTimeRule: {
                                                             type: "Test string",
@@ -3656,6 +4749,9 @@ gapi.load('client', () => {
                                             values: [
                                                 {
                                                     calculatedDisplayType: "Test string",
+                                                    dataSourceColumnReference: {
+                                                        name: "Test string",
+                                                    },
                                                     formula: "Test string",
                                                     name: "Test string",
                                                     sourceColumnOffset: 42,
@@ -3905,6 +5001,20 @@ gapi.load('client', () => {
                                 domains: [
                                     {
                                         domain: {
+                                            aggregateType: "Test string",
+                                            columnReference: {
+                                                name: "Test string",
+                                            },
+                                            groupRule: {
+                                                dateTimeRule: {
+                                                    type: "Test string",
+                                                },
+                                                histogramRule: {
+                                                    intervalSize: 42,
+                                                    maxValue: 42,
+                                                    minValue: 42,
+                                                },
+                                            },
                                             sourceRange: {
                                                 sources: [
                                                     {
@@ -3944,6 +5054,20 @@ gapi.load('client', () => {
                                             width: 42,
                                         },
                                         series: {
+                                            aggregateType: "Test string",
+                                            columnReference: {
+                                                name: "Test string",
+                                            },
+                                            groupRule: {
+                                                dateTimeRule: {
+                                                    type: "Test string",
+                                                },
+                                                histogramRule: {
+                                                    intervalSize: 42,
+                                                    maxValue: 42,
+                                                    minValue: 42,
+                                                },
+                                            },
                                             sourceRange: {
                                                 sources: [
                                                     {
@@ -3978,6 +5102,20 @@ gapi.load('client', () => {
                                     themeColor: "Test string",
                                 },
                                 bubbleLabels: {
+                                    aggregateType: "Test string",
+                                    columnReference: {
+                                        name: "Test string",
+                                    },
+                                    groupRule: {
+                                        dateTimeRule: {
+                                            type: "Test string",
+                                        },
+                                        histogramRule: {
+                                            intervalSize: 42,
+                                            maxValue: 42,
+                                            minValue: 42,
+                                        },
+                                    },
                                     sourceRange: {
                                         sources: [
                                             {
@@ -3993,6 +5131,20 @@ gapi.load('client', () => {
                                 bubbleMinRadiusSize: 42,
                                 bubbleOpacity: 42,
                                 bubbleSizes: {
+                                    aggregateType: "Test string",
+                                    columnReference: {
+                                        name: "Test string",
+                                    },
+                                    groupRule: {
+                                        dateTimeRule: {
+                                            type: "Test string",
+                                        },
+                                        histogramRule: {
+                                            intervalSize: 42,
+                                            maxValue: 42,
+                                            minValue: 42,
+                                        },
+                                    },
                                     sourceRange: {
                                         sources: [
                                             {
@@ -4028,6 +5180,20 @@ gapi.load('client', () => {
                                     underline: true,
                                 },
                                 domain: {
+                                    aggregateType: "Test string",
+                                    columnReference: {
+                                        name: "Test string",
+                                    },
+                                    groupRule: {
+                                        dateTimeRule: {
+                                            type: "Test string",
+                                        },
+                                        histogramRule: {
+                                            intervalSize: 42,
+                                            maxValue: 42,
+                                            minValue: 42,
+                                        },
+                                    },
                                     sourceRange: {
                                         sources: [
                                             {
@@ -4040,6 +5206,20 @@ gapi.load('client', () => {
                                     },
                                 },
                                 groupIds: {
+                                    aggregateType: "Test string",
+                                    columnReference: {
+                                        name: "Test string",
+                                    },
+                                    groupRule: {
+                                        dateTimeRule: {
+                                            type: "Test string",
+                                        },
+                                        histogramRule: {
+                                            intervalSize: 42,
+                                            maxValue: 42,
+                                            minValue: 42,
+                                        },
+                                    },
                                     sourceRange: {
                                         sources: [
                                             {
@@ -4053,6 +5233,20 @@ gapi.load('client', () => {
                                 },
                                 legendPosition: "Test string",
                                 series: {
+                                    aggregateType: "Test string",
+                                    columnReference: {
+                                        name: "Test string",
+                                    },
+                                    groupRule: {
+                                        dateTimeRule: {
+                                            type: "Test string",
+                                        },
+                                        histogramRule: {
+                                            intervalSize: 42,
+                                            maxValue: 42,
+                                            minValue: 42,
+                                        },
+                                    },
                                     sourceRange: {
                                         sources: [
                                             {
@@ -4070,6 +5264,20 @@ gapi.load('client', () => {
                                     {
                                         closeSeries: {
                                             data: {
+                                                aggregateType: "Test string",
+                                                columnReference: {
+                                                    name: "Test string",
+                                                },
+                                                groupRule: {
+                                                    dateTimeRule: {
+                                                        type: "Test string",
+                                                    },
+                                                    histogramRule: {
+                                                        intervalSize: 42,
+                                                        maxValue: 42,
+                                                        minValue: 42,
+                                                    },
+                                                },
                                                 sourceRange: {
                                                     sources: [
                                                         {
@@ -4084,6 +5292,20 @@ gapi.load('client', () => {
                                         },
                                         highSeries: {
                                             data: {
+                                                aggregateType: "Test string",
+                                                columnReference: {
+                                                    name: "Test string",
+                                                },
+                                                groupRule: {
+                                                    dateTimeRule: {
+                                                        type: "Test string",
+                                                    },
+                                                    histogramRule: {
+                                                        intervalSize: 42,
+                                                        maxValue: 42,
+                                                        minValue: 42,
+                                                    },
+                                                },
                                                 sourceRange: {
                                                     sources: [
                                                         {
@@ -4098,6 +5320,20 @@ gapi.load('client', () => {
                                         },
                                         lowSeries: {
                                             data: {
+                                                aggregateType: "Test string",
+                                                columnReference: {
+                                                    name: "Test string",
+                                                },
+                                                groupRule: {
+                                                    dateTimeRule: {
+                                                        type: "Test string",
+                                                    },
+                                                    histogramRule: {
+                                                        intervalSize: 42,
+                                                        maxValue: 42,
+                                                        minValue: 42,
+                                                    },
+                                                },
                                                 sourceRange: {
                                                     sources: [
                                                         {
@@ -4112,6 +5348,20 @@ gapi.load('client', () => {
                                         },
                                         openSeries: {
                                             data: {
+                                                aggregateType: "Test string",
+                                                columnReference: {
+                                                    name: "Test string",
+                                                },
+                                                groupRule: {
+                                                    dateTimeRule: {
+                                                        type: "Test string",
+                                                    },
+                                                    histogramRule: {
+                                                        intervalSize: 42,
+                                                        maxValue: 42,
+                                                        minValue: 42,
+                                                    },
+                                                },
                                                 sourceRange: {
                                                     sources: [
                                                         {
@@ -4127,6 +5377,20 @@ gapi.load('client', () => {
                                     }                                ],
                                 domain: {
                                     data: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -4141,6 +5405,64 @@ gapi.load('client', () => {
                                     reversed: true,
                                 },
                             },
+                            dataSourceChartProperties: {
+                                dataExecutionStatus: {
+                                    errorCode: "Test string",
+                                    errorMessage: "Test string",
+                                    lastRefreshTime: "Test string",
+                                    state: "Test string",
+                                },
+                                dataSourceId: "Test string",
+                            },
+                            filterSpecs: [
+                                {
+                                    columnIndex: 42,
+                                    dataSourceColumnReference: {
+                                        name: "Test string",
+                                    },
+                                    filterCriteria: {
+                                        condition: {
+                                            type: "Test string",
+                                            values: [
+                                                {
+                                                    relativeDate: "Test string",
+                                                    userEnteredValue: "Test string",
+                                                }                                            ],
+                                        },
+                                        hiddenValues: [
+                                            "Test string"                                        ],
+                                        visibleBackgroundColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        visibleBackgroundColorStyle: {
+                                            rgbColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            themeColor: "Test string",
+                                        },
+                                        visibleForegroundColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        visibleForegroundColorStyle: {
+                                            rgbColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            themeColor: "Test string",
+                                        },
+                                    },
+                                }                            ],
                             fontName: "Test string",
                             hiddenDimensionStrategy: "Test string",
                             histogramChart: {
@@ -4165,6 +5487,20 @@ gapi.load('client', () => {
                                             themeColor: "Test string",
                                         },
                                         data: {
+                                            aggregateType: "Test string",
+                                            columnReference: {
+                                                name: "Test string",
+                                            },
+                                            groupRule: {
+                                                dateTimeRule: {
+                                                    type: "Test string",
+                                                },
+                                                histogramRule: {
+                                                    intervalSize: 42,
+                                                    maxValue: 42,
+                                                    minValue: 42,
+                                                },
+                                            },
                                             sourceRange: {
                                                 sources: [
                                                     {
@@ -4182,6 +5518,20 @@ gapi.load('client', () => {
                             maximized: true,
                             orgChart: {
                                 labels: {
+                                    aggregateType: "Test string",
+                                    columnReference: {
+                                        name: "Test string",
+                                    },
+                                    groupRule: {
+                                        dateTimeRule: {
+                                            type: "Test string",
+                                        },
+                                        histogramRule: {
+                                            intervalSize: 42,
+                                            maxValue: 42,
+                                            minValue: 42,
+                                        },
+                                    },
                                     sourceRange: {
                                         sources: [
                                             {
@@ -4210,6 +5560,20 @@ gapi.load('client', () => {
                                 },
                                 nodeSize: "Test string",
                                 parentLabels: {
+                                    aggregateType: "Test string",
+                                    columnReference: {
+                                        name: "Test string",
+                                    },
+                                    groupRule: {
+                                        dateTimeRule: {
+                                            type: "Test string",
+                                        },
+                                        histogramRule: {
+                                            intervalSize: 42,
+                                            maxValue: 42,
+                                            minValue: 42,
+                                        },
+                                    },
                                     sourceRange: {
                                         sources: [
                                             {
@@ -4237,6 +5601,20 @@ gapi.load('client', () => {
                                     themeColor: "Test string",
                                 },
                                 tooltips: {
+                                    aggregateType: "Test string",
+                                    columnReference: {
+                                        name: "Test string",
+                                    },
+                                    groupRule: {
+                                        dateTimeRule: {
+                                            type: "Test string",
+                                        },
+                                        histogramRule: {
+                                            intervalSize: 42,
+                                            maxValue: 42,
+                                            minValue: 42,
+                                        },
+                                    },
                                     sourceRange: {
                                         sources: [
                                             {
@@ -4251,6 +5629,20 @@ gapi.load('client', () => {
                             },
                             pieChart: {
                                 domain: {
+                                    aggregateType: "Test string",
+                                    columnReference: {
+                                        name: "Test string",
+                                    },
+                                    groupRule: {
+                                        dateTimeRule: {
+                                            type: "Test string",
+                                        },
+                                        histogramRule: {
+                                            intervalSize: 42,
+                                            maxValue: 42,
+                                            minValue: 42,
+                                        },
+                                    },
                                     sourceRange: {
                                         sources: [
                                             {
@@ -4265,6 +5657,20 @@ gapi.load('client', () => {
                                 legendPosition: "Test string",
                                 pieHole: 42,
                                 series: {
+                                    aggregateType: "Test string",
+                                    columnReference: {
+                                        name: "Test string",
+                                    },
+                                    groupRule: {
+                                        dateTimeRule: {
+                                            type: "Test string",
+                                        },
+                                        histogramRule: {
+                                            intervalSize: 42,
+                                            maxValue: 42,
+                                            minValue: 42,
+                                        },
+                                    },
                                     sourceRange: {
                                         sources: [
                                             {
@@ -4281,6 +5687,20 @@ gapi.load('client', () => {
                             scorecardChart: {
                                 aggregateType: "Test string",
                                 baselineValueData: {
+                                    aggregateType: "Test string",
+                                    columnReference: {
+                                        name: "Test string",
+                                    },
+                                    groupRule: {
+                                        dateTimeRule: {
+                                            type: "Test string",
+                                        },
+                                        histogramRule: {
+                                            intervalSize: 42,
+                                            maxValue: 42,
+                                            minValue: 42,
+                                        },
+                                    },
                                     sourceRange: {
                                         sources: [
                                             {
@@ -4357,6 +5777,20 @@ gapi.load('client', () => {
                                     suffix: "Test string",
                                 },
                                 keyValueData: {
+                                    aggregateType: "Test string",
+                                    columnReference: {
+                                        name: "Test string",
+                                    },
+                                    groupRule: {
+                                        dateTimeRule: {
+                                            type: "Test string",
+                                        },
+                                        histogramRule: {
+                                            intervalSize: 42,
+                                            maxValue: 42,
+                                            minValue: 42,
+                                        },
+                                    },
                                     sourceRange: {
                                         sources: [
                                             {
@@ -4399,6 +5833,44 @@ gapi.load('client', () => {
                                 numberFormatSource: "Test string",
                                 scaleFactor: 42,
                             },
+                            sortSpecs: [
+                                {
+                                    backgroundColor: {
+                                        alpha: 42,
+                                        blue: 42,
+                                        green: 42,
+                                        red: 42,
+                                    },
+                                    backgroundColorStyle: {
+                                        rgbColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        themeColor: "Test string",
+                                    },
+                                    dataSourceColumnReference: {
+                                        name: "Test string",
+                                    },
+                                    dimensionIndex: 42,
+                                    foregroundColor: {
+                                        alpha: 42,
+                                        blue: 42,
+                                        green: 42,
+                                        red: 42,
+                                    },
+                                    foregroundColorStyle: {
+                                        rgbColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        themeColor: "Test string",
+                                    },
+                                    sortOrder: "Test string",
+                                }                            ],
                             subtitle: "Test string",
                             subtitleTextFormat: {
                                 bold: true,
@@ -4455,6 +5927,20 @@ gapi.load('client', () => {
                             },
                             treemapChart: {
                                 colorData: {
+                                    aggregateType: "Test string",
+                                    columnReference: {
+                                        name: "Test string",
+                                    },
+                                    groupRule: {
+                                        dateTimeRule: {
+                                            type: "Test string",
+                                        },
+                                        histogramRule: {
+                                            intervalSize: 42,
+                                            maxValue: 42,
+                                            minValue: 42,
+                                        },
+                                    },
                                     sourceRange: {
                                         sources: [
                                             {
@@ -4546,6 +6032,20 @@ gapi.load('client', () => {
                                 hideTooltips: true,
                                 hintedLevels: 42,
                                 labels: {
+                                    aggregateType: "Test string",
+                                    columnReference: {
+                                        name: "Test string",
+                                    },
+                                    groupRule: {
+                                        dateTimeRule: {
+                                            type: "Test string",
+                                        },
+                                        histogramRule: {
+                                            intervalSize: 42,
+                                            maxValue: 42,
+                                            minValue: 42,
+                                        },
+                                    },
                                     sourceRange: {
                                         sources: [
                                             {
@@ -4561,6 +6061,20 @@ gapi.load('client', () => {
                                 maxValue: 42,
                                 minValue: 42,
                                 parentLabels: {
+                                    aggregateType: "Test string",
+                                    columnReference: {
+                                        name: "Test string",
+                                    },
+                                    groupRule: {
+                                        dateTimeRule: {
+                                            type: "Test string",
+                                        },
+                                        histogramRule: {
+                                            intervalSize: 42,
+                                            maxValue: 42,
+                                            minValue: 42,
+                                        },
+                                    },
                                     sourceRange: {
                                         sources: [
                                             {
@@ -4573,6 +6087,20 @@ gapi.load('client', () => {
                                     },
                                 },
                                 sizeData: {
+                                    aggregateType: "Test string",
+                                    columnReference: {
+                                        name: "Test string",
+                                    },
+                                    groupRule: {
+                                        dateTimeRule: {
+                                            type: "Test string",
+                                        },
+                                        histogramRule: {
+                                            intervalSize: 42,
+                                            maxValue: 42,
+                                            minValue: 42,
+                                        },
+                                    },
                                     sourceRange: {
                                         sources: [
                                             {
@@ -4615,6 +6143,20 @@ gapi.load('client', () => {
                                 },
                                 domain: {
                                     data: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -4639,6 +6181,20 @@ gapi.load('client', () => {
                                                 subtotalIndex: 42,
                                             }                                        ],
                                         data: {
+                                            aggregateType: "Test string",
+                                            columnReference: {
+                                                name: "Test string",
+                                            },
+                                            groupRule: {
+                                                dateTimeRule: {
+                                                    type: "Test string",
+                                                },
+                                                histogramRule: {
+                                                    intervalSize: 42,
+                                                    maxValue: 42,
+                                                    minValue: 42,
+                                                },
+                                            },
                                             sourceRange: {
                                                 sources: [
                                                     {
@@ -4931,6 +6487,45 @@ gapi.load('client', () => {
                         },
                         sheetId: 42,
                     },
+                    updateDataSource: {
+                        dataSource: {
+                            calculatedColumns: [
+                                {
+                                    formula: "Test string",
+                                    reference: {
+                                        name: "Test string",
+                                    },
+                                }                            ],
+                            dataSourceId: "Test string",
+                            sheetId: 42,
+                            spec: {
+                                bigQuery: {
+                                    projectId: "Test string",
+                                    querySpec: {
+                                        rawQuery: "Test string",
+                                    },
+                                    tableSpec: {
+                                        datasetId: "Test string",
+                                        tableId: "Test string",
+                                        tableProjectId: "Test string",
+                                    },
+                                },
+                                parameters: [
+                                    {
+                                        name: "Test string",
+                                        namedRangeId: "Test string",
+                                        range: {
+                                            endColumnIndex: 42,
+                                            endRowIndex: 42,
+                                            sheetId: 42,
+                                            startColumnIndex: 42,
+                                            startRowIndex: 42,
+                                        },
+                                    }                                ],
+                            },
+                        },
+                        fields: "Test string",
+                    },
                     updateDeveloperMetadata: {
                         dataFilters: [
                             {
@@ -4995,8 +6590,18 @@ gapi.load('client', () => {
                         fields: "Test string",
                     },
                     updateDimensionProperties: {
+                        dataSourceSheetRange: {
+                            columnReferences: [
+                                {
+                                    name: "Test string",
+                                }                            ],
+                            sheetId: 42,
+                        },
                         fields: "Test string",
                         properties: {
+                            dataSourceColumnReference: {
+                                name: "Test string",
+                            },
                             developerMetadata: [
                                 {
                                     location: {
@@ -5091,6 +6696,55 @@ gapi.load('client', () => {
                                         themeColor: "Test string",
                                     },
                                 }                            },
+                            filterSpecs: [
+                                {
+                                    columnIndex: 42,
+                                    dataSourceColumnReference: {
+                                        name: "Test string",
+                                    },
+                                    filterCriteria: {
+                                        condition: {
+                                            type: "Test string",
+                                            values: [
+                                                {
+                                                    relativeDate: "Test string",
+                                                    userEnteredValue: "Test string",
+                                                }                                            ],
+                                        },
+                                        hiddenValues: [
+                                            "Test string"                                        ],
+                                        visibleBackgroundColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        visibleBackgroundColorStyle: {
+                                            rgbColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            themeColor: "Test string",
+                                        },
+                                        visibleForegroundColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        visibleForegroundColorStyle: {
+                                            rgbColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            themeColor: "Test string",
+                                        },
+                                    },
+                                }                            ],
                             filterViewId: 42,
                             namedRangeId: "Test string",
                             range: {
@@ -5116,6 +6770,9 @@ gapi.load('client', () => {
                                             red: 42,
                                         },
                                         themeColor: "Test string",
+                                    },
+                                    dataSourceColumnReference: {
+                                        name: "Test string",
                                     },
                                     dimensionIndex: 42,
                                     foregroundColor: {
@@ -5187,6 +6844,22 @@ gapi.load('client', () => {
                     updateSheetProperties: {
                         fields: "Test string",
                         properties: {
+                            dataSourceSheetProperties: {
+                                columns: [
+                                    {
+                                        formula: "Test string",
+                                        reference: {
+                                            name: "Test string",
+                                        },
+                                    }                                ],
+                                dataExecutionStatus: {
+                                    errorCode: "Test string",
+                                    errorMessage: "Test string",
+                                    lastRefreshTime: "Test string",
+                                    state: "Test string",
+                                },
+                                dataSourceId: "Test string",
+                            },
                             gridProperties: {
                                 columnCount: 42,
                                 columnGroupControlAfter: true,
@@ -5752,6 +7425,80 @@ gapi.load('client', () => {
         /** Creates a spreadsheet, returning the newly created spreadsheet. */
         await gapi.client.sheets.spreadsheets.create({
         }, {
+            dataSources: [
+                {
+                    calculatedColumns: [
+                        {
+                            formula: "Test string",
+                            reference: {
+                                name: "Test string",
+                            },
+                        }                    ],
+                    dataSourceId: "Test string",
+                    sheetId: 42,
+                    spec: {
+                        bigQuery: {
+                            projectId: "Test string",
+                            querySpec: {
+                                rawQuery: "Test string",
+                            },
+                            tableSpec: {
+                                datasetId: "Test string",
+                                tableId: "Test string",
+                                tableProjectId: "Test string",
+                            },
+                        },
+                        parameters: [
+                            {
+                                name: "Test string",
+                                namedRangeId: "Test string",
+                                range: {
+                                    endColumnIndex: 42,
+                                    endRowIndex: 42,
+                                    sheetId: 42,
+                                    startColumnIndex: 42,
+                                    startRowIndex: 42,
+                                },
+                            }                        ],
+                    },
+                }            ],
+            dataSourceSchedules: [
+                {
+                    dailySchedule: {
+                        startTime: {
+                            hours: 42,
+                            minutes: 42,
+                            nanos: 42,
+                            seconds: 42,
+                        },
+                    },
+                    enabled: true,
+                    monthlySchedule: {
+                        daysOfMonth: [
+                            42                        ],
+                        startTime: {
+                            hours: 42,
+                            minutes: 42,
+                            nanos: 42,
+                            seconds: 42,
+                        },
+                    },
+                    nextRun: {
+                        endTime: "Test string",
+                        startTime: "Test string",
+                    },
+                    refreshScope: "Test string",
+                    weeklySchedule: {
+                        daysOfWeek: [
+                            "Test string"                        ],
+                        startTime: {
+                            hours: 42,
+                            minutes: 42,
+                            nanos: 42,
+                            seconds: 42,
+                        },
+                    },
+                }            ],
             developerMetadata: [
                 {
                     location: {
@@ -6126,6 +7873,55 @@ gapi.load('client', () => {
                                     themeColor: "Test string",
                                 },
                             }                        },
+                        filterSpecs: [
+                            {
+                                columnIndex: 42,
+                                dataSourceColumnReference: {
+                                    name: "Test string",
+                                },
+                                filterCriteria: {
+                                    condition: {
+                                        type: "Test string",
+                                        values: [
+                                            {
+                                                relativeDate: "Test string",
+                                                userEnteredValue: "Test string",
+                                            }                                        ],
+                                    },
+                                    hiddenValues: [
+                                        "Test string"                                    ],
+                                    visibleBackgroundColor: {
+                                        alpha: 42,
+                                        blue: 42,
+                                        green: 42,
+                                        red: 42,
+                                    },
+                                    visibleBackgroundColorStyle: {
+                                        rgbColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        themeColor: "Test string",
+                                    },
+                                    visibleForegroundColor: {
+                                        alpha: 42,
+                                        blue: 42,
+                                        green: 42,
+                                        red: 42,
+                                    },
+                                    visibleForegroundColorStyle: {
+                                        rgbColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        themeColor: "Test string",
+                                    },
+                                },
+                            }                        ],
                         range: {
                             endColumnIndex: 42,
                             endRowIndex: 42,
@@ -6149,6 +7945,9 @@ gapi.load('client', () => {
                                         red: 42,
                                     },
                                     themeColor: "Test string",
+                                },
+                                dataSourceColumnReference: {
+                                    name: "Test string",
                                 },
                                 dimensionIndex: 42,
                                 foregroundColor: {
@@ -6246,6 +8045,20 @@ gapi.load('client', () => {
                                     domains: [
                                         {
                                             domain: {
+                                                aggregateType: "Test string",
+                                                columnReference: {
+                                                    name: "Test string",
+                                                },
+                                                groupRule: {
+                                                    dateTimeRule: {
+                                                        type: "Test string",
+                                                    },
+                                                    histogramRule: {
+                                                        intervalSize: 42,
+                                                        maxValue: 42,
+                                                        minValue: 42,
+                                                    },
+                                                },
                                                 sourceRange: {
                                                     sources: [
                                                         {
@@ -6285,6 +8098,20 @@ gapi.load('client', () => {
                                                 width: 42,
                                             },
                                             series: {
+                                                aggregateType: "Test string",
+                                                columnReference: {
+                                                    name: "Test string",
+                                                },
+                                                groupRule: {
+                                                    dateTimeRule: {
+                                                        type: "Test string",
+                                                    },
+                                                    histogramRule: {
+                                                        intervalSize: 42,
+                                                        maxValue: 42,
+                                                        minValue: 42,
+                                                    },
+                                                },
                                                 sourceRange: {
                                                     sources: [
                                                         {
@@ -6319,6 +8146,20 @@ gapi.load('client', () => {
                                         themeColor: "Test string",
                                     },
                                     bubbleLabels: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -6334,6 +8175,20 @@ gapi.load('client', () => {
                                     bubbleMinRadiusSize: 42,
                                     bubbleOpacity: 42,
                                     bubbleSizes: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -6369,6 +8224,20 @@ gapi.load('client', () => {
                                         underline: true,
                                     },
                                     domain: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -6381,6 +8250,20 @@ gapi.load('client', () => {
                                         },
                                     },
                                     groupIds: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -6394,6 +8277,20 @@ gapi.load('client', () => {
                                     },
                                     legendPosition: "Test string",
                                     series: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -6411,6 +8308,20 @@ gapi.load('client', () => {
                                         {
                                             closeSeries: {
                                                 data: {
+                                                    aggregateType: "Test string",
+                                                    columnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    groupRule: {
+                                                        dateTimeRule: {
+                                                            type: "Test string",
+                                                        },
+                                                        histogramRule: {
+                                                            intervalSize: 42,
+                                                            maxValue: 42,
+                                                            minValue: 42,
+                                                        },
+                                                    },
                                                     sourceRange: {
                                                         sources: [
                                                             {
@@ -6425,6 +8336,20 @@ gapi.load('client', () => {
                                             },
                                             highSeries: {
                                                 data: {
+                                                    aggregateType: "Test string",
+                                                    columnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    groupRule: {
+                                                        dateTimeRule: {
+                                                            type: "Test string",
+                                                        },
+                                                        histogramRule: {
+                                                            intervalSize: 42,
+                                                            maxValue: 42,
+                                                            minValue: 42,
+                                                        },
+                                                    },
                                                     sourceRange: {
                                                         sources: [
                                                             {
@@ -6439,6 +8364,20 @@ gapi.load('client', () => {
                                             },
                                             lowSeries: {
                                                 data: {
+                                                    aggregateType: "Test string",
+                                                    columnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    groupRule: {
+                                                        dateTimeRule: {
+                                                            type: "Test string",
+                                                        },
+                                                        histogramRule: {
+                                                            intervalSize: 42,
+                                                            maxValue: 42,
+                                                            minValue: 42,
+                                                        },
+                                                    },
                                                     sourceRange: {
                                                         sources: [
                                                             {
@@ -6453,6 +8392,20 @@ gapi.load('client', () => {
                                             },
                                             openSeries: {
                                                 data: {
+                                                    aggregateType: "Test string",
+                                                    columnReference: {
+                                                        name: "Test string",
+                                                    },
+                                                    groupRule: {
+                                                        dateTimeRule: {
+                                                            type: "Test string",
+                                                        },
+                                                        histogramRule: {
+                                                            intervalSize: 42,
+                                                            maxValue: 42,
+                                                            minValue: 42,
+                                                        },
+                                                    },
                                                     sourceRange: {
                                                         sources: [
                                                             {
@@ -6468,6 +8421,20 @@ gapi.load('client', () => {
                                         }                                    ],
                                     domain: {
                                         data: {
+                                            aggregateType: "Test string",
+                                            columnReference: {
+                                                name: "Test string",
+                                            },
+                                            groupRule: {
+                                                dateTimeRule: {
+                                                    type: "Test string",
+                                                },
+                                                histogramRule: {
+                                                    intervalSize: 42,
+                                                    maxValue: 42,
+                                                    minValue: 42,
+                                                },
+                                            },
                                             sourceRange: {
                                                 sources: [
                                                     {
@@ -6482,6 +8449,64 @@ gapi.load('client', () => {
                                         reversed: true,
                                     },
                                 },
+                                dataSourceChartProperties: {
+                                    dataExecutionStatus: {
+                                        errorCode: "Test string",
+                                        errorMessage: "Test string",
+                                        lastRefreshTime: "Test string",
+                                        state: "Test string",
+                                    },
+                                    dataSourceId: "Test string",
+                                },
+                                filterSpecs: [
+                                    {
+                                        columnIndex: 42,
+                                        dataSourceColumnReference: {
+                                            name: "Test string",
+                                        },
+                                        filterCriteria: {
+                                            condition: {
+                                                type: "Test string",
+                                                values: [
+                                                    {
+                                                        relativeDate: "Test string",
+                                                        userEnteredValue: "Test string",
+                                                    }                                                ],
+                                            },
+                                            hiddenValues: [
+                                                "Test string"                                            ],
+                                            visibleBackgroundColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            visibleBackgroundColorStyle: {
+                                                rgbColor: {
+                                                    alpha: 42,
+                                                    blue: 42,
+                                                    green: 42,
+                                                    red: 42,
+                                                },
+                                                themeColor: "Test string",
+                                            },
+                                            visibleForegroundColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            visibleForegroundColorStyle: {
+                                                rgbColor: {
+                                                    alpha: 42,
+                                                    blue: 42,
+                                                    green: 42,
+                                                    red: 42,
+                                                },
+                                                themeColor: "Test string",
+                                            },
+                                        },
+                                    }                                ],
                                 fontName: "Test string",
                                 hiddenDimensionStrategy: "Test string",
                                 histogramChart: {
@@ -6506,6 +8531,20 @@ gapi.load('client', () => {
                                                 themeColor: "Test string",
                                             },
                                             data: {
+                                                aggregateType: "Test string",
+                                                columnReference: {
+                                                    name: "Test string",
+                                                },
+                                                groupRule: {
+                                                    dateTimeRule: {
+                                                        type: "Test string",
+                                                    },
+                                                    histogramRule: {
+                                                        intervalSize: 42,
+                                                        maxValue: 42,
+                                                        minValue: 42,
+                                                    },
+                                                },
                                                 sourceRange: {
                                                     sources: [
                                                         {
@@ -6523,6 +8562,20 @@ gapi.load('client', () => {
                                 maximized: true,
                                 orgChart: {
                                     labels: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -6551,6 +8604,20 @@ gapi.load('client', () => {
                                     },
                                     nodeSize: "Test string",
                                     parentLabels: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -6578,6 +8645,20 @@ gapi.load('client', () => {
                                         themeColor: "Test string",
                                     },
                                     tooltips: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -6592,6 +8673,20 @@ gapi.load('client', () => {
                                 },
                                 pieChart: {
                                     domain: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -6606,6 +8701,20 @@ gapi.load('client', () => {
                                     legendPosition: "Test string",
                                     pieHole: 42,
                                     series: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -6622,6 +8731,20 @@ gapi.load('client', () => {
                                 scorecardChart: {
                                     aggregateType: "Test string",
                                     baselineValueData: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -6698,6 +8821,20 @@ gapi.load('client', () => {
                                         suffix: "Test string",
                                     },
                                     keyValueData: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -6740,6 +8877,44 @@ gapi.load('client', () => {
                                     numberFormatSource: "Test string",
                                     scaleFactor: 42,
                                 },
+                                sortSpecs: [
+                                    {
+                                        backgroundColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        backgroundColorStyle: {
+                                            rgbColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            themeColor: "Test string",
+                                        },
+                                        dataSourceColumnReference: {
+                                            name: "Test string",
+                                        },
+                                        dimensionIndex: 42,
+                                        foregroundColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        foregroundColorStyle: {
+                                            rgbColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            themeColor: "Test string",
+                                        },
+                                        sortOrder: "Test string",
+                                    }                                ],
                                 subtitle: "Test string",
                                 subtitleTextFormat: {
                                     bold: true,
@@ -6796,6 +8971,20 @@ gapi.load('client', () => {
                                 },
                                 treemapChart: {
                                     colorData: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -6887,6 +9076,20 @@ gapi.load('client', () => {
                                     hideTooltips: true,
                                     hintedLevels: 42,
                                     labels: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -6902,6 +9105,20 @@ gapi.load('client', () => {
                                     maxValue: 42,
                                     minValue: 42,
                                     parentLabels: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -6914,6 +9131,20 @@ gapi.load('client', () => {
                                         },
                                     },
                                     sizeData: {
+                                        aggregateType: "Test string",
+                                        columnReference: {
+                                            name: "Test string",
+                                        },
+                                        groupRule: {
+                                            dateTimeRule: {
+                                                type: "Test string",
+                                            },
+                                            histogramRule: {
+                                                intervalSize: 42,
+                                                maxValue: 42,
+                                                minValue: 42,
+                                            },
+                                        },
                                         sourceRange: {
                                             sources: [
                                                 {
@@ -6956,6 +9187,20 @@ gapi.load('client', () => {
                                     },
                                     domain: {
                                         data: {
+                                            aggregateType: "Test string",
+                                            columnReference: {
+                                                name: "Test string",
+                                            },
+                                            groupRule: {
+                                                dateTimeRule: {
+                                                    type: "Test string",
+                                                },
+                                                histogramRule: {
+                                                    intervalSize: 42,
+                                                    maxValue: 42,
+                                                    minValue: 42,
+                                                },
+                                            },
                                             sourceRange: {
                                                 sources: [
                                                     {
@@ -6980,6 +9225,20 @@ gapi.load('client', () => {
                                                     subtotalIndex: 42,
                                                 }                                            ],
                                             data: {
+                                                aggregateType: "Test string",
+                                                columnReference: {
+                                                    name: "Test string",
+                                                },
+                                                groupRule: {
+                                                    dateTimeRule: {
+                                                        type: "Test string",
+                                                    },
+                                                    histogramRule: {
+                                                        intervalSize: 42,
+                                                        maxValue: 42,
+                                                        minValue: 42,
+                                                    },
+                                                },
                                                 sourceRange: {
                                                     sources: [
                                                         {
@@ -7283,6 +9542,9 @@ gapi.load('client', () => {
                         {
                             columnMetadata: [
                                 {
+                                    dataSourceColumnReference: {
+                                        name: "Test string",
+                                    },
                                     developerMetadata: [
                                         {
                                             location: {
@@ -7309,6 +9571,117 @@ gapi.load('client', () => {
                                 {
                                     values: [
                                         {
+                                            dataSourceFormula: {
+                                                dataExecutionStatus: {
+                                                    errorCode: "Test string",
+                                                    errorMessage: "Test string",
+                                                    lastRefreshTime: "Test string",
+                                                    state: "Test string",
+                                                },
+                                                dataSourceId: "Test string",
+                                            },
+                                            dataSourceTable: {
+                                                columns: [
+                                                    {
+                                                        name: "Test string",
+                                                    }                                                ],
+                                                columnSelectionType: "Test string",
+                                                dataExecutionStatus: {
+                                                    errorCode: "Test string",
+                                                    errorMessage: "Test string",
+                                                    lastRefreshTime: "Test string",
+                                                    state: "Test string",
+                                                },
+                                                dataSourceId: "Test string",
+                                                filterSpecs: [
+                                                    {
+                                                        columnIndex: 42,
+                                                        dataSourceColumnReference: {
+                                                            name: "Test string",
+                                                        },
+                                                        filterCriteria: {
+                                                            condition: {
+                                                                type: "Test string",
+                                                                values: [
+                                                                    {
+                                                                        relativeDate: "Test string",
+                                                                        userEnteredValue: "Test string",
+                                                                    }                                                                ],
+                                                            },
+                                                            hiddenValues: [
+                                                                "Test string"                                                            ],
+                                                            visibleBackgroundColor: {
+                                                                alpha: 42,
+                                                                blue: 42,
+                                                                green: 42,
+                                                                red: 42,
+                                                            },
+                                                            visibleBackgroundColorStyle: {
+                                                                rgbColor: {
+                                                                    alpha: 42,
+                                                                    blue: 42,
+                                                                    green: 42,
+                                                                    red: 42,
+                                                                },
+                                                                themeColor: "Test string",
+                                                            },
+                                                            visibleForegroundColor: {
+                                                                alpha: 42,
+                                                                blue: 42,
+                                                                green: 42,
+                                                                red: 42,
+                                                            },
+                                                            visibleForegroundColorStyle: {
+                                                                rgbColor: {
+                                                                    alpha: 42,
+                                                                    blue: 42,
+                                                                    green: 42,
+                                                                    red: 42,
+                                                                },
+                                                                themeColor: "Test string",
+                                                            },
+                                                        },
+                                                    }                                                ],
+                                                rowLimit: 42,
+                                                sortSpecs: [
+                                                    {
+                                                        backgroundColor: {
+                                                            alpha: 42,
+                                                            blue: 42,
+                                                            green: 42,
+                                                            red: 42,
+                                                        },
+                                                        backgroundColorStyle: {
+                                                            rgbColor: {
+                                                                alpha: 42,
+                                                                blue: 42,
+                                                                green: 42,
+                                                                red: 42,
+                                                            },
+                                                            themeColor: "Test string",
+                                                        },
+                                                        dataSourceColumnReference: {
+                                                            name: "Test string",
+                                                        },
+                                                        dimensionIndex: 42,
+                                                        foregroundColor: {
+                                                            alpha: 42,
+                                                            blue: 42,
+                                                            green: 42,
+                                                            red: 42,
+                                                        },
+                                                        foregroundColorStyle: {
+                                                            rgbColor: {
+                                                                alpha: 42,
+                                                                blue: 42,
+                                                                green: 42,
+                                                                red: 42,
+                                                            },
+                                                            themeColor: "Test string",
+                                                        },
+                                                        sortOrder: "Test string",
+                                                    }                                                ],
+                                            },
                                             dataValidation: {
                                                 condition: {
                                                     type: "Test string",
@@ -7475,6 +9848,13 @@ gapi.load('client', () => {
                                             pivotTable: {
                                                 columns: [
                                                     {
+                                                        dataSourceColumnReference: {
+                                                            name: "Test string",
+                                                        },
+                                                        groupLimit: {
+                                                            applyOrder: 42,
+                                                            countLimit: 42,
+                                                        },
                                                         groupRule: {
                                                             dateTimeRule: {
                                                                 type: "Test string",
@@ -7550,8 +9930,33 @@ gapi.load('client', () => {
                                                         visibleValues: [
                                                             "Test string"                                                        ],
                                                     }                                                },
+                                                dataExecutionStatus: {
+                                                    errorCode: "Test string",
+                                                    errorMessage: "Test string",
+                                                    lastRefreshTime: "Test string",
+                                                    state: "Test string",
+                                                },
+                                                dataSourceId: "Test string",
+                                                filterSpecs: [
+                                                    {
+                                                        columnOffsetIndex: 42,
+                                                        dataSourceColumnReference: {
+                                                            name: "Test string",
+                                                        },
+                                                        filterCriteria: {
+                                                            visibleValues: [
+                                                                "Test string"                                                            ],
+                                                        },
+                                                    }                                                ],
                                                 rows: [
                                                     {
+                                                        dataSourceColumnReference: {
+                                                            name: "Test string",
+                                                        },
+                                                        groupLimit: {
+                                                            applyOrder: 42,
+                                                            countLimit: 42,
+                                                        },
                                                         groupRule: {
                                                             dateTimeRule: {
                                                                 type: "Test string",
@@ -7633,6 +10038,9 @@ gapi.load('client', () => {
                                                 values: [
                                                     {
                                                         calculatedDisplayType: "Test string",
+                                                        dataSourceColumnReference: {
+                                                            name: "Test string",
+                                                        },
                                                         formula: "Test string",
                                                         name: "Test string",
                                                         sourceColumnOffset: 42,
@@ -7817,6 +10225,9 @@ gapi.load('client', () => {
                                 }                            ],
                             rowMetadata: [
                                 {
+                                    dataSourceColumnReference: {
+                                        name: "Test string",
+                                    },
                                     developerMetadata: [
                                         {
                                             location: {
@@ -7905,6 +10316,55 @@ gapi.load('client', () => {
                                         themeColor: "Test string",
                                     },
                                 }                            },
+                            filterSpecs: [
+                                {
+                                    columnIndex: 42,
+                                    dataSourceColumnReference: {
+                                        name: "Test string",
+                                    },
+                                    filterCriteria: {
+                                        condition: {
+                                            type: "Test string",
+                                            values: [
+                                                {
+                                                    relativeDate: "Test string",
+                                                    userEnteredValue: "Test string",
+                                                }                                            ],
+                                        },
+                                        hiddenValues: [
+                                            "Test string"                                        ],
+                                        visibleBackgroundColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        visibleBackgroundColorStyle: {
+                                            rgbColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            themeColor: "Test string",
+                                        },
+                                        visibleForegroundColor: {
+                                            alpha: 42,
+                                            blue: 42,
+                                            green: 42,
+                                            red: 42,
+                                        },
+                                        visibleForegroundColorStyle: {
+                                            rgbColor: {
+                                                alpha: 42,
+                                                blue: 42,
+                                                green: 42,
+                                                red: 42,
+                                            },
+                                            themeColor: "Test string",
+                                        },
+                                    },
+                                }                            ],
                             filterViewId: 42,
                             namedRangeId: "Test string",
                             range: {
@@ -7930,6 +10390,9 @@ gapi.load('client', () => {
                                             red: 42,
                                         },
                                         themeColor: "Test string",
+                                    },
+                                    dataSourceColumnReference: {
+                                        name: "Test string",
                                     },
                                     dimensionIndex: 42,
                                     foregroundColor: {
@@ -7960,6 +10423,22 @@ gapi.load('client', () => {
                             startRowIndex: 42,
                         }                    ],
                     properties: {
+                        dataSourceSheetProperties: {
+                            columns: [
+                                {
+                                    formula: "Test string",
+                                    reference: {
+                                        name: "Test string",
+                                    },
+                                }                            ],
+                            dataExecutionStatus: {
+                                errorCode: "Test string",
+                                errorMessage: "Test string",
+                                lastRefreshTime: "Test string",
+                                state: "Test string",
+                            },
+                            dataSourceId: "Test string",
+                        },
                         gridProperties: {
                             columnCount: 42,
                             columnGroupControlAfter: true,
