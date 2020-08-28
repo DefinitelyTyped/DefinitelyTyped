@@ -1,14 +1,3 @@
-// Type definitions for prosemirror-view 1.15
-// Project: https://github.com/ProseMirror/prosemirror-view
-// Definitions by: Bradley Ayers <https://github.com/bradleyayers>
-//                 David Hahn <https://github.com/davidka>
-//                 Tim Baumann <https://github.com/timjb>
-//                 Patrick Simmelbauer <https://github.com/patsimm>
-//                 Ifiok Jr. <https://github.com/ifiokjr>
-//                 Mike Morearty <https://github.com/mmorearty>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import {
   DOMParser,
   DOMSerializer,
