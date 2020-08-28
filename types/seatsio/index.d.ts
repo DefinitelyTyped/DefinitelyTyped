@@ -5,6 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var seatsio: Seatsio;
+export = seatsio;
 
 interface Seatsio {
     SeatingChart: Seatsio.SeatingChart;
