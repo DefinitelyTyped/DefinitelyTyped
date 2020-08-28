@@ -3370,6 +3370,9 @@ declare module "react-syntax-highlighter/dist/cjs/styles/prism" {
         default as vs
     } from "react-syntax-highlighter/dist/cjs/styles/prism/vs";
     export {
+        default as vscDarkPlus
+    } from "react-syntax-highlighter/dist/cjs/styles/prism/vsc-dark-plus"
+    export {
         default as xonokai
     } from "react-syntax-highlighter/dist/cjs/styles/prism/xonokai";
 }
@@ -3480,6 +3483,11 @@ declare module "react-syntax-highlighter/dist/cjs/styles/prism/twilight" {
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/vs" {
+    const style: any;
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/prism/vsc-dark-plus" {
     const style: any;
     export default style;
 }
