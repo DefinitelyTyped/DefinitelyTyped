@@ -36,5 +36,8 @@
             "_comment": "This will remove husky from when we started migrating to use prettier",
             "pre-commit": "npm uninstall husky"
         }
+    },
+    "dependencies": {
+        "react-otp-input": "^2.0.2"
     }
 }
