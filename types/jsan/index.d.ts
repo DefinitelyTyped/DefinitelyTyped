@@ -19,13 +19,7 @@ interface Options {
 
 declare function stringify(
     value: unknown,
-    replacer?: (key: string, value: unknown) => unknown,
-    space?: string | number,
-    _options?: Options | boolean
-): string;
-declare function stringify(
-    value: unknown,
-    replacer?: (number | string)[] | null,
+    replacer?: (key: string, value: unknown) => unknown | Array<number | string> | null,
     space?: string | number,
     _options?: Options | boolean
 ): string;

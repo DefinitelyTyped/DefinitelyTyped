@@ -12,7 +12,7 @@ const options = {
     set: true,
     nan: true,
     infinity: true,
-}
+};
 
 declare const data: unknown;
 
