@@ -1,6 +1,5 @@
 import * as React from "react";
-import OTPInput = require("react-otp-input");
-
+import OTPInput from "react-otp-input";
 
 interface InputOtpProps {
     inputCount: number;
