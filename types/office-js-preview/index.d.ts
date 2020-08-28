@@ -10033,6 +10033,9 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
          * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
          *
          * [Api set: Mailbox 1.8]
@@ -10052,6 +10055,9 @@ declare namespace Office {
         getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         *
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
          *
          * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
          *
@@ -11330,6 +11336,9 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
          * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
          *
          * [Api set: Mailbox 1.8]
@@ -11349,6 +11358,9 @@ declare namespace Office {
         getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         *
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
          *
          * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
          *
@@ -14874,6 +14886,9 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
          * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
          *
          * [Api set: Mailbox 1.8]
@@ -14892,6 +14907,9 @@ declare namespace Office {
         getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         *
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
          *
          * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
          *
@@ -16049,6 +16067,9 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
          * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
          *
          * [Api set: Mailbox 1.8]
@@ -16067,6 +16088,9 @@ declare namespace Office {
         getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         *
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
          *
          * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
          *
