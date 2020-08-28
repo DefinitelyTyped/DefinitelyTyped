@@ -1,8 +1,10 @@
 // Microsoft Graph tests
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 
-import { User, Event, DateTimeTimeZone, ItemBody, ServicePrincipal,
-    Invitation, Application, CallTranscriptionInfo, CancelMediaProcessingOperation, ResultInfo } from "microsoft-graph";
+import {
+    User, Event, DateTimeTimeZone, ItemBody, ServicePrincipal,
+    Invitation, Application, CallTranscriptionInfo, CancelMediaProcessingOperation, ResultInfo, CallRecords, IdentitySet, Identity
+} from "microsoft-graph";
 
 const user: User = {
     officeLocation: "Bengaluru",
@@ -70,4 +72,29 @@ const resultInfo: ResultInfo = {
 const cancelMediaProcessingOperation: CancelMediaProcessingOperation = {
     id: "testId",
     resultInfo
+};
+
+const callType: CallRecords.CallType = "unknown";
+
+const callRecord: CallRecords.CallRecord = {
+    type: callType,
+};
+
+// Testing cross namespace inheritance 
+// id comes from Entity which is defined in parent namespace
+const session: CallRecords.Session = {
+    id: "TestId"
+};
+
+const deviceIdentity: Identity = {
+    displayName: "TestDisplayName"
+};
+
+const identitySet: IdentitySet = {
+    device: deviceIdentity
+};
+
+// Testing cross namespace property reference
+const info: CallRecords.ParticipantEndpoint = {
+    identity: identitySet
 };
