@@ -224,7 +224,19 @@ client.csrfToken(pageContext);
 client.signin(githubProvider, { data: 'foo' });
 
 // $ExpectType Promise<void>
-client.signout(pageContext);
+client.signIn();
+
+// $ExpectType Promise<void>
+client.signIn('github');
+
+// $ExpectType Promise<void>
+client.signIn('github', { data: 'foo' });
+
+// $ExpectType Promise<void>
+client.signout();
+
+// $ExpectType Promise<void>
+client.signout({ callbackUrl: 'callbackUrl' });
 
 // $ExpectType ReactElement<any, any> | null
 client.Provider({

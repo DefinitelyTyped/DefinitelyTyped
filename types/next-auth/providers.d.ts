@@ -1,53 +1,78 @@
 export interface Providers {
-    Email: Email;
-    Credentials: Credentials;
     Apple: Apple;
-    Twitter: Twitter;
-    Facebook: Facebook;
-    GitHub: GitHub;
-    GitLab: GitLab;
-    Slack: Slack;
-    Google: Google;
     Auth0: Auth0;
-    IdentityServer4: IdentityServer4;
-    Discord: Discord;
-    Twitch: Twitch;
-    Mixer: Mixer;
-    Okta: Okta;
+    Basecamp: Basecamp;
     BattleNet: BattleNet;
     Box: Box;
     Cognito: Cognito;
-    Yandex: Yandex;
+    Credentials: Credentials;
+    Discord: Discord;
+    Email: Email;
+    Facebook: Facebook;
+    GitHub: GitHub;
+    GitLab: GitLab;
+    Google: Google;
+    IdentityServer4: IdentityServer4;
     LinkedIn: LinkedIn;
-    Spotify: Spotify;
-    Basecamp: Basecamp;
+    Mixer: Mixer;
+    Okta: Okta;
     Reddit: Reddit;
+    Slack: Slack;
+    Spotify: Spotify;
+    Twitch: Twitch;
+    Twitter: Twitter;
+    Yandex: Yandex;
 }
 
+export type PossibleProviderId =
+    | 'apple'
+    | 'auth0'
+    | 'basecamp'
+    | 'battlenet'
+    | 'box'
+    | 'cognito'
+    | 'credentials'
+    | 'discord'
+    | 'email'
+    | 'facebook'
+    | 'github'
+    | 'gitlab'
+    | 'google'
+    | 'indentity-server-4'
+    | 'linkedin'
+    | 'mixer'
+    | 'okta'
+    | 'reddit'
+    | 'slack'
+    | 'spotify'
+    | 'twitch'
+    | 'twitter'
+    | 'yandex ';
+
 type PossibleProviders =
-    | Email
-    | Credentials
     | Apple
-    | Twitter
-    | Facebook
-    | GitHub
-    | GitLab
-    | Slack
-    | Google
     | Auth0
-    | IdentityServer4
-    | Discord
-    | Twitch
-    | Mixer
-    | Okta
+    | Basecamp
     | BattleNet
     | Box
     | Cognito
-    | Yandex
+    | Credentials
+    | Discord
+    | Email
+    | Facebook
+    | GitHub
+    | GitLab
+    | Google
+    | IdentityServer4
     | LinkedIn
+    | Mixer
+    | Okta
+    | Reddit
+    | Slack
     | Spotify
-    | Basecamp
-    | Reddit;
+    | Twitch
+    | Twitter
+    | Yandex;
 
 // TODO: type return objects from providers properly
 interface GenericReturnConfig {

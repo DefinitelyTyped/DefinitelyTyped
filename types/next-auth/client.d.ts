@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { PossibleProviderId } from './providers';
+
 export interface Session {
     user: {
         name: string;
@@ -44,6 +46,10 @@ interface SetOptionsParams {
     keepAlive?: boolean;
 }
 
+interface SignOutArgs {
+    callbackUrl?: string;
+}
+
 type ContextProvider = FC<ContextProviderProps>;
 
 declare function useSession(): [Session, boolean];
@@ -53,9 +59,9 @@ declare function session(context: NextPageContext): Promise<Session | null>;
 declare const getSession: typeof session;
 declare function csrfToken(context: NextPageContext): Promise<string | null>;
 declare const getCsrfToken: typeof csrfToken;
-declare function signin(provider: SessionProvider, data: GenericObject): Promise<void>;
+declare function signin(provider?: SessionProvider | PossibleProviderId, data?: GenericObject): Promise<void>;
 declare const signIn: typeof signin;
-declare function signout(context: NextPageContext): Promise<void>;
+declare function signout(args?: SignOutArgs): Promise<void>;
 declare const signOut: typeof signout;
 declare function options(options: SetOptionsParams): void;
 declare const setOptions: typeof options;
