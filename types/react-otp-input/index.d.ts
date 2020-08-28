@@ -11,18 +11,18 @@ import { SetStateAction } from 'react';
 declare namespace ReactOTPInput {
     interface OTPInputProps {
         value: number | string;
-        onChange: Dispatch<SetStateAction<string | number>> | any;
+        onChange: Dispatch<SetStateAction<string | number>>;
         numInputs: number;
         separator?: JSX.Element;
         isDisabled?: boolean;
         shouldAutoFocus?: boolean;
         hasErrored?: boolean;
         isInputNum?: boolean;
-        containerStyle?: string | CSSStyleDeclaration | any;
-        inputStyle?: string | CSSStyleDeclaration | any;
-        focusStyle?: string | CSSStyleDeclaration | any;
-        disabledStyle?: string | CSSStyleDeclaration | any;
-        errorStyle?: string | CSSStyleDeclaration | any;
+        containerStyle?: string | React.CSSProperties;
+        inputStyle?: string | React.CSSProperties;
+        focusStyle?: string | React.CSSProperties;
+        disabledStyle?: string | React.CSSProperties;
+        errorStyle?: string | React.CSSProperties;
     }
 }
 
