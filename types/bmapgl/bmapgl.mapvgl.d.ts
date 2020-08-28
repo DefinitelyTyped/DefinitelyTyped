@@ -1,4 +1,4 @@
-// Type definitions for non-npm package bmapgl-browser
+// Type definitions for BaiduMap JsAPI GL v1.0
 // Project: http://lbsyun.baidu.com/index.php?title=jspopularGL
 // Definitions by: Junior2ran <http://github.com/Junior2ran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -28,15 +28,48 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************** */
 
-/// <reference path="./bmapgl.base.d.ts" />
-/// <reference path="./bmapgl.control.d.ts" />
 /// <reference path="./bmapgl.core.d.ts" />
-/// <reference path="./bmapgl.maplayer.d.ts" />
-/// <reference path="./bmapgl.maptype.d.ts" />
-/// <reference path="./bmapgl.overlay.d.ts" />
-/// <reference path="./bmapgl.panorama.d.ts" />
-/// <reference path="./bmapgl.rightmenu.d.ts" />
-/// <reference path="./bmapgl.service.d.ts" />
-/// <reference path="./bmapgl.tools.d.ts" />
-/// <reference path="./bmapgl.bmapgllib.d.ts" />
-/// <reference path="./bmapgl.mapvgl.d.ts" />
+declare namespace MapVGL {
+    class View {
+        constructor(opts: ViewOptions);
+        addLayer(x: Layer): void;
+        removeLayer(x: Layer): void;
+        destroy(): void;
+        getAllLayers(x: Layer): Layer[];
+        getAllThreeLayers(x: Layer): Layer[];
+    }
+    interface ViewOptions {
+        map?: object;
+        mapType?: 'bmap' | 'blank' | 'cesium';
+        effects?: Effects[];
+    }
+
+    class Layer {
+        constructor(map: BMapGL.Map, opts?: LayerOptions);
+        setData(x: GeoJSON[]): void;
+        setOptions(x: LayerOptions): void;
+        getData(): GeoJSON[];
+        getOptions(): LayerOptions;
+        getDefaultOptions(): LayerOptions;
+        destroy(): void;
+    }
+    interface LayerOptions {
+        repeat?: boolean;
+        data?: GeoJSON[];
+        [x: string]: any;
+    }
+    interface GeoJSON {
+        geometry: {
+            type: 'Point' | 'LineString' | 'Polygon',
+            coordinates: any[];
+        };
+        properties?: {
+            [x: string]: any
+        };
+        [x: string]: any;
+    }
+
+    class Effects {
+        constructor(opts?: object);
+    }
+}
