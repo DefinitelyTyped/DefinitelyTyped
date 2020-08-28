@@ -17,11 +17,11 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "lib/definitions.ts",
-        "lib/seatingChart.ts",
-        "lib/eventManager.ts",
-        "lib/chartManager.ts",
-        "lib/seatingChartDesigner.ts",
+        "definitions.ts",
+        "seatingChart.ts",
+        "eventManager.ts",
+        "chartManager.ts",
+        "seatingChartDesigner.ts",
         "index.d.ts",
         "seatsio-tests.ts"
     ]
