@@ -476,6 +476,79 @@ declare namespace Office {
         */
         value: T;
     }
+	
+    /**
+     * An interface that contains all the functionality provided to manage the state of the Office ribbon.
+	 *
+	 * @remarks
+     *
+     * **Requirement set**: Ribbon 1.1
+     */
+    interface Ribbon {
+        /**
+         * Sends a request to Office to update the ribbon.
+		 *
+		 * @remarks
+         *
+         * **Requirement set**: Ribbon 1.1
+		 *
+         * Note that this API is only to request an update. The actual UI update to the ribbon is controlled by the Office application and hence the exact timing of the ribbon update (or refresh) cannot be determined by the completion of this API.
+		 *
+         * @param input - Represents the updates to be made to the ribbon. Note that only the changes specified in the input parameter are made.
+         */
+        requestUpdate(input: RibbonUpdaterData): Promise<void>;
+    }
+    /**
+     * Specifies changes to the ribbon, such as the enabled or disabled status of a button.
+	 *
+	 * @remarks
+     *
+     * **Requirement set**: Ribbon 1.1
+     */
+    interface RibbonUpdaterData {
+        /**
+         * Collection of tabs whose state is set with the call of `requestUpdate`.
+		 */
+        tabs: Tab[];
+    }
+    /**
+     * Represents an individual tab and the state it should have.
+	 *
+	 * @remarks
+     *
+     * **Requirement set**: Ribbon 1.1
+     */
+    interface Tab {
+        /**
+         * Identifier of the tab as specified in the manifest.
+         */
+        id: string;
+        /**
+         * Specifies the controls in the tab, such as menu items, buttons, etc.
+         */
+        controls?: Control[];
+    }
+    /**
+     * Represents an individual control or command and the state it should have.
+	 *
+	 * @remarks
+     *
+     * **Requirement set**: Ribbon 1.1
+     */
+    interface Control {
+        /**
+         * Identifier of the control as specified in the manifest.
+         */
+        id: string;
+        /**
+         * Indicates whether the control should be visible or hidden. The default is true.
+         */
+        visible?: boolean;
+        /**
+         * Indicates whether the control should be enabled or disabled. The default is true.
+         */
+        enabled?: boolean;
+    } 	
     /**
      * Represents the runtime environment of the add-in and provides access to key objects of the API. 
      * The current context exists as a property of Office. It is accessed using `Office.context`.
@@ -737,6 +810,21 @@ declare namespace Office {
      * for more information.
      */
     interface UI {
+        /**
+         * Adds an event handler to the object using the specified event type.
+         *
+         * @remarks
+         *
+         * **Requirement set**: DialogApi 1.2
+         *
+         * You can add multiple event handlers for the specified event type as long as the name of each event handler function is unique.
+         *
+         * @param eventType Specifies the type of event to add. This must be `Office.EventType.DialogParentMessageReceived`.
+         * @param handler The event handler function to add, whose only parameter is of type {@link Office.DialogParentMessageReceivedEventArgs}.
+         * @param options Optional. Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback Optional. A function that is invoked when the handler registration returns, whose only parameter is of type {@link Office.AsyncResult}.
+         */
+        addHandlerAsync(eventType: Office.EventType, handler: (result: DialogParentMessageReceivedEventArgs) => void, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
         /**
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
         *
@@ -1523,6 +1611,16 @@ declare namespace Office {
          */
         addEventHandler(eventType: Office.EventType, handler: (args: {message: string | boolean} | {error: number}) => void): void;
         /**
+         * Delivers a message from the host page, such as a task pane or a UI-less function file, to a dialog that was opened from the page.
+         *
+         * @remarks
+         *
+         * **Requirement set**: DialogApi 1.2
+         *
+         * @param message Accepts a message from the host page to deliver to the dialog. Anything that can be serialized to a string, including JSON and XML, can be sent.
+         */
+        messageChild(message: string): void;
+        /**
          * FOR INTERNAL USE ONLY. DO NOT CALL IN YOUR CODE.
          */
         sendMessage(name: string): void;
@@ -1761,6 +1859,10 @@ declare namespace Office {
          * Triggers when a dialog sends a message via `messageParent`.
          */
         DialogMessageReceived,
+        /**
+         * Triggers when a host page sends a message to a child dialog box with `messageChild`.
+         */
+        DialogParentMessageReceived,
         /**
          * Triggers when a document-level selection happens.
          * 
@@ -4929,6 +5031,23 @@ declare namespace Office {
          * Gets an {@link Office.Settings} object that represents the settings that raised the settingsChanged event.
          */
         settings: Settings;
+        /**
+         * Get an {@link Office.EventType} enumeration value that identifies the kind of event that was raised.
+         */
+        type: EventType;
+    }
+    /**
+     * Provides information about the message from the parent page that raised the `DialogParentMessageReceived` event.
+     *
+     * To add an event handler for the `DialogParentMessageReceived` event, use the `addHandlerAsync` method of the
+     * {@link Office.UI} object.
+     *
+     */
+    interface DialogParentMessageReceivedEventArgs {
+        /**
+         * Gets the content of the message sent from the parent page, which can be any string or stringified data.
+         */
+        message: string;
         /**
          * Get an {@link Office.EventType} enumeration value that identifies the kind of event that was raised.
          */
@@ -20136,21 +20255,21 @@ declare namespace Excel {
         readonly columnIndex: number;
         /**
          *
-         * Represents the formula in A1-style notation.
+         * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.1]
          */
         formulas: any[][];
         /**
          *
-         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.1]
          */
         formulasLocal: any[][];
         /**
          *
-         * Represents the formula in R1C1-style notation.
+         * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -21769,21 +21888,21 @@ declare namespace Excel {
         readonly columnCount: number;
         /**
          *
-         * Represents the formula in A1-style notation.
+         * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */
         formulas: any[][];
         /**
          *
-         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */
         formulasLocal: any[][];
         /**
          *
-         * Represents the formula in R1C1-style notation.
+         * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */

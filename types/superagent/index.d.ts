@@ -111,6 +111,7 @@ declare namespace request {
         get(header: string): string;
         get(header: 'Set-Cookie'): string[];
         header: any;
+        headers: any;
         info: boolean;
         links: object;
         noContent: boolean;

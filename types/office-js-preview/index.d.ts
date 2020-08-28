@@ -885,7 +885,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * **Requirement set**: TBD
+         * **Requirement set**: DialogApi 1.2
          *
          * You can add multiple event handlers for the specified event type as long as the name of each event handler function is unique.
          *
@@ -1684,8 +1684,6 @@ declare namespace Office {
         /**
          * Delivers a message from the host page, such as a task pane or a UI-less function file, to a dialog that was opened from the page.
          *
-         * @beta
-         *
          * @remarks
          *
          * **Requirement set**: TBD
@@ -1934,8 +1932,6 @@ declare namespace Office {
         DialogMessageReceived,
         /**
          * Triggers when a host page sends a message to a child dialog box with `messageChild`.
-         *
-         * @beta
          */
         DialogParentMessageReceived,
         /**
@@ -5124,8 +5120,6 @@ declare namespace Office {
     }
     /**
      * Provides information about the message from the parent page that raised the `DialogParentMessageReceived` event.
-     *
-     * @beta
      *
      * To add an event handler for the `DialogParentMessageReceived` event, use the `addHandlerAsync` method of the
      * {@link Office.UI} object.
@@ -23645,21 +23639,21 @@ declare namespace Excel {
         readonly columnIndex: number;
         /**
          *
-         * Represents the formula in A1-style notation.
+         * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.1]
          */
         formulas: any[][];
         /**
          *
-         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.1]
          */
         formulasLocal: any[][];
         /**
          *
-         * Represents the formula in R1C1-style notation.
+         * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -25444,21 +25438,21 @@ declare namespace Excel {
         readonly columnCount: number;
         /**
          *
-         * Represents the formula in A1-style notation.
+         * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */
         formulas: any[][];
         /**
          *
-         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */
         formulasLocal: any[][];
         /**
          *
-         * Represents the formula in R1C1-style notation.
+         * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */

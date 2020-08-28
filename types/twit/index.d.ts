@@ -310,6 +310,10 @@ declare module 'twit' {
             in_reply_to_status_id?: number | string;
             page?: number;
             auto_populate_reply_metadata?: boolean;
+            list_id?: number | string;
+            name?: string;
+            description?: string;
+            mode?: 'public' | 'private';
         }
         export interface PromiseResponse {
             data: Response;

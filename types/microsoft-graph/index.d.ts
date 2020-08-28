@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 1.14
+// Type definitions for non-npm package microsoft-graph 1.17
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -872,6 +872,7 @@ export type MediaDirection = "inactive" | "sendOnly" | "receiveOnly" | "sendRece
 export type MediaState = "active" | "inactive" | "unknownFutureValue";
 export type Modality = "audio" | "video" | "videoBasedScreenSharing" | "data" | "unknownFutureValue";
 export type RecordingStatus = "unknown" | "notRecording" | "recording" | "failed" | "unknownFutureValue";
+export type CallTranscriptionState = "notStarted" | "active" | "inactive" | "unknownFutureValue";
 export type RejectReason = "none" | "busy" | "forbidden" | "unknownFutureValue";
 export type RoutingType = "forwarded" | "lookup" | "selfFork" | "unknownFutureValue";
 export type ScreenSharingRole = "viewer" | "sharer";
@@ -2423,12 +2424,23 @@ export interface OnlineMeeting extends Entity {
     joinInformation?: NullableOption<ItemBody>;
 }
 export interface Team extends Entity {
+    // The name of the team.
     displayName?: NullableOption<string>;
+    // An optional description for the team.
     description?: NullableOption<string>;
     // A unique ID for the team that has been used in a few places such as the audit log/Office 365 Management Activity API.
     internalId?: NullableOption<string>;
+    /**
+     * An optional label. Typically describes the data or business sensitivity of the team. Must match one of a pre-configured
+     * set in the tenant's directory.
+     */
     classification?: NullableOption<string>;
+    /**
+     * Optional. Indicates whether the team is intended for a particular use case. Each team specialization has access to
+     * unique behaviors and experiences targeted to its use case.
+     */
     specialization?: NullableOption<TeamSpecialization>;
+    // The visibility of a the group and team. Defaults to Public.
     visibility?: NullableOption<TeamVisibilityType>;
     /**
      * A hyperlink that will go to the team in the Microsoft Teams client. This is the URL that you get when you right-click a
@@ -2449,9 +2461,12 @@ export interface Team extends Entity {
     funSettings?: NullableOption<TeamFunSettings>;
     // Whether this team is in read-only mode.
     isArchived?: NullableOption<boolean>;
+    // The schedule of shifts for this team.
     schedule?: NullableOption<Schedule>;
     group?: NullableOption<Group>;
+    // The template this team was created from. See available templates.
     template?: NullableOption<TeamsTemplate>;
+    // Members and owners of the team.
     members?: NullableOption<ConversationMember[]>;
     // The collection of channels &amp; messages associated with the team.
     channels?: NullableOption<Channel[]>;
@@ -2459,6 +2474,7 @@ export interface Team extends Entity {
     primaryChannel?: NullableOption<Channel>;
     // The apps installed in this team.
     installedApps?: NullableOption<TeamsAppInstallation[]>;
+    // The async operations that ran or are running on this team.
     operations?: NullableOption<TeamsAsyncOperation[]>;
 }
 // tslint:disable-next-line: interface-name
@@ -2511,6 +2527,7 @@ export interface Application extends DirectoryObject {
     identifierUris?: string[];
     // The date and time the application was registered. Read-only.
     createdDateTime?: NullableOption<string>;
+    description?: NullableOption<string>;
     // Specifies settings for installed clients such as desktop or mobile devices.
     publicClient?: NullableOption<PublicClientApplication>;
     // The display name for the application.
@@ -2533,6 +2550,7 @@ export interface Application extends DirectoryObject {
     keyCredentials?: KeyCredential[];
     // The main logo for the application. Not nullable.
     logo?: any;
+    notes?: NullableOption<string>;
     oauth2RequirePostResponse?: boolean;
     /**
      * Application developers can configure optional claims in their Azure AD apps to specify which claims they want in tokens
@@ -3289,6 +3307,7 @@ export interface ServicePrincipal extends DirectoryObject {
     alternativeNames?: string[];
     // The display name exposed by the associated application.
     appDisplayName?: NullableOption<string>;
+    appDescription?: NullableOption<string>;
     // The unique identifier for the associated application (its appId property).
     appId?: NullableOption<string>;
     // Unique identifier of the applicationTemplate that the servicePrincipal was created from. Read-only.
@@ -3308,6 +3327,7 @@ export interface ServicePrincipal extends DirectoryObject {
      * property definition on the application entity. Not nullable.
      */
     appRoles?: AppRole[];
+    description?: NullableOption<string>;
     // The display name for the service principal.
     displayName?: NullableOption<string>;
     // Home page or landing page of the application.
@@ -3332,6 +3352,7 @@ export interface ServicePrincipal extends DirectoryObject {
      * front-channel, back-channel or SAML logout protocols.
      */
     logoutUrl?: NullableOption<string>;
+    notes?: NullableOption<string>;
     /**
      * Specifies the list of email addresses where Azure AD sends a notification when the active certificate is near the
      * expiration date. This is only for the certificates used to sign the SAML token issued for Azure AD Gallery
@@ -4913,6 +4934,7 @@ export interface Call extends Entity {
     callOptions?: NullableOption<CallOptions>;
     // The meeting information that's required for joining a meeting.
     meetingInfo?: NullableOption<MeetingInfo>;
+    transcription?: NullableOption<CallTranscriptionInfo>;
     tenantId?: NullableOption<string>;
     // Read-only.
     myParticipantId?: NullableOption<string>;
@@ -9272,6 +9294,8 @@ export interface CommsOperation extends Entity {
     // The result information. Read-only.
     resultInfo?: NullableOption<ResultInfo>;
 }
+// tslint:disable-next-line: no-empty-interface
+export interface CancelMediaProcessingOperation extends CommsOperation {}
 // tslint:disable-next-line: interface-name
 export interface InviteParticipantsOperation extends CommsOperation {
     // The participants to invite.
@@ -9351,7 +9375,9 @@ export interface Schedule extends Entity {
 // tslint:disable-next-line: no-empty-interface
 export interface TeamsTemplate extends Entity {}
 export interface ConversationMember extends Entity {
+    // The roles for that user.
     roles?: NullableOption<string[]>;
+    // The display name of the user.
     displayName?: NullableOption<string>;
 }
 export interface Channel extends Entity {
@@ -9381,13 +9407,24 @@ export interface TeamsAppInstallation extends Entity {
     teamsAppDefinition?: NullableOption<TeamsAppDefinition>;
 }
 export interface TeamsAsyncOperation extends Entity {
+    // Denotes which type of operation is being described.
     operationType?: TeamsAsyncOperationType;
+    // Time when the operation was created.
     createdDateTime?: string;
+    // Operation status.
     status?: TeamsAsyncOperationStatus;
+    // Time when the async operation was last updated.
     lastActionDateTime?: string;
+    // Number of times the operation was attempted before being marked successful or failed.
     attemptsCount?: number;
+    // The ID of the object that's created or modified as result of this async operation, typically a team.
     targetResourceId?: NullableOption<string>;
+    /**
+     * The location of the object that's created or modified as result of this async operation. This URL should be treated as
+     * an opaque value and not parsed into its component paths.
+     */
     targetResourceLocation?: NullableOption<string>;
+    // Any error that causes the async operation to fail.
     error?: NullableOption<OperationError>;
 }
 export interface ChatMessage extends Entity {
@@ -9447,13 +9484,13 @@ export interface TeamsApp extends Entity {
     externalId?: NullableOption<string>;
     // The name of the catalog app provided by the app developer in the Microsoft Teams zip app package.
     displayName?: NullableOption<string>;
-    // The method of distribution for the app.
+    // The method of distribution for the app. Read-only.
     distributionMethod?: NullableOption<TeamsAppDistributionMethod>;
     // The details for each version of the app.
     appDefinitions?: NullableOption<TeamsAppDefinition[]>;
 }
 export interface TeamsAppDefinition extends Entity {
-    // The id from the Teams App manifest.
+    // The ID from the Teams app manifest.
     teamsAppId?: NullableOption<string>;
     // The name of the app provided by the app developer.
     displayName?: NullableOption<string>;
@@ -9471,7 +9508,9 @@ export interface TeamsTab extends Entity {
     teamsApp?: NullableOption<TeamsApp>;
 }
 export interface AadUserConversationMember extends ConversationMember {
+    // The guid of the user.
     userId?: NullableOption<string>;
+    // The email address of the user.
     email?: NullableOption<string>;
     user?: NullableOption<User>;
 }
@@ -13400,6 +13439,10 @@ export interface ChatInfo {
 export interface CallOptions {}
 // tslint:disable-next-line: no-empty-interface
 export interface MeetingInfo {}
+export interface CallTranscriptionInfo {
+    state?: CallTranscriptionState;
+    lastModifiedDateTime?: NullableOption<string>;
+}
 export interface ToneInfo {
     // An incremental identifier used for ordering DTMF events.
     sequenceId?: number;

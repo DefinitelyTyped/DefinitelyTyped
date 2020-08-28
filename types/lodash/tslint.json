@@ -1,11 +1,11 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        "ban-types": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "no-unnecessary-generics": false,
         "typedef-whitespace": false,
-        "unified-signatures": false,
-        "use-default-type-parameter": false
+        "unified-signatures": false
     }
 }

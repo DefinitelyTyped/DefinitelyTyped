@@ -3,21 +3,30 @@ import { load, loadSync, parse, Glyph, Font, Path, PathCommand } from "opentype.
 const x = 0;
 const y = 0;
 const fontSize = 72;
+<<<<<<< HEAD
 const canvas: HTMLCanvasElement = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
+=======
+const ctx: CanvasRenderingContext2D = (document.getElementById('canvas') as HTMLCanvasElement).getContext('2d')!;
+>>>>>>> 9533280cc9cca7e9b7f304982c60b5e83b42964b
 
 load('fonts/Roboto-Black.ttf', (err, font) => {
     if (err) {
         alert('Font could not be loaded: ' + err);
     } else {
-        const path = font.getPath('Hello, World!', 0, 150, 72);
-        // If you just want to draw the text you can also use font.draw(ctx, text, x, y, fontSize).
+        const path = font!.getPath('Hello, World!', 0, 150, 72);
         path.draw(ctx);
     }
 });
 
+<<<<<<< HEAD
 let font = parse(new ArrayBuffer(0));
 font = loadSync('fonts/Roboto-Black.ttf');
+=======
+let myBuffer = new ArrayBuffer(1024);
+let font = opentype.parse(myBuffer);
+font = opentype.loadSync('fonts/Roboto-Black.ttf', { lowMemory: true});
+>>>>>>> 9533280cc9cca7e9b7f304982c60b5e83b42964b
 
 const notdefGlyph = new Glyph({
     name: '.notdef',
@@ -121,7 +130,16 @@ aPath.draw(ctx);
 const pathData: string = aPath.toPathData(7);
 const pathSvg: string = aPath.toSVG(7);
 const pathDom: SVGPathElement = aPath.toDOMElement(7);
+<<<<<<< HEAD
 const pathCommands: PathCommand[] = aPath.commands;
 const pathFill: string | null = aPath.fill;
 const pathStroke: string | null = aPath.stroke;
 const pathStrokeWidth: number =  aPath.strokeWidth;
+=======
+
+async function make() {
+    const font = await opentype.load('fonts/Roboto-Black.ttf');
+    const path = font.getPath('Hello, World!', 0, 150, 72);
+    console.log(path);
+}
+>>>>>>> 9533280cc9cca7e9b7f304982c60b5e83b42964b

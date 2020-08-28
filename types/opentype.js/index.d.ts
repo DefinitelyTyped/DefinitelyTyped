@@ -1,9 +1,9 @@
-// Type definitions for opentype.js 0.7
+// Type definitions for opentype.js 1.3
 // Project: https://github.com/opentypejs/opentype.js
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 //                 Edgar Simson <https://github.com/edzis>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 export as namespace opentype;
 
@@ -419,7 +419,12 @@ export function load(
     url: string,
     callback: (error: any, font?: Font) => void
 ): void;
+export function load(
+    url: string,
+): Promise<Font>;
 
-export function loadSync(url: string): Font;
+export function loadSync(url: string, opt?: {
+    lowMemory: boolean;
+}): Font;
 
 export function parse(buffer: any): Font;
