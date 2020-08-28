@@ -19,7 +19,7 @@ declare class RedisStore {
             client?: RedisClient;
             prefix?: string;
             host?: string;
-            port?: string;
+            port?: number;
         },
         ...args: any[]
     );
@@ -44,7 +44,7 @@ declare class RedisStore {
     static defaults: {
         prefix: string;
         host: string;
-        port: string;
+        port: number;
     };
 }
 
