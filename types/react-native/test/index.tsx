@@ -107,6 +107,8 @@ import {
     TextLayoutEventData,
     LayoutChangeEvent,
     AppStateStatus,
+    DrawerLayoutAndroid,
+    DrawerSlideEvent,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -1417,3 +1419,72 @@ const AccessibilityCustomActionsTest = () => {
         />
     );
 };
+
+// DrawerLayoutAndroidTest
+export class DrawerLayoutAndroidTest extends React.Component {
+    drawerRef = React.createRef<DrawerLayoutAndroid>();
+
+    readonly styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+            paddingTop: 50,
+            backgroundColor: "#ecf0f1",
+            padding: 8
+        },
+        navigationContainer: {
+            flex: 1,
+            paddingTop: 50,
+            backgroundColor: "#fff",
+            padding: 8
+        }
+    });
+
+    readonly navigationView = (
+        <View style={this.styles.navigationContainer}>
+            <Text style={{ margin: 10, fontSize: 15 }}>I'm in the Drawer!</Text>
+        </View>
+    );
+
+    handleDrawerClose = () => {
+        console.log("handleDrawerClose");
+    }
+
+    handleDrawerOpen = () => {
+        console.log("handleDrawerOpen");
+    }
+
+    handleDrawerSlide = (event: DrawerSlideEvent) => {
+        console.log("handleDrawerSlide", event);
+    }
+
+    handleDrawerStateChanged = (event: "Idle" | "Dragging" | "Settling") => {
+        console.log("handleDrawerStateChanged", event);
+    }
+
+    render() {
+        return (
+            <DrawerLayoutAndroid
+                ref={this.drawerRef}
+                drawerBackgroundColor="rgba(0,0,0,0.5)"
+                drawerLockMode="locked-closed"
+                drawerPosition="right"
+                drawerWidth={300}
+                keyboardDismissMode="on-drag"
+                onDrawerClose={this.handleDrawerClose}
+                onDrawerOpen={this.handleDrawerOpen}
+                onDrawerSlide={this.handleDrawerSlide}
+                onDrawerStateChanged={this.handleDrawerStateChanged}
+                renderNavigationView={() => this.navigationView}
+                statusBarBackgroundColor="yellow"
+            >
+                <View style={this.styles.container}>
+                    <Text style={{ margin: 10, fontSize: 15 }}>
+                        DrawerLayoutAndroid example
+                    </Text>
+                </View>
+            </DrawerLayoutAndroid>
+        );
+    }
+}
