@@ -1,5 +1,6 @@
 import * as React from "react";
-import OtpInput from 'react-otp-input';
+import OTPInput = require("react-otp-input");
+
 
 interface InputOtpProps {
     inputCount: number;
@@ -23,7 +24,7 @@ class OtpInputPage extends React.Component<InputOtpProps, OtpInputState> {
 
         return (
             <>
-                <OtpInput
+                <OTPInput
                     value={otp}
                     onChange={this.handleChange}
                     numInputs={6}
