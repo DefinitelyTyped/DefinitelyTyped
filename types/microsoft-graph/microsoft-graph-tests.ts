@@ -80,7 +80,7 @@ const callRecord: CallRecords.CallRecord = {
     type: callType,
 };
 
-// Testing cross namespace inheritance 
+// Testing cross namespace inheritance
 // id comes from Entity which is defined in parent namespace
 const session: CallRecords.Session = {
     id: "TestId"
