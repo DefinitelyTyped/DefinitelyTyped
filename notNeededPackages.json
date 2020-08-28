@@ -1603,6 +1603,12 @@
             "asOfVersion": "2.7.0"
         },
         {
+            "libraryName": "generate-password",
+            "typingsPackageName": "generate-password",
+            "sourceRepoURL": "https://github.com/brendanashworth/generate-password.git",
+            "asOfVersion": "1.5.1"
+        },
+        {
             "libraryName": "geolib",
             "typingsPackageName": "geolib",
             "sourceRepoURL": "https://github.com/manuelbieh/Geolib",
