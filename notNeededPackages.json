@@ -741,6 +741,12 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "@cucumber/cucumber",
+            "typingsPackageName": "cucumber",
+            "sourceRepoURL": "https://github.com/cucumber/cucumber-js",
+            "asOfVersion": "7.0.0"
+        },
+        {
             "libraryName": "cucumber-html-reporter",
             "typingsPackageName": "cucumber-html-reporter",
             "asOfVersion": "5.0.1"
