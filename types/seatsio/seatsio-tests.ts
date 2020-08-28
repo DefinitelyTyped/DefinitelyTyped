@@ -1,4 +1,6 @@
-let seatingChartConfig: Seatsio.SeatingChartConfig = {
+import seatsio = require("./index");
+
+const seatingChartConfig: Seatsio.SeatingChartConfig = {
     divId: 'chart',
     workspaceKey: 'myWorkspaceKey',
     selectionValidators: [
