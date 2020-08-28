@@ -1,4 +1,4 @@
-// Type definitions for webscopeio__react-textarea-autocomplete 4.6
+// Type definitions for @webscopeio/react-textarea-autocomplete 4.6
 // Project: https://github.com/webscopeio/react-textarea-autocomplete
 // Definitions by: Michal Zochowski <https://github.com/michauzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
