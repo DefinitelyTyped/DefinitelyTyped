@@ -23,16 +23,12 @@ interface IStrategyOptionsWithRequest {
     passReqToCallback: true;
 }
 
-interface IVerifyOptions {
-    message: string;
-}
-
 interface VerifyFunctionWithRequest {
     (
         req: express.Request,
         username: string,
         password: string,
-        done: (error: any, user?: any, options?: IVerifyOptions) => void
+        done: (error: any, user?: any, info?: any) => void
     ): void;
 }
 
@@ -40,7 +36,7 @@ interface VerifyFunction {
     (
         username: string,
         password: string,
-        done: (error: any, user?: any, options?: IVerifyOptions) => void
+        done: (error: any, user?: any, info?: any) => void
     ): void;
 }
 
