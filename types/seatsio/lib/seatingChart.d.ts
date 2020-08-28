@@ -1,3 +1,5 @@
+/// <reference path="definitions.d.ts" />
+
 declare namespace Seatsio {
     interface SeatingChart {
         config: SeatingChartConfig;
@@ -129,25 +131,6 @@ declare namespace Seatsio {
         onSelectionInvalid?: (violations: Violations[]) => void;
         onFullScreenOpened?: () => void;
         onFullScreenClosed?: () => void;
-    }
-
-    type ColorScheme = 'light' | 'dark';
-
-    interface Colors {
-        colorSelected?: string;
-        cursorTooltipBackgroundColor?: string;
-        colorTitle?: string;
-    }
-
-    type StylePreset = 'balance' | 'bubblegum' | 'flathead' | 'bezels' | 'leaf';
-
-    interface Style {
-        font?: 'Roboto' | 'Montserrat' | 'WorkSans' | 'NotoSansHK' | 'Lato';
-        fontWeight?: 'bolder' | 'minMax';
-        borderRadius?: 'none' | 'max' | 'asymmetrical';
-        border?: 'thick' | '3d';
-        padding?: 'spacious';
-        buttonFace?: 'fillEnabled' | 'fillHighlightedOption';
     }
 
     interface CategoryConfig {

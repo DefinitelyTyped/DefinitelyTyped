@@ -17,11 +17,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "lib/definitions.d.ts",
-        "lib/seatingChart.d.ts",
-        "lib/eventManager.d.ts",
-        "lib/chartManager.d.ts",
-        "lib/seatingChartDesigner.d.ts",
         "index.d.ts",
         "seatsio-tests.ts"
     ]

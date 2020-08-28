@@ -4,6 +4,11 @@
 //                 Peter de Kok <https://github.com/PeterDeKok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="lib/seatingChart.d.ts" />
+/// <reference path="lib/eventManager.d.ts" />
+/// <reference path="lib/seatingChartDesigner.d.ts" />
+/// <reference path="lib/chartManager.d.ts" />
+
 declare var seatsio: Seatsio;
 export = seatsio;
 

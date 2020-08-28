@@ -82,4 +82,23 @@ declare namespace Seatsio {
             }
         };
     }
+
+    type ColorScheme = 'light' | 'dark';
+
+    interface Colors {
+        colorSelected?: string;
+        cursorTooltipBackgroundColor?: string;
+        colorTitle?: string;
+    }
+
+    type StylePreset = 'balance' | 'bubblegum' | 'flathead' | 'bezels' | 'leaf';
+
+    interface Style {
+        font?: 'Roboto' | 'Montserrat' | 'WorkSans' | 'NotoSansHK' | 'Lato';
+        fontWeight?: 'bolder' | 'minMax';
+        borderRadius?: 'none' | 'max' | 'asymmetrical';
+        border?: 'thick' | '3d';
+        padding?: 'spacious';
+        buttonFace?: 'fillEnabled' | 'fillHighlightedOption';
+    }
 }

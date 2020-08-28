@@ -1,3 +1,5 @@
+/// <reference path="definitions.d.ts" />
+
 declare namespace Seatsio {
     interface ChartManager {
         // tslint:disable-next-line:no-misused-new
