@@ -6,6 +6,18 @@ const app = new Koa();
 const config: webpack.Configuration = {};
 const compiler = webpack(config);
 
+app.use(ctx => {
+    // $ExpectType MemoryFileSystem
+    ctx.state.fs;
+    ctx.body = ctx.state.fs.createReadStream('file.js');
+});
+
+app.use(ctx => {
+    // $ExpectType Stats
+    ctx.state.stats;
+    ctx.body = ctx.state.stats.toJson();
+});
+
 // Using the middleware
 koaWebpack({
     compiler,
