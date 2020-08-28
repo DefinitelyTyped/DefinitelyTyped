@@ -2,24 +2,23 @@ declare namespace Seatsio {
     type BookableObject = Seat | GeneralAdmissionArea | Section;
 
     interface BaseObject {
-        // TODO: check whether some of these properties can be null or undefined
         accessible: boolean;
-        category: Category;
-        center: { x: number, y: number };
+        category?: Category;
+        center?: { x: number, y: number };
         label: string;
         labels: {
             own: string
             parent?: string
             section?: string
         };
-        pricing: Pricing[] | Pricing; // TODO: can this also be a number?
+        pricing?: Pricing[] | Pricing;
         status: string;
         extraData: any;
         dataPerEvent: { [eventKey: string]: DataPerEvent };
         forSale: boolean;
         selectable: boolean;
         selected: boolean;
-        selectedTicketType: string;
+        selectedTicketType?: string;
         inSelectableChannel: boolean;
         objectType: string;
 
@@ -27,7 +26,7 @@ declare namespace Seatsio {
         deselect(ticketType?: string): void;
         pulse(): void;
         unpulse(): void;
-        displayObjectType: string;
+        displayObjectType?: string;
     }
 
     interface Category {
