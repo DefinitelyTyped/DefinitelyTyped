@@ -305,6 +305,7 @@ type Spotify = (options: ProviderSpotifyOptions) => GenericReturnConfig;
 interface ProviderSpotifyOptions {
     clientId: string;
     clientSecret: string;
+    scope?: string;
 }
 
 /**
