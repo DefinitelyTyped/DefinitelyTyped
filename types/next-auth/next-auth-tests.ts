@@ -416,6 +416,13 @@ Providers.Spotify({
 });
 
 // $ExpectType GenericReturnConfig
+Providers.Spotify({
+    clientId: 'foo123',
+    clientSecret: 'bar123',
+    scope: 'user-read-email',
+});
+
+// $ExpectType GenericReturnConfig
 Providers.Basecamp({
     clientId: 'foo123',
     clientSecret: 'bar123',
