@@ -3371,7 +3371,7 @@ declare module "react-syntax-highlighter/dist/cjs/styles/prism" {
     } from "react-syntax-highlighter/dist/cjs/styles/prism/vs";
     export {
         default as vscDarkPlus
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/vsc-dark-plus"
+    } from "react-syntax-highlighter/dist/cjs/styles/prism/vsc-dark-plus";
     export {
         default as xonokai
     } from "react-syntax-highlighter/dist/cjs/styles/prism/xonokai";
