@@ -2833,6 +2833,168 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "@material/animation",
+            "typingsPackageName": "material__animation",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-animation",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/auto-init",
+            "typingsPackageName": "material__auto-init",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-auto-init",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/ripple",
+            "typingsPackageName": "material__ripple",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-ripple",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/checkbox",
+            "typingsPackageName": "material__checkbox",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-checkbox",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/chips",
+            "typingsPackageName": "material__chips",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-chips",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/dialog",
+            "typingsPackageName": "material__dialog",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-dialog",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/dom",
+            "typingsPackageName": "material__dom",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-dom",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/drawer",
+            "typingsPackageName": "material__drawer",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-drawer",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/floating-label",
+            "typingsPackageName": "material__floating-label",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-floating-label",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/form-field",
+            "typingsPackageName": "material__form-field",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-form-field",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/grid-list",
+            "typingsPackageName": "material__grid-list",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-grid-list",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/icon-button",
+            "typingsPackageName": "material__icon-toggle",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-icon-button",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/line-ripple",
+            "typingsPackageName": "material__line-ripple",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-line-ripple",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/linear-progress",
+            "typingsPackageName": "material__linear-progress",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-linear-progress",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/list",
+            "typingsPackageName": "material__list",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-list",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/menu",
+            "typingsPackageName": "material__menu",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-menu",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/notched-outline",
+            "typingsPackageName": "material__notched-outline",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-notched-outline",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/radio",
+            "typingsPackageName": "material__radio",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-radio",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/select",
+            "typingsPackageName": "material__select",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-select",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "material-components-web",
+            "typingsPackageName": "material__selection-control",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/slider",
+            "typingsPackageName": "material__slider",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-slider",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/snackbar",
+            "typingsPackageName": "material__snackbar",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-snackbar",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/tab",
+            "typingsPackageName": "material__tab",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-tab",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/tabs",
+            "typingsPackageName": "material__tabs",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-tabs",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/textfield",
+            "typingsPackageName": "material__textfield",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-textfield",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/toolbar",
+            "typingsPackageName": "material__toolbar",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-toolbar",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/top-app-bar",
+            "typingsPackageName": "material__top-app-bar",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-top-app-bar",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "maxmind",
             "typingsPackageName": "maxmind",
             "sourceRepoURL": "https://github.com/runk/node-maxmind",
