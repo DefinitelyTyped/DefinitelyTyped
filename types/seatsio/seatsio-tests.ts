@@ -1,4 +1,4 @@
-import seatsio = require("./index");
+import seatsio = require("seatsio");
 
 const seatingChartConfig: Seatsio.SeatingChartConfig = {
     divId: 'chart',
