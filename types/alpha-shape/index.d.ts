@@ -1,6 +1,6 @@
 // Type definitions for alpha-shape 1.0
 // Project: https://github.com/mikolalysenko/alpha-shape
-// Definitions by: ArranZeyuWang <https://github.com/DefinitelyTyped>
+// Definitions by: ArranZeyuWang <https://github.com/ArranZeyuWang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
