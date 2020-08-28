@@ -4,6 +4,7 @@ declare namespace Seatsio {
         holdToken: string | null;
         selectedObjects: string[];
 
+        // tslint:disable-next-line:no-misused-new
         new(config: SeatingChartConfig): SeatingChart;
         render(): SeatingChart;
         destroy(): void;

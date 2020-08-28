@@ -1,5 +1,6 @@
 declare namespace Seatsio {
     interface ChartManager {
+        // tslint:disable-next-line:no-misused-new
         new(config: ChartManagerConfig): ChartManager;
 
         render(): ChartManager;

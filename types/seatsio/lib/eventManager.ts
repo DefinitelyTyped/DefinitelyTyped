@@ -1,5 +1,6 @@
 declare namespace Seatsio {
     interface EventManager {
+        // tslint:disable-next-line:no-misused-new
         new(config: EventManagerConfig): EventManager;
 
         render(): EventManager;

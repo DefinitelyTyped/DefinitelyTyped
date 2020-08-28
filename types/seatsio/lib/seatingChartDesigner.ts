@@ -1,5 +1,6 @@
 declare namespace Seatsio {
     interface SeatingChartDesigner {
+        // tslint:disable-next-line:no-misused-new
         new(config: SeatingChartDesignerConfig): SeatingChartDesigner;
 
         render(): SeatingChartDesigner;
