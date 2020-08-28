@@ -1,4 +1,4 @@
-import { core, payouts } from 'paypal__payouts-sdk';
+import { core, payouts } from '@paypal/payouts-sdk';
 
 declare const id: string;
 declare const secret: string;
