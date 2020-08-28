@@ -6,15 +6,31 @@
 // TypeScript Version: 3.5
 
 /// <reference types="jest" />
-
-declare namespace mocked {
-    // Todo - fill out this definition in the next release.
-    type Mocked<T> = any;
-}
+/// <reference path="./mocked.d.ts" />
 
 /**
- * This is a global equivalent of the mocked() API from ts-jest:
+ * Tests can use the `mocked()` function to access additional properties that
+ * Jest adds to a mocked object.
+ *
+ * @remarks
+ *
+ * In the example below, `mockClear()` is not part of the type signature for the
+ * real `SoundPlayer` class.  It is added by Jest.  The `mocked()` function returns
+ * its input object but extends the type signature with these additional members.
+ *
+ * ```ts
+ * jest.mock('./SoundPlayer');
+ * import SoundPlayer from './SoundPlayer';
+ *
+ * // mockClear() is provided by Jest's API:
+ * mocked(SoundPlayer).mockClear();
+ * ```
+ *
+ * Heft's API is based on `mocked()` from `ts-jest`, but provided as a global API
+ * so you don't need to explicitly import it.  For more information, see the `ts-jest`
+ * documentation here:
+ *
  * https://kulshekhar.github.io/ts-jest/user/test-helpers
  */
-declare function mocked<T>(item: T, deep?: false): mocked.Mocked<T>;
-declare function mocked<T>(item: T, deep: true): mocked.Mocked<T>;
+declare function mocked<T>(item: T, deep?: false): mocked.MaybeMocked<T>;
+declare function mocked<T>(item: T, deep: true): mocked.MaybeMockedDeep<T>;
