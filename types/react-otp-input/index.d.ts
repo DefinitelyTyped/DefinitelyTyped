@@ -29,6 +29,3 @@ declare namespace OTPInput {
 }
 
 declare class OTPInput extends React.Component<OTPInput.OTPInputProps> { }
-
-
-
