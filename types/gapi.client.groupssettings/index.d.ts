@@ -63,7 +63,7 @@ declare namespace gapi.client {
              * REPLY_TO_MANAGERS
              */
             replyTo?: string;
-            /** Should the member be notified if his message is denied by owner. */
+            /** Should the member be notified if their message is denied by owner. */
             sendMessageDenyNotification?: string;
             /** Is the group listed in groups directory */
             showInGroupDirectory?: string;

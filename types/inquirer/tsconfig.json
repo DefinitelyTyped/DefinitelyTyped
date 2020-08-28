@@ -6,7 +6,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -18,6 +18,23 @@
     },
     "files": [
         "index.d.ts",
-        "inquirer-tests.ts"
+        "inquirer-tests.ts",
+        "test/bottom-bar.ts",
+        "test/checkbox.ts",
+        "test/editor.ts",
+        "test/expand.ts",
+        "test/hierarchical.ts",
+        "test/input.ts",
+        "test/list.ts",
+        "test/long-list.ts",
+        "test/nested-call.ts",
+        "test/password.ts",
+        "test/pizza.ts",
+        "test/rawlist.ts",
+        "test/recursive.ts",
+        "test/rx-observable-array.ts",
+        "test/rx-observable-create.ts",
+        "test/spawn.ts",
+        "test/when.ts"
     ]
 }

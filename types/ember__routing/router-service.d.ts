@@ -138,16 +138,42 @@ export default class RouterService extends Service {
         options?: { queryParams: object }
     ): Transition;
 
-    // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=transitionTo
+    // https://emberjs.com/api/ember/release/classes/RouterService/methods/isActive?anchor=transitionTo
     /**
-     * Transition the application into another route. The route may be
-     * either a single route or route path
+     * Transition the application into another route. The route may
+     * be either a single route or route path:
+     *
+     * See [transitionTo](https://api.emberjs.com/ember/release/classes/Route/methods/transitionTo?anchor=transitionTo) for more info.
+     *
+     * Calling `transitionTo` from the Router service will cause default query parameter values to be included in the URL.
+     * This behavior is different from calling `transitionTo` on a route or `transitionToRoute` on a controller.
+     * See the [Router Service RFC](https://github.com/emberjs/rfcs/blob/master/text/0095-router-service.md#query-parameter-semantics) for more info.
+     *
+     * In the following example we use the Router service to navigate to a route with a
+     * specific model from a Component.
+     *
+     * ```app/components/example.js
+     * import Component from '@glimmer/component';
+     * import { action } from '@ember/object';
+     * import { inject as service } from '@ember/service';
+     *
+     * export default class extends Component {
+     *   @service router;
+     *
+     *   @action
+     *   goToComments(post) {
+     *     this.router.transitionTo('comments', post);
+     *   }
+     * }
+     * ```
      *
      * @param routeNameOrUrl the name of the route or a URL
      * @param models         the model(s) or identifier(s) to be used while
      *                       transitioning to the route.
      * @param options        optional hash with a queryParams property
-     *                       containing a mapping of query parameters
+     *                       containing a mapping of query parameters. May be
+     *                       supplied as the only parameter to trigger a
+     *                       query-parameter-only transition.
      * @returns              the Transition object associated with this attempted transition
      */
     transitionTo(
@@ -180,6 +206,7 @@ export default class RouterService extends Service {
         modelsD: RouteModel,
         options?: { queryParams: object }
     ): Transition;
+    transitionTo(options: { queryParams: object }): Transition;
 
     // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=urlFor
     /**

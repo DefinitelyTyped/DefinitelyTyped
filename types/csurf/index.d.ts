@@ -24,7 +24,7 @@ declare module "csurf" {
 
   namespace csurf {
     export interface CookieOptions extends express.CookieOptions {
-      key: string;
+      key?: string;
     }
   }
 

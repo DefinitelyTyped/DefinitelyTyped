@@ -28,7 +28,7 @@ declare function dateFormat(mask?: string, utc?: boolean, gmt?: boolean): string
 
 declare namespace dateFormat {
     const masks: DateFormatMasks;
-    const i18n: DateFormatI18n;
+    let i18n: DateFormatI18n;
 
     /**
      * dateFormat.masks

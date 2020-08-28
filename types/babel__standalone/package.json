@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@babel/core": "^7.1.0"
+    }
+}

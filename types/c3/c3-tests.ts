@@ -168,8 +168,8 @@ function data_examples() {
         data: {
             labels: {
                 format: (v, id, i, j) => {
-                    /* code */
-                },
+                    return "string";
+                }
             },
             hide: ['data1'],
         },
@@ -183,7 +183,7 @@ function axis_examples() {
             rotated: true,
             x: {
                 show: true,
-                type: 'timeseries',
+                type: "timeseries",
                 localtime: true,
                 categories: ['Category 1', 'Category 2'],
                 tick: {
@@ -1323,7 +1323,6 @@ function axes_x_tick_width() {
         },
         axis: {
             x: {
-                type: 'bar',
                 tick: {
                     width: 100,
                 },
@@ -1879,6 +1878,10 @@ function data_name() {
     });
 }
 
+function isDataPoint(d: string | c3.DataPoint | c3.DataSeries): d is c3.DataPoint {
+    return typeof d === "object" && "value" in d;
+}
+
 function data_color() {
     const chart = c3.generate({
         data: {
@@ -1895,9 +1898,12 @@ function data_color() {
             },
             color: (color, d) => {
                 // d will be 'id' when called for legends
-                return d.id && d.id === 'data3'
-                    ? d3.rgb(color).darker(d.value / 150)
-                    : color;
+                if (isDataPoint(d)) {
+                    return d.id && d.id === 'data3'
+                        ? d3.rgb(color).darker(d.value / 150)
+                        : color;
+                }
+                return color;
             },
         },
     });
@@ -2047,7 +2053,6 @@ function grid_y_lines() {
                     {
                         value: 1300,
                         text: 'Lable 1300 for y2',
-                        axis: 'y2',
                         position: 'start',
                     },
                     { value: 350, text: 'Lable 350 for y', position: 'middle' },
@@ -2393,23 +2398,6 @@ function tooltip_order() {
         },
         tooltip: {
             order: 'asc',
-        },
-    });
-}
-
-function tooltip_order_function() {
-    const chart = c3.generate({
-        data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
-            ],
-        },
-        tooltip: {
-            order: (data1, data2) => {
-                return data1.id - data2.id;
-                // return data2.id - data2.id in case we want desc order
-            },
         },
     });
 }

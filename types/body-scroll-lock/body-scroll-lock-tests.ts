@@ -3,7 +3,7 @@ import { enableBodyScroll, disableBodyScroll, clearAllBodyScrollLocks } from 'bo
 const dom: HTMLDivElement = new HTMLDivElement();
 
 disableBodyScroll(dom, {
-  reserveScrollBarGap: false,
+    reserveScrollBarGap: false,
 });
 
 enableBodyScroll(dom);

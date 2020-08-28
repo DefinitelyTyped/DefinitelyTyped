@@ -1,12 +1,12 @@
-import * as dl from "deline";
+import deline = require("deline");
 
 const moduleName = "deline";
 
-dl.deline(`deline`); // $ExpectType string
-dl.deline(`module name: ${moduleName}`); // $ExpectType string
-dl.deline`deline`; // $ExpectType string
-dl.deline`tagged template: ${moduleName}`; // $ExpectType string
-dl.deline`
+deline(`deline`); // $ExpectType string
+deline(`module name: ${moduleName}`); // $ExpectType string
+deline`deline`; // $ExpectType string
+deline`tagged template: ${moduleName}`; // $ExpectType string
+deline`
 tagged template:
 
 ${moduleName}

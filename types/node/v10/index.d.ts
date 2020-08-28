@@ -1,4 +1,4 @@
-// Type definitions for Node.js 10.14
+// Type definitions for Node.js 10.17
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -8,7 +8,6 @@
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Bruno Scheufler <https://github.com/brunoscheufler>
 //                 Chigozirim C. <https://github.com/smac89>
-//                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
 //                 Flarna <https://github.com/Flarna>
@@ -19,10 +18,9 @@
 //                 Klaus Meinhardt <https://github.com/ajafff>
 //                 Lishude <https://github.com/islishude>
 //                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
-//                 Matthieu Sieben <https://github.com/matthieusieben>
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Nicolas Even <https://github.com/n-e>
-//                 Nicolas Voigt <https://github.com/octo-sniffle>
+//                 Nikita Galkin <https://github.com/galkin>
 //                 Parambir Singh <https://github.com/parambirs>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Simon Schick <https://github.com/SimonSchick>
@@ -35,6 +33,8 @@
 //                 Kyle Uehlein <https://github.com/kuehlein>
 //                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
 //                 Thanik Bhongbhibhat <https://github.com/bhongy>
+//                 Minh Son Nguyen <https://github.com/nguymin4>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.1.
@@ -50,6 +50,9 @@
 
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 /// <reference path="base.d.ts" />
+
+// We can't include assert.d.ts in base.d.ts, as it'll cause duplication errors in +ts3.7
+/// <reference path="assert.d.ts" />
 
 // TypeScript 2.1-specific augmentations:
 

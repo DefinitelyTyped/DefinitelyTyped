@@ -41,13 +41,18 @@ confetti({
     particleCount: r(50, 100),
     origin: {
         y: 0.6
-    }
+    },
+    shapes: ['square', 'circle', 'square']
 });
 
 const canvas = document.createElement('canvas');
 const myConfetti = confetti.create(canvas);
 
 myConfetti();
+
+confetti.reset();
+
+myConfetti.reset();
 
 myConfetti({
     particleCount: 150

@@ -1,3 +1,4 @@
+
 // Type definitions for non-npm package Custom Functions 1.3
 // Project: https://github.com/OfficeDev/office-js
 // Definitions by: OfficeDev <https://github.com/OfficeDev>,

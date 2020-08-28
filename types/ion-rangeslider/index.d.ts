@@ -1,6 +1,7 @@
-// Type definitions for ion-rangeslider 2.2
+// Type definitions for ion-rangeslider 2.3
 // Project: https://github.com/IonDen/ion.rangeSlider/, http://ionden.com/a/plugins/ion.rangeslider/en.html
 // Definitions by: Karel van de Plassche <https://github.com/Karel-van-de-Plassche>
+//                 JamesJGoodwin <https://github.com/JamesJGoodwin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -18,6 +19,7 @@ declare global {
 }
 
 export interface IonRangeSliderOptions {
+    skin?: 'flat' | 'big' | 'modern' | 'round' | 'sharp' | 'square'; // Set slider theme [Default: flat]
     type?: string;    // Choose slider type, could be `single` - for one handle, or `double` for two handles [Default: single]
     min?: number;    // Set slider minimum value [Default: 10]
     max?: number;    // Set slider maximum value [Default: 100]

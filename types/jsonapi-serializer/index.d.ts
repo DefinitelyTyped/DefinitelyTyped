@@ -13,15 +13,17 @@ export interface Relation {
     included?: boolean;
 }
 
+export type LinkFunction = (...records: any[]) => any;
+
 export interface SerializerOptions {
     ref?: (() => void) | boolean | string;
     included?: boolean;
     id?: string;
     attributes?: string[];
-    topLevelLinks?: string[] | Array<() => void>;
-    dataLinks?: string[] | Array<() => void>;
+    topLevelLinks?: { [key: string]: string | LinkFunction };
+    dataLinks?: { [key: string]: string | LinkFunction };
     dataMeta?: (() => void) | object;
-    relationshipLinks?: object;
+    relationshipLinks?: { [key: string]: string | LinkFunction };
     relationshipMeta?: object;
     ignoreRelationshipData?: boolean;
     keyForAttribute?: string | KeyForAttribute;
@@ -54,7 +56,8 @@ export interface DeserializerOptions {
         | "underscore_case"
         | "snake_case"
         | "camelCase"
-        | "CamelCase";
+        | "CamelCase"
+        | KeyForAttribute;
     pluralizeType?: boolean;
     typeAsAttribute?: boolean;
     transform?: Transform;

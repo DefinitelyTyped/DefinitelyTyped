@@ -1,31 +1,28 @@
-function test_basics() {
-    NProgress.start();
-    NProgress.inc();
-    NProgress.inc(0.2);
-    NProgress.done();
-    NProgress.set(0.5);
+import NProgress, { NProgressOptions } from 'nprogress';
 
-    var status = NProgress.status;
-    var version = NProgress.version;
-}
+console.log(NProgress.status);
+console.log(NProgress.version);
 
-function test_configuration() {
-    NProgress.configure({
-        speed: 0.3
-    });
+// $ExpectType NProgress
+NProgress.start();
+NProgress.inc()
+    .inc(0.2)
+    .done();
 
-    NProgress.configure({
-        trickle: false
-    });
+NProgress.set(0.5);
+NProgress.trickle();
+console.log(NProgress.isStarted());
+NProgress.done(true);
 
-    NProgress.configure({
-        easing: 'ease',
-        minimum: 0.09,
-        showSpinner: false,
-        speed: 420,
-        template: "<div>blah</div>",
-        trickle: false,
-        trickleSpeed: 42,
-        parent: 'body',
-    });
-}
+NProgress.configure({ minimum: 0.1 });
+NProgress.configure({
+    template: '<div></div>',
+    easing: 'ease',
+    speed: 500,
+    trickle: true,
+    showSpinner: false,
+    trickleSpeed: 250,
+    parent: '#content',
+    // $ExpectError
+    foo: ''
+});

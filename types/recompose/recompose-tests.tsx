@@ -554,3 +554,14 @@ function testFromRenderProps() {
 
     return <Enhanced outterValue={1} />;
 }
+
+function testToClass() {
+    type Props = { foo: 1; };
+    const MyComponent: React.FC<Props> = () => null;
+
+    const MyComponentClass: React.ComponentClass<Props> = toClass(MyComponent);
+
+    <MyComponentClass />; // $ExpectError
+    <MyComponentClass foo={2} />; // $ExpectError
+    <MyComponentClass foo={1} />;
+}

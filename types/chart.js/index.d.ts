@@ -1,4 +1,4 @@
-// Type definitions for Chart.js 2.7
+// Type definitions for Chart.js 2.9
 // Project: https://github.com/nnnick/Chart.js, https://www.chartjs.org
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
@@ -15,8 +15,22 @@
 //                 Manuel Heidrich <https://github.com/mahnuh>
 //                 Conrad Holtzhausen <https://github.com/Conrad777>
 //                 Adrián Caballero <https://github.com/adripanico>
+//                 wertzui <https://github.com/wertzui>
+//                 Martin Trobäck <https://github.com/lekoaf>
+//                 Elian Cordoba <https://github.com/ElianCordoba>
+//                 Takuya Uehara <https://github.com/indigolain>
+//                 Ricardo Mello <https://github.com/ricardo-mello>
+//                 Ray Nicholus <https://github.com/rnicholus>
+//                 Oscar Cabrera <https://github.com/mrjack88>
+//                 Carlos Anoceto <https://github.com/canoceto>
+//                 Nobuhiko Futagami <https://github.com/nobu222>
+//                 Marco Ru <https://github.com/Marcoru97>
+//                 Tony Liu <https://github.com/tonybadguy>
+//                 Mathias Helminger <https://github.com/Ilmarinen100>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
+
+import { Moment } from 'moment';
 
 declare class Chart {
     static readonly Chart: typeof Chart;
@@ -27,25 +41,35 @@ declare class Chart {
     config: Chart.ChartConfiguration;
     data: Chart.ChartData;
     destroy: () => {};
-    update: (duration?: any, lazy?: any) => {};
-    render: (duration?: any, lazy?: any) => {};
-    stop: () => {};
-    resize: () => {};
-    clear: () => {};
+    update: ({duration, lazy, easing}?: Chart.ChartUpdateProps) => {};
+    render: ({duration, lazy, easing}?: Chart.ChartRenderProps) => {};
+    stop: () => Chart;
+    resize: () => Chart;
+    clear: () => Chart;
     toBase64Image: () => string;
     generateLegend: () => {};
     getElementAtEvent: (e: any) => [{}];
     getElementsAtEvent: (e: any) => Array<{}>;
+    getElementsAtXAxis: (e: any) => Array<{}>;
     getDatasetAtEvent: (e: any) => Array<{}>;
     getDatasetMeta: (index: number) => Meta;
+    getVisibleDatasetCount: () => number;
+    isDatasetVisible: (datasetIndex: number) => boolean;
+    setDatasetVisibility: (datasetIndex: number, visible: boolean) => void;
     ctx: CanvasRenderingContext2D | null;
     canvas: HTMLCanvasElement | null;
+    width: number | null;
+    height: number | null;
+    aspectRatio: number | null;
+    options: Chart.ChartOptions;
     chartArea: Chart.ChartArea;
     static pluginService: PluginServiceStatic;
     static plugins: PluginServiceStatic;
 
     static defaults: {
-        global: Chart.ChartOptions & Chart.ChartFontOptions;
+        global: Chart.ChartOptions & Chart.ChartFontOptions & {
+            tooltips: Chart.ChartTooltipOptions
+        };
         [key: string]: any;
     };
 
@@ -57,8 +81,20 @@ declare class Chart {
         [key: string]: any;
     };
 
+    static platform: {
+        disableCSSInjection: boolean
+    };
+
+    static scaleService: {
+        updateScaleDefaults: (type: Chart.ScaleType, updates: Chart.ChartScales) => void;
+    };
+
     // Tooltip Static Options
     static Tooltip: Chart.ChartTooltipsStaticConfiguration;
+
+    static readonly instances: {
+        [key: string]: Chart;
+    };
 }
 declare class PluginServiceStatic {
     register(plugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions): void;
@@ -89,18 +125,27 @@ interface MetaData {
     hidden?: boolean;
 }
 
+// NOTE: This model is generic with a bunch of optional properties to represent all types of chart models.
+// Each chart type defines their own unique model structure so some of these optional properties
+// might always have values depending on the chart type.
 interface Model {
     backgroundColor: string;
+    borderAlign?: Chart.BorderAlignment;
     borderColor: string;
     borderWidth?: number;
+    circumference?: number;
     controlPointNextX: number;
     controlPointNextY: number;
     controlPointPreviousX: number;
     controlPointPreviousY: number;
+    endAngle?: number;
     hitRadius: number;
+    innerRadius?: number;
+    outerRadius?: number;
     pointStyle: string;
     radius: string;
     skip?: boolean;
+    startAngle?: number;
     steppedLine?: undefined;
     tension: number;
     x: number;
@@ -118,9 +163,33 @@ declare namespace Chart {
 
     type PointStyle = 'circle' | 'cross' | 'crossRot' | 'dash' | 'line' | 'rect' | 'rectRounded' | 'rectRot' | 'star' | 'triangle';
 
-    type PositionType = 'left' | 'right' | 'top' | 'bottom';
+    type PositionType = 'left' | 'right' | 'top' | 'bottom' | 'chartArea';
 
-    type InteractionMode = 'point' | 'nearest' | 'single' | 'label' | 'index' | 'x-axis' | 'dataset' | 'x' | 'y';
+    // Allow extending the IteractionMode type alias
+    // see https://github.com/microsoft/TypeScript/issues/28078#issuecomment-432339564
+    interface InteractionModeRegistry {
+        'point': 'point';
+        'nearest': 'nearest';
+        'single': 'single';
+        'label': 'label';
+        'index': 'index';
+        'x-axis': 'x-axis';
+        'dataset': 'dataset';
+        'x': 'x';
+        'y': 'y';
+    }
+    type InteractionMode = InteractionModeRegistry[keyof InteractionModeRegistry];
+
+    type Easing = 'linear' | 'easeInQuad' | 'easeOutQuad' | 'easeInOutQuad' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' |
+        'easeInQuart' | 'easeOutQuart' | 'easeInOutQuart' | 'easeInQuint' | 'easeOutQuint' | 'easeInOutQuint' | 'easeInSine' | 'easeOutSine' |
+        'easeInOutSine' | 'easeInExpo' | 'easeOutExpo' | 'easeInOutExpo' | 'easeInCirc' | 'easeOutCirc' | 'easeInOutCirc' | 'easeInElastic' |
+        'easeOutElastic' | 'easeInOutElastic' | 'easeInBack' | 'easeOutBack' | 'easeInOutBack' | 'easeInBounce' | 'easeOutBounce' | 'easeInOutBounce';
+
+    type TextAlignment = 'left' | 'center' | 'right';
+
+    type BorderAlignment = 'center' | 'inner';
+
+    type BorderWidth = number | { [key in PositionType]?: number };
 
     interface ChartArea {
         top: number;
@@ -133,6 +202,7 @@ declare namespace Chart {
         text?: string;
         fillStyle?: string;
         hidden?: boolean;
+        index?: number;
         lineCap?: 'butt' | 'round' | 'square';
         lineDash?: number[];
         lineDashOffset?: number;
@@ -143,14 +213,18 @@ declare namespace Chart {
     }
 
     interface ChartLegendLabelItem extends ChartLegendItem {
-        datasetIndex: number;
+        datasetIndex?: number;
     }
 
     interface ChartTooltipItem {
+        label?: string;
+        value?: string;
         xLabel?: string | number;
         yLabel?: string | number;
         datasetIndex?: number;
         index?: number;
+        x?: number;
+        y?: number;
     }
 
     interface ChartTooltipLabelColor {
@@ -180,10 +254,10 @@ declare namespace Chart {
     }
 
     interface ChartPoint {
-        x?: number | string | Date;
-        y?: number | string | Date;
+        x?: number | string | Date | Moment;
+        y?: number | string | Date | Moment;
         r?: number;
-        t?: number | string | Date;
+        t?: number | string | Date | Moment;
     }
 
     interface ChartConfiguration {
@@ -194,13 +268,13 @@ declare namespace Chart {
     }
 
     interface ChartData {
-        labels?: Array<string | string[]>;
+        labels?: Array<string | string[] | number | number[] | Date | Date[] | Moment | Moment[]>;
         datasets?: ChartDataSets[];
     }
 
-	interface RadialChartOptions extends ChartOptions {
-		scale?: RadialLinearScale;
-	}
+    interface RadialChartOptions extends ChartOptions {
+        scale?: RadialLinearScale;
+    }
 
     interface ChartSize {
         height: number;
@@ -224,7 +298,8 @@ declare namespace Chart {
         animation?: ChartAnimationOptions;
         elements?: ChartElementsOptions;
         layout?: ChartLayoutOptions;
-        scales?: ChartScales;
+        scale?: RadialLinearScale;
+        scales?: ChartScales | LinearScale | LogarithmicScale | TimeScale;
         showLines?: boolean;
         spanGaps?: boolean;
         cutoutPercentage?: number;
@@ -254,11 +329,13 @@ declare namespace Chart {
     }
 
     interface ChartLegendOptions {
+        align?: 'center' | 'end' | 'start';
         display?: boolean;
         position?: PositionType;
         fullWidth?: boolean;
         onClick?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
         onHover?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
+        onLeave?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
         labels?: ChartLegendLabelOptions;
         reverse?: boolean;
     }
@@ -270,28 +347,31 @@ declare namespace Chart {
         fontColor?: ChartColor;
         fontFamily?: string;
         padding?: number;
-        generateLabels?(chart: any): any;
+        generateLabels?(chart: Chart): ChartLegendLabelItem[];
         filter?(legendItem: ChartLegendLabelItem, data: ChartData): any;
         usePointStyle?: boolean;
     }
 
     interface ChartTooltipOptions {
         enabled?: boolean;
-        custom?(a: any): void;
+        custom?: (tooltipModel: ChartTooltipModel) => void;
         mode?: InteractionMode;
         intersect?: boolean;
         backgroundColor?: ChartColor;
+        titleAlign?: TextAlignment;
         titleFontFamily?: string;
         titleFontSize?: number;
         titleFontStyle?: string;
         titleFontColor?: ChartColor;
         titleSpacing?: number;
         titleMarginBottom?: number;
+        bodyAlign?: TextAlignment;
         bodyFontFamily?: string;
         bodyFontSize?: number;
         bodyFontStyle?: string;
         bodyFontColor?: ChartColor;
         bodySpacing?: number;
+        footerAlign?: TextAlignment;
         footerFontFamily?: string;
         footerFontSize?: number;
         footerFontStyle?: string;
@@ -305,12 +385,68 @@ declare namespace Chart {
         multiKeyBackground?: string;
         callbacks?: ChartTooltipCallback;
         filter?(item: ChartTooltipItem, data: ChartData): boolean;
-        itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem): number;
+        itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem, data?: ChartData): number;
         position?: string;
         caretPadding?: number;
         displayColors?: boolean;
         borderColor?: ChartColor;
         borderWidth?: number;
+    }
+
+    interface ChartTooltipModel {
+        afterBody: string[];
+        backgroundColor: string;
+        beforeBody: string[];
+        body: ChartTooltipModelBody[];
+        bodyFontColor: string;
+        bodyFontSize: number;
+        bodySpacing: number;
+        borderColor: string;
+        borderWidth: number;
+        caretPadding: number;
+        caretSize: number;
+        caretX: number;
+        caretY: number;
+        cornerRadius: number;
+        dataPoints: ChartTooltipItem[];
+        displayColors: boolean;
+        footer: string[];
+        footerFontColor: string;
+        footerFontSize: number;
+        footerMarginTop: number;
+        footerSpacing: number;
+        height: number;
+        labelColors: string[];
+        labelTextColors: string[];
+        legendColorBackground: string;
+        opacity: number;
+        title: string[];
+        titleFontColor: string;
+        titleFontSize: number;
+        titleMarginBottom: number;
+        titleSpacing: number;
+        width: number;
+        x: number;
+        xAlign: string;
+        xPadding: number;
+        y: number;
+        yAlign: string;
+        yPadding: number;
+        _bodyAlign: string;
+        _bodyFontFamily: string;
+        _bodyFontStyle: string;
+        _footerAlign: string;
+        _footerFontFamily: string;
+        _footerFontStyle: string;
+        _titleAlign: string;
+        _titleFontFamily: string;
+        _titleFontStyle: string;
+    }
+
+    interface ChartTooltipModelBody {
+        before: string[];
+        lines: string[];
+        after: string[];
     }
 
     // NOTE: declare plugin options as interface instead of inline '{ [plugin: string]: any }'
@@ -329,13 +465,14 @@ declare namespace Chart {
         mode?: InteractionMode;
         animationDuration?: number;
         intersect?: boolean;
+        axis?: 'x' | 'y' | 'xy';
         onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
     }
 
     interface ChartAnimationObject {
         currentStep?: number;
         numSteps?: number;
-        easing?: string;
+        easing?: Easing;
         render?(arg: any): void;
         onAnimationProgress?(arg: any): void;
         onAnimationComplete?(arg: any): void;
@@ -343,7 +480,7 @@ declare namespace Chart {
 
     interface ChartAnimationOptions {
         duration?: number;
-        easing?: string;
+        easing?: Easing;
         onProgress?(chart: any): void;
         onComplete?(chart: any): void;
         animateRotate?: boolean;
@@ -409,6 +546,7 @@ declare namespace Chart {
 
     interface GridLineOptions {
         display?: boolean;
+        circular?: boolean;
         color?: ChartColor;
         borderDash?: number[];
         borderDashOffset?: number;
@@ -422,6 +560,7 @@ declare namespace Chart {
         zeroLineBorderDash?: number[];
         zeroLineBorderDashOffset?: number;
         offsetGridLines?: boolean;
+        z?: number;
     }
 
     interface ScaleTitleOptions {
@@ -437,7 +576,7 @@ declare namespace Chart {
 
     interface TickOptions extends NestedTickOptions {
         minor?: NestedTickOptions | false;
-        major?: NestedTickOptions | false;
+        major?: MajorTickOptions | false;
     }
 
     interface NestedTickOptions {
@@ -447,7 +586,10 @@ declare namespace Chart {
         backdropPaddingX?: number;
         backdropPaddingY?: number;
         beginAtZero?: boolean;
-        callback?(value: any, index: any, values: any): string | number;
+        /**
+         * If the callback returns null or undefined the associated grid line will be hidden.
+         */
+        callback?(value: number | string, index: number, values: number[] | string[]): string | number | null | undefined;
         display?: boolean;
         fontColor?: ChartColor;
         fontFamily?: string;
@@ -463,6 +605,13 @@ declare namespace Chart {
         mirror?: boolean;
         padding?: number;
         reverse?: boolean;
+        /**
+         * The number of ticks to examine when deciding how many labels will fit.
+         * Setting a smaller value will be faster, but may be less accurate
+         * when there is large variability in label length.
+         * Deault: `ticks.length`
+         */
+        sampleSize?: number;
         showLabelBackdrop?: boolean;
         source?: 'auto' | 'data' | 'labels';
         stepSize?: number;
@@ -470,10 +619,16 @@ declare namespace Chart {
         suggestedMin?: number;
     }
 
+    interface MajorTickOptions extends NestedTickOptions {
+        enabled?: boolean;
+    }
+
     interface AngleLineOptions {
         display?: boolean;
         color?: ChartColor;
         lineWidth?: number;
+        borderDash?: number[];
+        borderDashOffset?: number;
     }
 
     interface PointLabelOptions {
@@ -482,6 +637,7 @@ declare namespace Chart {
         fontFamily?: string;
         fontSize?: number;
         fontStyle?: string;
+        lineHeight?: number|string;
     }
 
     interface LinearTickOptions extends TickOptions {
@@ -498,34 +654,53 @@ declare namespace Chart {
 
     type ChartColor = string | CanvasGradient | CanvasPattern | string[];
 
+    type Scriptable<T> = (ctx: {
+        chart?: Chart;
+        dataIndex?: number;
+        dataset?: ChartDataSets
+        datasetIndex?: number;
+    }) => T;
+
     interface ChartDataSets {
         cubicInterpolationMode?: 'default' | 'monotone';
-        backgroundColor?: ChartColor | ChartColor[];
-        borderWidth?: number | number[];
-        borderColor?: ChartColor | ChartColor[];
+        backgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        barPercentage?: number;
+        barThickness?: number | "flex";
+        borderAlign?: BorderAlignment | BorderAlignment[] | Scriptable<BorderAlignment>;
+        borderWidth?: BorderWidth | BorderWidth[] | Scriptable<BorderWidth>;
+        borderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         borderCapStyle?: 'butt' | 'round' | 'square';
         borderDash?: number[];
         borderDashOffset?: number;
         borderJoinStyle?: 'bevel' | 'round' | 'miter';
-        borderSkipped?: PositionType;
-        data?: Array<number | null | undefined> | ChartPoint[];
+        borderSkipped?: PositionType | PositionType[] | Scriptable<PositionType>;
+        categoryPercentage?: number;
+        data?: Array<number | null | undefined | number[]> | ChartPoint[];
         fill?: boolean | number | string;
-        hoverBackgroundColor?: ChartColor | ChartColor[];
-        hoverBorderColor?: ChartColor | ChartColor[];
-        hoverBorderWidth?: number | number[];
+        hitRadius?: number | number[] | Scriptable<number>;
+        hoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        hoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        hoverBorderWidth?: number | number[] | Scriptable<number>;
+        hoverRadius?: number;
         label?: string;
         lineTension?: number;
+        maxBarThickness?: number;
+        minBarLength?: number;
         steppedLine?: 'before' | 'after' | 'middle' | boolean;
-        pointBorderColor?: ChartColor | ChartColor[];
-        pointBackgroundColor?: ChartColor | ChartColor[];
-        pointBorderWidth?: number | number[];
-        pointRadius?: number | number[];
-        pointHoverRadius?: number | number[];
-        pointHitRadius?: number | number[];
-        pointHoverBackgroundColor?: ChartColor | ChartColor[];
-        pointHoverBorderColor?: ChartColor | ChartColor[];
-        pointHoverBorderWidth?: number | number[];
-        pointStyle?: PointStyle | HTMLImageElement | HTMLCanvasElement | Array<PointStyle | HTMLImageElement | HTMLCanvasElement>;
+        order?: number;
+        pointBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        pointBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        pointBorderWidth?: number | number[] | Scriptable<number>;
+        pointRadius?: number | number[] | Scriptable<number>;
+        pointRotation?: number | number[] | Scriptable<number>;
+        pointHoverRadius?: number | number[] | Scriptable<number>;
+        pointHitRadius?: number | number[] | Scriptable<number>;
+        pointHoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        pointHoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        pointHoverBorderWidth?: number | number[] | Scriptable<number>;
+        pointStyle?: PointStyle | HTMLImageElement | HTMLCanvasElement | Array<PointStyle | HTMLImageElement | HTMLCanvasElement> | Scriptable<PointStyle | HTMLImageElement | HTMLCanvasElement>;
+        radius?: number | number[] | Scriptable<number>;
+        rotation?: number | number[] | Scriptable<number>;
         xAxisID?: string;
         yAxisID?: string;
         type?: ChartType | string;
@@ -534,6 +709,7 @@ declare namespace Chart {
         showLine?: boolean;
         stack?: string;
         spanGaps?: boolean;
+        weight?: number;
     }
 
     interface ChartScales {
@@ -550,14 +726,12 @@ declare namespace Chart {
     interface CommonAxe {
         bounds?: string;
         type?: ScaleType | string;
-        display?: boolean;
+        display?: boolean | string;
         id?: string;
         stacked?: boolean;
         position?: string;
         ticks?: TickOptions;
         gridLines?: GridLineOptions;
-        barThickness?: number | "flex";
-        maxBarThickness?: number;
         scaleLabel?: ScaleTitleOptions;
         time?: TimeScale;
         offset?: boolean;
@@ -571,15 +745,13 @@ declare namespace Chart {
         afterUpdate?(scale?: any): void;
         afterSetDimension?(scale?: any): void;
         afterDataLimits?(scale?: any): void;
-        afterBuildTicks?(scale?: any): void;
+        afterBuildTicks?(scale: any, ticks: number[]): number[];
         afterTickToLabelConversion?(scale?: any): void;
         afterCalculateTickRotation?(scale?: any): void;
         afterFit?(scale?: any): void;
     }
 
     interface ChartXAxe extends CommonAxe {
-        categoryPercentage?: number;
-        barPercentage?: number;
         distribution?: 'linear' | 'series';
     }
 
@@ -607,7 +779,12 @@ declare namespace Chart {
         year?: string;
     }
 
+    interface DateAdapterOptions {
+        date?: object;
+    }
+
     interface TimeScale extends ChartScales {
+        adapters?: DateAdapterOptions;
         displayFormats?: TimeDisplayFormat;
         isoWeekday?: boolean;
         max?: string;
@@ -621,11 +798,14 @@ declare namespace Chart {
         minUnit?: TimeUnit;
     }
 
-    interface RadialLinearScale extends LinearScale {
-        lineArc?: boolean;
+    interface RadialLinearScale {
+        animate?: boolean;
+        position?: PositionType;
         angleLines?: AngleLineOptions;
         pointLabels?: PointLabelOptions;
-        ticks?: TickOptions;
+        ticks?: LinearTickOptions;
+        display?: boolean;
+        gridLines?: GridLineOptions;
     }
 
     interface Point {
@@ -659,15 +839,15 @@ declare namespace Chart {
         afterRender?(chartInstance: Chart, options?: any): void;
 
         // Easing is for animation
-        beforeDraw?(chartInstance: Chart, easing: string, options?: any): void;
-        afterDraw?(chartInstance: Chart, easing: string, options?: any): void;
+        beforeDraw?(chartInstance: Chart, easing: Easing, options?: any): void;
+        afterDraw?(chartInstance: Chart, easing: Easing, options?: any): void;
 
         // Before the datasets are drawn but after scales are drawn
-        beforeDatasetsDraw?(chartInstance: Chart, easing: string, options?: any): void;
-        afterDatasetsDraw?(chartInstance: Chart, easing: string, options?: any): void;
+        beforeDatasetsDraw?(chartInstance: Chart, easing: Easing, options?: any): void;
+        afterDatasetsDraw?(chartInstance: Chart, easing: Easing, options?: any): void;
 
-        beforeDatasetDraw?(chartInstance: Chart, easing: string, options?: any): void;
-        afterDatasetDraw?(chartInstance: Chart, easing: string, options?: any): void;
+        beforeDatasetDraw?(chartInstance: Chart, easing: Easing, options?: any): void;
+        afterDatasetDraw?(chartInstance: Chart, easing: Easing, options?: any): void;
 
         // Called before drawing the `tooltip`. If any plugin returns `false`,
         // the tooltip drawing is cancelled until another `render` is triggered.
@@ -683,8 +863,35 @@ declare namespace Chart {
         resize?(chartInstance: Chart, newChartSize: ChartSize, options?: any): void;
         destroy?(chartInstance: Chart): void;
 
-        /** @deprecated since version 2.5.0. Use `afterLayout` instead. */
+        /** Deprecated since version 2.5.0. Use `afterLayout` instead. */
         afterScaleUpdate?(chartInstance: Chart, options?: any): void;
+    }
+
+    interface ChartUpdateProps {
+        duration?: number;
+        lazy?: boolean;
+        easing?: Easing;
+    }
+
+    interface ChartRenderProps {
+        duration?: number;
+        lazy?: boolean;
+        easing?: Easing;
+    }
+
+    // Model used with the doughnut chart
+    interface DoughnutModel {
+        backgroundColor: ChartColor;
+        borderAlign: BorderAlignment;
+        borderColor: string;
+        borderWidth: number;
+        circumference: number;
+        endAngle: number;
+        innerRadius: number;
+        outerRadius: number;
+        startAngle: number;
+        x: number;
+        y: number;
     }
 }
 

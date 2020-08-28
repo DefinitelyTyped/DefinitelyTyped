@@ -1,4 +1,5 @@
-import { Stream } from 'stream';
+import * as fs from 'fs';
+import { Readable as ReadableStream } from 'stream';
 import Minio = require('minio');
 
 const minio = new Minio.Client({
@@ -22,7 +23,8 @@ minio.bucketExists('testBucket');
 minio.removeBucket('testBucket', (error: Error|null) => { console.log(error); });
 minio.removeBucket('testBucket');
 
-minio.listObjects('testBucket');
+const objectList = minio.listObjects('testBucket');
+objectList.on('data', (item) => { console.log(item.name); });
 minio.listObjects('testBucket', 'image_');
 minio.listObjects('testBucket', 'audio_', true);
 minio.listObjectsV2('testBucket');
@@ -33,11 +35,11 @@ minio.listIncompleteUploads('testBucket');
 minio.listIncompleteUploads('testBucket', 'image_');
 minio.listIncompleteUploads('testBucket', 'audio_', true);
 
-minio.getObject('testBucket', 'hello.jpg', (error: Error|null, objectStream: Stream) => { console.log(error, objectStream); });
+minio.getObject('testBucket', 'hello.jpg', (error: Error|null, objectStream: ReadableStream) => { console.log(error, objectStream); });
 minio.getObject('testBucket', 'hello.jpg');
 
-minio.getPartialObject('testBucket', 'hello.jpg', 10, (error: Error|null, objectStream: Stream) => { console.log(error, objectStream); });
-minio.getPartialObject('testBucket', 'hello.jpg', 10, 20, (error: Error|null, objectStream: Stream) => { console.log(error, objectStream); });
+minio.getPartialObject('testBucket', 'hello.jpg', 10, (error: Error|null, objectStream: ReadableStream) => { console.log(error, objectStream); });
+minio.getPartialObject('testBucket', 'hello.jpg', 10, 20, (error: Error|null, objectStream: ReadableStream) => { console.log(error, objectStream); });
 minio.getPartialObject('testBucket', 'hello.jpg', 10);
 minio.getPartialObject('testBucket', 'hello.jpg', 10, 20);
 
@@ -50,12 +52,13 @@ const metaData = {
     'X-Amz-Meta-Testing': 1234,
     example: 5678
 };
-minio.putObject('testBucket', 'hello.jpg', new Stream(), (error: Error|null, etag: string) => { console.log(error, etag); });
+minio.putObject('testBucket', 'hello.jpg', fs.createReadStream('hello.jpg'), (error: Error|null, etag: string) => { console.log(error, etag); });
 minio.putObject('testBucket', 'hello.jpg', new Buffer('string'), 100, (error: Error|null, etag: string) => { console.log(error, etag); });
 minio.putObject('testBucket', 'hello.txt', 'hello.txt content', 100, metaData, (error: Error|null, etag: string) => { console.log(error, etag); });
-minio.putObject('testBucket', 'hello.jpg', new Stream());
+minio.putObject('testBucket', 'hello.jpg', fs.createReadStream('hello.jpg'));
 minio.putObject('testBucket', 'hello.jpg', new Buffer('string'), 100);
 minio.putObject('testBucket', 'hello.txt', 'hello.txt content', 100, metaData);
+minio.putObject('testBucket', 'hello.txt', 'hello.txt content', metaData);
 
 minio.fPutObject('testBucket', 'hello.jpg', 'file/path', metaData, (error: Error|null, etag: string) => { console.log(error, etag); });
 minio.fPutObject('testBucket', 'hello.jpg', 'file/path', metaData);
@@ -86,8 +89,37 @@ minio.presignedUrl('GET', 'testBucket', 'hello.jpg', 84600, { prefix: 'data', 'm
 
 minio.presignedGetObject('testBucket', 'hello.jpg', (error: Error|null, url: string) => { console.log(error, url); });
 minio.presignedGetObject('testBucket', 'hello.jpg', 84600, (error: Error|null, url: string) => { console.log(error, url); });
+minio.presignedGetObject(
+  'testBucket',
+  'hello.jpg',
+  84600,
+  { 'content-disposition': 'attachment; filename="image.png"' },
+  (error: Error | null, url: string) => {
+    console.log(error, url);
+  },
+);
+minio.presignedGetObject(
+  'testBucket',
+  'hello.jpg',
+  84600,
+  { 'content-disposition': 'attachment; filename="image.png"' },
+  new Date(),
+  (error: Error | null, url: string) => {
+    console.log(error, url);
+  },
+);
 minio.presignedGetObject('testBucket', 'hello.jpg');
 minio.presignedGetObject('testBucket', 'hello.jpg', 84600);
+minio.presignedGetObject('testBucket', 'hello.jpg', 84600, {
+  'content-disposition': 'attachment; filename="image.png"',
+});
+minio.presignedGetObject(
+  'testBucket',
+  'hello.jpg',
+  84600,
+  { 'content-disposition': 'attachment; filename="image.png"' },
+  new Date(),
+);
 
 minio.presignedPutObject('testBucket', 'hello.jpg', (error: Error|null, url: string) => { console.log(error, url); });
 minio.presignedPutObject('testBucket', 'hello.jpg', 84600, (error: Error|null, url: string) => { console.log(error, url); });

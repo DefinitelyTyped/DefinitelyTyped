@@ -20,8 +20,6 @@
         "esModuleInterop": true
     },
     "files": [
-        "server/index.d.ts",
-        "universal/index.d.ts",
         "index.d.ts",
         "graphql-react-tests.tsx"
     ]

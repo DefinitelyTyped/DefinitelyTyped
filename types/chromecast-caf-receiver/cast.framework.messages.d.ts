@@ -1,201 +1,448 @@
-import { Event, DetailedErrorCode } from "./cast.framework.events";
+import { DetailedErrorCode, Event, EventType } from './cast.framework.events';
 
-export as namespace messages
-export type UserAction =
-    | "LIKE"
-    | "DISLIKE"
-    | "FOLLOW"
-    | "UNFOLLOW"
-    | "FLAG"
-    | "SKIP_AD";
+export as namespace messages;
 
-export type UserActionContext =
-    | "UNKNOWN_CONTEXT"
-    | "ALBUM"
-    | "ARTIST"
-    | "PLAYLIST"
-    | "EPISODE"
-    | "SERIES"
-    | "MOVIE"
-    | "CHANNEL"
-    | "TEAM"
-    | "PLAYER"
-    | "COACH";
+/**
+ * Possible caption mimetype of text track.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.CaptionMimeType}
+ */
+export enum CaptionMimeType {
+    CEA608 = 'text/cea608',
+    TTML = 'application/ttml+xml',
+    TTML_MP4 = 'application/mp4',
+    VTT = 'text/vtt',
+}
 
-export type TextTrackType =
-    | "SUBTITLES"
-    | "CAPTIONS"
-    | "DESCRIPTIONS"
-    | "CHAPTERS"
-    | "METADATA";
+/**
+ * Commands supported by {@link framework.messages.MediaStatus.supportedMediaCommands}.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.Command}
+ */
+export enum Command {
+    PAUSE = 1,
+    SEEK = 2,
+    STREAM_VOLUME = 4,
+    STREAM_MUTE = 8,
+    QUEUE_NEXT = 64,
+    QUEUE_PREV = 128,
+    QUEUE_SHUFFLE = 256,
+    SKIP_AD = 512,
+    QUEUE_REPEAT_ALL = 1024,
+    QUEUE_REPEAT_ONE = 2048,
+    QUEUE_REPEAT = 3072,
+    EDIT_TRACKS = 4096,
+    PLAYBACK_RATE = 8192,
+    ALL_BASIC_MEDIA = 12303,
+    LIKE = 16384,
+    DISLIKE = 32768,
+    FOLLOW = 65536,
+    UNFOLLOW = 131072,
+    STREAM_TRANSFER = 262144,
+}
 
-export type TextTrackWindowType = "NONE" | "NORMAL" | "ROUNDED_CORNERS";
+/**
+ * Possible types of container metadata.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.ContainerType}
+ */
+export enum ContainerType {
+    GENERIC_CONTAINER = 0,
+    AUDIOBOOK_CONTAINER = 1,
+}
 
-export type TrackType = "TEXT" | "AUDIO" | "VIDEO";
+/**
+ * Provides content filtering mode.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.ContentFilteringMode}
+ */
+export enum ContentFilteringMode {
+    FILTER_EXPLICIT = 'FILTER_EXPLICIT',
+}
 
-export type TextTrackFontGenericFamily =
-    | "SANS_SERIF"
-    | "MONOSPACED_SANS_SERIF"
-    | "SERIF"
-    | "MONOSPACED_SERIF"
-    | "CASUAL"
-    | "CURSIVE"
-    | "SMALL_CAPITALS";
+/**
+ * Represents media error message reasons.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.ErrorReason}
+ */
+export enum ErrorReason {
+    APP_ERROR = 'APP_ERROR',
+    AUTHENTICATION_EXPIRED = 'AUTHENTICATION_EXPIRED',
+    CONCURRENT_STREAM_LIMIT = 'CONCURRENT_STREAM_LIMIT',
+    CONTENT_ALREADY_PLAYING = 'CONTENT_ALREADY_PLAYING',
+    CONTENT_FILTERED = 'CONTENT_FILTERED',
+    DUPLICATE_REQUEST_ID = 'DUPLICATE_REQUEST_ID',
+    END_OF_QUEUE = 'END_OF_QUEUE',
+    GENERIC_LOAD_ERROR = 'GENERIC_LOAD_ERROR',
+    INVALID_COMMAND = 'INVALID_COMMAND',
+    INVALID_MEDIA_SESSION_ID = 'INVALID_MEDIA_SESSION_ID',
+    INVALID_PARAMS = 'INVALID_PARAMS',
+    INVALID_REQUEST = 'INVALID_REQUEST',
+    LANGUAGE_NOT_SUPPORTED = 'LANGUAGE_NOT_SUPPORTED',
+    NOT_AVAILABLE_IN_REGION = 'NOT_AVAILABLE_IN_REGION',
+    NOT_SUPPORTED = 'NOT_SUPPORTED',
+    PARENTAL_CONTROL_RESTRICTED = 'PARENTAL_CONTROL_RESTRICTED',
+    PREMIUM_ACCOUNT_REQUIRED = 'PREMIUM_ACCOUNT_REQUIRED',
+    SKIP_LIMIT_REACHED = 'SKIP_LIMIT_REACHED',
+    VIDEO_DEVICE_REQUIRED = 'VIDEO_DEVICE_REQUIRED',
+}
 
-export type TextTrackFontStyle = "NORMAL" | "BOLD" | "BOLD_ITALIC" | "ITALIC";
+/**
+ * Represents media error message types.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.ErrorType}
+ */
+export enum ErrorType {
+    ERROR = 'ERROR',
+    INVALID_PLAYER_STATE = 'INVALID_PLAYER_STATE',
+    INVALID_REQUEST = 'INVALID_REQUEST',
+    LOAD_CANCELLED = 'LOAD_CANCELLED',
+    LOAD_FAILED = 'LOAD_FAILED',
+}
 
-export type TextTrackEdgeType =
-    | "NONE"
-    | "OUTLINE"
-    | "DROP_SHADOW"
-    | "RAISED"
-    | "DEPRESSED";
+/**
+ * Extended player state information.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.ExtendedPlayerState}
+ */
+export enum ExtendedPlayerState {
+    LOADING = 'LOADING',
+}
 
-export type Command =
-    | "PAUSE"
-    | "SEEK"
-    | "STREAM_VOLUME"
-    | "STREAM_MUTE"
-    | "ALL_BASIC_MEDIA"
-    | "QUEUE_NEXT"
-    | "QUEUE_PREV"
-    | "QUEUE_SHUFFLE"
-    | "SKIP_AD";
+/**
+ * Focus states.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.FocusState}
+ */
+export enum FocusState {
+    IN_FOCUS = 'IN_FOCUS',
+    NOT_IN_FOCUS = 'NOT_IN_FOCUS',
+}
 
-export type SeekResumeState = "PLAYBACK_START" | "PLAYBACK_PAUSE";
+/**
+ * The Get Status flag options determine the amount of data that must be included in the media status response.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.GetStatusOptions}
+ */
+export enum GetStatusOptions {
+    NO_METADATA = 1,
+    NO_QUEUE_ITEMS = 2,
+}
 
-export type StreamingProtocolType =
-    | "UNKNOWN"
-    | "MPEG_DASH"
-    | "HLS"
-    | "SMOOTH_STREAMING";
+/**
+ * Represents video High Dynamic Range (HDR) types.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.HdrType}
+ */
+export enum HdrType {
+    DV = 'dv',
+    HDR = 'hdr',
+    SDR = 'sdr',
+}
 
-export type StreamType = "BUFFERED" | "LIVE" | "NONE";
+/**
+ * Format of an HLS audio segment.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.HlsSegmentFormat}
+ */
+export enum HlsSegmentFormat {
+    AAC = 'aac',
+    AC3 = 'ac3',
+    E_AC3 = 'e_ac3',
+    FMP4 = 'fmp4',
+    MP3 = 'mp3',
+    TS = 'ts',
+    TS_AAC = 'ts_aac',
+}
 
-export type FocusState = "IN_FOCUS" | "NOT_IN_FOCUS";
+/**
+ * Format of an HLS audio segment.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.HlsSegmentFormat}
+ */
+export enum HlsVideoSegmentFormat {
+    FMP4 = 'fmp4',
+    MPEG2_TS = 'mpeg2_ts',
+}
 
-export type ExtendedPlayerState = "LOADING";
+/**
+ * The reason for the player to be in IDLE state.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.IdleReason}
+ */
+export enum IdleReason {
+    CANCELLED = 'CANCELLED',
+    ERROR = 'ERROR',
+    FINISHED = 'FINISHED',
+    INTERRUPTED = 'INTERRUPTED',
+}
 
-export type ErrorType =
-    | "INVALID_PLAYER_STATE"
-    | "LOAD_FAILED"
-    | "LOAD_CANCELLED"
-    | "INVALID_REQUEST"
-    | "ERROR";
+/**
+ * The media category.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.MediaCategory}
+ */
+export enum MediaCategory {
+    AUDIO = 'AUDIO',
+    IMAGE = 'IMAGE',
+    VIDEO = 'VIDEO',
+}
 
-export type ErrorReason =
-    | "INVALID_COMMAND"
-    | "INVALID_PARAMS"
-    | "INVALID_MEDIA_SESSION_ID"
-    | "SKIP_LIMIT_REACHED"
-    | "NOT_SUPPORTED"
-    | "LANGUAGE_NOT_SUPPORTED"
-    | "END_OF_QUEUE"
-    | "APP_ERROR"
-    | "AUTHENTICATION_EXPIRED"
-    | "PREMIUM_ACCOUNT_REQUIRED"
-    | "CONCURRENT_STREAM_LIMIT"
-    | "PARENTAL_CONTROL_RESTRICTED"
-    | "NOT_AVAILABLE_IN_REGION"
-    | "CONTENT_ALREADY_PLAYING"
-    | "INVALID_REQUEST"
-    | "GENERIC_LOAD_ERROR";
+/**
+ * Represents media message types.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.MessageType}
+ */
+export enum MessageType {
+    CLOUD_STATUS = 'CLOUD_STATUS',
+    CUSTOM_COMMAND = 'CUSTOM_COMMAND',
+    CUSTOM_STATE = 'CUSTOM_STATE',
+    DISPLAY_STATUS = 'DISPLAY_STATUS',
+    EDIT_AUDIO_TRACKS = 'EDIT_AUDIO_TRACKS',
+    EDIT_TRACKS_INFO = 'EDIT_TRACKS_INFO',
+    EXECUTE_ACTION_SCRIPT = 'EXECUTE_ACTION_SCRIPT',
+    FOCUS_STATE = 'FOCUS_STATE',
+    GET_STATUS = 'GET_STATUS',
+    LOAD = 'LOAD',
+    LOAD_BY_ENTITY = 'LOAD_BY_ENTITY',
+    MEDIA_STATUS = 'MEDIA_STATUS',
+    PAUSE = 'PAUSE',
+    PLAY = 'PLAY',
+    PLAY_AGAIN = 'PLAY_AGAIN',
+    PLAY_STRING = 'PLAY_STRING',
+    PRECACHE = 'PRECACHE',
+    PRELOAD = 'PRELOAD',
+    QUEUE_CHANGE = 'QUEUE_CHANGE',
+    QUEUE_GET_ITEMS = 'QUEUE_GET_ITEMS',
+    QUEUE_GET_ITEM_IDS = 'QUEUE_GET_ITEM_IDS',
+    QUEUE_GET_ITEM_RANGE = 'QUEUE_GET_ITEM_RANGE',
+    QUEUE_INSERT = 'QUEUE_INSERT',
+    QUEUE_ITEMS = 'QUEUE_ITEMS',
+    QUEUE_ITEM_IDS = 'QUEUE_ITEM_IDS',
+    QUEUE_LOAD = 'QUEUE_LOAD',
+    QUEUE_NEXT = 'QUEUE_NEXT',
+    QUEUE_PREV = 'QUEUE_PREV',
+    QUEUE_REMOVE = 'QUEUE_REMOVE',
+    QUEUE_REORDER = 'QUEUE_REORDER',
+    QUEUE_SHUFFLE = 'QUEUE_SHUFFLE',
+    QUEUE_UPDATE = 'QUEUE_UPDATE',
+    REFRESH_CREDENTIALS = 'REFRESH_CREDENTIALS',
+    RESUME_SESSION = 'RESUME_SESSION',
+    SEEK = 'SEEK',
+    SESSION_STATE = 'SESSION_STATE',
+    SET_CREDENTIALS = 'SET_CREDENTIALS',
+    SET_PLAYBACK_RATE = 'SET_PLAYBACK_RATE',
+    SET_VOLUME = 'SET_VOLUME',
+    SHOW_REMOTE_CONTROL_OVERLAY = 'SHOW_REMOTE_CONTROL_OVERLAY',
+    SKIP_AD = 'SKIP_AD',
+    STOP = 'STOP',
+    STORE_SESSION = 'STORE_SESSION',
+    USER_ACTION = 'USER_ACTION',
+}
 
-export type RepeatMode =
-    | "REPEAT_OFF"
-    | "REPEAT_ALL"
-    | "REPEAT_SINGLE"
-    | "REPEAT_ALL_AND_SHUFFLE";
+/**
+ * Possible types of media metadata.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.MetadataType}
+ */
+export enum MetadataType {
+    GENERIC = 0,
+    MOVIE = 1,
+    TV_SHOW = 2,
+    MUSIC_TRACK = 3,
+    PHOTO = 4,
+    AUDIOBOOK_CHAPTER = 5,
+}
 
-export type IdleReason = "CANCELLED" | "INTERRUPTED" | "FINISHED" | "ERROR";
+/**
+ * Represents the player state.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.PlayerState}
+ */
+export enum PlayStringId {
+    FREE_TRIAL_ABOUT_TO_EXPIRE = 'FREE_TRIAL_ABOUT_TO_EXPIRE',
+    PLAYING_ALTERNATE_MIX = 'PLAYING_ALTERNATE_MIX',
+    STREAM_HIJACKED = 'STREAM_HIJACKED',
+    SUBSCRIPTION_ABOUT_TO_EXPIRE = 'SUBSCRIPTION_ABOUT_TO_EXPIRE',
+}
 
-export type HlsSegmentFormat = "AAC" | "AC3" | "MP3" | "TS" | "TS_AAC";
+/**
+ * Represents the player state.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.PlayerState}
+ */
+export enum PlayerState {
+    BUFFERING = 'BUFFERING',
+    IDLE = 'IDLE',
+    PAUSED = 'PAUSED',
+    PLAYING = 'PLAYING',
+}
 
-export type HdrType = "SDR" | "HDR" | "DV";
+/**
+ * Queue change types used by QUEUE_CHANGE outgoing message.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.QueueChangeType}
+ */
+export enum QueueChangeType {
+    INSERT = 'INSERT',
+    ITEMS_CHANGE = 'ITEMS_CHANGE',
+    NO_CHANGE = 'NO_CHANGE',
+    REMOVE = 'REMOVE',
+    UPDATE = 'UPDATE',
+}
 
-export type PlayStringId =
-    | "FREE_TRIAL_ABOUT_TO_EXPIRE"
-    | "SUBSCRIPTION_ABOUT_TO_EXPIRE"
-    | "STREAM_HIJACKED";
+/**
+ * Types of media container/queue.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.QueueType}
+ */
+export enum QueueType {
+    ALBUM = 'ALBUM',
+    AUDIOBOOK = 'AUDIOBOOK',
+    LIVE_TV = 'LIVE_TV',
+    MOVIE = 'MOVIE',
+    PLAYLIST = 'PLAYLIST',
+    PODCAST_SERIES = 'PODCAST_SERIES',
+    RADIO_STATION = 'RADIO_STATION',
+    TV_SERIES = 'TV_SERIES',
+    VIDEO_PLAYLIST = 'VIDEO_PLAYLIST',
+}
 
-export type GetStatusOptions = "NO_METADATA" | "NO_QUEUE_ITEMS";
+/**
+ * Behavior of the queue when all items have been played.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.RepeatMode}
+ */
+export enum RepeatMode {
+    REPEAT_ALL = 'REPEAT_ALL',
+    REPEAT_ALL_AND_SHUFFLE = 'REPEAT_ALL_AND_SHUFFLE',
+    REPEAT_OFF = 'REPEAT_OFF',
+    REPEAT_SINGLE = 'REPEAT_SINGLE',
+}
 
-export type MessageType =
-    | "MEDIA_STATUS"
-    | "CLOUD_STATUS"
-    | "QUEUE_CHANGE"
-    | "QUEUE_ITEMS"
-    | "QUEUE_ITEM_IDS"
-    | "GET_STATUS"
-    | "LOAD"
-    | "PAUSE"
-    | "STOP"
-    | "PLAY"
-    | "SKIP_AD"
-    | "PLAY_AGAIN"
-    | "SEEK"
-    | "SET_PLAYBACK_RATE"
-    | "SET_VOLUME"
-    | "EDIT_TRACKS_INFO"
-    | "EDIT_AUDIO_TRACKS"
-    | "PRECACHE"
-    | "PRELOAD"
-    | "QUEUE_LOAD"
-    | "QUEUE_INSERT"
-    | "QUEUE_UPDATE"
-    | "QUEUE_REMOVE"
-    | "QUEUE_REORDER"
-    | "QUEUE_NEXT"
-    | "QUEUE_PREV"
-    | "QUEUE_GET_ITEM_RANGE"
-    | "QUEUE_GET_ITEMS"
-    | "QUEUE_GET_ITEM_IDS"
-    | "QUEUE_SHUFFLE"
-    | "SET_CREDENTIALS"
-    | "LOAD_BY_ENTITY"
-    | "USER_ACTION"
-    | "DISPLAY_STATUS"
-    | "FOCUS_STATE"
-    | "CUSTOM_COMMAND";
+/**
+ * Represents the playback state after a SEEK request.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.SeekResumeState}
+ */
+export enum SeekResumeState {
+    PLAYBACK_PAUSE = 'PLAYBACK_PAUSE',
+    PLAYBACK_START = 'PLAYBACK_START',
+}
 
-export type PlayerState = "IDLE" | "PLAYING" | "PAUSED" | "BUFFERING";
+/**
+ * The streaming protocol types.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.StreamingProtocolType}
+ */
+export enum StreamingProtocolType {
+    UNKNOWN = 0,
+    MPEG_DASH = 1,
+    HLS = 2,
+    SMOOTH_STREAMING = 3,
+}
 
-export type QueueChangeType =
-    | "INSERT"
-    | "REMOVE"
-    | "ITEMS_CHANGE"
-    | "UPDATE"
-    | "NO_CHANGE";
+/**
+ * Represents the stream types.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.StreamType}
+ */
+export enum StreamType {
+    BUFFERED = 'BUFFERED',
+    LIVE = 'LIVE',
+    NONE = 'NONE',
+}
 
-export type QueueType =
-    | "ALBUM"
-    | "PLAYLIST"
-    | "AUDIOBOOK"
-    | "RADIO_STATION"
-    | "PODCAST_SERIES"
-    | "TV_SERIES"
-    | "VIDEO_PLAYLIST"
-    | "LIVE_TV"
-    | "MOVIE";
+/**
+ * Possible text track edge type.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TextTrackEdgeType}
+ */
+export enum TextTrackEdgeType {
+    DEPRESSED = 'DEPRESSED',
+    DROP_SHADOW = 'DROP_SHADOW',
+    NONE = 'NONE',
+    OUTLINE = 'OUTLINE',
+    RAISED = 'RAISED',
+}
 
-export type MetadataType =
-    | "GENERIC"
-    | "MOVIE"
-    | "TV_SHOW"
-    | "MUSIC_TRACK"
-    | "PHOTO";
+/**
+ * Text track font generic family.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TextTrackFontGenericFamily}
+ */
+export enum TextTrackFontGenericFamily {
+    CASUAL = 'CASUAL',
+    CURSIVE = 'CURSIVE',
+    MONOSPACED_SANS_SERIF = 'MONOSPACED_SANS_SERIF',
+    MONOSPACED_SERIF = 'MONOSPACED_SERIF',
+    SANS_SERIF = 'SANS_SERIF',
+    SERIF = 'SERIF',
+    SMALL_CAPITALS = 'SMALL_CAPITALS',
+}
+
+/**
+ * Possible text track font style.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TextTrackFontStyle}
+ */
+export enum TextTrackFontStyle {
+    BOLD = 'BOLD',
+    BOLD_ITALIC = 'BOLD_ITALIC',
+    ITALIC = 'ITALIC',
+    NORMAL = 'NORMAL',
+}
+
+/**
+ * Possible text track type (follows the HTML5 text track type definitions).
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TextTrackType}
+ */
+export enum TextTrackType {
+    CAPTIONS = 'CAPTIONS',
+    CHAPTERS = 'CHAPTERS',
+    DESCRIPTIONS = 'DESCRIPTIONS',
+    METADATA = 'METADATA',
+    SUBTITLES = 'SUBTITLES',
+}
+
+/**
+ * Text track window type.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TextTrackWindowType}
+ */
+export enum TextTrackWindowType {
+    NONE = 'NONE',
+    NORMAL = 'NORMAL',
+    ROUNDED_CORNERS = 'ROUNDED_CORNERS',
+}
+
+/**
+ * Possible media track type.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TrackType}
+ */
+export enum TrackType {
+    AUDIO = 'AUDIO',
+    TEXT = 'TEXT',
+    VIDEO = 'VIDEO',
+}
+
+/**
+ * User actions.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.UserAction}
+ */
+export enum UserAction {
+    DISLIKE = 'DISLIKE',
+    FLAG = 'FLAG',
+    FOLLOW = 'FOLLOW',
+    LIKE = 'LIKE',
+    SKIP_AD = 'SKIP_AD',
+    UNFOLLOW = 'UNFOLLOW',
+}
+
+/**
+ * Context information for the user action.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.UserActionContext}
+ */
+export enum UserActionContext {
+    ALBUM = 'ALBUM',
+    ARTIST = 'ARTIST',
+    CHANNEL = 'CHANNEL',
+    COACH = 'COACH',
+    EPISODE = 'EPISODE',
+    MOVIE = 'MOVIE',
+    PLAYER = 'PLAYER',
+    PLAYLIST = 'PLAYLIST',
+    SERIES = 'SERIES',
+    TEAM = 'TEAM',
+    TRACK = 'TRACK',
+    UNKNOWN_CONTEXT = 'UNKNOWN_CONTEXT',
+}
 
 /**
  * RefreshCredentials request data.
  */
-export interface RefreshCredentialsRequestData {
+export class RefreshCredentialsRequestData {
     [key: string]: any;
 }
 
 /**
  * Media event SET_VOLUME request data.
  */
-export interface VolumeRequestData extends RequestData {
+export class VolumeRequestData extends RequestData {
+    constructor();
+
     /**
      * The media stream volume
      */
@@ -205,7 +452,7 @@ export interface VolumeRequestData extends RequestData {
 /**
  * Represents the volume of a media session stream.
  */
-export interface Volume {
+export class Volume {
     /**
      * Value from 0 to 1 that represents the current stream volume level.
      */
@@ -233,7 +480,7 @@ export class VideoInformation {
 /**
  * VAST ad request configuration.
  */
-export interface VastAdsRequest {
+export class VastAdsRequest {
     /**
      * Specifies a VAST document to be used as the ads response instead of making a
      * request via an ad tag url.
@@ -251,10 +498,17 @@ export interface VastAdsRequest {
 /**
  * UserAction request data.
  */
-export interface UserActionRequestData {
+export class UserActionRequestData extends RequestData {
+    constructor()
+
     /**
-     * Optional request source.
-     * It contain the assistent query that initiate the request.
+     * Indicate request for clearing of a user action (i.e. undo like).
+     */
+    clear?: boolean;
+
+    /**
+     * Optional request source. It contain the assistent query that initiate the
+     * request.
      */
     source?: string;
 
@@ -272,7 +526,7 @@ export interface UserActionRequestData {
 /**
  * A TV episode media description.
  */
-export interface TvShowMediaMetadata {
+export class TvShowMediaMetadata {
     /**
      * TV episode number. A positive integer.
      */
@@ -380,7 +634,7 @@ export class Track {
 /**
  * Describes style information for a text track.
  */
-export interface TextTrackStyle {
+export class TextTrackStyle {
     /**
      * The background 32 bit RGBA color. The alpha channel should be used for transparent backgrounds.
      */
@@ -441,19 +695,43 @@ export interface TextTrackStyle {
 }
 
 /**
+ * Response data for SESSION_STATE command.
+ */
+export class StoreSessionResponseData extends RequestData {
+    /**
+     * @param sessionState The SessionState object to be returned.
+     */
+    constructor(sessionState: SessionState);
+
+    /**
+     * The SessionState object to be returned.
+     */
+    sessionState: SessionState;
+}
+
+/**
+ * STORE_SESSION request data
+ */
+export class StoreSessionRequestData extends RequestData {
+    constructor();
+}
+
+/**
  * Media event playback rate request data.
  */
-export interface SetPlaybackRateRequestData extends RequestData {
+export class SetPlaybackRateRequestData extends RequestData {
+    constructor();
+
     /**
      * New playback rate (>0).
      */
     playbackRate?: number;
 
     /**
-     * New playback rate relative to current playback rate.
-     * New rate will be the result of multiplying the current rate with the value.
-     * For example a value of 1.1 will increase rate by 10%.
-     * (Only used if the playbackRate value is not provided).
+     * New playback rate relative to current playback rate. New rate will be the
+     * result of multiplying the current rate with the value. For example a
+     * value of 1.1 will increase rate by 10%. (Only used if the playbackRate
+     * value is not provided).
      */
     relativePlaybackRate?: number;
 }
@@ -461,36 +739,57 @@ export interface SetPlaybackRateRequestData extends RequestData {
 /**
  * SetCredentials request data.
  */
-export interface SetCredentialsRequestData {
+export class SetCredentialsRequestData extends RequestData {
+    constructor()
+
     /**
      * Credentials to use by receiver.
      */
     credentials?: string;
 
     /**
-     * If it is a response for refresh credentials; it will indicate the request id
-     * of the refresh credentials request.
+     * If it is a response for refresh credentials, it will indicate the request
+     * id of the refresh credentials request.
      */
     forRequestId?: number;
 
     /**
-     * Optional request source. It contain the assistent query that initiate the request.
+     * Optional request source. It contain the assistent query that initiate the
+     * request.
      */
     source?: string;
 }
 
 /**
+ * A state object containing all data to be stored in StoreSession and to be
+ * recovered in ResumeSession.
+ * [Description]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.SessionState.html}
+ */
+export class SessionState {
+    constructor();
+
+    /**
+     * Customizable object for storing the state.
+     */
+    customData?: object;
+
+    loadRequestData?: LoadRequestData;
+}
+
+/**
  * Media event SEEK request data.
  */
-export interface SeekRequestData extends RequestData {
+export class SeekRequestData extends RequestData {
+    constructor();
+
     /**
      * Seconds since beginning of content.
      */
     currentTime?: number;
 
     /**
-     * Seconds relative to the current playback position. If this field is defined;
-     * the currentTime field will be ignored.
+     * Seconds relative to the current playback position. If this field is
+     * defined, the currentTime field will be ignored.
      */
     relativeTime?: number;
 
@@ -518,6 +817,18 @@ export class SeekableRange {
 }
 
 /**
+ * RESUME_SESSION request data
+ */
+export class ResumeSessionRequestData extends RequestData {
+    constructor();
+
+    /**
+     * The SessionState object returned by StoreSession command.
+     */
+    sessionState?: SessionState;
+}
+
+/**
  * Media event request data.
  */
 export class RequestData {
@@ -539,42 +850,49 @@ export class RequestData {
      * Id of the request; used to correlate request/response.
      */
     requestId: number;
+
+    /**
+     * Message type.
+     */
+    type: MessageType;
 }
 
 /**
  * Media event UPDATE queue request data.
  */
-export interface QueueUpdateRequestData {
+export class QueueUpdateRequestData extends RequestData {
+    constructor();
+
     /**
-     * ID of the current media Item after the deletion
-     * (if not provided; the currentItem value will be the same as before the deletion;
-     *  if it does not exist because it has been deleted; the currentItem will point to
-     * the next logical item in the list).
+     * ID of the current media Item after the changes (if not provided or not
+     * found, the currentItem value will be the same as before the update).
      */
     currentItemId?: number;
 
     /**
-     * Seconds since the beginning of content to start playback of the current item.
-     *  If provided; this value will take precedence over the startTime value provided
-     * at the QueueItem level but only the first time the item is played.
-     *  This is to cover the common case where the user jumps to the middle of an
-     * item so the currentTime does not apply to the item permanently like the
-     * QueueItem startTime does. It avoids having to reset the startTime dynamically
-     *  (that may not be possible if the phone has gone to sleep).
+     * Seconds since the beginning of content to start playback of the current
+     * item. If provided, this value will take precedence over the startTime
+     * value provided at the QueueItem level but only the first time the item is
+     * played. This is to cover the common case where the user jumps to the
+     * middle of an item so the currentTime does not apply to the item
+     * permanently like the QueueItem startTime does. It avoids having to reset
+     * the startTime dynamically (that may not be possible if the phone has gone
+     * to sleep).
      */
     currentTime?: number;
 
     /**
-     * List of queue items to be updated. No reordering will happen; the items will
-     * retain the existing order.
+     * List of queue items to be updated. No reordering will happen, the items
+     * will retain the existing order.
      */
     items?: QueueItem[];
 
     /**
      * Skip/Go back number of items with respect to the position of currentItem
-     * (it can be negative). If it is out of boundaries; the currentItem will be the
-     * next logical item in the queue wrapping around the boundaries.
-     * The new currentItem position will follow the rules of the queue repeat behavior.
+     * (it can be negative). If it is out of boundaries, the currentItem will be
+     * the next logical item in the queue wrapping around the boundaries. The
+     * new currentItem position will follow the rules of the queue repeat
+     * behavior.
      */
     jump?: number;
 
@@ -584,9 +902,8 @@ export interface QueueUpdateRequestData {
     repeatMode?: RepeatMode;
 
     /**
-     * Shuffle the queue items when the update is processed.
-     * After the queue items are shuffled; the item at the currentItem position will
-     *  be loaded.
+     * Shuffle the queue items when the update is processed. After the queue
+     * items are shuffled, the item at the currentItem position will be loaded.
      */
     shuffle?: boolean;
 }
@@ -642,70 +959,79 @@ export class QueueReorderRequestData extends RequestData {
  * Media event queue REMOVE request data.
  */
 export class QueueRemoveRequestData extends RequestData {
+    /**
+     * @param itemIds IDs of queue items to be deleted.
+     */
     constructor(itemIds: number[]);
 
     /**
-     * ID of the current media Item after the deletion
-     * (if not provided; the currentItem value will be the same as before the deletion;
-     * if it does not exist because it has been deleted;
-     * the currentItem will point to the next logical item in the list).
+     * ID of the current media Item after the deletion (if not provided, the
+     * currentItem value will be the same as before the deletion; if it does not
+     * exist because it has been deleted, the currentItem will point to the next
+     * logical item in the list).
      */
     currentItemId?: number;
 
     /**
-     * Seconds since the beginning of content to start playback of the current item.
-     *  If provided; this value will take precedence over the startTime value provided
-     * at the QueueItem level but only the first time the item is played.
-     * This is to cover the common case where the user jumps to the middle of an
-     * item so the currentTime does not apply to the item permanently like the
-     *  QueueItem startTime does. It avoids having to reset the startTime dynamically
-     * (that may not be possible if the phone has gone to sleep).
+     * Seconds since the beginning of content to start playback of the current
+     * item. If provided, this value will take precedence over the startTime
+     * value provided at the QueueItem level but only the first time the item is
+     * played. This is to cover the common case where the user jumps to the
+     * middle of an item so the currentTime does not apply to the item
+     * permanently like the QueueItem startTime does. It avoids having to reset
+     * the startTime dynamically (that may not be possible if the phone has gone
+     * to sleep).
      */
     currentTime?: number;
 
     /**
      * IDs of queue items to be deleted.
      */
-    itemIds?: number[];
+    itemIds: number[];
 }
 /**
  * Media event queue LOAD request data.
  */
 export class QueueLoadRequestData extends RequestData {
+    /**
+     * @param items List of queue items. The itemId field of the items should be
+     * empty or the request will fail with an INVALID_PARAMS error. It is sorted
+     * (first element will be played first).
+     */
     constructor(items: QueueItem[]);
 
     /**
-     * Seconds (since the beginning of content) to start playback of the first item to
-     *  be played. If provided; this value will take precedence over the
-     * startTime value provided at the QueueItem level but only the first
-     * time the item is played. This is to cover the common case where the user
-     * casts the item that was playing locally so the currentTime does not apply
-     * to the item permanently like the QueueItem startTime does.
-     * It avoids having to reset the startTime dynamically
-     * (that may not be possible if the phone has gone to sleep).
+     * Seconds (since the beginning of content) to start playback of the first
+     * item to be played. If provided, this value will take precedence over the
+     * startTime value provided at the QueueItem level but only the first time
+     * the item is played. This is to cover the common case where the user casts
+     * the item that was playing locally so the currentTime does not apply to
+     * the item permanently like the QueueItem startTime does. It avoids having
+     * to reset the startTime dynamically (that may not be possible if the phone
+     * has gone to sleep).
      */
     currentTime?: number;
 
     /**
-     * Behavior of the queue when all items have been played.
+     * Array of queue items. It is sorted (first element will be played first).
      */
     items: QueueItem[];
 
     /**
-     * Id of the request; used to correlate request/response.
+     * Behavior of the queue when all items have been played.
      */
     repeatMode?: RepeatMode;
 
     /**
-     * The index of the item in the items array that must be the first currentItem
-     * (the item that will be played first). Note this is the index of the array
-     *  (starts at 0) and not the itemId (as it is not known until the queue is created).
-     * If repeatMode is REPEAT_OFF playback will end when the last item in the array is
-     * played (elements before the startIndex will not be played).
-     * This may be useful for continuation scenarios where the user was already
-     * using the sender app and in the middle decides to cast.
-     * In this way the sender app does not need to map between the local and remote queue
-     * positions or saves one extra QUEUE_UPDATE request.
+     * The index of the item in the items array that must be the first
+     * currentItem (the item that will be played first). Note this is the index
+     * of the array (starts at 0) and not the itemId (as it is not known until
+     * the queue is created). If repeatMode is REPEAT_OFF playback will end when
+     * the last item in the array is played (elements before the startIndex will
+     * not be played). This may be useful for continuation scenarios where the
+     * user was already using the sender app and in the middle decides to cast.
+     * In this way the sender app does not need to map between the local and
+     * remote queue positions or saves one extra QUEUE_UPDATE request.
      */
     startIndex?: number;
 }
@@ -787,45 +1113,52 @@ export class QueueItem {
  * Media event queue INSERT request data.
  */
 export class QueueInsertRequestData extends RequestData {
+    /**
+     * @param items List of queue items. The itemId field of the items should be
+     * empty or the request will fail with an INVALID_PARAMS error. It is sorted
+     * (first element will be played first).
+     */
     constructor(items: QueueItem[]);
 
     /**
-     * ID of the current media Item after the insertion (if not provided;
-     * the currentItem value will be the same as before the insertion).
+     * ID of the current media Item after the insertion (if not provided, the
+     * currentItem value will be the same as before the insertion).
      */
     currentItemId?: number;
 
     /**
-     * Index (relative to the items array; starting with 0) of the new current media Item.
-     *  For inserted items we use the index (similar to startIndex in QUEUE_LOAD) and not
-     * currentItemId; because the itemId is unknown until the items are inserted.
-     * If not provided; the currentItem value will be the same as before the insertion
-     * (unless currentItemId is provided). This param allows to make atomic the common use
-     * case of insert and play an item.
+     * Index (relative to the items array, starting with 0) of the new current
+     * media Item. For inserted items we use the index (similar to startIndex in
+     * QUEUE_LOAD) and not currentItemId, because the itemId is unknown until
+     * the items are inserted. If not provided, the currentItem value will be
+     * the same as before the insertion (unless currentItemId is provided). This
+     * param allows to make atomic the common use case of insert and play an
+     * item.
      */
     currentItemIndex?: number;
 
     /**
-     * Seconds since the beginning of content to start playback of the current item.
-     * If provided; this value will take precedence over the startTime value provided
-     * at the QueueItem level but only the first time the item is played.
-     * This is to cover the common case where the user jumps to the middle of an
-     * item so the currentTime does not apply to the item permanently like the
-     * QueueItem startTime does. It avoids having to reset the startTime dynamically
-     * (that may not be possible if the phone has gone to sleep).
+     * Seconds since the beginning of content to start playback of the current
+     * item. If provided, this value will take precedence over the startTime
+     * value provided at the QueueItem level but only the first time the item is
+     * played. This is to cover the common case where the user jumps to the
+     * middle of an item so the currentTime does not apply to the item
+     * permanently like the QueueItem startTime does. It avoids having to reset
+     * the startTime dynamically (that may not be possible if the phone has gone
+     * to sleep).
      */
     currentTime?: number;
 
     /**
      * ID of the item that will be located immediately after the inserted list.
-     *  If the ID is not found or it is not provided; the list will be appended at
-     *  the end of the existing list.
+     * If the ID is not found or it is not provided, the list will be appended
+     * at the end of the existing list.
      */
     insertBefore?: number;
 
     /**
-     * List of queue items. The itemId field of the items should be empty.
-     *  It is sorted (first element will be played first).
+     * List of queue items. The itemId field of the items should be empty. It is
+     * sorted (first element will be played first).
      */
     items: QueueItem[];
 }
@@ -833,7 +1166,9 @@ export class QueueInsertRequestData extends RequestData {
 /**
  * Represents a data message containing the full list of queue ids.
  */
-export interface QueueIds {
+export class QueueIds {
+    constructor()
+
     /**
      * List of queue item ids.
      */
@@ -844,7 +1179,41 @@ export interface QueueIds {
      */
     requestId?: number;
 
+    /**
+     * Message type.
+     */
     type: MessageType;
+}
+
+export class ContainerMetadata {
+    constructor(type?: ContainerType);
+
+    /**
+     * Container duration in seconds. For example an audiobook playback time.
+     */
+    containerDuration?: number;
+
+    /**
+     * Container images. For example a live TV channel logo, audiobook cover,
+     * album cover art, etc.
+     */
+    containerImages?: Image[];
+
+    /**
+     * The type of container object.
+     */
+    containerType: ContainerType;
+
+    /**
+     * Array of media metadata objects to describe the media content sections.
+     * Used to delineate live TV streams into programs and audiobooks into chapters.
+     */
+    sections?: MediaMetadata[];
+
+    /**
+     * The title of the container, for example an audiobook title, a TV channel name, etc.
+     */
+    title?: string;
 }
 
 /**
@@ -858,8 +1227,13 @@ export class QueueData {
         repeatMode?: RepeatMode,
         items?: QueueItem[],
         startIndex?: number,
-        startTime?: number
+        startTime?: number,
     );
+
+    /**
+     * Metadata to describe the queue content, and optionally media sections.
+     */
+    containerMetadata?: ContainerMetadata;
 
     /**
      * Description of the queue.
@@ -897,6 +1271,11 @@ export class QueueData {
     repeatMode?: RepeatMode;
 
     /**
+     * Indicate if the queue is shuffled.
+     */
+    shuffle?: boolean;
+
+    /**
      * The index of the item in the queue that should be used to start playback first.
      */
     startIndex?: number;
@@ -908,9 +1287,11 @@ export class QueueData {
 }
 
 /**
- * Represents a queue change message; such as insert; remove; and update.
+ * Represents a queue change message, such as insert, remove, and update.
  */
-export interface QueueChange {
+export class QueueChange {
+    constructor()
+
     /**
      * The actual queue change type.
      */
@@ -937,66 +1318,19 @@ export interface QueueChange {
      */
     sequenceNumber?: number;
 
+    /**
+     * Message type.
+     */
     type: MessageType;
 }
 
 /**
  * Media event PRELOAD request data.
  */
-export class PreloadRequestData implements LoadRequestData {
+export class PreloadRequestData extends LoadRequestData {
     /**
-     * Array of trackIds that are active. If the array is not provided;
-     *  the default tracks will be active.
+     * @param itemId The ID of the queue item.
      */
-    activeTrackIds: number[];
-    /**
-     * If the autoplay parameter is specified; the media player will begin playing
-     * the content when it is loaded. Even if autoplay is not specified;the media player
-     *  implementation may choose to begin playback immediately.
-     */
-    autoplay?: boolean;
-    /**
-     * Optional user credentials.
-     */
-    credentials?: string;
-    /**
-     * Optional credentials type. The type 'cloud' is a reserved type used by load
-     * requests that were originated by voice assistant commands.
-     */
-    credentialsType?: string;
-    /**
-     * Seconds since beginning of content. If the content is live content;
-     * and currentTime is not specified; the stream will start at the live position.
-     */
-    currentTime?: number;
-    /**
-     * If the autoplay parameter is specified; the media player will begin playing
-     * the content when it is loaded. Even if autoplay is not specified; the media
-     *  player implementation may choose to begin playback immediately.
-     */
-    media: MediaInformation;
-    /**
-     * The media playback rate.
-     */
-    playbackRate?: number;
-    /**
-     * Queue data.
-     */
-    queueData: QueueData;
-    /**
-     * Application-specific data for this request.
-     * It enables the sender and receiver to easily extend the media protocol
-     * without having to use a new namespace with custom messages.
-     */
-    customData?: any;
-    /**
-     * Id of the media session that the request applies to.
-     */
-    mediaSessionId?: number;
-    /**
-     * Id of the request; used to correlate request/response.
-     */
-    requestId: number;
     constructor(itemId: number);
 
     /**
@@ -1006,64 +1340,14 @@ export class PreloadRequestData implements LoadRequestData {
 }
 
 /**
- * Media event PRECACHE request data. (Some fields of the load request;
- * like autoplay and queueData; are ignored).
+ * Media event PRECACHE request data. (Some fields of the load request, like
+ * autoplay and queueData, are ignored).
  */
-export class PrecacheRequestData implements LoadRequestData {
+export class PrecacheRequestData extends LoadRequestData {
     /**
-     * Array of trackIds that are active. If the array is not provided;
-     * the default tracks will be active.
+     * @param data Application precache data.
      */
-    activeTrackIds: number[];
-    /**
-     * If the autoplay parameter is specified; the media player will begin playing
-     * the content when it is loaded. Even if autoplay is not specified;the media player
-     * implementation may choose to begin playback immediately.
-     */
-    autoplay?: boolean;
-    /**
-     * Optional user credentials.
-     */
-    credentials?: string;
-    /**
-     * Optional credentials type. The type 'cloud' is a reserved type used by load
-     * requests that were originated by voice assistant commands.
-     */
-    credentialsType?: string;
-    /**
-     * Seconds since beginning of content. If the content is live content; and
-     * currentTime is not specified; the stream will start at the live position.
-     */
-    currentTime?: number;
-    /**
-     * If the autoplay parameter is specified; the media player will begin playing
-     * the content when it is loaded. Even if autoplay is not specified;
-     * the media player implementation may choose to begin playback immediately.
-     */
-    media: MediaInformation;
-    /**
-     * The media playback rate.
-     */
-    playbackRate?: number;
-    /**
-     * Queue data.
-     */
-    queueData: QueueData;
-    /**
-     * Application-specific data for this request.
-     * It enables the sender and receiver to easily extend the media protocol
-     * without having to use a new namespace with custom messages.
-     */
-    customData?: any;
-    /**
-     * Id of the media session that the request applies to.
-     */
-    mediaSessionId?: number;
-    /**
-     * Id of the request; used to correlate request/response.
-     */
-    requestId: number;
-    constructor(data?: string);
+    constructor(data?: string)
 
     /**
      * Application precache data.
@@ -1091,7 +1375,7 @@ export class PlayStringRequestData {
 /**
  * A photo media description.
  */
-export interface PhotoMediaMetadata {
+export class PhotoMediaMetadata {
     /**
      * Name of the photographer.
      */
@@ -1141,7 +1425,7 @@ export interface PhotoMediaMetadata {
 /**
  * A music track media description.
  */
-export interface MusicTrackMediaMetadata {
+export class MusicTrackMediaMetadata {
     /**
      * Album artist name.
      */
@@ -1207,7 +1491,7 @@ export interface MusicTrackMediaMetadata {
 /**
  * A movie media description.
  */
-export interface MovieMediaMetadata {
+export class MovieMediaMetadata {
     /**
      * Content images. Examples would include cover art or a thumbnail of the
      * currently playing media.
@@ -1239,20 +1523,24 @@ export interface MovieMediaMetadata {
      */
     title?: string;
 }
+
 /**
  * Represents the status of a media session.
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.MediaStatus}
  */
-export interface MediaStatus {
+export class MediaStatus {
+    constructor();
+
     /**
      * List of IDs corresponding to the active tracks.
      */
-    activeTrackIds: number[];
+    activeTrackIds?: number[];
 
     /**
-     * Status of break; if receiver is playing break.
-     * This field will be defined only when receiver is playing break.
+     * Status of break, if receiver is playing break. This field will be defined
+     * only when receiver is playing break.
      */
-    breakStatus: BreakStatus;
+    breakStatus?: BreakStatus;
 
     /**
      * ID of this media item (the item that originated the status change).
@@ -1272,26 +1560,26 @@ export interface MediaStatus {
     /**
      * Extended media status information.
      */
-    extendedStatus: ExtendedMediaStatus;
+    extendedStatus?: ExtendedMediaStatus;
 
     /**
-     * If the state is IDLE; the reason the player went to IDLE state.
+     * If the state is IDLE, the reason the player went to IDLE state.
      */
-    idleReason: IdleReason;
+    idleReason?: IdleReason;
 
     /**
      * List of media queue items.
      */
-    items: QueueItem[];
+    items?: QueueItem[];
 
     /**
-     * Seekable range of a live or event stream. It uses relative media time in seconds.
-     * It will be undefined for VOD streams.
+     * Seekable range of a live or event stream. It uses relative media time in
+     * seconds. It will be undefined for VOD streams.
      */
-    liveSeekableRange: LiveSeekableRange;
+    liveSeekableRange?: LiveSeekableRange;
 
     /**
-     * ID of the media Item currently loading. If there is no item being loaded;
+     * ID of the media Item currently loading. If there is no item being loaded,
      * it will be undefined.
      */
     loadingItemId?: number;
@@ -1299,7 +1587,7 @@ export interface MediaStatus {
     /**
      * The media information.
      */
-    media: MediaInformation;
+    media?: MediaInformation;
 
     /**
      * Unique id for the session.
@@ -1317,40 +1605,44 @@ export interface MediaStatus {
     playerState: PlayerState;
 
     /**
-     * ID of the next Item; only available if it has been preloaded.
-     * Media items can be preloaded and cached temporarily in memory;
-     * so when they are loaded later on; the process is faster
-     * (as the media does not have to be fetched from the network).
+     * ID of the next Item, only available if it has been preloaded. Media items
+     * can be preloaded and cached temporarily in memory, so when they are
+     * loaded later on, the process is faster (as the media does not have to be
+     * fetched from the network).
      */
     preloadedItemId?: number;
 
     /**
      * Queue data.
      */
-    queueData: QueueData;
+    queueData?: QueueData;
 
     /**
      * The behavior of the queue when all items have been played.
      */
-    repeatMode: RepeatMode;
+    repeatMode?: RepeatMode;
 
     /**
      * The commands supported by this player.
      */
     supportedMediaCommands: number;
 
+    /**
+     * Message type.
+     */
     type: MessageType;
 
     /**
      * The video information.
      */
-    videoInfo: VideoInformation;
+    videoInfo?: VideoInformation;
 
     /**
      * The current stream volume.
      */
     volume: Volume;
 }
+
 /**
  * Common media metadata used as part of MediaInformation
  */
@@ -1366,7 +1658,7 @@ export class MediaMetadata {
 /**
  * Represents the media information.
  */
-export interface MediaInformation {
+export class MediaInformation {
     /**
      * Partial list of break clips that includes current break clip that receiver
      * is playing or ones that receiver will play shortly after; instead of sending
@@ -1420,12 +1712,12 @@ export interface MediaInformation {
      * The media metadata.
      */
     metadata?:
-    | MediaMetadata
-    | GenericMediaMetadata
-    | MovieMediaMetadata
-    | MusicTrackMediaMetadata
-    | PhotoMediaMetadata
-    | TvShowMediaMetadata;
+        | MediaMetadata
+        | GenericMediaMetadata
+        | MovieMediaMetadata
+        | MusicTrackMediaMetadata
+        | PhotoMediaMetadata
+        | TvShowMediaMetadata;
 
     /**
      * The stream type.
@@ -1452,18 +1744,19 @@ export interface MediaInformation {
 /**
  * Media event LOAD request data.
  */
-export interface LoadRequestData extends RequestData {
+export class LoadRequestData extends RequestData {
+    constructor();
+
     /**
-     * Array of trackIds that are active. If the array is not provided; the
+     * Array of trackIds that are active. If the array is not provided, the
      * default tracks will be active.
      */
     activeTrackIds: number[];
 
     /**
-     * If the autoplay parameter is specified; the media player will begin
-     * playing the content when it is loaded. Even if autoplay is not
-     * specified;the media player implementation may choose to begin playback
-     * immediately.
+     * If the autoplay parameter is specified, the media player will begin
+     * playing the content when it is loaded. Even if autoplay is not specified,
+     * the media player implementation may choose to begin playback immediately.
      */
     autoplay?: boolean;
 
@@ -1479,15 +1772,20 @@ export interface LoadRequestData extends RequestData {
     credentialsType?: string;
 
     /**
-     * Seconds since beginning of content. If the content is live content;
-     * and currentTime is not specified; the stream will start at the live position.
+     * Seconds since beginning of content. If the content is live content, and
+     * currentTime is not specified, the stream will start at the live position.
      */
     currentTime?: number;
 
     /**
-     * If the autoplay parameter is specified; the media player will begin playing
-     * the content when it is loaded. Even if autoplay is not specified; the media
-     * player implementation may choose to begin playback immediately.
+     * Added load options.
+     */
+    loadOptions?: LoadOptions;
+
+    /**
+     * If the autoplay parameter is specified, the media player will begin
+     * playing the content when it is loaded. Even if autoplay is not specified,
+     * the media player implementation may choose to begin playback immediately.
      */
     media: MediaInformation;
 
@@ -1503,9 +1801,21 @@ export interface LoadRequestData extends RequestData {
 }
 
 /**
+ * Provides additional options for load requests.
+ */
+export class LoadOptions {
+    constructor();
+
+    /**
+     * The content filtering mode to apply for which items to play.
+     */
+    contentFilteringMode?: ContentFilteringMode;
+}
+
+/**
  * LoadByEntity request data.
  */
-export interface LoadByEntityRequestData {
+export class LoadByEntityRequestData {
     /**
      * Content entity information; typically represented by a stringified JSON object
      */
@@ -1527,12 +1837,7 @@ export interface LoadByEntityRequestData {
  * attributes.
  */
 export class LiveSeekableRange {
-    constructor(
-        start?: number,
-        end?: number,
-        isMovingWindow?: boolean,
-        isLiveDone?: boolean
-    );
+    constructor(start?: number, end?: number, isMovingWindow?: boolean, isLiveDone?: boolean);
 
     /**
      * A boolean value indicates whether a live stream is ended. If it is done;
@@ -1551,17 +1856,22 @@ export class LiveSeekableRange {
 /**
  * Represents a data message containing item information for each requested ids.
  */
-export interface ItemsInfo {
+export class ItemsInfo {
+    constructor()
+
     /**
      * List of changed itemIds.
      */
-    items: QueueItem[];
+    items?: QueueItem[];
 
     /**
      * The corresponding request id.
      */
     requestId?: number;
 
+    /**
+     * Message type.
+     */
     type: MessageType;
 }
 
@@ -1588,11 +1898,13 @@ export class Image {
     width?: number;
 }
 /** Media event GET_STATUS request data. */
-export interface GetStatusRequestData extends RequestData {
+export class GetStatusRequestData extends RequestData {
+    constructor();
+
     /**
      * The options of a GET_STATUS request.
      */
-    options: GetStatusOptions;
+    options?: GetStatusOptions;
 }
 
 /**
@@ -1609,7 +1921,9 @@ export class GetItemsInfoRequestData extends RequestData {
 /**
  * A generic media description.
  */
-export interface GenericMediaMetadata extends MediaMetadata {
+export class GenericMediaMetadata extends MediaMetadata {
+    constructor();
+
     /**
      * Content images. Examples would include cover art or a thumbnail of the
      * currently playing media.
@@ -1640,11 +1954,13 @@ export interface GenericMediaMetadata extends MediaMetadata {
 /**
  * Focus state change message.
  */
-export interface FocusStateRequestData {
+export class FocusStateRequestData extends RequestData {
+    constructor();
+
     /**
      * The focus state of the app.
      */
-    state: FocusState;
+    state?: FocusState;
 }
 
 /** Fetch items request data. */
@@ -1671,10 +1987,7 @@ export class FetchItemsRequestData extends RequestData {
  * Extended media status information
  */
 export class ExtendedMediaStatus {
-    constructor(
-        playerState: MediaInformation,
-        opt_media?: MediaInformation
-    );
+    constructor(playerState: MediaInformation, opt_media?: MediaInformation);
 
     media: MediaInformation;
 
@@ -1715,74 +2028,105 @@ export class ErrorData {
     requestId?: number;
 }
 
-/**  Media event EDIT_TRACKS_INFO request data. */
-export interface EditTracksInfoRequestData extends RequestData {
+/**
+ * Media event EDIT_TRACKS_INFO request data.
+ */
+export class EditTracksInfoRequestData extends RequestData {
+    constructor();
+
     /**
-     * Array of the Track trackIds that should be active.
-     * If it is not provided; the active tracks will not change.
-     * If the array is empty; no track will be active.
+     * Array of the `Track` `trackId`s that should be active. If it is not
+     * provided, the active tracks will not change. If the array is empty, no
+     * track will be active.
      */
     activeTrackIds?: number[];
 
     /**
-     * Flag to enable or disable text tracks.
-     * If false it will disable all text tracks;
-     * if true it will enable the first text track; or the previous active text tracks.
-     * This flag is ignored if activeTrackIds or language is provided.
+     * Flag to enable or disable text tracks. If `false` it will disable all
+     * text tracks. If `true` it will enable the first text track, or the
+     * previous active text tracks. This flag is ignored if `activeTrackIds` or
+     * `language` is provided.
      */
     enableTextTracks?: boolean;
 
     /**
-     * Indicates that the provided language was not explicit user request; but rather
-     * inferred from used language in voice query.
-     * It allows receiver apps to use user saved preference instead of spoken language.
+     * Indicates that the provided language was not an explicit user request,
+     * but rather inferred from used language in voice query. It allows receiver
+     * apps to use user saved preference instead of spoken language.
      */
     isSuggestedLanguage?: boolean;
 
     /**
-     * Language for the tracks that should be active. The language field will take
-     * precedence over activeTrackIds if both are specified.
+     * Language for the tracks that should be active. The language field will
+     * take precedence over activeTrackIds if both are specified.
      */
     language?: string;
 
+    /**
+     * The requested text track style. If it is not provided the existing style
+     * will be used (if no style was provided in previous calls, it will be the
+     * default receiver style).
+     */
     textTrackStyle?: TextTrackStyle;
 }
 
 /**
- * Media event EDIT_AUDIO_TRACKS request data. If language is not provided;
- * the default audio track for the media will be enabled.
+ * Media event EDIT_AUDIO_TRACKS request data. If language is not provided the
+ * default audio track for the media will be enabled.
  */
-export interface EditAudioTracksRequestData extends RequestData {
+export class EditAudioTracksRequestData extends RequestData {
+    constructor();
+
     /**
-     * Indicates that the provided language was not explicit user request;
-     * but rather inferred from used language in voice query.
-     * It allows receiver apps to use user saved preference instead of spoken language.
+     * Indicates that the provided language was not an explicit user request,
+     * but rather inferred from used language in voice query. It allows receiver
+     * apps to use user saved preference instead of spoken language.
      */
     isSuggestedLanguage?: boolean;
 
+    /**
+     * Language for the track that should be active.
+     * The language field will take precedence over `activeTrackIds` if both are
+     * specified.
+     */
     language?: string;
 }
 
-/** DisplayStatus request data. */
-export interface DisplayStatusRequestData {
+/**
+ * DisplayStatus request data.
+ * Note as of November 2019: Docs don't mention this extending RequestData.
+ */
+export class DisplayStatusRequestData extends RequestData {
     /**
-     * Optional request source. It contain the assistent query that initiate the request.
+     * Optional request source. It contains the assistant query that initiated
+     * the request.
      */
-    source: string;
+    source?: string;
 }
 
-/** CustomCommand request data. */
-export interface CustomCommandRequestData {
+/**
+ * CustomCommand request data.
+ * Note as of November 2019: Docs don't mention this extending RequestData.
+ */
+export class CustomCommandRequestData extends RequestData {
     /**
-     * Custom Data; typically represented by a stringified JSON object.
+     * Custom data typically represented by a stringified JSON object.
      */
     data: string;
 
     /**
-     * Optional request source. It contain the assistent query that initiate the request.
+     * Optional request source. It contains the assistant query that initiated
+     * the request.
      */
-    source: string;
+    source?: string;
 }
+
+/**
+ * Cloud media status. Media status that is only sent to the cloud sender.
+ * Note as of November 2019: This message's `type` parameter shows as
+ * `MEDIA_STATUS`, not `CLOUD_STATUS`.
+ */
+export class CloudMediaStatus extends MediaStatus {}
 
 export class BreakStatus {
     constructor(currentBreakTime: number, currentBreakClipTime: number);

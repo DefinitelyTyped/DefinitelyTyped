@@ -10,7 +10,8 @@ import BN = require("bn.js");
 export const utils: any;
 export const rand: any;
 
-export type BNInput = string | BN | number | Buffer | number[];
+export type BNInput = string | BN | number | Buffer | Uint8Array | ReadonlyArray<number>;
+export type SignatureInput = ec.Signature | ec.SignatureOptions | Uint8Array | ReadonlyArray<number> | string;
 
 export const version: number;
 
@@ -43,8 +44,10 @@ export namespace curve {
 
             constructor(curve: base, type: string);
 
-            encode(enc: string, compact: boolean): string | Buffer;
-            encodeCompressed(enc: string): BN;
+            encode(enc: "hex", compact: boolean): string;
+            encode(enc: "array" | undefined, compact: boolean): number[];
+            encodeCompressed(enc: "hex"): string;
+            encodeCompressed(enc?: "array"): number[];
             validate(): boolean;
             precompute(power: number): BasePoint;
             dblp(k: number): BasePoint;
@@ -133,8 +136,8 @@ export namespace curve {
         }
 
         class ShortPoint extends base.BasePoint {
-            x: BN;
-            y: BN;
+            x: BN | null;
+            y: BN | null;
             inf: boolean;
 
             toJSON(): BNInput[];
@@ -181,11 +184,11 @@ export class ec {
 
     keyPair(options: ec.KeyPairOptions): ec.KeyPair;
     keyFromPrivate(
-        priv: Buffer | string | ec.KeyPair,
+        priv: Uint8Array | Buffer | string | number[] | ec.KeyPair,
         enc?: string
     ): ec.KeyPair;
     keyFromPublic(
-        pub: Buffer | string | { x: string; y: string } | ec.KeyPair,
+        pub: Uint8Array | Buffer | string | number[] | { x: string; y: string } | ec.KeyPair,
         enc?: string
     ): ec.KeyPair;
     genKeyPair(options?: ec.GenKeyPairOptions): ec.KeyPair;
@@ -202,19 +205,19 @@ export class ec {
     ): ec.Signature;
     verify(
         msg: BNInput,
-        signature: ec.Signature | ec.SignatureOptions,
+        signature: SignatureInput,
         key: Buffer | ec.KeyPair,
         enc?: string
     ): boolean;
     recoverPubKey(
         msg: BNInput,
-        signature: ec.Signature | ec.SignatureOptions,
+        signature: SignatureInput,
         j: number,
         enc?: string
     ): any;
     getKeyRecoveryParam(
         e: Error | undefined,
-        signature: ec.Signature | ec.SignatureOptions,
+        signature: SignatureInput,
         Q: BN,
         enc?: string
     ): number;
@@ -229,7 +232,7 @@ export namespace ec {
     }
 
     interface SignOptions {
-        pers: any;
+        pers?: any;
         persEnc?: string;
         canonical?: boolean;
         k?: BN;
@@ -252,15 +255,19 @@ export namespace ec {
         constructor(ec: ec, options: KeyPairOptions);
 
         validate(): { readonly result: boolean; readonly reason: string };
-        getPublic(compact: boolean, enc?: string): any; // ?
-        getPublic(enc?: string): any; // ?
-        getPrivate(enc?: "hex"): Buffer | BN | string;
-        derive(pub: any): any; // ?
+        getPublic(compact: boolean, enc: "hex"): string;
+        getPublic(compact: boolean, enc: "array"): number[];
+        getPublic(enc: "hex"): string;
+        getPublic(enc: "array"): number[];
+        getPublic(): curve.base.BasePoint;
+        getPrivate(enc: "hex"): string;
+        getPrivate(): BN;
+        derive(pub: curve.base.BasePoint): BN;
         sign(msg: BNInput, enc: string, options?: SignOptions): Signature;
         sign(msg: BNInput, options?: SignOptions): Signature;
         verify(
             msg: BNInput,
-            signature: Signature | SignatureOptions | string
+            signature: SignatureInput
         ): boolean;
         inspect(): string;
     }
@@ -270,7 +277,7 @@ export namespace ec {
         s: BN;
         recoveryParam: number | null;
 
-        constructor(options: SignatureOptions | Signature, enc?: string);
+        constructor(options: SignatureInput, enc?: string);
 
         toDER(enc?: string | null): any; // ?
     }
@@ -301,7 +308,7 @@ export class eddsa {
         pub: eddsa.Bytes | eddsa.Point | eddsa.KeyPair
     ): boolean;
     hashInt(): BN;
-    keyFromPublic(pub: eddsa.Bytes): eddsa.KeyPair;
+    keyFromPublic(pub: eddsa.Bytes | eddsa.KeyPair | eddsa.Point): eddsa.KeyPair;
     keyFromSecret(secret: eddsa.Bytes): eddsa.KeyPair;
     makeSignature(sig: eddsa.Signature | Buffer | string): eddsa.Signature;
     encodePoint(point: eddsa.Point): Buffer;

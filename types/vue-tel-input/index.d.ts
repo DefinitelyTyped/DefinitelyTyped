@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { VueConstructor } from 'vue';
+import { VueConstructor, PluginFunction } from 'vue';
 import { DirectiveOptions } from 'vue/types/options';
 
 export default VueTelInput;
@@ -93,6 +93,7 @@ export interface VueTelInputInputOption {
 }
 
 export interface VueTelInputConstructor extends VueConstructor {
+    install: PluginFunction<never>;
     props: VueTelInputProps;
     data: () => VueTelInputData;
     watch: VueTelInputWatch;

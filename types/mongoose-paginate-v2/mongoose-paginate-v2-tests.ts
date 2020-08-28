@@ -2,33 +2,26 @@
  * Created by Linus Brolin <https://github.com/linusbrolin/>.
  */
 
-import {
-    Schema,
-    model,
-    PaginateModel,
-    PaginateOptions,
-    PaginateResult,
-    Document
-} from 'mongoose';
-import mongoosePaginate = require('mongoose-paginate');
+import { Schema, model, PaginateModel, PaginateOptions, PaginateResult, Document } from 'mongoose';
+import mongoosePaginate = require('mongoose-paginate-v2');
 import { Router, Request, Response } from 'express';
 
 //#region Test Models
 interface User extends Document {
-  email: string;
-  username: string;
-  password: string;
+    email: string;
+    username: string;
+    password: string;
 }
 
 const UserSchema: Schema = new Schema({
-  email: String,
-  username: String,
-  password: String
+    email: String,
+    username: String,
+    password: String,
 });
 
 UserSchema.plugin(mongoosePaginate);
 
-interface UserModel<T extends Document> extends PaginateModel<T> {}
+interface UserModel<T extends Document> extends PaginateModel<T> { }
 
 const UserModel: UserModel<User> = model<User>('User', UserSchema) as UserModel<User>;
 //#endregion
@@ -40,9 +33,13 @@ router.get('/users.json', (req: Request, res: Response) => {
     const descending = true;
     const options: PaginateOptions = {};
     options.select = 'email username';
-    options.sort = { username: (descending ? -1 : 1) };
+    options.sort = { username: descending ? -1 : 1 };
     options.collation = { locale: 'en_US', strength: 1 };
+    options.pagination = false;
     options.populate = '';
+    options.populate = {
+        path: '',
+    };
     options.lean = true;
     options.leanWithId = false;
     options.offset = 0;
@@ -55,11 +52,12 @@ router.get('/users.json', (req: Request, res: Response) => {
         totalPages: 'totalPagesCustom',
         docs: 'docsCustom',
         nextPage: 'nextPageCustom',
-        prevPage: 'prevPageCustom'
+        prevPage: 'prevPageCustom',
     };
+    options.projection = { _id: 0 };
+    options.options = { batchSize: 200 };
 
-    UserModel
-    .paginate({}, options, (err: any, value: PaginateResult<User>) => {
+    UserModel.paginate({}, options, (err: any, value: PaginateResult<User>) => {
         if (err) {
             console.log(err);
             return res.status(500).send(err);

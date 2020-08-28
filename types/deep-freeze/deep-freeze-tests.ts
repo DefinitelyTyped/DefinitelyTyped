@@ -5,3 +5,6 @@ class Foo {
 }
 const foo = df(new Foo());
 const items = df([{id: 0, name: 'first'}]);
+const functionTest = df({id: 0, name: 'first', update: (blah: boolean) => blah});
+
+functionTest.update(true);

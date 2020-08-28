@@ -129,6 +129,13 @@ helper.hasRefinements('categories'); // false
 helper.toggleFacetRefinement('categories', 'kitchen > knife');
 helper.hasRefinements('categories'); // true
 
+const params = helper.getState().getQueryParams();
+client.search([{
+  indexName: 'test',
+  query: '',
+  params
+}]);
+
 // https://community.algolia.com/algoliasearch-helper-js/reference.html#SearchResults#getFacetValues
 helper.on('result', (content) => {
   // get values ordered only by name ascending using the string predicate

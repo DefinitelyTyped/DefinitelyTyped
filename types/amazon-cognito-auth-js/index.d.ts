@@ -548,7 +548,7 @@ export class CognitoAuth {
     getUserContextData(): string;
 
     /**
-     * Helper method to let the user know if he has either a valid cached session
+     * Helper method to let the user know if they have either a valid cached session
      * or a valid authenticated session from the app integration callback.
      * @returns userSignedIn
      */

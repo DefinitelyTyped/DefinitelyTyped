@@ -1,37 +1,51 @@
 import { Validation } from 'vuelidate'
-import { required, integer, decimal,  minLength, sameAs, helpers } from 'vuelidate/lib/validators'
+import {
+    required,
+    integer,
+    decimal,
+    minLength,
+    sameAs,
+    or,
+    helpers,
+    CustomRule,
+    ipAddress,
+    url, and
+} from 'vuelidate/lib/validators'
 
 import Vue, { ComponentOptions } from 'vue'
 
 // excerpt from vue-class-component/src/declarations.ts
 type VueClass<V> = { new(...args: any[]): V & Vue } & typeof Vue
+
 // excerpt from vue-class-component/src/index.ts
 function Component(options: ComponentOptions<Vue> | VueClass<Vue>): any {
     return null; // mocked
 }
 
-const mustBeCool = (value: string) => value.indexOf('cool') >= 0
+const mustBeCool: CustomRule = (value: string) => value.indexOf('cool') >= 0
 
-const mustBeCool2 = (value: string) => !helpers.req(value) || value.indexOf('cool') >= 0
+const mustBeCool2: CustomRule = (value: string) => !helpers.req(value) || value.indexOf('cool') >= 0
 
-const contains = (param: string) =>
+const contains = (param: string): CustomRule =>
     (value: string) => !helpers.req(value) || value.indexOf(param) >= 0
 
 const mustBeCool3 = helpers.withParams(
-    { type: 'mustBeCool3' },
-    (value) => !helpers.req(value) || value.indexOf('cool') >= 0
+    {type: 'mustBeCool3'},
+    (value: any) => !helpers.req(value) || value.indexOf('cool') >= 0
 )
+
+const mustBeCool3Result: boolean = mustBeCool3(50)
 
 const mustBeCool4 = helpers.regex('mustBeCool4', /^.*cool.*$/)
 
 const mustBeSame = (reference: string) => helpers.withParams(
-    { type: 'mustBeSame' },
+    {type: 'mustBeSame'},
     (value: any, parentVm?: Vue) =>
         value === helpers.ref(reference, self, parentVm)
 )
 
 const mustHaveLength = (minLen: number) => helpers.withParams(
-    { type: 'mustHaveLength' },
+    {type: 'mustHaveLength'},
     (value: any) =>
         helpers.len(value) > minLen
 )
@@ -67,10 +81,10 @@ const mustHaveLength = (minLen: number) => helpers.withParams(
             required,
             decimal
         },
-        flatA: { required },
-        flatB: { required },
+        flatA: {required},
+        flatB: {required},
         forGroup: {
-            nested: { required }
+            nested: {required}
         },
         validationGroup: ['age', 'coolFactor', 'flatA', 'flatB', 'forGroup.nested'],
         people: {
@@ -103,6 +117,14 @@ const mustHaveLength = (minLen: number) => helpers.withParams(
             mustBeCool2,
             containsA: contains('a'),
             mustBeCool3
+        },
+        hostOrLong: {
+            required,
+            or: or(url, minLength(50))
+        },
+        coolHost: {
+            required,
+            and: and(url, mustBeCool)
         }
     }
 })
@@ -132,6 +154,7 @@ export class ValidComponent extends Vue {
     myField = ''
 
     touchMap = new WeakMap()
+
     delayTouch(v: Validation) {
         v.$reset()
         if (this.touchMap.has(v)) {
@@ -166,14 +189,20 @@ export class ValidComponent extends Vue {
     get isRepoValid() {
         return !this.$v.$invalid
     }
+
+    get isPasswordLengthOk() {
+        if (this.$v.password) {
+            return !this.$v.password.minLength
+        } else return false
+    }
 }
 
 @Component({
     validations() {
         const self = this as Valid2Component // assert
         return self.myToggle
-            ? { myField1: required, myField2: contains('maybe') }
-            : { myField1: contains('maybe'), myField2: required }
+            ? {myField1: required, myField2: contains('maybe')}
+            : {myField1: contains('maybe'), myField2: required}
     }
 })
 export class Valid2Component extends Vue {

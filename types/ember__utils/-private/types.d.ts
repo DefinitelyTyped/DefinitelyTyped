@@ -2,6 +2,13 @@ export type KeysOfType<Base, Condition> = keyof Pick<Base, {
     [Key in keyof Base]: Base[Key] extends Condition ? Key : never
 }[keyof Base]>;
 
+// Since `TypeLookup` resolves all *other* types, including `null` and
+// `undefined`, we can assume that if the type does *not* resolve from
+// `KeysOfType`, it is safe to treat it as 'object'.
+export type TypeOf<Base, Condition> = KeysOfType<Base, Condition> extends never
+    ? 'object'
+    : KeysOfType<Base, Condition>;
+
 export interface TypeLookup {
     string: string;
     number: number;

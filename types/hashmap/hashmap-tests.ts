@@ -1,35 +1,42 @@
 import HashMap = require("hashmap");
-var emptyMap:HashMap<string, number> = new HashMap<string, number>();
-var filledMap:HashMap<string, number> = new HashMap<string, number>("bar", 123, "bar2", 234);
-var copiedMap:HashMap<string, number> = new HashMap(filledMap);
+const emptyMap: HashMap<string, number> = new HashMap<string, number>();
+const filledMap: HashMap<string, number> = new HashMap<string, number>("bar", 123, "bar2", 234);
+const filledMap2: HashMap<string, number> = new HashMap<string, number>([
+  ["bar", 123],
+  ["bar2", 234],
+]);
+const copiedMap: HashMap<string, number> = new HashMap(filledMap);
 
 emptyMap.set("foo", 123);
 emptyMap.set("foo", 123).set("foo2", 234);
 emptyMap.multi("foo3", 345, "foo4", 456).multi("foo5", 567, "foo6", "678");
 emptyMap.copy(filledMap).copy(copiedMap);
 
-var value:number = emptyMap.get("foo");
+const value: number = emptyMap.get("foo");
 
-var hasFoo:boolean = emptyMap.has("foo");
+const hasFoo: boolean = emptyMap.has("foo");
 
-var key:string = emptyMap.search(567);
+const key: string = emptyMap.search(567);
 
 emptyMap.remove("foo").remove("foo2");
+emptyMap.delete("foo3").delete("foo4");
 
-var keys:string[] = emptyMap.keys();
+const keys: string[] = emptyMap.keys();
 
-var values:number[] = emptyMap.values();
+const values: number[] = emptyMap.values();
 
-var count:number = emptyMap.count();
+const entries: Array<[string, number]> = emptyMap.entries();
 
-var clonedMap:HashMap<string, number> = emptyMap.clone();
+const count: number = emptyMap.count();
+
+const clonedMap: HashMap<string, number> = emptyMap.clone();
 
 emptyMap
-    .forEach(function (value:number, key:string):void {
+    .forEach((value: number, key: string): void => {
         console.log(key);
         console.log(value);
     })
-    .forEach(function (value:number, key:string):void {
+    .forEach((value: number, key: string): void => {
         console.log("Chained");
         console.log(key);
         console.log(value);

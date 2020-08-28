@@ -35,10 +35,13 @@
         "test/examples-from-react-router-website/Sidebar.tsx",
         "test/examples-from-react-router-website/StaticRouter.tsx",
         "test/Children.tsx",
+        "test/hooks.tsx",
         "test/NavigateWithContext.tsx",
         "test/MemoryRouter.tsx",
+        "test/Prompt.tsx",
         "test/Switch.tsx",
         "test/InheritingRoute.tsx",
-        "test/WithRouter.tsx"
+        "test/WithRouter.tsx",
+        "test/RouterContext.tsx"
     ]
 }

@@ -39,10 +39,10 @@ WebpackDevServerUtils.choosePort('localhost', 3000);
 const urls = WebpackDevServerUtils.prepareUrls('http', 'localhost', 3000);
 
 // $ExpectType Compiler
-WebpackDevServerUtils.createCompiler(webpack, {}, 'app', urls, true);
+WebpackDevServerUtils.createCompiler({ webpack, config: {}, appName: 'app', urls, useYarn: true });
 
-// $ExpectType Configuration
-WebpackDevServerUtils.prepareProxy(undefined, 'build');
+// $ExpectType ProxyConfigArrayItem[] || ProxyConfigArray
+WebpackDevServerUtils.prepareProxy(undefined, 'build', '/test');
 
 const loaderContext: webpack.loader.LoaderContext = null!;
 // $ExpectType string

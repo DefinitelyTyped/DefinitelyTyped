@@ -86,9 +86,9 @@ export interface DocumentWithParentWindow extends Document {
  * You can listen for the 'load' event to wait until scripts are done loading and executing, just like you would in a
  * normal HTML page.
  *
- * @param markup	is a HTML document to be parsed. You can also pass undefined to get the basic document,
- *					equivalent to what a browser will give if you open up an empty .html file.
- * @param options	see the explanation of the config object above.
+ * @param markup    is a HTML document to be parsed. You can also pass undefined to get the basic document,
+ *                    equivalent to what a browser will give if you open up an empty .html file.
+ * @param options    see the explanation of the config object above.
  */
 export declare function jsdom(markup?: string, config?: Config): DocumentWithParentWindow;
 

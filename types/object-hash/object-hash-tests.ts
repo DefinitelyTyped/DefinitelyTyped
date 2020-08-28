@@ -1,6 +1,7 @@
-
+/// <reference types="node" />
 
 import hash = require('object-hash');
+import stream = require('stream')
 
 var hashed: string;
 
@@ -14,36 +15,15 @@ hashed = hash.keys(obj);
 hashed = hash.MD5(obj);
 hashed = hash.keysMD5(obj);
 
+var passThroughStream = new stream.PassThrough();
+hash.writeToStream(obj, passThroughStream);
+hashed = passThroughStream.read().toString();
+
 var options = {
-	algorithm: 'md5',
-	encoding: 'utf8',
-	excludeValues: true,
-	unorderedArrays: true
+    algorithm: 'md5',
+    encoding: 'utf8',
+    excludeValues: true,
+    unorderedArrays: true
 };
 
 hashed = hash(obj, options);
-
-// HashTable
-var table: any;
-table = hash.HashTable();
-table = hash.HashTable(options);
-
-table = table.add(obj);
-table = table.add(obj, obj);
-table = table.remove(obj);
-table = table.remove(obj, obj);
-
-var has: boolean = table.hasKey('whatEver');
-var value: any = table.getValue('whatEver');
-var count: number = table.getCount('whatEver');
-
-var tableObject = table.table();
-tableObject['whatEver'].value;
-tableObject['whatEver'].count;
-
-var tableArray = table.toArray();
-tableArray.shift().value;
-tableArray.pop().count;
-tableArray[2].hash;
-
-table = table.reset();

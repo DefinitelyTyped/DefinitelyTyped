@@ -17,7 +17,7 @@ assert.equal(cookies[0].name, "foo");
 assert.equal(cookies[0].value, "bar");
 
 // Optional properties included test
-var optionalIncluded = "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure";
+var optionalIncluded = "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure; SameSite=Strict";
 cookies = setCookie(optionalIncluded);
 assert.equal(cookies.length, 1);
 assert.equal(cookies[0].name, "foo");
@@ -28,6 +28,7 @@ assert.deepEqual(cookies[0].expires, new Date('Tue Jul 01 2025 06:01:11 GMT-0400
 assert.equal(cookies[0].maxAge, 1000);
 assert.equal(cookies[0].httpOnly, true);
 assert.equal(cookies[0].secure, true);
+assert.equal(cookies[0].sameSite, "Strict");
 
 // Array of strings test
 var arrayOfCookies = ["bam=baz", "foo=bar"];
@@ -97,7 +98,7 @@ var decodedValueCookies = setCookie.parse('user=%D0%98%D0%BB%D1%8C%D1%8F%20%D0%9
 assert.equal(decodedValueCookies[0].value, 'Илья Зайцев');
 
 // Use map=true option
-var expectedCookiesMap = {
+var expectedCookiesMap: setCookie.CookieMap = {
     foo: {
         name: 'foo',
         value: 'bar',

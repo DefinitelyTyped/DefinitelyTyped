@@ -7,7 +7,7 @@ export default class ElIPCTransport extends EventEmitter implements Wire {
     constructor(onmessage: (data: any) => void);
     connectSync: () => any;
     connect: (address: string) => Promise<any>;
-    send(data: any, flags?: any): Promise<any>;
-    shutdown(): Promise<void>;
+    send: (data: any, flags?: any) => Promise<any>;
+    shutdown: () => Promise<void>;
     static READY_STATE: typeof READY_STATE;
 }

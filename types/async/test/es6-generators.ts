@@ -52,3 +52,19 @@ async.detectSeries(collectionGenerator(), booleanIterator, (err: Error, res: boo
 
 async.concat(collectionGenerator(), concatIterator, (err: Error, res: any[]) => { });
 async.concatSeries(collectionGenerator(), concatIterator, (err: Error, res: any[]) => { });
+
+interface TaskData {
+    name: string;
+}
+async function testFun() {
+    // this method is not meant to be executed , just transpiled to typescript.
+    const q = async.queue<TaskData>((task: TaskData, callback: (err: Error|null, msg?: string) => void) => {
+        console.log('hello ' + task.name);
+        callback(null, 'a message.');
+    }, 2);
+    q.push({ name: 'Hello'});
+    await q.drain();
+    await q.empty();
+    await q.saturated();
+}
+testFun();

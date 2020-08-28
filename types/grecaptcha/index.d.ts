@@ -1,9 +1,11 @@
-// Type definitions for Google Recaptcha 2.0
+// Type definitions for Google Recaptcha 3.0
 // Project: https://www.google.com/recaptcha
 // Definitions by: Kristof Mattei <http://kristofmattei.be>
 //                 Martin Costello <https://martincostello.com/>
 //                 Ruslan Arkhipau <https://github.com/DethAriel>
 //                 Rafael Tavares <https://github.com/rafaeltavares>
+//                 Florian Rohrer <https://github.com/RohrerF>
+//                 Veniamin Krol <https://github.com/vkrol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var grecaptcha: ReCaptchaV2.ReCaptcha;
@@ -35,12 +37,32 @@ declare namespace ReCaptchaV2 {
      * @param opt_widget_id Optional widget ID, defaults to the first widget created if unspecified.
      */
     execute(opt_widget_id?: number): void;
+    /**
+     * Programatically invoke the reCAPTCHA check. Used if the invisible reCAPTCHA is on a div instead of a button.
+     * @param siteKey the key of your site
+     * @param action the action
+     *
+     * @return a promise-like object containing the token
+     */
+    execute(siteKey: string, action: Action): PromiseLike<string>;
+    /**
+     * will run the given function as soon as the reCAPTCHA library has loaded
+     * @param callback the function to coll
+     */
+    ready(callback: () => void): void;
   }
 
   type Theme = "light" | "dark";
   type Type = "image" | "audio";
   type Size = "normal" | "compact" | "invisible";
   type Badge = "bottomright" | "bottomleft" | "inline";
+
+  interface Action {
+    /**
+     * the name of the action. Actions may only contain alphanumeric characters and slashes, and must not be user-specific.
+     */
+    action: string;
+  }
 
   interface Parameters {
     /**

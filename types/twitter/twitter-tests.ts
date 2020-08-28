@@ -1,5 +1,5 @@
 import Twitter = require('twitter');
-import { EventEmitter } from 'stream';
+import { EventEmitter } from 'events';
 
 let client = new Twitter({
     consumer_key: '',

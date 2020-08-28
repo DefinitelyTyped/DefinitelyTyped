@@ -27,7 +27,9 @@ import {
     visit,
     currentURL,
     currentRouteName,
-    setApplication
+    setApplication,
+    setupOnerror,
+    resetOnerror
 } from '@ember/test-helpers';
 
 const MyApp = Application.extend({ modulePrefix: 'my-app' });
@@ -47,9 +49,9 @@ test('DOM interactions', async () => {
     await fillIn('.message', 'content');
 
     const messageElement = find('.message')!;
-    await click(messageElement);
-    await doubleClick(messageElement);
-    await tap(messageElement);
+    await click(messageElement, { metaKey: true });
+    await doubleClick(messageElement, { metaKey: true });
+    await tap(messageElement, { clientX: 13, clientY: 17 });
     await focus(messageElement);
     await blur(messageElement);
     await triggerEvent(messageElement, 'custom-event');
@@ -78,6 +80,13 @@ test('pause and resume', async () => {
     setTimeout(resumeTest, 1000);
 });
 
+test('catching errors', async (assert) => {
+    setupOnerror((error) => {
+        assert.ok(error);
+    });
+    resetOnerror();
+});
+
 test('wait helpers', async (assert) => {
     await render(hbs`<div class="message">Hello</div>`);
 
@@ -90,6 +99,7 @@ test('wait helpers', async (assert) => {
     const {
         hasPendingRequests,
         hasPendingTimers,
+        hasPendingTransitions,
         hasPendingWaiters,
         hasRunLoop,
         pendingRequestCount

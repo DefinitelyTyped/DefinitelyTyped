@@ -118,14 +118,14 @@ declare module "crypto" {
     type HexBase64BinaryEncoding = "binary" | "base64" | "hex";
     type ECDHKeyFormat = "compressed" | "uncompressed" | "hybrid";
 
-    class Hash extends stream.Duplex {
+    class Hash extends stream.Transform {
         private constructor();
         update(data: BinaryLike): Hash;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Hash;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
-    class Hmac extends stream.Duplex {
+    class Hmac extends stream.Transform {
         private constructor();
         update(data: BinaryLike): Hmac;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
@@ -188,7 +188,7 @@ declare module "crypto" {
         algorithm: string, key: CipherKey, iv: BinaryLike | null, options?: stream.TransformOptions
     ): Cipher;
 
-    class Cipher extends stream.Duplex {
+    class Cipher extends stream.Transform {
         private constructor();
         update(data: BinaryLike): Buffer;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding): Buffer;
@@ -208,11 +208,11 @@ declare module "crypto" {
         setAAD(buffer: Buffer, options?: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
-    /** @deprecated since v10.0.0 use createCipheriv() */
+    /** @deprecated since v10.0.0 use createDecipheriv() */
     function createDecipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): DecipherCCM;
-    /** @deprecated since v10.0.0 use createCipheriv() */
+    /** @deprecated since v10.0.0 use createDecipheriv() */
     function createDecipher(algorithm: CipherGCMTypes, password: BinaryLike, options?: CipherGCMOptions): DecipherGCM;
-    /** @deprecated since v10.0.0 use createCipheriv() */
+    /** @deprecated since v10.0.0 use createDecipheriv() */
     function createDecipher(algorithm: string, password: BinaryLike, options?: stream.TransformOptions): Decipher;
 
     function createDecipheriv(
@@ -229,7 +229,7 @@ declare module "crypto" {
     ): DecipherGCM;
     function createDecipheriv(algorithm: string, key: BinaryLike, iv: BinaryLike | null, options?: stream.TransformOptions): Decipher;
 
-    class Decipher extends stream.Duplex {
+    class Decipher extends stream.Transform {
         private constructor();
         update(data: Binary): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;

@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import * as React from "react";
+import * as React from 'react';
 
-export namespace TreeView {
+export namespace Typist {
     interface CursorProps {
         show?: boolean;
         blink?: boolean;
@@ -20,10 +20,7 @@ export namespace TreeView {
         lineIdx: number;
         character: string;
         charIdx: number;
-        defDelayGenerator: (
-            mn: number,
-            st: number
-        ) => (...params: any) => number;
+        defDelayGenerator: (mn: number, st: number) => (...params: any) => number;
     }
 
     interface DelayProps {
@@ -38,22 +35,18 @@ export namespace TreeView {
     class Backspace extends React.Component<BackSpaceProps> {}
 }
 
-export interface TreeViewProps {
+export interface TypistProps {
     className?: string;
     avgTypingDelay?: number;
     stdTypingDelay?: number;
     startDelay?: number;
-    cursor?: TreeView.CursorProps;
+    cursor?: Typist.CursorProps;
     onCharacterTyped?: (char: string, charIndex: number) => void;
     onLineTyped?: (line: string, lineIndex: number) => void;
     onTypingDone?: () => void;
-    delayGenerator?: (
-        mean: number,
-        std: number,
-        current: TreeView.CurrentTextProps
-    ) => number;
+    delayGenerator?: (mean: number, std: number, current: Typist.CurrentTextProps) => number;
 }
 
-export class TreeView extends React.Component<TreeViewProps> {}
+export class Typist extends React.Component<TypistProps> {}
 
-export default TreeView;
+export default Typist;

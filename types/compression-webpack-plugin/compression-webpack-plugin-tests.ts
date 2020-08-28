@@ -4,8 +4,8 @@ import CompressionPlugin = require('compression-webpack-plugin');
 new CompressionPlugin();
 
 new CompressionPlugin({
-    include: ["a"] as ReadonlyArray<string>,
-    exclude: [/a/g] as ReadonlyArray<RegExp>,
+    include: ["a"],
+    exclude: [/a/g],
     test: "a",
 });
 
@@ -19,6 +19,14 @@ const config: Configuration = {
             test: /\.js$|\.html$/,
             threshold: 10240,
             deleteOriginalAssets: true
+        }),
+        new CompressionPlugin({
+            filename: (info) => {
+                info.file; // $ExpectType string
+                info.path; // $ExpectType string
+                info.query; // $ExpectType string
+                return `${info.path}.gz${info.query}`;
+            },
         })
     ]
 };
@@ -46,10 +54,7 @@ const zlib: Configuration = {
 const badZlib: Configuration = {
     plugins: [
         // $ExpectError
-        new CompressionPlugin({
-            algorithm: "deflate",
-            compressionOptions: 5
-        })
+        new CompressionPlugin({ algorithm: "deflate", compressionOptions: 5 })
     ]
 };
 
@@ -68,9 +73,6 @@ const custom: Configuration = {
 const badCustom: Configuration = {
     plugins: [
         // $ExpectError
-        new CompressionPlugin({
-            algorithm: customAlgorithm,
-            compressionOptions: { flush: 5 }
-        })
+        new CompressionPlugin({ algorithm: customAlgorithm, compressionOptions: { flush: 5 } })
     ]
 };

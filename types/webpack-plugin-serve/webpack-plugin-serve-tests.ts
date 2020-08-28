@@ -37,3 +37,10 @@ const baseConfig = {
 };
 
 const configWithServer = usage(baseConfig);
+
+const newConfigWithGlobby = new WebpackPluginServe({
+  static: {
+    glob: ['dist/**/public'],
+    options: { onlyDirectories: true }
+  }
+});

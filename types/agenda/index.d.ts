@@ -3,7 +3,7 @@
 // Definitions by: Meir Gottlieb <https://github.com/meirgottlieb>
 //                 Jeff Principe <https://github.com/princjef>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// Minimum TypeScript Version: 3.2
 
 /// <reference types="node" />
 
@@ -164,6 +164,12 @@ declare namespace Agenda {
      * Agenda Configuration.
      */
     interface AgendaConfiguration {
+
+        /**
+         * Sets the `lastModifiedBy` field to `name` in the jobs collection. Useful if you have multiple job processors
+         * (agendas) and want to see which job queue last ran the job.
+         */
+        name?: string;
 
         /**
          * Sets the interval with which the queue is checked. A number in milliseconds or a frequency string.
@@ -401,7 +407,7 @@ declare namespace Agenda {
         /**
          * Removes the job from the database and cancels the job.
          */
-        remove(): Promise<void>;
+        remove(): Promise<number>;
 
         /**
          * Resets the lock on the job. Useful to indicate that the job hasn't timed out when you have very long running

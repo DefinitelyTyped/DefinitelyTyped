@@ -32,9 +32,7 @@ app.listen(8000, function () {
 
 declare module "swagger-express-middleware" {
     import { Application, Router, RequestHandler, Request, Response } from "express";
-    import * as parser from "swagger-parser";
-
-    type SwaggerParser = typeof parser.SwaggerParser;
+    import SwaggerParser = require("swagger-parser");
 
     let s: s.SwaggerMiddlewareConstructor;
 

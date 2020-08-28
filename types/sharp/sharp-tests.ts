@@ -46,6 +46,12 @@ sharp('input.jpg')
         // containing a scaled and cropped version of input.jpg
     });
 
+sharp('input.jpg')
+    .resize({width: 300})
+    .blur(false)
+    .blur(true)
+    .toFile('output.jpg');
+
 sharp({
     create: {
         width: 300,
@@ -244,4 +250,27 @@ sharp('input.gif')
         [0.2990, 0.5870, 0.1140],
         [0.2392, 0.4696, 0.0912],
     ])
+
+    .modulate({ brightness: 2 })
+    .modulate({ hue: 180 })
+    .modulate({ brightness: 0.5, saturation: 0.5, hue: 90 })
 ;
+
+// From https://sharp.pixelplumbing.com/api-output#examples-9
+// Extract raw RGB pixel data from JPEG input
+sharp('input.jpg')
+  .raw()
+  .toBuffer({ resolveWithObject: true })
+  .then(({data, info}) => {
+    console.log(data);
+    console.log(info);
+  });
+
+// From https://sharp.pixelplumbing.com/api-output#examples-9
+// Extract alpha channel as raw pixel data from PNG input
+sharp('input.png')
+.ensureAlpha()
+.extractChannel(3)
+.toColourspace('b-w')
+.raw()
+.toBuffer();

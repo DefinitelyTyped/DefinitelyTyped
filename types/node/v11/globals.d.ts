@@ -224,6 +224,12 @@ interface NodeModule {
     loaded: boolean;
     parent: NodeModule | null;
     children: NodeModule[];
+    /**
+     * @since 11.14.0
+     *
+     * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
+     */
+    path: string;
     paths: string[];
 }
 
@@ -362,6 +368,12 @@ declare const Buffer: {
      */
     from(data: number[]): Buffer;
     from(data: Uint8Array): Buffer;
+    /**
+     * Creates a new buffer containing the coerced value of an object
+     * A `TypeError` will be thrown if {obj} has not mentioned methods or is not of other type appropriate for `Buffer.from()` variants.
+     * @param obj An object supporting `Symbol.toPrimitive` or `valueOf()`.
+     */
+    from(obj: { valueOf(): string | object } | { [Symbol.toPrimitive](hint: 'string'): string }, byteOffset?: number, length?: number): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
@@ -719,6 +731,7 @@ declare namespace NodeJS {
         destroy(error?: Error): void;
     }
     interface ReadStream extends Socket {
+        readonly readableFlowing: boolean | null;
         readonly readableHighWaterMark: number;
         readonly readableLength: number;
         isRaw?: boolean;
@@ -820,7 +833,7 @@ declare namespace NodeJS {
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
         env: ProcessEnv;
         exit(code?: number): never;
-        exitCode: number;
+        exitCode?: number;
         getgid(): number;
         setgid(id: number | string): void;
         getuid(): number;
@@ -1081,21 +1094,25 @@ declare namespace NodeJS {
     }
 
     interface Timer {
-        ref(): void;
-        refresh(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
     }
 
     class Immediate {
-        ref(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
         _onImmediate: Function; // to distinguish it from the Timeout class
     }
 
     class Timeout implements Timer {
-        ref(): void;
-        refresh(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
     }
 
     class Module {
@@ -1119,4 +1136,11 @@ declare namespace NodeJS {
     }
 
     type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
+
+    // TODO: The value type here is a version of `unknown` with an acceptably lossy amount of accuracy.
+    // Now that TypeScript's DT support is  3.0+, we can look into replacing this with `unknown`.
+    type UnknownFacade = {} | null | undefined;
+
+    /** @deprecated - Use `UnknownFacade` instead. It is a better classifier for the type */
+    type PoorMansUnknown = UnknownFacade;
 }

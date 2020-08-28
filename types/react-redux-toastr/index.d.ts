@@ -1,4 +1,4 @@
-// Type definitions for react-redux-toastr 7.4
+// Type definitions for react-redux-toastr 7.6
 // Project: https://github.com/diegoddox/react-redux-toastr
 // Definitions by: Aleksandar Ivanov <https://github.com/Smiche>
 //                 Artyom Stukans <https://github.com/artyomsv>
@@ -30,6 +30,7 @@ interface BasicToastrOptions {
     timeOut?: number;
     transitionIn?: transitionInType;
     transitionOut?: transitionOutType;
+    getState?: (state: ToastrState) => ToastrState;
 }
 
 interface LightToastrOptions {
@@ -94,7 +95,7 @@ interface ReduxToastrProps {
     };
     newestOnTop?: boolean;
     options?: any; // This is currently not used, waiting for response from the package author to remove
-    position?: positionType
+    position?: positionType;
     preventDuplicates?: boolean;
     progressBar?: boolean;
     timeOut?: number;

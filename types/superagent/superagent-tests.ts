@@ -206,6 +206,7 @@ request('/search')
         const files: object = res.files;
         const text: string = res.text;
         const contentLength = res.header['content-length'];
+        assert(res.header === res.headers);
         const contentType: string = res.type;
         const charset: string = res.charset;
         const redirects: string[] = res.redirects;
@@ -305,8 +306,8 @@ request
     req.part()
         .set('Content-Type', 'image/png')
         .set('Content-Disposition', 'attachment; filename="myimage.png"')
-        .write('some image data')
-        .write('some more image data');
+        .write('some image data');
+    req.write('some more image data');
 
     req.part()
         .set('Content-Disposition', 'form-data; name="name"')
@@ -418,6 +419,53 @@ request
     })
     .end(callback);
 
+// HTTPS request with string, Buffer, and arrays of strings and Buffers, from: https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options
+request
+    .post('/secure')
+    .ca('ca')
+    .key('key')
+    .cert('cert')
+    .end(callback);
+
+request
+    .post('/secure')
+    .ca(['ca'])
+    .key(['key'])
+    .cert(['cert'])
+    .end(callback);
+
+request
+    .post('/secure')
+    .ca([ca])
+    .key([key])
+    .cert([cert])
+    .end(callback);
+
+request
+    .post('/secure')
+    .pfx('cert.pfx')
+    .end(callback);
+
+request
+    .post('/secure')
+    .pfx(['cert.pfx'])
+    .end(callback);
+
+request
+    .post('/secure')
+    .pfx([pfx])
+    .end(callback);
+
+// 'response' event, adapted from: https://visionmedia.github.io/superagent/docs/test.html
+request
+    .get('/user/1')
+    .on('response', res => {
+      try {
+        assert.equal('bar', res.body.foo);
+      } catch (e) { /* ignore */ }
+    })
+    .end();
+
 // ok, from: https://github.com/visionmedia/superagent/commit/34533bbc29833889090847c45a82b0ea81b2f06d
 request
     .get('/404')
@@ -451,5 +499,10 @@ async function testDefaultOptions() {
     await agentWithDefaultOptions.get('/with-plugin-and-auth');
     await agentWithDefaultOptions.get('/also-with-plugin-and-auth');
 }
+
+request.get('/').http2().end(callback);
+request('POST', '/').http2().end(callback);
+agent.get('/').http2().end(callback);
+agent('/').http2().end(callback);
 
 testDefaultOptions();

@@ -1,7 +1,7 @@
 
 // From https://hapijs.com/api/16.1.1#replyerr-result
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 
 // verbose notation
 

@@ -1,5 +1,5 @@
 // Type definitions for elasticsearch 5.0
-// Project: http://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/index.html
+// Project: https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/16.x/index.html
 // Definitions by: Casper Skydt <https://github.com/CasperSkydt>
 //                 Blake Smith <https://github.com/bfsmith>
 //                 Dave Dunkin <https://github.com/ddunkin>
@@ -9,6 +9,8 @@
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Paul Brabban <https://github.com/brabster>
 //                 Budi Irawan <https://github.com/deerawan>
+//                 Yonatan Kiron <https://github.com/YonatanKiron>
+//                 Jani Šumak <https://github.com/dasdachs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -899,6 +901,7 @@ export interface CatSegmentsParams extends GenericParams {
 
 export interface CatShardsParams extends CatCommonParams {
     index?: NameList;
+    bytes?: CatBytes;
 }
 
 export interface CatSnapshotsParams extends GenericParams {
@@ -1283,15 +1286,16 @@ export interface IndicesPutAliasParams extends GenericParams {
 }
 
 export interface IndicesPutMappingParams extends GenericParams {
-    timeout?: TimeSpan;
-    masterTimeout?: TimeSpan;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    updateAllTypes?: boolean;
-    index: NameList;
-    type: string;
-    body: any;
+  timeout?: TimeSpan;
+  masterTimeout?: TimeSpan;
+  ignoreUnavailable?: boolean;
+  allowNoIndices?: boolean;
+  expandWildcards?: ExpandWildcards;
+  updateAllTypes?: boolean;
+  index: NameList;
+  type: string;
+  includeTypeName?: boolean;
+  body: any;
 }
 
 export interface IndicesPutSettingsParams extends GenericParams {
@@ -1643,6 +1647,7 @@ export namespace errors {
     class ClientClosedRequest extends _Abstract {}
     class Conflict extends _Abstract {}
     class ExpectationFailed extends _Abstract {}
+    class Forbidden extends _Abstract {}
     class GatewayTimeout extends _Abstract {}
     class HTTPToHTTPS extends _Abstract {}
     class HTTPVersionNotSupported extends _Abstract {}

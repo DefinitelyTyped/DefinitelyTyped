@@ -10,8 +10,8 @@ let stream = AgoraRTC.createStream({
   screen: false
 });
 
-client.init('74a0b7bb5d3e47c7abca0533d17b0afa', () => {
-  client.join('74a0b7bb5d3e47c7abca0533d17b0afa', 'testyy', 21230, uid => {
+client.init('abc', () => {
+  client.join('abc', 'testyy', 21230, uid => {
     stream.init(() => {
       client.publish(stream, err => {
         throw(err);

@@ -2,6 +2,7 @@
 // Project: https://github.com/onechiporenko/chai-string
 // Definitions by: Nick Malaguti <https://github.com/nmalaguti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 ///<reference types="chai" />
 
@@ -48,6 +49,6 @@ declare global {
     }
 }
 
-declare function chaiString(chai: any, utils: any): void;
+declare const chaiString: Chai.ChaiPlugin;
 declare namespace chaiString { }
 export = chaiString;

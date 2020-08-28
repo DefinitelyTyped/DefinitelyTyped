@@ -3,7 +3,7 @@
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 FindQ <https://github.com/FindQ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 declare namespace i18n {
     interface ConfigurationOptions {
@@ -458,6 +458,6 @@ declare namespace Express {
     }
 
     interface Response extends i18nAPI {
-        locals: i18nAPI;
+        locals: Partial<i18nAPI>;
     }
 }

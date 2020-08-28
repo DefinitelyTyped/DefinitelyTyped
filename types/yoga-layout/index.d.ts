@@ -230,6 +230,12 @@ declare namespace Yoga {
 
     type YogaExperimentalFeature = typeof EXPERIMENTAL_FEATURE_WEB_FLEX_BASIS;
 
+    type YogaMeasureMode =
+        | typeof MEASURE_MODE_COUNT
+        | typeof MEASURE_MODE_UNDEFINED
+        | typeof MEASURE_MODE_EXACTLY
+        | typeof MEASURE_MODE_AT_MOST;
+
     interface YogaNode {
         calculateLayout(
             width?: number,
@@ -297,14 +303,14 @@ declare namespace Yoga {
         setHeightAuto(): void;
         setHeightPercent(height: number): void;
         setJustifyContent(justifyContent: YogaJustifyContent): void;
-        setMargin(edge: YogaEdge, margin: number): void;
+        setMargin(edge: YogaEdge, margin: number | string): void;
         setMarginAuto(edge: YogaEdge): void;
         setMarginPercent(edge: YogaEdge, margin: number): void;
         setMaxHeight(maxHeight: number | string): void;
         setMaxHeightPercent(maxHeight: number): void;
         setMaxWidth(maxWidth: number | string): void;
         setMaxWidthPercent(maxWidth: number): void;
-        setMeasureFunc(measureFunc: (() => any) | null): void;
+        setMeasureFunc(measureFunc: (width: number, widthMeasureMode: YogaMeasureMode, height: number, heightMeasureMode: YogaMeasureMode) => { width?: number; height?: number } | null): void;
         setMinHeight(minHeight: number | string): void;
         setMinHeightPercent(minHeight: number): void;
         setMinWidth(minWidth: number | string): void;
@@ -318,7 +324,7 @@ declare namespace Yoga {
         setWidth(width: number | string): void;
         setWidthAuto(): void;
         setWidthPercent(width: number): void;
-        unsetMeasureFun(): void;
+        unsetMeasureFunc(): void;
     }
 
     interface YogaConfig {

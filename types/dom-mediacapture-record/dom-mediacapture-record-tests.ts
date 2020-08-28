@@ -7,7 +7,8 @@ const mediaStream = new MediaStream();
 const mediaRecorderOptions: MediaRecorderOptions = {
     mimeType: 'video/webm',
     audioBitsPerSecond: 1000000,
-    videoBitsPerSecond: 4000000
+    videoBitsPerSecond: 4000000,
+    audioBitrateMode: 'vbr'
 };
 
 const blobEvent = new BlobEvent('dataavailable', {
@@ -39,6 +40,7 @@ recorder.pause();
 recorder.requestData();
 const state: RecordingState = recorder.state;
 const isRecording = state === 'recording';
+const isAudioVariableBitrate = recorder.audioBitrateMode === 'vbr';
 
 recorder.addEventListener('start', onEvent);
 recorder.removeEventListener('start', onEvent);
@@ -51,3 +53,16 @@ recorder.onpause = onEvent;
 recorder.onresume = onEvent;
 recorder.onstart = onEvent;
 recorder.onstop = onEvent;
+
+recorder.ondataavailable = null;
+recorder.onerror = null;
+recorder.onpause = null;
+recorder.onresume = null;
+recorder.onstart = null;
+recorder.onstop = null;
+
+recorder.addEventListener('dataavailable', (e: BlobEvent) => {});
+recorder.addEventListener('error', (e: MediaRecorderErrorEvent) => {});
+recorder.addEventListener('pause', onEvent);
+recorder.addEventListener('resume', onEvent);
+recorder.addEventListener('dataavailable', onEvent);

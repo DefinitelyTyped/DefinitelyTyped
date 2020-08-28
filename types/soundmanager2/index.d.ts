@@ -54,6 +54,12 @@ declare namespace soundmanager {
         duration?: number | null;
     }
 
+    interface SoundManagerAudioFormat {
+        type: string[];
+        required: boolean;
+        related?: string[];
+    }
+
     interface SoundManagerProps {
         /**
          * The directory where SM2 can find the flash movies (soundmanager2.swf,
@@ -141,6 +147,7 @@ declare namespace soundmanager {
         togglePause(id: string): SMSound;
         unload(id: string): SMSound;
         unmute(id?: string): SMSound;
+        audioFormats?: { [audioFormat: string]: SoundManagerAudioFormat };
     }
 
     class SMSound {
