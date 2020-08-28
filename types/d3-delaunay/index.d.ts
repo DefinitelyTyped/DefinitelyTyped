@@ -1,4 +1,4 @@
-// Type definitions for d3-delaunay 4.1
+// Type definitions for d3-delaunay 5.3
 // Project: https://github.com/d3/d3-delaunay
 // Definitions by: Bradley Odell <https://github.com/BTOdell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,16 +14,18 @@ export class Delaunay<P> {
     points: ArrayLike<number>;
 
     /**
-     * The halfedge indices as an Int32Array [j0, j1, ...].
-     * For each index 0 <= i < halfedges.length, there is a halfedge from triangle vertex j = halfedges[i] to triangle vertex i.
+     * The halfedge indexes as an Int32Array [j0, j1, …].
+     * For each index 0 ≤ i < halfedges.length, there is a halfedge from triangle vertex j = halfedges[i] to triangle vertex i.
+     * Equivalently, this means that triangle ⌊i / 3⌋ is adjacent to triangle ⌊j / 3⌋.
+     * If j is negative, then triangle ⌊i / 3⌋ is an exterior triangle on the convex hull.
      */
     halfedges: Int32Array;
 
     /**
-     * An arbitrary node on the convex hull.
-     * The convex hull is represented as a circular doubly-linked list of nodes.
+     * An Int32Array of point indexes that form the convex hull in counterclockwise order.
+     * If the points are collinear, returns them ordered.
      */
-    hull: Delaunay.Node;
+    hull: Int32Array;
 
     /**
      * The triangle vertex indices as an Uint32Array [i0, j0, k0, i1, j1, k1, ...].
@@ -40,12 +42,6 @@ export class Delaunay<P> {
     inedges: Int32Array;
 
     /**
-     * The outgoing halfedge indexes as a Int32Array [e0, e1, e2, ...].
-     * For each point i on the convex hull, outedges[i] is the halfedge index e of the corresponding outgoing halfedge; for other points, the halfedge index is -1.
-     */
-    outedges: Int32Array;
-
-    /**
      * Returns the Delaunay triangulation for the given flat array [x0, y0, x1, y1, …] of points.
      */
     constructor(points: ArrayLike<number>);
@@ -53,7 +49,7 @@ export class Delaunay<P> {
     /**
      * Returns the Delaunay triangulation for the given array or iterable of points where each point is an array in the form: [x, y].
      */
-    static from(points: ArrayLike<Delaunay.Point>|Iterable<Delaunay.Point>): Delaunay<Delaunay.Point>;
+    static from(points: ArrayLike<Delaunay.Point> | Iterable<Delaunay.Point>): Delaunay<Delaunay.Point>;
 
     /**
      * Returns the Delaunay triangulation for the given array or iterable of points.
@@ -61,10 +57,12 @@ export class Delaunay<P> {
      * If that is specified, the functions getX and getY are invoked with that as this.
      * (See Array.from for reference.)
      */
-    static from<P>(points: ArrayLike<P>|Iterable<P>,
-        getX: Delaunay.GetCoordinate<P, ArrayLike<P>|Iterable<P>>,
-        getY: Delaunay.GetCoordinate<P, ArrayLike<P>|Iterable<P>>,
-        that?: any): Delaunay<P>;
+    static from<P>(
+        points: ArrayLike<P> | Iterable<P>,
+        getX: Delaunay.GetCoordinate<P, ArrayLike<P> | Iterable<P>>,
+        getY: Delaunay.GetCoordinate<P, ArrayLike<P> | Iterable<P>>,
+        that?: any,
+    ): Delaunay<P>;
 
     /**
      * Returns the index of the input point that is closest to the specified point ⟨x, y⟩.
@@ -144,10 +142,17 @@ export class Delaunay<P> {
     renderPoints(context: Delaunay.MoveContext & Delaunay.ArcContext, radius?: number): void;
 
     /**
+     * Updates the triangulation after the points have been modified in-place.
+     */
+    update(): Delaunay<P>;
+
+    /**
      * Returns the Voronoi diagram for the associated points.
      * When rendering, the diagram will be clipped to the specified bounds = [xmin, ymin, xmax, ymax].
      * If bounds is not specified, it defaults to [0, 0, 960, 500].
      * See To Infinity and Back Again for an interactive explanation of Voronoi cell clipping.
+     *
+     * The Voronoi diagram is returned even in degenerate cases where no triangulation exists — namely 0, 1 or 2 points, and collinear points.
      */
     voronoi(bounds?: Delaunay.Bounds): Voronoi<P>;
 }
@@ -177,46 +182,6 @@ export namespace Delaunay {
      * A function to extract a x- or y-coordinate from the specified point.
      */
     type GetCoordinate<P, PS> = (point: P, i: number, points: PS) => number;
-
-    /**
-     * A point node on a convex hull (represented as a circular linked list).
-     */
-    interface Node {
-        /**
-         * The index of the associated point.
-         */
-        i: number;
-
-        /**
-         * The x-coordinate of the associated point.
-         */
-        x: number;
-
-        /**
-         * The y-coordinate of the associated point.
-         */
-        y: number;
-
-        /**
-         * The index of the (incoming or outgoing?) associated halfedge.
-         */
-        t: number;
-
-        /**
-         * The previous node on the hull.
-         */
-        prev: Node;
-
-        /**
-         * The next node on the hull.
-         */
-        next: Node;
-
-        /**
-         * Whether the node has been removed from the linked list.
-         */
-        removed: boolean;
-    }
 
     /**
      * An interface for the rect() method of the CanvasPathMethods API.
@@ -255,9 +220,14 @@ export namespace Delaunay {
         /**
          * arc() method of the CanvasPathMethods API.
          */
-        arc(x: number, y: number, radius: number,
-            startAngle: number, endAngle: number,
-            counterclockwise?: boolean): void;
+        arc(
+            x: number,
+            y: number,
+            radius: number,
+            startAngle: number,
+            endAngle: number,
+            counterclockwise?: boolean,
+        ): void;
     }
 
     /**
@@ -324,6 +294,12 @@ export class Voronoi<P> {
     cellPolygons(): IterableIterator<Delaunay.Polygon>;
 
     /**
+     * Returns an iterable over the indexes of the cells that share a common edge with the specified cell i.
+     * Voronoi neighbors are always neighbors on the Delaunay graph, but the converse is false when the common edge has been clipped out by the Voronoi diagram’s viewport.
+     */
+    neighbors(i: number): IterableIterator<number>;
+
+    /**
      * Renders the mesh of Voronoi cells to an SVG path string.
      */
     render(): string;
@@ -356,4 +332,9 @@ export class Voronoi<P> {
      * The specified context must implement the context.moveTo, context.lineTo, and context.closePath methods from the CanvasPathMethods API.
      */
     renderCell(i: number, context: Delaunay.MoveContext & Delaunay.LineContext & Delaunay.ClosableContext): void;
+
+    /**
+     * Updates the Voronoi diagram and underlying triangulation after the points have been modified in-place — useful for Lloyd’s relaxation.
+     */
+    update(): Voronoi<P>;
 }
