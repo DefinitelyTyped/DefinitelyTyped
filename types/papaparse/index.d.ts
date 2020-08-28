@@ -156,7 +156,7 @@ export interface ParseMeta {
     delimiter: string; // Delimiter used
     linebreak: string; // Line break sequence used
     aborted: boolean; // Whether process was aborted
-    fields: string[]; // Array of field names
+    fields?: string[]; // Array of field names
     truncated: boolean; // Whether preview consumed all input
     cursor: number;
 }
