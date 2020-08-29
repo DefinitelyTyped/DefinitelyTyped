@@ -18,7 +18,7 @@
 //                 Justin Poehnelt <https://github.com/jpoehnelt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// TypeScript Version: 3.0
+// TypeScript Version: 3.8
 
 /*
 The MIT License
