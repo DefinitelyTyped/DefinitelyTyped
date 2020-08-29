@@ -1999,6 +1999,12 @@
             "asOfVersion": "4.0.1"
         },
         {
+            "libraryName": "imagemin-pngquant",
+            "typingsPackageName": "imagemin-pngquant",
+            "sourceRepoURL": "https://github.com/imagemin/imagemin-pngquant.git",
+            "asOfVersion": "8.0.0"
+        },
+        {
             "libraryName": "immutability-helper",
             "typingsPackageName": "immutability-helper",
             "sourceRepoURL": "https://github.com/kolodny/immutability-helper",
