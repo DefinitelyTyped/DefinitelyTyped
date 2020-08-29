@@ -47,11 +47,11 @@ interface SetOptionsParams {
 type ContextProvider = FC<ContextProviderProps>;
 
 declare function useSession(): [Session, boolean];
-declare function providers(context: NextPageContext): Promise<GetProvidersResponse | null>;
+declare function providers(context?: NextPageContext): Promise<GetProvidersResponse | null>;
 declare const getProviders: typeof providers;
-declare function session(context: NextPageContext): Promise<Session | null>;
+declare function session(context?: NextPageContext): Promise<Session | null>;
 declare const getSession: typeof session;
-declare function csrfToken(context: NextPageContext): Promise<string | null>;
+declare function csrfToken(context?: NextPageContext): Promise<string | null>;
 declare const getCsrfToken: typeof csrfToken;
 declare function signin(provider?: string, data?: GenericObject): Promise<void>;
 declare const signIn: typeof signin;
