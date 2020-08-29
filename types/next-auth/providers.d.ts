@@ -94,7 +94,7 @@ interface ProviderEmailAuth {
 type Credentials = (options: ProviderCredentialsOptions) => GenericReturnConfig;
 
 interface ProviderCredentialsOptions {
-    id: string;
+    id?: string;
     name: string;
     credentials: unknown;
     authorize(credentails: unknown): Promise<unknown | null>;
