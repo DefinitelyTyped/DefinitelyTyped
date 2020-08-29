@@ -566,7 +566,7 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
       ((
         mark: Mark<S>,
         view: EditorView<S>,
-        getPos: boolean,
+        inline: boolean,
         decorations: Decoration[]
       ) => MarkView<S>)
     )
