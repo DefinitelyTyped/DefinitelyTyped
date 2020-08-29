@@ -221,7 +221,7 @@ client.getCsrfToken(pageContext);
 client.csrfToken(pageContext);
 
 // $ExpectType Promise<void>
-client.signin(githubProvider, { data: 'foo' });
+client.signin('github', { data: 'foo' });
 
 // $ExpectType Promise<void>
 client.signout(pageContext);
