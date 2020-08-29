@@ -85,6 +85,17 @@ export interface SingleTypeDescription {
     idlType: string;
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
+    /** The container of this type. */
+    parent:
+        | UnionTypeDescription
+        | CallbackType
+        | FieldType
+        | TypedefType
+        | OperationMemberType
+        | AttributeMemberType
+        | ConstantMemberType
+        | Argument
+        | DeclarationMemberType;
 }
 
 export interface UnionTypeDescription {
@@ -107,6 +118,17 @@ export interface UnionTypeDescription {
     idlType: IDLTypeDescription[];
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
+    /** The container of this type. */
+    parent:
+        | UnionTypeDescription
+        | CallbackType
+        | FieldType
+        | TypedefType
+        | OperationMemberType
+        | AttributeMemberType
+        | ConstantMemberType
+        | Argument
+        | DeclarationMemberType;
 }
 
 export interface InterfaceType {
@@ -121,6 +143,8 @@ export interface InterfaceType {
     inheritance: string | null;
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
+    /** The container of this type. */
+    parent: null;
 }
 
 export interface InterfaceMixinType {
@@ -133,6 +157,8 @@ export interface InterfaceMixinType {
     members: IDLInterfaceMemberType[];
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
+    /** The container of this type. */
+    parent: null;
 }
 
 export interface NamespaceType {
@@ -145,6 +171,8 @@ export interface NamespaceType {
     members: IDLNamespaceMemberType[];
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
+    /** The container of this type. */
+    parent: null;
 }
 
 export interface CallbackType {
@@ -157,6 +185,8 @@ export interface CallbackType {
     arguments: Argument[];
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
+    /** The container of this type. */
+    parent: null;
 }
 
 export interface DictionaryType {
@@ -171,6 +201,8 @@ export interface DictionaryType {
     inheritance: string | null;
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
+    /** The container of this type. */
+    parent: null;
 }
 
 export type DictionaryMemberType = FieldType;
@@ -187,6 +219,8 @@ export interface FieldType {
     extAttrs: ExtendedAttribute[];
     /** A default value, absent if there is none. */
     default: ValueDescription | null;
+    /** The container of this type. */
+    parent: DictionaryType;
 }
 
 export interface EnumType {
@@ -197,6 +231,8 @@ export interface EnumType {
     values: Array<{ type: "string"; value: string }>;
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
+    /** The container of this type. */
+    parent: null;
 }
 
 export interface TypedefType {
@@ -207,6 +243,8 @@ export interface TypedefType {
     idlType: IDLTypeDescription;
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
+    /** The container of this type. */
+    parent: null;
 }
 
 export interface IncludesType {
@@ -217,6 +255,8 @@ export interface IncludesType {
     includes: string;
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
+    /** The container of this type. */
+    parent: null;
 }
 
 export interface ConstructorMemberType {
@@ -232,7 +272,7 @@ export interface ConstructorMemberType {
 export interface OperationMemberType {
     type: "operation";
     /** Special modifier if exists */
-    special: "getter" | "setter" | "deleter" | "static" | "stringifier";
+    special: "getter" | "setter" | "deleter" | "static" | "stringifier" | null;
     /** An IDL Type of what the operation returns. If a stringifier, may be absent. */
     idlType: IDLTypeDescription | null;
     /** The name of the operation. If a stringifier, may be null. */
@@ -250,7 +290,7 @@ export interface AttributeMemberType {
     /** The attribute's name. */
     name: string;
     /** Special modifier if exists */
-    special: "static" | "stringifier";
+    special: "static" | "stringifier" | null;
     /** True if it's an inherit attribute. */
     inherit: boolean;
     /** True if it's a read-only attribute. */
@@ -275,6 +315,22 @@ export interface ConstantMemberType {
     value: ValueDescription;
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
+    /** The container of this type. */
+    parent: InterfaceType | InterfaceMixinType;
+}
+
+export interface DeclarationMemberType {
+    type: "iterable" | "maplike" | "setlike";
+    /** An array with one or more IDL Types representing the declared type arguments. */
+    idlType: IDLTypeDescription[];
+    /** Whether the iterable is declared as async. */
+    async: boolean;
+    /** Whether the maplike or setlike is declared as read only. */
+    readonly: boolean;
+    /** A list of extended attributes. */
+    extAttrs: ExtendedAttribute[];
+    /** An array of arguments for the iterable declaration. */
+    arguments: Argument[];
     /** The container of this type. */
     parent: InterfaceType | InterfaceMixinType;
 }
@@ -381,50 +437,52 @@ export type ValueDescription =
 export interface ValueDescriptionString {
     type: "string";
     value: string;
+    /** The container of this type. */
+    parent: FieldType | ConstantMemberType | Argument;
 }
 
 export interface ValueDescriptionNumber {
     type: "number";
     value: string;
+    /** The container of this type. */
+    parent: FieldType | ConstantMemberType | Argument;
 }
 
 export interface ValueDescriptionBoolean {
     type: "boolean";
     value: boolean;
+    /** The container of this type. */
+    parent: FieldType | ConstantMemberType | Argument;
 }
 
 export interface ValueDescriptionNull {
     type: "null";
+    /** The container of this type. */
+    parent: FieldType | ConstantMemberType | Argument;
 }
 
 export interface ValueDescriptionInfinity {
     type: "Infinity";
     negative: boolean;
+    /** The container of this type. */
+    parent: FieldType | ConstantMemberType | Argument;
 }
 
 export interface ValueDescriptionNaN {
     type: "NaN";
+    /** The container of this type. */
+    parent: FieldType | ConstantMemberType | Argument;
 }
 
 export interface ValueDescriptionSequence {
     type: "sequence";
     value: [];
+    /** The container of this type. */
+    parent: FieldType | ConstantMemberType | Argument;
 }
 
 export interface ValueDescriptionDictionary {
     type: "dictionary";
-}
-
-export interface DeclarationMemberType {
-    type: "iterable" | "maplike" | "setlike";
-    /** An array with one or more IDL Types representing the declared type arguments. */
-    idlType: IDLTypeDescription[];
-    /** Whether the iterable is declared as async. */
-    async: boolean;
-    /** Whether the maplike or setlike is declared as read only. */
-    readonly: boolean;
-    /** A list of extended attributes. */
-    extAttrs: ExtendedAttribute[];
-    /** An array of arguments for the iterable declaration. */
-    arguments: Argument[];
+    /** The container of this type. */
+    parent: FieldType | ConstantMemberType | Argument;
 }

@@ -4,6 +4,8 @@ import * as webidl2 from "webidl2";
 const parsed = webidl2.parse("");
 
 for (const rootType of parsed) {
+    rootType.parent; // $ExpectType null
+
     if (rootType.type !== "includes") {
         console.log(rootType.name);
     }
@@ -75,14 +77,17 @@ function logMembers(members: webidl2.IDLInterfaceMemberType[]) {
         switch (member.type) {
             case "constructor":
                 member; // $ExpectType ConstructorMemberType
+                member.parent; // $ExpectType InterfaceType
                 logArguments(member.arguments);
                 break;
             case "operation":
             case "attribute":
+                member.parent; // $ExpectType InterfaceType | InterfaceMixinType | NamespaceType
                 logNamespaceMember(member);
                 break;
             case "const":
                 member; // $ExpectType ConstantMemberType
+                member.parent; // $ExpectType InterfaceType | InterfaceMixinType
                 console.log(member.name);
                 logIdlType(member.idlType);
                 logValueDescription(member.value);
@@ -92,6 +97,7 @@ function logMembers(members: webidl2.IDLInterfaceMemberType[]) {
             case "maplike":
             case "setlike":
                 member; // $ExpectType DeclarationMemberType
+                member.parent; // $ExpectType InterfaceType | InterfaceMixinType
                 member.async; // $ExpectType boolean
                 member.readonly; // $ExpectType boolean
                 console.log(member.readonly);
@@ -117,12 +123,14 @@ function logNamespaceMember(member: webidl2.IDLNamespaceMemberType) {
     switch (member.type) {
         case "operation":
             member; // $ExpectType OperationMemberType
+            member.parent; // $ExpectType InterfaceType | InterfaceMixinType | NamespaceType
             logArguments(member.arguments);
             console.log(member.name);
             console.log(member.special);
             break;
         case "attribute":
             member; // $ExpectType AttributeMemberType
+            member.parent; // $ExpectType InterfaceType | InterfaceMixinType | NamespaceType
             console.log(member.name);
             console.log(member.special, member.readonly, member.inherit);
             break;
@@ -204,6 +212,7 @@ function logIdlType(idlType: webidl2.IDLTypeDescription) {
 }
 
 function logValueDescription(valueDesc: webidl2.ValueDescription) {
+    valueDesc.parent; // $ExpectType FieldType | ConstantMemberType | Argument
     console.log(valueDesc.type);
     switch (valueDesc.type) {
         case "string":
