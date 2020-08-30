@@ -2146,7 +2146,7 @@ declare namespace browser.extension {
      * @deprecated Please use `runtime.onMessage`.
      */
     const onRequest:
-        | WebExtEvent<(request: any, sender: runtime.MessageSender, sendResponse: (response?: any) => void) => void>
+        | WebExtEvent<(request: JsonObject, sender: runtime.MessageSender, sendResponse: (response?: any) => void) => void>
         | undefined;
 
     /**
@@ -2156,7 +2156,7 @@ declare namespace browser.extension {
      * @deprecated Please use `runtime.onMessageExternal`.
      */
     const onRequestExternal:
-        | WebExtEvent<(request: any, sender: runtime.MessageSender, sendResponse: (response?: any) => void) => void>
+        | WebExtEvent<(request: JsonObject, sender: runtime.MessageSender, sendResponse: (response?: any) => void) => void>
         | undefined;
 }
 
@@ -3256,7 +3256,7 @@ declare namespace browser.runtime {
         /** This property will **only** be present on ports passed to onConnect/onConnectExternal listeners. */
         sender?: MessageSender;
         error?: Error;
-        onMessage: WebExtEvent<(response: object) => void>;
+        onMessage: WebExtEvent<(response: JsonObject) => void>;
         onDisconnect: WebExtEvent<(port: Port) => void>;
     }
 
@@ -3462,12 +3462,12 @@ declare namespace browser.runtime {
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to `runtime.connect` but only sends a single message, with an optional response. If sending to your extension, the `runtime.onMessage` event will be fired in each page, or `runtime.onMessageExternal`, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use `tabs.sendMessage`.
      */
-    function sendMessage(message: any, options?: _SendMessageOptions): Promise<any>;
+    function sendMessage(message: any, options?: _SendMessageOptions): Promise<JsonObject | undefined>;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to `runtime.connect` but only sends a single message, with an optional response. If sending to your extension, the `runtime.onMessage` event will be fired in each page, or `runtime.onMessageExternal`, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use `tabs.sendMessage`.
      * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
      */
-    function sendMessage(extensionId: string, message: any, options?: _SendMessageOptions): Promise<any>;
+    function sendMessage(extensionId: string, message: any, options?: _SendMessageOptions): Promise<JsonObject | undefined>;
 
     /**
      * Send a single message to a native application.
@@ -3538,7 +3538,7 @@ declare namespace browser.runtime {
      * @returns Return true from the event listener if you wish to call `sendResponse` after the event listener returns.
      */
     const onMessage: WebExtEvent<(
-        message: any,
+        message: JsonObject,
         sender: MessageSender,
         sendResponse: (response?: any) => void,
     ) => boolean | Promise<any> | void>;
@@ -3550,7 +3550,7 @@ declare namespace browser.runtime {
      * @returns Return true from the event listener if you wish to call `sendResponse` after the event listener returns.
      */
     const onMessageExternal: WebExtEvent<(
-        message: any,
+        message: JsonObject,
         sender: MessageSender,
         sendResponse: (response?: any) => void,
     ) => boolean | Promise<any> | void>;
@@ -7623,12 +7623,12 @@ declare namespace browser.tabs {
      * Sends a single request to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The `extension.onRequest` event is fired in each content script running in the specified tab for the current extension.
      * @deprecated Please use `runtime.sendMessage`.
      */
-    function sendRequest(tabId: number, request: any, responseCallback?: (response: any) => void): void;
+    function sendRequest(tabId: number, request: any, responseCallback?: (response: JsonObject | undefined) => void): void;
 
     /**
      * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The `runtime.onMessage` event is fired in each content script running in the specified tab for the current extension.
      */
-    function sendMessage(tabId: number, message: any, options?: _SendMessageOptions): Promise<any>;
+    function sendMessage(tabId: number, message: any, options?: _SendMessageOptions): Promise<JsonObject | undefined>;
 
     /**
      * Gets the tab that is selected in the specified window.
