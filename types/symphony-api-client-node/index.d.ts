@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+export * from "./PresenceClient";
 export * from "./UsersClient";
+export * from "./SymMessageParser";
 
 export interface AuthInfo {
     sessionAuthToken: string;
@@ -119,8 +121,6 @@ export function getAttachment(streamId: any, attachmentId: any, messageId: any):
 
 export function getBotUser(): void;
 
-export function getCashtags(message: any): any;
-
 export function getConnectionRequestStatus(userId: any, sessionToken: string): void;
 
 export function getConnections(status: any, userIds: any, sessionToken: string): void;
@@ -129,11 +129,7 @@ export function getDatafeedEventsService(options: any): any;
 
 export function getFirehoseEventsService(subscriberCallback: any): void;
 
-export function getHashtags(message: any): any;
-
 export function getInboundPendingConnections(sessionToken: string): void;
-
-export function getMentions(message: any): any;
 
 export function getMessage(messageId: any): void;
 
@@ -154,8 +150,6 @@ export function getSignalSubscribers(id: any, skip: any, limit: any, sessionToke
 export function getUser(id: string): void;
 
 export function getUserIMStreamId(userIDs: any): void;
-
-export function getUserPresence(userId: any, local: any): void;
 
 export function getUserStreams(skip: any, limit: any, streamTypes: any, includeInactiveStreams: any): any;
 
@@ -178,8 +172,6 @@ export function oboGetUserIMStreamId(userToken: any, userIds: any): void;
 export function oboSendMessage(userToken: any, conversationId: any, message: any, data: any, format: any): any;
 
 export function promoteUserToOwner(streamId: any, userId: any): any;
-
-export function registerInterestExtUser(): void;
 
 export function rejectConnectionRequest(userId: any, sessionToken: string): void;
 
@@ -215,8 +207,6 @@ export function sendMessageWithAttachment(
 ): any;
 
 export function setDebugMode(mode: string): void;
-
-export function setPresence(status: any): any;
 
 export function stopDatafeedEventsService(): void;
 
