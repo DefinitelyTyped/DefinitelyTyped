@@ -119,7 +119,6 @@ lang/llvm.d.ts
 lang/lolcode.d.ts
 lang/lua.d.ts
 lang/makefile.d.ts
-lang/markdown.d.ts
 lang/markup-templating.d.ts
 lang/markup.d.ts
 lang/matlab.d.ts
