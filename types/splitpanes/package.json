@@ -1,7 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "vue": ">=2.0.0",
-    "splitpanes": "2.2.1"
+    "vue": ">=2.0.0"
   }
 }
