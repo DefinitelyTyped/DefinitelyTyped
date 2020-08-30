@@ -148,6 +148,11 @@ export interface ClientOpts {
      */
     family?: string;
     /**
+     * If set to `true`, a client won't resubscribe after disconnecting.
+     * @default false
+     */
+    disable_resubscribing?: boolean;
+    /**
      * Passing an object with renamed commands to use instead of the original functions.
      * For example, if you renamed the command **KEYS** to "DO-NOT-USE"
      * then the `rename_commands` object would be: { KEYS : "DO-NOT-USE" }.
