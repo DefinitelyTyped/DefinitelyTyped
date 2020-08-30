@@ -1,9 +1,8 @@
-// Type definitions for svg-sprite
+// Type definitions for svg-sprite 1.5
 // Project: https://github.com/jkphl/svg-sprite
 // Definitions by: Qubo <https://github.com/tkqubo>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 import File = require('vinyl');
 import { Logger } from 'winston';
@@ -24,7 +23,7 @@ declare namespace sprite {
          * @param name The "local" part of the file path, possibly including subdirectories which will get traversed to CSS selectors using the shape.id.separator configuration option.
          * @param svg SVG file content.
          */
-        add(file: string | File, name: string, svg: string): SVGSpriter;
+        add(file: string | File, name: string | null, svg: string): SVGSpriter;
         /**
          * Registering source SVG files
          * @param file Absolute path to the SVG file or a vinyl file object carrying all the necessary values (the following arguments are ignored then).
@@ -32,7 +31,8 @@ declare namespace sprite {
         add(file: File): SVGSpriter;
         /**
          * Triggering the sprite compilation
-         * @param config Configuration object setting the output mode parameters for a single compilation run. If omitted, the mode property of the main configuration used for the constructor will be used.
+         * @param config Configuration object setting the output mode parameters for a single compilation run.
+         * If omitted, the mode property of the main configuration used for the constructor will be used.
          * @param callback Callback triggered when the compilation has finished.
          */
         compile(config: Config, callback: CompileCallback): SVGSpriter;
@@ -58,7 +58,7 @@ declare namespace sprite {
         /**
          * Logging verbosity or custom logger
          */
-        log?: string | Logger;
+        log?: null | '' | 'info' | 'verbose' | 'debug' | Logger;
         /**
          * SVG shape configuration
          */
@@ -139,19 +139,19 @@ declare namespace sprite {
         /**
          * List of transformations / optimizations
          */
-        transform?: (string | CustomConfigurationTransform | CustomCallbackTransform)[];
+        transform?: string[] | CustomConfigurationTransform[] | CustomCallbackTransform[];
         /**
          * Path to YAML file with meta / accessibility data
          */
-        meta?: string;
+        meta?: string | null;
         /**
          * Path to YAML file with extended alignment data
          */
-        align?: string;
+        align?: string | null;
         /**
          * Output directory for optimized intermediate SVG shapes
          */
-        dest?: string;
+        dest?: string | null;
     }
 
     /**
@@ -159,7 +159,7 @@ declare namespace sprite {
      */
     interface CustomConfigurationTransform {
         [transformationName: string]: {
-            plugins?: { [transformationName: string]: boolean }[];
+            plugins?: Array<{ [transformationName: string]: boolean }>;
         };
     }
 
@@ -174,7 +174,7 @@ declare namespace sprite {
              * @param sprite SVG spriter
              * @param callback Callback
              */
-            (shape: any, sprite: SVGSpriter, callback: Function): any;
+            (shape: any, sprite: SVGSpriter, callback: (error: Error | null) => void): any;
         };
     }
 
@@ -242,7 +242,7 @@ declare namespace sprite {
         defs?: DefsAndSymbolSpecificModeConfig | boolean;
         symbol?: DefsAndSymbolSpecificModeConfig | boolean;
         stack?: ModeConfig | boolean;
-        [customConfigName: string]: ModeConfig | boolean;
+        [customConfigName: string]: ModeConfig | boolean | undefined;
     }
 
     interface ModeConfig {

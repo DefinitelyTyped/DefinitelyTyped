@@ -1,24 +1,11 @@
 import SVGSpriter = require('svg-sprite');
 import * as fs from 'fs';
 
-var config: SVGSpriter.Config;
+let config: SVGSpriter.Config;
 
 //
 // README.md
 //
-
-// Create spriter instance (see below for `config` examples)
-var spriter = new SVGSpriter(config);
-
-// Add SVG source files — the manual way ...
-spriter.add('assets/svg-1.svg', null, fs.readFileSync('assets/svg-1.svg', { encoding: 'utf-8' }));
-spriter.add('assets/svg-2.svg', null, fs.readFileSync('assets/svg-2.svg', { encoding: 'utf-8' }));
-/* ... */
-
-// Compile the sprite
-spriter.compile(function (error: any, result: any) {
-    /* ... Write `result` files to disk or do whatever with them ... */
-});
 
 // General configuration options
 
@@ -61,6 +48,29 @@ config = {
     },
     variables: {}, // Custom Mustache templating variables and functions
 };
+
+// Create spriter instance (see below for `config` examples)
+const spriter = new SVGSpriter(config);
+
+// Add SVG source files — the manual way ...
+spriter.add('assets/svg-1.svg', null, fs.readFileSync('assets/svg-1.svg', { encoding: 'utf-8' }));
+spriter.add('assets/svg-2.svg', null, fs.readFileSync('assets/svg-2.svg', { encoding: 'utf-8' }));
+/* ... */
+
+// Compile the sprite
+spriter.compile((error: any, result: any) => {
+    /* ... Write `result` files to disk or do whatever with them ... */
+});
+
+// Add SVG source files — the manual way ...
+spriter.add('assets/svg-1.svg', null, fs.readFileSync('assets/svg-1.svg', { encoding: 'utf-8' }));
+spriter.add('assets/svg-2.svg', null, fs.readFileSync('assets/svg-2.svg', { encoding: 'utf-8' }));
+/* ... */
+
+// Compile the sprite
+spriter.compile((error: any, result: any) => {
+    /* ... Write `result` files to disk or do whatever with them ... */
+});
 
 // Output modes
 
@@ -308,4 +318,25 @@ config = {
             example: false,
         },
     },
+};
+
+// logging
+
+config = {
+    log: null,
+};
+config = {
+    log: undefined,
+};
+config = {
+    log: '',
+};
+config = {
+    log: 'info',
+};
+config = {
+    log: 'verbose',
+};
+config = {
+    log: 'debug',
 };
