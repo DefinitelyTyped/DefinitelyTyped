@@ -21,12 +21,12 @@ new Vue({
 
         <!-- Splitpane Prop test -->
         <Splitpane horizontal=true pushOtherPanes=true dblClickSplitter=true firstSplitter=true>
-          <Pane>
+        <Pane>
             A
-          </Pane>
-          <Pane>
-              B
-          </Pane>
+        </Pane>
+        <Pane>
+            B
+        </Pane>
         </Splitpane>
 
         <!-- Pane Prop test -->
