@@ -15,6 +15,11 @@ interface Window {
     browser: typeof browser;
 }
 
+/** courtesy of https://github.com/sindresorhus/type-fest */
+export type JsonObject = {[Key in string]?: JsonValue};
+export interface JsonArray extends Array<JsonValue> {}
+export type JsonValue = string | number | boolean | null | JsonObject | JsonArray;
+
 /** Not allowed in: Content scripts, Devtools pages */
 declare namespace browser._manifest {
     /* _manifest types */
