@@ -9,12 +9,32 @@ new Vue({
         Pane,
     },
     template: `
-        <Splitpane class="default-theme" horizontal @resize="horizontalResize($event)" :dblClickSplitter="false"
-                   :push-other-panes="false">
-        <Pane splitpanes-min="2" splitpanes-size="35" splitpanes-max="85">
+        <!-- Basic test -->
+        <Splitpane>
+        <Pane>
             A
         </Pane>
-        <Pane splitpanes-min="2" splitpanes-size="65" splitpanes-max="85">
+        <Pane>
+            B
+        </Pane>
+        </Splitpane>
+
+        <!-- Splitpane Prop test -->
+        <Splitpane horizontal=true pushOtherPanes=true dblClickSplitter=true firstSplitter=true>
+          <Pane>
+            A
+          </Pane>
+          <Pane>
+              B
+          </Pane>
+        </Splitpane>
+
+        <!-- Pane Prop test -->
+        <Splitpane>
+        <Pane size="2" minSize="1" maxSize="3">
+            A
+        </Pane>
+        <Pane size=2 minSize=1 maxSize=3>
             B
         </Pane>
         </Splitpane>

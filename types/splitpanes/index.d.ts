@@ -54,7 +54,7 @@ export interface ChangedPaneType {
 }
 
 // Splitpane
-export interface SplitterTapsType { // TODO: Verify
+export interface SplitterTapsType {
     splitter: null | number;
     timeoutId: null | object;
 }
