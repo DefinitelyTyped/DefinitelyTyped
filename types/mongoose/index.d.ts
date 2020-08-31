@@ -3097,7 +3097,7 @@ declare module "mongoose" {
     default(val: any): any;
 
     /** Adds a getter to this schematype. */
-    get(fn: Function): this;
+    static get(fn: (v: any) => void): void;
 
     /**
      * Declares the index options for this schematype.
