@@ -1,4 +1,4 @@
-// Type definitions for seatsio 1.0
+// Type definitions for seatsio 1.1
 // Project: https://www.seats.io
 // Definitions by: seatsio <https://github.com/seatsio>
 //                 Peter de Kok <https://github.com/PeterDeKok>
