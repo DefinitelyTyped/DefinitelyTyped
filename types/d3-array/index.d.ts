@@ -190,6 +190,11 @@ export function scan(array: Iterable<number>, comparator?: (a: number, b: number
 export function scan<T>(array: Iterable<T>, comparator: (a: T, b: T) => number): number | undefined;
 
 /**
+ * Returns the least element of the specified iterable.
+ */
+export function least<T>(array: Iterable<T>): T | undefined;
+
+/**
  * Returns the least element of the specified iterable according to the specified comparator.
  */
 export function least<T>(array: Iterable<T>, comparator: (a: T, b: T) => number): T | undefined;
@@ -198,6 +203,11 @@ export function least<T>(array: Iterable<T>, comparator: (a: T, b: T) => number)
  * Returns the least element of the specified iterable according to the specified accessor.
  */
 export function least<T, U>(array: Iterable<T>, accessor: (a: T) => U): T | undefined;
+
+/**
+ * Returns the index of the least element of the specified iterable according to the specified comparator.
+ */
+export function leastIndex<T>(array: Iterable<T>): number | undefined;
 
 /**
  * Returns the index of the least element of the specified iterable according to the specified comparator.

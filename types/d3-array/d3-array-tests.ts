@@ -371,6 +371,41 @@ numOrUndefined = d3Array.scan(readonlyMixedObjectOrUndefinedArray, (a, b) => {
     return a && b ? a.num - b.num : NaN;
 });
 
+
+
+
+// leastIndex() ----------------------------------------------------------------------
+
+numOrUndefined = d3Array.least(numbersArray);
+numOrUndefined = d3Array.least(typedArray);
+numOrUndefined = d3Array.least(readonlyNumbersArray);
+
+let mo: MixedObject | undefined = d3Array.least(mixedObjectArray, (a, b) => {
+    const aElem: MixedObject = a;
+    const bElem: MixedObject = b;
+    return a.num - b.num;
+});
+
+mo = d3Array.least(readonlyMixedObjectArray, (a, b) => {
+    const aElem: MixedObject = a;
+    const bElem: MixedObject = b;
+    return a.num - b.num;
+});
+
+mo = d3Array.least(mixedObjectOrUndefinedArray, (a, b) => {
+    const aElem: MixedObject | undefined = a;
+    const bElem: MixedObject | undefined = b;
+    return a && b ? a.num - b.num : NaN;
+});
+
+mo = d3Array.least(readonlyMixedObjectOrUndefinedArray, (a, b) => {
+    const aElem: MixedObject | undefined = a;
+    const bElem: MixedObject | undefined = b;
+    return a && b ? a.num - b.num : NaN;
+});
+
+mo = d3Array.least(readonlyMixedObjectOrUndefinedArray, a => a?.num);
+
 // leastIndex() ----------------------------------------------------------------------
 
 numOrUndefined = d3Array.leastIndex(numbersArray);
@@ -400,6 +435,8 @@ numOrUndefined = d3Array.leastIndex(readonlyMixedObjectOrUndefinedArray, (a, b) 
     const bElem: MixedObject | undefined = b;
     return a && b ? a.num - b.num : NaN;
 });
+
+numOrUndefined = d3Array.leastIndex(readonlyMixedObjectOrUndefinedArray, a => a?.num);
 
 // bisectLeft() ----------------------------------------------------------------
 
