@@ -7,9 +7,9 @@ const config: webpack.Configuration = {};
 const compiler = webpack(config);
 
 app.use(ctx => {
-    // $ExpectType MemoryFileSystem
+    // $ExpectType MemoryFileSystem | undefined
     ctx.state.fs;
-    ctx.body = ctx.state.fs.createReadStream('file.js');
+    ctx.body = ctx.state.fs!.createReadStream('file.js');
 });
 
 app.use(ctx => {
