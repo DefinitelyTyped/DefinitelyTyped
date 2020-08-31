@@ -225,14 +225,13 @@ interface EditingConfig {
 interface InternalLinkAttributes {
     hash?: string;
     obj: Obj;
-    query: string;
+    query?: string;
     rel?: string;
     target?: string;
     title?: string;
 }
 
 interface ExternalLinkAttributes {
-    query?: string;
     rel?: string;
     target?: string;
     title?: string;
